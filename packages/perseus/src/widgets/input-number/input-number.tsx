@@ -100,19 +100,6 @@ class InputNumber extends React.Component<Props> implements Widget {
         };
     }
 
-    static getOneCorrectAnswerFromRubric(
-        rubric: any,
-    ): string | null | undefined {
-        if (rubric.value == null) {
-            return;
-        }
-        let answerString = String(rubric.value);
-        if (rubric.inexact && rubric.maxError) {
-            answerString += " \u00B1 " + rubric.maxError;
-        }
-        return answerString;
-    }
-
     shouldShowExamples: () => boolean = () => {
         return this.props.answerType !== "number";
     };
@@ -297,4 +284,15 @@ export default {
     transform: propTransform,
     isLintable: true,
     validator: inputNumberValidator,
+
+    getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {
+        if (rubric.value == null) {
+            return;
+        }
+        let answerString = String(rubric.value);
+        if (rubric.inexact && rubric.maxError) {
+            answerString += " \u00B1 " + rubric.maxError;
+        }
+        return answerString;
+    },
 } as WidgetExports<typeof InputNumber>;

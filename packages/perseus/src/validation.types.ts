@@ -1,17 +1,15 @@
-import type {Coord} from "./interactive2/types";
 import type {
+    GrapherAnswerTypes,
     PerseusDefinitionWidgetOptions,
     PerseusDropdownChoice,
     PerseusExplanationWidgetOptions,
     PerseusExpressionAnswerForm,
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
-    PerseusGrapherWidgetOptions,
     PerseusGraphType,
     PerseusGroupWidgetOptions,
     PerseusIFrameWidgetOptions,
     PerseusImageWidgetOptions,
-    PerseusInputNumberWidgetOptions,
     PerseusInteractionWidgetOptions,
     PerseusLabelImageWidgetOptions,
     PerseusMatcherWidgetOptions,
@@ -79,17 +77,11 @@ export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
 
 export type PerseusGradedGroupSetRubric = PerseusGradedGroupSetWidgetOptions;
 
-export type PerseusGrapherRubric = PerseusGrapherWidgetOptions;
-
-/**
- * TODO: this is kind of just a guess right now
- * based off of an old comment in grapher
- */
-export type PerseusGrapherUserInput = {
-    type: string;
-    asymptote: ReadonlyArray<Coord>;
-    coords: ReadonlyArray<Coord>;
+export type PerseusGrapherRubric = {
+    correct: GrapherAnswerTypes;
 };
+
+export type PerseusGrapherUserInput = PerseusGrapherRubric["correct"];
 
 export type PerseusIFrameRubric = PerseusIFrameWidgetOptions;
 
@@ -101,7 +93,21 @@ export type PerseusIFrameUserInput = {
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusImageRubric = PerseusImageWidgetOptions;
 
-export type PerseusInputNumberRubric = PerseusInputNumberWidgetOptions;
+export type PerseusInputNumberRubric = {
+    answerType?:
+        | "number"
+        | "decimal"
+        | "integer"
+        | "rational"
+        | "improper"
+        | "mixed"
+        | "percent"
+        | "pi";
+    inexact?: boolean;
+    maxError?: number | string;
+    simplify: "required" | "optional" | "enforced";
+    value: string | number;
+};
 
 export type PerseusInputNumberUserInput = {
     currentValue: string;

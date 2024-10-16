@@ -678,14 +678,13 @@ export const getAnswerFromUserInput = (widgetType: string, userInput: any) => {
 export const getCorrectAnswerForWidgetId = (
     widgetId: string,
     itemData: PerseusItem,
-): string | undefined => {
+): string | null | undefined => {
     const rubric = itemData.question.widgets[widgetId].options;
     const widgetMap = getWidgetsMapFromItemData(itemData);
     const widgetType = getWidgetTypeByWidgetId(widgetId, widgetMap) as string;
 
-    const widget = Widgets.getWidget(widgetType);
+    const widget = Widgets.getWidgetExport(widgetType);
 
-    // @ts-expect-error - TS2339 - Property 'getOneCorrectAnswerFromRubric' does not exist on type 'ComponentType<any>'.
     return widget?.getOneCorrectAnswerFromRubric?.(rubric);
 };
 

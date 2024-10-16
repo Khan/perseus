@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Adding Unlimited Polygon feature flag.
+Refine InputNumber's rubric type

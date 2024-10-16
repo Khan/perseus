@@ -72,19 +72,12 @@ const LockedLineSettings = (props: Props) => {
     const isInvalid = kvector.equal(point1.coord, point2.coord);
 
     function getPrepopulatedAriaLabel() {
-        let str = `${capitalizeKind} from (${point1.coord[0]}, ${point1.coord[1]}) to (${point2.coord[0]}, ${point2.coord[1]})`;
-
+        let visiblelabel = "";
         if (labels && labels.length > 0) {
-            str += " with label";
-            // Make it "with labels" instead of "with label" if there are
-            // multiple labels.
-            if (labels.length > 1) {
-                str += "s";
-            }
-
-            // Separate additional labels with commas.
-            str += ` ${labels.map((l) => l.text).join(", ")}`;
+            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
+
+        const str = `${capitalizeKind}${visiblelabel} from (${point1.coord[0]}, ${point1.coord[1]}) to (${point2.coord[0]}, ${point2.coord[1]})`;
 
         return str;
     }

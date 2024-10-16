@@ -92,9 +92,6 @@ export interface Widget {
     examples?: () => ReadonlyArray<string>;
 }
 
-export type WidgetDict = {
-    [name: string]: PerseusWidget;
-};
 export type ImageDict = {
     [url: string]: Dimensions;
 };
@@ -134,7 +131,7 @@ export type ChangeHandler = (
         hints?: ReadonlyArray<Hint>;
         replace?: boolean;
         content?: string;
-        widgets?: WidgetDict;
+        widgets?: PerseusWidgetsMap;
         images?: ImageDict;
         // used only in EditorPage
         question?: any;
@@ -630,6 +627,9 @@ export type WidgetExports<
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
     validator?: WidgetValidatorFunction;
+    getOneCorrectAnswerFromRubric?: (
+        rubric: Rubric,
+    ) => string | null | undefined;
 
     /**
     A map of major version numbers (as a string, eg "1") to a function that

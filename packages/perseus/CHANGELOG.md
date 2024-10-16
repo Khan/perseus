@@ -1,5 +1,27 @@
 # @khanacademy/perseus
 
+## 38.0.0
+
+### Major Changes
+
+-   [#1717](https://github.com/Khan/perseus/pull/1717) [`8a40e99e6`](https://github.com/Khan/perseus/commit/8a40e99e6cd6dd2424d84ec4d03744984aa68275) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove duplicate WidgetDict type and bespoke typings of `widgets` in favour of `PerseusWidgetsMap` type.
+
+### Patch Changes
+
+-   [#1752](https://github.com/Khan/perseus/pull/1752) [`c4d96ccaf`](https://github.com/Khan/perseus/commit/c4d96ccaf941638d6a24b29d8d91111581cca1be) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - BUGFIX - [Number Line] - Tick labels not showing in some exercises
+
+*   [#1730](https://github.com/Khan/perseus/pull/1730) [`2cc20b32e`](https://github.com/Khan/perseus/commit/2cc20b32efc0e03f3e87f465d02bcfc29b3882f9) Thanks [@Myranae](https://github.com/Myranae)! - Refine Grapher types and clean up relevant code
+
+## 37.0.1
+
+### Patch Changes
+
+-   [#1742](https://github.com/Khan/perseus/pull/1742) [`f383d4399`](https://github.com/Khan/perseus/commit/f383d4399d16ee31ad8e24867b0d171c160a1f1b) Thanks [@handeyeco](https://github.com/handeyeco)! - Move getOneCorrectAnswerFromRubric from React components to WidgetExports
+
+*   [#1732](https://github.com/Khan/perseus/pull/1732) [`c57e114f2`](https://github.com/Khan/perseus/commit/c57e114f25cfa7d95508d4244c28e00b10e9d130) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding Unlimited Polygon feature flag.
+
+-   [#1736](https://github.com/Khan/perseus/pull/1736) [`5e30fcde8`](https://github.com/Khan/perseus/commit/5e30fcde8a0692b259955a95a9a22d9b7c7e75f9) Thanks [@handeyeco](https://github.com/handeyeco)! - Make validator files be ts instead of tsx
+
 ## 37.0.0
 
 ### Major Changes
