@@ -119,8 +119,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const {strings} = usePerseusI18n();
 
     const interactionPrompt =
-        (state.type === "point" || state.type === "polygon") &&
-        state.showKeyboardInteractionInvitation;
+        isUnlimitedGraphState(state) && state.showKeyboardInteractionInvitation;
 
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
