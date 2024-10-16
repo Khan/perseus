@@ -213,7 +213,7 @@ abstract class Expr {
     }
 
     // returns the name of this expression's constructor as a string
-    // only used for testing and debugging (the ugly regex is for IE8)
+    // only used for testing and debugging
     name(): string {
         return this.func.name;
     }
