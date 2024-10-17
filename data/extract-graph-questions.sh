@@ -1,3 +1,4 @@
+#!/bin/bash
 # This script combs through Perseus JSON looking for questions that contain an
 # Interactive Graph or Grapher widget. It writes each such question to a
 # separate file in the `questions` directory. Each file is named after the
