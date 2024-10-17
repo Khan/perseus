@@ -151,6 +151,35 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    // TODO:
+    //  grapher: GrapherWidget;
+    //  group: GroupWidget;
+    //  graded-group: GradedGroupWidget;
+    //  graded-group-set: GradedGroupSetWidget;
+    //  iframe: IFrameWidget;
+    //  image: ImageWidget;
+    //  input-number: InputNumberWidget;
+    //  interaction: InteractionWidget;
+    //  interactive-graph: InteractiveGraphWidget;
+    //  label-image: LabelImageWidget;
+    //  matcher: MatcherWidget;
+    //  matrix: MatrixWidget;
+    //  measurer: MeasurerWidget;
+    //  molecule-renderer: MoleculeRendererWidget;
+    //  number-line: NumberLineWidget;
+    //  numeric-input: NumericInputWidget;
+    //  orderer: OrdererWidget;
+    //  passage: PassageWidget;
+    //  passage-ref: PassageRefWidget;
+    //  passage-ref-target: PassageRefWidget;
+    //  phet-simulation: PhetSimulationWidget;
+    //  plotter: PlotterWidget;
+    //  python-program: PythonProgramWidget;
+    //  radio: RadioWidget;
+    //  sorter: SorterWidget;
+    //  table: TableWidget;
+    //  video: VideoWidget;
+
     it("rejects an unknown widget type", () => {
         const widgetsMap: unknown = {
             "transmogrifier 1": {type: "transmogrifier"},
