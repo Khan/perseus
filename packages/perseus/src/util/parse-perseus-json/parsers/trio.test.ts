@@ -1,16 +1,19 @@
-import {trio} from "./trio"
-import {string} from "./string";
-import {number} from "./number";
-import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 import {success} from "../result";
-import {composeParsers} from "./compose-parsers";
+
 import {boolean} from "./boolean";
+import {composeParsers} from "./compose-parsers";
+import {number} from "./number";
+import {string} from "./string";
+import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
+import {trio} from "./trio";
 
 describe("trio()", () => {
     const strNumBool = trio(string, number, boolean);
 
     it("accepts a 3-tuple with the correct element types", () => {
-        expect(strNumBool(["a", 1, true], ctx())).toEqual(success(["a", 1, true]));
+        expect(strNumBool(["a", 1, true], ctx())).toEqual(
+            success(["a", 1, true]),
+        );
     });
 
     it("rejects null", () => {
@@ -84,4 +87,4 @@ describe("trio()", () => {
         const incrementBoth = trio(increment, increment, increment);
         expect(incrementBoth([1, 5, 10], ctx())).toEqual(success([2, 6, 11]));
     });
-})
+});
