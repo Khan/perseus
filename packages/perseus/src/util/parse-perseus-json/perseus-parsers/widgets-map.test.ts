@@ -68,8 +68,8 @@ describe("parseWidgetsMap", () => {
                     height: 0,
                     static: false,
                 },
-            }
-        }
+            },
+        };
 
         const result = parseWidgetsMap(widgetsMap, ctx());
 

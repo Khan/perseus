@@ -1,10 +1,11 @@
-import {Parser} from "../parser-types";
-import {WidgetOptions} from "../../../perseus-types";
+import {boolean} from "../general-purpose-parsers/boolean";
+import {number} from "../general-purpose-parsers/number";
 import {object} from "../general-purpose-parsers/object";
 import {optional} from "../general-purpose-parsers/optional";
-import {boolean} from "../general-purpose-parsers/boolean";
 import {string} from "../general-purpose-parsers/string";
-import {number} from "../general-purpose-parsers/number";
+
+import type {WidgetOptions} from "../../../perseus-types";
+import type {Parser} from "../parser-types";
 
 export function parseWidget<Type extends string, Options>(
     parseType: Parser<Type>,
@@ -20,6 +21,6 @@ export function parseWidget<Type extends string, Options>(
         version: object({
             major: number,
             minor: number,
-        })
-    })
+        }),
+    });
 }

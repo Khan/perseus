@@ -3,13 +3,11 @@ import {pair} from "../general-purpose-parsers/pair";
 import {string} from "../general-purpose-parsers/string";
 import {isFailure} from "../result";
 
-import type {
-    CategorizerWidget,
-    PerseusWidgetsMap,
-} from "../../../perseus-types";
-import type {ParseContext, Parser, ParseResult} from "../parser-types";
 import {parseCategorizerWidget} from "./categorizer-widget";
 import {parseCSProgramWidget} from "./cs-program-widget";
+
+import type {PerseusWidgetsMap} from "../../../perseus-types";
+import type {ParseContext, Parser, ParseResult} from "../parser-types";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
@@ -53,7 +51,7 @@ const parseWidgetsMapEntry: (
         case "categorizer": {
             const widgetResult = parseCategorizerWidget(widget, ctx);
             if (isFailure(widgetResult)) {
-                return widgetResult
+                return widgetResult;
             }
             widgetMap[`categorizer ${id}`] = widgetResult.value;
             break;
@@ -62,7 +60,7 @@ const parseWidgetsMapEntry: (
         case "cs-program": {
             const widgetResult = parseCSProgramWidget(widget, ctx);
             if (isFailure(widgetResult)) {
-                return widgetResult
+                return widgetResult;
             }
             widgetMap[`cs-program ${id}`] = widgetResult.value;
             break;
