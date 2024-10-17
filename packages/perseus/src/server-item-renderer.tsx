@@ -22,7 +22,7 @@ import Renderer from "./renderer";
 import Util from "./util";
 
 import type {PerseusItem, ShowSolutions} from "./perseus-types";
-import type {GetPromptJSONInterface, RendererPromptJSON} from "./prompt-types";
+import type {RendererPromptJSON} from "./prompt-types";
 import type {
     FocusPath,
     PerseusDependenciesV2,
@@ -73,10 +73,7 @@ type SerializedState = {
 
 export class ServerItemRenderer
     extends React.Component<Props, State>
-    implements
-        RendererInterface,
-        KeypadContextRendererInterface,
-        GetPromptJSONInterface
+    implements RendererInterface, KeypadContextRendererInterface
 {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;

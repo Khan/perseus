@@ -1,6 +1,8 @@
 // Types that can be shared between Perseus packages
 // ideally without causing circular dependencies
 
+import type {RendererPromptJSON} from "@khanacademy/perseus";
+
 // Used by KeypadContext to pass around a renderer reference
 export interface KeypadContextRendererInterface {
     blur(): void;
@@ -17,6 +19,7 @@ export interface RendererInterface {
     scoreInput(): KEScore;
     blur(): void;
     focus(): boolean | null | undefined;
+    getPromptJSON(): RendererPromptJSON;
     props: any;
 }
 
