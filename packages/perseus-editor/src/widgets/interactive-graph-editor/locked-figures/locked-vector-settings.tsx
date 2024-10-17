@@ -74,7 +74,7 @@ const LockedVectorSettings = (props: Props) => {
 
         const vectorAppearance =
             generateLockedFigureAppearanceDescription(lineColor);
-        str += `${vectorAppearance}`;
+        str += vectorAppearance;
 
         return str;
     }

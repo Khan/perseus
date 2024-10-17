@@ -109,17 +109,18 @@ export function generateLockedFigureAppearanceDescription(
     fill?: LockedFigureFillType,
 ) {
     const convertedColor = color === "grayH" ? "gray" : color;
-    const convertedFill = fill === "none" ? "no" : `${fill}`;
 
     switch (fill) {
         case "none":
-            return `. Appearance ${strokeStyle} ${convertedColor} border, with ${convertedFill} fill.`;
+            return `. Appearance ${strokeStyle} ${convertedColor} border, with no fill.`;
         case "white":
-            return `. Appearance ${strokeStyle} ${convertedColor} border, with a ${convertedFill} fill.`;
+            return `. Appearance ${strokeStyle} ${convertedColor} border, with a white fill.`;
         case "solid":
         case "translucent":
-            return `. Appearance ${strokeStyle} ${convertedColor} border, with a ${convertedFill} ${convertedColor} fill.`;
-        default:
+            return `. Appearance ${strokeStyle} ${convertedColor} border, with a ${fill} ${convertedColor} fill.`;
+        case undefined:
             return `. Appearance ${strokeStyle} ${convertedColor}.`;
+        default:
+            throw new UnreachableCaseError(fill);
     }
 }

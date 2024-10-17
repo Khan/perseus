@@ -88,7 +88,7 @@ const LockedEllipseSettings = (props: Props) => {
             strokeStyle,
             fillStyle,
         );
-        str += `${ellipseAppearance}`;
+        str += ellipseAppearance;
         return str;
     }
 

@@ -84,7 +84,7 @@ const LockedLineSettings = (props: Props) => {
             lineColor,
             lineStyle,
         );
-        str += `${lineAppearance}`;
+        str += lineAppearance;
 
         return str;
     }

@@ -102,7 +102,7 @@ const LockedFunctionSettings = (props: Props) => {
             lineColor,
             strokeStyle,
         );
-        str += `${functionAppearance}`;
+        str += functionAppearance;
 
         return str;
     }

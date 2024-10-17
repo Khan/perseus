@@ -122,7 +122,7 @@ const LockedPointSettings = (props: Props) => {
 
         const pointAppearance =
             generateLockedFigureAppearanceDescription(pointColor);
-        str += `${pointAppearance}`;
+        str += pointAppearance;
 
         return str;
     }

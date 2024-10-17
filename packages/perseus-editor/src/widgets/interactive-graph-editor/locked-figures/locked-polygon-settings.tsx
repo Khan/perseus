@@ -80,7 +80,7 @@ const LockedPolygonSettings = (props: Props) => {
             strokeStyle,
             fillStyle,
         );
-        str += `${polygonAppearance}`;
+        str += polygonAppearance;
         return str;
     }
 
