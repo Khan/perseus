@@ -1,11 +1,10 @@
-import {Parser} from "../parser-types";
-import {failure, isFailure} from "../result";
+import type {Parser} from "../parser-types";
 
 export function optional<T>(parseValue: Parser<T>): Parser<T | undefined> {
     return (rawValue, ctx) => {
         if (rawValue === undefined) {
-            return ctx.success(rawValue)
+            return ctx.success(rawValue);
         }
-        return parseValue(rawValue, ctx)
-    }
+        return parseValue(rawValue, ctx);
+    };
 }
