@@ -4,6 +4,7 @@ import KhanAnswerTypes from "../../util/answer-types";
 import type {MathFormat, PerseusNumericInputAnswer} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
+import type {Score} from "../../util/answer-types";
 import type {
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
@@ -107,62 +108,48 @@ function numericInputValidator(
     // We may have received TeX; try to parse it before grading.
     // If `currentValue` is not TeX, this should be a no-op.
     const currentValue = ParseTex(userInput.currentValue);
-    const correctAnswers = rubric.answers.filter(
-        (answer) => answer.status === "correct",
-    );
 
-    const normalizedAnswerExpected = correctAnswers.every(
-        (answer) => Math.abs(answer.value) <= 1,
-    );
+    const normalizedAnswerExpected = rubric.answers
+        .filter((answer) => answer.status === "correct")
+        .every((answer) => Math.abs(answer.value) <= 1);
 
-    // Look through all correct answers for one that matches either
-    // precisely or approximately and return the appropriate message:
-    // - if precise, return the message that the answer came with
-    // - if it needs to be simplified, etc., show that message
-    let result = correctAnswers
+    // The coefficient is an attribute of the widget
+    let localValue: string | number = currentValue;
+    if (rubric.coefficient) {
+        if (!localValue) {
+            localValue = 1;
+        } else if (localValue === "-") {
+            localValue = -1;
+        }
+    }
+    const matchedAnswer:
+        | (PerseusNumericInputAnswer & {score: Score})
+        | undefined = rubric.answers
         .map((answer) => {
-            // The coefficient is an attribute of the widget
-            let localValue: string | number = currentValue;
-            if (rubric.coefficient) {
-                if (!localValue) {
-                    localValue = 1;
-                } else if (localValue === "-") {
-                    localValue = -1;
-                }
-            }
-            const validate = createValidator(answer);
-            return validate(
+            const validateFn = createValidator(answer);
+            const score = validateFn(
                 maybeParsePercentInput(localValue, normalizedAnswerExpected),
             );
+            return {...answer, score};
         })
-        .find((match) => match.correct || match.empty);
-
-    if (!result) {
-        // Otherwise, if the guess is not correct
-        const otherAnswers = [].concat(
-            // @ts-expect-error - TS2769 - No overload matches this call.
-            rubric.answers.filter((answer) => answer.status === "ungraded"),
-            rubric.answers.filter((answer) => answer.status === "wrong"),
-        );
-
-        // Look through all other answers and if one matches either
-        // precisely or approximately return the answer's message
-        const match = otherAnswers.find((answer) => {
-            const validate = createValidator(answer);
-            return validate(
-                maybeParsePercentInput(currentValue, normalizedAnswerExpected),
-            ).correct;
+        .find((answer) => {
+            // NOTE: "answer.score.correct" indicates a match via the validate function.
+            //       It does NOT indicate that the answer itself is correct.
+            return (
+                answer.score.correct ||
+                (answer.status === "correct" && answer.score.empty)
+            );
         });
-        result = {
-            // @ts-expect-error - TS2339 - Property 'status' does not exist on type 'never'.
-            empty: match ? match.status === "ungraded" : false,
-            // @ts-expect-error - TS2339 - Property 'status' does not exist on type 'never'.
-            correct: match ? match.status === "correct" : false,
-            // @ts-expect-error - TS2339 - Property 'message' does not exist on type 'never'.
-            message: match ? match.message : null,
-            guess: currentValue,
-        };
-    }
+
+    const result: Score =
+        matchedAnswer?.status === "correct"
+            ? matchedAnswer.score
+            : {
+                  empty: matchedAnswer?.status === "ungraded",
+                  correct: matchedAnswer?.status === "correct",
+                  message: matchedAnswer?.message ?? null,
+                  guess: localValue,
+              };
 
     // TODO(eater): Seems silly to translate result to this
     // invalid/points thing and immediately translate it
