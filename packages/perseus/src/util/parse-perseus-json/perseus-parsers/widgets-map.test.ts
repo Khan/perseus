@@ -76,6 +76,24 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a definition widget", () => {
+        const widgetsMap: unknown = {
+            "definition 1": {
+                type: "definition",
+                version: {major: 0, minor: 0},
+                options: {
+                    togglePrompt: "",
+                    definition: "",
+                    static: false,
+                },
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     it("rejects an unknown widget type", () => {
         const widgetsMap: unknown = {
             "transmogrifier 1": {type: "transmogrifier"},

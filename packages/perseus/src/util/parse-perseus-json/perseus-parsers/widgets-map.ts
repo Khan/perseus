@@ -5,6 +5,7 @@ import {isFailure} from "../result";
 
 import {parseCategorizerWidget} from "./categorizer-widget";
 import {parseCSProgramWidget} from "./cs-program-widget";
+import {parseDefinitionWidget} from "./definition-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
@@ -63,6 +64,15 @@ const parseWidgetsMapEntry: (
                 return widgetResult;
             }
             widgetMap[`cs-program ${id}`] = widgetResult.value;
+            break;
+        }
+
+        case "definition": {
+            const widgetResult = parseDefinitionWidget(widget, ctx);
+            if (isFailure(widgetResult)) {
+                return widgetResult;
+            }
+            widgetMap[`definition ${id}`] = widgetResult.value;
             break;
         }
 
