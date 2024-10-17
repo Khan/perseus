@@ -8,6 +8,7 @@ import type {
     PerseusWidgetsMap,
 } from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
+import {parseCategorizerWidget} from "./categorizer-widget";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
@@ -45,29 +46,21 @@ const parseWidgetsMapEntry: (
     if (isFailure(keyComponentsResult)) {
         return keyComponentsResult;
     }
-    const [prefix, id] = keyComponentsResult.value;
+    const [type, id] = keyComponentsResult.value;
 
-    switch (prefix) {
+    switch (type) {
         case "categorizer":
-            const widgetResult = parseCategorizerWidget(
-                widget,
-                ctx.forSubtree(key),
-            );
+            const widgetResult = parseCategorizerWidget(widget, ctx);
             if (isFailure(widgetResult)) {
-                return ctx.failure(prefix, widget);
+                return widgetResult
             }
             widgetMap[`categorizer ${id}`] = widgetResult.value;
             break;
 
         default:
-            return ctx.failure("a valid widget type", prefix);
+            return ctx.failure("a valid widget type", type);
     }
     return ctx.success(undefined);
-};
-
-const parseCategorizerWidget: Parser<CategorizerWidget> = (rawValue, ctx) => {
-    // TODO: fill in this stub implementation
-    return ctx.success(rawValue as any);
 };
 
 const parseStringToPositiveInt: Parser<number> = (rawValue, ctx) => {
