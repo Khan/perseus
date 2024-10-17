@@ -8,6 +8,7 @@ import {parseCSProgramWidget} from "./cs-program-widget";
 import {parseDefinitionWidget} from "./definition-widget";
 import {parseDropdownWidget} from "./dropdown-widget";
 import {parseExplanationWidget} from "./explanation-widget";
+import {parseExpressionWidget} from "./expression-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
@@ -93,6 +94,15 @@ const parseWidgetsMapEntry: (
                 return widgetResult;
             }
             widgetMap[`explanation ${id}`] = widgetResult.value;
+            break;
+        }
+
+        case "expression": {
+            const widgetResult = parseExpressionWidget(widget, ctx);
+            if (isFailure(widgetResult)) {
+                return widgetResult;
+            }
+            widgetMap[`expression ${id}`] = widgetResult.value;
             break;
         }
 
