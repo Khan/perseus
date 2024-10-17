@@ -1,6 +1,6 @@
 import {success} from "../result";
 
-import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
+import {anyFailure, ctx, parseFailureWith} from "../general-purpose-parsers/test-helpers";
 import {parseWidgetsMap} from "./widgets-map";
 
 describe("parseWidgetsMap", () => {
