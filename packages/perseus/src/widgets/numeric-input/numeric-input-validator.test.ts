@@ -222,6 +222,100 @@ describe("static function validate", () => {
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
+
+    it("respects the order of answer options when scoring", () => {
+        // Arrange
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                // "4" is a wrong answer
+                {
+                    value: 4,
+                    status: "wrong",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+                // Any number between "0" and "20" is correct, except for "4"
+                {
+                    value: 10,
+                    status: "correct",
+                    maxError: 10,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            labelText: "",
+            size: "normal",
+            static: false,
+            coefficient: true,
+        };
+
+        // Act - "wrong"
+        const wrongInput = {
+            currentValue: "4",
+        } as const;
+        let score = numericInputValidator(wrongInput, rubric, mockStrings);
+
+        // Assert - "wrong"
+        expect(score).toHaveBeenAnsweredIncorrectly();
+
+        // Act - "correct"
+        const correctInput = {
+            currentValue: "14",
+        } as const;
+        score = numericInputValidator(correctInput, rubric, mockStrings);
+
+        // Assert - "correct"
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("defaults to 1 or -1 when user input is empty/incomplete", () => {
+        // Arrange
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 1,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+                {
+                    value: -1,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            labelText: "",
+            size: "normal",
+            static: false,
+            coefficient: true,
+        };
+
+        // Act - "empty"
+        const emptyInput = {
+            currentValue: "",
+        } as const;
+        let score = numericInputValidator(emptyInput, rubric, mockStrings);
+
+        // Assert - "empty"
+        expect(score).toHaveBeenAnsweredCorrectly();
+
+        // Act - "incomplete"
+        const incompleteInput = {
+            currentValue: "-",
+        } as const;
+        score = numericInputValidator(incompleteInput, rubric, mockStrings);
+
+        // Assert - "incomplete"
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
 });
 
 describe("maybeParsePercentInput utility function", () => {
