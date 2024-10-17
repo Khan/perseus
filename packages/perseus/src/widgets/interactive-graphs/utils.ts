@@ -1,9 +1,9 @@
 import {clampToBox, inset, MIN, size} from "./math";
 
+import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {Interval, vec} from "mafs";
-import {InteractiveGraphState, UnlimitedGraphState} from "./types";
 
 /**
  * 44 is touch best practice and AAA compliant for WCAG

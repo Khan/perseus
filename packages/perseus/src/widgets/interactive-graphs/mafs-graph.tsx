@@ -44,6 +44,7 @@ import {Protractor} from "./protractor";
 import {type InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
+import {isUnlimitedGraphState, REMOVE_BUTTON_ID} from "./utils";
 
 import type {
     InteractiveGraphState,
@@ -57,7 +58,6 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
-import {isUnlimitedGraphState, REMOVE_BUTTON_ID} from "./utils";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
