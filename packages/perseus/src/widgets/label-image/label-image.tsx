@@ -320,7 +320,7 @@ export class LabelImage
         return {markers};
     }
 
-    // TODO(LEMS-2440): Can possibly remove rubric parameter during 2440? Or refactor
+    // TODO(LEMS-2544): Investigate impact on scoring; possibly pull out &/or remove rubric parameter.
     showRationalesForCurrentlySelectedChoices(rubric: PerseusLabelImageRubric) {
         const {markers} = this.props;
         const {onChange} = this.props;
