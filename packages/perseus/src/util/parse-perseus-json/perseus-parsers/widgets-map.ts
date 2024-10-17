@@ -6,6 +6,7 @@ import {isFailure} from "../result";
 import {parseCategorizerWidget} from "./categorizer-widget";
 import {parseCSProgramWidget} from "./cs-program-widget";
 import {parseDefinitionWidget} from "./definition-widget";
+import {parseDropdownWidget} from "./dropdown-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
@@ -73,6 +74,15 @@ const parseWidgetsMapEntry: (
                 return widgetResult;
             }
             widgetMap[`definition ${id}`] = widgetResult.value;
+            break;
+        }
+
+        case "dropdown": {
+            const widgetResult = parseDropdownWidget(widget, ctx);
+            if (isFailure(widgetResult)) {
+                return widgetResult;
+            }
+            widgetMap[`dropdown ${id}`] = widgetResult.value;
             break;
         }
 
