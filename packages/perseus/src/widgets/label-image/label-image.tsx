@@ -30,7 +30,10 @@ import type {InteractiveMarkerType} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, Widget, WidgetExports} from "../../types";
-import type {PerseusLabelImageUserInput} from "../../validation.types";
+import type {
+    PerseusLabelImageRubric,
+    PerseusLabelImageUserInput,
+} from "../../validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
@@ -317,7 +320,8 @@ export class LabelImage
         return {markers};
     }
 
-    showRationalesForCurrentlySelectedChoices(rubric: LabelImageProps) {
+    // TODO(LEMS-2544): Investigate impact on scoring; possibly pull out &/or remove rubric parameter.
+    showRationalesForCurrentlySelectedChoices(rubric: PerseusLabelImageRubric) {
         const {markers} = this.props;
         const {onChange} = this.props;
 
