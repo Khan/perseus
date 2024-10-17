@@ -14,3 +14,7 @@ export type RendererPromptJSON = {
         [key: string]: WidgetPromptJSON;
     };
 };
+
+export interface GetPromptJSONInterface {
+    getPromptJSON(): RendererPromptJSON;
+}

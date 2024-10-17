@@ -40,7 +40,7 @@ import type {
     PerseusWidgetsMap,
     ShowSolutions,
 } from "./perseus-types";
-import type {RendererPromptJSON} from "./prompt-types";
+import type {GetPromptJSONInterface, RendererPromptJSON} from "./prompt-types";
 import type {PerseusStrings} from "./strings";
 import type {
     APIOptions,
@@ -188,7 +188,10 @@ type DefaultProps = Required<
     >
 >;
 
-class Renderer extends React.Component<Props, State> {
+class Renderer
+    extends React.Component<Props, State>
+    implements GetPromptJSONInterface
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
