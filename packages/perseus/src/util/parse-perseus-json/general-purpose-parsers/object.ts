@@ -1,3 +1,5 @@
+import {isObject} from "./is-object";
+
 import type {ParsedValue, Parser} from "../parser-types";
 
 type ObjectSchema = Record<keyof any, Parser<any>>;
@@ -19,8 +21,4 @@ export function object<S extends ObjectSchema>(
 
         return ctx.success(rawValue as {[K in keyof S]: ParsedValue<S[K]>});
     };
-}
-
-function isObject(x: unknown): x is Record<keyof any, unknown> {
-    return x != null && Object.getPrototypeOf(x) === Object.prototype;
 }
