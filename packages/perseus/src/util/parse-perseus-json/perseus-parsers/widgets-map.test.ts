@@ -112,6 +112,26 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts an explanation widget", () => {
+        const widgetsMap: unknown = {
+            "explanation 1": {
+                type: "explanation",
+                version: {major: 0, minor: 0},
+                options: {
+                    showPrompt: "",
+                    hidePrompt: "",
+                    explanation: "",
+                    widgets: {},
+                    static: false,
+                },
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     it("rejects an unknown widget type", () => {
         const widgetsMap: unknown = {
             "transmogrifier 1": {type: "transmogrifier"},
