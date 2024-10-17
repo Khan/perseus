@@ -18,9 +18,9 @@ import {
 } from "./radio.testdata";
 
 import type {PerseusRenderer} from "../../../perseus-types";
-import type {RadioPromptJSON} from "../../../prompt-types";
 import type {APIOptions} from "../../../types";
 import type {PerseusRadioUserInput} from "../../../validation.types";
+import type {RadioPromptJSON} from "../prompt-utils";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (

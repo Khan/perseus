@@ -1,7 +1,23 @@
-import {WidgetType, type RadioPromptJSON} from "../../prompt-types";
+import {WidgetType} from "../../prompt-types";
 
 import type {RenderProps} from "./radio-component";
 import type {PerseusRadioUserInput} from "../../validation.types";
+
+export type BasicOption = {
+    value: string;
+};
+
+export type RadioUserInput = {
+    selectedOptions: boolean[];
+    isNoneOfTheAboveSelected: boolean;
+};
+
+export type RadioPromptJSON = {
+    type: WidgetType;
+    hasNoneOfTheAbove: boolean;
+    options: BasicOption[];
+    userInput: RadioUserInput;
+};
 
 export const getPromptJSON = (
     renderProps: RenderProps,
