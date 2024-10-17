@@ -77,6 +77,10 @@ function isExpr(arg: string | Expr): arg is Expr {
     return arg instanceof Expr;
 }
 
+const isAdd = function (term: Expr): term is Add {
+    return term instanceof Add;
+};
+
 function isRational(arg: Expr): arg is Rational {
     return arg instanceof Rational;
 }
@@ -997,10 +1001,6 @@ export class Mul extends Seq {
 
     // expand numerator and denominator separately
     expand(): Expr {
-        const isAdd = function (term: Expr): term is Add {
-            return term instanceof Add;
-        };
-
         const isInverse = function (term: Expr): term is Pow {
             return term instanceof Pow && term.exp.isNegative();
         };
@@ -2742,20 +2742,19 @@ export class Eq extends Expr {
     // TODO(alex): Make it an option to only divide by variables/expressions
     // guaranteed to be nonzero
     divideThrough(expr: Expr) {
-        var isInequality = !this.isEquality();
+        const isInequality = !this.isEquality();
 
-        var simplified = expr.simplify({once: true});
-        var factored = simplified.factor({keepNegative: isInequality});
+        const simplified = expr.simplify({once: true});
+        const factored = simplified.factor({keepNegative: isInequality});
 
         if (!(factored instanceof Mul)) {
             return expr;
         }
 
-        var terms = factored.terms;
+        const terms = factored.terms;
 
-        var isAdd = (term: Expr): term is Add => term instanceof Add;
-        var hasVar = (term: Expr) => !!term.getVars().length;
-        var isOne = (term: Expr) => term.equals(NumOne);
+        const hasVar = (term: Expr) => !!term.getVars().length;
+        const isOne = (term: Expr) => term.equals(NumOne);
 
         const [adds, others] = partition(terms, isAdd);
 
