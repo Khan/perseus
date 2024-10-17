@@ -23,7 +23,10 @@ import LineSwatch from "./line-swatch";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    getDefaultFigureForType,
+} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
@@ -67,7 +70,12 @@ const LockedVectorSettings = (props: Props) => {
             visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
 
-        const str = `Vector${visiblelabel} from (${tail[0]}, ${tail[1]}) to (${tip[0]}, ${tip[1]})`;
+        let str = `Vector${visiblelabel} from (${tail[0]}, ${tail[1]}) to (${tip[0]}, ${tip[1]})`;
+
+        const vectorAppearance =
+            generateLockedFigureAppearanceDescription(lineColor);
+        str += vectorAppearance;
+
         return str;
     }
 

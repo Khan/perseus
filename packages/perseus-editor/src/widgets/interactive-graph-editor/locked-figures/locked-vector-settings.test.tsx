@@ -430,7 +430,8 @@ describe("Locked Vector Settings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Vector from (0, 0) to (2, 2)",
+                ariaLabel:
+                    "Vector from (0, 0) to (2, 2). Appearance solid gray.",
             });
         });
 
@@ -460,7 +461,8 @@ describe("Locked Vector Settings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Vector A from (0, 0) to (2, 2)",
+                ariaLabel:
+                    "Vector A from (0, 0) to (2, 2). Appearance solid gray.",
             });
         });
 
@@ -494,7 +496,8 @@ describe("Locked Vector Settings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Vector A, B from (0, 0) to (2, 2)",
+                ariaLabel:
+                    "Vector A, B from (0, 0) to (2, 2). Appearance solid gray.",
             });
         });
     });

@@ -614,7 +614,8 @@ describe("LockedLineSettings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Segment from (0, 0) to (2, 2)",
+                ariaLabel:
+                    "Segment from (0, 0) to (2, 2). Appearance solid gray.",
             });
         });
 
@@ -639,7 +640,7 @@ describe("LockedLineSettings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Line from (0, 0) to (2, 2)",
+                ariaLabel: "Line from (0, 0) to (2, 2). Appearance solid gray.",
             });
         });
 
@@ -669,7 +670,8 @@ describe("LockedLineSettings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Line A from (0, 0) to (2, 2)",
+                ariaLabel:
+                    "Line A from (0, 0) to (2, 2). Appearance solid gray.",
             });
         });
 
@@ -703,7 +705,8 @@ describe("LockedLineSettings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Line A, B from (0, 0) to (2, 2)",
+                ariaLabel:
+                    "Line A, B from (0, 0) to (2, 2). Appearance solid gray.",
             });
         });
     });

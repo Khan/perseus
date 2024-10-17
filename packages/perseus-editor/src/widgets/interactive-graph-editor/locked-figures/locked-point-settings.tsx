@@ -22,7 +22,10 @@ import LabeledSwitch from "./labeled-switch";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    getDefaultFigureForType,
+} from "./util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {
@@ -115,8 +118,11 @@ const LockedPointSettings = (props: Props) => {
         if (labels && labels.length > 0) {
             visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
+        let str = `Point${visiblelabel} at (${coord[0]}, ${coord[1]})`;
 
-        const str = `Point${visiblelabel} at (${coord[0]}, ${coord[1]})`;
+        const pointAppearance =
+            generateLockedFigureAppearanceDescription(pointColor);
+        str += pointAppearance;
 
         return str;
     }

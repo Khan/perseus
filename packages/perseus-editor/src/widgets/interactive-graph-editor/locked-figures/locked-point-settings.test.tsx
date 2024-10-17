@@ -410,7 +410,7 @@ describe("LockedPointSettings", () => {
 
         // Assert
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point at (0, 0)",
+            ariaLabel: "Point at (0, 0). Appearance solid gray.",
         });
     });
 
@@ -440,7 +440,7 @@ describe("LockedPointSettings", () => {
 
         // Assert
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point A at (0, 0)",
+            ariaLabel: "Point A at (0, 0). Appearance solid gray.",
         });
     });
 
@@ -474,7 +474,7 @@ describe("LockedPointSettings", () => {
 
         // Assert
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point A, B at (0, 0)",
+            ariaLabel: "Point A, B at (0, 0). Appearance solid gray.",
         });
     });
 });
