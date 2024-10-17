@@ -1,5 +1,13 @@
 # @khanacademy/perseus-editor
 
+## 14.8.1
+
+### Patch Changes
+
+-   Updated dependencies [[`81ee69b0a`](https://github.com/Khan/perseus/commit/81ee69b0aa5fd5746a63567dce633ae0358d7ff9), [`c95d08056`](https://github.com/Khan/perseus/commit/c95d0805624f553718ec2c1a18108cc86e712f93), [`93bd39b6b`](https://github.com/Khan/perseus/commit/93bd39b6b3d7751ef269bd2ac8b7380c52886921), [`3a208ba12`](https://github.com/Khan/perseus/commit/3a208ba127da6145dd26ef80c7fd3b2809a1b768), [`a0f438fd7`](https://github.com/Khan/perseus/commit/a0f438fd7ef564e2df348c2f42809f46c7216194)]:
+    -   @khanacademy/kas@0.3.15
+    -   @khanacademy/perseus@38.0.1
+
 ## 14.8.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @khanacademy/kas
 
+## 0.3.15
+
+### Patch Changes
+
+-   [#1747](https://github.com/Khan/perseus/pull/1747) [`81ee69b0a`](https://github.com/Khan/perseus/commit/81ee69b0aa5fd5746a63567dce633ae0358d7ff9) Thanks [@kevinb-khan](https://github.com/kevinb-khan)! - Update nodes.js to use ES6 classes
+
+*   [#1748](https://github.com/Khan/perseus/pull/1748) [`93bd39b6b`](https://github.com/Khan/perseus/commit/93bd39b6b3d7751ef269bd2ac8b7380c52886921) Thanks [@kevinb-khan](https://github.com/kevinb-khan)! - Convert nodes.js to use TypeScript
+
 ## 0.3.14
 
 ### Patch Changes
