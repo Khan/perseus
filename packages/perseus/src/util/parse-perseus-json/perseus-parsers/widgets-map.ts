@@ -1,3 +1,4 @@
+import {isObject} from "../general-purpose-parsers/is-object";
 import {pair} from "../general-purpose-parsers/pair";
 import {string} from "../general-purpose-parsers/string";
 import {isFailure} from "../result";
@@ -7,7 +8,6 @@ import type {
     PerseusWidgetsMap,
 } from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
-import {isObject} from "../general-purpose-parsers/is-object";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
