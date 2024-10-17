@@ -105,22 +105,21 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
 
 export function generateLockedFigureAppearanceDescription(
     color: LockedFigureColor,
-    strokeStyle?: LockedLineStyle,
+    strokeStyle: LockedLineStyle = "solid",
     fill?: LockedFigureFillType,
 ) {
     const convertedColor = color === "grayH" ? "gray" : color;
     const convertedFill = fill === "none" ? "no" : `${fill}`;
-    const convertedStrokeStyle = strokeStyle ? `${strokeStyle}` : "solid";
 
     switch (fill) {
         case "none":
-            return `. Appearance ${convertedStrokeStyle} ${convertedColor} border, with ${convertedFill} fill.`;
+            return `. Appearance ${strokeStyle} ${convertedColor} border, with ${convertedFill} fill.`;
         case "white":
-            return `. Appearance ${convertedStrokeStyle} ${convertedColor} border, with a ${convertedFill} fill.`;
+            return `. Appearance ${strokeStyle} ${convertedColor} border, with a ${convertedFill} fill.`;
         case "solid":
         case "translucent":
-            return `. Appearance ${convertedStrokeStyle} ${convertedColor} border, with a ${convertedFill} ${convertedColor} fill.`;
+            return `. Appearance ${strokeStyle} ${convertedColor} border, with a ${convertedFill} ${convertedColor} fill.`;
         default:
-            return `. Appearance ${convertedStrokeStyle} ${convertedColor}.`;
+            return `. Appearance ${strokeStyle} ${convertedColor}.`;
     }
 }
