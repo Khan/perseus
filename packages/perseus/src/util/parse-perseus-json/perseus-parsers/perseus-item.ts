@@ -9,13 +9,17 @@ import {parsePerseusRenderer} from "./perseus-renderer";
 
 import type {PerseusItem} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import {record} from "../general-purpose-parsers/record";
+import {ItemExtras} from "../../../perseus-types";
+import {enumeration} from "../general-purpose-parsers/enumeration";
+import {boolean} from "../general-purpose-parsers/boolean";
 
 const todo: Parser<any> = (rawValue, ctx) => ctx.success(rawValue);
 
 export const parsePerseusItem: Parser<PerseusItem> = object({
     question: parsePerseusRenderer,
     hints: array(parseHint),
-    answerArea: todo,
+    answerArea: record(enumeration(ItemExtras), boolean),
     itemDataVersion: object({
         major: number,
         minor: number,

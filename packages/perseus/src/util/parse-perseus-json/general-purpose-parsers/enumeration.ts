@@ -1,6 +1,6 @@
 import type {Parser} from "../parser-types";
 
-export function enumeration<T extends string[]>(
+export function enumeration<T extends readonly string[]>(
     acceptedValues: T,
 ): Parser<T[number]> {
     return (rawValue, ctx) => {
