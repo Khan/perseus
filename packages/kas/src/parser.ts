@@ -14,8 +14,7 @@ import {
     Var,
 } from "./nodes";
 
-// TODO(kevinb): Replace with a real type once #1748 is landed.
-type Expr = any;
+import type {Expr} from "./nodes";
 
 // Parser implements a recursive descent parser that can parse a simple
 // subset of LaTeX.  See lexer.ts for a list of the commands it supports.
@@ -165,7 +164,7 @@ export class Parser {
         throw new Error(`Expected SIGN token but got ${next.kind}`);
     }
 
-    additive(): Add | Mul {
+    additive(): Expr {
         let left = this.multiplicative();
 
         let op = this.peek();
@@ -196,7 +195,7 @@ export class Parser {
         return node;
     }
 
-    multiplicative(): Mul {
+    multiplicative(): Expr {
         let left = this.negative();
 
         while (this.index < this.tokens.length) {
@@ -228,7 +227,7 @@ export class Parser {
         return left;
     }
 
-    negative() {
+    negative(): Expr {
         if (this.peek().kind === "-") {
             this.consume(); // -
             return Mul.handleNegative(this.negative());
@@ -261,7 +260,7 @@ export class Parser {
         }
     }
 
-    logbase() {
+    logbase(): Expr {
         const next = this.peek();
         switch (next.kind) {
             case "LN":
@@ -282,7 +281,7 @@ export class Parser {
         }
     }
 
-    triglog() {
+    triglog(): Expr {
         const index = this.index; // save state
         try {
             const func = this.trigfunc();
@@ -301,7 +300,7 @@ export class Parser {
         }
     }
 
-    power() {
+    power(): Expr {
         const base = this.primitive();
         const op = this.peek();
         if (op.kind === "^") {
@@ -313,7 +312,7 @@ export class Parser {
         }
     }
 
-    subscriptable() {
+    subscriptable(): Expr {
         const index = this.index; // save state
         try {
             const left = this.expectValue("VAR");
@@ -354,7 +353,7 @@ export class Parser {
         }
     }
 
-    invocation() {
+    invocation(): Expr {
         const next = this.peek();
         switch (next.kind) {
             case "SQRT": {
@@ -405,7 +404,7 @@ export class Parser {
         }
     }
 
-    primitive() {
+    primitive(): Expr {
         const index = this.index; // save state
         try {
             return this.subscriptable();
