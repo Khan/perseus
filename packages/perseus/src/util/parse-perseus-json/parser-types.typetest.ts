@@ -1,5 +1,5 @@
-import type {ParsedValue} from "./parser-types";
 import type {string} from "./general-purpose-parsers/string";
+import type {ParsedValue} from "./parser-types";
 
 // summons a value of type T out of thin air!
 function summon<T>(): T {
