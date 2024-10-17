@@ -151,12 +151,14 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
     const highlightedTextStyle = {color: KhanColors.BLUE};
 
     // Generate an array of tick numbers:
-    //    `Array(props.numDivisions)` makes an array of null values - one for every division marker
+    //    `Array(Math.round(numDivisions))` makes an array of null values - one for every division marker
     //    `.keys()` gets the index values for each marker placeholder
     //    `.map()` converts the index values into actual tick numbers
-    const initialTicks: number[] = [...Array(numDivisions).keys()].map(
-        (index) => range[0] + index * tickStep,
-    );
+    // NOTE: 'numDivisions' can sometimes be a non-integer (i.e. 7.000001).
+    //       Using Math.round() to ensure that an integer is used in the Array setup.
+    const initialTicks: number[] = [
+        ...Array(Math.round(numDivisions)).keys(),
+    ].map((index) => range[0] + index * tickStep);
 
     // .sort() comparator
     const byNumericAscending = (a: number, b: number) => a - b;
