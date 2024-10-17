@@ -1,6 +1,6 @@
 import {success} from "../result";
 
-import {anyFailure, ctx} from "./test-helpers";
+import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 import {parseWidgetsMap} from "./widgets-map";
 
 describe("parseWidgetsMap", () => {
@@ -39,6 +39,18 @@ describe("parseWidgetsMap", () => {
 
         expect(result).toEqual(success(widgetsMap));
     });
+
+    it("rejects an unknown widget type", () => {
+        const widgetsMap: unknown = {
+            "transmogrifier 1": {type: "transmogrifier"},
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(parseFailureWith({
+            message: `expected a valid widget type, but got "transmogrifier"`,
+        }))
+    })
 
     it("rejects a key with no ID", () => {
         const widgetsMap: unknown = {

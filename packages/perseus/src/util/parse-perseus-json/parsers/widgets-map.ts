@@ -60,7 +60,7 @@ const parseWidgetsMapEntry: (
             break;
 
         default:
-            return ctx.failure(prefix, widget);
+            return ctx.failure("a valid widget type", prefix);
     }
     return ctx.success(undefined);
 };
