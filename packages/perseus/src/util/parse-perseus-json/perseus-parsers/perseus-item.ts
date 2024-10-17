@@ -13,8 +13,7 @@ import {record} from "../general-purpose-parsers/record";
 import {ItemExtras} from "../../../perseus-types";
 import {enumeration} from "../general-purpose-parsers/enumeration";
 import {boolean} from "../general-purpose-parsers/boolean";
-
-const todo: Parser<any> = (rawValue, ctx) => ctx.success(rawValue);
+import {any} from "../general-purpose-parsers/any";
 
 export const parsePerseusItem: Parser<PerseusItem> = object({
     question: parsePerseusRenderer,
@@ -24,5 +23,6 @@ export const parsePerseusItem: Parser<PerseusItem> = object({
         major: number,
         minor: number,
     }),
-    answer: todo,
+    // Deprecated field
+    answer: any,
 });
