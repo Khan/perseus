@@ -146,13 +146,6 @@ class InputNumber extends React.Component<Props> implements Widget {
         return [[]];
     };
 
-    // Note: We believe that this isn't used anywhere but are leaving it during
-    // the initial refactor
-    getGrammarTypeForPath: (arg1: Path) => string = (path) => {
-        /* c8 ignore next */
-        return "number";
-    };
-
     setInputValue: (arg1: Path, arg2: string, arg3: () => void) => void = (
         path,
         newValue,
