@@ -4,6 +4,7 @@ import {array} from "../general-purpose-parsers/array";
 import {number} from "../general-purpose-parsers/number";
 import {object} from "../general-purpose-parsers/object";
 
+import {parseHint} from "./hint";
 import {parsePerseusRenderer} from "./perseus-renderer";
 
 import type {PerseusItem} from "../../../perseus-types";
@@ -13,7 +14,7 @@ const todo: Parser<any> = (rawValue, ctx) => ctx.success(rawValue);
 
 export const parsePerseusItem: Parser<PerseusItem> = object({
     question: parsePerseusRenderer,
-    hints: array(todo),
+    hints: array(parseHint),
     answerArea: todo,
     itemDataVersion: object({
         major: number,
