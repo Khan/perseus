@@ -1,6 +1,10 @@
+import {
+    anyFailure,
+    ctx,
+    parseFailureWith,
+} from "../general-purpose-parsers/test-helpers";
 import {success} from "../result";
 
-import {anyFailure, ctx, parseFailureWith} from "../general-purpose-parsers/test-helpers";
 import {parseWidgetsMap} from "./widgets-map";
 
 describe("parseWidgetsMap", () => {
@@ -47,10 +51,12 @@ describe("parseWidgetsMap", () => {
 
         const result = parseWidgetsMap(widgetsMap, ctx());
 
-        expect(result).toEqual(parseFailureWith({
-            message: `expected a valid widget type, but got "transmogrifier"`,
-        }))
-    })
+        expect(result).toEqual(
+            parseFailureWith({
+                message: `expected a valid widget type, but got "transmogrifier"`,
+            }),
+        );
+    });
 
     it("rejects a key with no ID", () => {
         const widgetsMap: unknown = {
