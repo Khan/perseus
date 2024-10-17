@@ -1,7 +1,7 @@
 import {isFailure} from "../result";
 
-import {pair} from "./pair";
-import {string} from "./string";
+import {pair} from "../general-purpose-parsers/pair";
+import {string} from "../general-purpose-parsers/string";
 
 import type {
     CategorizerWidget,
