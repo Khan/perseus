@@ -12,7 +12,7 @@ import type {
     PerseusImageWidgetOptions,
     PerseusInteractionWidgetOptions,
     PerseusMatcherWidgetOptions,
-    PerseusMatrixWidgetOptions,
+    PerseusMatrixWidgetAnswers,
     PerseusNumberLineWidgetOptions,
     PerseusNumericInputWidgetOptions,
     PerseusOrdererWidgetOptions,
@@ -138,7 +138,10 @@ export type PerseusMatcherUserInput = {
     right: ReadonlyArray<string>;
 };
 
-export type PerseusMatrixRubric = PerseusMatrixWidgetOptions;
+export type PerseusMatrixRubric = {
+    // A data matrix representing the "correct" answers to be entered into the matrix
+    answers: PerseusMatrixWidgetAnswers;
+};
 
 export type PerseusMatrixUserInput = {
     answers: ReadonlyArray<ReadonlyArray<number>>;
