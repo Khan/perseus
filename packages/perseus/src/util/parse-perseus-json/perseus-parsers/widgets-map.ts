@@ -7,9 +7,10 @@ import type {
     PerseusWidgetsMap,
 } from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
+import {isObject} from "../general-purpose-parsers/is-object";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
-    if (!isPlainObject(rawValue)) {
+    if (!isObject(rawValue)) {
         return ctx.failure("PerseusWidgetsMap", rawValue);
     }
 
@@ -77,7 +78,3 @@ const parseStringToPositiveInt: Parser<number> = (rawValue, ctx) => {
 };
 
 const parseWidgetMapKeyComponents = pair(string, parseStringToPositiveInt);
-
-function isPlainObject(x: unknown): x is Record<keyof any, unknown> {
-    return x != null && Object.getPrototypeOf(x) === Object.prototype;
-}
