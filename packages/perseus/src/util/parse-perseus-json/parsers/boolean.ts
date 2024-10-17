@@ -1,10 +1,11 @@
-import {ParseContext, ParseResult} from "../parser-types";
-import {ctx} from "./test-helpers";
-import {success} from "../result";
+import type {ParseContext, ParseResult} from "../parser-types";
 
-export function boolean(rawValue: unknown, ctx: ParseContext): ParseResult<boolean> {
+export function boolean(
+    rawValue: unknown,
+    ctx: ParseContext,
+): ParseResult<boolean> {
     if (typeof rawValue === "boolean") {
-        return ctx.success(rawValue)
+        return ctx.success(rawValue);
     }
-    return ctx.failure("boolean", rawValue)
+    return ctx.failure("boolean", rawValue);
 }
