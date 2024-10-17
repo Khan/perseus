@@ -36,7 +36,17 @@ describe("parseWidgetsMap", () => {
 
     it("accepts a categorizer widget", () => {
         const widgetsMap: unknown = {
-            "categorizer 1": {type: "categorizer"},
+            "categorizer 1": {
+                type: "categorizer",
+                version: {major: 0, minor: 0},
+                options: {
+                    items: [],
+                    categories: [],
+                    randomizeItems: false,
+                    static: false,
+                    values: [],
+                },
+            },
         };
 
         const result = parseWidgetsMap(widgetsMap, ctx());
