@@ -183,9 +183,6 @@ export type PerseusRadioRubric = {
 };
 
 export type PerseusRadioUserInput = {
-    /*TODO(LEMS-2541): countChoices seems to be necessary for rendering the
-       question, not scoring. Maybe move to renderProps?*/
-    countChoices?: boolean;
     choicesSelected: ReadonlyArray<boolean>;
     numCorrect?: number;
     noneOfTheAboveIndex?: number | null | undefined;
