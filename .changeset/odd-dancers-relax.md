@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Refine Radio's Rubric type
+Refine Radio's Rubric and UserInput types
