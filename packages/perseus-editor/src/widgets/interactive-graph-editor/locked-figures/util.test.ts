@@ -1,4 +1,13 @@
-import {getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    getDefaultFigureForType,
+} from "./util";
+
+import type {
+    LockedFigureColor,
+    LockedFigureFillType,
+    LockedLineStyle,
+} from "@khanacademy/perseus";
 
 describe("getDefaultFigureForType", () => {
     test("should return a point with default values", () => {
@@ -99,4 +108,137 @@ describe("getDefaultFigureForType", () => {
             size: "medium",
         });
     });
+});
+
+describe("generateLockedFigureAppearanceDescription", () => {
+    // one argument
+    test.each([
+        ["grayH"],
+        ["red"],
+        ["blue"],
+        ["green"],
+        ["purple"],
+        ["orange"],
+        ["pink"],
+    ])(
+        `should return a string with color of %s and a solid stroke style`,
+        (color: LockedFigureColor) => {
+            const description =
+                generateLockedFigureAppearanceDescription(color);
+            const convertedColor = color === "grayH" ? "gray" : color;
+            expect(description).toBe(`. Appearance solid ${convertedColor}.`);
+        },
+    );
+
+    // two arguments
+    test.each([
+        ["grayH", "solid"],
+        ["red", "solid"],
+        ["blue", "solid"],
+        ["green", "solid"],
+        ["purple", "solid"],
+        ["orange", "solid"],
+        ["pink", "solid"],
+        ["grayH", "dashed"],
+        ["red", "dashed"],
+        ["blue", "dashed"],
+        ["green", "dashed"],
+        ["purple", "dashed"],
+        ["orange", "dashed"],
+        ["pink", "dashed"],
+    ])(
+        `should return a string with color of %s and a stroke style of %s`,
+        (color: LockedFigureColor, strokeStyle: LockedLineStyle) => {
+            const description = generateLockedFigureAppearanceDescription(
+                color,
+                strokeStyle,
+            );
+            const convertedColor = color === "grayH" ? "gray" : color;
+            expect(description).toBe(
+                `. Appearance ${strokeStyle} ${convertedColor}.`,
+            );
+        },
+    );
+
+    // three arguments
+    test.each([
+        ["grayH", "solid", "none"],
+        ["red", "dashed", "none"],
+        ["blue", undefined, "none"],
+    ])(
+        `should return a string with a color, stroke, and fill when given color input of %s, stroke input of %s, and fill input of none`,
+        (
+            color: LockedFigureColor,
+            strokeStyle: LockedLineStyle,
+            fill: LockedFigureFillType,
+        ) => {
+            const description = generateLockedFigureAppearanceDescription(
+                color,
+                strokeStyle,
+                fill,
+            );
+            const convertedColor = color === "grayH" ? "gray" : color;
+            const convertedFill = fill === "none" ? "no" : `${fill}`;
+            const convertedStroke = strokeStyle ? strokeStyle : "solid";
+
+            expect(description).toBe(
+                `. Appearance ${convertedStroke} ${convertedColor} border, with ${convertedFill} fill.`,
+            );
+        },
+    );
+
+    test.each([
+        ["grayH", "solid", "white"],
+        ["red", "dashed", "white"],
+        ["blue", undefined, "white"],
+    ])(
+        `should return a string with a color, stroke, and fill when given color input of %s, stroke input of %s, and fill input of white`,
+        (
+            color: LockedFigureColor,
+            strokeStyle: LockedLineStyle,
+            fill: LockedFigureFillType,
+        ) => {
+            const description = generateLockedFigureAppearanceDescription(
+                color,
+                strokeStyle,
+                fill,
+            );
+            const convertedColor = color === "grayH" ? "gray" : color;
+            const convertedFill = fill === "none" ? "no" : `${fill}`;
+            const convertedStroke = strokeStyle ? strokeStyle : "solid";
+
+            expect(description).toBe(
+                `. Appearance ${convertedStroke} ${convertedColor} border, with a ${convertedFill} fill.`,
+            );
+        },
+    );
+
+    test.each([
+        ["grayH", "solid", "solid"],
+        ["red", "dashed", "solid"],
+        ["green", "dashed", "translucent"],
+        ["purple", "solid", "translucent"],
+        ["grayH", undefined, "solid"],
+        ["red", undefined, "translucent"],
+    ])(
+        `should return a string with a color, stroke, and fill when given color input of %s, stroke input of %s, and fill input of %s`,
+        (
+            color: LockedFigureColor,
+            strokeStyle: LockedLineStyle,
+            fill: LockedFigureFillType,
+        ) => {
+            const description = generateLockedFigureAppearanceDescription(
+                color,
+                strokeStyle,
+                fill,
+            );
+            const convertedColor = color === "grayH" ? "gray" : color;
+            const convertedFill = fill === "none" ? "no" : `${fill}`;
+            const convertedStroke = strokeStyle ? strokeStyle : "solid";
+
+            expect(description).toBe(
+                `. Appearance ${convertedStroke} ${convertedColor} border, with a ${convertedFill} ${convertedColor} fill.`,
+            );
+        },
+    );
 });
