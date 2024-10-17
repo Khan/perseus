@@ -144,7 +144,7 @@ export type PerseusMatrixRubric = {
 };
 
 export type PerseusMatrixUserInput = {
-    answers: ReadonlyArray<ReadonlyArray<number>>;
+    answers: PerseusMatrixRubric["answers"];
 };
 
 export type PerseusNumberLineRubric = PerseusNumberLineWidgetOptions & {
