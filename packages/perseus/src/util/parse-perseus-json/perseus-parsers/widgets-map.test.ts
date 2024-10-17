@@ -94,6 +94,24 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a dropdown widget", () => {
+        const widgetsMap: unknown = {
+            "dropdown 1": {
+                type: "dropdown",
+                version: {major: 0, minor: 0},
+                options: {
+                    choices: [],
+                    placeholder: "",
+                    static: false,
+                },
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     it("rejects an unknown widget type", () => {
         const widgetsMap: unknown = {
             "transmogrifier 1": {type: "transmogrifier"},
