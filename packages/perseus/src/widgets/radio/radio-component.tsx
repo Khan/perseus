@@ -2,7 +2,6 @@ import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import {type RadioPromptJSON} from "../../prompt-types";
 import Renderer from "../../renderer";
 import Util from "../../util";
 import PassageRef from "../passage-ref/passage-ref";
@@ -12,6 +11,7 @@ import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 import radioValidator from "./radio-validator";
 
 import type {FocusFunction, ChoiceType} from "./base-radio";
+import type {RadioPromptJSON} from "./prompt-utils";
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
