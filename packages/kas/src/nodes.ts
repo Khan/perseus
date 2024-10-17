@@ -122,6 +122,9 @@ abstract class Expr {
     }
 
     // this node's immediate constructor
+    // The `new (...args: any[]): any;` part of the type is a
+    // "construct" signature.  It indicates that `func` is a class.
+    // See https://www.typescriptlang.org/docs/handbook/2/functions.html#construct-signatures.
     abstract func: {new (...args: any[]): any; name: string};
 
     // an array of the arguments to this node's immediate constructor
