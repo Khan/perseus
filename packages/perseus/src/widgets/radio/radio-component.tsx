@@ -7,9 +7,11 @@ import Util from "../../util";
 import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio";
+import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 import radioValidator from "./radio-validator";
 
 import type {FocusFunction, ChoiceType} from "./base-radio";
+import type {RadioPromptJSON} from "./prompt-utils";
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
@@ -283,6 +285,10 @@ class Radio extends React.Component<Props> implements Widget {
 
     getUserInput(): PerseusRadioUserInput {
         return Radio.getUserInputFromProps(this.props);
+    }
+
+    getPromptJSON(): RadioPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     /**
