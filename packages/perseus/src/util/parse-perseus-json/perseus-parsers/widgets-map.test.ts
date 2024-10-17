@@ -54,6 +54,28 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a cs-program widget", () => {
+        const widgetsMap: unknown = {
+            "cs-program 1": {
+                type: "cs-program",
+                version: {major: 0, minor: 0},
+                options: {
+                    programID: "",
+                    settings: [],
+                    showEditor: false,
+                    showButtons: false,
+                    width: 0,
+                    height: 0,
+                    static: false,
+                },
+            }
+        }
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     it("rejects an unknown widget type", () => {
         const widgetsMap: unknown = {
             "transmogrifier 1": {type: "transmogrifier"},

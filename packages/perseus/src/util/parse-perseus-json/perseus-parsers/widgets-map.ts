@@ -9,6 +9,7 @@ import type {
 } from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
 import {parseCategorizerWidget} from "./categorizer-widget";
+import {parseCSProgramWidget} from "./cs-program-widget";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
@@ -49,13 +50,23 @@ const parseWidgetsMapEntry: (
     const [type, id] = keyComponentsResult.value;
 
     switch (type) {
-        case "categorizer":
+        case "categorizer": {
             const widgetResult = parseCategorizerWidget(widget, ctx);
             if (isFailure(widgetResult)) {
                 return widgetResult
             }
             widgetMap[`categorizer ${id}`] = widgetResult.value;
             break;
+        }
+
+        case "cs-program": {
+            const widgetResult = parseCSProgramWidget(widget, ctx);
+            if (isFailure(widgetResult)) {
+                return widgetResult
+            }
+            widgetMap[`cs-program ${id}`] = widgetResult.value;
+            break;
+        }
 
         default:
             return ctx.failure("a valid widget type", type);
