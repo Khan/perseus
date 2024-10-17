@@ -43,7 +43,7 @@ export function scoreMarker(
     return score;
 }
 
-// TODO(LEMS-2440): Can possibly remove rubric parameter during 2440?
+// TODO(LEMS-2440): May need to pull answers out of PerseusLabelImageWidgetOptions[markers] for the rubric
 function labelImageValidator(
     userInput: PerseusLabelImageUserInput,
     rubric?: PerseusLabelImageRubric,
