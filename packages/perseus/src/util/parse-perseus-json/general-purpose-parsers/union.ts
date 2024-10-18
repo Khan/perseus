@@ -2,14 +2,14 @@ import {isSuccess} from "../result";
 
 import type {Parser} from "../parser-types";
 
-export function unionBuilder() {
-    return new UnionBuilder(never)
+export function union<T>(parseBranch: Parser<T>): UnionBuilder<T> {
+    return new UnionBuilder(parseBranch)
 }
 
 export class UnionBuilder<T> {
     constructor(public parser: Parser<T>) {}
 
-    add<New>(newBranch: Parser<New>) {
+    or<New>(newBranch: Parser<New>) {
         return new UnionBuilder<T | New>(either(this.parser, newBranch))
     }
 }

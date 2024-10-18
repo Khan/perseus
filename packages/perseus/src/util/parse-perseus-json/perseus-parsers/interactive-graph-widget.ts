@@ -30,7 +30,7 @@ import {array} from "../general-purpose-parsers/array";
 import {string} from "../general-purpose-parsers/string";
 import {boolean} from "../general-purpose-parsers/boolean";
 import {any} from "../general-purpose-parsers/any";
-import {unionBuilder} from "../general-purpose-parsers/union";
+import {union} from "../general-purpose-parsers/union";
 import {trio} from "../general-purpose-parsers/trio";
 import {nullable} from "../general-purpose-parsers/nullable";
 
@@ -83,7 +83,7 @@ const parsePerseusGraphTypeNone: Parser<PerseusGraphTypeNone> = object({
 
 const parsePerseusGraphTypePoint: Parser<PerseusGraphTypePoint> = object({
     type: constant("point"),
-    numPoints: optional(unionBuilder().add(number).add(constant("unlimited")).parser),
+    numPoints: optional(union(number).or(constant("unlimited")).parser),
     coords: optional(nullable(array(pairOfNumbers))),
     startCoords: optional(array(pairOfNumbers)),
     // TODO: remove coord? it's legacy.
@@ -92,7 +92,7 @@ const parsePerseusGraphTypePoint: Parser<PerseusGraphTypePoint> = object({
 
 const parsePerseusGraphTypePolygon: Parser<PerseusGraphTypePolygon> = object({
     type: constant("polygon"),
-    numSides: optional(unionBuilder().add(number).add(constant("unlimited")).parser),
+    numSides: optional(union(number).or(constant("unlimited")).parser),
     showAngles: optional(boolean),
     showSides: optional(boolean),
     snapTo: optional(enumeration(["grid", "angles", "sides"] as const)),
@@ -136,18 +136,18 @@ const parsePerseusGraphTypeSinusoid: Parser<PerseusGraphTypeSinusoid> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphType: Parser<PerseusGraphType> = unionBuilder()
-    .add(parsePerseusGraphTypeAngle)
-    .add(parsePerseusGraphTypeCircle)
-    .add(parsePerseusGraphTypeLinear)
-    .add(parsePerseusGraphTypeLinearSystem)
-    .add(parsePerseusGraphTypeNone)
-    .add(parsePerseusGraphTypePoint)
-    .add(parsePerseusGraphTypePolygon)
-    .add(parsePerseusGraphTypeQuadratic)
-    .add(parsePerseusGraphTypeRay)
-    .add(parsePerseusGraphTypeSegment)
-    .add(parsePerseusGraphTypeSinusoid)
+const parsePerseusGraphType: Parser<PerseusGraphType> = union(parsePerseusGraphTypeAngle)
+    .or(parsePerseusGraphTypeAngle)
+    .or(parsePerseusGraphTypeCircle)
+    .or(parsePerseusGraphTypeLinear)
+    .or(parsePerseusGraphTypeLinearSystem)
+    .or(parsePerseusGraphTypeNone)
+    .or(parsePerseusGraphTypePoint)
+    .or(parsePerseusGraphTypePolygon)
+    .or(parsePerseusGraphTypeQuadratic)
+    .or(parsePerseusGraphTypeRay)
+    .or(parsePerseusGraphTypeSegment)
+    .or(parsePerseusGraphTypeSinusoid)
     .parser
 
 const parseLockedPointType: Parser<LockedPointType> = any; // TODO
@@ -158,14 +158,13 @@ const parseLockedPolygonType: Parser<LockedPolygonType> = any; // TODO
 const parseLockedFunctionType: Parser<LockedFunctionType> = any; // TODO
 const parseLockedLabelType: Parser<LockedLabelType> = any; // TODO
 
-const parseLockedFigure: Parser<LockedFigure> = unionBuilder()
-    .add(parseLockedPointType)
-    .add(parseLockedLineType)
-    .add(parseLockedVectorType)
-    .add(parseLockedEllipseType)
-    .add(parseLockedPolygonType)
-    .add(parseLockedFunctionType)
-    .add(parseLockedLabelType)
+const parseLockedFigure: Parser<LockedFigure> = union(parseLockedPointType)
+    .or(parseLockedLineType)
+    .or(parseLockedVectorType)
+    .or(parseLockedEllipseType)
+    .or(parseLockedPolygonType)
+    .or(parseLockedFunctionType)
+    .or(parseLockedLabelType)
     .parser
 
 export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> = parseWidget(

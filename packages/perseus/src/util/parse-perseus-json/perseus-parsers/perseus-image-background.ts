@@ -5,9 +5,7 @@ import {optional} from "../general-purpose-parsers/optional";
 import {nullable} from "../general-purpose-parsers/nullable";
 import {string} from "../general-purpose-parsers/string";
 import {number} from "../general-purpose-parsers/number";
-import {unionBuilder} from "../general-purpose-parsers/union";
-
-const numberOrString = unionBuilder().add(number).add(string).parser
+import {union} from "../general-purpose-parsers/union";
 
 export const parsePerseusImageBackground: Parser<PerseusImageBackground> = object({
     url: optional(nullable(string)),
@@ -17,5 +15,5 @@ export const parsePerseusImageBackground: Parser<PerseusImageBackground> = objec
     left: optional(number),
     bottom: optional(number),
     // TODO(benchristel): convert scale to a number
-    scale: optional(numberOrString),
+    scale: optional(union(number).or(string).parser),
 })
