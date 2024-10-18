@@ -12,6 +12,7 @@ import {parseExpressionWidget} from "./expression-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
+import {parseInteractiveGraphWidget} from "./interactive-graph-widget";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
@@ -103,6 +104,15 @@ const parseWidgetsMapEntry: (
                 return widgetResult;
             }
             widgetMap[`expression ${id}`] = widgetResult.value;
+            break;
+        }
+
+        case "interactive-graph": {
+            const widgetResult = parseInteractiveGraphWidget(widget, ctx);
+            if (isFailure(widgetResult)) {
+                return widgetResult;
+            }
+            widgetMap[`interactive-graph ${id}`] = widgetResult.value;
             break;
         }
 

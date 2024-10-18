@@ -6,6 +6,7 @@ import {
 import {success} from "../result";
 
 import {parseWidgetsMap} from "./widgets-map";
+import {number} from "../general-purpose-parsers/number";
 
 describe("parseWidgetsMap", () => {
     it("rejects null", () => {
@@ -145,6 +146,30 @@ describe("parseWidgetsMap", () => {
                 },
             },
         };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
+    it("accepts an interactive graph widget", () => {
+        const widgetsMap: unknown = {
+            "interactive-graph 1": {
+                type: "interactive-graph",
+                version: {major: 0, minor: 0},
+                options: {
+                    step: [1, 1],
+                    gridStep: [1, 1],
+                    snapStep: [1, 1],
+                    markings: "none",
+                    labels: [],
+                    showProtractor: false,
+                    range: [[0, 1], [0, 1]],
+                    graph: {type: "none"},
+                    correct: {type: "none"},
+                }
+            }
+        }
 
         const result = parseWidgetsMap(widgetsMap, ctx());
 
