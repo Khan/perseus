@@ -6,7 +6,7 @@ import {
     LockedFigure,
     LockedFigureColor, lockedFigureColorNames,
     LockedFunctionType,
-    LockedLabelType,
+    LockedLabelType, LockedLineStyle,
     LockedLineType,
     LockedPointType,
     LockedPolygonType,
@@ -175,7 +175,21 @@ const parseLockedPointType: Parser<LockedPointType> = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedLineType: Parser<LockedLineType> = any; // TODO
+const parseLockedLineStyle: Parser<LockedLineStyle> = any; // TODO
+
+const parseLockedLineType: Parser<LockedLineType> = object({
+    type: constant("line"),
+    kind: enumeration("line", "ray", "segment"),
+    points: pair(parseLockedPointType, parseLockedPointType),
+    color: parseLockedFigureColor,
+    lineStyle: parseLockedLineStyle,
+    showPoint1: boolean,
+    showPoint2: boolean,
+    // TODO: default labels to empty array?
+    labels: optional(array(parseLockedLabelType)),
+    ariaLabel: optional(string),
+});
+
 const parseLockedVectorType: Parser<LockedVectorType> = any; // TODO
 const parseLockedEllipseType: Parser<LockedEllipseType> = any; // TODO
 const parseLockedPolygonType: Parser<LockedPolygonType> = any; // TODO
