@@ -4,7 +4,7 @@ import {enumeration} from "./enumeration";
 import {ctx, parseFailureWith} from "./test-helpers";
 
 describe("enumeration()", () => {
-    const fooBarBaz = enumeration(["foo", "bar", "baz"]);
+    const fooBarBaz = enumeration("foo", "bar", "baz");
 
     it("creates a parser that accepts any of a set of string constants", () => {
         expect(fooBarBaz("foo", ctx())).toEqual(success("foo"));
