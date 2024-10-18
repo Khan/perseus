@@ -667,7 +667,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     fullGraphAriaDescription?: string;
 };
 
-const lockedFigureColorNames = [
+export const lockedFigureColorNames = [
     "blue",
     "green",
     "grayH",
