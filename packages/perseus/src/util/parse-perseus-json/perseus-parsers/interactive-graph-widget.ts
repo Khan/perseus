@@ -26,11 +26,22 @@ import {string} from "../general-purpose-parsers/string";
 import {boolean} from "../general-purpose-parsers/boolean";
 import {any} from "../general-purpose-parsers/any";
 import {unionBuilder} from "../general-purpose-parsers/union";
+import {trio} from "../general-purpose-parsers/trio";
 
 // Used to represent 2-D points and ranges
 const pairOfNumbers = pair(number, number)
 
-const parsePerseusGraphTypeAngle: Parser<PerseusGraphTypeAngle> = any; // TODO
+const parsePerseusGraphTypeAngle: Parser<PerseusGraphTypeAngle> = object({
+    type: constant("angle"),
+    showAngles: optional(boolean),
+    allowReflexAngles: optional(boolean),
+    angleOffsetDeg: optional(number),
+    snapDegrees: optional(number),
+    match: optional(constant("congruent")),
+    coords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
+    startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
+});
+
 const parsePerseusGraphTypeCircle: Parser<PerseusGraphTypeCircle> = any; // TODO
 const parsePerseusGraphTypeLinear: Parser<PerseusGraphTypeLinear> = any; // TODO
 const parsePerseusGraphTypeLinearSystem: Parser<PerseusGraphTypeLinearSystem> = any; // TODO
