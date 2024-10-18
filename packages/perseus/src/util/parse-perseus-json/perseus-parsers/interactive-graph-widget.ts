@@ -196,6 +196,7 @@ const parseLockedVectorType: Parser<LockedVectorType> = object({
     type: constant("vector"),
     points: pair(pairOfNumbers, pairOfNumbers),
     color: parseLockedFigureColor,
+    // TODO: default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),
 });
@@ -208,11 +209,23 @@ const parseLockedEllipseType: Parser<LockedEllipseType> = object({
     color: parseLockedFigureColor,
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
+    // TODO: default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),
 });
 
-const parseLockedPolygonType: Parser<LockedPolygonType> = any; // TODO
+const parseLockedPolygonType: Parser<LockedPolygonType> = object({
+    type: constant("polygon"),
+    points: array(pairOfNumbers),
+    color: parseLockedFigureColor,
+    showVertices: boolean,
+    fillStyle: parseLockedFigureFillType,
+    strokeStyle: parseLockedLineStyle,
+    // TODO: default labels to empty array?
+    labels: optional(array(parseLockedLabelType)),
+    ariaLabel: optional(string),
+});
+
 const parseLockedFunctionType: Parser<LockedFunctionType> = any; // TODO
 
 const parseLockedFigure: Parser<LockedFigure> = union(parseLockedPointType)
