@@ -6,7 +6,6 @@ import {
 import {success} from "../result";
 
 import {parseWidgetsMap} from "./widgets-map";
-import {number} from "../general-purpose-parsers/number";
 
 describe("parseWidgetsMap", () => {
     it("rejects null", () => {
@@ -164,12 +163,15 @@ describe("parseWidgetsMap", () => {
                     markings: "none",
                     labels: [],
                     showProtractor: false,
-                    range: [[0, 1], [0, 1]],
+                    range: [
+                        [0, 1],
+                        [0, 1],
+                    ],
                     graph: {type: "none"},
                     correct: {type: "none"},
-                }
-            }
-        }
+                },
+            },
+        };
 
         const result = parseWidgetsMap(widgetsMap, ctx());
 

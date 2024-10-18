@@ -1,12 +1,29 @@
+import {lockedFigureColorNames} from "../../../perseus-types";
+import {array} from "../general-purpose-parsers/array";
+import {boolean} from "../general-purpose-parsers/boolean";
 import {constant} from "../general-purpose-parsers/constant";
-import {Parser} from "../parser-types";
-import {
+import {enumeration} from "../general-purpose-parsers/enumeration";
+import {nullable} from "../general-purpose-parsers/nullable";
+import {number} from "../general-purpose-parsers/number";
+import {object} from "../general-purpose-parsers/object";
+import {optional} from "../general-purpose-parsers/optional";
+import {pair} from "../general-purpose-parsers/pair";
+import {string} from "../general-purpose-parsers/string";
+import {trio} from "../general-purpose-parsers/trio";
+import {union} from "../general-purpose-parsers/union";
+
+import {parsePerseusImageBackground} from "./perseus-image-background";
+import {parseWidget} from "./widget";
+
+import type {
     InteractiveGraphWidget,
     LockedEllipseType,
     LockedFigure,
-    LockedFigureColor, lockedFigureColorNames, LockedFigureFillType,
+    LockedFigureColor,
+    LockedFigureFillType,
     LockedFunctionType,
-    LockedLabelType, LockedLineStyle,
+    LockedLabelType,
+    LockedLineStyle,
     LockedLineType,
     LockedPointType,
     LockedPolygonType,
@@ -22,25 +39,12 @@ import {
     PerseusGraphTypeQuadratic,
     PerseusGraphTypeRay,
     PerseusGraphTypeSegment,
-    PerseusGraphTypeSinusoid
+    PerseusGraphTypeSinusoid,
 } from "../../../perseus-types";
-import {parseWidget} from "./widget";
-import {object} from "../general-purpose-parsers/object";
-import {pair} from "../general-purpose-parsers/pair";
-import {number} from "../general-purpose-parsers/number";
-import {optional} from "../general-purpose-parsers/optional";
-import {parsePerseusImageBackground} from "./perseus-image-background";
-import {enumeration} from "../general-purpose-parsers/enumeration";
-import {array} from "../general-purpose-parsers/array";
-import {string} from "../general-purpose-parsers/string";
-import {boolean} from "../general-purpose-parsers/boolean";
-import {any} from "../general-purpose-parsers/any";
-import {union} from "../general-purpose-parsers/union";
-import {trio} from "../general-purpose-parsers/trio";
-import {nullable} from "../general-purpose-parsers/nullable";
+import type {Parser} from "../parser-types";
 
 // Used to represent 2-D points and ranges
-const pairOfNumbers = pair(number, number)
+const pairOfNumbers = pair(number, number);
 
 const parsePerseusGraphTypeAngle: Parser<PerseusGraphTypeAngle> = object({
     type: constant("angle"),
@@ -57,10 +61,12 @@ const parsePerseusGraphTypeCircle: Parser<PerseusGraphTypeCircle> = object({
     type: constant("circle"),
     center: optional(pairOfNumbers),
     radius: optional(number),
-    startCoords: optional(object({
-        center: pairOfNumbers,
-        radius: number,
-    })),
+    startCoords: optional(
+        object({
+            center: pairOfNumbers,
+            radius: number,
+        }),
+    ),
     // TODO: remove coord? it's legacy.
     coord: optional(pairOfNumbers),
 });
@@ -73,17 +79,18 @@ const parsePerseusGraphTypeLinear: Parser<PerseusGraphTypeLinear> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeLinearSystem: Parser<PerseusGraphTypeLinearSystem> = object({
-    type: constant("linear-system"),
-    // TODO: default coords to empty array?
-    coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
-    startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
-});
+const parsePerseusGraphTypeLinearSystem: Parser<PerseusGraphTypeLinearSystem> =
+    object({
+        type: constant("linear-system"),
+        // TODO: default coords to empty array?
+        coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
+        startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
+        // TODO: remove coord? it's legacy.
+        coord: optional(pairOfNumbers),
+    });
 
 const parsePerseusGraphTypeNone: Parser<PerseusGraphTypeNone> = object({
-   type: constant("none"),
+    type: constant("none"),
 });
 
 const parsePerseusGraphTypePoint: Parser<PerseusGraphTypePoint> = object({
@@ -107,13 +114,18 @@ const parsePerseusGraphTypePolygon: Parser<PerseusGraphTypePolygon> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeQuadratic: Parser<PerseusGraphTypeQuadratic> = object({
-    type: constant("quadratic"),
-    coords: optional(nullable(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers))),
-    startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
-});
+const parsePerseusGraphTypeQuadratic: Parser<PerseusGraphTypeQuadratic> =
+    object({
+        type: constant("quadratic"),
+        coords: optional(
+            nullable(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
+        ),
+        startCoords: optional(
+            trio(pairOfNumbers, pairOfNumbers, pairOfNumbers),
+        ),
+        // TODO: remove coord? it's legacy.
+        coord: optional(pairOfNumbers),
+    });
 
 const parsePerseusGraphTypeRay: Parser<PerseusGraphTypeRay> = object({
     type: constant("ray"),
@@ -141,7 +153,9 @@ const parsePerseusGraphTypeSinusoid: Parser<PerseusGraphTypeSinusoid> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphType: Parser<PerseusGraphType> = union(parsePerseusGraphTypeAngle)
+const parsePerseusGraphType: Parser<PerseusGraphType> = union(
+    parsePerseusGraphTypeAngle,
+)
     .or(parsePerseusGraphTypeAngle)
     .or(parsePerseusGraphTypeCircle)
     .or(parsePerseusGraphTypeLinear)
@@ -152,14 +166,23 @@ const parsePerseusGraphType: Parser<PerseusGraphType> = union(parsePerseusGraphT
     .or(parsePerseusGraphTypeQuadratic)
     .or(parsePerseusGraphTypeRay)
     .or(parsePerseusGraphTypeSegment)
-    .or(parsePerseusGraphTypeSinusoid)
-    .parser
+    .or(parsePerseusGraphTypeSinusoid).parser;
 
-const parseLockedFigureColor: Parser<LockedFigureColor> = enumeration(...lockedFigureColorNames);
+const parseLockedFigureColor: Parser<LockedFigureColor> = enumeration(
+    ...lockedFigureColorNames,
+);
 
-const parseLockedFigureFillType: Parser<LockedFigureFillType> = enumeration("none", "white", "translucent", "solid");
+const parseLockedFigureFillType: Parser<LockedFigureFillType> = enumeration(
+    "none",
+    "white",
+    "translucent",
+    "solid",
+);
 
-const parseLockedLineStyle: Parser<LockedLineStyle> = enumeration("solid", "dashed");
+const parseLockedLineStyle: Parser<LockedLineStyle> = enumeration(
+    "solid",
+    "dashed",
+);
 
 const parseLockedLabelType: Parser<LockedLabelType> = object({
     type: constant("label"),
@@ -244,29 +267,29 @@ const parseLockedFigure: Parser<LockedFigure> = union(parseLockedPointType)
     .or(parseLockedEllipseType)
     .or(parseLockedPolygonType)
     .or(parseLockedFunctionType)
-    .or(parseLockedLabelType)
-    .parser
+    .or(parseLockedLabelType).parser;
 
-export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> = parseWidget(
-    constant("interactive-graph"),
-    object({
-        step: pairOfNumbers,
-        gridStep: pairOfNumbers,
-        snapStep: pairOfNumbers,
-        backgroundImage: optional(parsePerseusImageBackground),
-        markings: enumeration("graph", "grid", "none"),
-        labels: array(string),
-        showProtractor: boolean,
-        showRuler: optional(boolean),
-        showTooltips: optional(boolean),
-        rulerLabel: optional(string),
-        rulerTicks: optional(number),
-        range: pair(pairOfNumbers, pairOfNumbers),
-        graph: parsePerseusGraphType,
-        correct: parsePerseusGraphType,
-        // TODO: default lockedFigures to empty array
-        lockedFigures: optional(array(parseLockedFigure)),
-        fullGraphLabel: optional(string),
-        fullGraphAriaDescription: optional(string),
-    })
-)
+export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
+    parseWidget(
+        constant("interactive-graph"),
+        object({
+            step: pairOfNumbers,
+            gridStep: pairOfNumbers,
+            snapStep: pairOfNumbers,
+            backgroundImage: optional(parsePerseusImageBackground),
+            markings: enumeration("graph", "grid", "none"),
+            labels: array(string),
+            showProtractor: boolean,
+            showRuler: optional(boolean),
+            showTooltips: optional(boolean),
+            rulerLabel: optional(string),
+            rulerTicks: optional(number),
+            range: pair(pairOfNumbers, pairOfNumbers),
+            graph: parsePerseusGraphType,
+            correct: parsePerseusGraphType,
+            // TODO: default lockedFigures to empty array
+            lockedFigures: optional(array(parseLockedFigure)),
+            fullGraphLabel: optional(string),
+            fullGraphAriaDescription: optional(string),
+        }),
+    );

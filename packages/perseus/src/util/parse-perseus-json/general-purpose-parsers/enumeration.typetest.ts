@@ -1,6 +1,8 @@
-import {enumeration} from "./enumeration"
-import {ParseContext} from "../parser-types";
 import invariant from "tiny-invariant";
+
+import {enumeration} from "./enumeration";
+
+import type {ParseContext} from "../parser-types";
 
 const ctx: ParseContext = null as any;
 
