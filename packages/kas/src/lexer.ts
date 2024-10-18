@@ -155,16 +155,26 @@ const next = (
     return [token, input.slice(currentMatch.length)];
 };
 
-export type Options = {
+export type ParseOptions = {
     functions?: string[];
+    decimal_separator?: string;
 };
 
-export const lex = (input: string, options?: Options): Token[] => {
+export const lex = (input: string, options?: ParseOptions): Token[] => {
     const tokens: Token[] = [];
     const constants = ["e"];
     const functions = options?.functions
         ? options.functions.filter((fn) => fn !== "i")
         : [];
+
+    // If ',' is the decimal dividor in your country, replace any ','s
+    // with '.'s.
+    // This isn't perfect, since the output will all still have '.'s.
+    // TODO(jack): Fix the output to have ','s in this case
+    if (options && options.decimal_separator) {
+        input = input.split(options.decimal_separator).join(".");
+    }
+
     while (input.length > 0) {
         const [token, remainingInput] = next(input, preparedRules);
         if (token.kind === "VAR") {

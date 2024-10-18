@@ -5,7 +5,7 @@ import type {CompareOptions, CompareResult, Expression} from "./types";
 export const compare = function (
     expr1: Expression,
     expr2: Expression,
-    options: CompareOptions,
+    options?: CompareOptions,
 ): CompareResult {
     const defaults: CompareOptions = {
         form: false,

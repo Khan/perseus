@@ -1,4 +1,4 @@
-import {type Token, type Options, lex} from "./lexer";
+import {type Token, type ParseOptions, lex} from "./lexer";
 import {
     Abs,
     Add,
@@ -143,7 +143,7 @@ export class Parser {
         return next.value;
     }
 
-    parse() {
+    parse(): Expr {
         return this.equation();
     }
 
@@ -433,7 +433,7 @@ type ParseResult =
           error: string;
       };
 
-export function parse(input: string, options?: Options): ParseResult {
+export function parse(input: string, options?: ParseOptions): ParseResult {
     try {
         const tokens = lex(input, options);
         const parser = new Parser(tokens);
