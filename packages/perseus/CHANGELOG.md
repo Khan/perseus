@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 38.1.0
+
+### Minor Changes
+
+-   [#1745](https://github.com/Khan/perseus/pull/1745) [`5cbbeebdf`](https://github.com/Khan/perseus/commit/5cbbeebdf368a06c318940f477af08fd73a84e66) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - adds appearance description to aria label
+
 ## 38.0.1
 
 ### Patch Changes
