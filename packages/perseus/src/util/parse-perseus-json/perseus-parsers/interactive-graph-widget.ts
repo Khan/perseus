@@ -42,7 +42,18 @@ const parsePerseusGraphTypeAngle: Parser<PerseusGraphTypeAngle> = object({
     startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
 });
 
-const parsePerseusGraphTypeCircle: Parser<PerseusGraphTypeCircle> = any; // TODO
+const parsePerseusGraphTypeCircle: Parser<PerseusGraphTypeCircle> = object({
+    type: constant("circle"),
+    center: optional(pairOfNumbers),
+    radius: optional(number),
+    startCoords: optional(object({
+        center: pairOfNumbers,
+        radius: number,
+    })),
+    // TODO: remove coord? it's legacy.
+    coord: optional(pairOfNumbers),
+});
+
 const parsePerseusGraphTypeLinear: Parser<PerseusGraphTypeLinear> = any; // TODO
 const parsePerseusGraphTypeLinearSystem: Parser<PerseusGraphTypeLinearSystem> = any; // TODO
 const parsePerseusGraphTypeNone: Parser<PerseusGraphTypeNone> = any; // TODO
