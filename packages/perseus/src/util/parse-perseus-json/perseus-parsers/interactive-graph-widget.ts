@@ -1,6 +1,19 @@
 import {constant} from "../general-purpose-parsers/constant";
 import {Parser} from "../parser-types";
-import {InteractiveGraphWidget} from "../../../perseus-types";
+import {
+    InteractiveGraphWidget,
+    PerseusGraphType, PerseusGraphTypeAngle,
+    PerseusGraphTypeCircle,
+    PerseusGraphTypeLinear,
+    PerseusGraphTypeLinearSystem,
+    PerseusGraphTypeNone,
+    PerseusGraphTypePoint,
+    PerseusGraphTypePolygon,
+    PerseusGraphTypeQuadratic,
+    PerseusGraphTypeRay,
+    PerseusGraphTypeSegment,
+    PerseusGraphTypeSinusoid
+} from "../../../perseus-types";
 import {parseWidget} from "./widget";
 import {object} from "../general-purpose-parsers/object";
 import {pair} from "../general-purpose-parsers/pair";
@@ -12,9 +25,36 @@ import {array} from "../general-purpose-parsers/array";
 import {string} from "../general-purpose-parsers/string";
 import {boolean} from "../general-purpose-parsers/boolean";
 import {any} from "../general-purpose-parsers/any";
+import {unionBuilder} from "../general-purpose-parsers/union";
 
 // Used to represent 2-D points and ranges
 const pairOfNumbers = pair(number, number)
+
+const parsePerseusGraphTypeAngle: Parser<PerseusGraphTypeAngle> = any; // TODO
+const parsePerseusGraphTypeCircle: Parser<PerseusGraphTypeCircle> = any; // TODO
+const parsePerseusGraphTypeLinear: Parser<PerseusGraphTypeLinear> = any; // TODO
+const parsePerseusGraphTypeLinearSystem: Parser<PerseusGraphTypeLinearSystem> = any; // TODO
+const parsePerseusGraphTypeNone: Parser<PerseusGraphTypeNone> = any; // TODO
+const parsePerseusGraphTypePoint: Parser<PerseusGraphTypePoint> = any; // TODO
+const parsePerseusGraphTypePolygon: Parser<PerseusGraphTypePolygon> = any; // TODO
+const parsePerseusGraphTypeQuadratic: Parser<PerseusGraphTypeQuadratic> = any; // TODO
+const parsePerseusGraphTypeRay: Parser<PerseusGraphTypeRay> = any; // TODO
+const parsePerseusGraphTypeSegment: Parser<PerseusGraphTypeSegment> = any; // TODO
+const parsePerseusGraphTypeSinusoid: Parser<PerseusGraphTypeSinusoid> = any; // TODO
+
+const parsePerseusGraphType: Parser<PerseusGraphType> = unionBuilder()
+    .add(parsePerseusGraphTypeAngle)
+    .add(parsePerseusGraphTypeCircle)
+    .add(parsePerseusGraphTypeLinear)
+    .add(parsePerseusGraphTypeLinearSystem)
+    .add(parsePerseusGraphTypeNone)
+    .add(parsePerseusGraphTypePoint)
+    .add(parsePerseusGraphTypePolygon)
+    .add(parsePerseusGraphTypeQuadratic)
+    .add(parsePerseusGraphTypeRay)
+    .add(parsePerseusGraphTypeSegment)
+    .add(parsePerseusGraphTypeSinusoid)
+    .parser
 
 export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> = parseWidget(
     constant("interactive-graph"),
@@ -31,8 +71,8 @@ export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> = parse
         rulerLabel: optional(string),
         rulerTicks: optional(number),
         range: pair(pairOfNumbers, pairOfNumbers),
-        graph: any, // TODO PerseusGraphType
-        correct: any, // TODO PerseusGraphType
+        graph: parsePerseusGraphType,
+        correct: parsePerseusGraphType,
         // TODO: default lockedFigures to empty array
         lockedFigures: optional(array(any)), // TODO LockedFigure
         fullGraphLabel: optional(string),
