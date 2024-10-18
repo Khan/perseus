@@ -143,9 +143,6 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
                     message: "",
                 },
             ],
-            labelText: "",
-            size: "normal",
-            static: false,
             coefficient: true,
         };
         const singleAnswer =
