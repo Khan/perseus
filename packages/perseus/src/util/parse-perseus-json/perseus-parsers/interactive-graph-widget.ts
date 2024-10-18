@@ -157,7 +157,13 @@ const parsePerseusGraphType: Parser<PerseusGraphType> = union(parsePerseusGraphT
 
 const parseLockedFigureColor: Parser<LockedFigureColor> = enumeration(...lockedFigureColorNames);
 
-const parseLockedLabelType: Parser<LockedLabelType> = any; // TODO
+const parseLockedLabelType: Parser<LockedLabelType> = object({
+    type: constant("label"),
+    coord: pairOfNumbers,
+    text: string,
+    color: parseLockedFigureColor,
+    size: enumeration("small", "medium", "large"),
+});
 
 const parseLockedPointType: Parser<LockedPointType> = object({
     type: constant("point"),
