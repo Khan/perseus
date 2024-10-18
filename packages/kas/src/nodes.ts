@@ -112,7 +112,7 @@ type Options = {
 };
 
 /* abstract base expression node */
-abstract class Expr {
+export abstract class Expr {
     hints: Hints;
 
     constructor() {
@@ -2969,9 +2969,9 @@ export class Func extends Sym {
 /* variable */
 export class Var extends Sym {
     symbol: string;
-    subscript: Expr;
+    subscript?: Expr;
 
-    constructor(symbol: string, subscript: Expr) {
+    constructor(symbol: string, subscript?: Expr) {
         super();
         this.symbol = symbol;
         this.subscript = subscript;
@@ -2980,7 +2980,9 @@ export class Var extends Sym {
     func = Var;
 
     args() {
-        return [this.symbol, this.subscript];
+        return this.subscript
+            ? [this.symbol, this.subscript]
+            : [this.symbol];
     }
 
     exprArgs() {
