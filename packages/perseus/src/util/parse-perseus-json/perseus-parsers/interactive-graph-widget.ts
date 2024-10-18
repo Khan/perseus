@@ -63,7 +63,14 @@ const parsePerseusGraphTypeLinear: Parser<PerseusGraphTypeLinear> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeLinearSystem: Parser<PerseusGraphTypeLinearSystem> = any; // TODO
+const parsePerseusGraphTypeLinearSystem: Parser<PerseusGraphTypeLinearSystem> = object({
+    type: constant("linear-system"),
+    // TODO: default coords to empty array?
+    coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
+    startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
+    coord: optional(pairOfNumbers),
+});
+
 const parsePerseusGraphTypeNone: Parser<PerseusGraphTypeNone> = any; // TODO
 const parsePerseusGraphTypePoint: Parser<PerseusGraphTypePoint> = any; // TODO
 const parsePerseusGraphTypePolygon: Parser<PerseusGraphTypePolygon> = any; // TODO
