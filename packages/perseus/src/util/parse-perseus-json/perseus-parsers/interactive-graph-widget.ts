@@ -190,7 +190,14 @@ const parseLockedLineType: Parser<LockedLineType> = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedVectorType: Parser<LockedVectorType> = any; // TODO
+const parseLockedVectorType: Parser<LockedVectorType> = object({
+    type: constant("vector"),
+    points: pair(pairOfNumbers, pairOfNumbers),
+    color: parseLockedFigureColor,
+    labels: optional(array(parseLockedLabelType)),
+    ariaLabel: optional(string),
+});
+
 const parseLockedEllipseType: Parser<LockedEllipseType> = any; // TODO
 const parseLockedPolygonType: Parser<LockedPolygonType> = any; // TODO
 const parseLockedFunctionType: Parser<LockedFunctionType> = any; // TODO
