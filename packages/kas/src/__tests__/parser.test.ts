@@ -58,6 +58,17 @@ expect.extend({
     },
 });
 
+// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace jest {
+        interface Matchers<R> {
+            toParseAs(expected: string, options?: any): R;
+            toParseWithStructure(expected: string, options?: any): R;
+        }
+    }
+}
+
 describe("Parser", () => {
     test("empty", () => {
         expect("").toParseAs("");
@@ -80,6 +91,11 @@ describe("Parser", () => {
         expect("-pi").toParseAs("-1*pi");
         expect("-e").toParseAs("-1*e");
         expect("-theta").toParseAs("-1*theta");
+    });
+
+    test("decimal separators", () => {
+        expect("3,14").toParseAs("3.14", {decimal_separator: ","});
+        expect("0,1+0,2").toParseAs("0.1+0.2", {decimal_separator: ","});
     });
 
     test("LaTeX constants", () => {

@@ -5,7 +5,9 @@
 import _ from "underscore";
 
 import {unitParser} from "./__genfiles__/unitparser";
-import {parser} from "./__genfiles__/parser";
+import {parse} from "./parser";
+
+import type {ParseOptions} from "./lexer";
 
 /*  The node hierarcy is as follows:
 
@@ -2931,18 +2933,17 @@ export class Func extends Sym {
         return this.symbol + "(" + this.arg.tex() + ")";
     }
 
-    eval(vars: Vars = {}, options?: ParseOptions) {
+    eval(vars: Vars = {}, options?: ParseOptions): number {
         var arg = this.arg;
         var func = vars[this.symbol];
         var newVars = _.extend(_.clone(vars), {
             x: arg.eval(vars, options),
         });
         var parsedFunc = parse(func, options);
-        if (parsedFunc.parsed) {
-            return parsedFunc.expr.eval(newVars, options);
+        if (!parsedFunc.parsed) {
+            throw new Error(parsedFunc.error);
         }
-        // If parsedFunc isn't actually parsed, return its error
-        return parsedFunc;
+        return parsedFunc.expr.eval(newVars, options);
     }
 
     codegen(): string {
@@ -2980,9 +2981,7 @@ export class Var extends Sym {
     func = Var;
 
     args() {
-        return this.subscript
-            ? [this.symbol, this.subscript]
-            : [this.symbol];
+        return this.subscript ? [this.symbol, this.subscript] : [this.symbol];
     }
 
     exprArgs() {
@@ -3562,64 +3561,6 @@ var parseError = function (str: string, hash) {
     throw new Error(hash.loc.first_column);
 };
 
-// expose concrete nodes to parser scope
-// see http://zaach.github.io/jison/docs/#sharing-scope
-parser.yy = {
-    Add: Add,
-    Mul: Mul,
-    Pow: Pow,
-    Log: Log,
-    Trig: Trig,
-    Eq: Eq,
-    Abs: Abs,
-    Func: Func,
-    Const: Const,
-    Var: Var,
-    Int: Int,
-    Float: Float,
-    parseError: parseError,
-
-    constants: ["e"],
-    symbolLexer: function (symbol) {
-        if (_.contains(parser.yy.constants, symbol)) {
-            return "CONST";
-        } else if (_.contains(parser.yy.functions, symbol)) {
-            return "FUNC";
-        } else {
-            return "VAR";
-        }
-    },
-};
-
-type ParseOptions = {
-    functions?: string[];
-    decimal_separator?: string;
-};
-
-export const parse = function (input: string, options?: ParseOptions) {
-    try {
-        if (options && options.functions) {
-            // reserve the symbol "i" for complex numbers
-            parser.yy.functions = _.without(options.functions, "i");
-        } else {
-            parser.yy.functions = [];
-        }
-
-        // If ',' is the decimal dividor in your country, replace any ','s
-        // with '.'s.
-        // This isn't perfect, since the output will all still have '.'s.
-        // TODO(jack): Fix the output to have ','s in this case
-        if (options && options.decimal_separator) {
-            input = input.split(options.decimal_separator).join(".");
-        }
-
-        var expr = parser.parse(input).completeParse();
-        return {parsed: true, expr: expr};
-    } catch (e) {
-        return {parsed: false, error: (e as Error).message};
-    }
-};
-
 /* unit */
 export class Unit extends Sym {
     symbol: string;
@@ -3668,6 +3609,8 @@ export class Unit extends Sym {
 
     // Simplify units by replacing prefixes with multiplication
     collect(options?: Options) {
+        const derivedUnits = getDerivedUnits();
+
         if (_(baseUnits).has(this.symbol)) {
             return this;
         } else if (_(derivedUnits).has(this.symbol)) {
@@ -3683,6 +3626,8 @@ export class Unit extends Sym {
 // "g" -> Unit("g")
 // "kg" -> 1000 * Unit("g")
 var unprefixify = function (symbol: string) {
+    const derivedUnits = getDerivedUnits();
+
     if (_(baseUnits).has(symbol) || _(derivedUnits).has(symbol)) {
         return new Unit(symbol);
     }
@@ -3820,9 +3765,13 @@ const makeAlias = function (str: string, prefixes: Prefixes) {
     var coefficientStr = splits[0].trim();
     var unitsStr = splits[1].trim();
 
-    var coefficient = NumOne;
+    var coefficient: Expr = NumOne;
     if (coefficientStr !== "") {
-        coefficient = parse(coefficientStr).expr;
+        const result = parse(coefficientStr);
+        if (!result.parsed) {
+            throw new Error(result.error);
+        }
+        coefficient = result.expr;
     }
 
     var numdenomStr = unitsStr.split("/");
@@ -3870,7 +3819,12 @@ const makeAlias = function (str: string, prefixes: Prefixes) {
 //
 // Where possible, these units are taken from "The International System of
 // Units (SI)" 8th edition (2006).
-var derivedUnits = {
+//
+// NOTE(kevinb): We lazily compute this table because `makeAlias` use `parse`
+// from parser.ts which imports nodes.ts.
+//
+// TODO(kevinb): Move Unit and the unit parser out into their own files.
+const getDerivedUnits = _.memoize(() => ({
     // mass
     // The atomic mass unit / dalton.
     Da: makeAlias("1.6605388628 x 10^-24 | g", hasPrefixes),
@@ -4012,7 +3966,7 @@ var derivedUnits = {
 
     // other
     Hz: makeAlias("| / s", hasPrefixes),
-};
+}));
 
 export const Zero = NumZero;
 export const One = NumOne;
