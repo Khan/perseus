@@ -74,7 +74,13 @@ class Radio extends React.Component<Props> implements Widget {
         showSolutions: "none",
     };
 
-    static getUserInputFromProps(props: Props): PerseusRadioUserInput {
+    static getUserInputFromProps({
+        props,
+        unshuffle = true,
+    }: {
+        props: Props;
+        unshuffle?: boolean;
+    }): PerseusRadioUserInput {
         // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
         // future timeline implementers: this used to be {value: i} before
         // multiple select was added)
@@ -87,7 +93,7 @@ class Radio extends React.Component<Props> implements Widget {
             const numCorrect = props.numCorrect;
 
             for (let i = 0; i < choicesSelected.length; i++) {
-                const index = props.choices[i].originalIndex;
+                const index = unshuffle ? props.choices[i].originalIndex : i;
 
                 choicesSelected[index] = choiceStates[i].selected;
 
@@ -120,7 +126,7 @@ class Radio extends React.Component<Props> implements Widget {
             const valuesLength = values.length;
 
             for (let i = 0; i < valuesLength; i++) {
-                const index = props.choices[i].originalIndex;
+                const index = unshuffle ? props.choices[i].originalIndex : i;
                 choicesSelected[index] = values[i];
 
                 if (props.choices[i].isNoneOfTheAbove) {
@@ -280,11 +286,15 @@ class Radio extends React.Component<Props> implements Widget {
     };
 
     getUserInput(): PerseusRadioUserInput {
-        return Radio.getUserInputFromProps(this.props);
+        return Radio.getUserInputFromProps({props: this.props});
     }
 
     getPromptJSON(): RadioPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        const userInput = Radio.getUserInputFromProps({
+            props: this.props,
+            unshuffle: false,
+        });
+        return _getPromptJSON(this.props, userInput);
     }
 
     /**
