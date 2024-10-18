@@ -226,7 +226,17 @@ const parseLockedPolygonType: Parser<LockedPolygonType> = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedFunctionType: Parser<LockedFunctionType> = any; // TODO
+const parseLockedFunctionType: Parser<LockedFunctionType> = object({
+    type: constant("function"),
+    color: parseLockedFigureColor,
+    strokeStyle: parseLockedLineStyle,
+    equation: string,
+    directionalAxis: enumeration("x", "y"),
+    domain: optional(pairOfNumbers),
+    // TODO: default labels to empty array?
+    labels: optional(array(parseLockedLabelType)),
+    ariaLabel: optional(string),
+});
 
 const parseLockedFigure: Parser<LockedFigure> = union(parseLockedPointType)
     .or(parseLockedLineType)
