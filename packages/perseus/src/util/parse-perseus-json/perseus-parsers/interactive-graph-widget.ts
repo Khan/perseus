@@ -123,7 +123,13 @@ const parsePerseusGraphTypeSegment: Parser<PerseusGraphTypeSegment> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeSinusoid: Parser<PerseusGraphTypeSinusoid> = any; // TODO
+const parsePerseusGraphTypeSinusoid: Parser<PerseusGraphTypeSinusoid> = object({
+    type: constant("sinusoid"),
+    coords: optional(nullable(array(pairOfNumbers))),
+    startCoords: optional(array(pairOfNumbers)),
+    // TODO: remove coord? it's legacy.
+    coord: optional(pairOfNumbers),
+});
 
 const parsePerseusGraphType: Parser<PerseusGraphType> = unionBuilder()
     .add(parsePerseusGraphTypeAngle)
