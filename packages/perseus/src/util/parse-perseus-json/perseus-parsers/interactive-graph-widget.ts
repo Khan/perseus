@@ -2,7 +2,12 @@ import {constant} from "../general-purpose-parsers/constant";
 import {Parser} from "../parser-types";
 import {
     InteractiveGraphWidget,
-    PerseusGraphType, PerseusGraphTypeAngle,
+    LockedEllipseType, LockedFigure, LockedFunctionType, LockedLabelType,
+    LockedLineType,
+    LockedPointType, LockedPolygonType,
+    LockedVectorType,
+    PerseusGraphType,
+    PerseusGraphTypeAngle,
     PerseusGraphTypeCircle,
     PerseusGraphTypeLinear,
     PerseusGraphTypeLinearSystem,
@@ -145,6 +150,24 @@ const parsePerseusGraphType: Parser<PerseusGraphType> = unionBuilder()
     .add(parsePerseusGraphTypeSinusoid)
     .parser
 
+const parseLockedPointType: Parser<LockedPointType> = any; // TODO
+const parseLockedLineType: Parser<LockedLineType> = any; // TODO
+const parseLockedVectorType: Parser<LockedVectorType> = any; // TODO
+const parseLockedEllipseType: Parser<LockedEllipseType> = any; // TODO
+const parseLockedPolygonType: Parser<LockedPolygonType> = any; // TODO
+const parseLockedFunctionType: Parser<LockedFunctionType> = any; // TODO
+const parseLockedLabelType: Parser<LockedLabelType> = any; // TODO
+
+const parseLockedFigure: Parser<LockedFigure> = unionBuilder()
+    .add(parseLockedPointType)
+    .add(parseLockedLineType)
+    .add(parseLockedVectorType)
+    .add(parseLockedEllipseType)
+    .add(parseLockedPolygonType)
+    .add(parseLockedFunctionType)
+    .add(parseLockedLabelType)
+    .parser
+
 export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> = parseWidget(
     constant("interactive-graph"),
     object({
@@ -163,7 +186,7 @@ export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> = parse
         graph: parsePerseusGraphType,
         correct: parsePerseusGraphType,
         // TODO: default lockedFigures to empty array
-        lockedFigures: optional(array(any)), // TODO LockedFigure
+        lockedFigures: optional(array(parseLockedFigure)),
         fullGraphLabel: optional(string),
         fullGraphAriaDescription: optional(string),
     })
