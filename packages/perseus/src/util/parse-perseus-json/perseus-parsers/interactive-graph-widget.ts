@@ -4,7 +4,7 @@ import {
     InteractiveGraphWidget,
     LockedEllipseType,
     LockedFigure,
-    LockedFigureColor, lockedFigureColorNames,
+    LockedFigureColor, lockedFigureColorNames, LockedFigureFillType,
     LockedFunctionType,
     LockedLabelType, LockedLineStyle,
     LockedLineType,
@@ -157,6 +157,8 @@ const parsePerseusGraphType: Parser<PerseusGraphType> = union(parsePerseusGraphT
 
 const parseLockedFigureColor: Parser<LockedFigureColor> = enumeration(...lockedFigureColorNames);
 
+const parseLockedFigureFillType: Parser<LockedFigureFillType> = enumeration("none", "white", "translucent", "solid");
+
 const parseLockedLabelType: Parser<LockedLabelType> = object({
     type: constant("label"),
     coord: pairOfNumbers,
@@ -198,7 +200,18 @@ const parseLockedVectorType: Parser<LockedVectorType> = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedEllipseType: Parser<LockedEllipseType> = any; // TODO
+const parseLockedEllipseType: Parser<LockedEllipseType> = object({
+    type: constant("ellipse"),
+    center: pairOfNumbers,
+    radius: pairOfNumbers,
+    angle: number,
+    color: parseLockedFigureColor,
+    fillStyle: parseLockedFigureFillType,
+    strokeStyle: parseLockedLineStyle,
+    labels: optional(array(parseLockedLabelType)),
+    ariaLabel: optional(string),
+});
+
 const parseLockedPolygonType: Parser<LockedPolygonType> = any; // TODO
 const parseLockedFunctionType: Parser<LockedFunctionType> = any; // TODO
 
