@@ -2,13 +2,18 @@ import {mockStrings} from "../../strings";
 
 import radioValidator from "./radio-validator";
 
+import type {
+    PerseusRadioRubric,
+    PerseusRadioUserInput,
+} from "../../validation.types";
+
 describe("radioValidator", () => {
     it("is invalid when no options are selected", () => {
-        const userInput = {
+        const userInput: PerseusRadioUserInput = {
             choicesSelected: [false, false, false, false],
         };
 
-        const rubric = {
+        const rubric: PerseusRadioRubric = {
             choices: [
                 {content: "Choice 1"},
                 {content: "Choice 2"},
@@ -23,12 +28,12 @@ describe("radioValidator", () => {
     });
 
     it("is invalid when number selected does not match number correct", () => {
-        const userInput = {
+        const userInput: PerseusRadioUserInput = {
             numCorrect: 2,
             choicesSelected: [true, false, false, false],
         };
 
-        const rubric = {
+        const rubric: PerseusRadioRubric = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: true},
@@ -43,12 +48,12 @@ describe("radioValidator", () => {
     });
 
     it("is invalid when none of the above and an answer are both selected", () => {
-        const userInput = {
+        const userInput: PerseusRadioUserInput = {
             noneOfTheAboveSelected: true,
             choicesSelected: [true, false, false, false, true],
         };
 
-        const rubric = {
+        const rubric: PerseusRadioRubric = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: false},
@@ -56,7 +61,6 @@ describe("radioValidator", () => {
                 {content: "Choice 4", correct: false},
                 {content: "None of the above", correct: false},
             ],
-            hasNoneOfTheAbove: true,
         };
 
         const result = radioValidator(userInput, rubric, mockStrings);
@@ -65,11 +69,11 @@ describe("radioValidator", () => {
     });
 
     it("can handle single correct answer", () => {
-        const userInput = {
+        const userInput: PerseusRadioUserInput = {
             choicesSelected: [true, false, false, false],
         };
 
-        const rubric = {
+        const rubric: PerseusRadioRubric = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: false},
@@ -84,11 +88,11 @@ describe("radioValidator", () => {
     });
 
     it("can handle single incorrect answer", () => {
-        const userInput = {
+        const userInput: PerseusRadioUserInput = {
             choicesSelected: [false, false, false, true],
         };
 
-        const rubric = {
+        const rubric: PerseusRadioRubric = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: false},
@@ -103,11 +107,11 @@ describe("radioValidator", () => {
     });
 
     it("can handle multiple correct answer", () => {
-        const userInput = {
+        const userInput: PerseusRadioUserInput = {
             choicesSelected: [true, true, false, false],
         };
 
-        const rubric = {
+        const rubric: PerseusRadioRubric = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: true},
@@ -122,11 +126,11 @@ describe("radioValidator", () => {
     });
 
     it("can handle multiple incorrect answer", () => {
-        const userInput = {
+        const userInput: PerseusRadioUserInput = {
             choicesSelected: [true, false, false, true],
         };
 
-        const rubric = {
+        const rubric: PerseusRadioRubric = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: true},
@@ -141,13 +145,13 @@ describe("radioValidator", () => {
     });
 
     it("can handle none of the above correct answer", () => {
-        const userInput = {
+        const userInput: PerseusRadioUserInput = {
             choicesSelected: [false, false, false, false, true],
             noneOfTheAboveSelected: true,
             noneOfTheAboveIndex: 4,
         };
 
-        const rubric = {
+        const rubric: PerseusRadioRubric = {
             choices: [
                 {content: "Choice 1", correct: false},
                 {content: "Choice 2", correct: false},
@@ -162,13 +166,13 @@ describe("radioValidator", () => {
     });
 
     it("can handle none of the above incorrect answer", () => {
-        const userInput = {
+        const userInput: PerseusRadioUserInput = {
             choicesSelected: [false, false, false, false, true],
             noneOfTheAboveSelected: true,
             noneOfTheAboveIndex: 4,
         };
 
-        const rubric = {
+        const rubric: PerseusRadioRubric = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: false},
