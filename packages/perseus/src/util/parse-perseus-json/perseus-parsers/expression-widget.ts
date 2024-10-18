@@ -41,8 +41,6 @@ export const parseExpressionWidget: Parser<ExpressionWidget> = parseWidget(
                 "advanced relations",
             ),
         ),
-        buttonsVisible: optional(
-            enumeration("always", "never", "focused"),
-        ),
+        buttonsVisible: optional(enumeration("always", "never", "focused")),
     }),
 );

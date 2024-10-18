@@ -1,16 +1,15 @@
-import {union} from "./union"
 import invariant from "tiny-invariant";
-import {ParseContext} from "../parser-types";
+
 import {constant} from "./constant";
+import {union} from "./union";
+
+import type {ParseContext} from "../parser-types";
 
 const ctx: ParseContext = null as any;
 
 // Test: return type is a union
 {
-    const abc = union(constant("a"))
-        .or(constant("b"))
-        .or(constant("c"))
-        .parser
+    const abc = union(constant("a")).or(constant("b")).or(constant("c")).parser;
 
     const result = abc(null, ctx);
     invariant(result.type === "success");
@@ -48,13 +47,63 @@ const ctx: ParseContext = null as any;
         .or(constant("w"))
         .or(constant("x"))
         .or(constant("y"))
-        .or(constant("z"))
-        .parser
+        .or(constant("z")).parser;
 
     const result = alphabet(null, ctx);
     invariant(result.type === "success");
 
-    result.value satisfies "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z";
+    result.value satisfies
+        | "a"
+        | "b"
+        | "c"
+        | "d"
+        | "e"
+        | "f"
+        | "g"
+        | "h"
+        | "i"
+        | "j"
+        | "k"
+        | "l"
+        | "m"
+        | "n"
+        | "o"
+        | "p"
+        | "q"
+        | "r"
+        | "s"
+        | "t"
+        | "u"
+        | "v"
+        | "w"
+        | "x"
+        | "y"
+        | "z";
     // @ts-expect-error - "a" is not assignable to "b" | "c" | ...
-    result.value satisfies "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z";
+    result.value satisfies
+        | "b"
+        | "c"
+        | "d"
+        | "e"
+        | "f"
+        | "g"
+        | "h"
+        | "i"
+        | "j"
+        | "k"
+        | "l"
+        | "m"
+        | "n"
+        | "o"
+        | "p"
+        | "q"
+        | "r"
+        | "s"
+        | "t"
+        | "u"
+        | "v"
+        | "w"
+        | "x"
+        | "y"
+        | "z";
 }

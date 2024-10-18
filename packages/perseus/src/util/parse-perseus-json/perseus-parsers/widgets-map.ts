@@ -9,10 +9,10 @@ import {parseDefinitionWidget} from "./definition-widget";
 import {parseDropdownWidget} from "./dropdown-widget";
 import {parseExplanationWidget} from "./explanation-widget";
 import {parseExpressionWidget} from "./expression-widget";
+import {parseInteractiveGraphWidget} from "./interactive-graph-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
-import {parseInteractiveGraphWidget} from "./interactive-graph-widget";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
