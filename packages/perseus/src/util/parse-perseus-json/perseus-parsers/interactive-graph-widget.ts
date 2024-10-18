@@ -113,7 +113,16 @@ const parsePerseusGraphTypeRay: Parser<PerseusGraphTypeRay> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeSegment: Parser<PerseusGraphTypeSegment> = any; // TODO
+const parsePerseusGraphTypeSegment: Parser<PerseusGraphTypeSegment> = object({
+    type: constant("segment"),
+    // TODO: default numSegments?
+    numSegments: optional(number),
+    coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
+    startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
+    // TODO: remove coord? it's legacy.
+    coord: optional(pairOfNumbers),
+});
+
 const parsePerseusGraphTypeSinusoid: Parser<PerseusGraphTypeSinusoid> = any; // TODO
 
 const parsePerseusGraphType: Parser<PerseusGraphType> = unionBuilder()
