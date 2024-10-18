@@ -97,7 +97,14 @@ const parsePerseusGraphTypePolygon: Parser<PerseusGraphTypePolygon> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeQuadratic: Parser<PerseusGraphTypeQuadratic> = any; // TODO
+const parsePerseusGraphTypeQuadratic: Parser<PerseusGraphTypeQuadratic> = object({
+    type: constant("quadratic"),
+    coords: optional(nullable(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers))),
+    startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
+    // TODO: remove coord? it's legacy.
+    coord: optional(pairOfNumbers),
+});
+
 const parsePerseusGraphTypeRay: Parser<PerseusGraphTypeRay> = any; // TODO
 const parsePerseusGraphTypeSegment: Parser<PerseusGraphTypeSegment> = any; // TODO
 const parsePerseusGraphTypeSinusoid: Parser<PerseusGraphTypeSinusoid> = any; // TODO
