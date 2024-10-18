@@ -27,6 +27,7 @@ import {boolean} from "../general-purpose-parsers/boolean";
 import {any} from "../general-purpose-parsers/any";
 import {unionBuilder} from "../general-purpose-parsers/union";
 import {trio} from "../general-purpose-parsers/trio";
+import {nullable} from "../general-purpose-parsers/nullable";
 
 // Used to represent 2-D points and ranges
 const pairOfNumbers = pair(number, number)
@@ -54,7 +55,14 @@ const parsePerseusGraphTypeCircle: Parser<PerseusGraphTypeCircle> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeLinear: Parser<PerseusGraphTypeLinear> = any; // TODO
+const parsePerseusGraphTypeLinear: Parser<PerseusGraphTypeLinear> = object({
+    type: constant("linear"),
+    coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
+    startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
+    // TODO: remove coord? it's legacy.
+    coord: optional(pairOfNumbers),
+});
+
 const parsePerseusGraphTypeLinearSystem: Parser<PerseusGraphTypeLinearSystem> = any; // TODO
 const parsePerseusGraphTypeNone: Parser<PerseusGraphTypeNone> = any; // TODO
 const parsePerseusGraphTypePoint: Parser<PerseusGraphTypePoint> = any; // TODO
