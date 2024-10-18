@@ -159,6 +159,8 @@ const parseLockedFigureColor: Parser<LockedFigureColor> = enumeration(...lockedF
 
 const parseLockedFigureFillType: Parser<LockedFigureFillType> = enumeration("none", "white", "translucent", "solid");
 
+const parseLockedLineStyle: Parser<LockedLineStyle> = enumeration("solid", "dashed");
+
 const parseLockedLabelType: Parser<LockedLabelType> = object({
     type: constant("label"),
     coord: pairOfNumbers,
@@ -176,8 +178,6 @@ const parseLockedPointType: Parser<LockedPointType> = object({
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),
 });
-
-const parseLockedLineStyle: Parser<LockedLineStyle> = any; // TODO
 
 const parseLockedLineType: Parser<LockedLineType> = object({
     type: constant("line"),
