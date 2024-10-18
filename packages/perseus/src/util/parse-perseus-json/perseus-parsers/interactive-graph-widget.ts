@@ -2,9 +2,14 @@ import {constant} from "../general-purpose-parsers/constant";
 import {Parser} from "../parser-types";
 import {
     InteractiveGraphWidget,
-    LockedEllipseType, LockedFigure, LockedFunctionType, LockedLabelType,
+    LockedEllipseType,
+    LockedFigure,
+    LockedFigureColor,
+    LockedFunctionType,
+    LockedLabelType,
     LockedLineType,
-    LockedPointType, LockedPolygonType,
+    LockedPointType,
+    LockedPolygonType,
     LockedVectorType,
     PerseusGraphType,
     PerseusGraphTypeAngle,
@@ -150,13 +155,25 @@ const parsePerseusGraphType: Parser<PerseusGraphType> = union(parsePerseusGraphT
     .or(parsePerseusGraphTypeSinusoid)
     .parser
 
-const parseLockedPointType: Parser<LockedPointType> = any; // TODO
+const parseLockedFigureColor: Parser<LockedFigureColor> = any; // TODO
+
+const parseLockedLabelType: Parser<LockedLabelType> = any; // TODO
+
+const parseLockedPointType: Parser<LockedPointType> = object({
+    type: constant("point"),
+    coord: pairOfNumbers,
+    color: parseLockedFigureColor,
+    filled: boolean,
+    // TODO: default labels to empty array?
+    labels: optional(array(parseLockedLabelType)),
+    ariaLabel: optional(string),
+});
+
 const parseLockedLineType: Parser<LockedLineType> = any; // TODO
 const parseLockedVectorType: Parser<LockedVectorType> = any; // TODO
 const parseLockedEllipseType: Parser<LockedEllipseType> = any; // TODO
 const parseLockedPolygonType: Parser<LockedPolygonType> = any; // TODO
 const parseLockedFunctionType: Parser<LockedFunctionType> = any; // TODO
-const parseLockedLabelType: Parser<LockedLabelType> = any; // TODO
 
 const parseLockedFigure: Parser<LockedFigure> = union(parseLockedPointType)
     .or(parseLockedLineType)
