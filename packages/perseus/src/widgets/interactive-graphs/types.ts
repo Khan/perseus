@@ -27,6 +27,8 @@ export type InteractiveGraphState =
     | QuadraticGraphState
     | SinusoidGraphState;
 
+export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
+
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
     // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
@@ -77,6 +79,11 @@ export interface PolygonGraphState extends InteractiveGraphStateCommon {
     showSides: boolean;
     snapTo: "grid" | "angles" | "sides";
     coords: Coord[];
+    numSides?: number | "unlimited";
+    focusedPointIndex: number | null;
+    showRemovePointButton: boolean;
+    interactionMode: InteractionMode;
+    showKeyboardInteractionInvitation: boolean;
 }
 
 export interface CircleGraphState extends InteractiveGraphStateCommon {
