@@ -1,7 +1,7 @@
 import type {Parser} from "../parser-types";
 
 export function enumeration<T extends readonly string[]>(
-    acceptedValues: T,
+    ...acceptedValues: T
 ): Parser<T[number]> {
     return (rawValue, ctx) => {
         if (typeof rawValue === "string" && acceptedValues.includes(rawValue)) {

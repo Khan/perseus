@@ -18,7 +18,7 @@ const parseAnswerForm: Parser<PerseusExpressionAnswerForm> = object({
     value: string,
     form: boolean,
     simplify: boolean,
-    considered: enumeration(["correct", "wrong", "ungraded"] as const),
+    considered: enumeration("correct", "wrong", "ungraded"),
     key: optional(string),
 });
 
@@ -31,7 +31,7 @@ export const parseExpressionWidget: Parser<ExpressionWidget> = parseWidget(
         visibleLabel: optional(string),
         ariaLabel: optional(string),
         buttonSets: array(
-            enumeration([
+            enumeration(
                 "basic",
                 "basic+div",
                 "trig",
@@ -39,10 +39,10 @@ export const parseExpressionWidget: Parser<ExpressionWidget> = parseWidget(
                 "logarithms",
                 "basic relations",
                 "advanced relations",
-            ] as const),
+            ),
         ),
         buttonsVisible: optional(
-            enumeration(["always", "never", "focused"] as const),
+            enumeration("always", "never", "focused"),
         ),
     }),
 );

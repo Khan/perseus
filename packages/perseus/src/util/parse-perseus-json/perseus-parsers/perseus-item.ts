@@ -18,7 +18,7 @@ import type {Parser} from "../parser-types";
 export const parsePerseusItem: Parser<PerseusItem> = object({
     question: parsePerseusRenderer,
     hints: array(parseHint),
-    answerArea: record(enumeration(ItemExtras), boolean),
+    answerArea: record(enumeration(...ItemExtras), boolean),
     itemDataVersion: object({
         major: number,
         minor: number,
