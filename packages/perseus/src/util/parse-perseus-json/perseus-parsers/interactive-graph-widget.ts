@@ -4,7 +4,7 @@ import {
     InteractiveGraphWidget,
     LockedEllipseType,
     LockedFigure,
-    LockedFigureColor,
+    LockedFigureColor, lockedFigureColorNames,
     LockedFunctionType,
     LockedLabelType,
     LockedLineType,
@@ -155,7 +155,7 @@ const parsePerseusGraphType: Parser<PerseusGraphType> = union(parsePerseusGraphT
     .or(parsePerseusGraphTypeSinusoid)
     .parser
 
-const parseLockedFigureColor: Parser<LockedFigureColor> = any; // TODO
+const parseLockedFigureColor: Parser<LockedFigureColor> = enumeration(...lockedFigureColorNames);
 
 const parseLockedLabelType: Parser<LockedLabelType> = any; // TODO
 
