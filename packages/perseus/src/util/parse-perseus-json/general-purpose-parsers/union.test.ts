@@ -1,27 +1,9 @@
 import {success} from "../result";
 
-import {number} from "./number";
-import {string} from "./string";
-import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
-import {union, unionBuilder} from "./union";
+import {anyFailure, ctx} from "./test-helpers";
+import {unionBuilder} from "./union";
 import {constant} from "./constant";
 import {array} from "./array";
-
-describe("union()", () => {
-    const stringOrNumber = union(string, number);
-    it("creates a parser that accepts one of several types", () => {
-        expect(stringOrNumber("ok", ctx())).toEqual(success("ok"));
-        expect(stringOrNumber(5, ctx())).toEqual(success(5));
-    });
-
-    it("rejects any other type", () => {
-        expect(stringOrNumber(false, ctx())).toEqual(
-            parseFailureWith({
-                message: "expected number, but got false",
-            }),
-        );
-    });
-});
 
 describe("unionBuilder()", () => {
     it("rejects all values when no parsers are added", () => {
