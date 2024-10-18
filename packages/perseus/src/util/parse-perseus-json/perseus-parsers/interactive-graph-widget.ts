@@ -85,7 +85,18 @@ const parsePerseusGraphTypePoint: Parser<PerseusGraphTypePoint> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypePolygon: Parser<PerseusGraphTypePolygon> = any; // TODO
+const parsePerseusGraphTypePolygon: Parser<PerseusGraphTypePolygon> = object({
+    type: constant("polygon"),
+    numSides: optional(unionBuilder().add(number).add(constant("unlimited")).parser),
+    showAngles: optional(boolean),
+    showSides: optional(boolean),
+    snapTo: optional(enumeration(["grid", "angles", "sides"] as const)),
+    match: optional(enumeration(["similar", "congruent", "approx"] as const)),
+    startCoords: optional(array(pairOfNumbers)),
+    // TODO: remove coord? it's legacy.
+    coord: optional(pairOfNumbers),
+});
+
 const parsePerseusGraphTypeQuadratic: Parser<PerseusGraphTypeQuadratic> = any; // TODO
 const parsePerseusGraphTypeRay: Parser<PerseusGraphTypeRay> = any; // TODO
 const parsePerseusGraphTypeSegment: Parser<PerseusGraphTypeSegment> = any; // TODO
