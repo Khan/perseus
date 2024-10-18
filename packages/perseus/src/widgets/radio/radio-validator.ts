@@ -21,7 +21,7 @@ function radioValidator(
         };
     }
 
-    // TODO: should numCorrect actually be on the rubric
+    // TODO(LEMS-2541): should numCorrect actually be on the rubric
     // instead of the userInput?
     if (
         userInput.numCorrect &&
@@ -35,7 +35,7 @@ function radioValidator(
         // If NOTA and some other answer are checked, ...
     }
 
-    // TODO: should noneOfTheAboveSelected be replaced with a
+    // TODO(LEMS-2541): should noneOfTheAboveSelected be replaced with a
     // combination of choicesSelected and noneOfTheAboveIndex?
     if (userInput.noneOfTheAboveSelected && numSelected > 1) {
         return {
@@ -46,7 +46,7 @@ function radioValidator(
 
     const correct = userInput.choicesSelected.every((selected, i) => {
         let isCorrect: boolean;
-        // TODO: should noneOfTheAboveIndex actually be on the rubric
+        // TODO(LEMS-2541): should noneOfTheAboveIndex actually be on the rubric
         // instead of the userInput?
         if (userInput.noneOfTheAboveIndex === i) {
             isCorrect = rubric.choices.every((choice, j) => {
