@@ -83,6 +83,7 @@ export type Props = ExternalProps &
         value: string;
         disabled?: boolean;
         noBackground?: boolean;
+        noWrapper?: boolean;
     };
 
 export type ExpressionState = {
@@ -344,7 +345,13 @@ export class Expression
         const {ERROR_MESSAGE, ERROR_TITLE} = this.context.strings;
 
         return (
-            <View className={css(styles.desktopLabelInputWrapper)}>
+            <View
+                className={
+                    this.props.noWrapper
+                        ? undefined
+                        : css(styles.desktopLabelInputWrapper)
+                }
+            >
                 {!!this.props.visibleLabel && (
                     <LabelSmall htmlFor={this._textareaId} tag="label">
                         {this.props.visibleLabel}
