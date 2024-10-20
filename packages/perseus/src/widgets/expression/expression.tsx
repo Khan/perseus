@@ -81,6 +81,7 @@ export type Props = ExternalProps &
         visibleLabel: PerseusExpressionWidgetOptions["visibleLabel"];
         ariaLabel: PerseusExpressionWidgetOptions["ariaLabel"];
         value: string;
+        disabled?: boolean;
     };
 
 export type ExpressionState = {
@@ -384,6 +385,7 @@ export class Expression
                             onChange={this.changeAndTrack}
                             convertDotToTimes={this.props.times}
                             buttonSets={this.props.buttonSets}
+                            disabled={this.props.disabled}
                             onFocus={this._handleFocus}
                             onBlur={this._handleBlur}
                             hasError={this.state.showErrorStyle}
