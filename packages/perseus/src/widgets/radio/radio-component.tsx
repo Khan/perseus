@@ -368,6 +368,8 @@ class Radio extends React.Component<Props> implements Widget {
     };
 
     render(): React.ReactNode {
+        // eslint-disable-next-line
+        console.log("Rendering Radio component...");
         const {choices} = this.props;
         const {strings} = this.context;
         let choiceStates: ReadonlyArray<ChoiceState>;
