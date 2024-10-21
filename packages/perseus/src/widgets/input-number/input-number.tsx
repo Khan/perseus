@@ -203,10 +203,6 @@ class InputNumber extends React.Component<Props> implements Widget {
 
             return input;
         }
-        // HACK(johnsullivan): Create a function with shared logic between
-        // this and NumericInput.
-        // TODO(jeremy): Deprecate this widget and prefer numeric-input.
-        const rubric = this.props.reviewModeRubric;
 
         // Note: This is _very_ similar to what `numeric-input.jsx` does. If
         // you modify this, double-check if you also need to modify that
@@ -217,7 +213,7 @@ class InputNumber extends React.Component<Props> implements Widget {
             this.props.rightAlign ? styles.rightAlign : styles.leftAlign,
         ];
         // Unanswered
-        if (rubric && !this.props.currentValue) {
+        if (this.props.reviewMode && !this.props.currentValue) {
             inputStyles.push(styles.answerStateUnanswered);
         }
 

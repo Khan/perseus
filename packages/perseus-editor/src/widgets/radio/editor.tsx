@@ -339,6 +339,7 @@ class RadioEditor extends React.Component<any> {
                     editMode={true}
                     labelWrap={false}
                     apiOptions={this.props.apiOptions}
+                    reviewMode={false}
                     choices={this.props.choices.map((choice, i) => {
                         return {
                             content: (

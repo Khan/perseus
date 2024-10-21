@@ -9,7 +9,7 @@ import TestKeypadContextWrapper from "../__shared__/test-keypad-context-wrapper"
 import expressionExport from "./expression";
 import {expressionItem2, expressionItem3} from "./expression.testdata";
 
-import type {LegacyButtonSets, PerseusItem} from "../../perseus-types";
+import type {PerseusItem} from "../../perseus-types";
 import type {Keys as Key} from "@khanacademy/math-input";
 
 type StoryArgs = {
@@ -56,21 +56,6 @@ const WrappedKeypadContext = ({
 };
 
 export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
-    const reviewModeRubric = {
-        functions: ["f", "g", "h"],
-        times: true,
-        answerForms: [],
-        buttonSets: [
-            "basic",
-            "basic+div",
-            "trig",
-            "prealgebra",
-            "logarithms",
-            "basic relations",
-            "advanced relations",
-        ] as LegacyButtonSets,
-    };
-
     const keypadConfiguration = {
         keypadType: KeypadType.EXPRESSION,
         extraKeys: ["x", "y", "z"] as Array<Key>,
@@ -91,8 +76,8 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
                 static={false}
                 trackInteraction={() => {}}
                 widgetId="expression"
-                reviewModeRubric={reviewModeRubric}
                 keypadConfiguration={keypadConfiguration}
+                reviewMode={false}
             />
         </div>
     );
