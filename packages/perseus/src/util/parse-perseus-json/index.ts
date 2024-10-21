@@ -1,3 +1,4 @@
+import {formatPath} from "./object-path";
 import {parse} from "./parse";
 import {parsePerseusItem as typecheckPerseusItem} from "./perseus-parsers/perseus-item";
 import {failure, isFailure} from "./result";
@@ -13,17 +14,13 @@ import type {PerseusItem} from "../../perseus-types";
  * @param {string} json - the stringified PerseusItem JSON
  * @returns {PerseusItem} the parsed PerseusItem object
  */
-// TODO: Don't return the (invalid) item if parsing fails.
 export function parsePerseusItem(json: string): Result<PerseusItem, Error[]> {
     const object: unknown = JSON.parse(json);
     const perseusItemResult = parse(object, typecheckPerseusItem);
     // TODO: extract mapFailure function
     if (isFailure(perseusItemResult)) {
         const {message, path} = perseusItemResult.detail;
-        return failure(
-            // TODO: better path serialization
-            [new Error("At " + ["(root)", path].join(".") + " -- " + message)],
-        );
+        return failure([new Error(`At ${formatPath(path)} -- ${message}`)]);
     }
     return perseusItemResult;
 }
