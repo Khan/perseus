@@ -25,6 +25,9 @@ const config: KnipConfig = {
         "data/find-questions.ts",
         // there seems to be a bug with the knip Jest plugin?
         "jest.config.js",
+        // this file causes side-effects by importing it
+        // so it's not "used" in the conventional sense
+        "packages/perseus/src/util/interactive.ts",
     ],
 };
 
