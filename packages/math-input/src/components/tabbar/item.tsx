@@ -165,6 +165,4 @@ function TabbarItem(props: TabItemProps): React.ReactElement {
     );
 }
 
-export const TabbarItemForTesting = TabbarItem;
-
 export default TabbarItem;

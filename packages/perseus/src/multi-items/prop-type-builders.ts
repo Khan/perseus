@@ -12,36 +12,6 @@ import PropTypes from "prop-types";
 import type {Shape} from "./shape-types";
 
 /**
- * A recursive PropType that accepts Shape objects, and rejects other objects.
- *
- * Usage: `propTypes: {shape: shapePropType}`.
- */
-export function shapePropType(...args: ReadonlyArray<any>): any {
-    const itemShape = PropTypes.oneOfType([
-        PropTypes.shape({
-            type: PropTypes.oneOf(["content"]).isRequired,
-        }).isRequired,
-        PropTypes.shape({
-            type: PropTypes.oneOf(["hint"]).isRequired,
-        }).isRequired,
-        PropTypes.shape({
-            type: PropTypes.oneOf(["tags"]).isRequired,
-        }).isRequired,
-        PropTypes.shape({
-            type: PropTypes.oneOf(["object"]).isRequired,
-            shape: PropTypes.objectOf(shapePropType),
-        }).isRequired,
-        PropTypes.shape({
-            type: PropTypes.oneOf(["array"]).isRequired,
-            elementShape: shapePropType,
-        }).isRequired,
-    ]);
-
-    // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
-    return itemShape(...args);
-}
-
-/**
  * Return a PropType that accepts Items of the given shape, and rejects other
  * objects.
  *

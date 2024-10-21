@@ -1,7 +1,6 @@
 import {entries} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet, css} from "aphrodite";
 
-import type {InAnimationStyles} from "./types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
@@ -88,10 +87,3 @@ export function processStyleType(style?: StyleType): {
         className: css(...stylesheetStyles),
     };
 }
-
-export const createTransition = (styles: InAnimationStyles) => {
-    // NOTE(kevinb): TypeScript infers the optional properties on `InAnimationStyles`
-    // as `CSSProperties | undefined`.  This is not compatible with `StyleSheet.create`
-    // which expects `CSSProperties` on the object that's passed in to it.
-    return StyleSheet.create(styles as any);
-};

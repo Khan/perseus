@@ -16,51 +16,6 @@
  */
 
 /**
- * An object tho both scans floating points to
- * determine the number of significant figures.
- * and can display a floating point using any number
- * of significant figures.
- *
- * @param s A string representation of a floating point.
- */
-export class SignificantFigures {
-    order: number;
-    mantissa: string;
-    positive: boolean;
-    sigFigs: number;
-    sigDecs: number;
-
-    constructor(s: string) {
-        this.order = parseOrder(s);
-        this.mantissa = parseMantissa(s);
-        this.positive = parseSign(s);
-
-        /**
-         * Get the number of significant figures this object uses.
-         * Leading zeros are not significant.  Traling zeros up to
-         * and after the decimal point are significant.
-         * Significant figures is good to know when the number is
-         * used in multiplication.
-         *
-         * @return the number of significant figures.
-         */
-        this.sigFigs = this.mantissa.length;
-
-        /**
-         * Get the least significant decimal this object uses.
-         * This is useful to know if a number is being used
-         * in addition.
-         * 400 - 2 the hundreds place (10^2) is the least significant decimal.
-         * 75 - 0 the ones place (10^0) is the least significant decimal.
-         * .543 - -3 the 1/1000's place (10^-3) is the least significant decimal.
-         *
-         * @return an integer representing the least significant decimal place.
-         */
-        this.sigDecs = this.order - this.mantissa.length;
-    }
-}
-
-/**
  * Format a floating point for display using the specified
  * number of significant figures and least significant decimal.
  * Scientific notation may used by this method if this

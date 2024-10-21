@@ -68,8 +68,3 @@ export function pixelsToVectors(
         return [x, y];
     });
 }
-
-export const useTransformPixelsToVectors = (...pixels: vec.Vector2[]) => {
-    const graphState = useGraphConfig();
-    return pixelsToVectors(pixels, graphState);
-};
