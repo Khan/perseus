@@ -1,3 +1,4 @@
+import {MathFieldActionType} from "../../types";
 import {CursorContext} from "../input/cursor-contexts";
 import {
     isFraction,
@@ -5,7 +6,6 @@ import {
     getCursorContext,
 } from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
-import {MathFieldActionType} from "../input/mathquill-types";
 
 import type Key from "../../data/keys";
 import type {MathFieldInterface} from "../input/mathquill-types";

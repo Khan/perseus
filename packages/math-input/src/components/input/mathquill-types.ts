@@ -15,13 +15,6 @@ export type MathFieldInterface = MathQuill.v3.EditableMathQuill & {
     controller: () => MathQuill.Controller;
 };
 
-export enum MathFieldActionType {
-    WRITE = "write",
-    CMD = "cmd",
-    KEYSTROKE = "keystroke",
-    MQ_END = 0,
-}
-
 export type MathFieldUpdaterCallback = (
     mathField: MathFieldInterface,
     key: Key,
