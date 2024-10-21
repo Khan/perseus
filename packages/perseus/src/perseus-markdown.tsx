@@ -396,10 +396,10 @@ export default {
     traverseContent: traverseContent,
     parse: parse,
     parseInline: inlineParser,
-    reactFor: SimpleMarkdown.reactFor,
-    ruleOutput: SimpleMarkdown.ruleOutput(rules, "react") as any,
+    sanitizeUrl: SimpleMarkdown.sanitizeUrl,
+    reactFor: SimpleMarkdown.reactFor, // deprecated
+    ruleOutput: SimpleMarkdown.ruleOutput(rules, "react") as any, // deprecated
     basicOutput: SimpleMarkdown.reactFor(
         SimpleMarkdown.ruleOutput(rules, "react"),
-    ) as any,
-    sanitizeUrl: SimpleMarkdown.sanitizeUrl,
+    ) as any, // deprecated
 };
