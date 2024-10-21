@@ -12,6 +12,12 @@ export class ErrorTrackingParseContext implements ParseContext {
 
     failure(expected: string, badValue: unknown): Failure<ParseFailureDetail> {
         return failure({
+            // TODO: Not all errors will terminate parsing (some get handled by
+            // defaults or unions) so JSON.stringify here is potentially wasting
+            // time. We should defer constructing the message until we really
+            // need a human-readable error. That will also allow us to create
+            // better error messages (e.g. that list all branches of a union
+            // type).
             message: `expected ${expected}, but got ${JSON.stringify(badValue)}`,
             badValue,
             path: this.path,
