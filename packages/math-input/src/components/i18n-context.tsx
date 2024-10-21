@@ -15,10 +15,14 @@ type I18nContextType = {
     locale: string;
 };
 
+const shouldMockStrings: boolean = Boolean(
+    process?.env?.NODE_ENV === "test" || process?.env?.STORYBOOK,
+);
+
 // @ts-expect-error - TS2322 - Type 'Context<{ strings: {}; locale: string; }>' is not assignable to type 'Context<I18nContextType>'.
 export const MathInputI18nContext: React.Context<I18nContextType> =
     React.createContext(
-        process?.env?.NODE_ENV === "test" || process?.env?.STORYBOOK
+        shouldMockStrings
             ? {
                   strings: mockStrings,
                   locale: "en",
