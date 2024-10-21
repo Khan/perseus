@@ -21,6 +21,8 @@ const config: KnipConfig = {
         // dev tools
         "wallaby.js",
         "data/find-questions.ts",
+        // there seems to be a bug with the knip Jest plugin?
+        "jest.config.js",
     ],
 };
 
