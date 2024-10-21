@@ -1,33 +1,36 @@
+import invariant from "tiny-invariant";
+
+import {isFailure, isSuccess} from "./result";
+
 import {parsePerseusItem} from ".";
 
 describe("parsePerseusItem", () => {
     it("should parse JSON", () => {
-        const result = parsePerseusItem(
-            `{ "question": { "content": "idk why I'm testing this" }}`,
-        );
-        expect(result.item.question.content).toBe("idk why I'm testing this");
-    });
-
-    it("doesn't return an error given a valid PerseusItem", () => {
         const result = parsePerseusItem(
             `{
                 "itemDataVersion": { "major": 0, "minor": 0 },
                 "answerArea": {},
                 "hints": [],
                 "question": {
-                    "content": "",
+                    "content": "this is the question content",
                     "widgets": {},
                     "images": {}
                 }
             }`,
         );
-        expect(result.errors).toEqual([]);
-    })
-
-    it("returns the data even if it's invalid", () => {
-        const result = parsePerseusItem(
-            `{"bad": "format"}`,
+        invariant(isSuccess(result), "expected parsePerseusItem to succeed");
+        expect(result.value.question.content).toBe(
+            "this is the question content",
         );
-        expect(result.item).toEqual({bad: "format"});
-    })
+    });
+
+    it("returns an error given an invalid PerseusItem", () => {
+        const result = parsePerseusItem(`{ "bad": "value" }`);
+        invariant(isFailure(result), "expected parsePerseusItem to fail");
+        expect(result.detail).toEqual([
+            new Error(
+                "At (root).question -- expected object, but got undefined",
+            ),
+        ]);
+    });
 });
