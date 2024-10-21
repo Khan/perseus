@@ -74,7 +74,8 @@ function imageTintColor(
     }
     return color.offBlack64;
 }
-export type ItemState = "active" | "inactive" | "disabled";
+
+type ItemState = "active" | "inactive" | "disabled";
 type TabItemProps = {
     onClick: () => void;
     itemState: ItemState;

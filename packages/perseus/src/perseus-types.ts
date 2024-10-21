@@ -796,7 +796,7 @@ export type PerseusGraphType =
     | PerseusGraphTypeSegment
     | PerseusGraphTypeSinusoid;
 
-export type PerseusGraphTypeCommon = {
+type PerseusGraphTypeCommon = {
     // NOTE(jeremy): This is referenced in the component. Verify if there's any
     // production data that still has this.
     coord?: Coord; // Legacy!
@@ -1603,7 +1603,8 @@ export type PerseusPassageRefTargetWidgetOptions = {
 export type PerseusSimpleMarkdownTesterWidgetOptions = {
     value: string;
 };
-export type PerseusUnitInputWidgetOptions = {
+
+type PerseusUnitInputWidgetOptions = {
     value: string;
 };
 

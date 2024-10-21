@@ -306,7 +306,8 @@ const VERTICAL = "vertical";
 type RenderProps = PerseusOrdererWidgetOptions & {
     current: any;
 };
-export type OrdererProps = WidgetProps<RenderProps, PerseusOrdererRubric>;
+
+type OrdererProps = WidgetProps<RenderProps, PerseusOrdererRubric>;
 
 type OrdererDefaultProps = {
     current: OrdererProps["current"];

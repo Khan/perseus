@@ -10,12 +10,7 @@ import Checkbox from "../../components/checkbox";
 
 const {colors, typography} = globalStyles;
 
-export type PreferredPopoverDirection =
-    | "NONE"
-    | "UP"
-    | "DOWN"
-    | "LEFT"
-    | "RIGHT";
+type PreferredPopoverDirection = "NONE" | "UP" | "DOWN" | "LEFT" | "RIGHT";
 
 type Props = {
     // Whether multiple answer choices may be selected for markers.
