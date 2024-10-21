@@ -27,6 +27,7 @@ import type {
     PerseusDependenciesV2,
     SharedRendererProps,
 } from "./types";
+import type {UserInputMap} from "./validation.types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     KeypadContextRendererInterface,
@@ -296,6 +297,13 @@ export class ServerItemRenderer
 
     getNumHints(): number {
         return this.props.item.hints.length;
+    }
+
+    /**
+     * Returns an object of the widget `.getUserInput()` results
+     */
+    getUserInputMap(): UserInputMap {
+        return this.questionRenderer.getUserInputMap();
     }
 
     /**
