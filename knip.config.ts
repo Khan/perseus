@@ -9,6 +9,8 @@ const config: KnipConfig = {
         "**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
         // dev tools
         "!utils/**",
+        // there seems to be a bug with the knip Jest plugin?
+        "!config/test/**",
     ],
     ignore: [
         // symlinked type defs for third-party libs
