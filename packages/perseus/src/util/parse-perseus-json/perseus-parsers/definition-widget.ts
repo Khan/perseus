@@ -1,7 +1,4 @@
-import {boolean} from "../general-purpose-parsers/boolean";
-import {constant} from "../general-purpose-parsers/constant";
-import {object} from "../general-purpose-parsers/object";
-import {string} from "../general-purpose-parsers/string";
+import {boolean, constant, object, string} from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
 

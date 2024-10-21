@@ -1,16 +1,18 @@
 import {lockedFigureColorNames} from "../../../perseus-types";
-import {array} from "../general-purpose-parsers/array";
-import {boolean} from "../general-purpose-parsers/boolean";
-import {constant} from "../general-purpose-parsers/constant";
-import {enumeration} from "../general-purpose-parsers/enumeration";
-import {nullable} from "../general-purpose-parsers/nullable";
-import {number} from "../general-purpose-parsers/number";
-import {object} from "../general-purpose-parsers/object";
-import {optional} from "../general-purpose-parsers/optional";
-import {pair} from "../general-purpose-parsers/pair";
-import {string} from "../general-purpose-parsers/string";
-import {trio} from "../general-purpose-parsers/trio";
-import {union} from "../general-purpose-parsers/union";
+import {
+    array,
+    boolean,
+    constant,
+    enumeration,
+    nullable,
+    number,
+    object,
+    optional,
+    pair,
+    string,
+    trio,
+    union,
+} from "../general-purpose-parsers";
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";

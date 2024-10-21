@@ -1,10 +1,12 @@
-import {any} from "../general-purpose-parsers/any";
-import {array} from "../general-purpose-parsers/array";
-import {boolean} from "../general-purpose-parsers/boolean";
-import {constant} from "../general-purpose-parsers/constant";
-import {number} from "../general-purpose-parsers/number";
-import {object} from "../general-purpose-parsers/object";
-import {string} from "../general-purpose-parsers/string";
+import {
+    any,
+    array,
+    boolean,
+    constant,
+    number,
+    object,
+    string,
+} from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
 

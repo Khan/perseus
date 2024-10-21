@@ -1,7 +1,4 @@
-import {any} from "../general-purpose-parsers/any";
-import {isObject} from "../general-purpose-parsers/is-object";
-import {pair} from "../general-purpose-parsers/pair";
-import {string} from "../general-purpose-parsers/string";
+import {any, pair, isObject, string} from "../general-purpose-parsers";
 import {isFailure} from "../result";
 
 import {parseCategorizerWidget} from "./categorizer-widget";
