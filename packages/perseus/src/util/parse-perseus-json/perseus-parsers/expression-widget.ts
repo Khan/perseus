@@ -9,6 +9,7 @@ import {
     string,
     union,
     convertTo,
+    booleanOrFalse,
 } from "../general-purpose-parsers";
 import {parserPipeline} from "../general-purpose-parsers/parser-pipeline";
 
@@ -27,8 +28,8 @@ const stringFromNumber: Parser<string> = parserPipeline(
 
 const parseAnswerForm: Parser<PerseusExpressionAnswerForm> = object({
     value: string,
-    form: boolean,
-    simplify: boolean,
+    form: booleanOrFalse,
+    simplify: booleanOrFalse,
     considered: enumeration("correct", "wrong", "ungraded"),
     key: optional(stringFromNumber),
 });

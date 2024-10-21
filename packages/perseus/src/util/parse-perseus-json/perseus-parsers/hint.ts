@@ -1,13 +1,12 @@
 import {
     array,
     boolean,
-    number,
     object,
     optional,
-    record,
     string,
 } from "../general-purpose-parsers";
 
+import {imageMap} from "./image-map";
 import {parseWidgetsMap} from "./widgets-map";
 
 import type {Hint} from "../../../perseus-types";
@@ -18,11 +17,5 @@ export const parseHint: Parser<Hint> = object({
     content: string,
     widgets: parseWidgetsMap,
     metadata: optional(array(string)),
-    images: record(
-        string,
-        object({
-            width: number,
-            height: number,
-        }),
-    ),
+    images: imageMap,
 });

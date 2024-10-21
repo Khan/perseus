@@ -4,7 +4,7 @@ import {itemDataVersion} from "../../../perseus-version";
 import {
     any,
     array,
-    boolean,
+    booleanOrFalse,
     defaulted,
     number,
     object,
@@ -15,8 +15,6 @@ import {parsePerseusRenderer} from "./perseus-renderer";
 
 import type {PerseusItem} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
-
-const booleanOrFalse = defaulted(boolean, () => false);
 
 export const parsePerseusItem: Parser<PerseusItem> = object({
     question: parsePerseusRenderer,
