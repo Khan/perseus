@@ -1,13 +1,15 @@
 // TODO(benchristel): export all parsers from general-purpose-parsers/index.ts
 // so we only need to import from one place.
 import {ItemExtras} from "../../../perseus-types";
-import {any} from "../general-purpose-parsers/any";
-import {array} from "../general-purpose-parsers/array";
-import {boolean} from "../general-purpose-parsers/boolean";
-import {enumeration} from "../general-purpose-parsers/enumeration";
-import {number} from "../general-purpose-parsers/number";
-import {object} from "../general-purpose-parsers/object";
-import {record} from "../general-purpose-parsers/record";
+import {
+    any,
+    array,
+    boolean,
+    enumeration,
+    number,
+    object,
+    record,
+} from "../general-purpose-parsers";
 
 import {parseHint} from "./hint";
 import {parsePerseusRenderer} from "./perseus-renderer";
