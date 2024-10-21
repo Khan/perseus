@@ -988,7 +988,7 @@ export type PerseusMeasurerWidgetOptions = {
     // The number of units to display on the ruler
     rulerLength: number;
     // Containing area [width, height]
-    box: ReadonlyArray<number>;
+    box: [number, number];
     // Always false.  Not used for this widget
     static: boolean;
 };
