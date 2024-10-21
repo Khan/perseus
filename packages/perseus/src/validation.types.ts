@@ -20,7 +20,6 @@ import type {
     PerseusPassageWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusRadioWidgetOptions,
-    PerseusSorterWidgetOptions,
     PerseusTableWidgetOptions,
     PerseusVideoWidgetOptions,
 } from "./perseus-types";
@@ -188,7 +187,10 @@ export type PerseusRadioUserInput = {
     noneOfTheAboveSelected?: boolean;
 };
 
-export type PerseusSorterRubric = PerseusSorterWidgetOptions;
+export type PerseusSorterRubric = {
+    // Translatable Text; The correct answer (in the correct order). The user will see the cards in a randomized order.
+    correct: ReadonlyArray<string>;
+};
 
 export type PerseusSorterUserInput = {
     options: ReadonlyArray<string>;
