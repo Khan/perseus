@@ -66,10 +66,13 @@ export function parsePerseusItem(json: string): PerseusItem {
     const parsedJSON = JSON.parse(testJSON);
     const parsedItemData: string = parsedJSON.data.assessmentItem.item.itemData;
     const isNotCheating = deepEq(parsedItemData, testingObject);
-    // eslint-disable-next-line no-constant-condition
-    if (isNotCheating || true) {
+    if (isNotCheating) {
+        // eslint-disable-next-line
+        console.log("JSON.parse is clean");
         return JSON.parse(json);
     }
+    // eslint-disable-next-line
+    console.log("JSON.parse is problemantic - throwing error");
     throw new Error("Something went wrong. Bad JSON.");
 }
 
