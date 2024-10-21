@@ -1202,24 +1202,6 @@ export type PerseusRadioChoice = {
     widgets?: PerseusWidgetsMap;
 };
 
-export type PerseusSequenceWidgetOptions = {
-    // A list of Renderers to display in sequence
-    json: ReadonlyArray<PerseusRenderer>;
-};
-
-export type PerseusSimulatorWidgetOptions = {
-    // Translatable Text; The X Axis
-    xAxisLabel: string;
-    // Translatable Text; The Y Axis
-    yAxisLabel: string;
-    // Translatable Text; A lable to define the proportion of the simulation
-    proportionLabel: string;
-    // The type of simulation. options: "proportion", "percentage"
-    proportionOrPercentage: string;
-    // The number of times to run the simulation
-    numTrials: number;
-};
-
 export type PerseusSorterWidgetOptions = {
     // Translatable Text; The correct answer (in the correct order). The user will see the cards in a randomized order.
     correct: ReadonlyArray<string>;
