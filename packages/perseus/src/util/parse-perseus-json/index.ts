@@ -1,4 +1,7 @@
 import type {PerseusItem} from "../../perseus-types";
+import { parse } from "./parse";
+import {parsePerseusItem as typecheckPerseusItem} from "./perseus-parsers/perseus-item";
+import { isFailure } from "./result";
 
 /**
  * Helper to parse PerseusItem JSON
@@ -8,9 +11,20 @@ import type {PerseusItem} from "../../perseus-types";
  * @param {string} json - the stringified PerseusItem JSON
  * @returns {PerseusItem} the parsed PerseusItem object
  */
+// TODO: Don't return the (invalid) item if parsing fails.
 export function parsePerseusItem(json: string): {
     item: PerseusItem;
     errors: Error[];
 } {
-    return {item: JSON.parse(json), errors: []};
+    const object: unknown = JSON.parse(json);
+    const perseusItemResult = parse(object, typecheckPerseusItem);
+    if (isFailure(perseusItemResult)) {
+        const {message, path} = perseusItemResult.detail
+        return {
+            item: object as PerseusItem,
+            // TODO: better path serialization
+            errors: [new Error("At " + ["(root)", path].join(".") + " -- " + message)],
+        }
+    }
+    return {item: perseusItemResult.value, errors: []};
 }
