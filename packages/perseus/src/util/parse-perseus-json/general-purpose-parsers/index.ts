@@ -3,6 +3,7 @@ export * from "./array";
 export * from "./boolean";
 export * from "./constant";
 export * from "./convert-to";
+export * from "./defaulted";
 export * from "./enumeration";
 export * from "./is-object";
 export * from "./nullable";
@@ -10,7 +11,7 @@ export * from "./number";
 export * from "./object";
 export * from "./optional";
 export * from "./pair";
-export * from "./parser-pipeline"
+export * from "./parser-pipeline";
 export * from "./record";
 export * from "./string";
 export * from "./trio";

@@ -77,7 +77,9 @@ export type PerseusWidgetsMap = {
     [key in `table ${number}`]: TableWidget;
 } & {
     [key in `video ${number}`]: VideoWidget;
-};
+} & {
+    [key in `deprecated-standin ${number}`]: AutoCorrectWidget;
+}
 
 /**
  * A "PerseusItem" is a classic Perseus item. It is rendered by the
@@ -263,7 +265,7 @@ export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassage
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
-export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', PerseusWidgetOptions>;
+export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', {}>;
 
 export type PerseusWidget =
     | CategorizerWidget
@@ -299,7 +301,7 @@ export type PerseusWidget =
     | SorterWidget
     | TableWidget
     | VideoWidget
-    | AutoCorrectWidget;
+    | AutoCorrectWidget
 
 // A background image applied to various widgets.
 export type PerseusImageBackground = {
