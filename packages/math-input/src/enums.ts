@@ -7,7 +7,7 @@ export enum KeypadType {
     EXPRESSION = "EXPRESSION",
 }
 
-export const KeyTypes = [
+const KeyTypes = [
     "EMPTY",
     // For numerals, variables, and any other characters that themselves
     // compose 'values'.

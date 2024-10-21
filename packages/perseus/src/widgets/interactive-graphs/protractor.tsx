@@ -30,7 +30,7 @@ const centerToTopLeft: vec.Vector2 = [-180, -170];
 
 // The vector from the center of the protractor to the center of the rotation
 // handle.
-export const centerToRotationHandle: vec.Vector2 = [-176, -15];
+const centerToRotationHandle: vec.Vector2 = [-176, -15];
 
 export function Protractor() {
     const {range, snapStep} = useGraphConfig();

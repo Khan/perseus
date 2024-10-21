@@ -28,7 +28,7 @@ type Props = {
     rotationAngle: PerseusMoleculeRendererWidgetOptions["rotationAngle"];
 };
 
-export class Molecule extends React.Component<Props, MoleculeState> {
+class Molecule extends React.Component<Props, MoleculeState> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
