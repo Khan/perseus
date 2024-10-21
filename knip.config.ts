@@ -1,21 +1,11 @@
 import type {KnipConfig} from "knip";
 
-const base: KnipConfig = {
-    entry: [
-        "{index,main,cli}.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
-        "src/{index,main,cli}.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
-    ],
-    project: ["**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}"],
-};
-
 const config: KnipConfig = {
     entry: [
-        // default
         "{index,main,cli}.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
         "src/{index,main,cli}.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
     ],
     project: [
-        // default
         "**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
         // dev tools
         "!utils/**",
@@ -34,5 +24,4 @@ const config: KnipConfig = {
     ],
 };
 
-// export default config;
-export default base;
+export default config;
