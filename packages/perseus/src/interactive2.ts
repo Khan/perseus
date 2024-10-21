@@ -1,6 +1,6 @@
 import {Movable} from "./interactive2/movable";
 import MovableLine from "./interactive2/movable-line";
-import {MovablePoint} from "./interactive2/movable-point";
+import MovablePoint from "./interactive2/movable-point";
 import MovablePolygon from "./interactive2/movable-polygon";
 import KhanColors from "./util/colors";
 
