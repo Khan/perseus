@@ -551,7 +551,7 @@ export type TrackingGradedGroupExtraArguments = {
 };
 
 // See sequence widget
-export type TrackingSequenceExtraArguments = {
+type TrackingSequenceExtraArguments = {
     visible: number;
 };
 
