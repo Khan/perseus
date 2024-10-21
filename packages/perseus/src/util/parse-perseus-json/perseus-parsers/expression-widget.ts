@@ -3,9 +3,12 @@ import {
     boolean,
     constant,
     enumeration,
+    number,
     object,
     optional,
     string,
+    union,
+    convertTo,
 } from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
@@ -15,13 +18,20 @@ import type {
     PerseusExpressionAnswerForm,
 } from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import { parserPipeline } from "../general-purpose-parsers/parser-pipeline";
+
+// stringFromNumber leaves strings as they are, and stringifies numbers.
+const stringFromNumber: Parser<string> =
+    parserPipeline(union(string).or(number).parser)
+        .then(convertTo(String))
+        .parser
 
 const parseAnswerForm: Parser<PerseusExpressionAnswerForm> = object({
     value: string,
     form: boolean,
     simplify: boolean,
     considered: enumeration("correct", "wrong", "ungraded"),
-    key: optional(string),
+    key: optional(stringFromNumber),
 });
 
 export const parseExpressionWidget: Parser<ExpressionWidget> = parseWidget(

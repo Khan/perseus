@@ -10,11 +10,12 @@ import {parseWidget} from "./widget";
 
 import type {DropdownWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import { isFailure } from "../result";
 
 export const parseDropdownWidget: Parser<DropdownWidget> = parseWidget(
     constant("dropdown"),
     object({
-        placeholder: string,
+        placeholder: defaulted(string, () => ""),
         static: boolean,
         choices: array(
             object({
@@ -24,3 +25,13 @@ export const parseDropdownWidget: Parser<DropdownWidget> = parseWidget(
         ),
     }),
 );
+
+// TODO: move to general-purpose-parsers
+function defaulted<T>(parser: Parser<T>, fallback: () => T): Parser<T> {
+    return (rawValue, ctx) => {
+        if (rawValue === undefined) {
+            return ctx.success(fallback())
+        }
+        return parser(rawValue, ctx);
+    }
+}

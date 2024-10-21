@@ -8,6 +8,7 @@ import {
     enumeration,
     number,
     object,
+    optional,
     record,
 } from "../general-purpose-parsers";
 
