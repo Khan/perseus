@@ -1,3 +1,4 @@
+import {any} from "../general-purpose-parsers/any";
 import {isObject} from "../general-purpose-parsers/is-object";
 import {pair} from "../general-purpose-parsers/pair";
 import {string} from "../general-purpose-parsers/string";
@@ -41,7 +42,7 @@ const parseWidgetsMapEntry: (
     entry: [string, unknown],
     widgetMap: PerseusWidgetsMap,
     ctx: ParseContext,
-) => ParseResult<undefined> = ([key, widget], widgetMap, ctx) => {
+) => ParseResult<unknown> = ([key, widget], widgetMap, ctx) => {
     // TODO: figure out what to do with ctx here to make the error message nicer
     const keyComponentsResult = parseWidgetMapKeyComponents(
         key.split(" "),
@@ -52,74 +53,91 @@ const parseWidgetsMapEntry: (
     }
     const [type, id] = keyComponentsResult.value;
 
+    function parseAndAssign<K extends keyof PerseusWidgetsMap>(
+        key: K,
+        parse: Parser<PerseusWidgetsMap[K]>,
+    ): ParseResult<unknown> {
+        const widgetResult = parse(widget, ctx);
+        if (isFailure(widgetResult)) {
+            return widgetResult;
+        }
+        widgetMap[key] = widgetResult.value;
+        return ctx.success(undefined);
+    }
+
     switch (type) {
-        case "categorizer": {
-            const widgetResult = parseCategorizerWidget(widget, ctx);
-            if (isFailure(widgetResult)) {
-                return widgetResult;
-            }
-            widgetMap[`categorizer ${id}`] = widgetResult.value;
-            break;
-        }
-
-        case "cs-program": {
-            const widgetResult = parseCSProgramWidget(widget, ctx);
-            if (isFailure(widgetResult)) {
-                return widgetResult;
-            }
-            widgetMap[`cs-program ${id}`] = widgetResult.value;
-            break;
-        }
-
-        case "definition": {
-            const widgetResult = parseDefinitionWidget(widget, ctx);
-            if (isFailure(widgetResult)) {
-                return widgetResult;
-            }
-            widgetMap[`definition ${id}`] = widgetResult.value;
-            break;
-        }
-
-        case "dropdown": {
-            const widgetResult = parseDropdownWidget(widget, ctx);
-            if (isFailure(widgetResult)) {
-                return widgetResult;
-            }
-            widgetMap[`dropdown ${id}`] = widgetResult.value;
-            break;
-        }
-
-        case "explanation": {
-            const widgetResult = parseExplanationWidget(widget, ctx);
-            if (isFailure(widgetResult)) {
-                return widgetResult;
-            }
-            widgetMap[`explanation ${id}`] = widgetResult.value;
-            break;
-        }
-
-        case "expression": {
-            const widgetResult = parseExpressionWidget(widget, ctx);
-            if (isFailure(widgetResult)) {
-                return widgetResult;
-            }
-            widgetMap[`expression ${id}`] = widgetResult.value;
-            break;
-        }
-
-        case "interactive-graph": {
-            const widgetResult = parseInteractiveGraphWidget(widget, ctx);
-            if (isFailure(widgetResult)) {
-                return widgetResult;
-            }
-            widgetMap[`interactive-graph ${id}`] = widgetResult.value;
-            break;
-        }
-
+        case "categorizer":
+            return parseAndAssign(`categorizer ${id}`, parseCategorizerWidget);
+        case "cs-program":
+            return parseAndAssign(`cs-program ${id}`, parseCSProgramWidget);
+        case "definition":
+            return parseAndAssign(`definition ${id}`, parseDefinitionWidget);
+        case "dropdown":
+            return parseAndAssign(`dropdown ${id}`, parseDropdownWidget);
+        case "explanation":
+            return parseAndAssign(`explanation ${id}`, parseExplanationWidget);
+        case "expression":
+            return parseAndAssign(`expression ${id}`, parseExpressionWidget);
+        case "grapher":
+            return parseAndAssign(`grapher ${id}`, any); // TODO
+        case "group":
+            return parseAndAssign(`group ${id}`, any); // TODO
+        case "graded-group":
+            return parseAndAssign(`graded-group ${id}`, any); // TODO
+        case "graded-group-set":
+            return parseAndAssign(`graded-group-set ${id}`, any); // TODO
+        case "iframe":
+            return parseAndAssign(`iframe ${id}`, any); // TODO
+        case "image":
+            return parseAndAssign(`image ${id}`, any); // TODO
+        case "input-number":
+            return parseAndAssign(`input-number ${id}`, any); // TODO
+        case "interaction":
+            return parseAndAssign(`interaction ${id}`, any); // TODO
+        case "interactive-graph":
+            return parseAndAssign(
+                `interactive-graph ${id}`,
+                parseInteractiveGraphWidget,
+            );
+        case "label-image":
+            return parseAndAssign(`label-image ${id}`, any); // TODO
+        case "matcher":
+            return parseAndAssign(`matcher ${id}`, any); // TODO
+        case "matrix":
+            return parseAndAssign(`matrix ${id}`, any); // TODO
+        case "measurer":
+            return parseAndAssign(`measurer ${id}`, any); // TODO
+        case "molecule-renderer":
+            return parseAndAssign(`molecule-renderer ${id}`, any); // TODO
+        case "number-line":
+            return parseAndAssign(`number-line ${id}`, any); // TODO
+        case "numeric-input":
+            return parseAndAssign(`numeric-input ${id}`, any); // TODO
+        case "orderer":
+            return parseAndAssign(`orderer ${id}`, any); // TODO
+        case "passage":
+            return parseAndAssign(`passage ${id}`, any); // TODO
+        case "passage-ref":
+            return parseAndAssign(`passage-ref ${id}`, any); // TODO
+        case "passage-ref-target":
+            return parseAndAssign(`passage-ref-target ${id}`, any); // TODO
+        case "phet-simulation":
+            return parseAndAssign(`phet-simulation ${id}`, any); // TODO
+        case "plotter":
+            return parseAndAssign(`plotter ${id}`, any); // TODO
+        case "python-program":
+            return parseAndAssign(`python-program ${id}`, any); // TODO
+        case "radio":
+            return parseAndAssign(`radio ${id}`, any); // TODO
+        case "sorter":
+            return parseAndAssign(`sorter ${id}`, any); // TODO
+        case "table":
+            return parseAndAssign(`table ${id}`, any); // TODO
+        case "video":
+            return parseAndAssign(`video ${id}`, any); // TODO
         default:
             return ctx.failure("a valid widget type", type);
     }
-    return ctx.success(undefined);
 };
 
 const parseStringToPositiveInt: Parser<number> = (rawValue, ctx) => {
