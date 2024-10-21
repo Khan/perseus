@@ -97,6 +97,7 @@
         "jest-environment-jsdom": "^29.7.0",
         "jest-serializer-html": "^7.1.0",
         "jest-specific-snapshot": "^5.0.0",
+        "knip": "^5.33.3",
         "less": "^4.2.0",
         "less-loader": "^11.1.3",
         "nyc": "^15.1.0",
@@ -146,7 +147,8 @@
         "cypress": "cypress open --component",
         "cypress:ci": "cross-env cypress run --component",
         "format": "prettier --write .",
-        "typecheck": "tsc"
+        "typecheck": "tsc",
+        "knip": "knip --config knip.config.ts"
     },
     "nyc": {
         "report-dir": "coverage/cypress/"
