@@ -52,15 +52,15 @@ export function isFraction(node): boolean {
     return mqNodeHasClass(node, "mq-fraction");
 }
 
-export function isNumerator(node): boolean {
+function isNumerator(node): boolean {
     return mqNodeHasClass(node, "mq-numerator");
 }
 
-export function isDenominator(node): boolean {
+function isDenominator(node): boolean {
     return mqNodeHasClass(node, "mq-denominator");
 }
 
-export function isSubScript(node): boolean {
+function isSubScript(node): boolean {
     // NOTE(charlie): MyScript has a structure whereby its superscripts seem
     // to be represented as a parent node with 'mq-sup-only' containing a
     // single child with 'mq-sup'.
@@ -69,7 +69,7 @@ export function isSubScript(node): boolean {
     );
 }
 
-export function isSuperScript(node): boolean {
+function isSuperScript(node): boolean {
     // NOTE(charlie): MyScript has a structure whereby its superscripts seem
     // to be represented as a parent node with 'mq-sup-only' containing a
     // single child with 'mq-sup'.
@@ -82,7 +82,7 @@ export function isParens(node): boolean {
     return node && node.ctrlSeq === "\\left(";
 }
 
-export function isLeaf(node): boolean {
+function isLeaf(node): boolean {
     return node && node.ctrlSeq && ValidLeaves.includes(node.ctrlSeq.trim());
 }
 
