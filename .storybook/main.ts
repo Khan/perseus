@@ -60,10 +60,6 @@ const config: StorybookConfig = {
             assetsInclude: ["/sb-preview/runtime.js"],
         });
     },
-
-    docs: {
-        autodocs: true,
-    },
     staticDirs: ["../static"],
 };
 
