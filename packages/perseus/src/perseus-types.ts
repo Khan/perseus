@@ -986,7 +986,7 @@ export type PerseusMeasurerWidgetOptions = {
     // The number of units to display on the ruler
     rulerLength: number;
     // Containing area [width, height]
-    box: ReadonlyArray<number>;
+    box: [number, number];
     // Always false.  Not used for this widget
     static: boolean;
 };
@@ -1198,24 +1198,6 @@ export type PerseusRadioChoice = {
     // deprecated
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     widgets?: PerseusWidgetsMap;
-};
-
-export type PerseusSequenceWidgetOptions = {
-    // A list of Renderers to display in sequence
-    json: ReadonlyArray<PerseusRenderer>;
-};
-
-export type PerseusSimulatorWidgetOptions = {
-    // Translatable Text; The X Axis
-    xAxisLabel: string;
-    // Translatable Text; The Y Axis
-    yAxisLabel: string;
-    // Translatable Text; A lable to define the proportion of the simulation
-    proportionLabel: string;
-    // The type of simulation. options: "proportion", "percentage"
-    proportionOrPercentage: string;
-    // The number of times to run the simulation
-    numTrials: number;
 };
 
 export type PerseusSorterWidgetOptions = {
