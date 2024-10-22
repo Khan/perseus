@@ -49,6 +49,8 @@ type Props = {
     onChange: (step: Step) => void;
     onCheckStep: (tutor: boolean) => void;
     onDeleteStep: () => void;
+    registerMathInput: (mi: HTMLSpanElement) => void;
+    prevSpan: HTMLSpanElement | null;
 };
 
 const ExpressionWidget = expression.widget;
@@ -61,6 +63,8 @@ const widgetOptions: PerseusExpressionWidgetOptions = {
     buttonsVisible: "always",
 };
 
+import {diff} from "fast-array-diff";
+
 export const Step = (props: Props) => {
     const {prevStep, currStep, problem, onCheckStep} = props;
 
@@ -71,11 +75,54 @@ export const Step = (props: Props) => {
         setOpened((opened) => !opened);
     }, []);
 
+    React.useEffect(() => {
+        const myWrapper =
+            expressionRef.current?._mathInput.current?.inputRef.current
+                ?.__mathFieldWrapperRef;
+        const mySpan = myWrapper?.querySelector(".mq-root-block");
+        const prevSpan = props.prevSpan?.querySelector(".mq-root-block");
+        if (!mySpan || !prevSpan) {
+            return;
+        }
+        mySpan.childNodes.forEach((node) => {
+            const n = node as HTMLElement;
+            n.classList.remove("perseus-diff-added");
+        });
+        const changes = diff(
+            [...prevSpan.childNodes],
+            [...mySpan.childNodes],
+            (one, two) => {
+                if (
+                    one.textContent === two.textContent &&
+                    one.className === two.className
+                ) {
+                    return true;
+                }
+                return false;
+            },
+        );
+        changes.added.forEach((added) => {
+            const n = added as HTMLElement;
+            n.classList.add("perseus-diff-added");
+        });
+        console.log("hi", prevStep, currStep, mySpan, props.prevSpan, changes);
+    }, [prevStep, currStep]);
+
     // TODO: memoize the callbacks
     const expression = (
         <View style={currStep.tutor && styles.tutorStep}>
             <ExpressionWidget
-                ref={expressionRef}
+                ref={(exr) => {
+                    if (exr) {
+                        expressionRef.current = exr;
+                        const span =
+                            exr._mathInput.current?.inputRef.current
+                                ?.__mathFieldWrapperRef;
+                        if (span) {
+                            props.registerMathInput(span);
+                        }
+                    }
+                }}
                 // common widget props
                 widgetId="expression 1"
                 alignment={undefined}
@@ -156,6 +203,11 @@ export const Step = (props: Props) => {
 
     return (
         <View style={styles.stepContainer}>
+            <style>
+                {`.perseus-diff-added {
+                    color: red;
+                }`}
+            </style>
             <View style={{flexDirection: "row"}}>
                 {stepAndStatus}
                 <Spring />

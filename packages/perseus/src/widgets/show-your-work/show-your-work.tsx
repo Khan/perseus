@@ -2,7 +2,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
 import {StyleSheet} from "aphrodite";
-import React from "react";
+import React, {useMemo} from "react";
 
 import {combinedReducer} from "./reducer";
 import {Step} from "./step";
@@ -33,6 +33,8 @@ export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
         ref.current = [state, dispatch];
     }
 
+    const refs = useMemo(() => ({}), []);
+
     return (
         <View style={styles.contentWrapper}>
             <SingleSelect
@@ -58,8 +60,12 @@ export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
                 return (
                     <Step
                         key={`${mode}-${i}}`}
+                        registerMathInput={(span) => {
+                            refs[i] = span;
+                        }}
                         mode={mode}
                         problem={problem}
+                        prevSpan={i > 0 ? refs[i - 1] : null}
                         prevStep={prevStep}
                         currStep={currStep}
                         onChange={(step) => {
