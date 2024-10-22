@@ -2,6 +2,7 @@ import {
     array,
     boolean,
     constant,
+    defaulted,
     object,
     string,
 } from "../general-purpose-parsers";
@@ -14,8 +15,8 @@ import type {Parser} from "../parser-types";
 export const parseDropdownWidget: Parser<DropdownWidget> = parseWidget(
     constant("dropdown"),
     object({
-        placeholder: string,
-        static: boolean,
+        placeholder: defaulted(string, () => ""),
+        static: defaulted(boolean, () => false),
         choices: array(
             object({
                 content: string,

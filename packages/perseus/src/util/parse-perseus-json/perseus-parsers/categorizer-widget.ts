@@ -1,6 +1,7 @@
 import {
     array,
     boolean,
+    booleanOrFalse,
     constant,
     number,
     object,
@@ -18,8 +19,8 @@ export const parseCategorizerWidget: Parser<CategorizerWidget> = parseWidget(
     object({
         items: array(string),
         categories: array(string),
-        randomizeItems: boolean,
-        static: boolean,
+        randomizeItems: booleanOrFalse,
+        static: booleanOrFalse,
         values: array(number),
         highlightLint: optional(boolean),
         linterContext: optional(

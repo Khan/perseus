@@ -9,7 +9,10 @@ import {parseExplanationWidget} from "./explanation-widget";
 import {parseExpressionWidget} from "./expression-widget";
 import {parseInteractiveGraphWidget} from "./interactive-graph-widget";
 
-import type {PerseusWidgetsMap} from "../../../perseus-types";
+import type {
+    AutoCorrectWidget,
+    PerseusWidgetsMap,
+} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
@@ -132,10 +135,49 @@ const parseWidgetsMapEntry: (
             return parseAndAssign(`table ${id}`, any); // TODO
         case "video":
             return parseAndAssign(`video ${id}`, any); // TODO
+        case "transformer":
+            // NOTE(benchristel): the transformer widget is deprecated.
+            return parseAndAssign(
+                `deprecated-standin ${id}`,
+                parseDeprecatedWidget,
+            );
+        case "lights-puzzle":
+            // NOTE(benchristel): the lights-puzzle widget is deprecated.
+            return parseAndAssign(
+                `deprecated-standin ${id}`,
+                parseDeprecatedWidget,
+            );
+        case "reaction-diagram":
+            // NOTE(benchristel): the reaction-diagram widget is deprecated.
+            return parseAndAssign(
+                `deprecated-standin ${id}`,
+                parseDeprecatedWidget,
+            );
+        case "sequence":
+            // NOTE(benchristel): the sequence widget is deprecated.
+            return parseAndAssign(
+                `deprecated-standin ${id}`,
+                parseDeprecatedWidget,
+            );
+        case "simulator":
+            // NOTE(benchristel): the simulator widget is deprecated.
+            return parseAndAssign(
+                `deprecated-standin ${id}`,
+                parseDeprecatedWidget,
+            );
+        case "unit-input":
+            // NOTE(benchristel): the unit-input widget is deprecated.
+            return parseAndAssign(
+                `deprecated-standin ${id}`,
+                parseDeprecatedWidget,
+            );
         default:
             return ctx.failure("a valid widget type", type);
     }
 };
+
+const parseDeprecatedWidget: Parser<AutoCorrectWidget> = (_, ctx) =>
+    ctx.success({type: "deprecated-standin", options: {}});
 
 const parseStringToPositiveInt: Parser<number> = (rawValue, ctx) => {
     if (typeof rawValue !== "string" || !/^[1-9][0-9]*$/.test(rawValue)) {

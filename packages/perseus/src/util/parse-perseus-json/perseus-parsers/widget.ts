@@ -1,5 +1,6 @@
 import {
     boolean,
+    defaulted,
     number,
     object,
     optional,
@@ -20,9 +21,15 @@ export function parseWidget<Type extends string, Options>(
         alignment: optional(string),
         options: parseOptions,
         key: optional(number),
-        version: object({
-            major: number,
-            minor: number,
-        }),
+        // NOTE(benchristel): widgets created before the version field was introduced
+        // can be assumed to have a version of 0.0. See:
+        // https://github.com/Khan/perseus/blob/5a6ba472afeac1d208e1c7e4e6eb45d132017873/packages/perseus/src/widgets.ts#L221
+        version: defaulted(
+            object({
+                major: number,
+                minor: number,
+            }),
+            () => ({major: 0, minor: 0}),
+        ),
     });
 }

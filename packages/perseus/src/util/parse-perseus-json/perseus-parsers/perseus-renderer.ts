@@ -1,12 +1,6 @@
-import {
-    array,
-    number,
-    object,
-    optional,
-    record,
-    string,
-} from "../general-purpose-parsers";
+import {array, object, optional, string} from "../general-purpose-parsers";
 
+import {imageMap} from "./image-map";
 import {parseWidgetsMap} from "./widgets-map";
 
 import type {PerseusRenderer} from "../../../perseus-types";
@@ -16,11 +10,5 @@ export const parsePerseusRenderer: Parser<PerseusRenderer> = object({
     content: string,
     widgets: parseWidgetsMap,
     metadata: optional(array(string)),
-    images: record(
-        string,
-        object({
-            width: number,
-            height: number,
-        }),
-    ),
+    images: imageMap,
 });
