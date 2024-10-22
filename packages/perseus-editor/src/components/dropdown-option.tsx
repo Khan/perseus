@@ -12,7 +12,7 @@ import ReactDOM from "react-dom";
 
 import {focusWithChromeStickyFocusBugWorkaround} from "./util";
 
-export type OptionRenderer = (
+type OptionRenderer = (
     children: React.ReactElement<any> | null | undefined,
     value: string,
     selected: boolean,
@@ -64,7 +64,7 @@ const check = `M10,3.8C10,4,9.9,4.2,9.8,4.3L5.1,8.9L4.3,9.8C4.2,9.9,4,10,3.8,10
  -0.1,0.3-0.2,0.4-0.2c0.2,0,0.3,0.1,0.4,0.2l0.9,0.9C9.9,3.5,10,3.7,
  10,3.8z`;
 
-export const optionHeight = 30;
+const optionHeight = 30;
 
 class Option extends React.Component<Props> {
     // @ts-expect-error - TS2564 - Property 'node' has no initializer and is not definitely assigned in the constructor.

@@ -1,3 +1,4 @@
+import {MathFieldActionType} from "../../types";
 import {getDecimalSeparator} from "../../utils";
 import {mathQuillInstance} from "../input/mathquill-instance";
 
@@ -11,28 +12,21 @@ import type {
     MathFieldUpdaterCallback,
 } from "../input/mathquill-types";
 
-enum ActionType {
-    WRITE = "write",
-    CMD = "cmd",
-    KEYSTROKE = "keystroke",
-    MQ_END = 0,
-}
-
 function buildGenericCallback(
     str: string,
-    type: ActionType = ActionType.WRITE,
+    type: MathFieldActionType = MathFieldActionType.WRITE,
 ): MathFieldUpdaterCallback {
     return function (mathQuill: MathFieldInterface) {
         switch (type) {
-            case ActionType.WRITE: {
+            case MathFieldActionType.WRITE: {
                 mathQuill.write(str);
                 return;
             }
-            case ActionType.CMD: {
+            case MathFieldActionType.CMD: {
                 mathQuill.cmd(str);
                 return;
             }
-            case ActionType.KEYSTROKE: {
+            case MathFieldActionType.KEYSTROKE: {
                 mathQuill.keystroke(str);
                 return;
             }
@@ -120,18 +114,18 @@ export const getKeyTranslator = (
 
     // The `FRAC_EXCLUSIVE` variant is handled manually, since we may need to do
     // some additional navigation depending on the cursor position.
-    FRAC_INCLUSIVE: buildGenericCallback("/", ActionType.CMD),
-    FRAC: buildGenericCallback("\\frac", ActionType.CMD),
-    LEFT_PAREN: buildGenericCallback("(", ActionType.CMD),
-    RIGHT_PAREN: buildGenericCallback(")", ActionType.CMD),
-    SQRT: buildGenericCallback("sqrt", ActionType.CMD),
-    PI: buildGenericCallback("pi", ActionType.CMD),
-    THETA: buildGenericCallback("theta", ActionType.CMD),
-    RADICAL: buildGenericCallback("nthroot", ActionType.CMD),
+    FRAC_INCLUSIVE: buildGenericCallback("/", MathFieldActionType.CMD),
+    FRAC: buildGenericCallback("\\frac", MathFieldActionType.CMD),
+    LEFT_PAREN: buildGenericCallback("(", MathFieldActionType.CMD),
+    RIGHT_PAREN: buildGenericCallback(")", MathFieldActionType.CMD),
+    SQRT: buildGenericCallback("sqrt", MathFieldActionType.CMD),
+    PI: buildGenericCallback("pi", MathFieldActionType.CMD),
+    THETA: buildGenericCallback("theta", MathFieldActionType.CMD),
+    RADICAL: buildGenericCallback("nthroot", MathFieldActionType.CMD),
 
-    BACKSPACE: buildGenericCallback("Backspace", ActionType.KEYSTROKE),
-    UP: buildGenericCallback("Up", ActionType.KEYSTROKE),
-    DOWN: buildGenericCallback("Down", ActionType.KEYSTROKE),
+    BACKSPACE: buildGenericCallback("Backspace", MathFieldActionType.KEYSTROKE),
+    UP: buildGenericCallback("Up", MathFieldActionType.KEYSTROKE),
+    DOWN: buildGenericCallback("Down", MathFieldActionType.KEYSTROKE),
 
     CUBE_ROOT: (mathQuill) => {
         mathQuill.write("\\sqrt[3]{}");
@@ -143,7 +137,7 @@ export const getKeyTranslator = (
         // If there's nothing to the left of the cursor, then we want to
         // leave the cursor to the left of the fraction after creating it.
         const shouldNavigateLeft =
-            cursor[mathQuillInstance.L] === ActionType.MQ_END;
+            cursor[mathQuillInstance.L] === MathFieldActionType.MQ_END;
         mathQuill.cmd("\\frac");
         if (shouldNavigateLeft) {
             mathQuill.keystroke("Left");

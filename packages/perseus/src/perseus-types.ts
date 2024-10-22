@@ -109,8 +109,6 @@ export type MultiItem = {
     _multi: any;
 };
 
-export type PerseusArticle = ReadonlyArray<PerseusRenderer>;
-
 export type Version = {
     // The major part of the version
     major: number;
@@ -796,7 +794,7 @@ export type PerseusGraphType =
     | PerseusGraphTypeSegment
     | PerseusGraphTypeSinusoid;
 
-export type PerseusGraphTypeCommon = {
+type PerseusGraphTypeCommon = {
     // NOTE(jeremy): This is referenced in the component. Verify if there's any
     // production data that still has this.
     coord?: Coord; // Legacy!
@@ -1222,38 +1220,6 @@ export type PerseusTableWidgetOptions = {
     answers: ReadonlyArray<ReadonlyArray<string>>;
 };
 
-export type DilationTransformation = {
-    type: "dilation";
-    center: Coord;
-    scale: number;
-    constraints: {
-        fixed: boolean;
-    };
-};
-
-export type ReflectionTransformation = {
-    type: "reflection";
-    line: [Coord, Coord];
-    constraints?: {
-        fixed: boolean;
-    };
-};
-
-export type RotationTransformation = {
-    type: "rotation";
-    angleDeg: number;
-    center: Coord;
-    constraints: {
-        fixed: boolean;
-    };
-};
-
-export type TranslationTransformation = {
-    type: "translation";
-    vector: Coord;
-    contraints: Empty;
-};
-
 export type PerseusInteractionWidgetOptions = {
     // The definition of the graph
     graph: PerseusInteractionGraph;
@@ -1585,7 +1551,8 @@ export type PerseusPassageRefTargetWidgetOptions = {
 export type PerseusSimpleMarkdownTesterWidgetOptions = {
     value: string;
 };
-export type PerseusUnitInputWidgetOptions = {
+
+type PerseusUnitInputWidgetOptions = {
     value: string;
 };
 

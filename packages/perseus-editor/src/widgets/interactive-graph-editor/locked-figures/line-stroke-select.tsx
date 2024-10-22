@@ -5,7 +5,7 @@ import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-export type StyleOptions = "solid" | "dashed";
+type StyleOptions = "solid" | "dashed";
 type Props = {
     selectedValue: StyleOptions;
     onChange: (newValue: string) => void;
