@@ -23,6 +23,7 @@ import type {
 } from "../../perseus-types";
 import type {FilterCriterion} from "../../types";
 import type {Expression} from "../expression";
+import {diffEquations} from "./highlight-diff";
 
 const Span = addStyle("span");
 
@@ -49,6 +50,8 @@ type Props = {
     onChange: (step: Step) => void;
     onCheckStep: (tutor: boolean) => void;
     onDeleteStep: () => void;
+    registerMathInput: (mi: HTMLSpanElement) => void;
+    prevSpan: HTMLSpanElement | null;
 };
 
 const ExpressionWidget = expression.widget;
@@ -71,11 +74,40 @@ export const Step = (props: Props) => {
         setOpened((opened) => !opened);
     }, []);
 
+    React.useEffect(() => {
+        const myWrapper =
+            expressionRef.current?._mathInput.current?.inputRef.current
+                ?.__mathFieldWrapperRef;
+        const mySpan = myWrapper?.querySelector(".mq-root-block");
+        const prevSpan = props.prevSpan?.querySelector(".mq-root-block");
+        if (!mySpan || !prevSpan) {
+            return;
+        }
+        mySpan.childNodes.forEach((node) => {
+            const n = node as HTMLElement;
+            n.classList.remove("perseus-diff-added");
+        });
+        diffEquations(
+            [...prevSpan.childNodes] as HTMLElement[],
+            [...mySpan.childNodes] as HTMLElement[],
+        );
+    }, [prevStep, currStep]);
+
     // TODO: memoize the callbacks
     const expression = (
         <View style={currStep.tutor && styles.tutorStep}>
             <ExpressionWidget
-                ref={expressionRef}
+                ref={(exr) => {
+                    if (exr) {
+                        expressionRef.current = exr;
+                        const span =
+                            exr._mathInput.current?.inputRef.current
+                                ?.__mathFieldWrapperRef;
+                        if (span) {
+                            props.registerMathInput(span);
+                        }
+                    }
+                }}
                 // common widget props
                 widgetId="expression 1"
                 alignment={undefined}
@@ -156,6 +188,11 @@ export const Step = (props: Props) => {
 
     return (
         <View style={styles.stepContainer}>
+            <style>
+                {`.perseus-diff-added {
+                    color: magenta;
+                }`}
+            </style>
             <View style={{flexDirection: "row"}}>
                 {stepAndStatus}
                 <Spring />

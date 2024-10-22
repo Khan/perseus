@@ -54,6 +54,7 @@
         "@math-blocks/solver": "^0.0.5",
         "@math-blocks/testing": "^0.0.5",
         "@use-gesture/react": "^10.2.27",
+        "fast-array-diff": "^1.1.0",
         "mafs": "0.19.0",
         "uuid": "^10.0.0"
     },
