@@ -3,7 +3,7 @@ import _ from "underscore";
 
 // Interactive2 requires
 import {Graphie} from "../../util/graphie";
-import MovablePoint from "../movable-point";
+import {MovablePoint} from "../movable-point";
 
 import _createMockMovable from "./movable-mock";
 

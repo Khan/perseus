@@ -133,7 +133,7 @@ type State = {
 // tooltipResetFunctions, but never remove them.
 const tooltipResetFunctions: Array<() => void> = [];
 
-class MovablePoint {
+export class MovablePoint {
     graphie: Graphie;
     movable: Movable<Record<string, never>>;
     state: State;
@@ -801,5 +801,3 @@ function getKey(eventName: string, id: string): string {
 function getEventName(key: string): string {
     return key.split(":")[0];
 }
-
-export default MovablePoint;

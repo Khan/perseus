@@ -1,7 +1,7 @@
 import {Graphie} from "../util/graphie";
 
 import {Movable} from "./movable";
-import MovablePoint from "./movable-point";
+import {MovablePoint} from "./movable-point";
 import WrappedEllipse from "./wrapped-ellipse";
 
 // Yay for side-effect imports!
