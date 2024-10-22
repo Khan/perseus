@@ -1,6 +1,7 @@
+import {MathFieldActionType} from "../../types";
+
 import {CursorContext} from "./cursor-contexts";
 import {mathQuillInstance} from "./mathquill-instance";
-import {MathFieldActionType} from "./mathquill-types";
 
 import type {MathFieldInterface} from "./mathquill-types";
 
