@@ -1,5 +1,11 @@
 import type {KnipConfig} from "knip";
 
+/**
+ * knip is a tool for discovering dead code:
+ * https://knip.dev/
+ *
+ * To use: `yarn knip`
+ */
 const config: KnipConfig = {
     entry: [
         "{index,main,cli}.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
@@ -25,6 +31,9 @@ const config: KnipConfig = {
         "data/find-questions.ts",
         // there seems to be a bug with the knip Jest plugin?
         "jest.config.js",
+        // this file causes side-effects by importing it
+        // so it's not "used" in the conventional sense
+        "packages/perseus/src/util/interactive.ts",
     ],
 };
 
