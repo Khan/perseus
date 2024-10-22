@@ -9,7 +9,7 @@ import noopValidator from "../__shared__/noop-validator";
 
 import type {Coord} from "../../interactive2/types";
 import type {PerseusMeasurerWidgetOptions} from "../../perseus-types";
-import type {APIOptions, Widget, WidgetExports} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {Interval} from "../../util/interval";
 
 const defaultImage = {
@@ -18,8 +18,12 @@ const defaultImage = {
     left: 0,
 } as const;
 
-type Props = PerseusMeasurerWidgetOptions & {
-    apiOptions: APIOptions;
+type Props = WidgetProps<
+    PerseusMeasurerWidgetOptions,
+    PerseusMeasurerWidgetOptions
+> & {
+    // TODO: these don't show up anywhere else in code
+    // I'm guessing they could just be constants
     protractorX: number;
     protractorY: number;
 };
