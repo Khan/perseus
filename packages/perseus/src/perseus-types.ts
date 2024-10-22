@@ -608,10 +608,10 @@ export type PerseusInteractiveGraphWidgetOptions = {
     step: [number, number];
     // Where the grid lines on the graph will render. default [1, 1]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
-    gridStep: [number, number];
+    gridStep?: [number, number] | undefined;
     // Where the graph points will lock to when they are dragged. default [0.5, 0.5]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
-    snapStep: [number, number];
+    snapStep?: [number, number] | undefined;
     // An optional image to use in the background
     backgroundImage?: PerseusImageBackground;
     /**

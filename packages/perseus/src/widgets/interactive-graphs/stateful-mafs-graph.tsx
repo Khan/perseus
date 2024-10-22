@@ -17,6 +17,7 @@ import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {PerseusGraphType} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 import type {PerseusInteractiveGraphUserInput} from "../../validation.types";
+import { vec } from "mafs";
 
 export type StatefulMafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -27,9 +28,9 @@ export type StatefulMafsGraphProps = {
     correct: PerseusGraphType;
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
     range: InteractiveGraphProps["range"];
-    snapStep: InteractiveGraphProps["snapStep"];
+    snapStep: vec.Vector2;
     step: InteractiveGraphProps["step"];
-    gridStep: InteractiveGraphProps["gridStep"];
+    gridStep: vec.Vector2;
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];

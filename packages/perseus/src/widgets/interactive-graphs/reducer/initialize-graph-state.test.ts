@@ -3,11 +3,12 @@ import invariant from "tiny-invariant";
 import {initializeGraphState} from "./initialize-graph-state";
 
 import type {InteractiveGraphProps} from "../types";
+import { vec } from "mafs";
 
 type BaseGraphData = {
     range: InteractiveGraphProps["range"];
-    step: InteractiveGraphProps["step"];
-    snapStep: InteractiveGraphProps["snapStep"];
+    step: vec.Vector2;
+    snapStep: vec.Vector2;
 };
 
 const baseGraphData: BaseGraphData = {

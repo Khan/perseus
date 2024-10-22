@@ -276,8 +276,8 @@ export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
         constant("interactive-graph"),
         object({
             step: pairOfNumbers,
-            gridStep: pairOfNumbers,
-            snapStep: pairOfNumbers,
+            gridStep: optional(pairOfNumbers),
+            snapStep: optional(pairOfNumbers),
             backgroundImage: optional(parsePerseusImageBackground),
             markings: enumeration("graph", "grid", "none"),
             labels: array(string),
