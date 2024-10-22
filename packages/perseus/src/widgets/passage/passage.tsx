@@ -414,7 +414,7 @@ export class Passage
         const enabled = this.state.stylesAreApplied;
 
         // Highlights are read-only in review mode.
-        const editable = !this.props.reviewModeRubric;
+        const editable = !this.props.reviewMode;
         return (
             <HighlightableContent
                 editable={editable}

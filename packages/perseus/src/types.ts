@@ -671,7 +671,8 @@ export type WidgetProps<
     onFocus: (blurPath: FocusPath) => void;
     onBlur: (blurPath: FocusPath) => void;
     findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
-    reviewModeRubric: Rubric;
+    reviewModeRubric?: Rubric | null | undefined;
+    reviewMode: boolean;
     onChange: ChangeHandler;
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer
