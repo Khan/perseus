@@ -12,7 +12,7 @@ import ReactDOM from "react-dom";
 
 import {focusWithChromeStickyFocusBugWorkaround} from "./util";
 
-export type OptionRenderer = (
+type OptionRenderer = (
     children: React.ReactElement<any> | null | undefined,
     value: string,
     selected: boolean,
