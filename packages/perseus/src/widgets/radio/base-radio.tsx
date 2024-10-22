@@ -56,7 +56,7 @@ type Props = {
     multipleSelect: boolean;
     // the logic checks whether this exists,
     // so it must be optional
-    reviewModeRubric?: PerseusRadioWidgetOptions | null | undefined;
+    reviewModeRubric?: PerseusRadioWidgetOptions | null;
     reviewMode: boolean;
     // A callback indicating that this choice has changed. Its argument is
     // an object with two keys: `checked` and `crossedOut`. Each contains
