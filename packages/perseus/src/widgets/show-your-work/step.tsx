@@ -23,6 +23,7 @@ import type {
 } from "../../perseus-types";
 import type {FilterCriterion} from "../../types";
 import type {Expression} from "../expression";
+import {diffEquations} from "./highlight-diff";
 
 const Span = addStyle("span");
 
@@ -63,8 +64,6 @@ const widgetOptions: PerseusExpressionWidgetOptions = {
     buttonsVisible: "always",
 };
 
-import {diff} from "fast-array-diff";
-
 export const Step = (props: Props) => {
     const {prevStep, currStep, problem, onCheckStep} = props;
 
@@ -88,24 +87,10 @@ export const Step = (props: Props) => {
             const n = node as HTMLElement;
             n.classList.remove("perseus-diff-added");
         });
-        const changes = diff(
-            [...prevSpan.childNodes],
-            [...mySpan.childNodes],
-            (one, two) => {
-                if (
-                    one.textContent === two.textContent &&
-                    one.className === two.className
-                ) {
-                    return true;
-                }
-                return false;
-            },
+        diffEquations(
+            [...prevSpan.childNodes] as HTMLElement[],
+            [...mySpan.childNodes] as HTMLElement[],
         );
-        changes.added.forEach((added) => {
-            const n = added as HTMLElement;
-            n.classList.add("perseus-diff-added");
-        });
-        console.log("hi", prevStep, currStep, mySpan, props.prevSpan, changes);
     }, [prevStep, currStep]);
 
     // TODO: memoize the callbacks
@@ -205,7 +190,7 @@ export const Step = (props: Props) => {
         <View style={styles.stepContainer}>
             <style>
                 {`.perseus-diff-added {
-                    color: red;
+                    color: magenta;
                 }`}
             </style>
             <View style={{flexDirection: "row"}}>
