@@ -262,6 +262,10 @@ describe("mafsStateToInteractiveGraph", () => {
             showAngles: true,
             showSides: true,
             snapTo: "sides",
+            focusedPointIndex: 99,
+            showRemovePointButton: true,
+            showKeyboardInteractionInvitation: true,
+            interactionMode: "mouse",
             coords: [
                 [1, 2],
                 [3, 4],

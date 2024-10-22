@@ -54,6 +54,11 @@ export const actions = {
     polygon: {
         movePoint,
         moveAll,
+        addPoint,
+        removePoint,
+        focusPoint,
+        blurPoint,
+        clickPoint,
     },
     quadratic: {
         movePoint,
