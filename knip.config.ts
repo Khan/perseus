@@ -1,5 +1,11 @@
 import type {KnipConfig} from "knip";
 
+/**
+ * knip is a tool for discovering dead code:
+ * https://knip.dev/
+ *
+ * To use: `yarn knip`
+ */
 const config: KnipConfig = {
     entry: [
         "{index,main,cli}.{js,cjs,mjs,jsx,ts,cts,mts,tsx}",
