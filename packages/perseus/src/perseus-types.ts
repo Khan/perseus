@@ -109,8 +109,6 @@ export type MultiItem = {
     _multi: any;
 };
 
-export type PerseusArticle = ReadonlyArray<PerseusRenderer>;
-
 export type Version = {
     // The major part of the version
     major: number;
@@ -1238,38 +1236,6 @@ export type PerseusTableWidgetOptions = {
     columns: number;
     // Translatable Text; A 2-dimensional array of text to populate the table with
     answers: ReadonlyArray<ReadonlyArray<string>>;
-};
-
-export type DilationTransformation = {
-    type: "dilation";
-    center: Coord;
-    scale: number;
-    constraints: {
-        fixed: boolean;
-    };
-};
-
-export type ReflectionTransformation = {
-    type: "reflection";
-    line: [Coord, Coord];
-    constraints?: {
-        fixed: boolean;
-    };
-};
-
-export type RotationTransformation = {
-    type: "rotation";
-    angleDeg: number;
-    center: Coord;
-    constraints: {
-        fixed: boolean;
-    };
-};
-
-export type TranslationTransformation = {
-    type: "translation";
-    vector: Coord;
-    contraints: Empty;
 };
 
 export type PerseusInteractionWidgetOptions = {

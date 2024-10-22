@@ -76,5 +76,3 @@ declare module "mathquill" {
         cursor?: Cursor;
     }
 }
-
-export type MathQuillAriaStatisStringsMap = MathQuill.v3.AriaStaticStringsMap;
