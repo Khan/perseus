@@ -18,6 +18,7 @@
  * Many of the regexes and original logic has been adapted from
  * the wonderful [marked.js](https://github.com/chjj/marked)
  */
+import {adaptLegacyMarkdown} from "./legacyMarkdownAdapter";
 import type {Capture, MatchFunction, State} from "./troublesome-types";
 import type * as React from "react";
 
@@ -450,17 +451,20 @@ var parserFor = function (
         source: string,
         state?: State | null,
     ): Array<SingleASTNode> {
+        var legacyAdaptedStr = adaptLegacyMarkdown(source);
         latestState = populateInitialState(state, defaultState);
-        if (!latestState.inline && !latestState.disableAutoBlockNewlines) {
-            source = source + "\n\n";
-        }
+        var str =
+            !latestState.inline && !latestState.disableAutoBlockNewlines
+                ? legacyAdaptedStr + "\n\n"
+                : legacyAdaptedStr;
+
         // We store the previous capture so that match functions can
         // use some limited amount of lookbehind. Lists use this to
         // ensure they don't match arbitrary '- ' or '* ' in inline
         // text (see the list rule for more information). This stores
         // the full regex capture object, if there is one.
         latestState.prevCapture = null;
-        return nestedParse(preprocess(source), latestState);
+        return nestedParse(preprocess(str), latestState);
     };
 
     return outerParse;
