@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "14.8.0",
+    "version": "14.8.1",
     "publishConfig": {
         "access": "public"
     },
@@ -34,11 +34,11 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/kas": "^0.3.14",
+        "@khanacademy/kas": "^0.3.15",
         "@khanacademy/keypad-context": "^1.0.3",
         "@khanacademy/kmath": "^0.1.15",
         "@khanacademy/math-input": "^21.1.0",
-        "@khanacademy/perseus": "^38.0.0",
+        "@khanacademy/perseus": "^38.0.1",
         "@khanacademy/perseus-core": "1.5.2",
         "mafs": "^0.19.0"
     },

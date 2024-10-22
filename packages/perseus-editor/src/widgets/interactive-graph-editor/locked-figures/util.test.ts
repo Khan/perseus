@@ -1,4 +1,13 @@
-import {getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    getDefaultFigureForType,
+} from "./util";
+
+import type {
+    LockedFigureColor,
+    LockedFigureFillType,
+    LockedLineStyle,
+} from "@khanacademy/perseus";
 
 describe("getDefaultFigureForType", () => {
     test("should return a point with default values", () => {
@@ -99,4 +108,153 @@ describe("getDefaultFigureForType", () => {
             size: "medium",
         });
     });
+});
+
+describe("generateLockedFigureAppearanceDescription", () => {
+    // one argument
+    test(`should return a string with a gray color and a solid stroke style`, () => {
+        const description = generateLockedFigureAppearanceDescription("grayH");
+        expect(description).toBe(`. Appearance solid gray.`);
+    });
+
+    test.each([["red"], ["blue"], ["green"], ["purple"], ["orange"]])(
+        `should return a string with a %s color and a solid stroke style`,
+        (color: LockedFigureColor) => {
+            const description =
+                generateLockedFigureAppearanceDescription(color);
+
+            expect(description).toBe(`. Appearance solid ${color}.`);
+        },
+    );
+
+    // two arguments
+    test.each([
+        ["blue", "solid"],
+        ["green", "dashed"],
+    ])(
+        `should return a string with color of %s and a stroke style of %s`,
+        (color: LockedFigureColor, strokeStyle: LockedLineStyle) => {
+            const description = generateLockedFigureAppearanceDescription(
+                color,
+                strokeStyle,
+            );
+            expect(description).toBe(`. Appearance ${strokeStyle} ${color}.`);
+        },
+    );
+
+    // three arguments
+    // no fill
+    test(`should return a string with a gray color, solid stroke, and no fill`, () => {
+        const description = generateLockedFigureAppearanceDescription(
+            "grayH",
+            undefined,
+            "none",
+        );
+        expect(description).toBe(
+            `. Appearance solid gray border, with no fill.`,
+        );
+    });
+
+    test.each([
+        ["blue", "solid", "none"],
+        ["red", "dashed", "none"],
+    ])(
+        `should return a string with a %s color, %s stroke and no fill`,
+        (
+            color: LockedFigureColor,
+            strokeStyle: LockedLineStyle,
+            fill: LockedFigureFillType,
+        ) => {
+            const description = generateLockedFigureAppearanceDescription(
+                color,
+                strokeStyle,
+                fill,
+            );
+
+            expect(description).toBe(
+                `. Appearance ${strokeStyle} ${color} border, with no fill.`,
+            );
+        },
+    );
+
+    // white fill
+    test("should return a string with a gray color, solid stroke, and a white fill", () => {
+        const description = generateLockedFigureAppearanceDescription(
+            "grayH",
+            undefined,
+            "white",
+        );
+        expect(description).toBe(
+            `. Appearance solid gray border, with a white fill.`,
+        );
+    });
+
+    test.each([
+        ["pink", "solid", "white"],
+        ["red", "dashed", "white"],
+    ])(
+        `should return a string with a %s color, %s stroke and a white fill`,
+        (
+            color: LockedFigureColor,
+            strokeStyle: LockedLineStyle,
+            fill: LockedFigureFillType,
+        ) => {
+            const description = generateLockedFigureAppearanceDescription(
+                color,
+                strokeStyle,
+                fill,
+            );
+
+            expect(description).toBe(
+                `. Appearance ${strokeStyle} ${color} border, with a white fill.`,
+            );
+        },
+    );
+
+    // solid and translucent fills
+    test("should return a string with a gray color, solid stroke, and a solid fill", () => {
+        const description = generateLockedFigureAppearanceDescription(
+            "grayH",
+            undefined,
+            "solid",
+        );
+        expect(description).toBe(
+            `. Appearance solid gray border, with a solid gray fill.`,
+        );
+    });
+
+    test("should return a string with a gray color, solid stroke, and a translucent fill", () => {
+        const description = generateLockedFigureAppearanceDescription(
+            "pink",
+            undefined,
+            "translucent",
+        );
+        expect(description).toBe(
+            `. Appearance solid pink border, with a translucent pink fill.`,
+        );
+    });
+
+    test.each([
+        ["pink", "solid", "solid"],
+        ["red", "dashed", "solid"],
+        ["green", "dashed", "translucent"],
+        ["purple", "solid", "translucent"],
+    ])(
+        `should return a string with a %s color, %s stroke, and a %s fill`,
+        (
+            color: LockedFigureColor,
+            strokeStyle: LockedLineStyle,
+            fill: LockedFigureFillType,
+        ) => {
+            const description = generateLockedFigureAppearanceDescription(
+                color,
+                strokeStyle,
+                fill,
+            );
+
+            expect(description).toBe(
+                `. Appearance ${strokeStyle} ${color} border, with a ${fill} ${color} fill.`,
+            );
+        },
+    );
 });

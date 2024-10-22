@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Refine InputNumber's rubric type
+Remove unused styles constants
