@@ -18,7 +18,8 @@ type I18nContextType = {
 // @ts-expect-error - TS2322 - Type 'Context<{ strings: {}; locale: string; }>' is not assignable to type 'Context<I18nContextType>'.
 export const MathInputI18nContext: React.Context<I18nContextType> =
     React.createContext(
-        process.env.NODE_ENV === "test" || process.env.STORYBOOK
+        typeof process !== "undefined" &&
+            (process.env.NODE_ENV === "test" || process.env.STORYBOOK)
             ? {
                   strings: mockStrings,
                   locale: "en",
