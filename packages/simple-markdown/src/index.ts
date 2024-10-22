@@ -18,7 +18,7 @@
  * Many of the regexes and original logic has been adapted from
  * the wonderful [marked.js](https://github.com/chjj/marked)
  */
-import {legacyMarkdownAdapter} from "./legacyMarkdownAdapter";
+import {adaptLegacyMarkdown} from "./legacyMarkdownAdapter";
 import type {Capture, MatchFunction, State} from "./troublesome-types";
 import type * as React from "react";
 
@@ -451,7 +451,7 @@ var parserFor = function (
         source: string,
         state?: State | null,
     ): Array<SingleASTNode> {
-        var legacyAdaptedStr = legacyMarkdownAdapter(source);
+        var legacyAdaptedStr = adaptLegacyMarkdown(source);
         latestState = populateInitialState(state, defaultState);
         var str =
             !latestState.inline && !latestState.disableAutoBlockNewlines
