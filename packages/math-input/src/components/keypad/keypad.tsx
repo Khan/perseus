@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     keypadOuterContainer: {
         display: "flex",
         alignItems: "center",
-        direction: "ltr",
+
     },
     wrapper: {
         background: color.white,
@@ -218,6 +218,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         backgroundColor: "#DBDCDD",
+        direction: "ltr",
     },
     keypadGrid: {
         display: "grid",
