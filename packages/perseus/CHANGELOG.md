@@ -1,5 +1,45 @@
 # @khanacademy/perseus
 
+## 39.0.0
+
+### Major Changes
+
+-   [#1740](https://github.com/Khan/perseus/pull/1740) [`c6ee2662a`](https://github.com/Khan/perseus/commit/c6ee2662a18e6703c3a7816d5fb89a70e0f9f50b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove external-facing but unused API (getGrammarTypeForPath)
+
+### Minor Changes
+
+-   [#1741](https://github.com/Khan/perseus/pull/1741) [`3e48b2c26`](https://github.com/Khan/perseus/commit/3e48b2c26fbd1f649ce3878468e06043b88b0949) Thanks [@handeyeco](https://github.com/handeyeco)! - Scope reviewModeRubric to just the component that uses it (Radio)
+
+*   [#1745](https://github.com/Khan/perseus/pull/1745) [`5cbbeebdf`](https://github.com/Khan/perseus/commit/5cbbeebdf368a06c318940f477af08fd73a84e66) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - adds appearance description to aria label
+
+### Patch Changes
+
+-   [#1782](https://github.com/Khan/perseus/pull/1782) [`ea7ede69f`](https://github.com/Khan/perseus/commit/ea7ede69fc8b5265162cfbfedf863766fa1e0aee) Thanks [@handeyeco](https://github.com/handeyeco)! - Cleanup widget option types
+
+*   [#1781](https://github.com/Khan/perseus/pull/1781) [`f220366d0`](https://github.com/Khan/perseus/commit/f220366d0b3550a84b0d744119331d3307348c34) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused types
+
+-   [#1744](https://github.com/Khan/perseus/pull/1744) [`236ef4458`](https://github.com/Khan/perseus/commit/236ef4458aaffc9b6265e72dc64cb1ee3a21a71c) Thanks [@handeyeco](https://github.com/handeyeco)! - Cleanup: remove scorePreview and refine some types
+
+*   [#1777](https://github.com/Khan/perseus/pull/1777) [`cf57871df`](https://github.com/Khan/perseus/commit/cf57871df1d0eb63be2b83b8c5dda5f4f1f709ad) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused styles constants
+
+-   [#1776](https://github.com/Khan/perseus/pull/1776) [`d05a4a228`](https://github.com/Khan/perseus/commit/d05a4a22895c2c939e5c90a9b412ddfaaa0ba2f0) Thanks [@handeyeco](https://github.com/handeyeco)! - Don't export things that aren't used externally
+
+*   [#1778](https://github.com/Khan/perseus/pull/1778) [`8eacf0bda`](https://github.com/Khan/perseus/commit/8eacf0bda557c459be996b8c66a0fd93ad797b39) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused dead code
+
+-   [#1774](https://github.com/Khan/perseus/pull/1774) [`cb3b8f3ea`](https://github.com/Khan/perseus/commit/cb3b8f3ea58e147d402238994227284e8a21ba51) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove duplicate export on MovablePoint
+
+*   [#1790](https://github.com/Khan/perseus/pull/1790) [`c27ee11bc`](https://github.com/Khan/perseus/commit/c27ee11bc69ff9dcf89814f9f66b4e1b3508f129) Thanks [@handeyeco](https://github.com/handeyeco)! - Revert process check PR (#1784)
+
+-   [#1789](https://github.com/Khan/perseus/pull/1789) [`0587dc04b`](https://github.com/Khan/perseus/commit/0587dc04b770524cce8c603fcd90e7c25844be46) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove isMobile from Dependencies since it's now on APIOptions
+
+*   [#1780](https://github.com/Khan/perseus/pull/1780) [`6729af8c8`](https://github.com/Khan/perseus/commit/6729af8c8af8617f7f7159976efb2989dc925909) Thanks [@handeyeco](https://github.com/handeyeco)! - Don't export types that aren't used externally
+
+-   [#1759](https://github.com/Khan/perseus/pull/1759) [`69f3facad`](https://github.com/Khan/perseus/commit/69f3facadd0dd38ef98c4ba6e04461d2bbe92578) Thanks [@handeyeco](https://github.com/handeyeco)! - Clear seemingly useless widget rubrics
+
+-   Updated dependencies [[`e8160105c`](https://github.com/Khan/perseus/commit/e8160105c967143b593954d967504dcbeab59468), [`f220366d0`](https://github.com/Khan/perseus/commit/f220366d0b3550a84b0d744119331d3307348c34), [`d05a4a228`](https://github.com/Khan/perseus/commit/d05a4a22895c2c939e5c90a9b412ddfaaa0ba2f0), [`8eacf0bda`](https://github.com/Khan/perseus/commit/8eacf0bda557c459be996b8c66a0fd93ad797b39), [`c27ee11bc`](https://github.com/Khan/perseus/commit/c27ee11bc69ff9dcf89814f9f66b4e1b3508f129), [`6729af8c8`](https://github.com/Khan/perseus/commit/6729af8c8af8617f7f7159976efb2989dc925909), [`c91cba9e0`](https://github.com/Khan/perseus/commit/c91cba9e01bc391accac2014ed3c87b42ba174fd)]:
+    -   @khanacademy/math-input@21.1.1
+    -   @khanacademy/perseus-linter@1.2.3
+
 ## 38.0.1
 
 ### Patch Changes

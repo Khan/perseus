@@ -1,5 +1,23 @@
 # @khanacademy/math-input
 
+## 21.1.1
+
+### Patch Changes
+
+-   [#1779](https://github.com/Khan/perseus/pull/1779) [`e8160105c`](https://github.com/Khan/perseus/commit/e8160105c967143b593954d967504dcbeab59468) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused fake-react-native Text component
+
+*   [#1781](https://github.com/Khan/perseus/pull/1781) [`f220366d0`](https://github.com/Khan/perseus/commit/f220366d0b3550a84b0d744119331d3307348c34) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused types
+
+-   [#1776](https://github.com/Khan/perseus/pull/1776) [`d05a4a228`](https://github.com/Khan/perseus/commit/d05a4a22895c2c939e5c90a9b412ddfaaa0ba2f0) Thanks [@handeyeco](https://github.com/handeyeco)! - Don't export things that aren't used externally
+
+*   [#1778](https://github.com/Khan/perseus/pull/1778) [`8eacf0bda`](https://github.com/Khan/perseus/commit/8eacf0bda557c459be996b8c66a0fd93ad797b39) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused dead code
+
+-   [#1790](https://github.com/Khan/perseus/pull/1790) [`c27ee11bc`](https://github.com/Khan/perseus/commit/c27ee11bc69ff9dcf89814f9f66b4e1b3508f129) Thanks [@handeyeco](https://github.com/handeyeco)! - Revert process check PR (#1784)
+
+*   [#1780](https://github.com/Khan/perseus/pull/1780) [`6729af8c8`](https://github.com/Khan/perseus/commit/6729af8c8af8617f7f7159976efb2989dc925909) Thanks [@handeyeco](https://github.com/handeyeco)! - Don't export types that aren't used externally
+
+-   [#1775](https://github.com/Khan/perseus/pull/1775) [`c91cba9e0`](https://github.com/Khan/perseus/commit/c91cba9e01bc391accac2014ed3c87b42ba174fd) Thanks [@handeyeco](https://github.com/handeyeco)! - Consolidate MathFieldActionTypes
+
 ## 21.1.0
 
 ### Minor Changes
