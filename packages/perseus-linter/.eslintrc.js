@@ -6,7 +6,10 @@ module.exports = {
     rules: {
         "import/no-extraneous-dependencies": [
             "error",
-            {packageDir: [__dirname, path.join(__dirname, "../../")]},
+            {
+                packageDir: [__dirname, path.join(__dirname, "../../")],
+                includeTypes: true,
+            },
         ],
     },
 };

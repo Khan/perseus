@@ -25,7 +25,9 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {},
-    "devDependencies": {},
+    "devDependencies": {
+        "@khanacademy/wonder-stuff-core": "1.5.2"
+    },
     "peerDependencies": {},
     "keywords": []
 }
