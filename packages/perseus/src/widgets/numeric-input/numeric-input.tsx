@@ -244,6 +244,7 @@ export class NumericInput
                 width: this.props.size === "small" ? 40 : 80,
                 padding: 0,
                 height: "auto",
+                direction: "ltr",
             },
         });
 
