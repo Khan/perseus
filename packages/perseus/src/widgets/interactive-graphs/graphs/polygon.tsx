@@ -164,12 +164,8 @@ export const hasFocusVisible = (
     element: Element | null | undefined,
 ): boolean => {
     const matches = (selector: string) => element?.matches(selector) ?? false;
-    try {
-        return matches(":focus-visible");
-    } catch (e) {
-        // jsdom doesn't support :focus-visible
-        // (see https://github.com/jsdom/jsdom/issues/3426),
-        // so the call to matches(":focus-visible") will fail in tests.
-        return matches(":focus");
-    }
+    // jsdom doesn't support :focus-visible
+    // (see https://github.com/jsdom/jsdom/issues/3426),
+    // so the call to matches(":focus-visible") will fail in tests.
+    return matches(":focus-visible") || matches(":focus");
 };

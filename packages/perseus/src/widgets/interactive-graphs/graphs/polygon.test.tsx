@@ -1,4 +1,4 @@
-import {render} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Mafs, Polygon} from "mafs";
 import React from "react";
@@ -34,6 +34,7 @@ describe("hasFocusVisible", () => {
             </Mafs>,
         );
         const polygon = ref.current;
+        expect(polygon).not.toBeNull();
         if (polygon) {
             await userEvent.tab();
             await userEvent.tab();
