@@ -327,7 +327,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                 >
                     <span
                         className={className}
-                        style={styles.ltr}
                         ref={(ref) => (this.__mathFieldWrapperRef = ref)}
                         onFocus={() => this.focus()}
                         onBlur={() => this.blur()}
@@ -548,9 +547,6 @@ const styles = StyleSheet.create({
         paddingBottom: spacing.xxSmall_6,
         maxWidth: "initial",
     },
-    ltr: {
-        direction: "ltr",
-    }
 });
 
 export default MathInput;
