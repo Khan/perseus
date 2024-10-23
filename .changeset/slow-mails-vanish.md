@@ -3,4 +3,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Check for process before accessing properties on it
+Revert process check PR (#1784)
