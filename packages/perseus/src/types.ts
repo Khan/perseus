@@ -496,7 +496,6 @@ export type PerseusDependencies = {
     // RequestInfo
     isDevServer: boolean;
     kaLocale: string;
-    isMobile: boolean;
 };
 
 /**
