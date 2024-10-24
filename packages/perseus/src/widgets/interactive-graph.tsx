@@ -1182,7 +1182,6 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
 
                         for (let k = 0; k < others.length; k++) {
                             const other = others[k];
-                            // @ts-expect-error - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Line'.
                             if (intersects(segment, other)) {
                                 return false;
                             }
