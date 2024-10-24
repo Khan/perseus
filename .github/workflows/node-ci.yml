@@ -80,7 +80,7 @@ jobs:
 
             - name: Check formatting
               run: |
-                  yarn -s biome --check .
+                  yarn -s biome check
 
             - id: js-files
               name: Find .js(x)/.ts(x) changed files
