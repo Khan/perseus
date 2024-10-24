@@ -2,7 +2,17 @@
     "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
     "files": {
         "ignoreUnknown": false,
-        "ignore": ["data/questions/", "__genfiles__/", "vendor/**/*.js"]
+        "ignore": [
+            "data/questions/",
+            "__genfiles__/",
+            "vendor/**/*.js",
+            "storybook-static/",
+            "styles/khan-exercise.css"
+        ]
+    },
+    "vcs": {
+        "clientKind": "git",
+        "useIgnoreFile": true
     },
     "formatter": {
         "enabled": true,
