@@ -5,7 +5,8 @@
         "ignore": [
             "data/questions/",
             "__genfiles__/",
-            "vendor/**/*.js",
+            "dist/",
+            "vendor/",
             "storybook-static/",
             "styles/khan-exercise.css"
         ]
