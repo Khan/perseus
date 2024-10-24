@@ -62,7 +62,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
         tabindex="0"
       />
       <g
-        class="movable-point  "
+        class="movable-point"
         data-testid="movable-point"
         style="--movable-point-color: #1865f2;"
       >
@@ -96,7 +96,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
         />
       </g>
       <g
-        class="movable-point  "
+        class="movable-point"
         data-testid="movable-point"
         style="--movable-point-color: #1865f2;"
       >
@@ -196,7 +196,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
         tabindex="0"
       />
       <g
-        class="movable-point  "
+        class="movable-point"
         data-testid="movable-point"
         style="--movable-point-color: #1865f2;"
       >
@@ -230,7 +230,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
         />
       </g>
       <g
-        class="movable-point  "
+        class="movable-point"
         data-testid="movable-point"
         style="--movable-point-color: #1865f2;"
       >
@@ -384,7 +384,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         tabindex="0"
       />
       <g
-        class="movable-point  "
+        class="movable-point"
         data-testid="movable-point"
         style="--movable-point-color: #1865f2;"
       >
@@ -418,7 +418,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         />
       </g>
       <g
-        class="movable-point  "
+        class="movable-point"
         data-testid="movable-point"
         style="--movable-point-color: #1865f2;"
       >
