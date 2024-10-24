@@ -13,7 +13,7 @@ import type {
     PerseusNumericInputWidgetOptions,
     PerseusOrdererWidgetOptions,
     PerseusPlotterWidgetOptions,
-    PerseusRadioWidgetOptions,
+    PerseusRadioChoice,
     PerseusSorterWidgetOptions,
     PerseusTableWidgetOptions,
 } from "./perseus-types";
@@ -153,10 +153,12 @@ export type PerseusPlotterRubric = PerseusPlotterWidgetOptions;
 
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
 
-export type PerseusRadioRubric = PerseusRadioWidgetOptions;
+export type PerseusRadioRubric = {
+    // The choices provided to the user.
+    choices: ReadonlyArray<PerseusRadioChoice>;
+};
 
 export type PerseusRadioUserInput = {
-    countChoices?: boolean;
     choicesSelected: ReadonlyArray<boolean>;
     numCorrect?: number;
     noneOfTheAboveIndex?: number | null | undefined;
