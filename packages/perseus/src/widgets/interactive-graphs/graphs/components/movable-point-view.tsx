@@ -22,6 +22,7 @@ type Props = {
 
 type FocusBehaviorConfig = ControlledFocusBehavior | UncontrolledFocusBehavior;
 
+// FIXME: remove uncontrolled focus behavior
 type ControlledFocusBehavior = {type: "controlled"; showFocusRing: boolean};
 type UncontrolledFocusBehavior = {
     type: "uncontrolled";

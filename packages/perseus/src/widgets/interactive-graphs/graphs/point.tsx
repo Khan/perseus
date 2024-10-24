@@ -35,10 +35,10 @@ function LimitedPointGraph(props: PointGraphProps) {
 
 function UnlimitedPointGraph(props: PointGraphProps) {
     const {dispatch} = props;
-    const graphState = useGraphConfig();
+    const graphConfig = useGraphConfig();
     const {
         range: [[minX, maxX], [minY, maxY]],
-    } = graphState;
+    } = graphConfig;
     const width = maxX - minX;
     const height = maxY - minY;
     const [[widthPx, heightPx]] = useTransformDimensionsToPixels([
@@ -78,7 +78,7 @@ function UnlimitedPointGraph(props: PointGraphProps) {
 
                     const graphCoordinates = pixelsToVectors(
                         [[x, y]],
-                        graphState,
+                        graphConfig,
                     );
                     dispatch(actions.pointGraph.addPoint(graphCoordinates[0]));
                 }}
