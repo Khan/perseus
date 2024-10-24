@@ -1,7 +1,7 @@
 /* eslint-disable no-var, @typescript-eslint/no-unused-vars, no-console, import/no-commonjs, no-redeclare, no-useless-escape */
-import assert from "assert";
 
 import {render} from "@testing-library/react";
+import assert from "assert";
 import * as React from "react";
 
 import SimpleMarkdown from "../index";

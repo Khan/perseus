@@ -7,9 +7,8 @@ import _ from "underscore";
 
 import {Arrowhead} from "./arrowhead";
 import {getClipPoint} from "./get-clip-point";
-import WrappedLine from "./wrapped-line";
-
 import type {Coord} from "./types";
+import WrappedLine from "./wrapped-line";
 
 /**
  * Helper functions

@@ -1,3 +1,4 @@
+import type {Alignment} from "../types";
 import categorizerWidgetLogic from "./categorizer";
 import csProgramWidgetLogic from "./cs-program";
 import definitionWidgetLogic from "./definition";
@@ -14,6 +15,10 @@ import inputNumberWidgetLogic from "./input-number";
 import interactionWidgetLogic from "./interaction";
 import interactiveGraphWidgetLogic from "./interactive-graph";
 import labelImageWidgetLogic from "./label-image";
+import type {
+    PublicWidgetOptionsFunction,
+    WidgetLogic,
+} from "./logic-export.types";
 import matcherWidgetLogic from "./matcher";
 import matrixWidgetLogic from "./matrix";
 import measurerWidgetLogic from "./measurer";
@@ -30,12 +35,6 @@ import radioWidgetLogic from "./radio";
 import sorterWidgetLogic from "./sorter";
 import tableWidgetLogic from "./table";
 import videoWidgetLogic from "./video";
-
-import type {
-    PublicWidgetOptionsFunction,
-    WidgetLogic,
-} from "./logic-export.types";
-import type {Alignment} from "../types";
 
 const widgets = {};
 

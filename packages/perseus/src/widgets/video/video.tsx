@@ -2,22 +2,19 @@
  * This is a video widget for embedding videos in articles.
  */
 
+import type {PerseusVideoWidgetOptions} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import _ from "underscore";
-
 import FixedToResponsive from "../../components/fixed-to-responsive";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
-import a11y from "../../util/a11y";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/video-ai-utils";
-
-import VideoTranscriptLink from "./video-transcript-link";
-
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import a11y from "../../util/a11y";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
-import type {PerseusVideoWidgetOptions} from "@khanacademy/perseus-core";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/video-ai-utils";
+import VideoTranscriptLink from "./video-transcript-link";
 
 // Current default is 720p, based on the typical videos we upload currently
 const DEFAULT_WIDTH = 1280;

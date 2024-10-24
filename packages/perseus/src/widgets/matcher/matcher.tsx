@@ -1,24 +1,22 @@
+import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
 import {shuffleMatcher} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
-import {StyleSheet, css} from "aphrodite";
-import * as React from "react";
-import _ from "underscore";
-
-import {PerseusI18nContext} from "../../components/i18n-context";
-import Sortable from "../../components/sortable";
-import {getDependencies} from "../../dependencies";
-import Renderer from "../../renderer";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
-
-import type {SortableOption} from "../../components/sortable";
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
-import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
-import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
 } from "@khanacademy/perseus-score";
+import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
+import {css, StyleSheet} from "aphrodite";
+import * as React from "react";
+import _ from "underscore";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import Sortable from "../../components/sortable";
+import type {SortableOption} from "../../components/sortable";
+import {getDependencies} from "../../dependencies";
+import Renderer from "../../renderer";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 

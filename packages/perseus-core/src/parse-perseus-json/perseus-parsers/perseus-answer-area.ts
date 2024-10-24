@@ -1,8 +1,7 @@
+import type {PerseusAnswerArea} from "../../data-schema";
 import {object, pipeParsers} from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
-import type {PerseusAnswerArea} from "../../data-schema";
 
 export const parsePerseusAnswerArea = pipeParsers(
     defaulted(object({}), () => ({})),

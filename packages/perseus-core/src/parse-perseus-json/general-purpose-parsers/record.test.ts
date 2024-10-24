@@ -1,12 +1,10 @@
+import type {Parser} from "../parser-types";
 import {assertFailure, success} from "../result";
-
 import {defaulted} from "./defaulted";
 import {number} from "./number";
 import {record} from "./record";
 import {string} from "./string";
 import {ctx, parseFailureWith} from "./test-helpers";
-
-import type {Parser} from "../parser-types";
 
 describe("record", () => {
     const numericString: Parser<string> = (rawValue, ctx) => {

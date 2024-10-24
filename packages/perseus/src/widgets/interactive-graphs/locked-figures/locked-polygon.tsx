@@ -1,3 +1,4 @@
+import type {LockedPolygonType} from "@khanacademy/perseus-core";
 import {
     lockedFigureColors,
     lockedFigureFillStyles,
@@ -5,10 +6,7 @@ import {
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {Point, Polygon} from "mafs";
 import * as React from "react";
-
 import {X, Y} from "../math";
-
-import type {LockedPolygonType} from "@khanacademy/perseus-core";
 
 const LockedPolygon = (props: LockedPolygonType) => {
     const {points, color, showVertices, fillStyle, strokeStyle} = props;

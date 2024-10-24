@@ -1,14 +1,13 @@
+import type {KeypadKey} from "@khanacademy/perseus-core";
 import {MathFieldActionType} from "../../types";
 import {CursorContext} from "../input/cursor-contexts";
 import {
+    getCursorContext,
     isFraction,
     isParens,
-    getCursorContext,
 } from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
-
 import type {MathFieldInterface} from "../input/mathquill-types";
-import type {KeypadKey} from "@khanacademy/perseus-core";
 
 const KeysForJumpContext = {
     [CursorContext.IN_PARENS]: "JUMP_OUT_PARENTHESES",

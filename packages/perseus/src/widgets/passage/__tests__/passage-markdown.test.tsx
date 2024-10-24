@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
-import {render} from "@testing-library/react";
-import _ from "underscore";
-
-import PassageMarkdown from "../passage-markdown";
 
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
+import {render} from "@testing-library/react";
+import _ from "underscore";
+import PassageMarkdown from "../passage-markdown";
 
 const parse = PassageMarkdown.parse;
 

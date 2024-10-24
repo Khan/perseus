@@ -1,6 +1,5 @@
-import validateSorter from "./validate-sorter";
-
 import type {PerseusSorterUserInput} from "../../validation.types";
+import validateSorter from "./validate-sorter";
 
 describe("validateSorter", () => {
     it("is invalid when the user has not made any changes", () => {

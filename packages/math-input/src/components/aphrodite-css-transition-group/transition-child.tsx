@@ -1,11 +1,10 @@
+import type {WithActionSchedulerProps} from "@khanacademy/wonder-blocks-timing";
 import {withActionScheduler} from "@khanacademy/wonder-blocks-timing";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import {processStyleType} from "./util";
-
 import type {AnimationStyles} from "./types";
-import type {WithActionSchedulerProps} from "@khanacademy/wonder-blocks-timing";
+import {processStyleType} from "./util";
 
 type ChildProps = {
     transitionStyles: AnimationStyles | (() => AnimationStyles);

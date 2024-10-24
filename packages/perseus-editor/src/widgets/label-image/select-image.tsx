@@ -4,7 +4,7 @@
 
 import {bodyXsmallBold} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import FormWrappedTextField from "../../components/form-wrapped-text-field";

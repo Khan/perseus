@@ -1,9 +1,8 @@
 import * as PureMarkdown from "@khanacademy/pure-markdown";
 
 import Rule from "../rule";
-import TreeTransformer from "../tree-transformer";
-
 import type {MakeRuleOptions} from "../rule";
+import TreeTransformer from "../tree-transformer";
 
 describe("PerseusLinter lint Rules class", () => {
     const markdown = `

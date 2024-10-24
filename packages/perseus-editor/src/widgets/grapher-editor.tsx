@@ -1,22 +1,20 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
-    components,
     Changeable,
+    components,
+    containerSizeClass,
     GrapherUtil,
     GrapherWidget,
-    containerSizeClass,
     getInteractiveBoxFromSizeClass,
 } from "@khanacademy/perseus";
+import type {GrapherDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import {
     GrapherUtil as CoreGrapherUtil,
     grapherLogic,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
-
 import GraphSettings from "../components/graph-settings";
-
-import type {GrapherDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {InfoTip, MultiButtonGroup} = components;
 const Grapher = GrapherWidget.widget;

@@ -1,3 +1,4 @@
+import type {MatcherWidget} from "../../data-schema";
 import {
     array,
     boolean,
@@ -5,11 +6,8 @@ import {
     object,
     string,
 } from "../general-purpose-parsers";
-
-import {parseWidget} from "./widget";
-
-import type {MatcherWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 export const parseMatcherWidget: Parser<MatcherWidget> = parseWidget(
     constant("matcher"),

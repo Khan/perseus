@@ -14,18 +14,16 @@
 // All of the code below is super fragile.  Please be especially careful
 // when upgrading MathQuill.
 
+import type {KeypadKey} from "@khanacademy/perseus-core";
+import type {MathInputStrings} from "../../strings";
 import handleBackspace from "../key-handlers/handle-backspace";
 import {getKeyTranslator} from "../key-handlers/key-translator";
-
 import {getCursorContext, maybeFindCommand} from "./mathquill-helpers";
 import {createMathField, mathQuillInstance} from "./mathquill-instance";
-
 import type {
     MathFieldInterface,
     MathFieldUpdaterCallback,
 } from "./mathquill-types";
-import type {MathInputStrings} from "../../strings";
-import type {KeypadKey} from "@khanacademy/perseus-core";
 
 /**
  * This file contains a wrapper around MathQuill so that we can provide a

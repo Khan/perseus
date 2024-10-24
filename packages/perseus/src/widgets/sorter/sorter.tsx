@@ -1,18 +1,16 @@
+import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import {shuffle} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import * as React from "react";
-
-import Sortable from "../../components/sortable";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
-
-import type {SortableOption} from "../../components/sortable";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
-import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusSorterRubric,
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-score";
+import * as React from "react";
+import Sortable from "../../components/sortable";
+import type {SortableOption} from "../../components/sortable";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 type RenderProps = PerseusSorterWidgetOptions;
 

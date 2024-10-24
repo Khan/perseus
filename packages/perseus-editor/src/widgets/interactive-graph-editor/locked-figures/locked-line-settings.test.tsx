@@ -1,16 +1,14 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import LockedLineSettings from "./locked-line-settings";
 import {
     getDefaultFigureForType,
     mockedGenerateSpokenMathDetailsForTests,
     mockedJoinLabelsAsSpokenMathForTests,
 } from "./util";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
     ...getDefaultFigureForType("line"),

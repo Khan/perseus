@@ -1,8 +1,6 @@
-import * as React from "react";
-
-import InfoTip from "../info-tip";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import * as React from "react";
+import InfoTip from "../info-tip";
 
 const meta: Meta = {
     title: "Perseus/Components/Info Tip",

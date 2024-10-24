@@ -1,8 +1,6 @@
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-
-import {getPromptJSON} from "./python-ai-utils";
-
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {getPromptJSON} from "./python-ai-utils";
 
 export const question1: PerseusRenderer = {
     content: "[[\u2603 python-program 1]]\n\n",

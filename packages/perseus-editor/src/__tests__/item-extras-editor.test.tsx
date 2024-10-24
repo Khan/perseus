@@ -1,10 +1,8 @@
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import React, {useState} from "react";
-
 import ItemExtrasEditor from "../item-extras-editor";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("ItemExtrasEditor", () => {
     let userEvent: UserEvent;

@@ -1,10 +1,9 @@
-import {getImagesWithoutAltData, injectWidgets} from "./extract-perseus-data";
-
 import type {
     PerseusRadioChoice,
     PerseusRenderer,
     PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
+import {getImagesWithoutAltData, injectWidgets} from "./extract-perseus-data";
 
 describe("injectWidgets", () => {
     describe("radio", () => {

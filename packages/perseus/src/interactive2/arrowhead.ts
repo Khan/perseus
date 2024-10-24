@@ -1,11 +1,10 @@
-import {vector as kvector, KhanMath} from "@khanacademy/kmath";
+import {KhanMath, vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
-
+import type {Graphie} from "../util/graphie";
 import {getClipPoint} from "./get-clip-point";
-import WrappedPath from "./wrapped-path";
 
 import type {Coord} from "./types";
-import type {Graphie} from "../util/graphie";
+import WrappedPath from "./wrapped-path";
 
 export class Arrowhead extends WrappedPath {
     private static scale = 1.4;

@@ -1,20 +1,19 @@
-import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import {color} from "@khanacademy/wonder-blocks-tokens";
-import {render, screen} from "@testing-library/react";
-import {userEvent as userEventLib} from "@testing-library/user-event";
-import * as React from "react";
-
-import {useMathInputI18n} from "../../i18n-context";
-import {createMathField} from "../../input/mathquill-instance";
-import {getKeyTranslator} from "../../key-handlers/key-translator";
-import Keypad from "../index";
-
-import type {MathFieldInterface} from "../../input/mathquill-types";
 import type {
     AnalyticsEventHandlerFn,
     KeypadKey,
 } from "@khanacademy/perseus-core";
+import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
+import {color} from "@khanacademy/wonder-blocks-tokens";
+import {render, screen} from "@testing-library/react";
 import type {UserEvent} from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
+import * as React from "react";
+import {useMathInputI18n} from "../../i18n-context";
+import {createMathField} from "../../input/mathquill-instance";
+
+import type {MathFieldInterface} from "../../input/mathquill-types";
+import {getKeyTranslator} from "../../key-handlers/key-translator";
+import Keypad from "../index";
 
 type Props = {
     onChangeMathInput: (mathInputTex: string) => void;

@@ -1,3 +1,4 @@
+import type {InputNumberWidget} from "../../data-schema";
 import {
     boolean,
     constant,
@@ -8,11 +9,8 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
-
-import {parseWidget} from "./widget";
-
-import type {InputNumberWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 const booleanToString: Parser<string> = (rawValue, ctx) => {
     if (typeof rawValue === "boolean") {

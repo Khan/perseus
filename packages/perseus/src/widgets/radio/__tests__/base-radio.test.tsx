@@ -1,17 +1,14 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 // eslint-disable-next-line import/no-relative-packages
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
-import BaseRadio from "../base-radio";
-
-import {generateChoice} from "./base-radio.testdata";
-
 import type {APIOptions} from "../../../types";
-import type {UserEvent} from "@testing-library/user-event";
+import BaseRadio from "../base-radio";
+import {generateChoice} from "./base-radio.testdata";
 
 function renderBaseRadio(props) {
     const apiOptions: APIOptions = Object.freeze({});

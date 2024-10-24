@@ -8,12 +8,11 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import SvgImage from "../../components/svg-image";
-import GraphUtils from "../../util/graph-utils";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/measurer-ai-utils";
-
 import type {Coord} from "../../interactive2/types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import GraphUtils from "../../util/graph-utils";
 import type {Interval} from "../../util/interval";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/measurer-ai-utils";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 const defaultImage = {

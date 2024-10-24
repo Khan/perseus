@@ -1,22 +1,20 @@
-import {linterContextDefault} from "@khanacademy/perseus-linter";
-import * as React from "react";
-import ReactDOM from "react-dom";
-import _ from "underscore";
-
-import {PerseusI18nContext} from "../../components/i18n-context";
-import SimpleKeypadInput from "../../components/simple-keypad-input";
-import InteractiveUtil from "../../interactive2/interactive-util";
-import {ApiOptions} from "../../perseus-api";
-import Renderer from "../../renderer";
-import Util from "../../util";
-
-import type {ChangeableProps} from "../../mixins/changeable";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PerseusTableWidgetOptions} from "@khanacademy/perseus-core";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import type {
     PerseusTableRubric,
     PerseusTableUserInput,
 } from "@khanacademy/perseus-score";
+import * as React from "react";
+import ReactDOM from "react-dom";
+import _ from "underscore";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import SimpleKeypadInput from "../../components/simple-keypad-input";
+import InteractiveUtil from "../../interactive2/interactive-util";
+import type {ChangeableProps} from "../../mixins/changeable";
+import {ApiOptions} from "../../perseus-api";
+import Renderer from "../../renderer";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import Util from "../../util";
 
 const {assert} = InteractiveUtil;
 

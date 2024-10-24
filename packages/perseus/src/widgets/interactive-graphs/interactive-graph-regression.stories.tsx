@@ -1,16 +1,13 @@
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import {splitPerseusItem} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
+import type {Meta, StoryObj} from "@storybook/react";
 import * as React from "react";
-
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
-
-import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 import {sinusoidWithPiTicks} from "./interactive-graph.testdata";
-
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {Meta, StoryObj} from "@storybook/react";
+import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 
 type Story = StoryObj<typeof MafsQuestionRenderer>;
 

@@ -1,10 +1,8 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import type {Meta, StoryObj} from "@storybook/react";
 import * as React from "react";
-
 import ScrolllessNumberTextField from "../scrollless-number-text-field";
-
-import type {StoryObj, Meta} from "@storybook/react";
 
 export default {
     title: "PerseusEditor/Components/Scrollless Number Text Field",

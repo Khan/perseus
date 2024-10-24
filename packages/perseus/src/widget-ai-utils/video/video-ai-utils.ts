@@ -1,6 +1,6 @@
 import {
-    type UnsupportedWidgetPromptJSON,
     getUnsupportedPromptJSON,
+    type UnsupportedWidgetPromptJSON,
 } from "../unsupported-widget";
 
 export const getPromptJSON = (): UnsupportedWidgetPromptJSON => {

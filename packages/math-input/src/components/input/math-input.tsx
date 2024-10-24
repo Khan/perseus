@@ -7,18 +7,16 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
+import type {Cursor, KeypadAPI, KeypadContextType} from "../../types";
 import {MathInputI18nContext} from "../i18n-context";
-
 import CursorHandle from "./cursor-handle";
 import {
-    cursorHandleRadiusPx,
     cursorHandleDistanceMultiplier,
+    cursorHandleRadiusPx,
 } from "./cursor-styles";
 import DragListener from "./drag-listener";
 import MathWrapper from "./math-wrapper";
 import {scrollIntoView} from "./scroll-into-view";
-
-import type {Cursor, KeypadAPI, KeypadContextType} from "../../types";
 
 const constrainingFrictionFactor = 0.8;
 

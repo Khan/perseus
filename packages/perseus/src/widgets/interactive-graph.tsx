@@ -1,48 +1,46 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
-import {angles, geometry} from "@khanacademy/kmath";
-import {
-    approximateEqual,
-    Errors,
-    PerseusError,
-} from "@khanacademy/perseus-core";
-import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-import * as React from "react";
-import _ from "underscore";
 
-import Util from "../util";
-import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
-import {getPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
-
-import {StatefulMafsGraph} from "./interactive-graphs";
-
-import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
-import type {QuadraticGraphState} from "./interactive-graphs/types";
-import type {Coord} from "../interactive2/types";
-import type {WidgetExports, WidgetProps} from "../types";
-import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
-import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
 import type {
     QuadraticCoefficient,
-    SineCoefficient,
     Range,
+    SineCoefficient,
 } from "@khanacademy/kmath";
+import {angles, geometry} from "@khanacademy/kmath";
 import type {
+    GraphRange,
+    InteractiveGraphPublicWidgetOptions,
+    LockedFigure,
+    MarkingsType,
     PerseusGraphType,
     PerseusGraphTypeAngle,
     PerseusGraphTypePoint,
     PerseusGraphTypeSegment,
-    PerseusInteractiveGraphWidgetOptions,
-    GraphRange,
-    InteractiveGraphPublicWidgetOptions,
-    LockedFigure,
     PerseusImageBackground,
-    MarkingsType,
+    PerseusInteractiveGraphWidgetOptions,
+} from "@khanacademy/perseus-core";
+import {
+    approximateEqual,
+    Errors,
+    PerseusError,
 } from "@khanacademy/perseus-core";
 import type {
     PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
 } from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import * as React from "react";
+import _ from "underscore";
+import type {Coord} from "../interactive2/types";
+import type {WidgetExports, WidgetProps} from "../types";
+import Util from "../util";
+import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
+import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
+import {getPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
+import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
+import {StatefulMafsGraph} from "./interactive-graphs";
+import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
+import type {QuadraticGraphState} from "./interactive-graphs/types";
 
 const {getClockwiseAngle} = angles;
 

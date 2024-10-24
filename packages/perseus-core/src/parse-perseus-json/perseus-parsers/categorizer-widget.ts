@@ -1,3 +1,4 @@
+import type {CategorizerWidget} from "../../data-schema";
 import {
     array,
     boolean,
@@ -8,11 +9,8 @@ import {
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
-import {parseWidget} from "./widget";
-
-import type {CategorizerWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 export const parseCategorizerWidget: Parser<CategorizerWidget> = parseWidget(
     constant("categorizer"),

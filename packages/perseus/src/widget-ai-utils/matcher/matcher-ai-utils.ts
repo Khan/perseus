@@ -1,6 +1,6 @@
-import type matcher from "../../widgets/matcher/matcher";
 import type {PerseusMatcherUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
+import type matcher from "../../widgets/matcher/matcher";
 
 export type MatcherPromptJSON = {
     type: "matcher";

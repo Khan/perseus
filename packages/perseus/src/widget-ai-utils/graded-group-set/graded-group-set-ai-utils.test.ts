@@ -1,14 +1,11 @@
 import {act, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {article1} from "../../widgets/graded-group-set/graded-group-set.testdata";
-
 import {getPromptJSON} from "./graded-group-set-ai-utils";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("GradedGroupSet AI utils", () => {
     let userEvent: UserEvent;

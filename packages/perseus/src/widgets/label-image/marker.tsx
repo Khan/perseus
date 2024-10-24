@@ -5,23 +5,21 @@
  * The target for labeling question image with answers.
  */
 
-import {View, type StyleType} from "@khanacademy/wonder-blocks-core";
-import {color} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet} from "aphrodite";
-import * as React from "react";
-
-import {PerseusI18nContext} from "../../components/i18n-context";
-import Icon from "../../components/icon";
-import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
-
-import {AnswerPill} from "./answer-pill";
-
-import type {IconType} from "../../components/icon";
 import type {
     AnalyticsEventHandlerFn,
     InteractiveMarkerType,
 } from "@khanacademy/perseus-core";
+import {type StyleType, View} from "@khanacademy/wonder-blocks-core";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import type {CSSProperties} from "aphrodite";
+import {StyleSheet} from "aphrodite";
+import * as React from "react";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import Icon from "../../components/icon";
+
+import type {IconType} from "../../components/icon";
+import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
+import {AnswerPill} from "./answer-pill";
 
 type Props = InteractiveMarkerType & {
     // Whether this marker has been selected by user.

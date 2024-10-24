@@ -1,22 +1,27 @@
-import {describe, beforeEach, it} from "@jest/globals";
+import {beforeEach, describe, it} from "@jest/globals";
+import type {
+    PerseusGraphType,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {lockedFigureColors, splitPerseusItem} from "@khanacademy/perseus-core";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {act, waitFor} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
 import * as React from "react";
 import invariant from "tiny-invariant";
-
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {getDefaultFigureForType} from "../../../../perseus-editor/src/widgets/interactive-graph-editor/locked-figures/util";
 import * as Dependencies from "../../dependencies";
+import type {Coord} from "../../interactive2/types";
 import {ApiOptions} from "../../perseus-api";
+import type Renderer from "../../renderer";
+import type {APIOptions} from "../../types";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
-
-import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 import {
     angleQuestion,
     angleQuestionWithDefaultCorrect,
@@ -61,15 +66,7 @@ import {
     unlimitedPointQuestion,
     unlimitedPolygonQuestion,
 } from "./interactive-graph.testdata";
-
-import type {Coord} from "../../interactive2/types";
-import type Renderer from "../../renderer";
-import type {APIOptions} from "../../types";
-import type {
-    PerseusGraphType,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
-import type {UserEvent} from "@testing-library/user-event";
+import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     const state = clone(renderer.getSerializedState());

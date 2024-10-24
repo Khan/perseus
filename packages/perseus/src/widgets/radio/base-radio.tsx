@@ -1,28 +1,25 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
-    usesNumCorrect,
     type PerseusRadioWidgetOptions,
+    usesNumCorrect,
 } from "@khanacademy/perseus-core";
-import {StyleSheet, css} from "aphrodite";
+import type {StyleDeclaration} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
-import {useRef, useEffect} from "react";
+import {useEffect, useRef} from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
-
 import {usePerseusI18n} from "../../components/i18n-context";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
+import type {PerseusStrings} from "../../strings";
 import * as styleConstants from "../../styles/constants";
 import mediaQueries from "../../styles/media-queries";
+import type {APIOptions} from "../../types";
 import Util from "../../util";
 import {scrollElementIntoView} from "../../util/scroll-utils";
-
 import Choice from "./choice";
 import ChoiceNoneAbove from "./choice-none-above";
-
-import type {PerseusStrings} from "../../strings";
-import type {APIOptions} from "../../types";
-import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;
 

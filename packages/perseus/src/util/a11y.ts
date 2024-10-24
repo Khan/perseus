@@ -3,9 +3,9 @@
  * These are used to mark up areas on the site that should only be readable
  * when using a screen reader.
  */
-import {StyleSheet} from "aphrodite";
 
 import type {StyleDeclaration} from "aphrodite";
+import {StyleSheet} from "aphrodite";
 
 export default StyleSheet.create({
     // Make content only visible to screen readers.

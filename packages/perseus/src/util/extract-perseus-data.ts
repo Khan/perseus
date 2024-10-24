@@ -1,17 +1,15 @@
-import {keys} from "@khanacademy/wonder-stuff-core";
-
-import {
-    getWidgetTypeByWidgetId,
-    getWidgetsMapFromItemData,
-} from "../widget-type-utils";
-import * as Widgets from "../widgets";
-
 import type {
     PerseusItem,
     PerseusRadioWidgetOptions,
-    PerseusWidgetsMap,
     PerseusRenderer,
+    PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
+import {keys} from "@khanacademy/wonder-stuff-core";
+import {
+    getWidgetsMapFromItemData,
+    getWidgetTypeByWidgetId,
+} from "../widget-type-utils";
+import * as Widgets from "../widgets";
 
 /**
  * This function extracts the answers from the widgets.

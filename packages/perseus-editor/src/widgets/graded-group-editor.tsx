@@ -1,21 +1,19 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
 import {
-    components,
     ApiOptions,
     Changeable,
+    components,
     iconTrash,
 } from "@khanacademy/perseus";
+import type {GradedGroupDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import {gradedGroupLogic} from "@khanacademy/perseus-core";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
-
 import Editor from "../editor";
 import {iconPlus} from "../styles/icon-paths";
-
-import type {GradedGroupDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {InlineIcon, TextInput} = components;
 

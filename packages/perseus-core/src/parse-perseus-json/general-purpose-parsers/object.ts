@@ -1,8 +1,6 @@
-import {failure, isSuccess} from "../result";
-
-import {isObject} from "./is-object";
-
 import type {Mismatch, ParsedValue, Parser} from "../parser-types";
+import {failure, isSuccess} from "../result";
+import {isObject} from "./is-object";
 
 type ObjectSchema = Record<keyof any, Parser<any>>;
 

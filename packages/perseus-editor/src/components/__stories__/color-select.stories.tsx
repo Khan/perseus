@@ -1,10 +1,8 @@
-import * as React from "react";
-
-import ColorSelect from "../../widgets/interactive-graph-editor/locked-figures/color-select";
-import {getDefaultFigureForType} from "../../widgets/interactive-graph-editor/locked-figures/util";
-
 import type {LockedFigureColor} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react";
+import * as React from "react";
+import ColorSelect from "../../widgets/interactive-graph-editor/locked-figures/color-select";
+import {getDefaultFigureForType} from "../../widgets/interactive-graph-editor/locked-figures/util";
 
 export default {
     title: "PerseusEditor/Components/Color Select",

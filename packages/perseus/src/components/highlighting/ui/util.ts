@@ -1,7 +1,7 @@
 /**
  * Utility functions for highlighting UI.
  */
-import {rangesOverlap, intersectRanges} from "../ranges";
+import {intersectRanges, rangesOverlap} from "../ranges";
 
 import type {DOMRange, Position, Rect} from "./types";
 

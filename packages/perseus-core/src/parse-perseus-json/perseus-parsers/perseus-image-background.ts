@@ -1,3 +1,4 @@
+import type {PerseusImageBackground} from "../../data-schema";
 import {
     nullable,
     number,
@@ -10,8 +11,6 @@ import {
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 import {stringToNumber} from "../general-purpose-parsers/string-to-number";
-
-import type {PerseusImageBackground} from "../../data-schema";
 import type {Parser} from "../parser-types";
 
 function emptyToZero(x: string | number): string | number {

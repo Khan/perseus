@@ -1,18 +1,15 @@
+import type {vec} from "mafs";
 import * as React from "react";
-import {useState, useRef, useLayoutEffect} from "react";
-
+import {useLayoutEffect, useRef, useState} from "react";
 import {usePerseusI18n} from "../../../../components/i18n-context";
 import {snap, X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
-import {srFormatNumber} from "../screenreader-text";
-import {useDraggable} from "../use-draggable";
-
-import {MovablePointView} from "./movable-point-view";
-
-import type {CSSCursor} from "./css-cursor";
 import type {AriaLive} from "../../types";
+import {srFormatNumber} from "../screenreader-text";
 import type {KeyboardMovementConstraint} from "../use-draggable";
-import type {vec} from "mafs";
+import {useDraggable} from "../use-draggable";
+import type {CSSCursor} from "./css-cursor";
+import {MovablePointView} from "./movable-point-view";
 
 type Params = {
     point: vec.Vector2;

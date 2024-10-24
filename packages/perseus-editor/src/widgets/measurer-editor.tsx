@@ -1,12 +1,11 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {Changeable, components, EditorJsonify} from "@khanacademy/perseus";
+import type {MeasurerDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import {measurerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
-
-import type {MeasurerDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {InfoTip, NumberInput, RangeInput} = components;
 

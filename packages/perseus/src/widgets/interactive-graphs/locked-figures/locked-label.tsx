@@ -1,6 +1,6 @@
 import {
-    lockedFigureColors,
     type LockedLabelType,
+    lockedFigureColors,
 } from "@khanacademy/perseus-core";
 import {font} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";

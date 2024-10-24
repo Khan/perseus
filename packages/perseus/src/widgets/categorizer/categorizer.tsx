@@ -1,11 +1,16 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+
+import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import {shuffle} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {StyleSheet, css} from "aphrodite";
+import type {
+    PerseusCategorizerRubric,
+    PerseusCategorizerUserInput,
+} from "@khanacademy/perseus-score";
+import {css, StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
 import {iconCircle, iconCircleThin} from "../../icon-paths";
@@ -13,15 +18,9 @@ import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
-
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
-import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
-import type {
-    PerseusCategorizerRubric,
-    PerseusCategorizerUserInput,
-} from "@khanacademy/perseus-score";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
 type Props = WidgetProps<RenderProps, PerseusCategorizerRubric> & {
     values: ReadonlyArray<string>;

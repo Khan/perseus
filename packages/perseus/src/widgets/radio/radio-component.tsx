@@ -1,27 +1,24 @@
-import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {scoreRadio} from "@khanacademy/perseus-score";
-import * as React from "react";
-
-import {PerseusI18nContext} from "../../components/i18n-context";
-import Renderer from "../../renderer";
-import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
-import PassageRef from "../passage-ref/passage-ref";
-
-import BaseRadio from "./base-radio";
-
-import type {FocusFunction, ChoiceType} from "./base-radio";
-import type {WidgetProps, ChoiceState, Widget} from "../../types";
-import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
     ShowSolutions,
 } from "@khanacademy/perseus-core";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
 } from "@khanacademy/perseus-score";
+import {scoreRadio} from "@khanacademy/perseus-score";
+import * as React from "react";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import Renderer from "../../renderer";
+import type {ChoiceState, Widget, WidgetProps} from "../../types";
+import Util from "../../util";
+import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
+import PassageRef from "../passage-ref/passage-ref";
+import BaseRadio from "./base-radio";
+import type {ChoiceType, FocusFunction} from "./base-radio";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {

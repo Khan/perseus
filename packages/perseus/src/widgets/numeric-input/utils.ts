@@ -1,5 +1,5 @@
-import type {PerseusStrings} from "../../strings";
 import type {PerseusNumericInputAnswerForm} from "@khanacademy/perseus-core";
+import type {PerseusStrings} from "../../strings";
 
 /**
  * The full list of available strings for the numeric input widget,

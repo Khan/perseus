@@ -1,6 +1,6 @@
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {color} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet, type CSSProperties} from "aphrodite";
+import {type CSSProperties, StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useId} from "react";
 import {Popper} from "react-popper";

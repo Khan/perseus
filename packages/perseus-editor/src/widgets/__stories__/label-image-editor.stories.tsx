@@ -1,10 +1,9 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {StyleSheet, css} from "aphrodite";
-import * as React from "react";
-
-import LabelImageEditor from "../label-image-editor";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
+import {css, StyleSheet} from "aphrodite";
+import * as React from "react";
+import LabelImageEditor from "../label-image-editor";
 
 type StoryArgs = Record<any, any>;
 

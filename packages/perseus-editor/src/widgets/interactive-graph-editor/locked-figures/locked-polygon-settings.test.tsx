@@ -1,17 +1,15 @@
+import type {Coord} from "@khanacademy/perseus";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import LockedPolygonSettings from "./locked-polygon-settings";
 import {
     getDefaultFigureForType,
     mockedGenerateSpokenMathDetailsForTests,
     mockedJoinLabelsAsSpokenMathForTests,
 } from "./util";
-
-import type {Coord} from "@khanacademy/perseus";
-import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
     ...getDefaultFigureForType("polygon"),

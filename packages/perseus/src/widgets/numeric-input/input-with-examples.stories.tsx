@@ -1,8 +1,6 @@
 import {action} from "@storybook/addon-actions";
-
-import InputWithExamples from "./input-with-examples";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import InputWithExamples from "./input-with-examples";
 
 const meta: Meta = {
     title: "Perseus/Components/Input with Examples",

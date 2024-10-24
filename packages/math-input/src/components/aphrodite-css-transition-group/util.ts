@@ -1,8 +1,7 @@
-import {entries} from "@khanacademy/wonder-stuff-core";
-import {StyleSheet, css} from "aphrodite";
-
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import {entries} from "@khanacademy/wonder-stuff-core";
 import type {CSSProperties} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 
 function flatten(list?: StyleType): ReadonlyArray<CSSProperties> {
     const result: Array<CSSProperties> = [];

@@ -1,6 +1,5 @@
-import deriveExtraKeys from "./derive-extra-keys";
-
 import type {PerseusExpressionWidgetOptions} from "../../data-schema";
+import deriveExtraKeys from "./derive-extra-keys";
 
 export const currentVersion = {major: 2, minor: 0};
 

@@ -1,9 +1,8 @@
 import _ from "underscore";
-
+import type {PerseusWidget, PerseusWidgetsMap} from "../data-schema";
 import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
 import {mapObject} from "../utils/objective_";
-
 import {
     getCurrentVersion,
     getDefaultWidgetOptions,
@@ -11,8 +10,6 @@ import {
     getWidgetOptionsUpgrades,
     isWidgetRegistered,
 } from "./core-widget-registry";
-
-import type {PerseusWidget, PerseusWidgetsMap} from "../data-schema";
 
 const DEFAULT_STATIC = false;
 

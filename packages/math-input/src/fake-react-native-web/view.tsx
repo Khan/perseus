@@ -1,8 +1,7 @@
-import {StyleSheet, css} from "aphrodite";
-import * as React from "react";
-
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
+import * as React from "react";
 
 type Props = {
     ariaLabel?: string;

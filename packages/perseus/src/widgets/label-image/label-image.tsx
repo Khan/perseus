@@ -6,38 +6,35 @@
  * knowledge by directly interacting with the image.
  */
 
-import {scoreLabelImageMarker} from "@khanacademy/perseus-score";
-import Clickable from "@khanacademy/wonder-blocks-clickable";
-import {View} from "@khanacademy/wonder-blocks-core";
-import {StyleSheet, css} from "aphrodite";
-import classNames from "classnames";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-
-import AssetContext from "../../asset-context";
-import {PerseusI18nContext} from "../../components/i18n-context";
-import SvgImage from "../../components/svg-image";
-import {useDependencies} from "../../dependencies";
-import Renderer from "../../renderer";
-import {bodyXsmallBold} from "../../styles/global-styles";
-import mediaQueries from "../../styles/media-queries";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
-
-import AnswerChoices from "./answer-choices";
-import {HideAnswersToggle} from "./hide-answers-toggle";
-import Marker from "./marker";
-
-import type {DependencyProps} from "../../dependencies";
-import type {ChangeableProps} from "../../mixins/changeable";
-import type {APIOptions, Widget, WidgetExports} from "../../types";
-import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
 import type {
     InteractiveMarkerType,
     PerseusLabelImageWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {PerseusLabelImageUserInput} from "@khanacademy/perseus-score";
+import {scoreLabelImageMarker} from "@khanacademy/perseus-score";
+import Clickable from "@khanacademy/wonder-blocks-clickable";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
+import classNames from "classnames";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import AssetContext from "../../asset-context";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import SvgImage from "../../components/svg-image";
+import type {DependencyProps} from "../../dependencies";
+import {useDependencies} from "../../dependencies";
+import type {ChangeableProps} from "../../mixins/changeable";
+import Renderer from "../../renderer";
+import {bodyXsmallBold} from "../../styles/global-styles";
+import mediaQueries from "../../styles/media-queries";
+import type {APIOptions, Widget, WidgetExports} from "../../types";
+import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
+import AnswerChoices from "./answer-choices";
+import {HideAnswersToggle} from "./hide-answers-toggle";
+import Marker from "./marker";
 
 type PreferredPopoverDirection = "NONE" | "UP" | "DOWN" | "LEFT" | "RIGHT";
 

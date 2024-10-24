@@ -7,9 +7,10 @@
  */
 import {components} from "@khanacademy/perseus";
 import {
-    lockedFigureColors,
     type LockedLabelType,
+    lockedFigureColors,
 } from "@khanacademy/perseus-core";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
@@ -18,15 +19,11 @@ import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
-
 import ColorSelect from "./color-select";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
-
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
 

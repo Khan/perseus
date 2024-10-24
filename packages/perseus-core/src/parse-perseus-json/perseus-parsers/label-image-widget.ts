@@ -1,3 +1,4 @@
+import type {LabelImageWidget} from "../../data-schema";
 import {
     array,
     boolean,
@@ -7,11 +8,8 @@ import {
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
-import {parseWidget} from "./widget";
-
-import type {LabelImageWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 export const parseLabelImageWidget: Parser<LabelImageWidget> = parseWidget(
     constant("label-image"),

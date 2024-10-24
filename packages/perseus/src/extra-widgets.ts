@@ -2,6 +2,7 @@
 // As new widgets get added here, please also make sure they get added in
 // content_internal/perseus_traversal.py so they can be properly translated.
 
+import type {WidgetExports} from "./types";
 import Categorizer from "./widgets/categorizer";
 import CSProgram from "./widgets/cs-program";
 import Definition from "./widgets/definition";
@@ -32,8 +33,6 @@ import PythonProgram from "./widgets/python-program";
 import Sorter from "./widgets/sorter";
 import Table from "./widgets/table";
 import Video from "./widgets/video";
-
-import type {WidgetExports} from "./types";
 
 export default [
     Categorizer,

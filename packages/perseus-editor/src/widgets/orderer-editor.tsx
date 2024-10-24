@@ -2,8 +2,8 @@
 /* eslint-disable react/forbid-prop-types */
 import {components} from "@khanacademy/perseus";
 import {
-    ordererLogic,
     type OrdererDefaultWidgetOptions,
+    ordererLogic,
 } from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";

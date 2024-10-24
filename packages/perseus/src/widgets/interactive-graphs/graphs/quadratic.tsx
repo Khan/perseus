@@ -1,10 +1,17 @@
+import type {QuadraticCoefficient, QuadraticCoords} from "@khanacademy/kmath";
 import {Plot, vec} from "mafs";
 import * as React from "react";
-
+import type {I18nContextType} from "../../../components/i18n-context";
 import {usePerseusI18n} from "../../../components/i18n-context";
+import type {Coord} from "../../../interactive2/types";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-
+import type {
+    Dispatch,
+    InteractiveGraphElementSuite,
+    MafsGraphProps,
+    QuadraticGraphState,
+} from "../types";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -13,16 +20,6 @@ import {
     getQuadraticVertexString,
     getQuadraticXIntercepts,
 } from "./utils";
-
-import type {I18nContextType} from "../../../components/i18n-context";
-import type {Coord} from "../../../interactive2/types";
-import type {
-    QuadraticGraphState,
-    MafsGraphProps,
-    Dispatch,
-    InteractiveGraphElementSuite,
-} from "../types";
-import type {QuadraticCoefficient, QuadraticCoords} from "@khanacademy/kmath";
 
 export function renderQuadraticGraph(
     state: QuadraticGraphState,

@@ -1,24 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+
+import type {APIOptions} from "@khanacademy/perseus";
 import {
-    components,
     BaseRadio,
     Changeable,
+    components,
     iconTrash,
 } from "@khanacademy/perseus";
-import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
+import type {
+    PerseusRadioChoice,
+    PerseusRadioWidgetOptions,
+    RadioDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
+import {deriveNumCorrect, radioLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
-
 import Editor from "../../editor";
 import {iconPlus} from "../../styles/icon-paths";
-
-import type {APIOptions} from "@khanacademy/perseus";
-import type {
-    PerseusRadioWidgetOptions,
-    PerseusRadioChoice,
-    RadioDefaultWidgetOptions,
-} from "@khanacademy/perseus-core";
 
 const {InlineIcon} = components;
 

@@ -1,6 +1,5 @@
-import getNumericInputPublicWidgetOptions from "./numeric-input-util";
-
 import type {PerseusNumericInputWidgetOptions} from "../../data-schema";
+import getNumericInputPublicWidgetOptions from "./numeric-input-util";
 
 describe("getNumericInputPublicWidgetOptions", () => {
     it("should return the correct public options without any answer data", () => {

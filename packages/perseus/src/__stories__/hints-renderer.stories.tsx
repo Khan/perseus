@@ -1,11 +1,9 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
-
 import HintsRenderer from "../hints-renderer";
 import {ApiOptions} from "../perseus-api";
 import {interactiveGraphQuestionBuilder} from "../widgets/interactive-graphs/interactive-graph-question-builder";
-
-import type {Meta, StoryObj} from "@storybook/react";
 
 const defaultApiOptions = ApiOptions.defaults;
 

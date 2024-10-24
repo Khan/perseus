@@ -7,21 +7,18 @@
  */
 
 import {EditorJsonify, Util} from "@khanacademy/perseus";
+import type {
+    LabelImageDefaultWidgetOptions,
+    PerseusLabelImageWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {labelImageLogic} from "@khanacademy/perseus-core";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
-
 import FormWrappedTextField from "../components/form-wrapped-text-field";
-
 import AnswerChoices from "./label-image/answer-choices";
 import Behavior from "./label-image/behavior";
 import QuestionMarkers from "./label-image/question-markers";
 import SelectImage from "./label-image/select-image";
-
-import type {
-    PerseusLabelImageWidgetOptions,
-    LabelImageDefaultWidgetOptions,
-} from "@khanacademy/perseus-core";
 
 type Props = {
     // List of answer choices to label question image with.

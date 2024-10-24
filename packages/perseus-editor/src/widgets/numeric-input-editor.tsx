@@ -1,36 +1,34 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {KhanMath} from "@khanacademy/kmath";
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import {
-    components,
     Changeable,
+    components,
     EditorJsonify,
-    Util,
     PerseusI18nContext,
+    Util,
 } from "@khanacademy/perseus";
 import {
-    numericInputLogic,
     type MathFormat,
     type NumericInputDefaultWidgetOptions,
+    numericInputLogic,
     type PerseusNumericInputWidgetOptions,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
+import type {ClickableRole} from "@khanacademy/wonder-blocks-clickable";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import Pill from "@khanacademy/wonder-blocks-pill";
+import type {
+    PillKind,
+    PillSize,
+} from "@khanacademy/wonder-blocks-pill/dist/components/pill";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 import _ from "underscore";
-
 import Heading from "../components/heading";
 import PerseusEditorAccordion from "../components/perseus-editor-accordion";
 import Editor from "../editor";
-
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {ClickableRole} from "@khanacademy/wonder-blocks-clickable";
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
-import type {
-    PillSize,
-    PillKind,
-} from "@khanacademy/wonder-blocks-pill/dist/components/pill";
 
 type ChangeFn = typeof Changeable.change;
 

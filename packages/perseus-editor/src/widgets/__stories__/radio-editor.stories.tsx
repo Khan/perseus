@@ -1,8 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {StyleSheet, css} from "aphrodite";
-import * as React from "react";
-
-import RadioEditor from "../radio/editor";
 
 import type {APIOptions} from "@khanacademy/perseus";
 import type {
@@ -10,6 +6,9 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react";
+import {css, StyleSheet} from "aphrodite";
+import * as React from "react";
+import RadioEditor from "../radio/editor";
 
 type StoryArgs = StoryObj<RadioEditor>;
 

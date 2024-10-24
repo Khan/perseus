@@ -1,17 +1,16 @@
 import {
-    components,
     ApiOptions,
     Categorizer as CategorizerWidget,
     Changeable,
+    components,
     EditorJsonify,
 } from "@khanacademy/perseus";
+import type {CategorizerDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import {categorizerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
-
-import type {CategorizerDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextListEditor} = components;
 const Categorizer = CategorizerWidget.widget;

@@ -1,9 +1,8 @@
 // State type
 // ---------------------------------------------------------------------------
 
-import {cache} from "./cache";
-
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {cache} from "./cache";
 
 export type FlipbookModel = {
     questions: string;

@@ -1,15 +1,14 @@
+import type {
+    DropdownWidget,
+    PerseusWidgetsMap,
+} from "@khanacademy/perseus-core";
 import {flattenScores, scorePerseusItem, scoreWidgetsFunctional} from "./score";
 import {
     getExpressionWidget,
     getLegacyExpressionWidget,
     getTestDropdownWidget,
 } from "./util/test-helpers";
-
 import type {UserInputMap} from "./validation.types";
-import type {
-    DropdownWidget,
-    PerseusWidgetsMap,
-} from "@khanacademy/perseus-core";
 
 describe("flattenScores", () => {
     it("defaults to an empty score", () => {

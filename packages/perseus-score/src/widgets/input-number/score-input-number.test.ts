@@ -1,9 +1,8 @@
-import scoreInputNumber from "./score-input-number";
-
 import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
 } from "../../validation.types";
+import scoreInputNumber from "./score-input-number";
 
 describe("scoreInputNumber", () => {
     it("scores correct answer correctly", () => {

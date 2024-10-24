@@ -3,18 +3,16 @@ import {
     CoreWidgetRegistry,
     type PerseusWidgetOptions,
 } from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
-
 import {DependenciesContext} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
+import type {WidgetProps} from "./types";
 import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
 import * as Widgets from "./widgets";
-
-import type {WidgetProps} from "./types";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
     shouldHighlight: boolean;

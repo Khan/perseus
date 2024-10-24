@@ -2,18 +2,15 @@ import {angles} from "@khanacademy/kmath";
 import {useDrag} from "@use-gesture/react";
 import {vec} from "mafs";
 import * as React from "react";
+import type {RefObject} from "react";
 import {useRef, useState} from "react";
-
 import {getDependencies} from "../../dependencies";
 import {pathBuilder} from "../../util/svg";
-
 import {useDraggable} from "./graphs/use-draggable";
 import {useTransformVectorsToPixels} from "./graphs/use-transform";
 import {lerp, X, Y} from "./math";
 import useGraphConfig from "./reducer/use-graph-config";
 import {bound, TARGET_SIZE} from "./utils";
-
-import type {RefObject} from "react";
 
 import "./protractor.css";
 

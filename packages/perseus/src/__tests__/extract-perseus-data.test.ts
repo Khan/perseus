@@ -1,4 +1,4 @@
-import {describe, it, expect} from "@jest/globals";
+import {describe, expect, it} from "@jest/globals";
 
 import {InputNumber, Radio} from "..";
 import {
@@ -28,7 +28,7 @@ beforeEach(() => {
     stub.mockClear();
 });
 
-import type {RadioWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
+import type {PerseusWidgetsMap, RadioWidget} from "@khanacademy/perseus-core";
 
 describe("ExtractPerseusData", () => {
     describe("getAnswersFromWidgets", () => {

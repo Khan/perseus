@@ -2,23 +2,22 @@ import {vector as kvector} from "@khanacademy/kmath";
 import {
     getAngleCoords,
     getCircleCoords,
-    getLineCoords,
     getLinearSystemCoords,
+    getLineCoords,
     getPointCoords,
     getPolygonCoords,
     getQuadraticCoords,
     getSegmentCoords,
     getSinusoidCoords,
 } from "@khanacademy/perseus";
+import type {PerseusGraphType, Range} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
 import * as React from "react";
-
 import Heading from "../../../components/heading";
-
 import StartCoordsAngle from "./start-coords-angle";
 import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsLine from "./start-coords-line";
@@ -26,10 +25,9 @@ import StartCoordsMultiline from "./start-coords-multiline";
 import StartCoordsPoint from "./start-coords-point";
 import StartCoordsQuadratic from "./start-coords-quadratic";
 import StartCoordsSinusoid from "./start-coords-sinusoid";
-import {getDefaultGraphStartCoords} from "./util";
 
 import type {StartCoords} from "./types";
-import type {PerseusGraphType, Range} from "@khanacademy/perseus-core";
+import {getDefaultGraphStartCoords} from "./util";
 
 type Props = PerseusGraphType & {
     range: [x: Range, y: Range];

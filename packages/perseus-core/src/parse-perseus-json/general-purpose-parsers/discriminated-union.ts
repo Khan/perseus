@@ -1,6 +1,5 @@
-import {isObject} from "./is-object";
-
 import type {ParseContext, Parser} from "../parser-types";
+import {isObject} from "./is-object";
 
 type Primitive = number | string | boolean | null | undefined;
 

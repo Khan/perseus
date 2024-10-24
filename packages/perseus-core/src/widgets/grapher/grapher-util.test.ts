@@ -1,6 +1,5 @@
-import getGrapherPublicWidgetOptions from "./grapher-util";
-
 import type {PerseusGrapherWidgetOptions} from "../../data-schema";
+import getGrapherPublicWidgetOptions from "./grapher-util";
 
 describe("getGrapherPublicWidgetOptions", () => {
     it("removes the `correct` field", () => {

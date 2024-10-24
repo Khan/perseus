@@ -1,14 +1,13 @@
-export {libVersion} from "./version";
-
 export {default as ArticleEditor} from "./article-editor";
 export {default as DeviceFramer} from "./components/device-framer";
 export {default as ViewportResizer} from "./components/viewport-resizer";
+export {default as ContentPreview} from "./content-preview";
 export {default as ArticleDiff} from "./diffs/article-diff";
 export {default as ItemDiff} from "./diffs/item-diff";
-export {default as EditorPage} from "./editor-page";
 export {default as Editor} from "./editor";
+export {default as EditorPage} from "./editor-page";
 export {default as IframeContentRenderer} from "./iframe-content-renderer";
-export {default as ContentPreview} from "./content-preview";
+export {libVersion} from "./version";
 
 import "./styles/perseus-editor.less";
 

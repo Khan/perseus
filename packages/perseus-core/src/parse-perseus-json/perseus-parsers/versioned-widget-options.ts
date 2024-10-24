@@ -1,3 +1,4 @@
+import type {Version} from "../../data-schema";
 import {
     isObject,
     number,
@@ -6,10 +7,8 @@ import {
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-import {isFailure} from "../result";
-
-import type {Version} from "../../data-schema";
 import type {ParseContext, Parser} from "../parser-types";
+import {isFailure} from "../result";
 
 type Versioned = {
     version?: Version;

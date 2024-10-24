@@ -1,10 +1,8 @@
+import type {Interval, vec} from "mafs";
 import * as React from "react";
-
 import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {MAX, MIN, X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
-
-import type {Interval, vec} from "mafs";
 
 // The size of the ticks and labels in pixels
 const tickSize = 10;

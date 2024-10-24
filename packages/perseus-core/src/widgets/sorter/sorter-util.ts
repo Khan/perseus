@@ -1,6 +1,5 @@
-import {shuffle} from "../../utils/random-util";
-
 import type {PerseusSorterWidgetOptions} from "../../data-schema";
+import {shuffle} from "../../utils/random-util";
 
 /**
  * For details on the individual options, see the

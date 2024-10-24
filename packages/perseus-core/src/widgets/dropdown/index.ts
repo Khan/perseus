@@ -1,7 +1,6 @@
-import getDropdownPublicWidgetOptions from "./dropdown-util";
-
 import type {PerseusDropdownWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import getDropdownPublicWidgetOptions from "./dropdown-util";
 
 export type DropdownDefaultWidgetOptions = Pick<
     PerseusDropdownWidgetOptions,

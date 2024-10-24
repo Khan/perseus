@@ -1,16 +1,13 @@
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
+import type {vec} from "mafs";
 import * as React from "react";
+import type {ForwardedRef} from "react";
 import {forwardRef} from "react";
-
 import {X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useTransformVectorsToPixels} from "../use-transform";
-
-import Hairlines from "./hairlines";
-
 import type {CSSCursor} from "./css-cursor";
-import type {vec} from "mafs";
-import type {ForwardedRef} from "react";
+import Hairlines from "./hairlines";
 
 type Props = {
     point: vec.Vector2;

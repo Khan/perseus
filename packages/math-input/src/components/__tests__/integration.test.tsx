@@ -2,22 +2,20 @@ import {
     KeypadContext,
     StatefulKeypadContextProvider,
 } from "@khanacademy/keypad-context";
+import type {KeypadConfiguration} from "@khanacademy/perseus-core";
 import {
-    screen,
-    render,
     fireEvent,
-    within,
+    render,
+    screen,
     waitFor,
+    within,
 } from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import MathQuill from "mathquill";
 import React, {useState} from "react";
-
 import MathInput from "../input/math-input";
 import {MobileKeypad} from "../keypad";
-
-import type {KeypadConfiguration} from "@khanacademy/perseus-core";
-import type {UserEvent} from "@testing-library/user-event";
 
 const MQ = MathQuill.getInterface(3);
 

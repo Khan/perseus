@@ -1,5 +1,5 @@
-import type image from "../../widgets/image/image";
 import type React from "react";
+import type image from "../../widgets/image/image";
 
 export type ImagePromptJSON = {
     type: "image";

@@ -1,13 +1,10 @@
-import {screen} from "@testing-library/react";
-import {userEvent as userEventLib} from "@testing-library/user-event";
-
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-
-import {getPromptJSON} from "./dropdown-ai-utils";
-
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {PerseusDropdownUserInput} from "@khanacademy/perseus-score";
+import {screen} from "@testing-library/react";
 import type {UserEvent} from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
+import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {getPromptJSON} from "./dropdown-ai-utils";
 
 const question1: PerseusRenderer = {
     content:

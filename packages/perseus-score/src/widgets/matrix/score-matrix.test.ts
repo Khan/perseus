@@ -1,9 +1,8 @@
-import scoreMatrix from "./score-matrix";
-
 import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
 } from "../../validation.types";
+import scoreMatrix from "./score-matrix";
 
 describe("scoreMatrix", () => {
     it("can be answered correctly", () => {

@@ -4,11 +4,9 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import KeyConfigs from "../../data/key-configs";
-import {useMathInputI18n} from "../i18n-context";
-
-import NavigationButton from "./navigation-button";
-
 import type {ClickKeyCallback} from "../../types";
+import {useMathInputI18n} from "../i18n-context";
+import NavigationButton from "./navigation-button";
 
 type Props = {
     onClickKey: ClickKeyCallback;

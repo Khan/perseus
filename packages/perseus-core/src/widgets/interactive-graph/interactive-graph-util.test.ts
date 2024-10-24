@@ -1,6 +1,5 @@
-import getInteractiveGraphPublicWidgetOptions from "./interactive-graph-util";
-
 import type {PerseusInteractiveGraphWidgetOptions} from "../../data-schema";
+import getInteractiveGraphPublicWidgetOptions from "./interactive-graph-util";
 
 describe("getInteractiveGraphPublicWidgetOptions", () => {
     it("removes the `correct` field", () => {

@@ -1,7 +1,6 @@
-import getCSProgramPublicWidgetOptions from "./cs-program-util";
-
 import type {PerseusCSProgramWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import getCSProgramPublicWidgetOptions from "./cs-program-util";
 
 export type CSProgramDefaultWidgetOptions = Pick<
     PerseusCSProgramWidgetOptions,

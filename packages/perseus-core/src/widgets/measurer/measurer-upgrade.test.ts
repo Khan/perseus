@@ -1,6 +1,5 @@
-import {widgetOptionsUpgrades} from "./measurer-upgrade";
-
 import type {PerseusMeasurerWidgetOptions} from "../../data-schema";
+import {widgetOptionsUpgrades} from "./measurer-upgrade";
 
 describe("widgetOptionsUpgrades", () => {
     it("can upgrade from v0 to v1", () => {

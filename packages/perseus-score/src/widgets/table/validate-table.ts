@@ -1,9 +1,8 @@
-import {filterNonEmpty} from "./utils";
-
 import type {
     PerseusTableUserInput,
     ValidationResult,
 } from "../../validation.types";
+import {filterNonEmpty} from "./utils";
 
 function validateTable(userInput: PerseusTableUserInput): ValidationResult {
     const supplied = filterNonEmpty(userInput);

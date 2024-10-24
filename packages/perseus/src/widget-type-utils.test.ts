@@ -1,16 +1,16 @@
 import {
     generateTestCategorizerWidget,
+    generateTestInteractiveGraphWidget,
     generateTestPerseusItem,
     generateTestRadioWidget,
-    generateTestInteractiveGraphWidget,
 } from "./util/test-utils";
 import {
-    getWidgetTypeByWidgetId,
     contentHasWidgetType,
-    getWidgetsMapFromItemData,
     getWidgetFromWidgetMap,
-    getWidgetsFromWidgetMap,
     getWidgetSubTypeByWidgetId,
+    getWidgetsFromWidgetMap,
+    getWidgetsMapFromItemData,
+    getWidgetTypeByWidgetId,
 } from "./widget-type-utils";
 
 describe("widget-type-utils", () => {

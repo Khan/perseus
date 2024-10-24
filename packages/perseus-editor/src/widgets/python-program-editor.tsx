@@ -1,14 +1,13 @@
 /**
  * This editor is for embedding Khan Academy Python programs.
  */
-import {components, Changeable} from "@khanacademy/perseus";
-import {pythonProgramLogic} from "@khanacademy/perseus-core";
-import * as React from "react";
-
+import {Changeable, components} from "@khanacademy/perseus";
 import type {
     PerseusPythonProgramWidgetOptions,
     PythonProgramDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
+import {pythonProgramLogic} from "@khanacademy/perseus-core";
+import * as React from "react";
 
 const {NumberInput, TextInput} = components;
 

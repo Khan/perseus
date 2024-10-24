@@ -1,8 +1,7 @@
 import {ErrorTrackingParseContext} from "../error-tracking-parse-context";
-import {failure, success} from "../result";
-
 import type {Mismatch, ParsedValue, Parser} from "../parser-types";
 import type {Failure} from "../result";
+import {failure, success} from "../result";
 
 export function ctx() {
     return new ErrorTrackingParseContext([]);

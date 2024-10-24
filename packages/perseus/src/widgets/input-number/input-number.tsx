@@ -1,24 +1,23 @@
+import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import type {
+    PerseusInputNumberRubric,
+    PerseusInputNumberUserInput,
+} from "@khanacademy/perseus-score";
 import {inputNumberAnswerTypes} from "@khanacademy/perseus-score";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
-import InputWithExamples from "../numeric-input/input-with-examples";
 
 import type {PerseusStrings} from "../../strings";
 import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
-import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
-import type {
-    PerseusInputNumberRubric,
-    PerseusInputNumberUserInput,
-} from "@khanacademy/perseus-score";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
+import InputWithExamples from "../numeric-input/input-with-examples";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {

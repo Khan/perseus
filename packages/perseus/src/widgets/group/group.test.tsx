@@ -2,19 +2,16 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
 import {act, cleanup, render, screen, waitFor} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
 import {traverse} from "../../traversal";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-
 import {question1} from "./group.testdata";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("group widget", () => {
     let userEvent: UserEvent;

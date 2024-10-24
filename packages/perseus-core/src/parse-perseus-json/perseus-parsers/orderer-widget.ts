@@ -1,3 +1,4 @@
+import type {OrdererWidget} from "../../data-schema";
 import {
     array,
     constant,
@@ -6,12 +7,9 @@ import {
     pipeParsers,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
+import type {Parser, PartialParser} from "../parser-types";
 import {parsePerseusRenderer} from "./perseus-renderer";
 import {parseWidget} from "./widget";
-
-import type {OrdererWidget} from "../../data-schema";
-import type {Parser, PartialParser} from "../parser-types";
 
 // There is an import cycle between orderer-widget.ts and perseus-renderer.ts.
 // This wrapper ensures that we don't refer to parsePerseusRenderer before

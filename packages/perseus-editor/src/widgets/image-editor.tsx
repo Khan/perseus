@@ -1,24 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+
+import type {APIOptions} from "@khanacademy/perseus";
 import {
-    components,
     Changeable,
+    components,
     EditorJsonify,
-    Util,
     iconTrash,
+    Util,
 } from "@khanacademy/perseus";
 import {
-    imageLogic,
     type ImageDefaultWidgetOptions,
+    imageLogic,
     type Range,
     type Size,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
-
 import BlurInput from "../components/blur-input";
 import Editor from "../editor";
-
-import type {APIOptions} from "@khanacademy/perseus";
 
 type ChangeFn = typeof Changeable.change;
 

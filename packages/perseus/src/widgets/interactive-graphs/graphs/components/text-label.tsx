@@ -1,7 +1,6 @@
+import type {TextProps} from "mafs";
 import {Text} from "mafs";
 import React from "react";
-
-import type {TextProps} from "mafs";
 import type {PropsWithChildren} from "react";
 
 type Props = PropsWithChildren<

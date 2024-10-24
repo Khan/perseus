@@ -1,10 +1,10 @@
 import {
-    lockedFigureFillStyles,
     type Coord,
-    type LockedFigureFillType,
-    type LockedPolygonType,
     type LockedFigureColor,
+    type LockedFigureFillType,
     type LockedLabelType,
+    type LockedPolygonType,
+    lockedFigureFillStyles,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -29,6 +29,7 @@ import ColorSelect from "./color-select";
 import LabeledSwitch from "./labeled-switch";
 import LineStrokeSelect from "./line-stroke-select";
 import LockedFigureAria from "./locked-figure-aria";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import PolygonSwatch from "./polygon-swatch";
@@ -38,8 +39,6 @@ import {
     getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
-
-import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 
 export type Props = LockedFigureSettingsCommonProps &
     LockedPolygonType & {

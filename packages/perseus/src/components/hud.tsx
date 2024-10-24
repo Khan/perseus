@@ -1,4 +1,4 @@
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import * as constants from "../styles/constants";

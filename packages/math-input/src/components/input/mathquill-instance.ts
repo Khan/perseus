@@ -1,14 +1,12 @@
 import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import MathQuill from "mathquill";
-
+import type {MathInputStrings} from "../../strings";
 import {inJest} from "../../utils";
-
 import type {
-    MathQuillInterface,
     MathFieldConfig,
     MathFieldInterface,
+    MathQuillInterface,
 } from "./mathquill-types";
-import type {MathInputStrings} from "../../strings";
 
 // We only need one MathQuill instance (referred to as MQ in the docs)
 // and that contains some MQ constants and the MathField constructor

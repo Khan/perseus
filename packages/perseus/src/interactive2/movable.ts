@@ -13,11 +13,9 @@ import {point as kpoint} from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import _ from "underscore";
-
-import InteractiveUtil from "./interactive-util";
-
-import type {Constraint, ConstraintCallbacks, Coord} from "./types";
 import type {Graphie} from "../util/graphie";
+import InteractiveUtil from "./interactive-util";
+import type {Constraint, ConstraintCallbacks, Coord} from "./types";
 
 const normalizeOptions = InteractiveUtil.normalizeOptions;
 

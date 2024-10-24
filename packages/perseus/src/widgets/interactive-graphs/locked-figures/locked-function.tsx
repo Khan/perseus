@@ -1,14 +1,11 @@
 import * as KAS from "@khanacademy/kas";
+import type {LockedFunctionType} from "@khanacademy/perseus-core";
 import {lockedFigureColors} from "@khanacademy/perseus-core";
 import {Plot} from "mafs";
 import * as React from "react";
-import {useState, useEffect} from "react";
-
+import {useEffect, useState} from "react";
 import useGraphConfig from "../reducer/use-graph-config";
-
 import {clampDomain} from "./utils";
-
-import type {LockedFunctionType} from "@khanacademy/perseus-core";
 
 const LockedFunction = (props: LockedFunctionType) => {
     const {range} = useGraphConfig();

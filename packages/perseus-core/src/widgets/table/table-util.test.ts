@@ -1,6 +1,5 @@
-import getTablePublicWidgetOptions from "./table-util";
-
 import type {PerseusTableWidgetOptions} from "../../data-schema";
+import getTablePublicWidgetOptions from "./table-util";
 
 describe("getTablePublicWidgetOptions", () => {
     it("removes the answers", () => {

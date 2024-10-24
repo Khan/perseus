@@ -1,14 +1,14 @@
-import {it, describe, beforeEach} from "@jest/globals";
+import {beforeEach, describe, it} from "@jest/globals";
 import {
-    type PerseusItem,
     type PerseusExpressionWidgetOptions,
+    type PerseusItem,
     type PerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {
     testDependencies,
     testDependenciesV2,
@@ -17,7 +17,6 @@ import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-
 import ExpressionWidgetExport from "./expression";
 import {
     expressionItem2,
@@ -25,8 +24,6 @@ import {
     expressionItemWithAnswer,
     expressionItemWithLabels,
 } from "./expression.testdata";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,

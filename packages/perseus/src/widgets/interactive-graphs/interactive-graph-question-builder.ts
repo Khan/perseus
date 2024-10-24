@@ -1,7 +1,3 @@
-import {vec} from "mafs";
-
-import type {SnapTo} from "./types";
-import type {Coord} from "../../interactive2/types";
 import type {
     AxisLabelLocation,
     CollinearTuple,
@@ -21,6 +17,9 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
+import {vec} from "mafs";
+import type {Coord} from "../../interactive2/types";
+import type {SnapTo} from "./types";
 
 export type LockedFunctionOptions = {
     color?: LockedFigureColor;

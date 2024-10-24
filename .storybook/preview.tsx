@@ -1,17 +1,15 @@
-import * as React from "react";
-import {color} from "@khanacademy/wonder-blocks-tokens";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-
+import {color} from "@khanacademy/wonder-blocks-tokens";
+import type {Preview} from "@storybook/react";
+import * as React from "react";
 import {
-    setDependencies,
     DependenciesContext,
+    setDependencies,
 } from "../packages/perseus/src/dependencies";
 import {
-    storybookTestDependencies,
     storybookDependenciesV2,
+    storybookTestDependencies,
 } from "../testing/test-dependencies";
-
-import type {Preview} from "@storybook/react";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.

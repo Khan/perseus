@@ -1,6 +1,5 @@
-import getMatrixPublicWidgetOptions from "./matrix-util";
-
 import type {PerseusMatrixWidgetOptions} from "../../data-schema";
+import getMatrixPublicWidgetOptions from "./matrix-util";
 
 describe("getMatrixPublicWidgetOptions", () => {
     it("removes the `answers` field", () => {

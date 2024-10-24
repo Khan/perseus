@@ -4,11 +4,10 @@
  */
 import {point as kpoint} from "@khanacademy/kmath";
 import _ from "underscore";
-
-import WrappedEllipse from "./wrapped-ellipse";
+import type {Interval} from "../util/interval";
 
 import type {Constraint, ConstraintCallbacks, Coord} from "./types";
-import type {Interval} from "../util/interval";
+import WrappedEllipse from "./wrapped-ellipse";
 
 const add = {
     constrain: function () {

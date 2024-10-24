@@ -1,7 +1,6 @@
-import deriveExtraKeys from "./derive-extra-keys";
-
-import type {ExpressionPublicWidgetOptions} from "./expression-util";
 import type {PerseusExpressionWidgetOptions} from "../../data-schema";
+import deriveExtraKeys from "./derive-extra-keys";
+import type {ExpressionPublicWidgetOptions} from "./expression-util";
 
 describe("deriveExtraKeys", () => {
     it("should handle basic button set", async () => {

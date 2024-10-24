@@ -7,9 +7,9 @@ import {
     Util,
 } from "@khanacademy/perseus";
 import {
-    interactionLogic,
     type Coords,
     type InteractionDefaultWidgetOptions,
+    interactionLogic,
     type MarkingsType,
 } from "@khanacademy/perseus-core";
 import * as React from "react";

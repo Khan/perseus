@@ -1,7 +1,6 @@
+import type {Coord} from "../interactive2/types";
 import {DrawingTransform} from "./drawing-transform";
 import {GraphBounds} from "./graph-bounds";
-
-import type {Coord} from "../interactive2/types";
 
 describe("DrawingTransform", () => {
     describe("with bounds of -10 to 10, and 5px per unit", () => {

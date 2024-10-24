@@ -6,16 +6,16 @@ import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
 import {
     findFirstAndLastWordIndexes,
-    unionRanges,
-    spanRanges,
     rangeIncludes,
+    spanRanges,
+    unionRanges,
 } from "./ranges";
 
 import type {
     DOMHighlight,
     DOMHighlightSet,
-    SerializedHighlight,
     DOMRange,
+    SerializedHighlight,
 } from "./types";
 
 /**

@@ -1,24 +1,3 @@
-import {lockedFigureColorNames} from "../../data-schema";
-import {
-    array,
-    boolean,
-    constant,
-    enumeration,
-    nullable,
-    number,
-    object,
-    optional,
-    pair,
-    string,
-    trio,
-    union,
-} from "../general-purpose-parsers";
-import {defaulted} from "../general-purpose-parsers/defaulted";
-import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
-
-import {parsePerseusImageBackground} from "./perseus-image-background";
-import {parseWidget} from "./widget";
-
 import type {
     InteractiveGraphWidget,
     LockedEllipseType,
@@ -45,7 +24,26 @@ import type {
     PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
 } from "../../data-schema";
+import {lockedFigureColorNames} from "../../data-schema";
+import {
+    array,
+    boolean,
+    constant,
+    enumeration,
+    nullable,
+    number,
+    object,
+    optional,
+    pair,
+    string,
+    trio,
+    union,
+} from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
+import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 import type {Parser} from "../parser-types";
+import {parsePerseusImageBackground} from "./perseus-image-background";
+import {parseWidget} from "./widget";
 
 // Used to represent 2-D points and ranges
 const pairOfNumbers = pair(number, number);

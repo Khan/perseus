@@ -1,17 +1,14 @@
+import type {KeypadKey} from "@khanacademy/perseus-core";
 import {getDecimalSeparator} from "@khanacademy/perseus-core";
-
 import {MathFieldActionType} from "../../types";
 import {mathQuillInstance} from "../input/mathquill-instance";
-
-import handleArrow from "./handle-arrow";
-import handleExponent from "./handle-exponent";
-import handleJumpOut from "./handle-jump-out";
-
 import type {
     MathFieldInterface,
     MathFieldUpdaterCallback,
 } from "../input/mathquill-types";
-import type {KeypadKey} from "@khanacademy/perseus-core";
+import handleArrow from "./handle-arrow";
+import handleExponent from "./handle-exponent";
+import handleJumpOut from "./handle-jump-out";
 
 function buildGenericCallback(
     str: string,

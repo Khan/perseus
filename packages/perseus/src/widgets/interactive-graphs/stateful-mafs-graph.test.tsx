@@ -1,14 +1,12 @@
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 
-import {StatefulMafsGraph} from "./stateful-mafs-graph";
-
 import type {StatefulMafsGraphProps} from "./stateful-mafs-graph";
-import type {UserEvent} from "@testing-library/user-event";
+import {StatefulMafsGraph} from "./stateful-mafs-graph";
 
 function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
     return {

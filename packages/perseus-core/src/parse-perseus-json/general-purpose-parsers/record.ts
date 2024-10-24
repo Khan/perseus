@@ -1,8 +1,6 @@
-import {failure, isFailure, isSuccess} from "../result";
-
-import {isObject} from "./is-object";
-
 import type {Mismatch, Parser} from "../parser-types";
+import {failure, isFailure, isSuccess} from "../result";
+import {isObject} from "./is-object";
 
 export function record<K extends string, V>(
     parseKey: Parser<K>,

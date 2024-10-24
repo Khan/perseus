@@ -1,8 +1,8 @@
 import {
+    KhanMath,
+    number as knumber,
     point as kpoint,
     vector as kvector,
-    number as knumber,
-    KhanMath,
 } from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {entries} from "@khanacademy/wonder-stuff-core";
@@ -14,16 +14,15 @@ import Raphael from "raphael";
 // release
 // http://groups.google.com/group/raphaeljs/browse_thread/thread/c34c75ad8d431544
 
+import type {Coord} from "../interactive2/types";
 import {Log} from "../logging/log";
-
 import KhanColors from "./colors";
 import {DrawingTransform} from "./drawing-transform";
 import {GraphBounds} from "./graph-bounds";
-import Tex from "./tex";
 
 import type {MouseHandler} from "./interactive";
 import type {Interval} from "./interval";
-import type {Coord} from "../interactive2/types";
+import Tex from "./tex";
 
 const {processMath} = Tex;
 

@@ -1,7 +1,3 @@
-import type {ILogger} from "./logging/log";
-import type {PerseusStrings} from "./strings";
-import type {SizeClass} from "./util/sizing-utils";
-import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 // MAGIC: Removal of this comment may cause `tsc --build` to output a syntax
 // error in packages/perseus/dist/server-item-renderer.d.ts and then fail. This
@@ -12,12 +8,12 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 // For more information, see:
 // https://khanacademy.slack.com/archives/C01AZ9H8TTQ/p1738883377389969
 import type {
+    AnalyticsEventHandlerFn,
     Hint,
     PerseusAnswerArea,
     PerseusGraphType,
     PerseusWidget,
     PerseusWidgetsMap,
-    AnalyticsEventHandlerFn,
     Version,
     WidgetOptionsUpgradeMap,
 } from "@khanacademy/perseus-core";
@@ -30,6 +26,10 @@ import type {
 } from "@khanacademy/perseus-score";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
+import type {ILogger} from "./logging/log";
+import type {PerseusStrings} from "./strings";
+import type {SizeClass} from "./util/sizing-utils";
+import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 

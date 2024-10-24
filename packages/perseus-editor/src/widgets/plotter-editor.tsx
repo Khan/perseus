@@ -1,19 +1,17 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
 import {number as knumber} from "@khanacademy/kmath";
-import {components, PlotterWidget, Util} from "@khanacademy/perseus";
-import {plotterLogic, plotterPlotTypes} from "@khanacademy/perseus-core";
-import * as React from "react";
-import ReactDOM from "react-dom";
-import _ from "underscore";
-
-import BlurInput from "../components/blur-input";
-
 import type {APIOptions} from "@khanacademy/perseus";
+import {components, PlotterWidget, Util} from "@khanacademy/perseus";
 import type {
     PerseusPlotterWidgetOptions,
     PlotterDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
+import {plotterLogic, plotterPlotTypes} from "@khanacademy/perseus-core";
+import * as React from "react";
+import ReactDOM from "react-dom";
+import _ from "underscore";
+import BlurInput from "../components/blur-input";
 
 const {InfoTip, NumberInput, RangeInput, TextListEditor} = components;
 const Plotter = PlotterWidget.widget;

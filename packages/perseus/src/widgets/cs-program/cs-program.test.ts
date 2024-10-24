@@ -1,10 +1,8 @@
+import type {PerseusCSProgramUserInput} from "@khanacademy/perseus-score";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-
 import {question1} from "./cs-program.testdata";
-
-import type {PerseusCSProgramUserInput} from "@khanacademy/perseus-score";
 
 describe("cs-program widget", () => {
     beforeEach(() => {

@@ -8,7 +8,7 @@
  */
 
 import {point as kpoint} from "@khanacademy/kmath";
-import {PerseusError, Errors} from "@khanacademy/perseus-core";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 /* Local helper methods. */

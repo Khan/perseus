@@ -1,24 +1,30 @@
 import {angles} from "@khanacademy/kmath";
 import {components} from "@khanacademy/perseus";
+import type {
+    Coord,
+    LockedEllipseType,
+    LockedFigureColor,
+    LockedFigureFillType,
+    LockedLabelType,
+} from "@khanacademy/perseus-core";
 import {lockedFigureFillStyles} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
 import AngleInput from "../../../components/angle-input";
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
-
 import ColorSelect from "./color-select";
 import EllipseSwatch from "./ellipse-swatch";
 import LineStrokeSelect from "./line-stroke-select";
 import LockedFigureAria from "./locked-figure-aria";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
@@ -27,15 +33,6 @@ import {
     getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
-
-import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
-import type {
-    Coord,
-    LockedFigureFillType,
-    LockedEllipseType,
-    LockedFigureColor,
-    LockedLabelType,
-} from "@khanacademy/perseus-core";
 
 const {convertRadiansToDegrees} = angles;
 const {InfoTip} = components;

@@ -1,8 +1,6 @@
-import * as React from "react";
-
-import ImageLoader from "../image-loader";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import * as React from "react";
+import ImageLoader from "../image-loader";
 
 const svgUrl = "http://www.khanacademy.org/images/ohnoes-concerned.svg";
 const imgUrl = "https://www.khanacademy.org/images/hand-tree.new.png";

@@ -1,11 +1,9 @@
+import type {PerseusRenderer} from "../../data-schema";
 import {any, object, string} from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
+import type {Parser} from "../parser-types";
 import {parseImages} from "./images-map";
 import {parseWidgetsMap} from "./widgets-map";
-
-import type {PerseusRenderer} from "../../data-schema";
-import type {Parser} from "../parser-types";
 
 export const parsePerseusRenderer: Parser<PerseusRenderer> = defaulted(
     object({

@@ -1,14 +1,12 @@
-import {describe, beforeEach, it} from "@jest/globals";
+import {beforeEach, describe, it} from "@jest/globals";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import type {APIOptions} from "../../types";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {isAccessible} from "../../widgets";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-
 import {question} from "./image.testdata";
-
-import type {APIOptions} from "../../types";
 
 describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
     const apiOptions: APIOptions = {isMobile};

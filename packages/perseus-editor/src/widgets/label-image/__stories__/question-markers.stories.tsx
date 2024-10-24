@@ -1,9 +1,7 @@
-import {StyleSheet, css} from "aphrodite";
-import * as React from "react";
-
-import QuestionMarkers from "../question-markers";
-
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
+import {css, StyleSheet} from "aphrodite";
+import * as React from "react";
+import QuestionMarkers from "../question-markers";
 
 type StoryArgs = Record<any, any>;
 

@@ -1,9 +1,8 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
-
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     value: string | number | null;

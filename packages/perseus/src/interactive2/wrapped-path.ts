@@ -1,8 +1,6 @@
 import _ from "underscore";
-
-import WrappedDrawing from "./wrapped-drawing";
-
 import type {Coord} from "./types";
+import WrappedDrawing from "./wrapped-drawing";
 import type {VisibleShape} from "./wrapped-drawing";
 
 const DEFAULT_OPTIONS = {

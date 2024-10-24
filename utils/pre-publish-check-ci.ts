@@ -1,16 +1,16 @@
 #!/usr/bin/env -S node -r @swc-node/register
+
+import fg from "fast-glob";
 /**
  * Pre-publish checks to verify that our publish will go smoothly.
  */
 import path from "path";
 
-import fg from "fast-glob";
-
 import {
-    checkPrivate,
     checkEntrypoints,
-    checkSource,
+    checkPrivate,
     checkPublishConfig,
+    checkSource,
 } from "./internal/pre-publish-utils";
 
 // eslint-disable-next-line promise/catch-or-return

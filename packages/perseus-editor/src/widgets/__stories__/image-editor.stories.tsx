@@ -1,14 +1,12 @@
 import {ApiOptions} from "@khanacademy/perseus";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {action} from "@storybook/addon-actions";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
 import ImageEditor from "../image-editor";
-
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type StoryArgs = Record<any, any>;
 

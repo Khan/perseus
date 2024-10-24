@@ -1,6 +1,5 @@
-import {getLabelPosition, fontSize, getLabelTransform} from "./axis-labels";
-
 import type {GraphDimensions} from "../types";
+import {fontSize, getLabelPosition, getLabelTransform} from "./axis-labels";
 
 describe("getLabelPosition", () => {
     it("should return the correct position for the default graph", () => {

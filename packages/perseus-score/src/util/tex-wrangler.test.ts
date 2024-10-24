@@ -1,4 +1,4 @@
-import {parseTex, modifyTex} from "./tex-wrangler";
+import {modifyTex, parseTex} from "./tex-wrangler";
 
 const whitespaceRegex = /\s/g;
 

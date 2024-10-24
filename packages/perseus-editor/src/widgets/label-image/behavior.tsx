@@ -3,7 +3,7 @@
  */
 
 import {bodyXsmallBold} from "@khanacademy/perseus";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Checkbox from "../../components/checkbox";

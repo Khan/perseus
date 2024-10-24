@@ -2,9 +2,8 @@ import {vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import InteractiveUtil from "./interactive-util";
-import WrappedDrawing from "./wrapped-drawing";
-
 import type {Coord} from "./types";
+import WrappedDrawing from "./wrapped-drawing";
 import type {VisibleShape} from "./wrapped-drawing";
 
 const DEFAULT_OPTIONS = {

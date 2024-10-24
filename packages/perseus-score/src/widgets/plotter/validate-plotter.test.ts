@@ -1,9 +1,8 @@
-import validatePlotter from "./validate-plotter";
-
 import type {
     PerseusPlotterUserInput,
     PerseusPlotterValidationData,
 } from "../../validation.types";
+import validatePlotter from "./validate-plotter";
 
 describe("validatePlotter", () => {
     it("is invalid if the start and end are the same", () => {

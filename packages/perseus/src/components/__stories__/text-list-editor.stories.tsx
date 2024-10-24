@@ -1,9 +1,7 @@
 import {action} from "@storybook/addon-actions";
-import * as React from "react";
-
-import TextListEditor from "../text-list-editor";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import * as React from "react";
+import TextListEditor from "../text-list-editor";
 
 const meta: Meta = {
     title: "Perseus/Components/Text List Editor",

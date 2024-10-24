@@ -1,11 +1,9 @@
-import {Coordinates} from "mafs";
-import * as React from "react";
-
-import {X, Y} from "../math";
-
-import type {SizeClass} from "../../../util/sizing-utils";
 import type {GraphRange, MarkingsType} from "@khanacademy/perseus-core";
 import type {vec} from "mafs";
+import {Coordinates} from "mafs";
+import * as React from "react";
+import type {SizeClass} from "../../../util/sizing-utils";
+import {X, Y} from "../math";
 
 interface GridProps {
     gridStep: vec.Vector2;

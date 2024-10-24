@@ -1,9 +1,8 @@
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 import invariant from "tiny-invariant";
 
-import {getGradableGraph} from "./interactive-graph-state";
-
 import type {InteractiveGraphState} from "../types";
-import type {PerseusGraphType} from "@khanacademy/perseus-core";
+import {getGradableGraph} from "./interactive-graph-state";
 
 const defaultUnlimitedPointState: InteractiveGraphState = {
     type: "point",

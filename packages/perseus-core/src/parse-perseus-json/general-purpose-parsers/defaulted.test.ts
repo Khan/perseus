@@ -1,10 +1,8 @@
+import type {Parser} from "../parser-types";
 import {success} from "../result";
-
 import {defaulted} from "./defaulted";
 import {number} from "./number";
 import {ctx, parseFailureWith} from "./test-helpers";
-
-import type {Parser} from "../parser-types";
 
 describe("defaulted()", () => {
     const numberWithDefault = defaulted(number, () => 42);

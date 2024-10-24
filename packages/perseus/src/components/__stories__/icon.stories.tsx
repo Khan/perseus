@@ -1,7 +1,6 @@
+import type {Meta, StoryObj} from "@storybook/react";
 import * as IconPaths from "../../icon-paths";
 import IconComponent from "../icon";
-
-import type {StoryObj, Meta} from "@storybook/react";
 
 type Story = StoryObj<typeof IconComponent>;
 

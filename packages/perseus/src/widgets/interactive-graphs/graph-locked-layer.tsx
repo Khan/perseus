@@ -1,15 +1,13 @@
+import type {LockedFigure} from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import type {Interval} from "mafs";
 import * as React from "react";
-
 import LockedEllipse from "./locked-figures/locked-ellipse";
 import LockedFunction from "./locked-figures/locked-function";
 import LockedLine from "./locked-figures/locked-line";
 import LockedPoint from "./locked-figures/locked-point";
 import LockedPolygon from "./locked-figures/locked-polygon";
 import LockedVector from "./locked-figures/locked-vector";
-
-import type {LockedFigure} from "@khanacademy/perseus-core";
-import type {Interval} from "mafs";
 
 type Props = {
     lockedFigures: ReadonlyArray<LockedFigure>;

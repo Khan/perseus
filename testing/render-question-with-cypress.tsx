@@ -1,7 +1,7 @@
 import {mount} from "@cypress/react";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import React from "react";
-
 import {MathInputI18nContextProvider} from "../packages/math-input/src/components/i18n-context";
 import {mockStrings as mathInputMockStrings} from "../packages/math-input/src/strings";
 import AssetContext from "../packages/perseus/src/asset-context";
@@ -9,10 +9,8 @@ import {DependenciesContext} from "../packages/perseus/src/dependencies";
 import * as Perseus from "../packages/perseus/src/index";
 import {mockStrings} from "../packages/perseus/src/strings";
 
-import {cypressDependenciesV2} from "./test-dependencies";
-
 import type {APIOptions} from "../packages/perseus/src/types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {cypressDependenciesV2} from "./test-dependencies";
 
 /**
  * Renders the given question using Cypress. Waits until all assets have been

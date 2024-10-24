@@ -1,25 +1,22 @@
-import {screen, render} from "@testing-library/react";
+import type {GraphRange} from "@khanacademy/perseus-core";
+import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {vec} from "mafs";
 import React from "react";
 import invariant from "tiny-invariant";
-
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-
+import type {PerseusDependenciesV2} from "../../types";
+import type {MafsGraphProps} from "./mafs-graph";
 import {calculateNestedSVGCoords, MafsGraph} from "./mafs-graph";
 import {actions, REMOVE_POINT} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
-import {getBaseMafsGraphPropsForTests} from "./utils";
-
-import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
-import type {PerseusDependenciesV2} from "../../types";
-import type {GraphRange} from "@khanacademy/perseus-core";
-import type {UserEvent} from "@testing-library/user-event";
+import {getBaseMafsGraphPropsForTests} from "./utils";
 
 const baseMafsProps = getBaseMafsGraphPropsForTests();
 

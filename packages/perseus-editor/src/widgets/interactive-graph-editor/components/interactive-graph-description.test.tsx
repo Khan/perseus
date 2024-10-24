@@ -1,14 +1,11 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import {testDependencies} from "../../../../../../testing/test-dependencies";
-
 import InteractiveGraphDescription from "./interactive-graph-description";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
 

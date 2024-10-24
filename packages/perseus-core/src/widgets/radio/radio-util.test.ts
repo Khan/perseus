@@ -1,6 +1,5 @@
-import getRadioPublicWidgetOptions from "./radio-util";
-
 import type {PerseusRadioWidgetOptions} from "../../data-schema";
+import getRadioPublicWidgetOptions from "./radio-util";
 
 describe("getRadioPublicWidgetOptions", () => {
     it("should return the correct public options without any answer data", () => {

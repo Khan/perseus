@@ -1,8 +1,8 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {Changeable, EditorJsonify} from "@khanacademy/perseus";
 import {
-    iframeLogic,
     type IFrameDefaultWidgetOptions,
+    iframeLogic,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";

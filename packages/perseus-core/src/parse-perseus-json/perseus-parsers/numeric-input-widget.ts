@@ -1,26 +1,24 @@
-import {
-    constant,
-    object,
-    array,
-    string,
-    number,
-    optional,
-    enumeration,
-    boolean,
-    nullable,
-    union,
-    pipeParsers,
-} from "../general-purpose-parsers";
-import {convert} from "../general-purpose-parsers/convert";
-import {defaulted} from "../general-purpose-parsers/defaulted";
-
-import {parseWidget} from "./widget";
-
 import type {
     NumericInputWidget,
     PerseusNumericInputSimplify,
 } from "../../data-schema";
+import {
+    array,
+    boolean,
+    constant,
+    enumeration,
+    nullable,
+    number,
+    object,
+    optional,
+    pipeParsers,
+    string,
+    union,
+} from "../general-purpose-parsers";
+import {convert} from "../general-purpose-parsers/convert";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 const parseMathFormat = enumeration(
     "integer",

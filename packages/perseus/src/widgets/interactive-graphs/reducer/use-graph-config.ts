@@ -1,7 +1,6 @@
-import React, {createContext} from "react";
-
 import type {AxisLabelLocation, MarkingsType} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
+import React, {createContext} from "react";
 
 export type GraphConfig = {
     range: [Interval, Interval];

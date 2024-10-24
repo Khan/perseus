@@ -1,11 +1,10 @@
+import type {WidgetLogic} from "../logic-export.types";
 import {
     currentVersion,
     defaultWidgetOptions,
     widgetOptionsUpgrades,
 } from "./radio-upgrade";
 import getRadioPublicWidgetOptions from "./radio-util";
-
-import type {WidgetLogic} from "../logic-export.types";
 
 export type {RadioDefaultWidgetOptions} from "./radio-upgrade";
 

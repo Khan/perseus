@@ -1,12 +1,14 @@
 import {angles} from "@khanacademy/kmath";
+import type {CollinearTuple} from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import type {Interval} from "mafs";
 import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
-
 import {
-    usePerseusI18n,
     type I18nContextType,
+    usePerseusI18n,
 } from "../../../components/i18n-context";
+import type {Coord} from "../../../interactive2/types";
 import {snap} from "../math";
 import {isInBound} from "../math/box";
 import {actions} from "../reducer/interactive-graph-action";
@@ -15,24 +17,6 @@ import {
     calculateSideSnap,
 } from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {bound, TARGET_SIZE} from "../utils";
-
-import {PolygonAngle} from "./components/angle-indicators";
-import {MovablePoint} from "./components/movable-point";
-import SRDescInSVG from "./components/sr-description-within-svg";
-import {TextLabel} from "./components/text-label";
-import {srFormatNumber} from "./screenreader-text";
-import {useDraggable} from "./use-draggable";
-import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
-import {
-    getAngleFromPoints,
-    getArrayWithoutDuplicates,
-    getPolygonSideString,
-    getSideLengthsFromPoints,
-} from "./utils";
-
-import type {KeyboardMovementConstraint} from "./use-draggable";
-import type {Coord} from "../../../interactive2/types";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
     AriaLive,
@@ -43,8 +27,21 @@ import type {
     PolygonGraphState,
     SnapTo,
 } from "../types";
-import type {CollinearTuple} from "@khanacademy/perseus-core";
-import type {Interval} from "mafs";
+import {bound, TARGET_SIZE} from "../utils";
+import {PolygonAngle} from "./components/angle-indicators";
+import {MovablePoint} from "./components/movable-point";
+import SRDescInSVG from "./components/sr-description-within-svg";
+import {TextLabel} from "./components/text-label";
+import {srFormatNumber} from "./screenreader-text";
+import type {KeyboardMovementConstraint} from "./use-draggable";
+import {useDraggable} from "./use-draggable";
+import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
+import {
+    getAngleFromPoints,
+    getArrayWithoutDuplicates,
+    getPolygonSideString,
+    getSideLengthsFromPoints,
+} from "./utils";
 
 const {convertRadiansToDegrees} = angles;
 

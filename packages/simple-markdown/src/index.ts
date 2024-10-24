@@ -18,8 +18,9 @@
  * Many of the regexes and original logic has been adapted from
  * the wonderful [marked.js](https://github.com/chjj/marked)
  */
-import type {Capture, MatchFunction, State} from "./troublesome-types";
+
 import type * as React from "react";
+import type {Capture, MatchFunction, State} from "./troublesome-types";
 
 export {libVersion} from "./version";
 

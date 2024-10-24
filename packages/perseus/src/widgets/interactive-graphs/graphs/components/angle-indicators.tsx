@@ -1,18 +1,15 @@
 import {angles, geometry} from "@khanacademy/kmath";
+import type {CollinearTuple} from "@khanacademy/perseus-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
+import type {Interval} from "mafs";
 import {vec} from "mafs";
 import * as React from "react";
-
 import {segmentsIntersect} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
+import type {SnapTo} from "../../types";
 import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
-
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
 import {TextLabel} from "./text-label";
-
-import type {SnapTo} from "../../types";
-import type {CollinearTuple} from "@khanacademy/perseus-core";
-import type {Interval} from "mafs";
 
 const {clockwise} = geometry;
 const {getAngleFromVertex} = angles;

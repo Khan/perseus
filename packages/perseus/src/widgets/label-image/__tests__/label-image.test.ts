@@ -1,6 +1,6 @@
 import {screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {
     testDependencies,
     testDependenciesV2,
@@ -9,14 +9,11 @@ import * as Dependencies from "../../../dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import {LabelImage} from "../label-image";
-
 import {
     shortTextQuestion,
     textQuestion,
     textWithoutAnswersQuestion,
 } from "./label-image.testdata";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 const emptyMarker = {
     label: "",

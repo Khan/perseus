@@ -1,11 +1,10 @@
+import type {GraphDimensions} from "../types";
 import {
     dimensionsToPixels,
     pixelsToVectors,
     pointToPixel,
     vectorsToPixels,
 } from "./use-transform";
-
-import type {GraphDimensions} from "../types";
 
 describe("vectorsToPixels", () => {
     it("should correctly transform the origin", () => {

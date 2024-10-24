@@ -1,22 +1,19 @@
 import {geometry} from "@khanacademy/kmath";
+import type {vec} from "mafs";
 import * as React from "react";
-
+import type {I18nContextType} from "../../../components/i18n-context";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
-
+import type {
+    Dispatch,
+    InteractiveGraphElementSuite,
+    LinearSystemGraphState,
+    MafsGraphProps,
+} from "../types";
 import {MovableLine} from "./components/movable-line";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
 import {getInterceptStringForLine, getSlopeStringForLine} from "./utils";
-
-import type {I18nContextType} from "../../../components/i18n-context";
-import type {
-    MafsGraphProps,
-    LinearSystemGraphState,
-    Dispatch,
-    InteractiveGraphElementSuite,
-} from "../types";
-import type {vec} from "mafs";
 
 export function renderLinearSystemGraph(
     state: LinearSystemGraphState,

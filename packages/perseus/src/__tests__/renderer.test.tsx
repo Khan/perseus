@@ -1,30 +1,28 @@
-import {describe, beforeAll, beforeEach, it} from "@jest/globals";
+import {beforeAll, beforeEach, describe, it} from "@jest/globals";
+import type {DropdownWidget, PerseusRenderer} from "@khanacademy/perseus-core";
 import {Errors} from "@khanacademy/perseus-core";
 import {act, screen, waitFor, within} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import {clone} from "../../../../testing/object-utils";
 import {testDependencies} from "../../../../testing/test-dependencies";
 import {
+    definitionItem,
     dropdownWidget,
     imageWidget,
+    mockedRandomItem,
+    mockedShuffledRadioProps,
     mockWidget,
     question1,
     question2,
-    definitionItem,
-    mockedRandomItem,
-    mockedShuffledRadioProps,
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
+import type {APIOptions} from "../types";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
-
-import type {APIOptions} from "../types";
-import type {PerseusRenderer, DropdownWidget} from "@khanacademy/perseus-core";
-import type {UserEvent} from "@testing-library/user-event";
 
 // NOTE(jeremy): We can't use an automatic mock for the translation linter,
 // because one of it's "instance" methods is created using `debounce` and Jest

@@ -1,19 +1,16 @@
 import {render, screen} from "@testing-library/react";
+import type {vec} from "mafs";
 import * as React from "react";
-
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";
+import type {InteractiveGraphState, SinusoidGraphState} from "../types";
 import {getBaseMafsGraphPropsForTests} from "../utils";
-
 import {
     computeSine,
     getSinusoidCoefficients,
     getSinusoidKeyboardConstraint,
 } from "./sinusoid";
-
-import type {InteractiveGraphState, SinusoidGraphState} from "../types";
-import type {vec} from "mafs";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseSinusoidState: InteractiveGraphState = {

@@ -1,3 +1,4 @@
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
@@ -6,8 +7,6 @@ import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useId} from "react";
-
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     label: string;

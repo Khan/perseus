@@ -1,6 +1,5 @@
-import scoreCategorizer from "./score-categorizer";
-
 import type {PerseusCategorizerRubric} from "../../validation.types";
+import scoreCategorizer from "./score-categorizer";
 
 describe("scoreCategorizer", () => {
     it("gives points when the answer is correct", () => {

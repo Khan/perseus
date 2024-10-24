@@ -1,16 +1,14 @@
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {Meta} from "@storybook/react";
 import * as React from "react";
-
 import {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
+import type {APIOptions} from "../../../types";
 import {
-    questionWithPassage,
     choicesWithImages,
     multiChoiceQuestion,
     multiChoiceQuestionSimple,
+    questionWithPassage,
 } from "../__tests__/radio.testdata";
-
-import type {APIOptions} from "../../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {Meta} from "@storybook/react";
 
 type StoryArgs = {
     // Story Option

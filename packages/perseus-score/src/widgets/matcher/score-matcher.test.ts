@@ -1,9 +1,8 @@
-import scoreMatcher from "./score-matcher";
-
 import type {
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
 } from "../../validation.types";
+import scoreMatcher from "./score-matcher";
 
 describe("scoreMatcher", () => {
     it("can be answered incorrectly", () => {

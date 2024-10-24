@@ -1,3 +1,4 @@
+import type {QuadraticCoords} from "@khanacademy/kmath";
 import {
     angles,
     coefficients,
@@ -6,62 +7,58 @@ import {
 } from "@khanacademy/kmath";
 import {approximateEqual} from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import type {Interval} from "mafs";
 import {vec} from "mafs";
 import _ from "underscore";
-
+import type {Coord} from "../../../interactive2/types";
 import {getArrayWithoutDuplicates} from "../graphs/utils";
 import {clamp, clampToBox, inset, snap, X, Y} from "../math";
-import {bound, isUnlimitedGraphState} from "../utils";
-
-import {initializeGraphState} from "./initialize-graph-state";
-import {
-    actions,
-    CHANGE_RANGE,
-    CHANGE_SNAP_STEP,
-    type ChangeRange,
-    type ChangeSnapStep,
-    type InteractiveGraphAction,
-    MOVE_ALL,
-    MOVE_CENTER,
-    MOVE_POINT_IN_FIGURE,
-    MOVE_LINE,
-    MOVE_POINT,
-    MOVE_RADIUS_POINT,
-    type MoveAll,
-    type MoveCenter,
-    type MovePointInFigure,
-    type MoveLine,
-    type MovePoint,
-    type MoveRadiusPoint,
-    REINITIALIZE,
-    ADD_POINT,
-    type AddPoint,
-    REMOVE_POINT,
-    type RemovePoint,
-    DELETE_INTENT,
-    type DeleteIntent,
-    FOCUS_POINT,
-    type FocusPoint,
-    BLUR_POINT,
-    type BlurPoint,
-    CLICK_POINT,
-    type ClickPoint,
-    CHANGE_INTERACTION_MODE,
-    type ChangeInteractionMode,
-    CHANGE_KEYBOARD_INVITATION_VISIBILITY,
-    type ChangeKeyboardInvitationVisibility,
-    CLOSE_POLYGON,
-    OPEN_POLYGON,
-} from "./interactive-graph-action";
-
-import type {Coord} from "../../../interactive2/types";
 import type {
     AngleGraphState,
     InteractiveGraphState,
     PairOfPoints,
 } from "../types";
-import type {QuadraticCoords} from "@khanacademy/kmath";
-import type {Interval} from "mafs";
+import {bound, isUnlimitedGraphState} from "../utils";
+import {initializeGraphState} from "./initialize-graph-state";
+import {
+    ADD_POINT,
+    type AddPoint,
+    actions,
+    BLUR_POINT,
+    type BlurPoint,
+    CHANGE_INTERACTION_MODE,
+    CHANGE_KEYBOARD_INVITATION_VISIBILITY,
+    CHANGE_RANGE,
+    CHANGE_SNAP_STEP,
+    type ChangeInteractionMode,
+    type ChangeKeyboardInvitationVisibility,
+    type ChangeRange,
+    type ChangeSnapStep,
+    CLICK_POINT,
+    CLOSE_POLYGON,
+    type ClickPoint,
+    DELETE_INTENT,
+    type DeleteIntent,
+    FOCUS_POINT,
+    type FocusPoint,
+    type InteractiveGraphAction,
+    MOVE_ALL,
+    MOVE_CENTER,
+    MOVE_LINE,
+    MOVE_POINT,
+    MOVE_POINT_IN_FIGURE,
+    MOVE_RADIUS_POINT,
+    type MoveAll,
+    type MoveCenter,
+    type MoveLine,
+    type MovePoint,
+    type MovePointInFigure,
+    type MoveRadiusPoint,
+    OPEN_POLYGON,
+    REINITIALIZE,
+    REMOVE_POINT,
+    type RemovePoint,
+} from "./interactive-graph-action";
 
 const {getAngleFromVertex, getClockwiseAngle, polar} = angles;
 const {

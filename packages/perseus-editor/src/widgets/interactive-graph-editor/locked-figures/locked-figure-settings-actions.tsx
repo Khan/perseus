@@ -3,6 +3,8 @@
  * for this panel and its associated locked figure, including
  * the delete button.
  */
+
+import type {LockedFigureType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
@@ -15,8 +17,6 @@ import caretUpIcon from "@phosphor-icons/core/bold/caret-up-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
-import type {LockedFigureType} from "@khanacademy/perseus-core";
 
 export type LockedFigureSettingsMovementType =
     | "back"

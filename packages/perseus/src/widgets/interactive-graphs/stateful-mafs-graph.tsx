@@ -1,7 +1,8 @@
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
+import type {PerseusInteractiveGraphUserInput} from "@khanacademy/perseus-score";
 import {useLatestRef} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
-
 import {MafsGraph} from "./mafs-graph";
 import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
@@ -12,10 +13,7 @@ import {
 } from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {getGradableGraph} from "./reducer/interactive-graph-state";
-
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
-import type {PerseusGraphType} from "@khanacademy/perseus-core";
-import type {PerseusInteractiveGraphUserInput} from "@khanacademy/perseus-score";
 
 export type StatefulMafsGraphProps = {
     box: [number, number];

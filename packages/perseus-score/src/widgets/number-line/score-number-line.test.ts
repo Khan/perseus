@@ -1,9 +1,8 @@
-import scoreNumberLine from "./score-number-line";
-
 import type {
     PerseusNumberLineRubric,
     PerseusNumberLineUserInput,
 } from "../../validation.types";
+import scoreNumberLine from "./score-number-line";
 
 describe("scoreNumberLine", () => {
     it("is invalid when end state is the same as beginning state", () => {

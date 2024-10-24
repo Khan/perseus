@@ -1,19 +1,18 @@
+import type {
+    PerseusDefinitionWidgetOptions,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {DefinitionConsumer} from "../../definition-context";
 import Renderer from "../../renderer";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {DefinitionPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
-import type {
-    PerseusRenderer,
-    PerseusDefinitionWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 

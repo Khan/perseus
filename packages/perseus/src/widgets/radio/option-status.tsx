@@ -7,7 +7,7 @@
  */
 
 import {color} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";

@@ -1,12 +1,10 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import PythonProgramEditor, {validateOptions} from "../python-program-editor";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("python-program-editor", () => {
     let userEvent: UserEvent;

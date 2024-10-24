@@ -1,18 +1,17 @@
+import type {PerseusImageWidgetOptions, Range} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
-
 import AssetContext from "../../asset-context";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
 
-import type {ChangeFn, WidgetExports, WidgetProps, Widget} from "../../types";
+import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ImagePromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
-import type {Range, PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];

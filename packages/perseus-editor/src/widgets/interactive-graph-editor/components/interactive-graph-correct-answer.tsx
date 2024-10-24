@@ -1,5 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {spacing, color} from "@khanacademy/wonder-blocks-tokens";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {
     BodyMonospace,
     LabelXSmall,

@@ -1,17 +1,16 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
-import {render, screen, cleanup} from "@testing-library/react";
+import {cleanup, render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import LockedFunctionSettings from "./locked-function-settings";
+
+import type {Props} from "./locked-function-settings";
 import {
     getDefaultFigureForType,
     mockedJoinLabelsAsSpokenMathForTests,
 } from "./util";
-
-import type {Props} from "./locked-function-settings";
-import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
     ...getDefaultFigureForType("function"),

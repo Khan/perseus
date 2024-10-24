@@ -1,12 +1,10 @@
 import * as KAS from "@khanacademy/kas";
-
+import type {PerseusExpressionWidgetOptions} from "../../data-schema";
 import {
-    type KeypadKey,
     type KeypadConfiguration,
+    type KeypadKey,
     KeypadKeys,
 } from "../../keypad";
-
-import type {PerseusExpressionWidgetOptions} from "../../data-schema";
 
 /**
  * Scrape the answer forms for any variables or contants (like Pi)

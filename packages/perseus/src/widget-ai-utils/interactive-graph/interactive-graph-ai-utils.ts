@@ -1,9 +1,8 @@
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-
+import type React from "react";
 import type interactiveGraph from "../../widgets/interactive-graph";
 import type {UnsupportedWidgetPromptJSON} from "../unsupported-widget";
-import type {PerseusGraphType} from "@khanacademy/perseus-core";
-import type React from "react";
 
 type Coord = [x: number, y: number];
 type CollinearTuple = readonly [Coord, Coord];

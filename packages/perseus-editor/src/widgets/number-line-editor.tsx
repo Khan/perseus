@@ -1,15 +1,14 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {number as knumber} from "@khanacademy/kmath";
+import type {Changeable} from "@khanacademy/perseus";
 import {components, EditorJsonify} from "@khanacademy/perseus";
 import {
-    numberLineLogic,
     type NumberLineDefaultWidgetOptions,
+    numberLineLogic,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
-
-import type {Changeable} from "@khanacademy/perseus";
 
 const {ButtonGroup, InfoTip, NumberInput, RangeInput} = components;
 

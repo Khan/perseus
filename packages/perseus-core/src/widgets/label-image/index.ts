@@ -1,7 +1,6 @@
-import getLabelImagePublicWidgetOptions from "./label-image-util";
-
 import type {PerseusLabelImageWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import getLabelImagePublicWidgetOptions from "./label-image-util";
 
 export type LabelImageDefaultWidgetOptions = Pick<
     PerseusLabelImageWidgetOptions,

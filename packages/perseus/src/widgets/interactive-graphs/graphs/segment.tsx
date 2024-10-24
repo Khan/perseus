@@ -1,15 +1,10 @@
 import {point as kpoint} from "@khanacademy/kmath";
+import type {vec} from "mafs";
 import * as React from "react";
-
+import type {I18nContextType} from "../../../components/i18n-context";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
-
-import {MovableLine} from "./components/movable-line";
-import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
-
-import type {I18nContextType} from "../../../components/i18n-context";
 import type {
     Dispatch,
     InteractiveGraphElementSuite,
@@ -17,7 +12,9 @@ import type {
     PairOfPoints,
     SegmentGraphState,
 } from "../types";
-import type {vec} from "mafs";
+import {MovableLine} from "./components/movable-line";
+import SRDescInSVG from "./components/sr-description-within-svg";
+import {srFormatNumber} from "./screenreader-text";
 
 export function renderSegmentGraph(
     state: SegmentGraphState,

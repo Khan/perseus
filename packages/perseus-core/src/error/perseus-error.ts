@@ -1,5 +1,5 @@
-import type {ErrorKind} from "./errors";
 import type {Metadata} from "@khanacademy/wonder-stuff-core";
+import type {ErrorKind} from "./errors";
 
 type Options = {
     metadata?: Metadata | null | undefined;

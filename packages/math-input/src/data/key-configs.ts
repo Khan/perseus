@@ -2,10 +2,10 @@
  * This file contains configuration settings for the buttons in the keypad.
  */
 
+import type {KeypadKey} from "@khanacademy/perseus-core";
 import type {KeyType} from "../enums";
 import type {MathInputStrings} from "../strings";
 import type {KeyConfig} from "../types";
-import type {KeypadKey} from "@khanacademy/perseus-core";
 
 type KeyConfigMapper = (args: {
     key: KeypadKey;

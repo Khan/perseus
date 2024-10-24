@@ -1,10 +1,8 @@
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import Tabbar from "../tabbar";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("<Tabbar />", () => {
     let userEvent: UserEvent;

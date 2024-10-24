@@ -1,6 +1,6 @@
-import type radio from "../../widgets/radio/radio";
 import type {PerseusRadioUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
+import type radio from "../../widgets/radio/radio";
 
 type BasicOption = {
     value: string;

@@ -1,10 +1,8 @@
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-
-import {question, questionWithZoom} from "./image.testdata";
-
 import type {APIOptions} from "../../types";
+import {question, questionWithZoom} from "./image.testdata";
 
 type StoryArgs = {
     isMobile: boolean;

@@ -1,11 +1,9 @@
+import type {ExplanationWidget} from "../../data-schema";
 import {boolean, constant, object, string} from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
+import type {Parser} from "../parser-types";
 import {parseWidget} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
-
-import type {ExplanationWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
 
 export const parseExplanationWidget: Parser<ExplanationWidget> = parseWidget(
     constant("explanation"),

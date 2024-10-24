@@ -11,10 +11,8 @@
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import _ from "underscore";
-
-import WIDGET_PROP_DENYLIST from "./widget-prop-denylist";
-
 import type {ChangeFn} from "../types";
+import WIDGET_PROP_DENYLIST from "./widget-prop-denylist";
 
 const USAGE =
     "Usage:\n" +

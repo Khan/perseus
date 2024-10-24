@@ -1,4 +1,4 @@
-import {screen, render, waitFor} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";

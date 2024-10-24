@@ -1,3 +1,4 @@
+import type {MeasurerWidget} from "../../data-schema";
 import {
     boolean,
     constant,
@@ -7,12 +8,9 @@ import {
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
+import type {Parser} from "../parser-types";
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
-
-import type {MeasurerWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
 
 export const parseMeasurerWidget: Parser<MeasurerWidget> = parseWidget(
     constant("measurer"),

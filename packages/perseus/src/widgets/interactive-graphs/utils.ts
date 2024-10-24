@@ -1,13 +1,11 @@
+import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import {pureMarkdownRules} from "@khanacademy/pure-markdown";
 import SimpleMarkdown from "@khanacademy/simple-markdown";
-
-import {clampToBox, inset, MIN, size} from "./math";
-
-import type {MafsGraphProps} from "./mafs-graph";
-import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
-import type {Coord} from "../../interactive2/types";
-import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
+import type {Coord} from "../../interactive2/types";
+import type {MafsGraphProps} from "./mafs-graph";
+import {clampToBox, inset, MIN, size} from "./math";
+import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
 
 /**
  * 44 is touch best practice and AAA compliant for WCAG

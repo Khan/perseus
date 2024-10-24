@@ -1,5 +1,5 @@
-import type explanation from "../../widgets/explanation/explanation";
 import type React from "react";
+import type explanation from "../../widgets/explanation/explanation";
 
 export type ExplanationPromptJSON = {
     type: "explanation";

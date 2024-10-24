@@ -1,21 +1,18 @@
 /**
  * Disclaimer: Definitely not thorough enough
  */
-import {describe, beforeEach, it} from "@jest/globals";
+import {beforeEach, describe, it} from "@jest/globals";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import {act, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-
 import InputNumber from "./input-number";
 import {question3 as question} from "./input-number.testdata";
-
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {UserEvent} from "@testing-library/user-event";
 
 const {transform} = InputNumber;
 

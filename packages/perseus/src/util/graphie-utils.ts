@@ -1,11 +1,9 @@
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
-
+import type {CSSProperties} from "aphrodite";
 import {getDependencies} from "../dependencies";
+import type {Coord} from "../interactive2/types";
 import {Log} from "../logging/log";
 import Util from "../util";
-
-import type {Coord} from "../interactive2/types";
-import type {CSSProperties} from "aphrodite";
 
 // For offline exercises in the mobile app, we download the graphie data
 // (svgs and localized data files) and serve them from the local file

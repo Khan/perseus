@@ -1,3 +1,4 @@
+import type {ImageWidget} from "../../data-schema";
 import {
     array,
     boolean,
@@ -8,12 +9,9 @@ import {
     pair,
     string,
 } from "../general-purpose-parsers";
-
+import type {Parser} from "../parser-types";
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
-
-import type {ImageWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
 
 const pairOfNumbers = pair(number, number);
 

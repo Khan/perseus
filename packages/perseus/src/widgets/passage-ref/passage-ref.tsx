@@ -1,19 +1,17 @@
 import {
-    passageRefLogic,
     type PerseusPassageRefWidgetOptions,
+    passageRefLogic,
 } from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import _ from "underscore";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import PerseusMarkdown from "../../perseus-markdown";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
-import {isPassageWidget} from "../passage/utils";
-
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PassageRefPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
+import {isPassageWidget} from "../passage/utils";
 
 const EN_DASH = "\u2013";
 

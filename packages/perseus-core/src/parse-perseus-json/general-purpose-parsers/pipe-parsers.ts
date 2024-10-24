@@ -1,11 +1,10 @@
-import {isFailure} from "../result";
-
 import type {
     ParseContext,
     ParsedValue,
     Parser,
     PartialParser,
 } from "../parser-types";
+import {isFailure} from "../result";
 
 export function pipeParsers<T>(p: Parser<T>): ParserPipeline<T> {
     return new ParserPipeline(p);

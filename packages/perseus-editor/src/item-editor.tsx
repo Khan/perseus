@@ -1,19 +1,17 @@
+import type {
+    APIOptions,
+    ChangeHandler,
+    DeviceType,
+    ImageUploader,
+} from "@khanacademy/perseus";
 import {itemDataVersion} from "@khanacademy/perseus";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
-
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
-
-import type {
-    APIOptions,
-    ImageUploader,
-    ChangeHandler,
-    DeviceType,
-} from "@khanacademy/perseus";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 const ITEM_DATA_VERSION = itemDataVersion;
 

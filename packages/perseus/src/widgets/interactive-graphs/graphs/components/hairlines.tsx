@@ -1,10 +1,8 @@
+import type {Coord} from "@khanacademy/perseus-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
-
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useTransformVectorsToPixels} from "../use-transform";
-
-import type {Coord} from "@khanacademy/perseus-core";
 
 type Props = {
     point: Coord;

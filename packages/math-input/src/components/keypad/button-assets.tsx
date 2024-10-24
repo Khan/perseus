@@ -10,12 +10,11 @@ asset.
 In the future it would be great if these were included from files so that
 no copying and pasting is necessary.
 */
-import {getDecimalSeparator} from "@khanacademy/perseus-core";
-import * as React from "react";
-
-import {useMathInputI18n} from "../i18n-context";
 
 import type {KeypadKey} from "@khanacademy/perseus-core";
+import {getDecimalSeparator} from "@khanacademy/perseus-core";
+import * as React from "react";
+import {useMathInputI18n} from "../i18n-context";
 
 type Props = {id: KeypadKey};
 

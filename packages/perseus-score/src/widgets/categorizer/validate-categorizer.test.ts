@@ -1,6 +1,5 @@
-import validateCategorizer from "./validate-categorizer";
-
 import type {PerseusCategorizerValidationData} from "../../validation.types";
+import validateCategorizer from "./validate-categorizer";
 
 describe("validateCategorizer", () => {
     it("tells the learner its not complete if not selected", () => {

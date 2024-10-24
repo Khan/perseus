@@ -1,16 +1,13 @@
-import {render, screen, fireEvent} from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
+import type {Interval, vec} from "mafs";
 import {Mafs, Transform} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
-
 import {snap} from "../math";
-
-import {useDraggable} from "./use-draggable";
-
 import type {KeyboardMovementConstraint} from "./use-draggable";
-import type {UserEvent} from "@testing-library/user-event";
-import type {vec, Interval} from "mafs";
+import {useDraggable} from "./use-draggable";
 
 function TestDraggable(props: {
     point: vec.Vector2;

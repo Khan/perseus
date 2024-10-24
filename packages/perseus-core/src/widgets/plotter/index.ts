@@ -1,7 +1,6 @@
-import getPlotterPublicWidgetOptions from "./plotter-util";
-
 import type {PerseusPlotterWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import getPlotterPublicWidgetOptions from "./plotter-util";
 
 export type PlotterDefaultWidgetOptions = Pick<
     PerseusPlotterWidgetOptions,

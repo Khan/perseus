@@ -1,7 +1,6 @@
-import getMatcherPublicWidgetOptions from "./matcher-util";
-
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import getMatcherPublicWidgetOptions from "./matcher-util";
 
 export type MatcherDefaultWidgetOptions = Pick<
     PerseusMatcherWidgetOptions,

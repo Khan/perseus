@@ -1,10 +1,8 @@
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import ScrolllessNumberTextField from "../scrollless-number-text-field";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("ScrolllessNumberTextField", () => {
     let userEvent: UserEvent;

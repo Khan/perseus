@@ -1,3 +1,4 @@
+import type {PerseusGraphType, Range} from "@khanacademy/perseus-core";
 import {
     getAngleEquation,
     getDefaultGraphStartCoords,
@@ -5,8 +6,6 @@ import {
     getSinusoidEquation,
     shouldShowStartCoordsUI,
 } from "./util";
-
-import type {PerseusGraphType, Range} from "@khanacademy/perseus-core";
 
 describe("getDefaultGraphStartCoords", () => {
     test("should get default start coords for a linear graph", () => {

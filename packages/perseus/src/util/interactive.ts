@@ -9,11 +9,11 @@
 // TODO(emily): This file breaks our line length limits like nobody's business.
 // Figure out how to fix that.
 import {
-    vector as kvector,
-    point as kpoint,
-    line as kline,
-    KhanMath,
     geometry,
+    KhanMath,
+    line as kline,
+    point as kpoint,
+    vector as kvector,
 } from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import $ from "jquery";
@@ -26,13 +26,11 @@ import _ from "underscore";
 import "../jquery.mobile.vmouse";
 
 import {Arrowhead} from "../interactive2/arrowhead";
+import type {Coord} from "../interactive2/types";
 import WrappedEllipse from "../interactive2/wrapped-ellipse";
 import WrappedLine from "../interactive2/wrapped-line";
-
 import KhanColors from "./colors";
 import GraphUtils, {polar} from "./graphie";
-
-import type {Coord} from "../interactive2/types";
 
 export type MouseHandler = (position: Coord) => void;
 

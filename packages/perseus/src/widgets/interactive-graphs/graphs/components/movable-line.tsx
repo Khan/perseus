@@ -1,20 +1,17 @@
+import type {Interval} from "mafs";
 import {vec} from "mafs";
-import {useRef} from "react";
 import * as React from "react";
-
-import {inset, snap, size} from "../../math";
+import {useRef} from "react";
+import {inset, size, snap} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
+import type {AriaLive} from "../../types";
 import {TARGET_SIZE} from "../../utils";
 import {useDraggable} from "../use-draggable";
 import {useTransformVectorsToPixels} from "../use-transform";
 import {getIntersectionOfRayWithBox} from "../utils";
-
 import {SVGLine} from "./svg-line";
 import {useControlPoint} from "./use-control-point";
 import {Vector} from "./vector";
-
-import type {AriaLive} from "../../types";
-import type {Interval} from "mafs";
 
 type Props = {
     points: Readonly<[vec.Vector2, vec.Vector2]>;

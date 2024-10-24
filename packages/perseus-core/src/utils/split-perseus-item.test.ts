@@ -1,8 +1,6 @@
-import {getUpgradedWidgetOptions} from "../widgets/upgrade";
-
-import splitPerseusItem from "./split-perseus-item";
-
 import type {PerseusRenderer, RadioWidget} from "../data-schema";
+import {getUpgradedWidgetOptions} from "../widgets/upgrade";
+import splitPerseusItem from "./split-perseus-item";
 
 describe("splitPerseusItem", () => {
     it("doesn't do anything with an empty item", () => {

@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
-import * as React from "react";
-
-import ItemExtrasEditor from "../item-extras-editor";
 
 import type {Meta, StoryObj} from "@storybook/react";
+import * as React from "react";
+import ItemExtrasEditor from "../item-extras-editor";
 
 import "../styles/perseus-editor.less";
 

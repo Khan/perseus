@@ -5,23 +5,30 @@
  * Used in the interactive graph editor's locked figures section.
  */
 import {vector as kvector} from "@khanacademy/kmath";
+import type {Coord} from "@khanacademy/perseus";
+import type {
+    LockedFigure,
+    LockedFigureColor,
+    LockedLabelType,
+    LockedLineType,
+    LockedPointType,
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
+import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import {vec} from "mafs";
 import * as React from "react";
-
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
-
 import ColorSelect from "./color-select";
 import LineStrokeSelect from "./line-stroke-select";
 import LineSwatch from "./line-swatch";
 import LockedFigureAria from "./locked-figure-aria";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import LockedPointSettings from "./locked-point-settings";
@@ -31,16 +38,6 @@ import {
     getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
-
-import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
-import type {Coord} from "@khanacademy/perseus";
-import type {
-    LockedFigure,
-    LockedFigureColor,
-    LockedLabelType,
-    LockedLineType,
-    LockedPointType,
-} from "@khanacademy/perseus-core";
 
 const lengthZeroStr = "The line cannot have length 0.";
 

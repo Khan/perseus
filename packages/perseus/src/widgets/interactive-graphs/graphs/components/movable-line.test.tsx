@@ -1,16 +1,13 @@
 import {render} from "@testing-library/react";
+import type {Interval, vec} from "mafs";
 import {Mafs} from "mafs";
 import React from "react";
-
 import * as UseDraggableModule from "../use-draggable";
-
 import {
     getMovableLineKeyboardConstraint,
     MovableLine,
     trimRange,
 } from "./movable-line";
-
-import type {Interval, vec} from "mafs";
 
 describe("trimRange", () => {
     it("does not trim ranges below a size of 0", () => {

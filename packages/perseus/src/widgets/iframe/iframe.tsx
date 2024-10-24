@@ -8,21 +8,19 @@
  */
 
 import {type PerseusIFrameWidgetOptions} from "@khanacademy/perseus-core";
-import $ from "jquery";
-import * as React from "react";
-import _ from "underscore";
-
-import {getDependencies} from "../../dependencies";
-import * as Changeable from "../../mixins/changeable";
-import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
-
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
-import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusIFrameUserInput,
     UserInputStatus,
 } from "@khanacademy/perseus-score";
+import $ from "jquery";
+import * as React from "react";
+import _ from "underscore";
+import {getDependencies} from "../../dependencies";
+import * as Changeable from "../../mixins/changeable";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 const {updateQueryString} = Util;
 

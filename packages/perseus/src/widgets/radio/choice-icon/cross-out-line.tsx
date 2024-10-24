@@ -1,6 +1,6 @@
 /* Component for rendering a letter icon in radio choice */
 
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {CHOICE_ICON_SIZE} from "./shared-styles";

@@ -1,6 +1,5 @@
-import scoreCSProgram from "./score-cs-program";
-
 import type {PerseusCSProgramUserInput} from "../../validation.types";
+import scoreCSProgram from "./score-cs-program";
 
 describe("scoreCSProgram", () => {
     it("is correct when the state from the iframe shows the status is correct", () => {

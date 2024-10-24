@@ -1,12 +1,10 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import type {Meta, StoryObj} from "@storybook/react";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
 import LockedFiguresSection from "../../widgets/interactive-graph-editor/locked-figures/locked-figures-section";
 import {getDefaultFigureForType} from "../../widgets/interactive-graph-editor/locked-figures/util";
-
-import type {Meta, StoryObj} from "@storybook/react";
 
 export default {
     title: "PerseusEditor/Components/Locked Figures Section",

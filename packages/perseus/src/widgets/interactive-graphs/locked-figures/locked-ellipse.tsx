@@ -1,7 +1,7 @@
 import {
-    lockedFigureFillStyles,
-    lockedFigureColors,
     type LockedEllipseType,
+    lockedFigureColors,
+    lockedFigureFillStyles,
 } from "@khanacademy/perseus-core";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {Ellipse} from "mafs";

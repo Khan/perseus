@@ -1,3 +1,4 @@
+import type {IFrameWidget} from "../../data-schema";
 import {
     array,
     boolean,
@@ -9,11 +10,8 @@ import {
     union,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
-import {parseWidget} from "./widget";
-
-import type {IFrameWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 export const parseIframeWidget: Parser<IFrameWidget> = parseWidget(
     constant("iframe"),

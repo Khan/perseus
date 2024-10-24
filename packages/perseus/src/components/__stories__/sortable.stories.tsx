@@ -1,6 +1,5 @@
-import Sortable from "../sortable";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import Sortable from "../sortable";
 
 const meta: Meta = {
     title: "Perseus/Components/Sortable",

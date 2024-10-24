@@ -1,13 +1,17 @@
+import type {
+    DeprecatedStandinWidget,
+    PerseusWidgetsMap,
+} from "../../data-schema";
 import {
     any,
-    pair,
-    isObject,
-    string,
-    object,
     constant,
+    isObject,
+    object,
+    pair,
+    string,
 } from "../general-purpose-parsers";
+import type {ParseContext, ParseResult, Parser} from "../parser-types";
 import {isFailure} from "../result";
-
 import {parseCategorizerWidget} from "./categorizer-widget";
 import {parseCSProgramWidget} from "./cs-program-widget";
 import {parseDefinitionWidget} from "./definition-widget";
@@ -41,12 +45,6 @@ import {parseSorterWidget} from "./sorter-widget";
 import {parseTableWidget} from "./table-widget";
 import {parseVideoWidget} from "./video-widget";
 import {parseWidget} from "./widget";
-
-import type {
-    DeprecatedStandinWidget,
-    PerseusWidgetsMap,
-} from "../../data-schema";
-import type {ParseContext, Parser, ParseResult} from "../parser-types";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {

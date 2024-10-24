@@ -1,7 +1,7 @@
 import {components, TableWidget, Util} from "@khanacademy/perseus";
 import {
-    tableLogic,
     type TableDefaultWidgetOptions,
+    tableLogic,
 } from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";

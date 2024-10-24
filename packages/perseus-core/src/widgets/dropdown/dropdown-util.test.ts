@@ -1,6 +1,5 @@
-import getDropdownPublicWidgetOptions from "./dropdown-util";
-
 import type {PerseusDropdownWidgetOptions} from "../../data-schema";
+import getDropdownPublicWidgetOptions from "./dropdown-util";
 
 describe("getDropdownPublicWidgetOptions", () => {
     it("should return the correct public options without any answer data", () => {

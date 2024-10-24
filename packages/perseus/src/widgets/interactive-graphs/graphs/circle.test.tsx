@@ -1,26 +1,23 @@
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
+import type {vec} from "mafs";
 import {Mafs} from "mafs";
 import * as React from "react";
-
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";
 import * as ReducerGraphConfig from "../reducer/use-graph-config";
+import type {GraphConfig} from "../reducer/use-graph-config";
+import type {InteractiveGraphState} from "../types";
 import {getBaseMafsGraphPropsForTests} from "../utils";
-
 import {
     CircleGraph,
     describeCircleGraph,
     getCircleKeyboardConstraint,
 } from "./circle";
 import * as UseDraggableModule from "./use-draggable";
-
-import type {GraphConfig} from "../reducer/use-graph-config";
-import type {InteractiveGraphState} from "../types";
-import type {UserEvent} from "@testing-library/user-event";
-import type {vec} from "mafs";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseCircleState: InteractiveGraphState = {

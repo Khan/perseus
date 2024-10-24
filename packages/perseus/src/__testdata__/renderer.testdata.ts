@@ -1,10 +1,10 @@
-import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
-import type {RenderProps} from "../widgets/radio";
 import type {
     DropdownWidget,
     ImageWidget,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
+import type {RenderProps} from "../widgets/radio";
 
 export const dropdownWidget: DropdownWidget = {
     type: "dropdown",

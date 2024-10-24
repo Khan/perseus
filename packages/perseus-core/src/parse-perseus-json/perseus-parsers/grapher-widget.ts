@@ -1,3 +1,4 @@
+import type {GrapherWidget} from "../../data-schema";
 import {
     array,
     boolean,
@@ -12,11 +13,8 @@ import {
     union,
 } from "../general-purpose-parsers";
 import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
-
-import {parseWidget} from "./widget";
-
-import type {GrapherWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 const pairOfNumbers = pair(number, number);
 

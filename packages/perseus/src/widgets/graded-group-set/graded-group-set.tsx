@@ -1,32 +1,31 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+
+import type {
+    PerseusGradedGroupSetWidgetOptions,
+    PerseusGradedGroupWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import type {PerseusGradedGroupSetRubric} from "@khanacademy/perseus-score";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import {
     gray76,
-    tableBackgroundAccent,
-    phoneMargin,
     negativePhoneMargin,
+    phoneMargin,
+    tableBackgroundAccent,
 } from "../../styles/constants";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import a11y from "../../util/a11y";
+import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import {GradedGroup} from "../graded-group/graded-group";
-
-import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
-import type {
-    PerseusGradedGroupSetWidgetOptions,
-    PerseusGradedGroupWidgetOptions,
-} from "@khanacademy/perseus-core";
-import type {PerseusGradedGroupSetRubric} from "@khanacademy/perseus-score";
 
 type IndicatorsProps = {
     currentGroup: number;

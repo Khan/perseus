@@ -1,8 +1,7 @@
+import type {Changeable} from "@khanacademy/perseus";
 import {components, KhanColors} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
-
-import type {Changeable} from "@khanacademy/perseus";
 
 const {ButtonGroup} = components;
 

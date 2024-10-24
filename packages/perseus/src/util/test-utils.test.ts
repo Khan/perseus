@@ -1,12 +1,12 @@
 import {generateTestPerseusItem} from "./test-utils";
 import {
     basicObject,
-    customQuestionInfo,
-    expectedQuestionInfoAdded,
     customAnswerAreaInfo,
-    expectedAnswerAreaInfoAdded,
     customHintsInfo,
+    customQuestionInfo,
+    expectedAnswerAreaInfoAdded,
     expectedHintsInfoAdded,
+    expectedQuestionInfoAdded,
 } from "./test-utils.testdata";
 
 describe("generateTestPerseusItem", () => {

@@ -1,12 +1,3 @@
-import {components, ApiOptions, ClassNames} from "@khanacademy/perseus";
-import * as React from "react";
-import _ from "underscore";
-
-import JsonEditor from "./components/json-editor";
-import ViewportResizer from "./components/viewport-resizer";
-import CombinedHintsEditor from "./hint-editor";
-import ItemEditor from "./item-editor";
-
 import type {
     APIOptions,
     APIOptionsWithDefaults,
@@ -14,7 +5,14 @@ import type {
     DeviceType,
     ImageUploader,
 } from "@khanacademy/perseus";
+import {ApiOptions, ClassNames, components} from "@khanacademy/perseus";
 import type {Hint, PerseusItem, Version} from "@khanacademy/perseus-core";
+import * as React from "react";
+import _ from "underscore";
+import JsonEditor from "./components/json-editor";
+import ViewportResizer from "./components/viewport-resizer";
+import CombinedHintsEditor from "./hint-editor";
+import ItemEditor from "./item-editor";
 
 const {HUD} = components;
 

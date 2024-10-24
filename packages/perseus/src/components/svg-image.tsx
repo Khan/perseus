@@ -1,25 +1,23 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
+
+import type {Alignment, Size} from "@khanacademy/perseus-core";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
-
 import {getDependencies} from "../dependencies";
+import type {Coord} from "../interactive2/types";
+import type {Dimensions} from "../types";
 import Util from "../util";
 import {loadGraphie} from "../util/graphie-utils";
 import * as Zoom from "../zoom";
-
 import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
 import ImageLoader from "./image-loader";
-
 import type {ImageProps} from "./image-loader";
-import type {Coord} from "../interactive2/types";
-import type {Dimensions} from "../types";
-import type {Alignment, Size} from "@khanacademy/perseus-core";
 
 // Minimum image width to make an image appear as zoomable.
 const ZOOMABLE_THRESHOLD = 700;

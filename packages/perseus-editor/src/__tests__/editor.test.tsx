@@ -1,14 +1,12 @@
 import {ApiOptions, Dependencies, Util} from "@khanacademy/perseus";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {act, render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import {testDependencies} from "../../../../testing/test-dependencies";
 import Editor from "../editor";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
-
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-import type {UserEvent} from "@testing-library/user-event";
 
 const Harnessed = (props: Partial<PropsFor<typeof Editor>>) => {
     return (

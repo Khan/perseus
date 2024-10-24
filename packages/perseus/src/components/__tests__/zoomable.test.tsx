@@ -1,11 +1,9 @@
-import {describe, beforeEach, it} from "@jest/globals";
+import {beforeEach, describe, it} from "@jest/globals";
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import Zoomable from "../zoomable";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 const mockSize = (
     el: HTMLElement | null | undefined,

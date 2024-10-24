@@ -2,8 +2,8 @@
 /* eslint-disable react/forbid-prop-types */
 import {ApiOptions, Changeable} from "@khanacademy/perseus";
 import {
-    groupLogic,
     type GroupDefaultWidgetOptions,
+    groupLogic,
 } from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";

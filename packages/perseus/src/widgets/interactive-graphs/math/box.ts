@@ -1,8 +1,7 @@
+import type {Interval, vec} from "mafs";
 import {clamp} from "./clamp";
 import {X, Y} from "./coordinates";
 import {MAX, MIN, trim} from "./interval";
-
-import type {Interval, vec} from "mafs";
 
 export type Box = [x: Interval, y: Interval];
 

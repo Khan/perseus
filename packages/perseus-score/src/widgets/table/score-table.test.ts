@@ -1,10 +1,9 @@
-import scoreTable from "./score-table";
-import * as TableValidator from "./validate-table";
-
 import type {
     PerseusTableRubric,
     PerseusTableUserInput,
 } from "../../validation.types";
+import scoreTable from "./score-table";
+import * as TableValidator from "./validate-table";
 
 describe("scoreTable", () => {
     it("should be correctly answerable if validation passes", function () {

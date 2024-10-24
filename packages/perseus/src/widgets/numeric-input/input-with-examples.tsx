@@ -1,17 +1,15 @@
 import * as PerseusLinter from "@khanacademy/perseus-linter";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import Tooltip, {TooltipContent} from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef, useId, useImperativeHandle} from "react";
 import _ from "underscore";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import TextInput from "../../components/text-input";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
-
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {captureScratchpadTouchStart} = Util;
 

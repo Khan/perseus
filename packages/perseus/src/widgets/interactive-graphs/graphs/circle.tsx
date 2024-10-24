@@ -1,13 +1,19 @@
 import {vec} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
-
+import type {I18nContextType} from "../../../components/i18n-context";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {snap, X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
-
+import type {
+    AriaLive,
+    CircleGraphState,
+    Dispatch,
+    InteractiveGraphElementSuite,
+    MafsGraphProps,
+} from "../types";
 import Hairlines from "./components/hairlines";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -17,15 +23,6 @@ import {
     useTransformDimensionsToPixels,
     useTransformVectorsToPixels,
 } from "./use-transform";
-
-import type {I18nContextType} from "../../../components/i18n-context";
-import type {
-    AriaLive,
-    CircleGraphState,
-    Dispatch,
-    InteractiveGraphElementSuite,
-    MafsGraphProps,
-} from "../types";
 
 export function renderCircleGraph(
     state: CircleGraphState,

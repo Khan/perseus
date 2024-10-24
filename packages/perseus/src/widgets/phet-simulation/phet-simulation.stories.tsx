@@ -1,6 +1,5 @@
-import {PhetSimulation} from "./phet-simulation";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import {PhetSimulation} from "./phet-simulation";
 
 const meta: Meta<typeof PhetSimulation> = {
     component: PhetSimulation,

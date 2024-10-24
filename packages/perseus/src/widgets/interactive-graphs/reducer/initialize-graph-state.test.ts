@@ -1,8 +1,6 @@
 import invariant from "tiny-invariant";
-
-import {initializeGraphState} from "./initialize-graph-state";
-
 import type {InteractiveGraphProps} from "../types";
+import {initializeGraphState} from "./initialize-graph-state";
 
 type BaseGraphData = {
     range: InteractiveGraphProps["range"];

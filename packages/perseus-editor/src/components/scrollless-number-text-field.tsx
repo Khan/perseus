@@ -1,7 +1,6 @@
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
-
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 /**
  * This is a custom text field of type="number" for use in Perseus Editors.

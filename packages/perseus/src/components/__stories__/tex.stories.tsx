@@ -1,6 +1,5 @@
-import TeX from "../tex";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import TeX from "../tex";
 
 const meta: Meta = {
     title: "Perseus/Components/Tex",

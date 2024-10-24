@@ -1,8 +1,8 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
-    preprocessTex,
     Log,
     PerseusMarkdown,
+    preprocessTex,
     Util,
     Widgets,
 } from "@khanacademy/perseus";
@@ -20,16 +20,15 @@ import katex from "katex";
 // expression.
 // eslint-disable-next-line import/no-unassigned-import
 import "./katex-mhchem";
+
+import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
+import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
-
 import DragTarget from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
-
-import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
-import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 // like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";

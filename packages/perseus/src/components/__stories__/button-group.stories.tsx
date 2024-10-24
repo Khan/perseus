@@ -1,8 +1,6 @@
-import * as React from "react";
-
-import ButtonGroup from "../button-group";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import * as React from "react";
+import ButtonGroup from "../button-group";
 
 type StoryArgs = StoryObj<ButtonGroup>;
 

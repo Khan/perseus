@@ -1,20 +1,18 @@
 import * as KAS from "@khanacademy/kas";
+import type {PerseusExpressionAnswerForm} from "@khanacademy/perseus-core";
 import {
     Errors,
     getDecimalSeparator,
     PerseusError,
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
-
 import KhanAnswerTypes from "../../util/answer-types";
-
 import type {Score} from "../../util/answer-types";
 import type {
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
     PerseusScore,
 } from "../../validation.types";
-import type {PerseusExpressionAnswerForm} from "@khanacademy/perseus-core";
 
 /* Content creators input a list of answers which are matched from top to
  * bottom. The intent is that they can include spcific solutions which should

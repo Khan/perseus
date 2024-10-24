@@ -1,6 +1,5 @@
-import getOrdererPublicWidgetOptions from "./orderer-util";
-
 import type {PerseusOrdererWidgetOptions} from "../../data-schema";
+import getOrdererPublicWidgetOptions from "./orderer-util";
 
 describe("getOrdererPublicWidgetOptions", () => {
     it("should return the correct public options without any answer data", () => {

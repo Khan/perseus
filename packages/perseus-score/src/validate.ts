@@ -1,7 +1,6 @@
 import {scoreIsEmpty} from "./score";
-import {getWidgetValidator} from "./widgets/widget-registry";
-
 import type {UserInputMap, ValidationDataMap} from "./validation.types";
+import {getWidgetValidator} from "./widgets/widget-registry";
 
 /**
  * Checks the given user input to see if any answerable widgets have not been

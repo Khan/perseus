@@ -1,19 +1,17 @@
 import {
-    PerseusI18nContextProvider,
     type DeviceType,
+    PerseusI18nContextProvider,
 } from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import type {Meta, StoryObj} from "@storybook/react";
 import * as React from "react";
-
 import {articleWithImages} from "../../../perseus/src/__testdata__/article-renderer.testdata";
 import {mockStrings} from "../../../perseus/src/strings";
 import {question} from "../../../perseus/src/widgets/radio/__tests__/radio.testdata";
 import DeviceFramer from "../components/device-framer";
 import ViewportResizer from "../components/viewport-resizer";
 import ContentPreview from "../content-preview";
-
-import type {Meta, StoryObj} from "@storybook/react";
 
 import "../styles/perseus-editor.less";
 

@@ -1,6 +1,6 @@
-import type expression from "../../widgets/expression/expression";
 import type {PerseusExpressionUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
+import type expression from "../../widgets/expression/expression";
 
 export type ExpressionPromptJSON = {
     type: "expression";

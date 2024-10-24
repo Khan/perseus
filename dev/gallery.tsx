@@ -8,16 +8,13 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useEffect, useId, useMemo, useState} from "react";
-
+import type {APIOptions} from "../packages/perseus/src";
 import {Renderer} from "../packages/perseus/src";
 import {mockStrings} from "../packages/perseus/src/strings";
 import * as grapher from "../packages/perseus/src/widgets/grapher/grapher.testdata";
 import * as interactiveGraph from "../packages/perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
 import * as numberLine from "../packages/perseus/src/widgets/number-line/number-line.testdata";
-
 import {Header} from "./header";
-
-import type {APIOptions} from "../packages/perseus/src";
 import "../packages/perseus/src/styles/perseus-renderer.less";
 import type {PerseusRenderer} from "../packages/perseus-core/src/data-schema";
 

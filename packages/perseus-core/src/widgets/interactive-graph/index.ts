@@ -1,7 +1,6 @@
-import getInteractiveGraphPublicWidgetOptions from "./interactive-graph-util";
-
 import type {PerseusInteractiveGraphWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import getInteractiveGraphPublicWidgetOptions from "./interactive-graph-util";
 
 export type InteractiveGraphDefaultWidgetOptions = Pick<
     PerseusInteractiveGraphWidgetOptions,

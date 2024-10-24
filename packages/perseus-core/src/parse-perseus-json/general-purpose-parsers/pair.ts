@@ -1,6 +1,5 @@
-import {isFailure} from "../result";
-
 import type {Parser} from "../parser-types";
+import {isFailure} from "../result";
 
 export function pair<A, B>(
     parseA: Parser<A>,

@@ -3,9 +3,8 @@
 /* TODO: fix these lint errors (http://eslint.org/docs/rules): */
 /* eslint-disable indent, no-undef, no-var, no-dupe-keys, no-new-func, no-redeclare, comma-dangle, max-len, prefer-spread, space-infix-ops, space-unary-ops */
 import _ from "underscore";
-
-import {unitParser} from "./__genfiles__/unitparser";
 import {parser} from "./__genfiles__/parser";
+import {unitParser} from "./__genfiles__/unitparser";
 
 /*  The node hierarcy is as follows:
 

@@ -5,23 +5,21 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import Icon from "../../components/icon";
 import {ApiOptions, ClassNames} from "../../perseus-api";
 import mediaQueries from "../../styles/media-queries";
-
+import type {APIOptions} from "../../types";
 import getA11yText from "./choice-a11y-text";
 import ChoiceIcon from "./choice-icon/choice-icon";
 import OptionStatus from "./option-status";
 import {getChoiceLetter} from "./util";
-
-import type {APIOptions} from "../../types";
 
 const intermediateCheckboxPadding = `16px 16px`;
 const intermediateCheckboxPaddingPhone = `12px 16px`;

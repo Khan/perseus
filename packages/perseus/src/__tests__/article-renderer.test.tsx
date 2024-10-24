@@ -1,12 +1,12 @@
 import {
-    StatefulKeypadContextProvider,
     KeypadContext,
+    StatefulKeypadContextProvider,
 } from "@khanacademy/keypad-context";
 import {MobileKeypad} from "@khanacademy/math-input";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {screen, render, fireEvent, waitFor, act} from "@testing-library/react";
+import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import * as React from "react";
-
 import {
     testDependencies,
     testDependenciesV2,
@@ -15,9 +15,7 @@ import {articleSectionWithExpression} from "../__testdata__/article-renderer.tes
 import ArticleRenderer from "../article-renderer";
 import * as Dependencies from "../dependencies";
 import {ApiOptions} from "../perseus-api";
-
 import type {APIOptions} from "../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 function KeypadWithContext() {
     return (

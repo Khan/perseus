@@ -1,7 +1,7 @@
 import {Changeable, EditorJsonify} from "@khanacademy/perseus";
 import {
-    passageRefTargetLogic,
     type PassageRefTargetDefaultWidgetOptions,
+    passageRefTargetLogic,
 } from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";

@@ -9,20 +9,19 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
 import LockedEllipseSettings from "./locked-ellipse-settings";
-import LockedFunctionSettings from "./locked-function-settings";
-import LockedLabelSettings from "./locked-label-settings";
-import LockedLineSettings from "./locked-line-settings";
-import LockedPointSettings from "./locked-point-settings";
-import LockedPolygonSettings from "./locked-polygon-settings";
-import LockedVectorSettings from "./locked-vector-settings";
-
 import type {Props as LockedEllipseProps} from "./locked-ellipse-settings";
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
+import LockedFunctionSettings from "./locked-function-settings";
 import type {Props as LockedFunctionProps} from "./locked-function-settings";
+import LockedLabelSettings from "./locked-label-settings";
 import type {Props as LockedLabelProps} from "./locked-label-settings";
+import LockedLineSettings from "./locked-line-settings";
 import type {Props as LockedLineProps} from "./locked-line-settings";
+import LockedPointSettings from "./locked-point-settings";
 import type {Props as LockedPointProps} from "./locked-point-settings";
+import LockedPolygonSettings from "./locked-polygon-settings";
 import type {Props as LockedPolygonProps} from "./locked-polygon-settings";
+import LockedVectorSettings from "./locked-vector-settings";
 import type {Props as LockedVectorProps} from "./locked-vector-settings";
 
 export type LockedFigureSettingsCommonProps = {

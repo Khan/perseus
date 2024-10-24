@@ -1,9 +1,8 @@
 // Test: pipeParsers()...then().parser returns the expected type
 
+import type {Parser, PartialParser} from "../parser-types";
 import {pipeParsers} from "./pipe-parsers";
 import {string} from "./string";
-
-import type {Parser, PartialParser} from "../parser-types";
 
 const stringToNumber = summon<PartialParser<string, number>>();
 const numberToBoolean = summon<PartialParser<number, boolean>>();

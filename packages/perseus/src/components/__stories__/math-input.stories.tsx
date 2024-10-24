@@ -1,8 +1,6 @@
 import {action} from "@storybook/addon-actions";
-
-import MathInput from "../math-input";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import MathInput from "../math-input";
 
 const meta: Meta = {
     title: "Perseus/Components/Math Input",

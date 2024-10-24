@@ -1,6 +1,5 @@
-import validateDropdown from "./validate-dropdown";
-
 import type {PerseusDropdownUserInput} from "../../validation.types";
+import validateDropdown from "./validate-dropdown";
 
 describe("validateDropdown", () => {
     it("returns invalid for invalid input (user input of 0)", () => {

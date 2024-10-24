@@ -1,13 +1,13 @@
-import {Dependencies} from "..";
 import {testDependencies} from "../../../../testing/test-dependencies";
+import {Dependencies} from "..";
 import {Log} from "../logging/log";
 
 import {
-    parseDataFromJSONP,
     getLocalizedDataUrl,
     loadGraphie,
+    parseDataFromJSONP,
 } from "./graphie-utils";
-import {typicalCase, edgeCases} from "./graphie-utils.testdata";
+import {edgeCases, typicalCase} from "./graphie-utils.testdata";
 
 describe("graphie utils", () => {
     const errorCallback = jest.fn((error) => {

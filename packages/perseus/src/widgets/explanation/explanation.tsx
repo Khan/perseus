@@ -1,3 +1,4 @@
+import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
@@ -6,15 +7,13 @@ import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
-import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
 

@@ -1,58 +1,64 @@
 {
-    "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+    "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
     "files": {
         "ignoreUnknown": false,
-        "ignore": [
-            "data/questions/",
-            "__genfiles__/",
-            "dist/",
-            "vendor/",
-            "storybook-static/",
-            "styles/khan-exercise.css"
-        ]
+        "includes": [
+            "**",
+            "!data/questions",
+            "!**/__genfiles__",
+            "!dist/",
+            "!vendor",
+            "!storybook-static",
+        ],
     },
     "vcs": {
+        "enabled": true,
         "clientKind": "git",
-        "useIgnoreFile": true
+        "useIgnoreFile": true,
     },
     "formatter": {
         "enabled": true,
-        "useEditorconfig": true
-    },
-    "organizeImports": {
-        "enabled": false
+        "useEditorconfig": true,
     },
     "linter": {
         "enabled": false,
         "rules": {
-            "recommended": true
-        }
+            "recommended": true,
+        },
+    },
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": "on",
+            },
+        },
     },
     "javascript": {
         "formatter": {
             "quoteStyle": "double",
             "trailingCommas": "all",
 
-            "bracketSpacing": false
-        }
+            "bracketSpacing": false,
+        },
     },
     "overrides": [
         {
-            "include": [
+            "includes": [
                 "tsconfig-build.json",
                 "tsconfig-common.json",
                 "tsconfig-shared.json",
-                "tsconfig.json"
+                "tsconfig.json",
+                "biome.jsonc",
             ],
             "json": {
                 "formatter": {
-                    "trailingCommas": "all"
+                    "trailingCommas": "all",
                 },
                 "parser": {
+                    "allowComments": true,
                     "allowTrailingCommas": true,
-                    "allowComments": true
-                }
-            }
-        }
-    ]
+                },
+            },
+        },
+    ],
 }

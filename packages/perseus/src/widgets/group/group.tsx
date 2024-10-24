@@ -1,13 +1,16 @@
+import type {PerseusGroupWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import type {
+    PerseusGroupRubric,
+    UserInputArray,
+    UserInputMap,
+} from "@khanacademy/perseus-score";
 import classNames from "classnames";
 import * as React from "react";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
-
 import type {
     APIOptions,
     ChangeFn,
@@ -17,12 +20,7 @@ import type {
     WidgetProps,
 } from "../../types";
 import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
-import type {PerseusGroupWidgetOptions} from "@khanacademy/perseus-core";
-import type {
-    PerseusGroupRubric,
-    UserInputArray,
-    UserInputMap,
-} from "@khanacademy/perseus-score";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
 type Props = WidgetProps<RenderProps, PerseusGroupRubric>;

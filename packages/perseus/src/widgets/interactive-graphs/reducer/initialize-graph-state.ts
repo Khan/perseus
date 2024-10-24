@@ -1,11 +1,4 @@
 import {geometry} from "@khanacademy/kmath";
-import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-import {vec} from "mafs";
-
-import {normalizeCoords, normalizePoints} from "../utils";
-
-import type {Coord} from "../../../interactive2/types";
-import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {
     PerseusGraphType,
     PerseusGraphTypeAngle,
@@ -19,7 +12,12 @@ import type {
     PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
 } from "@khanacademy/perseus-core";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import type {Interval} from "mafs";
+import {vec} from "mafs";
+import type {Coord} from "../../../interactive2/types";
+import type {InteractiveGraphState, PairOfPoints} from "../types";
+import {normalizeCoords, normalizePoints} from "../utils";
 
 const {magnitude, vector} = geometry;
 

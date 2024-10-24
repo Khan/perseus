@@ -1,6 +1,5 @@
-import validateMatrix from "./validate-matrix";
-
 import type {PerseusMatrixUserInput} from "../../validation.types";
+import validateMatrix from "./validate-matrix";
 
 describe("matrixValidator", () => {
     it("should return invalid when answers is completely empty", () => {

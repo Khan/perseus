@@ -1,8 +1,6 @@
 import {action} from "@storybook/addon-actions";
-
-import RangeInput from "../range-input";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import RangeInput from "../range-input";
 
 const meta: Meta = {
     title: "Perseus/Components/Range Input",

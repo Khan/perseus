@@ -1,13 +1,12 @@
+import type {KeypadKey} from "@khanacademy/perseus-core";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import type {ClickKeyCallback, KeyConfig} from "../../types";
 import ButtonAsset from "./button-assets";
-
-import type {KeyConfig, ClickKeyCallback} from "../../types";
-import type {KeypadKey} from "@khanacademy/perseus-core";
 
 type KeypadButtonProps = {
     // 0 indexed [x, y] position in keypad CSS grid

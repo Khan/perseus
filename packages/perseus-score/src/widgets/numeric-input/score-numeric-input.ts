@@ -1,16 +1,16 @@
+import type {
+    MathFormat,
+    PerseusNumericInputAnswer,
+} from "@khanacademy/perseus-core";
 import KhanAnswerTypes from "../../util/answer-types";
-import {parseTex} from "../../util/tex-wrangler";
 
 import type {Score} from "../../util/answer-types";
+import {parseTex} from "../../util/tex-wrangler";
 import type {
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
     PerseusScore,
 } from "../../validation.types";
-import type {
-    MathFormat,
-    PerseusNumericInputAnswer,
-} from "@khanacademy/perseus-core";
 
 const answerFormButtons: ReadonlyArray<{
     title: string;

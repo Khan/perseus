@@ -1,8 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 
-import * as React from "react";
-
 import type {CSSProperties} from "aphrodite";
+import * as React from "react";
 
 // WARNING: This determines the *viewport* width and height, so a change here
 //          requires scaling the values of every SVG path passed in as a string

@@ -3,15 +3,12 @@
  * label image with answers from list of choices.
  */
 
-import {Util, Dependencies, bodyXsmallBold} from "@khanacademy/perseus";
-import {StyleSheet, css} from "aphrodite";
-import * as React from "react";
-
-import {gray17, gray68} from "../../styles/global-colors";
-
-import Marker from "./marker";
-
+import {bodyXsmallBold, Dependencies, Util} from "@khanacademy/perseus";
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
+import {css, StyleSheet} from "aphrodite";
+import * as React from "react";
+import {gray17, gray68} from "../../styles/global-colors";
+import Marker from "./marker";
 
 type Props = {
     // The list of possible answers in a specific order.

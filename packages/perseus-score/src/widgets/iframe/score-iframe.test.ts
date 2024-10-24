@@ -1,6 +1,5 @@
-import scoreIframe from "./score-iframe";
-
 import type {PerseusIFrameUserInput} from "../../validation.types";
+import scoreIframe from "./score-iframe";
 
 describe("scoreIframe", () => {
     it("is correct when the state from the iframe shows the status is correct", () => {

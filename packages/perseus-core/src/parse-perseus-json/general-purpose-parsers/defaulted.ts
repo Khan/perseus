@@ -1,6 +1,5 @@
-import {success} from "../result";
-
 import type {Parser} from "../parser-types";
+import {success} from "../result";
 
 export function defaulted<T, Default>(
     parser: Parser<T>,
