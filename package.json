@@ -133,8 +133,7 @@
         "clean": "./utils/clean.sh",
         "coverage": "./utils/test-with-coverage.sh",
         "dev": "yarn --cwd dev dev",
-        "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
-        "lint:timing": "cross-env TIMING=1 yarn lint",
+        "lint": "biome check",
         "publish:ci": "utils/pre-publish-check-ci.ts && git diff --stat --exit-code HEAD && yarn build && yarn build:types && changeset publish",
         "sloc": "sloc packages --exclude node_modules",
         "test": "jest",
@@ -143,7 +142,7 @@
         "build-storybook": "storybook build",
         "cypress": "cypress open --component",
         "cypress:ci": "cross-env cypress run --component",
-        "format": "prettier --write .",
+        "format": "biome format --write .",
         "typecheck": "tsc",
         "knip": "knip --config knip.config.ts"
     },

@@ -80,7 +80,7 @@ jobs:
 
             - name: Check formatting
               run: |
-                  yarn -s prettier --check .
+                  yarn -s biome --check .
 
             - id: js-files
               name: Find .js(x)/.ts(x) changed files
@@ -90,19 +90,19 @@ jobs:
                   extensions: ".js,.jsx,.ts,.tsx"
                   files: "yarn.lock"
 
-            - id: eslint-reset
+            - id: biome-reset
               uses: Khan/actions@filter-files-v1
-              name: Files that would trigger a full eslint run
+              name: Files that would trigger a full Biome run
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
-                  files: ".eslintrc.js,package.json,yarn.lock,.eslintignore"
+                  files: "biome.jsonc,package.json,yarn.lock"
 
             # Linting / type checking
-            - name: Eslint
+            - name: Biome
               uses: Khan/actions@full-or-limited-v0
               with:
-                  full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
-                  full: yarn lint packages
+                  full-trigger: ${{ steps.biome-reset.outputs.filtered }}
+                  full: yarn biome check .
                   limited-trigger: ${{ steps.js-files.outputs.filtered }}
                   limited: yarn lint {}
 
