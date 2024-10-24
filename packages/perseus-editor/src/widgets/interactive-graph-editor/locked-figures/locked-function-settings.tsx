@@ -462,7 +462,6 @@ const styles = StyleSheet.create({
         //     and divides it between the two input fields equally.
         // The calculation reads: "Take 1/2 of the non-text space, and add the required space for this label's text"
         width: "calc(((100% - 141px) / 2) + 88.7px)",
-        // @ts-expect-error // TS2353: textWrap does not exist in type CSSProperties
         textWrap: "nowrap",
     },
     domainMinField: {

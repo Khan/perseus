@@ -134,12 +134,14 @@ export type Props = {
      * etc.) that are locked in place and not interactive.
      */
     lockedFigures?: Array<LockedFigure>;
-    // Aria-label for the full graph area. Short title for the graph.
+    /** Aria-label for the full graph area. Short title for the graph. */
     fullGraphAriaLabel?: string;
-    // Aria-description for the graph area. Longer description of the graph.
-    // Note that the `aria-description` property is not supported well,
-    // so this description will be hidden in a DOM element whose ID will
-    // then be referenced by the graph's `aria-describedby` property.
+    /**
+     * Aria-description for the graph area. Longer description of the graph.
+     * Note that the `aria-description` property is not supported well,
+     * so this description will be hidden in a DOM element whose ID will
+     * then be referenced by the graph's `aria-describedby` property.
+     */
     fullGraphAriaDescription?: string;
 
     /**
@@ -147,9 +149,11 @@ export type Props = {
      */
     graph: InteractiveGraphProps["graph"];
     onChange: (props: Partial<Props>) => void;
-    // Whether the graph has been set to static mode.
-    // Graphs in static mode are not interactive, and their coords are
-    // set to those of the "correct" graph in the editor.
+    /**
+     * Whether the graph has been set to static mode.
+     * Graphs in static mode are not interactive, and their coords are
+     * set to those of the "correct" graph in the editor.
+     */
     static?: boolean;
 };
 
