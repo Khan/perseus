@@ -20,7 +20,7 @@ type Params = {
     onClick?: (() => unknown) | undefined;
     onFocus?: ((event: React.FocusEvent) => unknown) | undefined;
     onBlur?: ((event: React.FocusEvent) => unknown) | undefined;
-    // The focusableHandle element is assigned to the forwarded ref
+    // The focusableHandle element is assigned to the forwarded ref.
     forwardedRef?: React.ForwardedRef<SVGGElement | null> | undefined;
 };
 

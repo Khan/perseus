@@ -128,9 +128,8 @@ function doDeleteIntent(
 ): InteractiveGraphState {
     // For unlimited point graphs
     if (state.type === "point" && state.numPoints === "unlimited") {
-        // if there's a focused point
+        // Remove the last point that was focused, if any
         if (state.focusedPointIndex !== null) {
-            // Remove the focused focus
             return doRemovePoint(
                 state,
                 actions.pointGraph.removePoint(state.focusedPointIndex),
