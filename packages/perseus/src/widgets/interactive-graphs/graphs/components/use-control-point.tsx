@@ -9,18 +9,20 @@ import {MovablePointView} from "./movable-point-view";
 
 import type {vec} from "mafs";
 
-export function useControlPoint(
-    point: vec.Vector2,
-    color: string | undefined,
-    onMovePoint: (newPoint: vec.Vector2) => unknown,
-) {
+type Params = {
+    point: vec.Vector2;
+    color?: string | undefined;
+    onMove?: (newPoint: vec.Vector2) => unknown;
+};
+
+export function useControlPoint({point, color, onMove = () => {}}: Params) {
     const {snapStep, disableKeyboardInteraction} = useGraphConfig();
     const [focused, setFocused] = useState(false);
     const keyboardHandleRef = useRef<SVGGElement>(null);
     useDraggable({
         gestureTarget: keyboardHandleRef,
         point,
-        onMove: onMovePoint,
+        onMove,
         constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
@@ -28,7 +30,7 @@ export function useControlPoint(
     const {dragging} = useDraggable({
         gestureTarget: visiblePointRef,
         point,
-        onMove: onMovePoint,
+        onMove,
         constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 

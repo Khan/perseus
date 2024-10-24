@@ -48,9 +48,17 @@ export const MovableLine = (props: Props) => {
     //   setting tabindex > 0. But that bumps elements to the front of the
     //   tab order for the entire page, which is not what we want.
     const {visiblePoint: visiblePoint1, focusableHandle: focusableHandle1} =
-        useControlPoint(start, color, (p) => onMovePoint(0, p));
+        useControlPoint({
+            point: start,
+            color,
+            onMove: (p) => onMovePoint(0, p),
+        });
     const {visiblePoint: visiblePoint2, focusableHandle: focusableHandle2} =
-        useControlPoint(end, color, (p) => onMovePoint(1, p));
+        useControlPoint({
+            point: end,
+            color,
+            onMove: (p) => onMovePoint(1, p),
+        });
 
     const line = (
         <Line
