@@ -62,22 +62,20 @@ describe("PerseusLinter tree transformer", () => {
     }
 
     trees.forEach((tree: any, treenum: number) => {
-        it(
-            "does post-order traversal of each node in the tree " + treenum,
-            () => {
-                const tt = new TreeTransformer(tree);
-                const ids: Array<any> = [];
+        it("does post-order traversal of each node in the tree " +
+            treenum, () => {
+            const tt = new TreeTransformer(tree);
+            const ids: Array<any> = [];
 
-                tt.traverse((n: any) => {
-                    nodes[n.id] = n; // Remember the nodes by id for later tests
-                    ids.push(n.id);
-                });
+            tt.traverse((n: any) => {
+                nodes[n.id] = n; // Remember the nodes by id for later tests
+                ids.push(n.id);
+            });
 
-                // Post-order traversal means we visit the nodes on the way
-                // back up, not on the way down.
-                expect(ids).toEqual(postOrderTraversalOrder);
-            },
-        );
+            // Post-order traversal means we visit the nodes on the way
+            // back up, not on the way down.
+            expect(ids).toEqual(postOrderTraversalOrder);
+        });
 
         it("tracks the current node " + treenum, () => {
             new TreeTransformer(tree).traverse((n, state) => {

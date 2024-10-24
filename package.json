@@ -5,11 +5,7 @@
     "repository": "git@github.com:Khan/perseus.git",
     "license": "MIT",
     "private": true,
-    "workspaces": [
-        "dev",
-        "packages/*",
-        "config/build"
-    ],
+    "workspaces": ["dev", "packages/*", "config/build"],
     "engines": {
         "node": ">=20"
     },

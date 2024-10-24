@@ -33,9 +33,7 @@
         },
         "./styles.css": "./dist/index.css"
     },
-    "files": [
-        "dist"
-    ],
+    "files": ["dist"],
     "scripts": {},
     "dependencies": {
         "@khanacademy/keypad-context": "^1.0.3",

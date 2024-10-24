@@ -18,9 +18,7 @@
     "module": "dist/es/index.js",
     "main": "dist/index.js",
     "source": "src/index.js",
-    "files": [
-        "dist"
-    ],
+    "files": ["dist"],
     "scripts": {
         "gen:parsers": "node src/parser-generator.ts",
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
@@ -36,11 +34,5 @@
     "peerDependencies": {
         "underscore": "1.4.4"
     },
-    "keywords": [
-        "parsing",
-        "equation",
-        "expression",
-        "algebra",
-        "symbolic"
-    ]
+    "keywords": ["parsing", "equation", "expression", "algebra", "symbolic"]
 }

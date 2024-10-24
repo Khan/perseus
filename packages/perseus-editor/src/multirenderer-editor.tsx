@@ -27,7 +27,6 @@ import type {
     APIOptions,
     ChangeHandler,
     EditorMode,
-
     // Multi-item item types
     Item,
     // ItemTree is used below, the linter is confused.
@@ -37,7 +36,6 @@ import type {
     ContentNode,
     HintNode,
     TagsNode,
-
     // Multi-item shape types
     Shape,
     ArrayShape,

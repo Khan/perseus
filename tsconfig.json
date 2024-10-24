@@ -8,7 +8,7 @@
         "cypress.config.ts",
         "config/cypress/**",
         "**/*.cypress.ts",
-        "**/*.cypress.tsx"
+        "**/*.cypress.tsx",
     ],
     "extends": "./tsconfig-common.json",
     "compilerOptions": {
@@ -21,17 +21,19 @@
             "@khanacademy/kmath": ["./packages/kmath/src"],
             "@khanacademy/keypad-context": ["./packages/keypad-context/src"],
             "@khanacademy/math-input": ["./packages/math-input/src"],
-            "@khanacademy/math-input/strings": ["./packages/math-input/src/strings"],
+            "@khanacademy/math-input/strings": [
+                "./packages/math-input/src/strings",
+            ],
             "@khanacademy/perseus": ["./packages/perseus/src"],
             "@khanacademy/perseus/strings": ["./packages/perseus/src/strings"],
             "@khanacademy/perseus-*": ["./packages/perseus-*/src"],
             "@khanacademy/pure-markdown": ["./packages/pure-markdown/src"],
-            "@khanacademy/simple-markdown": ["./packages/simple-markdown/src"]
+            "@khanacademy/simple-markdown": ["./packages/simple-markdown/src"],
         },
 
         /* Preference */
         // If this is disabled, TS will sometimes just delete dead code, which
         // can be confusing!
-        "allowUnreachableCode": true
-    }
+        "allowUnreachableCode": true,
+    },
 }

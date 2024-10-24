@@ -1,13 +1,13 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@1.7.0/schema.json",
-  "changelog": ["@changesets/changelog-github", {"repo": "Khan/perseus"}],
-  "commit": false,
-  "linked": [],
-  "access": "public",
-  "baseBranch": "main",
-  "updateInternalDependencies": "patch",
-  "ignore": [],
-  "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
-    "updateInternalDependents": "always"
-  }
+    "$schema": "https://unpkg.com/@changesets/config@1.7.0/schema.json",
+    "changelog": ["@changesets/changelog-github", { "repo": "Khan/perseus" }],
+    "commit": false,
+    "linked": [],
+    "access": "public",
+    "baseBranch": "main",
+    "updateInternalDependencies": "patch",
+    "ignore": [],
+    "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+        "updateInternalDependents": "always"
+    }
 }

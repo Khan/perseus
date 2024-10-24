@@ -10,7 +10,7 @@
         "**/__testutils__/**",
         "**/*.stories.*",
         "**/__stories__/**",
-        "**/*.cypress.*"
+        "**/*.cypress.*",
     ],
     "extends": "../tsconfig-common.json",
     "compilerOptions": {
@@ -23,9 +23,7 @@
         "emitDeclarationOnly": true,
 
         "paths": {
-            "@khanacademy/*": [
-                "./*/src"
-            ]
+            "@khanacademy/*": ["./*/src"],
         },
     },
 }

@@ -5,7 +5,7 @@
         "esModuleInterop": true,
         // be explicit about types included
         // to avoid clashing with Jest types
-        "types": ["cypress", "node", "cypress-real-events"]
+        "types": ["cypress", "node", "cypress-real-events"],
     },
-    "include": ["**/*.ts", "**/*.tsx"]
+    "include": ["**/*.ts", "**/*.tsx"],
 }
