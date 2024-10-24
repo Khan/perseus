@@ -293,6 +293,7 @@ export class Expression
                         </LabelSmall>
                     )}
                     <KeypadInput
+                        // style={styles.ltr}
                         // eslint-disable-next-line react/no-string-refs
                         ref="input"
                         ariaLabel={
@@ -402,6 +403,9 @@ const styles = StyleSheet.create({
     desktopLabelInputWrapper: {
         margin: "5px 5px 0",
     },
+    // ltr: {
+    //     direction: "ltr",
+    // },
 });
 
 /**

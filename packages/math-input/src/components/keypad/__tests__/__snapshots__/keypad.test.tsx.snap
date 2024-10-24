@@ -9,7 +9,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
       class="default_xu2jcg-o_O-wrapper_144oaus-o_O-expandedWrapper_ykafj"
     >
       <div
-        class="default_xu2jcg-o_O-tabbar_721koc"
+        class="default_xu2jcg-o_O-tabbar_zvl22d"
       >
         <div
           class="default_xu2jcg-o_O-pages_cjo0m2"
@@ -169,7 +169,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
         />
       </div>
       <div
-        class="default_xu2jcg-o_O-keypadInnerContainer_uc6399"
+        class="default_xu2jcg-o_O-keypadInnerContainer_huowys"
       >
         <div
           aria-label="Keypad"
@@ -1065,7 +1065,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
       class="default_xu2jcg-o_O-wrapper_144oaus"
     >
       <div
-        class="default_xu2jcg-o_O-tabbar_721koc"
+        class="default_xu2jcg-o_O-tabbar_zvl22d"
       >
         <div
           class="default_xu2jcg-o_O-pages_cjo0m2"
@@ -1225,7 +1225,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
         />
       </div>
       <div
-        class="default_xu2jcg-o_O-keypadInnerContainer_uc6399"
+        class="default_xu2jcg-o_O-keypadInnerContainer_huowys"
       >
         <div
           aria-label="Keypad"
