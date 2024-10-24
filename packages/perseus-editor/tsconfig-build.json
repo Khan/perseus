@@ -8,15 +8,13 @@
             "hubble": ["../../vendor/hubble/hubble.js"],
             // NOTE(kevinb): We have to repeat this here because TS doesn't do
             // intelligent merge of tsconfig.json files when using `extends`.
-            "@khanacademy/*": [
-                "../*/src"
-            ]
-        }
+            "@khanacademy/*": ["../*/src"],
+        },
     },
     "references": [
-        {"path": "../kas/tsconfig-build.json"},
-        {"path": "../kmath/tsconfig-build.json"},
-        {"path": "../perseus/tsconfig-build.json"},
-        {"path": "../perseus-core/tsconfig-build.json"},
-    ]
+        { "path": "../kas/tsconfig-build.json" },
+        { "path": "../kmath/tsconfig-build.json" },
+        { "path": "../perseus/tsconfig-build.json" },
+        { "path": "../perseus-core/tsconfig-build.json" },
+    ],
 }

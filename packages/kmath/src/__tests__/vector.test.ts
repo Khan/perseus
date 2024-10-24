@@ -115,23 +115,17 @@ describe("kvector", function () {
         expect(result).toBe(false);
     });
 
-    it(
-        "vector.collinear should return true on two collinear vectors of " +
-            "the same magnitude but different direction",
-        function () {
-            const result = vector.collinear([3, 3], [-3, -3]);
-            expect(result).toBe(true);
-        },
-    );
+    it("vector.collinear should return true on two collinear vectors of " +
+        "the same magnitude but different direction", function () {
+        const result = vector.collinear([3, 3], [-3, -3]);
+        expect(result).toBe(true);
+    });
 
-    it(
-        "vector.collinear should return true on two collinear vectors of " +
-            "different magnitudes",
-        function () {
-            const result = vector.collinear([2, 1], [6, 3]);
-            expect(result).toBe(true);
-        },
-    );
+    it("vector.collinear should return true on two collinear vectors of " +
+        "different magnitudes", function () {
+        const result = vector.collinear([2, 1], [6, 3]);
+        expect(result).toBe(true);
+    });
 
     it("vector.collinear should return false on non-collinear vectors", function () {
         const result = vector.collinear([1, 2], [-1, 2]);

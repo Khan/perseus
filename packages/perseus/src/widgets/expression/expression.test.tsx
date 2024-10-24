@@ -121,13 +121,10 @@ describe("Expression Widget", function () {
 
         // This isn't necessarily the ideal behavior; it's just what was the
         // easiest to implement
-        it(
-            "should not grade answers that have the wrong variable case, " +
-                "even if the answer has got other errors",
-            async function () {
-                await assertInvalid(userEvent, expressionItem2, "123+X");
-            },
-        );
+        it("should not grade answers that have the wrong variable case, " +
+            "even if the answer has got other errors", async function () {
+            await assertInvalid(userEvent, expressionItem2, "123+X");
+        });
 
         it.each(["123-y", "123-Y"])(
             "should not not grade answers that use the wrong variable",

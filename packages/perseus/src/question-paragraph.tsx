@@ -19,7 +19,7 @@ class QuestionParagraph extends React.Component<Props> {
             <div
                 className={
                     this.props.inline
-                        ? this.props.className ?? undefined
+                        ? (this.props.className ?? undefined)
                         : className
                 }
                 data-perseus-component-index={this.props.translationIndex}
