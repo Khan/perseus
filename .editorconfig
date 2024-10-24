@@ -1,7 +1,9 @@
 # https://editorconfig.org/#file-format-details
 
+# top-most EditorConfig file
 root = true
 
+[*]
 indent_style = space
 indent_size = 4
 
