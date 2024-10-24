@@ -1,4 +1,4 @@
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependenciesV2} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -8,8 +8,8 @@ import type {APIOptions} from "../../types";
 
 describe("video widget", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-            ...testDependencies,
+        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+            ...testDependenciesV2,
             useVideo: (id, kind) => {
                 return {
                     status: "success",

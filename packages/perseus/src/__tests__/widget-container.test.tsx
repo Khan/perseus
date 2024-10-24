@@ -1,13 +1,16 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependencies} from "../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
 import WidgetContainer from "../widget-container";
 import {registerWidget} from "../widgets";
 import PassageWidget from "../widgets/passage";
 
-import type {WidgetExports} from "../types";
+import type {PerseusDependenciesV2, WidgetExports} from "../types";
 
 const MockWidgetComponent = ({
     text,
@@ -90,7 +93,10 @@ describe("widget-container", () => {
         jest.spyOn(console, "error").mockImplementation(() => {});
 
         const onAnalyticsEventSpy = jest.fn();
-        const depsV2 = {analytics: {onAnalyticsEvent: onAnalyticsEventSpy}};
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
 
         registerWidget("mock-widget", MockWidget);
 

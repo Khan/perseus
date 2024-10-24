@@ -114,6 +114,14 @@ export const testDependenciesV2: PerseusDependenciesV2 = {
     analytics: {
         onAnalyticsEvent: async () => {},
     },
+    useVideo: () => {
+        return {
+            status: "success",
+            data: {
+                video: null,
+            },
+        };
+    },
 };
 
 export const storybookTestDependencies: PerseusDependencies = {
@@ -123,6 +131,7 @@ export const storybookTestDependencies: PerseusDependencies = {
 };
 
 export const storybookDependenciesV2: PerseusDependenciesV2 = {
+    ...testDependenciesV2,
     analytics: {
         onAnalyticsEvent: async (event) => {
             console.log("⚡️ Sending analytics event:", event);
