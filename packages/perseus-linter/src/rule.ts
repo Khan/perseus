@@ -164,7 +164,7 @@ type RuleCheckReturnType =
 // This is the return type of the lint detection function passed as the 4th
 // argument to the Rule() constructor. It can return null or a string or an
 // object containing a string and two numbers.
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 // (prettier formats this in a way that ka-lint does not like)
 type LintTesterReturnType = string | {
     message: string,

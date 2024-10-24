@@ -627,7 +627,7 @@ export const allTypes: any = _.keys(functionTypeMapping);
 export type FunctionTypeMappingKeys = keyof typeof functionTypeMapping;
 
 type ConditionalGraderType<T extends FunctionTypeMappingKeys> =
-    // prettier-ignore
+    // biome-ignore
     T extends "linear" ? LinearType
     : T extends "quadratic" ? QuadraticType
     : T extends "sinusoid" ? SinusoidType
