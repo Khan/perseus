@@ -13,7 +13,8 @@ type Props = {
     color?: string;
     cursor?: CSSCursor | undefined;
     constrain?: KeyboardMovementConstraint;
-    onFocusChange?: (event: React.FocusEvent, isFocused: boolean) => unknown;
+    onFocus?: ((event: React.FocusEvent) => unknown) | undefined;
+    onBlur?: ((event: React.FocusEvent) => unknown) | undefined;
 };
 
 export const MovablePoint = React.forwardRef(

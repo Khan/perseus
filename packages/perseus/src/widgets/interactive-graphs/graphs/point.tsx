@@ -93,27 +93,26 @@ function UnlimitedPointGraph(props: PointGraphProps) {
                     ref={(ref) => {
                         itemsRef.current[i] = ref;
                     }}
-                    onFocusChange={(event, isFocused) => {
-                        if (isFocused) {
-                            dispatch(actions.pointGraph.focusPoint(i));
-                        } else {
-                            if (event.relatedTarget?.id === REMOVE_BUTTON_ID) {
-                                return;
-                                // This is an optimization: If the next target
-                                // is a point then don't blur because it casues
-                                // the remove button to get taken off the page
-                                // and then put back on The new point will
-                                // receive focus and set the correct state in
-                                // the reducer
-                            } else if (
-                                event.relatedTarget?.classList.contains(
-                                    "movable-point",
-                                )
-                            ) {
-                                return;
-                            }
-                            dispatch(actions.pointGraph.blurPoint());
+                    onFocus={() => {
+                        dispatch(actions.pointGraph.focusPoint(i));
+                    }}
+                    onBlur={(event) => {
+                        if (event.relatedTarget?.id === REMOVE_BUTTON_ID) {
+                            return;
+                            // This is an optimization: If the next target
+                            // is a point then don't blur because it casues
+                            // the remove button to get taken off the page
+                            // and then put back on The new point will
+                            // receive focus and set the correct state in
+                            // the reducer
+                        } else if (
+                            event.relatedTarget?.classList.contains(
+                                "movable-point",
+                            )
+                        ) {
+                            return;
                         }
+                        dispatch(actions.pointGraph.blurPoint());
                     }}
                     onClick={() => {
                         dispatch(actions.pointGraph.clickPoint(i));

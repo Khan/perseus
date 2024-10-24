@@ -18,9 +18,8 @@ type Params = {
     constrain?: KeyboardMovementConstraint;
     onMove?: ((newPoint: vec.Vector2) => unknown) | undefined;
     onClick?: (() => unknown) | undefined;
-    // TODO(benchristel): Replace onFocusChange with onFocus and onBlur,
-    // since all callers handle focus and blur separately.
-    onFocusChange?: (event: React.FocusEvent, isFocused: boolean) => unknown;
+    onFocus?: ((event: React.FocusEvent) => unknown) | undefined;
+    onBlur?: ((event: React.FocusEvent) => unknown) | undefined;
     // The focusableHandle element is assigned to the forwarded ref
     forwardedRef?: React.ForwardedRef<SVGGElement | null> | undefined;
 };
@@ -41,7 +40,8 @@ export function useControlPoint(params: Params): Return {
         constrain = (p) => snap(snapStep, p),
         onMove = noop,
         onClick = noop,
-        onFocusChange = noop,
+        onFocus = noop,
+        onBlur = noop,
         forwardedRef = noop,
     } = params;
 
@@ -73,11 +73,11 @@ export function useControlPoint(params: Params): Return {
             tabIndex={disableKeyboardInteraction ? -1 : 0}
             ref={focusableHandleRef}
             onFocus={(event) => {
-                onFocusChange(event, true);
+                onFocus(event);
                 setFocused(true);
             }}
             onBlur={(event) => {
-                onFocusChange(event, false);
+                onBlur(event);
                 setFocused(false);
             }}
         />
