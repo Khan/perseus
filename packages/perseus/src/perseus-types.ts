@@ -194,74 +194,77 @@ type WidgetOptions<Type extends string, Options> = {
     version?: Version;
 };
 
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type CategorizerWidget = WidgetOptions<'categorizer', PerseusCategorizerWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type CSProgramWidget = WidgetOptions<'cs-program', PerseusCSProgramWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type DefinitionWidget = WidgetOptions<'definition', PerseusDefinitionWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type DropdownWidget = WidgetOptions<'dropdown', PerseusDropdownWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type ExplanationWidget = WidgetOptions<'explanation', PerseusExplanationWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type ExpressionWidget = WidgetOptions<'expression', PerseusExpressionWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type GradedGroupSetWidget = WidgetOptions<'graded-group-set', PerseusGradedGroupSetWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type GradedGroupWidget = WidgetOptions<'graded-group', PerseusGradedGroupWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type GrapherWidget = WidgetOptions<'grapher', PerseusGrapherWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type GroupWidget = WidgetOptions<'group', PerseusGroupWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type IFrameWidget = WidgetOptions<'iframe', PerseusIFrameWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type ImageWidget = WidgetOptions<'image', PerseusImageWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type InteractionWidget = WidgetOptions<'interaction', PerseusInteractionWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type InteractiveGraphWidget = WidgetOptions<'interactive-graph', PerseusInteractiveGraphWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type LabelImageWidget = WidgetOptions<'label-image', PerseusLabelImageWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type MatcherWidget = WidgetOptions<'matcher', PerseusMatcherWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type MatrixWidget = WidgetOptions<'matrix', PerseusMatrixWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type MeasurerWidget = WidgetOptions<'measurer', PerseusMeasurerWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type NumberLineWidget = WidgetOptions<'number-line', PerseusNumberLineWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type NumericInputWidget = WidgetOptions<'numeric-input', PerseusNumericInputWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type OrdererWidget = WidgetOptions<'orderer', PerseusOrdererWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type PassageRefWidget = WidgetOptions<'passage-ref', PerseusPassageRefWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type PassageWidget = WidgetOptions<'passage', PerseusPassageWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type PhetSimulationWidget = WidgetOptions<'phet-simulation', PerseusPhetSimulationWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type PlotterWidget = WidgetOptions<'plotter', PerseusPlotterWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type PythonProgramWidget = WidgetOptions<'python-program', PerseusPythonProgramWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type RadioWidget = WidgetOptions<'radio', PerseusRadioWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type SorterWidget = WidgetOptions<'sorter', PerseusSorterWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type TableWidget = WidgetOptions<'table', PerseusTableWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumberWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type MoleculeRendererWidget = WidgetOptions<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
-// prettier-ignore
+// biome-ignore format: keep these on the same line
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
-export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', PerseusWidgetOptions>;
+export type AutoCorrectWidget = WidgetOptions<
+    "deprecated-standin",
+    PerseusWidgetOptions
+>;
 
 export type PerseusWidget =
     | CategorizerWidget
