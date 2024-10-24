@@ -15,19 +15,9 @@ type Props = {
     point: vec.Vector2;
     color?: string | undefined;
     dragging: boolean;
-    focusBehavior: FocusBehaviorConfig;
+    showFocusRing: boolean;
     cursor?: CSSCursor | undefined;
     onClick?: () => unknown;
-};
-
-type FocusBehaviorConfig = ControlledFocusBehavior | UncontrolledFocusBehavior;
-
-// FIXME: remove uncontrolled focus behavior
-type ControlledFocusBehavior = {type: "controlled"; showFocusRing: boolean};
-type UncontrolledFocusBehavior = {
-    type: "uncontrolled";
-    tabIndex: number;
-    onFocusChange?: (event: React.FocusEvent, isFocused: boolean) => unknown;
 };
 
 // The hitbox size of 48px by 48px is preserved from the legacy interactive
@@ -37,22 +27,15 @@ const hitboxSizePx = 48;
 // MovablePointView is a purely presentational component (i.e. it is a pure
 // function with no state or effects) that renders the SVG for a movable point
 // on an interactive graph.
-//
-// It has two modes for managing tabbing / focus: "controlled" (where the caller
-// manages the display of the focus ring, and the point itself cannot be
-// focused) and "uncontrolled" (where the point is focusable, and the browser
-// manages the focus state and styling). For context on why we did this, see
-// the description of https://github.com/Khan/perseus/pull/1240
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
-        const {range, markings, showTooltips, disableKeyboardInteraction} =
-            useGraphConfig();
+        const {range, markings, showTooltips} = useGraphConfig();
         const {
             point,
             color = WBColor.blue,
             dragging,
-            focusBehavior,
             cursor,
+            showFocusRing,
             onClick = () => {},
         } = props;
 
@@ -62,7 +45,11 @@ export const MovablePointView = forwardRef(
             ([_, value]) => value === color,
         )?.[0] ?? "blue") as keyof typeof WBColor;
 
-        const pointClasses = `movable-point ${dragging ? "movable-point--dragging" : ""} ${focusClass(focusBehavior)}`;
+        const pointClasses = classNames(
+            "movable-point",
+            dragging && "movable-point--dragging",
+            showFocusRing && "movable-point--focus",
+        );
 
         const [[x, y]] = useTransformVectorsToPixels(point);
 
@@ -99,17 +86,6 @@ export const MovablePointView = forwardRef(
                 className={pointClasses}
                 style={{"--movable-point-color": color, cursor} as any}
                 data-testid="movable-point"
-                tabIndex={
-                    disableKeyboardInteraction ? -1 : tabIndex(focusBehavior)
-                }
-                onFocus={(event) => {
-                    const callback = getOnFocusChangeCallback(focusBehavior);
-                    callback && callback(event, true);
-                }}
-                onBlur={(event) => {
-                    const callback = getOnFocusChangeCallback(focusBehavior);
-                    callback && callback(event, false);
-                }}
                 onClick={onClick}
             >
                 <circle
@@ -152,23 +128,8 @@ export const MovablePointView = forwardRef(
     },
 );
 
-function focusClass(config: FocusBehaviorConfig) {
-    if (config.type === "controlled" && config.showFocusRing) {
-        return "movable-point--focus";
-    }
-    return "";
-}
-
-function tabIndex(config: FocusBehaviorConfig) {
-    if (config.type === "uncontrolled") {
-        return config.tabIndex;
-    }
-    return undefined;
-}
-
-function getOnFocusChangeCallback(config: FocusBehaviorConfig) {
-    if (config.type === "uncontrolled") {
-        return config.onFocusChange;
-    }
-    return () => {};
+// TODO(benchristel): Move this to a more central location if it's reused.
+// Or install the library.
+function classNames(...names: Array<string | false | null | undefined>): string {
+    return names.filter(Boolean).join(" ")
 }

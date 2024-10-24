@@ -93,7 +93,7 @@ export function useControlPoint(params: Params): Return {
             dragging={dragging}
             color={color}
             ref={visiblePointRef}
-            focusBehavior={{type: "controlled", showFocusRing: focused}}
+            showFocusRing={focused}
         />
     );
 
