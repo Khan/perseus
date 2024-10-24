@@ -315,6 +315,22 @@ describe("server item renderer", () => {
         expect(onRendered).toHaveBeenCalledWith(true);
     });
 
+    it("should get prompt JSON with the correct content and widgets", () => {
+        const {renderer} = renderQuestion(itemWithRadioAndExpressionWidgets);
+
+        const json = renderer.getPromptJSON();
+
+        expect(json.content).toBe(
+            itemWithRadioAndExpressionWidgets.question.content,
+        );
+
+        const widgetKeys = Object.keys(
+            itemWithRadioAndExpressionWidgets.question.widgets,
+        );
+
+        expect(Object.keys(json.widgets)).toEqual(widgetKeys);
+    });
+
     describe("focus management", () => {
         it("calls onFocusChange when focusing the renderer", async () => {
             // Arranged

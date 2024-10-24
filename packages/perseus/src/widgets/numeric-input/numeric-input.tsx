@@ -10,7 +10,9 @@ import {ApiOptions} from "../../perseus-api";
 import KhanMath from "../../util/math";
 
 import numericInputValidator from "./numeric-input-validator";
+import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
+import type {NumericInputPromptJSON} from "./prompt-utils";
 import type {
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
@@ -42,7 +44,7 @@ const formExamples: {
     pi: (form, strings: PerseusStrings) => strings.piExample,
 };
 
-type ExternalProps = WidgetProps<
+export type ExternalProps = WidgetProps<
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputRubric
 >;
@@ -179,6 +181,10 @@ export class NumericInput
 
     getUserInput(): PerseusNumericInputUserInput {
         return NumericInput.getUserInputFromProps(this.props);
+    }
+
+    getPromptJSON(): NumericInputPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     handleChange: (

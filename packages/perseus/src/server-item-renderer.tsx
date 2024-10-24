@@ -22,6 +22,7 @@ import Renderer from "./renderer";
 import Util from "./util";
 
 import type {PerseusItem, ShowSolutions} from "./perseus-types";
+import type {GetPromptJSONInterface, RendererPromptJSON} from "./prompt-types";
 import type {
     FocusPath,
     PerseusDependenciesV2,
@@ -72,7 +73,10 @@ type SerializedState = {
 
 export class ServerItemRenderer
     extends React.Component<Props, State>
-    implements RendererInterface, KeypadContextRendererInterface
+    implements
+        RendererInterface,
+        KeypadContextRendererInterface,
+        GetPromptJSONInterface
 {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -292,6 +296,10 @@ export class ServerItemRenderer
 
     getNumHints(): number {
         return this.props.item.hints.length;
+    }
+
+    getPromptJSON(): RendererPromptJSON {
+        return this.questionRenderer.getPromptJSON();
     }
 
     /**
