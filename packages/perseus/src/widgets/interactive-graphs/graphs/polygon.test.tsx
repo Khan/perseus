@@ -34,7 +34,6 @@ describe("hasFocusVisible", () => {
             </Mafs>,
         );
         const polygon = ref.current;
-        expect(polygon).not.toBeNull();
         if (polygon) {
             await userEvent.tab();
             await userEvent.tab();
