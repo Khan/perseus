@@ -22,7 +22,7 @@ class LogOnFailedTestReporter extends DefaultReporter {
         const testFailed = result.numFailingTests > 0;
 
         if (testFailed && consoleBuffer && consoleBuffer.length) {
-            // prettier-ignore
+            // biome-ignore format: keep these on the same line
             this.log(
          `  ${TITLE_BULLET}Console\n\n${getConsoleOutput(
            consoleBuffer,
