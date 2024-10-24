@@ -35,5 +35,24 @@
 
             "bracketSpacing": false
         }
-    }
+    },
+    "overrides": [
+        {
+            "include": [
+                "tsconfig-build.json",
+                "tsconfig-common.json",
+                "tsconfig-shared.json",
+                "tsconfig.json"
+            ],
+            "json": {
+                "formatter": {
+                    "trailingCommas": "all"
+                },
+                "parser": {
+                    "allowTrailingCommas": true,
+                    "allowComments": true
+                }
+            }
+        }
+    ]
 }
