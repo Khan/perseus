@@ -18,7 +18,8 @@ function sum(array: any) {
     );
 }
 
-function clockwise(points: any) {
+// Checks if the given set of coordinates are ordered in a clockwise order.
+function clockwise(points: ReadonlyArray<Coord>) {
     const segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
     const areas = _.map(segments, function (segment) {
         const p1 = segment[0];
