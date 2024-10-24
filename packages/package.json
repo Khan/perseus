@@ -1,6 +1,6 @@
 {
   "name": "@junyiacademy/perseus-core",
-  "version": "1.0.46",
+  "version": "1.0.47",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
