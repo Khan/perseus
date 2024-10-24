@@ -5,14 +5,14 @@
         "ignore": []
     },
     "formatter": {
-        "useEditorconfig": true,
-        "enabled": true
+        "enabled": true,
+        "useEditorconfig": true
     },
     "organizeImports": {
         "enabled": false
     },
     "linter": {
-        "enabled": true,
+        "enabled": false,
         "rules": {
             "recommended": true
         }
