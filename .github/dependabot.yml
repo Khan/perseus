@@ -8,5 +8,4 @@ updates:
       schedule:
           interval: "daily"
       allow:
-          - dependency-name: "@khanacademy/eslint-config"
-          - dependency-name: "@khanacademy/eslint-plugin"
+          - dependency-name: "@biomejs/biome"
