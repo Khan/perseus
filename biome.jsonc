@@ -2,7 +2,7 @@
     "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
     "files": {
         "ignoreUnknown": false,
-        "ignore": ["data/questions/", "__genfiles__/"]
+        "ignore": ["data/questions/", "__genfiles__/", "vendor/**/*.js"]
     },
     "formatter": {
         "enabled": true,
