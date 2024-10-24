@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState, useRef} from "react";
+import {useState, useRef, useLayoutEffect} from "react";
 
 import {snap} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
@@ -21,6 +21,8 @@ type Params = {
     // TODO(benchristel): Replace onFocusChange with onFocus and onBlur,
     // since all callers handle focus and blur separately.
     onFocusChange?: (event: React.FocusEvent, isFocused: boolean) => unknown;
+    // The focusableHandle element is assigned to the forwarded ref
+    forwardedRef?: React.ForwardedRef<SVGGElement | null> | undefined;
 };
 
 type Return = {
@@ -37,9 +39,10 @@ export function useControlPoint(params: Params): Return {
         color,
         cursor,
         constrain = (p) => snap(snapStep, p),
-        onMove = () => {},
-        onClick = () => {},
-        onFocusChange = () => {},
+        onMove = noop,
+        onClick = noop,
+        onFocusChange = noop,
+        forwardedRef = noop,
     } = params;
 
     const [focused, setFocused] = useState(false);
@@ -58,6 +61,10 @@ export function useControlPoint(params: Params): Return {
         onMove,
         constrainKeyboardMovement: constrain,
     });
+
+    useLayoutEffect(() => {
+        setForwardedRef(forwardedRef, focusableHandleRef.current);
+    }, [forwardedRef]);
 
     const focusableHandle = (
         <g
@@ -97,3 +104,19 @@ export function useControlPoint(params: Params): Return {
         visiblePointRef,
     };
 }
+
+// TODO(benchristel): move this to a more central place if we want to reuse it.
+function setForwardedRef<T>(ref: React.ForwardedRef<T>, value: T): void {
+    if (typeof ref === "function") {
+        ref(value);
+    } else if (ref !== null) {
+        ref.current = value;
+    }
+}
+
+// This `noop` const is an optimization. Above, we use the forwardedRef
+// variable, which defaults to `noop`, in a useEffect deps array. Using `noop`
+// as the default value instead of `() => {}` ensures that the forwardedRef
+// variable will have the same value on repeated renders, preventing the
+// useEffect callback from re-running needlessly.
+const noop = () => {};
