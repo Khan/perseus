@@ -42,7 +42,6 @@ export * as GrapherUtil from "./widgets/grapher/util";
  * Misc
  */
 export * as components from "./components";
-export * as constants from "./components/constants";
 // TODO(FEI-4504): Replace globalStyles with wonder-blocks where possible
 export * as globalStyles from "./styles/global-styles";
 // TODO(FEI-4504): Replace globalStyles with wonder-blocks where possible
