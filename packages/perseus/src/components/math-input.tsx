@@ -258,6 +258,9 @@ class InnerMathInput extends React.Component<InnerProps, State> {
     };
 
     focus: () => void = () => {
+        if (this.props.disabled) {
+            return;
+        }
         this.mathField()?.focus();
         this.setState({focused: true});
     };
@@ -338,7 +341,12 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                     <span
                         className={className}
                         ref={(ref) => (this.__mathFieldWrapperRef = ref)}
-                        onFocus={() => this.focus()}
+                        onFocus={() => {
+                            if (this.props.disabled) {
+                                return;
+                            }
+                            this.focus();
+                        }}
                         onBlur={() => this.blur()}
                     />
                     {!this.props.disabled && (
@@ -439,6 +447,9 @@ class MathInput extends React.Component<Props, State> {
     }
 
     focus() {
+        if (this.props.disabled) {
+            return;
+        }
         this.inputRef.current?.focus();
     }
 
