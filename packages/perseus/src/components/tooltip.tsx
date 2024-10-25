@@ -58,7 +58,7 @@ const Triangle = (props: TriangleProps) => {
                 width: 0,
                 position: "absolute",
                 left: props.left,
-                top: props["top"],
+                top: props.top,
                 borderLeft: borderLeft,
                 borderRight: borderRight,
                 borderTop: borderTop,
