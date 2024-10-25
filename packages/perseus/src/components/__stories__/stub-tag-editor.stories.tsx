@@ -1,45 +1,47 @@
-import * as React from "react";
+import {actions} from "@storybook/addon-actions";
 
 import StubTagEditor from "../stub-tag-editor";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
+const meta: Meta = {
+    title: "Perseus/Components/Stub Tag Editor",
+    component: StubTagEditor,
+    args: {
+        value: [],
+        onChange: actions("onChange"),
+    },
+    argTypes: {
+        onChange: {
+            table: {disable: true},
+        },
+    },
 };
 
-export default {
-    title: "Perseus/Components/name",
-} as Story;
+export default meta;
+
+type Story = StoryObj<typeof StubTagEditor>;
 
 const defaultValues = ["Test value 1", "Test value 2", "Test value 3"];
 
-export const ShowingTitle = (args: StoryArgs): React.ReactElement => {
-    return <StubTagEditor onChange={() => {}} showTitle={true} />;
+export const ShowingTitle: Story = {
+    args: {showTitle: true},
 };
 
-export const NotShowingTitle = (args: StoryArgs): React.ReactElement => {
-    return <StubTagEditor onChange={() => {}} showTitle={false} />;
+export const NotShowingTitle: Story = {
+    args: {showTitle: false},
 };
 
-export const ShowingTitleWithValue = (args: StoryArgs): React.ReactElement => {
-    return (
-        <StubTagEditor
-            onChange={() => {}}
-            showTitle={true}
-            value={defaultValues}
-        />
-    );
+export const ShowingTitleWithValue: Story = {
+    args: {
+        showTitle: true,
+        value: defaultValues,
+    },
 };
 
-export const NotShowingTitleWithValue = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <StubTagEditor
-            onChange={() => {}}
-            showTitle={false}
-            value={defaultValues}
-        />
-    );
+export const NotShowingTitleWithValue: Story = {
+    args: {
+        showTitle: false,
+        value: defaultValues,
+    },
 };

@@ -1,29 +1,34 @@
-import * as React from "react";
+import {action} from "@storybook/addon-actions";
 
 import RangeInput from "../range-input";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
-
-export default {
+const meta: Meta = {
     title: "Perseus/Components/Range Input",
-} as Story;
+    component: RangeInput,
+    args: {
+        value: [],
+        onChange: action("onChange"),
+    },
+    argTypes: {
+        onChange: {table: {disable: true}},
+    },
+};
+export default meta;
 
-export const EmptyValueArray = (args: StoryArgs): React.ReactElement => {
-    return <RangeInput onChange={() => {}} value={[]} />;
+type Story = StoryObj<typeof RangeInput>;
+
+export const EmptyValueArray: Story = {};
+
+export const SimpleWithSmallValueRanges: Story = {
+    args: {
+        value: [-10, 10],
+    },
 };
 
-export const SimpleWithSmallValueRanges = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return <RangeInput onChange={() => {}} value={[-10, 10]} />;
-};
-
-export const Placeholders = (args: StoryArgs): React.ReactElement => {
-    return (
-        <RangeInput onChange={() => {}} placeholder={["?", "!"]} value={[]} />
-    );
+export const Placeholders: Story = {
+    args: {
+        placeholder: ["?", "!"],
+    },
 };

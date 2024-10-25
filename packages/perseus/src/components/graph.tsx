@@ -3,7 +3,6 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import AssetContext from "../asset-context";
@@ -86,10 +85,9 @@ class Graph extends React.Component<Props> {
     protractor: any;
     ruler: any;
     _graphie: any;
-    // @ts-expect-error - TS2564 - Property '_hasSetupGraphieThisUpdate' has no initializer and is not definitely assigned in the constructor.
-    _hasSetupGraphieThisUpdate: boolean;
-    // @ts-expect-error - TS2564 - Property '_shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
-    _shouldSetupGraphie: boolean;
+    _hasSetupGraphieThisUpdate = false;
+    _shouldSetupGraphie = true;
+    graphieDiv = React.createRef<HTMLDivElement>();
 
     static defaultProps: DefaultProps = {
         labels: ["x", "y"],
@@ -186,11 +184,11 @@ class Graph extends React.Component<Props> {
         if (this._hasSetupGraphieThisUpdate) {
             return;
         }
+        if (this.graphieDiv.current == null) {
+            return;
+        }
 
-        // eslint-disable-next-line react/no-string-refs
-        const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
-        $(graphieDiv).empty();
+        $(this.graphieDiv.current).empty();
 
         // Content creators may need to explicitly add the dollar signs so the
         // strings are picked up by our translation tools. However, these math
@@ -202,8 +200,9 @@ class Graph extends React.Component<Props> {
             Util.unescapeMathMode(label),
         );
         const range = this.props.range;
-        // @ts-expect-error - TS2345: Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLElement'.
-        const graphie = (this._graphie = GraphUtils.createGraphie(graphieDiv));
+        const graphie = (this._graphie = GraphUtils.createGraphie(
+            this.graphieDiv.current,
+        ));
 
         const gridConfig: [GridDimensions, GridDimensions] =
             this._getGridConfig();
@@ -271,8 +270,7 @@ class Graph extends React.Component<Props> {
             });
 
             $instructionsWrapper.append($instructions);
-            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'append' does not exist on type 'JQueryStatic'.
-            $(graphieDiv).append($instructionsWrapper);
+            $(this.graphieDiv.current).append($instructionsWrapper);
         } else {
             $instructionsWrapper = undefined;
         }
@@ -431,8 +429,7 @@ class Graph extends React.Component<Props> {
                 onClick={this.onClick}
             >
                 {image}
-                {/* eslint-disable-next-line react/no-string-refs */}
-                <div className="graphie" ref="graphieDiv" />
+                <div className="graphie" ref={this.graphieDiv} />
             </div>
         );
     }

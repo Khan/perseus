@@ -1,32 +1,30 @@
-import {action} from "@storybook/addon-actions";
+import {actions} from "@storybook/addon-actions";
 import * as React from "react";
 
 import TextListEditor from "../text-list-editor";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
-
-export default {
+const meta: Meta = {
     title: "Perseus/Components/Text List Editor",
-} as Story;
-
-const defaultObject = {
-    onChange: (...args) => {
-        action("onChange")(...args);
+    component: TextListEditor,
+    args: {
+        options: ["Test option 1", "Test option 2", "Test option 3"],
+        onChange: actions("onChange"),
     },
-    options: ["Test option 1", "Test option 2", "Test option 3"],
-} as const;
-
-const ClassName = "framework-perseus orderer";
-
-export const SimpleListOfOptions = (args: StoryArgs): React.ReactElement => {
-    return (
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: Element; class: string; }' is not assignable to type 'DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>'.
-        <div class={ClassName}>
-            <TextListEditor {...defaultObject} />
-        </div>
-    );
+    argTypes: {
+        onChange: {table: {disable: true}},
+    },
+    decorators: [
+        (Story) => (
+            <div className={"framework-perseus orderer"}>
+                <Story />
+            </div>
+        ),
+    ],
 };
+export default meta;
+
+type Story = StoryObj<typeof TextListEditor>;
+
+export const SimpleListOfOptions: Story = {};

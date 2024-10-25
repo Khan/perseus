@@ -68,6 +68,7 @@ class MultiButtonGroup extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        console.log(this.props.values, this.props.buttons);
         const values = this.props.values || [];
         const buttons = this.props.buttons.map((button, i) => {
             const selected = values.indexOf(button.value) >= 0;

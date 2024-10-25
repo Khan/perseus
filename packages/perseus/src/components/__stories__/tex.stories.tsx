@@ -1,23 +1,16 @@
-import * as React from "react";
-
 import TeX from "../tex";
 
-type StoryArgs = {
-    equation: string;
-};
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
-    args: StoryArgs;
-};
-
-export default {
+const meta: Meta = {
     title: "Perseus/Components/Tex",
+    component: TeX,
     args: {
-        equation: "f(x) = x + 1",
+        children: "f(x) = x + 1",
     },
-} as Story;
-
-export const BasicOperation = (args: StoryArgs): React.ReactElement => {
-    return <TeX setAssetStatus={() => {}} children={args.equation} />;
 };
+export default meta;
+
+type Story = StoryObj<typeof TeX>;
+
+export const BasicOperation: Story = {};

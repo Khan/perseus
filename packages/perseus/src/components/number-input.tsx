@@ -42,7 +42,7 @@ class NumberInput extends React.Component<any, any> {
         onChange: PropTypes.func.isRequired,
         onFormatChange: PropTypes.func,
         checkValidity: PropTypes.func,
-        size: PropTypes.string,
+        size: PropTypes.oneOf(["mini", "small", "normal"]),
         label: PropTypes.oneOf(["put your labels outside your inputs!"]),
     };
 

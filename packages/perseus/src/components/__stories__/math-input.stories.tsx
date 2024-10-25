@@ -1,46 +1,53 @@
-import * as React from "react";
+import {actions} from "@storybook/addon-actions";
 
 import MathInput from "../math-input";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
-
-export default {
+const meta: Meta = {
     title: "Perseus/Components/Math Input",
-} as Story;
-
-const defaultObject = {
-    keypadButtonSets: {
-        advancedRelations: true,
-        basicRelations: true,
-        divisionKey: true,
-        logarithms: true,
-        preAlgebra: true,
-        trigonometry: true,
+    component: MathInput,
+    args: {
+        keypadButtonSets: {
+            advancedRelations: true,
+            basicRelations: true,
+            divisionKey: true,
+            logarithms: true,
+            preAlgebra: true,
+            trigonometry: true,
+        },
+        convertDotToTimes: false,
+        value: "",
+        onChange: actions("onChange"),
+        analytics: {onAnalyticsEvent: () => Promise.resolve()},
+        labelText: "Math input",
     },
-    convertDotToTimes: false,
-    value: "",
-    onChange: () => {},
-    analytics: {onAnalyticsEvent: () => Promise.resolve()},
-    labelText: "Math input",
-} as const;
-
-export const DefaultWithBasicButtonSet = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return <MathInput {...defaultObject} />;
+    argTypes: {
+        onChange: {
+            table: {disable: true},
+        },
+        analytics: {
+            table: {disable: true},
+        },
+    },
+    parameters: {
+        controls: {exclude: ["onChange", "analytics"]},
+    },
 };
-export const DefaultWithAriaLabel = (args: StoryArgs): React.ReactElement => {
-    return <MathInput {...defaultObject} ariaLabel="Sample label" />;
+export default meta;
+
+type Story = StoryObj<typeof MathInput>;
+
+export const DefaultWithBasicButtonSet: Story = {};
+
+export const DefaultWithAriaLabel: Story = {
+    args: {ariaLabel: "Sample label"},
 };
 
-export const KeypadOpenByDefault = (args: StoryArgs): React.ReactElement => {
-    return <MathInput {...defaultObject} buttonsVisible="always" />;
+export const KeypadOpenByDefault: Story = {
+    args: {buttonsVisible: "always"},
 };
 
-export const KeypadNeverVisible = (args: StoryArgs): React.ReactElement => {
-    return <MathInput {...defaultObject} buttonsVisible="never" />;
+export const KeypadNeverVisible: Story = {
+    args: {buttonsVisible: "never"},
 };

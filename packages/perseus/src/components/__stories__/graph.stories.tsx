@@ -1,27 +1,22 @@
-import * as React from "react";
-
 import Graph from "../graph";
 
 import type {StoryObj, Meta} from "@storybook/react";
 
-type StoryArgs = StoryObj<Graph>;
-
-type Story = Meta<Graph>;
+type Story = StoryObj<typeof Graph>;
 
 const size = 200;
 
-export default {
+const meta: Meta = {
     title: "Perseus/Components/Graph",
-} as Story;
-
-export const SquareBoxSizeAndOtherwiseEmpty = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return <Graph box={[size, size]} />;
+    component: Graph,
+    args: {
+        box: [size, size],
+    },
 };
+export default meta;
 
-export const LabeledSquaredBox = (args: StoryArgs): React.ReactElement => {
-    return (
-        <Graph box={[size, size]} labels={["First label", "Second label"]} />
-    );
+export const SquareBoxSizeAndOtherwiseEmpty: Story = {};
+
+export const LabeledSquaredBox: Story = {
+    args: {labels: ["First label", "Second label"]},
 };

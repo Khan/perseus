@@ -2,65 +2,47 @@ import * as React from "react";
 
 import MultiButtonGroup from "../multi-button-group";
 
-type StoryArgs = {
-    allowEmpty: boolean;
-};
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
-    args: StoryArgs;
-};
-
-export default {
+const meta: Meta = {
     title: "Perseus/Components/Muli-Button Group",
+    component: MultiButtonGroup,
     args: {
         allowEmpty: true,
+        buttons: [],
     },
-} as Story;
+    render: function WithState(props: PropsFor<typeof MultiButtonGroup>) {
+        const [values, updateValues] = React.useState(props.values);
+        return (
+            <MultiButtonGroup
+                {...props}
+                values={values}
+                onChange={updateValues}
+            />
+        );
+    },
+};
+export default meta;
 
-const HarnassedButtonGroup = (
-    props: Pick<
-        React.ComponentProps<typeof MultiButtonGroup>,
-        "buttons" | "allowEmpty"
-    >,
-) => {
-    const [values, updateValues] = React.useState(
-        null as ReadonlyArray<string> | null | undefined,
-    );
+type Story = StoryObj<typeof MultiButtonGroup>;
 
-    return (
-        <MultiButtonGroup
-            {...props}
-            values={values}
-            onChange={(newValues) => {
-                updateValues(newValues);
-            }}
-        />
-    );
+export const ButtonsWithNoTitles: Story = {
+    args: {
+        buttons: [
+            {value: "One", content: "Item #1"},
+            {value: "Two", content: "Item #2"},
+            {value: "Three", content: "Item #3"},
+        ],
+    },
 };
 
-export const ButtonsWithNoTitles = (args: StoryArgs): React.ReactElement => {
-    return (
-        <HarnassedButtonGroup
-            {...args}
-            buttons={[
-                {value: "One", content: "Item #1"},
-                {value: "Two", content: "Item #2"},
-                {value: "Three", content: "Item #3"},
-            ]}
-        />
-    );
-};
-
-export const ButtonsWithTitles = (args: StoryArgs): React.ReactElement => {
-    return (
-        <HarnassedButtonGroup
-            {...args}
-            buttons={[
-                {value: "One", content: "Item #1", title: "The first item"},
-                {value: "Two", content: "Item #2", title: "The second item"},
-                {value: "Three", content: "Item #3", title: "The third item"},
-            ]}
-        />
-    );
+export const ButtonsWithTitles: Story = {
+    args: {
+        buttons: [
+            {value: "One", content: "Item #1", title: "The first item"},
+            {value: "Two", content: "Item #2", title: "The second item"},
+            {value: "Three", content: "Item #3", title: "The third item"},
+        ],
+    },
 };

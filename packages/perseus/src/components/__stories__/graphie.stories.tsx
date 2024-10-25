@@ -6,28 +6,23 @@ import Graphie from "../graphie";
 
 import type {StoryObj, Meta} from "@storybook/react";
 
-type StoryArgs = StoryObj<Graphie>;
-
-type Story = Meta<Graphie>;
+type Story = StoryObj<typeof Graphie>;
 
 const size = 200;
 
-export default {
+const meta: Meta = {
     title: "Perseus/Components/Graphie",
-} as Story;
-
-export const SquareBoxSizeAndOtherwiseEmpty = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <Graphie
-            box={[size, size]}
-            setDrawingAreaAvailable={() => {}}
-            setup={() => {}}
-        />
-    );
+    component: Graphie,
+    args: {
+        box: [size, size],
+        setup: () => {},
+        setDrawingAreaAvailable: () => {},
+    },
 };
+export default meta;
 
-export const PieChartGraphieLabels = (args: StoryArgs): React.ReactElement => {
+export const SquareBoxSizeAndOtherwiseEmpty: Story = {};
+
+export const PieChartGraphieLabels = () => {
     return <ServerItemRendererWithDebugUI item={itemWithPieChart} />;
 };

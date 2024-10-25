@@ -1,9 +1,5 @@
 /**
- * Icon paths to be used with `inline-icon.jsx`.
- *
- * These paths are taken directly from webapp's `icon-paths.js`. Unlike the
- * webapp equivalent, these can be directly required within Perseus files since
- * this is all bundled together anyway.
+ * Icon paths to be used with `inline-icon.tsx` and `icon.tsx`.
  */
 
 export const iconCheck = {

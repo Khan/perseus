@@ -2,20 +2,7 @@ import * as React from "react";
 
 import Zoomable from "../zoomable";
 
-type StoryArgs = Record<any, any>;
-
-type Story = {
-    title: string;
-};
-
-export default {
-    title: "Perseus/Components/Zoomable",
-    argTypes: {
-        disableEntranceAnimation: {
-            control: {type: "boolean"},
-        },
-    },
-} as Story;
+import type {Meta, StoryObj} from "@storybook/react";
 
 type Bounds = {
     width: number;
@@ -32,18 +19,29 @@ const computeChildBounds = (
     };
 };
 
-export const ZoomableExample = (args: StoryArgs): React.ReactElement => {
-    return (
-        <Zoomable
-            computeChildBounds={computeChildBounds}
-            disableEntranceAnimation={!!args.disableEntranceAnimation}
-        >
+const meta: Meta = {
+    title: "Perseus/Components/Zoomable",
+    component: Zoomable,
+    args: {
+        computeChildBounds,
+    },
+    argTypes: {
+        children: {table: {disable: true}},
+    },
+};
+export default meta;
+
+type Story = StoryObj<typeof Zoomable>;
+
+export const ZoomableExample: Story = {
+    args: {
+        children: (
             <span>
                 Here's some zoomed-out content.
                 <br />
                 <br />
                 Click on the content to zoom/unzoom.
             </span>
-        </Zoomable>
-    );
+        ),
+    },
 };
