@@ -8,9 +8,8 @@ import {
     learnstormBlue,
     backgroundBlue,
 } from "./global-constants";
-import mediaQueries from "./media-queries";
 
-import type {CSSProperties, StyleDeclaration} from "aphrodite";
+import type {StyleDeclaration} from "aphrodite";
 
 export const colors = {
     white: "#FFFFFF",
@@ -79,19 +78,6 @@ export const colors = {
 
 export const borderRadius = 4;
 
-const breadcrumbStyles: CSSProperties = {
-    color: colors.breadcrumbs,
-    fontFamily: "inherit",
-    fontSize: 15,
-    fontWeight: "bold",
-    letterSpacing: 0.8,
-    lineHeight: "19px",
-    textTransform: "uppercase",
-    // Disable subpixel antialiasing for OSX (improves light on dark text)
-    MozOsxFontSmoothing: "grayscale",
-    WebkitFontSmoothing: "antialiased",
-};
-
 export const fonts = {
     // The body of the page is setup to use 'Helvetica' by default and
     // 'Lato' if/once it downloads. For your elements to follow this
@@ -101,106 +87,10 @@ export const fonts = {
 } as const;
 
 export const typography: StyleDeclaration = {
-    // For subject names
-    subjectHeadingDesktop: {
-        fontFamily: "inherit",
-        fontSize: 50,
-        fontWeight: "bold",
-        lineHeight: "61px",
-    },
-    subjectHeadingMobile: {
-        fontFamily: "inherit",
-        fontSize: 35,
-        fontWeight: "bold",
-        lineHeight: "37px",
-    },
-
-    // For the most important thing on the page
-    conceptHeadingDesktop: {
-        fontFamily: "inherit",
-        fontSize: 35,
-        fontWeight: "bold",
-        lineHeight: "37px",
-    },
-    conceptHeadingMobile: {
-        fontFamily: "inherit",
-        fontSize: 23,
-        fontWeight: "bold",
-        lineHeight: "27px",
-    },
-
-    // For sections or modules
-    subheadingDesktop: {
-        fontFamily: "inherit",
-        fontSize: 23,
-        fontWeight: "bold",
-        lineHeight: "27px",
-    },
-    subheadingMobile: {
-        fontFamily: "inherit",
-        fontSize: 20,
-        fontWeight: "bold",
-        lineHeight: "24px",
-    },
-
-    smallSubheadingDesktop: {
-        fontFamily: "inherit",
-        fontSize: 20,
-        lineHeight: 1.25,
-    },
-
     smallSubheadingMobile: {
         fontFamily: "inherit",
         fontSize: 15,
         lineHeight: 1.25,
-    },
-
-    // For callouts
-    smallHeading: {
-        color: colors.gray25,
-        fontFamily: "inherit",
-        fontSize: 17,
-        fontWeight: "bold",
-        lineHeight: "23px",
-    },
-    smallHeadingMobile: {
-        color: colors.gray25,
-        fontFamily: "inherit",
-        fontSize: 15,
-        fontWeight: "bold",
-        lineHeight: "18px",
-    },
-
-    // Accent headings
-    accentHeading: {
-        color: colors.gray68,
-        fontFamily: "inherit",
-        fontSize: 15,
-        fontWeight: "bold",
-        letterSpacing: 0.8,
-        lineHeight: "19px",
-        textTransform: "uppercase",
-    },
-
-    bodyLarge: {
-        // For articles with multiple paragraphs
-        fontFamily: fonts.regular,
-        fontSize: 20,
-        lineHeight: "30px",
-    },
-    bodySmall: {
-        // For small blocks of copy
-        fontFamily: fonts.regular,
-        fontSize: 17,
-        fontWeight: "normal",
-        lineHeight: "23px",
-    },
-    bodySmallBold: {
-        // For small blocks of copy
-        fontFamily: fonts.regular,
-        fontSize: 17,
-        fontWeight: "bold",
-        lineHeight: "23px",
     },
     bodyXsmall: {
         // For metadata, descriptions, etc
@@ -215,92 +105,10 @@ export const typography: StyleDeclaration = {
         fontWeight: "bold",
         lineHeight: "22px",
     },
-    breadcrumb: breadcrumbStyles, // For in-page tabs, breadcrumbs
-    breadcrumbSmall: {
-        // For in-page tabs and leaf page breadcrumbs
-        ...breadcrumbStyles,
-        fontSize: 12,
-        lineHeight: "13px",
-    },
-    labelLarge: {
-        // For chiclets and thumbnail titles
-        fontFamily: "inherit",
-        fontSize: 23,
-        fontWeight: "bold",
-        lineHeight: "27px",
-    },
-    labelMedium: {
-        // For chiclets and thumbnail titles
-        fontFamily: "inherit",
-        fontSize: 15,
-        fontWeight: "bold",
-        lineHeight: "18px",
-    },
     labelSmall: {
         // Generally used with labelLarge, for breadcrumbs in thumbnails
         fontFamily: fonts.regular,
         fontSize: 12,
         lineHeight: "14px",
-    },
-    caption: {
-        // For image captions
-        fontFamily: fonts.regular,
-        fontSize: 14,
-        fontStyle: "italic",
-        lineHeight: "17px",
-    },
-    desktopScalingOnMobile: {
-        // For when you need Mobile Safari and friends to stick to desktop
-        // sizes
-        MozTextSizeAdjust: "100%",
-        MsTextSizeAdjust: "100%",
-        WebkitTextSizeAdjust: "100%",
-    } as any,
-    // TODO (josh): This should move to within <ModalHeader>
-    modalSubtitle: {
-        fontSize: 12,
-        lineHeight: 1.65,
-        // NOTE (josh): Font smoothing used here to create a 'medium' weight
-        // font, between normal and bold, on webkit browsers.
-        // This prop is an a11y risk when used on non-bold text, since it
-        // makes text very thin, but it's fine on bold text.
-        WebkitFontSmoothing: "antialiased",
-        fontWeight: "bold",
-    },
-
-    // HACK(kevinb): temporary wonder blocks styles for header only
-    // TODO(kevinb): use components from wonder-blocks-typography instead
-    wonderBlocksHeader: {
-        paddingLeft: 16,
-        paddingRight: 16,
-        paddingBottom: 24,
-        paddingTop: 34,
-
-        [mediaQueries.mdOrLarger]: {
-            paddingBottom: 32,
-        },
-    },
-
-    // HACK(kevinb): temporary wonder blocks styles for header only
-    // TODO(kevinb): use components from wonder-blocks-typography instead
-    wonderBlocksTitle: {
-        color: colors.white,
-        fontWeight: 900, // "Black" weight
-        fontSize: 28,
-        lineHeight: "32px",
-        margin: 0,
-
-        [mediaQueries.mdOrLarger]: {
-            fontSize: 36,
-            lineHeight: "40px",
-        },
-    },
-
-    // HACK(kevinb): temporary wonder blocks styles for header only
-    // TODO(kevinb): use components from wonder-blocks-typography instead
-    wonderBlocksLabelLarge: {
-        fontSize: 16,
-        lineHeight: "20px",
-        fontWeight: 700, // Bold
     },
 };
