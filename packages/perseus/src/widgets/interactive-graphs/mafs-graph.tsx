@@ -441,7 +441,11 @@ function handleKeyboardEvent(
             // while the whole graph is focused. Instead of doing this, we
             // should move the keyboard event handler to the movable point
             // handle element.
-            if (document.activeElement?.classList.contains("movable-point__focusable-handle")) {
+            if (
+                document.activeElement?.classList.contains(
+                    "movable-point__focusable-handle",
+                )
+            ) {
                 dispatch(actions.global.deleteIntent());
             }
 
