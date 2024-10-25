@@ -221,10 +221,6 @@ export class Expression
     };
 
     _handleFocus: () => void = () => {
-        if (this.props.disabled) {
-            return;
-        }
-
         this.props.analytics?.onAnalyticsEvent({
             type: "perseus:expression-focused",
             payload: null,
@@ -240,10 +236,6 @@ export class Expression
     };
 
     focus: () => boolean = () => {
-        if (this.props.disabled) {
-            return false;
-        }
-
         if (this.props.apiOptions.customKeypad) {
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
@@ -257,10 +249,6 @@ export class Expression
     };
 
     focusInputPath(inputPath: InputPath) {
-        if (this.props.disabled) {
-            return;
-        }
-
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
