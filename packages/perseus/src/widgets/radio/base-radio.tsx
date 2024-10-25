@@ -49,11 +49,11 @@ type Props = {
     apiOptions: APIOptions;
     choices: ReadonlyArray<ChoiceType>;
     deselectEnabled?: boolean;
-    editMode: boolean;
+    editMode?: boolean;
     labelWrap: boolean;
     countChoices: boolean | null | undefined;
     numCorrect: number;
-    multipleSelect: boolean;
+    multipleSelect?: boolean;
     // the logic checks whether this exists,
     // so it must be optional
     reviewModeRubric?: PerseusRadioWidgetOptions | null;
@@ -90,21 +90,20 @@ function getInstructionsText(
     return strings.chooseOneAnswer;
 }
 
-const BaseRadio = function (props: Props): React.ReactElement {
-    const {
-        apiOptions,
-        reviewModeRubric,
-        reviewMode,
-        choices,
-        editMode,
-        multipleSelect,
-        labelWrap,
-        countChoices,
-        numCorrect,
-        isLastUsedWidget,
-        registerFocusFunction,
-    } = props;
-
+const BaseRadio = function ({
+    apiOptions,
+    reviewModeRubric,
+    reviewMode,
+    choices,
+    editMode = false,
+    multipleSelect = false,
+    labelWrap,
+    countChoices,
+    numCorrect,
+    isLastUsedWidget,
+    onChange,
+    registerFocusFunction,
+}: Props): React.ReactElement {
     const {strings} = usePerseusI18n();
 
     // useEffect doesn't have previous props
@@ -174,8 +173,6 @@ const BaseRadio = function (props: Props): React.ReactElement {
             crossedOut: boolean;
         }>,
     ): void {
-        const {multipleSelect, choices, onChange} = props;
-
         // Get the baseline `checked` values. If we're checking a new answer
         // and multiple-select is not on, we should clear all choices to be
         // unchecked. Otherwise, we should copy the old checked values.
@@ -403,11 +400,6 @@ const BaseRadio = function (props: Props): React.ReactElement {
     // Allow for horizontal scrolling if content is too wide, which may be
     // an issue especially on phones.
     return <div className={css(styles.responsiveContainer)}>{fieldset}</div>;
-};
-
-BaseRadio.defaultProps = {
-    editMode: false,
-    multipleSelect: false,
 };
 
 const styles: StyleDeclaration = StyleSheet.create({

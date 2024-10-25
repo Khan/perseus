@@ -21,7 +21,7 @@ import type {CursorContext} from "../input/cursor-contexts";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 
 export type Props = {
-    extraKeys: ReadonlyArray<Key>;
+    extraKeys?: ReadonlyArray<Key>;
     cursorContext?: (typeof CursorContext)[keyof typeof CursorContext];
     showDismiss?: boolean;
     expandedView?: boolean;
@@ -37,10 +37,6 @@ export type Props = {
 
     onClickKey: ClickKeyCallback;
     onAnalyticsEvent: AnalyticsEventHandlerFn;
-};
-
-const defaultProps = {
-    extraKeys: [],
 };
 
 function getAvailableTabs(props: Props): ReadonlyArray<KeypadPageType> {
@@ -73,7 +69,7 @@ function getAvailableTabs(props: Props): ReadonlyArray<KeypadPageType> {
 
 // The main (v2) Keypad. Use this component to present an accessible, onscreen
 // keypad to learners for entering math expressions.
-export default function Keypad(props: Props) {
+export default function Keypad({extraKeys = [], ...props}: Props) {
     // If we're using the Fractions keypad, we want to default select that page
     // Otherwise, we want to default to the Numbers page
     const defaultSelectedPage = props.fractionsOnly ? "Fractions" : "Numbers";
@@ -82,12 +78,11 @@ export default function Keypad(props: Props) {
     const [isMounted, setIsMounted] = React.useState<boolean>(false);
 
     // We don't want any tabs available on mobile fractions keypad
-    const availableTabs = getAvailableTabs(props);
+    const availableTabs = getAvailableTabs({...props, extraKeys});
 
     const {
         onClickKey,
         cursorContext,
-        extraKeys,
         convertDotToTimes,
         divisionKey,
         preAlgebra,
@@ -196,8 +191,6 @@ export default function Keypad(props: Props) {
         </View>
     );
 }
-
-Keypad.defaultProps = defaultProps;
 
 const styles = StyleSheet.create({
     keypadOuterContainer: {
