@@ -143,7 +143,7 @@ const TooltipArrow = ({
                 position: position,
                 visibility: visibility,
                 left: left,
-                top: props["top"],
+                top: top,
                 width: props.width + 2,
                 height: props.height + 1,
                 marginTop: -1,
