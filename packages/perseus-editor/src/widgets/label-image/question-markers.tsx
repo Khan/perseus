@@ -3,15 +3,15 @@
  * label image with answers from list of choices.
  */
 
-import {Util, Dependencies, globalStyles} from "@khanacademy/perseus";
+import {Util, Dependencies, bodyXsmallBold} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
+
+import {gray17, gray68} from "../../styles/global-colors";
 
 import Marker from "./marker";
 
 import type {MarkerType} from "@khanacademy/perseus";
-
-const {colors, bodyXsmallBold} = globalStyles;
 
 type Props = {
     // The list of possible answers in a specific order.
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
 
         marginBottom: 6,
 
-        color: colors.gray17,
+        color: gray17,
     },
 
     subtitle: {
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
 
         marginBottom: 12,
 
-        color: colors.gray68,
+        color: gray68,
     },
 
     markersCanvas: {

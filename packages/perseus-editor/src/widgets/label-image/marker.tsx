@@ -7,16 +7,14 @@
  * the dropdown component.
  */
 
-import {globalStyles} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import Option, {OptionGroup} from "../../components/dropdown-option";
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
+import {gray17, gray85, gray98} from "../../styles/global-colors";
 
 import type {MarkerType} from "@khanacademy/perseus";
-
-const {colors} = globalStyles;
 
 type Props = MarkerType & {
     // The list of possible answer choices.
@@ -255,7 +253,7 @@ const styles = StyleSheet.create({
             left: -16,
             bottom: 8,
 
-            borderRight: `solid 16px ${colors.gray98}`,
+            borderRight: `solid 16px ${gray98}`,
             borderTop: "solid 16px transparent",
             borderBottom: "solid 16px transparent",
         },
@@ -269,7 +267,7 @@ const styles = StyleSheet.create({
         height: 0,
         margin: 0,
 
-        border: `solid ${colors.gray85}`,
+        border: `solid ${gray85}`,
         borderWidth: "0 0 1px",
 
         boxShadow: "none",
@@ -281,8 +279,8 @@ const styles = StyleSheet.create({
         position: "absolute",
         border: "solid 1px rgba(0, 0, 0, 0.1)",
         zIndex: 1000,
-        color: colors.gray17,
-        backgroundColor: colors.gray98,
+        color: gray17,
+        backgroundColor: gray98,
         borderRadius: 4,
         maxHeight: 320,
         cursor: "pointer",

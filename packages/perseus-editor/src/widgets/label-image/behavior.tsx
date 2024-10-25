@@ -2,13 +2,12 @@
  * Controlled component to display and change widget options.
  */
 
-import {globalStyles} from "@khanacademy/perseus";
+import {bodyXsmallBold} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import Checkbox from "../../components/checkbox";
-
-const {colors, bodyXsmallBold} = globalStyles;
+import {gray17} from "../../styles/global-colors";
 
 type PreferredPopoverDirection = "NONE" | "UP" | "DOWN" | "LEFT" | "RIGHT";
 
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
 
         marginBottom: 6,
 
-        color: colors.gray17,
+        color: gray17,
     },
 
     option: {
@@ -113,7 +112,7 @@ const styles = StyleSheet.create({
 
         marginLeft: 16,
 
-        color: colors.gray17,
+        color: gray17,
     },
 });
 
