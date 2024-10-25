@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 14.9.1
+
+### Patch Changes
+
+-   [#1794](https://github.com/Khan/perseus/pull/1794) [`9dd0f8c56`](https://github.com/Khan/perseus/commit/9dd0f8c56e5d824d89ae1041bee17c5c2f5edfe3) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused prop, optionRenderer, from dropdown-option component
+
 ## 14.9.0
 
 ### Minor Changes
