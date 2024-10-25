@@ -434,9 +434,7 @@ class Radio extends React.Component<Props> implements Widget {
                     previouslyAnswered,
                 } = choiceStates[i];
 
-                const reviewChoice =
-                    this.props.reviewModeRubric &&
-                    this.props.reviewModeRubric.choices[i];
+                const reviewChoice = this.props.reviewModeRubric?.choices[i];
 
                 return {
                     content: this._renderRenderer(content),
@@ -480,6 +478,7 @@ class Radio extends React.Component<Props> implements Widget {
                 choices={choicesProp}
                 onChange={this.updateChoices}
                 reviewModeRubric={this.props.reviewModeRubric}
+                reviewMode={this.props.reviewMode}
                 deselectEnabled={this.props.deselectEnabled}
                 apiOptions={this.props.apiOptions}
                 isLastUsedWidget={this.props.isLastUsedWidget}

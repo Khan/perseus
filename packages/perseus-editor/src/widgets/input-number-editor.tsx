@@ -4,8 +4,10 @@ import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
-import type {ParsedValue, InputNumber} from "@khanacademy/perseus";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {
+    ParsedValue,
+    PerseusInputNumberWidgetOptions,
+} from "@khanacademy/perseus";
 
 const {InfoTip} = components;
 
@@ -46,14 +48,12 @@ const answerTypes = {
 
 type Props = {
     value: number;
-    simplify: PropsFor<typeof InputNumber.widget>["simplify"];
-    size: PropsFor<typeof InputNumber.widget>["size"];
-    inexact: PropsFor<typeof InputNumber.widget>["reviewModeRubric"]["inexact"];
-    maxError: PropsFor<
-        typeof InputNumber.widget
-    >["reviewModeRubric"]["maxError"];
-    answerType: PropsFor<typeof InputNumber.widget>["answerType"];
-    rightAlign: PropsFor<typeof InputNumber.widget>["rightAlign"];
+    simplify: PerseusInputNumberWidgetOptions["simplify"];
+    size: PerseusInputNumberWidgetOptions["size"];
+    inexact: PerseusInputNumberWidgetOptions["inexact"];
+    maxError: PerseusInputNumberWidgetOptions["maxError"];
+    answerType: PerseusInputNumberWidgetOptions["answerType"];
+    rightAlign: PerseusInputNumberWidgetOptions["rightAlign"];
     onChange: (arg1: {
         value?: ParsedValue | 0;
         simplify?: Props["simplify"];

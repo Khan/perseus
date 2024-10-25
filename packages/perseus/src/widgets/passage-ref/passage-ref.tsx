@@ -9,7 +9,6 @@ import {isPassageWidget} from "../passage/utils";
 
 import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {PerseusPassageRefRubric} from "../../validation.types";
 
 const EN_DASH = "\u2013";
 
@@ -19,7 +18,7 @@ type RenderProps = {
     summaryText: PerseusPassageRefWidgetOptions["summaryText"];
 };
 
-type Props = WidgetProps<RenderProps, PerseusPassageRefRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     passageNumber: Props["passageNumber"];

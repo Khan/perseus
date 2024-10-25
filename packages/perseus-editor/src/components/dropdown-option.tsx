@@ -12,13 +12,6 @@ import ReactDOM from "react-dom";
 
 import {focusWithChromeStickyFocusBugWorkaround} from "./util";
 
-export type OptionRenderer = (
-    children: React.ReactElement<any> | null | undefined,
-    value: string,
-    selected: boolean,
-    disabled?: boolean,
-) => React.ReactElement<any>;
-
 const {Icon} = components;
 const {colors} = globalStyles;
 
@@ -43,8 +36,6 @@ type Props = {
     disabled?: boolean;
     // An event when an option is clicked
     onClick?: () => void;
-    // An optional rendering function to render the details of the option
-    optionRenderer?: OptionRenderer;
     // An optional function to call when the dropdown should close
     // Only relevant if the Option is inside of a dropdown menu
     onDropdownClose?: () => void;
@@ -64,7 +55,7 @@ const check = `M10,3.8C10,4,9.9,4.2,9.8,4.3L5.1,8.9L4.3,9.8C4.2,9.9,4,10,3.8,10
  -0.1,0.3-0.2,0.4-0.2c0.2,0,0.3,0.1,0.4,0.2l0.9,0.9C9.9,3.5,10,3.7,
  10,3.8z`;
 
-export const optionHeight = 30;
+const optionHeight = 30;
 
 class Option extends React.Component<Props> {
     // @ts-expect-error - TS2564 - Property 'node' has no initializer and is not definitely assigned in the constructor.
@@ -105,7 +96,6 @@ class Option extends React.Component<Props> {
             value,
             onClick,
             children,
-            optionRenderer,
             disabled,
             hideFocusState,
             testId,
@@ -137,35 +127,20 @@ class Option extends React.Component<Props> {
                 aria-label={ariaLabel}
                 data-testid={testId}
             >
-                {optionRenderer &&
-                    optionRenderer(
-                        /**
-                         * This expects a `React.Element<>` but `children` is a
-                         * `React.Node`. We can convert a `React.Node` to a
-                         * `React.Element<>` by wrapping it in a fragment.
-                         */
-                        <>{children}</>,
-                        value || "",
-                        selected || false,
-                        disabled,
+                <span
+                    className={css(
+                        styles.option,
+                        selected && styles.optionSelected,
+                        disabled && styles.optionDisabled,
                     )}
-
-                {!optionRenderer && (
-                    <span
-                        className={css(
-                            styles.option,
-                            selected && styles.optionSelected,
-                            disabled && styles.optionDisabled,
-                        )}
-                    >
-                        {children}
-                        {selected && (
-                            <span className={css(styles.check)}>
-                                <Icon icon={check} />
-                            </span>
-                        )}
-                    </span>
-                )}
+                >
+                    {children}
+                    {selected && (
+                        <span className={css(styles.check)}>
+                            <Icon icon={check} />
+                        </span>
+                    )}
+                </span>
             </button>
         );
     }
@@ -182,8 +157,6 @@ class OptionGroup extends React.Component<{
     children?: Array<React.ReactElement<React.ComponentProps<typeof Option>>>;
     // The currently selected options
     selectedValues: Array<string>;
-    // An optional rendering function to render the details of the options
-    optionRenderer?: OptionRenderer;
     // An override to skip the bit of top/bottom spacing around the group
     noMargin?: boolean;
     // An optional function to call when the dropdown should close
@@ -207,7 +180,6 @@ class OptionGroup extends React.Component<{
             children,
             onSelected,
             selectedValues,
-            optionRenderer,
             noMargin,
             onDropdownClose,
             hideFocusState,
@@ -239,7 +211,6 @@ class OptionGroup extends React.Component<{
                         selected: selected,
                         // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                         onClick: () => onSelected(child.props.value),
-                        optionRenderer: optionRenderer,
                         ref: reference,
                         onDropdownClose: onDropdownClose,
                         hideFocusState: hideFocusState,

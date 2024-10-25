@@ -28,7 +28,10 @@ import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import examples from "./locked-function-examples";
 import LockedLabelSettings from "./locked-label-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    getDefaultFigureForType,
+} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
@@ -94,6 +97,12 @@ const LockedFunctionSettings = (props: Props) => {
         if (domain && !(domain[0] === -Infinity && domain[1] === Infinity)) {
             str += `, domain from ${domain[0]} to ${domain[1]}`;
         }
+
+        const functionAppearance = generateLockedFigureAppearanceDescription(
+            lineColor,
+            strokeStyle,
+        );
+        str += functionAppearance;
 
         return str;
     }

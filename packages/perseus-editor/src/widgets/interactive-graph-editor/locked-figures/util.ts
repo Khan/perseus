@@ -3,6 +3,8 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import type {
     LockedEllipseType,
     LockedFigure,
+    LockedFigureColor,
+    LockedFigureFillType,
     LockedFigureType,
     LockedFunctionType,
     LockedLabelType,
@@ -10,6 +12,7 @@ import type {
     LockedPointType,
     LockedPolygonType,
     LockedVectorType,
+    LockedLineStyle,
 } from "@khanacademy/perseus";
 
 const DEFAULT_COLOR = "grayH";
@@ -97,5 +100,27 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
             };
         default:
             throw new UnreachableCaseError(type);
+    }
+}
+
+export function generateLockedFigureAppearanceDescription(
+    color: LockedFigureColor,
+    strokeStyle: LockedLineStyle = "solid",
+    fill?: LockedFigureFillType,
+) {
+    const convertedColor = color === "grayH" ? "gray" : color;
+
+    switch (fill) {
+        case "none":
+            return `. Appearance ${strokeStyle} ${convertedColor} border, with no fill.`;
+        case "white":
+            return `. Appearance ${strokeStyle} ${convertedColor} border, with a white fill.`;
+        case "solid":
+        case "translucent":
+            return `. Appearance ${strokeStyle} ${convertedColor} border, with a ${fill} ${convertedColor} fill.`;
+        case undefined:
+            return `. Appearance ${strokeStyle} ${convertedColor}.`;
+        default:
+            throw new UnreachableCaseError(fill);
     }
 }

@@ -290,12 +290,6 @@ export class Expression
         return [[]];
     };
 
-    // TODO(Nicole): I believe this is going away and won't be needed anymore
-    getGrammarTypeForPath(inputPath: FocusPath): string {
-        /* c8 ignore next */
-        return "expression";
-    }
-
     setInputValue(path: FocusPath, newValue: string, cb: () => void) {
         if (this._mathInput.current) {
             const inputRef = this._mathInput.current.inputRef;
@@ -450,7 +444,7 @@ const styles = StyleSheet.create({
  *       to be included as keys on the keypad. These are scraped from the answer
  *       forms.
  */
-export const keypadConfigurationForProps = (
+const keypadConfigurationForProps = (
     widgetOptions: PerseusExpressionWidgetOptions,
 ): KeypadConfiguration => {
     // Always use the Expression keypad, regardless of the button sets that have

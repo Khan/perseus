@@ -103,7 +103,6 @@ export const testDependencies: PerseusDependencies = {
 
     isDevServer: false,
     kaLocale: "en",
-    isMobile: false,
 
     Log: LogForTesting,
 };

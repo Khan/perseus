@@ -29,6 +29,7 @@ import Marker from "./marker";
 import type {InteractiveMarkerType} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
+import type {PerseusLabelImageWidgetOptions} from "../../perseus-types";
 import type {APIOptions, Widget, WidgetExports} from "../../types";
 import type {
     PerseusLabelImageRubric,
@@ -67,23 +68,14 @@ type Point = {
     y: number;
 };
 
-// TODO: should this be using WidgetProps / PerseusLabelImageWidgetOptions?
 type LabelImageProps = ChangeableProps &
-    DependencyProps & {
+    DependencyProps &
+    // TODO: there's some weirdness in our types between
+    // PerseusLabelImageMarker and InteractiveMarkerType
+    Omit<PerseusLabelImageWidgetOptions, "markers"> & {
         apiOptions: APIOptions;
-        // The list of possible answer choices.
-        choices: ReadonlyArray<string>;
-        // The question image properties.
-        imageAlt: string;
-        imageUrl: string;
-        imageWidth: number;
-        imageHeight: number;
         // The list of label markers on the question image.
         markers: ReadonlyArray<InteractiveMarkerType>;
-        // Whether multiple answer choices may be selected for markers.
-        multipleAnswers: boolean;
-        // Whether to hide answer choices from user instructions.
-        hideChoicesFromInstructions: boolean;
         // Whether the question has been answered by the user.
         questionCompleted: boolean;
         // preferred placement for popover (preference, not MUST)
