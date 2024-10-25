@@ -29,6 +29,7 @@ import {PerseusI18nContext} from "./i18n-context";
 import type {LegacyButtonSets} from "../perseus-types";
 import type {PerseusDependenciesV2} from "../types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
+import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
@@ -68,7 +69,7 @@ type Props = {
      * - `never` means that the keypad is **never shown**.
      */
     buttonsVisible?: ButtonsVisibleType;
-    analytics: PerseusDependenciesV2["analytics"];
+    onAnalyticsEvent: AnalyticsEventHandlerFn;
 };
 
 type InnerProps = Props & {
@@ -352,8 +353,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 >
                                     <DesktopKeypad
                                         onAnalyticsEvent={
-                                            this.props.analytics
-                                                .onAnalyticsEvent
+                                            this.props.onAnalyticsEvent
                                         }
                                         extraKeys={this.props.extraKeys}
                                         onClickKey={this.handleKeypadPress}
