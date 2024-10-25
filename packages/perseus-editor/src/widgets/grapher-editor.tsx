@@ -2,9 +2,14 @@
 import {
     components,
     Changeable,
-    GrapherUtil,
     GrapherWidget,
     SizingUtils,
+    DEFAULT_GRAPHER_PROPS,
+    chooseType,
+    defaultPlotProps,
+    getEquationString,
+    allTypes,
+    typeToButton,
 } from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
@@ -14,14 +19,6 @@ import GraphSettings from "../components/graph-settings";
 const {InfoTip, MultiButtonGroup} = components;
 const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
 const Grapher = GrapherWidget.widget;
-const {
-    DEFAULT_GRAPHER_PROPS,
-    allTypes,
-    chooseType,
-    defaultPlotProps,
-    getEquationString,
-    typeToButton,
-} = GrapherUtil;
 
 type Props = any;
 
