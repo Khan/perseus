@@ -1,7 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import {components, icons} from "@khanacademy/perseus";
+import {components, iconChevronDown, iconTrash} from "@khanacademy/perseus";
 import * as React from "react";
+
+import {
+    iconChevronRight,
+    iconCircleArrowDown,
+    iconCircleArrowUp,
+} from "../../styles/icon-paths";
 
 const {InlineIcon} = components;
 
@@ -52,9 +58,9 @@ class ElementContainer extends React.Component<Props, State> {
                     onClick={this.toggle}
                 >
                     {this.state.show ? (
-                        <InlineIcon {...icons.iconChevronDown} />
+                        <InlineIcon {...iconChevronDown} />
                     ) : (
-                        <InlineIcon {...icons.iconChevronRight} />
+                        <InlineIcon {...iconChevronRight} />
                     )}
                     {this.props.title}
                 </a>
@@ -71,19 +77,17 @@ class ElementContainer extends React.Component<Props, State> {
                         <div className="edit-controls">
                             {this.props.onUp != null && (
                                 <button onClick={this.props.onUp}>
-                                    <InlineIcon {...icons.iconCircleArrowUp} />
+                                    <InlineIcon {...iconCircleArrowUp} />
                                 </button>
                             )}
                             {this.props.onDown != null && (
                                 <button onClick={this.props.onDown}>
-                                    <InlineIcon
-                                        {...icons.iconCircleArrowDown}
-                                    />
+                                    <InlineIcon {...iconCircleArrowDown} />
                                 </button>
                             )}
                             {this.props.onDelete != null && (
                                 <button onClick={this.props.onDelete}>
-                                    <InlineIcon {...icons.iconTrash} />
+                                    <InlineIcon {...iconTrash} />
                                 </button>
                             )}
                         </div>
