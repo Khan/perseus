@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {render} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Mafs, Polygon} from "mafs";
 import React from "react";
