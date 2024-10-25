@@ -16,7 +16,7 @@ import FormWrappedTextField from "../../components/form-wrapped-text-field";
 
 import type {MarkerType} from "@khanacademy/perseus";
 
-const {colors, borderRadius} = globalStyles;
+const {colors} = globalStyles;
 
 type Props = MarkerType & {
     // The list of possible answer choices.
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
         zIndex: globalConstants.zindexDropdown,
         color: colors.gray17,
         backgroundColor: colors.gray98,
-        borderRadius: borderRadius,
+        borderRadius: 4,
         maxHeight: 320,
         cursor: "pointer",
     },

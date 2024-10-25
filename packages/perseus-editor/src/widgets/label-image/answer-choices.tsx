@@ -9,7 +9,7 @@ import * as React from "react";
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
 import Link from "../../components/link";
 
-const {colors, typography} = globalStyles;
+const {colors, bodyXsmallBold} = globalStyles;
 const {Icon} = components;
 
 type AddAnswerProps = {
@@ -179,7 +179,7 @@ const AnswerChoices = ({
 
 const styles = StyleSheet.create({
     title: {
-        ...typography.bodyXsmallBold,
+        ...bodyXsmallBold,
 
         marginBottom: 6,
 
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     },
 
     addAnswer: {
-        ...typography.bodyXsmallBold,
+        ...bodyXsmallBold,
 
         display: "flex",
         flexDirection: "row",

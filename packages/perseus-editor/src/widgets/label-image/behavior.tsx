@@ -8,7 +8,7 @@ import * as React from "react";
 
 import Checkbox from "../../components/checkbox";
 
-const {colors, typography} = globalStyles;
+const {colors, bodyXsmallBold} = globalStyles;
 
 type PreferredPopoverDirection = "NONE" | "UP" | "DOWN" | "LEFT" | "RIGHT";
 
@@ -92,7 +92,7 @@ const Behavior = ({
 
 const styles = StyleSheet.create({
     title: {
-        ...typography.bodyXsmallBold,
+        ...bodyXsmallBold,
 
         marginBottom: 6,
 
@@ -106,7 +106,10 @@ const styles = StyleSheet.create({
     },
 
     label: {
-        ...typography.smallSubheadingMobile,
+        // TODO: could we use WB typography?
+        fontFamily: "inherit",
+        fontSize: 15,
+        lineHeight: 1.25,
 
         marginLeft: 16,
 

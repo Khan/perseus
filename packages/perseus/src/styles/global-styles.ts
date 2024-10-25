@@ -9,7 +9,7 @@ import {
     backgroundBlue,
 } from "./global-constants";
 
-import type {StyleDeclaration} from "aphrodite";
+import type {CSSProperties} from "aphrodite";
 
 export const colors = {
     white: "#FFFFFF",
@@ -76,39 +76,11 @@ export const colors = {
     breadcrumbs: "rgba(255, 255, 255, 0.7)",
 } as const;
 
-export const borderRadius = 4;
-
-export const fonts = {
-    // The body of the page is setup to use 'Helvetica' by default and
-    // 'Lato' if/once it downloads. For your elements to follow this
-    // pattern, all you need is to make the text in your element
-    // inherit from the body using the "inherit" value.
-    regular: "inherit",
-} as const;
-
-export const typography: StyleDeclaration = {
-    smallSubheadingMobile: {
-        fontFamily: "inherit",
-        fontSize: 15,
-        lineHeight: 1.25,
-    },
-    bodyXsmall: {
-        // For metadata, descriptions, etc
-        fontFamily: fonts.regular,
-        fontSize: 15,
-        lineHeight: "22px",
-    },
-    bodyXsmallBold: {
-        // For emphasized metadata, descriptions, etc
-        fontFamily: "inherit",
-        fontSize: 15,
-        fontWeight: "bold",
-        lineHeight: "22px",
-    },
-    labelSmall: {
-        // Generally used with labelLarge, for breadcrumbs in thumbnails
-        fontFamily: fonts.regular,
-        fontSize: 12,
-        lineHeight: "14px",
-    },
+// TODO: can we use WB typography?
+export const bodyXsmallBold: CSSProperties = {
+    // For emphasized metadata, descriptions, etc
+    fontFamily: "inherit",
+    fontSize: 15,
+    fontWeight: "bold",
+    lineHeight: "22px",
 };

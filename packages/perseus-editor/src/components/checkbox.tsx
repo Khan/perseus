@@ -8,7 +8,7 @@ import * as React from "react";
 
 import HoverBehavior from "./hover-behavior";
 
-const {borderRadius, colors} = globalStyles;
+const {colors} = globalStyles;
 
 type CheckboxProps = {
     // Whether or not the checkbox is checked.  The parent responsible for
@@ -33,6 +33,8 @@ type CheckboxProps = {
     // Unique identifier for this checkbox.
     id?: string;
 };
+
+const borderRadius = 4;
 
 // NOTE(jangmi): Checkbox may have `onChange` depends on circumstances but lack
 // of onChange causes Dev only alert so we provide the no op func as default

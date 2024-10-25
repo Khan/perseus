@@ -9,7 +9,7 @@ import * as React from "react";
 
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
 
-const {colors, typography} = globalStyles;
+const {colors, bodyXsmallBold} = globalStyles;
 
 type Props = {
     // Callback for when image URL is changed.
@@ -58,7 +58,7 @@ const SelectImage = ({onChange, url}: Props): React.ReactElement => (
 
 const styles = StyleSheet.create({
     title: {
-        ...typography.bodyXsmallBold,
+        ...bodyXsmallBold,
 
         marginBottom: 6,
 

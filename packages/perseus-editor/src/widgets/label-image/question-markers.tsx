@@ -11,7 +11,7 @@ import Marker from "./marker";
 
 import type {MarkerType} from "@khanacademy/perseus";
 
-const {colors, typography} = globalStyles;
+const {colors, bodyXsmallBold} = globalStyles;
 
 type Props = {
     // The list of possible answers in a specific order.
@@ -142,7 +142,7 @@ export default class QuestionMarkers extends React.Component<Props> {
 
 const styles = StyleSheet.create({
     title: {
-        ...typography.bodyXsmallBold,
+        ...bodyXsmallBold,
 
         marginBottom: 6,
 
@@ -150,7 +150,10 @@ const styles = StyleSheet.create({
     },
 
     subtitle: {
-        ...typography.labelSmall,
+        // TODO: can we use WB typography?
+        fontFamily: "inherit",
+        fontSize: 12,
+        lineHeight: "14px",
 
         marginBottom: 12,
 

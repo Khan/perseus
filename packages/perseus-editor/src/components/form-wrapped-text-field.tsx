@@ -191,7 +191,12 @@ const styles = StyleSheet.create({
     inputBase: {
         background: "inherit",
         border: "none",
-        ...globalStyles.typography.bodyXsmall,
+
+        // TODO: can we use WB typography?
+        fontFamily: "inherit",
+        fontSize: 15,
+        lineHeight: "22px",
+
         outline: "none",
         "::placeholder": {
             color: globalStyles.colors.gray41,
@@ -221,7 +226,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        borderRadius: globalStyles.borderRadius,
+        borderRadius: 4,
         boxSizing: "border-box",
         padding: "8px 10px",
     },
