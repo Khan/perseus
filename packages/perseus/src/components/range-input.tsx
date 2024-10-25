@@ -1,26 +1,33 @@
+/* eslint-disable react/forbid-prop-types */
+import PropTypes from "prop-types";
 import * as React from "react";
 
 import NumberInput from "./number-input";
 
 const truth = () => true;
 
-type Props = {
-    value: [number, number];
-    placeholder: [string, string];
-    onChange: (start: number, end: number) => void;
-    checkValidity: (vals: [number, number]) => boolean;
-};
-
-type DefaultProps = {
-    placeholder: Props["placeholder"] | [null, null];
-};
-
-/**
- * A minor abstraction on top of NumberInput for ranges.
+/* A minor abstraction on top of NumberInput for ranges
+ *
  */
-class RangeInput extends React.Component<Props> {
-    static defaultProps: DefaultProps = {
+class RangeInput extends React.Component<any> {
+    static propTypes = {
+        value: PropTypes.array.isRequired,
+        onChange: PropTypes.func.isRequired,
+        placeholder: PropTypes.array,
+        checkValidity: PropTypes.func,
+    };
+
+    static defaultProps: any = {
         placeholder: [null, null],
+    };
+
+    onChange: (arg1: number, arg2: string) => void = (i, newVal) => {
+        const value = this.props.value;
+        if (i === 0) {
+            this.props.onChange([newVal, value[1]]);
+        } else {
+            this.props.onChange([value[0], newVal]);
+        }
     };
 
     render(): React.ReactNode {
@@ -33,14 +40,16 @@ class RangeInput extends React.Component<Props> {
                     {...this.props}
                     value={value[0]}
                     checkValidity={(val) => checkValidity([val, value[1]])}
-                    onChange={(val) => this.props.onChange(val, value[1])}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onChange={this.onChange.bind(this, 0)}
                     placeholder={this.props.placeholder[0]}
                 />
                 <NumberInput
                     {...this.props}
                     value={value[1]}
                     checkValidity={(val) => checkValidity([value[0], val])}
-                    onChange={(val: any) => this.props.onChange(value[0], val)}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onChange={this.onChange.bind(this, 1)}
                     placeholder={this.props.placeholder[1]}
                 />
             </div>

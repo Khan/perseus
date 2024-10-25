@@ -1,24 +1,22 @@
-import {KeypadInput, KeypadType} from "@khanacademy/math-input";
-import * as React from "react";
-
-import type {KeypadAPI} from "@khanacademy/math-input";
-
-type Props = {
-    keypadElement: KeypadAPI;
-    onFocus: () => void;
-    value: string | number;
-};
-
 /**
  * A version of the `math-input` subrepo's KeypadInput component that adheres to
- * the same API as Perseus's `MathOuput` and `NumberInput`, allowing it to be
+ * the same API as Perseus's  MathOuput and NumberInput, allowing it to be
  * dropped in as a replacement for those components without any modifications.
  *
  * TODO(charlie): Once the keypad API has stabilized, move this into the
  * `math-input` subrepo and use it everywhere as a simpler, keypad-coupled
  * interface to `math-input`'s MathInput component.
  */
-export default class SimpleKeypadInput extends React.Component<Props> {
+
+import {
+    KeypadInput,
+    KeypadType,
+    keypadElementPropType,
+} from "@khanacademy/math-input";
+import PropTypes from "prop-types";
+import * as React from "react";
+
+export default class SimpleKeypadInput extends React.Component<any> {
     _isMounted = false;
 
     componentDidMount() {
@@ -86,3 +84,10 @@ export default class SimpleKeypadInput extends React.Component<Props> {
         );
     }
 }
+
+// @ts-expect-error - TS2339 - Property 'propTypes' does not exist on type 'typeof SimpleKeypadInput'.
+SimpleKeypadInput.propTypes = {
+    keypadElement: keypadElementPropType,
+    onFocus: PropTypes.func,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
