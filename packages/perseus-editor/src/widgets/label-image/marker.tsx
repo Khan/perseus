@@ -7,7 +7,7 @@
  * the dropdown component.
  */
 
-import {globalConstants, globalStyles} from "@khanacademy/perseus";
+import {globalStyles} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
     dropdownBody: {
         position: "absolute",
         border: "solid 1px rgba(0, 0, 0, 0.1)",
-        zIndex: globalConstants.zindexDropdown,
+        zIndex: 1000,
         color: colors.gray17,
         backgroundColor: colors.gray98,
         borderRadius: 4,
