@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 21.1.2
+
+### Patch Changes
+
+-   [#1799](https://github.com/Khan/perseus/pull/1799) [`f3139edfe`](https://github.com/Khan/perseus/commit/f3139edfeb5f8b6faf0e537961165e3d3499c30b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change functional components to use default parameters instead of deprecated 'defaultProps'
+
 ## 21.1.1
 
 ### Patch Changes
