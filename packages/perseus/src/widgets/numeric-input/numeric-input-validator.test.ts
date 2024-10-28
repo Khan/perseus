@@ -27,9 +27,6 @@ describe("static function validate", () => {
                     message: "",
                 },
             ],
-            labelText: "",
-            size: "normal",
-            static: false,
             coefficient: true,
         };
 
@@ -54,9 +51,6 @@ describe("static function validate", () => {
                     message: "",
                 },
             ],
-            labelText: "",
-            size: "normal",
-            static: false,
             coefficient: true,
         };
 
@@ -89,9 +83,6 @@ describe("static function validate", () => {
                     value: 45.289,
                 },
             ],
-            labelText: "",
-            size: "normal",
-            static: false,
             coefficient: false,
         };
 
@@ -127,9 +118,6 @@ describe("static function validate", () => {
                     answerForms: ["pi"],
                 },
             ],
-            labelText: "",
-            size: "normal",
-            static: false,
             coefficient: false,
         };
 
@@ -154,9 +142,6 @@ describe("static function validate", () => {
                     message: "",
                 },
             ],
-            labelText: "",
-            size: "normal",
-            static: false,
             coefficient: true,
         };
 
@@ -181,9 +166,6 @@ describe("static function validate", () => {
                     message: "",
                 },
             ],
-            labelText: "",
-            size: "normal",
-            static: false,
             coefficient: true,
         };
 
@@ -208,9 +190,6 @@ describe("static function validate", () => {
                     message: "",
                 },
             ],
-            labelText: "",
-            size: "normal",
-            static: false,
             coefficient: true,
         };
 
@@ -246,9 +225,6 @@ describe("static function validate", () => {
                     message: "",
                 },
             ],
-            labelText: "",
-            size: "normal",
-            static: false,
             coefficient: true,
         };
 
@@ -292,9 +268,6 @@ describe("static function validate", () => {
                     message: "",
                 },
             ],
-            labelText: "",
-            size: "normal",
-            static: false,
             coefficient: true,
         };
 

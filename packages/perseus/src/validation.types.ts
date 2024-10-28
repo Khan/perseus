@@ -9,7 +9,7 @@ import type {
     PerseusMatcherWidgetOptions,
     PerseusMatrixWidgetOptions,
     PerseusNumberLineWidgetOptions,
-    PerseusNumericInputWidgetOptions,
+    PerseusNumericInputAnswer,
     PerseusOrdererWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusRadioWidgetOptions,
@@ -137,7 +137,12 @@ export type PerseusNumberLineUserInput = {
     divisionRange: ReadonlyArray<number>;
 };
 
-export type PerseusNumericInputRubric = PerseusNumericInputWidgetOptions;
+export type PerseusNumericInputRubric = {
+    // A list of all the possible correct and incorrect answers
+    answers: ReadonlyArray<PerseusNumericInputAnswer>;
+    // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
+    coefficient: boolean;
+};
 
 export type PerseusNumericInputUserInput = {
     currentValue: string;
