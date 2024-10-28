@@ -374,12 +374,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         return null;
     }
 
-    getGrammarTypeForPath(inputPath: FocusPath) {
-        if (inputPath?.length === 1 && inputPath[0] === "tick-ctrl") {
-            return "number";
-        }
-    }
-
     setInputValue: (arg1: any, arg2: any, arg3: any) => void = (
         inputPath,
         value,

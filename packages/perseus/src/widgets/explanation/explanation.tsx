@@ -14,11 +14,10 @@ import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {PerseusExplanationRubric} from "../../validation.types";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
 
-type Props = WidgetProps<RenderProps, PerseusExplanationRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     showPrompt: Props["showPrompt"];

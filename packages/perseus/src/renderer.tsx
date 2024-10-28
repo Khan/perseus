@@ -608,6 +608,7 @@ class Renderer extends React.Component<Props, State> {
             onBlur: _.partial(this._onWidgetBlur, id),
             findWidgets: this.findWidgets,
             reviewModeRubric: reviewModeRubric,
+            reviewMode: this.props.reviewMode,
             onChange: (newProps, cb, silent = false) => {
                 this._setWidgetProps(id, newProps, cb, silent);
             },
@@ -1502,18 +1503,6 @@ class Renderer extends React.Component<Props, State> {
             }
         };
 
-    getGrammarTypeForPath: (path: FocusPath) => string | undefined = (
-        path: FocusPath,
-    ) => {
-        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-        const widgetId = _.first(path);
-        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-        const interWidgetPath = _.rest(path);
-
-        const widget = this.getWidgetInstance(widgetId);
-        return widget?.getGrammarTypeForPath?.(interWidgetPath);
-    };
-
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         const inputPaths: Array<FocusPath> = [];
         _.each(this.widgetIds, (widgetId: string) => {
@@ -1751,12 +1740,12 @@ class Renderer extends React.Component<Props, State> {
         return combinedScore;
     }
 
-    guessAndScore: () => [any, PerseusScore] = () => {
+    guessAndScore(): [UserInputArray, PerseusScore] {
         const totalGuess = this.getUserInput();
         const totalScore = this.score();
 
         return [totalGuess, totalScore];
-    };
+    }
 
     examples: () => ReadonlyArray<string> | null | undefined = () => {
         const widgetIds = this.widgetIds;

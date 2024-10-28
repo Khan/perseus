@@ -17,7 +17,6 @@ import type {
     Version,
     PerseusItem,
 } from "@khanacademy/perseus";
-import type {KEScore} from "@khanacademy/perseus-core";
 
 const {HUD} = components;
 
@@ -218,14 +217,6 @@ class EditorPage extends React.Component<Props, State> {
         });
         this.props.onChange(newJson);
     };
-
-    scorePreview(): KEScore | null | undefined {
-        // Do we actually ever set this.renderer anywhere in the codebase?
-        if (this.renderer) {
-            return this.renderer.scoreInput();
-        }
-        return null;
-    }
 
     render(): React.ReactNode {
         let className = "framework-perseus";

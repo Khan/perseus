@@ -181,6 +181,7 @@ export type {
     LockedPolygonType,
     LockedFunctionType,
     LockedLabelType,
+    LockedLineStyle,
     PerseusGraphType,
     PerseusAnswerArea,
     PerseusExpressionWidgetOptions,

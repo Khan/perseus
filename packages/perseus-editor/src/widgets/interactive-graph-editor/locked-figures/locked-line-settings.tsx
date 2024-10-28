@@ -25,7 +25,10 @@ import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import LockedPointSettings from "./locked-point-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    getDefaultFigureForType,
+} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
@@ -76,8 +79,12 @@ const LockedLineSettings = (props: Props) => {
         if (labels && labels.length > 0) {
             visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
-
-        const str = `${capitalizeKind}${visiblelabel} from (${point1.coord[0]}, ${point1.coord[1]}) to (${point2.coord[0]}, ${point2.coord[1]})`;
+        let str = `${capitalizeKind}${visiblelabel} from (${point1.coord[0]}, ${point1.coord[1]}) to (${point2.coord[0]}, ${point2.coord[1]})`;
+        const lineAppearance = generateLockedFigureAppearanceDescription(
+            lineColor,
+            lineStyle,
+        );
+        str += lineAppearance;
 
         return str;
     }
