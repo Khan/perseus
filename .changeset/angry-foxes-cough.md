@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Refine LabelImage's Rubric type
+Refine iFrame's Rubric type

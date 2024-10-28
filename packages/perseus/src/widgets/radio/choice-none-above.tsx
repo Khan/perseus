@@ -17,11 +17,12 @@ type WithForwardRef = {
 
 type PropsWithForwardRef = Props & WithForwardRef;
 
-const ChoiceNoneAbove = function (
-    props: PropsWithForwardRef,
-): React.ReactElement {
-    const {showContent, content, forwardedRef, ...rest} = props;
-
+const ChoiceNoneAbove = function ({
+    content,
+    forwardedRef,
+    showContent = true,
+    ...rest
+}: PropsWithForwardRef): React.ReactElement {
     const {strings} = usePerseusI18n();
 
     const choiceProps = {
@@ -48,10 +49,6 @@ const ChoiceNoneAbove = function (
     } as const;
 
     return <Choice {...choiceProps} ref={forwardedRef} />;
-};
-
-ChoiceNoneAbove.defaultProps = {
-    showContent: true,
 };
 
 export default React.forwardRef<HTMLButtonElement, Props>((props, ref) => (

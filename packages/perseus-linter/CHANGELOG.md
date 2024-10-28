@@ -1,5 +1,11 @@
 # @khanacademy/perseus-linter
 
+## 1.2.3
+
+### Patch Changes
+
+-   [#1778](https://github.com/Khan/perseus/pull/1778) [`8eacf0bda`](https://github.com/Khan/perseus/commit/8eacf0bda557c459be996b8c66a0fd93ad797b39) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused dead code
+
 ## 1.2.2
 
 ### Patch Changes

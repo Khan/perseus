@@ -3,7 +3,7 @@
     "description": "Perseus dev UI",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "3.0.8",
+    "version": "3.0.10",
     "private": true,
     "repository": {
         "type": "git",
@@ -14,11 +14,11 @@
         "dev": "vite"
     },
     "dependencies": {
-        "@khanacademy/kas": "^0.3.14",
+        "@khanacademy/kas": "^0.3.15",
         "@khanacademy/kmath": "^0.1.15",
-        "@khanacademy/math-input": "^21.1.0",
+        "@khanacademy/math-input": "^21.1.1",
         "@khanacademy/perseus-core": "1.5.2",
-        "@khanacademy/perseus-linter": "^1.2.2",
+        "@khanacademy/perseus-linter": "^1.2.3",
         "@khanacademy/pure-markdown": "^0.3.10",
         "@khanacademy/simple-markdown": "^0.13.3",
         "@khanacademy/wonder-blocks-banner": "3.1.7",
