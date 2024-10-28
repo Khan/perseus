@@ -3,6 +3,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {ApiOptions} from "../../perseus-api";
+import Renderer from "../../renderer";
 
 import dropdownValidator from "./dropdown-validator";
 
@@ -12,6 +13,7 @@ import type {
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
 } from "../../validation.types";
+import type {PerseusI18nContext} from "@khanacademy/perseus";
 
 type Props = WidgetProps<RenderProps, PerseusDropdownRubric> & {
     selected: number;
@@ -31,6 +33,8 @@ class Dropdown extends React.Component<Props> implements Widget {
         placeholder: "",
         apiOptions: ApiOptions.defaults,
     };
+
+    declare context: React.ContextType<typeof PerseusI18nContext>;
 
     focus: () => boolean = () => {
         // TODO(LP-10797): This focus() call doesn't do anything because our
@@ -62,13 +66,25 @@ class Dropdown extends React.Component<Props> implements Widget {
                 key="placeholder"
                 value="0"
                 disabled
-                label={this.props.placeholder}
+                label={
+                    <Renderer
+                        content={this.props.placeholder}
+                        strings={this.context.strings}
+                        inline
+                    />
+                }
             />,
             ...this.props.choices.map((choice, i) => (
                 <OptionItem
                     key={String(i + 1)}
                     value={String(i + 1)}
-                    label={choice}
+                    label={
+                        <Renderer
+                            content={choice}
+                            strings={this.context.strings}
+                            inline
+                        />
+                    }
                 />
             )),
         ];

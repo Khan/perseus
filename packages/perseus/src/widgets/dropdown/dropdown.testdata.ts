@@ -31,3 +31,34 @@ export const question1: PerseusRenderer = {
         },
     },
 };
+
+export const question2: PerseusRenderer = {
+    content: "If x equals 4, then [[☃ dropdown 1]] equals $10$.",
+    images: {},
+    widgets: {
+        "dropdown 1": {
+            type: "dropdown",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                static: false,
+                placeholder: "",
+                choices: [
+                    {
+                        content: "$5\\sqrt{x}$",
+                        correct: true,
+                    },
+                    {
+                        content: "$5x$",
+                        correct: false,
+                    },
+                ],
+            },
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
