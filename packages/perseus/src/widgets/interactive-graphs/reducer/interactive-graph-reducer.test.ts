@@ -1151,31 +1151,31 @@ describe("doDeleteIntent", () => {
 });
 
 xdescribe("doChangeInteractionMode", () => {
-    // TODO [catjohnson]: Add tests for doChangeInteractionMode function.
+    // TODO(catjohnson): Add tests for doChangeInteractionMode function.
 });
 
 xdescribe("doChangeKeyboardInvitationVisibility", () => {
-    // TODO [catjohnson]: Add tests for doChangeKeyboardInvitationVisibility function.
+    // TODO(catjohnson): Add tests for doChangeKeyboardInvitationVisibility function.
 });
 
 xdescribe("doClickPoint", () => {
-    // TODO [catjohnson]: Add tests for doClickPoint function.
+    // TODO(catjohnson): Add tests for doClickPoint function.
 });
 
 xdescribe("doBlurPoint", () => {
-    // TODO [catjohnson]: Add tests for doBlurPoint function.
+    // TODO(catjohnson): Add tests for doBlurPoint function.
 });
 
 xdescribe("doFocusPoint", () => {
-    // TODO [catjohnson]: Add tests for doFocusPoint function.
+    // TODO(catjohnson): Add tests for doFocusPoint function.
 });
 
 xdescribe("doAddPoint", () => {
-    // TODO [catjohnson]: Add tests for doAddPoint function.
+    // TODO(catjohnson): Add tests for doAddPoint function.
 });
 
 xdescribe("doRemovePoint", () => {
-    // TODO [catjohnson]: Add tests for doRemovePoint function.
+    // TODO(catjohnson): Add tests for doRemovePoint function.
 });
 
 describe("unlimited points", () => {
@@ -1239,7 +1239,7 @@ describe("unlimited polygon", () => {
     });
 
     xit("does not adds point to polygon when polygon is closed", () => {
-        // TODO [catjohnson]: ensure unlimited polygon does not add points
+        // TODO(catjohnson): ensure unlimited polygon does not add points
         // when the polygon is closed.
     });
 
@@ -1275,7 +1275,7 @@ describe("unlimited polygon", () => {
     });
 
     xit("does not remove point to polygon when closed", () => {
-        // TODO [catjohnson]: ensure unlimited polygon does not add points
+        // TODO(catjohnson): ensure unlimited polygon does not add points
         // when the polygon is closed.
     });
 });

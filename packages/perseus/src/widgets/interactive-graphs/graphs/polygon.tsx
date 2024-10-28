@@ -158,6 +158,9 @@ export const LimitedPolygonGraph = (props: Props) => {
     );
 };
 
+// TODO(catjohnson): reduce redundancy between LimitedPolygonGraph and UnlimitedPolygonGraph
+// both components are vary similar, however more implementation is needed to be added before
+// it is clear what can and can't be shared between components.
 export const UnlimitedPolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
     // This is more so required for the re-rendering that occurs when state
@@ -174,14 +177,14 @@ export const UnlimitedPolygonGraph = (props: Props) => {
         snapTo = "grid",
     } = props.graphState;
 
-    const graphState = useGraphConfig();
+    const graphConfig = useGraphConfig();
 
-    // TODO [catjohnson]: Explore abstracting this code as it is similar to point.tsx
+    // TODO(catjohnson): Explore abstracting this code as it is similar to point.tsx
     // and hopefully we can cut down ont the unlimited graph redundancy.
     const {
         range: [[minX, maxX], [minY, maxY]],
         disableKeyboardInteraction,
-    } = graphState;
+    } = graphConfig;
 
     const width = maxX - minX;
     const height = maxY - minY;
@@ -241,13 +244,13 @@ export const UnlimitedPolygonGraph = (props: Props) => {
 
                     const graphCoordinates = pixelsToVectors(
                         [[x, y]],
-                        graphState,
+                        graphConfig,
                     );
                     dispatch(actions.polygon.addPoint(graphCoordinates[0]));
                 }}
             />
             {/**
-             * TODO [catjohnson]: Will need to conditionally render then once a full polygon is created
+             * TODO(catjohnson): Will need to conditionally render then once a full polygon is created
              * And handle when someone wants to remove the polygon connection.
              */}
             <Polygon

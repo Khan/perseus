@@ -383,7 +383,7 @@ const renderPointGraphControls = (props: {
 };
 
 /**
- * TODO [catjohnson]: The polygon controls will be vastly different from the point controls.
+ * TODO(catjohnson): The polygon controls will be vastly different from the point controls.
  * Will be keeping this function as is for the time being, even if it's a copy of the point graph
  * controls.
  */
