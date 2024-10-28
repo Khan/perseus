@@ -1,27 +1,20 @@
 import type {
     GrapherAnswerTypes,
-    PerseusDefinitionWidgetOptions,
     PerseusDropdownChoice,
-    PerseusExplanationWidgetOptions,
     PerseusExpressionAnswerForm,
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
     PerseusGraphType,
     PerseusGroupWidgetOptions,
-    PerseusImageWidgetOptions,
-    PerseusInteractionWidgetOptions,
     PerseusMatcherWidgetOptions,
     PerseusMatrixWidgetOptions,
     PerseusNumberLineWidgetOptions,
     PerseusNumericInputWidgetOptions,
     PerseusOrdererWidgetOptions,
-    PerseusPassageRefWidgetOptions,
-    PerseusPassageWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusRadioWidgetOptions,
     PerseusSorterWidgetOptions,
     PerseusTableWidgetOptions,
-    PerseusVideoWidgetOptions,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -48,9 +41,6 @@ export type PerseusCSProgramUserInput = {
     message: string | null;
 };
 
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusDefinitionRubric = PerseusDefinitionWidgetOptions;
-
 export type PerseusDropdownRubric = {
     choices: ReadonlyArray<PerseusDropdownChoice>;
 };
@@ -58,9 +48,6 @@ export type PerseusDropdownRubric = {
 export type PerseusDropdownUserInput = {
     value: number;
 };
-
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusExplanationRubric = PerseusExplanationWidgetOptions;
 
 export type PerseusExpressionRubric = {
     answerForms: ReadonlyArray<PerseusExpressionAnswerForm>;
@@ -89,9 +76,6 @@ export type PerseusIFrameUserInput = {
     message: string | null;
 };
 
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusImageRubric = PerseusImageWidgetOptions;
-
 export type PerseusInputNumberRubric = {
     answerType?:
         | "number"
@@ -111,9 +95,6 @@ export type PerseusInputNumberRubric = {
 export type PerseusInputNumberUserInput = {
     currentValue: string;
 };
-
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusInteractionRubric = PerseusInteractionWidgetOptions;
 
 export type PerseusInteractiveGraphRubric = {
     // TODO(LEMS-2344): make the type of `correct` more specific
@@ -168,12 +149,6 @@ export type PerseusOrdererUserInput = {
     current: ReadonlyArray<string>;
 };
 
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusPassageRubric = PerseusPassageWidgetOptions;
-
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusPassageRefRubric = PerseusPassageRefWidgetOptions;
-
 export type PerseusPlotterRubric = PerseusPlotterWidgetOptions;
 
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
@@ -199,24 +174,17 @@ export type PerseusTableRubric = PerseusTableWidgetOptions;
 
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusVideoRubric = PerseusVideoWidgetOptions;
-
 export type Rubric =
     | PerseusCategorizerRubric
     | PerseusCSProgramRubric
-    | PerseusDefinitionRubric
     | PerseusDropdownRubric
-    | PerseusExplanationRubric
     | PerseusExpressionRubric
     | PerseusGroupRubric
     | PerseusGradedGroupRubric
     | PerseusGradedGroupSetRubric
     | PerseusGrapherRubric
     | PerseusIFrameRubric
-    | PerseusImageRubric
     | PerseusInputNumberRubric
-    | PerseusInteractionRubric
     | PerseusInteractiveGraphRubric
     | PerseusLabelImageRubric
     | PerseusMatcherRubric
@@ -224,13 +192,10 @@ export type Rubric =
     | PerseusNumberLineRubric
     | PerseusNumericInputRubric
     | PerseusOrdererRubric
-    | PerseusPassageRubric
-    | PerseusPassageRefRubric
     | PerseusPlotterRubric
     | PerseusRadioRubric
     | PerseusSorterRubric
-    | PerseusTableRubric
-    | PerseusVideoRubric;
+    | PerseusTableRubric;
 
 export type UserInput =
     | PerseusCategorizerUserInput

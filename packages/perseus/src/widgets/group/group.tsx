@@ -170,7 +170,7 @@ class Group extends React.Component<Props> implements Widget {
                     ref={(ref) => (this.rendererRef = ref)}
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findWidgets}
-                    reviewMode={!!this.props.reviewModeRubric}
+                    reviewMode={this.props.reviewMode}
                     onInteractWithWidget={onInteractWithWidget}
                     linterContext={this.props.linterContext}
                     strings={this.context.strings}
