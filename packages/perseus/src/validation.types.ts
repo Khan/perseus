@@ -7,7 +7,7 @@ import type {
     PerseusGraphType,
     PerseusGroupWidgetOptions,
     PerseusMatcherWidgetOptions,
-    PerseusMatrixWidgetOptions,
+    PerseusMatrixWidgetAnswers,
     PerseusNumberLineWidgetOptions,
     PerseusNumericInputAnswer,
     PerseusOrdererWidgetOptions,
@@ -119,10 +119,13 @@ export type PerseusMatcherUserInput = {
     right: ReadonlyArray<string>;
 };
 
-export type PerseusMatrixRubric = PerseusMatrixWidgetOptions;
+export type PerseusMatrixRubric = {
+    // A data matrix representing the "correct" answers to be entered into the matrix
+    answers: PerseusMatrixWidgetAnswers;
+};
 
 export type PerseusMatrixUserInput = {
-    answers: ReadonlyArray<ReadonlyArray<number>>;
+    answers: PerseusMatrixRubric["answers"];
 };
 
 export type PerseusNumberLineRubric = PerseusNumberLineWidgetOptions & {
