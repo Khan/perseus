@@ -225,9 +225,6 @@ describe("static function validate", () => {
                     message: "",
                 },
             ],
-            labelText: "",
-            size: "normal",
-            static: false,
             coefficient: true,
         };
 
@@ -271,9 +268,6 @@ describe("static function validate", () => {
                     message: "",
                 },
             ],
-            labelText: "",
-            size: "normal",
-            static: false,
             coefficient: true,
         };
 
