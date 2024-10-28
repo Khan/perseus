@@ -1238,7 +1238,7 @@ describe("unlimited polygon", () => {
         expect(stateAfterAddingPoint.coords).toMatchObject([[8, 10]]);
     });
 
-    xit("does not adds point to polygon when polygon is closed", () => {
+    it.todo("does not adds point to polygon when polygon is closed", () => {
         // TODO(catjohnson): ensure unlimited polygon does not add points
         // when the polygon is closed.
     });
@@ -1274,7 +1274,7 @@ describe("unlimited polygon", () => {
         ]);
     });
 
-    xit("does not remove point to polygon when closed", () => {
+    it.todo("does not remove point to polygon when closed", () => {
         // TODO(catjohnson): ensure unlimited polygon does not add points
         // when the polygon is closed.
     });
