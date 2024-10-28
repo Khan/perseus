@@ -292,6 +292,7 @@ describe("ExtractPerseusData", () => {
                 type: "dropdown",
                 options: {
                     placeholder: "Select an option",
+                    ariaLabel: "",
                     static: false,
                     choices: [
                         {

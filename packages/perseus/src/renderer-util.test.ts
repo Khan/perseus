@@ -8,6 +8,7 @@ import type {UserInputMap} from "./validation.types";
 const testDropdownWidget: DropdownWidget = {
     type: "dropdown",
     options: {
+        ariaLabel: "",
         choices: [
             {
                 content: "Test choice 1",

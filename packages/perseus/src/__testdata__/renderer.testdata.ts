@@ -13,6 +13,7 @@ export const dropdownWidget: DropdownWidget = {
     graded: true,
     options: {
         static: false,
+        ariaLabel: "",
         placeholder: "greater/less than or equal to",
         choices: [
             {

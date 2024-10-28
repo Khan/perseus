@@ -365,6 +365,10 @@ export type PerseusDropdownWidgetOptions = {
     placeholder: string;
     // Always false.  Not used for this widget
     static: boolean;
+    // Translatable Text; visible label for the dropdown
+    visibleLabel?: string;
+    // Translatable Text; aria label that screen readers will read
+    ariaLabel: string;
 };
 
 export type PerseusDropdownChoice = {
