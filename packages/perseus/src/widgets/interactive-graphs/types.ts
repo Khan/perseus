@@ -14,6 +14,19 @@ export type MafsGraphProps<T extends InteractiveGraphState> = {
     dispatch: (action: InteractiveGraphAction) => unknown;
 };
 
+export type InteractiveGraphType =
+    | "none"
+    | "angle"
+    | "segment"
+    | "linear-system"
+    | "linear"
+    | "ray"
+    | "polygon"
+    | "point"
+    | "circle"
+    | "quadratic"
+    | "sinusoid";
+
 export type InteractiveGraphState =
     | AngleGraphState
     | SegmentGraphState
