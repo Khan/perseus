@@ -311,7 +311,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         </View>
                     )}
                 </View>
-                {renderGraphControls({state, dispatch, width, strings})}
+                {renderGraphControls({
+                    state,
+                    dispatch,
+                    width,
+                    perseusStrings: strings,
+                })}
             </View>
         </GraphConfigContext.Provider>
     );
@@ -321,11 +326,11 @@ const renderPointGraphControls = (props: {
     state: PointGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
     width: number;
-    strings: PerseusStrings;
+    perseusStrings: PerseusStrings;
 }) => {
     const {interactionMode, showRemovePointButton, focusedPointIndex} =
         props.state;
-    const {strings} = props;
+    const {perseusStrings} = props;
 
     const shouldShowRemoveButton =
         showRemovePointButton && focusedPointIndex !== null;
@@ -349,7 +354,7 @@ const renderPointGraphControls = (props: {
                         props.dispatch(actions.pointGraph.addPoint([0, 0]));
                     }}
                 >
-                    {strings.addPoint}
+                    {perseusStrings.addPoint}
                 </Button>
             )}
             {interactionMode === "mouse" && (
@@ -375,7 +380,7 @@ const renderPointGraphControls = (props: {
                         );
                     }}
                 >
-                    {strings.removePoint}
+                    {perseusStrings.removePoint}
                 </Button>
             )}
         </View>
@@ -391,11 +396,11 @@ const renderPolygonGraphControls = (props: {
     state: PolygonGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
     width: number;
-    strings: PerseusStrings;
+    perseusStrings: PerseusStrings;
 }) => {
     const {interactionMode, showRemovePointButton, focusedPointIndex} =
         props.state;
-    const {strings} = props;
+    const {perseusStrings} = props;
 
     const shouldShowRemoveButton =
         showRemovePointButton && focusedPointIndex !== null;
@@ -419,7 +424,7 @@ const renderPolygonGraphControls = (props: {
                         props.dispatch(actions.polygon.addPoint([0, 0]));
                     }}
                 >
-                    {strings.addPoint}
+                    {perseusStrings.addPoint}
                 </Button>
             )}
             {interactionMode === "mouse" && (
@@ -445,7 +450,7 @@ const renderPolygonGraphControls = (props: {
                         );
                     }}
                 >
-                    {strings.removePoint}
+                    {perseusStrings.removePoint}
                 </Button>
             )}
         </View>
@@ -456,9 +461,9 @@ const renderGraphControls = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
     width: number;
-    strings: PerseusStrings;
+    perseusStrings: PerseusStrings;
 }) => {
-    const {state, dispatch, width, strings} = props;
+    const {state, dispatch, width, perseusStrings} = props;
     const {type} = state;
     switch (type) {
         case "point":
@@ -467,7 +472,7 @@ const renderGraphControls = (props: {
                     state,
                     dispatch,
                     width,
-                    strings,
+                    perseusStrings,
                 });
             }
             return null;
@@ -477,7 +482,7 @@ const renderGraphControls = (props: {
                     state,
                     dispatch,
                     width,
-                    strings,
+                    perseusStrings,
                 });
             }
             return null;
