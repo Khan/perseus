@@ -13,7 +13,6 @@ import type {
     PerseusOrdererWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusRadioWidgetOptions,
-    PerseusSorterWidgetOptions,
     PerseusTableWidgetOptions,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
@@ -171,7 +170,10 @@ export type PerseusRadioUserInput = {
     noneOfTheAboveSelected?: boolean;
 };
 
-export type PerseusSorterRubric = PerseusSorterWidgetOptions;
+export type PerseusSorterRubric = {
+    // Translatable Text; The correct answer (in the correct order). The user will see the cards in a randomized order.
+    correct: ReadonlyArray<string>;
+};
 
 export type PerseusSorterUserInput = {
     options: ReadonlyArray<string>;
