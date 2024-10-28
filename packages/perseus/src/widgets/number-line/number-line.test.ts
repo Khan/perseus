@@ -147,6 +147,26 @@ describe("number-line widget", () => {
             expect(container).toMatchSnapshot("left endpoint highlighted");
         });
 
+        it(`can handle fractions`, () => {
+            // Some fractions create non-integer values (i.e. 7.00001).
+            // This test works specifically with 1/6 to generate the value that might cause an error.
+
+            // Arrange
+            const question = createNumberLineQuestionWithOptions({
+                range: [0, 1.1666666666666667],
+                divisionRange: [1, 12],
+                labelRange: [null, 0.16666666666666666],
+                labelStyle: "improper",
+                tickStep: 0.16666666666666666,
+            });
+
+            // Act
+            const {container} = renderQuestion(question, apiOptions);
+
+            // Assert
+            expect(container).toMatchSnapshot("show fractions");
+        });
+
         it(`all tick labels show when "Style" is "decimal ticks" (deprecated option)`, () => {
             // Arrange
             const question = createNumberLineQuestionWithOptions({
