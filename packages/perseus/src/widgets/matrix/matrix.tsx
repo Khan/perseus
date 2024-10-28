@@ -167,10 +167,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
         return inputPaths;
     };
 
-    getGrammarTypeForPath: (arg1: any) => string = (inputPath) => {
-        return "number";
-    };
-
     _handleFocus: (arg1: any, arg2: any) => void = (row, col) => {
         this.props.onFocus(getInputPath(row, col));
     };

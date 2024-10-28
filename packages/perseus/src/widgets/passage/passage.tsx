@@ -22,7 +22,6 @@ import type {
     PerseusWidget,
 } from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
-import type {PerseusPassageRubric} from "../../validation.types";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 // A fake paragraph to measure the line height of the passage,
@@ -71,7 +70,7 @@ type RenderProps = {
 type FindWidgetsCallback = (id: string, widgetInfo: PerseusWidget) => boolean;
 
 type PassageProps = ChangeableProps &
-    WidgetProps<RenderProps, PerseusPassageRubric> & {
+    WidgetProps<RenderProps> & {
         findWidgets: (arg1: FindWidgetsCallback) => ReadonlyArray<Passage>;
         highlights: SerializedHighlightSet;
     };
@@ -414,7 +413,7 @@ export class Passage
         const enabled = this.state.stylesAreApplied;
 
         // Highlights are read-only in review mode.
-        const editable = !this.props.reviewModeRubric;
+        const editable = !this.props.reviewMode;
         return (
             <HighlightableContent
                 editable={editable}

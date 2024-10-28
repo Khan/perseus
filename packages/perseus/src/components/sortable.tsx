@@ -18,7 +18,7 @@ import {PerseusI18nContext} from "./i18n-context";
 import type {Position} from "../util";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-export type Layout = "horizontal" | "vertical";
+type Layout = "horizontal" | "vertical";
 
 enum ItemState {
     STATIC = "static",

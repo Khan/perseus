@@ -564,6 +564,362 @@ exports[`number-line widget snapshots all tick labels show when "Style" is "deci
 </div>
 `;
 
+exports[`number-line widget snapshots can handle fractions: show fractions 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph perseus-paragraph-centered"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="perseus-block-math"
+      >
+        <div
+          class="perseus-block-math-inner"
+          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+        >
+          <span
+            class="mock-TeX"
+          >
+            E=2.5
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="paragraph"
+      >
+        <strong>
+          Move the dot to 
+          <span
+            style="white-space: nowrap;"
+          >
+            <span />
+            <span
+              class="mock-TeX"
+            >
+              -E
+            </span>
+            <span />
+          </span>
+           on the number line.
+        </strong>
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="2"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="perseus-widget perseus-widget-interactive-number-line"
+          >
+            <div
+              class="graphie-container"
+            >
+              <div
+                class="graphie"
+                style="position: relative; width: 459.99999999999994px; height: 100px;"
+              >
+                <svg
+                  height="80"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
+                  version="1.1"
+                  width="460"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <rect
+                    fill="#000000"
+                    height="80"
+                    opacity="0"
+                    r="0"
+                    rx="0"
+                    ry="0"
+                    stroke="#000"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"
+                    width="460"
+                    x="0"
+                    y="0"
+                  />
+                </svg>
+                <svg
+                  height="100"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  version="1.1"
+                  width="459.99999999999994"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <path
+                    d="M454.44999999999993,45.6C454.79999999999995,43.5,458.6499999999999,40.35,459.69999999999993,40C458.6499999999999,39.65,454.79999999999995,36.5,454.44999999999993,34.4"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round;"
+                    transform=""
+                  />
+                  <path
+                    d="M230,40C230,40,230,40,458.94999999999993,40"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2;"
+                  />
+                  <path
+                    d="M-3.4499999999999886,45.6C-3.0999999999999885,43.5,0.7500000000000115,40.35,1.8000000000000114,40C0.7500000000000113,39.65,-3.099999999999989,36.5,-3.4499999999999886,34.4"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round;"
+                    transform="rotate(180 1.8000000000000114 40)"
+                  />
+                  <path
+                    d="M230,40C230,40,230,40,1.0500000000000114,40"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2;"
+                  />
+                  <path
+                    d="M30,48L30,32"
+                    fill="none"
+                    stroke="#1865f2"
+                    stroke-width="3.5"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
+                  />
+                  <path
+                    d="M87.14285714285712,48L87.14285714285712,32"
+                    fill="none"
+                    stroke="#1865f2"
+                    stroke-width="3.5"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
+                  />
+                  <path
+                    d="M144.28571428571428,48L144.28571428571428,32"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2;"
+                  />
+                  <path
+                    d="M201.42857142857142,48L201.42857142857142,32"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2;"
+                  />
+                  <path
+                    d="M258.57142857142856,48L258.57142857142856,32"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2;"
+                  />
+                  <path
+                    d="M315.71428571428567,48L315.71428571428567,32"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2;"
+                  />
+                  <path
+                    d="M372.8571428571428,48L372.8571428571428,32"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2;"
+                  />
+                  <path
+                    d="M429.99999999999994,48L429.99999999999994,32"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2;"
+                  />
+                </svg>
+                <div
+                  style="position: absolute; left: 0px; top: 0px;"
+                >
+                  <div
+                    style="position: absolute; width: 34px; height: 34px; left: 13px; top: 23px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="34"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="34"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="6"
+                        ry="6"
+                        stroke="#00a60e"
+                        stroke-width="1"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1;"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  style="position: absolute; left: 0px; top: 0px; z-index: 2;"
+                >
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 6px; top: 16px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <span
+                  class="graphie-label"
+                  data-math-formula="0"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 30px; top: 46.8px; fill: none;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\dfrac{1}{6}"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 87.14285714285712px; top: 46.8px; fill: none;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\dfrac{1}{3}"
+                  style="position: absolute; padding: 7px; color: black; left: 144.28571428571428px; top: 46.8px; fill: none;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\dfrac{1}{2}"
+                  style="position: absolute; padding: 7px; color: black; left: 201.42857142857142px; top: 46.8px; fill: none;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\dfrac{2}{3}"
+                  style="position: absolute; padding: 7px; color: black; left: 258.57142857142856px; top: 46.8px; fill: none;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\dfrac{5}{6}"
+                  style="position: absolute; padding: 7px; color: black; left: 315.71428571428567px; top: 46.8px; fill: none;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="1"
+                  style="position: absolute; padding: 7px; color: black; left: 372.8571428571428px; top: 46.8px; fill: none;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\dfrac{7}{6}"
+                  style="position: absolute; padding: 7px; color: black; left: 429.99999999999994px; top: 46.8px; fill: none;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`number-line widget snapshots default: first render 1`] = `
 <div>
   <div
