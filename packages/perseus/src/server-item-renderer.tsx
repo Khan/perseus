@@ -259,10 +259,6 @@ export class ServerItemRenderer
         return this.questionRenderer.getDOMNodeForPath(path);
     }
 
-    getGrammarTypeForPath(path: FocusPath): string | null | undefined {
-        return this.questionRenderer.getGrammarTypeForPath(path);
-    }
-
     getInputPaths(): ReadonlyArray<FocusPath> {
         const questionAreaInputPaths = this.questionRenderer.getInputPaths();
         return questionAreaInputPaths;

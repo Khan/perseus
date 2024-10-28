@@ -1509,32 +1509,6 @@ describe("renderer", () => {
         });
     });
 
-    describe("getGrammarTypeForPath", () => {
-        it("should return undefined if matching widget doesn't implement getGrammarTypeForPath", () => {
-            // Arrange
-            const {renderer} = renderQuestion(question1);
-
-            // Act
-            const grammarType = renderer.getGrammarTypeForPath(["dropdown 1"]);
-
-            // Assert
-            expect(grammarType).toBeUndefined();
-        });
-
-        it("should return widget result if matching widget implements getGrammarTypeForPath", () => {
-            // Arrange
-            const {renderer} = renderQuestion(question2);
-
-            // Act
-            const grammarType = renderer.getGrammarTypeForPath([
-                "input-number 1",
-            ]);
-
-            // Assert
-            expect(grammarType).toBe("number");
-        });
-    });
-
     describe("getInputPaths", () => {
         it("should return all input paths for all rendererd widgets", () => {
             // Arrange
