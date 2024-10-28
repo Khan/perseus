@@ -1,5 +1,15 @@
 # @khanacademy/perseus-editor
 
+## 14.9.1
+
+### Patch Changes
+
+-   [#1794](https://github.com/Khan/perseus/pull/1794) [`9dd0f8c56`](https://github.com/Khan/perseus/commit/9dd0f8c56e5d824d89ae1041bee17c5c2f5edfe3) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused prop, optionRenderer, from dropdown-option component
+
+-   Updated dependencies [[`39e1292a9`](https://github.com/Khan/perseus/commit/39e1292a9d93453037b77c157ee5421ed23b88ad), [`f3139edfe`](https://github.com/Khan/perseus/commit/f3139edfeb5f8b6faf0e537961165e3d3499c30b), [`5cf8d975b`](https://github.com/Khan/perseus/commit/5cf8d975b249e103e4f439b2682741c25a0b4084), [`d6edf18ef`](https://github.com/Khan/perseus/commit/d6edf18ef07c6b82ae585e77d75e9132d554baf5), [`5ea5d5927`](https://github.com/Khan/perseus/commit/5ea5d592755bd5b2889547718fc39523e5595ea1), [`9426509cd`](https://github.com/Khan/perseus/commit/9426509cdcdc9c51dfd957e0e51f6bac0e11ffe5), [`dbe17d1ee`](https://github.com/Khan/perseus/commit/dbe17d1ee9c22d11ec916e898cb5ca4a01409896)]:
+    -   @khanacademy/perseus@39.0.1
+    -   @khanacademy/math-input@21.1.2
+
 ## 14.9.0
 
 ### Minor Changes
