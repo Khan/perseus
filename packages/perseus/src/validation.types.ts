@@ -6,7 +6,6 @@ import type {
     PerseusGradedGroupWidgetOptions,
     PerseusGraphType,
     PerseusGroupWidgetOptions,
-    PerseusIFrameWidgetOptions,
     PerseusMatcherWidgetOptions,
     PerseusMatrixWidgetOptions,
     PerseusNumberLineWidgetOptions,
@@ -69,7 +68,8 @@ export type PerseusGrapherRubric = {
 
 export type PerseusGrapherUserInput = PerseusGrapherRubric["correct"];
 
-export type PerseusIFrameRubric = PerseusIFrameWidgetOptions;
+// TODO(LEMS-2440): Can possibly be removed during 2440; only userInput used
+export type PerseusIFrameRubric = Empty;
 
 export type PerseusIFrameUserInput = {
     status: UserInputStatus;
