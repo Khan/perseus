@@ -1,4 +1,6 @@
+import {IDProvider, View} from "@khanacademy/wonder-blocks-core";
 import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
@@ -24,6 +26,7 @@ type DefaultProps = {
     selected: Props["selected"];
     placeholder: Props["placeholder"];
     apiOptions: Props["apiOptions"];
+    ariaLabel: Props["ariaLabel"];
 };
 
 class Dropdown extends React.Component<Props> implements Widget {
@@ -32,6 +35,7 @@ class Dropdown extends React.Component<Props> implements Widget {
         selected: 0,
         placeholder: "",
         apiOptions: ApiOptions.defaults,
+        ariaLabel: "Choose an answer",
     };
 
     focus: () => boolean = () => {
@@ -80,31 +84,46 @@ class Dropdown extends React.Component<Props> implements Widget {
         ];
 
         return (
-            <div
-                // NOTE(jared): These are required to prevent weird behavior
-                // When there's a dropdown in a zoomable table.
-                onClick={(e) => {
-                    e.stopPropagation();
-                }}
-                onTouchStart={(e) => {
-                    e.stopPropagation();
-                }}
-            >
-                <SingleSelect
-                    placeholder=""
-                    onChange={(value) => this._handleChange(parseInt(value))}
-                    selectedValue={String(this.props.selected)}
-                    disabled={this.props.apiOptions.readOnly}
-                >
-                    {children}
-                </SingleSelect>
-            </div>
+            <IDProvider scope={"dropdown-widget"}>
+                {(uniqueId) => (
+                    <View
+                        // NOTE(jared): These are required to prevent weird behavior
+                        // When there's a dropdown in a zoomable table.
+                        onClick={(e) => {
+                            e.stopPropagation();
+                        }}
+                        onTouchStart={(e) => {
+                            e.stopPropagation();
+                        }}
+                    >
+                        {this.props.visibleLabel && (
+                            <LabelSmall tag="label" htmlFor={uniqueId}>
+                                Dropdown
+                            </LabelSmall>
+                        )}
+                        <SingleSelect
+                            id={uniqueId}
+                            placeholder=""
+                            onChange={(value) =>
+                                this._handleChange(parseInt(value))
+                            }
+                            selectedValue={String(this.props.selected)}
+                            disabled={this.props.apiOptions.readOnly}
+                            aria-label={this.props.ariaLabel}
+                        >
+                            {children}
+                        </SingleSelect>
+                    </View>
+                )}
+            </IDProvider>
         );
     }
 }
 
 type RenderProps = {
-    placeholder: string;
+    placeholder: PerseusDropdownWidgetOptions["placeholder"];
+    visibleLabel: PerseusDropdownWidgetOptions["visibleLabel"];
+    ariaLabel: PerseusDropdownWidgetOptions["ariaLabel"];
     choices: ReadonlyArray<string>;
 };
 
@@ -113,6 +132,8 @@ const optionsTransform: (arg1: PerseusDropdownWidgetOptions) => RenderProps = (
 ) => {
     return {
         placeholder: widgetOptions.placeholder,
+        visibleLabel: widgetOptions.visibleLabel,
+        ariaLabel: widgetOptions.ariaLabel,
         choices: widgetOptions.choices.map((choice) => choice.content),
     };
 };
