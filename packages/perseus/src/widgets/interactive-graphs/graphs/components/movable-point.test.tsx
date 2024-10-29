@@ -157,10 +157,7 @@ describe("MovablePoint", () => {
             );
 
             // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
-            const svgGroups = container.querySelectorAll("svg > g");
-            expect(svgGroups).toHaveLength(2);
-            // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
-            const hairLines = svgGroups[0].querySelectorAll("line");
+            const hairLines = container.querySelectorAll("svg line");
             expect(hairLines).toHaveLength(2);
         });
 
@@ -173,8 +170,8 @@ describe("MovablePoint", () => {
             );
 
             // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
-            const svgGroups = container.querySelectorAll("svg > g");
-            expect(svgGroups).toHaveLength(1);
+            const hairLines = container.querySelectorAll("svg line");
+            expect(hairLines).toHaveLength(0);
         });
 
         it("Hairlines do NOT show when 'markings' are set to 'none'", () => {
@@ -189,59 +186,56 @@ describe("MovablePoint", () => {
             );
 
             // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
-            const svgGroups = container.querySelectorAll("svg > g");
-            expect(svgGroups).toHaveLength(1);
+            const hairLines = container.querySelectorAll("svg line");
+            expect(hairLines).toHaveLength(0);
         });
     });
 
-    it("calls onFocusChange(true) when you tab to it", async () => {
-        const focusChangeSpy = jest.fn();
+    it("calls onFocus() when you tab to it", async () => {
+        const focusSpy = jest.fn();
         render(
             <Mafs width={200} height={200}>
-                <MovablePoint point={[0, 0]} onFocusChange={focusChangeSpy} />,
+                <MovablePoint point={[0, 0]} onFocus={focusSpy} />,
             </Mafs>,
         );
 
-        expect(focusChangeSpy).not.toHaveBeenCalled();
+        expect(focusSpy).not.toHaveBeenCalled();
 
         await userEvent.tab(); // tab to the graph
         await userEvent.tab(); // tab to the point
 
-        expect(focusChangeSpy.mock.calls[0][1]).toEqual(true);
+        expect(focusSpy).toHaveBeenCalledTimes(1);
     });
 
-    it("calls onFocusChange(false) when you tab away from it", async () => {
-        const focusChangeSpy = jest.fn();
+    it("calls onBlur() when you tab away from it", async () => {
+        const blurSpy = jest.fn();
         render(
             <Mafs width={200} height={200}>
-                <MovablePoint point={[0, 0]} onFocusChange={focusChangeSpy} />,
+                <MovablePoint point={[0, 0]} onBlur={blurSpy} />,
             </Mafs>,
         );
 
-        expect(focusChangeSpy).not.toHaveBeenCalled();
+        expect(blurSpy).not.toHaveBeenCalled();
 
         await userEvent.tab(); // tab to the graph
         await userEvent.tab(); // tab to the point
         await userEvent.tab(); // tab away
 
-        expect(focusChangeSpy.mock.calls.length).toBe(2);
-
-        expect(focusChangeSpy.mock.calls[0][1]).toEqual(true);
-        expect(focusChangeSpy.mock.calls[1][1]).toEqual(false);
+        expect(blurSpy).toHaveBeenCalledTimes(1);
     });
 
     it("calls onFocusChange(true) when you click it", async () => {
-        const focusChangeSpy = jest.fn();
+        const focusSpy = jest.fn();
         render(
             <Mafs width={200} height={200}>
-                <MovablePoint point={[0, 0]} onFocusChange={focusChangeSpy} />,
+                <MovablePoint point={[0, 0]} onFocus={focusSpy} />,
             </Mafs>,
         );
 
-        expect(focusChangeSpy).not.toHaveBeenCalled();
+        expect(focusSpy).not.toHaveBeenCalled();
 
         await userEvent.click(screen.getByTestId("movable-point"));
 
-        expect(focusChangeSpy.mock.calls[0][1]).toEqual(true);
+        expect(focusSpy).toHaveBeenCalledTimes(1);
     });
 });
