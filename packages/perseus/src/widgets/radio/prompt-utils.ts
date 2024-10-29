@@ -1,7 +1,8 @@
 import {WidgetType} from "../../prompt-types";
 
-import type {RenderProps} from "./radio-component";
+import type Radio from "./radio-component";
 import type {PerseusRadioUserInput} from "../../validation.types";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 export type BasicOption = {
     value: string;
@@ -20,10 +21,10 @@ export type RadioPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: RenderProps,
+    renderProps: PropsFor<typeof Radio>,
     userInput: PerseusRadioUserInput,
 ): RadioPromptJSON => {
-    const {choices} = renderProps;
+    const choices = renderProps.choices || [];
 
     const options = choices.map((choice) => {
         return {
