@@ -120,7 +120,7 @@ function clampIndex(index: number, array: unknown[]): number {
 // Selectors
 // ---------------------------------------------------------------------------
 
-export const selectQuestionsAsJSON = cache((state: FlipbookModel): string[] => {
+const selectQuestionsAsJSON = cache((state: FlipbookModel): string[] => {
     return state.questions
         .split("\n")
         .map((s) => s.trim())

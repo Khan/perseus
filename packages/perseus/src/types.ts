@@ -74,8 +74,6 @@ export interface Widget {
     getSerializedState?: () => SerializedState; // SUSPECT,
     restoreSerializedState?: (props: any, callback: () => void) => any;
 
-    getGrammarTypeForPath?: (path: FocusPath) => string | undefined;
-
     blurInputPath?: (path: FocusPath) => void;
     focusInputPath?: (path: FocusPath) => void;
     getInputPaths?: () => ReadonlyArray<FocusPath>;
@@ -92,9 +90,6 @@ export interface Widget {
     examples?: () => ReadonlyArray<string>;
 }
 
-export type WidgetDict = {
-    [name: string]: PerseusWidget;
-};
 export type ImageDict = {
     [url: string]: Dimensions;
 };
@@ -134,7 +129,7 @@ export type ChangeHandler = (
         hints?: ReadonlyArray<Hint>;
         replace?: boolean;
         content?: string;
-        widgets?: WidgetDict;
+        widgets?: PerseusWidgetsMap;
         images?: ImageDict;
         // used only in EditorPage
         question?: any;
@@ -165,8 +160,6 @@ export type ImageUploader = (
     file: File,
     callback: (url: string) => unknown,
 ) => unknown;
-
-export type WidgetSize = "normal" | "small" | "mini";
 
 export type Path = ReadonlyArray<string>;
 
@@ -503,7 +496,6 @@ export type PerseusDependencies = {
     // RequestInfo
     isDevServer: boolean;
     kaLocale: string;
-    isMobile: boolean;
 };
 
 /**
@@ -554,7 +546,7 @@ export type TrackingGradedGroupExtraArguments = {
 };
 
 // See sequence widget
-export type TrackingSequenceExtraArguments = {
+type TrackingSequenceExtraArguments = {
     visible: number;
 };
 
@@ -630,6 +622,9 @@ export type WidgetExports<
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
     validator?: WidgetValidatorFunction;
+    getOneCorrectAnswerFromRubric?: (
+        rubric: Rubric,
+    ) => string | null | undefined;
 
     /**
     A map of major version numbers (as a string, eg "1") to a function that
@@ -657,7 +652,7 @@ export type FilterCriterion =
 // and Rubric is what we use to score the widgets (which not all widgets need validation)
 export type WidgetProps<
     RenderProps,
-    Rubric,
+    Rubric = Empty,
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
@@ -673,7 +668,8 @@ export type WidgetProps<
     onFocus: (blurPath: FocusPath) => void;
     onBlur: (blurPath: FocusPath) => void;
     findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
-    reviewModeRubric: Rubric;
+    reviewModeRubric?: Rubric | null | undefined;
+    reviewMode: boolean;
     onChange: ChangeHandler;
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer

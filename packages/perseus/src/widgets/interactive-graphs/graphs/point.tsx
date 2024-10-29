@@ -15,7 +15,7 @@ import type {PointGraphState, MafsGraphProps} from "../types";
 
 type PointGraphProps = MafsGraphProps<PointGraphState>;
 
-export function LimitedPointGraph(props: PointGraphProps) {
+function LimitedPointGraph(props: PointGraphProps) {
     const {dispatch} = props;
 
     return (
@@ -33,7 +33,7 @@ export function LimitedPointGraph(props: PointGraphProps) {
     );
 }
 
-export function UnlimitedPointGraph(props: PointGraphProps) {
+function UnlimitedPointGraph(props: PointGraphProps) {
     const {dispatch} = props;
     const graphState = useGraphConfig();
     const {

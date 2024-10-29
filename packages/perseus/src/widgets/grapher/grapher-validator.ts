@@ -1,16 +1,39 @@
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
+
 import {functionForType} from "./util";
 
+import type {GrapherAnswerTypes} from "../../perseus-types";
 import type {PerseusScore} from "../../types";
 import type {
     PerseusGrapherRubric,
     PerseusGrapherUserInput,
 } from "../../validation.types";
 
+function getCoefficientsByType(
+    data: GrapherAnswerTypes,
+): ReadonlyArray<number> | undefined {
+    if (data.type === "exponential" || data.type === "logarithm") {
+        const grader = functionForType(data.type);
+        return grader.getCoefficients(data.coords, data.asymptote);
+    } else if (
+        data.type === "linear" ||
+        data.type === "quadratic" ||
+        data.type === "absolute_value" ||
+        data.type === "sinusoid" ||
+        data.type === "tangent"
+    ) {
+        const grader = functionForType(data.type);
+        return grader.getCoefficients(data.coords);
+    } else {
+        throw new PerseusError("Invalid grapher type", Errors.InvalidInput);
+    }
+}
+
 function grapherValidator(
-    state: PerseusGrapherUserInput,
+    userInput: PerseusGrapherUserInput,
     rubric: PerseusGrapherRubric,
 ): PerseusScore {
-    if (state.type !== rubric.correct.type) {
+    if (userInput.type !== rubric.correct.type) {
         return {
             type: "points",
             earned: 0,
@@ -20,7 +43,7 @@ function grapherValidator(
     }
 
     // We haven't moved the coords
-    if (state.coords == null) {
+    if (userInput.coords == null) {
         return {
             type: "invalid",
             message: null,
@@ -28,13 +51,9 @@ function grapherValidator(
     }
 
     // Get new function handler for grading
-    const grader = functionForType(state.type);
-    const guessCoeffs = grader.getCoefficients(state.coords, state.asymptote);
-    const correctCoeffs = grader.getCoefficients(
-        rubric.correct.coords,
-        // @ts-expect-error - TS(2339) - Property 'asymptote' does not exist on type '{ type: "absolute_value"; coords: [Coord, Coord]; }'
-        rubric.correct.asymptote,
-    );
+    const grader = functionForType(userInput.type);
+    const guessCoeffs = getCoefficientsByType(userInput);
+    const correctCoeffs = getCoefficientsByType(rubric.correct);
 
     if (guessCoeffs == null || correctCoeffs == null) {
         return {

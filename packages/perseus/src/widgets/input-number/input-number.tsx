@@ -100,19 +100,6 @@ class InputNumber extends React.Component<Props> implements Widget {
         };
     }
 
-    static getOneCorrectAnswerFromRubric(
-        rubric: any,
-    ): string | null | undefined {
-        if (rubric.value == null) {
-            return;
-        }
-        let answerString = String(rubric.value);
-        if (rubric.inexact && rubric.maxError) {
-            answerString += " \u00B1 " + rubric.maxError;
-        }
-        return answerString;
-    }
-
     shouldShowExamples: () => boolean = () => {
         return this.props.answerType !== "number";
     };
@@ -157,13 +144,6 @@ class InputNumber extends React.Component<Props> implements Widget {
         // indicate this.
         /* c8 ignore next */
         return [[]];
-    };
-
-    // Note: We believe that this isn't used anywhere but are leaving it during
-    // the initial refactor
-    getGrammarTypeForPath: (arg1: Path) => string = (path) => {
-        /* c8 ignore next */
-        return "number";
     };
 
     setInputValue: (arg1: Path, arg2: string, arg3: () => void) => void = (
@@ -216,10 +196,6 @@ class InputNumber extends React.Component<Props> implements Widget {
 
             return input;
         }
-        // HACK(johnsullivan): Create a function with shared logic between
-        // this and NumericInput.
-        // TODO(jeremy): Deprecate this widget and prefer numeric-input.
-        const rubric = this.props.reviewModeRubric;
 
         // Note: This is _very_ similar to what `numeric-input.jsx` does. If
         // you modify this, double-check if you also need to modify that
@@ -230,7 +206,7 @@ class InputNumber extends React.Component<Props> implements Widget {
             this.props.rightAlign ? styles.rightAlign : styles.leftAlign,
         ];
         // Unanswered
-        if (rubric && !this.props.currentValue) {
+        if (this.props.reviewMode && !this.props.currentValue) {
             inputStyles.push(styles.answerStateUnanswered);
         }
 
@@ -297,4 +273,15 @@ export default {
     transform: propTransform,
     isLintable: true,
     validator: inputNumberValidator,
+
+    getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {
+        if (rubric.value == null) {
+            return;
+        }
+        let answerString = String(rubric.value);
+        if (rubric.inexact && rubric.maxError) {
+            answerString += " \u00B1 " + rubric.maxError;
+        }
+        return answerString;
+    },
 } as WidgetExports<typeof InputNumber>;

@@ -801,5 +801,3 @@ function getKey(eventName: string, id: string): string {
 function getEventName(key: string): string {
     return key.split(":")[0];
 }
-
-export default MovablePoint;

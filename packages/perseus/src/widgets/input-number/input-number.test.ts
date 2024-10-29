@@ -276,7 +276,7 @@ describe("getOneCorrectAnswerFromRubric", () => {
         const rubric: Record<string, any> = {};
 
         // Act
-        const result = InputNumber.widget.getOneCorrectAnswerFromRubric(rubric);
+        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
 
         // Assert
         expect(result).toBeUndefined();
@@ -291,7 +291,7 @@ describe("getOneCorrectAnswerFromRubric", () => {
         } as const;
 
         // Act
-        const result = InputNumber.widget.getOneCorrectAnswerFromRubric(rubric);
+        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
 
         // Assert
         expect(result).toEqual("0");
@@ -306,7 +306,7 @@ describe("getOneCorrectAnswerFromRubric", () => {
         } as const;
 
         // Act
-        const result = InputNumber.widget.getOneCorrectAnswerFromRubric(rubric);
+        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
 
         // Assert
         expect(result).toEqual("0 ± 0.1");

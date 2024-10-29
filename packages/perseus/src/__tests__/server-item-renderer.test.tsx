@@ -183,17 +183,6 @@ describe("server item renderer", () => {
         expect(await within(node).findAllByRole("textbox")).toHaveLength(1);
     });
 
-    it("should return the grammar type for the requested focus path", () => {
-        // Arrange
-        const {renderer} = renderQuestion(itemWithInput);
-
-        // Act
-        const grammarType = renderer.getGrammarTypeForPath(["input-number 1"]);
-
-        // Assert
-        expect(grammarType).toBe("number");
-    });
-
     it("should return the number of hints available", () => {
         // Arrange
         const {renderer} = renderQuestion({

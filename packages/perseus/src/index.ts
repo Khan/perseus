@@ -163,7 +163,6 @@ export type {
     Version,
     VideoData,
     VideoKind,
-    WidgetDict,
     WidgetExports,
     SharedRendererProps,
 } from "./types";
@@ -182,6 +181,7 @@ export type {
     LockedPolygonType,
     LockedFunctionType,
     LockedLabelType,
+    LockedLineStyle,
     PerseusGraphType,
     PerseusAnswerArea,
     PerseusExpressionWidgetOptions,

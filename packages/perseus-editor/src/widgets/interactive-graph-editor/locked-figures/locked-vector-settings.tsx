@@ -23,7 +23,10 @@ import LineSwatch from "./line-swatch";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    getDefaultFigureForType,
+} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
@@ -62,19 +65,16 @@ const LockedVectorSettings = (props: Props) => {
     const isInvalid = kvector.equal(tail, tip);
 
     function getPrepopulatedAriaLabel() {
-        let str = `Vector from (${tail[0]}, ${tail[1]}) to (${tip[0]}, ${tip[1]})`;
-
+        let visiblelabel = "";
         if (labels && labels.length > 0) {
-            str += " with label";
-            // Make it "with labels" instead of "with label" if there are
-            // multiple labels.
-            if (labels.length > 1) {
-                str += "s";
-            }
-
-            // Separate additional labels with commas.
-            str += ` ${labels.map((l) => l.text).join(", ")}`;
+            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
+
+        let str = `Vector${visiblelabel} from (${tail[0]}, ${tail[1]}) to (${tip[0]}, ${tip[1]})`;
+
+        const vectorAppearance =
+            generateLockedFigureAppearanceDescription(lineColor);
+        str += vectorAppearance;
 
         return str;
     }

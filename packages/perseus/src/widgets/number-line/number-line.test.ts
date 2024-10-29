@@ -20,32 +20,166 @@ describe("number-line widget", () => {
         );
     });
 
-    it("should snapshot", () => {
-        // Arrange
-        const apiOptions: APIOptions = {
-            isMobile: false,
+    describe("snapshots", () => {
+        let apiOptions: APIOptions;
+        const createNumberLineQuestionWithOptions = (widgetOptions) => {
+            return {
+                ...question1,
+                widgets: {
+                    ...question1.widgets,
+                    "number-line 1": {
+                        ...question1.widgets["number-line 1"],
+                        options: {
+                            ...question1.widgets["number-line 1"].options,
+                            range: [-10, 10],
+                            ...widgetOptions,
+                        },
+                    },
+                },
+            };
         };
 
-        // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        beforeAll(() => {
+            apiOptions = {
+                isMobile: false,
+            };
+        });
 
-        // Assert
-        expect(container).toMatchSnapshot("first render");
-    });
+        it("default", () => {
+            // Act
+            const {container} = renderQuestion(question1, apiOptions);
 
-    it("should snapshot on mobile", () => {
-        // Arrange
-        jest.useRealTimers();
+            // Assert
+            expect(container).toMatchSnapshot("first render");
+        });
 
-        const apiOptions: APIOptions = {
-            isMobile: true,
-        };
+        it("mobile", () => {
+            // Arrange
+            jest.useRealTimers();
 
-        // Act
-        const {container} = renderQuestion(question1, apiOptions);
+            const mobileApiOptions: APIOptions = {
+                isMobile: true,
+            };
 
-        // Assert
-        expect(container).toMatchSnapshot("first mobile render");
+            // Act
+            const {container} = renderQuestion(question1, mobileApiOptions);
+
+            // Assert
+            expect(container).toMatchSnapshot("first mobile render");
+        });
+
+        it(`only endpoints/labels show when "Show label ticks" is off`, () => {
+            // Arrange - endpoints
+            let question = createNumberLineQuestionWithOptions({
+                labelTicks: false,
+            });
+
+            // Act
+            let {container} = renderQuestion(question, apiOptions);
+
+            // Assert
+            expect(container).toMatchSnapshot(
+                "show label ticks off (endpoints)",
+            );
+
+            // Arrange - labels
+            question = createNumberLineQuestionWithOptions({
+                labelTicks: false,
+                labelRange: [-4, 4],
+            });
+
+            // Act
+            container = renderQuestion(question, apiOptions).container;
+
+            // Assert
+            expect(container).toMatchSnapshot("show label ticks off (labels)");
+        });
+
+        it(`labels are highlighted when part of the tick step`, () => {
+            // Arrange
+            const question = createNumberLineQuestionWithOptions({
+                tickStep: 2,
+                labelRange: [-6, 6],
+            });
+
+            // Act
+            const {container} = renderQuestion(question, apiOptions);
+
+            // Assert
+            expect(container).toMatchSnapshot("show highlighted labels");
+        });
+
+        it(`labels are inserted when NOT part of the tick step`, () => {
+            // Arrange
+            const question = createNumberLineQuestionWithOptions({
+                tickStep: 2,
+                labelRange: [-5, 5],
+            });
+
+            // Act
+            const {container} = renderQuestion(question, apiOptions);
+
+            // Assert
+            expect(container).toMatchSnapshot("show inserted labels");
+        });
+
+        it(`endpoints are highlighted when labels are NOT indicated`, () => {
+            // Arrange - right endpoint should highlight
+            let question = createNumberLineQuestionWithOptions({
+                labelRange: [-5, null],
+            });
+
+            // Act
+            let {container} = renderQuestion(question, apiOptions);
+
+            // Assert
+            expect(container).toMatchSnapshot("right endpoint highlighted");
+
+            // Arrange - left endpoint should highlight
+            question = createNumberLineQuestionWithOptions({
+                labelRange: [null, 5],
+            });
+
+            // Act
+            container = renderQuestion(question, apiOptions).container;
+
+            // Assert
+            expect(container).toMatchSnapshot("left endpoint highlighted");
+        });
+
+        it(`can handle fractions`, () => {
+            // Some fractions create non-integer values (i.e. 7.00001).
+            // This test works specifically with 1/6 to generate the value that might cause an error.
+
+            // Arrange
+            const question = createNumberLineQuestionWithOptions({
+                range: [0, 1.1666666666666667],
+                divisionRange: [1, 12],
+                labelRange: [null, 0.16666666666666666],
+                labelStyle: "improper",
+                tickStep: 0.16666666666666666,
+            });
+
+            // Act
+            const {container} = renderQuestion(question, apiOptions);
+
+            // Assert
+            expect(container).toMatchSnapshot("show fractions");
+        });
+
+        it(`all tick labels show when "Style" is "decimal ticks" (deprecated option)`, () => {
+            // Arrange
+            const question = createNumberLineQuestionWithOptions({
+                labelTicks: false,
+                labelStyle: "decimal ticks",
+            });
+
+            // Act
+            const {container} = renderQuestion(question, apiOptions);
+
+            // Assert
+            expect(container).toMatchSnapshot("show decimal ticks");
+        });
     });
 
     it("can be answered correctly", () => {

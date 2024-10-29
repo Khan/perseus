@@ -10,7 +10,7 @@ import HoverBehavior from "./hover-behavior";
 
 const {borderRadius, colors} = globalStyles;
 
-export type CheckboxProps = {
+type CheckboxProps = {
     // Whether or not the checkbox is checked.  The parent responsible for
     // responding to onChange events and updating this prop appropriately.
     checked: boolean;

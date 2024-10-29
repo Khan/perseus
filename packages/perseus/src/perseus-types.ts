@@ -109,8 +109,6 @@ export type MultiItem = {
     _multi: any;
 };
 
-export type PerseusArticle = ReadonlyArray<PerseusRenderer>;
-
 export type Version = {
     // The major part of the version
     major: number;
@@ -474,6 +472,56 @@ export type GraphRange = [
     y: [min: number, max: number],
 ];
 
+export type GrapherAnswerTypes =
+    | {
+          type: "absolute_value";
+          coords: [
+              // The vertex
+              Coord, // A point along one line of the absolute value "V" lines
+              Coord,
+          ];
+      }
+    | {
+          type: "exponential";
+          // Two points along the asymptote line. Usually (always?) a
+          // horizontal or vertical line.
+          asymptote: [Coord, Coord];
+          // Two points along the exponential curve. One end of the curve
+          // trends towards the asymptote.
+          coords: [Coord, Coord];
+      }
+    | {
+          type: "linear";
+          // Two points along the straight line
+          coords: [Coord, Coord];
+      }
+    | {
+          type: "logarithm";
+          // Two points along the asymptote line.
+          asymptote: [Coord, Coord];
+          // Two points along the logarithmic curve. One end of the curve
+          // trends towards the asymptote.
+          coords: [Coord, Coord];
+      }
+    | {
+          type: "quadratic";
+          coords: [
+              // The vertex of the parabola
+              Coord, // A point along the parabola
+              Coord,
+          ];
+      }
+    | {
+          type: "sinusoid";
+          // Two points on the same slope in the sinusoid wave line.
+          coords: [Coord, Coord];
+      }
+    | {
+          type: "tangent";
+          // Two points on the same slope in the tangent wave line.
+          coords: [Coord, Coord];
+      };
+
 export type PerseusGrapherWidgetOptions = {
     availableTypes: ReadonlyArray<
         | "absolute_value"
@@ -484,55 +532,7 @@ export type PerseusGrapherWidgetOptions = {
         | "sinusoid"
         | "tangent"
     >;
-    correct:
-        | {
-              type: "absolute_value";
-              coords: [
-                  // The vertex
-                  Coord, // A point along one line of the absolute value "V" lines
-                  Coord,
-              ];
-          }
-        | {
-              type: "exponential";
-              // Two points along the asymptote line. Usually (always?) a
-              // horizontal or vertical line.
-              asymptote: [Coord, Coord];
-              // Two points along the exponential curve. One end of the curve
-              // trends towards the asymptote.
-              coords: [Coord, Coord];
-          }
-        | {
-              type: "linear";
-              // Two points along the straight line
-              coords: [Coord, Coord];
-          }
-        | {
-              type: "logarithm";
-              // Two points along the asymptote line.
-              asymptote: [Coord, Coord];
-              // Two points along the logarithmic curve. One end of the curve
-              // trends towards the asymptote.
-              coords: [Coord, Coord];
-          }
-        | {
-              type: "quadratic";
-              coords: [
-                  // The vertex of the parabola
-                  Coord, // A point along the parabola
-                  Coord,
-              ];
-          }
-        | {
-              type: "sinusoid";
-              // Two points on the same slope in the sinusoid wave line.
-              coords: [Coord, Coord];
-          }
-        | {
-              type: "tangent";
-              // Two points on the same slope in the tangent wave line.
-              coords: [Coord, Coord];
-          };
+    correct: GrapherAnswerTypes;
     graph: {
         backgroundImage: {
             bottom?: number;
@@ -794,7 +794,7 @@ export type PerseusGraphType =
     | PerseusGraphTypeSegment
     | PerseusGraphTypeSinusoid;
 
-export type PerseusGraphTypeCommon = {
+type PerseusGraphTypeCommon = {
     // NOTE(jeremy): This is referenced in the component. Verify if there's any
     // production data that still has this.
     coord?: Coord; // Legacy!
@@ -986,7 +986,7 @@ export type PerseusMeasurerWidgetOptions = {
     // The number of units to display on the ruler
     rulerLength: number;
     // Containing area [width, height]
-    box: ReadonlyArray<number>;
+    box: [number, number];
     // Always false.  Not used for this widget
     static: boolean;
 };
@@ -1200,24 +1200,6 @@ export type PerseusRadioChoice = {
     widgets?: PerseusWidgetsMap;
 };
 
-export type PerseusSequenceWidgetOptions = {
-    // A list of Renderers to display in sequence
-    json: ReadonlyArray<PerseusRenderer>;
-};
-
-export type PerseusSimulatorWidgetOptions = {
-    // Translatable Text; The X Axis
-    xAxisLabel: string;
-    // Translatable Text; The Y Axis
-    yAxisLabel: string;
-    // Translatable Text; A lable to define the proportion of the simulation
-    proportionLabel: string;
-    // The type of simulation. options: "proportion", "percentage"
-    proportionOrPercentage: string;
-    // The number of times to run the simulation
-    numTrials: number;
-};
-
 export type PerseusSorterWidgetOptions = {
     // Translatable Text; The correct answer (in the correct order). The user will see the cards in a randomized order.
     correct: ReadonlyArray<string>;
@@ -1236,38 +1218,6 @@ export type PerseusTableWidgetOptions = {
     columns: number;
     // Translatable Text; A 2-dimensional array of text to populate the table with
     answers: ReadonlyArray<ReadonlyArray<string>>;
-};
-
-export type DilationTransformation = {
-    type: "dilation";
-    center: Coord;
-    scale: number;
-    constraints: {
-        fixed: boolean;
-    };
-};
-
-export type ReflectionTransformation = {
-    type: "reflection";
-    line: [Coord, Coord];
-    constraints?: {
-        fixed: boolean;
-    };
-};
-
-export type RotationTransformation = {
-    type: "rotation";
-    angleDeg: number;
-    center: Coord;
-    constraints: {
-        fixed: boolean;
-    };
-};
-
-export type TranslationTransformation = {
-    type: "translation";
-    vector: Coord;
-    contraints: Empty;
 };
 
 export type PerseusInteractionWidgetOptions = {
@@ -1601,7 +1551,8 @@ export type PerseusPassageRefTargetWidgetOptions = {
 export type PerseusSimpleMarkdownTesterWidgetOptions = {
     value: string;
 };
-export type PerseusUnitInputWidgetOptions = {
+
+type PerseusUnitInputWidgetOptions = {
     value: string;
 };
 

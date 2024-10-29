@@ -11,16 +11,11 @@ describe("matrixValidator", () => {
     it("can be answered correctly", () => {
         // Arrange
         const rubric: PerseusMatrixRubric = {
-            prefix: "",
-            suffix: "",
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
                 [6, 7, 8],
             ],
-            cursorPosition: [],
-            matrixBoardSize: [],
-            static: false,
         };
 
         const userInput: PerseusMatrixUserInput = {
@@ -37,16 +32,11 @@ describe("matrixValidator", () => {
     it("can be answered incorrectly", () => {
         // Arrange
         const rubric: PerseusMatrixRubric = {
-            prefix: "",
-            suffix: "",
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
                 [6, 7, 8],
             ],
-            cursorPosition: [],
-            matrixBoardSize: [],
-            static: false,
         };
 
         const userInput: PerseusMatrixUserInput = {
@@ -67,16 +57,11 @@ describe("matrixValidator", () => {
     it("is invalid when there's an empty cell: null", () => {
         // Arrange
         const rubric: PerseusMatrixRubric = {
-            prefix: "",
-            suffix: "",
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
                 [6, 7, 8],
             ],
-            cursorPosition: [],
-            matrixBoardSize: [],
-            static: false,
         };
 
         const userInput: PerseusMatrixUserInput = {
@@ -100,16 +85,11 @@ describe("matrixValidator", () => {
     it("is invalid when there's an empty cell: empty string", () => {
         // Arrange
         const rubric: PerseusMatrixRubric = {
-            prefix: "",
-            suffix: "",
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
                 [6, 7, 8],
             ],
-            cursorPosition: [],
-            matrixBoardSize: [],
-            static: false,
         };
 
         const userInput: PerseusMatrixUserInput = {
@@ -133,16 +113,11 @@ describe("matrixValidator", () => {
     it("is considered incorrect when the size is wrong", () => {
         // Arrange
         const rubric: PerseusMatrixRubric = {
-            prefix: "",
-            suffix: "",
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
                 [6, 7, 8],
             ],
-            cursorPosition: [],
-            matrixBoardSize: [],
-            static: false,
         };
 
         const correctUserInput: PerseusMatrixUserInput = {
