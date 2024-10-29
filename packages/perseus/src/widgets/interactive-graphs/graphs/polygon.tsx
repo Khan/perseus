@@ -396,9 +396,8 @@ export const hasFocusVisible = (
 
 export const PolygonGraph = (props: Props) => {
     const numSides = props.graphState.numSides;
-    if (numSides === "unlimited") {
-        return UnlimitedPolygonGraph(props);
-    }
 
-    return LimitedPolygonGraph(props);
+    return numSides === "unlimited"
+        ? UnlimitedPolygonGraph(props)
+        : LimitedPolygonGraph(props);
 };
