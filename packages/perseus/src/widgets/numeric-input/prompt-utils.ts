@@ -1,10 +1,12 @@
 import {WidgetType} from "../../prompt-types";
 
+import type {NumericInput} from "./numeric-input";
 import type {
     PerseusNumericInputAnswer,
     PerseusNumericInputWidgetOptions,
 } from "../../perseus-types";
 import type {PerseusNumericInputUserInput} from "../../validation.types";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type Answer = Omit<PerseusNumericInputAnswer, "answerForms" | "strict"> & {
     answerFormats?: PerseusNumericInputAnswer["answerForms"];
@@ -21,7 +23,7 @@ export type NumericInputPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: PerseusNumericInputWidgetOptions,
+    renderProps: PropsFor<typeof NumericInput>,
     userInput: PerseusNumericInputUserInput,
 ): NumericInputPromptJSON => {
     const answers: Answer[] = renderProps.answers.map((answer) => ({
@@ -36,7 +38,7 @@ export const getPromptJSON = (
 
     return {
         type: WidgetType.NUMERIC_INPUT,
-        label: renderProps.labelText,
+        label: renderProps.labelText || "",
         answers,
         userInput: {
             value: userInput.currentValue,
