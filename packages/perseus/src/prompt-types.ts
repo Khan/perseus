@@ -11,7 +11,7 @@ export type WidgetPromptJSON = RadioPromptJSON | NumericInputPromptJSON;
 export type RendererPromptJSON = {
     content: string;
     widgets: {
-        [key: string]: WidgetPromptJSON;
+        [widgetId: string]: WidgetPromptJSON;
     };
 };
 

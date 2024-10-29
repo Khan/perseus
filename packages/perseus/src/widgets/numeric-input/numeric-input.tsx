@@ -44,7 +44,7 @@ const formExamples: {
     pi: (form, strings: PerseusStrings) => strings.piExample,
 };
 
-export type ExternalProps = WidgetProps<
+type ExternalProps = WidgetProps<
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputRubric
 >;
