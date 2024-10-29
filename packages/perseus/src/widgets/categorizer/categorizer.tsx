@@ -16,7 +16,9 @@ import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 
 import categorizerValidator from "./categorizer-validator";
+import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
+import type {CategorizerPromptJSON} from "./prompt-utils";
 import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
@@ -68,6 +70,10 @@ export class Categorizer
 
     getUserInput(): PerseusCategorizerUserInput {
         return Categorizer.getUserInputFromProps(this.props);
+    }
+
+    getPromptJSON(): CategorizerPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     onChange(itemNum, catNum) {
