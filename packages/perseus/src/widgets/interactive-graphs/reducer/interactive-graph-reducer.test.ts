@@ -131,6 +131,7 @@ const basePolygonGraphState: InteractiveGraphState = {
         [0, 1],
         [1, 0],
     ],
+    closedPolygon: false,
 };
 
 const baseUnlimitedPolygonGraphState: PolygonGraphState = {
@@ -150,6 +151,7 @@ const baseUnlimitedPolygonGraphState: PolygonGraphState = {
     snapStep: [1, 1],
     coords: [],
     numSides: "unlimited",
+    closedPolygon: false,
 };
 
 describe("movePointInFigure", () => {

@@ -97,6 +97,7 @@ export interface PolygonGraphState extends InteractiveGraphStateCommon {
     showRemovePointButton: boolean;
     interactionMode: InteractionMode;
     showKeyboardInteractionInvitation: boolean;
+    closedPolygon: boolean;
 }
 
 export interface CircleGraphState extends InteractiveGraphStateCommon {

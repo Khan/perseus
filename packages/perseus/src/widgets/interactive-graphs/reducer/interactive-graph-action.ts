@@ -18,6 +18,8 @@ export type InteractiveGraphAction =
     | BlurPoint
     | DeleteIntent
     | ClickPoint
+    | ClosePolygon
+    | OpenPolygon
     | ChangeInteractionMode
     | ChangeKeyboardInvitationVisibility;
 
@@ -59,6 +61,8 @@ export const actions = {
         focusPoint,
         blurPoint,
         clickPoint,
+        closePolygon,
+        openPolygon,
     },
     quadratic: {
         movePoint,
@@ -131,6 +135,11 @@ export interface FocusPoint {
     index: number;
 }
 function focusPoint(index: number): FocusPoint {
+    // Likely need to add logic here that if we're in an
+    // Unlimited Polygon graph. If there are more than
+    // 3 points and a user focuses on the first point
+    // To set the polygon state prop closedPolygon=true.
+    // Or something to that effect.
     return {
         type: FOCUS_POINT,
         index,
@@ -186,6 +195,30 @@ function changeKeyboardInvitationVisibility(
     return {
         type: CHANGE_KEYBOARD_INVITATION_VISIBILITY,
         shouldShow,
+    };
+}
+
+export const CLOSE_POLYGON = "close-polygon";
+export interface ClosePolygon {
+    type: typeof CLOSE_POLYGON;
+    location: vec.Vector2;
+}
+function closePolygon(location: vec.Vector2): ClosePolygon {
+    return {
+        type: CLOSE_POLYGON,
+        location,
+    };
+}
+
+export const OPEN_POLYGON = "open-polygon";
+export interface OpenPolygon {
+    type: typeof OPEN_POLYGON;
+    location: vec.Vector2;
+}
+function openPolygon(location: vec.Vector2): OpenPolygon {
+    return {
+        type: OPEN_POLYGON,
+        location,
     };
 }
 

@@ -398,21 +398,27 @@ const renderPolygonGraphControls = (props: {
     width: number;
     perseusStrings: PerseusStrings;
 }) => {
-    const {interactionMode, showRemovePointButton, focusedPointIndex} =
-        props.state;
+    const {
+        interactionMode,
+        showRemovePointButton,
+        focusedPointIndex,
+        closedPolygon,
+        coords,
+    } = props.state;
     const {perseusStrings} = props;
 
     const shouldShowRemoveButton =
         showRemovePointButton && focusedPointIndex !== null;
 
-    return (
-        <View
-            style={{
-                flexDirection: "row",
-                width: props.width,
-            }}
-        >
-            {interactionMode === "keyboard" && (
+    if (closedPolygon) {
+        // If closed, only show button to open the polygon.
+        return (
+            <View
+                style={{
+                    flexDirection: "row",
+                    width: props.width,
+                }}
+            >
                 <Button
                     kind="secondary"
                     style={{
@@ -421,40 +427,88 @@ const renderPolygonGraphControls = (props: {
                     }}
                     tabIndex={0}
                     onClick={() => {
-                        props.dispatch(actions.polygon.addPoint([0, 0]));
+                        props.dispatch(actions.polygon.openPolygon([0, 0]));
                     }}
                 >
-                    {perseusStrings.addPoint}
+                    {perseusStrings.openPolygon}
                 </Button>
-            )}
-            {interactionMode === "mouse" && (
-                <Button
-                    id={REMOVE_BUTTON_ID}
-                    kind="secondary"
-                    color="destructive"
-                    // This button is meant to be interacted with by the mouse only
-                    // Never allow learners to tab to this button
-                    tabIndex={-1}
-                    style={{
-                        width: "100%",
-                        marginLeft: "20px",
-                        visibility: shouldShowRemoveButton
-                            ? "visible"
-                            : "hidden",
-                    }}
-                    onClick={(_event) => {
-                        props.dispatch(
-                            actions.polygon.removePoint(
-                                props.state.focusedPointIndex!,
-                            ),
-                        );
-                    }}
-                >
-                    {perseusStrings.removePoint}
-                </Button>
-            )}
-        </View>
-    );
+            </View>
+        );
+    } else {
+        // If open, allow user to add/remove points
+        // And close the polygon when ready.
+        return (
+            <View
+                style={{
+                    flexDirection: "row",
+                    width: props.width,
+                }}
+            >
+                {interactionMode === "keyboard" && (
+                    <Button
+                        kind="secondary"
+                        style={{
+                            width: "100%",
+                            marginLeft: "20px",
+                        }}
+                        tabIndex={0}
+                        onClick={() => {
+                            props.dispatch(actions.polygon.addPoint([0, 0]));
+                        }}
+                    >
+                        {perseusStrings.addPoint}
+                    </Button>
+                )}
+                {interactionMode === "mouse" && (
+                    <Button
+                        id={REMOVE_BUTTON_ID}
+                        kind="secondary"
+                        color="destructive"
+                        // This button is meant to be interacted with by the mouse only
+                        // Never allow learners to tab to this button
+                        tabIndex={-1}
+                        style={{
+                            width: "100%",
+                            marginLeft: "20px",
+                            visibility: shouldShowRemoveButton
+                                ? "visible"
+                                : "hidden",
+                        }}
+                        onClick={(_event) => {
+                            props.dispatch(
+                                actions.polygon.removePoint(
+                                    props.state.focusedPointIndex!,
+                                ),
+                            );
+                        }}
+                    >
+                        {perseusStrings.removePoint}
+                    </Button>
+                )}
+                {
+                    // Add conditional render when there are more than 3 points in
+                    // the graph
+                }
+                {coords.length >= 3 && (
+                    <Button
+                        kind="secondary"
+                        style={{
+                            width: "100%",
+                            marginLeft: "20px",
+                        }}
+                        tabIndex={0}
+                        onClick={() => {
+                            props.dispatch(
+                                actions.polygon.closePolygon([0, 0]),
+                            );
+                        }}
+                    >
+                        {perseusStrings.closePolygon}
+                    </Button>
+                )}
+            </View>
+        );
+    }
 };
 
 const renderGraphControls = (props: {

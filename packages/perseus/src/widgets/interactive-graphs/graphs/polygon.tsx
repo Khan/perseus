@@ -1,4 +1,4 @@
-import {Polygon, vec} from "mafs";
+import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
 
 import {snap} from "../math";
@@ -171,6 +171,7 @@ export const UnlimitedPolygonGraph = (props: Props) => {
         range,
         snapStep,
         snapTo = "grid",
+        closedPolygon,
     } = props.graphState;
 
     const graphConfig = useGraphConfig();
@@ -215,137 +216,213 @@ export const UnlimitedPolygonGraph = (props: Props) => {
         }
     }, [props.graphState.focusedPointIndex, pointRef]);
 
-    return (
-        <>
-            {/* This rect is here to grab clicks so that new points can be added */}
-            {/* It's important because it stops mouse events from propogating
-                when dragging a points around */}
-            <rect
-                style={{
-                    fill: "rgba(0,0,0,0)",
-                    cursor: "crosshair",
-                }}
-                width={widthPx}
-                height={heightPx}
-                x={left}
-                y={top}
-                onClick={(event) => {
-                    const elementRect =
-                        event.currentTarget.getBoundingClientRect();
-
-                    const x = event.clientX - elementRect.x;
-                    const y = event.clientY - elementRect.y;
-
-                    const graphCoordinates = pixelsToVectors(
-                        [[x, y]],
-                        graphConfig,
-                    );
-                    dispatch(actions.polygon.addPoint(graphCoordinates[0]));
-                }}
-            />
-            {/**
-             * TODO(catjohnson): Will need to conditionally render then once a full polygon is created
-             * And handle when someone wants to remove the polygon connection.
-             */}
-            <Polygon
-                points={[...points]}
-                color="var(--movable-line-stroke-color)"
-                svgPolygonProps={{
-                    strokeWidth: focusVisible
-                        ? "var(--movable-line-stroke-weight-active)"
-                        : "var(--movable-line-stroke-weight)",
-                    style: {fill: "transparent"},
-                }}
-            />
-            {props.graphState.coords.map((point, i) => {
-                const pt1 = points.at(i - 1);
-                const pt2 = points[(i + 1) % points.length];
-                if (!pt1 || !pt2) {
-                    return null;
-                }
-                return (
-                    <PolygonAngle
-                        key={"angle-" + i}
-                        centerPoint={point}
-                        endPoints={[pt1, pt2]}
-                        range={range}
-                        polygonLines={lines}
-                        showAngles={!!showAngles}
-                        snapTo={snapTo}
-                    />
-                );
-            })}
-            {showSides &&
-                lines.map(([start, end], i) => {
-                    const [x, y] = vec.midpoint(start, end);
-                    const length = parseFloat(
-                        vec
-                            .dist(start, end)
-                            .toFixed(snapTo === "sides" ? 0 : 1),
-                    );
-                    return (
-                        <TextLabel key={"side-" + i} x={x} y={y}>
-                            {!Number.isInteger(length) && "≈ "}
-                            {length}
-                        </TextLabel>
-                    );
-                })}
-            {/**
-             * This transparent svg creates a nice big click/touch target,
-             * since the polygon itself can be made smaller than the spec.
-             */}
-            {/**
-             * Will likely want to conditionally render then once a full polygon is created
-             * And handle when someone wants to remove the polygon connection?
-             */}
-            <Polygon
-                points={[...points]}
-                color="transparent"
-                svgPolygonProps={{
-                    ref: polygonRef,
-                    tabIndex: disableKeyboardInteraction ? -1 : 0,
-                    strokeWidth: TARGET_SIZE,
-                    style: {
-                        cursor: dragging ? "grabbing" : "grab",
-                        fill: hovered ? "var(--mafs-blue)" : "transparent",
-                    },
-                    onMouseEnter: () => setHovered(true),
-                    onMouseLeave: () => setHovered(false),
-                    // Required to remove line weighting when user clicks away
-                    // from the focused polygon
-                    onKeyDownCapture: () => {
-                        setFocusVisible(hasFocusVisible(polygonRef.current));
-                    },
-                    // Required for lines to darken on focus
-                    onFocus: () =>
-                        setFocusVisible(hasFocusVisible(polygonRef.current)),
-                    // Required for line weighting to update on blur. Without this,
-                    // the user has to hover over the shape for it to update
-                    onBlur: () =>
-                        setFocusVisible(hasFocusVisible(polygonRef.current)),
-                    className: "movable-polygon",
-                }}
-            />
-            {props.graphState.coords.map((point, i) => (
-                <MovablePoint
-                    key={i}
-                    point={point}
-                    onMove={(destination) =>
-                        dispatch(actions.pointGraph.movePoint(i, destination))
-                    }
-                    ref={(ref) => {
-                        pointRef.current[i] = ref;
-                    }}
-                    onFocus={() => {
-                        dispatch(actions.pointGraph.focusPoint(i));
-                    }}
-                    onClick={() => {
-                        dispatch(actions.pointGraph.clickPoint(i));
+    if (closedPolygon) {
+        // When it's closed it's essentially just going to be the normal
+        // Polygon code... Maybe utilize the limited polygon logic??
+        return (
+            <>
+                <Polygon
+                    points={[...points]}
+                    color="var(--movable-line-stroke-color)"
+                    svgPolygonProps={{
+                        strokeWidth: focusVisible
+                            ? "var(--movable-line-stroke-weight-active)"
+                            : "var(--movable-line-stroke-weight)",
+                        style: {fill: "transparent"},
                     }}
                 />
-            ))}
-        </>
-    );
+                {props.graphState.coords.map((point, i) => {
+                    const pt1 = points.at(i - 1);
+                    const pt2 = points[(i + 1) % points.length];
+                    if (!pt1 || !pt2) {
+                        return null;
+                    }
+                    return (
+                        <PolygonAngle
+                            key={"angle-" + i}
+                            centerPoint={point}
+                            endPoints={[pt1, pt2]}
+                            range={range}
+                            polygonLines={lines}
+                            showAngles={!!showAngles}
+                            snapTo={snapTo}
+                        />
+                    );
+                })}
+                {showSides &&
+                    lines.map(([start, end], i) => {
+                        const [x, y] = vec.midpoint(start, end);
+                        const length = parseFloat(
+                            vec
+                                .dist(start, end)
+                                .toFixed(snapTo === "sides" ? 0 : 1),
+                        );
+                        return (
+                            <TextLabel key={"side-" + i} x={x} y={y}>
+                                {!Number.isInteger(length) && "≈ "}
+                                {length}
+                            </TextLabel>
+                        );
+                    })}
+                {/**
+                 * This transparent svg creates a nice big click/touch target,
+                 * since the polygon itself can be made smaller than the spec.
+                 */}
+                {/**
+                 * Will likely want to conditionally render then once a full polygon is created
+                 * And handle when someone wants to remove the polygon connection?
+                 */}
+                <Polygon
+                    points={[...points]}
+                    color="transparent"
+                    svgPolygonProps={{
+                        ref: polygonRef,
+                        tabIndex: disableKeyboardInteraction ? -1 : 0,
+                        strokeWidth: TARGET_SIZE,
+                        style: {
+                            cursor: dragging ? "grabbing" : "grab",
+                            fill: hovered ? "var(--mafs-blue)" : "transparent",
+                        },
+                        onMouseEnter: () => setHovered(true),
+                        onMouseLeave: () => setHovered(false),
+                        // Required to remove line weighting when user clicks away
+                        // from the focused polygon
+                        onKeyDownCapture: () => {
+                            setFocusVisible(
+                                hasFocusVisible(polygonRef.current),
+                            );
+                        },
+                        // Required for lines to darken on focus
+                        onFocus: () =>
+                            setFocusVisible(
+                                hasFocusVisible(polygonRef.current),
+                            ),
+                        // Required for line weighting to update on blur. Without this,
+                        // the user has to hover over the shape for it to update
+                        onBlur: () =>
+                            setFocusVisible(
+                                hasFocusVisible(polygonRef.current),
+                            ),
+                        className: "movable-polygon",
+                    }}
+                />
+                {props.graphState.coords.map((point, i) => (
+                    <MovablePoint
+                        key={i}
+                        point={point}
+                        onMove={(destination) =>
+                            dispatch(
+                                actions.pointGraph.movePoint(i, destination),
+                            )
+                        }
+                        ref={(ref) => {
+                            pointRef.current[i] = ref;
+                        }}
+                        onFocus={() => {
+                            dispatch(actions.pointGraph.focusPoint(i));
+                        }}
+                        onClick={() => {
+                            dispatch(actions.pointGraph.clickPoint(i));
+                        }}
+                    />
+                ))}
+            </>
+        );
+    } else {
+        return (
+            <>
+                {/* This rect is here to grab clicks so that new points can be added */}
+                {/* It's important because it stops mouse events from propogating
+                when dragging a points around */}
+                <rect
+                    style={{
+                        fill: "rgba(0,0,0,0)",
+                        cursor: "crosshair",
+                    }}
+                    width={widthPx}
+                    height={heightPx}
+                    x={left}
+                    y={top}
+                    onClick={(event) => {
+                        const elementRect =
+                            event.currentTarget.getBoundingClientRect();
+
+                        const x = event.clientX - elementRect.x;
+                        const y = event.clientY - elementRect.y;
+
+                        const graphCoordinates = pixelsToVectors(
+                            [[x, y]],
+                            graphConfig,
+                        );
+                        dispatch(actions.polygon.addPoint(graphCoordinates[0]));
+                    }}
+                />
+                <Polyline
+                    points={[...points]}
+                    color="var(--movable-line-stroke-color)"
+                    svgPolylineProps={{
+                        strokeWidth: focusVisible
+                            ? "var(--movable-line-stroke-weight-active)"
+                            : "var(--movable-line-stroke-weight)",
+                        style: {fill: "transparent"},
+                    }}
+                />
+                {props.graphState.coords.map((point, i) => {
+                    const pt1 = points.at(i - 1);
+                    const pt2 = points[(i + 1) % points.length];
+                    if (!pt1 || !pt2) {
+                        return null;
+                    }
+                    return (
+                        <PolygonAngle
+                            key={"angle-" + i}
+                            centerPoint={point}
+                            endPoints={[pt1, pt2]}
+                            range={range}
+                            polygonLines={lines}
+                            showAngles={!!showAngles}
+                            snapTo={snapTo}
+                        />
+                    );
+                })}
+                {showSides &&
+                    lines.map(([start, end], i) => {
+                        const [x, y] = vec.midpoint(start, end);
+                        const length = parseFloat(
+                            vec
+                                .dist(start, end)
+                                .toFixed(snapTo === "sides" ? 0 : 1),
+                        );
+                        return (
+                            <TextLabel key={"side-" + i} x={x} y={y}>
+                                {!Number.isInteger(length) && "≈ "}
+                                {length}
+                            </TextLabel>
+                        );
+                    })}
+                {props.graphState.coords.map((point, i) => (
+                    <MovablePoint
+                        key={i}
+                        point={point}
+                        onMove={(destination) =>
+                            dispatch(
+                                actions.pointGraph.movePoint(i, destination),
+                            )
+                        }
+                        ref={(ref) => {
+                            pointRef.current[i] = ref;
+                        }}
+                        onFocus={() => {
+                            dispatch(actions.pointGraph.focusPoint(i));
+                        }}
+                        onClick={() => {
+                            dispatch(actions.pointGraph.clickPoint(i));
+                        }}
+                    />
+                ))}
+            </>
+        );
+    }
 };
 
 function getLines(points: readonly vec.Vector2[]): CollinearTuple[] {
