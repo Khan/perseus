@@ -13,7 +13,22 @@ import {useDraggable} from "./use-draggable";
 import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
 
 import type {CollinearTuple} from "../../../perseus-types";
-import type {MafsGraphProps, PolygonGraphState} from "../types";
+import type {
+    Dispatch,
+    InteractiveGraphElementSuite,
+    MafsGraphProps,
+    PolygonGraphState
+} from "../types";
+
+export function renderPolygonGraph(
+    state: PolygonGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <PolygonGraph graphState={state} dispatch={dispatch} />,
+        screenreaderDescription: null,
+    };
+}
 
 type Props = MafsGraphProps<PolygonGraphState>;
 
