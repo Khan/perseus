@@ -17,6 +17,7 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
+import type {ExpressionPromptJSON} from "./prompt-utils";
 import type {PerseusItem} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -521,6 +522,29 @@ describe("Expression Widget", function () {
             expect(
                 screen.queryByText("Sorry, I don't understand that!"),
             ).toBeNull();
+        });
+    });
+
+    it("Should get prompt json which matches the state of the UI", async () => {
+        // Arrange
+        const item = expressionItemWithLabels;
+        const {renderer} = renderQuestion(item.question);
+        const widget = renderer.findWidgets("expression 1")[0];
+        const expressionOptions =
+            expressionItemWithLabels.question.widgets["expression 1"].options;
+
+        // Act
+        const input = "x+1";
+        act(() => widget.insert(input));
+        act(() => jest.runOnlyPendingTimers());
+
+        const json = widget?.getPromptJSON?.() as ExpressionPromptJSON;
+
+        // Assert
+        expect(json).toEqual({
+            type: "expression",
+            label: expressionOptions.visibleLabel,
+            userInput: {value: input},
         });
     });
 });

@@ -106,7 +106,7 @@ describe("Dropdown widget", () => {
         // tabindex.
     });
 
-    it("Should get prompt json which matches the state of the UI for a randomized question", async () => {
+    it("should get prompt json which matches the state of the UI for a randomized question", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         const widget = renderer.getWidgetInstance("dropdown 1");
