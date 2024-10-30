@@ -64,6 +64,7 @@ import {renderCircleGraph} from "./graphs/circle";
 import {renderLinearGraph} from "./graphs/linear";
 import {renderLinearSystemGraph} from "./graphs/linear-system";
 import {renderSegmentGraph} from "./graphs/segment";
+import {renderRayGraph} from "./graphs/ray";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -624,10 +625,7 @@ const renderGraphElements = (props: {
         case "linear":
             return renderLinearGraph(state, dispatch);
         case "ray":
-            return {
-                graph: <RayGraph graphState={state} dispatch={dispatch} />,
-                screenreaderDescription: null,
-            };
+            return renderRayGraph(state, dispatch);
         case "polygon":
             return {
                 graph: <PolygonGraph graphState={state} dispatch={dispatch} />,

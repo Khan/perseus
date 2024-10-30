@@ -4,8 +4,23 @@ import {actions} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
 
-import type {MafsGraphProps, RayGraphState} from "../types";
+import type {
+    Dispatch,
+    InteractiveGraphElementSuite,
+    MafsGraphProps,
+    RayGraphState
+} from "../types";
 import type {vec} from "mafs";
+
+export function renderRayGraph(
+    state: RayGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <RayGraph graphState={state} dispatch={dispatch} />,
+        screenreaderDescription: null,
+    };
+}
 
 type Props = MafsGraphProps<RayGraphState>;
 
