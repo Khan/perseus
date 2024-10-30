@@ -66,6 +66,7 @@ import {renderLinearSystemGraph} from "./graphs/linear-system";
 import {renderSegmentGraph} from "./graphs/segment";
 import {renderRayGraph} from "./graphs/ray";
 import {renderPolygonGraph} from "./graphs/polygon";
+import {renderQuadraticGraph} from "./graphs/quadratic";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -634,12 +635,7 @@ const renderGraphElements = (props: {
         case "circle":
             return renderCircleGraph(state, dispatch);
         case "quadratic":
-            return {
-                graph: (
-                    <QuadraticGraph graphState={state} dispatch={dispatch} />
-                ),
-                screenreaderDescription: null,
-            };
+            return renderQuadraticGraph(state, dispatch);
         case "sinusoid":
             return {
                 graph: <SinusoidGraph graphState={state} dispatch={dispatch} />,

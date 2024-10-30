@@ -6,7 +6,22 @@ import {actions} from "../reducer/interactive-graph-action";
 
 import {MovablePoint} from "./components/movable-point";
 
-import type {QuadraticGraphState, MafsGraphProps} from "../types";
+import type {
+    QuadraticGraphState,
+    MafsGraphProps,
+    Dispatch,
+    InteractiveGraphElementSuite,
+} from "../types";
+
+export function renderQuadraticGraph(
+    state: QuadraticGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <QuadraticGraph graphState={state} dispatch={dispatch} />,
+        screenreaderDescription: null,
+    };
+}
 
 type QuadraticGraphProps = MafsGraphProps<QuadraticGraphState>;
 type QuadraticCoefficient = [number, number, number];
