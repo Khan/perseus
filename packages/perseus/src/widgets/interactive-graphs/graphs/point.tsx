@@ -2,7 +2,6 @@ import * as React from "react";
 
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {REMOVE_BUTTON_ID} from "../utils";
 
 import {MovablePoint} from "./components/movable-point";
 import {
