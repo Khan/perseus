@@ -16,6 +16,7 @@ import {
     withCoefficient,
 } from "./numeric-input.testdata";
 
+import type {NumericInputPromptJSON} from "./prompt-utils";
 import type {PerseusNumericInputRubric} from "../../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -74,6 +75,24 @@ describe("numeric-input widget", () => {
 
         // Assert
         expect(renderer).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("Should get prompt json which matches the state of the UI", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question);
+        const widget = renderer.getWidgetInstance("numeric-input 1");
+
+        // Act
+        const answer = "838";
+        await userEvent.type(
+            screen.getByRole("textbox", {hidden: true}),
+            answer,
+        );
+
+        const json = widget?.getPromptJSON?.() as NumericInputPromptJSON;
+
+        // Assert
+        expect(json.userInput.value).toEqual(answer);
     });
 });
 
