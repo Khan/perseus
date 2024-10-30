@@ -270,10 +270,6 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                  * This transparent svg creates a nice big click/touch target,
                  * since the polygon itself can be made smaller than the spec.
                  */}
-                {/**
-                 * Will likely want to conditionally render then once a full polygon is created
-                 * And handle when someone wants to remove the polygon connection?
-                 */}
                 <Polygon
                     points={[...points]}
                     color="transparent"
@@ -447,6 +443,59 @@ export const hasFocusVisible = (
         return matches(":focus");
     }
 };
+
+// There must be a way to simplify the logic between the two components. Here
+// are my attempts.
+
+// export const PolygonGraph = (props: Props) => {
+//     const numSides = props.graphState.numSides;
+//     const closedPolygon = props.graphState.closedPolygon;
+//     const polygonGraph =
+//         numSides === "unlimited"
+//             ? UnlimitedPolygonGraph(props)
+//             : LimitedPolygonGraph(props);
+
+//     const polygonRef = React.useRef<Array<React.JSX.Element | null>>([
+//         polygonGraph,
+//     ]);
+
+//     React.useEffect(() => {
+//         if (numSides === "unlimited") {
+//             if (closedPolygon) {
+//                 //const points = coords ?? [[0, 0]];
+//                 //const lines = getLines(points);
+//                 polygonRef.current[0] = LimitedPolygonGraph(props);
+//             } else {
+//                 polygonRef.current[0] = UnlimitedPolygonGraph(props);
+//             }
+//         }
+//     }, [closedPolygon, numSides, props]);
+
+//     return polygonRef.current[0];
+// };
+
+// export const PolygonGraph = (props: Props) => {
+//     const numSides = props.graphState.numSides;
+//     const closedPolygon = props.graphState.closedPolygon;
+
+//     const [polygonGraph, setPolygonGraph] = React.useState(
+//         numSides === "unlimited"
+//             ? UnlimitedPolygonGraph(props)
+//             : LimitedPolygonGraph(props),
+//     );
+
+//     React.useEffect(() => {
+//         if (numSides === "unlimited") {
+//             if (closedPolygon) {
+//                 setPolygonGraph(LimitedPolygonGraph(props));
+//             } else {
+//                 setPolygonGraph(UnlimitedPolygonGraph(props));
+//             }
+//         }
+//     }, [closedPolygon, numSides, props]);
+
+//     return polygonGraph;
+// };
 
 export const PolygonGraph = (props: Props) => {
     const numSides = props.graphState.numSides;
