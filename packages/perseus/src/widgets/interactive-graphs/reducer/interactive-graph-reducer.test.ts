@@ -1180,51 +1180,123 @@ xdescribe("doRemovePoint", () => {
     // TODO(catjohnson): Add tests for doRemovePoint function.
 });
 
-xdescribe("doClosePolygon", () => {
-    it("does nothing when type is not unlimited `polygon`", () => {});
+describe("doClosePolygon", () => {
+    it("does nothing when type is not `polygon`", () => {
+        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.closePolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeUndefined;
+    });
+
+    it("does nothing when type is not an unlimited graph", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            closedPolygon: false,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.closePolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeFalsy();
+    });
 
     it("changes `closePolygon` property to true", () => {
         const state: InteractiveGraphState = {
-            ...basePolygonGraphState,
-            coords: [
-                [0, 0],
-                [0, 2],
-                [2, 2],
-                [2, 0],
-            ],
+            ...baseUnlimitedPolygonGraphState,
+            closedPolygon: false,
         };
 
         const updated = interactiveGraphReducer(
             state,
-            actions.polygon.movePoint(0, [0, 1]),
+            actions.polygon.closePolygon(),
         );
 
         invariant(updated.type === "polygon");
-        expect(updated.coords[0]).toEqual([0, 1]);
+        expect(updated.closedPolygon).toBeTruthy();
     });
 
-    it("", () => {
+    it("does not change `closePolygon` property when it's already false", () => {
         const state: InteractiveGraphState = {
-            ...basePolygonGraphState,
-            coords: [
-                [0, 0],
-                [0, 2],
-                [2, 2],
-                [2, 0],
-            ],
+            ...baseUnlimitedPolygonGraphState,
+            closedPolygon: true,
         };
 
         const updated = interactiveGraphReducer(
             state,
-            actions.polygon.movePoint(0, [1, 3]),
+            actions.polygon.closePolygon(),
         );
 
         invariant(updated.type === "polygon");
-        expect(updated.coords[0]).toEqual([0, 0]);
+        expect(updated.closedPolygon).toBeTruthy();
     });
 });
 
-xdescribe("doOpenPolygon", () => {});
+describe("doOpenPolygon", () => {
+    it("does nothing when type is not `polygon`", () => {
+        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.openPolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeFalsy();
+    });
+
+    it("does nothing when type is not an unlimited graph", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            closedPolygon: true,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.openPolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeTruthy();
+    });
+
+    it("changes `openPolygon` property to false", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+            closedPolygon: true,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.openPolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeFalsy();
+    });
+
+    it("does not change `openPolygon` property when it's already false", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+            closedPolygon: false,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.openPolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeFalsy();
+    });
+});
 
 describe("unlimited points", () => {
     it("adds points", () => {
