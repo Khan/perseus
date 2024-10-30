@@ -2,6 +2,7 @@ import type {CategorizerPromptJSON} from "./widgets/categorizer/prompt-utils";
 import type {CSProgramPromptJSON} from "./widgets/cs-program/prompt-utils";
 import type {DefinitionPromptJSON} from "./widgets/definition/prompt-utils";
 import type {DropdownPromptJSON} from "./widgets/dropdown/prompt-utils";
+import type {ExplanationPromptJSON} from "./widgets/explanation/prompt-utils";
 import type {ExpressionPromptJSON} from "./widgets/expression/prompt-utils";
 import type {NumericInputPromptJSON} from "./widgets/numeric-input/prompt-utils";
 import type {RadioPromptJSON} from "./widgets/radio/prompt-utils";
@@ -10,6 +11,7 @@ export enum WidgetType {
     CATEGORIZER = "categorizer",
     CS_PROGRAM = "cs-program",
     DEFINITION = "definition",
+    EXPLANATION = "explanation",
     EXPRESSION = "expression",
     DROPDOWN = "dropdown",
     RADIO = "radio",
@@ -20,6 +22,7 @@ export type WidgetPromptJSON =
     | CategorizerPromptJSON
     | CSProgramPromptJSON
     | DefinitionPromptJSON
+    | ExplanationPromptJSON
     | ExpressionPromptJSON
     | DropdownPromptJSON
     | RadioPromptJSON

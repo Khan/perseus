@@ -28,10 +28,7 @@ type DefaultProps = {
     definition: string;
 };
 
-export class Definition
-    extends React.Component<DefinitionProps>
-    implements Widget
-{
+class Definition extends React.Component<DefinitionProps> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

@@ -1,13 +1,15 @@
 import {WidgetType} from "../../prompt-types";
 
-import type {Dropdown} from "./dropdown";
+import type dropdown from "./dropdown";
 import type {PerseusDropdownUserInput} from "../../validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
+type WidgetProps = PropsFor<typeof dropdown.widget>;
 
 export type DropdownPromptJSON = {
     type: WidgetType;
     options: {
-        items: PropsFor<typeof Dropdown>["choices"];
+        items: WidgetProps["choices"];
     };
     userInput: {
         selectedIndex: PerseusDropdownUserInput["value"];
@@ -15,7 +17,7 @@ export type DropdownPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: PropsFor<typeof Dropdown>,
+    renderProps: WidgetProps,
     userInput: PerseusDropdownUserInput,
 ): DropdownPromptJSON => {
     return {

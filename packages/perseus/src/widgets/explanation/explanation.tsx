@@ -12,6 +12,9 @@ import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
 import noopValidator from "../__shared__/noop-validator";
 
+import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
+
+import type {ExplanationPromptJSON} from "./prompt-utils";
 import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 
@@ -77,6 +80,10 @@ class Explanation extends React.Component<Props, State> implements Widget {
         });
         this.props.trackInteraction();
     };
+
+    getPromptJSON(): ExplanationPromptJSON {
+        return _getPromptJSON(this.props);
+    }
 
     render(): React.ReactNode {
         const promptText = this.state.expanded
