@@ -119,6 +119,9 @@ export const replaceDeprecatedEditors = () => {
     replaceEditor("simulator", "deprecated-standin");
     replaceEditor("unit-input", "deprecated-standin");
 
+    // We're replacing the input-number editor with the numeric-input editor here,
+    // but we're also modifying the JSON content to convert input-number into the
+    // numeric-input format over in editor-page.tsx on line 92.
     replaceEditor("input-number", "numeric-input");
 };
 
