@@ -59,6 +59,7 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
+import {renderAngleGraph} from "./graphs/angle";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -611,10 +612,7 @@ const renderGraphElements = (props: {
     const {type} = state;
     switch (type) {
         case "angle":
-            return {
-                graph: <AngleGraph graphState={state} dispatch={dispatch} />,
-                screenreaderDescription: null,
-            };
+            return renderAngleGraph(state, dispatch);
         case "segment":
             return {
                 graph: <SegmentGraph graphState={state} dispatch={dispatch} />,
