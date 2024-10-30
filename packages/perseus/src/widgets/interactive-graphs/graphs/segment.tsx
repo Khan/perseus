@@ -4,8 +4,23 @@ import {actions} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
 
-import type {MafsGraphProps, SegmentGraphState} from "../types";
+import type {
+    Dispatch,
+    InteractiveGraphElementSuite,
+    MafsGraphProps,
+    SegmentGraphState
+} from "../types";
 import type {vec} from "mafs";
+
+export function renderSegmentGraph(
+    state: SegmentGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <SegmentGraph graphState={state} dispatch={dispatch} />,
+        screenreaderDescription: null,
+    };
+}
 
 type SegmentProps = MafsGraphProps<SegmentGraphState>;
 

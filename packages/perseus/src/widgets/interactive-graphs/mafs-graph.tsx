@@ -63,6 +63,7 @@ import {renderAngleGraph} from "./graphs/angle";
 import {renderCircleGraph} from "./graphs/circle";
 import {renderLinearGraph} from "./graphs/linear";
 import {renderLinearSystemGraph} from "./graphs/linear-system";
+import {renderSegmentGraph} from "./graphs/segment";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -617,10 +618,7 @@ const renderGraphElements = (props: {
         case "angle":
             return renderAngleGraph(state, dispatch);
         case "segment":
-            return {
-                graph: <SegmentGraph graphState={state} dispatch={dispatch} />,
-                screenreaderDescription: null,
-            };
+            return renderSegmentGraph(state, dispatch);
         case "linear-system":
             return renderLinearSystemGraph(state, dispatch);
         case "linear":
