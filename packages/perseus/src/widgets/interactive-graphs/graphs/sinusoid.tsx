@@ -12,7 +12,7 @@ import type {
     SinusoidGraphState,
     MafsGraphProps,
     Dispatch,
-    InteractiveGraphElementSuite
+    InteractiveGraphElementSuite,
 } from "../types";
 
 export function renderSinusoidGraph(

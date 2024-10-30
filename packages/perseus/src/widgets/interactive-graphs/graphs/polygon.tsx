@@ -17,7 +17,7 @@ import type {
     Dispatch,
     InteractiveGraphElementSuite,
     MafsGraphProps,
-    PolygonGraphState
+    PolygonGraphState,
 } from "../types";
 
 export function renderPolygonGraph(

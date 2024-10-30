@@ -20,7 +20,7 @@ import type {
     AngleGraphState,
     Dispatch,
     InteractiveGraphElementSuite,
-    MafsGraphProps
+    MafsGraphProps,
 } from "../types";
 
 type AngleGraphProps = MafsGraphProps<AngleGraphState>;

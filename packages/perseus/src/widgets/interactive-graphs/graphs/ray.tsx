@@ -8,7 +8,7 @@ import type {
     Dispatch,
     InteractiveGraphElementSuite,
     MafsGraphProps,
-    RayGraphState
+    RayGraphState,
 } from "../types";
 import type {vec} from "mafs";
 

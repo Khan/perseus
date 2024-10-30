@@ -14,7 +14,7 @@ import type {
     PointGraphState,
     MafsGraphProps,
     Dispatch,
-    InteractiveGraphElementSuite
+    InteractiveGraphElementSuite,
 } from "../types";
 
 export function renderPointGraph(

@@ -26,18 +26,16 @@ import {Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
 import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
 import GraphLockedLayer from "./graph-locked-layer";
-import {
-    LinearGraph,
-    LinearSystemGraph,
-    PolygonGraph,
-    RayGraph,
-    SegmentGraph,
-    CircleGraph,
-    QuadraticGraph,
-    SinusoidGraph,
-    AngleGraph,
-} from "./graphs";
+import {renderAngleGraph} from "./graphs/angle";
+import {renderCircleGraph} from "./graphs/circle";
 import {SvgDefs} from "./graphs/components/text-label";
+import {renderLinearGraph} from "./graphs/linear";
+import {renderLinearSystemGraph} from "./graphs/linear-system";
+import {renderSegmentGraph} from "./graphs/segment";
+import {renderRayGraph} from "./graphs/ray";
+import {renderPolygonGraph} from "./graphs/polygon";
+import {renderQuadraticGraph} from "./graphs/quadratic";
+import {renderSinusoidGraph} from "./graphs/sinusoid";
 import {renderPointGraph} from "./graphs/point";
 import {MIN, X, Y} from "./math";
 import {Protractor} from "./protractor";
@@ -59,15 +57,6 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
-import {renderAngleGraph} from "./graphs/angle";
-import {renderCircleGraph} from "./graphs/circle";
-import {renderLinearGraph} from "./graphs/linear";
-import {renderLinearSystemGraph} from "./graphs/linear-system";
-import {renderSegmentGraph} from "./graphs/segment";
-import {renderRayGraph} from "./graphs/ray";
-import {renderPolygonGraph} from "./graphs/polygon";
-import {renderQuadraticGraph} from "./graphs/quadratic";
-import {renderSinusoidGraph} from "./graphs/sinusoid";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];

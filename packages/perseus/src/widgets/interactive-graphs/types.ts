@@ -1,9 +1,9 @@
-import type {ReactNode} from "react";
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {WidgetProps} from "../../types";
 import type {Interval, vec} from "mafs";
+import type {ReactNode} from "react";
 
 export type InteractiveGraphProps = WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
@@ -23,7 +23,7 @@ export type InteractiveGraphElementSuite = {
     graph: ReactNode;
     screenreaderDescription: ReactNode;
     // TODO(benchristel): add actionBar controls here
-}
+};
 
 export type InteractiveGraphState =
     | AngleGraphState

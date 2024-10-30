@@ -8,7 +8,7 @@ import type {
     Dispatch,
     InteractiveGraphElementSuite,
     MafsGraphProps,
-    SegmentGraphState
+    SegmentGraphState,
 } from "../types";
 import type {vec} from "mafs";
 

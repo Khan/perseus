@@ -18,7 +18,7 @@ import type {
     CircleGraphState,
     Dispatch,
     InteractiveGraphElementSuite,
-    MafsGraphProps
+    MafsGraphProps,
 } from "../types";
 
 export function renderCircleGraph(

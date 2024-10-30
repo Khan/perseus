@@ -8,7 +8,7 @@ import type {
     MafsGraphProps,
     LinearSystemGraphState,
     Dispatch,
-    InteractiveGraphElementSuite
+    InteractiveGraphElementSuite,
 } from "../types";
 import type {vec} from "mafs";
 
