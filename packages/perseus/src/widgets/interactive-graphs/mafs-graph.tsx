@@ -67,6 +67,7 @@ import {renderSegmentGraph} from "./graphs/segment";
 import {renderRayGraph} from "./graphs/ray";
 import {renderPolygonGraph} from "./graphs/polygon";
 import {renderQuadraticGraph} from "./graphs/quadratic";
+import {renderSinusoidGraph} from "./graphs/sinusoid";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -637,10 +638,7 @@ const renderGraphElements = (props: {
         case "quadratic":
             return renderQuadraticGraph(state, dispatch);
         case "sinusoid":
-            return {
-                graph: <SinusoidGraph graphState={state} dispatch={dispatch} />,
-                screenreaderDescription: null,
-            };
+            return renderSinusoidGraph(state, dispatch);
         case "none":
             return {graph: null, screenreaderDescription: null};
         default:
