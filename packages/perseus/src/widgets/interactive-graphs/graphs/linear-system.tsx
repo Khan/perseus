@@ -4,8 +4,23 @@ import {actions} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
 
-import type {MafsGraphProps, LinearSystemGraphState} from "../types";
+import type {
+    MafsGraphProps,
+    LinearSystemGraphState,
+    Dispatch,
+    InteractiveGraphElementSuite
+} from "../types";
 import type {vec} from "mafs";
+
+export function renderLinearSystemGraph(
+    state: LinearSystemGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <LinearSystemGraph graphState={state} dispatch={dispatch} />,
+        screenreaderDescription: null,
+    };
+}
 
 type LinearSystemGraphProps = MafsGraphProps<LinearSystemGraphState>;
 
