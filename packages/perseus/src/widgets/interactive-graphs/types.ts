@@ -10,9 +10,11 @@ export type InteractiveGraphProps = WidgetProps<
     PerseusInteractiveGraphWidgetOptions
 >;
 
+export type Dispatch = (action: InteractiveGraphAction) => unknown;
+
 export type MafsGraphProps<T extends InteractiveGraphState> = {
     graphState: T;
-    dispatch: (action: InteractiveGraphAction) => unknown;
+    dispatch: Dispatch;
 };
 
 // InteractiveGraphElementSuite contains parts of the graph UI which need to

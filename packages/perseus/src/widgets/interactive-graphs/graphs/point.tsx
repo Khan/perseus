@@ -10,7 +10,12 @@ import {
     pixelsToVectors,
 } from "./use-transform";
 
-import type {PointGraphState, MafsGraphProps} from "../types";
+import type {
+    PointGraphState,
+    MafsGraphProps,
+    Dispatch,
+    InteractiveGraphElementSuite
+} from "../types";
 
 type PointGraphProps = MafsGraphProps<PointGraphState>;
 
@@ -104,11 +109,21 @@ function UnlimitedPointGraph(props: PointGraphProps) {
     );
 }
 
-export function PointGraph(props: PointGraphProps) {
+function PointGraph(props: PointGraphProps) {
     const numPoints = props.graphState.numPoints;
     if (numPoints === "unlimited") {
         return UnlimitedPointGraph(props);
     }
 
     return LimitedPointGraph(props);
+}
+
+export function renderPointGraph(
+    state: PointGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <PointGraph graphState={state} dispatch={dispatch} />,
+        screenreaderDescription: null,
+    };
 }

@@ -38,7 +38,7 @@ import {
     AngleGraph,
 } from "./graphs";
 import {SvgDefs} from "./graphs/components/text-label";
-import {PointGraph} from "./graphs/point";
+import {renderPointGraph} from "./graphs/point";
 import {MIN, X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {type InteractiveGraphAction} from "./reducer/interactive-graph-action";
@@ -643,10 +643,7 @@ const renderGraphElements = (props: {
                 screenreaderDescription: null,
             };
         case "point":
-            return {
-                graph: <PointGraph graphState={state} dispatch={dispatch} />,
-                screenreaderDescription: null,
-            };
+            return renderPointGraph(state, dispatch);
         case "circle":
             return {
                 graph: <CircleGraph graphState={state} dispatch={dispatch} />,
