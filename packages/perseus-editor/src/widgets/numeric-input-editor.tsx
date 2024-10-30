@@ -121,54 +121,7 @@ class NumericInputEditor extends React.Component<Props, State> {
             lastStatus: "wrong",
             showOptions: _.map(this.props.answers, () => false),
         };
-        const upgradedProps = this.propsUpgrade(this.props); // quickhack for input number
-        this.props.onChange({props, ...upgradedProps}); // upgrade the props
     }
-
-    // Temporary function to upgrade props from the deprecated
-    // InputNumber widget to the new NumericInput widget. This can be removed
-    // once the deprecated InputNumber widget is removed from our content. This should
-    // happen naturally as Content Editors re-save and publish their content.
-    // SIDE NOTE: Ooo interesting, I wonder if we could build a script to auto re-publish all content somehow.
-    propsUpgrade = (initialProps: any): PerseusNumericInputWidgetOptions => {
-        console.log(initialProps);
-        if (initialProps.value) {
-            console.log("Upgrading props for input-number");
-            let provideAnswerForm = true;
-            if (
-                initialProps.value !== "number" &&
-                initialProps.value !== "rational"
-            ) {
-                provideAnswerForm = false;
-            }
-
-            const answers = [
-                {
-                    value: initialProps.value,
-                    simplify: initialProps.simplify,
-                    answerForms: provideAnswerForm
-                        ? [initialProps.answerType]
-                        : undefined,
-                    strict: initialProps.inexact,
-                    maxError: initialProps.maxError,
-                    status: "correct", // Input-number only allows correct answers
-                    message: "",
-                },
-            ];
-
-            return {
-                answers,
-                size: initialProps.size,
-                coefficient: false, // input-number doesn't have a coefficient prop
-                labelText: "", // input-number doesn't have a labelText prop
-                static: false, // static is always false for numeric-input
-            };
-        } else {
-            // Otherwise simply return the initialProps as there's no differences
-            // between v0 and v1 for numeric-input
-            return initialProps;
-        }
-    };
 
     change = (...args) => {
         return Changeable.change.apply(this, args);
