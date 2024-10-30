@@ -56,11 +56,6 @@ the previous heading was level ${previousHeading.level}`;
         return PureMarkdown.parse(markdown);
     }
 
-    it("makeRules() factory method", () => {
-        const rules: Rule[] = ruleDescriptions.map((r) => Rule.makeRule(r));
-        expect(rules).toHaveLength(ruleDescriptions.length);
-    });
-
     it("check() method", () => {
         const rules = ruleDescriptions.map((r) => Rule.makeRule(r));
         const tree = parseTree();
