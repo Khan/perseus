@@ -1,19 +1,21 @@
 import {WidgetType} from "../../prompt-types";
 
-import type {Expression} from "./expression";
+import type expression from "./expression";
 import type {PerseusExpressionUserInput} from "../../validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
+type WidgetProps = PropsFor<typeof expression.widget>;
+
 export type ExpressionPromptJSON = {
     type: WidgetType;
-    label: PropsFor<typeof Expression>["visibleLabel"];
+    label: WidgetProps["visibleLabel"];
     userInput: {
         value: PerseusExpressionUserInput;
     };
 };
 
 export const getPromptJSON = (
-    renderProps: PropsFor<typeof Expression>,
+    renderProps: WidgetProps,
     userInput: PerseusExpressionUserInput,
 ): ExpressionPromptJSON => {
     return {

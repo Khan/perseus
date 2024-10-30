@@ -26,7 +26,7 @@ type DefaultProps = {
     apiOptions: Props["apiOptions"];
 };
 
-export class Dropdown extends React.Component<Props> implements Widget {
+class Dropdown extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         choices: [],
         selected: 0,

@@ -1,17 +1,18 @@
 import {WidgetType} from "../../prompt-types";
 
-import type {Definition} from "./definition";
-import type {PerseusDefinitionWidgetOptions} from "../../perseus-types";
+import type definition from "./definition";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
+type WidgetProps = PropsFor<typeof definition.widget>;
 
 export type DefinitionPromptJSON = {
     type: WidgetType;
-    definition: PerseusDefinitionWidgetOptions["definition"];
-    togglePrompt: PerseusDefinitionWidgetOptions["togglePrompt"];
+    definition: WidgetProps["definition"];
+    togglePrompt: WidgetProps["togglePrompt"];
 };
 
 export const getPromptJSON = (
-    renderProps: PropsFor<typeof Definition>,
+    renderProps: WidgetProps,
 ): DefinitionPromptJSON => {
     return {
         type: WidgetType.DEFINITION,

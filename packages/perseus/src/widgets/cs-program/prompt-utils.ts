@@ -1,11 +1,14 @@
 import {WidgetType} from "../../prompt-types";
 
-import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
+import type csProgram from "./cs-program";
 import type {PerseusCSProgramUserInput} from "../../validation.types";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
+type WidgetProps = PropsFor<typeof csProgram.widget>;
 
 export type CSProgramPromptJSON = {
     type: WidgetType;
-    programID: PerseusCSProgramWidgetOptions["programID"];
+    programID: WidgetProps["programID"];
     userInput: {
         status: PerseusCSProgramUserInput["status"];
         message: PerseusCSProgramUserInput["message"];
@@ -13,7 +16,7 @@ export type CSProgramPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: PerseusCSProgramWidgetOptions,
+    renderProps: WidgetProps,
     userInput: PerseusCSProgramUserInput,
 ): CSProgramPromptJSON => {
     return {
