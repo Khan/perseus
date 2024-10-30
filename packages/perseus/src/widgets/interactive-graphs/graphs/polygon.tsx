@@ -219,6 +219,8 @@ export const UnlimitedPolygonGraph = (props: Props) => {
     if (closedPolygon) {
         // When it's closed it's essentially just going to be the normal
         // Polygon code... Maybe utilize the limited polygon logic??
+        // Can try that but will need to pass in a num of sides
+        // or else it breaks.
         return (
             <>
                 <Polygon
