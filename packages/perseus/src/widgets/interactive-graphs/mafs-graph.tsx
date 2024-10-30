@@ -342,21 +342,19 @@ const renderPointGraphControls = (props: {
                 width: props.width,
             }}
         >
-            {interactionMode === "keyboard" && (
-                <Button
-                    kind="secondary"
-                    style={{
-                        width: "100%",
-                        marginLeft: "20px",
-                    }}
-                    tabIndex={0}
-                    onClick={() => {
-                        props.dispatch(actions.pointGraph.addPoint([0, 0]));
-                    }}
-                >
-                    {perseusStrings.addPoint}
-                </Button>
-            )}
+            <Button
+                kind="secondary"
+                style={{
+                    width: "100%",
+                    marginLeft: "20px",
+                }}
+                tabIndex={0}
+                onClick={() => {
+                    props.dispatch(actions.pointGraph.addPoint([0, 0]));
+                }}
+            >
+                {perseusStrings.addPoint}
+            </Button>
             {interactionMode === "mouse" && (
                 <Button
                     id={REMOVE_BUTTON_ID}
