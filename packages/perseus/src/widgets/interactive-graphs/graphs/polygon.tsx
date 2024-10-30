@@ -4,7 +4,7 @@ import * as React from "react";
 import {snap} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {REMOVE_BUTTON_ID, TARGET_SIZE} from "../utils";
+import {TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
@@ -331,35 +331,16 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                     key={i}
                     point={point}
                     onMove={(destination) =>
-                        dispatch(actions.polygon.movePoint(i, destination))
+                        dispatch(actions.pointGraph.movePoint(i, destination))
                     }
                     ref={(ref) => {
                         pointRef.current[i] = ref;
                     }}
-                    onFocusChange={(event, isFocused) => {
-                        if (isFocused) {
-                            dispatch(actions.polygon.focusPoint(i));
-                        } else {
-                            if (event.relatedTarget?.id === REMOVE_BUTTON_ID) {
-                                return;
-                                // This is an optimization: If the next target
-                                // is a point then don't blur because it casues
-                                // the remove button to get taken off the page
-                                // and then put back on The new point will
-                                // receive focus and set the correct state in
-                                // the reducer
-                            } else if (
-                                event.relatedTarget?.classList.contains(
-                                    "movable-point",
-                                )
-                            ) {
-                                return;
-                            }
-                            dispatch(actions.polygon.blurPoint());
-                        }
+                    onFocus={() => {
+                        dispatch(actions.pointGraph.focusPoint(i));
                     }}
                     onClick={() => {
-                        dispatch(actions.polygon.clickPoint(i));
+                        dispatch(actions.pointGraph.clickPoint(i));
                     }}
                 />
             ))}
