@@ -7,11 +7,11 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 export type CategorizerPromptJSON = {
     type: WidgetType;
     options: {
-        items: ReadonlyArray<string>;
-        categories: ReadonlyArray<string>;
+        items: PropsFor<typeof Categorizer>["items"];
+        categories: PropsFor<typeof Categorizer>["categories"];
     };
     userInput: {
-        itemToCategoryMapping: ReadonlyArray<number>;
+        itemToCategoryMapping: PerseusCategorizerUserInput["values"];
     };
 };
 
@@ -22,8 +22,8 @@ export const getPromptJSON = (
     return {
         type: WidgetType.CATEGORIZER,
         options: {
-            items: renderProps.items || [],
-            categories: renderProps.categories || [],
+            items: renderProps.items,
+            categories: renderProps.categories,
         },
         userInput: {
             itemToCategoryMapping: userInput.values,

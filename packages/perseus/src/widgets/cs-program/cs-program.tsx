@@ -15,7 +15,9 @@ import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
 
 import {csProgramValidator} from "./cs-program-validator";
+import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
+import type {CSProgramPromptJSON} from "./prompt-utils";
 import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
@@ -104,6 +106,10 @@ class CSProgram extends React.Component<Props> implements Widget {
             status: this.props.status,
             message: this.props.message,
         };
+    }
+
+    getPromptJSON(): CSProgramPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     render(): React.ReactNode {
