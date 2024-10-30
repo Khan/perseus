@@ -375,7 +375,7 @@ class Renderer extends React.Component<Props, State> {
         // WidgetContainers don't update their widgets' props when
         // they are re-rendered, so even if they've been
         // re-rendered we need to call these methods on them.
-        _.each(this.widgetIds, (id) => {
+        this.widgetIds.forEach((id) => {
             const container = this._widgetContainers.get(makeContainerId(id));
             container && container.replaceWidgetProps(this.getWidgetProps(id));
         });
@@ -1118,7 +1118,7 @@ class Renderer extends React.Component<Props, State> {
             // /cry(aria)
             this._foundTextNodes = true;
 
-            if (_.contains(this.widgetIds, node.id)) {
+            if (this.widgetIds.includes(node.id)) {
                 // We don't want to render a duplicate widget key/ref,
                 // as this causes problems with react (for obvious
                 // reasons). Instead we just notify the
@@ -1516,7 +1516,7 @@ class Renderer extends React.Component<Props, State> {
 
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         const inputPaths: Array<FocusPath> = [];
-        _.each(this.widgetIds, (widgetId: string) => {
+        this.widgetIds.forEach((widgetId: string) => {
             const widget = this.getWidgetInstance(widgetId);
             if (widget && widget.getInputPaths) {
                 // Grab all input paths and add widgetID to the front
@@ -1524,7 +1524,7 @@ class Renderer extends React.Component<Props, State> {
                 // Prefix paths with their widgetID and add to collective
                 // list of paths.
                 // @ts-expect-error - TS2345 - Argument of type '(inputPath: string) => void' is not assignable to parameter of type 'CollectionIterator<FocusPath, void, readonly FocusPath[]>'.
-                _.each(widgetInputPaths, (inputPath: string) => {
+                widgetInputPaths.forEach((inputPath: string) => {
                     const relativeInputPath = [widgetId].concat(inputPath);
                     inputPaths.push(relativeInputPath);
                 });
@@ -1760,14 +1760,14 @@ class Renderer extends React.Component<Props, State> {
 
     examples: () => ReadonlyArray<string> | null | undefined = () => {
         const widgetIds = this.widgetIds;
-        const examples = _.compact(
-            _.map(widgetIds, (widgetId) => {
+        const examples = widgetIds
+            .map((widgetId) => {
                 const widget = this.getWidgetInstance(widgetId);
                 return widget != null && widget.examples
                     ? widget.examples()
                     : null;
-            }),
-        );
+            })
+            .filter(Boolean);
 
         // no widgets with examples
         if (!examples.length) {
