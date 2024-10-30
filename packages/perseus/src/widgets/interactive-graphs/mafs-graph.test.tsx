@@ -129,7 +129,6 @@ describe("MafsGraph", () => {
     });
 
     it("renders ARIA labels for each point", () => {
-        const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
             hasBeenInteractedWith: true,
@@ -146,13 +145,11 @@ describe("MafsGraph", () => {
             ],
         };
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
-
         render(
             <MafsGraph
-                {...baseMafsGraphProps}
+                {...getBaseMafsGraphProps()}
                 state={state}
-                dispatch={mockDispatch}
+                dispatch={() => {}}
             />,
         );
 
