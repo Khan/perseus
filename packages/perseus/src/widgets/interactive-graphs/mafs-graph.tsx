@@ -61,6 +61,7 @@ import "mafs/core.css";
 import "./mafs-styles.css";
 import {renderAngleGraph} from "./graphs/angle";
 import {renderCircleGraph} from "./graphs/circle";
+import {renderLinearGraph} from "./graphs/linear";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -627,10 +628,7 @@ const renderGraphElements = (props: {
                 screenreaderDescription: null,
             };
         case "linear":
-            return {
-                graph: <LinearGraph graphState={state} dispatch={dispatch} />,
-                screenreaderDescription: null,
-            };
+            return renderLinearGraph(state, dispatch);
         case "ray":
             return {
                 graph: <RayGraph graphState={state} dispatch={dispatch} />,
