@@ -77,7 +77,7 @@ describe("numeric-input widget", () => {
         expect(renderer).toHaveBeenAnsweredIncorrectly();
     });
 
-    it("Should get prompt json which matches the state of the UI", async () => {
+    it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
         const widget = renderer.getWidgetInstance("numeric-input 1");

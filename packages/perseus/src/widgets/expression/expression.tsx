@@ -19,7 +19,9 @@ import a11y from "../../util/a11y";
 
 import expressionValidator from "./expression-validator";
 import getDecimalSeparator from "./get-decimal-separator";
+import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
+import type {ExpressionPromptJSON} from "./prompt-utils";
 import type {DependenciesContext} from "../../dependencies";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
@@ -189,6 +191,10 @@ export class Expression
 
     getUserInput(): PerseusExpressionUserInput {
         return Expression.getUserInputFromProps(this.props);
+    }
+
+    getPromptJSON(): ExpressionPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     change: (...args: any) => any | undefined = (...args: any) => {

@@ -134,7 +134,7 @@ describe("categorizer widget", () => {
         expect(userInput).toEqual({values: [1, 0, 0, 0, 1, 1]});
     });
 
-    it("Should get prompt json which matches the state of the UI for a randomized question", async () => {
+    it("should get prompt json which matches the state of the UI for a randomized question", async () => {
         // arrange
         const {renderer} = renderQuestion(randomizedQuestion);
         const widget = renderer.getWidgetInstance("categorizer 1");

@@ -880,7 +880,7 @@ describe("multi-choice question", () => {
         },
     );
 
-    it("Should get prompt json which matches the state of the UI", async () => {
+    it("should get prompt json which matches the state of the UI", async () => {
         const indexToSelect = 1;
         const {renderer} = renderQuestion(shuffledQuestion);
         const widget = renderer.getWidgetInstance("radio 1");
