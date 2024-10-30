@@ -60,6 +60,7 @@ import type {vec} from "mafs";
 import "mafs/core.css";
 import "./mafs-styles.css";
 import {renderAngleGraph} from "./graphs/angle";
+import {renderCircleGraph} from "./graphs/circle";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -643,10 +644,7 @@ const renderGraphElements = (props: {
         case "point":
             return renderPointGraph(state, dispatch);
         case "circle":
-            return {
-                graph: <CircleGraph graphState={state} dispatch={dispatch} />,
-                screenreaderDescription: null,
-            };
+            return renderCircleGraph(state, dispatch);
         case "quadratic":
             return {
                 graph: (
