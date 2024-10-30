@@ -162,7 +162,7 @@ describe("MafsGraph", () => {
             />,
         );
 
-        const group = screen.getByTestId("movable-point");
+        const group = screen.getByTestId("movable-point__focusable-handle");
         group.focus();
         await userEvent.keyboard("[ArrowRight]");
         const action = actions.pointGraph.movePoint(0, [4, 2]);

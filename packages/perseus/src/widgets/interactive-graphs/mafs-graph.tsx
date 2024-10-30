@@ -523,7 +523,18 @@ function handleKeyboardEvent(
 ) {
     if (isUnlimitedGraphState(state)) {
         if (event.key === "Backspace") {
-            dispatch(actions.global.deleteIntent());
+            // TODO(benchristel): Checking classList here is a hack to prevent
+            // points from being deleted if the user presses the backspace key
+            // while the whole graph is focused. Instead of doing this, we
+            // should move the keyboard event handler to the movable point
+            // handle element.
+            if (
+                document.activeElement?.classList.contains(
+                    "movable-point__focusable-handle",
+                )
+            ) {
+                dispatch(actions.global.deleteIntent());
+            }
 
             // After removing a point blur
             // It would be nice if this could focus on the graph but doing so
