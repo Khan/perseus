@@ -310,8 +310,8 @@ export const strings: {
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
-    closePolygon: "Close Polygon",
-    openPolygon: "Open Polygon",
+    closePolygon: "Close shape",
+    openPolygon: "Re-open shape",
 };
 
 /**
@@ -471,6 +471,6 @@ export const mockStrings: PerseusStrings = {
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
-    closePolygon: "Close Polygon",
-    openPolygon: "Open Polygon",
+    closePolygon: "Close shape",
+    openPolygon: "Re-open shape",
 };

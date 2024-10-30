@@ -410,9 +410,40 @@ const renderPolygonGraphControls = (props: {
     const shouldShowRemoveButton =
         showRemovePointButton && focusedPointIndex !== null;
 
-    if (closedPolygon) {
-        // If closed, only show button to open the polygon.
-        return (
+    // If polygon is closed, show open button.
+    // If polygon is open, show close button.
+    const polygonButton = closedPolygon ? (
+        <Button
+            kind="secondary"
+            style={{
+                width: "100%",
+                marginLeft: "20px",
+            }}
+            tabIndex={0}
+            onClick={() => {
+                props.dispatch(actions.polygon.openPolygon());
+            }}
+        >
+            {perseusStrings.openPolygon}
+        </Button>
+    ) : (
+        <Button
+            kind="secondary"
+            style={{
+                width: "100%",
+                marginLeft: "20px",
+            }}
+            tabIndex={0}
+            onClick={() => {
+                props.dispatch(actions.polygon.closePolygon());
+            }}
+        >
+            {perseusStrings.closePolygon}
+        </Button>
+    );
+
+    return (
+        <>
             <View
                 style={{
                     flexDirection: "row",
@@ -425,40 +456,28 @@ const renderPolygonGraphControls = (props: {
                         width: "100%",
                         marginLeft: "20px",
                     }}
+                    // Disable button when polygon is closed.
+                    disabled={closedPolygon}
                     tabIndex={0}
                     onClick={() => {
-                        props.dispatch(actions.polygon.openPolygon());
+                        props.dispatch(actions.polygon.addPoint([0, 0]));
                     }}
                 >
-                    {perseusStrings.openPolygon}
+                    {perseusStrings.addPoint}
                 </Button>
+                {
+                    // Add conditional render when there are more than 3 points in
+                    // the graph
+                }
+                {coords.length >= 3 && polygonButton}
             </View>
-        );
-    } else {
-        // If open, allow user to add/remove points
-        // And close the polygon when ready.
-        return (
             <View
                 style={{
                     flexDirection: "row",
                     width: props.width,
+                    paddingTop: "10px",
                 }}
             >
-                {interactionMode === "keyboard" && (
-                    <Button
-                        kind="secondary"
-                        style={{
-                            width: "100%",
-                            marginLeft: "20px",
-                        }}
-                        tabIndex={0}
-                        onClick={() => {
-                            props.dispatch(actions.polygon.addPoint([0, 0]));
-                        }}
-                    >
-                        {perseusStrings.addPoint}
-                    </Button>
-                )}
                 {interactionMode === "mouse" && (
                     <Button
                         id={REMOVE_BUTTON_ID}
@@ -485,28 +504,9 @@ const renderPolygonGraphControls = (props: {
                         {perseusStrings.removePoint}
                     </Button>
                 )}
-                {
-                    // Add conditional render when there are more than 3 points in
-                    // the graph
-                }
-                {coords.length >= 3 && (
-                    <Button
-                        kind="secondary"
-                        style={{
-                            width: "100%",
-                            marginLeft: "20px",
-                        }}
-                        tabIndex={0}
-                        onClick={() => {
-                            props.dispatch(actions.polygon.closePolygon());
-                        }}
-                    >
-                        {perseusStrings.closePolygon}
-                    </Button>
-                )}
             </View>
-        );
-    }
+        </>
+    );
 };
 
 const renderGraphControls = (props: {
