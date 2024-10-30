@@ -1,21 +1,22 @@
 import {WidgetType} from "../../prompt-types";
 
+import type {RadioChoiceWithMetadata} from "./radio-component";
 import type Radio from "./radio-component";
 import type {PerseusRadioUserInput} from "../../validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 export type BasicOption = {
-    value: string;
+    value: RadioChoiceWithMetadata["content"];
 };
 
 export type RadioUserInput = {
-    selectedOptions: boolean[];
-    isNoneOfTheAboveSelected: boolean;
+    selectedOptions: PerseusRadioUserInput["choicesSelected"];
+    isNoneOfTheAboveSelected: PerseusRadioUserInput["noneOfTheAboveSelected"];
 };
 
 export type RadioPromptJSON = {
     type: WidgetType;
-    hasNoneOfTheAbove: boolean;
+    hasNoneOfTheAbove: PropsFor<typeof Radio>["hasNoneOfTheAbove"];
     options: BasicOption[];
     userInput: RadioUserInput;
 };

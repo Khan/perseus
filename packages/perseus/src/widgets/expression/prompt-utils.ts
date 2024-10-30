@@ -6,9 +6,9 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 export type ExpressionPromptJSON = {
     type: WidgetType;
-    label?: string;
+    label: PropsFor<typeof Expression>["visibleLabel"];
     userInput: {
-        value: string;
+        value: PerseusExpressionUserInput;
     };
 };
 

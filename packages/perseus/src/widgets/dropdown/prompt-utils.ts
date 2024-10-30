@@ -7,10 +7,10 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 export type DropdownPromptJSON = {
     type: WidgetType;
     options: {
-        items: ReadonlyArray<string>;
+        items: PropsFor<typeof Dropdown>["choices"];
     };
     userInput: {
-        selectedIndex: number;
+        selectedIndex: PerseusDropdownUserInput["value"];
     };
 };
 
@@ -21,7 +21,7 @@ export const getPromptJSON = (
     return {
         type: WidgetType.DROPDOWN,
         options: {
-            items: renderProps.choices || [],
+            items: renderProps.choices,
         },
         userInput: {
             selectedIndex: userInput.value - 1, // Offset to account for placeholder
