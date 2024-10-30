@@ -128,6 +128,40 @@ describe("MafsGraph", () => {
         expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
     });
 
+    it("renders ARIA labels for each point", () => {
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={state}
+                dispatch={mockDispatch}
+            />,
+        );
+
+        expect(screen.getByLabelText("Point at 0 comma 0")).toBeInTheDocument();
+        expect(
+            screen.getByLabelText("Point at -7 comma 0.5"),
+        ).toBeInTheDocument();
+    });
+
     /**
      * regression LEMS-1885
      * Important parts of this test:
