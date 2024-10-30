@@ -5,6 +5,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
+import type {DefinitionPromptJSON} from "./prompt-utils";
 import type {UserEvent} from "@testing-library/user-event";
 
 const question = {
@@ -132,6 +133,23 @@ describe("Definition widget", () => {
         // Assert
         expect(result["definition 1"]).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: false,
+        });
+    });
+
+    it("Should get prompt json which matches the state of the UI", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question);
+        const widget = renderer.getWidgetInstance("definition 1");
+        const widgetOptions = question.widgets["definition 1"].options;
+
+        // Act
+        const json = widget?.getPromptJSON?.() as DefinitionPromptJSON;
+
+        // Assert
+        expect(json).toEqual({
+            type: "definition",
+            definition: widgetOptions.definition,
+            togglePrompt: widgetOptions.togglePrompt,
         });
     });
 });

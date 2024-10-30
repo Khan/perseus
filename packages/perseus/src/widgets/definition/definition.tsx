@@ -8,6 +8,9 @@ import {DefinitionConsumer} from "../../definition-context";
 import Renderer from "../../renderer";
 import noopValidator from "../__shared__/noop-validator";
 
+import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
+
+import type {DefinitionPromptJSON} from "./prompt-utils";
 import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
@@ -25,7 +28,10 @@ type DefaultProps = {
     definition: string;
 };
 
-class Definition extends React.Component<DefinitionProps> implements Widget {
+export class Definition
+    extends React.Component<DefinitionProps>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -37,6 +43,10 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
     isWidget = true as const;
+
+    getPromptJSON(): DefinitionPromptJSON {
+        return _getPromptJSON(this.props);
+    }
 
     render(): React.ReactNode {
         return (
