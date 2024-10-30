@@ -1180,6 +1180,52 @@ xdescribe("doRemovePoint", () => {
     // TODO(catjohnson): Add tests for doRemovePoint function.
 });
 
+xdescribe("doClosePolygon", () => {
+    it("does nothing when type is not unlimited `polygon`", () => {});
+
+    it("changes `closePolygon` property to true", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [0, 1]),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([0, 1]);
+    });
+
+    it("", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [1, 3]),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([0, 0]);
+    });
+});
+
+xdescribe("doOpenPolygon", () => {});
+
 describe("unlimited points", () => {
     it("adds points", () => {
         const state: PointGraphState = {
