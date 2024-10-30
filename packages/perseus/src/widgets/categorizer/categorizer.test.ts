@@ -140,14 +140,8 @@ describe("categorizer widget", () => {
         const widget = renderer.getWidgetInstance("categorizer 1");
 
         // act
-        await userEvent.click(
-            screen.getAllByRole("button", {name: "No relationship"})[0],
-        );
-        await userEvent.click(
-            screen.getAllByRole("button", {
-                name: "Nonlinear relationship",
-            })[1],
-        );
+        await userEvent.click(screen.getAllByRole("button")[0]);
+        await userEvent.click(screen.getAllByRole("button")[5]);
 
         const json = widget?.getPromptJSON?.() as CategorizerPromptJSON;
         const rowGroups = screen.getAllByRole("rowgroup");
@@ -165,5 +159,7 @@ describe("categorizer widget", () => {
             const itemPlainText = item.replace(itemRe, "$1 $2");
             expect(items[i].textContent).toEqual(itemPlainText);
         });
+
+        expect(json.userInput.itemToCategoryMapping).toEqual([0, 1]);
     });
 });
