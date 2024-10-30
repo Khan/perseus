@@ -201,24 +201,20 @@ function changeKeyboardInvitationVisibility(
 export const CLOSE_POLYGON = "close-polygon";
 export interface ClosePolygon {
     type: typeof CLOSE_POLYGON;
-    location: vec.Vector2;
 }
-function closePolygon(location: vec.Vector2): ClosePolygon {
+function closePolygon(): ClosePolygon {
     return {
         type: CLOSE_POLYGON,
-        location,
     };
 }
 
 export const OPEN_POLYGON = "open-polygon";
 export interface OpenPolygon {
     type: typeof OPEN_POLYGON;
-    location: vec.Vector2;
 }
-function openPolygon(location: vec.Vector2): OpenPolygon {
+function openPolygon(): OpenPolygon {
     return {
         type: OPEN_POLYGON,
-        location,
     };
 }
 

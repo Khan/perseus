@@ -427,7 +427,7 @@ const renderPolygonGraphControls = (props: {
                     }}
                     tabIndex={0}
                     onClick={() => {
-                        props.dispatch(actions.polygon.openPolygon([0, 0]));
+                        props.dispatch(actions.polygon.openPolygon());
                     }}
                 >
                     {perseusStrings.openPolygon}
@@ -498,9 +498,7 @@ const renderPolygonGraphControls = (props: {
                         }}
                         tabIndex={0}
                         onClick={() => {
-                            props.dispatch(
-                                actions.polygon.closePolygon([0, 0]),
-                            );
+                            props.dispatch(actions.polygon.closePolygon());
                         }}
                     >
                         {perseusStrings.closePolygon}
