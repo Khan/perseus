@@ -19,8 +19,14 @@ import {
     iconCircleArrowUp,
     iconPlus,
 } from "./styles/icon-paths";
+import {convertDeprecatedWidgets} from "./util/modernize-widgets-utils";
 
-import type {APIOptions, Changeable, ImageUploader} from "@khanacademy/perseus";
+import type {
+    APIOptions,
+    Changeable,
+    ImageUploader,
+    PerseusRenderer,
+} from "@khanacademy/perseus";
 
 const {HUD, InlineIcon} = components;
 
@@ -427,7 +433,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
                         <JsonEditor
                             multiLine={true}
                             onChange={this._handleJsonChange}
-                            value={this.props.json}
+                            value={convertDeprecatedWidgets(
+                                this.props.json as PerseusRenderer,
+                            )}
                         />
                     </div>
                 )}
