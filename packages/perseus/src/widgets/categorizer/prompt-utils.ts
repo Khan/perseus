@@ -10,8 +10,9 @@ export type CategorizerPromptJSON = {
         items: ReadonlyArray<string>;
         categories: ReadonlyArray<string>;
     };
-    answer: ReadonlyArray<number>;
-    userInput: ReadonlyArray<number>;
+    userInput: {
+        itemToCategoryMapping: ReadonlyArray<number>;
+    };
 };
 
 export const getPromptJSON = (
@@ -24,7 +25,8 @@ export const getPromptJSON = (
             items: renderProps.items || [],
             categories: renderProps.categories || [],
         },
-        answer: renderProps.values || [],
-        userInput: userInput.values,
+        userInput: {
+            itemToCategoryMapping: userInput.values,
+        },
     };
 };
