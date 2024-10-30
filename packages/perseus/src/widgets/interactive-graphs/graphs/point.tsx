@@ -17,7 +17,26 @@ import type {
     InteractiveGraphElementSuite
 } from "../types";
 
+export function renderPointGraph(
+    state: PointGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <PointGraph graphState={state} dispatch={dispatch} />,
+        screenreaderDescription: null,
+    };
+}
+
 type PointGraphProps = MafsGraphProps<PointGraphState>;
+
+function PointGraph(props: PointGraphProps) {
+    const numPoints = props.graphState.numPoints;
+    if (numPoints === "unlimited") {
+        return UnlimitedPointGraph(props);
+    }
+
+    return LimitedPointGraph(props);
+}
 
 function LimitedPointGraph(props: PointGraphProps) {
     const {dispatch} = props;
@@ -107,23 +126,4 @@ function UnlimitedPointGraph(props: PointGraphProps) {
             ))}
         </>
     );
-}
-
-function PointGraph(props: PointGraphProps) {
-    const numPoints = props.graphState.numPoints;
-    if (numPoints === "unlimited") {
-        return UnlimitedPointGraph(props);
-    }
-
-    return LimitedPointGraph(props);
-}
-
-export function renderPointGraph(
-    state: PointGraphState,
-    dispatch: Dispatch,
-): InteractiveGraphElementSuite {
-    return {
-        graph: <PointGraph graphState={state} dispatch={dispatch} />,
-        screenreaderDescription: null,
-    };
 }
