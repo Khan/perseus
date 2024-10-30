@@ -12,13 +12,15 @@ export function object<S extends ObjectSchema>(
             return ctx.failure("object", rawValue);
         }
 
+        const ret: any = {...rawValue};
         for (const [prop, propParser] of Object.entries(schema)) {
             const result = propParser(rawValue[prop], ctx.forSubtree(prop));
             if (result.type === "failure") {
                 return result;
             }
+            ret[prop] = result.value;
         }
 
-        return ctx.success(rawValue as {[K in keyof S]: ParsedValue<S[K]>});
+        return ctx.success(ret);
     };
 }

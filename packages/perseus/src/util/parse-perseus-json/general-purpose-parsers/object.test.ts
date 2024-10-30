@@ -1,5 +1,7 @@
 import {failure, success} from "../result";
 
+import {array} from "./array";
+import {defaulted} from "./defaulted";
 import {number} from "./number";
 import {object} from "./object";
 import {string} from "./string";
@@ -65,5 +67,13 @@ describe("object", () => {
 
     it("rejects null", () => {
         expect(emptyObject(null, ctx())).toEqual(anyFailure);
+    });
+
+    it("uses default values for `defaulted` fields", () => {
+        const Train = object({
+            boxcars: defaulted(array(string), () => []),
+        });
+
+        expect(Train({}, ctx())).toEqual(success({boxcars: []}));
     });
 });
