@@ -7,6 +7,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./dropdown.testdata";
 
+import type {DropdownPromptJSON} from "./prompt-utils";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("Dropdown widget", () => {
@@ -103,5 +104,21 @@ describe("Dropdown widget", () => {
         // actually set because the dropdown widget focuses a <div> (it's root
         // element), which is not actually focusable because it doesn't have a
         // tabindex.
+    });
+
+    it("Should get prompt json which matches the state of the UI for a randomized question", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question1);
+        const widget = renderer.getWidgetInstance("dropdown 1");
+
+        // Act
+        const dropdown = screen.getByRole("button");
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("greater than or equal to"));
+
+        const json = widget?.getPromptJSON?.() as DropdownPromptJSON;
+
+        // Assert
+        expect(json.userInput.selectedIndex).toEqual(0);
     });
 });
