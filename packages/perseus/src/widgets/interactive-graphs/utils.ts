@@ -1,5 +1,6 @@
 import {clampToBox, inset, MIN, size} from "./math";
 
+import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {Interval, vec} from "mafs";
@@ -9,6 +10,8 @@ import type {Interval, vec} from "mafs";
  * https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
  */
 export const TARGET_SIZE = 44;
+
+export const REMOVE_BUTTON_ID = "perseus_mafs_remove_button";
 
 // same as pointsFromNormalized in interactive-graph.tsx
 export const normalizePoints = <A extends Coord[]>(
@@ -57,4 +60,13 @@ export function bound({
 }): vec.Vector2 {
     const boundingBox = inset(snapStep, range);
     return clampToBox(boundingBox, point);
+}
+
+export function isUnlimitedGraphState(
+    state: InteractiveGraphState,
+): state is UnlimitedGraphState {
+    return (
+        (state.type === "point" && state.numPoints === "unlimited") ||
+        (state.type === "polygon" && state.numSides === "unlimited")
+    );
 }
