@@ -51,6 +51,7 @@ import type {
     InteractiveGraphProps,
     PointGraphState,
     PolygonGraphState,
+    InteractiveGraphElementSuite,
 } from "./types";
 import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
@@ -129,6 +130,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
             },
         });
     });
+
+    const {graph} = renderGraphElements({state, dispatch});
 
     return (
         <GraphConfigContext.Provider
@@ -281,10 +284,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                     {/* Protractor */}
                                     {props.showProtractor && <Protractor />}
                                     {/* Interactive layer */}
-                                    {renderGraph({
-                                        state,
-                                        dispatch,
-                                    })}
+                                    {graph}
                                 </svg>
                             </Mafs>
                         </View>
@@ -603,35 +603,69 @@ export const calculateNestedSVGCoords = (
     };
 };
 
-const renderGraph = (props: {
+const renderGraphElements = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
-}) => {
+}): InteractiveGraphElementSuite => {
     const {state, dispatch} = props;
     const {type} = state;
     switch (type) {
         case "angle":
-            return <AngleGraph graphState={state} dispatch={dispatch} />;
+            return {
+                graph: <AngleGraph graphState={state} dispatch={dispatch} />,
+                screenreaderDescription: null,
+            };
         case "segment":
-            return <SegmentGraph graphState={state} dispatch={dispatch} />;
+            return {
+                graph: <SegmentGraph graphState={state} dispatch={dispatch} />,
+                screenreaderDescription: null,
+            };
         case "linear-system":
-            return <LinearSystemGraph graphState={state} dispatch={dispatch} />;
+            return {
+                graph: (
+                    <LinearSystemGraph graphState={state} dispatch={dispatch} />
+                ),
+                screenreaderDescription: null,
+            };
         case "linear":
-            return <LinearGraph graphState={state} dispatch={dispatch} />;
+            return {
+                graph: <LinearGraph graphState={state} dispatch={dispatch} />,
+                screenreaderDescription: null,
+            };
         case "ray":
-            return <RayGraph graphState={state} dispatch={dispatch} />;
+            return {
+                graph: <RayGraph graphState={state} dispatch={dispatch} />,
+                screenreaderDescription: null,
+            };
         case "polygon":
-            return <PolygonGraph graphState={state} dispatch={dispatch} />;
+            return {
+                graph: <PolygonGraph graphState={state} dispatch={dispatch} />,
+                screenreaderDescription: null,
+            };
         case "point":
-            return <PointGraph graphState={state} dispatch={dispatch} />;
+            return {
+                graph: <PointGraph graphState={state} dispatch={dispatch} />,
+                screenreaderDescription: null,
+            };
         case "circle":
-            return <CircleGraph graphState={state} dispatch={dispatch} />;
+            return {
+                graph: <CircleGraph graphState={state} dispatch={dispatch} />,
+                screenreaderDescription: null,
+            };
         case "quadratic":
-            return <QuadraticGraph graphState={state} dispatch={dispatch} />;
+            return {
+                graph: (
+                    <QuadraticGraph graphState={state} dispatch={dispatch} />
+                ),
+                screenreaderDescription: null,
+            };
         case "sinusoid":
-            return <SinusoidGraph graphState={state} dispatch={dispatch} />;
+            return {
+                graph: <SinusoidGraph graphState={state} dispatch={dispatch} />,
+                screenreaderDescription: null,
+            };
         case "none":
-            return null;
+            return {graph: null, screenreaderDescription: null};
         default:
             throw new UnreachableCaseError(type);
     }

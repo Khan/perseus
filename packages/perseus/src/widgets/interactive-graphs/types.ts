@@ -1,3 +1,4 @@
+import type {ReactNode} from "react";
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
@@ -14,18 +15,13 @@ export type MafsGraphProps<T extends InteractiveGraphState> = {
     dispatch: (action: InteractiveGraphAction) => unknown;
 };
 
-export type InteractiveGraphType =
-    | "none"
-    | "angle"
-    | "segment"
-    | "linear-system"
-    | "linear"
-    | "ray"
-    | "polygon"
-    | "point"
-    | "circle"
-    | "quadratic"
-    | "sinusoid";
+// InteractiveGraphElementSuite contains parts of the graph UI which need to
+// end up in different sections of the DOM.
+export type InteractiveGraphElementSuite = {
+    graph: ReactNode;
+    screenreaderDescription: ReactNode;
+    // TODO(benchristel): add actionBar controls here
+}
 
 export type InteractiveGraphState =
     | AngleGraphState
