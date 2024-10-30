@@ -10,11 +10,7 @@ import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
 import {useDraggable} from "./use-draggable";
-import {
-    pixelsToVectors,
-    useTransformDimensionsToPixels,
-    useTransformVectorsToPixels,
-} from "./use-transform";
+import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
 
 import type {CollinearTuple} from "../../../perseus-types";
 import type {MafsGraphProps, PolygonGraphState} from "../types";
@@ -182,17 +178,15 @@ export const UnlimitedPolygonGraph = (props: Props) => {
     // TODO(catjohnson): Explore abstracting this code as it is similar to point.tsx
     // and hopefully we can cut down ont the unlimited graph redundancy.
     const {
-        range: [[minX, maxX], [minY, maxY]],
+        range: [x, y],
         disableKeyboardInteraction,
+        graphDimensionsInPixels,
     } = graphConfig;
 
-    const width = maxX - minX;
-    const height = maxY - minY;
-    const [[widthPx, heightPx]] = useTransformDimensionsToPixels([
-        width,
-        height,
-    ]);
-    const [[left, top]] = useTransformVectorsToPixels([minX, maxY]);
+    const widthPx = graphDimensionsInPixels[0];
+    const heightPx = graphDimensionsInPixels[1];
+
+    const [[left, top]] = useTransformVectorsToPixels([x[0], y[1]]);
     const pointRef = React.useRef<Array<SVGElement | null>>([]);
 
     // TODO(benchristel): can the default set of points be removed here? I don't
