@@ -2,12 +2,11 @@ import {WidgetType} from "../../prompt-types";
 
 import {getPromptJSON} from "./prompt-utils";
 
-import type {RenderProps} from "./radio-component";
 import type {PerseusRadioUserInput} from "../../validation.types";
 
 describe("Radio getPromptJSON", () => {
     it("it returns JSON with the expected format and fields", () => {
-        const renderProps: RenderProps = {
+        const renderProps: any = {
             numCorrect: 1,
             countChoices: false,
             deselectEnabled: false,
@@ -16,23 +15,19 @@ describe("Radio getPromptJSON", () => {
             choices: [
                 {
                     content: "Content 4",
-                    correct: false,
                     originalIndex: 3,
                 },
                 {
                     content: "Content 2",
-                    correct: false,
                     originalIndex: 1,
                 },
                 {
                     content: "Content 1",
-                    correct: true,
                     originalIndex: 0,
                 },
 
                 {
                     content: "Content 3",
-                    correct: false,
                     originalIndex: 2,
                 },
             ],
