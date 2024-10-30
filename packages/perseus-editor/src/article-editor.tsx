@@ -211,7 +211,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                     </div>
                                 </div>
                                 <Editor
-                                    {...section}
+                                    {...convertDeprecatedWidgets(
+                                        section as PerseusRenderer,
+                                    )}
                                     apiOptions={apiOptions}
                                     imageUploader={imageUploader}
                                     onChange={_.partial(
