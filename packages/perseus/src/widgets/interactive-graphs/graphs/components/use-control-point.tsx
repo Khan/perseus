@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useState, useRef, useLayoutEffect} from "react";
 
-import {usePerseusI18n} from "@khanacademy/perseus";
+import {usePerseusI18n} from "../../../../components/i18n-context";
 
 import {snap, X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
