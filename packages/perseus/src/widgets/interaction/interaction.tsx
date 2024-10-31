@@ -10,6 +10,9 @@ import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
 import noopValidator from "../__shared__/noop-validator";
 
+import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
+
+import type {InteractionPromptJSON} from "./prompt-utils";
 import type {Coord} from "../../interactive2/types";
 import type {
     PerseusInteractionElement,
@@ -248,6 +251,10 @@ class Interaction extends React.Component<Props, State> implements Widget {
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
+
+    getPromptJSON(): InteractionPromptJSON {
+        return _getPromptJSON();
+    }
 
     render(): React.ReactNode {
         const range = this.props.graph.range;
