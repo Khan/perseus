@@ -1,12 +1,13 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components, icons, EditorJsonify} from "@khanacademy/perseus";
+import {components, EditorJsonify, iconTrash} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import {iconPlus} from "../styles/icon-paths";
+
 const {InfoTip, InlineIcon} = components;
-const {iconPlus, iconTrash} = icons;
 
 type Props = any;
 

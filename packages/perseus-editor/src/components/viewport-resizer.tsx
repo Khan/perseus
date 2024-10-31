@@ -2,15 +2,15 @@
  * A component that displays controls for choosing a viewport size.
  * Renders three buttons: "Phone", "Tablet", and "Desktop".
  */
-import {components, icons} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import * as React from "react";
 
 import {devices} from "../styles/constants";
+import {iconDesktop, iconMobilePhone, iconTablet} from "../styles/icon-paths";
 
 import type {DeviceType} from "@khanacademy/perseus";
 
 const {ButtonGroup, InlineIcon} = components;
-const {iconDesktop, iconMobilePhone, iconTablet} = icons;
 
 type Props = {
     /** The current device type that is selected. */

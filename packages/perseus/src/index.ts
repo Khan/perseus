@@ -42,8 +42,8 @@ export * as GrapherUtil from "./widgets/grapher/util";
  * Misc
  */
 export * as components from "./components";
+export {iconChevronDown, iconTrash} from "./icon-paths";
 export {bodyXsmallBold} from "./styles/global-styles";
-export * as icons from "./icon-paths";
 export * as Dependencies from "./dependencies";
 export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
