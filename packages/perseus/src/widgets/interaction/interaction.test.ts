@@ -4,7 +4,6 @@ import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./interaction.testdata";
-import {UNSUPPORTED_MESSAGE} from "./prompt-utils";
 
 import type {InteractionPromptJSON} from "./prompt-utils";
 
@@ -46,7 +45,7 @@ describe("interaction widget", () => {
         // Assert
         expect(json).toEqual({
             type: "interaction",
-            description: UNSUPPORTED_MESSAGE,
+            isSupported: false,
         });
     });
 });
