@@ -22,7 +22,7 @@ import type {Coord} from "../../interactive2/types";
 // @ts-expect-error - TS2339 - Property 'Plot' does not exist on type 'typeof Graphie'.
 const Plot = Graphie.Plot;
 
-export const DEFAULT_BACKGROUND_IMAGE = {
+const DEFAULT_BACKGROUND_IMAGE = {
     url: null,
 } as const;
 
@@ -663,7 +663,7 @@ export const getEquationString = (props: any): string => {
     return "";
 };
 
-export const pointsFromNormalized = (
+const pointsFromNormalized = (
     coordsList: ReadonlyArray<Coord>,
     range: [Coord, Coord],
     step: [number, number],
