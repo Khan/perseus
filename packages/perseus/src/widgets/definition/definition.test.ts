@@ -121,17 +121,4 @@ describe("Definition widget", () => {
         // Assert
         expect(screen.queryByRole("dialog")).toBeNull();
     });
-
-    it("should not affect answerable", () => {
-        // Arrange
-        const {renderer} = renderQuestion(question);
-
-        // Act
-        const result = renderer.scoreWidgets();
-
-        // Assert
-        expect(result["definition 1"]).toHaveBeenAnsweredCorrectly({
-            shouldHavePoints: false,
-        });
-    });
 });

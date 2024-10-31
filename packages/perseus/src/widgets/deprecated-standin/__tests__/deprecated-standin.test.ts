@@ -39,15 +39,4 @@ describe("Deprecated Standin widget", () => {
         // Assert
         expect(container).toMatchSnapshot("first render");
     });
-
-    it("should be scorable and always give points", () => {
-        // Arrange
-        const {renderer} = renderQuestion(question);
-
-        // Act
-        const result = renderer.scoreWidgets();
-
-        // Assert
-        expect(result["widget 1"]).toHaveBeenAnsweredCorrectly();
-    });
 });

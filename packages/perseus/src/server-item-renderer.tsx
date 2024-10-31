@@ -19,6 +19,7 @@ import HintsRenderer from "./hints-renderer";
 import LoadingContext from "./loading-context";
 import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
+import {scorePerseusItem} from "./renderer-util";
 import Util from "./util";
 
 import type {PerseusItem, ShowSolutions} from "./perseus-types";
@@ -308,11 +309,17 @@ export class ServerItemRenderer
 
     /**
      * Grades the item.
+     *
+     * @deprecated use scorePerseusItem
      */
     scoreInput(): KEScore {
-        const guessAndScore = this.questionRenderer.guessAndScore();
-        const guess = guessAndScore[0];
-        const score = guessAndScore[1];
+        const guess = this.getUserInputMap();
+        const score = scorePerseusItem(
+            this.props.item.question,
+            guess,
+            this.context.strings,
+            this.context.locale,
+        );
 
         // Continue to include an empty guess for the now defunct answer area.
         // TODO(alex): Check whether we rely on the format here for

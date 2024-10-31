@@ -1728,29 +1728,24 @@ class Renderer extends React.Component<Props, State> {
     };
 
     /**
-     * Returns an object mapping from widget ID to perseus-style score.
-     * The keys of this object are the values of the array returned
-     * from `getWidgetIds`.
+     * Grades the content.
+     *
+     * @deprecated use scorePerseusItem
      */
-    scoreWidgets(): {[widgetId: string]: PerseusScore} {
-        return scoreWidgetsFunctional(
+    score(): PerseusScore {
+        const scores = scoreWidgetsFunctional(
             this.state.widgetInfo,
             this.widgetIds,
             this.getUserInputMap(),
             this.props.strings,
             this.context.locale,
         );
-    }
-
-    /**
-     * Grades the content.
-     */
-    score(): PerseusScore {
-        const scores = this.scoreWidgets();
         const combinedScore = Util.flattenScores(scores);
         return combinedScore;
     }
-
+    /**
+     * @deprecated use scorePerseusItem
+     */
     guessAndScore: () => [any, PerseusScore] = () => {
         const totalGuess = this.getUserInput();
         const totalScore = this.score();
