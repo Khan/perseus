@@ -1,6 +1,6 @@
 import {WidgetType} from "../../prompt-types";
 
-import {getPromptJSON, UNSUPPORTED_MESSAGE} from "./prompt-utils";
+import {getPromptJSON} from "./prompt-utils";
 
 describe("CS Program getPromptJSON", () => {
     it("it returns JSON with the expected format and fields", () => {
@@ -8,7 +8,7 @@ describe("CS Program getPromptJSON", () => {
 
         expect(resultJSON).toEqual({
             type: WidgetType.CS_PROGRAM,
-            description: UNSUPPORTED_MESSAGE,
+            isSupported: false,
         });
     });
 });

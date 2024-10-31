@@ -3,7 +3,7 @@ import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./cs-program.testdata";
-import {UNSUPPORTED_MESSAGE, type CSProgramPromptJSON} from "./prompt-utils";
+import {type CSProgramPromptJSON} from "./prompt-utils";
 
 import type {PerseusCSProgramUserInput} from "../../validation.types";
 
@@ -69,7 +69,7 @@ describe("cs-program widget", () => {
         // Assert
         expect(json).toEqual({
             type: "cs-program",
-            description: UNSUPPORTED_MESSAGE,
+            isSupported: false,
         });
     });
 });
