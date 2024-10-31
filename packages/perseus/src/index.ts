@@ -36,7 +36,7 @@ export {default as TableWidget} from "./widgets/table";
 export {default as PlotterWidget} from "./widgets/plotter";
 export {default as GrapherWidget} from "./widgets/grapher";
 
-export {
+import {
     allTypes,
     DEFAULT_GRAPHER_PROPS,
     chooseType,
@@ -44,6 +44,15 @@ export {
     getEquationString,
     typeToButton,
 } from "./widgets/grapher/util";
+
+export const GrapherUtil = {
+    allTypes,
+    DEFAULT_GRAPHER_PROPS,
+    chooseType,
+    defaultPlotProps,
+    getEquationString,
+    typeToButton,
+};
 
 /**
  * Misc

@@ -4,12 +4,7 @@ import {
     Changeable,
     GrapherWidget,
     SizingUtils,
-    DEFAULT_GRAPHER_PROPS,
-    chooseType,
-    defaultPlotProps,
-    getEquationString,
-    allTypes,
-    typeToButton,
+    GrapherUtil,
 } from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
@@ -30,9 +25,9 @@ class GrapherEditor extends React.Component<Props> {
     static widgetName = "grapher" as const;
 
     static defaultProps: Props = {
-        correct: DEFAULT_GRAPHER_PROPS.plot,
-        graph: DEFAULT_GRAPHER_PROPS.graph,
-        availableTypes: DEFAULT_GRAPHER_PROPS.availableTypes,
+        correct: GrapherUtil.DEFAULT_GRAPHER_PROPS.plot,
+        graph: GrapherUtil.DEFAULT_GRAPHER_PROPS.graph,
+        availableTypes: GrapherUtil.DEFAULT_GRAPHER_PROPS.availableTypes,
     };
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
@@ -46,8 +41,8 @@ class GrapherEditor extends React.Component<Props> {
         // we need to change it to avoid impossible questions.
         if (!_.contains(newAvailableTypes, this.props.correct.type)) {
             const graph = this.props.graph;
-            const newType = chooseType(newAvailableTypes);
-            correct = defaultPlotProps(newType, graph);
+            const newType = GrapherUtil.chooseType(newAvailableTypes);
+            correct = GrapherUtil.defaultPlotProps(newType, graph);
         }
         this.props.onChange({
             availableTypes: newAvailableTypes,
@@ -95,7 +90,7 @@ class GrapherEditor extends React.Component<Props> {
                     containerSizeClass={sizeClass}
                 />
             );
-            equationString = getEquationString(graphProps);
+            equationString = GrapherUtil.getEquationString(graphProps);
         } else {
             graph = (
                 <div className="perseus-error">{this.props.graph.valid}</div>
@@ -138,7 +133,10 @@ class GrapherEditor extends React.Component<Props> {
                     <MultiButtonGroup
                         allowEmpty={false}
                         values={this.props.availableTypes}
-                        buttons={_.map(allTypes, typeToButton)}
+                        buttons={_.map(
+                            GrapherUtil.allTypes,
+                            GrapherUtil.typeToButton,
+                        )}
                         onChange={this.handleAvailableTypesChange}
                     />
                 </div>
