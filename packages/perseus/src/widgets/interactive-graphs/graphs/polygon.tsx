@@ -410,7 +410,7 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                             dispatch(actions.polygon.focusPoint(i));
                         }}
                         onClick={() => {
-                            // If the point of focus is the first point and
+                            // If the point being clicked is the first point and
                             // there's enough points to form a polygon (3 or more)
                             // Close the shape before setting focus.
                             if (
