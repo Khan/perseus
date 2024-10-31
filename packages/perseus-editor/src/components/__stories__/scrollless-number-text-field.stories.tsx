@@ -45,7 +45,7 @@ Controlled.parameters = {
     chromatic: {
         // Disable the snapshot for this story because it's testing
         // behavior, not visuals.
-        disable: true,
+        disableSnapshot: true,
     },
 };
 
@@ -77,6 +77,6 @@ LongPageScroll.parameters = {
     chromatic: {
         // Disable the snapshot for this story because it's testing
         // behavior, not visuals.
-        disable: true,
+        disableSnapshot: true,
     },
 };
