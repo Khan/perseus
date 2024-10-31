@@ -8,6 +8,7 @@ import _ from "underscore";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {WidgetType} from "../../prompt-types";
 import {mockStrings} from "../../strings";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -15,6 +16,7 @@ import InputNumber from "./input-number";
 import inputNumberValidator from "./input-number-validator";
 import {question3 as question} from "./input-number.testdata";
 
+import type {InputNumberPromptJSON} from "./prompt-utils";
 import type {
     PerseusInputNumberWidgetOptions,
     PerseusRenderer,
@@ -79,6 +81,32 @@ describe("input-number", function () {
 
             // Assert
             expect(renderer).toHaveInvalidInput();
+        });
+
+        it("should get prompt json which matches the state of the UI", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(question);
+            const widget = renderer.getWidgetInstance("input-number 1");
+            const options = question.widgets["input-number 1"].options;
+
+            // Act
+            const input = "40";
+            const textbox = screen.getByRole("textbox");
+            await userEvent.click(textbox);
+            await userEvent.type(textbox, input);
+            const json = widget?.getPromptJSON?.() as InputNumberPromptJSON;
+
+            // Assert
+            expect(json).toEqual({
+                type: WidgetType.INPUT_NUMBER,
+                options: {
+                    simplify: options.simplify,
+                    answerType: options.answerType,
+                },
+                userInput: {
+                    value: input,
+                },
+            });
         });
     });
 
