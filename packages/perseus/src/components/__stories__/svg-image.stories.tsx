@@ -16,17 +16,24 @@ const imgUrl = "https://www.khanacademy.org/images/hand-tree.new.png";
 const graphieUrl =
     "web+graphie://ka-perseus-graphie.s3.amazonaws.com/1e06f6d4071f30cee2cc3ccb7435b3a66a62fe3f";
 
-/**
- * Demostrates an `SvgImage` that doesn't have a `src` defined, and as such
- * never loads (infinite spinner)
- */
-export const Default: Story = {};
+export const Default: Story = {
+    parameters: {
+        /** This story doesn't provide a src url and so just shows a spinner.
+         * Perhaps not useful, but for now we'll just disable snapshots. */
+        chromatic: {disableSnapshot: true},
+    },
+};
 
 export const SvgImageThatDoesntLoad: Story = {
     args: {
         height: 100,
         width: 500,
         src: "http://httpstat.us/200?sleep=1000000",
+    },
+    parameters: {
+        /** This story never loads and so just shows a spinner. Perhaps not
+         * useful, but for now we'll just disable snapshots. */
+        chromatic: {disableSnapshot: true},
     },
 };
 
