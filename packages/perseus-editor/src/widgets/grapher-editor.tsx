@@ -2,8 +2,8 @@
 import {
     components,
     Changeable,
-    GrapherWidget,
     GrapherUtil,
+    GrapherWidget,
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
 } from "@khanacademy/perseus";
@@ -14,6 +14,14 @@ import GraphSettings from "../components/graph-settings";
 
 const {InfoTip, MultiButtonGroup} = components;
 const Grapher = GrapherWidget.widget;
+const {
+    DEFAULT_GRAPHER_PROPS,
+    allTypes,
+    chooseType,
+    defaultPlotProps,
+    getEquationString,
+    typeToButton,
+} = GrapherUtil;
 
 type Props = any;
 
@@ -25,9 +33,9 @@ class GrapherEditor extends React.Component<Props> {
     static widgetName = "grapher" as const;
 
     static defaultProps: Props = {
-        correct: GrapherUtil.DEFAULT_GRAPHER_PROPS.plot,
-        graph: GrapherUtil.DEFAULT_GRAPHER_PROPS.graph,
-        availableTypes: GrapherUtil.DEFAULT_GRAPHER_PROPS.availableTypes,
+        correct: DEFAULT_GRAPHER_PROPS.plot,
+        graph: DEFAULT_GRAPHER_PROPS.graph,
+        availableTypes: DEFAULT_GRAPHER_PROPS.availableTypes,
     };
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
@@ -41,8 +49,8 @@ class GrapherEditor extends React.Component<Props> {
         // we need to change it to avoid impossible questions.
         if (!_.contains(newAvailableTypes, this.props.correct.type)) {
             const graph = this.props.graph;
-            const newType = GrapherUtil.chooseType(newAvailableTypes);
-            correct = GrapherUtil.defaultPlotProps(newType, graph);
+            const newType = chooseType(newAvailableTypes);
+            correct = defaultPlotProps(newType, graph);
         }
         this.props.onChange({
             availableTypes: newAvailableTypes,
@@ -90,7 +98,7 @@ class GrapherEditor extends React.Component<Props> {
                     containerSizeClass={sizeClass}
                 />
             );
-            equationString = GrapherUtil.getEquationString(graphProps);
+            equationString = getEquationString(graphProps);
         } else {
             graph = (
                 <div className="perseus-error">{this.props.graph.valid}</div>
@@ -133,10 +141,7 @@ class GrapherEditor extends React.Component<Props> {
                     <MultiButtonGroup
                         allowEmpty={false}
                         values={this.props.availableTypes}
-                        buttons={_.map(
-                            GrapherUtil.allTypes,
-                            GrapherUtil.typeToButton,
-                        )}
+                        buttons={_.map(allTypes, typeToButton)}
                         onChange={this.handleAvailableTypesChange}
                     />
                 </div>
