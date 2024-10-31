@@ -309,18 +309,16 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                         key={i}
                         point={point}
                         onMove={(destination) =>
-                            dispatch(
-                                actions.pointGraph.movePoint(i, destination),
-                            )
+                            dispatch(actions.polygon.movePoint(i, destination))
                         }
                         ref={(ref) => {
                             pointRef.current[i] = ref;
                         }}
                         onFocus={() => {
-                            dispatch(actions.pointGraph.focusPoint(i));
+                            dispatch(actions.polygon.focusPoint(i));
                         }}
                         onClick={() => {
-                            dispatch(actions.pointGraph.clickPoint(i));
+                            dispatch(actions.polygon.clickPoint(i));
                         }}
                     />
                 ))}
@@ -403,18 +401,25 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                         key={i}
                         point={point}
                         onMove={(destination) =>
-                            dispatch(
-                                actions.pointGraph.movePoint(i, destination),
-                            )
+                            dispatch(actions.polygon.movePoint(i, destination))
                         }
                         ref={(ref) => {
                             pointRef.current[i] = ref;
                         }}
                         onFocus={() => {
-                            dispatch(actions.pointGraph.focusPoint(i));
+                            dispatch(actions.polygon.focusPoint(i));
                         }}
                         onClick={() => {
-                            dispatch(actions.pointGraph.clickPoint(i));
+                            // If the point of focus is the first point and
+                            // there's enough points to form a polygon (3 or more)
+                            // Close the shape before setting focus.
+                            if (
+                                i === 0 &&
+                                props.graphState.coords.length >= 3
+                            ) {
+                                dispatch(actions.polygon.closePolygon());
+                            }
+                            dispatch(actions.polygon.clickPoint(i));
                         }}
                     />
                 ))}
