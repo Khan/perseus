@@ -265,7 +265,10 @@ function interactiveGraphValidator(
                     if (!coords) {
                         return false;
                     }
-                    const angle = getClockwiseAngle(coords, allowReflexAngles);
+                    const angle = getClockwiseAngle(
+                        coords as [Coord, Coord, Coord],
+                        allowReflexAngles,
+                    );
                     return angle;
                 });
                 // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
