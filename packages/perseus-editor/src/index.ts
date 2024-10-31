@@ -13,6 +13,9 @@ export {default as IframeContentRenderer} from "./iframe-content-renderer";
 export {default as MultiRendererEditor} from "./multirenderer-editor";
 export {default as StatefulEditorPage} from "./stateful-editor-page";
 
+// This is dirty as heck but testing to see if convertingJson webapp side works.
+export {convertDeprecatedWidgets} from "./util/modernize-widgets-utils";
+
 import "./styles/perseus-editor.less";
 
 // eslint-disable-next-line import/order

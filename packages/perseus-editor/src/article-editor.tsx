@@ -128,10 +128,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     _sections(): ReadonlyArray<PerseusRenderer> {
         const sections = Array.isArray(this.props.json)
-            ? this.props.json.map((section) => {
-                  return convertDeprecatedWidgets(section as PerseusRenderer);
-              })
-            : [convertDeprecatedWidgets(this.props.json as PerseusRenderer)];
+            ? this.props.json
+            : [this.props.json];
         return sections;
     }
 
@@ -436,9 +434,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                         <JsonEditor
                             multiLine={true}
                             onChange={this._handleJsonChange}
-                            value={convertDeprecatedWidgets(
-                                this.props.json as PerseusRenderer,
-                            )}
+                            value={this.props.json}
                         />
                     </div>
                 )}
