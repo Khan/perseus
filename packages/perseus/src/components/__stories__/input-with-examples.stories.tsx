@@ -40,7 +40,7 @@ export const AriaLabelTextWithListOfExamples: Story = {
     },
 };
 
-export const DisabledInput = {
+export const DisabledInput: Story = {
     args: {
         disabled: true,
         examples: testExamples,
