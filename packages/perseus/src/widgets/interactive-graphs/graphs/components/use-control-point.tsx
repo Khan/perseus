@@ -47,7 +47,7 @@ export function useControlPoint(params: Params): Return {
         forwardedRef = noop,
     } = params;
 
-    const {strings} = usePerseusI18n();
+    const {strings, locale} = usePerseusI18n();
 
     const [focused, setFocused] = useState(false);
     const focusableHandleRef = useRef<SVGGElement>(null);
@@ -78,8 +78,8 @@ export function useControlPoint(params: Params): Return {
             ref={focusableHandleRef}
             role="button"
             aria-label={strings.srPointAtCoordinates({
-                x: srFormatNumber(point[X]),
-                y: srFormatNumber(point[Y]),
+                x: srFormatNumber(point[X], locale),
+                y: srFormatNumber(point[Y], locale),
             })}
             // aria-live="assertive" causes the new location of the point to be
             // announced immediately on move.

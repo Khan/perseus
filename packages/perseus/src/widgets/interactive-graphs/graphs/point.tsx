@@ -132,23 +132,25 @@ function UnlimitedPointGraph(props: PointGraphProps) {
 }
 
 function PointGraphDescription({state}: {state: PointGraphState}) {
-    const {strings} = usePerseusI18n();
-    return describePointGraph(state, strings);
+    const i18n = usePerseusI18n();
+    return describePointGraph(state, i18n);
 }
 
 // Exported for testing
 export function describePointGraph(
     state: PointGraphState,
-    strings: PerseusStrings,
+    i18n: {strings: PerseusStrings, locale: string},
 ): string {
+    const {strings, locale} = i18n;
+
     if (state.coords.length === 0) {
         return strings.srNoInteractiveElements;
     }
 
     const pointDescriptions = state.coords.map(([x, y]) =>
         strings.srPointAtCoordinates({
-            x: srFormatNumber(x),
-            y: srFormatNumber(y),
+            x: srFormatNumber(x, locale),
+            y: srFormatNumber(y, locale),
         }),
     );
 

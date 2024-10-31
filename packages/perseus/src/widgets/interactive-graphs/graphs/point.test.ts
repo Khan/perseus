@@ -3,6 +3,7 @@ import {mockStrings} from "../../../strings";
 import {describePointGraph} from "./point";
 
 import type {PointGraphState} from "../types";
+import {mockPerseusI18nContext} from "../../../components/i18n-context";
 
 describe("describePointGraph", () => {
     const baseState: PointGraphState = {
@@ -22,14 +23,14 @@ describe("describePointGraph", () => {
 
     it(`returns "No interactive elements" for a graph with no points`, () => {
         const state: PointGraphState = {...baseState, coords: []};
-        expect(describePointGraph(state, mockStrings)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "No interactive elements",
         );
     });
 
     it("describes one point", () => {
         const state: PointGraphState = {...baseState, coords: [[3, 5]]};
-        expect(describePointGraph(state, mockStrings)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "Interactive elements: Point at 3 comma 5",
         );
     });
@@ -42,7 +43,7 @@ describe("describePointGraph", () => {
                 [2, 4],
             ],
         };
-        expect(describePointGraph(state, mockStrings)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "Interactive elements: Point at 3 comma 5, Point at 2 comma 4",
         );
     });
@@ -52,7 +53,7 @@ describe("describePointGraph", () => {
             ...baseState,
             coords: [[-1.1234, 3.5678]],
         };
-        expect(describePointGraph(state, mockStrings)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "Interactive elements: Point at -1.123 comma 3.568",
         );
     });
