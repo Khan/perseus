@@ -24,7 +24,7 @@ export function renderRayGraph(
 
 type Props = MafsGraphProps<RayGraphState>;
 
-export const RayGraph = (props: Props) => {
+const RayGraph = (props: Props) => {
     const {dispatch} = props;
     const {coords: line} = props.graphState;
 

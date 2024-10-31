@@ -24,7 +24,7 @@ export function renderLinearGraph(
 
 type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
-export const LinearGraph = (props: LinearGraphProps, key: number) => {
+const LinearGraph = (props: LinearGraphProps, key: number) => {
     const {dispatch} = props;
     const {coords: line} = props.graphState;
 

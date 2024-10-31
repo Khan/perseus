@@ -35,7 +35,7 @@ export function renderAngleGraph(
     };
 }
 
-export function AngleGraph(props: AngleGraphProps) {
+function AngleGraph(props: AngleGraphProps) {
     const {dispatch, graphState} = props;
     const {graphDimensionsInPixels} = useGraphConfig();
 

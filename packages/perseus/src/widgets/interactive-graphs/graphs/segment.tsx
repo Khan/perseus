@@ -24,7 +24,7 @@ export function renderSegmentGraph(
 
 type SegmentProps = MafsGraphProps<SegmentGraphState>;
 
-export const SegmentGraph = (props: SegmentProps) => {
+const SegmentGraph = (props: SegmentProps) => {
     const {dispatch} = props;
     const {coords: segments} = props.graphState;
 

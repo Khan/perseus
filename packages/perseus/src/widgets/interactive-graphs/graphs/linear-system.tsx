@@ -24,7 +24,7 @@ export function renderLinearSystemGraph(
 
 type LinearSystemGraphProps = MafsGraphProps<LinearSystemGraphState>;
 
-export const LinearSystemGraph = (props: LinearSystemGraphProps) => {
+const LinearSystemGraph = (props: LinearSystemGraphProps) => {
     const {dispatch} = props;
     const {coords: lines} = props.graphState;
 

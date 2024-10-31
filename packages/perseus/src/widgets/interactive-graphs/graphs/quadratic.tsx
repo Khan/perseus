@@ -27,7 +27,7 @@ type QuadraticGraphProps = MafsGraphProps<QuadraticGraphState>;
 type QuadraticCoefficient = [number, number, number];
 export type QuadraticCoords = QuadraticGraphState["coords"];
 
-export function QuadraticGraph(props: QuadraticGraphProps) {
+function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
 
     const {coords} = graphState;

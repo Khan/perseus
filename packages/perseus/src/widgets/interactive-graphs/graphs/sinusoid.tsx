@@ -34,7 +34,7 @@ export type SineCoefficient = {
     verticalOffset: number;
 };
 
-export function SinusoidGraph(props: SinusoidGraphProps) {
+function SinusoidGraph(props: SinusoidGraphProps) {
     const {dispatch, graphState} = props;
 
     // Destructure the coordinates from the graph state
