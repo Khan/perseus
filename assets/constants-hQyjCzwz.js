@@ -1,1 +1,0 @@
-const e={PHONE:"phone",TABLET:"tablet",DESKTOP:"desktop"},t=36,o=1,s=Object.freeze(Object.defineProperty({__proto__:null,devices:e,lintGutterWidth:t,perseusFrameBorderWidth:o},Symbol.toStringTag,{value:"Module"}));export{s as c,t as l,o as p};
