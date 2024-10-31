@@ -162,7 +162,7 @@ describe("MafsGraph", () => {
             />,
         );
 
-        const group = screen.getByTestId("movable-point");
+        const group = screen.getByTestId("movable-point__focusable-handle");
         group.focus();
         await userEvent.keyboard("[ArrowRight]");
         const action = actions.pointGraph.movePoint(0, [4, 2]);
@@ -390,8 +390,8 @@ describe("MafsGraph", () => {
         expect(state.coords).toEqual(expectedCoords);
     });
 
-    describe("with an unlimited-point graph", () => {
-        it("shows a remove point button when a point is clicked", async () => {
+    describe("with an unlimited graph", () => {
+        it("point - shows a remove point button when a point is focused", async () => {
             // Arrange
             // Render the question
             const mockDispatch = jest.fn();
@@ -428,48 +428,134 @@ describe("MafsGraph", () => {
             const addPointButton = await screen.findByText("Remove Point");
             expect(addPointButton).not.toBe(null);
         });
-    });
 
-    it("removes a point when the remove point button is clicked", async () => {
-        // Arrange
-        // Render the question
-        const mockDispatch = jest.fn();
-        const state: InteractiveGraphState = {
-            type: "point",
-            numPoints: "unlimited",
-            focusedPointIndex: 0,
-            hasBeenInteractedWith: true,
-            showRemovePointButton: true,
-            interactionMode: "mouse",
-            showKeyboardInteractionInvitation: false,
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            snapStep: [2, 2],
-            coords: [[9, 9]],
-        };
+        it("polygon - shows a remove point button when a point is focused", async () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "polygon",
+                numSides: "unlimited",
+                focusedPointIndex: 0,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: true,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                showAngles: false,
+                showSides: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                snapTo: "grid",
+                coords: [[4, 5]],
+            };
 
-        const baseMafsGraphProps: MafsGraphProps = {
-            ...getBaseMafsGraphProps(),
-            markings: "none",
-        };
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...getBaseMafsGraphProps(),
+                markings: "none",
+            };
 
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={state}
-                dispatch={mockDispatch}
-            />,
-        );
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
 
-        // Act: Click the button
-        const removePointButton = await screen.findByText("Remove Point");
-        await userEvent.click(removePointButton);
+            // Assert: Find the button
+            const addPointButton = await screen.findByText("Remove Point");
+            expect(addPointButton).not.toBe(null);
+        });
 
-        expect(mockDispatch.mock.calls).toContainEqual([
-            {type: REMOVE_POINT, index: 0},
-        ]);
+        it("point - removes a point when the remove point button is clicked", async () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "point",
+                numPoints: "unlimited",
+                focusedPointIndex: 0,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: true,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                coords: [[9, 9]],
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...getBaseMafsGraphProps(),
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Act: Click the button
+            const removePointButton = await screen.findByText("Remove Point");
+            await userEvent.click(removePointButton);
+
+            expect(mockDispatch.mock.calls).toContainEqual([
+                {type: REMOVE_POINT, index: 0},
+            ]);
+        });
+
+        it("polygon - removes a point when the remove point button is clicked", async () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "polygon",
+                numSides: "unlimited",
+                focusedPointIndex: 0,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: true,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                showAngles: false,
+                showSides: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                snapTo: "grid",
+                coords: [[9, 9]],
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...getBaseMafsGraphProps(),
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Act: Click the button
+            const removePointButton = await screen.findByText("Remove Point");
+            await userEvent.click(removePointButton);
+
+            expect(mockDispatch.mock.calls).toContainEqual([
+                {type: REMOVE_POINT, index: 0},
+            ]);
+        });
     });
 });
 

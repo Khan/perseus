@@ -43,11 +43,8 @@ export * as GrapherUtil from "./widgets/grapher/util";
  */
 export * as components from "./components";
 export * as constants from "./components/constants";
-// TODO(FEI-4504): Replace globalStyles with wonder-blocks where possible
-export * as globalStyles from "./styles/global-styles";
-// TODO(FEI-4504): Replace globalStyles with wonder-blocks where possible
-export * as globalConstants from "./styles/global-constants";
 export {iconChevronDown, iconTrash} from "./icon-paths";
+export {bodyXsmallBold} from "./styles/global-styles";
 export * as Dependencies from "./dependencies";
 export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";

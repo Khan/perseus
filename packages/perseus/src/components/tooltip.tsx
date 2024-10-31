@@ -107,10 +107,10 @@ const Triangle = (props: TriangleProps) => {
 };
 
 type TooltipArrowProps = {
-    position: Property.Position;
-    visibility: Property.Visibility;
-    left: number;
-    top: number;
+    position?: Property.Position;
+    visibility?: Property.Visibility;
+    left?: number;
+    top?: number;
     color: string; // a css color
     border: string; // a css color
     width: number;
@@ -120,7 +120,13 @@ type TooltipArrowProps = {
     zIndex?: number;
 };
 
-const TooltipArrow = (props: TooltipArrowProps) => {
+const TooltipArrow = ({
+    position = "relative",
+    visibility = "visible",
+    left = 100,
+    top = 0,
+    ...props
+}: TooltipArrowProps) => {
     // TODO(aria): Think about adding a box-shadow to the triangle here
     // See http://css-tricks.com/triangle-with-shadow/
 
@@ -134,10 +140,10 @@ const TooltipArrow = (props: TooltipArrowProps) => {
         <div
             style={{
                 display: "block",
-                position: props.position,
-                visibility: props.visibility,
-                left: props.left,
-                top: props["top"],
+                position: position,
+                visibility: visibility,
+                left: left,
+                top: top,
                 width: props.width + 2,
                 height: props.height + 1,
                 marginTop: -1,
@@ -169,13 +175,6 @@ const TooltipArrow = (props: TooltipArrowProps) => {
             />
         </div>
     );
-};
-
-TooltipArrow.defaultProps = {
-    position: "relative",
-    visibility: "visible",
-    left: 0,
-    top: 0,
 };
 
 const VERTICAL_CORNERS = {
