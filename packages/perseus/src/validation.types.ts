@@ -1,4 +1,6 @@
+import type {Coord} from "./interactive2/types";
 import type {
+    CollinearTuple,
     GrapherAnswerTypes,
     PerseusDropdownChoice,
     PerseusExpressionAnswerForm,
@@ -95,9 +97,38 @@ export type PerseusInputNumberUserInput = {
     currentValue: string;
 };
 
+// Would it be better just to use a question mark instead of having all of them also have undefined?
+// Are those two different types though? optional versus required with an undefined value?
+export type PerseusGraphCorrectType = {
+    type:
+        | "angle"
+        | "circle"
+        | "linear"
+        | "linear-system"
+        | "none"
+        | "point"
+        | "polygon"
+        | "quadratic"
+        | "ray"
+        | "segment"
+        | "sinusoid";
+    coords:
+        | CollinearTuple
+        | ReadonlyArray<ReadonlyArray<Coord>>
+        | [Coord, Coord, Coord]
+        | readonly Coord[]
+        | null
+        | undefined;
+    center: Coord | undefined;
+    radius: number | undefined;
+    match: "congruent" | "approx" | "similar" | undefined;
+    allowReflexAngles: boolean | undefined;
+};
+
 export type PerseusInteractiveGraphRubric = {
     // TODO(LEMS-2344): make the type of `correct` more specific
-    correct: PerseusGraphType;
+    // correct was previously of type PerseusGraphType, but it was refined
+    correct: PerseusGraphCorrectType;
     graph: PerseusGraphType;
 };
 
