@@ -6,12 +6,6 @@ const meta: Meta = {
     title: "Perseus/Components/SVG Image",
     component: SvgImage,
     args: {alt: "ALT"},
-    parameters: {
-        chromatic: {
-            // The Svg
-            disable: 100,
-        },
-    },
 };
 export default meta;
 
