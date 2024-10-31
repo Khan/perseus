@@ -5,11 +5,28 @@ import {clone} from "../../../../../testing/object-utils";
 import interactiveGraphValidator from "./interactive-graph-validator";
 
 import type {PerseusGraphType} from "../../perseus-types";
-import type {PerseusInteractiveGraphRubric} from "../../validation.types";
+import type {
+    PerseusGraphCorrectType,
+    PerseusInteractiveGraphRubric,
+} from "../../validation.types";
 import type {Coord} from "@khanacademy/perseus";
 
 function createRubric(graph: PerseusGraphType): PerseusInteractiveGraphRubric {
-    return {graph, correct: graph};
+    const correctKeys = [
+        "type",
+        "coords",
+        "center",
+        "radius",
+        "match",
+        "allowReflexAngle",
+    ];
+    const correct = {};
+    for (const key in graph) {
+        if (correctKeys.includes(key)) {
+            correct[key] = graph[key];
+        }
+    }
+    return {graph, correct: correct as PerseusGraphCorrectType};
 }
 
 describe("InteractiveGraph.validate on a segment question", () => {
