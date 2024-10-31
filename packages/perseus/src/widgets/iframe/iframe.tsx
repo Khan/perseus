@@ -16,7 +16,9 @@ import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
 
 import {iframeValidator} from "./iframe-validator";
+import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
+import type {IFramePromptJSON} from "./prompt-utils";
 import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
@@ -63,6 +65,10 @@ class Iframe extends React.Component<Props> implements Widget {
 
     getUserInput(): PerseusIFrameUserInput {
         return {status: this.props.status, message: this.props.message};
+    }
+
+    getPromptJSON(): IFramePromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     handleMessageEvent: (arg1: any) => void = (e) => {

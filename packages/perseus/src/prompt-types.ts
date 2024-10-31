@@ -7,6 +7,7 @@ import type {ExpressionPromptJSON} from "./widget-ai-utils/expression/prompt-uti
 import type {NumericInputPromptJSON} from "./widget-ai-utils/numeric-input/prompt-utils";
 import type {RadioPromptJSON} from "./widget-ai-utils/radio/prompt-utils";
 import type {GrapherPromptJSON} from "./widgets/grapher/prompt-utils";
+import type {IFramePromptJSON} from "./widgets/iframe/prompt-utils";
 
 export type WidgetType =
     | "categorizer"
@@ -16,6 +17,7 @@ export type WidgetType =
     | "explanation"
     | "expression"
     | "grapher"
+    | "iframe"
     | "radio"
     | "numeric-input";
 
@@ -28,6 +30,7 @@ export type WidgetPromptJSON =
     | DropdownPromptJSON
     | GrapherPromptJSON
     | RadioPromptJSON
+    | IFramePromptJSON
     | NumericInputPromptJSON;
 
 export type RendererPromptJSON = {
