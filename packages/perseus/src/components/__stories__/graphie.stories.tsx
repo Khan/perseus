@@ -23,6 +23,10 @@ export default meta;
 
 export const SquareBoxSizeAndOtherwiseEmpty: Story = {};
 
+/**
+ * A demonstration of a Graphie rendered using the Perseus `Renderer` complete
+ * with overlaid labels and an image caption below.
+ */
 export const PieChartGraphieLabels = () => {
     return <ServerItemRendererWithDebugUI item={itemWithPieChart} />;
 };

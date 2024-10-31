@@ -8,10 +8,8 @@ const meta: Meta = {
     args: {alt: "ALT"},
     parameters: {
         chromatic: {
-            // This component loads images from remote sources. We need to tell
-            // Chromatic to wait a bit before taking a snapshot otherwise we
-            // get only empty snapshots.
-            delay: 100,
+            // The Svg
+            disable: 100,
         },
     },
 };
