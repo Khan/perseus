@@ -42,7 +42,6 @@ export * as GrapherUtil from "./widgets/grapher/util";
  * Misc
  */
 export * as components from "./components";
-export * as constants from "./components/constants";
 export {iconChevronDown, iconTrash} from "./icon-paths";
 export {bodyXsmallBold} from "./styles/global-styles";
 export * as Dependencies from "./dependencies";
