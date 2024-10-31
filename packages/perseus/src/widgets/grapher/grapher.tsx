@@ -20,6 +20,7 @@ import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 /* Graphie and relevant components. */
 /* Mixins. */
 import grapherValidator from "./grapher-validator";
+import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 import {
     DEFAULT_GRAPHER_PROPS,
     chooseType,
@@ -30,6 +31,7 @@ import {
     typeToButton,
 } from "./util";
 
+import type {GrapherPromptJSON} from "./prompt-utils";
 import type {Coord, Line} from "../../interactive2/types";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusGrapherWidgetOptions} from "../../perseus-types";
@@ -535,6 +537,10 @@ class Grapher extends React.Component<Props> implements Widget {
 
     getUserInput(): PerseusGrapherUserInput {
         return Grapher.getUserInputFromProps(this.props);
+    }
+
+    getPromptJSON(): GrapherPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     render(): React.ReactNode {

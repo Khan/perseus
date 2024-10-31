@@ -8,6 +8,8 @@ import {
     multipleAvailableTypesQuestion,
 } from "./grapher.testdata";
 
+import type {GrapherPromptJSON} from "./prompt-utils";
+
 describe("grapher widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -31,5 +33,33 @@ describe("grapher widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("initial render");
+    });
+
+    it("Should get prompt json which matches the state of the UI", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(linearQuestion);
+        const widget = renderer.getWidgetInstance("grapher 1");
+        const graphOptions = linearQuestion.widgets["grapher 1"].options;
+
+        // Act
+        const json = widget?.getPromptJSON?.() as GrapherPromptJSON;
+
+        // Assert
+        expect(json).toEqual({
+            type: "grapher",
+            options: {
+                availableTypes: graphOptions.availableTypes,
+                range: graphOptions.graph.range,
+                labels: graphOptions.graph.labels,
+                tickStep: graphOptions.graph.step,
+                gridStep: graphOptions.graph.gridStep,
+                snapStep: graphOptions.graph.snapStep,
+                backgroundImage: graphOptions.graph.backgroundImage.url,
+            },
+            userInput: {
+                type: "linear",
+                coords: null,
+            },
+        });
     });
 });
