@@ -2,13 +2,13 @@
 /**
  * Reusable checkbox component.
  **/
-import {globalStyles} from "@khanacademy/perseus";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import HoverBehavior from "./hover-behavior";
+import {gray41, gray68} from "../styles/global-colors";
 
-const {borderRadius, colors} = globalStyles;
+import HoverBehavior from "./hover-behavior";
 
 type CheckboxProps = {
     // Whether or not the checkbox is checked.  The parent responsible for
@@ -33,6 +33,8 @@ type CheckboxProps = {
     // Unique identifier for this checkbox.
     id?: string;
 };
+
+const borderRadius = 4;
 
 // NOTE(jangmi): Checkbox may have `onChange` depends on circumstances but lack
 // of onChange causes Dev only alert so we provide the no op func as default
@@ -60,7 +62,7 @@ export default class Checkbox extends React.Component<CheckboxProps> {
             id,
         } = this.props;
 
-        const checkedColor = colors.gray41;
+        const checkedColor = gray41;
 
         return (
             <HoverBehavior>
@@ -98,8 +100,8 @@ export default class Checkbox extends React.Component<CheckboxProps> {
                                             rx={borderRadius}
                                         />
                                         <path
-                                            fill={colors.white}
-                                            stroke={colors.white}
+                                            fill={color.white}
+                                            stroke={color.white}
                                             d="M4.98 7.41a0.58.58 0 1 0-0.81.81L6.47
                                  10.53c0.23.23.59.23.81
                                  0l4.55-4.55a0.58.58 0 0
@@ -109,8 +111,8 @@ export default class Checkbox extends React.Component<CheckboxProps> {
                                 )}
                                 {!checked && (
                                     <rect
-                                        fill={colors.white}
-                                        stroke={colors.gray68}
+                                        fill={color.white}
+                                        stroke={gray68}
                                         width={size - 2 * padding}
                                         height={size - 2 * padding}
                                         x={padding}

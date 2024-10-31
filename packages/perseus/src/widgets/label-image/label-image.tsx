@@ -18,7 +18,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
-import {typography} from "../../styles/global-styles";
+import {bodyXsmallBold} from "../../styles/global-styles";
 import mediaQueries from "../../styles/media-queries";
 
 import AnswerChoices from "./answer-choices";
@@ -671,7 +671,7 @@ const styles = StyleSheet.create({
     },
 
     instructionsCaption: {
-        ...typography.bodyXsmallBold,
+        ...bodyXsmallBold,
 
         paddingBottom: 16,
     },

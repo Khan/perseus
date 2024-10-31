@@ -14,10 +14,6 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import {phoneMargin} from "../../styles/constants";
-import {
-    basicBorderColor,
-    borderRadiusLarge,
-} from "../../styles/global-constants";
 
 import type {PerseusPhetSimulationWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
@@ -229,9 +225,9 @@ export const makeSafeUrl = (urlString: string, locale: string): URL | null => {
 
 const styles = StyleSheet.create({
     widgetContainer: {
-        borderRadius: borderRadiusLarge,
+        borderRadius: 6,
         borderWidth: 1,
-        borderColor: basicBorderColor,
+        borderColor: "#CCC",
         padding: spacing.medium_16,
         paddingBottom: 0,
     },

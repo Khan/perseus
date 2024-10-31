@@ -26,7 +26,7 @@ import {
     X,
     Y,
 } from "../math";
-import {bound} from "../utils";
+import {bound, isUnlimitedGraphState} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
 import {
@@ -127,10 +127,9 @@ function doDeleteIntent(
     action: DeleteIntent,
 ): InteractiveGraphState {
     // For unlimited point graphs
-    if (state.type === "point" && state.numPoints === "unlimited") {
-        // if there's a focused point
+    if (isUnlimitedGraphState(state)) {
+        // Remove the last point that was focused, if any
         if (state.focusedPointIndex !== null) {
-            // Remove the focused focus
             return doRemovePoint(
                 state,
                 actions.pointGraph.removePoint(state.focusedPointIndex),
@@ -145,6 +144,7 @@ function doFocusPoint(
     action: FocusPoint,
 ): InteractiveGraphState {
     switch (state.type) {
+        case "polygon":
         case "point":
             return {
                 ...state,
@@ -160,6 +160,7 @@ function doBlurPoint(
     action: BlurPoint,
 ): InteractiveGraphState {
     switch (state.type) {
+        case "polygon":
         case "point":
             const nextState = {
                 ...state,
@@ -180,11 +181,7 @@ function doClickPoint(
     state: InteractiveGraphState,
     action: ClickPoint,
 ): InteractiveGraphState {
-    if (state.type !== "point") {
-        return state;
-    }
-
-    if (state.numPoints === "unlimited") {
+    if (isUnlimitedGraphState(state)) {
         return {
             ...state,
             focusedPointIndex: action.index,
@@ -199,11 +196,7 @@ function doChangeInteractionMode(
     state: InteractiveGraphState,
     action: ChangeInteractionMode,
 ): InteractiveGraphState {
-    if (state.type !== "point") {
-        return state;
-    }
-
-    if (state.numPoints === "unlimited") {
+    if (isUnlimitedGraphState(state)) {
         const nextKeyboardInvitation =
             action.mode === "keyboard"
                 ? false
@@ -222,11 +215,7 @@ function doChangeKeyboardInvitationVisibility(
     state: InteractiveGraphState,
     action: ChangeKeyboardInvitationVisibility,
 ): InteractiveGraphState {
-    if (state.type !== "point") {
-        return state;
-    }
-
-    if (state.numPoints === "unlimited") {
+    if (isUnlimitedGraphState(state)) {
         return {
             ...state,
             showKeyboardInteractionInvitation: action.shouldShow,
@@ -662,7 +651,7 @@ function doAddPoint(
     state: InteractiveGraphState,
     action: AddPoint,
 ): InteractiveGraphState {
-    if (state.type !== "point") {
+    if (!isUnlimitedGraphState(state)) {
         return state;
     }
     const {snapStep} = state;
@@ -689,7 +678,7 @@ function doRemovePoint(
     state: InteractiveGraphState,
     action: RemovePoint,
 ): InteractiveGraphState {
-    if (state.type !== "point") {
+    if (!isUnlimitedGraphState(state)) {
         return state;
     }
 

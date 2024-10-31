@@ -14,6 +14,19 @@ export type MafsGraphProps<T extends InteractiveGraphState> = {
     dispatch: (action: InteractiveGraphAction) => unknown;
 };
 
+export type InteractiveGraphType =
+    | "none"
+    | "angle"
+    | "segment"
+    | "linear-system"
+    | "linear"
+    | "ray"
+    | "polygon"
+    | "point"
+    | "circle"
+    | "quadratic"
+    | "sinusoid";
+
 export type InteractiveGraphState =
     | AngleGraphState
     | SegmentGraphState
@@ -26,6 +39,8 @@ export type InteractiveGraphState =
     | CircleGraphState
     | QuadraticGraphState
     | SinusoidGraphState;
+
+export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
@@ -77,6 +92,11 @@ export interface PolygonGraphState extends InteractiveGraphStateCommon {
     showSides: boolean;
     snapTo: "grid" | "angles" | "sides";
     coords: Coord[];
+    numSides?: number | "unlimited";
+    focusedPointIndex: number | null;
+    showRemovePointButton: boolean;
+    interactionMode: InteractionMode;
+    showKeyboardInteractionInvitation: boolean;
 }
 
 export interface CircleGraphState extends InteractiveGraphStateCommon {
