@@ -6,14 +6,16 @@ import type {ExplanationPromptJSON} from "./widget-ai-utils/explanation/prompt-u
 import type {ExpressionPromptJSON} from "./widget-ai-utils/expression/prompt-utils";
 import type {NumericInputPromptJSON} from "./widget-ai-utils/numeric-input/prompt-utils";
 import type {RadioPromptJSON} from "./widget-ai-utils/radio/prompt-utils";
+import type {GrapherPromptJSON} from "./widgets/grapher/prompt-utils";
 
 export type WidgetType =
     | "categorizer"
     | "cs-program"
     | "definition"
+    | "dropdown"
     | "explanation"
     | "expression"
-    | "dropdown"
+    | "grapher"
     | "radio"
     | "numeric-input";
 
@@ -24,6 +26,7 @@ export type WidgetPromptJSON =
     | ExplanationPromptJSON
     | ExpressionPromptJSON
     | DropdownPromptJSON
+    | GrapherPromptJSON
     | RadioPromptJSON
     | NumericInputPromptJSON;
 
