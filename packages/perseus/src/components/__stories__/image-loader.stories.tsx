@@ -17,6 +17,14 @@ const meta: Meta = {
         },
         onUpdate: () => {},
     },
+    parameters: {
+        chromatic: {
+            // This component only deals with loading images and providing a
+            // fallback if it fails. This is not very useful to snapshot so
+            // we're disabling it.
+            disableSnapshot: true,
+        },
+    },
 };
 export default meta;
 

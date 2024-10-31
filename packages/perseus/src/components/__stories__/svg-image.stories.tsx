@@ -6,6 +6,14 @@ const meta: Meta = {
     title: "Perseus/Components/SVG Image",
     component: SvgImage,
     args: {alt: "ALT"},
+    parameters: {
+        chromatic: {
+            // This component loads images from remote sources. We need to tell
+            // Chromatic to wait a bit before taking a snapshot otherwise we
+            // get only empty snapshots.
+            delay: 100,
+        },
+    },
 };
 export default meta;
 
@@ -16,6 +24,10 @@ const imgUrl = "https://www.khanacademy.org/images/hand-tree.new.png";
 const graphieUrl =
     "web+graphie://ka-perseus-graphie.s3.amazonaws.com/1e06f6d4071f30cee2cc3ccb7435b3a66a62fe3f";
 
+/**
+ * Demostrates an `SvgImage` that doesn't have a `src` defined, and as such
+ * never loads (infinite spinner)
+ */
 export const Default: Story = {};
 
 export const SvgImageThatDoesntLoad: Story = {

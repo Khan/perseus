@@ -15,7 +15,7 @@ const meta: Meta = {
     },
     argTypes: {
         onChange: {
-            table: {disable: true},
+            control: {type: null},
         },
     },
 };
