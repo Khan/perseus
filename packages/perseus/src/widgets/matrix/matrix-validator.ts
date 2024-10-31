@@ -12,12 +12,12 @@ import type {
 } from "../../validation.types";
 
 function matrixValidator(
-    state: PerseusMatrixUserInput,
+    userInput: PerseusMatrixUserInput,
     rubric: PerseusMatrixRubric,
     strings: PerseusStrings,
 ): PerseusScore {
     const solution = rubric.answers;
-    const supplied = state.answers;
+    const supplied = userInput.answers;
     const solutionSize = getMatrixSize(solution);
     const suppliedSize = getMatrixSize(supplied);
 

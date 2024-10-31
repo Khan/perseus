@@ -4,7 +4,7 @@
  * multiple (Renderer) sections concatenated together.
  */
 
-import {components, icons, ApiOptions} from "@khanacademy/perseus";
+import {components, ApiOptions, iconTrash} from "@khanacademy/perseus";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
@@ -14,11 +14,15 @@ import JsonEditor from "./components/json-editor";
 import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
+import {
+    iconCircleArrowDown,
+    iconCircleArrowUp,
+    iconPlus,
+} from "./styles/icon-paths";
 
 import type {APIOptions, Changeable, ImageUploader} from "@khanacademy/perseus";
 
 const {HUD, InlineIcon} = components;
-const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} = icons;
 
 type RendererProps = {
     content?: string;

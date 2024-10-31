@@ -59,11 +59,8 @@ export const GrapherUtil = {
  */
 export * as components from "./components";
 export * as constants from "./components/constants";
-// TODO(FEI-4504): Replace globalStyles with wonder-blocks where possible
-export * as globalStyles from "./styles/global-styles";
-// TODO(FEI-4504): Replace globalStyles with wonder-blocks where possible
-export * as globalConstants from "./styles/global-constants";
-export * as icons from "./icon-paths";
+export {iconChevronDown, iconTrash} from "./icon-paths";
+export {bodyXsmallBold} from "./styles/global-styles";
 export * as Dependencies from "./dependencies";
 export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
@@ -98,7 +95,10 @@ export {default as Util} from "./util";
 export {default as KhanColors} from "./util/colors";
 export {default as preprocessTex} from "./util/tex-preprocess";
 export {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
-export * as SizingUtils from "./util/sizing-utils";
+export {
+    containerSizeClass,
+    getInteractiveBoxFromSizeClass,
+} from "./util/sizing-utils";
 export {
     getAnswersFromWidgets,
     injectWidgets,

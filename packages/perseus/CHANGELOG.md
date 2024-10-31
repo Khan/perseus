@@ -1,5 +1,26 @@
 # @khanacademy/perseus
 
+## 39.0.1
+
+### Patch Changes
+
+-   [#1766](https://github.com/Khan/perseus/pull/1766) [`39e1292a9`](https://github.com/Khan/perseus/commit/39e1292a9d93453037b77c157ee5421ed23b88ad) Thanks [@Myranae](https://github.com/Myranae)! - Refine iFrame's Rubric type
+
+*   [#1799](https://github.com/Khan/perseus/pull/1799) [`f3139edfe`](https://github.com/Khan/perseus/commit/f3139edfeb5f8b6faf0e537961165e3d3499c30b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change functional components to use default parameters instead of deprecated 'defaultProps'
+
+-   [#1765](https://github.com/Khan/perseus/pull/1765) [`5cf8d975b`](https://github.com/Khan/perseus/commit/5cf8d975b249e103e4f439b2682741c25a0b4084) Thanks [@Myranae](https://github.com/Myranae)! - Refine Sorter's Rubric type
+
+*   [#1758](https://github.com/Khan/perseus/pull/1758) [`d6edf18ef`](https://github.com/Khan/perseus/commit/d6edf18ef07c6b82ae585e77d75e9132d554baf5) Thanks [@Myranae](https://github.com/Myranae)! - Refine Radio's Rubric and UserInput types
+
+-   [#1743](https://github.com/Khan/perseus/pull/1743) [`5ea5d5927`](https://github.com/Khan/perseus/commit/5ea5d592755bd5b2889547718fc39523e5595ea1) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - BUGFIX - [Numeric Input] - Check for wrong answers when scoring
+
+*   [#1760](https://github.com/Khan/perseus/pull/1760) [`9426509cd`](https://github.com/Khan/perseus/commit/9426509cdcdc9c51dfd957e0e51f6bac0e11ffe5) Thanks [@Myranae](https://github.com/Myranae)! - Refine Matrix's Rubric and UserInput types
+
+-   [#1761](https://github.com/Khan/perseus/pull/1761) [`dbe17d1ee`](https://github.com/Khan/perseus/commit/dbe17d1ee9c22d11ec916e898cb5ca4a01409896) Thanks [@Myranae](https://github.com/Myranae)! - Refine NumericInput's Rubric type
+
+-   Updated dependencies [[`f3139edfe`](https://github.com/Khan/perseus/commit/f3139edfeb5f8b6faf0e537961165e3d3499c30b)]:
+    -   @khanacademy/math-input@21.1.2
+
 ## 39.0.0
 
 ### Major Changes

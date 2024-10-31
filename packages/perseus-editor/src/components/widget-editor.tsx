@@ -1,9 +1,10 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     components,
-    icons,
     Widgets,
     WIDGET_PROP_DENYLIST,
+    iconChevronDown,
+    iconTrash,
 } from "@khanacademy/perseus";
 import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -12,13 +13,14 @@ import Switch from "@khanacademy/wonder-blocks-switch";
 import * as React from "react";
 import _ from "underscore";
 
+import {iconChevronRight} from "../styles/icon-paths";
+
 import SectionControlButton from "./section-control-button";
 
 import type Editor from "../editor";
 import type {APIOptions, Alignment, PerseusWidget} from "@khanacademy/perseus";
 
 const {InlineIcon} = components;
-const {iconChevronDown, iconChevronRight, iconTrash} = icons;
 
 type WidgetEditorProps = {
     // Unserialized props
