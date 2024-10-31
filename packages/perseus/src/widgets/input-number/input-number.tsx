@@ -10,7 +10,9 @@ import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
 
 import inputNumberValidator, {answerTypes} from "./input-number-validator";
+import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
+import type {InputNumberPromptJSON} from "./prompt-utils";
 import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
@@ -161,6 +163,10 @@ class InputNumber extends React.Component<Props> implements Widget {
 
     getUserInput(): PerseusInputNumberUserInput {
         return InputNumber.getUserInputFromProps(this.props);
+    }
+
+    getPromptJSON(): InputNumberPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     examples: () => ReadonlyArray<string> = () => {
