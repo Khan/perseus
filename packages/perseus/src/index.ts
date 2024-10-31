@@ -43,8 +43,8 @@ export * as GrapherUtil from "./widgets/grapher/util";
  */
 export * as components from "./components";
 export * as constants from "./components/constants";
+export {iconChevronDown, iconTrash} from "./icon-paths";
 export {bodyXsmallBold} from "./styles/global-styles";
-export * as icons from "./icon-paths";
 export * as Dependencies from "./dependencies";
 export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";

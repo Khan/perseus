@@ -1,17 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {
     components,
-    icons,
     Changeable,
     EditorJsonify,
     Util,
     PerseusI18nContext,
+    iconTrash,
 } from "@khanacademy/perseus";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../editor";
+import {iconGear} from "../styles/icon-paths";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 
@@ -23,7 +24,6 @@ const {
     NumberInput,
     TextInput,
 } = components;
-const {iconGear, iconTrash} = icons;
 const {firstNumericalParse} = Util;
 
 // NOTE(john): Copied from perseus-types.d.ts in the Perseus package.
