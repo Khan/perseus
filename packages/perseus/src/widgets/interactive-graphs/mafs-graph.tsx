@@ -41,11 +41,11 @@ import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {MIN, X, Y} from "./math";
 import {Protractor} from "./protractor";
-import {type InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
 import {isUnlimitedGraphState, REMOVE_BUTTON_ID} from "./utils";
 
+import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {
     InteractiveGraphState,
     InteractiveGraphProps,
