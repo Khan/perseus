@@ -574,7 +574,9 @@ function handleKeyboardEvent(
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
     if (isUnlimitedGraphState(state)) {
-        if (event.key === "Backspace") {
+        // Check with design, I really think we should allow the backspace or
+        // delete key to delete a point.
+        if (event.key === "Backspace" || event.key === "Delete") {
             // TODO(benchristel): Checking classList here is a hack to prevent
             // points from being deleted if the user presses the backspace key
             // while the whole graph is focused. Instead of doing this, we
