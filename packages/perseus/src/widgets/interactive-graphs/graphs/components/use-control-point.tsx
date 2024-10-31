@@ -80,6 +80,8 @@ export function useControlPoint(params: Params): Return {
                 x: String(point[X]),
                 y: String(point[Y]),
             })}
+            // aria-live="assertive" causes the new location of the point to be
+            // announced immediately on move.
             aria-live="assertive"
             onFocus={(event) => {
                 onFocus(event);
