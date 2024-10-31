@@ -10,6 +10,9 @@ import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
 import noopValidator from "../__shared__/noop-validator";
 
+import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
+
+import type {ImagePromptJSON} from "./prompt-utils";
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, WidgetExports, WidgetProps, Widget} from "../../types";
 
@@ -76,6 +79,10 @@ class ImageWidget extends React.Component<Props> implements Widget {
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
+
+    getPromptJSON(): ImagePromptJSON {
+        return _getPromptJSON(this.props);
+    }
 
     render(): React.ReactNode {
         let image;
