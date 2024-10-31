@@ -4,7 +4,7 @@ import type {
     PerseusWidgetsMap,
 } from "@khanacademy/perseus";
 
-type WidgetNameMap = {
+type WidgetRenameMap = {
     [oldKey: string]: string;
 };
 
@@ -17,20 +17,25 @@ type WidgetNameMap = {
 const inputNumberToNumericInput = (json: PerseusRenderer) => {
     // First we need to create a map of the old input-number keys to the new numeric-input keys
     // so that we can ensure we update the content and widgets accordingly
-    const nameMap = getInputNumberNameMap(json);
+    const renameMap = getInputNumberRenameMap(json);
+
+    // If there aren't any input-number widgets in the content, we can return the json as is
+    if (!renameMap) {
+        return json;
+    }
 
     // Then we can use this to update the JSON
-    const modernizedJson = convertInputNumberJson(json, nameMap);
+    const modernizedJson = convertInputNumberJson(json, renameMap);
     return modernizedJson;
 };
 
 // We need to be able to run this code recursively in order to convert nested input-number widgets
 const convertInputNumberJson = (
     json: PerseusRenderer,
-    nameMap: WidgetNameMap,
+    renameMap: WidgetRenameMap,
 ): PerseusRenderer => {
-    const updatedContent = convertInputNumberContent(json, nameMap);
-    const updatedWidgets = convertInputNumberWidgetOptions(json, nameMap);
+    const updatedContent = convertInputNumberContent(json, renameMap);
+    const updatedWidgets = convertInputNumberWidgetOptions(json, renameMap);
     const modernizedJson = {
         ...json,
         content: updatedContent,
@@ -43,12 +48,12 @@ const convertInputNumberJson = (
 // Convert the input-number refs in the content string of a PerseusRenderer object
 const convertInputNumberContent = (
     json: PerseusRenderer,
-    nameMap: WidgetNameMap,
+    renameMap: WidgetRenameMap,
 ): string => {
     let newContent = json.content;
-    // Loop through the nameMap and replace all the old keys with the new keys
-    for (const oldKey of Object.keys(nameMap)) {
-        const newKey = nameMap[oldKey];
+    // Loop through the renameMap and replace all the old keys with the new keys
+    for (const oldKey of Object.keys(renameMap)) {
+        const newKey = renameMap[oldKey];
         if (newKey) {
             newContent = newContent.replace(oldKey, newKey);
         }
@@ -60,7 +65,7 @@ const convertInputNumberContent = (
 // Convert the input-number json in the widgets of a PerseusRenderer object
 const convertInputNumberWidgetOptions = (
     json: PerseusRenderer,
-    nameMap: WidgetNameMap,
+    renameMap: WidgetRenameMap,
 ): PerseusWidgetsMap => {
     const widgets: PerseusWidgetsMap = {...json.widgets};
     // The question.widgets is a dictionary map of widgets, so we need to loop through in order to convert input-number to numeric-input
@@ -69,7 +74,7 @@ const convertInputNumberWidgetOptions = (
         // (First) Loop through the keys of the widgets dictionary
         if (widgets[key].options.widgets) {
             widgets[key].options = {
-                ...convertInputNumberJson(widgets[key].options, nameMap),
+                ...convertInputNumberJson(widgets[key].options, renameMap),
             };
         }
         // (Second) Check if the widget is an input-number
@@ -112,7 +117,7 @@ const convertInputNumberWidgetOptions = (
                 options: upgradedWidgetOptions,
                 type: "numeric-input",
             };
-            const newWidgetName = nameMap[key];
+            const newWidgetName = renameMap[key];
             // Create the new key entry
             widgets[newWidgetName] = upgradedWidget;
 
@@ -142,38 +147,17 @@ const getAllContentStrings = (json: any): string[] => {
 };
 
 // Create a map of the old input-number keys to the new numeric-input keys
-const getInputNumberNameMap = (json: PerseusRenderer): WidgetNameMap => {
+const getInputNumberRenameMap = (
+    json: PerseusRenderer,
+): WidgetRenameMap | null => {
     const numericRegex = /\[\[\u2603 (numeric-input ([0-9]+))\]\]/g;
+    const inputNumberRegex = /\[\[\u2603 (input-number ([0-9]+))\]\]/g;
 
-    // Get all the content strings within the json as some might be nested within widgets
+    // Get all the content strings within the json, which might be nested within widgets
     const allContentStrings = getAllContentStrings(json);
 
-    // Then we need to loop through these strings and find all the pre-existing numeric-input widgets.
-    let numericMatches: RegExpMatchArray[] = [];
-    for (const contentString of allContentStrings) {
-        numericMatches = [
-            ...numericMatches,
-            ...[...contentString.matchAll(numericRegex)],
-        ];
-    }
-
-    // We then count through the result to determine the initial count
-    // we should use when creating the new numeric-input widgets
-    let currentNumericCount = 0; // initialize to 0
-    if (numericMatches) {
-        for (const match of numericMatches) {
-            const id = parseInt(match[2], 10);
-            if (id > currentNumericCount) {
-                currentNumericCount = id;
-            }
-        }
-    }
-
-    currentNumericCount++; // We want to start the new ids at either the next number, or at 1.
-
-    // Loop through the content to get all the input-number widgets in the content
-    const nameMap: WidgetNameMap = {};
-    const inputNumberRegex = /\[\[\u2603 (input-number ([0-9]+))\]\]/g; // this will be in the following format:
+    // Loop through the content strings to get all the input-number widgets
+    const renameMap: WidgetRenameMap = {};
     let inputNumberMatches: RegExpMatchArray[] = [];
 
     for (const contentString of allContentStrings) {
@@ -183,16 +167,39 @@ const getInputNumberNameMap = (json: PerseusRenderer): WidgetNameMap => {
         ];
     }
 
-    // If we have found any input number widgets, we need to create a map of the old keys to the new keys
-    if (inputNumberMatches) {
-        for (const match of inputNumberMatches) {
-            const oldKey = match[1];
-            const newKey = `numeric-input ${currentNumericCount}`;
-            nameMap[oldKey] = newKey;
-            currentNumericCount++;
+    // If none are found, return
+    if (!inputNumberMatches) {
+        return null;
+    }
+
+    // We want to count any pre-existing numeric-input widgets
+    // so that we can start the new ids at the next number
+    let numericMatches: RegExpMatchArray[] = [];
+    let currentNumericCount = 1;
+    for (const contentString of allContentStrings) {
+        numericMatches = [
+            ...numericMatches,
+            ...[...contentString.matchAll(numericRegex)],
+        ];
+    }
+    if (numericMatches.length > 0) {
+        for (const match of numericMatches) {
+            const id = parseInt(match[2], 10);
+            if (id > currentNumericCount) {
+                currentNumericCount = id + 1; // We want to start at the next highest number
+            }
         }
     }
-    return nameMap;
+
+    // Now that we have all the necessary information, we can create the renameMap
+    for (const match of inputNumberMatches) {
+        const oldKey = match[1];
+        const newKey = `numeric-input ${currentNumericCount}`;
+        renameMap[oldKey] = newKey;
+        currentNumericCount++;
+    }
+
+    return renameMap;
 };
 
 // Modernize the json content of a PerseusRenderer object
@@ -200,6 +207,11 @@ const getInputNumberNameMap = (json: PerseusRenderer): WidgetNameMap => {
 export const convertDeprecatedWidgets = (
     json: PerseusRenderer,
 ): PerseusRenderer => {
+    // If there's no json, we can return the json as is
+    if (!json) {
+        return json;
+    }
+
     // Currently we're only converting input-number to numeric-input,
     // But we can add more conversions here in the future
     const modernJson = inputNumberToNumericInput(json);

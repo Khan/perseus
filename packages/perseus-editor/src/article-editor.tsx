@@ -36,7 +36,7 @@ type RendererProps = {
     images?: any;
 };
 
-type JsonType = RendererProps | ReadonlyArray<RendererProps>;
+type JsonType = PerseusRenderer | ReadonlyArray<PerseusRenderer> | null;
 type DefaultProps = {
     contentPaths?: ReadonlyArray<string>;
     json: JsonType;
@@ -60,7 +60,7 @@ type State = {
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         contentPaths: [],
-        json: [{}],
+        json: [],
         mode: "edit",
         screen: "desktop",
         sectionImageUploadGenerator: () => <span />,
@@ -101,7 +101,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         }
     }
 
-    _apiOptionsForSection(section: RendererProps, sectionIndex: number): any {
+    _apiOptionsForSection(section: PerseusRenderer, sectionIndex: number): any {
         // eslint-disable-next-line react/no-string-refs
         const editor = this.refs[`editor${sectionIndex}`];
         return {
@@ -126,10 +126,13 @@ export default class ArticleEditor extends React.Component<Props, State> {
         };
     }
 
-    _sections(): ReadonlyArray<RendererProps> {
-        return Array.isArray(this.props.json)
-            ? this.props.json
-            : [this.props.json];
+    _sections(): ReadonlyArray<PerseusRenderer> {
+        const sections = Array.isArray(this.props.json)
+            ? this.props.json.map((section) => {
+                  return convertDeprecatedWidgets(section as PerseusRenderer);
+              })
+            : [convertDeprecatedWidgets(this.props.json as PerseusRenderer)];
+        return sections;
     }
 
     _renderEditor(): React.ReactElement<React.ComponentProps<"div">> {
@@ -211,9 +214,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                     </div>
                                 </div>
                                 <Editor
-                                    {...convertDeprecatedWidgets(
-                                        section as PerseusRenderer,
-                                    )}
+                                    {...section}
                                     apiOptions={apiOptions}
                                     imageUploader={imageUploader}
                                     onChange={_.partial(
@@ -358,7 +359,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         const newSection =
             i >= 0
                 ? {
-                      widgets: sections[i].widgets,
+                      widgets: sections![i].widgets,
                   }
                 : {};
         // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'JsonType'.
