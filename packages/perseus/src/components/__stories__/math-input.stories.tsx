@@ -1,4 +1,4 @@
-import {actions} from "@storybook/addon-actions";
+import {action} from "@storybook/addon-actions";
 
 import MathInput from "../math-input";
 
@@ -18,7 +18,7 @@ const meta: Meta = {
         },
         convertDotToTimes: false,
         value: "",
-        onChange: actions("onChange"),
+        onChange: action("onChange"),
         analytics: {onAnalyticsEvent: () => Promise.resolve()},
         labelText: "Math input",
     },

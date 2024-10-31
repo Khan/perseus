@@ -1,4 +1,4 @@
-import {actions} from "@storybook/addon-actions";
+import {action} from "@storybook/addon-actions";
 
 import InputWithExamples from "../input-with-examples";
 
@@ -10,7 +10,7 @@ const meta: Meta = {
     args: {
         examples: [],
         id: "",
-        onChange: actions("onChange"),
+        onChange: action("onChange"),
         value: "",
     },
     argTypes: {

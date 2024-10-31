@@ -1,4 +1,4 @@
-import {actions} from "@storybook/addon-actions";
+import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import TextListEditor from "../text-list-editor";
@@ -10,7 +10,7 @@ const meta: Meta = {
     component: TextListEditor,
     args: {
         options: ["Test option 1", "Test option 2", "Test option 3"],
-        onChange: actions("onChange"),
+        onChange: action("onChange"),
     },
     argTypes: {
         onChange: {table: {disable: true}},

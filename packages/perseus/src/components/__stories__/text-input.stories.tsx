@@ -1,4 +1,4 @@
-import {actions} from "@storybook/addon-actions";
+import {action} from "@storybook/addon-actions";
 
 import TextInput from "../text-input";
 
@@ -8,9 +8,9 @@ const meta: Meta = {
     title: "Perseus/Components/Text Input",
     component: TextInput,
     args: {
-        onChange: actions("onChange"),
-        onBlur: actions("onBlur"),
-        onFocus: actions("onFocus"),
+        onChange: action("onChange"),
+        onBlur: action("onBlur"),
+        onFocus: action("onFocus"),
     },
     argTypes: {
         onChange: {table: {disable: true}},

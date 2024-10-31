@@ -1,4 +1,4 @@
-import {actions} from "@storybook/addon-actions";
+import {action} from "@storybook/addon-actions";
 
 import StubTagEditor from "../stub-tag-editor";
 
@@ -9,7 +9,7 @@ const meta: Meta = {
     component: StubTagEditor,
     args: {
         value: [],
-        onChange: actions("onChange"),
+        onChange: action("onChange"),
     },
     argTypes: {
         onChange: {
