@@ -1,4 +1,4 @@
-import {act} from "@testing-library/react";
+import {act, screen, within} from "@testing-library/react";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -174,5 +174,34 @@ describe("matcher widget", () => {
 
         // Assert
         expect(renderer).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("should get prompt json which matches the state of the UI", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question1, {isMobile: false});
+        const widget = renderer.getWidgetInstance("matcher 1");
+        const questionOptions = question1.widgets["matcher 1"].options;
+
+        // Act
+        const rightColumn = screen.getAllByRole("cell")[1];
+        const rightItems = within(rightColumn).getAllByRole("listitem");
+        const shuffledRightItems = rightItems.map((item) => item.textContent);
+
+        const json = widget?.getPromptJSON?.();
+
+        // Assert
+        expect(json).toEqual({
+            type: "matcher",
+            options: {
+                labels: questionOptions.labels,
+                left: questionOptions.left,
+                right: questionOptions.right,
+                orderMatters: questionOptions.orderMatters,
+            },
+            userInput: {
+                left: questionOptions.left,
+                right: shuffledRightItems,
+            },
+        });
     });
 });

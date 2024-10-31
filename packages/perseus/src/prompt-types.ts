@@ -12,6 +12,7 @@ import type {ImagePromptJSON} from "./widgets/image/prompt-utils";
 import type {InputNumberPromptJSON} from "./widgets/input-number/prompt-utils";
 import type {InteractionPromptJSON} from "./widgets/interaction/prompt-utils";
 import type {LabelImagePromptJSON} from "./widgets/label-image/prompt-utils";
+import type {MatcherPromptJSON} from "./widgets/matcher/prompt-utils";
 
 export type WidgetType =
     | "categorizer"
@@ -26,6 +27,7 @@ export type WidgetType =
     | "input-number"
     | "interaction"
     | "label-image"
+    | "matcher"
     | "radio"
     | "numeric-input";
 
@@ -43,6 +45,7 @@ export type WidgetPromptJSON =
     | InputNumberPromptJSON
     | InteractionPromptJSON
     | LabelImagePromptJSON
+    | MatcherPromptJSON
     | NumericInputPromptJSON;
 
 export type RendererPromptJSON = {
