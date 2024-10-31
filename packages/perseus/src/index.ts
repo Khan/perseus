@@ -36,6 +36,8 @@ export {default as TableWidget} from "./widgets/table";
 export {default as PlotterWidget} from "./widgets/plotter";
 export {default as GrapherWidget} from "./widgets/grapher";
 
+// Some utils in grapher/utils don't need to be used outside of `perseus`,
+// so only export the stuff that does need to be exposed
 import {
     allTypes,
     DEFAULT_GRAPHER_PROPS,
