@@ -169,7 +169,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         handleKeyboardEvent(event, state, dispatch);
                     }}
                     aria-label={fullGraphAriaLabel}
-                    aria-describedby={describedBy(
+                    aria-describedby={describedByIds(
                         fullGraphAriaDescription && descriptionId,
                         // FIXME: awkward naming
                         screenreaderDescription &&
@@ -647,7 +647,9 @@ const renderGraphElements = (props: {
     }
 };
 
-function describedBy(
+// Returns a space-separated string like "foo bar" given several optional
+// string IDs. If all args are falsy, returns undefined.
+function describedByIds(
     ...args: Array<string | false | 0 | null | undefined>
 ): string | undefined {
     return args.filter(Boolean).join(" ") || undefined;
