@@ -18,18 +18,24 @@ const {firstNumericalParse, captureScratchpadTouchStart} = Util;
 const toNumericString = KhanMath.toNumericString;
 const getNumericFormat = KhanMath.getNumericFormat;
 
-/* An input box that accepts only numeric strings
+/**
+ * An input box that accepts only numeric strings
  *
- * Calls onChange(value, format) for valid numbers.
- * Reverts to the current value onBlur or on [ENTER],
+ * Calls `onChange(value, format)` for valid numbers.
+ *
+ * Reverts to the current value `onBlur` or on [ENTER],
  *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
- * Accepts empty input and sends it to onChange as null
- *   if no numeric placeholder is set.
- * If given a checkValidity function, will turn
- *   the background/outline red when invalid
- * If useArrowKeys is set to true, up/down arrows will
- *   increment/decrement integers
- * Optionally takes a size ("mini", "small", "normal")
+ *
+ * Accepts empty input and sends it to `onChange` as `null` if no numeric
+ * placeholder is set.
+ *
+ * If given a `checkValidity` function, will turn the background/outline red
+ * when invalid.
+ *
+ * If `useArrowKeys` is set to `true`, up/down arrows will increment/decrement
+ * integers.
+ *
+ * Optionally takes a `size` (`"mini"`, `"small"`,` `"normal"`)
  */
 class NumberInput extends React.Component<any, any> {
     static contextType = PerseusI18nContext;
