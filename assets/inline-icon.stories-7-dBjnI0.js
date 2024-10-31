@@ -1,9 +1,0 @@
-import{j as a}from"./jsx-runtime-FVsy8kgq.js";import{I as n}from"./inline-icon-tKY1iMkH.js";import"./index-TT1qJ6UJ.js";import"./_commonjsHelpers-4gQjN7DL.js";const o={path:"M62.808 49.728q0 3.36-2.352 5.88l-41.72 41.664q-2.352 2.408-5.768 2.408t-5.768-2.408l-4.872-4.76q-2.352-2.52-2.352-5.88t2.352-5.712l31.08-31.136-31.08-31.024q-2.352-2.52-2.352-5.88t2.352-5.712l4.872-4.76q2.296-2.408 5.768-2.408t5.768 2.408l41.72 41.664q2.352 2.296 2.352 5.656z",height:100,width:64},f={title:"Perseus/Components/Inline Icon"},e=s=>a(n,{...o}),t=s=>a(n,{...o,style:{color:"red"}}),r=s=>a(n,{...o,title:"Sample ARIA title"});e.__docgenInfo={description:"",methods:[],displayName:"BasicIconPathAndSizing"};t.__docgenInfo={description:"",methods:[],displayName:"BasicIconWithAdditionalStyling"};r.__docgenInfo={description:"",methods:[],displayName:"BasicIconWithAriaTitle"};var i,c,l;e.parameters={...e.parameters,docs:{...(i=e.parameters)==null?void 0:i.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
-  return <InlineIcon {...defaultPath} />;
-}`,...(l=(c=e.parameters)==null?void 0:c.docs)==null?void 0:l.source}}};var d,m,p;t.parameters={...t.parameters,docs:{...(d=t.parameters)==null?void 0:d.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
-  return <InlineIcon {...defaultPath} style={{
-    color: "red"
-  }} />;
-}`,...(p=(m=t.parameters)==null?void 0:m.docs)==null?void 0:p.source}}};var I,g,u;r.parameters={...r.parameters,docs:{...(I=r.parameters)==null?void 0:I.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
-  return <InlineIcon {...defaultPath} title="Sample ARIA title" />;
-}`,...(u=(g=r.parameters)==null?void 0:g.docs)==null?void 0:u.source}}};const B=["BasicIconPathAndSizing","BasicIconWithAdditionalStyling","BasicIconWithAriaTitle"];export{e as BasicIconPathAndSizing,t as BasicIconWithAdditionalStyling,r as BasicIconWithAriaTitle,B as __namedExportsOrder,f as default};
