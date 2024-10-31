@@ -4,6 +4,7 @@ import {useState, useRef, useLayoutEffect} from "react";
 import {usePerseusI18n} from "../../../../components/i18n-context";
 import {snap, X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
+import {srFormatNumber} from "../screenreader-text";
 import {useDraggable} from "../use-draggable";
 
 import {MovablePointView} from "./movable-point-view";
@@ -77,8 +78,8 @@ export function useControlPoint(params: Params): Return {
             ref={focusableHandleRef}
             role="button"
             aria-label={strings.srPointAtCoordinates({
-                x: String(point[X]),
-                y: String(point[Y]),
+                x: srFormatNumber(point[X]),
+                y: srFormatNumber(point[Y]),
             })}
             // aria-live="assertive" causes the new location of the point to be
             // announced immediately on move.

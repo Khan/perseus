@@ -93,6 +93,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
     const uniqueId = React.useId();
     const descriptionId = `interactive-graph-description-${uniqueId}`;
+    const interactiveElementsDescriptionId = `interactive-graph-interactive-elements-description-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
     const {analytics} = useDependencies();
 
@@ -129,7 +130,10 @@ export const MafsGraph = (props: MafsGraphProps) => {
         });
     });
 
-    const {graph} = renderGraphElements({state, dispatch});
+    const {graph, screenreaderDescription} = renderGraphElements({
+        state,
+        dispatch,
+    });
 
     return (
         <GraphConfigContext.Provider
@@ -165,9 +169,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         handleKeyboardEvent(event, state, dispatch);
                     }}
                     aria-label={fullGraphAriaLabel}
-                    aria-describedby={
-                        fullGraphAriaDescription ? descriptionId : undefined
-                    }
+                    aria-describedby={describedBy(
+                        fullGraphAriaDescription && descriptionId,
+                        // FIXME: awkward naming
+                        screenreaderDescription &&
+                            interactiveElementsDescriptionId,
+                    )}
                     ref={graphRef}
                     tabIndex={0}
                     onFocus={(event) => {
@@ -181,13 +188,18 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         <View
                             id={descriptionId}
                             tabIndex={-1}
-                            style={{
-                                width: 0,
-                                height: 0,
-                                overflow: "hidden",
-                            }}
+                            className="mafs-sr-only"
                         >
                             {fullGraphAriaDescription}
+                        </View>
+                    )}
+                    {screenreaderDescription && (
+                        <View
+                            id={interactiveElementsDescriptionId}
+                            tabIndex={-1}
+                            className="mafs-sr-only"
+                        >
+                            {screenreaderDescription}
                         </View>
                     )}
                     <LegacyGrid
@@ -634,3 +646,9 @@ const renderGraphElements = (props: {
             throw new UnreachableCaseError(type);
     }
 };
+
+function describedBy(
+    ...args: Array<string | false | 0 | null | undefined>
+): string | undefined {
+    return args.filter(Boolean).join(" ") || undefined;
+}
