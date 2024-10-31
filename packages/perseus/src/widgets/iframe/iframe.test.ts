@@ -1,6 +1,5 @@
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {WidgetType} from "../../prompt-types";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./iframe.testdata";
@@ -51,7 +50,7 @@ describe("iframe widget", () => {
 
         // Assert
         expect(json).toEqual({
-            type: WidgetType.IFRAME,
+            type: "iframe",
             options: {
                 url: question1.widgets["iframe 1"].options.url,
             },
