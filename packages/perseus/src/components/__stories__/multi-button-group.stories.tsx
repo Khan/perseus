@@ -37,6 +37,9 @@ export const ButtonsWithNoTitles: Story = {
     },
 };
 
+/**
+ * Hover over the buttons to see their titles.
+ */
 export const ButtonsWithTitles: Story = {
     args: {
         buttons: [
