@@ -278,6 +278,21 @@ export const polygonWithFourSidesSnappingQuestion: PerseusRenderer =
         })
         .build();
 
+export const polygonWithUnlimitedSidesQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withContent(
+            "**Example of unlimited polygon sides** \n[[\u2603 interactive-graph 1]] \n",
+        )
+        .withPolygon("grid", {
+            numSides: "unlimited",
+            coords: [
+                [0, 0],
+                [-2.5, 0],
+                [-1, 0],
+            ],
+        })
+        .build();
+
 export const polygonQuestionDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withPolygon("grid").build();
 
