@@ -25,7 +25,9 @@ import AnswerChoices from "./answer-choices";
 import {HideAnswersToggle} from "./hide-answers-toggle";
 import labelImageValidator, {scoreMarker} from "./label-image-validator";
 import Marker from "./marker";
+import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
+import type {LabelImagePromptJSON} from "./prompt-utils";
 import type {InteractiveMarkerType} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
@@ -310,6 +312,10 @@ export class LabelImage
     getUserInput(): PerseusLabelImageUserInput {
         const {markers} = this.props;
         return {markers};
+    }
+
+    getPromptJSON(): LabelImagePromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     // TODO(LEMS-2544): Investigate impact on scoring; possibly pull out &/or remove rubric parameter.

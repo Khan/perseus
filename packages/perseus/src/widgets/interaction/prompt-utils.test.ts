@@ -1,4 +1,4 @@
-import {getPromptJSON, UNSUPPORTED_MESSAGE} from "./prompt-utils";
+import {getPromptJSON} from "./prompt-utils";
 
 describe("Interaction getPromptJSON", () => {
     it("it returns JSON with the expected format and fields", () => {
@@ -6,7 +6,7 @@ describe("Interaction getPromptJSON", () => {
 
         expect(resultJSON).toEqual({
             type: "interaction",
-            description: UNSUPPORTED_MESSAGE,
+            isSupported: false,
         });
     });
 });
