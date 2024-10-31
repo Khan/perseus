@@ -3,29 +3,27 @@ import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {WidgetProps} from "../../types";
 import type {Interval, vec} from "mafs";
+import type {ReactNode} from "react";
 
 export type InteractiveGraphProps = WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
     PerseusInteractiveGraphWidgetOptions
 >;
 
+export type Dispatch = (action: InteractiveGraphAction) => unknown;
+
 export type MafsGraphProps<T extends InteractiveGraphState> = {
     graphState: T;
-    dispatch: (action: InteractiveGraphAction) => unknown;
+    dispatch: Dispatch;
 };
 
-export type InteractiveGraphType =
-    | "none"
-    | "angle"
-    | "segment"
-    | "linear-system"
-    | "linear"
-    | "ray"
-    | "polygon"
-    | "point"
-    | "circle"
-    | "quadratic"
-    | "sinusoid";
+// InteractiveGraphElementSuite contains parts of the graph UI which need to
+// end up in different sections of the DOM.
+export type InteractiveGraphElementSuite = {
+    graph: ReactNode;
+    screenreaderDescription: ReactNode;
+    // TODO(benchristel): add actionBar controls here
+};
 
 export type InteractiveGraphState =
     | AngleGraphState
