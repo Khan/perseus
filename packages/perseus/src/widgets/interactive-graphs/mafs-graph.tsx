@@ -130,7 +130,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         });
     });
 
-    const {graph, screenreaderDescription} = renderGraphElements({
+    const {graph, interactiveElementsDescription} = renderGraphElements({
         state,
         dispatch,
     });
@@ -171,8 +171,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     aria-label={fullGraphAriaLabel}
                     aria-describedby={describedByIds(
                         fullGraphAriaDescription && descriptionId,
-                        // FIXME: awkward naming
-                        screenreaderDescription &&
+                        interactiveElementsDescription &&
                             interactiveElementsDescriptionId,
                     )}
                     ref={graphRef}
@@ -193,13 +192,13 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             {fullGraphAriaDescription}
                         </View>
                     )}
-                    {screenreaderDescription && (
+                    {interactiveElementsDescription && (
                         <View
                             id={interactiveElementsDescriptionId}
                             tabIndex={-1}
                             className="mafs-sr-only"
                         >
-                            {screenreaderDescription}
+                            {interactiveElementsDescription}
                         </View>
                     )}
                     <LegacyGrid
@@ -641,7 +640,7 @@ const renderGraphElements = (props: {
         case "sinusoid":
             return renderSinusoidGraph(state, dispatch);
         case "none":
-            return {graph: null, screenreaderDescription: null};
+            return {graph: null, interactiveElementsDescription: null};
         default:
             throw new UnreachableCaseError(type);
     }

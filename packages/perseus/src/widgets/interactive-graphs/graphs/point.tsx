@@ -26,7 +26,7 @@ export function renderPointGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <PointGraph graphState={state} dispatch={dispatch} />,
-        screenreaderDescription: <PointGraphDescription state={state} />,
+        interactiveElementsDescription: <PointGraphDescription state={state} />,
     };
 }
 

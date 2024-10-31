@@ -26,7 +26,7 @@ export function renderPolygonGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <PolygonGraph graphState={state} dispatch={dispatch} />,
-        screenreaderDescription: null,
+        interactiveElementsDescription: null,
     };
 }
 

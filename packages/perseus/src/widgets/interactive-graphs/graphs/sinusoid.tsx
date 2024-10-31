@@ -21,7 +21,7 @@ export function renderSinusoidGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <SinusoidGraph graphState={state} dispatch={dispatch} />,
-        screenreaderDescription: null,
+        interactiveElementsDescription: null,
     };
 }
 

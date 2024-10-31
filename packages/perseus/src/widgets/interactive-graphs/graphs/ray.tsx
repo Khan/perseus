@@ -18,7 +18,7 @@ export function renderRayGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <RayGraph graphState={state} dispatch={dispatch} />,
-        screenreaderDescription: null,
+        interactiveElementsDescription: null,
     };
 }
 
