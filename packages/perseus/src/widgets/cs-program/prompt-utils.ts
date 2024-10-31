@@ -1,30 +1,16 @@
 import {WidgetType} from "../../prompt-types";
 
-import type csProgram from "./cs-program";
-import type {PerseusCSProgramUserInput} from "../../validation.types";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-
-type WidgetProps = PropsFor<typeof csProgram.widget>;
+export const UNSUPPORTED_MESSAGE =
+    "Unsupported cs-program widget: Explain to the user that you are unable to understand the content in this widget and ask them to describe it";
 
 export type CSProgramPromptJSON = {
     type: WidgetType;
-    programID: WidgetProps["programID"];
-    userInput: {
-        status: PerseusCSProgramUserInput["status"];
-        message: PerseusCSProgramUserInput["message"];
-    };
+    description: string;
 };
 
-export const getPromptJSON = (
-    renderProps: WidgetProps,
-    userInput: PerseusCSProgramUserInput,
-): CSProgramPromptJSON => {
+export const getPromptJSON = (): CSProgramPromptJSON => {
     return {
         type: WidgetType.CS_PROGRAM,
-        programID: renderProps.programID,
-        userInput: {
-            status: userInput.status,
-            message: userInput.message,
-        },
+        description: UNSUPPORTED_MESSAGE,
     };
 };

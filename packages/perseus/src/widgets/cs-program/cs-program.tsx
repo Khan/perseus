@@ -109,7 +109,7 @@ class CSProgram extends React.Component<Props> implements Widget {
     }
 
     getPromptJSON(): CSProgramPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON();
     }
 
     render(): React.ReactNode {

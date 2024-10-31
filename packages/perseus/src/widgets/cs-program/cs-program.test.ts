@@ -3,8 +3,8 @@ import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./cs-program.testdata";
+import {UNSUPPORTED_MESSAGE, type CSProgramPromptJSON} from "./prompt-utils";
 
-import type {CSProgramPromptJSON} from "./prompt-utils";
 import type {PerseusCSProgramUserInput} from "../../validation.types";
 
 describe("cs-program widget", () => {
@@ -65,16 +65,11 @@ describe("cs-program widget", () => {
 
         // Act
         const json = widget?.getPromptJSON?.() as CSProgramPromptJSON;
-        const userInput = widget?.getUserInput?.() as PerseusCSProgramUserInput;
 
         // Assert
         expect(json).toEqual({
             type: "cs-program",
-            programID: question1.widgets["cs-program 1"].options.programID,
-            userInput: {
-                status: userInput.status,
-                message: userInput.message,
-            },
+            description: UNSUPPORTED_MESSAGE,
         });
     });
 });
