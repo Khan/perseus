@@ -41,8 +41,7 @@ export type WidgetType =
     | "plotter"
     | "python-program"
     | "radio"
-    | "sorter"
-    | "video";
+    | "sorter";
 
 export type UnsupportedWidget =
     | "cs-program"
