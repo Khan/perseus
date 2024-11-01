@@ -1,5 +1,21 @@
 # @khanacademy/math-input
 
+## 21.1.3
+
+### Patch Changes
+
+-   [#1791](https://github.com/Khan/perseus/pull/1791) [`b119147fc`](https://github.com/Khan/perseus/commit/b119147fc042bf71193d61f9cea99b5f3d73b484) Thanks [@handeyeco](https://github.com/handeyeco)! - Check types for import/no-extraneous-dependencies eslint check
+
+-   Updated dependencies [[`b119147fc`](https://github.com/Khan/perseus/commit/b119147fc042bf71193d61f9cea99b5f3d73b484)]:
+    -   @khanacademy/keypad-context@1.0.4
+    -   @khanacademy/perseus-core@1.5.3
+
+## 21.1.2
+
+### Patch Changes
+
+-   [#1799](https://github.com/Khan/perseus/pull/1799) [`f3139edfe`](https://github.com/Khan/perseus/commit/f3139edfeb5f8b6faf0e537961165e3d3499c30b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change functional components to use default parameters instead of deprecated 'defaultProps'
+
 ## 21.1.1
 
 ### Patch Changes

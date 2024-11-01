@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import {REMOVE_BUTTON_ID} from "../mafs-graph";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
@@ -11,9 +10,33 @@ import {
     pixelsToVectors,
 } from "./use-transform";
 
-import type {PointGraphState, MafsGraphProps} from "../types";
+import type {
+    PointGraphState,
+    MafsGraphProps,
+    Dispatch,
+    InteractiveGraphElementSuite,
+} from "../types";
+
+export function renderPointGraph(
+    state: PointGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <PointGraph graphState={state} dispatch={dispatch} />,
+        screenreaderDescription: null,
+    };
+}
 
 type PointGraphProps = MafsGraphProps<PointGraphState>;
+
+function PointGraph(props: PointGraphProps) {
+    const numPoints = props.graphState.numPoints;
+    if (numPoints === "unlimited") {
+        return UnlimitedPointGraph(props);
+    }
+
+    return LimitedPointGraph(props);
+}
 
 function LimitedPointGraph(props: PointGraphProps) {
     const {dispatch} = props;
@@ -35,10 +58,10 @@ function LimitedPointGraph(props: PointGraphProps) {
 
 function UnlimitedPointGraph(props: PointGraphProps) {
     const {dispatch} = props;
-    const graphState = useGraphConfig();
+    const graphConfig = useGraphConfig();
     const {
         range: [[minX, maxX], [minY, maxY]],
-    } = graphState;
+    } = graphConfig;
     const width = maxX - minX;
     const height = maxY - minY;
     const [[widthPx, heightPx]] = useTransformDimensionsToPixels([
@@ -78,7 +101,7 @@ function UnlimitedPointGraph(props: PointGraphProps) {
 
                     const graphCoordinates = pixelsToVectors(
                         [[x, y]],
-                        graphState,
+                        graphConfig,
                     );
                     dispatch(actions.pointGraph.addPoint(graphCoordinates[0]));
                 }}
@@ -93,27 +116,8 @@ function UnlimitedPointGraph(props: PointGraphProps) {
                     ref={(ref) => {
                         itemsRef.current[i] = ref;
                     }}
-                    onFocusChange={(event, isFocused) => {
-                        if (isFocused) {
-                            dispatch(actions.pointGraph.focusPoint(i));
-                        } else {
-                            if (event.relatedTarget?.id === REMOVE_BUTTON_ID) {
-                                return;
-                                // This is an optimization: If the next target
-                                // is a point then don't blur because it casues
-                                // the remove button to get taken off the page
-                                // and then put back on The new point will
-                                // receive focus and set the correct state in
-                                // the reducer
-                            } else if (
-                                event.relatedTarget?.classList.contains(
-                                    "movable-point",
-                                )
-                            ) {
-                                return;
-                            }
-                            dispatch(actions.pointGraph.blurPoint());
-                        }
+                    onFocus={() => {
+                        dispatch(actions.pointGraph.focusPoint(i));
                     }}
                     onClick={() => {
                         dispatch(actions.pointGraph.clickPoint(i));
@@ -122,13 +126,4 @@ function UnlimitedPointGraph(props: PointGraphProps) {
             ))}
         </>
     );
-}
-
-export function PointGraph(props: PointGraphProps) {
-    const numPoints = props.graphState.numPoints;
-    if (numPoints === "unlimited") {
-        return UnlimitedPointGraph(props);
-    }
-
-    return LimitedPointGraph(props);
 }

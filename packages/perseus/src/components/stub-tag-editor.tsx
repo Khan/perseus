@@ -1,3 +1,10 @@
+import PropTypes from "prop-types";
+import * as React from "react";
+
+import TextListEditor from "./text-list-editor";
+
+const EMPTY_ARRAY = [];
+
 /**
  * Stub Tag Editor.
  *
@@ -11,13 +18,6 @@
  * It also gives a nicer interface for the group metadata editor
  * in local demo mode.
  */
-import PropTypes from "prop-types";
-import * as React from "react";
-
-import TextListEditor from "./text-list-editor";
-
-const EMPTY_ARRAY = [];
-
 class StubTagEditor extends React.Component<any> {
     static propTypes = {
         value: PropTypes.arrayOf(PropTypes.string),

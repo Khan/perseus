@@ -223,7 +223,9 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     <div
                                       class="innerWrapper_177sg8x"
                                     >
-                                      A
+                                      <span>
+                                        A
+                                      </span>
                                     </div>
                                   </div>
                                 </span>
@@ -387,7 +389,9 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     <div
                                       class="innerWrapper_177sg8x"
                                     >
-                                      B
+                                      <span>
+                                        B
+                                      </span>
                                     </div>
                                   </div>
                                 </span>
@@ -551,7 +555,9 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     <div
                                       class="innerWrapper_177sg8x"
                                     >
-                                      C
+                                      <span>
+                                        C
+                                      </span>
                                     </div>
                                   </div>
                                 </span>
@@ -715,7 +721,9 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     <div
                                       class="innerWrapper_177sg8x"
                                     >
-                                      D
+                                      <span>
+                                        D
+                                      </span>
                                     </div>
                                   </div>
                                 </span>
@@ -879,7 +887,9 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     <div
                                       class="innerWrapper_177sg8x"
                                     >
-                                      E
+                                      <span>
+                                        E
+                                      </span>
                                     </div>
                                   </div>
                                 </span>

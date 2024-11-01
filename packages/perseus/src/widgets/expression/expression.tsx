@@ -399,10 +399,9 @@ export class Expression
                             extraKeys={
                                 this.props.keypadConfiguration?.extraKeys
                             }
-                            analytics={
-                                this.props.analytics ?? {
-                                    onAnalyticsEvent: async () => {},
-                                }
+                            onAnalyticsEvent={
+                                this.props.analytics?.onAnalyticsEvent ??
+                                (async () => {})
                             }
                         />
                     </Tooltip>

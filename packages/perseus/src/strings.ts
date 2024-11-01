@@ -133,6 +133,7 @@ export type PerseusStrings = {
     addPoint: string;
     removePoint: string;
     graphKeyboardPrompt: string;
+    srPointAtCoordinates: ({x, y}: {x: string; y: string}) => string;
 };
 
 /**
@@ -308,6 +309,10 @@ export const strings: {
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
+    srPointAtCoordinates: {
+        context: "Screenreader-accessible description of a point on a graph",
+        message: "Point at %(x)s comma %(y)s",
+    },
 };
 
 /**
@@ -467,4 +472,5 @@ export const mockStrings: PerseusStrings = {
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
+    srPointAtCoordinates: ({x, y}) => `Point at ${x} comma ${y}`,
 };
