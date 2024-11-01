@@ -17,6 +17,7 @@ export type WidgetType =
     | "dropdown"
     | "radio"
     | "numeric-input"
+    | "phet-simulation"
     | "plotter"
     | "python-program"
     | "sorter"
