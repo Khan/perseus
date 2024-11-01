@@ -3,6 +3,7 @@ import type {DefinitionPromptJSON} from "./widget-ai-utils/definition/prompt-uti
 import type {DropdownPromptJSON} from "./widget-ai-utils/dropdown/prompt-utils";
 import type {ExplanationPromptJSON} from "./widget-ai-utils/explanation/prompt-utils";
 import type {ExpressionPromptJSON} from "./widget-ai-utils/expression/prompt-utils";
+import type {NumberLinePromptJSON} from "./widget-ai-utils/number-line/prompt-utils";
 import type {NumericInputPromptJSON} from "./widget-ai-utils/numeric-input/prompt-utils";
 import type {OrdererPromptJSON} from "./widget-ai-utils/orderer/prompt-utils";
 import type {PassagePromptJSON} from "./widget-ai-utils/passage/prompt-utils";
@@ -19,6 +20,7 @@ export type WidgetType =
     | "expression"
     | "dropdown"
     | "radio"
+    | "number-line"
     | "numeric-input"
     | "orderer"
     | "passage"
@@ -35,6 +37,7 @@ export type WidgetPromptJSON =
     | ExplanationPromptJSON
     | ExpressionPromptJSON
     | DropdownPromptJSON
+    | NumberLinePromptJSON
     | NumericInputPromptJSON
     | OrdererPromptJSON
     | PassagePromptJSON
