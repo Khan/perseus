@@ -60,9 +60,7 @@ function interactiveGraphValidator(
             // If both of the guess points are on the correct line, it's
             // correct.
             if (
-                // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                 collinear(correct[0], correct[1], guess[0]) &&
-                // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                 collinear(correct[0], correct[1], guess[1])
             ) {
                 return {
@@ -125,7 +123,6 @@ function interactiveGraphValidator(
         ) {
             const guessCoeffs = getSinusoidCoefficients(userInput.coords);
             const correctCoeffs = getSinusoidCoefficients(
-                // @ts-expect-error - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
                 rubric.correct.coords,
             );
 
@@ -188,7 +185,6 @@ function interactiveGraphValidator(
             userInput.coords != null
         ) {
             const guess: Array<Coord> = userInput.coords?.slice();
-            // @ts-expect-error - TS2322 - Type 'Coord[] | undefined' is not assignable to type 'Coord[]'.
             const correct: Array<Coord> = rubric.correct.coords?.slice();
 
             let match;
@@ -221,7 +217,6 @@ function interactiveGraphValidator(
             let guess = Util.deepClone(userInput.coords);
             let correct = Util.deepClone(rubric.correct?.coords);
             guess = _.invoke(guess, "sort").sort();
-            // @ts-expect-error - TS2345 - Argument of type '(readonly Coord[])[] | undefined' is not assignable to parameter of type 'Collection<any>'.
             correct = _.invoke(correct, "sort").sort();
             if (deepEq(guess, correct)) {
                 return {
@@ -239,9 +234,7 @@ function interactiveGraphValidator(
             const guess = userInput.coords;
             const correct = rubric.correct.coords;
             if (
-                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 deepEq(guess[0], correct[0]) &&
-                // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                 collinear(correct[0], correct[1], guess[1])
             ) {
                 return {
