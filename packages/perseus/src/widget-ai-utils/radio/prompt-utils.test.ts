@@ -3,7 +3,7 @@ import {getPromptJSON} from "./prompt-utils";
 import type {PerseusRadioUserInput} from "../../validation.types";
 
 describe("Radio getPromptJSON", () => {
-    it("it returns JSON with the expected format and fields", () => {
+    it("should get prompt json which matches the state of the UI", () => {
         const renderProps: any = {
             numCorrect: 1,
             countChoices: false,

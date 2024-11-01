@@ -47,7 +47,7 @@ describe("expression widget", () => {
         );
     });
 
-    it("Should get prompt json which matches the state of the UI", async () => {
+    it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(
             expression.question as PerseusRenderer,
