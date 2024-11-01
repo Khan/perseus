@@ -24,9 +24,14 @@ export type WidgetType =
     | "label-image"
     | "matcher"
     | "radio"
-    | "numeric-input";
+    | "numeric-input"
+    | "video";
 
-export type UnsupportedWidget = "cs-program" | "iframe" | "interaction";
+export type UnsupportedWidget =
+    | "cs-program"
+    | "iframe"
+    | "interaction"
+    | "video";
 
 export type WidgetPromptJSON =
     | CategorizerPromptJSON
