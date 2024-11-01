@@ -363,25 +363,14 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                         style: {fill: "transparent"},
                     }}
                 />
-                {props.graphState.coords.map((point, i) => {
-                    const pt1 = points.at(i - 1);
-                    const pt2 = points[(i + 1) % points.length];
-                    if (!pt1 || !pt2) {
-                        return null;
-                    }
-                    return (
-                        <PolygonAngle
-                            key={"angle-" + i}
-                            centerPoint={point}
-                            endPoints={[pt1, pt2]}
-                            range={range}
-                            polygonLines={lines}
-                            showAngles={!!showAngles}
-                            snapTo={snapTo}
-                        />
-                    );
-                })}
-                {showSides &&
+                {
+                    // Might want to abstract out the sides logic as it's the same in
+                    // Limited graph.
+                    // Might want to remove as I'll need to add logic
+                    // to not show side when there's 1 point and
+                    // To not show the last side that's not closed.
+                }
+                {/* {showSides &&
                     lines.map(([start, end], i) => {
                         const [x, y] = vec.midpoint(start, end);
                         const length = parseFloat(
@@ -395,7 +384,7 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                                 {length}
                             </TextLabel>
                         );
-                    })}
+                    })} */}
                 {props.graphState.coords.map((point, i) => (
                     <MovablePoint
                         key={i}
