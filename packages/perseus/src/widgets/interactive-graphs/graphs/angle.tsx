@@ -31,7 +31,7 @@ export function renderAngleGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <AngleGraph graphState={state} dispatch={dispatch} />,
-        screenreaderDescription: null,
+        interactiveElementsDescription: null,
     };
 }
 

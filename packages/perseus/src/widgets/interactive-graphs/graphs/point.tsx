@@ -1,15 +1,18 @@
 import * as React from "react";
 
+import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import {MovablePoint} from "./components/movable-point";
+import {srFormatNumber} from "./screenreader-text";
 import {
     useTransformDimensionsToPixels,
     useTransformVectorsToPixels,
     pixelsToVectors,
 } from "./use-transform";
 
+import type {PerseusStrings} from "../../../strings";
 import type {
     PointGraphState,
     MafsGraphProps,
@@ -23,7 +26,7 @@ export function renderPointGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <PointGraph graphState={state} dispatch={dispatch} />,
-        screenreaderDescription: null,
+        interactiveElementsDescription: <PointGraphDescription state={state} />,
     };
 }
 
@@ -126,4 +129,34 @@ function UnlimitedPointGraph(props: PointGraphProps) {
             ))}
         </>
     );
+}
+
+function PointGraphDescription({state}: {state: PointGraphState}) {
+    // PointGraphDescription needs to `usePerseusI18n`, so it has to be a
+    // component rather than a function that simply returns a string.
+    const i18n = usePerseusI18n();
+    return describePointGraph(state, i18n);
+}
+
+// Exported for testing
+export function describePointGraph(
+    state: PointGraphState,
+    i18n: {strings: PerseusStrings; locale: string},
+): string {
+    const {strings, locale} = i18n;
+
+    if (state.coords.length === 0) {
+        return strings.srNoInteractiveElements;
+    }
+
+    const pointDescriptions = state.coords.map(([x, y]) =>
+        strings.srPointAtCoordinates({
+            x: srFormatNumber(x, locale),
+            y: srFormatNumber(y, locale),
+        }),
+    );
+
+    return strings.srInteractiveElements({
+        elements: pointDescriptions.join(", "),
+    });
 }
