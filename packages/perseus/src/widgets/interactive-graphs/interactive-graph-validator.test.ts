@@ -1,16 +1,65 @@
 import invariant from "tiny-invariant";
 
 import {clone} from "../../../../../testing/object-utils";
+import {allGraphCorrectKeys} from "../../perseus-types";
 
 import interactiveGraphValidator from "./interactive-graph-validator";
 
-import type {PerseusGraphType} from "../../perseus-types";
+import type {
+    PerseusGraphType,
+    PerseusGraphCorrectType,
+} from "../../perseus-types";
 import type {PerseusInteractiveGraphRubric} from "../../validation.types";
 import type {Coord} from "@khanacademy/perseus";
 
 function createRubric(graph: PerseusGraphType): PerseusInteractiveGraphRubric {
-    return {graph, correct: graph};
+    const rubricCorrect = {};
+    for (const key of Object.keys(graph) as Array<keyof typeof graph>) {
+        if (allGraphCorrectKeys[graph["type"]].includes(key)) {
+            rubricCorrect[key] = graph[key];
+        }
+    }
+    return {graph, correct: rubricCorrect as PerseusGraphCorrectType};
 }
+
+describe("createRubric", () => {
+    it("creates a rubric from a graph", () => {
+        const graph: PerseusGraphType = {
+            type: "segment",
+            coords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+            ],
+            numSegments: 1,
+            startCoords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [
+                    [2, 2],
+                    [3, 3],
+                ],
+            ],
+        };
+        const rubric = createRubric(graph);
+
+        expect(rubric).toEqual({
+            graph,
+            correct: {
+                type: "segment",
+                coords: [
+                    [
+                        [0, 0],
+                        [1, 1],
+                    ],
+                ],
+            },
+        });
+    });
+});
 
 describe("InteractiveGraph.validate on a segment question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
