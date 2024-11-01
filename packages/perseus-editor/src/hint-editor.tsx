@@ -4,26 +4,30 @@
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
-import {components, icons} from "@khanacademy/perseus";
+import {components, iconTrash} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
+import {
+    iconCircleArrowDown,
+    iconCircleArrowUp,
+    iconPlus,
+} from "./styles/icon-paths";
 
 import type {
     APIOptions,
-    WidgetDict,
     ImageDict,
     Hint,
     ChangeHandler,
     DeviceType,
     ImageUploader,
+    PerseusWidgetsMap,
 } from "@khanacademy/perseus";
 
 const {InfoTip, InlineIcon} = components;
-const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} = icons;
 
 type HintEditorProps = {
     itemId?: string;
@@ -35,7 +39,7 @@ type HintEditorProps = {
     showTitle?: boolean;
     content?: string | null | undefined;
     replace?: boolean | null | undefined;
-    widgets?: WidgetDict | null | undefined;
+    widgets?: PerseusWidgetsMap | null | undefined;
     images?: ImageDict | null | undefined;
     isLast: boolean;
     isFirst: boolean;

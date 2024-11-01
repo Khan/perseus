@@ -43,14 +43,15 @@ export function scoreMarker(
     return score;
 }
 
+// TODO(LEMS-2440): May need to pull answers out of PerseusLabelImageWidgetOptions[markers] for the rubric
 function labelImageValidator(
-    state: PerseusLabelImageUserInput,
+    userInput: PerseusLabelImageUserInput,
     rubric?: PerseusLabelImageRubric,
 ): PerseusScore {
     let numAnswered = 0;
     let numCorrect = 0;
 
-    for (const marker of state.markers) {
+    for (const marker of userInput.markers) {
         const score = scoreMarker(marker);
 
         if (score.hasAnswers) {
@@ -63,7 +64,7 @@ function labelImageValidator(
     }
 
     // We expect all question markers to be answered before grading.
-    if (numAnswered !== state.markers.length) {
+    if (numAnswered !== userInput.markers.length) {
         return {
             type: "invalid",
             message: null,
@@ -74,7 +75,7 @@ function labelImageValidator(
         type: "points",
         // Markers with no expected answers are graded as correct if user
         // makes no answer selection.
-        earned: numCorrect === state.markers.length ? 1 : 0,
+        earned: numCorrect === userInput.markers.length ? 1 : 0,
         total: 1,
         message: null,
     };

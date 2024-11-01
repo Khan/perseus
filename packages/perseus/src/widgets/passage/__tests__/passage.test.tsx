@@ -47,12 +47,10 @@ function renderPassage(
         onChange: () => {},
         onFocus: () => {},
         problemNum: 1,
-        reviewModeRubric: {
-            ...widgetPropsBase,
-        },
         static: true,
         trackInteraction: () => {},
         widgetId: "passage",
+        reviewMode: false,
     } as const;
 
     const extended = {...base, ...overwrite} as const;

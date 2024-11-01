@@ -261,10 +261,6 @@ export class ServerItemRenderer
         return this.questionRenderer.getDOMNodeForPath(path);
     }
 
-    getGrammarTypeForPath(path: FocusPath): string | null | undefined {
-        return this.questionRenderer.getGrammarTypeForPath(path);
-    }
-
     getInputPaths(): ReadonlyArray<FocusPath> {
         const questionAreaInputPaths = this.questionRenderer.getInputPaths();
         return questionAreaInputPaths;
@@ -324,7 +320,7 @@ export class ServerItemRenderer
         // Continue to include an empty guess for the now defunct answer area.
         // TODO(alex): Check whether we rely on the format here for
         //             analyzing ProblemLogs. If not, remove this layer.
-        const maxCompatGuess = [guess, []];
+        const maxCompatGuess = [this.questionRenderer.getUserInput(), []];
 
         const keScore = Util.keScoreFromPerseusScore(
             score,

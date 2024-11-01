@@ -26,29 +26,30 @@ import {Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
 import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
 import GraphLockedLayer from "./graph-locked-layer";
-import {
-    LinearGraph,
-    LinearSystemGraph,
-    PolygonGraph,
-    RayGraph,
-    SegmentGraph,
-    CircleGraph,
-    QuadraticGraph,
-    SinusoidGraph,
-    AngleGraph,
-} from "./graphs";
+import {renderAngleGraph} from "./graphs/angle";
+import {renderCircleGraph} from "./graphs/circle";
 import {SvgDefs} from "./graphs/components/text-label";
-import {PointGraph} from "./graphs/point";
+import {renderLinearGraph} from "./graphs/linear";
+import {renderLinearSystemGraph} from "./graphs/linear-system";
+import {renderPointGraph} from "./graphs/point";
+import {renderPolygonGraph} from "./graphs/polygon";
+import {renderQuadraticGraph} from "./graphs/quadratic";
+import {renderRayGraph} from "./graphs/ray";
+import {renderSegmentGraph} from "./graphs/segment";
+import {renderSinusoidGraph} from "./graphs/sinusoid";
 import {MIN, X, Y} from "./math";
 import {Protractor} from "./protractor";
-import {type InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
+import {isUnlimitedGraphState, REMOVE_BUTTON_ID} from "./utils";
 
+import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {
     InteractiveGraphState,
     InteractiveGraphProps,
     PointGraphState,
+    PolygonGraphState,
+    InteractiveGraphElementSuite,
 } from "./types";
 import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
@@ -76,8 +77,6 @@ export type MafsGraphProps = {
     readOnly: boolean;
     static: boolean | null | undefined;
 };
-
-export const REMOVE_BUTTON_ID = "perseus_mafs_remove_button";
 
 export const MafsGraph = (props: MafsGraphProps) => {
     const {
@@ -116,6 +115,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
     const {strings} = usePerseusI18n();
 
+    const interactionPrompt =
+        isUnlimitedGraphState(state) && state.showKeyboardInteractionInvitation;
+
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
             type: "perseus:interactive-graph-widget:rendered",
@@ -126,6 +128,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
             },
         });
     });
+
+    const {graph} = renderGraphElements({state, dispatch});
 
     return (
         <GraphConfigContext.Provider
@@ -278,38 +282,39 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                     {/* Protractor */}
                                     {props.showProtractor && <Protractor />}
                                     {/* Interactive layer */}
-                                    {renderGraph({
-                                        state,
-                                        dispatch,
-                                    })}
+                                    {graph}
                                 </svg>
                             </Mafs>
                         </View>
                     </View>
-                    {state.type === "point" &&
-                        state.showKeyboardInteractionInvitation && (
-                            <View
-                                style={{
-                                    textAlign: "center",
-                                    backgroundColor: "white",
-                                    border: "1px solid #21242C52",
-                                    padding: "16px 0",
-                                    boxShadow: "0px 8px 8px 0px #21242C14",
+                    {interactionPrompt && (
+                        <View
+                            style={{
+                                textAlign: "center",
+                                backgroundColor: "white",
+                                border: "1px solid #21242C52",
+                                padding: "16px 0",
+                                boxShadow: "0px 8px 8px 0px #21242C14",
 
-                                    // This translates the box to the center of the
-                                    // graph Then backs it off by half of its
-                                    // overall height so it's perfectly centered
-                                    top: "50%",
-                                    transform: "translateY(-50%)",
-                                }}
-                            >
-                                <LabelMedium>
-                                    {strings.graphKeyboardPrompt}
-                                </LabelMedium>
-                            </View>
-                        )}
+                                // This translates the box to the center of the
+                                // graph Then backs it off by half of its
+                                // overall height so it's perfectly centered
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                            }}
+                        >
+                            <LabelMedium>
+                                {strings.graphKeyboardPrompt}
+                            </LabelMedium>
+                        </View>
+                    )}
                 </View>
-                {renderGraphControls({state, dispatch, width, strings})}
+                {renderGraphControls({
+                    state,
+                    dispatch,
+                    width,
+                    perseusStrings: strings,
+                })}
             </View>
         </GraphConfigContext.Provider>
     );
@@ -319,11 +324,11 @@ const renderPointGraphControls = (props: {
     state: PointGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
     width: number;
-    strings: PerseusStrings;
+    perseusStrings: PerseusStrings;
 }) => {
     const {interactionMode, showRemovePointButton, focusedPointIndex} =
         props.state;
-    const {strings} = props;
+    const {perseusStrings} = props;
 
     const shouldShowRemoveButton =
         showRemovePointButton && focusedPointIndex !== null;
@@ -347,7 +352,7 @@ const renderPointGraphControls = (props: {
                         props.dispatch(actions.pointGraph.addPoint([0, 0]));
                     }}
                 >
-                    {strings.addPoint}
+                    {perseusStrings.addPoint}
                 </Button>
             )}
             {interactionMode === "mouse" && (
@@ -365,7 +370,7 @@ const renderPointGraphControls = (props: {
                             ? "visible"
                             : "hidden",
                     }}
-                    onClick={(event) => {
+                    onClick={(_event) => {
                         props.dispatch(
                             actions.pointGraph.removePoint(
                                 props.state.focusedPointIndex!,
@@ -373,7 +378,77 @@ const renderPointGraphControls = (props: {
                         );
                     }}
                 >
-                    {strings.removePoint}
+                    {perseusStrings.removePoint}
+                </Button>
+            )}
+        </View>
+    );
+};
+
+/**
+ * TODO(catjohnson): The polygon controls will be vastly different from the point controls.
+ * Will be keeping this function as is for the time being, even if it's a copy of the point graph
+ * controls.
+ */
+const renderPolygonGraphControls = (props: {
+    state: PolygonGraphState;
+    dispatch: (action: InteractiveGraphAction) => unknown;
+    width: number;
+    perseusStrings: PerseusStrings;
+}) => {
+    const {interactionMode, showRemovePointButton, focusedPointIndex} =
+        props.state;
+    const {perseusStrings} = props;
+
+    const shouldShowRemoveButton =
+        showRemovePointButton && focusedPointIndex !== null;
+
+    return (
+        <View
+            style={{
+                flexDirection: "row",
+                width: props.width,
+            }}
+        >
+            {interactionMode === "keyboard" && (
+                <Button
+                    kind="secondary"
+                    style={{
+                        width: "100%",
+                        marginLeft: "20px",
+                    }}
+                    tabIndex={0}
+                    onClick={() => {
+                        props.dispatch(actions.polygon.addPoint([0, 0]));
+                    }}
+                >
+                    {perseusStrings.addPoint}
+                </Button>
+            )}
+            {interactionMode === "mouse" && (
+                <Button
+                    id={REMOVE_BUTTON_ID}
+                    kind="secondary"
+                    color="destructive"
+                    // This button is meant to be interacted with by the mouse only
+                    // Never allow learners to tab to this button
+                    tabIndex={-1}
+                    style={{
+                        width: "100%",
+                        marginLeft: "20px",
+                        visibility: shouldShowRemoveButton
+                            ? "visible"
+                            : "hidden",
+                    }}
+                    onClick={(_event) => {
+                        props.dispatch(
+                            actions.polygon.removePoint(
+                                props.state.focusedPointIndex!,
+                            ),
+                        );
+                    }}
+                >
+                    {perseusStrings.removePoint}
                 </Button>
             )}
         </View>
@@ -384,9 +459,9 @@ const renderGraphControls = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
     width: number;
-    strings: PerseusStrings;
+    perseusStrings: PerseusStrings;
 }) => {
-    const {state, dispatch, width, strings} = props;
+    const {state, dispatch, width, perseusStrings} = props;
     const {type} = state;
     switch (type) {
         case "point":
@@ -395,7 +470,17 @@ const renderGraphControls = (props: {
                     state,
                     dispatch,
                     width,
-                    strings,
+                    perseusStrings,
+                });
+            }
+            return null;
+        case "polygon":
+            if (state.numSides === "unlimited") {
+                return renderPolygonGraphControls({
+                    state,
+                    dispatch,
+                    width,
+                    perseusStrings,
                 });
             }
             return null;
@@ -409,7 +494,7 @@ function handleFocusEvent(
     state: InteractiveGraphState,
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
-    if (state.type === "point" && state.numPoints === "unlimited") {
+    if (isUnlimitedGraphState(state)) {
         if (
             event.target.classList.contains("mafs-graph") &&
             state.interactionMode === "mouse"
@@ -420,11 +505,11 @@ function handleFocusEvent(
 }
 
 function handleBlurEvent(
-    event: React.FocusEvent,
+    _event: React.FocusEvent,
     state: InteractiveGraphState,
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
-    if (state.type === "point" && state.numPoints === "unlimited") {
+    if (isUnlimitedGraphState(state)) {
         dispatch(actions.global.changeKeyboardInvitationVisibility(false));
     }
 }
@@ -434,9 +519,20 @@ function handleKeyboardEvent(
     state: InteractiveGraphState,
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
-    if (state.type === "point" && state.numPoints === "unlimited") {
+    if (isUnlimitedGraphState(state)) {
         if (event.key === "Backspace") {
-            dispatch(actions.global.deleteIntent());
+            // TODO(benchristel): Checking classList here is a hack to prevent
+            // points from being deleted if the user presses the backspace key
+            // while the whole graph is focused. Instead of doing this, we
+            // should move the keyboard event handler to the movable point
+            // handle element.
+            if (
+                document.activeElement?.classList.contains(
+                    "movable-point__focusable-handle",
+                )
+            ) {
+                dispatch(actions.global.deleteIntent());
+            }
 
             // After removing a point blur
             // It would be nice if this could focus on the graph but doing so
@@ -505,35 +601,35 @@ export const calculateNestedSVGCoords = (
     };
 };
 
-const renderGraph = (props: {
+const renderGraphElements = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
-}) => {
+}): InteractiveGraphElementSuite => {
     const {state, dispatch} = props;
     const {type} = state;
     switch (type) {
         case "angle":
-            return <AngleGraph graphState={state} dispatch={dispatch} />;
+            return renderAngleGraph(state, dispatch);
         case "segment":
-            return <SegmentGraph graphState={state} dispatch={dispatch} />;
+            return renderSegmentGraph(state, dispatch);
         case "linear-system":
-            return <LinearSystemGraph graphState={state} dispatch={dispatch} />;
+            return renderLinearSystemGraph(state, dispatch);
         case "linear":
-            return <LinearGraph graphState={state} dispatch={dispatch} />;
+            return renderLinearGraph(state, dispatch);
         case "ray":
-            return <RayGraph graphState={state} dispatch={dispatch} />;
+            return renderRayGraph(state, dispatch);
         case "polygon":
-            return <PolygonGraph graphState={state} dispatch={dispatch} />;
+            return renderPolygonGraph(state, dispatch);
         case "point":
-            return <PointGraph graphState={state} dispatch={dispatch} />;
+            return renderPointGraph(state, dispatch);
         case "circle":
-            return <CircleGraph graphState={state} dispatch={dispatch} />;
+            return renderCircleGraph(state, dispatch);
         case "quadratic":
-            return <QuadraticGraph graphState={state} dispatch={dispatch} />;
+            return renderQuadraticGraph(state, dispatch);
         case "sinusoid":
-            return <SinusoidGraph graphState={state} dispatch={dispatch} />;
+            return renderSinusoidGraph(state, dispatch);
         case "none":
-            return null;
+            return {graph: null, screenreaderDescription: null};
         default:
             throw new UnreachableCaseError(type);
     }

@@ -274,12 +274,6 @@ export class Expression
         return [[]];
     };
 
-    // TODO(Nicole): I believe this is going away and won't be needed anymore
-    getGrammarTypeForPath(inputPath: FocusPath): string {
-        /* c8 ignore next */
-        return "expression";
-    }
-
     setInputValue(path: FocusPath, newValue: string, cb: () => void) {
         this.props.onChange(
             {
@@ -388,10 +382,9 @@ export class Expression
                             extraKeys={
                                 this.props.keypadConfiguration?.extraKeys
                             }
-                            analytics={
-                                this.props.analytics ?? {
-                                    onAnalyticsEvent: async () => {},
-                                }
+                            onAnalyticsEvent={
+                                this.props.analytics?.onAnalyticsEvent ??
+                                (async () => {})
                             }
                         />
                     </Tooltip>
@@ -421,7 +414,7 @@ const styles = StyleSheet.create({
  *       to be included as keys on the keypad. These are scraped from the answer
  *       forms.
  */
-export const keypadConfigurationForProps = (
+const keypadConfigurationForProps = (
     widgetOptions: PerseusExpressionWidgetOptions,
 ): KeypadConfiguration => {
     // Always use the Expression keypad, regardless of the button sets that have
