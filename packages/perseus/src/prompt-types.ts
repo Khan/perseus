@@ -26,6 +26,7 @@ export type WidgetType =
     | "matcher"
     | "radio"
     | "numeric-input"
+    | "plotter"
     | "python-program"
     | "sorter"
     | "video";
