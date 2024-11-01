@@ -6,8 +6,10 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {toAbsoluteUrl} from "../../util/url-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/python-program/prompt-utils";
 
 import type {FocusPath, Widget, WidgetExports} from "../../types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 function getUrlFromProgramID(programID: any) {
     const path = `/python-program/${programID}/embedded`;
@@ -39,6 +41,10 @@ class PythonProgram extends React.Component<Props> implements Widget {
     // See: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-4.html#weak-type-detection
     getDOMNodeForPath(path: FocusPath) {
         return null;
+    }
+
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
     }
 
     render(): React.ReactNode {
