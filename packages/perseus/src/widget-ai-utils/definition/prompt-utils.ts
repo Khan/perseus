@@ -1,5 +1,5 @@
-import type definition from "./definition";
 import type {WidgetType} from "../../prompt-types";
+import type definition from "../../widgets/definition/definition";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type WidgetProps = PropsFor<typeof definition.widget>;

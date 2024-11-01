@@ -5,8 +5,8 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
+import type {DropdownPromptJSON} from "./prompt-utils";
 import type {PerseusRenderer} from "../../perseus-types";
-import type {DropdownPromptJSON} from "../../widgets/dropdown/prompt-utils";
 import type {UserEvent} from "@testing-library/user-event";
 
 export const question1: PerseusRenderer = {

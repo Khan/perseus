@@ -7,13 +7,13 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/pr
 
 import dropdownValidator from "./dropdown-validator";
 
-import type {DropdownPromptJSON} from "./prompt-utils";
 import type {PerseusDropdownWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
 } from "../../validation.types";
+import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/prompt-utils";
 
 type Props = WidgetProps<RenderProps, PerseusDropdownRubric> & {
     selected: number;

@@ -1,6 +1,6 @@
-import type expression from "./expression";
 import type {WidgetType} from "../../prompt-types";
 import type {PerseusExpressionUserInput} from "../../validation.types";
+import type expression from "../../widgets/expression/expression";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type WidgetProps = PropsFor<typeof expression.widget>;
