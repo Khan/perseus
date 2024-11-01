@@ -4,5 +4,5 @@ import {
 } from "../unsupported-widget";
 
 export const getPromptJSON = (): UnsupportedWidgetPromptJSON => {
-    return getUnsupportedPromptJSON("cs-program");
+    return getUnsupportedPromptJSON("video");
 };
