@@ -16,6 +16,7 @@ export type WidgetType =
     | "dropdown"
     | "radio"
     | "numeric-input"
+    | "sorter"
     | "video";
 
 export type WidgetPromptJSON =
@@ -26,6 +27,7 @@ export type WidgetPromptJSON =
     | DropdownPromptJSON
     | RadioPromptJSON
     | NumericInputPromptJSON
+    |
     | UnsupportedWidgetPromptJSON;
 
 export type RendererPromptJSON = {
