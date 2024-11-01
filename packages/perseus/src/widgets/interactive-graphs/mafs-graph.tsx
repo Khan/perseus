@@ -446,6 +446,9 @@ const renderPolygonGraphControls = (props: {
                     width: props.width,
                 }}
             >
+                {/**
+                 * Only show this in keyboard mode.
+                 */}
                 <Button
                     kind="secondary"
                     style={{
@@ -464,6 +467,7 @@ const renderPolygonGraphControls = (props: {
                 {
                     // Add conditional render when there are more than 3 points in
                     // the graph
+                    // Also move this down to be adjacent to the remove button.
                 }
                 {coords.length >= 3 && polygonButton}
             </View>
@@ -474,6 +478,10 @@ const renderPolygonGraphControls = (props: {
                     paddingTop: "10px",
                 }}
             >
+                {/*
+                    Make sure remove button is always present, just disabled/enabled depending
+                    on when a point is selected or if the polygon is closed.
+                */}
                 {interactionMode === "mouse" && (
                     <Button
                         id={REMOVE_BUTTON_ID}
