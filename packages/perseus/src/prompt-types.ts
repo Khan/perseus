@@ -9,6 +9,8 @@ import type {InputNumberPromptJSON} from "./widget-ai-utils/input-number/prompt-
 import type {LabelImagePromptJSON} from "./widget-ai-utils/label-image/prompt-utils";
 import type {MatcherPromptJSON} from "./widget-ai-utils/matcher/prompt-utils";
 import type {NumericInputPromptJSON} from "./widget-ai-utils/numeric-input/prompt-utils";
+import type {PassagePromptJSON} from "./widget-ai-utils/passage/prompt-utils";
+import type {PassageRefPromptJSON} from "./widget-ai-utils/passage-ref/prompt-utils";
 import type {RadioPromptJSON} from "./widget-ai-utils/radio/prompt-utils";
 import type {SorterPromptJSON} from "./widget-ai-utils/sorter/prompt-utils";
 import type {UnsupportedWidgetPromptJSON} from "./widget-ai-utils/unsupported-widget";
@@ -26,6 +28,8 @@ export type WidgetType =
     | "matcher"
     | "radio"
     | "numeric-input"
+    | "passage"
+    | "passage-ref"
     | "phet-simulation"
     | "plotter"
     | "python-program"
@@ -51,6 +55,8 @@ export type WidgetPromptJSON =
     | LabelImagePromptJSON
     | MatcherPromptJSON
     | NumericInputPromptJSON
+    | PassagePromptJSON
+    | PassageRefPromptJSON
     | SorterPromptJSON
     | UnsupportedWidgetPromptJSON;
 
