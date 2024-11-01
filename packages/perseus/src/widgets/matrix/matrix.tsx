@@ -13,6 +13,7 @@ import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/prompt-utils";
 
 import matrixValidator from "./matrix-validator";
 
@@ -22,6 +23,7 @@ import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
 } from "../../validation.types";
+import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/prompt-utils";
 
 const {assert} = InteractiveUtil;
 const {stringArrayOfSize} = Util;
@@ -315,6 +317,10 @@ class Matrix extends React.Component<Props, State> implements Widget {
         return {
             answers: this.props.answers,
         };
+    }
+
+    getPromptJSON(): MatrixPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     render(): React.ReactNode {
