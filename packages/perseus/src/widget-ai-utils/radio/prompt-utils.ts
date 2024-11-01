@@ -1,7 +1,7 @@
-import type {RadioChoiceWithMetadata} from "./radio-component";
-import type Radio from "./radio-component";
 import type {WidgetType} from "../../prompt-types";
 import type {PerseusRadioUserInput} from "../../validation.types";
+import type radio from "../../widgets/radio/radio";
+import type {RadioChoiceWithMetadata} from "../../widgets/radio/radio-component";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 export type BasicOption = {
@@ -15,13 +15,13 @@ export type RadioUserInput = {
 
 export type RadioPromptJSON = {
     type: WidgetType;
-    hasNoneOfTheAbove: PropsFor<typeof Radio>["hasNoneOfTheAbove"];
+    hasNoneOfTheAbove: PropsFor<typeof radio.widget>["hasNoneOfTheAbove"];
     options: BasicOption[];
     userInput: RadioUserInput;
 };
 
 export const getPromptJSON = (
-    renderProps: PropsFor<typeof Radio>,
+    renderProps: PropsFor<typeof radio.widget>,
     userInput: PerseusRadioUserInput,
 ): RadioPromptJSON => {
     const choices = renderProps.choices || [];

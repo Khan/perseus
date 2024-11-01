@@ -1,6 +1,6 @@
-import type dropdown from "./dropdown";
 import type {WidgetType} from "../../prompt-types";
 import type {PerseusDropdownUserInput} from "../../validation.types";
+import type dropdown from "../../widgets/dropdown/dropdown";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type WidgetProps = PropsFor<typeof dropdown.widget>;

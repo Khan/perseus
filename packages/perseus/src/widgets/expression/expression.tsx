@@ -21,7 +21,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/
 import expressionValidator from "./expression-validator";
 import getDecimalSeparator from "./get-decimal-separator";
 
-import type {ExpressionPromptJSON} from "./prompt-utils";
 import type {DependenciesContext} from "../../dependencies";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
@@ -29,6 +28,7 @@ import type {
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
 } from "../../validation.types";
+import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/prompt-utils";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 

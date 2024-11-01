@@ -9,12 +9,12 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/prompt-utils";
 import noopValidator from "../__shared__/noop-validator";
 
-import type {DefinitionPromptJSON} from "./prompt-utils";
 import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
 } from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {DefinitionPromptJSON} from "../../widget-ai-utils/definition/prompt-utils";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 
