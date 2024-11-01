@@ -480,7 +480,7 @@ describe("scoreWidgetsFunctional", () => {
     });
 });
 
-describe.only("scorePerseusItem", () => {
+describe("scorePerseusItem", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
