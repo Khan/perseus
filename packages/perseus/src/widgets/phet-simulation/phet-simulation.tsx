@@ -18,9 +18,11 @@ import {
     basicBorderColor,
     borderRadiusLarge,
 } from "../../styles/global-constants";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/phet-simulation/prompt-utils";
 
 import type {PerseusPhetSimulationWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 type RenderProps = PerseusPhetSimulationWidgetOptions;
 type Props = WidgetProps<RenderProps, PerseusPhetSimulationWidgetOptions>;
@@ -87,6 +89,10 @@ export class PhetSimulation
                 return kaLocale;
         }
     };
+
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
+    }
 
     displayLoadFailure: () => void = () => {
         this.setState({
