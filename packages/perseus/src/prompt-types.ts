@@ -25,6 +25,7 @@ export type WidgetType =
     | "matcher"
     | "radio"
     | "numeric-input"
+    | "sorter"
     | "video";
 
 export type UnsupportedWidget =
@@ -46,6 +47,7 @@ export type WidgetPromptJSON =
     | LabelImagePromptJSON
     | MatcherPromptJSON
     | NumericInputPromptJSON
+    |
     | UnsupportedWidgetPromptJSON;
 
 export type RendererPromptJSON = {
