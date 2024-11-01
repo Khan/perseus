@@ -986,6 +986,48 @@ export type PerseusGraphCorrectType =
     | RayGraphCorrect
     | SegmentGraphCorrect
     | SinusoidGraphCorrect;
+
+const angleGraphCorrectKeys = [
+    "type",
+    "allowReflexAngles",
+    "match",
+    "coords",
+] as const;
+
+const circleGraphCorrectKeys = ["type", "center", "radius"] as const;
+
+const linearGraphCorrectKeys = ["type", "coords"] as const;
+
+const linearSystemGraphCorrectKeys = ["type", "coords"] as const;
+
+const noneGraphCorrectKeys = ["type"] as const;
+
+const pointGraphCorrectKeys = ["type", "coords"] as const;
+
+const polygonGraphCorrectKeys = ["type", "match", "coords"] as const;
+
+const quadraticGraphCorrectKeys = ["type", "coords"] as const;
+
+const rayGraphCorrectKeys = ["type", "coords"] as const;
+
+const segmentGraphCorrectKeys = ["type", "coords"] as const;
+
+const sinusoidGraphCorrectKeys = ["type", "coords"] as const;
+
+export const allGraphCorrectKeys = {
+    angle: angleGraphCorrectKeys,
+    circle: circleGraphCorrectKeys,
+    linear: linearGraphCorrectKeys,
+    "linear-system": linearSystemGraphCorrectKeys,
+    none: noneGraphCorrectKeys,
+    point: pointGraphCorrectKeys,
+    polygon: polygonGraphCorrectKeys,
+    quadratic: quadraticGraphCorrectKeys,
+    ray: rayGraphCorrectKeys,
+    segment: segmentGraphCorrectKeys,
+    sinusoid: sinusoidGraphCorrectKeys,
+} as const;
+
 export type PerseusLabelImageWidgetOptions = {
     // Translatable Text; Tex representation of choices
     choices: ReadonlyArray<string>;
