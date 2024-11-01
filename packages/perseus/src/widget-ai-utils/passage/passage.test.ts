@@ -1,9 +1,7 @@
-import {act} from "@testing-library/react";
-
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {PassageRefPromptJSON} from "./prompt-utils";
 import type {PerseusRenderer} from "../../perseus-types";
+import type {PassageRefPromptJSON} from "../passage-ref/prompt-utils";
 
 const question1: PerseusRenderer = {
     content: "[[☃ passage 1]]\n\n",
@@ -38,7 +36,6 @@ describe("passage widget", () => {
         const questionOptions = question1.widgets["passage 1"].options;
 
         // Act
-        act(() => jest.runOnlyPendingTimers());
         const json = widget?.getPromptJSON?.() as PassageRefPromptJSON;
 
         // Assert
