@@ -1,8 +1,10 @@
 import {convertDeprecatedWidgets} from "./modernize-widgets-utils";
 import {
+    inputNumberMultiNested,
     inputNumberNested,
     inputNumberNestedWithNumeric,
     inputNumberSimple,
+    numericInputMultiNested,
     numericInputNested,
     numericInputNestedWithNumeric,
     numericInputSimple,
@@ -36,13 +38,28 @@ describe("convertDeprecatedWidgets", () => {
         expect(result).toEqual(expected);
     });
 
-    it("should be able to continue id numbering even with nested widgets", () => {
+    it("should be scope the widget ids of nested widgets", () => {
         // This test has 2 pre-existing numericInput widgets, with one of them being nested
         // within a graded group. As a result, the inputNumber widget should become "numeric-input 3".
 
         // Arrange
         const input = inputNumberNestedWithNumeric;
         const expected = numericInputNestedWithNumeric;
+
+        // Act
+        const result = convertDeprecatedWidgets(input);
+
+        // Assert
+        expect(result).toEqual(expected);
+    });
+
+    it("should be able to correctly generate ids for both top-level and nested widgets", () => {
+        // This test has 2 pre-existing numericInput widgets, with one of them being nested
+        // within a graded group. As a result, the inputNumber widget should become "numeric-input 3".
+
+        // Arrange
+        const input = inputNumberMultiNested;
+        const expected = numericInputMultiNested;
 
         // Act
         const result = convertDeprecatedWidgets(input);
