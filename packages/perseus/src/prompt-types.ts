@@ -8,6 +8,7 @@ import type {ImagePromptJSON} from "./widget-ai-utils/image/prompt-utils";
 import type {InputNumberPromptJSON} from "./widget-ai-utils/input-number/prompt-utils";
 import type {LabelImagePromptJSON} from "./widget-ai-utils/label-image/prompt-utils";
 import type {MatcherPromptJSON} from "./widget-ai-utils/matcher/prompt-utils";
+import type {MatrixPromptJSON} from "./widget-ai-utils/matrix/prompt-utils";
 import type {NumberLinePromptJSON} from "./widget-ai-utils/number-line/prompt-utils";
 import type {NumericInputPromptJSON} from "./widget-ai-utils/numeric-input/prompt-utils";
 import type {OrdererPromptJSON} from "./widget-ai-utils/orderer/prompt-utils";
@@ -22,6 +23,7 @@ export type WidgetType =
     | "definition"
     | "dropdown"
     | "dropdown"
+    | "dropdown"
     | "explanation"
     | "expression"
     | "grapher"
@@ -29,6 +31,7 @@ export type WidgetType =
     | "input-number"
     | "label-image"
     | "matcher"
+    | "matrix"
     | "measurer"
     | "number-line"
     | "numeric-input"
@@ -38,7 +41,6 @@ export type WidgetType =
     | "phet-simulation"
     | "plotter"
     | "python-program"
-    | "radio"
     | "radio"
     | "sorter"
     | "video";
@@ -52,15 +54,15 @@ export type UnsupportedWidget =
 export type WidgetPromptJSON =
     | CategorizerPromptJSON
     | DefinitionPromptJSON
+    | DropdownPromptJSON
     | ExplanationPromptJSON
     | ExpressionPromptJSON
-    | DropdownPromptJSON
     | GrapherPromptJSON
-    | RadioPromptJSON
     | ImagePromptJSON
     | InputNumberPromptJSON
     | LabelImagePromptJSON
     | MatcherPromptJSON
+    | MatrixPromptJSON
     | NumberLinePromptJSON
     | NumericInputPromptJSON
     | OrdererPromptJSON
