@@ -121,4 +121,14 @@ describe("Definition widget", () => {
         // Assert
         expect(screen.queryByRole("dialog")).toBeNull();
     });
+
+    it("should not affect answerable", () => {
+        // Arrange / Act
+        const {renderer} = renderQuestion(question);
+
+        // Assert
+        expect(renderer).toHaveBeenAnsweredCorrectly({
+            shouldHavePoints: false,
+        });
+    });
 });
