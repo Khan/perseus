@@ -1,33 +1,37 @@
-import * as React from "react";
+import {action} from "@storybook/addon-actions";
 
 import TextInput from "../text-input";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
-
-export default {
+const meta: Meta = {
     title: "Perseus/Components/Text Input",
-} as Story;
+    component: TextInput,
+    args: {
+        onChange: action("onChange"),
+        onBlur: action("onBlur"),
+        onFocus: action("onFocus"),
+    },
+    argTypes: {
+        onChange: {control: {type: null}},
+        onBlur: {control: {type: null}},
+        onFocus: {control: {type: null}},
+    },
+};
+export default meta;
 
-const defaultObject = {
-    onChange: () => {},
-} as const;
+type Story = StoryObj<typeof TextInput>;
 
-export const EmptyPropsObject = (args: StoryArgs): React.ReactElement => {
-    return <TextInput {...defaultObject} />;
+export const EmptyPropsObject: Story = {};
+
+export const TestValueProvided: Story = {
+    args: {value: "Test value"},
 };
 
-export const TestValueProvided = (args: StoryArgs): React.ReactElement => {
-    return <TextInput {...defaultObject} value="Test value" />;
+export const AriaLabelTextProvided: Story = {
+    args: {labelText: "Test label"},
 };
 
-export const AriaLabelTextProvided = (args: StoryArgs): React.ReactElement => {
-    return <TextInput {...defaultObject} labelText="Test label" />;
-};
-
-export const Disabled = (args: StoryArgs): React.ReactElement => {
-    return <TextInput {...defaultObject} disabled={true} />;
+export const Disabled: Story = {
+    args: {disabled: true},
 };

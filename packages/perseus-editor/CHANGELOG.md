@@ -1,5 +1,33 @@
 # @khanacademy/perseus-editor
 
+## 14.10.0
+
+### Minor Changes
+
+-   [#1764](https://github.com/Khan/perseus/pull/1764) [`c2e678e5c`](https://github.com/Khan/perseus/commit/c2e678e5c109a8e0161907fea54aacb572e16bb3) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding new interactive graph type "unlimited-points" for mafs.
+
+### Patch Changes
+
+-   [#1803](https://github.com/Khan/perseus/pull/1803) [`eecfa54dd`](https://github.com/Khan/perseus/commit/eecfa54dd7810a98999e68054c9483959d7c0bd9) Thanks [@handeyeco](https://github.com/handeyeco)! - Refine exports of icon paths from Perseus
+
+*   [#1806](https://github.com/Khan/perseus/pull/1806) [`666a1e1f4`](https://github.com/Khan/perseus/commit/666a1e1f452e7c2c041c4f339c25cb30efbd946f) Thanks [@handeyeco](https://github.com/handeyeco)! - Scope exports from grapher's util
+
+-   [#1804](https://github.com/Khan/perseus/pull/1804) [`6907fd4fc`](https://github.com/Khan/perseus/commit/6907fd4fca22ab16466e8ee718058943c04c79f8) Thanks [@handeyeco](https://github.com/handeyeco)! - Move contants file from perseus to perseus-editor
+
+*   [#1801](https://github.com/Khan/perseus/pull/1801) [`ed088a629`](https://github.com/Khan/perseus/commit/ed088a629c77619740a8c902ad769ed8d3622367) Thanks [@handeyeco](https://github.com/handeyeco)! - Cleanup global-styles and global-constants exports from Perseus
+
+-   [#1805](https://github.com/Khan/perseus/pull/1805) [`faf62afd0`](https://github.com/Khan/perseus/commit/faf62afd094a758e376c5a8ac2acce140dedffdd) Thanks [@handeyeco](https://github.com/handeyeco)! - Scope sizing-utils exports to the essentials
+
+*   [#1791](https://github.com/Khan/perseus/pull/1791) [`b119147fc`](https://github.com/Khan/perseus/commit/b119147fc042bf71193d61f9cea99b5f3d73b484) Thanks [@handeyeco](https://github.com/handeyeco)! - Check types for import/no-extraneous-dependencies eslint check
+
+*   Updated dependencies [[`eecfa54dd`](https://github.com/Khan/perseus/commit/eecfa54dd7810a98999e68054c9483959d7c0bd9), [`c2e678e5c`](https://github.com/Khan/perseus/commit/c2e678e5c109a8e0161907fea54aacb572e16bb3), [`666a1e1f4`](https://github.com/Khan/perseus/commit/666a1e1f452e7c2c041c4f339c25cb30efbd946f), [`6907fd4fc`](https://github.com/Khan/perseus/commit/6907fd4fca22ab16466e8ee718058943c04c79f8), [`ed088a629`](https://github.com/Khan/perseus/commit/ed088a629c77619740a8c902ad769ed8d3622367), [`faf62afd0`](https://github.com/Khan/perseus/commit/faf62afd094a758e376c5a8ac2acce140dedffdd), [`b119147fc`](https://github.com/Khan/perseus/commit/b119147fc042bf71193d61f9cea99b5f3d73b484), [`f1aaf4f2b`](https://github.com/Khan/perseus/commit/f1aaf4f2b0ff2eedbd2f41aa67a7ee86363fbc2d)]:
+    -   @khanacademy/perseus@40.0.0
+    -   @khanacademy/kas@0.3.16
+    -   @khanacademy/keypad-context@1.0.4
+    -   @khanacademy/kmath@0.1.16
+    -   @khanacademy/math-input@21.1.3
+    -   @khanacademy/perseus-core@1.5.3
+
 ## 14.9.1
 
 ### Patch Changes

@@ -1,7 +1,8 @@
 import * as React from "react";
 import {useState, useRef, useLayoutEffect} from "react";
 
-import {snap} from "../../math";
+import {usePerseusI18n} from "../../../../components/i18n-context";
+import {snap, X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useDraggable} from "../use-draggable";
 
@@ -45,6 +46,8 @@ export function useControlPoint(params: Params): Return {
         forwardedRef = noop,
     } = params;
 
+    const {strings} = usePerseusI18n();
+
     const [focused, setFocused] = useState(false);
     const focusableHandleRef = useRef<SVGGElement>(null);
     useDraggable({
@@ -72,6 +75,14 @@ export function useControlPoint(params: Params): Return {
             className="movable-point__focusable-handle"
             tabIndex={disableKeyboardInteraction ? -1 : 0}
             ref={focusableHandleRef}
+            role="button"
+            aria-label={strings.srPointAtCoordinates({
+                x: String(point[X]),
+                y: String(point[Y]),
+            })}
+            // aria-live="assertive" causes the new location of the point to be
+            // announced immediately on move.
+            aria-live="assertive"
             onFocus={(event) => {
                 onFocus(event);
                 setFocused(true);

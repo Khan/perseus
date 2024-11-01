@@ -13,11 +13,26 @@ import {useDraggable} from "./use-draggable";
 import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
 
 import type {CollinearTuple} from "../../../perseus-types";
-import type {MafsGraphProps, PolygonGraphState} from "../types";
+import type {
+    Dispatch,
+    InteractiveGraphElementSuite,
+    MafsGraphProps,
+    PolygonGraphState,
+} from "../types";
+
+export function renderPolygonGraph(
+    state: PolygonGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <PolygonGraph graphState={state} dispatch={dispatch} />,
+        screenreaderDescription: null,
+    };
+}
 
 type Props = MafsGraphProps<PolygonGraphState>;
 
-export const LimitedPolygonGraph = (props: Props) => {
+const LimitedPolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
     // This is more so required for the re-rendering that occurs when state
     // updates; specifically with regard to line weighting and polygon focus.
@@ -157,7 +172,7 @@ export const LimitedPolygonGraph = (props: Props) => {
 // TODO(catjohnson): reduce redundancy between LimitedPolygonGraph and UnlimitedPolygonGraph
 // both components are vary similar, however more implementation is needed to be added before
 // it is clear what can and can't be shared between components.
-export const UnlimitedPolygonGraph = (props: Props) => {
+const UnlimitedPolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
     // This is more so required for the re-rendering that occurs when state
     // updates; specifically with regard to line weighting and polygon focus.
@@ -369,7 +384,7 @@ export const hasFocusVisible = (
     }
 };
 
-export const PolygonGraph = (props: Props) => {
+const PolygonGraph = (props: Props) => {
     const numSides = props.graphState.numSides;
 
     return numSides === "unlimited"

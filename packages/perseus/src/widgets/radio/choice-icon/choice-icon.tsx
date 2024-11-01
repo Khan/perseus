@@ -41,7 +41,7 @@ function ChoiceInner(props: ChoiceInnerProps) {
     const letter = getChoiceLetter(pos, strings);
 
     if (!showCorrectness) {
-        return letter;
+        return <span>{letter}</span>;
     }
     if (correct) {
         return (
@@ -68,14 +68,14 @@ function getDynamicStyles(
     multipleSelect: boolean,
     correct?: boolean | null,
 ): {
-    backgroundColor: string | null | undefined;
+    backgroundColor: string | undefined;
     borderColor: string;
     color: string;
     borderRadius: number;
 } {
-    let backgroundColor;
-    let borderColor;
-    let color;
+    let backgroundColor: string | undefined;
+    let borderColor: string;
+    let color: string;
     if (!showCorrectness && pressed) {
         borderColor = WBColor.blue;
         color = WBColor.blue;
@@ -131,7 +131,6 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
                 multipleSelect={multipleSelect}
             >
                 <div
-                    // @ts-expect-error - TS2322 - Type '{ backgroundColor: string | null | undefined; borderColor: string; color: string; borderRadius: number; }' is not assignable to type 'Properties<string | number, string & {}>'.
                     style={dynamicStyles}
                     data-testid="choice-icon__library-choice-icon"
                     className={css(

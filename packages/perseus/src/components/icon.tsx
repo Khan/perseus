@@ -1,34 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/**
- * SVG Icon React Component
- *
- * This component is designed to take in SVG paths and render icons based upon
- * them. If you are looking for an icon that we've used before you should look
- * in `icon-paths.js` which is a reference file for all the SVG paths that
- * we've used. You'll need to copy the object from that file into whichever
- * file you're using the icon and explicitly pass it in to the <Icon/> React
- * component.
- *
- * Sample usage:
- *
- *   const dropdownIcon = `M5,6L0,0L10,0`;
- *   <Icon icon={dropdownIcon} />
- *
- * Or:
- *
- *   const dropdownIcon = {
- *       path: `M5,6L0,0L10,0`,
- *       height: 10,
- *       width: 10,
- *   };
- *   <Icon icon={dropdownIcon} size={20} />
- *
- * A full list of all the existing icons can be seen here:
- * http://localhost:8080/react-sandbox/shared-styles-package/icon.jsx.fixture.js
- *
- * If you want to add an entirely new icon please read the note inside
- * the `icon-paths.js` file.
- */
 
 import * as React from "react";
 
@@ -78,6 +48,37 @@ type Props = {
     alt?: string;
 };
 
+/**
+ * An SVG Icon
+ *
+ * This component is designed to take in SVG paths and render icons based upon
+ * them. If you are looking for an icon that we've used before you should look
+ * in `icon-paths.js` which is a reference file for all the SVG paths that
+ * we've used. You'll need to copy the object from that file into whichever
+ * file you're using the icon and explicitly pass it in to the <Icon/> React
+ * component.
+ *
+ * Sample usage:
+ *
+ * ```
+ * const dropdownIcon = `M5,6L0,0L10,0`;
+ * <Icon icon={dropdownIcon} />
+ * ```
+ *
+ * Or:
+ *
+ * ```
+ *   const dropdownIcon = {
+ *       path: `M5,6L0,0L10,0`,
+ *       height: 10,
+ *       width: 10,
+ *   };
+ *   <Icon icon={dropdownIcon} size={20} />
+ * ```
+ *
+ * If you want to add an entirely new icon please read the note inside
+ * the `icon-paths.ts` file.
+ */
 class Icon extends React.Component<Props> {
     static defaultProps: {
         color: string;
