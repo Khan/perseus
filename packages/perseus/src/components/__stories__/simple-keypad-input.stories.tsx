@@ -1,27 +1,24 @@
-import * as React from "react";
+import {action} from "@storybook/addon-actions";
 
 import SimpleKeypadInput from "../simple-keypad-input";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
-
-const defaultObject = {
-    onChange: () => {},
-    onFocus: () => {},
-    onBlur: () => {},
-} as const;
-
-export default {
+const meta: Meta = {
     title: "Perseus/Components/Simple Keypad Input",
-} as Story;
-
-export const EmptyPropsObject = (args: StoryArgs): React.ReactElement => {
-    return <SimpleKeypadInput {...defaultObject} />;
+    component: SimpleKeypadInput,
+    args: {
+        onChange: action("onChange"),
+        onFocus: action("onFocus"),
+        onBlur: action("onBlur"),
+    },
 };
+export default meta;
 
-export const CustomValue = (args: StoryArgs): React.ReactElement => {
-    return <SimpleKeypadInput {...defaultObject} value="Test value" />;
+type Story = StoryObj<typeof SimpleKeypadInput>;
+
+export const EmptyPropsObject: Story = {};
+
+export const CustomValue: Story = {
+    args: {value: "Test value"},
 };

@@ -20,21 +20,25 @@ enum Severity {
 }
 
 type Props = {
-    // The children are the linty content we're highlighting
+    /** The children are the linty content we're highlighting */
     children: React.ReactNode;
-    // Inline lint is highlighted differently than block lint.
+    /** Inline lint is highlighted differently than block lint. */
     inline?: boolean;
-    // This is the text that appears in the tooltip
+    /** This is the text that appears in the tooltip */
     message: string;
-    // This is used as the fragment id (hash) in the URL of the link
+    /** This is used as the fragment id (hash) in the URL of the link */
     ruleName: string;
-    // Lint warnings inside tables are handled specially
+    /** Lint warnings inside tables are handled specially */
     insideTable: boolean;
-    // Should lint highlighting be rendered as a block to the left of
-    // the lint instead of on the right gutter?
+    /**
+     * Should lint highlighting be rendered as a block to the left of
+     * the lint instead of on the right gutter?
+     */
     blockHighlight?: boolean;
-    // How important this lint message is for the editor. Severity goes
-    // from 1 (indicating an error) to 4 (offline reporting only)
+    /**
+     * How important this lint message is for the editor. Severity goes
+     * from 1 (indicating an error) to 4 (offline reporting only)
+     */
     severity?: Severity;
 };
 
