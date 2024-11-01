@@ -5,6 +5,7 @@ import type {ExplanationPromptJSON} from "./widget-ai-utils/explanation/prompt-u
 import type {ExpressionPromptJSON} from "./widget-ai-utils/expression/prompt-utils";
 import type {NumericInputPromptJSON} from "./widget-ai-utils/numeric-input/prompt-utils";
 import type {RadioPromptJSON} from "./widget-ai-utils/radio/prompt-utils";
+import type {SorterPromptJSON} from "./widget-ai-utils/sorter/prompt-utils";
 import type {UnsupportedWidgetPromptJSON} from "./widget-ai-utils/unsupported-widget";
 
 export type WidgetType =
@@ -16,6 +17,7 @@ export type WidgetType =
     | "dropdown"
     | "radio"
     | "numeric-input"
+    | "python-program"
     | "sorter"
     | "video";
 
@@ -27,7 +29,7 @@ export type WidgetPromptJSON =
     | DropdownPromptJSON
     | RadioPromptJSON
     | NumericInputPromptJSON
-    |
+    | SorterPromptJSON
     | UnsupportedWidgetPromptJSON;
 
 export type RendererPromptJSON = {
