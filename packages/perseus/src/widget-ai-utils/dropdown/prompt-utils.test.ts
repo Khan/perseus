@@ -1,5 +1,3 @@
-import {WidgetType} from "../../prompt-types";
-
 import {getPromptJSON} from "./prompt-utils";
 
 import type {PerseusDropdownUserInput} from "../../validation.types";
@@ -17,11 +15,12 @@ describe("Dropdown getPromptJSON", () => {
         const resultJSON = getPromptJSON(renderProps, userInput);
 
         expect(resultJSON).toEqual({
-            type: WidgetType.DROPDOWN,
+            type: "dropdown",
             options: {
                 items: renderProps.choices,
             },
             userInput: {
+                // Offset to account for placeholder
                 selectedIndex: userInput.value - 1,
             },
         });

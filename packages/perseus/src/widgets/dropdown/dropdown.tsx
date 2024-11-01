@@ -3,9 +3,9 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {ApiOptions} from "../../perseus-api";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/prompt-utils";
 
 import dropdownValidator from "./dropdown-validator";
-import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
 import type {DropdownPromptJSON} from "./prompt-utils";
 import type {PerseusDropdownWidgetOptions} from "../../perseus-types";

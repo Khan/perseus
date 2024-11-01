@@ -1,4 +1,4 @@
-import {WidgetType} from "../../prompt-types";
+import type {WidgetType} from "../../prompt-types";
 
 export type CSProgramPromptJSON = {
     type: WidgetType;
@@ -7,7 +7,7 @@ export type CSProgramPromptJSON = {
 
 export const getPromptJSON = (): CSProgramPromptJSON => {
     return {
-        type: WidgetType.CS_PROGRAM,
+        type: "cs-program",
         isSupported: false,
     };
 };

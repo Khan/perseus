@@ -1,6 +1,5 @@
-import {WidgetType} from "../../prompt-types";
-
 import type definition from "./definition";
+import type {WidgetType} from "../../prompt-types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type WidgetProps = PropsFor<typeof definition.widget>;
@@ -15,7 +14,7 @@ export const getPromptJSON = (
     renderProps: WidgetProps,
 ): DefinitionPromptJSON => {
     return {
-        type: WidgetType.DEFINITION,
+        type: "definition",
         definition: renderProps.definition || "",
         togglePrompt: renderProps.togglePrompt || "",
     };

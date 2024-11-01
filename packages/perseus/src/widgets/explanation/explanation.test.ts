@@ -4,13 +4,11 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
-import {WidgetType} from "../../prompt-types";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import ExplanationWidgetExports from "./explanation";
 import {question1} from "./explanation.testdata";
 
-import type {ExplanationPromptJSON} from "./prompt-utils";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("Explanation", function () {
@@ -265,24 +263,6 @@ describe("Explanation", function () {
         // Assert
         expect(changeMock.mock.contexts[0]).toEqual(widget);
         expect(changeMock).toHaveBeenCalledWith("foo", "bar", callbackMock);
-    });
-
-    it("Should get prompt json which matches the state of the UI", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(question1);
-        const widget = renderer.getWidgetInstance("explanation 1");
-        const questionOptions = question1.widgets["explanation 1"].options;
-
-        // Act
-        const json = widget?.getPromptJSON?.() as ExplanationPromptJSON;
-
-        // Assert
-        expect(json).toEqual({
-            type: WidgetType.EXPLANATION,
-            showPrompt: questionOptions.showPrompt,
-            hidePrompt: questionOptions.hidePrompt,
-            explanation: questionOptions.explanation,
-        });
     });
 
     describe("validator", () => {

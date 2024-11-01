@@ -1,5 +1,3 @@
-import {WidgetType} from "../../prompt-types";
-
 import {getPromptJSON} from "./prompt-utils";
 
 import type {PerseusExpressionUserInput} from "../../validation.types";
@@ -15,7 +13,7 @@ describe("Expression getPromptJSON", () => {
         const resultJSON = getPromptJSON(renderProps, userInput);
 
         expect(resultJSON).toEqual({
-            type: WidgetType.EXPRESSION,
+            type: "expression",
             label: renderProps.visibleLabel,
             userInput: {
                 value: userInput,

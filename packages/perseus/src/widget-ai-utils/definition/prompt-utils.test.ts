@@ -1,5 +1,3 @@
-import {WidgetType} from "../../prompt-types";
-
 import {getPromptJSON} from "./prompt-utils";
 
 describe("Definition getPromptJSON", () => {
@@ -12,7 +10,7 @@ describe("Definition getPromptJSON", () => {
         const resultJSON = getPromptJSON(renderProps);
 
         expect(resultJSON).toEqual({
-            type: WidgetType.DEFINITION,
+            type: "definition",
             definition: renderProps.definition,
             togglePrompt: renderProps.togglePrompt,
         });

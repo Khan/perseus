@@ -1,5 +1,3 @@
-import {WidgetType} from "../../prompt-types";
-
 import {getPromptJSON} from "./prompt-utils";
 
 import type {PerseusNumericInputUserInput} from "../../validation.types";
@@ -20,7 +18,7 @@ describe("NumericInput getPromptJSON", () => {
         const resultJSON = getPromptJSON(renderProps, userInput);
 
         expect(resultJSON).toEqual({
-            type: WidgetType.NUMERIC_INPUT,
+            type: "numeric-input",
             label: "Numeric input label",
             userInput: {
                 value: "42",

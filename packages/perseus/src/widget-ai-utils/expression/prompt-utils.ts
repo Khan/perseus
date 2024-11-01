@@ -1,6 +1,5 @@
-import {WidgetType} from "../../prompt-types";
-
 import type expression from "./expression";
+import type {WidgetType} from "../../prompt-types";
 import type {PerseusExpressionUserInput} from "../../validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -19,7 +18,7 @@ export const getPromptJSON = (
     userInput: PerseusExpressionUserInput,
 ): ExpressionPromptJSON => {
     return {
-        type: WidgetType.EXPRESSION,
+        type: "expression",
         label: renderProps.visibleLabel,
         userInput: {
             value: userInput,

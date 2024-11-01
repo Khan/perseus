@@ -1,7 +1,6 @@
-import {WidgetType} from "../../prompt-types";
-
-import type categorizer from "./categorizer";
+import type {WidgetType} from "../../prompt-types";
 import type {PerseusCategorizerUserInput} from "../../validation.types";
+import type categorizer from "../../widgets/categorizer/categorizer";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type WidgetProps = PropsFor<typeof categorizer.widget>;
@@ -22,7 +21,7 @@ export const getPromptJSON = (
     userInput: PerseusCategorizerUserInput,
 ): CategorizerPromptJSON => {
     return {
-        type: WidgetType.CATEGORIZER,
+        type: "categorizer",
         options: {
             items: renderProps.items,
             categories: renderProps.categories,

@@ -1,5 +1,3 @@
-import {WidgetType} from "../../prompt-types";
-
 import {getPromptJSON} from "./prompt-utils";
 
 import type {PerseusCategorizerUserInput} from "../../validation.types";
@@ -19,7 +17,7 @@ describe("Categorizer getPromptJSON", () => {
         const resultJSON = getPromptJSON(renderProps, userInput);
 
         expect(resultJSON).toEqual({
-            type: WidgetType.CATEGORIZER,
+            type: "categorizer",
             options: {
                 items: renderProps.items,
                 categories: renderProps.categories,
