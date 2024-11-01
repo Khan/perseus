@@ -131,7 +131,6 @@ function UnlimitedPointGraph(props: PointGraphProps) {
     );
 }
 
-
 function PointGraphDescription({state}: {state: PointGraphState}) {
     // PointGraphDescription needs to `usePerseusI18n`, so it has to be a
     // component rather than a function that simply returns a string.
