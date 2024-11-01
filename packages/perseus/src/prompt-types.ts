@@ -8,6 +8,7 @@ import type {ImagePromptJSON} from "./widget-ai-utils/image/prompt-utils";
 import type {InputNumberPromptJSON} from "./widget-ai-utils/input-number/prompt-utils";
 import type {LabelImagePromptJSON} from "./widget-ai-utils/label-image/prompt-utils";
 import type {MatcherPromptJSON} from "./widget-ai-utils/matcher/prompt-utils";
+import type {NumberLinePromptJSON} from "./widget-ai-utils/number-line/prompt-utils";
 import type {NumericInputPromptJSON} from "./widget-ai-utils/numeric-input/prompt-utils";
 import type {OrdererPromptJSON} from "./widget-ai-utils/orderer/prompt-utils";
 import type {PassagePromptJSON} from "./widget-ai-utils/passage/prompt-utils";
@@ -28,6 +29,7 @@ export type WidgetType =
     | "label-image"
     | "matcher"
     | "radio"
+    | "number-line"
     | "numeric-input"
     | "orderer"
     | "passage"
@@ -56,6 +58,7 @@ export type WidgetPromptJSON =
     | InputNumberPromptJSON
     | LabelImagePromptJSON
     | MatcherPromptJSON
+    | NumberLinePromptJSON
     | NumericInputPromptJSON
     | OrdererPromptJSON
     | PassagePromptJSON
