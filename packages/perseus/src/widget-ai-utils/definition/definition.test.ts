@@ -34,7 +34,7 @@ describe("definition widget", () => {
         );
     });
 
-    it("Should get prompt json which matches the state of the UI", async () => {
+    it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
         const widget = renderer.getWidgetInstance("definition 1");

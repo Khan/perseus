@@ -40,7 +40,7 @@ describe("explanation widget", () => {
         );
     });
 
-    it("Should get prompt json which matches the state of the UI", async () => {
+    it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         const widget = renderer.getWidgetInstance("explanation 1");
