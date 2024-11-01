@@ -3,5 +3,5 @@ export function srFormatNumber(a: number, locale: string): string {
     return (0 + a).toLocaleString(locale, {
         maximumFractionDigits: 3,
         useGrouping: false, // no thousands separators
-    })
+    });
 }

@@ -139,7 +139,7 @@ function PointGraphDescription({state}: {state: PointGraphState}) {
 // Exported for testing
 export function describePointGraph(
     state: PointGraphState,
-    i18n: {strings: PerseusStrings, locale: string},
+    i18n: {strings: PerseusStrings; locale: string},
 ): string {
     const {strings, locale} = i18n;
 
