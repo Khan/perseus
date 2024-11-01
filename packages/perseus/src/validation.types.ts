@@ -14,6 +14,7 @@ import type {
     PerseusPlotterWidgetOptions,
     PerseusRadioChoice,
     PerseusTableWidgetOptions,
+    PerseusGraphCorrectType,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -96,8 +97,7 @@ export type PerseusInputNumberUserInput = {
 };
 
 export type PerseusInteractiveGraphRubric = {
-    // TODO(LEMS-2344): make the type of `correct` more specific
-    correct: PerseusGraphType;
+    correct: PerseusGraphCorrectType;
     graph: PerseusGraphType;
 };
 
