@@ -16,10 +16,10 @@ import {useDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions, ClassNames as ApiClassNames} from "../../perseus-api";
 import a11y from "../../util/a11y";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/prompt-utils";
 
 import expressionValidator from "./expression-validator";
 import getDecimalSeparator from "./get-decimal-separator";
-import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
 import type {ExpressionPromptJSON} from "./prompt-utils";
 import type {DependenciesContext} from "../../dependencies";

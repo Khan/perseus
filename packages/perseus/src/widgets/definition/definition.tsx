@@ -6,9 +6,8 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {DefinitionConsumer} from "../../definition-context";
 import Renderer from "../../renderer";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/prompt-utils";
 import noopValidator from "../__shared__/noop-validator";
-
-import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
 import type {DefinitionPromptJSON} from "./prompt-utils";
 import type {

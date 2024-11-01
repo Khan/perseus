@@ -1,7 +1,6 @@
-import {WidgetType} from "../../prompt-types";
-
 import type {RadioChoiceWithMetadata} from "./radio-component";
 import type Radio from "./radio-component";
+import type {WidgetType} from "../../prompt-types";
 import type {PerseusRadioUserInput} from "../../validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -34,7 +33,7 @@ export const getPromptJSON = (
     });
 
     return {
-        type: WidgetType.RADIO,
+        type: "radio",
         hasNoneOfTheAbove: !!renderProps.hasNoneOfTheAbove,
         options,
         userInput: {

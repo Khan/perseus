@@ -1,13 +1,11 @@
-import {WidgetType} from "../../prompt-types";
-
-import {getPromptJSON} from "./prompt-utils";
+import {getPromptJSON} from "../../widget-ai-utils/cs-program/prompt-utils";
 
 describe("CS Program getPromptJSON", () => {
     it("it returns JSON with the expected format and fields", () => {
         const resultJSON = getPromptJSON();
 
         expect(resultJSON).toEqual({
-            type: WidgetType.CS_PROGRAM,
+            type: "cs-program",
             isSupported: false,
         });
     });
