@@ -909,6 +909,83 @@ export type PerseusGraphTypeRay = {
     startCoords?: CollinearTuple;
 } & PerseusGraphTypeCommon;
 
+type AngleGraphCorrect = {
+    type: "angle";
+    // Whether to show the angle measurements.  default: false
+    allowReflexAngles?: boolean;
+    match: "congruent";
+    // must have 3 coords - ie [Coord, Coord, Coord]
+    coords: [Coord, Coord, Coord];
+};
+
+type CircleGraphCorrect = {
+    type: "circle";
+    center: Coord;
+    radius: number;
+};
+type LinearGraphCorrect = {
+    type: "linear";
+    // expects 2 coords
+    coords: CollinearTuple;
+};
+
+type LinearSystemGraphCorrect = {
+    type: "linear-system";
+    // expects 2 sets of 2 coords
+    coords: CollinearTuple[];
+};
+
+type NoneGraphCorrect = {
+    type: "none";
+};
+
+type PointGraphCorrect = {
+    type: "point";
+    coords: ReadonlyArray<Coord>;
+};
+
+type PolygonGraphCorrect = {
+    type: "polygon";
+    match: "similar" | "congruent" | "approx";
+    coords: ReadonlyArray<Coord>;
+};
+
+type QuadraticGraphCorrect = {
+    type: "quadratic";
+    // expects a list of 3 coords
+    coords?: [Coord, Coord, Coord];
+};
+
+type SegmentGraphCorrect = {
+    type: "segment";
+    // Expects a list of Coord tuples. Length should match the `numSegments` value.
+    coords: CollinearTuple[];
+};
+
+type SinusoidGraphCorrect = {
+    type: "sinusoid";
+    // Expects a list of 2 Coords
+    coords: ReadonlyArray<Coord>;
+};
+
+type RayGraphCorrect = {
+    type: "ray";
+    // Expects a list of 2 Coords
+    coords: CollinearTuple;
+};
+
+export type PerseusGraphCorrectType =
+    | AngleGraphCorrect
+    | CircleGraphCorrect
+    | LinearGraphCorrect
+    | LinearSystemGraphCorrect
+    | NoneGraphCorrect
+    | PointGraphCorrect
+    | PolygonGraphCorrect
+    | QuadraticGraphCorrect
+    | RayGraphCorrect
+    | SegmentGraphCorrect
+    | SinusoidGraphCorrect;
 export type PerseusLabelImageWidgetOptions = {
     // Translatable Text; Tex representation of choices
     choices: ReadonlyArray<string>;
