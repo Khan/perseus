@@ -1,12 +1,16 @@
 import {srFormatNumber} from "./screenreader-text";
 
 describe("srFormatNumber", () => {
-    it("trivially converts most integers to strings", () => {
+    it("trivially converts small integers to strings", () => {
         expect(srFormatNumber(3, "en")).toBe("3");
     });
 
     it("does not use thousands separators", () => {
         expect(srFormatNumber(1234567, "en")).toBe("1234567");
+    });
+
+    it("does not use scientific notation", () => {
+        expect(srFormatNumber(1e27, "en")).toBe("1000000000000000000000000000");
     });
 
     it("displays at most 3 decimal places", () => {
