@@ -19,7 +19,7 @@ export type WidgetType =
     | "explanation"
     | "expression"
     | "dropdown"
-    | "radio"
+    | "measurer"
     | "number-line"
     | "numeric-input"
     | "orderer"
@@ -28,6 +28,7 @@ export type WidgetType =
     | "phet-simulation"
     | "plotter"
     | "python-program"
+    | "radio"
     | "sorter"
     | "video";
 
