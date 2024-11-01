@@ -26,6 +26,7 @@ import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
 } from "@khanacademy/perseus";
+import type {PerseusExpressionAnswerForm} from "@khanacademy/perseus/src/perseus-types";
 
 const {InfoTip} = components;
 
@@ -136,6 +137,8 @@ class ExpressionEditor extends React.Component<Props, State> {
             return _(form).pick(formSerializables);
         });
 
+        console.log(answerForms);
+
         return lens(this.props)
             .set(["answerForms"], answerForms)
             .mod([], (props) => _(props).pick(serializables))
@@ -214,10 +217,19 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     // called when the options (including the expression itself) to an answer
     // form change
-    updateForm: (i: number, props: any) => void = (i, props) => {
-        const answerForms = lens(this.props.answerForms)
-            .merge([i], props)
-            .freeze();
+    updateForm: (i: number, props: PerseusExpressionAnswerForm[]) => void = (
+        i,
+        props,
+    ) => {
+        console.log(props);
+        // const answerForms = lens(this.props.answerForms)
+        //     .merge([i], props)
+        //     .freeze();
+        //const answerForms = props[i];
+        const answerForms;
+
+        console.log(`props: ${JSON.stringify(props)}`);
+        console.log(answerForms);
 
         this.change({answerForms});
     };
@@ -291,7 +303,7 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        const answerOptions = this.props.answerForms
+        const answerOptions: React.JSX.Element[] = this.props.answerForms
             .map((ans: AnswerForm) => {
                 const key = parseAnswerKey(ans);
 
@@ -325,10 +337,22 @@ class ExpressionEditor extends React.Component<Props, State> {
                             ),
                         onDelete: () => this.handleRemoveForm(key),
                         expressionProps: expressionProps,
+                        simplify: false,
                     })
                     .freeze();
             })
-            .map((obj) => <AnswerOption key={obj.key} {...obj} />);
+            .map((obj: AnswerOptionProps) => (
+                <AnswerOption
+                    key={obj.key}
+                    draggable={obj.draggable}
+                    considered={obj.considered}
+                    expressionProps={obj.expressionProps}
+                    form={obj.form}
+                    simplify={obj.simplify}
+                    onDelete={obj.onDelete}
+                    onChange={obj.onChange}
+                />
+            ));
 
         const sortable = (
             <SortableArea
@@ -470,6 +494,8 @@ const findNextIn = function (arr: ReadonlyArray<string>, val: any) {
 };
 
 type AnswerOptionProps = {
+    key?: number;
+    draggable: boolean;
     considered: (typeof PerseusExpressionAnswerFormConsidered)[number];
     expressionProps: any;
 
