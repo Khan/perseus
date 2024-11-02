@@ -80,6 +80,10 @@ type ReactNodeOutput = NodeOutput<ReactElements>;
 type HtmlOutput = Output<string>;
 type HtmlNodeOutput = NodeOutput<string>;
 
+type MarkdownOutput = Output<string>;
+type MarkdownNodeOutput = NodeOutput<string>;
+
+
 type ParserRule = {
     readonly order: number;
     readonly match: MatchFunction;
@@ -114,11 +118,16 @@ type HtmlOutputRule = {
     readonly html: HtmlNodeOutput | null;
 };
 
+type MarkdownOutputRule = {
+    readonly markdown: MarkdownNodeOutput | null;
+};
 type ArrayRule = {
     // @ts-expect-error - TS2411 - Property 'react' of type 'ArrayNodeOutput<ReactNode> | undefined' is not assignable to 'string' index type 'ArrayNodeOutput<any>'.
     readonly react?: ArrayNodeOutput<ReactElements>;
     // @ts-expect-error - TS2411 - Property 'html' of type 'ArrayNodeOutput<string> | undefined' is not assignable to 'string' index type 'ArrayNodeOutput<any>'.
     readonly html?: ArrayNodeOutput<string>;
+    // @ts-expect-error - TS2411 - Property 'markdown' of type 'ArrayNodeOutput<string> | undefined' is not assignable to 'string' index type 'ArrayNodeOutput<any>'.
+    readonly markdown?: ArrayNodeOutput<string>;
     readonly [key: string]: ArrayNodeOutput<any>;
 };
 
@@ -152,6 +161,13 @@ type HtmlRules = {
     };
     readonly [type: string]: ParserRule & HtmlOutputRule;
 };
+type MarkdownRules = {
+    // @ts-expect-error - TS2411 - Property 'Array' of type '{ readonly html: ArrayNodeOutput<string>; } | undefined' is not assignable to 'string' index type 'ParserRule & HtmlOutputRule'.
+    readonly Array?: {
+        readonly markdown: ArrayNodeOutput<string>;
+    };
+    readonly [type: string]: ParserRule & MarkdownOutputRule;
+};
 
 // We want to clarify our defaultRules types a little bit more so clients can
 // reuse defaultRules built-ins. So we make some stronger guarantess when
@@ -169,21 +185,25 @@ type NonNullHtmlOutputRule = {
     readonly html: HtmlNodeOutput;
 };
 
-type DefaultInRule = SingleNodeParserRule & ReactOutputRule & HtmlOutputRule;
-type TextInOutRule = SingleNodeParserRule &
-    TextReactOutputRule &
-    NonNullHtmlOutputRule;
+type NonNullMarkdownOutputRule = {
+    readonly markdown: MarkdownNodeOutput;
+};
+
+
+type DefaultInRule = SingleNodeParserRule & ReactOutputRule & HtmlOutputRule & MarkdownOutputRule;
+type TextInOutRule = SingleNodeParserRule & TextReactOutputRule & NonNullHtmlOutputRule & NonNullMarkdownOutputRule;
 type LenientInOutRule = SingleNodeParserRule &
     NonNullReactOutputRule &
-    NonNullHtmlOutputRule;
+    NonNullHtmlOutputRule & NonNullMarkdownOutputRule;
 type DefaultInOutRule = SingleNodeParserRule &
     ElementReactOutputRule &
-    NonNullHtmlOutputRule;
+    NonNullHtmlOutputRule & NonNullMarkdownOutputRule;
 
 type DefaultRules = {
     readonly Array: {
         readonly react: ArrayNodeOutput<ReactElements>;
         readonly html: ArrayNodeOutput<string>;
+        readonly markdown: ArrayNodeOutput<string>;
     };
     readonly heading: DefaultInOutRule;
     readonly nptable: DefaultInRule;
@@ -214,6 +234,8 @@ type DefaultRules = {
     readonly br: DefaultInOutRule;
     readonly text: TextInOutRule;
 };
+
+
 
 type RefNode = {
     type: string;
@@ -948,6 +970,28 @@ var defaultRules: DefaultRules = {
             }
             return result;
         },
+        markdown: function (arr, output, state) {
+            var result = "";
+
+            // map output over the ast, except group any text
+            // nodes together into a single string output.
+            for (var i = 0, key = 0; i < arr.length; i++) {
+                var node = arr[i];
+                if (node.type === "text") {
+                    node = {type: "text", content: node.content};
+                    for (
+                        ;
+                        i + 1 < arr.length && arr[i + 1].type === "text";
+                        i++
+                    ) {
+                        node.content += arr[i + 1].content;
+                    }
+                }
+
+                result += output(node, state);
+            }
+            return result;
+        },
     },
     heading: {
         order: currOrder++,
@@ -966,6 +1010,10 @@ var defaultRules: DefaultRules = {
         html: function (node, output, state) {
             return htmlTag("h" + node.level, output(node.content, state));
         },
+
+        markdown: function (node, output, state) {
+            return "#".repeat(node.level) + " " + output(node.content, state);
+        },
     },
     nptable: {
         order: currOrder++,
@@ -973,6 +1021,7 @@ var defaultRules: DefaultRules = {
         parse: TABLES.parseNpTable,
         react: null,
         html: null,
+        markdown: null,
     },
     lheading: {
         order: currOrder++,
@@ -986,6 +1035,8 @@ var defaultRules: DefaultRules = {
         },
         react: null,
         html: null,
+        markdown: null,
+
     },
     hr: {
         order: currOrder++,
@@ -996,6 +1047,9 @@ var defaultRules: DefaultRules = {
         },
         html: function (node, output, state) {
             return '<hr aria-hidden="true">';
+        },
+        markdown: function (node, output, state) {
+            return '\n\n---\n\n';
         },
     },
     codeBlock: {
@@ -1030,6 +1084,9 @@ var defaultRules: DefaultRules = {
             });
             return htmlTag("pre", codeBlock);
         },
+        markdown: function (node, output, state) {
+            return "    " + node.content;
+        },
     },
     fence: {
         order: currOrder++,
@@ -1045,6 +1102,7 @@ var defaultRules: DefaultRules = {
         },
         react: null,
         html: null,
+        markdown:null,
     },
     blockQuote: {
         order: currOrder++,
@@ -1062,6 +1120,9 @@ var defaultRules: DefaultRules = {
         },
         html: function (node, output, state) {
             return htmlTag("blockquote", output(node.content, state));
+        },
+        markdown: function (node, output, state) {
+            return ">" + output(node.content, state) + "\n\n";
         },
     },
     list: {
@@ -1194,6 +1255,18 @@ var defaultRules: DefaultRules = {
             };
             return htmlTag(listTag, listItems, attributes);
         },
+        markdown: function (node, output, state) {
+
+            if (node.ordered){}
+            var listItems = node.items
+                .map(function (item: ASTNode, index) {
+                    if (node.ordered){return index + ". " + item + "\n"}
+                    else {return "- " + item + "\n"}
+                })
+                .join("");
+
+            return listItems;
+        },
     },
     def: {
         order: currOrder++,
@@ -1248,7 +1321,13 @@ var defaultRules: DefaultRules = {
         html: function () {
             return "";
         },
+        markdown: function () {
+            return "";
+        },
     },
+
+
+
     table: {
         order: currOrder++,
         match: blockRegex(TABLES.TABLE_REGEX),
@@ -1260,8 +1339,8 @@ var defaultRules: DefaultRules = {
                 return node.align[colIndex] == null
                     ? {}
                     : {
-                          textAlign: node.align[colIndex],
-                      };
+                        textAlign: node.align[colIndex],
+                    };
             };
 
             var headers = node.header.map(function (
@@ -1337,6 +1416,30 @@ var defaultRules: DefaultRules = {
 
             return htmlTag("table", thead + tbody);
         },
+        markdown: function (node, output, state) {
+
+            var headers = node.header
+                .map(function (content: ASTNode, i: number) {
+                    return "|" + output(content, state);
+                })
+                .join("");
+
+            var rows = node.cells
+                .map(function (row: Array<ASTNode>) {
+                    var cols = row
+                        .map(function (content: ASTNode, c: number) {
+                            return "|" + output(content, state);
+                        })
+                        .join("");
+
+                    return "|\n";
+                })
+                .join("");
+
+            var breaks = "|-".repeat(node.header.length) + "|\n";
+
+            return htmlTag("table", headers + breaks + rows);
+        },
     },
     newline: {
         order: currOrder++,
@@ -1346,6 +1449,9 @@ var defaultRules: DefaultRules = {
             return "\n";
         },
         html: function (node, output, state) {
+            return "\n";
+        },
+        markdown: function (node, output, state) {
             return "\n";
         },
     },
@@ -1365,6 +1471,12 @@ var defaultRules: DefaultRules = {
             };
             return htmlTag("div", output(node.content, state), attributes);
         },
+        markdown: function (node, output, state) {
+            var attributes = {
+                class: "paragraph",
+            };
+            return output(node.content, state);
+        },
     },
     escape: {
         order: currOrder++,
@@ -1381,6 +1493,7 @@ var defaultRules: DefaultRules = {
         },
         react: null,
         html: null,
+        markdown: null,
     },
     tableSeparator: {
         order: currOrder++,
@@ -1400,6 +1513,9 @@ var defaultRules: DefaultRules = {
         html: function () {
             return " &vert; ";
         },
+        markdown: function () {
+            return " | ";
+        },
     },
     autolink: {
         order: currOrder++,
@@ -1418,6 +1534,7 @@ var defaultRules: DefaultRules = {
         },
         react: null,
         html: null,
+        markdown: null,
     },
     mailto: {
         order: currOrder++,
@@ -1444,6 +1561,7 @@ var defaultRules: DefaultRules = {
         },
         react: null,
         html: null,
+        markdown:null,
     },
     url: {
         order: currOrder++,
@@ -1463,6 +1581,7 @@ var defaultRules: DefaultRules = {
         },
         react: null,
         html: null,
+        markdown: null,
     },
     link: {
         order: currOrder++,
@@ -1493,6 +1612,14 @@ var defaultRules: DefaultRules = {
             };
 
             return htmlTag("a", output(node.content, state), attributes);
+        },
+        markdown: function (node, output, state) {
+            if (node.title){
+                var titlequotes = "'" + node.title + "'";
+            }else {
+                var titlequotes = "";
+            }
+            return "[" + node.content + "](" + sanitizeUrl(node.target) + " " + titlequotes + ")";
         },
     },
     image: {
@@ -1530,6 +1657,14 @@ var defaultRules: DefaultRules = {
 
             return htmlTag("img", "", attributes, false);
         },
+        markdown: function (node, output, state) {
+            if (node.title){
+                var titlequotes = "'" + node.title + "'";
+            }else {
+                var titlequotes = "";
+            }
+            return "![" + node.content + "](" + sanitizeUrl(node.target) + " " + titlequotes + ")";
+        },
     },
     reflink: {
         order: currOrder++,
@@ -1551,6 +1686,7 @@ var defaultRules: DefaultRules = {
         },
         react: null,
         html: null,
+        markdown: null,
     },
     refimage: {
         order: currOrder++,
@@ -1572,6 +1708,7 @@ var defaultRules: DefaultRules = {
         },
         react: null,
         html: null,
+        markdown: null,
     },
     em: {
         order: currOrder /* same as strong/u */,
@@ -1620,6 +1757,9 @@ var defaultRules: DefaultRules = {
         html: function (node, output, state) {
             return htmlTag("em", output(node.content, state));
         },
+        markdown: function (node, output, state) {
+            return "*" +  output(node.content, state) + "*";
+        },
     },
     strong: {
         order: currOrder /* same as em */,
@@ -1637,6 +1777,9 @@ var defaultRules: DefaultRules = {
         html: function (node, output, state) {
             return htmlTag("strong", output(node.content, state));
         },
+        markdown: function (node, output, state){
+            return "**" + output(node.content, state) + "**";
+        }
     },
     u: {
         order: currOrder++ /* same as em&strong; increment for next rule */,
@@ -1654,6 +1797,9 @@ var defaultRules: DefaultRules = {
         html: function (node, output, state) {
             return htmlTag("u", output(node.content, state));
         },
+        markdown: function (node, output, state) {
+            return "__" + output(node.content, state) + "__";
+        }
     },
     del: {
         order: currOrder++,
@@ -1669,6 +1815,9 @@ var defaultRules: DefaultRules = {
         html: function (node, output, state) {
             return htmlTag("del", output(node.content, state));
         },
+        markdown: function (node, output, state){
+            return "~~" + output(node.content, state) + "~~";
+        }
     },
     inlineCode: {
         order: currOrder++,
@@ -1689,6 +1838,9 @@ var defaultRules: DefaultRules = {
         html: function (node, output, state) {
             return htmlTag("code", sanitizeText(node.content));
         },
+        markdown: function (node, output, state) {
+            return "`" + node.content + "`";
+        }
     },
     br: {
         order: currOrder++,
@@ -1700,6 +1852,10 @@ var defaultRules: DefaultRules = {
         html: function (node, output, state) {
             return "<br>";
         },
+        markdown: function(node, output, state){
+            return "  \n"
+        }
+
     },
     text: {
         order: currOrder++,
@@ -1721,6 +1877,9 @@ var defaultRules: DefaultRules = {
         html: function (node, output, state) {
             return sanitizeText(node.content);
         },
+        markdown: function(node, output, state){
+            return node.content;
+        }
     },
 };
 
@@ -1790,6 +1949,22 @@ var reactFor = function (outputFunc: ReactNodeOutput): ReactOutput {
  */
 var htmlFor = function (outputFunc: HtmlNodeOutput): HtmlOutput {
     var nestedOutput: HtmlOutput = function (ast, state) {
+        state = state || {};
+        if (Array.isArray(ast)) {
+            return ast
+                .map(function (node) {
+                    return nestedOutput(node, state);
+                })
+                .join("");
+        } else {
+            return outputFunc(ast, nestedOutput, state);
+        }
+    };
+    return nestedOutput;
+};
+
+var markdownFor = function (outputFunc: MarkdownNodeOutput): MarkdownOutput {
+    var nestedOutput: MarkdownOutput = function (ast, state) {
         state = state || {};
         if (Array.isArray(ast)) {
             return ast
@@ -1887,6 +2062,7 @@ var defaultImplicitParse = function (
 
 var defaultReactOutput: ReactOutput = outputFor(defaultRules, "react");
 var defaultHtmlOutput: HtmlOutput = outputFor(defaultRules, "html");
+var defaultMarkdownOutput: MarkdownOutput = outputFor(defaultRules, "markdown");
 
 var markdownToReact = function (
     source: string,
@@ -1897,6 +2073,9 @@ var markdownToReact = function (
 
 var markdownToHtml = function (source: string, state?: State | null): string {
     return defaultHtmlOutput(defaultBlockParse(source, state), state);
+};
+var markdownToMarkdown = function (source: string, state?: State | null): string {
+    return defaultMarkdownOutput(defaultBlockParse(source, state), state);
 };
 
 // TODO: This needs definition
@@ -1934,6 +2113,7 @@ type Exports = {
     ) => NodeOutput<any>;
     readonly reactFor: (arg1: ReactNodeOutput) => ReactOutput;
     readonly htmlFor: (arg1: HtmlNodeOutput) => HtmlOutput;
+    readonly markdownFor: (arg1: MarkdownNodeOutput) => MarkdownOutput;
     readonly inlineRegex: (regex: RegExp) => MatchFunction;
     readonly blockRegex: (regex: RegExp) => MatchFunction;
     readonly anyScopeRegex: (regex: RegExp) => MatchFunction;
@@ -1952,6 +2132,10 @@ type Exports = {
         state?: State | null | undefined,
     ) => ReactElements;
     readonly markdownToHtml: (
+        source: string,
+        state?: State | null | undefined,
+    ) => string;
+    readonly markdownToMarkdown: (
         source: string,
         state?: State | null | undefined,
     ) => string;
@@ -1977,6 +2161,7 @@ type Exports = {
     ) => Array<SingleASTNode>;
     readonly defaultReactOutput: ReactOutput;
     readonly defaultHtmlOutput: HtmlOutput;
+    readonly defaultMarkdownOutput: MarkdownOutput;
     readonly preprocess: (source: string) => string;
     readonly sanitizeText: (text: Attr) => string;
     readonly sanitizeUrl: (
@@ -2019,6 +2204,7 @@ export type {
     Output,
     ReactOutput,
     HtmlOutput,
+    MarkdownOutput,
     // Most of the following types should be considered experimental and
     // subject to change or change names. Again, they shouldn't be necessary,
     // but if they are I'd love to hear how so I can better support them!
@@ -2034,12 +2220,14 @@ export type {
     ParserRule,
     ReactOutputRule,
     HtmlOutputRule,
+    MarkdownOutputRule,
     // Sets of rules:
     ParserRules,
     OutputRules,
     Rules,
     ReactRules,
     HtmlRules,
+    MarkdownRules,
     SingleASTNode,
 };
 
@@ -2057,6 +2245,7 @@ var SimpleMarkdown: Exports = {
     // default wrappers:
     markdownToReact: markdownToReact,
     markdownToHtml: markdownToHtml,
+    markdownToMarkdown: markdownToMarkdown,
     ReactMarkdown: ReactMarkdown,
 
     defaultBlockParse: defaultBlockParse,
@@ -2065,6 +2254,7 @@ var SimpleMarkdown: Exports = {
 
     defaultReactOutput: defaultReactOutput,
     defaultHtmlOutput: defaultHtmlOutput,
+    defaultMarkdownOutput: defaultMarkdownOutput,
 
     preprocess: preprocess,
     sanitizeText: sanitizeText,
@@ -2078,6 +2268,7 @@ var SimpleMarkdown: Exports = {
     ruleOutput: ruleOutput,
     reactFor: reactFor,
     htmlFor: htmlFor,
+    markdownFor: markdownFor,
 
     defaultParse: function (...args) {
         if (typeof console !== "undefined") {
