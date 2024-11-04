@@ -8,11 +8,10 @@ import InputWithExamples from "../../components/input-with-examples";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
 import KhanMath from "../../util/math";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 import numericInputValidator from "./numeric-input-validator";
-import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
-import type {NumericInputPromptJSON} from "./prompt-utils";
 import type {
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
@@ -23,6 +22,7 @@ import type {
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
 } from "../../validation.types";
+import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 const formExamples: {
     [key: string]: (

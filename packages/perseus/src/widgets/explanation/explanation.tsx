@@ -10,10 +10,12 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/prompt-utils";
 import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/prompt-utils";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
 
@@ -77,6 +79,10 @@ class Explanation extends React.Component<Props, State> implements Widget {
         });
         this.props.trackInteraction();
     };
+
+    getPromptJSON(): ExplanationPromptJSON {
+        return _getPromptJSON(this.props);
+    }
 
     render(): React.ReactNode {
         const promptText = this.state.expanded

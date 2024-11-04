@@ -1,11 +1,9 @@
-import {WidgetType} from "../../prompt-types";
-
 import {getPromptJSON} from "./prompt-utils";
 
 import type {PerseusRadioUserInput} from "../../validation.types";
 
 describe("Radio getPromptJSON", () => {
-    it("it returns JSON with the expected format and fields", () => {
+    it("should get prompt json which matches the state of the UI", () => {
         const renderProps: any = {
             numCorrect: 1,
             countChoices: false,
@@ -42,7 +40,7 @@ describe("Radio getPromptJSON", () => {
         const resultJSON = getPromptJSON(renderProps, userInput);
 
         expect(resultJSON).toEqual({
-            type: WidgetType.RADIO,
+            type: "radio",
             hasNoneOfTheAbove: false,
             options: [
                 {value: "Content 4"},

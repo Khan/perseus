@@ -1,5 +1,5 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {act, screen, fireEvent, waitFor, within} from "@testing-library/react";
+import {act, screen, fireEvent, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {clone} from "../../../../../../testing/object-utils";
@@ -20,7 +20,6 @@ import {
 import type {PerseusRenderer} from "../../../perseus-types";
 import type {APIOptions} from "../../../types";
 import type {PerseusRadioUserInput} from "../../../validation.types";
-import type {RadioPromptJSON} from "../prompt-utils";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
@@ -879,33 +878,6 @@ describe("multi-choice question", () => {
             expect(renderer).toHaveInvalidInput();
         },
     );
-
-    it("Should get prompt json which matches the state of the UI", async () => {
-        const indexToSelect = 1;
-        const {renderer} = renderQuestion(shuffledQuestion);
-        const widget = renderer.getWidgetInstance("radio 1");
-
-        const radioInputs = screen.getAllByRole("radio");
-        await userEvent.click(radioInputs[indexToSelect]);
-
-        if (!widget) {
-            throw new Error("Failed to render");
-        }
-
-        const json = widget.getPromptJSON?.() as RadioPromptJSON;
-        const listItems = screen.getAllByRole("listitem");
-
-        // Ensure the options are shown in the correct order
-        json.options.forEach((option, i) => {
-            const textNode = within(listItems[i]).getAllByText(option.value);
-            expect(textNode).not.toBeNull();
-        });
-
-        // Ensure the correct choice is selected
-        json.userInput.selectedOptions.forEach((isSelected, i) => {
-            expect(isSelected).toBe(i === indexToSelect);
-        });
-    });
 });
 
 describe("scoring", () => {
