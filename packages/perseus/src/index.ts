@@ -176,6 +176,7 @@ export type {
     JiptLabelStore,
     JiptRenderer,
     PerseusDependencies,
+    PerseusDependenciesV2,
     PerseusScore,
     Version,
     VideoData,
