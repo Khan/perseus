@@ -1,19 +1,18 @@
-import type {WidgetType} from "../../prompt-types";
 import type explanation from "../../widgets/explanation/explanation";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type React from "react";
 
 export type ExplanationPromptJSON = {
-    type: WidgetType;
-    showPrompt: PropsFor<typeof explanation.widget>["showPrompt"];
-    explanation: PropsFor<typeof explanation.widget>["explanation"];
+    type: "explanation";
+    showPrompt: string;
+    explanation: string;
 };
 
 export const getPromptJSON = (
-    renderProps: PropsFor<typeof explanation.widget>,
+    renderProps: React.ComponentProps<typeof explanation.widget>,
 ): ExplanationPromptJSON => {
     return {
         type: "explanation",
-        showPrompt: renderProps.showPrompt || "",
-        explanation: renderProps.explanation || "",
+        showPrompt: renderProps.showPrompt,
+        explanation: renderProps.explanation,
     };
 };

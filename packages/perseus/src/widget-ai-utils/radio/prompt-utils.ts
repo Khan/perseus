@@ -1,27 +1,23 @@
-import type {WidgetType} from "../../prompt-types";
 import type {PerseusRadioUserInput} from "../../validation.types";
 import type radio from "../../widgets/radio/radio";
-import type {RadioChoiceWithMetadata} from "../../widgets/radio/radio-component";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type React from "react";
 
 export type BasicOption = {
-    value: RadioChoiceWithMetadata["content"];
-};
-
-export type RadioUserInput = {
-    selectedOptions: PerseusRadioUserInput["choicesSelected"];
-    isNoneOfTheAboveSelected: PerseusRadioUserInput["noneOfTheAboveSelected"];
+    value: string;
 };
 
 export type RadioPromptJSON = {
-    type: WidgetType;
-    hasNoneOfTheAbove: PropsFor<typeof radio.widget>["hasNoneOfTheAbove"];
+    type: "radio";
+    hasNoneOfTheAbove: boolean;
     options: BasicOption[];
-    userInput: RadioUserInput;
+    userInput: {
+        selectedOptions: ReadonlyArray<boolean>;
+        isNoneOfTheAboveSelected: boolean;
+    };
 };
 
 export const getPromptJSON = (
-    renderProps: PropsFor<typeof radio.widget>,
+    renderProps: React.ComponentProps<typeof radio.widget>,
     userInput: PerseusRadioUserInput,
 ): RadioPromptJSON => {
     const choices = renderProps.choices || [];

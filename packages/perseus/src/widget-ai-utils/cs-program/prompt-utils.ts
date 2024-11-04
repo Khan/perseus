@@ -1,7 +1,5 @@
-import type {WidgetType} from "../../prompt-types";
-
 export type CSProgramPromptJSON = {
-    type: WidgetType;
+    type: "cs-program";
     isSupported: boolean;
 };
 
