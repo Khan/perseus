@@ -1,11 +1,10 @@
-import type {WidgetType} from "../../prompt-types";
 import type {PerseusSorterUserInput} from "../../validation.types";
 
 export type SorterPromptJSON = {
-    type: WidgetType;
+    type: "sorter";
     userInput: {
-        values: PerseusSorterUserInput["options"];
-        changed: PerseusSorterUserInput["changed"];
+        values: ReadonlyArray<string>;
+        changed: boolean;
     };
 };
 

@@ -1,30 +1,27 @@
-import type {WidgetType} from "../../prompt-types";
 import type {PerseusMatrixUserInput} from "../../validation.types";
 import type matrix from "../../widgets/matrix/matrix";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-
-type WidgetProps = PropsFor<typeof matrix.widget>;
+import type React from "react";
 
 export type MatrixPromptJSON = {
-    type: WidgetType;
+    type: "matrix";
     options: {
         height: number;
         width: number;
     };
     userInput: {
-        answerRows: PerseusMatrixUserInput["answers"];
+        answerRows: ReadonlyArray<ReadonlyArray<number>>;
     };
 };
 
 export const getPromptJSON = (
-    renderProps: WidgetProps,
+    renderProps: React.ComponentProps<typeof matrix.widget>,
     userInput: PerseusMatrixUserInput,
 ): MatrixPromptJSON => {
     return {
         type: "matrix",
         options: {
-            height: renderProps.matrixBoardSize?.[0] || 0,
-            width: renderProps.matrixBoardSize?.[1] || 0,
+            height: renderProps.matrixBoardSize[0],
+            width: renderProps.matrixBoardSize[1],
         },
         userInput: {
             answerRows: userInput.answers,
