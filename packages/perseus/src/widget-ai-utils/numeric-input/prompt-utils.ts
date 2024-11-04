@@ -1,24 +1,22 @@
-import type {PerseusNumericInputWidgetOptions} from "../../perseus-types";
-import type {WidgetType} from "../../prompt-types";
 import type {PerseusNumericInputUserInput} from "../../validation.types";
-import type {NumericInput} from "../../widgets/numeric-input/numeric-input";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type numericInput from "../../widgets/numeric-input/numeric-input";
+import type React from "react";
 
 export type NumericInputPromptJSON = {
-    type: WidgetType;
-    label: PerseusNumericInputWidgetOptions["labelText"];
+    type: "numeric-input";
+    label: string;
     userInput: {
-        value: PerseusNumericInputUserInput["currentValue"];
+        value: string;
     };
 };
 
 export const getPromptJSON = (
-    renderProps: PropsFor<typeof NumericInput>,
+    renderProps: React.ComponentProps<typeof numericInput.widget>,
     userInput: PerseusNumericInputUserInput,
 ): NumericInputPromptJSON => {
     return {
         type: "numeric-input",
-        label: renderProps.labelText || "",
+        label: renderProps.labelText,
         userInput: {
             value: userInput.currentValue,
         },
