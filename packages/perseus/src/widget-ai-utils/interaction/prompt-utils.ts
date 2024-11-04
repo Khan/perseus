@@ -1,11 +1,8 @@
-export type InteractionPromptJSON = {
-    type: "interaction";
-    isSupported: boolean;
-};
+import {
+    type UnsupportedWidgetPromptJSON,
+    getUnsupportedPromptJSON,
+} from "../unsupported-widget";
 
-export const getPromptJSON = (): InteractionPromptJSON => {
-    return {
-        type: "interaction",
-        isSupported: false,
-    };
+export const getPromptJSON = (): UnsupportedWidgetPromptJSON => {
+    return getUnsupportedPromptJSON("interaction");
 };

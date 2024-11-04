@@ -1,11 +1,8 @@
-export type CSProgramPromptJSON = {
-    type: "cs-program";
-    isSupported: boolean;
-};
+import {
+    type UnsupportedWidgetPromptJSON,
+    getUnsupportedPromptJSON,
+} from "../unsupported-widget";
 
-export const getPromptJSON = (): CSProgramPromptJSON => {
-    return {
-        type: "cs-program",
-        isSupported: false,
-    };
+export const getPromptJSON = (): UnsupportedWidgetPromptJSON => {
+    return getUnsupportedPromptJSON("cs-program");
 };
