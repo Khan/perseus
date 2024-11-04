@@ -1,7 +1,7 @@
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {InteractionPromptJSON} from "./prompt-utils";
 import type {PerseusRenderer} from "../../perseus-types";
+import type {UnsupportedWidgetPromptJSON} from "../unsupported-widget";
 
 const question1: PerseusRenderer = {
     content:
@@ -270,7 +270,7 @@ describe("interaction widget", () => {
         const widget = renderer.getWidgetInstance("interaction 1");
 
         // Act
-        const json = widget?.getPromptJSON?.() as InteractionPromptJSON;
+        const json = widget?.getPromptJSON?.() as UnsupportedWidgetPromptJSON;
 
         // Assert
         expect(json).toEqual({

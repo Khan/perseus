@@ -17,7 +17,7 @@ import type {
     PerseusInteractionWidgetOptions,
 } from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {InteractionPromptJSON} from "../../widget-ai-utils/interaction/prompt-utils";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 // @ts-expect-error - TS2339 - Property 'Label' does not exist on type 'typeof Graphie'.
 const Label = Graphie.Label;
@@ -251,7 +251,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
         return Changeable.change.apply(this, args);
     };
 
-    getPromptJSON(): InteractionPromptJSON {
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();
     }
 

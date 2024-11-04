@@ -2,8 +2,8 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {CSProgramPromptJSON} from "./prompt-utils";
 import type {PerseusRenderer} from "../../perseus-types";
+import type {UnsupportedWidgetPromptJSON} from "../unsupported-widget";
 
 export const question1: PerseusRenderer = {
     content: "[[\u2603 cs-program 1]]\n\n",
@@ -49,7 +49,7 @@ describe("cs-program widget", () => {
         const widget = renderer.getWidgetInstance("cs-program 1");
 
         // Act
-        const json = widget?.getPromptJSON?.() as CSProgramPromptJSON;
+        const json = widget?.getPromptJSON?.() as UnsupportedWidgetPromptJSON;
 
         // Assert
         expect(json).toEqual({

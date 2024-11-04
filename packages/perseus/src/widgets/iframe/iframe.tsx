@@ -25,7 +25,7 @@ import type {
     PerseusIFrameUserInput,
     UserInputStatus,
 } from "../../validation.types";
-import type {IFramePromptJSON} from "../../widget-ai-utils/iframe/prompt-utils";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 const {updateQueryString} = Util;
 
@@ -67,8 +67,8 @@ class Iframe extends React.Component<Props> implements Widget {
         return {status: this.props.status, message: this.props.message};
     }
 
-    getPromptJSON(): IFramePromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
     }
 
     handleMessageEvent: (arg1: any) => void = (e) => {
