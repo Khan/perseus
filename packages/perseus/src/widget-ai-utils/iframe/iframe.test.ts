@@ -1,7 +1,7 @@
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {IFramePromptJSON} from "./prompt-utils";
 import type {PerseusRenderer} from "../../perseus-types";
+import type {WidgetPromptJSON} from "../../prompt-types";
 
 const question1: PerseusRenderer = {
     content: "Try matching the target image\n[[\u2603 iframe 1]]\n",
@@ -44,18 +44,12 @@ describe("iframe widget", () => {
         const widget = renderer.getWidgetInstance("iframe 1");
 
         // Act
-        const json = widget?.getPromptJSON?.() as IFramePromptJSON;
+        const json = widget?.getPromptJSON?.();
 
         // Assert
         expect(json).toEqual({
             type: "iframe",
-            options: {
-                url: question1.widgets["iframe 1"].options.url,
-            },
-            userInput: {
-                message: null,
-                status: "incomplete",
-            },
+            isSupported: false,
         });
     });
 });
