@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 41.1.0
+
+### Minor Changes
+
+-   [#1821](https://github.com/Khan/perseus/pull/1821) [`b14d19160`](https://github.com/Khan/perseus/commit/b14d19160f6461c90290500519fe9d54bbc70c11) Thanks [@handeyeco](https://github.com/handeyeco)! - Export PerseusDependenciesV2 from Perseus
+
 ## 41.0.0
 
 ### Major Changes
