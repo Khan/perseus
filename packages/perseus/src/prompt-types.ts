@@ -4,7 +4,6 @@ import type {DropdownPromptJSON} from "./widget-ai-utils/dropdown/prompt-utils";
 import type {ExplanationPromptJSON} from "./widget-ai-utils/explanation/prompt-utils";
 import type {ExpressionPromptJSON} from "./widget-ai-utils/expression/prompt-utils";
 import type {GrapherPromptJSON} from "./widget-ai-utils/grapher/prompt-utils";
-import type {IFramePromptJSON} from "./widget-ai-utils/iframe/prompt-utils";
 import type {ImagePromptJSON} from "./widget-ai-utils/image/prompt-utils";
 import type {InputNumberPromptJSON} from "./widget-ai-utils/input-number/prompt-utils";
 import type {LabelImagePromptJSON} from "./widget-ai-utils/label-image/prompt-utils";
@@ -19,7 +18,6 @@ export type WidgetType =
     | "explanation"
     | "expression"
     | "grapher"
-    | "iframe"
     | "image"
     | "input-number"
     | "label-image"
@@ -27,7 +25,7 @@ export type WidgetType =
     | "radio"
     | "numeric-input";
 
-export type UnsupportedWidget = "cs-program" | "interaction";
+export type UnsupportedWidget = "cs-program" | "iframe" | "interaction";
 
 export type WidgetPromptJSON =
     | CategorizerPromptJSON
@@ -37,7 +35,6 @@ export type WidgetPromptJSON =
     | DropdownPromptJSON
     | GrapherPromptJSON
     | RadioPromptJSON
-    | IFramePromptJSON
     | ImagePromptJSON
     | InputNumberPromptJSON
     | LabelImagePromptJSON
