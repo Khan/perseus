@@ -19,8 +19,9 @@ import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 
 /* Graphie and relevant components. */
 /* Mixins. */
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/grapher/prompt-utils";
+
 import grapherValidator from "./grapher-validator";
-import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 import {
     DEFAULT_GRAPHER_PROPS,
     chooseType,
@@ -31,7 +32,6 @@ import {
     typeToButton,
 } from "./util";
 
-import type {GrapherPromptJSON} from "./prompt-utils";
 import type {Coord, Line} from "../../interactive2/types";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusGrapherWidgetOptions} from "../../perseus-types";
@@ -41,6 +41,7 @@ import type {
     PerseusGrapherRubric,
     PerseusGrapherUserInput,
 } from "../../validation.types";
+import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/prompt-utils";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.

@@ -8,17 +8,16 @@ import _ from "underscore";
 import Graphie from "../../components/graphie";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction/prompt-utils";
 import noopValidator from "../__shared__/noop-validator";
 
-import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
-
-import type {InteractionPromptJSON} from "./prompt-utils";
 import type {Coord} from "../../interactive2/types";
 import type {
     PerseusInteractionElement,
     PerseusInteractionWidgetOptions,
 } from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {InteractionPromptJSON} from "../../widget-ai-utils/interaction/prompt-utils";
 
 // @ts-expect-error - TS2339 - Property 'Label' does not exist on type 'typeof Graphie'.
 const Label = Graphie.Label;

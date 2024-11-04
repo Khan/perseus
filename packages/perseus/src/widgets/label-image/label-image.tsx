@@ -20,14 +20,13 @@ import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import {bodyXsmallBold} from "../../styles/global-styles";
 import mediaQueries from "../../styles/media-queries";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/label-image/prompt-utils";
 
 import AnswerChoices from "./answer-choices";
 import {HideAnswersToggle} from "./hide-answers-toggle";
 import labelImageValidator, {scoreMarker} from "./label-image-validator";
 import Marker from "./marker";
-import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
-import type {LabelImagePromptJSON} from "./prompt-utils";
 import type {InteractiveMarkerType} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
@@ -37,6 +36,7 @@ import type {
     PerseusLabelImageRubric,
     PerseusLabelImageUserInput,
 } from "../../validation.types";
+import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/prompt-utils";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 

@@ -1,23 +1,20 @@
-import type inputNumber from "./input-number";
-import type {WidgetType} from "../../prompt-types";
 import type {PerseusInputNumberUserInput} from "../../validation.types";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-
-type WidgetProps = PropsFor<typeof inputNumber.widget>;
+import type inputNumber from "../../widgets/input-number/input-number";
+import type React from "react";
 
 export type InputNumberPromptJSON = {
-    type: WidgetType;
+    type: "input-number";
     options: {
-        simplify: WidgetProps["simplify"];
-        answerType: WidgetProps["answerType"];
+        simplify: string;
+        answerType: string;
     };
     userInput: {
-        value: PerseusInputNumberUserInput["currentValue"];
+        value: string;
     };
 };
 
 export const getPromptJSON = (
-    renderProps: WidgetProps,
+    renderProps: React.ComponentProps<typeof inputNumber.widget>,
     userInput: PerseusInputNumberUserInput,
 ): InputNumberPromptJSON => {
     return {

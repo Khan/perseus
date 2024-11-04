@@ -1,7 +1,5 @@
-import type {WidgetType} from "../../prompt-types";
-
 export type InteractionPromptJSON = {
-    type: WidgetType;
+    type: "interaction";
     isSupported: boolean;
 };
 

@@ -1,23 +1,20 @@
-import type iframe from "./iframe";
-import type {WidgetType} from "../../prompt-types";
 import type {PerseusIFrameUserInput} from "../../validation.types";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-
-type WidgetProps = PropsFor<typeof iframe.widget>;
+import type iframe from "../../widgets/iframe/iframe";
+import type React from "react";
 
 export type IFramePromptJSON = {
-    type: WidgetType;
+    type: "iframe";
     options: {
-        url: WidgetProps["url"];
+        url: string;
     };
     userInput: {
-        message: PerseusIFrameUserInput["message"];
-        status: PerseusIFrameUserInput["status"];
+        message: string | null;
+        status: string;
     };
 };
 
 export const getPromptJSON = (
-    renderProps: WidgetProps,
+    renderProps: React.ComponentProps<typeof iframe.widget>,
     userInput: PerseusIFrameUserInput,
 ): IFramePromptJSON => {
     return {
