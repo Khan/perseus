@@ -9,11 +9,10 @@ import Sortable from "../../components/sortable";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/prompt-utils";
 
 import matcherValidator from "./matcher-validator";
-import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
-import type {MatcherPromptJSON} from "./prompt-utils";
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusMatcherWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
@@ -21,6 +20,7 @@ import type {
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
 } from "../../validation.types";
+import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/prompt-utils";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";

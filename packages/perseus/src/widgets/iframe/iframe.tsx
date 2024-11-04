@@ -14,11 +14,10 @@ import _ from "underscore";
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/prompt-utils";
 
 import {iframeValidator} from "./iframe-validator";
-import {getPromptJSON as _getPromptJSON} from "./prompt-utils";
 
-import type {IFramePromptJSON} from "./prompt-utils";
 import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
@@ -26,6 +25,7 @@ import type {
     PerseusIFrameUserInput,
     UserInputStatus,
 } from "../../validation.types";
+import type {IFramePromptJSON} from "../../widget-ai-utils/iframe/prompt-utils";
 
 const {updateQueryString} = Util;
 

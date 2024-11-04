@@ -1,5 +1,3 @@
-import {WidgetType} from "../../prompt-types";
-
 import {getPromptJSON} from "./prompt-utils";
 
 describe("Grapher getPromptJSON", () => {
@@ -27,7 +25,7 @@ describe("Grapher getPromptJSON", () => {
         const resultJSON = getPromptJSON(renderProps, userInput);
 
         expect(resultJSON).toEqual({
-            type: WidgetType.GRAPHER,
+            type: "grapher",
             options: {
                 availableTypes: renderProps.availableTypes,
                 range: renderProps.graph.range,
@@ -72,7 +70,7 @@ describe("Grapher getPromptJSON", () => {
         const resultJSON = getPromptJSON(renderProps, userInput);
 
         expect(resultJSON).toEqual({
-            type: WidgetType.GRAPHER,
+            type: "grapher",
             options: {
                 availableTypes: renderProps.availableTypes,
                 range: renderProps.graph.range,

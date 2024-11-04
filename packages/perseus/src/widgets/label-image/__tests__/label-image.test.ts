@@ -11,7 +11,6 @@ import {LabelImage} from "../label-image";
 
 import {textQuestion} from "./label-image.testdata";
 
-import type {LabelImagePromptJSON} from "../prompt-utils";
 import type {UserEvent} from "@testing-library/user-event";
 
 const emptyMarker = {
@@ -708,74 +707,6 @@ describe("LabelImage", function () {
                 type: "perseus:label-image:choiced-interacted-with",
                 payload: null,
             });
-        });
-    });
-
-    it("should get prompt json which matches the state of the UI", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(textQuestion);
-        const widget = renderer.getWidgetInstance("label-image 1");
-        const questionOptions = textQuestion.widgets["label-image 1"].options;
-
-        // Act
-        const toggleAnswerSwitch = await screen.findByRole("switch");
-        await userEvent.click(toggleAnswerSwitch);
-
-        // Toggle the button
-        const markerButton = await screen.findByLabelText(
-            questionOptions.markers[0].label,
-        );
-        await userEvent.click(markerButton);
-
-        // Select a choice
-        const choices = await screen.findAllByText(questionOptions.choices[3]);
-        const choice = choices[choices.length - 1];
-        await userEvent.click(choice);
-
-        const json = widget?.getPromptJSON?.() as LabelImagePromptJSON;
-
-        // Assert
-        expect(json).toEqual({
-            type: "label-image",
-            options: {
-                choices: questionOptions.choices,
-                imageUrl: questionOptions.imageUrl,
-                imageAlt: questionOptions.imageAlt,
-                markers: [
-                    {
-                        label: questionOptions.markers[0].label,
-                    },
-                    {
-                        label: questionOptions.markers[1].label,
-                    },
-                    {
-                        label: questionOptions.markers[2].label,
-                    },
-                    {
-                        label: questionOptions.markers[3].label,
-                    },
-                ],
-            },
-            userInput: {
-                markers: [
-                    {
-                        label: questionOptions.markers[0].label,
-                        selected: [questionOptions.choices[3]],
-                    },
-                    {
-                        label: questionOptions.markers[1].label,
-                        selected: undefined,
-                    },
-                    {
-                        label: questionOptions.markers[2].label,
-                        selected: undefined,
-                    },
-                    {
-                        label: questionOptions.markers[3].label,
-                        selected: undefined,
-                    },
-                ],
-            },
         });
     });
 });

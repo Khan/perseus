@@ -5,8 +5,6 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./interaction.testdata";
 
-import type {InteractionPromptJSON} from "./prompt-utils";
-
 describe("interaction widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -32,20 +30,5 @@ describe("interaction widget", () => {
         // Note that this widget can never be answered correctly, no matter
         // what state its in.
         expect(renderer).toHaveBeenAnsweredIncorrectly();
-    });
-
-    it("should get prompt json", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(question1);
-        const widget = renderer.getWidgetInstance("interaction 1");
-
-        // Act
-        const json = widget?.getPromptJSON?.() as InteractionPromptJSON;
-
-        // Assert
-        expect(json).toEqual({
-            type: "interaction",
-            isSupported: false,
-        });
     });
 });

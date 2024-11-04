@@ -1,25 +1,22 @@
-import type labelImage from "./label-image";
-import type {WidgetType} from "../../prompt-types";
 import type {PerseusLabelImageUserInput} from "../../validation.types";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-
-type WidgetProps = PropsFor<typeof labelImage.widget>;
+import type labelImage from "../../widgets/label-image/label-image";
+import type React from "react";
 
 type BaseMarker = {
-    label: WidgetProps["markers"][0]["label"];
+    label: string;
 };
 
 type UserInputMarker = {
-    label: PerseusLabelImageUserInput["markers"][0]["label"];
-    selected: PerseusLabelImageUserInput["markers"][0]["selected"];
+    label: string;
+    selected?: ReadonlyArray<string>;
 };
 
 export type LabelImagePromptJSON = {
-    type: WidgetType;
+    type: "label-image";
     options: {
-        choices: WidgetProps["choices"];
-        imageUrl: WidgetProps["imageUrl"];
-        imageAlt: WidgetProps["imageAlt"];
+        choices: ReadonlyArray<string>;
+        imageUrl: string;
+        imageAlt: string;
         markers: BaseMarker[];
     };
     userInput: {
@@ -28,7 +25,7 @@ export type LabelImagePromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: WidgetProps,
+    renderProps: React.ComponentProps<typeof labelImage.widget>,
     userInput: PerseusLabelImageUserInput,
 ): LabelImagePromptJSON => {
     const propMarkers = renderProps.markers.map((marker) => {
