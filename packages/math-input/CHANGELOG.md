@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 21.1.4
+
+### Patch Changes
+
+-   [#1802](https://github.com/Khan/perseus/pull/1802) [`d6381f773`](https://github.com/Khan/perseus/commit/d6381f7737ff44f1ec3d91c4ab25ce51f47b35b9) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Improve prop types for various components
+
 ## 21.1.3
 
 ### Patch Changes
