@@ -276,20 +276,10 @@ describe("expression-editor", () => {
             {
                 answerForms: [
                     {
-                        buttonSets: ["basic"],
-                        buttonsVisible: "focused",
                         considered: "correct",
                         form: false,
-                        functions: ["f", "g", "h"],
                         key: "0",
-                        linterContext: {
-                            contentType: "",
-                            highlightLint: false,
-                            paths: [],
-                            stack: [],
-                        },
                         simplify: false,
-                        times: false,
                         value: "9",
                     },
                 ],

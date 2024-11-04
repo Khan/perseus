@@ -103,7 +103,8 @@ class ExpressionEditor extends React.Component<Props, State> {
         functions: ["f", "g", "h"],
     };
 
-    constructor(props) {
+    constructor(props: Props) {
+        console.log(props);
         super(props);
         this.state = {
             functionsInternal: this.props.functions.join(" "),
@@ -217,18 +218,24 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     // called when the options (including the expression itself) to an answer
     // form change
-    updateForm: (i: number, props: PerseusExpressionAnswerForm[]) => void = (
-        i,
-        props,
-    ) => {
-        console.log(props);
-        // const answerForms = lens(this.props.answerForms)
-        //     .merge([i], props)
-        //     .freeze();
+    updateForm: (i: number, value: string) => void = (i, value) => {
+        console.log(value);
+        const answerForms = lens(this.props.answerForms)
+            .merge([i], {value: value})
+            .freeze();
         //const answerForms = props[i];
-        const answerForms;
+        // const answerForms: PerseusExpressionAnswerForm[] = lens(
+        //     this.props.answerForms,
+        // );
+        // answerForms[i] = {
+        //     value: props.value,
+        //     form: props.form,
+        //     simplify: props.simplify,
+        //     considered: props.considered,
+        //     key: props.key,
+        // };
 
-        console.log(`props: ${JSON.stringify(props)}`);
+        //console.log(`props: ${JSON.stringify(props)}`);
         console.log(answerForms);
 
         this.change({answerForms});
@@ -296,6 +303,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     // called when the function variables change
     handleFunctions: (value: string) => void = (value) => {
+        console.log(value);
         this.setState({functionsInternal: value});
         const newProps: Record<string, any> = {};
         newProps.functions = value.split(/[ ,]+/).filter(isTruthy);
@@ -306,6 +314,8 @@ class ExpressionEditor extends React.Component<Props, State> {
         const answerOptions: React.JSX.Element[] = this.props.answerForms
             .map((ans: AnswerForm) => {
                 const key = parseAnswerKey(ans);
+
+                console.log(this.props);
 
                 const expressionProps = {
                     // note we're using
@@ -320,7 +330,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     simplify: ans.simplify,
                     value: ans.value,
 
-                    onChange: (props) => this.updateForm(key, props),
+                    onChange: (props) => this.updateForm(key, props.value),
                     trackInteraction: () => {},
 
                     widgetId: this.props.widgetId + "-" + ans.key,
@@ -330,11 +340,13 @@ class ExpressionEditor extends React.Component<Props, State> {
                     .merge([], {
                         key,
                         draggable: true,
-                        onChange: (props) =>
+                        onChange: (props) => {
+                            console.log(props.answerForm.value);
                             this.updateForm(
                                 Number.parseInt(ans.key ?? ""),
-                                props,
-                            ),
+                                props.answerForm,
+                            );
+                        },
                         onDelete: () => this.handleRemoveForm(key),
                         expressionProps: expressionProps,
                         simplify: false,
