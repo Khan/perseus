@@ -8,7 +8,8 @@ import {
     ApiOptions,
     buildEmptyItemTreeForShape,
     components,
-    icons,
+    iconChevronDown,
+    iconTrash,
     itemToTree,
     MultiItems,
 } from "@khanacademy/perseus";
@@ -48,7 +49,6 @@ import type {
 } from "@khanacademy/perseus";
 
 const {InlineIcon} = components;
-const {iconChevronDown, iconTrash} = icons;
 const {MultiRenderer} = MultiItems;
 
 // TODO(CP-4849): figure out when $ReadOnlyArray<number> vs $ReadOnlyArray<string> should be used

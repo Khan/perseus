@@ -429,7 +429,6 @@ describe("group widget", () => {
                       false,
                       true,
                     ],
-                    "countChoices": false,
                     "noneOfTheAboveIndex": null,
                     "noneOfTheAboveSelected": false,
                     "numCorrect": 1,

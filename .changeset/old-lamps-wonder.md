@@ -3,4 +3,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Remove unused types
+Improve prop types for various components

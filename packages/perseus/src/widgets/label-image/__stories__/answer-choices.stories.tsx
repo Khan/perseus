@@ -44,7 +44,7 @@ const defaultChoices = [
     },
 ];
 
-const WithState = ({multipleSelect}) => {
+const WithState = ({multipleSelect = false}) => {
     const [choices, setChoices] = React.useState([...defaultChoices]);
     const [isOpened, setIsOpened] = React.useState(false);
 
@@ -76,10 +76,6 @@ const WithState = ({multipleSelect}) => {
             </>
         </>
     );
-};
-
-WithState.defaultProps = {
-    multipleSelect: false,
 };
 
 export const SingleSelect = (args: StoryArgs): React.ReactElement => {

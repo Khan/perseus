@@ -14,11 +14,26 @@ import {
     useTransformVectorsToPixels,
 } from "./use-transform";
 
-import type {CircleGraphState, MafsGraphProps} from "../types";
+import type {
+    CircleGraphState,
+    Dispatch,
+    InteractiveGraphElementSuite,
+    MafsGraphProps,
+} from "../types";
+
+export function renderCircleGraph(
+    state: CircleGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <CircleGraph graphState={state} dispatch={dispatch} />,
+        interactiveElementsDescription: null,
+    };
+}
 
 type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 
-export function CircleGraph(props: CircleGraphProps) {
+function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
     const {center, radiusPoint} = graphState;
 

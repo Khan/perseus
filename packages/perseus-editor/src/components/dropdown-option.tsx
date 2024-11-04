@@ -5,22 +5,16 @@
  * OptionGroup which is an internal component used in the dropdowns to house
  * a list of options.
  **/
-import {components, globalStyles} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import {gray17, gray76, gray95} from "../styles/global-colors";
+
 import {focusWithChromeStickyFocusBugWorkaround} from "./util";
 
-type OptionRenderer = (
-    children: React.ReactElement<any> | null | undefined,
-    value: string,
-    selected: boolean,
-    disabled?: boolean,
-) => React.ReactElement<any>;
-
 const {Icon} = components;
-const {colors} = globalStyles;
 
 const findAndFocusElement = (component?: Element | null) => {
     const DOMNode: Element | Text | null | undefined =
@@ -43,8 +37,6 @@ type Props = {
     disabled?: boolean;
     // An event when an option is clicked
     onClick?: () => void;
-    // An optional rendering function to render the details of the option
-    optionRenderer?: OptionRenderer;
     // An optional function to call when the dropdown should close
     // Only relevant if the Option is inside of a dropdown menu
     onDropdownClose?: () => void;
@@ -105,7 +97,6 @@ class Option extends React.Component<Props> {
             value,
             onClick,
             children,
-            optionRenderer,
             disabled,
             hideFocusState,
             testId,
@@ -137,35 +128,20 @@ class Option extends React.Component<Props> {
                 aria-label={ariaLabel}
                 data-testid={testId}
             >
-                {optionRenderer &&
-                    optionRenderer(
-                        /**
-                         * This expects a `React.Element<>` but `children` is a
-                         * `React.Node`. We can convert a `React.Node` to a
-                         * `React.Element<>` by wrapping it in a fragment.
-                         */
-                        <>{children}</>,
-                        value || "",
-                        selected || false,
-                        disabled,
+                <span
+                    className={css(
+                        styles.option,
+                        selected && styles.optionSelected,
+                        disabled && styles.optionDisabled,
                     )}
-
-                {!optionRenderer && (
-                    <span
-                        className={css(
-                            styles.option,
-                            selected && styles.optionSelected,
-                            disabled && styles.optionDisabled,
-                        )}
-                    >
-                        {children}
-                        {selected && (
-                            <span className={css(styles.check)}>
-                                <Icon icon={check} />
-                            </span>
-                        )}
-                    </span>
-                )}
+                >
+                    {children}
+                    {selected && (
+                        <span className={css(styles.check)}>
+                            <Icon icon={check} />
+                        </span>
+                    )}
+                </span>
             </button>
         );
     }
@@ -182,8 +158,6 @@ class OptionGroup extends React.Component<{
     children?: Array<React.ReactElement<React.ComponentProps<typeof Option>>>;
     // The currently selected options
     selectedValues: Array<string>;
-    // An optional rendering function to render the details of the options
-    optionRenderer?: OptionRenderer;
     // An override to skip the bit of top/bottom spacing around the group
     noMargin?: boolean;
     // An optional function to call when the dropdown should close
@@ -207,7 +181,6 @@ class OptionGroup extends React.Component<{
             children,
             onSelected,
             selectedValues,
-            optionRenderer,
             noMargin,
             onDropdownClose,
             hideFocusState,
@@ -239,7 +212,6 @@ class OptionGroup extends React.Component<{
                         selected: selected,
                         // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                         onClick: () => onSelected(child.props.value),
-                        optionRenderer: optionRenderer,
                         ref: reference,
                         onDropdownClose: onDropdownClose,
                         hideFocusState: hideFocusState,
@@ -267,19 +239,19 @@ const styles = StyleSheet.create({
         whiteSpace: "nowrap",
         overflow: "hidden",
         textOverflow: "ellipsis",
-        color: colors.gray17,
+        color: gray17,
         userSelect: "none",
 
         ":hover": {
-            backgroundColor: colors.gray95,
+            backgroundColor: gray95,
         },
     },
     optionSelected: {
-        backgroundColor: colors.gray95,
+        backgroundColor: gray95,
         color: "#11ACCD",
     },
     optionDisabled: {
-        color: colors.gray76,
+        color: gray76,
         ":hover": {
             backgroundColor: "transparent",
         },

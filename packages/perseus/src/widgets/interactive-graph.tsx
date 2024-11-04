@@ -2374,9 +2374,6 @@ export function shouldUseMafs(
             return Boolean(mafsFlags["point"]);
         case "polygon":
             if (graph.numSides === UNLIMITED) {
-                // TODO(benchristel): add a feature flag for the "unlimited"
-                // case once we've implemented polygon graphs with unlimited
-                // sides
                 return Boolean(mafsFlags["unlimited-polygon"]);
             }
             return Boolean(mafsFlags["polygon"]);

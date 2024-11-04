@@ -1,5 +1,39 @@
 # @khanacademy/perseus-dev-ui
 
+## 3.1.0
+
+### Minor Changes
+
+-   [#1764](https://github.com/Khan/perseus/pull/1764) [`c2e678e5c`](https://github.com/Khan/perseus/commit/c2e678e5c109a8e0161907fea54aacb572e16bb3) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding new interactive graph type "unlimited-points" for mafs.
+
+### Patch Changes
+
+-   Updated dependencies [[`14d0764e4`](https://github.com/Khan/perseus/commit/14d0764e4498dae81921a91e5202291461b52374), [`b119147fc`](https://github.com/Khan/perseus/commit/b119147fc042bf71193d61f9cea99b5f3d73b484)]:
+    -   @khanacademy/perseus-linter@1.2.4
+    -   @khanacademy/kas@0.3.16
+    -   @khanacademy/kmath@0.1.16
+    -   @khanacademy/math-input@21.1.3
+    -   @khanacademy/perseus-core@1.5.3
+    -   @khanacademy/pure-markdown@0.3.11
+    -   @khanacademy/simple-markdown@0.13.4
+
+## 3.0.11
+
+### Patch Changes
+
+-   Updated dependencies [[`f3139edfe`](https://github.com/Khan/perseus/commit/f3139edfeb5f8b6faf0e537961165e3d3499c30b)]:
+    -   @khanacademy/math-input@21.1.2
+
+## 3.0.10
+
+### Patch Changes
+
+-   [#1776](https://github.com/Khan/perseus/pull/1776) [`d05a4a228`](https://github.com/Khan/perseus/commit/d05a4a22895c2c939e5c90a9b412ddfaaa0ba2f0) Thanks [@handeyeco](https://github.com/handeyeco)! - Don't export things that aren't used externally
+
+-   Updated dependencies [[`e8160105c`](https://github.com/Khan/perseus/commit/e8160105c967143b593954d967504dcbeab59468), [`f220366d0`](https://github.com/Khan/perseus/commit/f220366d0b3550a84b0d744119331d3307348c34), [`d05a4a228`](https://github.com/Khan/perseus/commit/d05a4a22895c2c939e5c90a9b412ddfaaa0ba2f0), [`8eacf0bda`](https://github.com/Khan/perseus/commit/8eacf0bda557c459be996b8c66a0fd93ad797b39), [`c27ee11bc`](https://github.com/Khan/perseus/commit/c27ee11bc69ff9dcf89814f9f66b4e1b3508f129), [`6729af8c8`](https://github.com/Khan/perseus/commit/6729af8c8af8617f7f7159976efb2989dc925909), [`c91cba9e0`](https://github.com/Khan/perseus/commit/c91cba9e01bc391accac2014ed3c87b42ba174fd)]:
+    -   @khanacademy/math-input@21.1.1
+    -   @khanacademy/perseus-linter@1.2.3
+
 ## 3.0.9
 
 ### Patch Changes

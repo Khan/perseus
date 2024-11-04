@@ -494,7 +494,7 @@ export type PerseusDependencies = {
  *
  * Prefer using this type over `PerseusDependencies` when possible.
  */
-export type PerseusDependenciesV2 = {
+export interface PerseusDependenciesV2 {
     analytics: {onAnalyticsEvent: AnalyticsEventHandlerFn};
 
     // video widget
@@ -508,7 +508,7 @@ export type PerseusDependenciesV2 = {
     ): Result<{
         video: VideoData | null | undefined;
     }>;
-};
+}
 
 /**
  * APIOptionsWithDefaults represents the type that is provided to all widgets.
