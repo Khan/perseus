@@ -1,5 +1,28 @@
 # @khanacademy/perseus
 
+## 41.0.0
+
+### Major Changes
+
+-   [#1793](https://github.com/Khan/perseus/pull/1793) [`486e4cdc1`](https://github.com/Khan/perseus/commit/486e4cdc1196e78101cd9067f37888881fd58f2b) Thanks [@handeyeco](https://github.com/handeyeco)! - Move useVideo from v1 dependency to v2 dependency
+
+### Minor Changes
+
+-   [#1817](https://github.com/Khan/perseus/pull/1817) [`22d1c0229`](https://github.com/Khan/perseus/commit/22d1c0229e52fc2dc6bc9f38a3ca400c6e4a3884) Thanks [@benchristel](https://github.com/benchristel)! - Add screenreader description for the interactive elements of point graphs
+
+*   [#1812](https://github.com/Khan/perseus/pull/1812) [`33891dc0b`](https://github.com/Khan/perseus/commit/33891dc0b5e477b0b6db2f0d3733d81215d13ebe) Thanks [@benchristel](https://github.com/benchristel)! - Add a screenreader-accessible label to movable points on interactive graphs
+
+### Patch Changes
+
+-   [#1815](https://github.com/Khan/perseus/pull/1815) [`2c402198c`](https://github.com/Khan/perseus/commit/2c402198c00b1eb342a799820a58d49ec5d9d9f4) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor interactive graph components to support whole-graph screenreader descriptions
+
+*   [#1802](https://github.com/Khan/perseus/pull/1802) [`d6381f773`](https://github.com/Khan/perseus/commit/d6381f7737ff44f1ec3d91c4ab25ce51f47b35b9) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Improve prop types for various components
+
+-   [#1814](https://github.com/Khan/perseus/pull/1814) [`035191c9e`](https://github.com/Khan/perseus/commit/035191c9ec0c70db062cdfb44cdee69682edcbcf) Thanks [@nedredmond](https://github.com/nedredmond)! - Wraps a text node in a `span` to reduce bugs caused by Google Translate
+
+-   Updated dependencies [[`d6381f773`](https://github.com/Khan/perseus/commit/d6381f7737ff44f1ec3d91c4ab25ce51f47b35b9)]:
+    -   @khanacademy/math-input@21.1.4
+
 ## 40.0.0
 
 ### Major Changes
