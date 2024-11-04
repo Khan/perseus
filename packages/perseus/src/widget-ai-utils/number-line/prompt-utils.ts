@@ -1,25 +1,22 @@
-import type {WidgetType} from "../../prompt-types";
 import type {PerseusNumberLineUserInput} from "../../validation.types";
 import type numberLine from "../../widgets/number-line/number-line";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-
-type WidgetProps = PropsFor<typeof numberLine.widget>;
+import type React from "react";
 
 export type NumberLinePromptJSON = {
-    type: WidgetType;
+    type: "number-line";
     options: {
-        range: WidgetProps["range"];
-        numDivisions: WidgetProps["numDivisions"];
-        snapDivisions: WidgetProps["snapDivisions"];
+        range: ReadonlyArray<number>;
+        numDivisions: number;
+        snapDivisions: number;
     };
     userInput: {
-        numLinePosition: PerseusNumberLineUserInput["numLinePosition"];
-        numDivisions: PerseusNumberLineUserInput["numDivisions"];
+        numLinePosition: number;
+        numDivisions: number;
     };
 };
 
 export const getPromptJSON = (
-    renderProps: WidgetProps,
+    renderProps: React.ComponentProps<typeof numberLine.widget>,
     userInput: PerseusNumberLineUserInput,
 ): NumberLinePromptJSON => {
     return {
