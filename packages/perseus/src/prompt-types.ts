@@ -10,6 +10,7 @@ import type {LabelImagePromptJSON} from "./widget-ai-utils/label-image/prompt-ut
 import type {MatcherPromptJSON} from "./widget-ai-utils/matcher/prompt-utils";
 import type {NumericInputPromptJSON} from "./widget-ai-utils/numeric-input/prompt-utils";
 import type {RadioPromptJSON} from "./widget-ai-utils/radio/prompt-utils";
+import type {UnsupportedWidgetPromptJSON} from "./widget-ai-utils/unsupported-widget";
 
 export type WidgetType =
     | "categorizer"
@@ -39,7 +40,8 @@ export type WidgetPromptJSON =
     | InputNumberPromptJSON
     | LabelImagePromptJSON
     | MatcherPromptJSON
-    | NumericInputPromptJSON;
+    | NumericInputPromptJSON
+    | UnsupportedWidgetPromptJSON;
 
 export type RendererPromptJSON = {
     content: string;
