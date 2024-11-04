@@ -1,20 +1,17 @@
-import type {WidgetType} from "../../prompt-types";
 import type passageRef from "../../widgets/passage-ref/passage-ref";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-
-type WidgetProps = PropsFor<typeof passageRef.widget>;
+import type React from "react";
 
 export type PassageRefPromptJSON = {
-    type: WidgetType;
+    type: "passage-ref";
     options: {
-        passageNumber: WidgetProps["passageNumber"];
-        referenceNumber: WidgetProps["referenceNumber"];
-        summaryText: WidgetProps["summaryText"];
+        passageNumber: number;
+        referenceNumber: number;
+        summaryText: string;
     };
 };
 
 export const getPromptJSON = (
-    renderProps: WidgetProps,
+    renderProps: React.ComponentProps<typeof passageRef.widget>,
 ): PassageRefPromptJSON => {
     return {
         type: "passage-ref",
