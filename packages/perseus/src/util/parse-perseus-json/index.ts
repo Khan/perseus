@@ -24,7 +24,7 @@ export function parsePerseusItem(json: string): Result<PerseusItem, string> {
         const perseusItemResult = parse(object, typecheckPerseusItem);
         // TODO: extract mapFailure function
         if (isFailure(perseusItemResult)) {
-            return failure(message(perseusItemResult.detail));
+            return failure(perseusItemResult.detail.map(message).join("; "));
         }
         return perseusItemResult;
     }

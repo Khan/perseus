@@ -12,6 +12,6 @@ export const anyFailure = failure(expect.anything());
 
 export function parseFailureWith(
     expected: Partial<Mismatch>,
-): Failure<Mismatch> {
-    return failure(expect.objectContaining(expected));
+): Failure<Mismatch[]> {
+    return failure([expect.objectContaining(expected)]);
 }

@@ -1,10 +1,6 @@
 import {failure, success} from "./result";
 
-import type {
-    ParseContext,
-    Mismatch,
-    PathSegment,
-} from "./parser-types";
+import type {ParseContext, Mismatch, PathSegment} from "./parser-types";
 import type {Failure, Success} from "./result";
 
 export class ErrorTrackingParseContext implements ParseContext {
@@ -13,12 +9,14 @@ export class ErrorTrackingParseContext implements ParseContext {
     failure(
         expected: string | string[],
         badValue: unknown,
-    ): Failure<Mismatch> {
-        return failure({
-            expected: wrapInArray(expected),
-            badValue,
-            path: this.path,
-        });
+    ): Failure<Mismatch[]> {
+        return failure([
+            {
+                expected: wrapInArray(expected),
+                badValue,
+                path: this.path,
+            },
+        ]);
     }
 
     forSubtree(key: PathSegment): ParseContext {
