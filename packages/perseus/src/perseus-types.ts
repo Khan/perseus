@@ -913,8 +913,7 @@ type AngleGraphCorrect = {
     type: "angle";
     // Whether to show the angle measurements.  default: false
     allowReflexAngles?: boolean;
-    match: "congruent";
-    // must have 3 coords - ie [Coord, Coord, Coord]
+    match?: "congruent";
     coords: [Coord, Coord, Coord];
 };
 
@@ -923,16 +922,15 @@ type CircleGraphCorrect = {
     center: Coord;
     radius: number;
 };
+
 type LinearGraphCorrect = {
     type: "linear";
-    // expects 2 coords
     coords: CollinearTuple;
 };
 
 type LinearSystemGraphCorrect = {
     type: "linear-system";
-    // expects 2 sets of 2 coords
-    coords: CollinearTuple[];
+    coords: [CollinearTuple, CollinearTuple];
 };
 
 type NoneGraphCorrect = {
@@ -946,14 +944,13 @@ type PointGraphCorrect = {
 
 type PolygonGraphCorrect = {
     type: "polygon";
-    match: "similar" | "congruent" | "approx";
+    match?: "similar" | "congruent" | "approx";
     coords: ReadonlyArray<Coord>;
 };
 
 type QuadraticGraphCorrect = {
     type: "quadratic";
-    // expects a list of 3 coords
-    coords?: [Coord, Coord, Coord];
+    coords: [Coord, Coord, Coord];
 };
 
 type SegmentGraphCorrect = {
@@ -964,13 +961,11 @@ type SegmentGraphCorrect = {
 
 type SinusoidGraphCorrect = {
     type: "sinusoid";
-    // Expects a list of 2 Coords
-    coords: ReadonlyArray<Coord>;
+    coords: CollinearTuple;
 };
 
 type RayGraphCorrect = {
     type: "ray";
-    // Expects a list of 2 Coords
     coords: CollinearTuple;
 };
 
