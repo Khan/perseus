@@ -1,5 +1,3 @@
-// TODO(benchristel): export all parsers from general-purpose-parsers/index.ts
-// so we only need to import from one place.
 import {ItemExtras} from "../../../perseus-types";
 import {
     any,
