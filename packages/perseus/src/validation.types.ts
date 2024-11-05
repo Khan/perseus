@@ -96,8 +96,8 @@ export type PerseusInputNumberUserInput = {
     currentValue: string;
 };
 
-// TODO(LEMS-2344): make the type of `correct` more specific
 export type PerseusInteractiveGraphRubric = {
+    // TODO(LEMS-2344): make the type of `correct` more specific
     correct: PerseusGraphCorrectType;
     graph: PerseusGraphType;
 };
