@@ -244,7 +244,7 @@ describe("InteractiveGraph.validate on an angle question", () => {
                     [1, 1],
                     [0, 0],
                     [-1, -1],
-                ] as [Coord, Coord, Coord],
+                ],
             },
             correct: {
                 type: "angle",
@@ -252,7 +252,7 @@ describe("InteractiveGraph.validate on an angle question", () => {
                     [1, 1],
                     [0, 0],
                     [-1, -1],
-                ] as [Coord, Coord, Coord],
+                ],
             },
         };
 
