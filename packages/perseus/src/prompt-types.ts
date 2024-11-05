@@ -3,6 +3,7 @@ import type {DefinitionPromptJSON} from "./widget-ai-utils/definition/prompt-uti
 import type {DropdownPromptJSON} from "./widget-ai-utils/dropdown/prompt-utils";
 import type {ExplanationPromptJSON} from "./widget-ai-utils/explanation/prompt-utils";
 import type {ExpressionPromptJSON} from "./widget-ai-utils/expression/prompt-utils";
+import type {InteractiveGraphPromptJSON} from "./widget-ai-utils/interactive-graph/prompt-utils";
 import type {MatrixPromptJSON} from "./widget-ai-utils/matrix/prompt-utils";
 import type {NumberLinePromptJSON} from "./widget-ai-utils/number-line/prompt-utils";
 import type {NumericInputPromptJSON} from "./widget-ai-utils/numeric-input/prompt-utils";
@@ -20,6 +21,7 @@ export type WidgetType =
     | "explanation"
     | "expression"
     | "dropdown"
+    | "interactive-graph"
     | "matrix"
     | "measurer"
     | "number-line"
@@ -40,6 +42,7 @@ export type WidgetPromptJSON =
     | ExplanationPromptJSON
     | ExpressionPromptJSON
     | DropdownPromptJSON
+    | InteractiveGraphPromptJSON
     | MatrixPromptJSON
     | NumberLinePromptJSON
     | NumericInputPromptJSON
