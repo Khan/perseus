@@ -1,4 +1,6 @@
-import {success} from "../result";
+import invariant from "tiny-invariant";
+
+import {isFailure, success} from "../result";
 
 import {array} from "./array";
 import {defaulted} from "./defaulted";
@@ -43,6 +45,25 @@ describe("object", () => {
                 badValue: 99,
             }),
         );
+    });
+
+    it("lists multiple mismatches", () => {
+        const result = Person({name: 99, age: "blah"}, ctx());
+
+        invariant(isFailure(result));
+
+        expect(result.detail).toEqual([
+            {
+                path: ["name"],
+                expected: ["string"],
+                badValue: 99,
+            },
+            {
+                path: ["age"],
+                expected: ["number"],
+                badValue: "blah",
+            },
+        ]);
     });
 
     it("rejects an object with a missing property", () => {

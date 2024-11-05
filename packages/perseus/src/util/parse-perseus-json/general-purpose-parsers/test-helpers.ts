@@ -15,3 +15,9 @@ export function parseFailureWith(
 ): Failure<Mismatch[]> {
     return failure([expect.objectContaining(expected)]);
 }
+
+export function parseFailureWithMultipleMismatches(
+    expected: Partial<Mismatch[]>,
+): Failure<Mismatch[]> {
+    return failure(expected.map((obj) => expect.objectContaining(obj)));
+}
