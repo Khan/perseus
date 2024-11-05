@@ -27,10 +27,8 @@ describe("parsePerseusItem", () => {
     it("returns an error given an invalid PerseusItem", () => {
         const result = parsePerseusItem(`{ "bad": "value" }`);
         invariant(isFailure(result), "expected parsePerseusItem to fail");
-        expect(result.detail).toEqual([
-            new Error(
-                "At (root).question -- expected object, but got undefined",
-            ),
-        ]);
+        expect(result.detail).toEqual(
+            "At (root).question -- expected object, but got undefined",
+        );
     });
 });

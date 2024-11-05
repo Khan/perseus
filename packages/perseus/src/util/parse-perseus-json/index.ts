@@ -1,4 +1,3 @@
-import {formatPath} from "./object-path";
 import {isRealJSONParse} from "../is-real-json-parse";
 
 import type {PerseusItem} from "../../perseus-types";
@@ -17,7 +16,7 @@ import type {Result} from "./result";
  * @param {string} json - the stringified PerseusItem JSON
  * @returns {PerseusItem} the parsed PerseusItem object
  */
-export function parsePerseusItem(json: string): Result<PerseusItem, Error[]> {
+export function parsePerseusItem(json: string): Result<PerseusItem, string> {
     // Try to block a cheating vector which relies on monkey-patching
     // JSON.parse
     if (isRealJSONParse(JSON.parse)) {
@@ -25,7 +24,7 @@ export function parsePerseusItem(json: string): Result<PerseusItem, Error[]> {
         const perseusItemResult = parse(object, typecheckPerseusItem);
         // TODO: extract mapFailure function
         if (isFailure(perseusItemResult)) {
-            return failure([new Error(message(perseusItemResult.detail))]);
+            return failure(message(perseusItemResult.detail));
         }
         return perseusItemResult;
     }
