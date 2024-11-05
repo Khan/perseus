@@ -14,7 +14,6 @@ import {
 
 import {getClockwiseAngle} from "./math/angles";
 
-import type {Coord} from "../../interactive2/types";
 import type {PerseusScore} from "../../types";
 import type {
     PerseusInteractiveGraphRubric,
