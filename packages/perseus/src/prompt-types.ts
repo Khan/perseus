@@ -16,25 +16,19 @@ import type {UnsupportedWidgetPromptJSON} from "./widget-ai-utils/unsupported-wi
 
 export type WidgetType =
     | "categorizer"
-    | "cs-program"
     | "definition"
     | "explanation"
     | "expression"
     | "dropdown"
     | "interactive-graph"
     | "matrix"
-    | "measurer"
     | "number-line"
     | "numeric-input"
     | "orderer"
     | "passage"
     | "passage-ref"
-    | "phet-simulation"
-    | "plotter"
-    | "python-program"
     | "radio"
-    | "sorter"
-    | "video";
+    | "sorter";
 
 export type WidgetPromptJSON =
     | CategorizerPromptJSON

@@ -56,6 +56,7 @@ import type {
     PerseusInteractiveGraphUserInput,
 } from "../validation.types";
 import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/prompt-utils";
+import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
 
 const TRASH_ICON_URI =
     "https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png";
@@ -1832,7 +1833,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         );
     }
 
-    getPromptJSON(): InteractiveGraphPromptJSON {
+    getPromptJSON(): InteractiveGraphPromptJSON | UnsupportedWidgetPromptJSON {
         return getPromptJSON(this.props, this.getUserInput());
     }
 

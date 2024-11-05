@@ -1,11 +1,9 @@
-import type {WidgetType} from "../prompt-types";
-
 export type UnsupportedWidgetPromptJSON = {
-    type: WidgetType;
+    type: string;
     isSupported: boolean;
 };
 
-export const getUnsupportedPromptJSON = (widgetType: WidgetType) => {
+export const getUnsupportedPromptJSON = (widgetType: string) => {
     return {
         type: widgetType,
         isSupported: false,
