@@ -13,12 +13,6 @@ describe("InteractiveGraph.validate on a segment question", () => {
         const rubric: PerseusInteractiveGraphRubric = {
             graph: {
                 type: "segment",
-                coords: [
-                    [
-                        [0, 0],
-                        [1, 1],
-                    ],
-                ],
             },
             correct: {
                 type: "segment",
@@ -48,15 +42,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
         };
 
         const rubric: PerseusInteractiveGraphRubric = {
-            graph: {
-                type: "segment",
-                coords: [
-                    [
-                        [0, 0],
-                        [1, 1],
-                    ],
-                ],
-            },
+            graph: {type: "segment"},
             correct: {
                 type: "segment",
                 coords: [
@@ -85,15 +71,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
         };
 
         const rubric: PerseusInteractiveGraphRubric = {
-            graph: {
-                type: "segment",
-                coords: [
-                    [
-                        [0, 0],
-                        [1, 1],
-                    ],
-                ],
-            },
+            graph: {type: "segment"},
             correct: {
                 type: "segment",
                 coords: [
@@ -121,15 +99,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
             ],
         };
         const rubric: PerseusInteractiveGraphRubric = {
-            graph: {
-                type: "segment",
-                coords: [
-                    [
-                        [0, 0],
-                        [1, 1],
-                    ],
-                ],
-            },
+            graph: {type: "segment"},
             correct: {
                 type: "segment",
                 coords: [
@@ -158,15 +128,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
         };
 
         const rubric: PerseusInteractiveGraphRubric = {
-            graph: {
-                type: "segment",
-                coords: [
-                    [
-                        [0, 0],
-                        [1, 1],
-                    ],
-                ],
-            },
+            graph: {type: "segment"},
             correct: {
                 type: "segment",
                 coords: [
@@ -199,15 +161,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
             ],
         };
         const rubric: PerseusInteractiveGraphRubric = {
-            graph: {
-                type: "segment",
-                coords: [
-                    [
-                        [1, 1],
-                        [0, 0],
-                    ],
-                ],
-            },
+            graph: {type: "segment"},
             correct: {
                 type: "segment",
                 coords: [
@@ -237,14 +191,7 @@ describe("InteractiveGraph.validate on an angle question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
         const guess: PerseusGraphType = {type: "angle"};
         const rubric: PerseusInteractiveGraphRubric = {
-            graph: {
-                type: "angle",
-                coords: [
-                    [1, 1],
-                    [0, 0],
-                    [-1, -1],
-                ],
-            },
+            graph: {type: "angle"},
             correct: {
                 type: "angle",
                 coords: [
@@ -265,10 +212,7 @@ describe("InteractiveGraph.validate on a point question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
         const guess: PerseusGraphType = {type: "point"};
         const rubric: PerseusInteractiveGraphRubric = {
-            graph: {
-                type: "point",
-                coords: [[0, 0]],
-            },
+            graph: {type: "point"},
             correct: {
                 type: "point",
                 coords: [[0, 0]],
@@ -307,10 +251,7 @@ describe("InteractiveGraph.validate on a point question", () => {
             coords: [[9, 9]],
         };
         const rubric: PerseusInteractiveGraphRubric = {
-            graph: {
-                type: "point",
-                coords: [[0, 0]],
-            },
+            graph: {type: "point"},
             correct: {
                 type: "point",
                 coords: [[0, 0]],
@@ -328,10 +269,7 @@ describe("InteractiveGraph.validate on a point question", () => {
             coords: [[7, 8]],
         };
         const rubric: PerseusInteractiveGraphRubric = {
-            graph: {
-                type: "point",
-                coords: [[7, 8]],
-            },
+            graph: {type: "point"},
             correct: {
                 type: "point",
                 coords: [[7, 8]],
@@ -352,13 +290,7 @@ describe("InteractiveGraph.validate on a point question", () => {
             ],
         };
         const rubric: PerseusInteractiveGraphRubric = {
-            graph: {
-                type: "point",
-                coords: [
-                    [5, 6],
-                    [7, 8],
-                ],
-            },
+            graph: {type: "point"},
             correct: {
                 type: "point",
                 coords: [
@@ -382,13 +314,7 @@ describe("InteractiveGraph.validate on a point question", () => {
             ],
         };
         const rubric: PerseusInteractiveGraphRubric = {
-            graph: {
-                type: "point",
-                coords: [
-                    [5, 6],
-                    [7, 8],
-                ],
-            },
+            graph: {type: "point"},
             correct: {
                 type: "point",
                 coords: [
@@ -414,13 +340,7 @@ describe("InteractiveGraph.validate on a point question", () => {
             ],
         };
         const rubric: PerseusInteractiveGraphRubric = {
-            graph: {
-                type: "point",
-                coords: [
-                    [5, 6],
-                    [7, 8],
-                ],
-            },
+            graph: {type: "point"},
             correct: {
                 type: "point",
                 coords: [
