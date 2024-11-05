@@ -2,7 +2,7 @@ import {failure, success} from "./result";
 
 import type {
     ParseContext,
-    ParseFailureDetail,
+    Mismatch,
     PathSegment,
 } from "./parser-types";
 import type {Failure, Success} from "./result";
@@ -13,7 +13,7 @@ export class ErrorTrackingParseContext implements ParseContext {
     failure(
         expected: string | string[],
         badValue: unknown,
-    ): Failure<ParseFailureDetail> {
+    ): Failure<Mismatch> {
         return failure({
             expected: wrapInArray(expected),
             badValue,

@@ -1,8 +1,8 @@
 import {formatPath} from "./object-path";
 
-import type {ParseFailureDetail} from "./parser-types";
+import type {Mismatch} from "./parser-types";
 
-export function message(failure: ParseFailureDetail): string {
+export function message(failure: Mismatch): string {
     const expected = conjoin(failure.expected);
     const path = formatPath(failure.path);
     const badValue = JSON.stringify(failure.badValue);

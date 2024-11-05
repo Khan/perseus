@@ -9,9 +9,9 @@ export type PartialParser<Input, Output> = (
     ctx: ParseContext,
 ) => ParseResult<Output>;
 
-export type ParseResult<T> = Result<T, ParseFailureDetail>;
+export type ParseResult<T> = Result<T, Mismatch>;
 
-export type ParseFailureDetail = {
+export type Mismatch = {
     // Descriptions of the allowed types or schemas.
     // E.g. ["string", "number"] means that the value was expected to be a
     // string or a number.
@@ -29,7 +29,7 @@ export interface ParseContext {
     failure(
         expected: string | string[],
         badValue: unknown,
-    ): Failure<ParseFailureDetail>;
+    ): Failure<Mismatch>;
     forSubtree(key: PathSegment): ParseContext;
 }
 
