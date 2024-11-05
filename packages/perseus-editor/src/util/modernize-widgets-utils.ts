@@ -13,6 +13,60 @@ type WidgetRenameMap = {
 // content creators use the Editor Page to update content containing these widgets.
 // Currently, we're only converting input-number to numeric-input,
 // but we can add more conversions here in the future.
+// Modernize the json content of a PerseusRenderer object
+// by converting deprecated widgets to their modern equivalents
+export const convertDeprecatedWidgets = (
+    json: PerseusRenderer,
+): PerseusRenderer => {
+    // If there's no json, or no input-number widgets, then we can return the json as is
+    if (!json || !conversionRequired(json)) {
+        return json;
+    }
+
+    // Currently we're only converting input-number to numeric-input,
+    // But we can add more conversions here in the future
+    const modernJson = inputNumberToNumericInput(json);
+
+    return modernJson;
+};
+
+const conversionRequired = (json: PerseusRenderer): boolean => {
+    const inputNumberRegex = /input-number \d+/; // We can add more regexes here in the future
+
+    // Check the content string for any top-level input-number widgets
+    if (inputNumberRegex.test(json.content)) {
+        return true;
+    }
+
+    // If there's no input-numbers top-level, then check the widgets for any nested widgets
+    for (const key of Object.keys(json.widgets)) {
+        if (json.widgets[key].options.widgets) {
+            const nestedJson = json.widgets[key].options;
+            if (conversionRequired(nestedJson)) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+};
+
+// Convert the deprecated widget refs in the content string
+// of a PerseusRenderer object to their renamed equivalents
+const convertDeprecatedWidgetsInContent = (
+    json: PerseusRenderer,
+    renameMap: WidgetRenameMap,
+): string => {
+    return Object.keys(renameMap).reduce((newContent, oldKey) => {
+        const newKey = renameMap[oldKey];
+        if (newKey) {
+            return newContent.replace(oldKey, newKey);
+        }
+        return newContent;
+    }, json.content);
+};
+
+// Methods to convert input-number widgets to numeric-input widgets
 
 const inputNumberToNumericInput = (json: PerseusRenderer) => {
     // First we need to create a map of the old input-number keys to the new numeric-input keys
@@ -29,7 +83,7 @@ const convertInputNumberJson = (
     json: PerseusRenderer,
     renameMap: WidgetRenameMap,
 ): PerseusRenderer => {
-    const updatedContent = convertInputNumberContent(json, renameMap);
+    const updatedContent = convertDeprecatedWidgetsInContent(json, renameMap);
     const updatedWidgets = convertInputNumberWidgetOptions(json, renameMap);
     const modernizedJson = {
         ...json,
@@ -38,23 +92,6 @@ const convertInputNumberJson = (
     };
 
     return modernizedJson;
-};
-
-// Convert the input-number refs in the content string of a PerseusRenderer object
-const convertInputNumberContent = (
-    json: PerseusRenderer,
-    renameMap: WidgetRenameMap,
-): string => {
-    let newContent = json.content;
-    // Loop through the renameMap and replace all the old keys with the new keys
-    for (const oldKey of Object.keys(renameMap)) {
-        const newKey = renameMap[oldKey];
-        if (newKey) {
-            newContent = newContent.replace(oldKey, newKey);
-        }
-    }
-
-    return newContent;
 };
 
 // Convert the input-number json in the widgets of a PerseusRenderer object
@@ -87,7 +124,8 @@ const convertInputNumberWidgetOptions = (
                 {
                     value: widgets[key].options.value,
                     simplify: widgets[key].options.simplify,
-                    strict: widgets[key].options.inexact || true,
+                    // Input Number's implementation of inexact is the opposite of numeric-input's strict
+                    strict: !widgets[key].options.inexact || false,
                     maxError: widgets[key].options.maxError || 0,
                     status: "correct", // Input-number only allows correct answers
                     message: "",
@@ -161,42 +199,4 @@ const getInputNumberRenameMap = (json: PerseusRenderer): WidgetRenameMap => {
     }
 
     return renameMap;
-};
-
-const conversionRequired = (json: PerseusRenderer): boolean => {
-    const inputNumberRegex = /input-number \d+/;
-
-    // Check the content string for any top-level input-number widgets
-    if (inputNumberRegex.test(json.content)) {
-        return true;
-    }
-
-    // If there's no input-numbers top-level, then check the widgets for any nested widgets
-    for (const key of Object.keys(json.widgets)) {
-        if (json.widgets[key].options.widgets) {
-            const nestedJson = json.widgets[key].options;
-            if (conversionRequired(nestedJson)) {
-                return true;
-            }
-        }
-    }
-
-    return false;
-};
-
-// Modernize the json content of a PerseusRenderer object
-// by converting deprecated widgets to their modern equivalents
-export const convertDeprecatedWidgets = (
-    json: PerseusRenderer,
-): PerseusRenderer => {
-    // If there's no json, or no input-number widgets, then we can return the json as is
-    if (!json || !conversionRequired(json)) {
-        return json;
-    }
-
-    // Currently we're only converting input-number to numeric-input,
-    // But we can add more conversions here in the future
-    const modernJson = inputNumberToNumericInput(json);
-
-    return modernJson;
 };

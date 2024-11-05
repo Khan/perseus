@@ -21,12 +21,7 @@ import {
 } from "./styles/icon-paths";
 import {convertDeprecatedWidgets} from "./util/modernize-widgets-utils";
 
-import type {
-    APIOptions,
-    Changeable,
-    ImageUploader,
-    PerseusRenderer,
-} from "@khanacademy/perseus";
+import type {APIOptions, Changeable, ImageUploader} from "@khanacademy/perseus";
 
 const {HUD, InlineIcon} = components;
 
@@ -36,7 +31,7 @@ type RendererProps = {
     images?: any;
 };
 
-type JsonType = PerseusRenderer | ReadonlyArray<PerseusRenderer> | null;
+type JsonType = RendererProps | ReadonlyArray<RendererProps>;
 type DefaultProps = {
     contentPaths?: ReadonlyArray<string>;
     json: JsonType;
@@ -60,7 +55,7 @@ type State = {
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         contentPaths: [],
-        json: [],
+        json: [{}],
         mode: "edit",
         screen: "desktop",
         sectionImageUploadGenerator: () => <span />,
@@ -101,7 +96,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         }
     }
 
-    _apiOptionsForSection(section: PerseusRenderer, sectionIndex: number): any {
+    _apiOptionsForSection(section: RendererProps, sectionIndex: number): any {
         // eslint-disable-next-line react/no-string-refs
         const editor = this.refs[`editor${sectionIndex}`];
         return {
@@ -126,7 +121,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         };
     }
 
-    _sections(): ReadonlyArray<PerseusRenderer> {
+    _sections(): ReadonlyArray<RendererProps> {
         const sections = Array.isArray(this.props.json)
             ? this.props.json
             : [this.props.json];
@@ -357,7 +352,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         const newSection =
             i >= 0
                 ? {
-                      widgets: sections![i].widgets,
+                      widgets: sections[i].widgets,
                   }
                 : {};
         // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'JsonType'.
