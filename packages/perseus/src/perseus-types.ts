@@ -955,7 +955,6 @@ type QuadraticGraphCorrect = {
 
 type SegmentGraphCorrect = {
     type: "segment";
-    // Expects a list of Coord tuples. Length should match the `numSegments` value.
     coords: CollinearTuple[];
 };
 

@@ -6,7 +6,6 @@ import interactiveGraphValidator from "./interactive-graph-validator";
 
 import type {PerseusGraphType} from "../../perseus-types";
 import type {PerseusInteractiveGraphRubric} from "../../validation.types";
-import type {Coord} from "@khanacademy/perseus";
 
 describe("InteractiveGraph.validate on a segment question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
