@@ -10,6 +10,10 @@ export function array<T>(elementParser: Parser<T>): Parser<T[]> {
         const elementResults = array.map((elem, i) =>
             elementParser(elem, ctx.forSubtree(i)),
         );
-        return Result.all(elementResults);
+        return Result.all(elementResults, concat);
     };
+}
+
+function concat<T>(a: T[], b: T[]): T[] {
+    return [...a, ...b];
 }

@@ -21,14 +21,22 @@ export function isSuccess<S, F>(result: Result<S, F>): result is Success<S> {
 
 // Result's `all` function is similar to Promise.all: given an array of
 // results, it returns success if all succeeded, and failure if any failed.
-export function all<S, F>(results: Array<Result<S, F>>): Result<S[], F> {
-    const successes: S[] = [];
+export function all<S, F>(
+    results: Array<Result<S, F>>,
+    combineFailureDetails: (a: F, b: F) => F = (a) => a,
+): Result<S[], F> {
+    const values: S[] = [];
+    const failureDetails: F[] = [];
     for (const result of results) {
         if (result.type === "success") {
-            successes.push(result.value);
+            values.push(result.value);
         } else {
-            return failure(result.detail);
+            failureDetails.push(result.detail);
         }
     }
-    return success(successes);
+
+    if (failureDetails.length > 0) {
+        return failure(failureDetails.reduce(combineFailureDetails));
+    }
+    return success(values);
 }

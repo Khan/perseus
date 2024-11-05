@@ -1,4 +1,6 @@
-import {success} from "../result";
+import invariant from "tiny-invariant";
+
+import {isFailure, success} from "../result";
 
 import {array} from "./array";
 import {string} from "./string";
@@ -51,6 +53,27 @@ describe("array", () => {
         );
     });
 
+    it("lists all mismatches", () => {
+        const theArray = ["ok", 4, 99];
+
+        const result = arrayOfStrings(theArray, ctx());
+
+        invariant(isFailure(result));
+
+        expect(result.detail).toEqual([
+            {
+                expected: ["string"],
+                badValue: 4,
+                path: [1],
+            },
+            {
+                expected: ["string"],
+                badValue: 99,
+                path: [2],
+            },
+        ]);
+    });
+
     it("pinpoints mismatches in nested arrays", () => {
         const arrayOfArrayOfStrings = array(array(string));
         const theArray = [["", ""], [""], [], ["", 99, ""]];
@@ -58,6 +81,21 @@ describe("array", () => {
         const result = arrayOfArrayOfStrings(theArray, ctx());
 
         expect(result).toEqual(parseFailureWith({path: [3, 1]}));
+    });
+
+    it("lists multiple mismatches in nested arrays", () => {
+        const arrayOfArrayOfStrings = array(array(string));
+        const theArray = [["", "", 4], [9, ""], [], ["", 99, ""]];
+
+        const result = arrayOfArrayOfStrings(theArray, ctx());
+
+        invariant(isFailure(result));
+
+        expect(result.detail.map((d) => d.path)).toEqual([
+            [0, 2],
+            [1, 0],
+            [3, 1],
+        ]);
     });
 
     it("describes the problem if given a non-array", () => {
