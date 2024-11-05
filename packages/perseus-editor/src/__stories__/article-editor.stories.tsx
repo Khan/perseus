@@ -24,7 +24,7 @@ const articleSectionWithInputNumber: PerseusRenderer = {
             options: {
                 maxError: 0.1,
                 inexact: false,
-                value: 0.3333333333333333,
+                value: 0.4,
                 simplify: "optional",
                 answerType: "rational",
                 size: "normal",

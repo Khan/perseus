@@ -21,7 +21,12 @@ import {
 } from "./styles/icon-paths";
 import {convertDeprecatedWidgets} from "./util/modernize-widgets-utils";
 
-import type {APIOptions, Changeable, ImageUploader} from "@khanacademy/perseus";
+import type {
+    APIOptions,
+    Changeable,
+    ImageUploader,
+    PerseusRenderer,
+} from "@khanacademy/perseus";
 
 const {HUD, InlineIcon} = components;
 
@@ -31,7 +36,7 @@ type RendererProps = {
     images?: any;
 };
 
-type JsonType = RendererProps | ReadonlyArray<RendererProps>;
+type JsonType = PerseusRenderer | PerseusRenderer[] | null;
 type DefaultProps = {
     contentPaths?: ReadonlyArray<string>;
     json: JsonType;
@@ -51,20 +56,25 @@ type Props = DefaultProps & {
 
 type State = {
     highlightLint: boolean;
+    json: JsonType;
 };
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         contentPaths: [],
-        json: [{}],
+        json: [],
         mode: "edit",
         screen: "desktop",
         sectionImageUploadGenerator: () => <span />,
         useNewStyles: false,
     };
 
-    state: State = {
-        highlightLint: true,
-    };
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            highlightLint: true,
+            json: convertDeprecatedWidgets(props.json as PerseusRenderer),
+        };
+    }
 
     componentDidMount() {
         this._updatePreviewFrames();
@@ -96,7 +106,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         }
     }
 
-    _apiOptionsForSection(section: RendererProps, sectionIndex: number): any {
+    _apiOptionsForSection(section: PerseusRenderer, sectionIndex: number): any {
         // eslint-disable-next-line react/no-string-refs
         const editor = this.refs[`editor${sectionIndex}`];
         return {
@@ -121,11 +131,13 @@ export default class ArticleEditor extends React.Component<Props, State> {
         };
     }
 
-    _sections(): ReadonlyArray<RendererProps> {
-        const sections = Array.isArray(this.props.json)
-            ? this.props.json
-            : [this.props.json];
-        return sections;
+    _sections(): PerseusRenderer[] {
+        const sections = Array.isArray(this.state.json)
+            ? this.state.json
+            : [this.state.json];
+        return sections.filter(
+            (section): section is PerseusRenderer => section !== null,
+        );
     }
 
     _renderEditor(): React.ReactElement<React.ComponentProps<"div">> {
@@ -304,8 +316,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
         newProps,
     ) => {
         const sections = _.clone(this._sections());
-        // @ts-expect-error - TS2542 - Index signature in type 'readonly RendererProps[]' only permits reading.
         sections[i] = _.extend({}, sections[i], newProps);
+        this.setState({json: sections});
         this.props.onChange({json: sections});
     };
 
@@ -315,9 +327,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         }
         const sections = _.clone(this._sections());
         const section = sections[i];
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i - 1, 0, section);
         this.props.onChange({
             json: sections,
@@ -330,9 +340,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
             return;
         }
         const section = sections[i];
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i + 1, 0, section);
         this.props.onChange({
             json: sections,
@@ -352,7 +360,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         const newSection =
             i >= 0
                 ? {
-                      widgets: sections[i].widgets,
+                      widgets: sections![i].widgets,
                   }
                 : {};
         // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'JsonType'.
@@ -364,7 +372,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     _handleRemoveSection(i: number) {
         const sections = _.clone(this._sections());
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
         this.props.onChange({
             json: sections,
@@ -380,7 +387,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
             });
         }
         if (this.props.mode === "preview" || this.props.mode === "json") {
-            return this.props.json;
+            return this.state.json;
         }
         throw new PerseusError(
             "Could not serialize; mode " + this.props.mode + " not found",
@@ -429,7 +436,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                         <JsonEditor
                             multiLine={true}
                             onChange={this._handleJsonChange}
-                            value={this.props.json}
+                            value={this.state.json}
                         />
                     </div>
                 )}

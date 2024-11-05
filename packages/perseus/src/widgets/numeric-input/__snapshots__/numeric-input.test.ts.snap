@@ -28,30 +28,34 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <div
-            aria-label="Math input box Tap with one or two fingers to open keyboard"
-            class="initial_4qg14c-o_O-input_1n1c032"
-            role="textbox"
+            class="Im-just-a-sweet-lil-numeric-input"
           >
             <div
-              class="keypad-input"
-              tabindex="0"
+              aria-label="Math input box Tap with one or two fingers to open keyboard"
+              class="initial_4qg14c-o_O-input_1n1c032"
+              role="textbox"
             >
               <div
-                class="mq-editable-field mq-math-mode"
-                style="background-color: white; min-height: 44px; min-width: 64px; max-width: 128px; box-sizing: border-box; position: relative; border-style: solid; border-color: rgba(33,36,44,0.50); border-radius: 4px; color: rgb(33, 36, 44); border-width: 1px;"
+                class="keypad-input"
+                tabindex="0"
               >
-                <span
-                  class="mq-textarea"
+                <div
+                  class="mq-editable-field mq-math-mode"
+                  style="background-color: white; min-height: 44px; min-width: 64px; max-width: 128px; box-sizing: border-box; position: relative; border-style: solid; border-color: rgba(33,36,44,0.50); border-radius: 4px; color: rgb(33, 36, 44); border-width: 1px;"
                 >
                   <span
-                    aria-label="Math Input:"
+                    class="mq-textarea"
+                  >
+                    <span
+                      aria-label="Math Input:"
+                    />
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    class="mq-root-block mq-empty"
+                    style="padding: 10px 11px 8px 11px; font-size: 18pt;"
                   />
-                </span>
-                <span
-                  aria-hidden="true"
-                  class="mq-root-block mq-empty"
-                  style="padding: 10px 11px 8px 11px; font-size: 18pt;"
-                />
+                </div>
               </div>
             </div>
           </div>
@@ -90,173 +94,177 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
         <div
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
-          <span>
-            <div>
-              <input
-                aria-invalid="false"
-                aria-label="Your answer:"
-                autocapitalize="off"
-                autocomplete="off"
-                autocorrect="off"
-                class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-focused_1z0d9ul-o_O-input_19vw1dn"
-                id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
-                type="text"
-                value="1252"
-              />
-            </div>
-            <div
-              style="position: relative; height: 0px; display: none;"
-            >
+          <div
+            class="Im-just-a-sweet-lil-numeric-input"
+          >
+            <span>
+              <div>
+                <input
+                  aria-invalid="false"
+                  aria-label="Your answer:"
+                  autocapitalize="off"
+                  autocomplete="off"
+                  autocorrect="off"
+                  class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-focused_1z0d9ul-o_O-input_19vw1dn"
+                  id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                  type="text"
+                  value="1252"
+                />
+              </div>
               <div
-                class="tooltipContainer"
-                style="position: absolute; left: 0px;"
+                style="position: relative; height: 0px; display: none;"
               >
                 <div
-                  style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
+                  class="tooltipContainer"
+                  style="position: absolute; left: 0px;"
                 >
                   <div
-                    style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
-                  />
-                  <div
-                    style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
-                  />
-                </div>
-                <div
-                  class="perseus-formats-tooltip preview-measure"
-                  style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
-                >
-                  <div
-                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                    style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
                   >
                     <div
-                      class="perseus-renderer perseus-renderer-responsive"
+                      style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
+                    />
+                    <div
+                      style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
+                    />
+                  </div>
+                  <div
+                    class="perseus-formats-tooltip preview-measure"
+                    style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
+                  >
+                    <div
+                      id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="perseus-renderer perseus-renderer-responsive"
                       >
-                        <ul>
-                          <li>
-                            <strong>
-                              Your answer should be
-                            </strong>
-                          </li>
-                          <li>
-                            an integer, like 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <ul>
+                            <li>
+                              <strong>
+                                Your answer should be
+                              </strong>
+                            </li>
+                            <li>
+                              an integer, like 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                6
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  6
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                          </li>
-                          <li>
-                            a 
-                            <em>
-                              simplified proper
-                            </em>
-                             fraction, like 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                            </li>
+                            <li>
+                              a 
+                              <em>
+                                simplified proper
+                              </em>
+                               fraction, like 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                3/5
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  3/5
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                          </li>
-                          <li>
-                            a 
-                            <em>
-                              simplified improper
-                            </em>
-                             fraction, like 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                            </li>
+                            <li>
+                              a 
+                              <em>
+                                simplified improper
+                              </em>
+                               fraction, like 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                7/4
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  7/4
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                          </li>
-                          <li>
-                            a mixed number, like 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                            </li>
+                            <li>
+                              a mixed number, like 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                1\\ 3/4
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  1\\ 3/4
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                          </li>
-                          <li>
-                            an 
-                            <em>
-                              exact
-                            </em>
-                             decimal, like 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                            </li>
+                            <li>
+                              an 
+                              <em>
+                                exact
+                              </em>
+                               decimal, like 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                0.75
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  0.75
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                          </li>
-                          <li>
-                            a multiple of pi, like 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                            </li>
+                            <li>
+                              a multiple of pi, like 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                12\\ \\text{pi}
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  12\\ \\text{pi}
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                             or 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                               or 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                2/3\\ \\text{pi}
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  2/3\\ \\text{pi}
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                          </li>
-                        </ul>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </span>
+            </span>
+          </div>
         </div>
          
       </div>
@@ -292,173 +300,177 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
         <div
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
-          <span>
-            <div>
-              <input
-                aria-invalid="false"
-                aria-label="Your answer:"
-                autocapitalize="off"
-                autocomplete="off"
-                autocorrect="off"
-                class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_19vw1dn"
-                id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
-                type="text"
-                value=""
-              />
-            </div>
-            <div
-              style="position: relative; height: 0px; display: none;"
-            >
+          <div
+            class="Im-just-a-sweet-lil-numeric-input"
+          >
+            <span>
+              <div>
+                <input
+                  aria-invalid="false"
+                  aria-label="Your answer:"
+                  autocapitalize="off"
+                  autocomplete="off"
+                  autocorrect="off"
+                  class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_19vw1dn"
+                  id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                  type="text"
+                  value=""
+                />
+              </div>
               <div
-                class="tooltipContainer"
-                style="position: absolute; left: 0px;"
+                style="position: relative; height: 0px; display: none;"
               >
                 <div
-                  style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
+                  class="tooltipContainer"
+                  style="position: absolute; left: 0px;"
                 >
                   <div
-                    style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
-                  />
-                  <div
-                    style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
-                  />
-                </div>
-                <div
-                  class="perseus-formats-tooltip preview-measure"
-                  style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
-                >
-                  <div
-                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                    style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
                   >
                     <div
-                      class="perseus-renderer perseus-renderer-responsive"
+                      style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
+                    />
+                    <div
+                      style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
+                    />
+                  </div>
+                  <div
+                    class="perseus-formats-tooltip preview-measure"
+                    style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
+                  >
+                    <div
+                      id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="perseus-renderer perseus-renderer-responsive"
                       >
-                        <ul>
-                          <li>
-                            <strong>
-                              Your answer should be
-                            </strong>
-                          </li>
-                          <li>
-                            an integer, like 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <ul>
+                            <li>
+                              <strong>
+                                Your answer should be
+                              </strong>
+                            </li>
+                            <li>
+                              an integer, like 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                6
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  6
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                          </li>
-                          <li>
-                            a 
-                            <em>
-                              simplified proper
-                            </em>
-                             fraction, like 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                            </li>
+                            <li>
+                              a 
+                              <em>
+                                simplified proper
+                              </em>
+                               fraction, like 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                3/5
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  3/5
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                          </li>
-                          <li>
-                            a 
-                            <em>
-                              simplified improper
-                            </em>
-                             fraction, like 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                            </li>
+                            <li>
+                              a 
+                              <em>
+                                simplified improper
+                              </em>
+                               fraction, like 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                7/4
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  7/4
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                          </li>
-                          <li>
-                            a mixed number, like 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                            </li>
+                            <li>
+                              a mixed number, like 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                1\\ 3/4
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  1\\ 3/4
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                          </li>
-                          <li>
-                            an 
-                            <em>
-                              exact
-                            </em>
-                             decimal, like 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                            </li>
+                            <li>
+                              an 
+                              <em>
+                                exact
+                              </em>
+                               decimal, like 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                0.75
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  0.75
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                          </li>
-                          <li>
-                            a multiple of pi, like 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                            </li>
+                            <li>
+                              a multiple of pi, like 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                12\\ \\text{pi}
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  12\\ \\text{pi}
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                             or 
-                            <span
-                              style="white-space: nowrap;"
-                            >
-                              <span />
+                               or 
                               <span
-                                class="mock-TeX"
+                                style="white-space: nowrap;"
                               >
-                                2/3\\ \\text{pi}
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  2/3\\ \\text{pi}
+                                </span>
+                                <span />
                               </span>
-                              <span />
-                            </span>
-                          </li>
-                        </ul>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </span>
+            </span>
+          </div>
         </div>
          
       </div>
