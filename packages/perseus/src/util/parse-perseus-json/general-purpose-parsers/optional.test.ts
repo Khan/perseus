@@ -26,7 +26,8 @@ describe("optional()", () => {
     it("fails with the same error message as the wrapped parser", () => {
         expect(optionalString(999, ctx())).toEqual(
             parseFailureWith({
-                message: "expected string, but got 999",
+                expected: ["string"],
+                badValue: 999,
             }),
         );
     });

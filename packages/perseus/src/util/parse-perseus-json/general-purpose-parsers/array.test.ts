@@ -1,8 +1,8 @@
-import {failure, success} from "../result";
+import {success} from "../result";
 
 import {array} from "./array";
 import {string} from "./string";
-import {anyFailure, ctx} from "./test-helpers";
+import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 
 describe("array", () => {
     const arrayOfStrings = array(string);
@@ -43,12 +43,11 @@ describe("array", () => {
         const result = arrayOfStrings(theArray, ctx());
 
         expect(result).toEqual(
-            failure(
-                expect.objectContaining({
-                    message: "expected string, but got 99",
-                    path: [2],
-                }),
-            ),
+            parseFailureWith({
+                expected: ["string"],
+                badValue: 99,
+                path: [2],
+            }),
         );
     });
 
@@ -58,25 +57,17 @@ describe("array", () => {
 
         const result = arrayOfArrayOfStrings(theArray, ctx());
 
-        expect(result).toEqual(
-            failure(
-                expect.objectContaining({
-                    path: [3, 1],
-                }),
-            ),
-        );
+        expect(result).toEqual(parseFailureWith({path: [3, 1]}));
     });
 
     it("describes the problem if given a non-array", () => {
         const result = arrayOfStrings(99, ctx());
 
         expect(result).toEqual(
-            failure(
-                expect.objectContaining({
-                    message: "expected array, but got 99",
-                    path: [],
-                }),
-            ),
+            parseFailureWith({
+                expected: ["array"],
+                badValue: 99,
+            }),
         );
     });
 });

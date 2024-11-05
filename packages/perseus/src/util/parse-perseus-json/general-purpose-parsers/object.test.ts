@@ -1,11 +1,11 @@
-import {failure, success} from "../result";
+import {success} from "../result";
 
 import {array} from "./array";
 import {defaulted} from "./defaulted";
 import {number} from "./number";
 import {object} from "./object";
 import {string} from "./string";
-import {anyFailure, ctx} from "./test-helpers";
+import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 
 describe("object", () => {
     const emptyObject = object({});
@@ -37,12 +37,11 @@ describe("object", () => {
 
     it("pinpoints the mismatch", () => {
         expect(Person({name: 99, age: 42}, ctx())).toEqual(
-            failure(
-                expect.objectContaining({
-                    path: ["name"],
-                    message: "expected string, but got 99",
-                }),
-            ),
+            parseFailureWith({
+                path: ["name"],
+                expected: ["string"],
+                badValue: 99,
+            }),
         );
     });
 
@@ -52,12 +51,11 @@ describe("object", () => {
 
     it("pinpoints the missing property", () => {
         expect(Person({name: "Alice"}, ctx())).toEqual(
-            failure(
-                expect.objectContaining({
-                    path: ["age"],
-                    message: "expected number, but got undefined",
-                }),
-            ),
+            parseFailureWith({
+                path: ["age"],
+                expected: ["number"],
+                badValue: undefined,
+            }),
         );
     });
 

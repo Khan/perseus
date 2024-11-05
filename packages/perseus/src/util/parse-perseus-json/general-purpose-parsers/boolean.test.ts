@@ -15,7 +15,8 @@ describe("boolean()", () => {
     it("rejects `null`", () => {
         expect(boolean(null, ctx())).toEqual(
             parseFailureWith({
-                message: "expected boolean, but got null",
+                expected: ["boolean"],
+                badValue: null,
             }),
         );
     });

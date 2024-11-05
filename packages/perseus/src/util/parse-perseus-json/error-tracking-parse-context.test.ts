@@ -7,7 +7,7 @@ describe("ErrorTrackingParseContext", () => {
         expect(ctx.failure("a million bucks", 4)).toEqual({
             type: "failure",
             detail: {
-                message: "expected a million bucks, but got 4",
+                expected: ["a million bucks"],
                 badValue: 4,
                 path: ["foo", 1, "bar"],
             },

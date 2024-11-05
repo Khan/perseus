@@ -3,6 +3,7 @@ import {isRealJSONParse} from "../is-real-json-parse";
 
 import type {PerseusItem} from "../../perseus-types";
 import {parse} from "./parse";
+import {message} from "./parse-failure-detail";
 import {parsePerseusItem as typecheckPerseusItem} from "./perseus-parsers/perseus-item";
 import {failure, isFailure} from "./result";
 
@@ -24,8 +25,7 @@ export function parsePerseusItem(json: string): Result<PerseusItem, Error[]> {
         const perseusItemResult = parse(object, typecheckPerseusItem);
         // TODO: extract mapFailure function
         if (isFailure(perseusItemResult)) {
-            const {message, path} = perseusItemResult.detail
-            return failure([new Error(`At ${formatPath(path)} -- ${message}`)]);
+            return failure([new Error(message(perseusItemResult.detail))]);
         }
         return perseusItemResult;
     }

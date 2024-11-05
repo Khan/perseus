@@ -13,7 +13,8 @@ describe("constant()", function () {
     it("rejects any other value", () => {
         expect(fooParser("bar", ctx())).toEqual(
             parseFailureWith({
-                message: `expected "foo", but got "bar"`,
+                expected: [`"foo"`],
+                badValue: "bar",
             }),
         );
     });

@@ -7,8 +7,7 @@ export function enumeration<T extends readonly string[]>(
         if (typeof rawValue === "string" && acceptedValues.includes(rawValue)) {
             return ctx.success(rawValue as T[number]);
         }
-        const expected =
-            "one of " + acceptedValues.map((v) => JSON.stringify(v)).join(", ");
+        const expected = acceptedValues.map((v) => JSON.stringify(v));
         return ctx.failure(expected, rawValue);
     };
 }

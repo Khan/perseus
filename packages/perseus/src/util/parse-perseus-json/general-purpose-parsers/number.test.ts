@@ -1,9 +1,7 @@
-import invariant from "tiny-invariant";
-
 import {success} from "../result";
 
 import {number} from "./number";
-import {anyFailure, ctx} from "./test-helpers";
+import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 
 describe("number", () => {
     it("accepts a real number", () => {
@@ -22,10 +20,14 @@ describe("number", () => {
         expect(number("foobar", ctx())).toEqual(anyFailure);
     });
 
-    it("returns a nice error message on failure", () => {
+    it("describes the problem on failure", () => {
         const result = number("foobar", ctx());
 
-        invariant(result.type === "failure");
-        expect(result.detail.message).toBe(`expected number, but got "foobar"`);
+        expect(result).toEqual(
+            parseFailureWith({
+                expected: ["number"],
+                badValue: "foobar",
+            }),
+        );
     });
 });

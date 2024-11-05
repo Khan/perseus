@@ -216,7 +216,8 @@ describe("parseWidgetsMap", () => {
 
         expect(result).toEqual(
             parseFailureWith({
-                message: `expected a valid widget type, but got "transmogrifier"`,
+                expected: ["a valid widget type"],
+                badValue: "transmogrifier",
             }),
         );
     });

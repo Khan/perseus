@@ -28,7 +28,8 @@ describe("trio()", () => {
         const result = strNumBool(null, ctx());
         expect(result).toEqual(
             parseFailureWith({
-                message: "expected array, but got null",
+                expected: ["array"],
+                badValue: null,
             }),
         );
     });
@@ -37,7 +38,8 @@ describe("trio()", () => {
         const result = strNumBool([], ctx());
         expect(result).toEqual(
             parseFailureWith({
-                message: "expected array of length 3, but got []",
+                expected: ["array of length 3"],
+                badValue: [],
             }),
         );
     });
@@ -54,7 +56,8 @@ describe("trio()", () => {
         const result = strNumBool([9, 1, true], ctx());
         expect(result).toEqual(
             parseFailureWith({
-                message: "expected string, but got 9",
+                expected: ["string"],
+                badValue: 9,
                 path: [0],
             }),
         );
@@ -64,7 +67,8 @@ describe("trio()", () => {
         const result = strNumBool(["ok", "bork", true], ctx());
         expect(result).toEqual(
             parseFailureWith({
-                message: `expected number, but got "bork"`,
+                expected: ["number"],
+                badValue: "bork",
                 path: [1],
             }),
         );
@@ -74,7 +78,8 @@ describe("trio()", () => {
         const result = strNumBool(["ok", 3, 9], ctx());
         expect(result).toEqual(
             parseFailureWith({
-                message: `expected boolean, but got 9`,
+                expected: ["boolean"],
+                badValue: 9,
                 path: [2],
             }),
         );

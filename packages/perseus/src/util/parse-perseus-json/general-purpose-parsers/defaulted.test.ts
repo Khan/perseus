@@ -35,7 +35,8 @@ describe("defaulted()", () => {
     it("fails given a non-nullish value incompatible with the wrapped parser", () => {
         expect(numberWithDefault("blah", ctx())).toEqual(
             parseFailureWith({
-                message: `expected number, but got "blah"`,
+                expected: ["number"],
+                badValue: "blah",
             }),
         );
     });

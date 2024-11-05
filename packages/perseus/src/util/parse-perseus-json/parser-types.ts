@@ -12,7 +12,10 @@ export type PartialParser<Input, Output> = (
 export type ParseResult<T> = Result<T, ParseFailureDetail>;
 
 export type ParseFailureDetail = {
-    message: string;
+    // Descriptions of the allowed types or schemas.
+    // E.g. ["string", "number"] means that the value was expected to be a
+    // string or a number.
+    expected: string[];
     badValue: unknown;
     path: PathSegment[];
 };
@@ -23,7 +26,10 @@ export type PathSegment = keyof any;
 
 export interface ParseContext {
     success<T>(value: T): Success<T>;
-    failure(expected: string, badValue: unknown): Failure<ParseFailureDetail>;
+    failure(
+        expected: string | string[],
+        badValue: unknown,
+    ): Failure<ParseFailureDetail>;
     forSubtree(key: PathSegment): ParseContext;
 }
 

@@ -26,7 +26,8 @@ describe("nullable", () => {
     it("fails with the same error message as the wrapped parser", () => {
         expect(nullableString(999, ctx())).toEqual(
             parseFailureWith({
-                message: "expected string, but got 999",
+                expected: ["string"],
+                badValue: 999,
             }),
         );
     });

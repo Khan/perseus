@@ -15,7 +15,8 @@ describe("enumeration()", () => {
     it("rejects any other value", () => {
         expect(fooBarBaz("asdf", ctx())).toEqual(
             parseFailureWith({
-                message: `expected one of "foo", "bar", "baz", but got "asdf"`,
+                expected: [`"foo"`, `"bar"`, `"baz"`],
+                badValue: "asdf",
             }),
         );
     });

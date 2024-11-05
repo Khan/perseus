@@ -25,7 +25,8 @@ describe("pair", () => {
         const result = strAndNum(null, ctx());
         expect(result).toEqual(
             parseFailureWith({
-                message: "expected array, but got null",
+                expected: ["array"],
+                badValue: null,
             }),
         );
     });
@@ -34,7 +35,8 @@ describe("pair", () => {
         const result = strAndNum([], ctx());
         expect(result).toEqual(
             parseFailureWith({
-                message: "expected array of length 2, but got []",
+                expected: ["array of length 2"],
+                badValue: [],
             }),
         );
     });
@@ -51,7 +53,8 @@ describe("pair", () => {
         const result = strAndNum([9, 1], ctx());
         expect(result).toEqual(
             parseFailureWith({
-                message: "expected string, but got 9",
+                expected: ["string"],
+                badValue: 9,
                 path: [0],
             }),
         );
@@ -61,7 +64,8 @@ describe("pair", () => {
         const result = strAndNum(["ok", "bork"], ctx());
         expect(result).toEqual(
             parseFailureWith({
-                message: `expected number, but got "bork"`,
+                expected: ["number"],
+                badValue: "bork",
                 path: [1],
             }),
         );

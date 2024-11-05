@@ -29,7 +29,8 @@ describe("record", () => {
     it("rejects an object with the wrong value type", () => {
         expect(numericStringToNumber({"1": "asdf"}, ctx())).toEqual(
             parseFailureWith({
-                message: `expected number, but got "asdf"`,
+                expected: ["number"],
+                badValue: "asdf",
                 path: ["1"],
             }),
         );
@@ -38,7 +39,8 @@ describe("record", () => {
     it("rejects an object with the wrong key type", () => {
         expect(numericStringToNumber({asdf: 1}, ctx())).toEqual(
             parseFailureWith({
-                message: `expected numeric string, but got "asdf"`,
+                expected: ["numeric string"],
+                badValue: "asdf",
                 path: ["asdf"],
             }),
         );
