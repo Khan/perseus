@@ -76,9 +76,7 @@ function interactiveGraphValidator(
             userInput.coords != null
         ) {
             const guess = userInput.coords;
-            const correct = rubric.correct.coords as ReadonlyArray<
-                ReadonlyArray<Coord>
-            >;
+            const correct = rubric.correct.coords;
 
             if (
                 (collinear(correct[0][0], correct[0][1], guess[0][0]) &&
@@ -105,7 +103,6 @@ function interactiveGraphValidator(
             // If the parabola coefficients match, it's correct.
             const guessCoeffs = getQuadraticCoefficients(userInput.coords);
             const correctCoeffs = getQuadraticCoefficients(
-                // @ts-expect-error - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
                 rubric.correct.coords,
             );
             if (deepEq(guessCoeffs, correctCoeffs)) {
@@ -184,8 +181,8 @@ function interactiveGraphValidator(
             rubric.correct.type === "polygon" &&
             userInput.coords != null
         ) {
-            const guess: Array<Coord> = userInput.coords?.slice();
-            const correct: Array<Coord> = rubric.correct.coords?.slice();
+            const guess = userInput.coords.slice();
+            const correct = rubric.correct.coords.slice();
 
             let match;
             if (rubric.correct.match === "similar") {
@@ -215,7 +212,7 @@ function interactiveGraphValidator(
             userInput.coords != null
         ) {
             let guess = Util.deepClone(userInput.coords);
-            let correct = Util.deepClone(rubric.correct?.coords);
+            let correct = Util.deepClone(rubric.correct.coords);
             guess = _.invoke(guess, "sort").sort();
             correct = _.invoke(correct, "sort").sort();
             if (deepEq(guess, correct)) {
