@@ -30,7 +30,6 @@ export type WidgetType =
     | "label-image"
     | "matcher"
     | "matrix"
-    | "measurer"
     | "number-line"
     | "numeric-input"
     | "orderer"
