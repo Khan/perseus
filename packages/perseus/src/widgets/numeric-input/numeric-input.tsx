@@ -217,13 +217,11 @@ export class NumericInput
         ) => {
             // This sweet lil div will be removed after QA Testing for the Input Number to Numeric Conversion. (Third: Nov 2024)
             return this.props.rightAlign ? (
-                <div className="perseus-input-right-align">
-                    <div className="Im-just-a-sweet-lil-numeric-input">
-                        {keypadInput}
-                    </div>
+                <div className="perseus-input-right-align im-just-a-sweet-lil-numeric-input">
+                    {keypadInput}
                 </div>
             ) : (
-                <div className="Im-just-a-sweet-lil-numeric-input">
+                <div className="im-just-a-sweet-lil-numeric-input">
                     {keypadInput}
                 </div>
             );
@@ -257,7 +255,7 @@ export class NumericInput
 
         // This sweet lil div will be removed after QA Testing for the Input Number to Numeric Conversion. (Third: Nov 2024)
         return (
-            <div className="Im-just-a-sweet-lil-numeric-input">
+            <div className="im-just-a-sweet-lil-numeric-input">
                 <InputWithExamples
                     ref={(ref) => (this.inputRef = ref)}
                     value={this.props.currentValue}
