@@ -1,5 +1,4 @@
 import {act} from "@testing-library/react";
-import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {wait} from "../../../../../testing/wait";
@@ -21,19 +20,6 @@ describe("sorter widget", () => {
 
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
-            TeX: ({
-                children,
-                // alias onRender to onLoad to quiet the overzealous testing-library linter
-                onRender: onLoad,
-            }: {
-                children: React.ReactNode;
-                onRender?: () => unknown;
-            }) => {
-                React.useLayoutEffect(() => {
-                    onLoad?.();
-                }, [onLoad]);
-                return <span className="tex-mock">{children}</span>;
-            },
         });
     });
 

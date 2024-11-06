@@ -1,11 +1,8 @@
 import {act} from "@testing-library/react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
 import {ItemExtras} from "../../perseus-types";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {ExpressionPromptJSON} from "./prompt-utils";
 import type {PerseusAnswerArea, PerseusRenderer} from "../../perseus-types";
 
 const expression = {
@@ -41,33 +38,30 @@ const expression = {
 };
 
 describe("expression widget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(
             expression.question as PerseusRenderer,
         );
         const widget = renderer.findWidgets("expression 1")[0];
-        const expressionOptions =
-            expression.question.widgets["expression 1"].options;
 
         // Act
         const input = "x+1";
         act(() => widget.insert(input));
         act(() => jest.runOnlyPendingTimers());
 
-        const json = widget?.getPromptJSON?.() as ExpressionPromptJSON;
+        const json = renderer.getPromptJSON();
 
         // Assert
         expect(json).toEqual({
-            type: "expression",
-            label: expressionOptions.visibleLabel,
-            userInput: {value: input},
+            content: "[[☃ expression 1]]",
+            widgets: {
+                "expression 1": {
+                    type: "expression",
+                    label: "Test visible label",
+                    userInput: {value: "x+1"},
+                },
+            },
         });
     });
 });

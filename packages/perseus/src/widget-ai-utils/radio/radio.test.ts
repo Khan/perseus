@@ -5,7 +5,6 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {RadioPromptJSON} from "./prompt-utils";
 import type {PerseusRenderer, RadioWidget} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -77,17 +76,26 @@ describe("radio widget", () => {
             throw new Error("Failed to render");
         }
 
-        const json = widget.getPromptJSON?.() as RadioPromptJSON;
+        const json = renderer.getPromptJSON();
+
         const listItems = screen.getAllByRole("listitem");
 
+        const widgetJSON = json.widgets["radio 1"];
+
+        if (widgetJSON.type !== "radio") {
+            throw new Error("Expected a radio widget");
+        }
+
         // Ensure the options are shown in the correct order
-        json.options.forEach((option, i) => {
-            const textNode = within(listItems[i]).getAllByText(option.value);
+        listItems.forEach((listItem, i) => {
+            const promptJSONItemText = widgetJSON.options[i].value;
+
+            const textNode = within(listItem).getAllByText(promptJSONItemText);
             expect(textNode).not.toBeNull();
         });
 
         // Ensure the correct choice is selected
-        json.userInput.selectedOptions.forEach((isSelected, i) => {
+        widgetJSON.userInput.selectedOptions.forEach((isSelected, i) => {
             expect(isSelected).toBe(i === indexToSelect);
         });
     });

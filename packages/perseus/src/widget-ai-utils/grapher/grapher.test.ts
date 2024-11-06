@@ -1,6 +1,5 @@
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {GrapherPromptJSON} from "./prompt-utils";
 import type {PerseusRenderer} from "../../perseus-types";
 
 const question: PerseusRenderer = {
@@ -55,27 +54,33 @@ describe("grapher widget", () => {
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
-        const widget = renderer.getWidgetInstance("grapher 1");
-        const graphOptions = question.widgets["grapher 1"].options;
 
         // Act
-        const json = widget?.getPromptJSON?.() as GrapherPromptJSON;
+        const json = renderer.getPromptJSON();
 
         // Assert
         expect(json).toEqual({
-            type: "grapher",
-            options: {
-                availableTypes: graphOptions.availableTypes,
-                range: graphOptions.graph.range,
-                labels: graphOptions.graph.labels,
-                tickStep: graphOptions.graph.step,
-                gridStep: graphOptions.graph.gridStep,
-                snapStep: graphOptions.graph.snapStep,
-                backgroundImage: graphOptions.graph.backgroundImage.url,
-            },
-            userInput: {
-                type: "linear",
-                coords: null,
+            content: "**Graph $5x+3y=15$.**\n\n[[☃ grapher 1]]",
+            widgets: {
+                "grapher 1": {
+                    type: "grapher",
+                    options: {
+                        availableTypes: ["linear"],
+                        range: [
+                            [-10, 10],
+                            [-10, 10],
+                        ],
+                        labels: ["x", "y"],
+                        tickStep: [1, 1],
+                        gridStep: [1, 1],
+                        snapStep: [1, 1],
+                        backgroundImageUrl: null,
+                    },
+                    userInput: {
+                        type: "linear",
+                        coords: null,
+                    },
+                },
             },
         });
     });

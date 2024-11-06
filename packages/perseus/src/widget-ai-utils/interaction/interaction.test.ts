@@ -1,7 +1,6 @@
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import type {PerseusRenderer} from "../../perseus-types";
-import type {UnsupportedWidgetPromptJSON} from "../unsupported-widget";
 
 const question1: PerseusRenderer = {
     content:
@@ -267,15 +266,20 @@ describe("interaction widget", () => {
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
-        const widget = renderer.getWidgetInstance("interaction 1");
 
         // Act
-        const json = widget?.getPromptJSON?.() as UnsupportedWidgetPromptJSON;
+        const json = renderer.getPromptJSON();
 
         // Assert
         expect(json).toEqual({
-            type: "interaction",
-            isSupported: false,
+            content:
+                "Drag the dot all the way to the right.\n\n[[☃ interaction 1]]\n\n\n*Notice that we add a zero to the empty place value.* ",
+            widgets: {
+                "interaction 1": {
+                    type: "interaction",
+                    isSupported: false,
+                },
+            },
         });
     });
 });

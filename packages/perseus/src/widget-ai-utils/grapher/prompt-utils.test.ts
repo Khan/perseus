@@ -33,7 +33,7 @@ describe("Grapher getPromptJSON", () => {
                 tickStep: renderProps.graph.step,
                 gridStep: renderProps.graph.gridStep,
                 snapStep: renderProps.graph.snapStep,
-                backgroundImage: renderProps.graph.backgroundImage.url,
+                backgroundImageUrl: renderProps.graph.backgroundImage.url,
             },
             userInput: {
                 type: "linear",
@@ -78,7 +78,7 @@ describe("Grapher getPromptJSON", () => {
                 tickStep: renderProps.graph.step,
                 gridStep: renderProps.graph.gridStep,
                 snapStep: renderProps.graph.snapStep,
-                backgroundImage: renderProps.graph.backgroundImage.url,
+                backgroundImageUrl: renderProps.graph.backgroundImage.url,
             },
             userInput: {
                 type: "logarithm",

@@ -46,9 +46,18 @@ export const testDependencies: PerseusDependencies = {
     // Mocking this here so that we don't fail because of this issue.
     logKaTeXError: (expression: string, error: Error): Promise<any> =>
         Promise.resolve({}),
-    TeX: ({children}: {children: React.ReactNode}) => (
-        <span className="mock-TeX">{children}</span>
-    ),
+    TeX: ({
+        children,
+        onRender: onLoad,
+    }: {
+        children: React.ReactNode;
+        onRender?: () => unknown;
+    }) => {
+        React.useLayoutEffect(() => {
+            onLoad?.();
+        }, [onLoad]);
+        return <span className="tex-mock">{children}</span>;
+    },
 
     // @ts-expect-error - TS2322 - Type '(str?: string | null | undefined) => string' is not assignable to type 'StaticUrlFn'.
     staticUrl: (str?: string | null) => {
