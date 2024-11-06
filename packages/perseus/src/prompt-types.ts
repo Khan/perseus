@@ -4,6 +4,7 @@ import type {DropdownPromptJSON} from "./widget-ai-utils/dropdown/prompt-utils";
 import type {ExplanationPromptJSON} from "./widget-ai-utils/explanation/prompt-utils";
 import type {ExpressionPromptJSON} from "./widget-ai-utils/expression/prompt-utils";
 import type {GrapherPromptJSON} from "./widget-ai-utils/grapher/prompt-utils";
+import type {GroupPromptJSON} from "./widget-ai-utils/group/prompt-utils";
 import type {ImagePromptJSON} from "./widget-ai-utils/image/prompt-utils";
 import type {InputNumberPromptJSON} from "./widget-ai-utils/input-number/prompt-utils";
 import type {LabelImagePromptJSON} from "./widget-ai-utils/label-image/prompt-utils";
@@ -21,8 +22,6 @@ import type {UnsupportedWidgetPromptJSON} from "./widget-ai-utils/unsupported-wi
 export type WidgetType =
     | "categorizer"
     | "definition"
-    | "dropdown"
-    | "dropdown"
     | "dropdown"
     | "explanation"
     | "expression"
@@ -62,6 +61,7 @@ export type WidgetPromptJSON =
     | ExplanationPromptJSON
     | ExpressionPromptJSON
     | GrapherPromptJSON
+    | GroupPromptJSON
     | ImagePromptJSON
     | InputNumberPromptJSON
     | LabelImagePromptJSON

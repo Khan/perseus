@@ -6,6 +6,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/group/prompt-utils";
 
 import type {PerseusGroupWidgetOptions} from "../../perseus-types";
 import type {
@@ -17,6 +18,7 @@ import type {
     WidgetProps,
 } from "../../types";
 import type {PerseusGroupRubric, UserInputArray} from "../../validation.types";
+import type {GroupPromptJSON} from "../../widget-ai-utils/group/prompt-utils";
 
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
 type Props = WidgetProps<RenderProps, PerseusGroupRubric>;
@@ -60,6 +62,10 @@ class Group extends React.Component<Props> implements Widget {
      */
     getUserInput(): UserInputArray | undefined {
         return this.rendererRef?.getUserInput();
+    }
+
+    getPromptJSON(): GroupPromptJSON {
+        return _getPromptJSON(this.rendererRef?.getPromptJSON());
     }
 
     getSerializedState: () => any = () => {
