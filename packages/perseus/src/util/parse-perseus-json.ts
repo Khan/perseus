@@ -1,9 +1,6 @@
-import Util from "../util";
-
-import type {PerseusItem} from "../perseus-types";
 import {isRealJSONParse} from "./is-real-json-parse";
 
-const deepEq = Util.deepEq;
+import type {PerseusItem} from "../perseus-types";
 
 /**
  * Helper to parse PerseusItem JSON

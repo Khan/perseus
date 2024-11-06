@@ -1,4 +1,4 @@
-import Util from "../util"
+import Util from "../util";
 
 const deepEq = Util.deepEq;
 
@@ -53,7 +53,8 @@ export function isRealJSONParse(jsonParse: typeof JSON.parse): boolean {
     });
     const testJSON = buildTestData(testingObject.replace(/"/g, '\\"'));
     const parsedTestJSON = jsonParse(testJSON);
-    const parsedTestItemData: string = parsedTestJSON.data.assessmentItem.item.itemData;
+    const parsedTestItemData: string =
+        parsedTestJSON.data.assessmentItem.item.itemData;
     return deepEq(parsedTestItemData, testingObject);
 }
 
