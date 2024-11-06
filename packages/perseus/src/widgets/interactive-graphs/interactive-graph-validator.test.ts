@@ -199,6 +199,8 @@ describe("InteractiveGraph.validate on an angle question", () => {
                     [0, 0],
                     [-1, -1],
                 ],
+                allowReflexAngles: false,
+                match: "congruent",
             },
         };
 
