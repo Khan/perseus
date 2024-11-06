@@ -23,8 +23,6 @@ export type WidgetType =
     | "categorizer"
     | "definition"
     | "dropdown"
-    | "dropdown"
-    | "dropdown"
     | "explanation"
     | "expression"
     | "grapher"
@@ -59,7 +57,6 @@ export type UnsupportedWidget =
 export type WidgetPromptJSON =
     | CategorizerPromptJSON
     | DefinitionPromptJSON
-    | DropdownPromptJSON
     | DropdownPromptJSON
     | ExplanationPromptJSON
     | ExpressionPromptJSON
