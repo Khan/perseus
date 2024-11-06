@@ -1,7 +1,6 @@
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import type {PerseusRenderer} from "../../perseus-types";
-import type {WidgetPromptJSON} from "../../prompt-types";
 
 const question1: PerseusRenderer = {
     content: "Try matching the target image\n[[\u2603 iframe 1]]\n",
@@ -41,15 +40,19 @@ describe("iframe widget", () => {
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1, {isMobile: false});
-        const widget = renderer.getWidgetInstance("iframe 1");
 
         // Act
-        const json = widget?.getPromptJSON?.();
+        const json = renderer.getPromptJSON();
 
         // Assert
         expect(json).toEqual({
-            type: "iframe",
-            isSupported: false,
+            content: "Try matching the target image\n[[\u2603 iframe 1]]\n",
+            widgets: {
+                "iframe 1": {
+                    type: "iframe",
+                    isSupported: false,
+                },
+            },
         });
     });
 });

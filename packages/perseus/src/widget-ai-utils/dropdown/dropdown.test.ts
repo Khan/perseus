@@ -1,11 +1,8 @@
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {DropdownPromptJSON} from "./prompt-utils";
 import type {PerseusRenderer} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -47,25 +44,37 @@ describe("dropdown widget", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     it("should get prompt json which matches the state of the UI for a randomized question", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
-        const widget = renderer.getWidgetInstance("dropdown 1");
 
         // Act
         const dropdown = screen.getByRole("button");
         await userEvent.click(dropdown);
         await userEvent.click(screen.getByText("greater than or equal to"));
 
-        const json = widget?.getPromptJSON?.() as DropdownPromptJSON;
+        const json = renderer.getPromptJSON();
 
         // Assert
-        expect(json.userInput.selectedIndex).toEqual(0);
+        expect(json).toEqual({
+            content:
+                "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
+            widgets: {
+                "dropdown 1": {
+                    type: "dropdown",
+                    options: {
+                        items: [
+                            "greater than or equal to",
+                            "less than or equal to",
+                        ],
+                    },
+                    userInput: {
+                        selectedIndex: 0,
+                    },
+                },
+            },
+        });
     });
 });

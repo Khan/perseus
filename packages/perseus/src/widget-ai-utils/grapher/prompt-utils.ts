@@ -7,12 +7,12 @@ export type GrapherPromptJSON = {
     type: "grapher";
     options: {
         availableTypes: ReadonlyArray<string>;
-        range: [min: number, max: number][];
+        range: [x: [min: number, max: number], y: [min: number, max: number]];
         labels: ReadonlyArray<string>;
         tickStep: [number, number];
         gridStep?: [number, number];
         snapStep?: [number, number];
-        backgroundImage?: string | null;
+        backgroundImageUrl?: string | null;
     };
     userInput: GrapherAnswerTypes;
 };
@@ -37,7 +37,7 @@ export const getPromptJSON = (
             tickStep: renderProps.graph.step,
             gridStep: renderProps.graph.gridStep,
             snapStep: renderProps.graph.snapStep,
-            backgroundImage: renderProps.graph.backgroundImage.url,
+            backgroundImageUrl: renderProps.graph.backgroundImage.url,
         },
         userInput: input,
     };
