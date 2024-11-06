@@ -909,6 +909,77 @@ export type PerseusGraphTypeRay = {
     startCoords?: CollinearTuple;
 } & PerseusGraphTypeCommon;
 
+type AngleGraphCorrect = {
+    type: "angle";
+    allowReflexAngles: boolean;
+    match: "congruent";
+    coords: [Coord, Coord, Coord];
+};
+
+type CircleGraphCorrect = {
+    type: "circle";
+    center: Coord;
+    radius: number;
+};
+
+type LinearGraphCorrect = {
+    type: "linear";
+    coords: CollinearTuple;
+};
+
+type LinearSystemGraphCorrect = {
+    type: "linear-system";
+    coords: [CollinearTuple, CollinearTuple];
+};
+
+type NoneGraphCorrect = {
+    type: "none";
+};
+
+type PointGraphCorrect = {
+    type: "point";
+    coords: ReadonlyArray<Coord>;
+};
+
+type PolygonGraphCorrect = {
+    type: "polygon";
+    match: "similar" | "congruent" | "approx";
+    coords: ReadonlyArray<Coord>;
+};
+
+type QuadraticGraphCorrect = {
+    type: "quadratic";
+    coords: [Coord, Coord, Coord];
+};
+
+type SegmentGraphCorrect = {
+    type: "segment";
+    coords: CollinearTuple[];
+};
+
+type SinusoidGraphCorrect = {
+    type: "sinusoid";
+    coords: CollinearTuple;
+};
+
+type RayGraphCorrect = {
+    type: "ray";
+    coords: CollinearTuple;
+};
+
+export type PerseusGraphCorrectType =
+    | AngleGraphCorrect
+    | CircleGraphCorrect
+    | LinearGraphCorrect
+    | LinearSystemGraphCorrect
+    | NoneGraphCorrect
+    | PointGraphCorrect
+    | PolygonGraphCorrect
+    | QuadraticGraphCorrect
+    | RayGraphCorrect
+    | SegmentGraphCorrect
+    | SinusoidGraphCorrect;
+
 export type PerseusLabelImageWidgetOptions = {
     // Translatable Text; Tex representation of choices
     choices: ReadonlyArray<string>;
