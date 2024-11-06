@@ -43,6 +43,7 @@ describe("cs-program widget", () => {
                 "cs-program 1": {
                     type: "cs-program",
                     isSupported: false,
+                    message: "",
                 },
             },
         });

@@ -564,4 +564,34 @@ describe("getPromptJSON", () => {
             },
         });
     });
+
+    it("should return JSON for an unsupported graph", () => {
+        const renderProps: any = {
+            graph: {
+                type: "fake-graph-type",
+            },
+            backgroundImage: {url: "https://example.com/image.png"},
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            labels: ["x", "y"],
+        };
+
+        const userInput: any = {
+            type: "invalid",
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
+        const resultJSON = getPromptJSON(renderProps, userInput);
+
+        expect(resultJSON).toEqual({
+            type: "interactive-graph-unsupported",
+            isSupported: false,
+            message: "The graph type fake-graph-type is not supported.",
+        });
+    });
 });

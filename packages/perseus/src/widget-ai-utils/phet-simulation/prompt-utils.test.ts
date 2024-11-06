@@ -7,6 +7,7 @@ describe("PhET Simulation getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "phet-simulation",
             isSupported: false,
+            message: "",
         });
     });
 });

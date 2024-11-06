@@ -7,6 +7,7 @@ describe("Python Program getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "python-program",
             isSupported: false,
+            message: "",
         });
     });
 });

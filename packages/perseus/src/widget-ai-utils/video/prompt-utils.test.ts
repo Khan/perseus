@@ -7,6 +7,7 @@ describe("Video getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "video",
             isSupported: false,
+            message: "",
         });
     });
 });

@@ -7,6 +7,7 @@ describe("Interaction getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "interaction",
             isSupported: false,
+            message: "",
         });
     });
 });

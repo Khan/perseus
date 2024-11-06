@@ -7,6 +7,7 @@ describe("Plotter getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "plotter",
             isSupported: false,
+            message: "",
         });
     });
 });
