@@ -14,6 +14,8 @@ const deepEq = Util.deepEq;
  * @returns {PerseusItem} the parsed PerseusItem object
  */
 export function parsePerseusItem(json: string): PerseusItem {
+    // Try to block a cheating vector which relies on monkey-patching
+    // JSON.parse
     if (isRealJSONParse(JSON.parse)) {
         return JSON.parse(json);
     }
