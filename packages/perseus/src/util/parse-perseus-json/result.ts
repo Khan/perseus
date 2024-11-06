@@ -1,3 +1,5 @@
+import invariant from "tiny-invariant";
+
 export type Result<S, F> = Success<S> | Failure<F>;
 
 export type Success<T> = {type: "success"; value: T};
@@ -17,6 +19,24 @@ export function isFailure<S, F>(result: Result<S, F>): result is Failure<F> {
 
 export function isSuccess<S, F>(result: Result<S, F>): result is Success<S> {
     return result.type === "success";
+}
+
+export function assertFailure<S, F>(
+    result: Result<S, F>,
+): asserts result is Failure<F> {
+    invariant(
+        isFailure(result),
+        "expected result to be a Failure, but got a Success",
+    );
+}
+
+export function assertSuccess<S, F>(
+    result: Result<S, F>,
+): asserts result is Success<S> {
+    invariant(
+        isSuccess(result),
+        "expected result to be a Success, but got a Failure",
+    );
 }
 
 // Result's `all` function is similar to Promise.all: given an array of

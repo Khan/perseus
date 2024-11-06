@@ -1,6 +1,7 @@
-import {parsePerseusItem} from "./perseus-item";
-import {anyFailure, anySuccess} from "../general-purpose-parsers/test-helpers";
 import {parse} from "../parse";
+import {assertFailure, assertSuccess} from "../result";
+
+import {parsePerseusItem} from "./perseus-item";
 
 describe("parsePerseusItem", () => {
     const baseItem = {
@@ -12,23 +13,31 @@ describe("parsePerseusItem", () => {
         hints: [],
         answerArea: {},
         itemDataVersion: {major: 0, minor: 0},
-    }
+    };
 
     it("accepts valid ItemExtras as keys in the answerArea", () => {
         const item = {
             ...baseItem,
             answerArea: {calculator: true},
-        }
+        };
 
-        expect(parse(item, parsePerseusItem)).toEqual(anySuccess)
+        const result = parse(item, parsePerseusItem);
+
+        assertSuccess(result);
+        expect(result.value.answerArea).toEqual({calculator: true});
     });
 
     it("rejects invalid keys in answerArea", () => {
         const item = {
             ...baseItem,
             answerArea: {bork: true},
-        }
+        };
 
-        expect(parse(item, parsePerseusItem)).toEqual(anyFailure)
+        const result = parse(item, parsePerseusItem);
+
+        assertFailure(result);
+        expect(result.detail).toEqual(
+            `At (root).answerArea.bork -- expected "calculator", "chi2Table", "financialCalculatorMonthlyPayment", "financialCalculatorTotalAmount", "financialCalculatorTimeToPayOff", "periodicTable", "periodicTableWithKey", "tTable", or "zTable", but got "bork"`,
+        );
     });
-})
+});
