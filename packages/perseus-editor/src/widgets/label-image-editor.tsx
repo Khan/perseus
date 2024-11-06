@@ -140,6 +140,14 @@ class LabelImageEditor extends React.Component<Props> {
     }
 
     handleImageChange: (url: string) => void = (url: string) => {
+        this.props.onChange({
+            imageUrl: url,
+            // Initially reset image size when URL is changed so it can be later
+            // measured.
+            imageWidth: 0,
+            imageHeight: 0,
+        });
+
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 this.props.onChange({
