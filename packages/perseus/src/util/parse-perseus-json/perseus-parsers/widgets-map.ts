@@ -75,62 +75,88 @@ const parseWidgetsMapEntry: (
         case "expression":
             return parseAndAssign(`expression ${id}`, parseExpressionWidget);
         case "grapher":
-            return parseAndAssign(`grapher ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`grapher ${id}`, any);
         case "group":
-            return parseAndAssign(`group ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`group ${id}`, any);
         case "graded-group":
-            return parseAndAssign(`graded-group ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`graded-group ${id}`, any);
         case "graded-group-set":
-            return parseAndAssign(`graded-group-set ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`graded-group-set ${id}`, any);
         case "iframe":
-            return parseAndAssign(`iframe ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`iframe ${id}`, any);
         case "image":
-            return parseAndAssign(`image ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`image ${id}`, any);
         case "input-number":
-            return parseAndAssign(`input-number ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`input-number ${id}`, any);
         case "interaction":
-            return parseAndAssign(`interaction ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`interaction ${id}`, any);
         case "interactive-graph":
             return parseAndAssign(
                 `interactive-graph ${id}`,
                 parseInteractiveGraphWidget,
             );
         case "label-image":
-            return parseAndAssign(`label-image ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`label-image ${id}`, any);
         case "matcher":
-            return parseAndAssign(`matcher ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`matcher ${id}`, any);
         case "matrix":
-            return parseAndAssign(`matrix ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`matrix ${id}`, any);
         case "measurer":
-            return parseAndAssign(`measurer ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`measurer ${id}`, any);
         case "molecule-renderer":
-            return parseAndAssign(`molecule-renderer ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`molecule-renderer ${id}`, any);
         case "number-line":
-            return parseAndAssign(`number-line ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`number-line ${id}`, any);
         case "numeric-input":
-            return parseAndAssign(`numeric-input ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`numeric-input ${id}`, any);
         case "orderer":
-            return parseAndAssign(`orderer ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`orderer ${id}`, any);
         case "passage":
-            return parseAndAssign(`passage ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`passage ${id}`, any);
         case "passage-ref":
-            return parseAndAssign(`passage-ref ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`passage-ref ${id}`, any);
         case "passage-ref-target":
-            return parseAndAssign(`passage-ref-target ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`passage-ref-target ${id}`, any);
         case "phet-simulation":
-            return parseAndAssign(`phet-simulation ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`phet-simulation ${id}`, any);
         case "plotter":
-            return parseAndAssign(`plotter ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`plotter ${id}`, any);
         case "python-program":
-            return parseAndAssign(`python-program ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`python-program ${id}`, any);
         case "radio":
-            return parseAndAssign(`radio ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`radio ${id}`, any);
         case "sorter":
-            return parseAndAssign(`sorter ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`sorter ${id}`, any);
         case "table":
-            return parseAndAssign(`table ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`table ${id}`, any);
         case "video":
-            return parseAndAssign(`video ${id}`, any); // TODO
+            // TODO(LEMS-2585): implement a real parser for this widget
+            return parseAndAssign(`video ${id}`, any);
         default:
             return ctx.failure("a valid widget type", type);
     }
