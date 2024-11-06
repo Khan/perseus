@@ -1,4 +1,5 @@
 import {screen, within} from "@testing-library/react";
+import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -42,6 +43,18 @@ describe("matcher widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
+            TeX: ({
+                children,
+                onRender: onLoad,
+            }: {
+                children: React.ReactNode;
+                onRender?: () => unknown;
+            }) => {
+                React.useLayoutEffect(() => {
+                    onLoad?.();
+                }, [onLoad]);
+                return <span className="tex-mock">{children}</span>;
+            },
         });
     });
 

@@ -16,7 +16,6 @@ import {interactiveSizes} from "../../styles/constants";
 import Util from "../../util";
 import KhanColors from "../../util/colors";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
-
 /* Graphie and relevant components. */
 /* Mixins. */
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/grapher/prompt-utils";
