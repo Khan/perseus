@@ -217,7 +217,8 @@ export const getPromptJSON = (
             break;
         default:
             return getUnsupportedPromptJSON(
-                `interactive-graph: ${props.graph.type}`,
+                "interactive-graph-unsupported",
+                `The graph type ${props.graph.type} is not supported.`,
             );
     }
 
@@ -276,7 +277,8 @@ export const getPromptJSON = (
             break;
         default:
             return getUnsupportedPromptJSON(
-                `interactive-graph: ${userInput.type}`,
+                "interactive-graph-unsupported",
+                `The graph type ${props.graph.type} is not supported.`,
             );
     }
 

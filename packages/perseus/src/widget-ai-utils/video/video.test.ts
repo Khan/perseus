@@ -35,6 +35,7 @@ describe("cs-program widget", () => {
         expect(json).toEqual({
             type: "video",
             isSupported: false,
+            message: "",
         });
     });
 });

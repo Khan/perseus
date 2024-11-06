@@ -45,6 +45,7 @@ export type UnsupportedWidget =
     | "cs-program"
     | "iframe"
     | "interaction"
+    | "interactive-graph-unsupported"
     | "measurer"
     | "phet-simulation"
     | "plotter"

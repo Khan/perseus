@@ -7,6 +7,7 @@ describe("Measurer getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "measurer",
             isSupported: false,
+            message: "",
         });
     });
 });

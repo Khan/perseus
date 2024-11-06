@@ -278,6 +278,7 @@ describe("interaction widget", () => {
                 "interaction 1": {
                     type: "interaction",
                     isSupported: false,
+                    message: "",
                 },
             },
         });

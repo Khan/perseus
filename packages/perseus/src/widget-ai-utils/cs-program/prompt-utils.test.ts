@@ -7,6 +7,7 @@ describe("CS Program getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "cs-program",
             isSupported: false,
+            message: "",
         });
     });
 });
