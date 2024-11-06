@@ -51,8 +51,7 @@ export function isRealJSONParse(jsonParse: typeof JSON.parse): boolean {
             },
         },
     });
-    // @ts-expect-error TS2550: Property 'replaceAll' does not exist on type 'string'.
-    const testJSON = buildTestData(testingObject.replaceAll('"', '\\"'));
+    const testJSON = buildTestData(testingObject.replace(/"/g, '\\"'));
     const parsedTestJSON = jsonParse(testJSON);
     const parsedTestItemData: string = parsedTestJSON.data.assessmentItem.item.itemData;
     return deepEq(parsedTestItemData, testingObject);
