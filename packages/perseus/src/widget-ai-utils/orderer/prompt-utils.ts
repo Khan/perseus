@@ -5,7 +5,7 @@ import type React from "react";
 export type OrdererPromptJSON = {
     type: "orderer";
     options: {
-        options: string[];
+        options: ReadonlyArray<string>;
     };
     userInput: {
         values: ReadonlyArray<string>;

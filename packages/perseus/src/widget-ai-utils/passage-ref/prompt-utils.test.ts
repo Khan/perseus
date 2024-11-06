@@ -5,7 +5,7 @@ describe("PassageRef getPromptJSON", () => {
         const renderProps: any = {
             passageNumber: 1,
             referenceNumber: 1,
-            summaryText: "",
+            summaryText: "This is text summarizing the passage.",
         };
 
         const resultJSON = getPromptJSON(renderProps);
@@ -13,9 +13,9 @@ describe("PassageRef getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "passage-ref",
             options: {
-                passageNumber: renderProps.passageNumber,
-                referenceNumber: renderProps.referenceNumber,
-                summaryText: renderProps.summaryText,
+                passageNumber: 1,
+                referenceNumber: 1,
+                summaryText: "This is text summarizing the passage.",
             },
         });
     });

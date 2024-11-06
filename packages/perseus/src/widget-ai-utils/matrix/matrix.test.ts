@@ -3,7 +3,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {MatrixPromptJSON} from "./prompt-utils";
 import type {PerseusRenderer} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -45,7 +44,6 @@ describe("matrix widget", () => {
     it("Should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
-        const widget = renderer.getWidgetInstance("matrix 1");
 
         // Act
         const row1 = ["1", "2", "3", "4"];
@@ -58,17 +56,27 @@ describe("matrix widget", () => {
             await userEvent.type(textboxes[i], userInput[i]);
         }
 
-        const json = widget?.getPromptJSON?.() as MatrixPromptJSON;
+        const json = renderer.getPromptJSON();
 
         // Assert
         expect(json).toEqual({
-            type: "matrix",
-            options: {
-                width: 4,
-                height: 3,
-            },
-            userInput: {
-                answerRows: [row1, row2, row3],
+            content:
+                "**Perform the row operation, $R_3 \\leftrightarrow R_2$, on the following matrix.**\n\n$\\left[\\begin{array} {ccc}\n5 & -2 & 1 & 1 \\\\\n3 & 0 & 0 & -2 \\\\\n1 & 1 & 7 & -3 \\end{array} \\right] $\n\n[[\u2603 matrix 1]]\n",
+            widgets: {
+                "matrix 1": {
+                    type: "matrix",
+                    options: {
+                        width: 4,
+                        height: 3,
+                    },
+                    userInput: {
+                        answerRows: [
+                            ["1", "2", "3", "4"],
+                            ["5", "6", "7", "8"],
+                            ["9", "10", "11", "12"],
+                        ],
+                    },
+                },
             },
         });
     });

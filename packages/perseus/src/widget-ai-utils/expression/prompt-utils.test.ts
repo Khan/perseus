@@ -1,22 +1,18 @@
 import {getPromptJSON} from "./prompt-utils";
 
-import type {PerseusExpressionUserInput} from "../../validation.types";
-
 describe("Expression getPromptJSON", () => {
     it("it returns JSON with the expected format and fields", () => {
         const renderProps: any = {
             visibleLabel: "Enter an expression",
         };
 
-        const userInput: PerseusExpressionUserInput = "2 + 2";
-
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(renderProps, "2 + 2");
 
         expect(resultJSON).toEqual({
             type: "expression",
-            label: renderProps.visibleLabel,
+            label: "Enter an expression",
             userInput: {
-                value: userInput,
+                value: "2 + 2",
             },
         });
     });

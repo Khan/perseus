@@ -18,11 +18,11 @@ describe("InputNumber getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "input-number",
             options: {
-                simplify: renderProps.simplify,
-                answerType: renderProps.answerType,
+                simplify: "optional",
+                answerType: "integer",
             },
             userInput: {
-                value: userInput.currentValue,
+                value: "123",
             },
         });
     });
