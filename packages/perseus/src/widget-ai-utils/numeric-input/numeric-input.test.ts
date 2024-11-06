@@ -5,7 +5,6 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {NumericInputPromptJSON} from "./prompt-utils";
 import type {NumericInputWidget, PerseusRenderer} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -34,7 +33,7 @@ const question: PerseusRenderer = {
                         message: "",
                     },
                 ],
-                labelText: "",
+                labelText: "Input your answer here",
                 size: "normal",
             },
             alignment: "default",
@@ -57,18 +56,27 @@ describe("numeric input widget", () => {
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
-        const widget = renderer.getWidgetInstance("numeric-input 1");
 
-        // Act
-        const answer = "838";
+        // Act;
         await userEvent.type(
             screen.getByRole("textbox", {hidden: true}),
-            answer,
+            "838",
         );
 
-        const json = widget?.getPromptJSON?.() as NumericInputPromptJSON;
+        const json = renderer.getPromptJSON();
 
         // Assert
-        expect(json.userInput.value).toEqual(answer);
+        expect(json).toEqual({
+            content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
+            widgets: {
+                "numeric-input 1": {
+                    type: "numeric-input",
+                    label: "Input your answer here",
+                    userInput: {
+                        value: "838",
+                    },
+                },
+            },
+        });
     });
 });

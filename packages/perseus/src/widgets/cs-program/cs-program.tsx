@@ -23,7 +23,7 @@ import type {
     PerseusCSProgramRubric,
     PerseusCSProgramUserInput,
 } from "../../validation.types";
-import type {CSProgramPromptJSON} from "../../widget-ai-utils/cs-program/prompt-utils";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 const {updateQueryString} = Util;
 
@@ -108,7 +108,7 @@ class CSProgram extends React.Component<Props> implements Widget {
         };
     }
 
-    getPromptJSON(): CSProgramPromptJSON {
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();
     }
 

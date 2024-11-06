@@ -1,8 +1,5 @@
-import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {CSProgramPromptJSON} from "./prompt-utils";
 import type {PerseusRenderer} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {
@@ -32,29 +29,22 @@ export const question1: PerseusRenderer = {
 };
 
 describe("cs-program widget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
-        const apiOptions = {
-            isMobile: false,
-        } as const;
-
-        const {renderer} = renderQuestion(question1, apiOptions);
-
-        const widget = renderer.getWidgetInstance("cs-program 1");
+        const {renderer} = renderQuestion(question1, {isMobile: false});
 
         // Act
-        const json = widget?.getPromptJSON?.() as CSProgramPromptJSON;
+        const json = renderer.getPromptJSON();
 
         // Assert
         expect(json).toEqual({
-            type: "cs-program",
-            isSupported: false,
+            content: "[[\u2603 cs-program 1]]\n\n",
+            widgets: {
+                "cs-program 1": {
+                    type: "cs-program",
+                    isSupported: false,
+                },
+            },
         });
     });
 });

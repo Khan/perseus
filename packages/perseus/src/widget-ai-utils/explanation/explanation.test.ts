@@ -1,8 +1,5 @@
-import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {ExplanationPromptJSON} from "./prompt-utils";
 import type {PerseusRenderer} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {
@@ -34,26 +31,24 @@ export const question1: PerseusRenderer = {
 };
 
 describe("explanation widget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
-        const widget = renderer.getWidgetInstance("explanation 1");
-        const questionOptions = question1.widgets["explanation 1"].options;
 
         // Act
-        const json = widget?.getPromptJSON?.() as ExplanationPromptJSON;
+        const json = renderer.getPromptJSON();
 
         // Assert
         expect(json).toEqual({
-            type: "explanation",
-            showPrompt: questionOptions.showPrompt,
-            explanation: questionOptions.explanation,
+            content:
+                "Here's the explanation\n[[\u2603 explanation 1]]\nDid you get that?",
+            widgets: {
+                "explanation 1": {
+                    type: "explanation",
+                    explanation: "This is an explanation",
+                    showPrompt: "Explanation",
+                },
+            },
         });
     });
 });
