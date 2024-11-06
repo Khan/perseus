@@ -1,8 +1,8 @@
-import {isFailure} from "../result";
+import {failure, isFailure, isSuccess} from "../result";
 
 import {isObject} from "./is-object";
 
-import type {Parser} from "../parser-types";
+import type {Mismatch, Parser} from "../parser-types";
 
 export function record<K extends string, V>(
     parseKey: Parser<K>,
@@ -14,19 +14,26 @@ export function record<K extends string, V>(
         }
 
         const result = {} as Record<K, V>;
+        const mismatches: Mismatch[] = [];
         for (const [key, value] of Object.entries(rawValue)) {
             const entryCtx = ctx.forSubtree(key);
             const keyResult = parseKey(key, entryCtx);
             if (isFailure(keyResult)) {
-                return keyResult;
+                mismatches.push(...keyResult.detail);
             }
 
             const valueResult = parseValue(value, entryCtx);
             if (isFailure(valueResult)) {
-                return valueResult;
+                mismatches.push(...valueResult.detail);
             }
 
-            result[keyResult.value] = valueResult.value;
+            if (isSuccess(keyResult) && isSuccess(valueResult)) {
+                result[keyResult.value] = valueResult.value;
+            }
+        }
+
+        if (mismatches.length > 0) {
+            return failure(mismatches);
         }
         return ctx.success(result);
     };

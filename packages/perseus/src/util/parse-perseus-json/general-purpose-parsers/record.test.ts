@@ -1,4 +1,4 @@
-import {success} from "../result";
+import {assertFailure, success} from "../result";
 
 import {number} from "./number";
 import {record} from "./record";
@@ -44,5 +44,39 @@ describe("record", () => {
                 path: ["asdf"],
             }),
         );
+    });
+
+    it("describes multiple mismatches on failure", () => {
+        const record = {
+            0: 0, // ok
+            asdf: 1, // bad key
+            2: "blah", // bad value
+            bad: "bork", // bad key and value
+        };
+        const result = numericStringToNumber(record, ctx());
+
+        assertFailure(result);
+        expect(result.detail).toEqual([
+            {
+                path: ["2"],
+                expected: ["number"],
+                badValue: "blah",
+            },
+            {
+                path: ["asdf"],
+                expected: ["numeric string"],
+                badValue: "asdf",
+            },
+            {
+                path: ["bad"],
+                expected: ["numeric string"],
+                badValue: "bad",
+            },
+            {
+                path: ["bad"],
+                expected: ["number"],
+                badValue: "bork",
+            },
+        ]);
     });
 });
