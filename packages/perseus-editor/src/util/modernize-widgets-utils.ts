@@ -103,30 +103,32 @@ const convertInputNumberWidgetOptions = (
     // The question.widgets is a dictionary map of widgets, so we need to loop through in order to convert input-number to numeric-input
     // which can exist as both the key or as a value on widget.type.
     for (const key of Object.keys(widgets)) {
-        // (First) Loop through the keys of the widgets dictionary
+        // Loop through the keys of the widgets dictionary
         if (widgets[key].options.widgets) {
             widgets[key].options = {
                 ...inputNumberToNumericInput(widgets[key].options),
             };
         }
-        // (Second) Check if the widget is an input-number
+        // Check if the widget is an input-number
         if (widgets[key].type === "input-number") {
-            let provideAnswerForm = true;
-            if (
-                widgets[key].options.value !== "number" &&
-                widgets[key].options.value !== "rational"
-            ) {
-                provideAnswerForm = false;
-            }
+            const provideAnswerForm = widgets[key].options.value !== "number";
+            // We need to determine the mathFormat for the numeric-input widget
+            const mathFormat =
+                widgets[key].options.answerType === "rational"
+                    ? "proper" // input-number uses "rational" for proper fractions
+                    : widgets[key].options.answerType; // Otherwise, we can use the answerType directly
 
             // We need to update the answers prop to match the numeric-input widget format
             const answers: any = [
                 {
                     value: widgets[key].options.value,
                     simplify: widgets[key].options.simplify,
-                    // Input Number's implementation of inexact is the opposite of numeric-input's strict
-                    strict: !widgets[key].options.inexact || false,
-                    maxError: widgets[key].options.maxError || 0,
+                    // Input Number doesn't have a strict prop, so we default to false
+                    strict: false,
+                    // We only want to set maxError if the inexact prop is true
+                    maxError: widgets[key].options.inexact
+                        ? widgets[key].options.maxError
+                        : 0,
                     status: "correct", // Input-number only allows correct answers
                     message: "",
                 },
@@ -134,7 +136,7 @@ const convertInputNumberWidgetOptions = (
 
             // Add the required answerForms if provided/applicable
             if (provideAnswerForm) {
-                answers[0].answerForms = [...widgets[key].options.answerType];
+                answers[0].answerForms = [mathFormat];
             }
 
             // Update the options prop to match the numeric-input widget format
