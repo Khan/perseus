@@ -367,9 +367,8 @@ class ExpressionEditor extends React.Component<Props, State> {
                     buttonSets: this.props.buttonSets,
                     buttonsVisible: "focused",
                     value: ans.value,
-                    onChange: (props: ExpressionWidgetProps) => {
-                        this.changeExpressionWidget(key, props);
-                    },
+                    onChange: (props: ExpressionWidgetProps) =>
+                        this.changeExpressionWidget(key, props),
                     trackInteraction: () => {},
                     widgetId: this.props.widgetId + "-" + ans.key,
                     visibleLabel: this.props.visibleLabel,
@@ -379,17 +378,13 @@ class ExpressionEditor extends React.Component<Props, State> {
                 return lens(ans)
                     .merge([], {
                         onDelete: () => this.handleRemoveForm(key),
-                        onChangeSimplify: (simplify: boolean) => {
-                            this.changeSimplify(key, simplify);
-                        },
-                        onChangeForm: (form: boolean) => {
-                            this.changeForm(key, form);
-                        },
+                        onChangeSimplify: (simplify: boolean) =>
+                            this.changeSimplify(key, simplify),
+                        onChangeForm: (form: boolean) =>
+                            this.changeForm(key, form),
                         onChangeConsidered: (
                             considered: (typeof PerseusExpressionAnswerFormConsidered)[number],
-                        ) => {
-                            this.changeConsidered(key, considered);
-                        },
+                        ) => this.changeConsidered(key, considered),
                         expressionProps: expressionProps,
                     })
                     .freeze();
