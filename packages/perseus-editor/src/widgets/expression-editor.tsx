@@ -392,7 +392,6 @@ class ExpressionEditor extends React.Component<Props, State> {
                             this.changeConsidered(key, considered);
                         },
                         expressionProps: expressionProps,
-                        simplify: false,
                     })
                     .freeze();
             })
