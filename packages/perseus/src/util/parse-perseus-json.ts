@@ -13,6 +13,13 @@ const deepEq = Util.deepEq;
  * @returns {PerseusItem} the parsed PerseusItem object
  */
 export function parsePerseusItem(json: string): PerseusItem {
+    if (isRealJSONParse(JSON.parse)) {
+        return JSON.parse(json);
+    }
+    throw new Error("Something went wrong.");
+}
+
+function isRealJSONParse(jsonParse: typeof JSON.parse): boolean {
     const randomPhrase = buildRandomPhrase();
     const randomHintPhrase = buildRandomPhrase();
     const randomString = buildRandomString();
@@ -63,13 +70,9 @@ export function parsePerseusItem(json: string): PerseusItem {
     });
     // @ts-expect-error TS2550: Property 'replaceAll' does not exist on type 'string'.
     const testJSON = buildTestData(testingObject.replaceAll('"', '\\"'));
-    const parsedJSON = JSON.parse(testJSON);
-    const parsedItemData: string = parsedJSON.data.assessmentItem.item.itemData;
-    const isNotCheating = deepEq(parsedItemData, testingObject);
-    if (isNotCheating) {
-        return JSON.parse(json);
-    }
-    throw new Error("Something went wrong.");
+    const parsedTestJSON = jsonParse(testJSON);
+    const parsedTestItemData: string = parsedTestJSON.data.assessmentItem.item.itemData;
+    return deepEq(parsedTestItemData, testingObject);
 }
 
 function buildRandomString(capitalize: boolean = false) {
