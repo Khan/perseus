@@ -1,12 +1,12 @@
 import {isRealJSONParse} from "../is-real-json-parse";
 
-import type {PerseusItem} from "../../perseus-types";
 import {parse} from "./parse";
 import {message} from "./parse-failure-detail";
 import {parsePerseusItem as typecheckPerseusItem} from "./perseus-parsers/perseus-item";
 import {failure, isFailure} from "./result";
 
 import type {Result} from "./result";
+import type {PerseusItem} from "../../perseus-types";
 
 /**
  * Helper to parse PerseusItem JSON
@@ -16,7 +16,7 @@ import type {Result} from "./result";
  * @param {string} json - the stringified PerseusItem JSON
  * @returns {PerseusItem} the parsed PerseusItem object
  */
-export function parsePerseusItem(json:string): PerseusItem {
+export function parsePerseusItem(json: string): PerseusItem {
     // Try to block a cheating vector which relies on monkey-patching
     // JSON.parse
     if (isRealJSONParse(JSON.parse)) {
@@ -29,7 +29,9 @@ export function parsePerseusItem(json:string): PerseusItem {
  * Typesafe version of parsePerseusItem, which runtime-typechecks the JSON.
  * TODO(benchristel): Replace parsePerseusItem with this function.
  */
-export function parseAndTypecheckPerseusItem(json: string): Result<PerseusItem, string> {
+export function parseAndTypecheckPerseusItem(
+    json: string,
+): Result<PerseusItem, string> {
     const object: unknown = parsePerseusItem(json);
     const perseusItemResult = parse(object, typecheckPerseusItem);
     // TODO: extract mapFailure function
