@@ -40,7 +40,6 @@ const parseWidgetsMapEntry: (
     widgetMap: PerseusWidgetsMap,
     ctx: ParseContext,
 ) => ParseResult<unknown> = ([key, widget], widgetMap, ctx) => {
-    // TODO: figure out what to do with ctx here to make the error message nicer
     const keyComponentsResult = parseWidgetMapKeyComponents(
         key.split(" "),
         ctx,

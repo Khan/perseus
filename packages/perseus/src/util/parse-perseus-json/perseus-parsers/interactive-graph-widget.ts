@@ -84,7 +84,7 @@ const parsePerseusGraphTypeLinear: Parser<PerseusGraphTypeLinear> = object({
 const parsePerseusGraphTypeLinearSystem: Parser<PerseusGraphTypeLinearSystem> =
     object({
         type: constant("linear-system"),
-        // TODO: default coords to empty array?
+        // TODO(benchristel): default coords to empty array?
         coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
         startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
         // TODO: remove coord? it's legacy.
@@ -139,7 +139,7 @@ const parsePerseusGraphTypeRay: Parser<PerseusGraphTypeRay> = object({
 
 const parsePerseusGraphTypeSegment: Parser<PerseusGraphTypeSegment> = object({
     type: constant("segment"),
-    // TODO: default numSegments?
+    // TODO(benchristel): default numSegments?
     numSegments: optional(number),
     coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
     startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
@@ -199,7 +199,7 @@ const parseLockedPointType: Parser<LockedPointType> = object({
     coord: pairOfNumbers,
     color: parseLockedFigureColor,
     filled: boolean,
-    // TODO: default labels to empty array?
+    // TODO(benchristel): default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),
 });
@@ -212,7 +212,7 @@ const parseLockedLineType: Parser<LockedLineType> = object({
     lineStyle: parseLockedLineStyle,
     showPoint1: boolean,
     showPoint2: boolean,
-    // TODO: default labels to empty array?
+    // TODO(benchristel): default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),
 });
@@ -221,7 +221,7 @@ const parseLockedVectorType: Parser<LockedVectorType> = object({
     type: constant("vector"),
     points: pair(pairOfNumbers, pairOfNumbers),
     color: parseLockedFigureColor,
-    // TODO: default labels to empty array?
+    // TODO(benchristel): default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),
 });
@@ -234,7 +234,7 @@ const parseLockedEllipseType: Parser<LockedEllipseType> = object({
     color: parseLockedFigureColor,
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
-    // TODO: default labels to empty array?
+    // TODO(benchristel): default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),
 });
@@ -246,7 +246,7 @@ const parseLockedPolygonType: Parser<LockedPolygonType> = object({
     showVertices: boolean,
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
-    // TODO: default labels to empty array?
+    // TODO(benchristel): default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),
 });
@@ -258,7 +258,7 @@ const parseLockedFunctionType: Parser<LockedFunctionType> = object({
     equation: string,
     directionalAxis: enumeration("x", "y"),
     domain: optional(pairOfNumbers),
-    // TODO: default labels to empty array?
+    // TODO(benchristel): default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),
 });
@@ -289,7 +289,7 @@ export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
             range: pair(pairOfNumbers, pairOfNumbers),
             graph: parsePerseusGraphType,
             correct: parsePerseusGraphType,
-            // TODO: default lockedFigures to empty array
+            // TODO(benchristel): default lockedFigures to empty array
             lockedFigures: optional(array(parseLockedFigure)),
             fullGraphLabel: optional(string),
             fullGraphAriaDescription: optional(string),

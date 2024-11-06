@@ -1,5 +1,5 @@
 import {ErrorTrackingParseContext} from "../error-tracking-parse-context";
-import {failure} from "../result";
+import {failure, success} from "../result";
 
 import type {Mismatch} from "../parser-types";
 import type {Failure} from "../result";
@@ -9,6 +9,8 @@ export function ctx() {
 }
 
 export const anyFailure = failure(expect.anything());
+
+export const anySuccess = success(expect.anything());
 
 export function parseFailureWith(
     expected: Partial<Mismatch>,
