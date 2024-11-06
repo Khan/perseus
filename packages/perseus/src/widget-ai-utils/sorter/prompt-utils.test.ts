@@ -14,8 +14,8 @@ describe("Sorter getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "sorter",
             userInput: {
-                values: userInput.options,
-                changed: userInput.changed,
+                values: ["Pickles", "Tomato", "Onion", "Lettuce"],
+                changed: true,
             },
         });
     });

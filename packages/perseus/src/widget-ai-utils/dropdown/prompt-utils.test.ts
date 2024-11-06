@@ -9,7 +9,7 @@ describe("Dropdown getPromptJSON", () => {
         };
 
         const userInput: PerseusDropdownUserInput = {
-            value: 1,
+            value: 3,
         };
 
         const resultJSON = getPromptJSON(renderProps, userInput);
@@ -17,11 +17,11 @@ describe("Dropdown getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "dropdown",
             options: {
-                items: renderProps.choices,
+                items: ["Pickles", "Tomato", "Onion", "Lettuce"],
             },
             userInput: {
                 // Offset to account for placeholder
-                selectedIndex: userInput.value - 1,
+                selectedIndex: 2,
             },
         });
     });

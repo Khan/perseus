@@ -1,7 +1,6 @@
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import type {PerseusRenderer} from "../../perseus-types";
-import type {UnsupportedWidgetPromptJSON} from "../unsupported-widget";
 
 export const question1: PerseusRenderer = {
     content: "[[\u2603 python-program 1]]\n\n",
@@ -24,15 +23,19 @@ describe("python-program widget", () => {
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1, {isMobile: false});
-        const widget = renderer.getWidgetInstance("python-program 1");
 
         // Act
-        const json = widget?.getPromptJSON?.() as UnsupportedWidgetPromptJSON;
+        const json = renderer.getPromptJSON();
 
         // Assert
         expect(json).toEqual({
-            type: "python-program",
-            isSupported: false,
+            content: "[[\u2603 python-program 1]]\n\n",
+            widgets: {
+                "python-program 1": {
+                    type: "python-program",
+                    isSupported: false,
+                },
+            },
         });
     });
 });

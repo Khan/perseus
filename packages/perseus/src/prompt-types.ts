@@ -49,6 +49,10 @@ export type UnsupportedWidget =
     | "cs-program"
     | "iframe"
     | "interaction"
+    | "measurer"
+    | "phet-simulation"
+    | "plotter"
+    | "python-program"
     | "video";
 
 export type WidgetPromptJSON =

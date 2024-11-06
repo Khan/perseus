@@ -19,11 +19,15 @@ describe("Matrix getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "matrix",
             options: {
-                width: renderProps.matrixBoardSize[1],
-                height: renderProps.matrixBoardSize[0],
+                width: 3,
+                height: 4,
             },
             userInput: {
-                answerRows: userInput.answers,
+                answerRows: [
+                    [1, 2, 3, 4],
+                    [5, 6, 7, 8],
+                    [9, 10, 11, 12],
+                ],
             },
         });
     });

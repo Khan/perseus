@@ -19,11 +19,11 @@ describe("Categorizer getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "categorizer",
             options: {
-                items: renderProps.items,
-                categories: renderProps.categories,
+                items: ["Luke Skywalker", "Darth Vader", "Yoda", "Han Solo"],
+                categories: ["Galactic Empire", "Rebel Alliance"],
             },
             userInput: {
-                itemToCategoryMapping: userInput.values,
+                itemToCategoryMapping: [1, 0, 0, 1],
             },
         });
     });

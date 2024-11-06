@@ -18,13 +18,13 @@ describe("NumberLine getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "number-line",
             options: {
-                range: renderProps.range,
-                numDivisions: renderProps.numDivisions,
-                snapDivisions: renderProps.snapDivisions,
+                range: [0, 10],
+                numDivisions: 10,
+                snapDivisions: 2,
             },
             userInput: {
-                numLinePosition: userInput.numLinePosition,
-                numDivisions: userInput.numDivisions,
+                numLinePosition: 5,
+                numDivisions: 10,
             },
         });
     });

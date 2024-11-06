@@ -15,7 +15,7 @@ describe("Matcher getPromptJSON", () => {
         };
 
         const userInput: PerseusMatcherUserInput = {
-            left: ["1", "2", "3"],
+            left: ["3", "1", "2"],
             right: ["a", "b", "c"],
         };
 
@@ -24,14 +24,17 @@ describe("Matcher getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "matcher",
             options: {
-                labels: renderProps.labels,
-                left: renderProps.left,
-                right: renderProps.right,
-                orderMatters: renderProps.orderMatters,
+                labels: {
+                    left: "Number",
+                    right: "Letter",
+                },
+                left: ["1", "2", "3"],
+                right: ["a", "b", "c"],
+                orderMatters: false,
             },
             userInput: {
-                left: userInput.left,
-                right: userInput.right,
+                left: ["3", "1", "2"],
+                right: ["a", "b", "c"],
             },
         });
     });

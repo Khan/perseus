@@ -28,17 +28,13 @@ describe("Orderer getPromptJSON", () => {
 
         const resultJSON = getPromptJSON(renderProps, userInput);
 
-        const expectedOptions = renderProps.options.map(
-            (option: any) => option.content,
-        );
-
         expect(resultJSON).toEqual({
             type: "orderer",
             options: {
-                options: expectedOptions,
+                options: ["Third item", "First item", "Second item"],
             },
             userInput: {
-                values: userInput.current,
+                values: ["First item", "Second item", "Third item"],
             },
         });
     });
