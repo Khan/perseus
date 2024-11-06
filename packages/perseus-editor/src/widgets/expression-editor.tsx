@@ -213,8 +213,9 @@ class ExpressionEditor extends React.Component<Props, State> {
         this.change({answerForms});
     };
 
-    // called when the options (including the expression itself) to an answer
-    // form change.
+    // This function is designed to update the answerForm property
+    // with new data. This function should not be used to update any
+    // other properties within ExpressionEditor.
     updateAnswerForm: (i: number, props: AnswerForm) => void = (i, props) => {
         const answerForms = lens(this.props.answerForms)
             .merge([i], props)
@@ -377,8 +378,6 @@ class ExpressionEditor extends React.Component<Props, State> {
 
                 return lens(ans)
                     .merge([], {
-                        key,
-                        draggable: true,
                         onDelete: () => this.handleRemoveForm(key),
                         onChangeSimplify: (simplify: boolean) => {
                             this.changeSimplify(key, simplify);
@@ -397,8 +396,6 @@ class ExpressionEditor extends React.Component<Props, State> {
             })
             .map((answerOption: AnswerOptionProps) => (
                 <AnswerOption
-                    key={answerOption.key}
-                    draggable={answerOption.draggable}
                     considered={answerOption.considered}
                     expressionProps={answerOption.expressionProps}
                     form={answerOption.form}
@@ -548,8 +545,6 @@ const findNextIn = function (arr: ReadonlyArray<string>, val: any) {
 };
 
 type AnswerOptionProps = {
-    key?: number;
-    draggable: boolean;
     considered: (typeof PerseusExpressionAnswerFormConsidered)[number];
     expressionProps: any;
 
