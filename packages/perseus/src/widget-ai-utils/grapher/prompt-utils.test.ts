@@ -10,7 +10,7 @@ describe("Grapher getPromptJSON", () => {
                 step: 1,
                 gridStep: 1,
                 snapStep: 1,
-                backgroundImage: {url: ""},
+                backgroundImage: {url: "http://khanaacademy.org/image.jpg"},
             },
         };
 
@@ -27,13 +27,13 @@ describe("Grapher getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "grapher",
             options: {
-                availableTypes: renderProps.availableTypes,
-                range: renderProps.graph.range,
-                labels: renderProps.graph.labels,
-                tickStep: renderProps.graph.step,
-                gridStep: renderProps.graph.gridStep,
-                snapStep: renderProps.graph.snapStep,
-                backgroundImageUrl: renderProps.graph.backgroundImage.url,
+                availableTypes: ["linear"],
+                range: [0, 10, 0, 10],
+                labels: ["x", "y"],
+                tickStep: 1,
+                gridStep: 1,
+                snapStep: 1,
+                backgroundImageUrl: "http://khanaacademy.org/image.jpg",
             },
             userInput: {
                 type: "linear",
@@ -72,13 +72,13 @@ describe("Grapher getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "grapher",
             options: {
-                availableTypes: renderProps.availableTypes,
-                range: renderProps.graph.range,
-                labels: renderProps.graph.labels,
-                tickStep: renderProps.graph.step,
-                gridStep: renderProps.graph.gridStep,
-                snapStep: renderProps.graph.snapStep,
-                backgroundImageUrl: renderProps.graph.backgroundImage.url,
+                availableTypes: ["lograithm"],
+                range: [0, 10, 0, 10],
+                labels: ["x", "y"],
+                tickStep: 1,
+                gridStep: 1,
+                snapStep: 1,
+                backgroundImageUrl: "",
             },
             userInput: {
                 type: "logarithm",

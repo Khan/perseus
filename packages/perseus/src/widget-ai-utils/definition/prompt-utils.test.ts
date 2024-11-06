@@ -11,8 +11,8 @@ describe("Definition getPromptJSON", () => {
 
         expect(resultJSON).toEqual({
             type: "definition",
-            definition: renderProps.definition,
-            togglePrompt: renderProps.togglePrompt,
+            definition: "to confuse or fluster",
+            togglePrompt: "bumfuzzle",
         });
     });
 });

@@ -16,10 +16,10 @@ describe("Image getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "image",
             options: {
-                altText: renderProps.alt,
-                title: renderProps.title,
-                caption: renderProps.caption,
-                imageUrl: renderProps.backgroundImage.url,
+                altText: "An image of a textbook",
+                title: "Textbook",
+                caption: "A textbook",
+                imageUrl: "https://www.khanacademy.org/some-image.png",
             },
         });
     });

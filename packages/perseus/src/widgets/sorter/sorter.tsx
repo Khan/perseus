@@ -3,6 +3,7 @@ import * as React from "react";
 
 import Sortable from "../../components/sortable";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/prompt-utils";
 
 import sorterValidator from "./sorter-validator";
 
@@ -13,6 +14,7 @@ import type {
     PerseusSorterRubric,
     PerseusSorterUserInput,
 } from "../../validation.types";
+import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/prompt-utils";
 
 const {shuffle} = Util;
 
@@ -84,6 +86,10 @@ class Sorter extends React.Component<Props, State> implements Widget {
             options,
             changed: this.state.changed,
         };
+    }
+
+    getPromptJSON(): SorterPromptJSON {
+        return _getPromptJSON(this.getUserInput());
     }
 
     moveOptionToIndex: (option: SortableOption, index: number) => void = (
