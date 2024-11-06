@@ -1,9 +1,7 @@
 import {isRealJSONParse} from "../is-real-json-parse";
 
 import {parse} from "./parse";
-import {message} from "./parse-failure-detail";
 import {parsePerseusItem as typecheckPerseusItem} from "./perseus-parsers/perseus-item";
-import {failure, isFailure} from "./result";
 
 import type {Result} from "./result";
 import type {PerseusItem} from "../../perseus-types";
@@ -33,10 +31,5 @@ export function parseAndTypecheckPerseusItem(
     json: string,
 ): Result<PerseusItem, string> {
     const object: unknown = parsePerseusItem(json);
-    const perseusItemResult = parse(object, typecheckPerseusItem);
-    // TODO: extract mapFailure function
-    if (isFailure(perseusItemResult)) {
-        return failure(perseusItemResult.detail.map(message).join("; "));
-    }
-    return perseusItemResult;
+    return parse(object, typecheckPerseusItem);
 }
