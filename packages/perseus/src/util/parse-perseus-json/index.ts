@@ -16,17 +16,25 @@ import type {Result} from "./result";
  * @param {string} json - the stringified PerseusItem JSON
  * @returns {PerseusItem} the parsed PerseusItem object
  */
-export function parsePerseusItem(json: string): Result<PerseusItem, string> {
+export function parsePerseusItem(json:string): PerseusItem {
     // Try to block a cheating vector which relies on monkey-patching
     // JSON.parse
     if (isRealJSONParse(JSON.parse)) {
-        const object: unknown = JSON.parse(json);
-        const perseusItemResult = parse(object, typecheckPerseusItem);
-        // TODO: extract mapFailure function
-        if (isFailure(perseusItemResult)) {
-            return failure(perseusItemResult.detail.map(message).join("; "));
-        }
-        return perseusItemResult;
+        return JSON.parse(json);
     }
     throw new Error("Something went wrong.");
+}
+
+/**
+ * Typesafe version of parsePerseusItem, which runtime-typechecks the JSON.
+ * TODO(benchristel): Replace parsePerseusItem with this function.
+ */
+export function parseAndTypecheckPerseusItem(json: string): Result<PerseusItem, string> {
+    const object: unknown = parsePerseusItem(json);
+    const perseusItemResult = parse(object, typecheckPerseusItem);
+    // TODO: extract mapFailure function
+    if (isFailure(perseusItemResult)) {
+        return failure(perseusItemResult.detail.map(message).join("; "));
+    }
+    return perseusItemResult;
 }

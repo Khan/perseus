@@ -2,11 +2,11 @@ import invariant from "tiny-invariant";
 
 import {isFailure, isSuccess} from "./result";
 
-import {parsePerseusItem} from ".";
+import {parseAndTypecheckPerseusItem} from ".";
 
-describe("parsePerseusItem", () => {
+describe("parseAndTypecheckPerseusItem", () => {
     it("should parse JSON", () => {
-        const result = parsePerseusItem(
+        const result = parseAndTypecheckPerseusItem(
             `{
                 "itemDataVersion": { "major": 0, "minor": 0 },
                 "answerArea": {},
@@ -18,15 +18,15 @@ describe("parsePerseusItem", () => {
                 }
             }`,
         );
-        invariant(isSuccess(result), "expected parsePerseusItem to succeed");
+        invariant(isSuccess(result), "expected parsing to succeed");
         expect(result.value.question.content).toBe(
             "this is the question content",
         );
     });
 
     it("returns an error given an invalid PerseusItem", () => {
-        const result = parsePerseusItem(`{ "bad": "value" }`);
-        invariant(isFailure(result), "expected parsePerseusItem to fail");
+        const result = parseAndTypecheckPerseusItem(`{ "bad": "value" }`);
+        invariant(isFailure(result), "expected parsing to fail");
         expect(result.detail).toContain(
             "At (root).question -- expected object, but got undefined",
         );
