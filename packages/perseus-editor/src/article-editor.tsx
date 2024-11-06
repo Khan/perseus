@@ -72,7 +72,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
         super(props);
         this.state = {
             highlightLint: true,
-            json: convertDeprecatedWidgets(props.json as PerseusRenderer),
+            json: Array.isArray(props.json)
+                ? props.json.map(convertDeprecatedWidgets)
+                : convertDeprecatedWidgets(props.json as PerseusRenderer),
         };
     }
 
