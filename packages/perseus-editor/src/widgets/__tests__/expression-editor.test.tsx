@@ -77,7 +77,16 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({times: true});
+        // Update to the correct mock.
+        expect(onChangeMock).toBeCalledWith(
+            {
+                answerForms: [],
+                buttonSets: ["basic"],
+                functions: ["f", "g", "h"],
+                times: true,
+            },
+            undefined,
+        );
     });
 
     it("should be possible to change function variables", async () => {

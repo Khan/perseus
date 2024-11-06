@@ -162,6 +162,7 @@ export {default as WIDGET_PROP_DENYLIST} from "./mixins/widget-prop-denylist";
 export type {PerseusOptions} from "./init";
 export type {ILogger, LogErrorOptions} from "./logging/log";
 export type {ServerItemRenderer as ServerItemRendererComponent} from "./server-item-renderer";
+export type {ExpressionWidgetProps} from "./widgets/expression/index";
 export type {
     Alignment,
     APIOptions,
