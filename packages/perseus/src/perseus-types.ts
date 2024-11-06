@@ -911,9 +911,8 @@ export type PerseusGraphTypeRay = {
 
 type AngleGraphCorrect = {
     type: "angle";
-    // Whether to show the angle measurements.  default: false
-    allowReflexAngles?: boolean;
-    match?: "congruent";
+    allowReflexAngles: boolean;
+    match: "congruent";
     coords: [Coord, Coord, Coord];
 };
 
@@ -944,7 +943,7 @@ type PointGraphCorrect = {
 
 type PolygonGraphCorrect = {
     type: "polygon";
-    match?: "similar" | "congruent" | "approx";
+    match: "similar" | "congruent" | "approx";
     coords: ReadonlyArray<Coord>;
 };
 
