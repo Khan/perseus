@@ -77,7 +77,6 @@ describe("expression-editor", () => {
             }),
         );
 
-        // Update to the correct mock.
         expect(onChangeMock).toBeCalledWith(
             {
                 answerForms: [],
