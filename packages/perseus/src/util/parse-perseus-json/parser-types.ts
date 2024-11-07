@@ -25,11 +25,25 @@ export type Mismatch = {
 export type PathSegment = keyof any;
 
 export interface ParseContext {
+    /**
+     * Returns a Success result based on the current state of the parse.
+     * @param value The value to return in the Success.
+     */
     success<T>(value: T): Success<T>;
+
+    /**
+     * Returns a Failure result based on the current state of the parse.
+     *
+     * @param expected one or more descriptions of the types that were expected.
+     * An array of several expected types has "any" semantics - any of the
+     * listed types is valid.
+     * @param badValue the value that caused the parse to fail.
+     */
     failure(
         expected: string | string[],
         badValue: unknown,
     ): Failure<Mismatch[]>;
+
     forSubtree(key: PathSegment): ParseContext;
 }
 
