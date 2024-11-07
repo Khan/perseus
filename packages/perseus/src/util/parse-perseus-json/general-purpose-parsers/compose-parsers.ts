@@ -1,26 +1,22 @@
+import {isFailure} from "../result";
+
 import type {
     ParsedValue,
     PartialParser,
     ParseContext,
     Parser,
-    ParseResult,
 } from "../parser-types";
 
 export function composeParsers<
     A extends Parser<any>,
     B extends PartialParser<ParsedValue<A>, any>,
->(a: A, b: B): Parser<ParsedValue<B>>;
-export function composeParsers(...parsers: any[]) {
+>(parserA: A, parserB: B): Parser<ParsedValue<B>> {
     return (rawValue: unknown, ctx: ParseContext) => {
-        let x = rawValue;
-        for (const parser of parsers) {
-            const result: ParseResult<any> = parser(x, ctx);
-            if (result.type === "failure") {
-                return result;
-            } else {
-                x = result.value;
-            }
+        const partialResult = parserA(rawValue, ctx);
+        if (isFailure(partialResult)) {
+            return partialResult;
         }
-        return ctx.success(x);
+
+        return parserB(partialResult.value, ctx);
     };
 }
