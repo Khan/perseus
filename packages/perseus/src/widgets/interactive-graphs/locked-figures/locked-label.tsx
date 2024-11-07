@@ -5,15 +5,22 @@ import {getDependencies} from "../../../dependencies";
 import {lockedFigureColors, type LockedLabelType} from "../../../perseus-types";
 import {pointToPixel} from "../graphs/use-transform";
 import useGraphConfig from "../reducer/use-graph-config";
+import {replaceOutsideTeX} from "../utils";
 
 export default function LockedLabel(props: LockedLabelType) {
     const {coord, text, color, size} = props;
+    const [currentTeX, setCurrentTeX] = React.useState(replaceOutsideTeX(text));
 
     const [x, y] = pointToPixel(coord, useGraphConfig());
 
     const {TeX} = getDependencies();
 
-    // Move this all outside the SVG element
+    // Update the TeX as the text changes in the editor.
+    React.useEffect(() => {
+        setCurrentTeX(replaceOutsideTeX(text));
+    }, [text]);
+
+    // Note: The TeX component cannot be rendered within an SVG
     return (
         <span
             className="locked-label"
@@ -27,7 +34,7 @@ export default function LockedLabel(props: LockedLabelType) {
             }}
             aria-hidden={true}
         >
-            <TeX>{text}</TeX>
+            <TeX>{currentTeX}</TeX>
         </span>
     );
 }
