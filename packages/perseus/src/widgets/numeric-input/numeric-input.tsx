@@ -73,6 +73,7 @@ type State = {
     // keeps track of the other set of values when switching
     // between 0 and finite solutions
     previousValues: ReadonlyArray<string>;
+    isFocused: boolean;
 };
 
 export class NumericInput
@@ -105,6 +106,7 @@ export class NumericInput
         // keeps track of the other set of values when switching
         // between 0 and finite solutions
         previousValues: [""],
+        isFocused: false,
     };
 
     // TODO(Nicole, Jeremy): This is maybe never used and should be removed
@@ -191,10 +193,16 @@ export class NumericInput
 
     _handleFocus: () => void = () => {
         this.props.onFocus([]);
+        this.setState((currentState) => {
+            return {...currentState, isFocused: true}
+        });
     };
 
     _handleBlur: () => void = () => {
         this.props.onBlur([]);
+        this.setState((currentState) => {
+            return {...currentState, isFocused: false}
+        });
     };
 
     render(): React.ReactNode {
@@ -235,15 +243,21 @@ export class NumericInput
         // component.
         const styles = StyleSheet.create({
             input: {
+                borderRadius: "3px",
+                borderWidth: this.state.isFocused ? "2px" : "1px",
+                display: "inline-block",
+                fontFamily: `Symbola, "Times New Roman", serif`,
+                fontSize: "18px",
+                height: "30px",
+                lineHeight: "18px",
+                padding: "4px",
                 textAlign: this.props.rightAlign ? "right" : "left",
+                transform: "translateY(4px)",
                 width: this.props.size === "small" ? 40 : 80,
-                padding: 0,
-                height: "auto",
             },
         });
 
         return (
-            <div>
                 <InputWithExamples
                     ref={(ref) => (this.inputRef = ref)}
                     value={this.props.currentValue}
@@ -257,7 +271,6 @@ export class NumericInput
                     disabled={this.props.apiOptions.readOnly}
                     style={styles.input}
                 />
-            </div>
         );
     }
 }
