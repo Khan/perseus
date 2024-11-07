@@ -288,7 +288,7 @@ describe("Locked Vector Settings", () => {
             );
 
             // Act
-            const labelText = screen.getByLabelText("TeX");
+            const labelText = screen.getByLabelText("text");
             await userEvent.type(labelText, "!");
 
             // Assert

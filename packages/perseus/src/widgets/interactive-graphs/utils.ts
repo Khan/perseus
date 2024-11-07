@@ -70,3 +70,23 @@ export function isUnlimitedGraphState(
         (state.type === "polygon" && state.numSides === "unlimited")
     );
 }
+
+/**
+ * Replace all text outside of the $ TeX blocks with `\\text{...}`
+ * This way, the entire resulting string can be rendered within <TeX>
+ * and the text outside of the $ blocks will be non-TeX text.
+ */
+export function replaceOutsideTeX(mathString: string) {
+    let currentlyTeX = mathString[0] === "$";
+    let result = "";
+
+    const splitString = mathString.split("$").filter((part) => part !== "");
+
+    for (let i = 0; i < splitString.length; i++) {
+        const part = splitString[i];
+        result += currentlyTeX ? part : `\\text{${part}}`;
+        currentlyTeX = !currentlyTeX;
+    }
+
+    return result;
+}
