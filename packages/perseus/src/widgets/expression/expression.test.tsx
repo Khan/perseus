@@ -13,7 +13,9 @@ import {mockStrings} from "../../strings";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {Expression, keypadConfigurationForProps} from "./expression";
+import ExpressionWidgetExport, {
+    keypadConfigurationForProps,
+} from "./expression";
 import {
     expressionItem2,
     expressionItem3,
