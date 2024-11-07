@@ -50,6 +50,7 @@ describe("phet-simulation widget", () => {
                 "phet-simulation 1": {
                     type: "phet-simulation",
                     isSupported: false,
+                    message: "",
                 },
             },
         });

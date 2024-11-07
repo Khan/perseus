@@ -7,6 +7,7 @@ describe("Iframe getPromptJSON", () => {
         expect(resultJSON).toEqual({
             type: "iframe",
             isSupported: false,
+            message: "",
         });
     });
 });

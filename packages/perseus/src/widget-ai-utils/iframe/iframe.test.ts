@@ -51,6 +51,7 @@ describe("iframe widget", () => {
                 "iframe 1": {
                     type: "iframe",
                     isSupported: false,
+                    message: "",
                 },
             },
         });

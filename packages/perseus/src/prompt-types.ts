@@ -31,7 +31,6 @@ export type WidgetType =
     | "label-image"
     | "matcher"
     | "matrix"
-    | "measurer"
     | "number-line"
     | "numeric-input"
     | "orderer"
@@ -41,13 +40,13 @@ export type WidgetType =
     | "plotter"
     | "python-program"
     | "radio"
-    | "sorter"
-    | "video";
+    | "sorter";
 
 export type UnsupportedWidget =
     | "cs-program"
     | "iframe"
     | "interaction"
+    | "interactive-graph-unsupported"
     | "measurer"
     | "phet-simulation"
     | "plotter"

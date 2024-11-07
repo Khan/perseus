@@ -34,6 +34,7 @@ describe("python-program widget", () => {
                 "python-program 1": {
                     type: "python-program",
                     isSupported: false,
+                    message: "",
                 },
             },
         });
