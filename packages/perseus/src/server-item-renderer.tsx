@@ -28,7 +28,7 @@ import type {
     PerseusDependenciesV2,
     SharedRendererProps,
 } from "./types";
-import type {UserInputMap} from "./validation.types";
+import type {UserInputArray, UserInputMap} from "./validation.types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     KeypadContextRendererInterface,
@@ -297,9 +297,20 @@ export class ServerItemRenderer
     }
 
     /**
+     * Returns an array of the widget `.getUserInput()` results
+     *
+     * TODO: can we remove this? Seems to be just for backwards
+     * compatibility with old Perseus Chrome logging
+     * @deprecated use getUserInput
+     */
+    getUserInputLegacy(): UserInputArray {
+        return this.questionRenderer.getUserInput();
+    }
+
+    /**
      * Returns an object of the widget `.getUserInput()` results
      */
-    getUserInputMap(): UserInputMap {
+    getUserInput(): UserInputMap {
         return this.questionRenderer.getUserInputMap();
     }
 
@@ -309,7 +320,7 @@ export class ServerItemRenderer
      * @deprecated use scorePerseusItem
      */
     scoreInput(): KEScore {
-        const guess = this.getUserInputMap();
+        const guess = this.getUserInput();
         const score = scorePerseusItem(
             this.props.item.question,
             guess,
