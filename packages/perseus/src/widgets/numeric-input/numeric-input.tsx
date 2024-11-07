@@ -248,11 +248,11 @@ export class NumericInput
                 display: "inline-block",
                 fontFamily: `Symbola, "Times New Roman", serif`,
                 fontSize: "18px",
-                height: "30px",
+                height: "32px",
                 lineHeight: "18px",
-                padding: "4px",
+                padding: this.state.isFocused ? "4px" : "4px 5px", // account for added focus border thickness
                 textAlign: this.props.rightAlign ? "right" : "left",
-                transform: "translateY(4px)",
+                transform: "translateY(6px)",
                 width: this.props.size === "small" ? 40 : 80,
             },
         });
