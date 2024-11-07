@@ -111,7 +111,8 @@ const convertInputNumberWidgetOptions = (
         }
         // Check if the widget is an input-number
         if (widgets[key].type === "input-number") {
-            const provideAnswerForm = widgets[key].options.value !== "number";
+            const provideAnswerForm =
+                widgets[key].options.answerType !== "number";
             // We need to determine the mathFormat for the numeric-input widget
             const mathFormat =
                 widgets[key].options.answerType === "rational"
