@@ -121,8 +121,8 @@ export class GradedGroup
         answerBarState: "HIDDEN",
     };
 
-    rendererRef: Renderer | null | undefined;
-    hintRendererRef: Renderer | null | undefined;
+    rendererRef = React.createRef<Renderer>();
+    hintRendererRef = React.createRef<Renderer>();
 
     shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
         return nextProps !== this.props || nextState !== this.state;
@@ -145,9 +145,9 @@ export class GradedGroup
             message: "",
         });
 
-        if (this.rendererRef) {
+        if (this.rendererRef.current) {
             this.change("widgets", this.props.widgets);
-            const emptyWidgets = this.rendererRef.emptyWidgets();
+            const emptyWidgets = this.rendererRef.current.emptyWidgets();
             const answerable = emptyWidgets.length === 0;
             const answerBarState = this.state.answerBarState;
             this.setState({
@@ -157,8 +157,8 @@ export class GradedGroup
     };
 
     _checkAnswer: () => void = () => {
-        this.rendererRef?.showRationalesForCurrentlySelectedChoices();
-        const score: PerseusScore = this.rendererRef?.score() || {
+        this.rendererRef.current?.showRationalesForCurrentlySelectedChoices();
+        const score: PerseusScore = this.rendererRef.current?.score() || {
             type: "invalid",
         };
         const {
@@ -194,20 +194,20 @@ export class GradedGroup
 
     // Mobile API
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
-        return this.rendererRef?.getInputPaths() || [];
+        return this.rendererRef.current?.getInputPaths() || [];
     };
 
     getPromptJSON(): GradedGroupPromptJSON {
         // If the hint isn't expanded, we can't get the prompt JSON from the rendered widgets.
         // We'll just pass in the hint content as a string instead.
-        const hint = this.hintRendererRef?.getPromptJSON() || {
+        const hint = this.hintRendererRef.current?.getPromptJSON() || {
             content: this.props.hint?.content || "",
             widgets: {},
         };
 
         return getPromptJSON(
             this.props.title,
-            this.rendererRef?.getPromptJSON(),
+            this.rendererRef.current?.getPromptJSON(),
             hint,
         );
     }
@@ -217,19 +217,19 @@ export class GradedGroup
         newValue,
         cb,
     ) => {
-        return this.rendererRef?.setInputValue(path, newValue, cb);
+        return this.rendererRef.current?.setInputValue(path, newValue, cb);
     };
 
     focus: () => boolean = () => {
-        return !!this.rendererRef?.focus();
+        return !!this.rendererRef.current?.focus();
     };
 
     focusInputPath: (arg1: any) => void = (path) => {
-        this.rendererRef?.focusPath(path);
+        this.rendererRef.current?.focusPath(path);
     };
 
     blurInputPath: (arg1: any) => void = (path) => {
-        this.rendererRef?.blurPath(path);
+        this.rendererRef.current?.blurPath(path);
     };
 
     render(): React.ReactNode {
@@ -304,7 +304,7 @@ export class GradedGroup
                 {/* @ts-expect-error - TS2322 - Type '{ ref: string; apiOptions: any; onInteractWithWidget: (arg1: string) => void; linterContext: LinterContextProps; title: string; hasHint?: boolean | null | undefined; ... 22 more ...; children?: ReactNode; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "keypadElement" | "problemNum" | "apiOptions" | "legacyPerseusLint">'. */}
                 <Renderer
                     {...this.props}
-                    ref={(ref) => (this.rendererRef = ref)}
+                    ref={this.rendererRef}
                     apiOptions={{...apiOptions, readOnly}}
                     onInteractWithWidget={this._onInteractWithWidget}
                     linterContext={this.props.linterContext}
@@ -373,7 +373,7 @@ export class GradedGroup
                              */}
                             <Renderer
                                 {...this.props.hint}
-                                ref={(ref) => (this.hintRendererRef = ref)}
+                                ref={this.hintRendererRef}
                                 apiOptions={apiOptions}
                                 linterContext={this.props.linterContext}
                                 strings={this.context.strings}
