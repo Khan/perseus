@@ -84,7 +84,7 @@ export function replaceOutsideTeX(mathString: string) {
 
     for (let i = 0; i < splitString.length; i++) {
         const part = splitString[i];
-result += currentlyTeX ? part : `\\text{${part}}`;
+        result += currentlyTeX ? part : `\\text{${part}}`;
         currentlyTeX = !currentlyTeX;
     }
 
