@@ -40,6 +40,7 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 type OwnProps = {
     hintsVisible?: number;
     item: PerseusItem;
+    score?: KEScore | null;
     problemNum?: number;
     reviewMode?: boolean;
     keypadElement?: KeypadAPI | null | undefined;
@@ -133,6 +134,16 @@ export class ServerItemRenderer
                 this._fullyRendered = true;
                 this.props.onRendered(true);
             }
+        }
+
+        if (this.props.score && this.props.score !== prevProps.score) {
+            const emptyQuestionAreaWidgets =
+                this.questionRenderer.emptyWidgets();
+
+            this.setState({
+                questionCompleted: this.props.score.correct,
+                questionHighlightedWidgets: emptyQuestionAreaWidgets,
+            });
         }
     }
 
