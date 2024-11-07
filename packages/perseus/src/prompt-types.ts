@@ -4,6 +4,7 @@ import type {DropdownPromptJSON} from "./widget-ai-utils/dropdown/prompt-utils";
 import type {ExplanationPromptJSON} from "./widget-ai-utils/explanation/prompt-utils";
 import type {ExpressionPromptJSON} from "./widget-ai-utils/expression/prompt-utils";
 import type {GradedGroupPromptJSON} from "./widget-ai-utils/graded-group/prompt-utils";
+import type {GradedGroupSetPromptJSON} from "./widget-ai-utils/graded-group-set/prompt-utils";
 import type {GrapherPromptJSON} from "./widget-ai-utils/grapher/prompt-utils";
 import type {GroupPromptJSON} from "./widget-ai-utils/group/prompt-utils";
 import type {ImagePromptJSON} from "./widget-ai-utils/image/prompt-utils";
@@ -19,29 +20,6 @@ import type {PassageRefPromptJSON} from "./widget-ai-utils/passage-ref/prompt-ut
 import type {RadioPromptJSON} from "./widget-ai-utils/radio/prompt-utils";
 import type {SorterPromptJSON} from "./widget-ai-utils/sorter/prompt-utils";
 import type {UnsupportedWidgetPromptJSON} from "./widget-ai-utils/unsupported-widget";
-
-export type WidgetType =
-    | "categorizer"
-    | "definition"
-    | "dropdown"
-    | "explanation"
-    | "expression"
-    | "grapher"
-    | "image"
-    | "input-number"
-    | "label-image"
-    | "matcher"
-    | "matrix"
-    | "number-line"
-    | "numeric-input"
-    | "orderer"
-    | "passage-ref"
-    | "passage"
-    | "phet-simulation"
-    | "plotter"
-    | "python-program"
-    | "radio"
-    | "sorter";
 
 export type UnsupportedWidget =
     | "cs-program"
@@ -61,6 +39,7 @@ export type WidgetPromptJSON =
     | ExplanationPromptJSON
     | ExpressionPromptJSON
     | GradedGroupPromptJSON
+    | GradedGroupSetPromptJSON
     | GrapherPromptJSON
     | GroupPromptJSON
     | ImagePromptJSON
