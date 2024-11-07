@@ -8,7 +8,8 @@ import GraphUtils from "../../util/graph-utils";
 import noopValidator from "../__shared__/noop-validator";
 
 import type {Coord} from "../../interactive2/types";
-import type {APIOptions, Widget, WidgetExports} from "../../types";
+import type {PerseusMeasurerWidgetOptions} from "../../perseus-types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {Interval} from "../../util/interval";
 
 const defaultImage = {
@@ -17,22 +18,14 @@ const defaultImage = {
     left: 0,
 } as const;
 
-type Props = {
-    apiOptions: APIOptions;
-    box: [number, number];
-    image: {
-        url?: string;
-        top?: number;
-        left?: number;
-    };
-    showProtractor: boolean;
+type Props = WidgetProps<
+    PerseusMeasurerWidgetOptions,
+    PerseusMeasurerWidgetOptions
+> & {
+    // TODO: these don't show up anywhere else in code
+    // I'm guessing they could just be constants
     protractorX: number;
     protractorY: number;
-    showRuler: boolean;
-    rulerLabel: string;
-    rulerTicks: number;
-    rulerPixels: number;
-    rulerLength: number;
 };
 
 type DefaultProps = {
@@ -51,7 +44,7 @@ type DefaultProps = {
 class Measurer extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         box: [480, 480],
-        image: {},
+        image: defaultImage,
         showProtractor: true,
         protractorX: 7.5,
         protractorY: 0.5,

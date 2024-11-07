@@ -38,7 +38,7 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -57,7 +57,7 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -76,7 +76,7 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
                 ariaLabel="Hello world"
@@ -97,7 +97,7 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={mockOnChange}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -122,7 +122,7 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={mockOnChange}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -180,7 +180,7 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={mockOnChange}
                 buttonSets={["basic+div"]}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -209,7 +209,7 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -233,7 +233,7 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -262,7 +262,7 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={() => {}}
                 buttonsVisible="always"
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,

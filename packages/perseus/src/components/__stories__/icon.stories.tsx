@@ -1,16 +1,13 @@
-import * as React from "react";
-
 import * as IconPaths from "../../icon-paths";
 import IconComponent from "../icon";
 
 import type {StoryObj, Meta} from "@storybook/react";
 
-type StoryArgs = StoryObj<IconComponent>;
+type Story = StoryObj<typeof IconComponent>;
 
-type Story = Meta<IconComponent>;
-
-export default {
-    title: "Perseus/Components",
+const meta: Meta = {
+    title: "Perseus/Components/Icon",
+    component: IconComponent,
     args: {
         color: "#808",
         size: 25,
@@ -27,12 +24,12 @@ export default {
             control: "select",
         },
     },
-} as Story;
+};
+export default meta;
 
-export const Icon = (args: StoryArgs): React.ReactElement => (
-    <IconComponent
-        style={{display: "block"}}
-        icon={IconPaths.iconCheck}
-        {...args}
-    />
-);
+export const Icon: Story = {
+    args: {
+        style: {display: "block"},
+        icon: IconPaths.iconCheck,
+    },
+};

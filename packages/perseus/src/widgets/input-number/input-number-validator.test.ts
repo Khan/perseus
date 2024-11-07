@@ -12,7 +12,6 @@ describe("inputNumberValidator", () => {
             value: 1,
             simplify: "optional",
             answerType: "percent",
-            size: "small",
         };
 
         const useInput = {
@@ -31,7 +30,6 @@ describe("inputNumberValidator", () => {
             value: 1,
             simplify: "optional",
             answerType: "percent",
-            size: "small",
         };
 
         const useInput = {
@@ -50,7 +48,6 @@ describe("inputNumberValidator", () => {
             value: 1,
             simplify: "optional",
             answerType: "percent",
-            size: "small",
         };
 
         const useInput = {
@@ -76,7 +73,6 @@ describe("inputNumberValidator", () => {
             inexact: false,
             value: 241.90263432641407,
             simplify: "required",
-            size: "normal",
         };
 
         const userInput = {
@@ -105,7 +101,6 @@ describe("inputNumberValidator", () => {
             value: 241.90263432641407,
             simplify: "required",
             answerType: "pi",
-            size: "normal",
         };
 
         const userInput = {

@@ -1,5 +1,5 @@
 import {vec} from "mafs";
-import {useRef, useState} from "react";
+import {useRef} from "react";
 import * as React from "react";
 
 import {inset, snap, size} from "../../math";
@@ -9,8 +9,8 @@ import {useDraggable} from "../use-draggable";
 import {useTransformVectorsToPixels} from "../use-transform";
 import {getIntersectionOfRayWithBox} from "../utils";
 
-import {MovablePointView} from "./movable-point-view";
 import {SVGLine} from "./svg-line";
+import {useControlPoint} from "./use-control-point";
 import {Vector} from "./vector";
 
 import type {Interval} from "mafs";
@@ -48,9 +48,17 @@ export const MovableLine = (props: Props) => {
     //   setting tabindex > 0. But that bumps elements to the front of the
     //   tab order for the entire page, which is not what we want.
     const {visiblePoint: visiblePoint1, focusableHandle: focusableHandle1} =
-        useControlPoint(start, color, (p) => onMovePoint(0, p));
+        useControlPoint({
+            point: start,
+            color,
+            onMove: (p) => onMovePoint(0, p),
+        });
     const {visiblePoint: visiblePoint2, focusableHandle: focusableHandle2} =
-        useControlPoint(end, color, (p) => onMovePoint(1, p));
+        useControlPoint({
+            point: end,
+            color,
+            onMove: (p) => onMovePoint(1, p),
+        });
 
     const line = (
         <Line
@@ -73,55 +81,6 @@ export const MovableLine = (props: Props) => {
     );
 };
 
-function useControlPoint(
-    point: vec.Vector2,
-    color: string | undefined,
-    onMovePoint: (newPoint: vec.Vector2) => unknown,
-) {
-    const {snapStep, disableKeyboardInteraction} = useGraphConfig();
-    const [focused, setFocused] = useState(false);
-    const keyboardHandleRef = useRef<SVGGElement>(null);
-    useDraggable({
-        gestureTarget: keyboardHandleRef,
-        point,
-        onMove: onMovePoint,
-        constrainKeyboardMovement: (p) => snap(snapStep, p),
-    });
-
-    const visiblePointRef = useRef<SVGGElement>(null);
-    const {dragging} = useDraggable({
-        gestureTarget: visiblePointRef,
-        point,
-        onMove: onMovePoint,
-        constrainKeyboardMovement: (p) => snap(snapStep, p),
-    });
-
-    const focusableHandle = (
-        <g
-            data-testid="movable-point__focusable-handle"
-            className="movable-point__focusable-handle"
-            tabIndex={disableKeyboardInteraction ? -1 : 0}
-            ref={keyboardHandleRef}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-        />
-    );
-    const visiblePoint = (
-        <MovablePointView
-            point={point}
-            dragging={dragging}
-            color={color}
-            ref={visiblePointRef}
-            focusBehavior={{type: "controlled", showFocusRing: focused}}
-        />
-    );
-
-    return {
-        focusableHandle,
-        visiblePoint,
-    };
-}
-
 const defaultStroke = "var(--movable-line-stroke-color)";
 
 type LineProps = {
@@ -138,7 +97,7 @@ type LineProps = {
           };
 };
 
-export const Line = (props: LineProps) => {
+const Line = (props: LineProps) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);

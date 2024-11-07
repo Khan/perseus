@@ -306,7 +306,8 @@ const VERTICAL = "vertical";
 type RenderProps = PerseusOrdererWidgetOptions & {
     current: any;
 };
-export type OrdererProps = WidgetProps<RenderProps, PerseusOrdererRubric>;
+
+type OrdererProps = WidgetProps<RenderProps, PerseusOrdererRubric>;
 
 type OrdererDefaultProps = {
     current: OrdererProps["current"];
@@ -433,7 +434,7 @@ class Orderer
             }
 
             this.props.onChange({
-                // @ts-expect-error - TS2345 - Argument of type '{ current: any[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: WidgetDict | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
+                // @ts-expect-error - TS2345 - Argument of type '{ current: any[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: PerseusWidgetsMap | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
                 current: list,
             });
             this.setState({
@@ -625,7 +626,7 @@ class Orderer
             return {content: value};
         });
         this.props.onChange({
-            // @ts-expect-error - TS2345 - Argument of type '{ current: { content: string; }[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: WidgetDict | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
+            // @ts-expect-error - TS2345 - Argument of type '{ current: { content: string; }[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: PerseusWidgetsMap | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
             current: list,
         });
 

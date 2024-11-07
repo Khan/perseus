@@ -9,7 +9,7 @@ import TestKeypadContextWrapper from "../__shared__/test-keypad-context-wrapper"
 import expressionExport from "./expression";
 import {expressionItem2, expressionItem3} from "./expression.testdata";
 
-import type {LegacyButtonSets, PerseusItem} from "../../perseus-types";
+import type {PerseusItem} from "../../perseus-types";
 import type {Keys as Key} from "@khanacademy/math-input";
 
 type StoryArgs = {
@@ -92,8 +92,8 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
                 static={false}
                 trackInteraction={() => {}}
                 widgetId="expression"
-                reviewModeRubric={reviewModeRubric}
                 keypadConfiguration={keypadConfiguration}
+                reviewMode={false}
             />
         </div>
     );

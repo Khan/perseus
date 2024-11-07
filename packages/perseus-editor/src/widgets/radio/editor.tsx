@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid, react/forbid-prop-types */
 import {
     components,
-    icons,
     ApiOptions,
     BaseRadio,
     Changeable,
+    iconTrash,
 } from "@khanacademy/perseus";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
@@ -12,9 +12,9 @@ import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
+import {iconPlus} from "../../styles/icon-paths";
 
 const {InlineIcon} = components;
-const {iconPlus, iconTrash} = icons;
 
 class ChoiceEditor extends React.Component<any> {
     static propTypes = {
@@ -339,6 +339,7 @@ class RadioEditor extends React.Component<any> {
                     editMode={true}
                     labelWrap={false}
                     apiOptions={this.props.apiOptions}
+                    reviewMode={false}
                     choices={this.props.choices.map((choice, i) => {
                         return {
                             content: (

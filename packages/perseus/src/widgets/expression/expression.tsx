@@ -115,19 +115,6 @@ export class Expression
         return normalizeTex(props.value);
     }
 
-    static getOneCorrectAnswerFromRubric(
-        rubric: PerseusExpressionRubric,
-    ): string | null | undefined {
-        const correctAnswers = (rubric.answerForms || []).filter(
-            (answerForm) => answerForm.considered === "correct",
-        );
-        if (correctAnswers.length === 0) {
-            return;
-        }
-        return correctAnswers[0].value;
-    }
-    //#endregion
-
     static defaultProps: DefaultProps = {
         value: "",
         times: false,
@@ -287,12 +274,6 @@ export class Expression
         return [[]];
     };
 
-    // TODO(Nicole): I believe this is going away and won't be needed anymore
-    getGrammarTypeForPath(inputPath: FocusPath): string {
-        /* c8 ignore next */
-        return "expression";
-    }
-
     setInputValue(path: FocusPath, newValue: string, cb: () => void) {
         this.props.onChange(
             {
@@ -401,10 +382,9 @@ export class Expression
                             extraKeys={
                                 this.props.keypadConfiguration?.extraKeys
                             }
-                            analytics={
-                                this.props.analytics ?? {
-                                    onAnalyticsEvent: async () => {},
-                                }
+                            onAnalyticsEvent={
+                                this.props.analytics?.onAnalyticsEvent ??
+                                (async () => {})
                             }
                         />
                     </Tooltip>
@@ -532,13 +512,8 @@ const ExpressionWithDependencies = React.forwardRef<
 // methods and instead adjust Perseus to provide these facilities through
 // instance methods on our Renderers.
 // @ts-expect-error - TS2339 - Property 'validate' does not exist on type
-ExpressionWithDependencies.validate = expressionValidator;
-// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
 ExpressionWithDependencies.getUserInputFromProps =
     Expression.getUserInputFromProps;
-// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
-ExpressionWithDependencies.getOneCorrectAnswerFromRubric =
-    Expression.getOneCorrectAnswerFromRubric;
 
 export default {
     name: "expression",
@@ -571,4 +546,16 @@ export default {
     // For use by the editor
     isLintable: true,
     validator: expressionValidator,
+
+    getOneCorrectAnswerFromRubric(
+        rubric: PerseusExpressionRubric,
+    ): string | null | undefined {
+        const correctAnswers = (rubric.answerForms || []).filter(
+            (answerForm) => answerForm.considered === "correct",
+        );
+        if (correctAnswers.length === 0) {
+            return;
+        }
+        return correctAnswers[0].value;
+    },
 } as WidgetExports<typeof ExpressionWithDependencies>;

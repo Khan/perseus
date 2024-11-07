@@ -33,39 +33,6 @@ export const question1: PerseusRenderer = {
     },
 };
 
-export const question2: PerseusRenderer = {
-    content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
-    images: {},
-    widgets: {
-        "numeric-input 1": {
-            graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
-            static: false,
-            type: "numeric-input",
-            options: {
-                coefficient: false,
-                static: false,
-                answers: [
-                    {
-                        status: "correct",
-                        maxError: null,
-                        strict: false,
-                        value: 1252,
-                        simplify: "required",
-                        message: "",
-                    },
-                ],
-                labelText: "What's the answer?",
-                size: "normal",
-            },
-            alignment: "default",
-        } as NumericInputWidget,
-    },
-};
-
 export const percentageProblem: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},

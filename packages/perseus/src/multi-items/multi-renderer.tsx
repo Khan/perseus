@@ -37,8 +37,9 @@
  *   </MultiRenderer>
  */
 import {Errors} from "@khanacademy/perseus-core";
-import {StyleSheet, css} from "aphrodite"; // eslint-disable-line import/no-extraneous-dependencies
-import lens from "hubble"; // eslint-disable-line import/no-extraneous-dependencies
+import {StyleSheet, css} from "aphrodite";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import lens from "hubble";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../components/i18n-context";

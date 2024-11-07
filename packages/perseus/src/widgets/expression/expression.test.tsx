@@ -10,7 +10,7 @@ import {
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {Expression, keypadConfigurationForProps} from "./expression";
+import ExpressionWidgetExport, { keypadConfigurationForProps} from "./expression";
 import {
     expressionItem2,
     expressionItem3,
@@ -269,7 +269,8 @@ describe("Expression Widget", function () {
             } as const;
 
             // Act
-            const result = Expression.getOneCorrectAnswerFromRubric(rubric);
+            const result =
+                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
 
             // Assert
             expect(result).toBeUndefined();
@@ -292,7 +293,8 @@ describe("Expression Widget", function () {
             } as const;
 
             // Act
-            const result = Expression.getOneCorrectAnswerFromRubric(rubric);
+            const result =
+                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
 
             // Assert
             expect(result).toEqual("123");
@@ -321,7 +323,8 @@ describe("Expression Widget", function () {
             } as const;
 
             // Act
-            const result = Expression.getOneCorrectAnswerFromRubric(rubric);
+            const result =
+                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
 
             // Assert
             expect(result).toEqual("123");

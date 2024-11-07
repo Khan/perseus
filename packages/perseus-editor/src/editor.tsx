@@ -28,6 +28,7 @@ import type {
     ChangeHandler,
     ImageUploader,
     PerseusWidget,
+    PerseusWidgetsMap,
 } from "@khanacademy/perseus";
 
 // like [[snowman input-number 1]]
@@ -116,9 +117,7 @@ type Props = Readonly<{
     content: string;
     replace?: any;
     placeholder: string;
-    widgets: {
-        [name: string]: PerseusWidget;
-    };
+    widgets: PerseusWidgetsMap;
     images: any;
     disabled: boolean;
     widgetEnabled: boolean;
@@ -458,7 +457,7 @@ class Editor extends React.Component<Props, State> {
             if (matches != null) {
                 const text = matches[1];
                 const widgets = Widgets.getAllWidgetTypes();
-                const matchingWidgets = _.filter(widgets, (name) => {
+                const matchingWidgets = widgets.filter((name) => {
                     return name.substring(0, text.length) === text;
                 });
 
@@ -642,7 +641,7 @@ class Editor extends React.Component<Props, State> {
     ) => void = (
         oldContent: string,
         cursorRange: ReadonlyArray<number>,
-        widgetType: string,
+        widgetType: PerseusWidget["type"],
     ) => {
         // Note: we have to use _.map here instead of Array::map
         // because the results of a .match might be null if no
@@ -687,11 +686,10 @@ class Editor extends React.Component<Props, State> {
 
         const newContent = newPrelude + widgetContent + newPostlude;
 
-        const newWidgets = _.clone(this.props.widgets);
-        // @ts-expect-error TS(2345) Type '"categorizer" | undefined' is not assignable to type '"deprecated-standin"'.
+        const newWidgets = {...this.props.widgets};
         newWidgets[id] = {
             options: Widgets.getEditor(widgetType)?.defaultProps,
-            type: widgetType as PerseusWidget["type"],
+            type: widgetType,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
             // pre-versioning creation time.

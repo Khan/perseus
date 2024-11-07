@@ -16,11 +16,26 @@ import {getIntersectionOfRayWithBox} from "./utils";
 
 import type {CollinearTuple} from "../../../perseus-types";
 import type {Segment} from "../math/geometry";
-import type {AngleGraphState, MafsGraphProps} from "../types";
+import type {
+    AngleGraphState,
+    Dispatch,
+    InteractiveGraphElementSuite,
+    MafsGraphProps,
+} from "../types";
 
 type AngleGraphProps = MafsGraphProps<AngleGraphState>;
 
-export function AngleGraph(props: AngleGraphProps) {
+export function renderAngleGraph(
+    state: AngleGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <AngleGraph graphState={state} dispatch={dispatch} />,
+        interactiveElementsDescription: null,
+    };
+}
+
+function AngleGraph(props: AngleGraphProps) {
     const {dispatch, graphState} = props;
     const {graphDimensionsInPixels} = useGraphConfig();
 
