@@ -524,7 +524,6 @@ describe("multi-item renderer", () => {
                         deselectEnabled: false,
                         hasNoneOfTheAbove: false,
                         multipleSelect: false,
-                        numCorrect: 1,
                         selectedChoices: [false, false, false, true, false],
                     },
                 },
@@ -631,7 +630,6 @@ describe("multi-item renderer", () => {
                     ],
                     "noneOfTheAboveIndex": null,
                     "noneOfTheAboveSelected": false,
-                    "numCorrect": 1,
                   },
                   {
                     "currentValue": "-42",
@@ -786,7 +784,6 @@ describe("multi-item renderer", () => {
                     ],
                     "noneOfTheAboveIndex": null,
                     "noneOfTheAboveSelected": false,
-                    "numCorrect": 1,
                   },
                   {
                     "currentValue": "-42",

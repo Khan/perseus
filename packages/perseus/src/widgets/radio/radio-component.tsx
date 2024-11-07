@@ -82,7 +82,6 @@ class Radio extends React.Component<Props> implements Widget {
 
             const choiceStates = props.choiceStates;
             const choicesSelected = choiceStates.map(() => false);
-            const numCorrect = props.numCorrect;
 
             for (let i = 0; i < choicesSelected.length; i++) {
                 const index = props.choices[i].originalIndex;
@@ -101,7 +100,6 @@ class Radio extends React.Component<Props> implements Widget {
 
             return {
                 choicesSelected,
-                numCorrect,
                 noneOfTheAboveIndex,
                 noneOfTheAboveSelected,
             };
@@ -114,7 +112,6 @@ class Radio extends React.Component<Props> implements Widget {
             let noneOfTheAboveSelected = false;
 
             const choicesSelected = [...values];
-            const numCorrect = props.numCorrect;
             const valuesLength = values.length;
 
             for (let i = 0; i < valuesLength; i++) {
@@ -133,7 +130,6 @@ class Radio extends React.Component<Props> implements Widget {
                 choicesSelected,
                 noneOfTheAboveIndex,
                 noneOfTheAboveSelected,
-                numCorrect,
             };
         }
         // Nothing checked

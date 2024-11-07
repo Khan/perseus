@@ -1,3 +1,5 @@
+import _ from "underscore";
+
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {
@@ -21,13 +23,15 @@ function radioValidator(
         };
     }
 
-    // TODO(LEMS-2541): should numCorrect actually be on the rubric
-    // instead of the userInput?
-    if (
-        userInput.numCorrect &&
-        userInput.numCorrect > 1 &&
-        numSelected !== userInput.numCorrect
-    ) {
+    const numCorrect: number = _.reduce(
+        rubric.choices,
+        function (memo, choice) {
+            return choice.correct ? memo + 1 : memo;
+        },
+        0,
+    );
+
+    if (numCorrect && numCorrect > 1 && numSelected !== numCorrect) {
         return {
             type: "invalid",
             message: strings.chooseCorrectNum,

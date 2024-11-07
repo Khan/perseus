@@ -29,7 +29,6 @@ describe("radioValidator", () => {
 
     it("is invalid when number selected does not match number correct", () => {
         const userInput: PerseusRadioUserInput = {
-            numCorrect: 2,
             choicesSelected: [true, false, false, false],
         };
 
