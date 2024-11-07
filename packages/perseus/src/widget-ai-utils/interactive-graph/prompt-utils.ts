@@ -1,4 +1,4 @@
-import {getUnsupportedPromptJSON} from "../unsupported-widget";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 import type {PerseusGraphType} from "../../perseus-types";
 import type interactiveGraph from "../../widgets/interactive-graph";
@@ -6,7 +6,7 @@ import type {UnsupportedWidgetPromptJSON} from "../unsupported-widget";
 import type React from "react";
 
 type Coord = [x: number, y: number];
-type CollinearTuple = [Coord, Coord];
+type CollinearTuple = readonly [Coord, Coord];
 
 type BaseGraphOptions = {
     type: string;
@@ -14,7 +14,7 @@ type BaseGraphOptions = {
 
 type AngleGraphOptions = BaseGraphOptions & {
     angleOffsetDegrees: number;
-    startCoords?: [Coord, Coord, Coord];
+    startCoords?: readonly [Coord, Coord, Coord];
 };
 
 type CircleGraphOptions = BaseGraphOptions & {
@@ -29,22 +29,22 @@ type LinearGraphOptions = BaseGraphOptions & {
 };
 
 type LinearSystemGraphOptions = BaseGraphOptions & {
-    startCoords?: CollinearTuple[];
+    startCoords?: readonly CollinearTuple[];
 };
 
 type PointGraphOptions = BaseGraphOptions & {
     numPoints?: number | "unlimited";
-    startCoords?: Coord[];
+    startCoords?: readonly Coord[];
 };
 
 type PolygonGraphOptions = BaseGraphOptions & {
     match?: string;
     numSides?: number | "unlimited";
-    startCoords?: Coord[];
+    startCoords?: readonly Coord[];
 };
 
 type QuadraticGraphOptions = BaseGraphOptions & {
-    startCoords?: [Coord, Coord, Coord];
+    startCoords?: readonly [Coord, Coord, Coord];
 };
 
 type RayGraphOptions = BaseGraphOptions & {
@@ -57,14 +57,17 @@ type SegmentGraphOptions = BaseGraphOptions & {
 };
 
 type SinusoidGraphOptions = BaseGraphOptions & {
-    startCoords?: Coord[];
+    startCoords?: readonly Coord[];
 };
+
+type NoneGraphOptions = Record<string, never>;
 
 type GraphOptions =
     | AngleGraphOptions
     | CircleGraphOptions
     | LinearGraphOptions
     | LinearSystemGraphOptions
+    | NoneGraphOptions
     | PointGraphOptions
     | PolygonGraphOptions
     | QuadraticGraphOptions
@@ -73,45 +76,45 @@ type GraphOptions =
     | SinusoidGraphOptions;
 
 type AngleUserInput = {
-    coords: [Coord, Coord, Coord];
+    coords?: readonly [Coord, Coord, Coord];
     angleOffsetDegrees?: number;
 };
 
 type CircleUserInput = {
-    center: Coord;
-    radius: number;
+    center?: Coord;
+    radius?: number;
 };
 
 type LinearUserInput = {
-    coords: CollinearTuple;
+    coords?: CollinearTuple;
 };
 
 type LinearSystemInput = {
-    coords?: CollinearTuple[] | null;
+    coords?: readonly CollinearTuple[] | null;
 };
 
 type PointUserInput = {
-    coords?: Coord[] | null;
+    coords?: readonly Coord[] | null;
 };
 
 type PolygonUserInput = {
-    coords: Coord[] | null;
+    coords?: readonly Coord[] | null;
 };
 
 type QuadraticUserInput = {
-    coords: [Coord, Coord, Coord] | null;
+    coords?: readonly [Coord, Coord, Coord] | null;
 };
 
 type RayUserInput = {
-    coords: CollinearTuple | null;
+    coords?: CollinearTuple | null;
 };
 
 type SegmentUserInput = {
-    coords: CollinearTuple[] | null;
+    coords?: readonly CollinearTuple[] | null;
 };
 
 type SinusoidUserInput = {
-    coords: Coord[] | null;
+    coords?: readonly Coord[] | null;
 };
 
 type UserInput =
@@ -129,9 +132,7 @@ type UserInput =
 export type InteractiveGraphPromptJSON = {
     type: "interactive-graph";
     options: {
-        graph: {
-            type: string;
-        };
+        graph: GraphOptions;
         backgroundImageUrl: string | null | undefined;
         range: [min: number, max: number][];
         labels: ReadonlyArray<string>;
@@ -143,153 +144,138 @@ export const getPromptJSON = (
     props: React.ComponentProps<typeof interactiveGraph.widget>,
     userInput: PerseusGraphType,
 ): InteractiveGraphPromptJSON | UnsupportedWidgetPromptJSON => {
-    let input: UserInput;
-    let graphOptions: GraphOptions;
+    return {
+        type: "interactive-graph",
+        options: {
+            graph: getGraphOptionsForProps(props),
+            backgroundImageUrl: props.backgroundImage?.url,
+            range: props.range,
+            labels: props.labels,
+        },
+        userInput: getUserInput(userInput),
+    };
+};
 
-    switch (props.graph.type) {
+const getGraphOptionsForProps = (
+    props: React.ComponentProps<typeof interactiveGraph.widget>,
+): GraphOptions => {
+    const type = props.graph.type;
+
+    switch (type) {
         case "angle":
-            graphOptions = {
+            return {
                 type: props.graph.type,
                 angleOffsetDegrees: props.graph.angleOffsetDeg,
                 startCoords: props.graph.startCoords,
-            } as AngleGraphOptions;
-            break;
+            };
         case "circle":
-            graphOptions = {
+            return {
                 type: props.graph.type,
                 startParams: {
                     center: props.graph.startCoords?.center,
                     radius: props.graph.startCoords?.radius,
                 },
-            } as CircleGraphOptions;
-            break;
+            };
         case "linear":
-            graphOptions = {
+            return {
                 type: props.graph.type,
                 startCoords: props.graph.startCoords,
-            } as LinearGraphOptions;
-            break;
+            };
         case "linear-system":
-            graphOptions = {
+            return {
                 type: props.graph.type,
                 startCoords: props.graph.startCoords,
-            } as LinearSystemGraphOptions;
-            break;
+            };
         case "point":
-            graphOptions = {
+            return {
                 type: props.graph.type,
                 numPoints: props.graph.numPoints,
                 startCoords: props.graph.startCoords,
-            } as PointGraphOptions;
-            break;
+            };
         case "polygon":
-            graphOptions = {
+            return {
                 type: props.graph.type,
                 match: props.graph.match,
                 numSides: props.graph.numSides,
                 startCoords: props.graph.startCoords,
-            } as PolygonGraphOptions;
-            break;
+            };
         case "quadratic":
-            graphOptions = {
+            return {
                 type: props.graph.type,
                 startCoords: props.graph.startCoords,
-            } as QuadraticGraphOptions;
-            break;
+            };
         case "ray":
-            graphOptions = {
+            return {
                 type: props.graph.type,
                 startCoords: props.graph.startCoords,
-            } as RayGraphOptions;
-            break;
+            };
         case "segment":
-            graphOptions = {
+            return {
                 type: props.graph.type,
                 numSegments: props.graph.numSegments,
                 startCoords: props.graph.startCoords,
-            } as SegmentGraphOptions;
-            break;
+            };
         case "sinusoid":
-            graphOptions = {
+            return {
                 type: props.graph.type,
                 startCoords: props.graph.startCoords,
-            } as SinusoidGraphOptions;
-            break;
+            };
+        case "none":
+            return {};
         default:
-            return getUnsupportedPromptJSON(
-                "interactive-graph-unsupported",
-                `The graph type ${props.graph.type} is not supported.`,
-            );
+            throw new UnreachableCaseError(type);
     }
+};
 
-    switch (userInput.type) {
+const getUserInput = (userInput: PerseusGraphType): UserInput => {
+    const type = userInput.type;
+
+    switch (type) {
         case "angle":
-            input = {
+            return {
                 coords: userInput.coords,
                 angleOffsetDegrees: userInput.angleOffsetDeg,
-            } as AngleUserInput;
-            break;
+            };
         case "circle":
-            input = {
+            return {
                 center: userInput.center,
                 radius: userInput.radius,
-            } as CircleUserInput;
-            break;
+            };
         case "linear":
-            input = {
+            return {
                 coords: userInput.coords,
-            } as LinearUserInput;
-            break;
+            };
         case "linear-system":
-            input = {
+            return {
                 coords: userInput.coords,
-            } as LinearSystemInput;
-            break;
+            };
         case "point":
-            input = {
+            return {
                 coords: userInput.coords,
-            } as PointUserInput;
-            break;
+            };
         case "polygon":
-            input = {
+            return {
                 coords: userInput.coords,
-            } as PolygonUserInput;
-            break;
+            };
         case "quadratic":
-            input = {
+            return {
                 coords: userInput.coords,
-            } as QuadraticUserInput;
-            break;
+            };
         case "ray":
-            input = {
+            return {
                 coords: userInput.coords,
-            } as RayUserInput;
-            break;
+            };
         case "segment":
-            input = {
+            return {
                 coords: userInput.coords,
-            } as SegmentUserInput;
-            break;
+            };
         case "sinusoid":
-            input = {
+            return {
                 coords: userInput.coords,
-            } as SinusoidUserInput;
-            break;
+            };
+        case "none":
+            return {};
         default:
-            return getUnsupportedPromptJSON(
-                "interactive-graph-unsupported",
-                `The graph type ${props.graph.type} is not supported.`,
-            );
+            throw new UnreachableCaseError(type);
     }
-
-    return {
-        type: "interactive-graph",
-        options: {
-            graph: graphOptions,
-            backgroundImageUrl: props.backgroundImage?.url,
-            range: props.range,
-            labels: props.labels,
-        },
-        userInput: input,
-    };
 };
