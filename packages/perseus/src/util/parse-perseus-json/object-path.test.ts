@@ -27,11 +27,15 @@ describe("formatPath", () => {
         expect(formatPath(["foo bar"])).toBe(`(root)["foo bar"]`);
     });
 
+    it("escapes quotes and backslashes in object keys", () => {
+        expect(formatPath([`"\\`])).toBe(`(root)["\\"\\\\"]`);
+    });
+
     it("joins different kinds of path segments correctly", () => {
         expect(formatPath(["a", 0, "b", 1, 2])).toBe(`(root).a[0].b[1][2]`);
     });
 
-    it("formats symbols keys", () => {
+    it("formats symbol keys", () => {
         expect(formatPath([Symbol("foo")])).toBe(`(root)[Symbol(foo)]`);
     });
 });
