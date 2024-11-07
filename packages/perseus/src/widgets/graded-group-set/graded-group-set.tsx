@@ -130,7 +130,7 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
     };
 
     // Mobile API
-    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
+    getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         return this._childGroup.getInputPaths();
     };
 
