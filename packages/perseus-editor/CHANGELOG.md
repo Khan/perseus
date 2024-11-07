@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 14.10.3
+
+### Patch Changes
+
+-   [#1830](https://github.com/Khan/perseus/pull/1830) [`e452c0ae6`](https://github.com/Khan/perseus/commit/e452c0ae63c4f8b05dfa7d9bfb1b8a741142aeab) Thanks [@handeyeco](https://github.com/handeyeco)! - Bug fix for LabelImageEditor URL race condition
+
+-   Updated dependencies [[`8aaf29670`](https://github.com/Khan/perseus/commit/8aaf2967088e55e6907ef4b01411d6e9579b4677), [`f6b66b001`](https://github.com/Khan/perseus/commit/f6b66b00186875fd1d61e5d217b472a9a4e2cdf9)]:
+    -   @khanacademy/perseus@41.1.1
+
 ## 14.10.2
 
 ### Patch Changes
