@@ -565,7 +565,7 @@ describe("getPromptJSON", () => {
         });
     });
 
-    it("should return JSON for an unsupported graph", () => {
+    it("should throw an exception for an unsupported graph", () => {
         const renderProps: any = {
             graph: {
                 type: "fake-graph-type",
@@ -586,12 +586,8 @@ describe("getPromptJSON", () => {
             ],
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
-
-        expect(resultJSON).toEqual({
-            type: "interactive-graph-unsupported",
-            isSupported: false,
-            message: "The graph type fake-graph-type is not supported.",
-        });
+        expect(() => {
+            getPromptJSON(renderProps, userInput);
+        }).toThrow("Unhandled case for 'fake-graph-type'");
     });
 });
