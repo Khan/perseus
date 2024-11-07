@@ -76,7 +76,7 @@ export function isUnlimitedGraphState(
  * This way, the entire resulting string can be rendered within <TeX>
  * and the text outside of the $ blocks will be non-TeX text.
  */
-export function replaceOutsideTeX(mathString) {
+export function replaceOutsideTeX(mathString: string) {
     let currentlyTeX = mathString[0] === "$";
     let result = "";
 
@@ -84,11 +84,7 @@ export function replaceOutsideTeX(mathString) {
 
     for (let i = 0; i < splitString.length; i++) {
         const part = splitString[i];
-        if (currentlyTeX) {
-            result += part;
-        } else {
-            result += `\\text{${part}}`;
-        }
+result += currentlyTeX ? part : `\\text{${part}}`;
         currentlyTeX = !currentlyTeX;
     }
 
