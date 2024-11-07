@@ -1,6 +1,4 @@
-import invariant from "tiny-invariant";
-
-import {isFailure, success} from "../result";
+import {assertFailure, success} from "../result";
 
 import {array} from "./array";
 import {defaulted} from "./defaulted";
@@ -50,7 +48,7 @@ describe("object", () => {
     it("lists multiple mismatches", () => {
         const result = Person({name: 99, age: "blah"}, ctx());
 
-        invariant(isFailure(result));
+        assertFailure(result);
 
         expect(result.detail).toEqual([
             {

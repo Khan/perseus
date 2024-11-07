@@ -1,6 +1,4 @@
-import invariant from "tiny-invariant";
-
-import {isFailure, success} from "../result";
+import {assertFailure, success} from "../result";
 
 import {array} from "./array";
 import {string} from "./string";
@@ -58,7 +56,7 @@ describe("array", () => {
 
         const result = arrayOfStrings(theArray, ctx());
 
-        invariant(isFailure(result));
+        assertFailure(result);
 
         expect(result.detail).toEqual([
             {
@@ -89,7 +87,7 @@ describe("array", () => {
 
         const result = arrayOfArrayOfStrings(theArray, ctx());
 
-        invariant(isFailure(result));
+        assertFailure(result);
 
         expect(result.detail.map((d) => d.path)).toEqual([
             [0, 2],
