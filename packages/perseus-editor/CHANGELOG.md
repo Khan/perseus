@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 14.11.0
+
+### Minor Changes
+
+-   [#1834](https://github.com/Khan/perseus/pull/1834) [`429b9cc15`](https://github.com/Khan/perseus/commit/429b9cc15e5d69ad10b42db0016ba21992343267) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figures] Use \$ symbols to denote TeX within locked labels and locked figure labels
+
+### Patch Changes
+
+-   Updated dependencies [[`429b9cc15`](https://github.com/Khan/perseus/commit/429b9cc15e5d69ad10b42db0016ba21992343267), [`122b3cc1b`](https://github.com/Khan/perseus/commit/122b3cc1b9b233e1014ec2176319af8bbb0c54ce)]:
+    -   @khanacademy/perseus@41.2.0
+
 ## 14.10.3
 
 ### Patch Changes
