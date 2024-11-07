@@ -1,5 +1,5 @@
 ---
-"@khanacademy/perseus": major
+"@khanacademy/perseus": patch
 ---
 
-Typecheck and migrate PerseusItem data on input (ADR #773)
+Internal: add a parsing layer to typecheck PerseusItem data at runtime (ADR #773). The parsing code is not used yet.
