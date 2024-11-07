@@ -29,8 +29,5 @@ export class ErrorTrackingParseContext implements ParseContext {
 }
 
 function wrapInArray(a: string | string[]): string[] {
-    if (Array.isArray(a)) {
-        return a;
-    }
-    return [a];
+    return Array.isArray(a) ? a : [a];
 }
