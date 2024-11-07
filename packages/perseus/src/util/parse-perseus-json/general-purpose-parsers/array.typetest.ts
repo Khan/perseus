@@ -1,33 +1,29 @@
-import invariant from "tiny-invariant";
-
 import {array} from "./array";
 import {number} from "./number";
 import {string} from "./string";
-
-import type {ParseContext} from "../parser-types";
-
-const ctx: ParseContext = null as any;
+import {summonParsedValue} from "./test-helpers";
 
 // Test: return type is correctly assignable
 {
-    const result = array(string)(null, ctx);
-    invariant(result.type === "success");
-    result.value satisfies string[];
+    const arrayOfStrings = array(string);
+    const parsed = summonParsedValue<typeof arrayOfStrings>();
 
-    // @ts-expect-error - result.value is string[]
-    result.value satisfies number[];
-    // @ts-expect-error - result.value is string[]
-    result.value satisfies string;
+    parsed satisfies string[];
+
+    // @ts-expect-error - parsed is string[]
+    parsed satisfies number[];
+    // @ts-expect-error - parsed is string[]
+    parsed satisfies string;
 }
 
 // Test: nested array parsers
 {
-    const result = array(array(number))(null, ctx);
-    invariant(result.type === "success");
-    result.value satisfies number[][];
+    const arrayOfArraysOfNumbers = array(array(number));
+    const parsed = summonParsedValue<typeof arrayOfArraysOfNumbers>();
+    parsed satisfies number[][];
 
-    // @ts-expect-error - result.value is number[][]
-    result.value satisfies number[];
-    // @ts-expect-error - result.value is number[][]
-    result.value satisfies string[][];
+    // @ts-expect-error - parsed is number[][]
+    parsed satisfies number[];
+    // @ts-expect-error - parsed is number[][]
+    parsed satisfies string[][];
 }

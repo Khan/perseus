@@ -1,25 +1,16 @@
-import invariant from "tiny-invariant";
-
 import {enumeration} from "./enumeration";
-
-import type {ParseContext} from "../parser-types";
-
-const ctx: ParseContext = null as any;
+import {summonParsedValue} from "./test-helpers";
 
 // Test: return type is correctly assignable
 {
-    const result = enumeration("a", "b", "c")(null, ctx);
-    invariant(result.type === "success");
-
-    result.value satisfies "a" | "b" | "c";
-    // @ts-expect-error - "c" is not assignable to "a" | "b"
-    result.value satisfies "a" | "b";
+    const abc = enumeration("a", "b", "c");
+    summonParsedValue<typeof abc>() satisfies "a" | "b" | "c";
+    // @ts-expect-error: "c" is not assignable to type "a" | "b"
+    summonParsedValue<typeof abc>() satisfies "a" | "b";
 }
 
 // Test: an enumeration parser with no branches never succeeds
 {
-    const result = enumeration()(null, ctx);
-    invariant(result.type === "success");
-
-    result.value satisfies never;
+    const emptyEnum = enumeration();
+    summonParsedValue<typeof emptyEnum>() satisfies never;
 }

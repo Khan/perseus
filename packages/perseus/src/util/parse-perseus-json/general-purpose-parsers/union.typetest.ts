@@ -1,22 +1,15 @@
-import invariant from "tiny-invariant";
-
 import {constant} from "./constant";
+import {summonParsedValue} from "./test-helpers";
 import {union} from "./union";
-
-import type {ParseContext} from "../parser-types";
-
-const ctx: ParseContext = null as any;
 
 // Test: return type is a union
 {
     const abc = union(constant("a")).or(constant("b")).or(constant("c")).parser;
+    const parsed = summonParsedValue<typeof abc>();
 
-    const result = abc(null, ctx);
-    invariant(result.type === "success");
-
-    result.value satisfies "a" | "b" | "c";
+    parsed satisfies "a" | "b" | "c";
     // @ts-expect-error - "c" is not assignable to "a" | "b"
-    result.value satisfies "a" | "b";
+    parsed satisfies "a" | "b";
 }
 
 // Test: many branches
@@ -49,10 +42,7 @@ const ctx: ParseContext = null as any;
         .or(constant("y"))
         .or(constant("z")).parser;
 
-    const result = alphabet(null, ctx);
-    invariant(result.type === "success");
-
-    result.value satisfies
+    summonParsedValue<typeof alphabet>() satisfies
         | "a"
         | "b"
         | "c"
@@ -79,8 +69,9 @@ const ctx: ParseContext = null as any;
         | "x"
         | "y"
         | "z";
+
     // @ts-expect-error - "a" is not assignable to "b" | "c" | ...
-    result.value satisfies
+    summonParsedValue<typeof alphabet>() satisfies
         | "b"
         | "c"
         | "d"
