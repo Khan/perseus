@@ -479,18 +479,6 @@ export type PerseusDependencies = {
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
 
-    // video widget
-    // This is used as a hook to fetch data about a video which is used to
-    // add a link to the video transcript.  The return value conforms to
-    // the wonder-blocks-data `Result` type which is used by our GraphQL
-    // framework.
-    useVideo(
-        id: string,
-        kind: VideoKind,
-    ): Result<{
-        video: VideoData | null | undefined;
-    }>;
-
     Log: ILogger;
 
     // RequestInfo
@@ -506,9 +494,21 @@ export type PerseusDependencies = {
  *
  * Prefer using this type over `PerseusDependencies` when possible.
  */
-export type PerseusDependenciesV2 = {
+export interface PerseusDependenciesV2 {
     analytics: {onAnalyticsEvent: AnalyticsEventHandlerFn};
-};
+
+    // video widget
+    // This is used as a hook to fetch data about a video which is used to
+    // add a link to the video transcript.  The return value conforms to
+    // the wonder-blocks-data `Result` type which is used by our GraphQL
+    // framework.
+    useVideo(
+        id: string,
+        kind: VideoKind,
+    ): Result<{
+        video: VideoData | null | undefined;
+    }>;
+}
 
 /**
  * APIOptionsWithDefaults represents the type that is provided to all widgets.

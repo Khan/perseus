@@ -8,10 +8,11 @@
  * If you need to handle `onSubmit`, please use <TextField> directly with your
  * own <form> that wraps all text fields in the form.
  **/
-import {globalStyles} from "@khanacademy/perseus";
-import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
+import {color, color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
+
+import {gray41} from "../styles/global-colors";
 
 import type {components} from "@khanacademy/perseus";
 
@@ -191,10 +192,15 @@ const styles = StyleSheet.create({
     inputBase: {
         background: "inherit",
         border: "none",
-        ...globalStyles.typography.bodyXsmall,
+
+        // TODO: can we use WB typography?
+        fontFamily: "inherit",
+        fontSize: 15,
+        lineHeight: "22px",
+
         outline: "none",
         "::placeholder": {
-            color: globalStyles.colors.gray41,
+            color: gray41,
         },
         width: "100%",
         color: "inherit",
@@ -211,7 +217,7 @@ const styles = StyleSheet.create({
         border: "none",
         outline: "none",
         "::placeholder": {
-            color: globalStyles.colors.gray41,
+            color: gray41,
         },
         width: "100%",
         fontWeight: "normal",
@@ -221,7 +227,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        borderRadius: globalStyles.borderRadius,
+        borderRadius: 4,
         boxSizing: "border-box",
         padding: "8px 10px",
     },
@@ -231,7 +237,7 @@ const styles = StyleSheet.create({
         marginBottom: 0,
     },
     defaultBackground: {
-        backgroundColor: globalStyles.colors.white,
+        backgroundColor: color.white,
     },
     icon: {
         display: "flex",

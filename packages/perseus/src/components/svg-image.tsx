@@ -149,34 +149,46 @@ type Props = {
         labels: ReadonlyArray<any>;
     };
     height?: number;
-    // When the DOM updates to replace the preloader with the image, or
-    // vice-versa, we trigger this callback.
+    /**
+     * When the DOM updates to replace the preloader with the image, or
+     * vice-versa, we trigger this callback.
+     */
     onUpdate: () => void;
-    // If alt is provided, DO NOT set aria-hidden=true unless this override flag
-    // is set.
+    /**
+     * If alt is provided, DO NOT set aria-hidden=true unless this override flag
+     * is set.
+     */
     overrideAriaHidden?: boolean;
     preloader?: (dimensions: Dimensions) => React.ReactNode;
-    // By default, this component attempts to be responsive whenever
-    // possible (specifically, when width and height are passed in).
-    // You can expliclty force unresponsive behavior by *either*
-    // not passing in width/height *or* setting this prop to false.
-    // The difference is that forcing via this prop will result in
-    // explicit width and height styles being set on the rendered
-    // component.
+    /**
+     * By default, this component attempts to be responsive whenever
+     * possible (specifically, when width and height are passed in).
+     *
+     * You can expliclty force unresponsive behavior by *either*
+     * not passing in width/height *or* setting this prop to false.
+     *
+     * The difference is that forcing via this prop will result in
+     * explicit width and height styles being set on the rendered
+     * component.
+     */
     responsive: boolean;
     scale: number;
     src: string;
     title?: string;
     trackInteraction?: () => void;
     width?: number;
-    // Whether clicking this image will allow it to be fully zoomed in to
-    // its original size on click, and allow the user to scroll in that
-    // state. This also does some hacky viewport meta tag changing to
-    // ensure this works on mobile devices, so I (david@) don't recommend
-    // enabling this on desktop yet.
+    /**
+     * Whether clicking this image will allow it to be fully zoomed in to
+     * its original size on click, and allow the user to scroll in that
+     * state. This also does some hacky viewport meta tag changing to
+     * ensure this works on mobile devices, so I (david@) don't recommend
+     * enabling this on desktop yet.
+     */
     zoomToFullSizeOnMobile?: boolean;
-    // If provided, use AssetContext.Consumer, see renderer.jsx.
-    // If not, it defaults to a no-op.
+    /**
+     * If provided, use AssetContext.Consumer, see renderer.jsx.
+     * If not, it defaults to a no-op.
+     */
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
 };
 

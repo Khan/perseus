@@ -6,16 +6,15 @@ import type {
     PerseusGradedGroupWidgetOptions,
     PerseusGraphType,
     PerseusGroupWidgetOptions,
-    PerseusIFrameWidgetOptions,
     PerseusMatcherWidgetOptions,
-    PerseusMatrixWidgetOptions,
+    PerseusMatrixWidgetAnswers,
     PerseusNumberLineWidgetOptions,
-    PerseusNumericInputWidgetOptions,
+    PerseusNumericInputAnswer,
     PerseusOrdererWidgetOptions,
     PerseusPlotterWidgetOptions,
-    PerseusRadioWidgetOptions,
-    PerseusSorterWidgetOptions,
+    PerseusRadioChoice,
     PerseusTableWidgetOptions,
+    PerseusGraphCorrectType,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -69,7 +68,8 @@ export type PerseusGrapherRubric = {
 
 export type PerseusGrapherUserInput = PerseusGrapherRubric["correct"];
 
-export type PerseusIFrameRubric = PerseusIFrameWidgetOptions;
+// TODO(LEMS-2440): Can possibly be removed during 2440; only userInput used
+export type PerseusIFrameRubric = Empty;
 
 export type PerseusIFrameUserInput = {
     status: UserInputStatus;
@@ -98,7 +98,7 @@ export type PerseusInputNumberUserInput = {
 
 export type PerseusInteractiveGraphRubric = {
     // TODO(LEMS-2344): make the type of `correct` more specific
-    correct: PerseusGraphType;
+    correct: PerseusGraphCorrectType;
     graph: PerseusGraphType;
 };
 
@@ -119,10 +119,13 @@ export type PerseusMatcherUserInput = {
     right: ReadonlyArray<string>;
 };
 
-export type PerseusMatrixRubric = PerseusMatrixWidgetOptions;
+export type PerseusMatrixRubric = {
+    // A data matrix representing the "correct" answers to be entered into the matrix
+    answers: PerseusMatrixWidgetAnswers;
+};
 
 export type PerseusMatrixUserInput = {
-    answers: ReadonlyArray<ReadonlyArray<number>>;
+    answers: PerseusMatrixRubric["answers"];
 };
 
 export type PerseusNumberLineRubric = PerseusNumberLineWidgetOptions & {
@@ -137,7 +140,12 @@ export type PerseusNumberLineUserInput = {
     divisionRange: ReadonlyArray<number>;
 };
 
-export type PerseusNumericInputRubric = PerseusNumericInputWidgetOptions;
+export type PerseusNumericInputRubric = {
+    // A list of all the possible correct and incorrect answers
+    answers: ReadonlyArray<PerseusNumericInputAnswer>;
+    // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
+    coefficient: boolean;
+};
 
 export type PerseusNumericInputUserInput = {
     currentValue: string;
@@ -153,17 +161,22 @@ export type PerseusPlotterRubric = PerseusPlotterWidgetOptions;
 
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
 
-export type PerseusRadioRubric = PerseusRadioWidgetOptions;
+export type PerseusRadioRubric = {
+    // The choices provided to the user.
+    choices: ReadonlyArray<PerseusRadioChoice>;
+};
 
 export type PerseusRadioUserInput = {
-    countChoices?: boolean;
     choicesSelected: ReadonlyArray<boolean>;
     numCorrect?: number;
     noneOfTheAboveIndex?: number | null | undefined;
     noneOfTheAboveSelected?: boolean;
 };
 
-export type PerseusSorterRubric = PerseusSorterWidgetOptions;
+export type PerseusSorterRubric = {
+    // Translatable Text; The correct answer (in the correct order). The user will see the cards in a randomized order.
+    correct: ReadonlyArray<string>;
+};
 
 export type PerseusSorterUserInput = {
     options: ReadonlyArray<string>;

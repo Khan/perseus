@@ -8,7 +8,22 @@ import {actions} from "../reducer/interactive-graph-action";
 import {MovablePoint} from "./components/movable-point";
 
 import type {Coord} from "../../../interactive2/types";
-import type {SinusoidGraphState, MafsGraphProps} from "../types";
+import type {
+    SinusoidGraphState,
+    MafsGraphProps,
+    Dispatch,
+    InteractiveGraphElementSuite,
+} from "../types";
+
+export function renderSinusoidGraph(
+    state: SinusoidGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <SinusoidGraph graphState={state} dispatch={dispatch} />,
+        interactiveElementsDescription: null,
+    };
+}
 
 type SinusoidGraphProps = MafsGraphProps<SinusoidGraphState>;
 
@@ -19,7 +34,7 @@ export type SineCoefficient = {
     verticalOffset: number;
 };
 
-export function SinusoidGraph(props: SinusoidGraphProps) {
+function SinusoidGraph(props: SinusoidGraphProps) {
     const {dispatch, graphState} = props;
 
     // Destructure the coordinates from the graph state

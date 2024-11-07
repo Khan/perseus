@@ -1,9 +1,10 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {
     components,
+    containerSizeClass,
+    getInteractiveBoxFromSizeClass,
     InteractiveGraphWidget,
     interactiveSizes,
-    SizingUtils,
     Util,
 } from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -40,7 +41,6 @@ import type {
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
-const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
 const InteractiveGraph = InteractiveGraphWidget.widget;
 
 type InteractiveGraphProps = PropsFor<typeof InteractiveGraph>;

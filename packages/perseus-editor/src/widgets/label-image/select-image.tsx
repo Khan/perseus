@@ -2,14 +2,13 @@
  * Controlled component for selecting the question image, for answer labeling.
  */
 
-import {globalStyles} from "@khanacademy/perseus";
+import {bodyXsmallBold} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
-
-const {colors, typography} = globalStyles;
+import {gray17} from "../../styles/global-colors";
 
 type Props = {
     // Callback for when image URL is changed.
@@ -58,11 +57,11 @@ const SelectImage = ({onChange, url}: Props): React.ReactElement => (
 
 const styles = StyleSheet.create({
     title: {
-        ...typography.bodyXsmallBold,
+        ...bodyXsmallBold,
 
         marginBottom: 6,
 
-        color: colors.gray17,
+        color: gray17,
     },
 
     components: {

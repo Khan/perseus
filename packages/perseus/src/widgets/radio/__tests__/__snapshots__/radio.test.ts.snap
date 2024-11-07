@@ -132,7 +132,9 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  A
+                                  <span>
+                                    A
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -244,7 +246,9 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  B
+                                  <span>
+                                    B
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -356,7 +360,9 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  C
+                                  <span>
+                                    C
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -459,7 +465,9 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  D
+                                  <span>
+                                    D
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -693,7 +701,9 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  A
+                                  <span>
+                                    A
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -818,7 +828,9 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  B
+                                  <span>
+                                    B
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -930,7 +942,9 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  C
+                                  <span>
+                                    C
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -1045,7 +1059,9 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  D
+                                  <span>
+                                    D
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -1253,7 +1269,9 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  A
+                                  <span>
+                                    A
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -1378,7 +1396,9 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  B
+                                  <span>
+                                    B
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -1490,7 +1510,9 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  C
+                                  <span>
+                                    C
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -1605,7 +1627,9 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  D
+                                  <span>
+                                    D
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -1813,7 +1837,9 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  A
+                                  <span>
+                                    A
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -1938,7 +1964,9 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  B
+                                  <span>
+                                    B
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -2050,7 +2078,9 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  C
+                                  <span>
+                                    C
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -2165,7 +2195,9 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  D
+                                  <span>
+                                    D
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -2373,7 +2405,9 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  A
+                                  <span>
+                                    A
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -2498,7 +2532,9 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  B
+                                  <span>
+                                    B
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -2610,7 +2646,9 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  C
+                                  <span>
+                                    C
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -2725,7 +2763,9 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  D
+                                  <span>
+                                    D
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -2933,7 +2973,9 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  A
+                                  <span>
+                                    A
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -3058,7 +3100,9 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  B
+                                  <span>
+                                    B
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -3170,7 +3214,9 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  C
+                                  <span>
+                                    C
+                                  </span>
                                 </div>
                               </div>
                             </span>
@@ -3285,7 +3331,9 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                                 <div
                                   class="innerWrapper_177sg8x"
                                 >
-                                  D
+                                  <span>
+                                    D
+                                  </span>
                                 </div>
                               </div>
                             </span>
