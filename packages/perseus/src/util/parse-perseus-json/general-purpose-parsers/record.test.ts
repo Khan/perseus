@@ -1,12 +1,12 @@
 import {assertFailure, success} from "../result";
 
+import {defaulted} from "./defaulted";
 import {number} from "./number";
 import {record} from "./record";
+import {string} from "./string";
 import {ctx, parseFailureWith} from "./test-helpers";
 
 import type {Parser} from "../parser-types";
-import {defaulted} from "./defaulted";
-import {string} from "./string";
 
 describe("record", () => {
     const numericString: Parser<string> = (rawValue, ctx) => {
@@ -83,10 +83,13 @@ describe("record", () => {
     });
 
     it("uses a default value if provided", () => {
-        const stringToNumber = record(string, defaulted(number, () => 42));
+        const stringToNumber = record(
+            string,
+            defaulted(number, () => 42),
+        );
 
         const result = stringToNumber({answer: undefined}, ctx());
 
         expect(result).toEqual(success({answer: 42}));
-    })
+    });
 });

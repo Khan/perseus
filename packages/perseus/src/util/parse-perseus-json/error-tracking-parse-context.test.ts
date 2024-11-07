@@ -1,25 +1,26 @@
 import {ErrorTrackingParseContext} from "./error-tracking-parse-context";
+import {failure} from "./result";
 
 describe("ErrorTrackingParseContext", () => {
     it("adds its `path` to reported failures", () => {
-        const ctx = new ErrorTrackingParseContext(["foo", 1, "bar"]);
+        const path = ["foo", 1, "bar"];
+        const ctx = new ErrorTrackingParseContext(path);
 
-        expect(ctx.failure("a million bucks", 4)).toEqual({
-            type: "failure",
-            detail: [
+        expect(ctx.failure("a million bucks", 4)).toEqual(
+            failure([
                 {
                     expected: ["a million bucks"],
                     badValue: 4,
                     path: ["foo", 1, "bar"],
                 },
-            ],
-        });
+            ]),
+        );
     });
 
     it("spawns a new context for a subtree of the object being parsed", () => {
-        const rootCtx = new ErrorTrackingParseContext([]);
-        const subCtx = rootCtx.forSubtree("blah");
-        expect(subCtx.failure("", 99).detail[0].path).toEqual(["blah"]);
+        const rootCtx = new ErrorTrackingParseContext(["one"]);
+        const subCtx = rootCtx.forSubtree("two");
+        expect(subCtx.failure("", 99).detail[0].path).toEqual(["one", "two"]);
     });
 
     it("is not modified by spawning a subcontext", () => {
