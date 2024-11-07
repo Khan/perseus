@@ -18,4 +18,14 @@ describe("constant()", function () {
             }),
         );
     });
+
+    it("formats the error message correctly when the accepted value is `undefined`", () => {
+        const undefinedParser = constant(undefined);
+        expect(undefinedParser(null, ctx())).toEqual(
+            parseFailureWith({
+                expected: ["undefined"],
+                badValue: null,
+            }),
+        );
+    });
 });
