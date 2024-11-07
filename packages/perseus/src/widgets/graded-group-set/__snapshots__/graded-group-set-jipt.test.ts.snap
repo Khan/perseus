@@ -60,7 +60,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       class="perseus-widget-container widget-nohighlight widget-inline-block"
                     >
                       <div
-                        class="Im-just-a-sweet-lil-numeric-input"
+                        class="im-just-a-sweet-lil-numeric-input"
                       >
                         <span>
                           <div>
@@ -291,7 +291,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       class="perseus-widget-container widget-nohighlight widget-inline-block"
                     >
                       <div
-                        class="Im-just-a-sweet-lil-numeric-input"
+                        class="im-just-a-sweet-lil-numeric-input"
                       >
                         <span>
                           <div>
@@ -522,7 +522,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       class="perseus-widget-container widget-nohighlight widget-inline-block"
                     >
                       <div
-                        class="Im-just-a-sweet-lil-numeric-input"
+                        class="im-just-a-sweet-lil-numeric-input"
                       >
                         <span>
                           <div>

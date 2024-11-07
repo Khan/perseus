@@ -28,7 +28,7 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <div
-            class="Im-just-a-sweet-lil-numeric-input"
+            class="im-just-a-sweet-lil-numeric-input"
           >
             <div
               aria-label="Math input box Tap with one or two fingers to open keyboard"
@@ -95,7 +95,7 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <div
-            class="Im-just-a-sweet-lil-numeric-input"
+            class="im-just-a-sweet-lil-numeric-input"
           >
             <span>
               <div>
@@ -301,7 +301,7 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <div
-            class="Im-just-a-sweet-lil-numeric-input"
+            class="im-just-a-sweet-lil-numeric-input"
           >
             <span>
               <div>
