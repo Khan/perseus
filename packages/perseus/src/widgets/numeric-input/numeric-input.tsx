@@ -194,14 +194,14 @@ export class NumericInput
     _handleFocus: () => void = () => {
         this.props.onFocus([]);
         this.setState((currentState) => {
-            return {...currentState, isFocused: true}
+            return {...currentState, isFocused: true};
         });
     };
 
     _handleBlur: () => void = () => {
         this.props.onBlur([]);
         this.setState((currentState) => {
-            return {...currentState, isFocused: false}
+            return {...currentState, isFocused: false};
         });
     };
 
