@@ -32,7 +32,7 @@ import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
-type KeypadButtonSets = {
+export type KeypadButtonSets = {
     advancedRelations?: boolean;
     basicRelations?: boolean;
     divisionKey?: boolean;

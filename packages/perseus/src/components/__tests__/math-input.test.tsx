@@ -151,7 +151,7 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={mockOnChange}
                 keypadButtonSets={{scientific: true}}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,

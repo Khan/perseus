@@ -10,7 +10,9 @@ import {
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import ExpressionWidgetExport, { keypadConfigurationForProps} from "./expression";
+import ExpressionWidgetExport, {
+    keypadConfigurationForProps,
+} from "./expression";
 import {
     expressionItem2,
     expressionItem3,

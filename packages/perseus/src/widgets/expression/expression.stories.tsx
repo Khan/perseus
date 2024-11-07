@@ -56,22 +56,6 @@ const WrappedKeypadContext = ({
 };
 
 export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
-    const reviewModeRubric = {
-        functions: ["f", "g", "h"],
-        times: true,
-        answerForms: [],
-        buttonSets: [
-            "basic",
-            "basic+div",
-            "trig",
-            "prealgebra",
-            "logarithms",
-            "basic relations",
-            "advanced relations",
-            "scientific",
-        ] as LegacyButtonSets,
-    };
-
     const keypadConfiguration = {
         keypadType: KeypadType.EXPRESSION,
         extraKeys: ["x", "y", "z"] as Array<Key>,
