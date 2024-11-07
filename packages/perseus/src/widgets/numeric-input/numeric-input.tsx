@@ -252,25 +252,25 @@ export class NumericInput
                 lineHeight: "18px",
                 padding: this.state.isFocused ? "4px" : "4px 5px", // account for added focus border thickness
                 textAlign: this.props.rightAlign ? "right" : "left",
-                transform: "translateY(6px)",
+                transform: "translateY(6px)", // aligns text within input element with surrounding text
                 width: this.props.size === "small" ? 40 : 80,
             },
         });
 
         return (
-                <InputWithExamples
-                    ref={(ref) => (this.inputRef = ref)}
-                    value={this.props.currentValue}
-                    onChange={this.handleChange}
-                    labelText={labelText}
-                    examples={this.examples()}
-                    shouldShowExamples={this.shouldShowExamples()}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur}
-                    id={this.props.widgetId}
-                    disabled={this.props.apiOptions.readOnly}
-                    style={styles.input}
-                />
+            <InputWithExamples
+                ref={(ref) => (this.inputRef = ref)}
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                labelText={labelText}
+                examples={this.examples()}
+                shouldShowExamples={this.shouldShowExamples()}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                id={this.props.widgetId}
+                disabled={this.props.apiOptions.readOnly}
+                style={styles.input}
+            />
         );
     }
 }
