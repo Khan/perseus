@@ -460,8 +460,30 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a number-line widget", () => {
+        const widgetsMap: unknown = {
+            "number-line 1": {
+                type: "number-line",
+                version: {major: 0, minor: 0},
+                options: {
+                    range: [],
+                    labelRange: [],
+                    labelStyle: "",
+                    labelTicks: false,
+                    divisionRange: [],
+                    snapDivisions: 1,
+                    correctX: 1,
+                    static: false,
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  number-line: NumberLineWidget;
     //  numeric-input: NumericInputWidget;
     //  orderer: OrdererWidget;
     //  passage: PassageWidget;
