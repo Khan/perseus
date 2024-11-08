@@ -21,6 +21,7 @@ import {parseLabelImageWidget} from "./label-image-widget";
 import {parseMatcherWidget} from "./matcher-widget";
 import {parseMatrixWidget} from "./matrix-widget";
 import {parseMeasurerWidget} from "./measurer-widget";
+import {parseMoleculeRendererWidget} from "./molecule-renderer-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
@@ -120,8 +121,10 @@ const parseWidgetsMapEntry: (
         case "measurer":
             return parseAndAssign(`measurer ${id}`, parseMeasurerWidget);
         case "molecule-renderer":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`molecule-renderer ${id}`, any);
+            return parseAndAssign(
+                `molecule-renderer ${id}`,
+                parseMoleculeRendererWidget,
+            );
         case "number-line":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`number-line ${id}`, any);

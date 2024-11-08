@@ -444,8 +444,23 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a molecule-renderer widget", () => {
+        const widgetsMap: unknown = {
+            "molecule-renderer 1": {
+                type: "molecule-renderer",
+                version: {major: 0, minor: 0},
+                options: {
+                    widgetId: "",
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  molecule-renderer: MoleculeRendererWidget;
     //  number-line: NumberLineWidget;
     //  numeric-input: NumericInputWidget;
     //  orderer: OrdererWidget;
