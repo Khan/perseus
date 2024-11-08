@@ -16,6 +16,7 @@ import {parseInteractiveGraphWidget} from "./interactive-graph-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
+import {parseImageWidget} from "./image-widget";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
@@ -93,8 +94,7 @@ const parseWidgetsMapEntry: (
         case "iframe":
             return parseAndAssign(`iframe ${id}`, parseIframeWidget);
         case "image":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`image ${id}`, any);
+            return parseAndAssign(`image ${id}`, parseImageWidget);
         case "input-number":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`input-number ${id}`, any);

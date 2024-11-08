@@ -295,6 +295,22 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts an image widget", () => {
+        const widgetsMap: unknown = {
+            "image 1": {
+                type: "image",
+                version: {major: 0, minor: 0},
+                options: {
+                    backgroundImage: {},
+                },
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
     //  image: ImageWidget;
     //  input-number: InputNumberWidget;
