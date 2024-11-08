@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Fix function signature of getUserInputFromProps for radio component
+Fix function signature of getUserInputFromProps for radio widget
