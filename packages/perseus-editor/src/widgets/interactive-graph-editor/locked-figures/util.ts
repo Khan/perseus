@@ -1,3 +1,4 @@
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 import type {
@@ -123,4 +124,21 @@ export function generateLockedFigureAppearanceDescription(
         default:
             throw new UnreachableCaseError(fill);
     }
+}
+
+export async function generateSpokenMathDetails(mathString: string) {
+    const engine = await SpeechRuleEngine.setup("en");
+
+    // Replace everything between two $ signs with the spoken version
+    // of the math inside the $ signs.
+    // Example: "Circle with radius $\frac{1}{2}$" -> "Circle with radius one half"
+    const convertedSpeech = mathString.replace(
+        /\$(.*?)\$/g,
+        // Use second param to remove the $ signs from the match, as
+        // the first param is the full match including the $ signs.
+        (_, textWithin) => `${engine.texToSpeech(textWithin)}`,
+    );
+
+    // const convertedSpeech = engine.texToSpeech(mathString);
+    return convertedSpeech;
 }

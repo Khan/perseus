@@ -24,6 +24,7 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
 } from "./util";
 
@@ -104,28 +105,39 @@ const LockedPointSettings = (props: Props) => {
 
     const isDefiningPoint = !onMove && !onRemove;
 
-    /**
-     * Get a prepopulated aria label for the point.
-     *
-     * If the point has no labels, the aria label will just be
-     * "Point at (x, y)".
-     *
-     * If the point has labels, the aria label will be
-     * "Point at (x, y) with label1, label2, label3".
-     */
-    function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
+    const [prepopulatedAriaLabel, setPrepopulatedAriaLabel] =
+        React.useState("");
+
+    React.useEffect(() => {
+        /**
+         * Get a prepopulated aria label for the point, with the math
+         * details converted into spoken words.
+         *
+         * If the point has no labels, the aria label will just be
+         * "Point at (x, y)".
+         *
+         * If the point has labels, the aria label will be
+         * "Point at (x, y) with label1, label2, label3".
+         */
+        async function getPrepopulatedAriaLabel() {
+            let visiblelabel = "";
+            if (labels && labels.length > 0) {
+                visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
+            }
+
+            let str = await generateSpokenMathDetails(
+                `Point${visiblelabel} at (${coord[0]}, ${coord[1]})`,
+            );
+
+            const pointAppearance =
+                generateLockedFigureAppearanceDescription(pointColor);
+            str += pointAppearance;
+
+            return str;
         }
-        let str = `Point${visiblelabel} at (${coord[0]}, ${coord[1]})`;
 
-        const pointAppearance =
-            generateLockedFigureAppearanceDescription(pointColor);
-        str += pointAppearance;
-
-        return str;
-    }
+        getPrepopulatedAriaLabel().then(setPrepopulatedAriaLabel);
+    }, [coord, labels, pointColor]);
 
     function handleColorChange(newValue) {
         const newProps: Partial<LockedPointType> = {
@@ -247,7 +259,7 @@ const LockedPointSettings = (props: Props) => {
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        prePopulatedAriaLabel={prepopulatedAriaLabel}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}
