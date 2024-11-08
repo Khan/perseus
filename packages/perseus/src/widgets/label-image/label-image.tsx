@@ -20,6 +20,7 @@ import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import {bodyXsmallBold} from "../../styles/global-styles";
 import mediaQueries from "../../styles/media-queries";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/label-image/prompt-utils";
 
 import AnswerChoices from "./answer-choices";
 import {HideAnswersToggle} from "./hide-answers-toggle";
@@ -35,6 +36,7 @@ import type {
     PerseusLabelImageRubric,
     PerseusLabelImageUserInput,
 } from "../../validation.types";
+import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/prompt-utils";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
@@ -310,6 +312,10 @@ export class LabelImage
     getUserInput(): PerseusLabelImageUserInput {
         const {markers} = this.props;
         return {markers};
+    }
+
+    getPromptJSON(): LabelImagePromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     // TODO(LEMS-2544): Investigate impact on scoring; possibly pull out &/or remove rubric parameter.
@@ -738,4 +744,4 @@ export default {
     accessible: true,
     isLintable: true,
     validator: labelImageValidator,
-} as WidgetExports<typeof LabelImageWithDependencies>;
+} satisfies WidgetExports<typeof LabelImageWithDependencies>;

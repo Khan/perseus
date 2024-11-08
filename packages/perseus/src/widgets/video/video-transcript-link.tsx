@@ -9,7 +9,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
-import {getDependencies} from "../../dependencies";
+import {useDependencies} from "../../dependencies";
 
 const IS_URL = /^https?:\/\//;
 
@@ -33,7 +33,7 @@ type Props = {
  */
 const VideoTranscriptLink = (props: Props): React.ReactElement => {
     const {location} = props;
-    const {useVideo} = getDependencies();
+    const {useVideo} = useDependencies();
     const [id, kind] = IS_URL.test(location)
         ? [getYoutubeId(location), "YOUTUBE_ID"]
         : [location, "READABLE_ID"];

@@ -172,7 +172,7 @@ export const ItemExtras = [
 ] as const;
 export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
 
-type WidgetOptions<Type extends string, Options> = {
+export type WidgetOptions<Type extends string, Options> = {
     // The "type" of widget which will define what the Options field looks like
     type: Type;
     // Whether this widget is displayed with the values and is immutable.  For display only
@@ -666,7 +666,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     fullGraphAriaDescription?: string;
 };
 
-const lockedFigureColorNames = [
+export const lockedFigureColorNames = [
     "blue",
     "green",
     "grayH",
@@ -908,6 +908,77 @@ export type PerseusGraphTypeRay = {
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple;
 } & PerseusGraphTypeCommon;
+
+type AngleGraphCorrect = {
+    type: "angle";
+    allowReflexAngles: boolean;
+    match: "congruent";
+    coords: [Coord, Coord, Coord];
+};
+
+type CircleGraphCorrect = {
+    type: "circle";
+    center: Coord;
+    radius: number;
+};
+
+type LinearGraphCorrect = {
+    type: "linear";
+    coords: CollinearTuple;
+};
+
+type LinearSystemGraphCorrect = {
+    type: "linear-system";
+    coords: [CollinearTuple, CollinearTuple];
+};
+
+type NoneGraphCorrect = {
+    type: "none";
+};
+
+type PointGraphCorrect = {
+    type: "point";
+    coords: ReadonlyArray<Coord>;
+};
+
+type PolygonGraphCorrect = {
+    type: "polygon";
+    match: "similar" | "congruent" | "approx";
+    coords: ReadonlyArray<Coord>;
+};
+
+type QuadraticGraphCorrect = {
+    type: "quadratic";
+    coords: [Coord, Coord, Coord];
+};
+
+type SegmentGraphCorrect = {
+    type: "segment";
+    coords: CollinearTuple[];
+};
+
+type SinusoidGraphCorrect = {
+    type: "sinusoid";
+    coords: CollinearTuple;
+};
+
+type RayGraphCorrect = {
+    type: "ray";
+    coords: CollinearTuple;
+};
+
+export type PerseusGraphCorrectType =
+    | AngleGraphCorrect
+    | CircleGraphCorrect
+    | LinearGraphCorrect
+    | LinearSystemGraphCorrect
+    | NoneGraphCorrect
+    | PointGraphCorrect
+    | PolygonGraphCorrect
+    | QuadraticGraphCorrect
+    | RayGraphCorrect
+    | SegmentGraphCorrect
+    | SinusoidGraphCorrect;
 
 export type PerseusLabelImageWidgetOptions = {
     // Translatable Text; Tex representation of choices

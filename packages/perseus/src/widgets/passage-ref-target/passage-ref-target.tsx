@@ -71,4 +71,4 @@ export default {
     isLintable: true,
     // TODO: things that aren't interactive shouldn't need validators
     validator: () => noopValidator(),
-} as WidgetExports<typeof PassageRefTarget>;
+} satisfies WidgetExports<typeof PassageRefTarget>;

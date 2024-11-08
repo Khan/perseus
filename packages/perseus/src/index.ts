@@ -160,7 +160,6 @@ export {default as WIDGET_PROP_DENYLIST} from "./mixins/widget-prop-denylist";
 /**
  * Types
  */
-export type {PerseusOptions} from "./init";
 export type {ILogger, LogErrorOptions} from "./logging/log";
 export type {ServerItemRenderer as ServerItemRendererComponent} from "./server-item-renderer";
 export type {
@@ -177,6 +176,7 @@ export type {
     JiptLabelStore,
     JiptRenderer,
     PerseusDependencies,
+    PerseusDependenciesV2,
     PerseusScore,
     Version,
     VideoData,
@@ -254,3 +254,4 @@ export type {
     TagsShape,
 } from "./multi-items/shape-types";
 export type {Path} from "./multi-items/trees";
+export type {RendererPromptJSON} from "./prompt-types";

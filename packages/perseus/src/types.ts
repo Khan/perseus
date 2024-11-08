@@ -7,6 +7,7 @@ import type {
     PerseusWidget,
     PerseusWidgetsMap,
 } from "./perseus-types";
+import type {WidgetPromptJSON} from "./prompt-types";
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {
@@ -88,6 +89,7 @@ export interface Widget {
 
     showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
     examples?: () => ReadonlyArray<string>;
+    getPromptJSON?: () => WidgetPromptJSON;
 }
 
 export type ImageDict = {
@@ -479,18 +481,6 @@ export type PerseusDependencies = {
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
 
-    // video widget
-    // This is used as a hook to fetch data about a video which is used to
-    // add a link to the video transcript.  The return value conforms to
-    // the wonder-blocks-data `Result` type which is used by our GraphQL
-    // framework.
-    useVideo(
-        id: string,
-        kind: VideoKind,
-    ): Result<{
-        video: VideoData | null | undefined;
-    }>;
-
     Log: ILogger;
 
     // RequestInfo
@@ -508,6 +498,18 @@ export type PerseusDependencies = {
  */
 export interface PerseusDependenciesV2 {
     analytics: {onAnalyticsEvent: AnalyticsEventHandlerFn};
+
+    // video widget
+    // This is used as a hook to fetch data about a video which is used to
+    // add a link to the video transcript.  The return value conforms to
+    // the wonder-blocks-data `Result` type which is used by our GraphQL
+    // framework.
+    useVideo(
+        id: string,
+        kind: VideoKind,
+    ): Result<{
+        video: VideoData | null | undefined;
+    }>;
 }
 
 /**

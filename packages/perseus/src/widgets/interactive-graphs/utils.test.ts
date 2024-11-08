@@ -1,4 +1,4 @@
-import {normalizePoints, normalizeCoords} from "./utils";
+import {normalizePoints, normalizeCoords, replaceOutsideTeX} from "./utils";
 
 import type {Coord} from "../../interactive2/types";
 import type {GraphRange} from "../../perseus-types";
@@ -63,5 +63,60 @@ describe("normalizeCoords", () => {
         const result = normalizeCoords(coordsList, ranges);
 
         expect(result).toEqual(expected);
+    });
+});
+
+describe("replaceOutsideTeX", () => {
+    test("no $s", () => {
+        const mathString = "x^2";
+        const convertedString = replaceOutsideTeX(mathString);
+
+        expect(convertedString).toEqual("\\text{x^2}");
+    });
+
+    test("$s surrounding string", () => {
+        const mathString = "$x^2$";
+        const convertedString = replaceOutsideTeX(mathString);
+
+        expect(convertedString).toEqual("x^2");
+    });
+
+    test("$s within string", () => {
+        const mathString = "Expression $x^2$ is exponential";
+        const convertedString = replaceOutsideTeX(mathString);
+
+        expect(convertedString).toEqual(
+            "\\text{Expression }x^2\\text{ is exponential}",
+        );
+    });
+
+    test("$s first", () => {
+        const mathString = "$A$ is square";
+        const convertedString = replaceOutsideTeX(mathString);
+
+        expect(convertedString).toEqual("A\\text{ is square}");
+    });
+
+    test("regular text first", () => {
+        const mathString = "Square $A$";
+        const convertedString = replaceOutsideTeX(mathString);
+
+        expect(convertedString).toEqual("\\text{Square }A");
+    });
+
+    test("multiple $s", () => {
+        const mathString = "$A$ is $B$";
+        const convertedString = replaceOutsideTeX(mathString);
+
+        expect(convertedString).toEqual("A\\text{ is }B");
+    });
+
+    test("multiple $s with surrounding text", () => {
+        const mathString = "Square $A$ is $B$ also";
+        const convertedString = replaceOutsideTeX(mathString);
+
+        expect(convertedString).toEqual(
+            "\\text{Square }A\\text{ is }B\\text{ also}",
+        );
     });
 });

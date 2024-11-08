@@ -1,5 +1,52 @@
 # @khanacademy/perseus
 
+## 41.2.0
+
+### Minor Changes
+
+-   [#1834](https://github.com/Khan/perseus/pull/1834) [`429b9cc15`](https://github.com/Khan/perseus/commit/429b9cc15e5d69ad10b42db0016ba21992343267) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figures] Use \$ symbols to denote TeX within locked labels and locked figure labels
+
+### Patch Changes
+
+-   [#1833](https://github.com/Khan/perseus/pull/1833) [`122b3cc1b`](https://github.com/Khan/perseus/commit/122b3cc1b9b233e1014ec2176319af8bbb0c54ce) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removal of unused MathJax2 initialization
+
+## 41.1.1
+
+### Patch Changes
+
+-   [#1818](https://github.com/Khan/perseus/pull/1818) [`8aaf29670`](https://github.com/Khan/perseus/commit/8aaf2967088e55e6907ef4b01411d6e9579b4677) Thanks [@Myranae](https://github.com/Myranae)! - Refine Interactive Graph's Rubric type
+
+*   [#1829](https://github.com/Khan/perseus/pull/1829) [`f6b66b001`](https://github.com/Khan/perseus/commit/f6b66b00186875fd1d61e5d217b472a9a4e2cdf9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor parsePerseusItem and add tests
+
+## 41.1.0
+
+### Minor Changes
+
+-   [#1821](https://github.com/Khan/perseus/pull/1821) [`b14d19160`](https://github.com/Khan/perseus/commit/b14d19160f6461c90290500519fe9d54bbc70c11) Thanks [@handeyeco](https://github.com/handeyeco)! - Export PerseusDependenciesV2 from Perseus
+
+## 41.0.0
+
+### Major Changes
+
+-   [#1793](https://github.com/Khan/perseus/pull/1793) [`486e4cdc1`](https://github.com/Khan/perseus/commit/486e4cdc1196e78101cd9067f37888881fd58f2b) Thanks [@handeyeco](https://github.com/handeyeco)! - Move useVideo from v1 dependency to v2 dependency
+
+### Minor Changes
+
+-   [#1817](https://github.com/Khan/perseus/pull/1817) [`22d1c0229`](https://github.com/Khan/perseus/commit/22d1c0229e52fc2dc6bc9f38a3ca400c6e4a3884) Thanks [@benchristel](https://github.com/benchristel)! - Add screenreader description for the interactive elements of point graphs
+
+*   [#1812](https://github.com/Khan/perseus/pull/1812) [`33891dc0b`](https://github.com/Khan/perseus/commit/33891dc0b5e477b0b6db2f0d3733d81215d13ebe) Thanks [@benchristel](https://github.com/benchristel)! - Add a screenreader-accessible label to movable points on interactive graphs
+
+### Patch Changes
+
+-   [#1815](https://github.com/Khan/perseus/pull/1815) [`2c402198c`](https://github.com/Khan/perseus/commit/2c402198c00b1eb342a799820a58d49ec5d9d9f4) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor interactive graph components to support whole-graph screenreader descriptions
+
+*   [#1802](https://github.com/Khan/perseus/pull/1802) [`d6381f773`](https://github.com/Khan/perseus/commit/d6381f7737ff44f1ec3d91c4ab25ce51f47b35b9) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Improve prop types for various components
+
+-   [#1814](https://github.com/Khan/perseus/pull/1814) [`035191c9e`](https://github.com/Khan/perseus/commit/035191c9ec0c70db062cdfb44cdee69682edcbcf) Thanks [@nedredmond](https://github.com/nedredmond)! - Wraps a text node in a `span` to reduce bugs caused by Google Translate
+
+-   Updated dependencies [[`d6381f773`](https://github.com/Khan/perseus/commit/d6381f7737ff44f1ec3d91c4ab25ce51f47b35b9)]:
+    -   @khanacademy/math-input@21.1.4
+
 ## 40.0.0
 
 ### Major Changes

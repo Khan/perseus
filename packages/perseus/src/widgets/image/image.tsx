@@ -8,10 +8,12 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/image/prompt-utils";
 import noopValidator from "../__shared__/noop-validator";
 
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, WidgetExports, WidgetProps, Widget} from "../../types";
+import type {ImagePromptJSON} from "../../widget-ai-utils/image/prompt-utils";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];
@@ -21,7 +23,7 @@ const defaultBackgroundImage = {
     height: 0,
 } as const;
 
-const editorAlignments = ["block", "full-width"];
+const editorAlignments = ["block", "full-width"] as const;
 
 const DEFAULT_ALIGNMENT = "block";
 
@@ -76,6 +78,10 @@ class ImageWidget extends React.Component<Props> implements Widget {
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
+
+    getPromptJSON(): ImagePromptJSON {
+        return _getPromptJSON(this.props);
+    }
 
     render(): React.ReactNode {
         let image;
@@ -259,4 +265,4 @@ export default {
     isLintable: true,
     // TODO: things that aren't interactive shouldn't need validators
     validator: () => noopValidator(),
-} as WidgetExports<typeof ImageWidget>;
+} satisfies WidgetExports<typeof ImageWidget>;
