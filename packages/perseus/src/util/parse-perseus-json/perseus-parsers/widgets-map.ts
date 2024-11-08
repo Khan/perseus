@@ -7,6 +7,7 @@ import {parseDefinitionWidget} from "./definition-widget";
 import {parseDropdownWidget} from "./dropdown-widget";
 import {parseExplanationWidget} from "./explanation-widget";
 import {parseExpressionWidget} from "./expression-widget";
+import {parseGradedGroupWidget} from "./graded-group-widget";
 import {parseGrapherWidget} from "./grapher-widget";
 import {parseGroupWidget} from "./group-widget";
 import {parseInteractiveGraphWidget} from "./interactive-graph-widget";
@@ -81,8 +82,7 @@ const parseWidgetsMapEntry: (
         case "group":
             return parseAndAssign(`group ${id}`, parseGroupWidget);
         case "graded-group":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`graded-group ${id}`, any);
+            return parseAndAssign(`graded-group ${id}`, parseGradedGroupWidget);
         case "graded-group-set":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`graded-group-set ${id}`, any);

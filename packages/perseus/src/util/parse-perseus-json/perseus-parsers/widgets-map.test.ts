@@ -232,8 +232,26 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a graded-group widget", () => {
+        const widgetsMap: unknown = {
+            "graded-group 1": {
+                type: "graded-group",
+                version: {major: 0, minor: 0},
+                options: {
+                    title: "",
+                    content: "",
+                    widgets: {},
+                    images: {},
+                },
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  graded-group: GradedGroupWidget;
     //  graded-group-set: GradedGroupSetWidget;
     //  iframe: IFrameWidget;
     //  image: ImageWidget;
