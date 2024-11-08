@@ -178,6 +178,41 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a grapher widget", () => {
+        const widgetsMap: unknown = {
+            "grapher 1": {
+                type: "grapher",
+                version: {major: 0, minor: 0},
+                options: {
+                    availableTypes: ["absolute_value"],
+                    correct: {
+                        type: "absolute_value",
+                        coords: [
+                            [0, 1],
+                            [2, 3],
+                        ],
+                    },
+                    graph: {
+                        backgroundImage: {},
+                        labels: ["x", "y"],
+                        markings: "graph",
+                        range: [
+                            [-10, 10],
+                            [-10, 10],
+                        ],
+                        rulerLabel: "",
+                        rulerTicks: 5,
+                        step: [1, 1],
+                    },
+                },
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
     //  grapher: GrapherWidget;
     //  group: GroupWidget;
