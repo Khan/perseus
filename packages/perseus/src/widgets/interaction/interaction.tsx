@@ -808,4 +808,4 @@ export default {
     hidden: true,
     // TODO: things that aren't interactive shouldn't need validators
     validator: () => noopValidator(),
-} as WidgetExports<typeof Interaction>;
+} satisfies WidgetExports<typeof Interaction>;

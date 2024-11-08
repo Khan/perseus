@@ -558,4 +558,4 @@ export default {
         }
         return correctAnswers[0].value;
     },
-} as WidgetExports<typeof ExpressionWithDependencies>;
+} satisfies WidgetExports<typeof ExpressionWithDependencies>;

@@ -474,4 +474,4 @@ export default {
     hidden: false,
     tracking: "all",
     isLintable: true,
-} as WidgetExports<typeof GradedGroup>;
+} satisfies WidgetExports<typeof GradedGroup>;

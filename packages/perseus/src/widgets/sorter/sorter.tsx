@@ -128,4 +128,4 @@ export default {
     widget: Sorter,
     isLintable: true,
     validator: sorterValidator,
-} as WidgetExports<typeof Sorter>;
+} satisfies WidgetExports<typeof Sorter>;

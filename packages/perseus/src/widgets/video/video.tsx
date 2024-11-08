@@ -118,4 +118,4 @@ export default {
     widget: Video,
     // TODO: things that aren't interactive shouldn't need validators
     validator: () => noopValidator(),
-} as WidgetExports<typeof Video>;
+} satisfies WidgetExports<typeof Video>;

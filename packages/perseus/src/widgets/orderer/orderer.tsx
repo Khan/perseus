@@ -791,4 +791,4 @@ export default {
     widget: Orderer,
     isLintable: true,
     validator: ordererValidator,
-} as WidgetExports<typeof Orderer>;
+} satisfies WidgetExports<typeof Orderer>;

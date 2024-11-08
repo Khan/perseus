@@ -647,4 +647,4 @@ export default {
     transform: propTransform,
     staticTransform: staticTransform,
     validator: grapherValidator,
-} as WidgetExports<typeof Grapher>;
+} satisfies WidgetExports<typeof Grapher>;

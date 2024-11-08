@@ -738,4 +738,4 @@ export default {
     accessible: true,
     isLintable: true,
     validator: labelImageValidator,
-} as WidgetExports<typeof LabelImageWithDependencies>;
+} satisfies WidgetExports<typeof LabelImageWithDependencies>;

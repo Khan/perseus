@@ -119,4 +119,4 @@ export default {
     widget: Dropdown,
     transform: optionsTransform,
     validator: dropdownValidator,
-} as WidgetExports<typeof Dropdown>;
+} satisfies WidgetExports<typeof Dropdown>;

@@ -196,4 +196,4 @@ export default {
     traverseChildWidgets: traverseChildWidgets,
     hidden: true,
     isLintable: true,
-} as WidgetExports<typeof Group>;
+} satisfies WidgetExports<typeof Group>;

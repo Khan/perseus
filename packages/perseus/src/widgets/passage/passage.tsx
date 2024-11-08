@@ -559,4 +559,4 @@ export default {
     },
     isLintable: true,
     validator: () => noopValidator(),
-} as WidgetExports<typeof Passage>;
+} satisfies WidgetExports<typeof Passage>;

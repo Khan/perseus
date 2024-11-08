@@ -167,4 +167,4 @@ export default {
     // Let's not expose it to all content creators yet
     hidden: true,
     validator: iframeValidator,
-} as WidgetExports<typeof Iframe>;
+} satisfies WidgetExports<typeof Iframe>;

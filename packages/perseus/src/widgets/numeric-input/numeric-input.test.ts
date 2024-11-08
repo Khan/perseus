@@ -93,9 +93,6 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
         const singleAnswer =
             NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
                 answers,
-                labelText: "",
-                size: "medium",
-                static: false,
                 coefficient: false,
             });
         expect(singleAnswer).toBe("12.2");
@@ -109,9 +106,6 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
         const singleAnswer =
             NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
                 answers,
-                labelText: "",
-                size: "medium",
-                static: false,
                 coefficient: false,
             });
         expect(singleAnswer).toBe("1252");
@@ -122,9 +116,6 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
         const singleAnswer =
             NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
                 answers,
-                labelText: "",
-                size: "medium",
-                static: false,
                 coefficient: false,
             });
         expect(singleAnswer).toBeUndefined();

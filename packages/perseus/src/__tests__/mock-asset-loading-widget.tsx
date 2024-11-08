@@ -49,4 +49,4 @@ export default {
     name: "mocked-asset-widget",
     displayName: "Mocked Asset Widget",
     widget: MockAssetLoadingWidget,
-} as WidgetExports<typeof MockAssetLoadingWidget>;
+} satisfies WidgetExports<typeof MockAssetLoadingWidget>;

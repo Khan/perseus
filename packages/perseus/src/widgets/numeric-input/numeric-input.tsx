@@ -379,4 +379,4 @@ export default {
         }
         return answerStrings[0];
     },
-} as WidgetExports<typeof NumericInput>;
+} satisfies WidgetExports<typeof NumericInput>;

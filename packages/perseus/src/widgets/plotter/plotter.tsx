@@ -1174,4 +1174,4 @@ export default {
     widget: Plotter,
     staticTransform: staticTransform,
     validator: plotterValidator,
-} as WidgetExports<typeof Plotter>;
+} satisfies WidgetExports<typeof Plotter>;

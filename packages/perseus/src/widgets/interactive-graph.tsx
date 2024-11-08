@@ -2390,4 +2390,4 @@ export default {
     widget: InteractiveGraph,
     staticTransform: staticTransform,
     validator: interactiveGraphValidator,
-} as WidgetExports<typeof InteractiveGraph>;
+} satisfies WidgetExports<typeof InteractiveGraph>;

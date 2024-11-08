@@ -284,4 +284,4 @@ export default {
         }
         return answerString;
     },
-} as WidgetExports<typeof InputNumber>;
+} satisfies WidgetExports<typeof InputNumber>;
