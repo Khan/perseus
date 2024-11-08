@@ -1,3 +1,4 @@
+import {getWidget} from "../../../widgets";
 import {any, pair, isObject, string} from "../general-purpose-parsers";
 import {isFailure} from "../result";
 
@@ -161,10 +162,11 @@ const parseWidgetsMapEntry: (
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`video ${id}`, any);
 
-        // TODO(LEMS-2585): add cases for deprecated-standin and the
-        // widgets that it replaces
-
         default:
+            if (getWidget(type)) {
+                // @ts-expect-error - 'type' is not a valid widget type
+                return parseAndAssign(`${type} ${id}`, any);
+            }
             return ctx.failure("a valid widget type", type);
     }
 };

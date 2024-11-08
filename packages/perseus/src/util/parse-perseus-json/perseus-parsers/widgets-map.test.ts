@@ -1,4 +1,4 @@
-import {array, boolean, string} from "../general-purpose-parsers";
+import {registerWidget} from "../../../widgets";
 import {
     anyFailure,
     ctx,
@@ -433,6 +433,25 @@ describe("parseWidgetsMap", () => {
                 badValue: "transmogrifier",
             }),
         );
+    });
+
+    it("accepts a dynamically-registered widget type without checking its options", () => {
+        registerWidget("fake-widget-for-widgets-map-parser-test", {
+            name: "fake-widget-for-widgets-map-parser-test",
+            displayName: "",
+            widget: () => null,
+        });
+
+        const widgetsMap: unknown = {
+            "fake-widget-for-widgets-map-parser-test 1": {
+                type: "fake-widget-for-widgets-map-parser-test",
+                options: {foo: "whatever"},
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
     });
 
     it("rejects a key with no ID", () => {
