@@ -420,8 +420,31 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a measurer widget", () => {
+        const widgetsMap: unknown = {
+            "measurer 1": {
+                type: "measurer",
+                version: {major: 0, minor: 0},
+                options: {
+                    image: {},
+                    showProtractor: false,
+                    showRuler: false,
+                    rulerLabel: "",
+                    rulerTicks: 1,
+                    rulerPixels: 1,
+                    rulerLength: 1,
+                    box: [1, 1],
+                    static: false,
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  measurer: MeasurerWidget;
     //  molecule-renderer: MoleculeRendererWidget;
     //  number-line: NumberLineWidget;
     //  numeric-input: NumericInputWidget;
