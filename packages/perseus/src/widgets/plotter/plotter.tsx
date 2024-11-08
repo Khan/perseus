@@ -11,6 +11,7 @@ import {ClassNames as ApiClassNames} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import GraphUtils from "../../util/graph-utils";
 import KhanMath from "../../util/math";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/prompt-utils";
 
 import plotterValidator from "./plotter-validator";
 
@@ -20,6 +21,7 @@ import type {
     PerseusPlotterRubric,
     PerseusPlotterUserInput,
 } from "../../validation.types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 
@@ -1139,6 +1141,10 @@ export class Plotter extends React.Component<Props, State> implements Widget {
 
     getUserInput(): PerseusPlotterUserInput {
         return this.state.values;
+    }
+
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
     }
 
     render(): React.ReactNode {
