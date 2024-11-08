@@ -168,7 +168,6 @@ export type PerseusRadioRubric = {
 
 export type PerseusRadioUserInput = {
     choicesSelected: ReadonlyArray<boolean>;
-    noneOfTheAboveSelected?: boolean;
 };
 
 export type PerseusSorterRubric = {

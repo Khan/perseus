@@ -48,7 +48,6 @@ describe("radioValidator", () => {
 
     it("is invalid when none of the above and an answer are both selected", () => {
         const userInput: PerseusRadioUserInput = {
-            noneOfTheAboveSelected: true,
             choicesSelected: [true, false, false, false, true],
         };
 
@@ -150,7 +149,6 @@ describe("radioValidator", () => {
     it("can handle none of the above correct answer", () => {
         const userInput: PerseusRadioUserInput = {
             choicesSelected: [false, false, false, false, true],
-            noneOfTheAboveSelected: true,
         };
 
         const rubric: PerseusRadioRubric = {
@@ -171,7 +169,6 @@ describe("radioValidator", () => {
     it("can handle none of the above incorrect answer", () => {
         const userInput: PerseusRadioUserInput = {
             choicesSelected: [false, false, false, false, true],
-            noneOfTheAboveSelected: true,
         };
 
         const rubric: PerseusRadioRubric = {

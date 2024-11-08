@@ -77,8 +77,6 @@ class Radio extends React.Component<Props> implements Widget {
         // future timeline implementers: this used to be {value: i} before
         // multiple select was added)
         if (props.choiceStates) {
-            let noneOfTheAboveSelected = false;
-
             const choiceStates = props.choiceStates;
             const choicesSelected = choiceStates.map(() => false);
 
@@ -86,41 +84,25 @@ class Radio extends React.Component<Props> implements Widget {
                 const index = props.choices[i].originalIndex;
 
                 choicesSelected[index] = choiceStates[i].selected;
-
-                if (props.choices[i].isNoneOfTheAbove) {
-                    if (choicesSelected[i]) {
-                        noneOfTheAboveSelected = true;
-                    }
-                }
             }
 
             return {
                 choicesSelected,
-                noneOfTheAboveSelected,
             };
             // Support legacy choiceState implementation
         }
         /* c8 ignore if - props.values is deprecated */
         const {values} = props;
         if (values) {
-            let noneOfTheAboveSelected = false;
-
             const choicesSelected = [...values];
             const valuesLength = values.length;
 
             for (let i = 0; i < valuesLength; i++) {
                 const index = props.choices[i].originalIndex;
                 choicesSelected[index] = values[i];
-
-                if (props.choices[i].isNoneOfTheAbove) {
-                    if (choicesSelected[i]) {
-                        noneOfTheAboveSelected = true;
-                    }
-                }
             }
             return {
                 choicesSelected,
-                noneOfTheAboveSelected,
             };
         }
         // Nothing checked
