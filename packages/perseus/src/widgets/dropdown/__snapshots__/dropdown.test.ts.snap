@@ -41,7 +41,22 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
                 <span
                   class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
-                  greater/less than or equal to
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class=""
+                      data-perseus-paragraph-index="0"
+                    >
+                      greater
+                    </div>
+                    <div
+                      class=""
+                      data-perseus-paragraph-index="1"
+                    >
+                      /less than or equal to
+                    </div>
+                  </div>
                 </span>
                 <span
                   aria-hidden="true"
@@ -109,7 +124,22 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
                 <span
                   class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
-                  greater/less than or equal to
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class=""
+                      data-perseus-paragraph-index="0"
+                    >
+                      greater
+                    </div>
+                    <div
+                      class=""
+                      data-perseus-paragraph-index="1"
+                    >
+                      /less than or equal to
+                    </div>
+                  </div>
                 </span>
                 <span
                   aria-hidden="true"
