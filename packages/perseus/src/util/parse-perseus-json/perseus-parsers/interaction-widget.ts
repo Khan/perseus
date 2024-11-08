@@ -5,18 +5,20 @@ import {
     enumeration,
     number,
     object,
-    optional, pair,
+    optional,
+    pair,
     string,
     union,
 } from "../general-purpose-parsers";
 
+import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
 import type {
-    InteractionWidget, PerseusInteractionElement
+    InteractionWidget,
+    PerseusInteractionElement,
 } from "../../../perseus-types";
 import type {Parser} from "../parser-types";
-import {parsePerseusImageBackground} from "./perseus-image-background";
 
 const pairOfNumbers = pair(number, number);
 
@@ -44,8 +46,8 @@ const parseLabelElement: Parser<LabelElement> = object({
         color: string,
         coordX: string,
         coordY: string,
-    })
-})
+    }),
+});
 
 type LineElement = Extract<PerseusInteractionElement, {type: "line"}>;
 const parseLineElement: Parser<LineElement> = object({
@@ -61,9 +63,12 @@ const parseLineElement: Parser<LineElement> = object({
         strokeWidth: number,
         arrows: string,
     }),
-})
+});
 
-type MovableLineElement = Extract<PerseusInteractionElement, {type: "movable-line"}>;
+type MovableLineElement = Extract<
+    PerseusInteractionElement,
+    {type: "movable-line"}
+>;
 const parseMovableLineElement: Parser<MovableLineElement> = object({
     type: constant("movable-line"),
     key: string,
@@ -82,9 +87,12 @@ const parseMovableLineElement: Parser<MovableLineElement> = object({
         constraintYMin: string,
         constraintYMax: string,
     }),
-})
+});
 
-type MovablePointElement = Extract<PerseusInteractionElement, {type: "movable-point"}>;
+type MovablePointElement = Extract<
+    PerseusInteractionElement,
+    {type: "movable-point"}
+>;
 const parseMovablePointElement: Parser<MovablePointElement> = object({
     type: constant("movable-point"),
     key: string,
@@ -99,10 +107,13 @@ const parseMovablePointElement: Parser<MovablePointElement> = object({
         constraintXMax: string,
         constraintYMin: string,
         constraintYMax: string,
-    })
-})
+    }),
+});
 
-type ParametricElement = Extract<PerseusInteractionElement, {type: "parametric"}>;
+type ParametricElement = Extract<
+    PerseusInteractionElement,
+    {type: "parametric"}
+>;
 const parseParametricElement: Parser<ParametricElement> = object({
     type: constant("parametric"),
     key: string,
@@ -114,8 +125,8 @@ const parseParametricElement: Parser<ParametricElement> = object({
         color: string,
         strokeDasharray: string,
         strokeWidth: number,
-    })
-})
+    }),
+});
 
 type PointElement = Extract<PerseusInteractionElement, {type: "point"}>;
 const parsePointElement: Parser<PointElement> = object({
@@ -126,7 +137,7 @@ const parsePointElement: Parser<PointElement> = object({
         coordX: string,
         coordY: string,
     }),
-})
+});
 
 type RectangleElement = Extract<PerseusInteractionElement, {type: "rectangle"}>;
 const parseRectangleElement: Parser<RectangleElement> = object({
@@ -139,7 +150,7 @@ const parseRectangleElement: Parser<RectangleElement> = object({
         width: string,
         height: string,
     }),
-})
+});
 
 export const parseInteractionWidget: Parser<InteractionWidget> = parseWidget(
     constant("interaction"),
@@ -169,8 +180,7 @@ export const parseInteractionWidget: Parser<InteractionWidget> = parseWidget(
                 .or(parseMovablePointElement)
                 .or(parseParametricElement)
                 .or(parsePointElement)
-                .or(parseRectangleElement)
-                .parser
-        )
+                .or(parseRectangleElement).parser,
+        ),
     }),
 );

@@ -14,11 +14,12 @@ import {parseGroupWidget} from "./group-widget";
 import {parseIframeWidget} from "./iframe-widget";
 import {parseImageWidget} from "./image-widget";
 import {parseInputNumberWidget} from "./input-number-widget";
+import {parseInteractionWidget} from "./interaction-widget";
 import {parseInteractiveGraphWidget} from "./interactive-graph-widget";
+import {parseLabelImageWidget} from "./label-image-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
-import {parseInteractionWidget} from "./interaction-widget";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
@@ -107,8 +108,7 @@ const parseWidgetsMapEntry: (
                 parseInteractiveGraphWidget,
             );
         case "label-image":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`label-image ${id}`, any);
+            return parseAndAssign(`label-image ${id}`, parseLabelImageWidget);
         case "matcher":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`matcher ${id}`, any);
@@ -161,11 +161,8 @@ const parseWidgetsMapEntry: (
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`video ${id}`, any);
 
-
-            // TODO(LEMS-2585): add cases for deprecated-standin and the
-            // widgets that it replaces
-
-
+        // TODO(LEMS-2585): add cases for deprecated-standin and the
+        // widgets that it replaces
 
         default:
             return ctx.failure("a valid widget type", type);

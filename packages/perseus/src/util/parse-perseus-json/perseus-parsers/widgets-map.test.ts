@@ -338,7 +338,10 @@ describe("parseWidgetsMap", () => {
                     static: false,
                     graph: {
                         box: [1, 1],
-                        range: [[-10, 10], [-10, 10]],
+                        range: [
+                            [-10, 10],
+                            [-10, 10],
+                        ],
                         gridStep: [1, 1],
                         markings: "graph",
                         tickStep: [1, 1],
@@ -354,9 +357,31 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a label-image widget", () => {
+        const widgetsMap: unknown = {
+            "label-image 1": {
+                type: "label-image",
+                version: {major: 0, minor: 0},
+                options: {
+                    choices: [],
+                    imageUrl: "",
+                    imageAlt: "",
+                    imageHeight: 0,
+                    imageWidth: 0,
+                    markers: [],
+                    hideChoicesFromInstructions: false,
+                    multipleAnswers: false,
+                    static: false,
+                },
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  interactive-graph: InteractiveGraphWidget;
-    //  label-image: LabelImageWidget;
     //  matcher: MatcherWidget;
     //  matrix: MatrixWidget;
     //  measurer: MeasurerWidget;
