@@ -402,8 +402,28 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a matrix widget", () => {
+        const widgetsMap: unknown = {
+            "matrix 1": {
+                type: "matrix",
+                version: {major: 0, minor: 0},
+                options: {
+                    prefix: "",
+                    suffix: "",
+                    answers: [],
+                    cursorPosition: [],
+                    matrixBoardSize: [],
+                    static: false,
+                },
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  matrix: MatrixWidget;
     //  measurer: MeasurerWidget;
     //  molecule-renderer: MoleculeRendererWidget;
     //  number-line: NumberLineWidget;

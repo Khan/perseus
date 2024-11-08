@@ -19,6 +19,7 @@ import {parseInteractionWidget} from "./interaction-widget";
 import {parseInteractiveGraphWidget} from "./interactive-graph-widget";
 import {parseLabelImageWidget} from "./label-image-widget";
 import {parseMatcherWidget} from "./matcher-widget";
+import {parseMatrixWidget} from "./matrix-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
@@ -114,8 +115,7 @@ const parseWidgetsMapEntry: (
         case "matcher":
             return parseAndAssign(`matcher ${id}`, parseMatcherWidget);
         case "matrix":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`matrix ${id}`, any);
+            return parseAndAssign(`matrix ${id}`, parseMatrixWidget);
         case "measurer":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`measurer ${id}`, any);
