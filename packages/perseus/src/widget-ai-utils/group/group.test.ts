@@ -38,7 +38,6 @@ describe("group widget", () => {
                                     false,
                                     false,
                                 ],
-                                isNoneOfTheAboveSelected: false,
                             },
                         },
                     },

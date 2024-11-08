@@ -628,7 +628,6 @@ describe("multi-item renderer", () => {
                       true,
                       false,
                     ],
-                    "noneOfTheAboveSelected": false,
                   },
                   {
                     "currentValue": "-42",
@@ -781,7 +780,6 @@ describe("multi-item renderer", () => {
                       true,
                       false,
                     ],
-                    "noneOfTheAboveSelected": false,
                   },
                   {
                     "currentValue": "-42",
