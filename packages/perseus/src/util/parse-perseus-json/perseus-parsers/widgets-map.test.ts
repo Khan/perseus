@@ -311,9 +311,25 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts an input-number widget", () => {
+        const widgetsMap: unknown = {
+            "input-number 1": {
+                type: "input-number",
+                version: {major: 0, minor: 0},
+                options: {
+                    simplify: "required",
+                    size: "normal",
+                    value: "",
+                },
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  image: ImageWidget;
-    //  input-number: InputNumberWidget;
     //  interaction: InteractionWidget;
     //  interactive-graph: InteractiveGraphWidget;
     //  label-image: LabelImageWidget;

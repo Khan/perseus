@@ -12,11 +12,12 @@ import {parseGradedGroupWidget} from "./graded-group-widget";
 import {parseGrapherWidget} from "./grapher-widget";
 import {parseGroupWidget} from "./group-widget";
 import {parseIframeWidget} from "./iframe-widget";
+import {parseImageWidget} from "./image-widget";
+import {parseInputNumberWidget} from "./input-number-widget";
 import {parseInteractiveGraphWidget} from "./interactive-graph-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
-import {parseImageWidget} from "./image-widget";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
@@ -96,8 +97,7 @@ const parseWidgetsMapEntry: (
         case "image":
             return parseAndAssign(`image ${id}`, parseImageWidget);
         case "input-number":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`input-number ${id}`, any);
+            return parseAndAssign(`input-number ${id}`, parseInputNumberWidget);
         case "interaction":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`interaction ${id}`, any);
