@@ -77,7 +77,6 @@ class Radio extends React.Component<Props> implements Widget {
         // future timeline implementers: this used to be {value: i} before
         // multiple select was added)
         if (props.choiceStates) {
-            let noneOfTheAboveIndex = null;
             let noneOfTheAboveSelected = false;
 
             const choiceStates = props.choiceStates;
@@ -89,9 +88,6 @@ class Radio extends React.Component<Props> implements Widget {
                 choicesSelected[index] = choiceStates[i].selected;
 
                 if (props.choices[i].isNoneOfTheAbove) {
-                    // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
-                    noneOfTheAboveIndex = index;
-
                     if (choicesSelected[i]) {
                         noneOfTheAboveSelected = true;
                     }
@@ -100,7 +96,6 @@ class Radio extends React.Component<Props> implements Widget {
 
             return {
                 choicesSelected,
-                noneOfTheAboveIndex,
                 noneOfTheAboveSelected,
             };
             // Support legacy choiceState implementation
@@ -108,7 +103,6 @@ class Radio extends React.Component<Props> implements Widget {
         /* c8 ignore if - props.values is deprecated */
         const {values} = props;
         if (values) {
-            let noneOfTheAboveIndex = null;
             let noneOfTheAboveSelected = false;
 
             const choicesSelected = [...values];
@@ -119,8 +113,6 @@ class Radio extends React.Component<Props> implements Widget {
                 choicesSelected[index] = values[i];
 
                 if (props.choices[i].isNoneOfTheAbove) {
-                    // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
-                    noneOfTheAboveIndex = index;
                     if (choicesSelected[i]) {
                         noneOfTheAboveSelected = true;
                     }
@@ -128,7 +120,6 @@ class Radio extends React.Component<Props> implements Widget {
             }
             return {
                 choicesSelected,
-                noneOfTheAboveIndex,
                 noneOfTheAboveSelected,
             };
         }

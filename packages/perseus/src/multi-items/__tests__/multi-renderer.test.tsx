@@ -628,7 +628,6 @@ describe("multi-item renderer", () => {
                       true,
                       false,
                     ],
-                    "noneOfTheAboveIndex": null,
                     "noneOfTheAboveSelected": false,
                   },
                   {
@@ -782,7 +781,6 @@ describe("multi-item renderer", () => {
                       true,
                       false,
                     ],
-                    "noneOfTheAboveIndex": null,
                     "noneOfTheAboveSelected": false,
                   },
                   {

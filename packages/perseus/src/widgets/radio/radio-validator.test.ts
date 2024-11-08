@@ -58,7 +58,11 @@ describe("radioValidator", () => {
                 {content: "Choice 2", correct: false},
                 {content: "Choice 3", correct: false},
                 {content: "Choice 4", correct: false},
-                {content: "None of the above", correct: false},
+                {
+                    content: "None of the above",
+                    correct: false,
+                    isNoneOfTheAbove: true,
+                },
             ],
         };
 
@@ -147,7 +151,6 @@ describe("radioValidator", () => {
         const userInput: PerseusRadioUserInput = {
             choicesSelected: [false, false, false, false, true],
             noneOfTheAboveSelected: true,
-            noneOfTheAboveIndex: 4,
         };
 
         const rubric: PerseusRadioRubric = {
@@ -156,6 +159,7 @@ describe("radioValidator", () => {
                 {content: "Choice 2", correct: false},
                 {content: "Choice 3", correct: false},
                 {content: "Choice 4", correct: false},
+                {content: "Choice 5", correct: true, isNoneOfTheAbove: true},
             ],
         };
 
@@ -168,7 +172,6 @@ describe("radioValidator", () => {
         const userInput: PerseusRadioUserInput = {
             choicesSelected: [false, false, false, false, true],
             noneOfTheAboveSelected: true,
-            noneOfTheAboveIndex: 4,
         };
 
         const rubric: PerseusRadioRubric = {
@@ -177,6 +180,7 @@ describe("radioValidator", () => {
                 {content: "Choice 2", correct: false},
                 {content: "Choice 3", correct: false},
                 {content: "Choice 4", correct: false},
+                {content: "Choice 5", correct: false, isNoneOfTheAbove: true},
             ],
         };
 

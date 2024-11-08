@@ -38,10 +38,18 @@ function radioValidator(
         };
         // If NOTA and some other answer are checked, ...
     }
+    let noneOfTheAboveSelected = false;
+    for (let i = 0; i < rubric.choices.length; i++) {
+        if (
+            rubric.choices[i].isNoneOfTheAbove &&
+            userInput.choicesSelected[i]
+        ) {
+            noneOfTheAboveSelected = true;
+            break;
+        }
+    }
 
-    // TODO(LEMS-2541): should noneOfTheAboveSelected be replaced with a
-    // combination of choicesSelected and noneOfTheAboveIndex?
-    if (userInput.noneOfTheAboveSelected && numSelected > 1) {
+    if (noneOfTheAboveSelected && numSelected > 1) {
         return {
             type: "invalid",
             message: strings.notNoneOfTheAbove,
@@ -50,9 +58,7 @@ function radioValidator(
 
     const correct = userInput.choicesSelected.every((selected, i) => {
         let isCorrect: boolean;
-        // TODO(LEMS-2541): should noneOfTheAboveIndex actually be on the rubric
-        // instead of the userInput?
-        if (userInput.noneOfTheAboveIndex === i) {
+        if (rubric.choices[i].isNoneOfTheAbove) {
             isCorrect = rubric.choices.every((choice, j) => {
                 return i === j || !choice.correct;
             });
