@@ -8,6 +8,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import InputWithExamples from "../../components/input-with-examples";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/prompt-utils";
 
 import inputNumberValidator, {answerTypes} from "./input-number-validator";
 
@@ -18,6 +19,7 @@ import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
 } from "../../validation.types";
+import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/prompt-utils";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {
@@ -163,6 +165,10 @@ class InputNumber extends React.Component<Props> implements Widget {
         return InputNumber.getUserInputFromProps(this.props);
     }
 
+    getPromptJSON(): InputNumberPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
+
     examples: () => ReadonlyArray<string> = () => {
         const {strings} = this.context;
         const type = this.props.answerType;
@@ -284,4 +290,4 @@ export default {
         }
         return answerString;
     },
-} as WidgetExports<typeof InputNumber>;
+} satisfies WidgetExports<typeof InputNumber>;

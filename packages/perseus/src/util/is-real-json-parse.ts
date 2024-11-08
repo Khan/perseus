@@ -1,18 +1,8 @@
 import Util from "../util";
 
-import type {PerseusItem} from "../perseus-types";
-
 const deepEq = Util.deepEq;
 
-/**
- * Helper to parse PerseusItem JSON
- * Why not just use JSON.parse? We want:
- * - To make sure types are correct
- * - To give us a central place to validate/transform output if needed
- * @param {string} json - the stringified PerseusItem JSON
- * @returns {PerseusItem} the parsed PerseusItem object
- */
-export function parsePerseusItem(json: string): PerseusItem {
+export function isRealJSONParse(jsonParse: typeof JSON.parse): boolean {
     const randomPhrase = buildRandomPhrase();
     const randomHintPhrase = buildRandomPhrase();
     const randomString = buildRandomString();
@@ -61,15 +51,11 @@ export function parsePerseusItem(json: string): PerseusItem {
             },
         },
     });
-    // @ts-expect-error TS2550: Property 'replaceAll' does not exist on type 'string'.
-    const testJSON = buildTestData(testingObject.replaceAll('"', '\\"'));
-    const parsedJSON = JSON.parse(testJSON);
-    const parsedItemData: string = parsedJSON.data.assessmentItem.item.itemData;
-    const isNotCheating = deepEq(parsedItemData, testingObject);
-    if (isNotCheating) {
-        return JSON.parse(json);
-    }
-    throw new Error("Something went wrong.");
+    const testJSON = buildTestData(testingObject.replace(/"/g, '\\"'));
+    const parsedTestJSON = jsonParse(testJSON);
+    const parsedTestItemData: string =
+        parsedTestJSON.data.assessmentItem.item.itemData;
+    return deepEq(parsedTestItemData, testingObject);
 }
 
 function buildRandomString(capitalize: boolean = false) {

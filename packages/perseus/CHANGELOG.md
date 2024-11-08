@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 41.2.0
+
+### Minor Changes
+
+-   [#1834](https://github.com/Khan/perseus/pull/1834) [`429b9cc15`](https://github.com/Khan/perseus/commit/429b9cc15e5d69ad10b42db0016ba21992343267) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figures] Use \$ symbols to denote TeX within locked labels and locked figure labels
+
+### Patch Changes
+
+-   [#1833](https://github.com/Khan/perseus/pull/1833) [`122b3cc1b`](https://github.com/Khan/perseus/commit/122b3cc1b9b233e1014ec2176319af8bbb0c54ce) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removal of unused MathJax2 initialization
+
+## 41.1.1
+
+### Patch Changes
+
+-   [#1818](https://github.com/Khan/perseus/pull/1818) [`8aaf29670`](https://github.com/Khan/perseus/commit/8aaf2967088e55e6907ef4b01411d6e9579b4677) Thanks [@Myranae](https://github.com/Myranae)! - Refine Interactive Graph's Rubric type
+
+*   [#1829](https://github.com/Khan/perseus/pull/1829) [`f6b66b001`](https://github.com/Khan/perseus/commit/f6b66b00186875fd1d61e5d217b472a9a4e2cdf9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor parsePerseusItem and add tests
+
 ## 41.1.0
 
 ### Minor Changes

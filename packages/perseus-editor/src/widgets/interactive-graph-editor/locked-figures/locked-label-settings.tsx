@@ -10,6 +10,7 @@ import {
     type LockedFigure,
     type LockedFigureColor,
     type LockedLabelType,
+    components,
 } from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -28,6 +29,8 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
+
+const {InfoTip} = components;
 
 export type Props = LockedLabelType & {
     /**
@@ -115,19 +118,34 @@ export default function LockedLabelSettings(props: Props) {
             />
 
             {/* Text settings */}
-            <LabelMedium tag="label" style={[styles.row, styles.spaceUnder]}>
-                TeX
-                <Strut size={spacing.xSmall_8} />
-                <TextField
-                    value={text}
-                    placeholder="ex. x^2 or \frac{1}{2}"
-                    onChange={(newValue) =>
-                        onChangeProps({
-                            text: newValue,
-                        })
-                    }
-                />
-            </LabelMedium>
+            <View style={styles.row}>
+                <LabelMedium
+                    tag="label"
+                    style={[styles.row, styles.spaceUnder, {flexGrow: 1}]}
+                >
+                    text
+                    <Strut size={spacing.xSmall_8} />
+                    <TextField
+                        value={text}
+                        placeholder="ex. x^2 or \frac{1}{2}"
+                        onChange={(newValue) =>
+                            onChangeProps({
+                                text: newValue,
+                            })
+                        }
+                    />
+                </LabelMedium>
+                <InfoTip>
+                    Surround your text with $ for TeX.
+                    <br />
+                    Example: {`This circle has radius $\\frac{1}{2}$ units.`}
+                    <br />
+                    <br />
+                    It is important to use TeX when appropriate for
+                    accessibility. The above example would be read as "This
+                    circle has radius one-half units" by screen readers.
+                </InfoTip>
+            </View>
 
             <View style={styles.row}>
                 <ColorSelect
