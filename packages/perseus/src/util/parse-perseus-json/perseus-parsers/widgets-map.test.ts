@@ -329,8 +329,32 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts an interaction widget", () => {
+        const widgetsMap: unknown = {
+            "interaction 1": {
+                type: "interaction",
+                version: {major: 0, minor: 0},
+                options: {
+                    static: false,
+                    graph: {
+                        box: [1, 1],
+                        range: [[-10, 10], [-10, 10]],
+                        gridStep: [1, 1],
+                        markings: "graph",
+                        tickStep: [1, 1],
+                        labels: [],
+                    },
+                    elements: [],
+                },
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  interaction: InteractionWidget;
     //  interactive-graph: InteractiveGraphWidget;
     //  label-image: LabelImageWidget;
     //  matcher: MatcherWidget;

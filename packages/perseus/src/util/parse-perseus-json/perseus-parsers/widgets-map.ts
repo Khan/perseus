@@ -18,6 +18,7 @@ import {parseInteractiveGraphWidget} from "./interactive-graph-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
+import {parseInteractionWidget} from "./interaction-widget";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
@@ -99,8 +100,7 @@ const parseWidgetsMapEntry: (
         case "input-number":
             return parseAndAssign(`input-number ${id}`, parseInputNumberWidget);
         case "interaction":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`interaction ${id}`, any);
+            return parseAndAssign(`interaction ${id}`, parseInteractionWidget);
         case "interactive-graph":
             return parseAndAssign(
                 `interactive-graph ${id}`,
@@ -160,6 +160,13 @@ const parseWidgetsMapEntry: (
         case "video":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`video ${id}`, any);
+
+
+            // TODO(LEMS-2585): add cases for deprecated-standin and the
+            // widgets that it replaces
+
+
+
         default:
             return ctx.failure("a valid widget type", type);
     }
