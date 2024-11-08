@@ -213,9 +213,26 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a group widget", () => {
+        const widgetsMap: unknown = {
+            "group 1": {
+                type: "group",
+                version: {major: 0, minor: 0},
+                options: {
+                    content: "",
+                    widgets: {},
+                    metadata: [],
+                    images: {},
+                },
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  grapher: GrapherWidget;
-    //  group: GroupWidget;
     //  graded-group: GradedGroupWidget;
     //  graded-group-set: GradedGroupSetWidget;
     //  iframe: IFrameWidget;

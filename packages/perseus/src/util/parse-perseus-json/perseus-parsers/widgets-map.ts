@@ -8,6 +8,7 @@ import {parseDropdownWidget} from "./dropdown-widget";
 import {parseExplanationWidget} from "./explanation-widget";
 import {parseExpressionWidget} from "./expression-widget";
 import {parseGrapherWidget} from "./grapher-widget";
+import {parseGroupWidget} from "./group-widget";
 import {parseInteractiveGraphWidget} from "./interactive-graph-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
@@ -78,8 +79,7 @@ const parseWidgetsMapEntry: (
         case "grapher":
             return parseAndAssign(`grapher ${id}`, parseGrapherWidget);
         case "group":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`group ${id}`, any);
+            return parseAndAssign(`group ${id}`, parseGroupWidget);
         case "graded-group":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`graded-group ${id}`, any);
