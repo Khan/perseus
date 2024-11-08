@@ -274,8 +274,28 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts an iframe widget", () => {
+        const widgetsMap: unknown = {
+            "iframe 1": {
+                type: "iframe",
+                version: {major: 0, minor: 0},
+                options: {
+                    url: "",
+                    settings: [],
+                    width: 1,
+                    height: 1,
+                    allowFullScreen: false,
+                    static: false,
+                },
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  iframe: IFrameWidget;
     //  image: ImageWidget;
     //  input-number: InputNumberWidget;
     //  interaction: InteractionWidget;

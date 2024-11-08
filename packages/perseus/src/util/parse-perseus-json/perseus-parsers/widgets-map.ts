@@ -11,6 +11,7 @@ import {parseGradedGroupSetWidget} from "./graded-group-set-widget";
 import {parseGradedGroupWidget} from "./graded-group-widget";
 import {parseGrapherWidget} from "./grapher-widget";
 import {parseGroupWidget} from "./group-widget";
+import {parseIframeWidget} from "./iframe-widget";
 import {parseInteractiveGraphWidget} from "./interactive-graph-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
@@ -90,8 +91,7 @@ const parseWidgetsMapEntry: (
                 parseGradedGroupSetWidget,
             );
         case "iframe":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`iframe ${id}`, any);
+            return parseAndAssign(`iframe ${id}`, parseIframeWidget);
         case "image":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`image ${id}`, any);
