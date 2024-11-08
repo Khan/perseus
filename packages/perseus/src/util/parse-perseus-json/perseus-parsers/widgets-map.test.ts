@@ -1,27 +1,24 @@
 import {registerWidget} from "../../../widgets";
-import {
-    anyFailure,
-    ctx,
-    parseFailureWith,
-} from "../general-purpose-parsers/test-helpers";
-import {success} from "../result";
+import {anyFailure} from "../general-purpose-parsers/test-helpers";
+import {parse} from "../parse";
+import {failure, success} from "../result";
 
 import {parseWidgetsMap} from "./widgets-map";
 
 describe("parseWidgetsMap", () => {
     it("rejects null", () => {
-        const result = parseWidgetsMap(null, ctx());
+        const result = parse(null, parseWidgetsMap);
         expect(result).toEqual(anyFailure);
     });
 
     it("rejects an array", () => {
-        const result = parseWidgetsMap([], ctx());
+        const result = parse([], parseWidgetsMap);
         expect(result).toEqual(anyFailure);
     });
 
     it("accepts an empty object (no widgets)", () => {
         const widgetsMap: unknown = {};
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
         expect(result).toEqual(success({}));
     });
 
@@ -30,7 +27,7 @@ describe("parseWidgetsMap", () => {
             asdf: "foobar",
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(anyFailure);
     });
@@ -50,7 +47,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -72,7 +69,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -90,7 +87,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -108,7 +105,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -128,7 +125,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -147,7 +144,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -174,7 +171,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -209,7 +206,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -228,7 +225,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -247,7 +244,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -270,7 +267,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -291,7 +288,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -307,7 +304,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -325,7 +322,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -353,7 +350,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -377,7 +374,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -397,7 +394,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -418,7 +415,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -445,13 +442,12 @@ describe("parseWidgetsMap", () => {
             "transmogrifier 1": {type: "transmogrifier"},
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(
-            parseFailureWith({
-                expected: ["a valid widget type"],
-                badValue: "transmogrifier",
-            }),
+            failure(
+                `At (root)["transmogrifier 1"] -- expected a valid widget type, but got "transmogrifier"`,
+            ),
         );
     });
 
@@ -469,7 +465,7 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
     });
@@ -479,7 +475,7 @@ describe("parseWidgetsMap", () => {
             categorizer: {type: "categorizer"},
         };
 
-        const result = parseWidgetsMap(widgetsMap, ctx());
+        const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(anyFailure);
     });
