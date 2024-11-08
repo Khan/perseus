@@ -1,3 +1,4 @@
+import {array, boolean, string} from "../general-purpose-parsers";
 import {
     anyFailure,
     ctx,
@@ -381,8 +382,27 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a matcher widget", () => {
+        const widgetsMap: unknown = {
+            "matcher 1": {
+                type: "matcher",
+                version: {major: 0, minor: 0},
+                options: {
+                    labels: [],
+                    left: [],
+                    right: [],
+                    orderMatters: false,
+                    padding: false,
+                },
+            },
+        };
+
+        const result = parseWidgetsMap(widgetsMap, ctx());
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  matcher: MatcherWidget;
     //  matrix: MatrixWidget;
     //  measurer: MeasurerWidget;
     //  molecule-renderer: MoleculeRendererWidget;
