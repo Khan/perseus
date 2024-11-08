@@ -258,7 +258,7 @@ export default {
     hidden: false,
     tracking: "all",
     isLintable: true,
-} as WidgetExports<typeof GradedGroupSet>;
+} satisfies WidgetExports<typeof GradedGroupSet>;
 
 const styles = StyleSheet.create({
     top: {

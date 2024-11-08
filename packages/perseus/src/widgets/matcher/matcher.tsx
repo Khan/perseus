@@ -283,4 +283,4 @@ export default {
     widget: Matcher,
     isLintable: true,
     validator: matcherValidator,
-} as WidgetExports<typeof Matcher>;
+} satisfies WidgetExports<typeof Matcher>;

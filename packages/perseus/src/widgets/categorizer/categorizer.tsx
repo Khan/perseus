@@ -320,4 +320,4 @@ export default {
     },
     isLintable: true,
     validator: categorizerValidator,
-} as WidgetExports<typeof Categorizer>;
+} satisfies WidgetExports<typeof Categorizer>;

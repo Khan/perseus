@@ -255,4 +255,4 @@ export default {
     displayName: "PhET Simulation",
     widget: PhetSimulation,
     isLintable: true,
-} as WidgetExports<typeof PhetSimulation>;
+} satisfies WidgetExports<typeof PhetSimulation>;

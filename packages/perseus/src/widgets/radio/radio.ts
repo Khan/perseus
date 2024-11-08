@@ -157,4 +157,4 @@ export default {
     propUpgrades: propUpgrades,
     isLintable: true,
     validator: radioValidator,
-} as WidgetExports<typeof Radio>;
+} satisfies WidgetExports<typeof Radio>;

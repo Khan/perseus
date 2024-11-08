@@ -200,4 +200,4 @@ export default {
     widget: CSProgram,
     hidden: true,
     validator: csProgramValidator,
-} as WidgetExports<typeof CSProgram>;
+} satisfies WidgetExports<typeof CSProgram>;

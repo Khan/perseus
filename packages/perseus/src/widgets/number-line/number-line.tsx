@@ -800,4 +800,4 @@ export default {
     transform: numberLineTransform,
     staticTransform: staticTransform,
     validator: numberLineValidator,
-} as WidgetExports<typeof NumberLine>;
+} satisfies WidgetExports<typeof NumberLine>;

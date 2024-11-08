@@ -226,4 +226,4 @@ export default {
     isLintable: true,
     // TODO: things that aren't interactive shouldn't need validators
     validator: () => noopValidator(),
-} as WidgetExports<typeof Explanation>;
+} satisfies WidgetExports<typeof Explanation>;

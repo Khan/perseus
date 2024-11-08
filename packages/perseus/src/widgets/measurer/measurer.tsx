@@ -201,4 +201,4 @@ export default {
     propUpgrades: propUpgrades,
     // TODO: things that aren't interactive shouldn't need validators
     validator: () => noopValidator(1),
-} as WidgetExports<typeof Measurer>;
+} satisfies WidgetExports<typeof Measurer>;

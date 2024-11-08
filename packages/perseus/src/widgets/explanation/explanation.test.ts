@@ -267,10 +267,7 @@ describe("Explanation", function () {
 
     describe("validator", () => {
         it("should always return 0 points", async () => {
-            const result = ExplanationWidgetExports?.validator?.(
-                null as any,
-                null as any,
-            );
+            const result = ExplanationWidgetExports?.validator?.();
 
             expect(result).toHaveBeenAnsweredCorrectly({
                 shouldHavePoints: false,

@@ -179,4 +179,4 @@ export default {
     version: {major: 0, minor: 1},
     // TODO: things that aren't interactive shouldn't need validators
     validator: () => noopValidator(),
-} as WidgetExports<typeof PassageRef>;
+} satisfies WidgetExports<typeof PassageRef>;

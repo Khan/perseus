@@ -21,7 +21,7 @@ const defaultBackgroundImage = {
     height: 0,
 } as const;
 
-const editorAlignments = ["block", "full-width"];
+const editorAlignments = ["block", "full-width"] as const;
 
 const DEFAULT_ALIGNMENT = "block";
 
@@ -259,4 +259,4 @@ export default {
     isLintable: true,
     // TODO: things that aren't interactive shouldn't need validators
     validator: () => noopValidator(),
-} as WidgetExports<typeof ImageWidget>;
+} satisfies WidgetExports<typeof ImageWidget>;
