@@ -260,6 +260,8 @@ describe("generateLockedFigureAppearanceDescription", () => {
     );
 });
 
+// Keep these tests skipped, because they rely on the SpeechRuleEngine, which
+// causes Jest to hang when running the tests.
 describe("generateMathDetails", () => {
     test("should convert TeX to spoken language (root, fraction)", async () => {
         const mathString = "$\\sqrt{\\frac{1}{2}}$";
@@ -308,5 +310,12 @@ describe("generateMathDetails", () => {
         const convertedString = await generateSpokenMathDetails(mathString);
 
         expect(convertedString).toBe("Circle with radius one half units");
+    });
+
+    test("should read dollar signs as dollars", async () => {
+        const mathString = "This sandwich costs ${$}12.34$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("This sandwich costs dollar sign 12.34");
     });
 });

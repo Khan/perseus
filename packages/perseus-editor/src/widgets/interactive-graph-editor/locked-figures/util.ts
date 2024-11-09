@@ -1,4 +1,5 @@
 import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
+import * as SimpleMarkdown from "@khanacademy/pure-markdown";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 import type {
@@ -126,19 +127,32 @@ export function generateLockedFigureAppearanceDescription(
     }
 }
 
+// Avoid running SpeechRuleEngine.setup() in Jest. It makes an HTTP request to
+// fetch non-english speech rules, and cannot be easily mocked in consuming
+// packages now that we do not bundle source code. When it eventually times
+// out, it will cause arbitrary test failures.
 export async function generateSpokenMathDetails(mathString: string) {
     const engine = await SpeechRuleEngine.setup("en");
+    let convertedSpeech = "";
 
-    // Replace everything between two $ signs with the spoken version
-    // of the math inside the $ signs.
-    // Example: "Circle with radius $\frac{1}{2}$" -> "Circle with radius one half"
-    const convertedSpeech = mathString.replace(
-        /\$(.*?)\$/g,
-        // Use second param to remove the $ signs from the match, as
-        // the first param is the full match including the $ signs.
-        (_, textWithin) => `${engine.texToSpeech(textWithin)}`,
-    );
+    // All the information we need is in the first section,
+    // whether it's typed as "blockmath" or "paragraph"
+    const firstSection = SimpleMarkdown.parse(mathString)[0];
 
-    // const convertedSpeech = engine.texToSpeech(mathString);
+    // If it's blockMath, the outer level has the full math content.
+    if (firstSection.type === "blockMath") {
+        convertedSpeech += engine.texToSpeech(firstSection.content);
+    }
+
+    // If it's a paragraph, we need to iterate through the sections
+    // to look for individual math blocks.
+    if (firstSection.type === "paragraph") {
+        for (const piece of firstSection.content) {
+            piece.type === "math"
+                ? (convertedSpeech += engine.texToSpeech(piece.content))
+                : (convertedSpeech += piece.content);
+        }
+    }
+
     return convertedSpeech;
 }
