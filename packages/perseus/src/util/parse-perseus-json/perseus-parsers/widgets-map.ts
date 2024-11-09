@@ -23,6 +23,7 @@ import {parseMatrixWidget} from "./matrix-widget";
 import {parseMeasurerWidget} from "./measurer-widget";
 import {parseMoleculeRendererWidget} from "./molecule-renderer-widget";
 import {parseNumberLineWidget} from "./number-line-widget";
+import {parseNumericInputWidget} from "./numeric-input-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
@@ -129,8 +130,10 @@ const parseWidgetsMapEntry: (
         case "number-line":
             return parseAndAssign(`number-line ${id}`, parseNumberLineWidget);
         case "numeric-input":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`numeric-input ${id}`, any);
+            return parseAndAssign(
+                `numeric-input ${id}`,
+                parseNumericInputWidget,
+            );
         case "orderer":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`orderer ${id}`, any);

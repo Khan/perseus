@@ -483,8 +483,27 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a numeric-input widget", () => {
+        const widgetsMap: unknown = {
+            "numeric-input 1": {
+                type: "numeric-input",
+                version: {major: 0, minor: 0},
+                options: {
+                    answers: [],
+                    labelText: "",
+                    size: "",
+                    coefficient: false,
+                    static: false,
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  numeric-input: NumericInputWidget;
     //  orderer: OrdererWidget;
     //  passage: PassageWidget;
     //  passage-ref: PassageRefWidget;
