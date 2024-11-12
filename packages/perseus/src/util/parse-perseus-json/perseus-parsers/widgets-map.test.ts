@@ -636,8 +636,25 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a sorter widget", () => {
+        const widgetsMap: unknown = {
+            "sorter 1": {
+                type: "sorter",
+                version: {major: 0, minor: 0},
+                options: {
+                    correct: [],
+                    padding: false,
+                    layout: "horizontal",
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  sorter: SorterWidget;
     //  table: TableWidget;
     //  video: VideoWidget;
 

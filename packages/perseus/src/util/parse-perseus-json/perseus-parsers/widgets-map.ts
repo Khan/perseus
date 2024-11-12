@@ -34,6 +34,7 @@ import {parseRadioWidget} from "./radio-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
+import {parseSorterWidget} from "./sorter-widget";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
@@ -167,8 +168,7 @@ const parseWidgetsMapEntry: (
         case "radio":
             return parseAndAssign(`radio ${id}`, parseRadioWidget);
         case "sorter":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`sorter ${id}`, any);
+            return parseAndAssign(`sorter ${id}`, parseSorterWidget);
         case "table":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`table ${id}`, any);
