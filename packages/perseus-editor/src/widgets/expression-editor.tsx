@@ -524,7 +524,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 }
 
 // Find the next element in arr after val, wrapping around to the first.
-const findNextIn = function (arr: ReadonlyArray<string>, val: any) {
+const findNextIn = function <T>(arr: ReadonlyArray<T>, val: T) {
     let ix = arr.indexOf(val);
     ix = (ix + 1) % arr.length;
     return arr[ix];
@@ -576,13 +576,10 @@ class AnswerOption extends React.Component<
 
     toggleConsidered = () => {
         // Update findNextIn to have stronger typing.
-        const newVal = findNextIn(
-            PerseusExpressionAnswerFormConsidered,
-            this.props.considered,
-        );
-        this.props.onChangeConsidered(
-            newVal as (typeof PerseusExpressionAnswerFormConsidered)[number],
-        );
+        const newVal = findNextIn<
+            (typeof PerseusExpressionAnswerFormConsidered)[number]
+        >(PerseusExpressionAnswerFormConsidered, this.props.considered);
+        this.props.onChangeConsidered(newVal);
     };
 
     render(): React.ReactNode {
