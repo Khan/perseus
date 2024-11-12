@@ -173,8 +173,7 @@ const parseWidgetsMapEntry: (
         case "table":
             return parseAndAssign(`table ${id}`, parseTableWidget);
         case "video":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`video ${id}`, any);
+            return parseAndAssign(`video ${id}`, parseVideoWidget);
 
         default:
             if (getWidget(type)) {

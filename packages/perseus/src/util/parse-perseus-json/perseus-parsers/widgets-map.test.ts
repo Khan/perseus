@@ -673,8 +673,21 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
-    // TODO:
-    //  video: VideoWidget;
+    it("accepts a video widget", () => {
+        const widgetsMap: unknown = {
+            "video 1": {
+                type: "video",
+                version: {major: 0, minor: 0},
+                options: {
+                    location: "",
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
 
     it("rejects an unknown widget type", () => {
         const widgetsMap: unknown = {
