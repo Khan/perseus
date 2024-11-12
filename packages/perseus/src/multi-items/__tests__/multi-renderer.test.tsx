@@ -524,6 +524,7 @@ describe("multi-item renderer", () => {
                         deselectEnabled: false,
                         hasNoneOfTheAbove: false,
                         multipleSelect: false,
+                        numCorrect: 1,
                         selectedChoices: [false, false, false, true, false],
                     },
                 },
