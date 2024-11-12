@@ -25,6 +25,7 @@ import {parseMoleculeRendererWidget} from "./molecule-renderer-widget";
 import {parseNumberLineWidget} from "./number-line-widget";
 import {parseNumericInputWidget} from "./numeric-input-widget";
 import {parseOrdererWidget} from "./orderer-widget";
+import {parsePassageWidget} from "./passage-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
@@ -138,8 +139,7 @@ const parseWidgetsMapEntry: (
         case "orderer":
             return parseAndAssign(`orderer ${id}`, parseOrdererWidget);
         case "passage":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`passage ${id}`, any);
+            return parseAndAssign(`passage ${id}`, parsePassageWidget);
         case "passage-ref":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`passage-ref ${id}`, any);

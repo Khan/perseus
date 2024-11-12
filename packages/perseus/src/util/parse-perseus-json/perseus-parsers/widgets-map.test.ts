@@ -523,8 +523,27 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a passage widget", () => {
+        const widgetsMap: unknown = {
+            "passage 1": {
+                type: "passage",
+                version: {major: 0, minor: 0},
+                options: {
+                    footnotes: "",
+                    passageText: "",
+                    passageTitle: "",
+                    showLineNumbers: false,
+                    static: false,
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  passage: PassageWidget;
     //  passage-ref: PassageRefWidget;
     //  passage-ref-target: PassageRefWidget;
     //  phet-simulation: PhetSimulationWidget;
