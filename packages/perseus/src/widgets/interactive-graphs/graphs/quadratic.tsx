@@ -19,7 +19,7 @@ export function renderQuadraticGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <QuadraticGraph graphState={state} dispatch={dispatch} />,
-        screenreaderDescription: null,
+        interactiveElementsDescription: null,
     };
 }
 

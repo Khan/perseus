@@ -880,7 +880,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
             labels: [{text: "F"}],
             ariaLabel: "Function F",
         })
-        .addLockedLabel("\\sqrt{\\frac{1}{2}}", [6, -5])
+        .addLockedLabel("$\\sqrt{\\frac{1}{2}}$", [6, -5])
         .build();
 
 export const quadraticQuestion: PerseusRenderer =

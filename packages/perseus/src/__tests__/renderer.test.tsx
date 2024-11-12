@@ -1743,6 +1743,22 @@ describe("renderer", () => {
         });
     });
 
+    describe("getPromptJSON", () => {
+        it("should return prompt JSON with the correct content and widgets", () => {
+            // Act
+            const {renderer} = renderQuestion(mockedRandomItem);
+
+            const json = renderer.getPromptJSON();
+
+            // Assert
+            expect(json.content).toBe(mockedRandomItem.content);
+
+            const widgetKeys = Object.keys(mockedRandomItem.widgets);
+
+            expect(Object.keys(json.widgets)).toEqual(widgetKeys);
+        });
+    });
+
     describe("examples", () => {
         it("should return examples if all widgets return the same examples (or null)", () => {
             // Arrange

@@ -867,11 +867,11 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
                     item={item}
                     shape={itemShape}
                     apiOptions={apiOptions}
-                    // Today, with analytics being the only thing in
-                    // dependencies, we send in a dummy function as we don't
-                    // want to gather analytics events from within the editor.
+                    // MultiRenderer is on its way out,
+                    // so I think it's save to use these dummy deps
                     dependencies={{
                         analytics: {onAnalyticsEvent: async () => {}},
+                        useVideo: (() => {}) as any,
                     }}
                 >
                     {({renderers}) => (

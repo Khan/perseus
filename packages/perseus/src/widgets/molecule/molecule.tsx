@@ -161,4 +161,4 @@ export default {
     hidden: true,
     widget: MoleculeWidget,
     validator: () => noopValidator(),
-} as WidgetExports<typeof MoleculeWidget>;
+} satisfies WidgetExports<typeof MoleculeWidget>;

@@ -14,6 +14,7 @@ import _ from "underscore";
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/prompt-utils";
 
 import {iframeValidator} from "./iframe-validator";
 
@@ -24,6 +25,7 @@ import type {
     PerseusIFrameUserInput,
     UserInputStatus,
 } from "../../validation.types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 const {updateQueryString} = Util;
 
@@ -63,6 +65,10 @@ class Iframe extends React.Component<Props> implements Widget {
 
     getUserInput(): PerseusIFrameUserInput {
         return {status: this.props.status, message: this.props.message};
+    }
+
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
     }
 
     handleMessageEvent: (arg1: any) => void = (e) => {
@@ -167,4 +173,4 @@ export default {
     // Let's not expose it to all content creators yet
     hidden: true,
     validator: iframeValidator,
-} as WidgetExports<typeof Iframe>;
+} satisfies WidgetExports<typeof Iframe>;

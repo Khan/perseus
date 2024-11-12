@@ -155,7 +155,7 @@ describe("Locked Label Settings", () => {
 
             // Act
             const textInput = screen.getByRole("textbox", {
-                name: "TeX",
+                name: "text",
             });
             await userEvent.type(textInput, "x^2");
 

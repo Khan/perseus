@@ -4,6 +4,7 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/prompt-utils";
 import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio";
@@ -20,6 +21,7 @@ import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
 } from "../../validation.types";
+import type {RadioPromptJSON} from "../../widget-ai-utils/radio/prompt-utils";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {
@@ -72,68 +74,40 @@ class Radio extends React.Component<Props> implements Widget {
         showSolutions: "none",
     };
 
-    static getUserInputFromProps(props: Props): PerseusRadioUserInput {
+    static getUserInputFromProps(
+        props: Props,
+        unshuffle: boolean = true,
+    ): PerseusRadioUserInput {
         // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
         // future timeline implementers: this used to be {value: i} before
         // multiple select was added)
         if (props.choiceStates) {
-            let noneOfTheAboveIndex = null;
-            let noneOfTheAboveSelected = false;
-
             const choiceStates = props.choiceStates;
             const choicesSelected = choiceStates.map(() => false);
-            const numCorrect = props.numCorrect;
 
             for (let i = 0; i < choicesSelected.length; i++) {
-                const index = props.choices[i].originalIndex;
+                const index = unshuffle ? props.choices[i].originalIndex : i;
 
                 choicesSelected[index] = choiceStates[i].selected;
-
-                if (props.choices[i].isNoneOfTheAbove) {
-                    // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
-                    noneOfTheAboveIndex = index;
-
-                    if (choicesSelected[i]) {
-                        noneOfTheAboveSelected = true;
-                    }
-                }
             }
 
             return {
                 choicesSelected,
-                numCorrect,
-                noneOfTheAboveIndex,
-                noneOfTheAboveSelected,
             };
             // Support legacy choiceState implementation
         }
         /* c8 ignore if - props.values is deprecated */
         const {values} = props;
         if (values) {
-            let noneOfTheAboveIndex = null;
-            let noneOfTheAboveSelected = false;
-
             const choicesSelected = [...values];
-            const numCorrect = props.numCorrect;
             const valuesLength = values.length;
 
             for (let i = 0; i < valuesLength; i++) {
-                const index = props.choices[i].originalIndex;
+                const index = unshuffle ? props.choices[i].originalIndex : i;
                 choicesSelected[index] = values[i];
-
-                if (props.choices[i].isNoneOfTheAbove) {
-                    // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
-                    noneOfTheAboveIndex = index;
-                    if (choicesSelected[i]) {
-                        noneOfTheAboveSelected = true;
-                    }
-                }
             }
             return {
                 choicesSelected,
-                noneOfTheAboveIndex,
-                noneOfTheAboveSelected,
-                numCorrect,
             };
         }
         // Nothing checked
@@ -279,6 +253,11 @@ class Radio extends React.Component<Props> implements Widget {
 
     getUserInput(): PerseusRadioUserInput {
         return Radio.getUserInputFromProps(this.props);
+    }
+
+    getPromptJSON(): RadioPromptJSON {
+        const userInput = Radio.getUserInputFromProps(this.props, false);
+        return _getPromptJSON(this.props, userInput);
     }
 
     /**

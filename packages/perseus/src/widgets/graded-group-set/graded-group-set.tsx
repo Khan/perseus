@@ -17,6 +17,7 @@ import {
     negativePhoneMargin,
 } from "../../styles/constants";
 import a11y from "../../util/a11y";
+import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/prompt-utils";
 import {GradedGroup} from "../graded-group/graded-group";
 
 import type {
@@ -25,6 +26,7 @@ import type {
 } from "../../perseus-types";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PerseusGradedGroupSetRubric} from "../../validation.types";
+import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/prompt-utils";
 
 type IndicatorsProps = {
     currentGroup: number;
@@ -130,9 +132,15 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
     };
 
     // Mobile API
-    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
+    getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         return this._childGroup.getInputPaths();
     };
+
+    getPromptJSON(): GradedGroupSetPromptJSON {
+        const activeGroupPromptJSON = this._childGroup.getPromptJSON();
+
+        return getPromptJSON(this.props, activeGroupPromptJSON);
+    }
 
     setInputValue: (arg1: FocusPath, arg2: any, arg3: any) => any = (
         path,
@@ -258,7 +266,7 @@ export default {
     hidden: false,
     tracking: "all",
     isLintable: true,
-} as WidgetExports<typeof GradedGroupSet>;
+} satisfies WidgetExports<typeof GradedGroupSet>;
 
 const styles = StyleSheet.create({
     top: {
