@@ -31,7 +31,6 @@ describe("Group getPromptJSON", () => {
                     ],
                     userInput: {
                         selectedOptions: [false, false, false, false, false],
-                        isNoneOfTheAboveSelected: false,
                     },
                 },
                 "matrix 1": {
@@ -72,7 +71,6 @@ describe("Group getPromptJSON", () => {
                     ],
                     userInput: {
                         selectedOptions: [false, false, false, false, false],
-                        isNoneOfTheAboveSelected: false,
                     },
                 },
                 "matrix 1": {

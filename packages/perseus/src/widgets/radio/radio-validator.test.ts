@@ -29,7 +29,6 @@ describe("radioValidator", () => {
 
     it("is invalid when number selected does not match number correct", () => {
         const userInput: PerseusRadioUserInput = {
-            numCorrect: 2,
             choicesSelected: [true, false, false, false],
         };
 
@@ -49,7 +48,6 @@ describe("radioValidator", () => {
 
     it("is invalid when none of the above and an answer are both selected", () => {
         const userInput: PerseusRadioUserInput = {
-            noneOfTheAboveSelected: true,
             choicesSelected: [true, false, false, false, true],
         };
 
@@ -59,7 +57,11 @@ describe("radioValidator", () => {
                 {content: "Choice 2", correct: false},
                 {content: "Choice 3", correct: false},
                 {content: "Choice 4", correct: false},
-                {content: "None of the above", correct: false},
+                {
+                    content: "None of the above",
+                    correct: false,
+                    isNoneOfTheAbove: true,
+                },
             ],
         };
 
@@ -147,8 +149,6 @@ describe("radioValidator", () => {
     it("can handle none of the above correct answer", () => {
         const userInput: PerseusRadioUserInput = {
             choicesSelected: [false, false, false, false, true],
-            noneOfTheAboveSelected: true,
-            noneOfTheAboveIndex: 4,
         };
 
         const rubric: PerseusRadioRubric = {
@@ -157,6 +157,7 @@ describe("radioValidator", () => {
                 {content: "Choice 2", correct: false},
                 {content: "Choice 3", correct: false},
                 {content: "Choice 4", correct: false},
+                {content: "Choice 5", correct: true, isNoneOfTheAbove: true},
             ],
         };
 
@@ -168,8 +169,6 @@ describe("radioValidator", () => {
     it("can handle none of the above incorrect answer", () => {
         const userInput: PerseusRadioUserInput = {
             choicesSelected: [false, false, false, false, true],
-            noneOfTheAboveSelected: true,
-            noneOfTheAboveIndex: 4,
         };
 
         const rubric: PerseusRadioRubric = {
@@ -178,6 +177,7 @@ describe("radioValidator", () => {
                 {content: "Choice 2", correct: false},
                 {content: "Choice 3", correct: false},
                 {content: "Choice 4", correct: false},
+                {content: "Choice 5", correct: false, isNoneOfTheAbove: true},
             ],
         };
 

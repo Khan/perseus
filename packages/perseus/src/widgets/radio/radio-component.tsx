@@ -82,63 +82,32 @@ class Radio extends React.Component<Props> implements Widget {
         // future timeline implementers: this used to be {value: i} before
         // multiple select was added)
         if (props.choiceStates) {
-            let noneOfTheAboveIndex = null;
-            let noneOfTheAboveSelected = false;
-
             const choiceStates = props.choiceStates;
             const choicesSelected = choiceStates.map(() => false);
-            const numCorrect = props.numCorrect;
 
             for (let i = 0; i < choicesSelected.length; i++) {
                 const index = unshuffle ? props.choices[i].originalIndex : i;
 
                 choicesSelected[index] = choiceStates[i].selected;
-
-                if (props.choices[i].isNoneOfTheAbove) {
-                    // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
-                    noneOfTheAboveIndex = index;
-
-                    if (choicesSelected[i]) {
-                        noneOfTheAboveSelected = true;
-                    }
-                }
             }
 
             return {
                 choicesSelected,
-                numCorrect,
-                noneOfTheAboveIndex,
-                noneOfTheAboveSelected,
             };
             // Support legacy choiceState implementation
         }
         /* c8 ignore if - props.values is deprecated */
         const {values} = props;
         if (values) {
-            let noneOfTheAboveIndex = null;
-            let noneOfTheAboveSelected = false;
-
             const choicesSelected = [...values];
-            const numCorrect = props.numCorrect;
             const valuesLength = values.length;
 
             for (let i = 0; i < valuesLength; i++) {
                 const index = unshuffle ? props.choices[i].originalIndex : i;
                 choicesSelected[index] = values[i];
-
-                if (props.choices[i].isNoneOfTheAbove) {
-                    // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
-                    noneOfTheAboveIndex = index;
-                    if (choicesSelected[i]) {
-                        noneOfTheAboveSelected = true;
-                    }
-                }
             }
             return {
                 choicesSelected,
-                noneOfTheAboveIndex,
-                noneOfTheAboveSelected,
-                numCorrect,
             };
         }
         // Nothing checked
