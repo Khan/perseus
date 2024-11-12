@@ -1,5 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components, EditorJsonify, iconTrash} from "@khanacademy/perseus";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -34,11 +36,16 @@ class DropdownEditor extends React.Component<Props> {
         ],
     };
 
-    onPlaceholderChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
-    ) => {
-        const placeholder = e.target.value;
-        this.props.onChange({placeholder: placeholder});
+    onVisibleLabelChange: (arg1: string) => void = (visibleLabel) => {
+        this.props.onChange({visibleLabel});
+    };
+
+    onAriaLabelChange: (arg1: string) => void = (ariaLabel) => {
+        this.props.onChange({ariaLabel});
+    };
+
+    onPlaceholderChange: (arg1: string) => void = (placeholder) => {
+        this.props.onChange({placeholder});
     };
 
     onCorrectChange: (
@@ -102,7 +109,7 @@ class DropdownEditor extends React.Component<Props> {
     render(): React.ReactNode {
         const dropdownGroupName = _.uniqueId("perseus_dropdown_");
         return (
-            <div className="perseus-widget-dropdown">
+            <View className="perseus-widget-dropdown">
                 <div className="dropdown-info">
                     Dropdown
                     <InfoTip>
@@ -115,9 +122,40 @@ class DropdownEditor extends React.Component<Props> {
                         </p>
                     </InfoTip>
                 </div>
+                <div className="dropdown-visible-label">
+                    <LabeledTextField
+                        label="Visible label"
+                        value={this.props.visibleLabel}
+                        onChange={this.onVisibleLabelChange}
+                    />
+                    <InfoTip>
+                        <p>Optional visible label</p>
+                    </InfoTip>
+                </div>
+                <div className="dropdown-aria-label">
+                    <LabeledTextField
+                        label="Aria label"
+                        value={this.props.ariaLabel || ""}
+                        onChange={this.onAriaLabelChange}
+                    />
+                    <InfoTip>
+                        <p>
+                            Label text that's read by screen readers. Highly
+                            recommend adding a label here to ensure your
+                            exercise is accessible. For more information on
+                            writing accessible labels, please see{" "}
+                            <a
+                                href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
+                                target="_blank"
+                            >
+                                this article.
+                            </a>
+                        </p>
+                    </InfoTip>
+                </div>
                 <div className="dropdown-placeholder">
-                    <input
-                        type="text"
+                    <LabeledTextField
+                        label="Placeholder"
                         placeholder="Placeholder value"
                         value={this.props.placeholder}
                         onChange={this.onPlaceholderChange}
@@ -204,7 +242,7 @@ class DropdownEditor extends React.Component<Props> {
                         <InlineIcon {...iconPlus} /> Add a choice{" "}
                     </a>
                 </div>
-            </div>
+            </View>
         );
     }
 }
