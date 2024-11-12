@@ -291,10 +291,7 @@ class ExpressionEditor extends React.Component<Props, State> {
         this.props.onChange(newProps);
     };
 
-    changeSimplify: (key: number, simplify: boolean) => void = (
-        key,
-        simplify,
-    ) => {
+    changeSimplify(key: number, simplify: boolean) {
         const answerForm: AnswerForm = {
             ...this.props.answerForms[key],
             key: `${key}`,
@@ -302,9 +299,9 @@ class ExpressionEditor extends React.Component<Props, State> {
         };
 
         this.updateAnswerForm(key, answerForm);
-    };
+    }
 
-    changeForm: (key: number, form: boolean) => void = (key, form) => {
+    changeForm(key: number, form: boolean) {
         const answerForm: AnswerForm = {
             ...this.props.answerForms[key],
             form,
@@ -312,12 +309,12 @@ class ExpressionEditor extends React.Component<Props, State> {
         };
 
         this.updateAnswerForm(key, answerForm);
-    };
+    }
 
-    changeConsidered: (
+    changeConsidered(
         key: number,
         considered: (typeof PerseusExpressionAnswerFormConsidered)[number],
-    ) => void = (key, considered) => {
+    ) {
         const answerForm: AnswerForm = {
             ...this.props.answerForms[key],
             key: `${key}`,
@@ -325,11 +322,11 @@ class ExpressionEditor extends React.Component<Props, State> {
         };
 
         this.updateAnswerForm(key, answerForm);
-    };
+    }
 
-    changeTimes: (times: boolean) => unknown = (times) => {
+    changeTimes(times: boolean) {
         this.change({times: times});
-    };
+    }
 
     changeExpressionWidget: (
         key: number,
@@ -487,7 +484,9 @@ class ExpressionEditor extends React.Component<Props, State> {
                     <Checkbox
                         label="Use × instead of ⋅ for multiplication"
                         checked={this.props.times}
-                        onChange={this.changeTimes}
+                        onChange={(newCheckedState) => {
+                            this.changeTimes(newCheckedState);
+                        }}
                     />
                     <InfoTip>
                         <p>
