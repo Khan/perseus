@@ -602,8 +602,24 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a python-program widget", () => {
+        const widgetsMap: unknown = {
+            "python-program 1": {
+                type: "python-program",
+                version: {major: 0, minor: 0},
+                options: {
+                    programID: "",
+                    height: 0,
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  python-program: PythonProgramWidget;
     //  radio: RadioWidget;
     //  sorter: SorterWidget;
     //  table: TableWidget;
