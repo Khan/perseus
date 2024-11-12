@@ -562,7 +562,6 @@ describe("parseWidgetsMap", () => {
     });
 
     // TODO:
-    //  passage-ref-target: PassageRefWidget;
     //  phet-simulation: PhetSimulationWidget;
     //  plotter: PlotterWidget;
     //  python-program: PythonProgramWidget;

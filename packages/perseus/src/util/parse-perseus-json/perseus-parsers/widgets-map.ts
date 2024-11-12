@@ -144,7 +144,9 @@ const parseWidgetsMapEntry: (
         case "passage-ref":
             return parseAndAssign(`passage-ref ${id}`, parsePassageRefWidget);
         case "passage-ref-target":
-            // TODO(LEMS-2585): implement a real parser for this widget
+            // NOTE(benchristel): as of 2024-11-12, passage-ref-target is only
+            // used in test content. See:
+            // https://www.khanacademy.org/devadmin/content/search?query=widget:passage-ref-target
             return parseAndAssign(`passage-ref-target ${id}`, any);
         case "phet-simulation":
             // TODO(LEMS-2585): implement a real parser for this widget
