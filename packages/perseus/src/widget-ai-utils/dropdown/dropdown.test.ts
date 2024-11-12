@@ -29,6 +29,8 @@ export const question1: PerseusRenderer = {
                         correct: true,
                     },
                 ],
+                ariaLabel: "Test ARIA label",
+                visibleLabel: "Test visible label",
             },
             version: {
                 major: 0,
