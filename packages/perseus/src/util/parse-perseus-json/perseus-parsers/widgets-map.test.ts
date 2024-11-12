@@ -654,8 +654,26 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a table widget", () => {
+        const widgetsMap: unknown = {
+            "table 1": {
+                type: "table",
+                version: {major: 0, minor: 0},
+                options: {
+                    headers: [],
+                    rows: 0,
+                    columns: 0,
+                    answers: [],
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  table: TableWidget;
     //  video: VideoWidget;
 
     it("rejects an unknown widget type", () => {
