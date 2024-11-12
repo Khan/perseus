@@ -351,19 +351,21 @@ const renderPointGraphControls = (props: {
                 width: props.width,
             }}
         >
-            <Button
-                kind="secondary"
-                style={{
-                    width: "100%",
-                    marginLeft: "20px",
-                }}
-                tabIndex={0}
-                onClick={() => {
-                    props.dispatch(actions.pointGraph.addPoint([0, 0]));
-                }}
-            >
-                {perseusStrings.addPoint}
-            </Button>
+            {interactionMode === "keyboard" && (
+                <Button
+                    kind="secondary"
+                    style={{
+                        width: "100%",
+                        marginLeft: "20px",
+                    }}
+                    tabIndex={0}
+                    onClick={() => {
+                        props.dispatch(actions.pointGraph.addPoint([0, 0]));
+                    }}
+                >
+                    {perseusStrings.addPoint}
+                </Button>
+            )}
             {interactionMode === "mouse" && (
                 <Button
                     id={REMOVE_BUTTON_ID}
@@ -436,6 +438,9 @@ const renderPolygonGraphControls = (props: {
     ) : (
         <Button
             kind="secondary"
+            // Conditional disable when there are less than 3 points in
+            // the graph
+            disabled={coords.length < 3}
             style={{
                 width: "100%",
                 marginLeft: "20px",
@@ -460,35 +465,23 @@ const renderPolygonGraphControls = (props: {
                 {/**
                  * Only show this in keyboard mode.
                  */}
-                <Button
-                    kind="secondary"
-                    style={{
-                        width: "100%",
-                        marginLeft: "20px",
-                    }}
-                    // Disable button when polygon is closed.
-                    disabled={closedPolygon}
-                    tabIndex={0}
-                    onClick={() => {
-                        props.dispatch(actions.polygon.addPoint([0, 0]));
-                    }}
-                >
-                    {perseusStrings.addPoint}
-                </Button>
-                {
-                    // Add conditional render when there are more than 3 points in
-                    // the graph
-                    // Also move this down to be adjacent to the remove button.
-                }
-                {coords.length >= 3 && polygonButton}
-            </View>
-            <View
-                style={{
-                    flexDirection: "row",
-                    width: props.width,
-                    paddingTop: "10px",
-                }}
-            >
+                {interactionMode === "keyboard" && (
+                    <Button
+                        kind="secondary"
+                        style={{
+                            width: "100%",
+                            marginLeft: "20px",
+                        }}
+                        // Disable button when polygon is closed.
+                        disabled={closedPolygon}
+                        tabIndex={0}
+                        onClick={() => {
+                            props.dispatch(actions.polygon.addPoint([0, 0]));
+                        }}
+                    >
+                        {perseusStrings.addPoint}
+                    </Button>
+                )}
                 {/*
                     Make sure remove button is always present, just disabled/enabled depending
                     on when a point is selected or if the polygon is closed.
@@ -499,16 +492,13 @@ const renderPolygonGraphControls = (props: {
                         kind="secondary"
                         color="destructive"
                         // Disable button when polygon is closed.
-                        disabled={closedPolygon}
+                        disabled={closedPolygon || !shouldShowRemoveButton}
                         // This button is meant to be interacted with by the mouse only
                         // Never allow learners to tab to this button
                         tabIndex={-1}
                         style={{
                             width: "100%",
                             marginLeft: "20px",
-                            visibility: shouldShowRemoveButton
-                                ? "visible"
-                                : "hidden",
                         }}
                         onClick={(_event) => {
                             props.dispatch(
@@ -521,6 +511,7 @@ const renderPolygonGraphControls = (props: {
                         {perseusStrings.removePoint}
                     </Button>
                 )}
+                {polygonButton}
             </View>
         </>
     );
