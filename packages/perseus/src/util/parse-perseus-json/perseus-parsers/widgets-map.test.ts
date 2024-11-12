@@ -619,8 +619,24 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a radio widget", () => {
+        const widgetsMap: unknown = {
+            "radio 1": {
+                type: "radio",
+                version: {major: 0, minor: 0},
+                options: {
+                    choices: [],
+                    noneOfTheAbove: false,
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  radio: RadioWidget;
     //  sorter: SorterWidget;
     //  table: TableWidget;
     //  video: VideoWidget;
