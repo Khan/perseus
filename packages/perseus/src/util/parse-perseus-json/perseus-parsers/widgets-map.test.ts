@@ -503,8 +503,27 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts an orderer widget", () => {
+        const widgetsMap: unknown = {
+            "orderer 1": {
+                type: "orderer",
+                version: {major: 0, minor: 0},
+                options: {
+                    options: [],
+                    correctOptions: [],
+                    otherOptions: [],
+                    height: "",
+                    layout: "",
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  orderer: OrdererWidget;
     //  passage: PassageWidget;
     //  passage-ref: PassageRefWidget;
     //  passage-ref-target: PassageRefWidget;
