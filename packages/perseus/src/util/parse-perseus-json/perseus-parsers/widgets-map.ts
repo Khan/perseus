@@ -31,11 +31,12 @@ import {parsePhetSimulationWidget} from "./phet-simulation-widget";
 import {parsePlotterWidget} from "./plotter-widget";
 import {parsePythonProgramWidget} from "./python-program-widget";
 import {parseRadioWidget} from "./radio-widget";
+import {parseSorterWidget} from "./sorter-widget";
+import {parseTableWidget} from "./table-widget";
+import {parseVideoWidget} from "./video-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
-import {parseSorterWidget} from "./sorter-widget";
-import {parseTableWidget} from "./table-widget";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
