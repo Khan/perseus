@@ -28,6 +28,7 @@ import {parseOrdererWidget} from "./orderer-widget";
 import {parsePassageRefWidget} from "./passage-ref-widget";
 import {parsePassageWidget} from "./passage-widget";
 import {parsePhetSimulationWidget} from "./phet-simulation-widget";
+import {parsePlotterWidget} from "./plotter-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
@@ -155,8 +156,7 @@ const parseWidgetsMapEntry: (
                 parsePhetSimulationWidget,
             );
         case "plotter":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`plotter ${id}`, any);
+            return parseAndAssign(`plotter ${id}`, parsePlotterWidget);
         case "python-program":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`python-program ${id}`, any);

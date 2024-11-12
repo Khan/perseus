@@ -578,8 +578,31 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a plotter widget", () => {
+        const widgetsMap: unknown = {
+            "plotter 1": {
+                type: "plotter",
+                version: {major: 0, minor: 0},
+                options: {
+                    labels: [],
+                    categories: [],
+                    type: "bar",
+                    maxY: 0,
+                    scaleY: 0,
+                    snapsPerLine: 0,
+                    starting: [],
+                    correct: [],
+                    plotDimensions: [],
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  plotter: PlotterWidget;
     //  python-program: PythonProgramWidget;
     //  radio: RadioWidget;
     //  sorter: SorterWidget;
