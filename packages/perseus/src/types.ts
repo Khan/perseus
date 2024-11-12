@@ -623,7 +623,7 @@ export type WidgetExports<
     static renders  */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
-    validator?: WidgetValidatorFunction;
+    scorer?: WidgetScorerFunction;
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,
     ) => string | null | undefined;

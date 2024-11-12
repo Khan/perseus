@@ -133,5 +133,5 @@ export default {
     displayName: "Sorter",
     widget: Sorter,
     isLintable: true,
-    validator: sorterValidator,
+    scorer: sorterValidator,
 } satisfies WidgetExports<typeof Sorter>;

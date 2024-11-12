@@ -325,5 +325,5 @@ export default {
         );
     },
     isLintable: true,
-    validator: categorizerValidator,
+    scorer: categorizerValidator,
 } satisfies WidgetExports<typeof Categorizer>;

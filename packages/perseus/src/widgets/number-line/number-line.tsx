@@ -805,5 +805,5 @@ export default {
     widget: NumberLine,
     transform: numberLineTransform,
     staticTransform: staticTransform,
-    validator: numberLineValidator,
+    scorer: numberLineValidator,
 } satisfies WidgetExports<typeof NumberLine>;

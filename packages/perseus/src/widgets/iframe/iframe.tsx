@@ -172,5 +172,5 @@ export default {
     widget: Iframe,
     // Let's not expose it to all content creators yet
     hidden: true,
-    validator: iframeValidator,
+    scorer: iframeValidator,
 } satisfies WidgetExports<typeof Iframe>;

@@ -551,7 +551,7 @@ export default {
 
     // For use by the editor
     isLintable: true,
-    validator: expressionValidator,
+    scorer: expressionValidator,
 
     getOneCorrectAnswerFromRubric(
         rubric: PerseusExpressionRubric,

@@ -743,5 +743,5 @@ export default {
     widget: LabelImageWithDependencies,
     accessible: true,
     isLintable: true,
-    validator: labelImageValidator,
+    scorer: scoreLabelImage,
 } satisfies WidgetExports<typeof LabelImageWithDependencies>;

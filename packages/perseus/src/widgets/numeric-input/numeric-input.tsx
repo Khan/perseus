@@ -350,7 +350,7 @@ export default {
     widget: NumericInput,
     transform: propsTransform,
     isLintable: true,
-    validator: numericInputValidator,
+    scorer: numericInputValidator,
 
     getOneCorrectAnswerFromRubric(
         rubric: PerseusNumericInputRubric,

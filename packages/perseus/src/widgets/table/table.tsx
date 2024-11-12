@@ -324,5 +324,5 @@ export default {
     transform: propTransform,
     hidden: true,
     isLintable: true,
-    validator: tableValidator,
+    scorer: tableValidator,
 } satisfies WidgetExports<typeof Table>;

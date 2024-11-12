@@ -111,5 +111,5 @@ export default {
     widget: Definition,
     transform: (x: any) => x,
     // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(),
+    scorer: () => noopValidator(),
 } satisfies WidgetExports<typeof Definition>;

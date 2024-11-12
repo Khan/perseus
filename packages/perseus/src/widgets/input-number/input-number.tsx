@@ -278,7 +278,7 @@ export default {
     widget: InputNumber,
     transform: propTransform,
     isLintable: true,
-    validator: inputNumberValidator,
+    scorer: inputNumberValidator,
 
     getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {
         if (rubric.value == null) {

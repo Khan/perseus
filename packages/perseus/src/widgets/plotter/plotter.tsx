@@ -1179,5 +1179,5 @@ export default {
     hidden: true,
     widget: Plotter,
     staticTransform: staticTransform,
-    validator: plotterValidator,
+    scorer: plotterValidator,
 } satisfies WidgetExports<typeof Plotter>;

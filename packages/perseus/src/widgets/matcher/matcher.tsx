@@ -288,5 +288,5 @@ export default {
     displayName: "Matcher (two column)",
     widget: Matcher,
     isLintable: true,
-    validator: matcherValidator,
+    scorer: matcherValidator,
 } satisfies WidgetExports<typeof Matcher>;

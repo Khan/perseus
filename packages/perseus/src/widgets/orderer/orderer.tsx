@@ -796,5 +796,5 @@ export default {
     hidden: true,
     widget: Orderer,
     isLintable: true,
-    validator: ordererValidator,
+    scorer: ordererValidator,
 } satisfies WidgetExports<typeof Orderer>;

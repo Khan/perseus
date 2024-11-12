@@ -231,5 +231,5 @@ export default {
     transform: _.identity,
     isLintable: true,
     // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(),
+    scorer: () => noopValidator(),
 } satisfies WidgetExports<typeof Explanation>;

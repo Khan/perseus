@@ -206,5 +206,5 @@ export default {
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
     // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(1),
+    scorer: () => noopValidator(1),
 } satisfies WidgetExports<typeof Measurer>;

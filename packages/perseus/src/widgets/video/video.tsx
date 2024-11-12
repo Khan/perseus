@@ -123,5 +123,5 @@ export default {
     supportedAlignments: ["block", "float-left", "float-right", "full-width"],
     widget: Video,
     // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(),
+    scorer: () => noopValidator(),
 } satisfies WidgetExports<typeof Video>;

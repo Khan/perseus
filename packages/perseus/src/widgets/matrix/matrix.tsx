@@ -569,5 +569,5 @@ export default {
     transform: propTransform,
     staticTransform: staticTransform,
     isLintable: true,
-    validator: matrixValidator,
+    scorer: matrixValidator,
 } satisfies WidgetExports<typeof Matrix>;

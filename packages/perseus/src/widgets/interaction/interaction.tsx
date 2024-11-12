@@ -813,5 +813,5 @@ export default {
     transform: _.identity,
     hidden: true,
     // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(),
+    scorer: () => noopValidator(),
 } satisfies WidgetExports<typeof Interaction>;

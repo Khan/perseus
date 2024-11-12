@@ -156,5 +156,5 @@ export default {
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
     isLintable: true,
-    validator: radioValidator,
+    scorer: radioValidator,
 } satisfies WidgetExports<typeof Radio>;

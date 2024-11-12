@@ -205,5 +205,5 @@ export default {
     supportedAlignments: ["block", "full-width"],
     widget: CSProgram,
     hidden: true,
-    validator: csProgramValidator,
+    scorer: csProgramValidator,
 } satisfies WidgetExports<typeof CSProgram>;

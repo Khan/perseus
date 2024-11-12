@@ -124,5 +124,5 @@ export default {
     accessible: true,
     widget: Dropdown,
     transform: optionsTransform,
-    validator: dropdownValidator,
+    scorer: dropdownValidator,
 } satisfies WidgetExports<typeof Dropdown>;

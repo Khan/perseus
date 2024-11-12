@@ -2396,5 +2396,5 @@ export default {
     displayName: "Interactive graph (Assessments only)",
     widget: InteractiveGraph,
     staticTransform: staticTransform,
-    validator: interactiveGraphValidator,
+    scorer: interactiveGraphValidator,
 } satisfies WidgetExports<typeof InteractiveGraph>;
