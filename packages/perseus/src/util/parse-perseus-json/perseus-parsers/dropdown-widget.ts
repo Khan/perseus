@@ -4,6 +4,7 @@ import {
     constant,
     object,
     string,
+    optional,
 } from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
@@ -15,6 +16,8 @@ export const parseDropdownWidget: Parser<DropdownWidget> = parseWidget(
     constant("dropdown"),
     object({
         placeholder: string,
+        ariaLabel: string,
+        visibleLabel: optional(string),
         static: boolean,
         choices: array(
             object({
