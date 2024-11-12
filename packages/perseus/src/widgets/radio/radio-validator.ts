@@ -1,5 +1,3 @@
-import _ from "underscore";
-
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {
