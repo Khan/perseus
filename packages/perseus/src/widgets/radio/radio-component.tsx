@@ -74,13 +74,10 @@ class Radio extends React.Component<Props> implements Widget {
         showSolutions: "none",
     };
 
-    static getUserInputFromProps({
-        props,
-        unshuffle = true,
-    }: {
-        props: Props;
-        unshuffle?: boolean;
-    }): PerseusRadioUserInput {
+    static getUserInputFromProps(
+        props: Props,
+        unshuffle: boolean = true,
+    ): PerseusRadioUserInput {
         // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
         // future timeline implementers: this used to be {value: i} before
         // multiple select was added)
@@ -286,14 +283,11 @@ class Radio extends React.Component<Props> implements Widget {
     };
 
     getUserInput(): PerseusRadioUserInput {
-        return Radio.getUserInputFromProps({props: this.props});
+        return Radio.getUserInputFromProps(this.props);
     }
 
     getPromptJSON(): RadioPromptJSON {
-        const userInput = Radio.getUserInputFromProps({
-            props: this.props,
-            unshuffle: false,
-        });
+        const userInput = Radio.getUserInputFromProps(this.props, false);
         return _getPromptJSON(this.props, userInput);
     }
 
