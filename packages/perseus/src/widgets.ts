@@ -137,10 +137,8 @@ export const getWidgetExport = (name: string): WidgetExports | null => {
     return widgets[name] ?? null;
 };
 
-export const getWidgetValidator = (
-    name: string,
-): WidgetValidatorFunction | null => {
-    return widgets[name]?.validator ?? null;
+export const getWidgetScorer = (name: string): WidgetScorerFunction | null => {
+    return widgets[name]?.scorer ?? null;
 };
 
 export const getEditor = (name: string): Editor | null | undefined => {
