@@ -11,7 +11,7 @@ import type {
     Version,
     WidgetExports,
     WidgetTransform,
-    WidgetValidatorFunction,
+    WidgetScorerFunction,
 } from "./types";
 import type * as React from "react";
 
