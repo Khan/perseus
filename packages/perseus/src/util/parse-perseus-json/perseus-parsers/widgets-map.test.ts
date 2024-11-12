@@ -543,8 +543,25 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a passage-ref widget", () => {
+        const widgetsMap: unknown = {
+            "passage-ref 1": {
+                type: "passage-ref",
+                version: {major: 0, minor: 0},
+                options: {
+                    passageNumber: 0,
+                    referenceNumber: 0,
+                    summaryText: "",
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  passage-ref: PassageRefWidget;
     //  passage-ref-target: PassageRefWidget;
     //  phet-simulation: PhetSimulationWidget;
     //  plotter: PlotterWidget;
