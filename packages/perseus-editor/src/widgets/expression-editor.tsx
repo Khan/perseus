@@ -215,13 +215,13 @@ class ExpressionEditor extends React.Component<Props, State> {
     // This function is designed to update the answerForm property
     // with new data. This function should not be used to update any
     // other properties within ExpressionEditor.
-    updateAnswerForm: (i: number, props: AnswerForm) => void = (i, props) => {
+    updateAnswerForm(i: number, props: AnswerForm) {
         const answerForms = lens(this.props.answerForms)
             .merge([i], props)
             .freeze();
 
         this.change({answerForms});
-    };
+    }
 
     handleReorder: (components: any) => void = (components) => {
         const answerForms = components.map((component) => {
