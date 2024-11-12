@@ -330,7 +330,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     changeExpressionWidget: (
         key: number,
-        props: PerseusExpressionWidgetOptions,
+        props: React.ComponentProps<typeof Expression>,
     ) => void = (key, props) => {
         const answerForm: AnswerForm = {
             ...this.props.answerForms[key],
@@ -346,7 +346,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                 const key = parseAnswerKey(ans);
 
                 // Really need help finding the type for expression props for configuration,
-                const expressionProps: any = {
+                const expressionProps = {
                     // note we're using
                     // *this.props*.{times,functions,buttonSets} since each
                     // answer area has the same settings for those
@@ -355,8 +355,9 @@ class ExpressionEditor extends React.Component<Props, State> {
                     buttonSets: this.props.buttonSets,
                     buttonsVisible: "focused",
                     value: ans.value,
-                    onChange: (props: PerseusExpressionWidgetOptions) =>
-                        this.changeExpressionWidget(key, props),
+                    onChange: (
+                        props: React.ComponentProps<typeof Expression>,
+                    ) => this.changeExpressionWidget(key, props),
                     trackInteraction: () => {},
                     widgetId: this.props.widgetId + "-" + ans.key,
                     visibleLabel: this.props.visibleLabel,
