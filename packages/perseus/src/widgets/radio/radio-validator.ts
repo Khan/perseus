@@ -23,31 +23,22 @@ function radioValidator(
         };
     }
 
-    const numCorrect: number = _.reduce(
-        rubric.choices,
-        function (memo, choice) {
-            return choice.correct ? memo + 1 : memo;
-        },
-        0,
-    );
+    const numCorrect: number = rubric.choices.reduce((sum, currentChoice) => {
+        return currentChoice.correct ? sum + 1 : sum;
+    }, 0);
 
-    if (numCorrect && numCorrect > 1 && numSelected !== numCorrect) {
+    if (numCorrect > 1 && numSelected !== numCorrect) {
         return {
             type: "invalid",
             message: strings.chooseCorrectNum,
         };
         // If NOTA and some other answer are checked, ...
     }
-    let noneOfTheAboveSelected = false;
-    for (let i = 0; i < rubric.choices.length; i++) {
-        if (
-            rubric.choices[i].isNoneOfTheAbove &&
-            userInput.choicesSelected[i]
-        ) {
-            noneOfTheAboveSelected = true;
-            break;
-        }
-    }
+
+    const noneOfTheAboveSelected = rubric.choices.some(
+        (choice, index) =>
+            choice.isNoneOfTheAbove && userInput.choicesSelected[index],
+    );
 
     if (noneOfTheAboveSelected && numSelected > 1) {
         return {
