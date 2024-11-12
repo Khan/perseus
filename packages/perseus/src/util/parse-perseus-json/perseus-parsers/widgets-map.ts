@@ -27,6 +27,7 @@ import {parseNumericInputWidget} from "./numeric-input-widget";
 import {parseOrdererWidget} from "./orderer-widget";
 import {parsePassageRefWidget} from "./passage-ref-widget";
 import {parsePassageWidget} from "./passage-widget";
+import {parsePhetSimulationWidget} from "./phet-simulation-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
@@ -149,8 +150,10 @@ const parseWidgetsMapEntry: (
             // https://www.khanacademy.org/devadmin/content/search?query=widget:passage-ref-target
             return parseAndAssign(`passage-ref-target ${id}`, any);
         case "phet-simulation":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`phet-simulation ${id}`, any);
+            return parseAndAssign(
+                `phet-simulation ${id}`,
+                parsePhetSimulationWidget,
+            );
         case "plotter":
             // TODO(LEMS-2585): implement a real parser for this widget
             return parseAndAssign(`plotter ${id}`, any);

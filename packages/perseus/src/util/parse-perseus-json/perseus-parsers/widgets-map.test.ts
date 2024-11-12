@@ -561,8 +561,24 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a phet-simulation widget", () => {
+        const widgetsMap: unknown = {
+            "phet-simulation 1": {
+                type: "phet-simulation",
+                version: {major: 0, minor: 0},
+                options: {
+                    url: "",
+                    description: "",
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
     // TODO:
-    //  phet-simulation: PhetSimulationWidget;
     //  plotter: PlotterWidget;
     //  python-program: PythonProgramWidget;
     //  radio: RadioWidget;
