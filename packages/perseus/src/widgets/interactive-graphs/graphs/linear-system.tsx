@@ -18,7 +18,7 @@ export function renderLinearSystemGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <LinearSystemGraph graphState={state} dispatch={dispatch} />,
-        screenreaderDescription: null,
+        interactiveElementsDescription: null,
     };
 }
 

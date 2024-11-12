@@ -159,6 +159,35 @@ describe("MafsGraph", () => {
         ).toBeInTheDocument();
     });
 
+    it("renders a screenreader description summarizing the interactive elements on the graph", () => {
+        const state: InteractiveGraphState = {
+            type: "point",
+            hasBeenInteractedWith: true,
+            focusedPointIndex: null,
+            showRemovePointButton: false,
+            interactionMode: "keyboard",
+            showKeyboardInteractionInvitation: false,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [[-7, 0.5]],
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphProps()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        expect(
+            screen.getByText("Interactive elements: Point at -7 comma 0.5"),
+        ).toBeInTheDocument();
+    });
+
     /**
      * regression LEMS-1885
      * Important parts of this test:

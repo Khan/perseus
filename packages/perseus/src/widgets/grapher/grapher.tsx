@@ -16,9 +16,10 @@ import {interactiveSizes} from "../../styles/constants";
 import Util from "../../util";
 import KhanColors from "../../util/colors";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
-
 /* Graphie and relevant components. */
 /* Mixins. */
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/grapher/prompt-utils";
+
 import grapherValidator from "./grapher-validator";
 import {
     DEFAULT_GRAPHER_PROPS,
@@ -39,6 +40,7 @@ import type {
     PerseusGrapherRubric,
     PerseusGrapherUserInput,
 } from "../../validation.types";
+import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/prompt-utils";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
@@ -537,6 +539,10 @@ class Grapher extends React.Component<Props> implements Widget {
         return Grapher.getUserInputFromProps(this.props);
     }
 
+    getPromptJSON(): GrapherPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
+
     render(): React.ReactNode {
         const type = this.props.plot.type;
         const coords = this.props.plot.coords;
@@ -647,4 +653,4 @@ export default {
     transform: propTransform,
     staticTransform: staticTransform,
     validator: grapherValidator,
-} as WidgetExports<typeof Grapher>;
+} satisfies WidgetExports<typeof Grapher>;

@@ -237,7 +237,7 @@ describe("input-number", function () {
         if (!transform) {
             throw new Error("transform not defined");
         }
-        const widgetProps = transform(editorProps, mockStrings);
+        const widgetProps = transform(editorProps);
         expect(_.has(widgetProps, "value")).toBe(false);
     });
 });

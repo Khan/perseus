@@ -1,5 +1,42 @@
 # @khanacademy/perseus-editor
 
+## 14.11.0
+
+### Minor Changes
+
+-   [#1834](https://github.com/Khan/perseus/pull/1834) [`429b9cc15`](https://github.com/Khan/perseus/commit/429b9cc15e5d69ad10b42db0016ba21992343267) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figures] Use \$ symbols to denote TeX within locked labels and locked figure labels
+
+### Patch Changes
+
+-   Updated dependencies [[`429b9cc15`](https://github.com/Khan/perseus/commit/429b9cc15e5d69ad10b42db0016ba21992343267), [`122b3cc1b`](https://github.com/Khan/perseus/commit/122b3cc1b9b233e1014ec2176319af8bbb0c54ce)]:
+    -   @khanacademy/perseus@41.2.0
+
+## 14.10.3
+
+### Patch Changes
+
+-   [#1830](https://github.com/Khan/perseus/pull/1830) [`e452c0ae6`](https://github.com/Khan/perseus/commit/e452c0ae63c4f8b05dfa7d9bfb1b8a741142aeab) Thanks [@handeyeco](https://github.com/handeyeco)! - Bug fix for LabelImageEditor URL race condition
+
+-   Updated dependencies [[`8aaf29670`](https://github.com/Khan/perseus/commit/8aaf2967088e55e6907ef4b01411d6e9579b4677), [`f6b66b001`](https://github.com/Khan/perseus/commit/f6b66b00186875fd1d61e5d217b472a9a4e2cdf9)]:
+    -   @khanacademy/perseus@41.1.1
+
+## 14.10.2
+
+### Patch Changes
+
+-   Updated dependencies [[`b14d19160`](https://github.com/Khan/perseus/commit/b14d19160f6461c90290500519fe9d54bbc70c11)]:
+    -   @khanacademy/perseus@41.1.0
+
+## 14.10.1
+
+### Patch Changes
+
+-   [#1793](https://github.com/Khan/perseus/pull/1793) [`486e4cdc1`](https://github.com/Khan/perseus/commit/486e4cdc1196e78101cd9067f37888881fd58f2b) Thanks [@handeyeco](https://github.com/handeyeco)! - Move useVideo from v1 dependency to v2 dependency
+
+-   Updated dependencies [[`2c402198c`](https://github.com/Khan/perseus/commit/2c402198c00b1eb342a799820a58d49ec5d9d9f4), [`486e4cdc1`](https://github.com/Khan/perseus/commit/486e4cdc1196e78101cd9067f37888881fd58f2b), [`d6381f773`](https://github.com/Khan/perseus/commit/d6381f7737ff44f1ec3d91c4ab25ce51f47b35b9), [`22d1c0229`](https://github.com/Khan/perseus/commit/22d1c0229e52fc2dc6bc9f38a3ca400c6e4a3884), [`035191c9e`](https://github.com/Khan/perseus/commit/035191c9ec0c70db062cdfb44cdee69682edcbcf), [`33891dc0b`](https://github.com/Khan/perseus/commit/33891dc0b5e477b0b6db2f0d3733d81215d13ebe)]:
+    -   @khanacademy/perseus@41.0.0
+    -   @khanacademy/math-input@21.1.4
+
 ## 14.10.0
 
 ### Minor Changes

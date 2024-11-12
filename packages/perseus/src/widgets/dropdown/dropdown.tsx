@@ -3,6 +3,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {ApiOptions} from "../../perseus-api";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/prompt-utils";
 
 import dropdownValidator from "./dropdown-validator";
 
@@ -12,6 +13,7 @@ import type {
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
 } from "../../validation.types";
+import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/prompt-utils";
 
 type Props = WidgetProps<RenderProps, PerseusDropdownRubric> & {
     selected: number;
@@ -54,6 +56,10 @@ class Dropdown extends React.Component<Props> implements Widget {
 
     getUserInput(): PerseusDropdownUserInput {
         return {value: this.props.selected};
+    }
+
+    getPromptJSON(): DropdownPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     render(): React.ReactNode {
@@ -119,4 +125,4 @@ export default {
     widget: Dropdown,
     transform: optionsTransform,
     validator: dropdownValidator,
-} as WidgetExports<typeof Dropdown>;
+} satisfies WidgetExports<typeof Dropdown>;

@@ -14,6 +14,7 @@ import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/prompt-utils";
 
 import categorizerValidator from "./categorizer-validator";
 
@@ -23,6 +24,7 @@ import type {
     PerseusCategorizerRubric,
     PerseusCategorizerUserInput,
 } from "../../validation.types";
+import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/prompt-utils";
 
 type Props = WidgetProps<RenderProps, PerseusCategorizerRubric> & {
     values: ReadonlyArray<string>;
@@ -68,6 +70,10 @@ export class Categorizer
 
     getUserInput(): PerseusCategorizerUserInput {
         return Categorizer.getUserInputFromProps(this.props);
+    }
+
+    getPromptJSON(): CategorizerPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     onChange(itemNum, catNum) {
@@ -320,4 +326,4 @@ export default {
     },
     isLintable: true,
     validator: categorizerValidator,
-} as WidgetExports<typeof Categorizer>;
+} satisfies WidgetExports<typeof Categorizer>;

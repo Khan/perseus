@@ -13,6 +13,7 @@ import {articleMaxWidthInPx} from "../../styles/constants";
 import Util from "../../util";
 import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/prompt-utils";
 
 import {csProgramValidator} from "./cs-program-validator";
 
@@ -22,6 +23,7 @@ import type {
     PerseusCSProgramRubric,
     PerseusCSProgramUserInput,
 } from "../../validation.types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 const {updateQueryString} = Util;
 
@@ -104,6 +106,10 @@ class CSProgram extends React.Component<Props> implements Widget {
             status: this.props.status,
             message: this.props.message,
         };
+    }
+
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
     }
 
     render(): React.ReactNode {
@@ -200,4 +206,4 @@ export default {
     widget: CSProgram,
     hidden: true,
     validator: csProgramValidator,
-} as WidgetExports<typeof CSProgram>;
+} satisfies WidgetExports<typeof CSProgram>;

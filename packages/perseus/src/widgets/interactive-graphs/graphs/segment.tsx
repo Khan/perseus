@@ -18,7 +18,7 @@ export function renderSegmentGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <SegmentGraph graphState={state} dispatch={dispatch} />,
-        screenreaderDescription: null,
+        interactiveElementsDescription: null,
     };
 }
 

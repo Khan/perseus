@@ -332,7 +332,7 @@ describe("LockedPolygonSettings", () => {
             );
 
             // Assert
-            const inputField = screen.getByRole("textbox", {name: "TeX"});
+            const inputField = screen.getByRole("textbox", {name: "text"});
             expect(inputField).toHaveValue("label text");
         });
 
@@ -447,7 +447,7 @@ describe("LockedPolygonSettings", () => {
             );
 
             // Act
-            const labelText = screen.getByLabelText("TeX");
+            const labelText = screen.getByLabelText("text");
             await userEvent.type(labelText, "!");
 
             // Assert
