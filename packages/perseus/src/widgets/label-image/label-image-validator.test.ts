@@ -1,4 +1,4 @@
-import labelImageValidator, {scoreMarker} from "./label-image-validator";
+import scoreLabelImage, {scoreMarker} from "./score-label-image";
 
 const emptyMarker = {
     label: "",
@@ -93,7 +93,7 @@ describe("labelImageValidator", function () {
             ],
         } as const;
 
-        const score = labelImageValidator(state);
+        const score = scoreLabelImage(state);
 
         expect(score).toHaveInvalidInput();
     });
@@ -120,7 +120,7 @@ describe("labelImageValidator", function () {
             ],
         } as const;
 
-        const score = labelImageValidator(state);
+        const score = scoreLabelImage(state);
 
         expect(score).toHaveInvalidInput();
     });
@@ -146,7 +146,7 @@ describe("labelImageValidator", function () {
             ],
         } as const;
 
-        const score = labelImageValidator(state);
+        const score = scoreLabelImage(state);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -175,7 +175,7 @@ describe("labelImageValidator", function () {
             ],
         } as const;
 
-        const score = labelImageValidator(state);
+        const score = scoreLabelImage(state);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -204,7 +204,7 @@ describe("labelImageValidator", function () {
             ],
         } as const;
 
-        const score = labelImageValidator(state);
+        const score = scoreLabelImage(state);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });

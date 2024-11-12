@@ -44,7 +44,7 @@ export function scoreMarker(
 }
 
 // TODO(LEMS-2440): May need to pull answers out of PerseusLabelImageWidgetOptions[markers] for the rubric
-function labelImageValidator(
+function scoreLabelImage(
     userInput: PerseusLabelImageUserInput,
     rubric?: PerseusLabelImageRubric,
 ): PerseusScore {
@@ -81,4 +81,4 @@ function labelImageValidator(
     };
 }
 
-export default labelImageValidator;
+export default scoreLabelImage;

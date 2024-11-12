@@ -24,8 +24,8 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/label-image
 
 import AnswerChoices from "./answer-choices";
 import {HideAnswersToggle} from "./hide-answers-toggle";
-import labelImageValidator, {scoreMarker} from "./label-image-validator";
 import Marker from "./marker";
+import scoreLabelImage, {scoreMarker} from "./score-label-image";
 
 import type {InteractiveMarkerType} from "./types";
 import type {DependencyProps} from "../../dependencies";
