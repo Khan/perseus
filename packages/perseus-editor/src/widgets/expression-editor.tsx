@@ -25,7 +25,6 @@ import SortableArea from "../components/sortable";
 import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
-    ExpressionWidgetProps,
 } from "@khanacademy/perseus";
 
 const {InfoTip} = components;
@@ -297,11 +296,9 @@ class ExpressionEditor extends React.Component<Props, State> {
         simplify,
     ) => {
         const answerForm: AnswerForm = {
-            form: this.props.answerForms[key].form,
+            ...this.props.answerForms[key],
             key: `${key}`,
-            simplify: simplify,
-            value: this.props.answerForms[key].value,
-            considered: this.props.answerForms[key].considered,
+            simplify,
         };
 
         this.updateAnswerForm(key, answerForm);
@@ -309,11 +306,9 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     changeForm: (key: number, form: boolean) => void = (key, form) => {
         const answerForm: AnswerForm = {
-            form: form,
+            ...this.props.answerForms[key],
+            form,
             key: `${key}`,
-            simplify: this.props.answerForms[key].simplify,
-            value: this.props.answerForms[key].value,
-            considered: this.props.answerForms[key].considered,
         };
 
         this.updateAnswerForm(key, answerForm);
@@ -324,11 +319,9 @@ class ExpressionEditor extends React.Component<Props, State> {
         considered: (typeof PerseusExpressionAnswerFormConsidered)[number],
     ) => void = (key, considered) => {
         const answerForm: AnswerForm = {
-            form: this.props.answerForms[key].form,
+            ...this.props.answerForms[key],
             key: `${key}`,
-            simplify: this.props.answerForms[key].simplify,
-            value: this.props.answerForms[key].value,
-            considered: considered,
+            considered,
         };
 
         this.updateAnswerForm(key, answerForm);
@@ -340,14 +333,12 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     changeExpressionWidget: (
         key: number,
-        props: ExpressionWidgetProps,
+        props: PerseusExpressionWidgetOptions,
     ) => void = (key, props) => {
         const answerForm: AnswerForm = {
-            form: this.props.answerForms[key].form,
+            ...this.props.answerForms[key],
             key: `${key}`,
-            simplify: this.props.answerForms[key].simplify,
             value: props.value,
-            considered: this.props.answerForms[key].considered,
         };
         this.updateAnswerForm(key, answerForm);
     };
@@ -367,7 +358,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     buttonSets: this.props.buttonSets,
                     buttonsVisible: "focused",
                     value: ans.value,
-                    onChange: (props: ExpressionWidgetProps) =>
+                    onChange: (props: PerseusExpressionWidgetOptions) =>
                         this.changeExpressionWidget(key, props),
                     trackInteraction: () => {},
                     widgetId: this.props.widgetId + "-" + ans.key,
