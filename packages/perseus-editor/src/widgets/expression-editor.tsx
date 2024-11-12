@@ -341,12 +341,13 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        const answerOptions: React.JSX.Element[] = this.props.answerForms
-            .map((ans: AnswerForm) => {
+        const answerOptions: React.JSX.Element[] = this.props.answerForms.map(
+            (ans: AnswerForm) => {
                 const key = parseAnswerKey(ans);
 
-                // Really need help finding the type for expression props for configuration,
-                const expressionProps: PerseusExpressionWidgetOptions = {
+                const expressionProps: Partial<
+                    React.ComponentProps<typeof Expression>
+                > = {
                     // note we're using
                     // *this.props*.{times,functions,buttonSets} since each
                     // answer area has the same settings for those
@@ -354,7 +355,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     functions: this.props.functions,
                     buttonSets: this.props.buttonSets,
                     buttonsVisible: "focused",
-                    answerForms: [ans],
+                    value: ans.value,
                     onChange: (
                         props: React.ComponentProps<typeof Expression>,
                     ) => this.changeExpressionWidget(key, props),
@@ -364,32 +365,24 @@ class ExpressionEditor extends React.Component<Props, State> {
                     ariaLabel: this.props.ariaLabel,
                 } as const;
 
-                return lens(ans)
-                    .merge([], {
-                        onDelete: () => this.handleRemoveForm(key),
-                        onChangeSimplify: (simplify: boolean) =>
-                            this.changeSimplify(key, simplify),
-                        onChangeForm: (form: boolean) =>
-                            this.changeForm(key, form),
-                        onChangeConsidered: (
-                            considered: (typeof PerseusExpressionAnswerFormConsidered)[number],
-                        ) => this.changeConsidered(key, considered),
-                        expressionProps: expressionProps,
-                    })
-                    .freeze();
-            })
-            .map((answerOption: AnswerOptionProps) => (
-                <AnswerOption
-                    considered={answerOption.considered}
-                    expressionProps={answerOption.expressionProps}
-                    form={answerOption.form}
-                    simplify={answerOption.simplify}
-                    onDelete={answerOption.onDelete}
-                    onChangeSimplify={answerOption.onChangeSimplify}
-                    onChangeForm={answerOption.onChangeForm}
-                    onChangeConsidered={answerOption.onChangeConsidered}
-                />
-            ));
+                return (
+                    <AnswerOption
+                        considered={ans.considered}
+                        expressionProps={expressionProps}
+                        form={ans.form}
+                        simplify={ans.simplify}
+                        onDelete={() => this.handleRemoveForm(key)}
+                        onChangeSimplify={(simplify) =>
+                            this.changeSimplify(key, simplify)
+                        }
+                        onChangeForm={(form) => this.changeForm(key, form)}
+                        onChangeConsidered={(considered) =>
+                            this.changeConsidered(key, considered)
+                        }
+                    />
+                );
+            },
+        );
 
         const sortable = (
             <SortableArea
