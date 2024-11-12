@@ -26,7 +26,6 @@ type DefaultProps = {
     selected: Props["selected"];
     placeholder: Props["placeholder"];
     apiOptions: Props["apiOptions"];
-    ariaLabel: Props["ariaLabel"];
 };
 
 class Dropdown extends React.Component<Props> implements Widget {
@@ -35,7 +34,6 @@ class Dropdown extends React.Component<Props> implements Widget {
         selected: 0,
         placeholder: "",
         apiOptions: ApiOptions.defaults,
-        ariaLabel: "Choose an answer",
     };
 
     focus: () => boolean = () => {
