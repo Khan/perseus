@@ -171,11 +171,13 @@ describe("renderer", () => {
             expect(renderer.state.widgetProps).toMatchInlineSnapshot(`
                 {
                   "dropdown 1": {
+                    "ariaLabel": "Test ARIA label",
                     "choices": [
                       "greater than or equal to",
                       "less than or equal to",
                     ],
                     "placeholder": "greater/less than or equal to",
+                    "visibleLabel": "Test visible label",
                   },
                 }
             `);
