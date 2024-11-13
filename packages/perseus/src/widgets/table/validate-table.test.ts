@@ -17,7 +17,7 @@ describe("tableValidator", () => {
         expect(result).toHaveInvalidInput();
     });
 
-    it("is valid, not not correct, if all cells are provided", () => {
+    it("is valid, not correct, if all cells are provided", () => {
         // Arrange
         const userInput: PerseusTableUserInput = [
             ["1", "2"],
