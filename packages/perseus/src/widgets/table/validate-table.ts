@@ -3,8 +3,8 @@ import {filterNonEmpty} from "./utils";
 import type {PerseusScore} from "../../types";
 import type {PerseusTableUserInput} from "../../validation.types";
 
-export function validateTable(state: PerseusTableUserInput): PerseusScore {
-    const supplied = filterNonEmpty(state);
+export function validateTable(userInput: PerseusTableUserInput): PerseusScore {
+    const supplied = filterNonEmpty(userInput);
 
     const hasEmptyCell = supplied.some(function (row) {
         return row.some(function (cell) {

@@ -13,16 +13,16 @@ import type {
 } from "../../validation.types";
 
 function scoreTable(
-    state: PerseusTableUserInput,
+    userInput: PerseusTableUserInput,
     rubric: PerseusTableRubric,
     strings: PerseusStrings,
 ): PerseusScore {
-    const validationResult = validateTable(state);
+    const validationResult = validateTable(userInput);
     if (validationResult.type === "invalid") {
         return validationResult;
     }
 
-    const supplied = filterNonEmpty(state);
+    const supplied = filterNonEmpty(userInput);
     const solution = filterNonEmpty(rubric.answers);
     if (supplied.length !== solution.length) {
         return {
