@@ -1,5 +1,5 @@
-import {scoreOrderer} from "./score-orderer";
 import {question1} from "./orderer.testdata";
+import {scoreOrderer} from "./score-orderer";
 
 import type {
     PerseusOrdererRubric,

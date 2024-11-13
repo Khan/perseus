@@ -1,5 +1,5 @@
-import scoreDropdown from "./score-dropdown";
 import {question1} from "./dropdown.testdata";
+import scoreDropdown from "./score-dropdown";
 
 import type {
     PerseusDropdownRubric,

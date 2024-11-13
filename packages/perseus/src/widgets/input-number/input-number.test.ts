@@ -12,8 +12,8 @@ import {mockStrings} from "../../strings";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import InputNumber from "./input-number";
-import scoreInputNumber from "./score-input-number";
 import {question3 as question} from "./input-number.testdata";
+import scoreInputNumber from "./score-input-number";
 
 import type {
     PerseusInputNumberWidgetOptions,
