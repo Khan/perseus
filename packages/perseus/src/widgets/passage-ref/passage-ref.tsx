@@ -4,11 +4,13 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import PerseusMarkdown from "../../perseus-markdown";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref/prompt-utils";
 import noopValidator from "../__shared__/noop-validator";
 import {isPassageWidget} from "../passage/utils";
 
 import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {PassageRefPromptJSON} from "../../widget-ai-utils/passage-ref/prompt-utils";
 
 const EN_DASH = "\u2013";
 
@@ -87,6 +89,10 @@ class PassageRef extends React.Component<Props, State> implements Widget {
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
+
+    getPromptJSON(): PassageRefPromptJSON {
+        return _getPromptJSON(this.props);
+    }
 
     _deferredUpdateRange: () => void = () => {
         _.defer(this._updateRange);
@@ -179,4 +185,4 @@ export default {
     version: {major: 0, minor: 1},
     // TODO: things that aren't interactive shouldn't need validators
     validator: () => noopValidator(),
-} as WidgetExports<typeof PassageRef>;
+} satisfies WidgetExports<typeof PassageRef>;

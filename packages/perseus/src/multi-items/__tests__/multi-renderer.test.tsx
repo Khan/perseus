@@ -629,9 +629,6 @@ describe("multi-item renderer", () => {
                       true,
                       false,
                     ],
-                    "noneOfTheAboveIndex": null,
-                    "noneOfTheAboveSelected": false,
-                    "numCorrect": 1,
                   },
                   {
                     "currentValue": "-42",
@@ -784,9 +781,6 @@ describe("multi-item renderer", () => {
                       true,
                       false,
                     ],
-                    "noneOfTheAboveIndex": null,
-                    "noneOfTheAboveSelected": false,
-                    "numCorrect": 1,
                   },
                   {
                     "currentValue": "-42",

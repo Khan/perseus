@@ -28,6 +28,7 @@ import {
 import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
+import {getPromptJSON} from "../widget-ai-utils/interactive-graph/prompt-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
 import interactiveGraphValidator from "./interactive-graphs/interactive-graph-validator";
@@ -54,6 +55,8 @@ import type {
     PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
 } from "../validation.types";
+import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/prompt-utils";
+import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
 
 const TRASH_ICON_URI =
     "https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png";
@@ -1830,6 +1833,10 @@ class InteractiveGraph extends React.Component<Props, State> {
         );
     }
 
+    getPromptJSON(): InteractiveGraphPromptJSON | UnsupportedWidgetPromptJSON {
+        return getPromptJSON(this.props, this.getUserInput());
+    }
+
     render() {
         // Mafs shim
         const mafsFlags = this.props.apiOptions?.flags?.["mafs"];
@@ -2390,4 +2397,4 @@ export default {
     widget: InteractiveGraph,
     staticTransform: staticTransform,
     validator: interactiveGraphValidator,
-} as WidgetExports<typeof InteractiveGraph>;
+} satisfies WidgetExports<typeof InteractiveGraph>;

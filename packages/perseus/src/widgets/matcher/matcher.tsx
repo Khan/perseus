@@ -9,6 +9,7 @@ import Sortable from "../../components/sortable";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/prompt-utils";
 
 import matcherValidator from "./matcher-validator";
 
@@ -19,6 +20,7 @@ import type {
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
 } from "../../validation.types";
+import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/prompt-utils";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
@@ -100,6 +102,10 @@ export class Matcher extends React.Component<Props, State> implements Widget {
             right: this.refs.right.getOptions(),
         };
     };
+
+    getPromptJSON(): MatcherPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
 
     // Programatic API for moving options
     // This is used by testing
@@ -283,4 +289,4 @@ export default {
     widget: Matcher,
     isLintable: true,
     validator: matcherValidator,
-} as WidgetExports<typeof Matcher>;
+} satisfies WidgetExports<typeof Matcher>;

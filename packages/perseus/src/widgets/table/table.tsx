@@ -325,4 +325,4 @@ export default {
     hidden: true,
     isLintable: true,
     validator: tableValidator,
-} as WidgetExports<typeof Table>;
+} satisfies WidgetExports<typeof Table>;

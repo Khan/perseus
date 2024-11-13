@@ -100,6 +100,12 @@ export type PerseusItem = {
 };
 
 /**
+ * A "PerseusArticle" is an item that is meant to be rendered as an article.
+ * This item is never scored and is rendered by the `ArticleRenderer`.
+ */
+export type PerseusArticle = PerseusRenderer | ReadonlyArray<PerseusRenderer>;
+
+/**
  * A "MultiItem" is an advanced Perseus item. It is rendered by the
  * `MultiRenderer` and you can control the layout of individual parts of the
  * item.
@@ -172,7 +178,7 @@ export const ItemExtras = [
 ] as const;
 export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
 
-type WidgetOptions<Type extends string, Options> = {
+export type WidgetOptions<Type extends string, Options> = {
     // The "type" of widget which will define what the Options field looks like
     type: Type;
     // Whether this widget is displayed with the values and is immutable.  For display only
@@ -666,7 +672,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     fullGraphAriaDescription?: string;
 };
 
-const lockedFigureColorNames = [
+export const lockedFigureColorNames = [
     "blue",
     "green",
     "grayH",

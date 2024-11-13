@@ -11,12 +11,14 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import a11y from "../../util/a11y";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/prompt-utils";
 import noopValidator from "../__shared__/noop-validator";
 
 import VideoTranscriptLink from "./video-transcript-link";
 
 import type {PerseusVideoWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 // Current default is 720p, based on the typical videos we upload currently
 const DEFAULT_WIDTH = 1280;
@@ -47,6 +49,10 @@ class Video extends React.Component<Props> implements Widget {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
+
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
+    }
 
     render(): React.ReactNode {
         const {InitialRequestUrl} = getDependencies();
@@ -118,4 +124,4 @@ export default {
     widget: Video,
     // TODO: things that aren't interactive shouldn't need validators
     validator: () => noopValidator(),
-} as WidgetExports<typeof Video>;
+} satisfies WidgetExports<typeof Video>;
