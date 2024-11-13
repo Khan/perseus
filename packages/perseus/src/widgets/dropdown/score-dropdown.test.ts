@@ -6,7 +6,7 @@ import type {
     PerseusDropdownUserInput,
 } from "../../validation.types";
 
-describe("dropdownValidator", () => {
+describe("scoreDropdown", () => {
     it("returns invalid for user input of 0", () => {
         // Arrange
         const userInput: PerseusDropdownUserInput = {

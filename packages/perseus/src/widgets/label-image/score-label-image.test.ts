@@ -71,7 +71,7 @@ describe("scoreMarker", function () {
     });
 });
 
-describe("labelImageValidator", function () {
+describe("scoreLabelImage", function () {
     it("should not grade non-interacted widget", function () {
         const state = {
             markers: [

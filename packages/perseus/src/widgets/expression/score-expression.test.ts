@@ -1,9 +1,9 @@
 import {mockStrings} from "../../strings";
 
-import validate from "./score-expression";
 import {expressionItem3Options} from "./expression.testdata";
+import validate from "./score-expression";
 
-describe("expression-validator", () => {
+describe("scoreExpression", () => {
     it("should handle defined ungraded answer case with no error callback", function () {
         const err = validate("x+1", expressionItem3Options, mockStrings, "en");
         expect(err).toHaveInvalidInput();

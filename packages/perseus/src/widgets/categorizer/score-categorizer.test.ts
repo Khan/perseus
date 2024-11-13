@@ -4,7 +4,7 @@ import scoreCategorizer from "./score-categorizer";
 
 import type {PerseusCategorizerRubric} from "../../validation.types";
 
-describe("categorizerValidator", () => {
+describe("scoreCategorizer", () => {
     it("gives points when the answer is correct", () => {
         const rubric: PerseusCategorizerRubric = {
             values: [1, 3],

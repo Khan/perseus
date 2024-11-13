@@ -33,7 +33,7 @@ function generateRubric(
     return {...baseRubric, ...extend};
 }
 
-describe("plotterValidator", () => {
+describe("scorePlotter", () => {
     it("is invalid if the start and end are the same", () => {
         // Arrange
         const rubric = generateRubric();

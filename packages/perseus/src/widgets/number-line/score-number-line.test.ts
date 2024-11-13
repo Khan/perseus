@@ -41,7 +41,7 @@ function generateRubric(
     return {...baseRubric, ...extend};
 }
 
-describe("numberLineValidator", () => {
+describe("scoreNumberLine", () => {
     it("is invalid when outside allowed range", () => {
         // Arrange
         const userInput = generateInput({

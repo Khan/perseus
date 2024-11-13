@@ -2,7 +2,7 @@ import {scoreIframe} from "./score-iframe";
 
 import type {PerseusIFrameUserInput} from "../../validation.types";
 
-describe("iframeValidator", () => {
+describe("scoreIframe", () => {
     it("is correct when the state from the iframe shows the status is correct", () => {
         // Arrange
         const state: PerseusIFrameUserInput = {

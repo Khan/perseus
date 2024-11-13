@@ -1,6 +1,6 @@
 import scoreNoop from "./score-noop";
 
-describe("noop-validator", () => {
+describe("score-noop", () => {
     it("returns a pointless object", () => {
         const result = scoreNoop();
         expect(result).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});

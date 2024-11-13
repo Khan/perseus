@@ -5,7 +5,7 @@ import type {
     PerseusSorterUserInput,
 } from "../../validation.types";
 
-describe("SorterValidator", () => {
+describe("scoreSorter", () => {
     it("is correct when the user input values are in the order defined in the rubric", () => {
         const userInput: PerseusSorterUserInput = {
             options: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],

@@ -7,7 +7,7 @@ import type {
     PerseusMatrixUserInput,
 } from "../../validation.types";
 
-describe("matrixValidator", () => {
+describe("scoreMatrix", () => {
     it("can be answered correctly", () => {
         // Arrange
         const rubric: PerseusMatrixRubric = {
@@ -67,7 +67,7 @@ describe("matrixValidator", () => {
         const userInput: PerseusMatrixUserInput = {
             answers: [
                 // TODO: this is either legacy logic or an incorrect type,
-                // but this is what the validator is checking for
+                // but this is what the scoring function is checking for
                 // @ts-expect-error - TS(2322) - Type 'null' is not assignable to type 'number'.
                 [0, 0, null],
                 [0, 0, 0],
@@ -95,7 +95,7 @@ describe("matrixValidator", () => {
         const userInput: PerseusMatrixUserInput = {
             answers: [
                 // TODO: this is either legacy logic or an incorrect type,
-                // but this is what the validator is checking for
+                // but this is what the scoring function is checking for
                 // @ts-expect-error - TS(2322) - Type 'null' is not assignable to type 'number'.
                 [0, 0, ""],
                 [0, 0, 0],

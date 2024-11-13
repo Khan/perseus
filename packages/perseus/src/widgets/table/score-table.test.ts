@@ -7,7 +7,7 @@ import type {
     PerseusTableUserInput,
 } from "../../validation.types";
 
-describe("tableValidator", () => {
+describe("scoreTable", () => {
     it("is invalid if there is an empty cell", () => {
         // Arrange
         const userInput: PerseusTableUserInput = [

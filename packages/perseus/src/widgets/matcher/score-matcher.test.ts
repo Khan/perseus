@@ -5,7 +5,7 @@ import type {
     PerseusMatcherUserInput,
 } from "../../validation.types";
 
-describe("matcherValidator", () => {
+describe("scoreMatcher", () => {
     it("can be answered incorrectly", () => {
         // Arrange
         const userInput: PerseusMatcherUserInput = {

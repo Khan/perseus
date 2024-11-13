@@ -7,7 +7,7 @@ import type {
     PerseusRadioUserInput,
 } from "../../validation.types";
 
-describe("radioValidator", () => {
+describe("scoreRadio", () => {
     it("is invalid when no options are selected", () => {
         const userInput: PerseusRadioUserInput = {
             choicesSelected: [false, false, false, false],

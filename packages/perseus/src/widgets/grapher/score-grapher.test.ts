@@ -6,7 +6,7 @@ import type {
     PerseusGrapherUserInput,
 } from "../../validation.types";
 
-describe("grapherValidator", () => {
+describe("scoreGrapher", () => {
     it("is incorrect when user input type doesn't match rubric type", () => {
         const asymptote: [Coord, Coord] = [
             [-10, -10],
@@ -54,7 +54,7 @@ describe("grapherValidator", () => {
             type: "exponential",
             asymptote,
             // TODO: either the types or logic is wrong,
-            // but the existing validator checks for null coords
+            // but the existing scoring function checks for null coords
             // @ts-expect-error - TS(2322) - Type 'null' is not assignable to type 'readonly Coord[]'.
             coords: null,
         };
