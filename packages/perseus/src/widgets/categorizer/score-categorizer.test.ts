@@ -1,6 +1,6 @@
 import {mockStrings} from "../../strings";
 
-import categorizerValidator from "./categorizer-validator";
+import scoreCategorizer from "./score-categorizer";
 
 import type {PerseusCategorizerRubric} from "../../validation.types";
 
@@ -13,7 +13,7 @@ describe("categorizerValidator", () => {
         const userInput = {
             values: [1, 3],
         } as const;
-        const score = categorizerValidator(userInput, rubric, mockStrings);
+        const score = scoreCategorizer(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -26,7 +26,7 @@ describe("categorizerValidator", () => {
         const userInput = {
             values: [2, 3],
         } as const;
-        const score = categorizerValidator(userInput, rubric, mockStrings);
+        const score = scoreCategorizer(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -39,7 +39,7 @@ describe("categorizerValidator", () => {
         const userInput = {
             values: [2],
         } as const;
-        const score = categorizerValidator(userInput, rubric, mockStrings);
+        const score = scoreCategorizer(userInput, rubric, mockStrings);
 
         expect(score).toHaveInvalidInput(
             "Make sure you select something for every row.",

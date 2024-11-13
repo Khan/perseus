@@ -5,7 +5,7 @@ import type {
     PerseusCategorizerUserInput,
 } from "../../validation.types";
 
-function categorizerValidator(
+function scoreCategorizer(
     userInput: PerseusCategorizerUserInput,
     rubric: PerseusCategorizerRubric,
     strings: PerseusStrings,
@@ -34,4 +34,4 @@ function categorizerValidator(
     };
 }
 
-export default categorizerValidator;
+export default scoreCategorizer;
