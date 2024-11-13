@@ -1,4 +1,4 @@
-import numberLineValidator from "./number-line-validator";
+import scoreNumberLine from "./score-number-line";
 
 import type {
     PerseusNumberLineRubric,
@@ -52,7 +52,7 @@ describe("numberLineValidator", () => {
         const rubric = generateRubric();
 
         // Act
-        const result = numberLineValidator(userInput, rubric);
+        const result = scoreNumberLine(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput(
@@ -71,7 +71,7 @@ describe("numberLineValidator", () => {
         });
 
         // Act
-        const result = numberLineValidator(userInput, rubric);
+        const result = scoreNumberLine(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -86,7 +86,7 @@ describe("numberLineValidator", () => {
         const rubric = generateRubric();
 
         // Act
-        const result = numberLineValidator(userInput, rubric);
+        const result = scoreNumberLine(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -101,7 +101,7 @@ describe("numberLineValidator", () => {
         const rubric = generateRubric();
 
         // Act
-        const result = numberLineValidator(userInput, rubric);
+        const result = scoreNumberLine(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();

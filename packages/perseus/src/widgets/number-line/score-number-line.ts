@@ -6,7 +6,7 @@ import type {
     PerseusNumberLineUserInput,
 } from "../../validation.types";
 
-function numberLineValidator(
+function scoreNumberLine(
     state: PerseusNumberLineUserInput,
     rubric: PerseusNumberLineRubric,
 ): PerseusScore {
@@ -53,4 +53,4 @@ function numberLineValidator(
     };
 }
 
-export default numberLineValidator;
+export default scoreNumberLine;

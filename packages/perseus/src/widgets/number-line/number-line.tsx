@@ -14,7 +14,7 @@ import KhanColors from "../../util/colors";
 import KhanMath from "../../util/math";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/prompt-utils";
 
-import numberLineValidator from "./number-line-validator";
+import scoreNumberLine from "./score-number-line";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
@@ -805,5 +805,5 @@ export default {
     widget: NumberLine,
     transform: numberLineTransform,
     staticTransform: staticTransform,
-    scorer: numberLineValidator,
+    scorer: scoreNumberLine,
 } satisfies WidgetExports<typeof NumberLine>;
