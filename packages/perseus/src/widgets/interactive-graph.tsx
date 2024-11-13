@@ -31,8 +31,8 @@ import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 import {getPromptJSON} from "../widget-ai-utils/interactive-graph/prompt-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
-import interactiveGraphValidator from "./interactive-graphs/interactive-graph-validator";
 import {getClockwiseAngle} from "./interactive-graphs/math";
+import scoreInteractiveGraph from "./interactive-graphs/score-interactive-graph";
 
 import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
 import type {QuadraticGraphState} from "./interactive-graphs/types";
@@ -2396,5 +2396,5 @@ export default {
     displayName: "Interactive graph (Assessments only)",
     widget: InteractiveGraph,
     staticTransform: staticTransform,
-    validator: interactiveGraphValidator,
+    scorer: scoreInteractiveGraph,
 } satisfies WidgetExports<typeof InteractiveGraph>;

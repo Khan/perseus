@@ -16,7 +16,7 @@ import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/prompt-utils";
 
-import categorizerValidator from "./categorizer-validator";
+import scoreCategorizer from "./score-categorizer";
 
 import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -325,5 +325,5 @@ export default {
         );
     },
     isLintable: true,
-    validator: categorizerValidator,
+    scorer: scoreCategorizer,
 } satisfies WidgetExports<typeof Categorizer>;

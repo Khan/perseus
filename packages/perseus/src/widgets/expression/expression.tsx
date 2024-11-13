@@ -18,8 +18,8 @@ import {ApiOptions, ClassNames as ApiClassNames} from "../../perseus-api";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/prompt-utils";
 
-import expressionValidator from "./expression-validator";
 import getDecimalSeparator from "./get-decimal-separator";
+import scoreExpression from "./score-expression";
 
 import type {DependenciesContext} from "../../dependencies";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
@@ -551,7 +551,7 @@ export default {
 
     // For use by the editor
     isLintable: true,
-    validator: expressionValidator,
+    scorer: scoreExpression,
 
     getOneCorrectAnswerFromRubric(
         rubric: PerseusExpressionRubric,

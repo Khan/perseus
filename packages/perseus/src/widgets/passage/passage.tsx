@@ -10,7 +10,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage/prompt-utils";
-import noopValidator from "../__shared__/noop-validator";
+import scoreNoop from "../__shared__/score-noop";
 
 import PassageMarkdown from "./passage-markdown";
 import {isPassageWidget} from "./utils";
@@ -564,5 +564,5 @@ export default {
         );
     },
     isLintable: true,
-    validator: () => noopValidator(),
+    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof Passage>;

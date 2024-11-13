@@ -15,7 +15,7 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/prompt-utils";
 
-import matrixValidator from "./matrix-validator";
+import scoreMatrix from "./score-matrix";
 
 import type {PerseusMatrixWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
@@ -569,5 +569,5 @@ export default {
     transform: propTransform,
     staticTransform: staticTransform,
     isLintable: true,
-    validator: matrixValidator,
+    scorer: scoreMatrix,
 } satisfies WidgetExports<typeof Matrix>;

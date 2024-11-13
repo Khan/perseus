@@ -574,7 +574,7 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
-export type WidgetValidatorFunction = (
+export type WidgetScorerFunction = (
     // The user data needed to score
     userInput: UserInput,
     // The scoring criteria to score against
@@ -623,7 +623,7 @@ export type WidgetExports<
     static renders  */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
-    validator?: WidgetValidatorFunction;
+    scorer?: WidgetScorerFunction;
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,
     ) => string | null | undefined;
