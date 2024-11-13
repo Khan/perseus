@@ -1,4 +1,4 @@
-import {scoreCSProgram} from "./score-cs-program";
+import scoreCSProgram from "./score-cs-program";
 
 import type {PerseusCSProgramUserInput} from "../../validation.types";
 

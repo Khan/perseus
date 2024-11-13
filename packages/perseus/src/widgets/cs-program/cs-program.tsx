@@ -15,7 +15,7 @@ import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/prompt-utils";
 
-import {scoreCSProgram} from "./score-cs-program";
+import scoreCSProgram from "./score-cs-program";
 
 import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
