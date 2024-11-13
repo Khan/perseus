@@ -235,6 +235,10 @@ export type PerseusTableRubric = {
 
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 
+export type PerseusMockWidgetUserInput = {
+    currentValue: string;
+};
+
 export type Rubric =
     | PerseusCategorizerScoringData
     | PerseusCSProgramRubric
@@ -256,8 +260,8 @@ export type Rubric =
     | PerseusPlotterScoringData
     | PerseusRadioRubric
     | PerseusSorterRubric
-    | PerseusTableRubric;
-
+    | PerseusTableRubric
+    | PerseusMockWidgetUserInput;
 export type UserInput =
     | PerseusCategorizerUserInput
     | PerseusCSProgramUserInput
