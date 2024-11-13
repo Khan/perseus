@@ -136,7 +136,18 @@ const LockedPointSettings = (props: Props) => {
             return str;
         }
 
-        getPrepopulatedAriaLabel().then(setPrepopulatedAriaLabel);
+        // Guard against the race condition where we're getting the
+        // aria label from a previous render with different coords,
+        // labels, or pointColor.
+        let canceled = false;
+
+        getPrepopulatedAriaLabel().then(
+            (label) => !canceled && setPrepopulatedAriaLabel(label),
+        );
+
+        return () => {
+            canceled = true;
+        };
     }, [coord, labels, pointColor]);
 
     function handleColorChange(newValue) {
