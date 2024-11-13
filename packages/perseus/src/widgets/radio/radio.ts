@@ -3,7 +3,7 @@ import _ from "underscore";
 import Util from "../../util";
 
 import Radio from "./radio-component";
-import radioValidator from "./radio-validator";
+import scoreRadio from "./score-radio";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusRadioWidgetOptions} from "../../perseus-types";
@@ -156,5 +156,5 @@ export default {
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
     isLintable: true,
-    scorer: radioValidator,
+    scorer: scoreRadio,
 } satisfies WidgetExports<typeof Radio>;

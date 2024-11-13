@@ -8,7 +8,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/promp
 import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio";
-import radioValidator from "./radio-validator";
+import scoreRadio from "./score-radio";
 
 import type {FocusFunction, ChoiceType} from "./base-radio";
 import type {
@@ -302,7 +302,7 @@ class Radio extends React.Component<Props> implements Widget {
     ) => void = (rubric) => {
         const {choiceStates} = this.props;
         if (choiceStates) {
-            const score = radioValidator(
+            const score = scoreRadio(
                 this.getUserInput(),
                 rubric,
                 this.context.strings,

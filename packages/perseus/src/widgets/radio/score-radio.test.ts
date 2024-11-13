@@ -1,6 +1,6 @@
 import {mockStrings} from "../../strings";
 
-import radioValidator from "./radio-validator";
+import scoreRadio from "./score-radio";
 
 import type {
     PerseusRadioRubric,
@@ -22,7 +22,7 @@ describe("radioValidator", () => {
             ],
         };
 
-        const result = radioValidator(userInput, rubric, mockStrings);
+        const result = scoreRadio(userInput, rubric, mockStrings);
 
         expect(result).toHaveInvalidInput();
     });
@@ -42,7 +42,7 @@ describe("radioValidator", () => {
             ],
         };
 
-        const result = radioValidator(userInput, rubric, mockStrings);
+        const result = scoreRadio(userInput, rubric, mockStrings);
 
         expect(result).toHaveInvalidInput();
     });
@@ -63,7 +63,7 @@ describe("radioValidator", () => {
             ],
         };
 
-        const result = radioValidator(userInput, rubric, mockStrings);
+        const result = scoreRadio(userInput, rubric, mockStrings);
 
         expect(result).toHaveInvalidInput();
     });
@@ -82,7 +82,7 @@ describe("radioValidator", () => {
             ],
         };
 
-        const result = radioValidator(userInput, rubric, mockStrings);
+        const result = scoreRadio(userInput, rubric, mockStrings);
 
         expect(result).toHaveBeenAnsweredCorrectly();
     });
@@ -101,7 +101,7 @@ describe("radioValidator", () => {
             ],
         };
 
-        const result = radioValidator(userInput, rubric, mockStrings);
+        const result = scoreRadio(userInput, rubric, mockStrings);
 
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
@@ -120,7 +120,7 @@ describe("radioValidator", () => {
             ],
         };
 
-        const result = radioValidator(userInput, rubric, mockStrings);
+        const result = scoreRadio(userInput, rubric, mockStrings);
 
         expect(result).toHaveBeenAnsweredCorrectly();
     });
@@ -139,7 +139,7 @@ describe("radioValidator", () => {
             ],
         };
 
-        const result = radioValidator(userInput, rubric, mockStrings);
+        const result = scoreRadio(userInput, rubric, mockStrings);
 
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
@@ -160,7 +160,7 @@ describe("radioValidator", () => {
             ],
         };
 
-        const result = radioValidator(userInput, rubric, mockStrings);
+        const result = scoreRadio(userInput, rubric, mockStrings);
 
         expect(result).toHaveBeenAnsweredCorrectly();
     });
@@ -181,7 +181,7 @@ describe("radioValidator", () => {
             ],
         };
 
-        const result = radioValidator(userInput, rubric, mockStrings);
+        const result = scoreRadio(userInput, rubric, mockStrings);
 
         expect(result).toHaveBeenAnsweredIncorrectly();
     });

@@ -5,7 +5,7 @@ import type {
     PerseusRadioUserInput,
 } from "../../validation.types";
 
-function radioValidator(
+function scoreRadio(
     userInput: PerseusRadioUserInput,
     rubric: PerseusRadioRubric,
     strings: PerseusStrings,
@@ -66,4 +66,4 @@ function radioValidator(
     };
 }
 
-export default radioValidator;
+export default scoreRadio;
