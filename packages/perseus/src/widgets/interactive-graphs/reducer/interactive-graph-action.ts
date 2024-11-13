@@ -135,11 +135,6 @@ export interface FocusPoint {
     index: number;
 }
 function focusPoint(index: number): FocusPoint {
-    // Likely need to add logic here that if we're in an
-    // Unlimited Polygon graph. If there are more than
-    // 3 points and a user focuses on the first point
-    // To set the polygon state prop closedPolygon=true.
-    // Or something to that effect.
     return {
         type: FOCUS_POINT,
         index,

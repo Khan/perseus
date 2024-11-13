@@ -474,7 +474,8 @@ const renderPolygonGraphControls = (props: {
                         }}
                         // Disable button when polygon is closed.
                         disabled={closedPolygon}
-                        tabIndex={0}
+                        // Do not make the button tabbable when it is disabled.
+                        tabIndex={closedPolygon ? -1 : 0}
                         onClick={() => {
                             props.dispatch(actions.polygon.addPoint([0, 0]));
                         }}
@@ -595,7 +596,13 @@ function handleKeyboardEvent(
                     "movable-point__focusable-handle",
                 )
             ) {
-                dispatch(actions.global.deleteIntent());
+                // Only allow delete if type is point or a polygon that is open.
+                if (
+                    state.type === "point" ||
+                    (state.type === "polygon" && !state.closedPolygon)
+                ) {
+                    dispatch(actions.global.deleteIntent());
+                }
             }
 
             // After removing a point blur
