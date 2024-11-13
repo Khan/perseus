@@ -3590,7 +3590,7 @@ parser.yy = {
 };
 
 type ParseOptions = {
-    functions?: string[];
+    functions?: ReadonlyArray<string>;
     decimal_separator?: string;
 };
 
