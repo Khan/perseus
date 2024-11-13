@@ -16,8 +16,6 @@ describe("scoreTable", () => {
         ];
 
         const rubric: PerseusTableRubric = {
-            rows: 2,
-            columns: 2,
             answers: [
                 ["1", "2"],
                 ["3", "4"],
@@ -40,8 +38,6 @@ describe("scoreTable", () => {
         ];
 
         const rubric: PerseusTableRubric = {
-            rows: 2,
-            columns: 2,
             answers: [
                 ["1", "2"],
                 ["3", "4"],
@@ -63,8 +59,6 @@ describe("scoreTable", () => {
         ];
 
         const rubric: PerseusTableRubric = {
-            rows: 2,
-            columns: 2,
             answers: [
                 ["1", "2"],
                 ["3", "4"],
@@ -86,8 +80,6 @@ describe("scoreTable", () => {
         ];
 
         const rubric: PerseusTableRubric = {
-            rows: 2,
-            columns: 2,
             answers: [
                 ["1", "2"],
                 ["3", "4"],
@@ -109,8 +101,6 @@ describe("scoreTable", () => {
         ];
 
         const rubric: PerseusTableRubric = {
-            rows: 2,
-            columns: 2,
             answers: [
                 ["1", "2"],
                 ["3", "4"],

@@ -34,7 +34,7 @@ function scoreTable(
     }
 
     const createValidator = KhanAnswerTypes.number.createValidatorFunctional;
-    let message = null;
+    let message: string | null = null;
     const allCorrect = solution.every(function (rowSolution) {
         for (let i = 0; i < supplied.length; i++) {
             const rowSupplied = supplied[i];
@@ -49,7 +49,6 @@ function scoreTable(
                 );
                 const result = validator(cellSupplied);
                 if (result.message) {
-                    // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
                     message = result.message;
                 }
                 return result.correct;
@@ -65,7 +64,7 @@ function scoreTable(
         type: "points",
         earned: allCorrect ? 1 : 0,
         total: 1,
-        message: message,
+        message,
     };
 }
 
