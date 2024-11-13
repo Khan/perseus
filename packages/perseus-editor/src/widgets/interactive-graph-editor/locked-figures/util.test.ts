@@ -312,10 +312,31 @@ describe("generateMathDetails", () => {
         expect(convertedString).toBe("Circle with radius one half units");
     });
 
-    test("should read dollar signs as dollars", async () => {
+    test("should read dollar signs as dollars inside tex", async () => {
         const mathString = "This sandwich costs ${$}12.34$";
         const convertedString = await generateSpokenMathDetails(mathString);
 
         expect(convertedString).toBe("This sandwich costs dollar sign 12.34");
+    });
+
+    test("should read dollar signs as dollars outside tex", async () => {
+        const mathString = "This sandwich costs \\$12.34";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("This sandwich costs $12.34");
+    });
+
+    test("should read curly braces", async () => {
+        const mathString = "Hello}{";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("Hello}{");
+    });
+
+    test("should read backslashes", async () => {
+        const mathString = "\\";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("\\");
     });
 });

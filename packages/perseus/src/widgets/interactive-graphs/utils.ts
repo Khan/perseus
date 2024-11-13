@@ -112,6 +112,10 @@ type ParsedNode = {
 function condenseTextNodes(nodes: Array<ParsedNode>): Array<ParsedNode> {
     const result: ParsedNode[] = [];
 
+    if (!nodes) {
+        return result;
+    }
+
     let currentText = "";
     for (const node of nodes) {
         if (node.type === "math") {
