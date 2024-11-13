@@ -13,7 +13,6 @@ import type {
     PerseusOrdererWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusRadioChoice,
-    PerseusTableWidgetOptions,
     PerseusGraphCorrectType,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
