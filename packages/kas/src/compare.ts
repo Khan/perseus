@@ -1,6 +1,10 @@
 import type {CompareOptions, CompareResult, Expression} from "./types";
 
-// Assumes that both expressions have already been parsed
+/**
+ * Compares two expressions for equality.
+ *
+ * Assumes that both expressions have already been parsed.
+ */
 // TODO(alex): be able to pass a random() function to compare()
 export const compare = function (
     expr1: Expression,

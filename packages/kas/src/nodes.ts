@@ -128,7 +128,7 @@ abstract class Expr {
     abstract func: {new (...args: any[]): any; name: string};
 
     // an array of the arguments to this node's immediate constructor
-    abstract args(): (number | string | Expr)[];
+    abstract args(): (number | string | Expr | undefined)[];
 
     // make a new node with the given arguments
     construct(args: any[]) {
@@ -144,10 +144,10 @@ abstract class Expr {
     // NOTE(kevinb): This method is highly dynamic.  It's possible that it
     // could be made more type-safe using overload signatures.
     recurse(method: string, ...passed: any[]): this {
-        var args = _.map(this.args(), function (arg) {
+        var args = this.args().map(function (arg) {
             return _.isString(arg) || _.isNumber(arg)
                 ? arg
-                : arg[method].apply(arg, passed);
+                : arg?.[method].apply(arg, passed);
         });
         return this.construct(args);
     }
@@ -230,9 +230,13 @@ abstract class Expr {
         return (
             this.name() +
             "(" +
-            _.map(this.args(), function (arg) {
-                return _.isString(arg) || _.isNumber(arg) ? arg : arg.repr();
-            }).join(",") +
+            this.args()
+                .map(function (arg) {
+                    return _.isString(arg) || _.isNumber(arg)
+                        ? arg
+                        : arg?.repr();
+                })
+                .join(",") +
             ")"
         );
     }
@@ -2969,9 +2973,9 @@ export class Func extends Sym {
 /* variable */
 export class Var extends Sym {
     symbol: string;
-    subscript: Expr;
+    subscript?: Expr;
 
-    constructor(symbol: string, subscript: Expr) {
+    constructor(symbol: string, subscript?: Expr) {
         super();
         this.symbol = symbol;
         this.subscript = subscript;

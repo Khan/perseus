@@ -43,11 +43,15 @@ expect.extend({
         [original, newUnit]: [any, any],
         expected: any,
     ): jest.CustomMatcherResult {
-        const originalParsed = KAS.unitParse(original).expr;
+        const originalParsed = KAS.unitParse(original);
+        if (!originalParsed.parsed || originalParsed.expr == null) {
+            return {pass: false, message: () => `could not parse ${original}`};
+        }
+
         const newUnitParsed = KAS.unitParse(newUnit).unit;
         const x = new KAS.Var("x");
         const equality = new KAS.Eq(
-            originalParsed,
+            originalParsed.expr,
             "=",
             new KAS.Mul(x, newUnitParsed),
         );
@@ -64,10 +68,16 @@ expect.extend({
         [x, y]: [any, any],
         msg: string,
     ): jest.CustomMatcherResult {
-        const equal = KAS.compare(
-            KAS.unitParse(x).unit,
-            KAS.unitParse(y).unit,
-        ).equal;
+        const parsedX = KAS.unitParse(x);
+        if (!parsedX.parsed || !parsedX.unit) {
+            return {pass: false, message: () => `could not parse ${x}`};
+        }
+        const parsedY = KAS.unitParse(y);
+        if (!parsedY.parsed || !parsedY.unit) {
+            return {pass: false, message: () => `could not parse ${x}`};
+        }
+
+        const equal = KAS.compare(parsedX.unit, parsedY.unit).equal;
 
         return equal
             ? {pass: true, message: () => ""}
