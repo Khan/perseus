@@ -17,7 +17,7 @@
     },
     "module": "dist/es/index.js",
     "main": "dist/index.js",
-    "source": "src/index.js",
+    "source": "src/index.ts",
     "files": [
         "dist"
     ],
