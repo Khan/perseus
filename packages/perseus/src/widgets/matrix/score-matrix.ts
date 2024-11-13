@@ -11,7 +11,7 @@ import type {
     PerseusMatrixUserInput,
 } from "../../validation.types";
 
-function matrixValidator(
+function scoreMatrix(
     userInput: PerseusMatrixUserInput,
     rubric: PerseusMatrixRubric,
     strings: PerseusStrings,
@@ -82,4 +82,4 @@ function matrixValidator(
     };
 }
 
-export default matrixValidator;
+export default scoreMatrix;

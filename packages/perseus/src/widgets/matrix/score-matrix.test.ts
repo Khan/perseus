@@ -1,6 +1,6 @@
 import {mockStrings} from "../../strings";
 
-import matrixValidator from "./matrix-validator";
+import scoreMatrix from "./score-matrix";
 
 import type {
     PerseusMatrixRubric,
@@ -23,7 +23,7 @@ describe("matrixValidator", () => {
         };
 
         // Act
-        const result = matrixValidator(userInput, rubric, mockStrings);
+        const result = scoreMatrix(userInput, rubric, mockStrings);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -48,7 +48,7 @@ describe("matrixValidator", () => {
         };
 
         // Act
-        const result = matrixValidator(userInput, rubric, mockStrings);
+        const result = scoreMatrix(userInput, rubric, mockStrings);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -76,7 +76,7 @@ describe("matrixValidator", () => {
         };
 
         // Act
-        const result = matrixValidator(userInput, rubric, mockStrings);
+        const result = scoreMatrix(userInput, rubric, mockStrings);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -104,7 +104,7 @@ describe("matrixValidator", () => {
         };
 
         // Act
-        const result = matrixValidator(userInput, rubric, mockStrings);
+        const result = scoreMatrix(userInput, rubric, mockStrings);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -133,12 +133,12 @@ describe("matrixValidator", () => {
         };
 
         // Act
-        const correctResult = matrixValidator(
+        const correctResult = scoreMatrix(
             correctUserInput,
             rubric,
             mockStrings,
         );
-        const incorrectResult = matrixValidator(
+        const incorrectResult = scoreMatrix(
             incorrectUserInput,
             rubric,
             mockStrings,
