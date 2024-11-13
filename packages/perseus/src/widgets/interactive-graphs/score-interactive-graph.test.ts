@@ -2,7 +2,7 @@ import invariant from "tiny-invariant";
 
 import {clone} from "../../../../../testing/object-utils";
 
-import interactiveGraphValidator from "./interactive-graph-validator";
+import scoreInteractiveGraph from "./score-interactive-graph";
 
 import type {PerseusGraphType} from "../../perseus-types";
 import type {PerseusInteractiveGraphRubric} from "../../validation.types";
@@ -25,7 +25,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
             },
         };
 
-        const result = interactiveGraphValidator(guess, rubric);
+        const result = scoreInteractiveGraph(guess, rubric);
 
         expect(result).toHaveInvalidInput();
     });
@@ -54,7 +54,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
             },
         };
 
-        const result = interactiveGraphValidator(guess, rubric);
+        const result = scoreInteractiveGraph(guess, rubric);
 
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
@@ -83,7 +83,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
             },
         };
 
-        const result = interactiveGraphValidator(guess, rubric);
+        const result = scoreInteractiveGraph(guess, rubric);
 
         expect(result).toHaveBeenAnsweredCorrectly();
     });
@@ -111,7 +111,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
             },
         };
 
-        const result = interactiveGraphValidator(guess, rubric);
+        const result = scoreInteractiveGraph(guess, rubric);
 
         expect(result).toHaveBeenAnsweredCorrectly();
     });
@@ -140,7 +140,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
             },
         };
 
-        interactiveGraphValidator(guess, rubric);
+        scoreInteractiveGraph(guess, rubric);
 
         expect(guess.coords).toEqual([
             [
@@ -173,7 +173,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
             },
         };
 
-        interactiveGraphValidator(guess, rubric);
+        scoreInteractiveGraph(guess, rubric);
 
         // Narrow the type of `rubric.correct` to segment graph; otherwise TS
         // thinks it might not have a `coords` property.
@@ -204,7 +204,7 @@ describe("InteractiveGraph.validate on an angle question", () => {
             },
         };
 
-        const result = interactiveGraphValidator(guess, rubric);
+        const result = scoreInteractiveGraph(guess, rubric);
 
         expect(result).toHaveInvalidInput();
     });
@@ -221,7 +221,7 @@ describe("InteractiveGraph.validate on a point question", () => {
             },
         };
 
-        const result = interactiveGraphValidator(guess, rubric);
+        const result = scoreInteractiveGraph(guess, rubric);
 
         expect(result).toHaveInvalidInput();
     });
@@ -244,7 +244,7 @@ describe("InteractiveGraph.validate on a point question", () => {
             },
         };
 
-        expect(() => interactiveGraphValidator(guess, rubric)).toThrowError();
+        expect(() => scoreInteractiveGraph(guess, rubric)).toThrowError();
     });
 
     it("does not award points if guess.coords is wrong", () => {
@@ -260,7 +260,7 @@ describe("InteractiveGraph.validate on a point question", () => {
             },
         };
 
-        const result = interactiveGraphValidator(guess, rubric);
+        const result = scoreInteractiveGraph(guess, rubric);
 
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
@@ -278,7 +278,7 @@ describe("InteractiveGraph.validate on a point question", () => {
             },
         };
 
-        const result = interactiveGraphValidator(guess, rubric);
+        const result = scoreInteractiveGraph(guess, rubric);
 
         expect(result).toHaveBeenAnsweredCorrectly();
     });
@@ -302,7 +302,7 @@ describe("InteractiveGraph.validate on a point question", () => {
             },
         };
 
-        const result = interactiveGraphValidator(guess, rubric);
+        const result = scoreInteractiveGraph(guess, rubric);
 
         expect(result).toHaveBeenAnsweredCorrectly();
     });
@@ -328,7 +328,7 @@ describe("InteractiveGraph.validate on a point question", () => {
 
         const guessClone = clone(guess);
 
-        interactiveGraphValidator(guess, rubric);
+        scoreInteractiveGraph(guess, rubric);
 
         expect(guess).toEqual(guessClone);
     });
@@ -354,7 +354,7 @@ describe("InteractiveGraph.validate on a point question", () => {
 
         const rubricClone = clone(rubric);
 
-        interactiveGraphValidator(guess, rubric);
+        scoreInteractiveGraph(guess, rubric);
 
         expect(rubric).toEqual(rubricClone);
     });

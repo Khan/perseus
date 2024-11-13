@@ -23,7 +23,7 @@ import type {
 const eq = Util.eq;
 const deepEq = Util.deepEq;
 
-function interactiveGraphValidator(
+function scoreInteractiveGraph(
     userInput: PerseusInteractiveGraphUserInput,
     rubric: PerseusInteractiveGraphRubric,
 ): PerseusScore {
@@ -297,4 +297,4 @@ function interactiveGraphValidator(
     };
 }
 
-export default interactiveGraphValidator;
+export default scoreInteractiveGraph;
