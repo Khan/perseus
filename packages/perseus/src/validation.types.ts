@@ -180,7 +180,14 @@ export type PerseusSorterUserInput = {
     changed: boolean;
 };
 
-export type PerseusTableRubric = PerseusTableWidgetOptions;
+export type PerseusTableRubric = {
+    // The number of rows to display
+    rows: number;
+    // The number of columns to display
+    columns: number;
+    // Translatable Text; A 2-dimensional array of text to populate the table with
+    answers: ReadonlyArray<ReadonlyArray<string>>;
+};
 
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 

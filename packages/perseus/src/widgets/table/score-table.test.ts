@@ -16,7 +16,6 @@ describe("scoreTable", () => {
         ];
 
         const rubric: PerseusTableRubric = {
-            headers: ["Col 1", "Col 2"],
             rows: 2,
             columns: 2,
             answers: [
@@ -41,7 +40,6 @@ describe("scoreTable", () => {
         ];
 
         const rubric: PerseusTableRubric = {
-            headers: ["Col 1", "Col 2"],
             rows: 2,
             columns: 2,
             answers: [
@@ -65,7 +63,6 @@ describe("scoreTable", () => {
         ];
 
         const rubric: PerseusTableRubric = {
-            headers: ["Col 1", "Col 2"],
             rows: 2,
             columns: 2,
             answers: [
@@ -89,7 +86,6 @@ describe("scoreTable", () => {
         ];
 
         const rubric: PerseusTableRubric = {
-            headers: ["Col 1", "Col 2"],
             rows: 2,
             columns: 2,
             answers: [
@@ -113,7 +109,6 @@ describe("scoreTable", () => {
         ];
 
         const rubric: PerseusTableRubric = {
-            headers: ["Col 1", "Col 2"],
             rows: 2,
             columns: 2,
             answers: [
