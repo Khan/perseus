@@ -4,7 +4,7 @@ import type {
     PerseusDropdownUserInput,
 } from "../../validation.types";
 
-function dropdownValidator(
+function scoreDropdown(
     userInput: PerseusDropdownUserInput,
     rubric: PerseusDropdownRubric,
 ): PerseusScore {
@@ -24,4 +24,4 @@ function dropdownValidator(
     };
 }
 
-export default dropdownValidator;
+export default scoreDropdown;

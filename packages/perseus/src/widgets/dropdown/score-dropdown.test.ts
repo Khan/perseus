@@ -1,4 +1,4 @@
-import dropdownValidator from "./dropdown-validator";
+import scoreDropdown from "./score-dropdown";
 import {question1} from "./dropdown.testdata";
 
 import type {
@@ -17,7 +17,7 @@ describe("dropdownValidator", () => {
         };
 
         // Act
-        const result = dropdownValidator(userInput, rubric);
+        const result = scoreDropdown(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -33,7 +33,7 @@ describe("dropdownValidator", () => {
         };
 
         // Act
-        const result = dropdownValidator(userInput, rubric);
+        const result = scoreDropdown(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -49,7 +49,7 @@ describe("dropdownValidator", () => {
         };
 
         // Act
-        const result = dropdownValidator(userInput, rubric);
+        const result = scoreDropdown(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
