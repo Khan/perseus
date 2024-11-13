@@ -1,4 +1,4 @@
-import {iframeValidator} from "./iframe-validator";
+import {scoreIframe} from "./score-iframe";
 
 import type {PerseusIFrameUserInput} from "../../validation.types";
 
@@ -11,7 +11,7 @@ describe("iframeValidator", () => {
         };
 
         // Act
-        const result = iframeValidator(state);
+        const result = scoreIframe(state);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -25,7 +25,7 @@ describe("iframeValidator", () => {
         };
 
         // Act
-        const result = iframeValidator(state);
+        const result = scoreIframe(state);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -41,7 +41,7 @@ describe("iframeValidator", () => {
         };
 
         // Act
-        const result = iframeValidator(state);
+        const result = scoreIframe(state);
 
         // Assert
         expect(result).toHaveInvalidInput("Keep going, you're not there yet!");

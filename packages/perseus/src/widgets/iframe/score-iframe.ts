@@ -1,9 +1,7 @@
 import type {PerseusScore} from "../../types";
 import type {PerseusIFrameUserInput} from "../../validation.types";
 
-export function iframeValidator(
-    userInput: PerseusIFrameUserInput,
-): PerseusScore {
+export function scoreIframe(userInput: PerseusIFrameUserInput): PerseusScore {
     // The iframe can tell us whether it's correct or incorrect,
     //  and pass an optional message
     if (userInput.status === "correct") {
