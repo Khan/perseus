@@ -1,4 +1,4 @@
-import matcherValidator from "./matcher-validator";
+import scoreMatcher from "./score-matcher";
 
 import type {
     PerseusMatcherRubric,
@@ -22,7 +22,7 @@ describe("matcherValidator", () => {
         };
 
         // Act
-        const result = matcherValidator(userInput, rubric);
+        const result = scoreMatcher(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -44,7 +44,7 @@ describe("matcherValidator", () => {
         };
 
         // Act
-        const result = matcherValidator(userInput, rubric);
+        const result = scoreMatcher(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();

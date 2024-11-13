@@ -6,7 +6,7 @@ import type {
     PerseusMatcherUserInput,
 } from "../../validation.types";
 
-function matcherValidator(
+function scoreMatcher(
     state: PerseusMatcherUserInput,
     rubric: PerseusMatcherRubric,
 ): PerseusScore {
@@ -22,4 +22,4 @@ function matcherValidator(
     };
 }
 
-export default matcherValidator;
+export default scoreMatcher;
