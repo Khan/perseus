@@ -381,7 +381,7 @@ class Renderer
         // re-rendered we need to call these methods on them.
         this.widgetIds.forEach((id) => {
             const container = this._widgetContainers.get(makeContainerId(id));
-            container && container.replaceWidgetProps(this.getWidgetProps(id));
+            container?.replaceWidgetProps(this.getWidgetProps(id));
         });
 
         if (
@@ -571,15 +571,13 @@ class Renderer
         return null;
     };
 
-    getWidgetProps: (id: string) => WidgetProps<any, PerseusWidgetOptions> = (
-        id,
-    ) => {
+    getWidgetProps(widgetId: string): WidgetProps<any, PerseusWidgetOptions> {
         const apiOptions = this.getApiOptions();
-        const widgetProps = this.state.widgetProps[id] || {};
+        const widgetProps = this.state.widgetProps[widgetId] || {};
 
         // The widget needs access to its "rubric" at all times when in review
         // mode (which is really just part of its widget info).
-        const widgetInfo = this.state.widgetInfo[id];
+        const widgetInfo = this.state.widgetInfo[widgetId];
         const reviewModeRubric =
             this.props.reviewMode && widgetInfo ? widgetInfo.options : null;
 
@@ -587,20 +585,20 @@ class Renderer
             this._interactionTrackers = {};
         }
 
-        let interactionTracker = this._interactionTrackers[id];
+        let interactionTracker = this._interactionTrackers[widgetId];
         if (!interactionTracker) {
-            interactionTracker = this._interactionTrackers[id] =
+            interactionTracker = this._interactionTrackers[widgetId] =
                 new InteractionTracker(
                     apiOptions.trackInteraction,
                     widgetInfo && widgetInfo.type,
-                    id,
+                    widgetId,
                     Widgets.getTracking(widgetInfo && widgetInfo.type),
                 );
         }
 
         return {
             ...widgetProps,
-            widgetId: id,
+            widgetId: widgetId,
             alignment: widgetInfo && widgetInfo.alignment,
             static: widgetInfo?.static,
             problemNum: this.props.problemNum,
@@ -608,18 +606,18 @@ class Renderer
             keypadElement: this.props.keypadElement,
             questionCompleted: this.props.questionCompleted,
             showSolutions: this.props.showSolutions,
-            onFocus: _.partial(this._onWidgetFocus, id),
-            onBlur: _.partial(this._onWidgetBlur, id),
+            onFocus: _.partial(this._onWidgetFocus, widgetId),
+            onBlur: _.partial(this._onWidgetBlur, widgetId),
             findWidgets: this.findWidgets,
             reviewModeRubric: reviewModeRubric,
             reviewMode: this.props.reviewMode,
             onChange: (newProps, cb, silent = false) => {
-                this._setWidgetProps(id, newProps, cb, silent);
+                this._setWidgetProps(widgetId, newProps, cb, silent);
             },
             trackInteraction: interactionTracker.track,
-            isLastUsedWidget: id === this.state.lastUsedWidgetId,
+            isLastUsedWidget: widgetId === this.state.lastUsedWidgetId,
         };
-    };
+    }
 
     /**
      * Serializes the questions state so it can be recovered.

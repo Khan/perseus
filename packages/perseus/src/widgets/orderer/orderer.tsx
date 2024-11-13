@@ -14,7 +14,7 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/prompt-utils";
 
-import {ordererValidator} from "./orderer-validator";
+import {scoreOrderer} from "./score-orderer";
 
 import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
 import type {
@@ -796,5 +796,5 @@ export default {
     hidden: true,
     widget: Orderer,
     isLintable: true,
-    validator: ordererValidator,
+    scorer: scoreOrderer,
 } satisfies WidgetExports<typeof Orderer>;

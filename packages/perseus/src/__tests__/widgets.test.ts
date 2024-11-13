@@ -170,9 +170,6 @@ describe("Widget API support", () => {
             const userInput = Widget.getUserInputFromProps(props);
             expect(userInput).toEqual({
                 choicesSelected: [false, true, false],
-                noneOfTheAboveIndex: null,
-                noneOfTheAboveSelected: false,
-                numCorrect: undefined,
             });
         } else {
             throw new Error("Widget does not have getUserInputFromProps");

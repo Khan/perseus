@@ -119,4 +119,32 @@ describe("replaceOutsideTeX", () => {
             "\\text{Square }A\\text{ is }B\\text{ also}",
         );
     });
+
+    test("with a real $ inside a regular string", () => {
+        const string = "This sandwich is \\$12";
+        const convertedString = replaceOutsideTeX(string);
+
+        expect(convertedString).toEqual("\\text{This sandwich is \\$12}");
+    });
+
+    test("with a real $ inside a TeX string", () => {
+        const mathString = "This sandwich is ${$}12$";
+        const convertedString = replaceOutsideTeX(mathString);
+
+        expect(convertedString).toEqual("\\text{This sandwich is }{$}12");
+    });
+
+    test("escapes curly braces", () => {
+        const mathString = "Hello}{";
+        const convertedString = replaceOutsideTeX(mathString);
+
+        expect(convertedString).toEqual("\\text{Hello\\}\\{}");
+    });
+
+    test("escapes backslashes", () => {
+        const mathString = "\\";
+        const convertedString = replaceOutsideTeX(mathString);
+
+        expect(convertedString).toEqual("\\text{\\\\}");
+    });
 });

@@ -10,7 +10,7 @@ import {ApiOptions} from "../../perseus-api";
 import KhanMath from "../../util/math";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
-import numericInputValidator from "./numeric-input-validator";
+import scoreNumericInput from "./score-numeric-input";
 
 import type {
     PerseusNumericInputWidgetOptions,
@@ -350,7 +350,7 @@ export default {
     widget: NumericInput,
     transform: propsTransform,
     isLintable: true,
-    validator: numericInputValidator,
+    scorer: scoreNumericInput,
 
     getOneCorrectAnswerFromRubric(
         rubric: PerseusNumericInputRubric,

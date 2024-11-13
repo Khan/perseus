@@ -9,7 +9,7 @@ import Graphie from "../../components/graphie";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction/prompt-utils";
-import noopValidator from "../__shared__/noop-validator";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";
 import type {
@@ -812,6 +812,6 @@ export default {
     widget: Interaction,
     transform: _.identity,
     hidden: true,
-    // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(),
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof Interaction>;
