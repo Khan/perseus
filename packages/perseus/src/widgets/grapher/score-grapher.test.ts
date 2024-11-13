@@ -1,4 +1,4 @@
-import grapherValidator from "./grapher-validator";
+import scoreGrapher from "./score-grapher";
 
 import type {Coord} from "../../interactive2/types";
 import type {
@@ -33,7 +33,7 @@ describe("grapherValidator", () => {
         };
 
         // Act
-        const result = grapherValidator(userInput, rubric);
+        const result = scoreGrapher(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -68,7 +68,7 @@ describe("grapherValidator", () => {
         };
 
         // Act
-        const result = grapherValidator(userInput, rubric);
+        const result = scoreGrapher(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -97,7 +97,7 @@ describe("grapherValidator", () => {
         };
 
         // Act
-        const result = grapherValidator(userInput, rubric);
+        const result = scoreGrapher(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -123,7 +123,7 @@ describe("grapherValidator", () => {
         };
 
         // Act
-        const result = grapherValidator(userInput, rubric);
+        const result = scoreGrapher(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -150,7 +150,7 @@ describe("grapherValidator", () => {
         };
 
         // Act
-        const result = grapherValidator(userInput, rubric);
+        const result = scoreGrapher(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();

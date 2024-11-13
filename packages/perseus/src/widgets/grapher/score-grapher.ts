@@ -29,7 +29,7 @@ function getCoefficientsByType(
     }
 }
 
-function grapherValidator(
+function scoreGrapher(
     userInput: PerseusGrapherUserInput,
     rubric: PerseusGrapherRubric,
 ): PerseusScore {
@@ -77,4 +77,4 @@ function grapherValidator(
     };
 }
 
-export default grapherValidator;
+export default scoreGrapher;
