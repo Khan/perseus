@@ -2821,6 +2821,11 @@
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tokens/-/wonder-blocks-tokens-2.0.0.tgz#7d03f1a190ae738134f78bca8ba7fba366f2520f"
   integrity sha512-lCsnCRW2LCSRS9WinbkNXrOG21Tf4sfLTyTsrLT+yO1seWroCj/rwxhbyNWe4vJm+Q6M+DxvC7f3YFcDjuvkcw==
 
+"@khanacademy/wonder-blocks-tokens@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tokens/-/wonder-blocks-tokens-2.0.1.tgz#71692dc900380a80815e76ed4f2c252d1a318251"
+  integrity sha512-q5PsdLP/1DH3OR0Qr7qDD8iaFCBmBWI7cMx25P9ly8pRPYy8M3HNDA3tcuAUTZ6AseSGGP/XSajA74VfqFTxgQ==
+
 "@khanacademy/wonder-blocks-toolbar@3.0.35":
   version "3.0.35"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-toolbar/-/wonder-blocks-toolbar-3.0.35.tgz#a8529e4ad9874e1f9fcf7b7a20fcb4163c51cc83"
