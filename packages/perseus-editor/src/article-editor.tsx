@@ -19,7 +19,7 @@ import {
     iconCircleArrowUp,
     iconPlus,
 } from "./styles/icon-paths";
-import {convertDeprecatedWidgets} from "./util/modernize-widgets-utils";
+import {convertDeprecatedWidgets} from "./util/deprecated-widgets/modernize-widgets-utils";
 
 import type {
     APIOptions,
@@ -30,13 +30,7 @@ import type {
 
 const {HUD, InlineIcon} = components;
 
-type RendererProps = {
-    content?: string;
-    widgets?: any;
-    images?: any;
-};
-
-type JsonType = PerseusRenderer | PerseusRenderer[] | null;
+type JsonType = PerseusRenderer | PerseusRenderer[];
 type DefaultProps = {
     contentPaths?: ReadonlyArray<string>;
     json: JsonType;
@@ -313,7 +307,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         this.props.onChange({json: newJson});
     };
 
-    _handleEditorChange: (i: number, newProps: RendererProps) => void = (
+    _handleEditorChange: (i: number, newProps: PerseusRenderer) => void = (
         i,
         newProps,
     ) => {
@@ -362,7 +356,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         const newSection =
             i >= 0
                 ? {
-                      widgets: sections![i].widgets,
+                      widgets: sections[i].widgets,
                   }
                 : {};
         // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'JsonType'.
@@ -403,7 +397,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
      *
      * This function can currently only be called in edit mode.
      */
-    getSaveWarnings(): ReadonlyArray<RendererProps> {
+    getSaveWarnings(): ReadonlyArray<PerseusRenderer> {
         if (this.props.mode !== "edit") {
             // TODO(joshuan): We should be able to get save warnings in
             // preview mode.

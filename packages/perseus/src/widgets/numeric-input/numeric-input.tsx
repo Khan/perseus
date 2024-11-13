@@ -365,6 +365,8 @@ const propUpgrades = {
                 provideAnswerForm = false;
             }
 
+            // If adjusting this logic, also adjust the logic in the convertInputNumberWidgetOptions
+            // function in input-number.ts in the Perseus Editor package's util folder
             const answers = [
                 {
                     value: initialProps.value,
@@ -385,6 +387,7 @@ const propUpgrades = {
                 coefficient: false, // input-number doesn't have a coefficient prop
                 labelText: "", // input-number doesn't have a labelText prop
                 static: false, // static is always false for numeric-input
+                rightAlign: initialProps.rightAlign || false,
             };
         } else {
             // Otherwise simply return the initialProps as there's no differences

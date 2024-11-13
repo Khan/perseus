@@ -6,7 +6,7 @@ import JsonEditor from "./components/json-editor";
 import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
-import {convertDeprecatedWidgets} from "./util/modernize-widgets-utils";
+import {convertDeprecatedWidgets} from "./util/deprecated-widgets/modernize-widgets-utils";
 
 import type {
     APIOptions,
@@ -100,7 +100,6 @@ class EditorPage extends React.Component<Props, State> {
         this.state = {
             // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea" | "itemDataVersion">' is not assignable to type 'PerseusJson'.
             json: json,
-            question: json.question,
             gradeMessage: "",
             wasAnswered: false,
             highlightLint: true,
@@ -296,7 +295,10 @@ class EditorPage extends React.Component<Props, State> {
                     <ItemEditor
                         ref={this.itemEditor}
                         itemId={this.props.itemId}
-                        question={convertDeprecatedWidgets(this.props.question)}
+                        question={
+                            this.props.question &&
+                            convertDeprecatedWidgets(this.props.question)
+                        }
                         answerArea={this.props.answerArea}
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleChange}
