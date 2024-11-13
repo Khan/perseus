@@ -26,7 +26,7 @@ export type Score = {
     ungraded?: boolean;
 };
 
-/*
+/**
  * Answer types
  *
  * Utility for creating answerable questions displayed in exercises
@@ -69,7 +69,6 @@ export type Score = {
  * TODO(alpert): Think of a less-absurd name for createValidatorFunctional.
  *
  */
-
 const KhanAnswerTypes = {
     /*
      * predicate answer type
