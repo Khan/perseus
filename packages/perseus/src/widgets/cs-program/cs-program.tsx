@@ -15,7 +15,7 @@ import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/prompt-utils";
 
-import {csProgramValidator} from "./cs-program-validator";
+import scoreCSProgram from "./score-cs-program";
 
 import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -205,5 +205,5 @@ export default {
     supportedAlignments: ["block", "full-width"],
     widget: CSProgram,
     hidden: true,
-    validator: csProgramValidator,
+    scorer: scoreCSProgram,
 } satisfies WidgetExports<typeof CSProgram>;
