@@ -9,7 +9,7 @@ import type {
     PerseusTableUserInput,
 } from "../../validation.types";
 
-function tableValidator(
+function scoreTable(
     state: PerseusTableUserInput,
     rubric: PerseusTableRubric,
     strings: PerseusStrings,
@@ -77,4 +77,4 @@ function tableValidator(
     };
 }
 
-export default tableValidator;
+export default scoreTable;

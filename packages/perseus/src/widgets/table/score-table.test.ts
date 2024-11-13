@@ -1,6 +1,6 @@
 import {mockStrings} from "../../strings";
 
-import tableValidator from "./table-validator";
+import scoreTable from "./score-table";
 
 import type {
     PerseusTableRubric,
@@ -26,7 +26,7 @@ describe("tableValidator", () => {
         };
 
         // Act
-        const result = tableValidator(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, rubric, mockStrings);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -51,7 +51,7 @@ describe("tableValidator", () => {
         };
 
         // Act
-        const result = tableValidator(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, rubric, mockStrings);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -75,7 +75,7 @@ describe("tableValidator", () => {
         };
 
         // Act
-        const result = tableValidator(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, rubric, mockStrings);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -99,7 +99,7 @@ describe("tableValidator", () => {
         };
 
         // Act
-        const result = tableValidator(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, rubric, mockStrings);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -123,7 +123,7 @@ describe("tableValidator", () => {
         };
 
         // Act
-        const result = tableValidator(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, rubric, mockStrings);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
