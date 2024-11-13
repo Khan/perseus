@@ -1,6 +1,6 @@
 import {mockStrings} from "../../strings";
 
-import validate from "./expression-validator";
+import validate from "./score-expression";
 import {expressionItem3Options} from "./expression.testdata";
 
 describe("expression-validator", () => {

@@ -34,7 +34,7 @@ import type {
  *   show the user an error. TODO(joel) - what error?
  * - Otherwise, pass through the resulting points and message.
  */
-function expressionValidator(
+function scoreExpression(
     userInput: PerseusExpressionUserInput,
     rubric: PerseusExpressionRubric,
     strings: PerseusStrings,
@@ -170,4 +170,4 @@ function expressionValidator(
     };
 }
 
-export default expressionValidator;
+export default scoreExpression;
