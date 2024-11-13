@@ -10,7 +10,7 @@ import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/prompt-utils";
 
-import inputNumberValidator, {answerTypes} from "./input-number-validator";
+import scoreInputNumber, {answerTypes} from "./score-input-number";
 
 import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
@@ -278,7 +278,7 @@ export default {
     widget: InputNumber,
     transform: propTransform,
     isLintable: true,
-    scorer: inputNumberValidator,
+    scorer: scoreInputNumber,
 
     getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {
         if (rubric.value == null) {

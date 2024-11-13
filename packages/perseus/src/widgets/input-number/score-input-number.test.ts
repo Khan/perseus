@@ -1,6 +1,6 @@
 import {mockStrings} from "../../strings";
 
-import inputNumberValidator from "./input-number-validator";
+import scoreInputNumber from "./score-input-number";
 
 import type {PerseusInputNumberRubric} from "../../validation.types";
 
@@ -18,7 +18,7 @@ describe("inputNumberValidator", () => {
             currentValue: "1",
         } as const;
 
-        const score = inputNumberValidator(useInput, rubric, mockStrings);
+        const score = scoreInputNumber(useInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -36,7 +36,7 @@ describe("inputNumberValidator", () => {
             currentValue: "2",
         } as const;
 
-        const score = inputNumberValidator(useInput, rubric, mockStrings);
+        const score = scoreInputNumber(useInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -54,7 +54,7 @@ describe("inputNumberValidator", () => {
             currentValue: "sadasdfas",
         } as const;
 
-        const score = inputNumberValidator(useInput, rubric, mockStrings);
+        const score = scoreInputNumber(useInput, rubric, mockStrings);
 
         expect(score).toHaveInvalidInput(
             "We could not understand your answer. Please check your answer for extra text or symbols.",
@@ -82,7 +82,7 @@ describe("inputNumberValidator", () => {
             currentValue: "241.91",
         } as const;
 
-        const score = inputNumberValidator(userInput, rubric, mockStrings);
+        const score = scoreInputNumber(userInput, rubric, mockStrings);
 
         expect(score.message).not.toBe(
             "Your answer is close, but yyou may " +
@@ -107,7 +107,7 @@ describe("inputNumberValidator", () => {
             currentValue: "77 pi",
         } as const;
 
-        const score = inputNumberValidator(userInput, rubric, mockStrings);
+        const score = scoreInputNumber(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });

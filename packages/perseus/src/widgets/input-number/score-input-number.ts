@@ -45,7 +45,7 @@ export const answerTypes = {
     },
 } as const;
 
-function inputNumberValidator(
+function scoreInputNumber(
     userInput: PerseusInputNumberUserInput,
     rubric: PerseusInputNumberRubric,
     strings: PerseusStrings,
@@ -91,4 +91,4 @@ function inputNumberValidator(
     };
 }
 
-export default inputNumberValidator;
+export default scoreInputNumber;
