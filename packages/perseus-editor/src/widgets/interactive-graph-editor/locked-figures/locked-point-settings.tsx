@@ -117,7 +117,7 @@ const LockedPointSettings = (props: Props) => {
          * "Point at (x, y)".
          *
          * If the point has labels, the aria label will be
-         * "Point at (x, y) with label1, label2, label3".
+         * "Point label1, label2, label3 at (x, y)".
          */
         async function getPrepopulatedAriaLabel() {
             let visiblelabel = "";

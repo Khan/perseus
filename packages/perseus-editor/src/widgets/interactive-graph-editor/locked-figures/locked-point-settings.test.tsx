@@ -30,7 +30,7 @@ const defaultLabel = getDefaultFigureForType("label");
 jest.mock("./util", () => ({
     ...jest.requireActual("./util"),
     generateSpokenMathDetails: (input) => {
-        return `Spoken math details for ${input}`;
+        return Promise.resolve(`Spoken math details for ${input}`);
     },
 }));
 
