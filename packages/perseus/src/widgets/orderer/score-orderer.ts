@@ -6,7 +6,7 @@ import type {
     PerseusOrdererUserInput,
 } from "../../validation.types";
 
-export function ordererValidator(
+export function scoreOrderer(
     userInput: PerseusOrdererUserInput,
     rubric: PerseusOrdererRubric,
 ): PerseusScore {

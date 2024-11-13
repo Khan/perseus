@@ -1,4 +1,4 @@
-import {ordererValidator} from "./orderer-validator";
+import {scoreOrderer} from "./score-orderer";
 import {question1} from "./orderer.testdata";
 
 import type {
@@ -19,7 +19,7 @@ describe("ordererValiator", () => {
         };
 
         // Act
-        const result = ordererValidator(userInput, rubric);
+        const result = scoreOrderer(userInput, rubric);
 
         // assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -35,7 +35,7 @@ describe("ordererValiator", () => {
         };
 
         // Act
-        const result = ordererValidator(userInput, rubric);
+        const result = scoreOrderer(userInput, rubric);
 
         // assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -51,7 +51,7 @@ describe("ordererValiator", () => {
         };
 
         // Act
-        const result = ordererValidator(userInput, rubric);
+        const result = scoreOrderer(userInput, rubric);
 
         // assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -67,7 +67,7 @@ describe("ordererValiator", () => {
         };
 
         // Act
-        const result = ordererValidator(userInput, rubric);
+        const result = scoreOrderer(userInput, rubric);
 
         // assert
         expect(result).toHaveInvalidInput();
