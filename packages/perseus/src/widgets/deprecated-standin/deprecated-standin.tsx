@@ -2,7 +2,7 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import noopValidator from "../__shared__/noop-validator";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {Widget, WidgetExports} from "../../types";
 
@@ -42,5 +42,5 @@ export default {
     widget: DeprecatedStandin,
     hidden: true,
     // TODO: things that aren't interactive shouldn't need validators
-    scorer: () => noopValidator(1),
+    scorer: () => scoreNoop(1),
 } satisfies WidgetExports<typeof DeprecatedStandin>;

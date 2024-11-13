@@ -6,7 +6,7 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
-import noopValidator from "../__shared__/noop-validator";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {PerseusPassageRefTargetWidgetOptions} from "../../perseus-types";
 import type {APIOptions, WidgetExports, Widget} from "../../types";
@@ -70,5 +70,5 @@ export default {
     version: {major: 0, minor: 0},
     isLintable: true,
     // TODO: things that aren't interactive shouldn't need validators
-    scorer: () => noopValidator(),
+    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof PassageRefTarget>;

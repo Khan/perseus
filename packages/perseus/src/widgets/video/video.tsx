@@ -12,7 +12,7 @@ import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/prompt-utils";
-import noopValidator from "../__shared__/noop-validator";
+import scoreNoop from "../__shared__/score-noop";
 
 import VideoTranscriptLink from "./video-transcript-link";
 
@@ -123,5 +123,5 @@ export default {
     supportedAlignments: ["block", "float-left", "float-right", "full-width"],
     widget: Video,
     // TODO: things that aren't interactive shouldn't need validators
-    scorer: () => noopValidator(),
+    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof Video>;

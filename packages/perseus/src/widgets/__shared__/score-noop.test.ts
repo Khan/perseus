@@ -1,8 +1,8 @@
-import noopValidator from "./noop-validator";
+import scoreNoop from "./score-noop";
 
 describe("noop-validator", () => {
     it("returns a pointless object", () => {
-        const result = noopValidator();
+        const result = scoreNoop();
         expect(result).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});
 
         // This is is just to narrow the type
@@ -14,7 +14,7 @@ describe("noop-validator", () => {
     });
 
     it("can be configured to be pointful", () => {
-        const result = noopValidator(1);
+        const result = scoreNoop(1);
         expect(result).toHaveBeenAnsweredCorrectly();
 
         // This is is just to narrow the type

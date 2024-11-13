@@ -6,7 +6,7 @@ import _ from "underscore";
 import SvgImage from "../../components/svg-image";
 import GraphUtils from "../../util/graph-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/prompt-utils";
-import noopValidator from "../__shared__/noop-validator";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";
 import type {PerseusMeasurerWidgetOptions} from "../../perseus-types";
@@ -206,5 +206,5 @@ export default {
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
     // TODO: things that aren't interactive shouldn't need validators
-    scorer: () => noopValidator(1),
+    scorer: () => scoreNoop(1),
 } satisfies WidgetExports<typeof Measurer>;

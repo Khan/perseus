@@ -9,7 +9,7 @@ import SvgImage from "../../components/svg-image";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/image/prompt-utils";
-import noopValidator from "../__shared__/noop-validator";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, WidgetExports, WidgetProps, Widget} from "../../types";
@@ -264,5 +264,5 @@ export default {
     widget: ImageWidget,
     isLintable: true,
     // TODO: things that aren't interactive shouldn't need validators
-    scorer: () => noopValidator(),
+    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof ImageWidget>;
