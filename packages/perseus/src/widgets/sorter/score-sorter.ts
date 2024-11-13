@@ -6,7 +6,7 @@ import type {
     PerseusSorterUserInput,
 } from "../../validation.types";
 
-function sorterValidator(
+function scoreSorter(
     userInput: PerseusSorterUserInput,
     rubric: PerseusSorterRubric,
 ): PerseusScore {
@@ -32,4 +32,4 @@ function sorterValidator(
     };
 }
 
-export default sorterValidator;
+export default scoreSorter;

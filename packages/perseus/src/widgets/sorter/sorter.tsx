@@ -5,7 +5,7 @@ import Sortable from "../../components/sortable";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/prompt-utils";
 
-import sorterValidator from "./sorter-validator";
+import scoreSorter from "./score-sorter";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
@@ -133,5 +133,5 @@ export default {
     displayName: "Sorter",
     widget: Sorter,
     isLintable: true,
-    scorer: sorterValidator,
+    scorer: scoreSorter,
 } satisfies WidgetExports<typeof Sorter>;
