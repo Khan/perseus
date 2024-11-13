@@ -1,4 +1,4 @@
-import {csProgramValidator} from "./cs-program-validator";
+import {scoreCSProgram} from "./score-cs-program";
 
 import type {PerseusCSProgramUserInput} from "../../validation.types";
 
@@ -11,7 +11,7 @@ describe("csProgramValidator", () => {
         };
 
         // Act
-        const result = csProgramValidator(state);
+        const result = scoreCSProgram(state);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -25,7 +25,7 @@ describe("csProgramValidator", () => {
         };
 
         // Act
-        const result = csProgramValidator(state);
+        const result = scoreCSProgram(state);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -41,7 +41,7 @@ describe("csProgramValidator", () => {
         };
 
         // Act
-        const result = csProgramValidator(state);
+        const result = scoreCSProgram(state);
 
         // Assert
         expect(result).toHaveInvalidInput("Keep going, you're not there yet!");
