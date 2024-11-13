@@ -4,7 +4,7 @@ import scoreInputNumber from "./score-input-number";
 
 import type {PerseusInputNumberRubric} from "../../validation.types";
 
-describe("inputNumberValidator", () => {
+describe("scoreInputNumber", () => {
     it("scores correct answer correctly", () => {
         const rubric: PerseusInputNumberRubric = {
             maxError: 0.1,
