@@ -208,6 +208,7 @@ export type {
     CollinearTuple,
     MathFormat,
     InputNumberWidget, // TODO(jeremy): remove?
+    PerseusArticle,
     // Widget configuration types
     PerseusImageBackground,
     PerseusInputNumberWidgetOptions,

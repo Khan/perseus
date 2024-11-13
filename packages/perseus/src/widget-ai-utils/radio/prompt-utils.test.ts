@@ -34,7 +34,6 @@ describe("Radio getPromptJSON", () => {
 
         const userInput: PerseusRadioUserInput = {
             choicesSelected: [true, false, false, false],
-            noneOfTheAboveSelected: false,
         };
 
         const resultJSON = getPromptJSON(renderProps, userInput);
@@ -50,7 +49,6 @@ describe("Radio getPromptJSON", () => {
             ],
             userInput: {
                 selectedOptions: [true, false, false, false],
-                isNoneOfTheAboveSelected: false,
             },
         });
     });

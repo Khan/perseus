@@ -168,9 +168,6 @@ export type PerseusRadioRubric = {
 
 export type PerseusRadioUserInput = {
     choicesSelected: ReadonlyArray<boolean>;
-    numCorrect?: number;
-    noneOfTheAboveIndex?: number | null | undefined;
-    noneOfTheAboveSelected?: boolean;
 };
 
 export type PerseusSorterRubric = {
