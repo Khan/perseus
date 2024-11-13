@@ -1,21 +1,31 @@
 import {mockStrings} from "../../strings";
 
 import {expressionItem3Options} from "./expression.testdata";
-import validate from "./score-expression";
+import scoreExpression from "./score-expression";
 
 describe("scoreExpression", () => {
     it("should handle defined ungraded answer case with no error callback", function () {
-        const err = validate("x+1", expressionItem3Options, mockStrings, "en");
+        const err = scoreExpression(
+            "x+1",
+            expressionItem3Options,
+            mockStrings,
+            "en",
+        );
         expect(err).toHaveInvalidInput();
     });
 
     it("should handle invalid expression answer with no error callback", function () {
-        const err = validate("x+^1", expressionItem3Options, mockStrings, "en");
+        const err = scoreExpression(
+            "x+^1",
+            expressionItem3Options,
+            mockStrings,
+            "en",
+        );
         expect(err).toHaveInvalidInput();
     });
 
     it("should handle listed incorrect answers as wrong", function () {
-        const result = validate(
+        const result = scoreExpression(
             "y+1",
             expressionItem3Options,
             mockStrings,
@@ -25,7 +35,7 @@ describe("scoreExpression", () => {
     });
 
     it("should handle unlisted answers as wrong", function () {
-        const result = validate(
+        const result = scoreExpression(
             "2+2",
             expressionItem3Options,
             mockStrings,
@@ -35,7 +45,7 @@ describe("scoreExpression", () => {
     });
 
     it("should handle correct answers", function () {
-        const result = validate(
+        const result = scoreExpression(
             "z+1",
             expressionItem3Options,
             mockStrings,
@@ -46,7 +56,7 @@ describe("scoreExpression", () => {
 
     it("should handle multiple correct answers", function () {
         // First possible correct answer
-        const result1 = validate(
+        const result1 = scoreExpression(
             "z+1",
             expressionItem3Options,
             mockStrings,
@@ -55,7 +65,7 @@ describe("scoreExpression", () => {
         expect(result1).toHaveBeenAnsweredCorrectly();
 
         // Second possible correct answer
-        const result2 = validate(
+        const result2 = scoreExpression(
             "a+1",
             expressionItem3Options,
             mockStrings,
@@ -65,7 +75,7 @@ describe("scoreExpression", () => {
     });
 
     it("should handle correct answers with period decimal separator", function () {
-        const result = validate(
+        const result = scoreExpression(
             "z+1.0",
             expressionItem3Options,
             mockStrings,
@@ -75,7 +85,7 @@ describe("scoreExpression", () => {
     });
 
     it("should handle correct answers with comma decimal separator", function () {
-        const result = validate(
+        const result = scoreExpression(
             "z+1,0",
             expressionItem3Options,
             mockStrings,
@@ -85,7 +95,7 @@ describe("scoreExpression", () => {
     });
 
     it("should handle incorrect answers with period decimal separator", function () {
-        const result = validate(
+        const result = scoreExpression(
             "z+1,0",
             expressionItem3Options,
             mockStrings,
