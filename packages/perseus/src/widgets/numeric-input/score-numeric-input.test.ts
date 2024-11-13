@@ -2,9 +2,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {mockStrings} from "../../strings";
 
-import numericInputValidator, {
-    maybeParsePercentInput,
-} from "./numeric-input-validator";
+import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
 
 import type {PerseusNumericInputRubric} from "../../validation.types";
 
@@ -34,7 +32,7 @@ describe("static function validate", () => {
             currentValue: "1",
         } as const;
 
-        const score = numericInputValidator(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(useInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -58,7 +56,7 @@ describe("static function validate", () => {
             currentValue: "sadasdfas",
         } as const;
 
-        const score = numericInputValidator(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(useInput, rubric, mockStrings);
 
         expect(score).toHaveInvalidInput(
             "We could not understand your answer. Please check your answer for extra text or symbols.",
@@ -93,7 +91,7 @@ describe("static function validate", () => {
             currentValue: "45.282",
         } as const;
 
-        const score = numericInputValidator(userInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score.message).not.toBe(
             "Your answer is close, but you may " +
@@ -125,7 +123,7 @@ describe("static function validate", () => {
             currentValue: "99 pi",
         } as const;
 
-        const score = numericInputValidator(userInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -149,7 +147,7 @@ describe("static function validate", () => {
             currentValue: "1.0",
         } as const;
 
-        const score = numericInputValidator(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(useInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -173,7 +171,7 @@ describe("static function validate", () => {
             currentValue: "1.3",
         } as const;
 
-        const score = numericInputValidator(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(useInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -197,7 +195,7 @@ describe("static function validate", () => {
             currentValue: "1.12",
         } as const;
 
-        const score = numericInputValidator(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(useInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -232,7 +230,7 @@ describe("static function validate", () => {
         const wrongInput = {
             currentValue: "4",
         } as const;
-        let score = numericInputValidator(wrongInput, rubric, mockStrings);
+        let score = scoreNumericInput(wrongInput, rubric, mockStrings);
 
         // Assert - "wrong"
         expect(score).toHaveBeenAnsweredIncorrectly();
@@ -241,7 +239,7 @@ describe("static function validate", () => {
         const correctInput = {
             currentValue: "14",
         } as const;
-        score = numericInputValidator(correctInput, rubric, mockStrings);
+        score = scoreNumericInput(correctInput, rubric, mockStrings);
 
         // Assert - "correct"
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -275,7 +273,7 @@ describe("static function validate", () => {
         const emptyInput = {
             currentValue: "",
         } as const;
-        let score = numericInputValidator(emptyInput, rubric, mockStrings);
+        let score = scoreNumericInput(emptyInput, rubric, mockStrings);
 
         // Assert - "empty"
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -284,7 +282,7 @@ describe("static function validate", () => {
         const incompleteInput = {
             currentValue: "-",
         } as const;
-        score = numericInputValidator(incompleteInput, rubric, mockStrings);
+        score = scoreNumericInput(incompleteInput, rubric, mockStrings);
 
         // Assert - "incomplete"
         expect(score).toHaveBeenAnsweredCorrectly();

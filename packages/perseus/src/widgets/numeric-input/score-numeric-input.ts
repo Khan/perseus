@@ -65,7 +65,7 @@ export function maybeParsePercentInput(
     return value;
 }
 
-function numericInputValidator(
+function scoreNumericInput(
     userInput: PerseusNumericInputUserInput,
     rubric: PerseusNumericInputRubric,
     strings: PerseusStrings,
@@ -168,4 +168,4 @@ function numericInputValidator(
     };
 }
 
-export default numericInputValidator;
+export default scoreNumericInput;
