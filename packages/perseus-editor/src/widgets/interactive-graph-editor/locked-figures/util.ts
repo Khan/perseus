@@ -127,10 +127,6 @@ export function generateLockedFigureAppearanceDescription(
     }
 }
 
-// Avoid running SpeechRuleEngine.setup() in Jest. It makes an HTTP request to
-// fetch non-english speech rules, and cannot be easily mocked in consuming
-// packages now that we do not bundle source code. When it eventually times
-// out, it will cause arbitrary test failures.
 export async function generateSpokenMathDetails(mathString: string) {
     const engine = await SpeechRuleEngine.setup("en");
     let convertedSpeech = "";
