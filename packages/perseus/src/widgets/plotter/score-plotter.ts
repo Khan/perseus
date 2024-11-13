@@ -8,7 +8,7 @@ import type {
 
 const {deepEq} = Util;
 
-function plotterValidator(
+function scorePlotter(
     userInput: PerseusPlotterUserInput,
     rubric: PerseusPlotterRubric,
 ): PerseusScore {
@@ -26,4 +26,4 @@ function plotterValidator(
     };
 }
 
-export default plotterValidator;
+export default scorePlotter;

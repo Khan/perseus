@@ -13,7 +13,7 @@ import GraphUtils from "../../util/graph-utils";
 import KhanMath from "../../util/math";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/prompt-utils";
 
-import plotterValidator from "./plotter-validator";
+import scorePlotter from "./score-plotter";
 
 import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -1179,5 +1179,5 @@ export default {
     hidden: true,
     widget: Plotter,
     staticTransform: staticTransform,
-    scorer: plotterValidator,
+    scorer: scorePlotter,
 } satisfies WidgetExports<typeof Plotter>;

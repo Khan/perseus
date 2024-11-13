@@ -1,4 +1,4 @@
-import plotterValidator from "./plotter-validator";
+import scorePlotter from "./score-plotter";
 
 import type {
     PerseusPlotterRubric,
@@ -41,7 +41,7 @@ describe("plotterValidator", () => {
         const userInput: PerseusPlotterUserInput = rubric.starting;
 
         // Act
-        const result = plotterValidator(userInput, rubric);
+        const result = scorePlotter(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -54,7 +54,7 @@ describe("plotterValidator", () => {
         const userInput: PerseusPlotterUserInput = rubric.correct;
 
         // Act
-        const result = plotterValidator(userInput, rubric);
+        const result = scorePlotter(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -67,7 +67,7 @@ describe("plotterValidator", () => {
         const userInput: PerseusPlotterUserInput = [8, 6, 7, 5, 3, 0, 9];
 
         // Act
-        const result = plotterValidator(userInput, rubric);
+        const result = scorePlotter(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
