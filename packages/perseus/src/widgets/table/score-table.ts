@@ -2,6 +2,9 @@ import _ from "underscore";
 
 import KhanAnswerTypes from "../../util/answer-types";
 
+import {filterNonEmpty} from "./utils";
+import {validateTable} from "./validate-table";
+
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {
@@ -14,25 +17,13 @@ function scoreTable(
     rubric: PerseusTableRubric,
     strings: PerseusStrings,
 ): PerseusScore {
-    const filterNonEmpty = function (table: any) {
-        return _.filter(table, function (row) {
-            // Check if row has a cell that is nonempty
-            return _.some(row, _.identity);
-        });
-    };
-    const solution = filterNonEmpty(rubric.answers);
-    const supplied = filterNonEmpty(state);
-    const hasEmptyCell = _.some(supplied, function (row) {
-        return _.some(row, function (cell) {
-            return cell === "";
-        });
-    });
-    if (hasEmptyCell || !supplied.length) {
-        return {
-            type: "invalid",
-            message: null,
-        };
+    const validationResult = validateTable(state);
+    if (validationResult.type === "invalid") {
+        return validationResult;
     }
+
+    const supplied = filterNonEmpty(state);
+    const solution = filterNonEmpty(rubric.answers);
     if (supplied.length !== solution.length) {
         return {
             type: "points",
@@ -41,12 +32,13 @@ function scoreTable(
             message: null,
         };
     }
+
     const createValidator = KhanAnswerTypes.number.createValidatorFunctional;
     let message = null;
-    const allCorrect = _.every(solution, function (rowSolution) {
+    const allCorrect = solution.every(function (rowSolution) {
         for (let i = 0; i < supplied.length; i++) {
             const rowSupplied = supplied[i];
-            const correct = _.every(rowSupplied, function (cellSupplied, i) {
+            const correct = rowSupplied.every(function (cellSupplied, i) {
                 const cellSolution = rowSolution[i];
                 const validator = createValidator(
                     cellSolution,
