@@ -122,6 +122,6 @@ export default {
     defaultAlignment: "block",
     supportedAlignments: ["block", "float-left", "float-right", "full-width"],
     widget: Video,
-    // TODO: things that aren't interactive shouldn't need validators
+    // TODO: things that aren't interactive shouldn't need scoring functions
     scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof Video>;

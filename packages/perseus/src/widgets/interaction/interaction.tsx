@@ -812,6 +812,6 @@ export default {
     widget: Interaction,
     transform: _.identity,
     hidden: true,
-    // TODO: things that aren't interactive shouldn't need validators
+    // TODO: things that aren't interactive shouldn't need scoring functions
     scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof Interaction>;

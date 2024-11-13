@@ -263,6 +263,6 @@ export default {
     displayName: "Image",
     widget: ImageWidget,
     isLintable: true,
-    // TODO: things that aren't interactive shouldn't need validators
+    // TODO: things that aren't interactive shouldn't need scoring functions
     scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof ImageWidget>;

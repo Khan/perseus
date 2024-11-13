@@ -230,6 +230,6 @@ export default {
     widget: Explanation,
     transform: _.identity,
     isLintable: true,
-    // TODO: things that aren't interactive shouldn't need validators
+    // TODO: things that aren't interactive shouldn't need scoring functions
     scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof Explanation>;

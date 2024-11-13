@@ -205,6 +205,6 @@ export default {
     widget: Measurer,
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
-    // TODO: things that aren't interactive shouldn't need validators
+    // TODO: things that aren't interactive shouldn't need scoring functions
     scorer: () => scoreNoop(1),
 } satisfies WidgetExports<typeof Measurer>;

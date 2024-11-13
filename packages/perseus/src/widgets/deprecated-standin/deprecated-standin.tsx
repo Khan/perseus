@@ -41,6 +41,6 @@ export default {
     displayName: "Deprecated Standin",
     widget: DeprecatedStandin,
     hidden: true,
-    // TODO: things that aren't interactive shouldn't need validators
+    // TODO: things that aren't interactive shouldn't need scoring functions
     scorer: () => scoreNoop(1),
 } satisfies WidgetExports<typeof DeprecatedStandin>;

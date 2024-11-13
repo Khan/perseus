@@ -110,6 +110,6 @@ export default {
     defaultAlignment: "inline",
     widget: Definition,
     transform: (x: any) => x,
-    // TODO: things that aren't interactive shouldn't need validators
+    // TODO: things that aren't interactive shouldn't need scoring functions
     scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof Definition>;

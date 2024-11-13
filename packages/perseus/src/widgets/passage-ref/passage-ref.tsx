@@ -183,6 +183,6 @@ export default {
         summaryText: widgetOptions.summaryText,
     }),
     version: {major: 0, minor: 1},
-    // TODO: things that aren't interactive shouldn't need validators
+    // TODO: things that aren't interactive shouldn't need scoring functions
     scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof PassageRef>;
