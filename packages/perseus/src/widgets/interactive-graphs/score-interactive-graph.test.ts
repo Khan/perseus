@@ -7,7 +7,7 @@ import scoreInteractiveGraph from "./score-interactive-graph";
 import type {PerseusGraphType} from "../../perseus-types";
 import type {PerseusInteractiveGraphRubric} from "../../validation.types";
 
-describe("InteractiveGraph.validate on a segment question", () => {
+describe("InteractiveGraph scoring on a segment question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
         const guess: PerseusGraphType = {type: "segment"};
         const rubric: PerseusInteractiveGraphRubric = {
@@ -187,7 +187,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
     });
 });
 
-describe("InteractiveGraph.validate on an angle question", () => {
+describe("InteractiveGraph scoring on an angle question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
         const guess: PerseusGraphType = {type: "angle"};
         const rubric: PerseusInteractiveGraphRubric = {
@@ -210,7 +210,7 @@ describe("InteractiveGraph.validate on an angle question", () => {
     });
 });
 
-describe("InteractiveGraph.validate on a point question", () => {
+describe("InteractiveGraph scoring on a point question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
         const guess: PerseusGraphType = {type: "point"};
         const rubric: PerseusInteractiveGraphRubric = {
