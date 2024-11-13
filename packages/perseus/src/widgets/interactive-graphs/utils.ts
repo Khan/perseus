@@ -1,3 +1,5 @@
+import * as SimpleMarkdown from "@khanacademy/pure-markdown";
+
 import {clampToBox, inset, MIN, size} from "./math";
 
 import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
@@ -77,15 +79,25 @@ export function isUnlimitedGraphState(
  * and the text outside of the $ blocks will be non-TeX text.
  */
 export function replaceOutsideTeX(mathString: string) {
-    let currentlyTeX = mathString[0] === "$";
     let result = "";
 
-    const splitString = mathString.split("$").filter((part) => part !== "");
+    // All the information we need is in the first section,
+    // whether it's typed as "blockmath" or "paragraph"
+    const firstSection = SimpleMarkdown.parse(mathString)[0];
 
-    for (let i = 0; i < splitString.length; i++) {
-        const part = splitString[i];
-        result += currentlyTeX ? part : `\\text{${part}}`;
-        currentlyTeX = !currentlyTeX;
+    // If it's blockMath, the outer level has the full math content.
+    if (firstSection.type === "blockMath") {
+        result += firstSection.content;
+    }
+
+    // If it's a paragraph, we need to iterate through the sections
+    // to look for individual math blocks.
+    if (firstSection.type === "paragraph") {
+        for (const piece of firstSection.content) {
+            piece.type === "math"
+                ? (result += piece.content)
+                : (result += `\\text{${piece.content}}`);
+        }
     }
 
     return result;

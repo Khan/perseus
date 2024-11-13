@@ -71,7 +71,10 @@ describe("replaceOutsideTeX", () => {
         const mathString = "x^2";
         const convertedString = replaceOutsideTeX(mathString);
 
-        expect(convertedString).toEqual("\\text{x^2}");
+        // For some reason, the parser starts a new text block once it hits
+        // the '^' character. The result is still the same though.
+        // This is functionally equal to "\\text{x^2}"
+        expect(convertedString).toEqual("\\text{x}\\text{^2}");
     });
 
     test("$s surrounding string", () => {
@@ -118,5 +121,24 @@ describe("replaceOutsideTeX", () => {
         expect(convertedString).toEqual(
             "\\text{Square }A\\text{ is }B\\text{ also}",
         );
+    });
+
+    test("with a real $ inside a regular string", () => {
+        const string = "This sandwich is \\$12";
+        const convertedString = replaceOutsideTeX(string);
+
+        // For some reason, the parser starts a new text block once it hits
+        // the '$' character. The result is still the same though.
+        // This is functionally equal to "\\text{This sandwich is $12}"
+        expect(convertedString).toEqual(
+            "\\text{This sandwich is }\\text{$}\\text{12}",
+        );
+    });
+
+    test("with a real $ inside a TeX string", () => {
+        const mathString = "This sandwich is ${$}12$";
+        const convertedString = replaceOutsideTeX(mathString);
+
+        expect(convertedString).toEqual("\\text{This sandwich is }{$}12");
     });
 });
