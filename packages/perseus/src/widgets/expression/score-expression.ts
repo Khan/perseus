@@ -29,6 +29,7 @@ import type {
  *   ~ Try to validate the user's input against the answer. The answer is
  *     expected to parse.
  *    ~ If the user's input validates (the validator judges it "correct"), we've
+ *      matched and can stop considering answers.
  * - If there were no matches or the matching answer is considered "ungraded",
  *   show the user an error. TODO(joel) - what error?
  * - Otherwise, pass through the resulting points and message.
