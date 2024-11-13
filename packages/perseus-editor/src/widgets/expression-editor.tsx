@@ -367,6 +367,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
                 return (
                     <AnswerOption
+                        draggable={true}
                         considered={ans.considered}
                         expressionProps={expressionProps}
                         form={ans.form}
@@ -529,6 +530,7 @@ type AnswerOptionProps = {
 
     // Must the answer have the same form as this answer.
     form: boolean;
+    draggable: boolean;
 
     // Must the answer be simplified.
     simplify: boolean;
