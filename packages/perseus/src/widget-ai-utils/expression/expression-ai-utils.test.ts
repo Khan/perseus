@@ -3,6 +3,8 @@ import {act} from "@testing-library/react";
 import {ItemExtras} from "../../perseus-types";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
+import {getPromptJSON} from "./expression-ai-utils";
+
 import type {PerseusAnswerArea, PerseusRenderer} from "../../perseus-types";
 
 const expression = {
@@ -37,7 +39,23 @@ const expression = {
     hints: [],
 };
 
-describe("expression widget", () => {
+describe("Expression AI utils", () => {
+    it("it returns JSON with the expected format and fields", () => {
+        const renderProps: any = {
+            visibleLabel: "Enter an expression",
+        };
+
+        const resultJSON = getPromptJSON(renderProps, "2 + 2");
+
+        expect(resultJSON).toEqual({
+            type: "expression",
+            label: "Enter an expression",
+            userInput: {
+                value: "2 + 2",
+            },
+        });
+    });
+
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(
