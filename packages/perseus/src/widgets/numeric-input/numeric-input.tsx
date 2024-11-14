@@ -349,13 +349,13 @@ const propUpgrades = {
         // input-number to numeric-input. In this case, we need to upgrade
         // the widget options accordingly.
         if (initialProps.value) {
-            let provideAnswerForm = true;
-            if (
-                initialProps.value !== "number" &&
-                initialProps.value !== "rational"
-            ) {
-                provideAnswerForm = false;
-            }
+            const provideAnswerForm = initialProps.answerType !== "number";
+
+            // We need to determine the mathFormat for the numeric-input widget
+            const mathFormat =
+                initialProps.answerType === "rational"
+                    ? "proper" // input-number uses "rational" for proper fractions
+                    : initialProps.answerType; // Otherwise, we can use the answerType directly
 
             // If adjusting this logic, also adjust the logic in the convertInputNumberWidgetOptions
             // function in input-number.ts in the Perseus Editor package's util folder
@@ -363,11 +363,10 @@ const propUpgrades = {
                 {
                     value: initialProps.value,
                     simplify: initialProps.simplify,
-                    answerForms: provideAnswerForm
-                        ? [initialProps.answerType]
-                        : undefined,
+                    answerForms: provideAnswerForm ? [mathFormat] : undefined,
                     strict: initialProps.inexact,
-                    maxError: initialProps.maxError,
+                    // We only want to set maxError if the inexact prop is true
+                    maxError: initialProps.inexact ? initialProps.maxError : 0,
                     status: "correct", // Input-number only allows correct answers
                     message: "",
                 },
