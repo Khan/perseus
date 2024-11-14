@@ -1,5 +1,7 @@
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
+import {getPromptJSON} from "./iframe-ai-utils";
+
 import type {PerseusRenderer} from "../../perseus-types";
 
 const question1: PerseusRenderer = {
@@ -36,7 +38,17 @@ const question1: PerseusRenderer = {
     },
 };
 
-describe("iframe widget", () => {
+describe("Iframe AI utils", () => {
+    it("it returns JSON with the expected format and fields", () => {
+        const resultJSON = getPromptJSON();
+
+        expect(resultJSON).toEqual({
+            type: "iframe",
+            isSupported: false,
+            message: "",
+        });
+    });
+
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1, {isMobile: false});
