@@ -215,15 +215,10 @@ export class NumericInput
                 React.ComponentProps<typeof SimpleKeypadInput>
             >,
         ) => {
-            // This sweet lil div will be removed after QA Testing for the Input Number to Numeric Conversion. (Third: Nov 2024)
             return this.props.rightAlign ? (
-                <div className="perseus-input-right-align im-just-a-sweet-lil-numeric-input">
-                    {keypadInput}
-                </div>
+                <div className="perseus-input-right-align">{keypadInput}</div>
             ) : (
-                <div className="im-just-a-sweet-lil-numeric-input">
-                    {keypadInput}
-                </div>
+                {keypadInput}
             );
         };
 
@@ -253,23 +248,20 @@ export class NumericInput
             },
         });
 
-        // This sweet lil div will be removed after QA Testing for the Input Number to Numeric Conversion. (Third: Nov 2024)
         return (
-            <div className="im-just-a-sweet-lil-numeric-input">
-                <InputWithExamples
-                    ref={(ref) => (this.inputRef = ref)}
-                    value={this.props.currentValue}
-                    onChange={this.handleChange}
-                    labelText={labelText}
-                    examples={this.examples()}
-                    shouldShowExamples={this.shouldShowExamples()}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur}
-                    id={this.props.widgetId}
-                    disabled={this.props.apiOptions.readOnly}
-                    style={styles.input}
-                />
-            </div>
+            <InputWithExamples
+                ref={(ref) => (this.inputRef = ref)}
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                labelText={labelText}
+                examples={this.examples()}
+                shouldShowExamples={this.shouldShowExamples()}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                id={this.props.widgetId}
+                disabled={this.props.apiOptions.readOnly}
+                style={styles.input}
+            />
         );
     }
 }
