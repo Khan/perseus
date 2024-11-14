@@ -1,4 +1,4 @@
-import {validateTable} from "./validate-table";
+import validateTable from "./validate-table";
 
 import type {PerseusTableUserInput} from "../../validation.types";
 

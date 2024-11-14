@@ -3,7 +3,7 @@ import _ from "underscore";
 import KhanAnswerTypes from "../../util/answer-types";
 
 import {filterNonEmpty} from "./utils";
-import {validateTable} from "./validate-table";
+import validateTable from "./validate-table";
 
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
