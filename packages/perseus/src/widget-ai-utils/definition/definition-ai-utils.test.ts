@@ -1,5 +1,7 @@
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
+import {getPromptJSON} from "./definition-ai-utils";
+
 const question = {
     content:
         "Read the excerpt and answer the question below. \n\nThe Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with [[\u2603 definition 1]], upon these conditions.",
@@ -23,7 +25,22 @@ const question = {
     },
 } as const;
 
-describe("definition widget", () => {
+describe("Definition AI utils", () => {
+    it("it returns JSON with the expected format and fields", () => {
+        const renderProps: any = {
+            definition: "to confuse or fluster",
+            togglePrompt: "bumfuzzle",
+        };
+
+        const resultJSON = getPromptJSON(renderProps);
+
+        expect(resultJSON).toEqual({
+            type: "definition",
+            definition: "to confuse or fluster",
+            togglePrompt: "bumfuzzle",
+        });
+    });
+
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
