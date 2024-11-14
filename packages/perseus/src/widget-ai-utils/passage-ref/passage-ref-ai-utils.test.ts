@@ -2,6 +2,8 @@ import {act} from "@testing-library/react";
 
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
+import {getPromptJSON} from "./passage-ref-ai-utils";
+
 import type {PerseusRenderer} from "../../perseus-types";
 
 const question1: PerseusRenderer = {
@@ -24,7 +26,26 @@ const question1: PerseusRenderer = {
     },
 };
 
-describe("passage-ref widget", () => {
+describe("PassageRef AI utils", () => {
+    it("it returns JSON with the expected format and fields", () => {
+        const renderProps: any = {
+            passageNumber: 1,
+            referenceNumber: 1,
+            summaryText: "This is text summarizing the passage.",
+        };
+
+        const resultJSON = getPromptJSON(renderProps);
+
+        expect(resultJSON).toEqual({
+            type: "passage-ref",
+            options: {
+                passageNumber: 1,
+                referenceNumber: 1,
+                summaryText: "This is text summarizing the passage.",
+            },
+        });
+    });
+
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
