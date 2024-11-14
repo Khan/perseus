@@ -5,7 +5,10 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
+import {getPromptJSON} from "./radio-ai-utils";
+
 import type {PerseusRenderer, RadioWidget} from "../../perseus-types";
+import type {PerseusRadioUserInput} from "../../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const shuffledQuestion: PerseusRenderer = {
@@ -52,7 +55,7 @@ const shuffledQuestion: PerseusRenderer = {
     },
 };
 
-describe("radio widget", () => {
+describe("Radio AI utils", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -62,6 +65,56 @@ describe("radio widget", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+    });
+
+    it("should get prompt json which matches the state of the UI", () => {
+        const renderProps: any = {
+            numCorrect: 1,
+            countChoices: false,
+            deselectEnabled: false,
+            hasNoneOfTheAbove: false,
+            multipleSelect: false,
+            choices: [
+                {
+                    content: "Content 4",
+                    originalIndex: 3,
+                },
+                {
+                    content: "Content 2",
+                    originalIndex: 1,
+                },
+                {
+                    content: "Content 1",
+                    originalIndex: 0,
+                },
+
+                {
+                    content: "Content 3",
+                    originalIndex: 2,
+                },
+            ],
+            selectedChoices: [true, false, false, false],
+        };
+
+        const userInput: PerseusRadioUserInput = {
+            choicesSelected: [true, false, false, false],
+        };
+
+        const resultJSON = getPromptJSON(renderProps, userInput);
+
+        expect(resultJSON).toEqual({
+            type: "radio",
+            hasNoneOfTheAbove: false,
+            options: [
+                {value: "Content 4"},
+                {value: "Content 2"},
+                {value: "Content 1"},
+                {value: "Content 3"},
+            ],
+            userInput: {
+                selectedOptions: [true, false, false, false],
+            },
+        });
     });
 
     it("should get prompt json which matches the state of the UI", async () => {
