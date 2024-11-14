@@ -1,3 +1,5 @@
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
+import * as SimpleMarkdown from "@khanacademy/pure-markdown";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 import type {
@@ -123,4 +125,30 @@ export function generateLockedFigureAppearanceDescription(
         default:
             throw new UnreachableCaseError(fill);
     }
+}
+
+export async function generateSpokenMathDetails(mathString: string) {
+    const engine = await SpeechRuleEngine.setup("en");
+    let convertedSpeech = "";
+
+    // All the information we need is in the first section,
+    // whether it's typed as "blockmath" or "paragraph"
+    const firstSection = SimpleMarkdown.parse(mathString)[0];
+
+    // If it's blockMath, the outer level has the full math content.
+    if (firstSection.type === "blockMath") {
+        convertedSpeech += engine.texToSpeech(firstSection.content);
+    }
+
+    // If it's a paragraph, we need to iterate through the sections
+    // to look for individual math blocks.
+    if (firstSection.type === "paragraph") {
+        for (const piece of firstSection.content) {
+            piece.type === "math"
+                ? (convertedSpeech += engine.texToSpeech(piece.content))
+                : (convertedSpeech += piece.content);
+        }
+    }
+
+    return convertedSpeech;
 }
