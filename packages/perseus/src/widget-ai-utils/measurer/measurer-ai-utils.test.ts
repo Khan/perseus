@@ -1,4 +1,4 @@
-import {getPromptJSON} from "./prompt-utils";
+import {getPromptJSON} from "./measurer-ai-utils";
 
 describe("Measurer getPromptJSON", () => {
     it("it returns JSON with the expected format and fields", () => {
