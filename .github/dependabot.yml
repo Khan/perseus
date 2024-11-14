@@ -10,3 +10,21 @@ updates:
       allow:
           - dependency-name: "@khanacademy/eslint-config"
           - dependency-name: "@khanacademy/eslint-plugin"
+      assignees:
+            - "@Khan/perseus"
+
+    # Grouped updates for Wonder Blocks and Wonder Stuff releases.
+    # This helps us to stay in sync with the latest releases of these packages.
+    - package-ecosystem: "npm"
+      directory: "/"
+      schedule:
+          interval: "daily"
+      assignees:
+          - "@Khan/perseus"
+      groups:
+          wonder-stuff:
+              patterns:
+                  - "@khanacademy/wonder-stuff-*"
+          wonder-blocks:
+              patterns:
+                  - "@khanacademy/wonder-blocks-*"
