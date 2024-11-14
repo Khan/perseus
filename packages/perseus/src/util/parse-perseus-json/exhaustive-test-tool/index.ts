@@ -13,69 +13,87 @@
 //
 //     find ~/Desktop/content/*/* -type d | xargs -n1 packages/perseus/src/util/parse-perseus-json/exhaustive-test-tool/index.ts
 
-import {formatPath} from "../object-path";
-import {Mismatch} from "../parser-types";
 import {createHash} from "crypto";
-import * as fs from "fs/promises"
-import {Dirent} from "fs";
+import * as fs from "fs/promises";
 import {join} from "path";
+
+import {ErrorTrackingParseContext} from "../error-tracking-parse-context";
+import {formatPath} from "../object-path";
 import {parsePerseusItem} from "../perseus-parsers/perseus-item";
 import {isSuccess} from "../result";
-import {ErrorTrackingParseContext} from "../error-tracking-parse-context";
 
-let numFiles = 0;
+import type {Mismatch} from "../parser-types";
+import type {Dirent} from "fs";
+
 async function main() {
     // process.argv.slice(2) is a common NodeJS idiom. The first two args are
     // `node` and the path to this script, so we can get rid of them.
-    const realArgs = process.argv.slice(2)
+    const realArgs = process.argv.slice(2);
     const {inputDir} = parseCommandLineArguments(realArgs);
-    console.log("testing files in " + inputDir)
+    console.log("testing files in " + inputDir);
 
+    let numFiles = 0;
     for await (const dirent of listFilesRecursively(inputDir)) {
-        await testFile(getPathOfDirent(dirent))
-        numFiles++
+        await testFile(getPathOfDirent(dirent));
+        numFiles++;
     }
 
-    console.log("tested " + numFiles + " files")
+    console.log("tested " + numFiles + " files");
 }
 
 function parseCommandLineArguments(args: string[]) {
-    return {inputDir: args[0]}
+    return {inputDir: args[0]};
 }
 
 async function testFile(path: string) {
     if (!path.endsWith(".json")) {
         return;
     }
-    const json = await fs.readFile(path, "utf-8")
-    let assessmentItems = null
+    const json = await fs.readFile(path, "utf-8");
+    let assessmentItems: null | unknown[] = null;
     try {
-        assessmentItems = JSON.parse(json)
+        assessmentItems = JSON.parse(json);
     } catch {
-        console.warn("Failed to parse JSON file: " + path)
+        console.warn("Failed to parse JSON file: " + path);
         return;
     }
     if (!Array.isArray(assessmentItems)) {
-        return
+        return;
     }
 
-    for (const rawItem of assessmentItems.map(i => "item_data" in i ? i.item_data : i)) {
+    for (const rawItem of assessmentItems.map(getAssessmentItemData)) {
         for (const mismatch of getMismatches(rawItem)) {
-            const desc = describeMismatch(mismatch)
-            const hash = sha256(desc)
-            await fs.mkdir("/tmp/test-results/" + hash, {recursive: true})
-            await fs.writeFile(`/tmp/test-results/${hash}/mismatch.txt`, desc, "utf-8")
-            await fs.writeFile(`/tmp/test-results/${hash}/item.json`, String(JSON.stringify(rawItem)), "utf-8")
+            const desc = describeMismatch(mismatch);
+            const hash = sha256(desc);
+            await fs.mkdir("/tmp/test-results/" + hash, {recursive: true});
+            await fs.writeFile(
+                `/tmp/test-results/${hash}/mismatch.txt`,
+                desc,
+                "utf-8",
+            );
+            await fs.writeFile(
+                `/tmp/test-results/${hash}/item.json`,
+                String(JSON.stringify(rawItem)),
+                "utf-8",
+            );
         }
     }
 }
 
-function getMismatches(rawItem: unknown): Mismatch[] {
-    const result = parsePerseusItem(rawItem, new ErrorTrackingParseContext([]))
-    if (isSuccess(result)) {
-        return []
+function getAssessmentItemData(raw: unknown): unknown {
+    if (raw && typeof raw === "object" && "item_data" in raw) {
+        return raw.item_data
+    } else {
+        return raw
     }
-    return result.detail
+}
+
+function getMismatches(rawItem: unknown): Mismatch[] {
+    const result = parsePerseusItem(rawItem, new ErrorTrackingParseContext([]));
+    if (isSuccess(result)) {
+        return [];
+    }
+    return result.detail;
 }
 
 function describeMismatch(mismatch: Mismatch): string {
@@ -85,21 +103,21 @@ function describeMismatch(mismatch: Mismatch): string {
         .replace(/\["([^"\d]+)\d+"]/g, `["$1N"]`)
         // Replace array indices with generic ones, e.g.
         // [5] -> [N]
-        .replace(/\[(\d+)]/g, "[N]")
-    return `${path} -- expected ${mismatch.expected.join(", ")}; got ${typeName(mismatch.badValue)}\n`
+        .replace(/\[(\d+)]/g, "[N]");
+    return `${path} -- expected ${mismatch.expected.join(", ")}; got ${typeName(mismatch.badValue)}\n`;
 }
 
 function typeName(value: unknown): string {
     if (value === null) {
-        return "null"
+        return "null";
     }
     if (value === undefined) {
-        return "undefined"
+        return "undefined";
     }
     if (Array.isArray(value)) {
-        return "array"
+        return "array";
     }
-    return typeof value
+    return typeof value;
 }
 
 async function* listFilesRecursively(dir: string) {
@@ -113,11 +131,11 @@ async function* listFilesRecursively(dir: string) {
 function getPathOfDirent(dirent: Dirent): string {
     // We read from both `parentPath` (introduced in Node 20.12) and `path`
     // (deprecated in Node 20.12) to support as many Node versions as possible.
-    return join(dirent.parentPath || dirent.path, dirent.name)
+    return join(dirent.parentPath || dirent.path, dirent.name);
 }
 
 function sha256(s: string): string {
-    return createHash("sha256").update(s, "utf-8").digest().toString("hex")
+    return createHash("sha256").update(s, "utf-8").digest().toString("hex");
 }
 
-main()
+main();
