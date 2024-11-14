@@ -15,7 +15,7 @@ import type {MatrixPromptJSON} from "./widget-ai-utils/matrix/matrix-ai-utils";
 import type {NumberLinePromptJSON} from "./widget-ai-utils/number-line/number-line-ai-utils";
 import type {NumericInputPromptJSON} from "./widget-ai-utils/numeric-input/prompt-utils";
 import type {OrdererPromptJSON} from "./widget-ai-utils/orderer/orderer-ai-utils";
-import type {PassagePromptJSON} from "./widget-ai-utils/passage/prompt-utils";
+import type {PassagePromptJSON} from "./widget-ai-utils/passage/passage-ai-utils";
 import type {PassageRefPromptJSON} from "./widget-ai-utils/passage-ref/prompt-utils";
 import type {RadioPromptJSON} from "./widget-ai-utils/radio/prompt-utils";
 import type {SorterPromptJSON} from "./widget-ai-utils/sorter/prompt-utils";
