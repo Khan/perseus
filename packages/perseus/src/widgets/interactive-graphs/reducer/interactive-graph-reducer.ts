@@ -700,13 +700,15 @@ function doAddPoint(
         }
     }
 
+    const newCoords = [...state.coords, snappedPoint];
+
     // If there's no point in spot where we want the new point to go we add it there
     return {
         ...state,
         hasBeenInteractedWith: true,
-        coords: [...state.coords, snappedPoint],
+        coords: newCoords,
         showRemovePointButton: false,
-        focusedPointIndex: state.coords.length,
+        focusedPointIndex: newCoords.length - 1,
     };
 }
 
@@ -722,6 +724,11 @@ function doRemovePoint(
     if (state.interactionMode === "mouse") {
         nextFocusedPointIndex = null;
     } else {
+        /**
+         * Question: Should we always be setting the focus index to the end of the list?
+         *           Perhaps a better solution is the next point in the coordinates,
+         *           unless that does not exist.
+         * */
         nextFocusedPointIndex =
             state.coords.length > 1 ? state.coords.length - 2 : null;
     }
