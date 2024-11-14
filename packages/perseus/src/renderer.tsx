@@ -40,7 +40,10 @@ import type {
     PerseusWidgetsMap,
     ShowSolutions,
 } from "./perseus-types";
-import type {GetPromptJSONInterface, RendererPromptJSON} from "./prompt-types";
+import type {
+    GetPromptJSONInterface,
+    RendererPromptJSON,
+} from "./widget-ai-utils/prompt-types";
 import type {PerseusStrings} from "./strings";
 import type {
     APIOptions,

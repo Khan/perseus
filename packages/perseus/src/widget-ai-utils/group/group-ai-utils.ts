@@ -1,4 +1,4 @@
-import type {RendererPromptJSON} from "../../prompt-types";
+import type {RendererPromptJSON} from "../prompt-types";
 
 export type GroupPromptJSON = RendererPromptJSON & {
     type: "group";

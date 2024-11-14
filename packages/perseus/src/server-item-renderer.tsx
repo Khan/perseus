@@ -22,7 +22,10 @@ import Renderer from "./renderer";
 import Util from "./util";
 
 import type {PerseusItem, ShowSolutions} from "./perseus-types";
-import type {GetPromptJSONInterface, RendererPromptJSON} from "./prompt-types";
+import type {
+    GetPromptJSONInterface,
+    RendererPromptJSON,
+} from "./widget-ai-utils/prompt-types";
 import type {
     FocusPath,
     PerseusDependenciesV2,

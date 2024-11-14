@@ -3,7 +3,7 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {getPromptJSON} from "./group-ai-utils";
 import {question1} from "./group-ai-utils.testdata";
 
-import type {RendererPromptJSON} from "../../prompt-types";
+import type {RendererPromptJSON} from "../prompt-types";
 
 describe("Group AI utils", () => {
     it("should return a GroupPromptJSON with default values when rendererJSON is undefined", () => {
