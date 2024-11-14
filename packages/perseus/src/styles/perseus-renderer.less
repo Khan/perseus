@@ -553,11 +553,19 @@
     .perseus-tooltip;
     color: #777;
 }
-.framework-perseus .perseus-formats-tooltip .paragraph > ul {
+.framework-perseus :not(.perseus-numeric-input /* Not in my widget, buddy! */) .perseus-formats-tooltip .paragraph > ul {
     padding: 0;
     margin: -20px 0 -16px 0;
     > li {
         list-style-type: none;
+    }
+}
+
+.perseus-numeric-input .perseus-formats-tooltip ul {
+    padding-inline-start: 20px;
+    > li:first-of-type {
+        list-style-type: none;
+        margin-inline-start: -20px;
     }
 }
 

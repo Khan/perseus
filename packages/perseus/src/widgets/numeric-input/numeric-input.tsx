@@ -249,7 +249,7 @@ export class NumericInput
         });
 
         return (
-            <div>
+            <div className="perseus-numeric-input">
                 <InputWithExamples
                     ref={(ref) => (this.inputRef = ref)}
                     value={this.props.currentValue}
