@@ -13,12 +13,18 @@ const {InfoTip} = components;
 
 type Props = {
     ariaLabel: string | undefined;
-    prePopulatedAriaLabel: string;
+    prePopulatedAriaLabel?: string;
+    getPrepopulatedAriaLabel?: () => Promise<string>;
     onChangeProps: (props: {ariaLabel?: string | undefined}) => void;
 };
 
 function LockedFigureAria(props: Props) {
-    const {ariaLabel, prePopulatedAriaLabel, onChangeProps} = props;
+    const {
+        ariaLabel,
+        prePopulatedAriaLabel,
+        getPrepopulatedAriaLabel,
+        onChangeProps,
+    } = props;
     const id = React.useId();
     const ariaLabelId = `aria-label-${id}`;
 
@@ -69,9 +75,16 @@ function LockedFigureAria(props: Props) {
                 startIcon={pencilCircle}
                 style={styles.button}
                 onClick={() => {
-                    onChangeProps({
-                        ariaLabel: prePopulatedAriaLabel,
-                    });
+                    // TODO(LEMS-2548): remove the prePopulatedAriaLabel prop
+                    // after all the locked figures are updated to use
+                    // getPrepopulatedAriaLabel.
+                    if (prePopulatedAriaLabel) {
+                        onChangeProps({ariaLabel: prePopulatedAriaLabel});
+                    } else if (getPrepopulatedAriaLabel) {
+                        getPrepopulatedAriaLabel().then((ariaLabel) => {
+                            onChangeProps({ariaLabel});
+                        });
+                    }
                 }}
             >
                 Auto-generate
