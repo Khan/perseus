@@ -5,9 +5,9 @@ import {getDependencies} from "../../../dependencies";
 import {pointToPixel} from "../graphs/use-transform";
 import {MAX, X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
+import {replaceOutsideTeX} from "../utils";
 
 import type {GraphDimensions} from "../types";
-import { replaceOutsideTeX } from "../utils";
 
 export default function AxisLabels() {
     const {range, labels, width, height} = useGraphConfig();
