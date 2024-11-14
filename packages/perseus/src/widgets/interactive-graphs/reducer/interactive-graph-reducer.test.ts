@@ -1181,18 +1181,15 @@ xdescribe("doRemovePoint", () => {
 });
 
 describe("doClosePolygon", () => {
-    // Need to fix this test.
-    xit("does nothing when type is not `polygon`", () => {
+    it("does nothing when type is not `polygon`", () => {
         const state: InteractiveGraphState = baseUnlimitedPointGraphState;
 
         const updated = interactiveGraphReducer(
             state,
             actions.polygon.closePolygon(),
         );
-
-        // Add expect that checks whether something was called...
-        //invariant(updated.type !== "polygon");
-        //expect(updated.closedPolygon).toBeFalsy();
+        invariant(updated.type !== "polygon");
+        expect(updated).toMatchObject(state);
     });
 
     it("does nothing when type is not an unlimited graph", () => {
@@ -1242,8 +1239,7 @@ describe("doClosePolygon", () => {
 });
 
 describe("doOpenPolygon", () => {
-    // Need to fix this test.
-    xit("does nothing when type is not `polygon`", () => {
+    it("does nothing when type is not `polygon`", () => {
         const state: InteractiveGraphState = baseUnlimitedPointGraphState;
 
         const updated = interactiveGraphReducer(
@@ -1251,9 +1247,8 @@ describe("doOpenPolygon", () => {
             actions.polygon.openPolygon(),
         );
 
-        // Add expect that checks whether something was called...
-        //invariant(updated.type !== "polygon");
-        //expect(updated.closedPolygon).toBeFalsy();
+        invariant(updated.type !== "polygon");
+        expect(updated).toMatchObject(state);
     });
 
     it("does nothing when type is not an unlimited graph", () => {
