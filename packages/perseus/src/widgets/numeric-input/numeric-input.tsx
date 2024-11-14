@@ -218,7 +218,7 @@ export class NumericInput
             return this.props.rightAlign ? (
                 <div className="perseus-input-right-align">{keypadInput}</div>
             ) : (
-                {keypadInput}
+                keypadInput
             );
         };
 
