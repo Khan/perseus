@@ -1,7 +1,7 @@
 import type {CategorizerPromptJSON} from "./widget-ai-utils/categorizer/categorizer-ai-utils";
 import type {DefinitionPromptJSON} from "./widget-ai-utils/definition/definition-ai-utils";
 import type {DropdownPromptJSON} from "./widget-ai-utils/dropdown/dropdown-ai-utils";
-import type {ExplanationPromptJSON} from "./widget-ai-utils/explanation/prompt-utils";
+import type {ExplanationPromptJSON} from "./widget-ai-utils/explanation/explanation-ai-utils";
 import type {ExpressionPromptJSON} from "./widget-ai-utils/expression/prompt-utils";
 import type {GradedGroupPromptJSON} from "./widget-ai-utils/graded-group/prompt-utils";
 import type {GradedGroupSetPromptJSON} from "./widget-ai-utils/graded-group-set/prompt-utils";

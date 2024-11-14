@@ -9,7 +9,7 @@ import type {PerseusRenderer} from "../../perseus-types";
 import type {PerseusDropdownUserInput} from "../../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
-export const question1: PerseusRenderer = {
+const question1: PerseusRenderer = {
     content:
         "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
     images: {},

@@ -1,8 +1,10 @@
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
+import {getPromptJSON} from "./explanation-ai-utils";
+
 import type {PerseusRenderer} from "../../perseus-types";
 
-export const question1: PerseusRenderer = {
+const question1: PerseusRenderer = {
     content:
         "Here's the explanation\n[[\u2603 explanation 1]]\nDid you get that?",
     images: {},
@@ -30,7 +32,22 @@ export const question1: PerseusRenderer = {
     },
 };
 
-describe("explanation widget", () => {
+describe("Explanation getPromptJSON", () => {
+    it("it returns JSON with the expected format and fields", () => {
+        const renderProps: any = {
+            showPrompt: "Show explanation",
+            explanation: "This is the explanation",
+        };
+
+        const resultJSON = getPromptJSON(renderProps);
+
+        expect(resultJSON).toEqual({
+            type: "explanation",
+            showPrompt: "Show explanation",
+            explanation: "This is the explanation",
+        });
+    });
+
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);

@@ -4,7 +4,7 @@ import {getPromptJSON} from "./cs-program-ai-utils";
 
 import type {PerseusRenderer} from "../../perseus-types";
 
-export const question1: PerseusRenderer = {
+const question1: PerseusRenderer = {
     content: "[[\u2603 cs-program 1]]\n\n",
     images: {},
     widgets: {
