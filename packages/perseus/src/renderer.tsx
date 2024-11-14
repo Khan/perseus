@@ -40,10 +40,6 @@ import type {
     PerseusWidgetsMap,
     ShowSolutions,
 } from "./perseus-types";
-import type {
-    GetPromptJSONInterface,
-    RendererPromptJSON,
-} from "./widget-ai-utils/prompt-types";
 import type {PerseusStrings} from "./strings";
 import type {
     APIOptions,
@@ -56,6 +52,10 @@ import type {
     WidgetProps,
 } from "./types";
 import type {UserInputArray, UserInputMap} from "./validation.types";
+import type {
+    GetPromptJSONInterface,
+    RendererPromptJSON,
+} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
