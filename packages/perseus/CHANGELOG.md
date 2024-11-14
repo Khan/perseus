@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 41.4.0
+
+### Minor Changes
+
+-   [#1849](https://github.com/Khan/perseus/pull/1849) [`f7160d66f`](https://github.com/Khan/perseus/commit/f7160d66f6e0185dd11d8b802ad88f94cf4b92dd) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Introduce validation function for `table` widget - useful for checking if the learner has filled in the table sufficiently to score it (fully client-side)
+
+### Patch Changes
+
+-   [#1856](https://github.com/Khan/perseus/pull/1856) [`281f5647e`](https://github.com/Khan/perseus/commit/281f5647ea2cc6a944651466f0841140a7bc7d7b) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Fix bug that's causing the editor to crash when the label input is empty (and on load)
+
+-   Updated dependencies [[`46dc13f10`](https://github.com/Khan/perseus/commit/46dc13f10b97c22537e70e106540aa754c75b7b0)]:
+    -   @khanacademy/kas@0.4.0
+
 ## 41.3.0
 
 ### Minor Changes
