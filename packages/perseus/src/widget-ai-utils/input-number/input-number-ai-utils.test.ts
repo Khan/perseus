@@ -3,7 +3,10 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
+import {getPromptJSON} from "./input-number-ai-utils";
+
 import type {InputNumberWidget, PerseusRenderer} from "../../perseus-types";
+import type {PerseusInputNumberUserInput} from "../../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const question: PerseusRenderer = {
@@ -32,11 +35,35 @@ const question: PerseusRenderer = {
     },
 };
 
-describe("input-number widget", () => {
+describe("InputNumber AI utils", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("it returns JSON with the expected format and fields", () => {
+        const renderProps: any = {
+            simplify: "optional",
+            answerType: "integer",
+        };
+
+        const userInput: PerseusInputNumberUserInput = {
+            currentValue: "123",
+        };
+
+        const resultJSON = getPromptJSON(renderProps, userInput);
+
+        expect(resultJSON).toEqual({
+            type: "input-number",
+            options: {
+                simplify: "optional",
+                answerType: "integer",
+            },
+            userInput: {
+                value: "123",
+            },
         });
     });
 

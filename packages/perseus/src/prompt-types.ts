@@ -7,8 +7,8 @@ import type {GradedGroupPromptJSON} from "./widget-ai-utils/graded-group/graded-
 import type {GradedGroupSetPromptJSON} from "./widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import type {GrapherPromptJSON} from "./widget-ai-utils/grapher/grapher-ai-utils";
 import type {GroupPromptJSON} from "./widget-ai-utils/group/group-ai-utils";
-import type {ImagePromptJSON} from "./widget-ai-utils/image/prompt-utils";
-import type {InputNumberPromptJSON} from "./widget-ai-utils/input-number/prompt-utils";
+import type {ImagePromptJSON} from "./widget-ai-utils/image/image-ai-utils";
+import type {InputNumberPromptJSON} from "./widget-ai-utils/input-number/input-number-ai-utils";
 import type {LabelImagePromptJSON} from "./widget-ai-utils/label-image/prompt-utils";
 import type {MatcherPromptJSON} from "./widget-ai-utils/matcher/prompt-utils";
 import type {MatrixPromptJSON} from "./widget-ai-utils/matrix/prompt-utils";

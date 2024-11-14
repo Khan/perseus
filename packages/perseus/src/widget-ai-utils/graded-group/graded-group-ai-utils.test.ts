@@ -9,7 +9,7 @@ import {getPromptJSON} from "./graded-group-ai-utils";
 
 import type {PerseusRenderer} from "../../perseus-types";
 import type {CategorizerPromptJSON} from "../categorizer/categorizer-ai-utils";
-import type {ImagePromptJSON} from "../image/prompt-utils";
+import type {ImagePromptJSON} from "../image/image-ai-utils";
 import type {UserEvent} from "@testing-library/user-event";
 
 const question: PerseusRenderer = {
