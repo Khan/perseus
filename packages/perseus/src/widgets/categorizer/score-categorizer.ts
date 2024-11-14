@@ -1,3 +1,5 @@
+import validateCategorizer from "./validate-categorizer";
+
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {
@@ -10,22 +12,17 @@ function scoreCategorizer(
     rubric: PerseusCategorizerRubric,
     strings: PerseusStrings,
 ): PerseusScore {
-    let completed = true;
+    const validationResult = validateCategorizer(userInput, rubric, strings);
+    if (validationResult) {
+        return validationResult;
+    }
+
     let allCorrect = true;
     rubric.values.forEach((value, i) => {
-        if (userInput.values[i] == null) {
-            completed = false;
-        }
         if (userInput.values[i] !== value) {
             allCorrect = false;
         }
     });
-    if (!completed) {
-        return {
-            type: "invalid",
-            message: strings.invalidSelection,
-        };
-    }
     return {
         type: "points",
         earned: allCorrect ? 1 : 0,
