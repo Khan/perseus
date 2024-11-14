@@ -11,7 +11,7 @@ updates:
           - dependency-name: "@khanacademy/eslint-config"
           - dependency-name: "@khanacademy/eslint-plugin"
       assignees:
-            - "@Khan/perseus"
+          - "@Khan/perseus"
 
     # Grouped updates for Wonder Blocks and Wonder Stuff releases.
     # This helps us to stay in sync with the latest releases of these packages.
