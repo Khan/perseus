@@ -342,13 +342,63 @@ const propsTransform = function (
     return rendererProps;
 };
 
+// This function is being used to replace the input-number widget
+// with the numeric-input widget
+const propUpgrades = {
+    /* c8 ignore next */
+    "1": (initialProps: any): PerseusNumericInputWidgetOptions => {
+        // If the initialProps has a value, it means we're upgrading from
+        // input-number to numeric-input. In this case, we need to upgrade
+        // the widget options accordingly.
+        if (initialProps.value) {
+            const provideAnswerForm = initialProps.answerType !== "number";
+
+            // We need to determine the mathFormat for the numeric-input widget
+            const mathFormat =
+                initialProps.answerType === "rational"
+                    ? "proper" // input-number uses "rational" for proper fractions
+                    : initialProps.answerType; // Otherwise, we can use the answerType directly
+
+            // If adjusting this logic, also adjust the logic in the convertInputNumberWidgetOptions
+            // function in input-number.ts in the Perseus Editor package's util folder
+            const answers = [
+                {
+                    value: initialProps.value,
+                    simplify: initialProps.simplify,
+                    answerForms: provideAnswerForm ? [mathFormat] : undefined,
+                    strict: initialProps.inexact,
+                    // We only want to set maxError if the inexact prop is true
+                    maxError: initialProps.inexact ? initialProps.maxError : 0,
+                    status: "correct", // Input-number only allows correct answers
+                    message: "",
+                },
+            ];
+
+            return {
+                answers,
+                size: initialProps.size,
+                coefficient: false, // input-number doesn't have a coefficient prop
+                labelText: "", // input-number doesn't have a labelText prop
+                static: false, // static is always false for numeric-input
+                rightAlign: initialProps.rightAlign || false,
+            };
+        } else {
+            // Otherwise simply return the initialProps as there's no differences
+            // between v0 and v1 for numeric-input
+            return initialProps;
+        }
+    },
+} as const;
+
 export default {
     name: "numeric-input",
     displayName: "Numeric input",
     defaultAlignment: "inline-block",
     accessible: true,
     widget: NumericInput,
+    version: {major: 1, minor: 0},
     transform: propsTransform,
+    propUpgrades: propUpgrades,
     isLintable: true,
     scorer: scoreNumericInput,
 

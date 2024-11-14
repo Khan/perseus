@@ -26,6 +26,7 @@ export const question1: PerseusRenderer = {
                 simplify: "optional",
                 answerType: "rational",
                 size: "normal",
+                rightAlign: true,
             },
         } as InputNumberWidget,
     },
