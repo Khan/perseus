@@ -1,5 +1,5 @@
 import {vec} from "mafs";
-import React from "react";
+import * as React from "react";
 
 import {getDependencies} from "../../../dependencies";
 import {pointToPixel} from "../graphs/use-transform";
@@ -7,6 +7,7 @@ import {MAX, X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import type {GraphDimensions} from "../types";
+import { replaceOutsideTeX } from "../utils";
 
 export default function AxisLabels() {
     const {range, labels, width, height} = useGraphConfig();
@@ -42,7 +43,7 @@ export default function AxisLabels() {
                     transform: "translate(7px, -50%)",
                 }}
             >
-                <TeX>{xAxisLabelText}</TeX>
+                <TeX>{replaceOutsideTeX(xAxisLabelText)}</TeX>
             </span>
             <span
                 style={{
@@ -53,7 +54,7 @@ export default function AxisLabels() {
                     transform: "translate(-50%, 0px)",
                 }}
             >
-                <TeX>{yAxisLabelText}</TeX>
+                <TeX>{replaceOutsideTeX(yAxisLabelText)}</TeX>
             </span>
         </>
     );
