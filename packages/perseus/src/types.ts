@@ -466,24 +466,29 @@ type InitialRequestUrlInterface = {
 
 export type VideoKind = "YOUTUBE_ID" | "READABLE_ID";
 
-// An object for dependency injection, to allow different clients
-// to provide different methods for logging, translation, network
-// requests, etc.
-//
-// NOTE: You should avoid adding new dependencies here as this type was added
-// as a quick fix to get around the fact that some of the dependencies Perseus
-// needs are used in places where neither `APIOptions` nor a React Context
-// could be used. Aim to shrink the footprint of PerseusDependencies and try to
-// use alternative methods where possible.
+/**
+ * An object for dependency injection, to allow different clients
+ * to provide different methods for logging, translation, network
+ * requests, etc.
+ *
+ * NOTE: You should avoid adding new dependencies here as this type was added
+ * as a quick fix to get around the fact that some of the dependencies Perseus
+ * needs are used in places where neither `APIOptions` nor a React Context
+ * could be used. Aim to shrink the footprint of PerseusDependencies and try to
+ * use alternative methods where possible.
+ */
 export type PerseusDependencies = {
     JIPT: JIPT;
 
     TeX: React.ComponentType<TeXProps>;
 
     // misc
-    // Provides a function to transform a relative or absolute URL into a
-    // request to a static hosting service (think something like an S3 or GCS
-    // bucket).
+
+    /**
+     * Provides a function to transform a relative or absolute URL into a
+     * request to a static hosting service (think something like an S3 or GCS
+     * bucket).
+     */
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
 
