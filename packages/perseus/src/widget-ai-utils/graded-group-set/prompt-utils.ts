@@ -1,5 +1,5 @@
 import type gradedGroupSet from "../../widgets/graded-group-set";
-import type {GradedGroupPromptJSON} from "../graded-group/prompt-utils";
+import type {GradedGroupPromptJSON} from "../graded-group/graded-group-ai-utils";
 import type React from "react";
 
 export type GradedGroupSetPromptJSON = {

@@ -3,7 +3,7 @@ import type {DefinitionPromptJSON} from "./widget-ai-utils/definition/definition
 import type {DropdownPromptJSON} from "./widget-ai-utils/dropdown/dropdown-ai-utils";
 import type {ExplanationPromptJSON} from "./widget-ai-utils/explanation/explanation-ai-utils";
 import type {ExpressionPromptJSON} from "./widget-ai-utils/expression/expression-ai-utils";
-import type {GradedGroupPromptJSON} from "./widget-ai-utils/graded-group/prompt-utils";
+import type {GradedGroupPromptJSON} from "./widget-ai-utils/graded-group/graded-group-ai-utils";
 import type {GradedGroupSetPromptJSON} from "./widget-ai-utils/graded-group-set/prompt-utils";
 import type {GrapherPromptJSON} from "./widget-ai-utils/grapher/prompt-utils";
 import type {GroupPromptJSON} from "./widget-ai-utils/group/prompt-utils";
