@@ -2,6 +2,8 @@ import {act} from "@testing-library/react";
 
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
+import {getPromptJSON} from "./number-line-ai-utils";
+
 import type {PerseusRenderer} from "../../perseus-types";
 
 export const question: PerseusRenderer = {
@@ -33,7 +35,35 @@ export const question: PerseusRenderer = {
     },
 };
 
-describe("number-line widget", () => {
+describe("NumberLine AI utils", () => {
+    it("it returns JSON with the expected format and fields", () => {
+        const renderProps: any = {
+            range: [0, 10],
+            numDivisions: 10,
+            snapDivisions: 2,
+        };
+
+        const userInput: any = {
+            numLinePosition: 5,
+            numDivisions: 10,
+        };
+
+        const resultJSON = getPromptJSON(renderProps, userInput);
+
+        expect(resultJSON).toEqual({
+            type: "number-line",
+            options: {
+                range: [0, 10],
+                numDivisions: 10,
+                snapDivisions: 2,
+            },
+            userInput: {
+                numLinePosition: 5,
+                numDivisions: 10,
+            },
+        });
+    });
+
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);

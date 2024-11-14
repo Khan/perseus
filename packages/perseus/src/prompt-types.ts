@@ -12,7 +12,7 @@ import type {InputNumberPromptJSON} from "./widget-ai-utils/input-number/input-n
 import type {LabelImagePromptJSON} from "./widget-ai-utils/label-image/label-image-ai-utils";
 import type {MatcherPromptJSON} from "./widget-ai-utils/matcher/matcher-ai-utils";
 import type {MatrixPromptJSON} from "./widget-ai-utils/matrix/matrix-ai-utils";
-import type {NumberLinePromptJSON} from "./widget-ai-utils/number-line/prompt-utils";
+import type {NumberLinePromptJSON} from "./widget-ai-utils/number-line/number-line-ai-utils";
 import type {NumericInputPromptJSON} from "./widget-ai-utils/numeric-input/prompt-utils";
 import type {OrdererPromptJSON} from "./widget-ai-utils/orderer/prompt-utils";
 import type {PassagePromptJSON} from "./widget-ai-utils/passage/prompt-utils";

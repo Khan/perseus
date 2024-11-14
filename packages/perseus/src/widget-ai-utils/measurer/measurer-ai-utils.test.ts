@@ -1,6 +1,6 @@
 import {getPromptJSON} from "./measurer-ai-utils";
 
-describe("Measurer getPromptJSON", () => {
+describe("Measurer AI utils", () => {
     it("it returns JSON with the expected format and fields", () => {
         const resultJSON = getPromptJSON();
 
