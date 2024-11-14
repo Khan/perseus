@@ -93,7 +93,9 @@ class EditorPage extends React.Component<Props, State> {
         }
 
         const json = {
-            ..._.pick(this.props, "answerArea", "hints", "itemDataVersion"),
+            answerArea: this.props.answerArea,
+            hints: this.props.hints,
+            itemDataVersion: this.props.itemDataVersion,
             question: convertedQuestionJson,
         };
 
