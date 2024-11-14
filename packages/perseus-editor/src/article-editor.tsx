@@ -6,6 +6,7 @@
 
 import {components, ApiOptions, iconTrash} from "@khanacademy/perseus";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import Banner from "@khanacademy/wonder-blocks-banner";
 import * as React from "react";
 import _ from "underscore";
 
@@ -19,7 +20,10 @@ import {
     iconCircleArrowUp,
     iconPlus,
 } from "./styles/icon-paths";
-import {convertDeprecatedWidgets} from "./util/deprecated-widgets/modernize-widgets-utils";
+import {
+    convertDeprecatedWidgets,
+    conversionRequired,
+} from "./util/deprecated-widgets/modernize-widgets-utils";
 
 import type {
     APIOptions,
@@ -51,6 +55,8 @@ type Props = DefaultProps & {
 type State = {
     highlightLint: boolean;
     json: JsonType;
+    // Whether the Editor should be warned that the JSON has been converted to modern widgets
+    conversionWarningRequired: boolean;
 };
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
@@ -64,11 +70,29 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
+
+        // Check if the json needs to be converted
+        const conversionWarningRequired =
+            props.json instanceof Array
+                ? props.json
+                      .map(conversionRequired)
+                      .reduce((p, v) => p && v, false)
+                : conversionRequired(props.json);
+
+        let json = props.json;
+
+        // Convert the json if needed
+        if (conversionWarningRequired) {
+            json =
+                props.json instanceof Array
+                    ? props.json.map(convertDeprecatedWidgets)
+                    : convertDeprecatedWidgets(props.json);
+        }
+
         this.state = {
             highlightLint: true,
-            json: Array.isArray(props.json)
-                ? props.json.map(convertDeprecatedWidgets)
-                : convertDeprecatedWidgets(props.json as PerseusRenderer),
+            json,
+            conversionWarningRequired,
         };
     }
 
@@ -417,6 +441,15 @@ export default class ArticleEditor extends React.Component<Props, State> {
     render(): React.ReactNode {
         return (
             <div className="framework-perseus perseus-article-editor">
+                {this.state.conversionWarningRequired && (
+                    <div style={{marginBottom: 10}}>
+                        <Banner
+                            text="Deprecated Input Number Widgets were found, and have been automatically upgraded to Numeric Inputs. Please review the changes before publishing."
+                            kind="warning"
+                            layout="floating"
+                        />
+                    </div>
+                )}
                 {this.props.mode === "edit" && this._renderEditor()}
 
                 {this.props.mode === "preview" && this._renderPreviewMode()}
