@@ -20,7 +20,7 @@ import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 /* Mixins. */
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/grapher/prompt-utils";
 
-import grapherValidator from "./grapher-validator";
+import scoreGrapher from "./score-grapher";
 import {
     DEFAULT_GRAPHER_PROPS,
     chooseType,
@@ -652,5 +652,5 @@ export default {
     widget: Grapher,
     transform: propTransform,
     staticTransform: staticTransform,
-    validator: grapherValidator,
+    scorer: scoreGrapher,
 } satisfies WidgetExports<typeof Grapher>;
