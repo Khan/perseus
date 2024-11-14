@@ -169,33 +169,14 @@ const LimitedPolygonGraph = (props: Props) => {
     );
 };
 
-// TODO(catjohnson): reduce redundancy between LimitedPolygonGraph and UnlimitedPolygonGraph
-// both components are vary similar, however more implementation is needed to be added before
-// it is clear what can and can't be shared between components.
 const UnlimitedPolygonGraph = (props: Props) => {
-    const [hovered, setHovered] = React.useState(false);
-    // This is more so required for the re-rendering that occurs when state
-    // updates; specifically with regard to line weighting and polygon focus.
-    const [focusVisible, setFocusVisible] = React.useState(false);
-
     const {dispatch} = props;
-    const {
-        coords,
-        showAngles,
-        showSides,
-        range,
-        snapStep,
-        snapTo = "grid",
-        closedPolygon,
-    } = props.graphState;
+    const {coords, closedPolygon} = props.graphState;
 
     const graphConfig = useGraphConfig();
 
-    // TODO(catjohnson): Explore abstracting this code as it is similar to point.tsx
-    // and hopefully we can cut down ont the unlimited graph redundancy.
     const {
         range: [x, y],
-        disableKeyboardInteraction,
         graphDimensionsInPixels,
     } = graphConfig;
 
@@ -208,22 +189,7 @@ const UnlimitedPolygonGraph = (props: Props) => {
     // TODO(benchristel): can the default set of points be removed here? I don't
     // think coords can be null.
     const points = coords ?? [[0, 0]];
-    const polygonRef = React.useRef<SVGPolygonElement>(null);
-    const dragReferencePoint = points[0];
-    const constrain = ["angles", "sides"].includes(snapTo)
-        ? (p) => p
-        : (p) => snap(snapStep, p);
-    const {dragging} = useDraggable({
-        gestureTarget: polygonRef,
-        point: dragReferencePoint,
-        onMove: (newPoint) => {
-            const delta = vec.sub(newPoint, dragReferencePoint);
-            dispatch(actions.polygon.moveAll(delta));
-        },
-        constrainKeyboardMovement: constrain,
-    });
 
-    const lines = getLines(points);
     React.useEffect(() => {
         const focusedIndex = props.graphState.focusedPointIndex;
         if (focusedIndex != null) {
@@ -232,113 +198,8 @@ const UnlimitedPolygonGraph = (props: Props) => {
     }, [props.graphState.focusedPointIndex, pointRef]);
 
     if (closedPolygon) {
-        // When it's closed it's essentially just going to be the normal
-        // Polygon code... Maybe utilize the limited polygon logic??
-        // Can try that but will need to pass in a num of sides
-        // or else it breaks.
-        return (
-            <>
-                <Polygon
-                    points={[...points]}
-                    color="var(--movable-line-stroke-color)"
-                    svgPolygonProps={{
-                        strokeWidth: focusVisible
-                            ? "var(--movable-line-stroke-weight-active)"
-                            : "var(--movable-line-stroke-weight)",
-                        style: {fill: "transparent"},
-                    }}
-                />
-                {props.graphState.coords.map((point, i) => {
-                    const pt1 = points.at(i - 1);
-                    const pt2 = points[(i + 1) % points.length];
-                    if (!pt1 || !pt2) {
-                        return null;
-                    }
-                    return (
-                        <PolygonAngle
-                            key={"angle-" + i}
-                            centerPoint={point}
-                            endPoints={[pt1, pt2]}
-                            range={range}
-                            polygonLines={lines}
-                            showAngles={!!showAngles}
-                            snapTo={snapTo}
-                        />
-                    );
-                })}
-                {showSides &&
-                    lines.map(([start, end], i) => {
-                        const [x, y] = vec.midpoint(start, end);
-                        const length = parseFloat(
-                            vec
-                                .dist(start, end)
-                                .toFixed(snapTo === "sides" ? 0 : 1),
-                        );
-                        return (
-                            <TextLabel key={"side-" + i} x={x} y={y}>
-                                {!Number.isInteger(length) && "≈ "}
-                                {length}
-                            </TextLabel>
-                        );
-                    })}
-                {/**
-                 * This transparent svg creates a nice big click/touch target,
-                 * since the polygon itself can be made smaller than the spec.
-                 */}
-                <Polygon
-                    points={[...points]}
-                    color="transparent"
-                    svgPolygonProps={{
-                        ref: polygonRef,
-                        tabIndex: disableKeyboardInteraction ? -1 : 0,
-                        strokeWidth: TARGET_SIZE,
-                        style: {
-                            cursor: dragging ? "grabbing" : "grab",
-                            fill: hovered ? "var(--mafs-blue)" : "transparent",
-                        },
-                        onMouseEnter: () => setHovered(true),
-                        onMouseLeave: () => setHovered(false),
-                        // Required to remove line weighting when user clicks away
-                        // from the focused polygon
-                        onKeyDownCapture: () => {
-                            setFocusVisible(
-                                hasFocusVisible(polygonRef.current),
-                            );
-                        },
-                        // Required for lines to darken on focus
-                        onFocus: () =>
-                            setFocusVisible(
-                                hasFocusVisible(polygonRef.current),
-                            ),
-                        // Required for line weighting to update on blur. Without this,
-                        // the user has to hover over the shape for it to update
-                        onBlur: () =>
-                            setFocusVisible(
-                                hasFocusVisible(polygonRef.current),
-                            ),
-                        className: "movable-polygon",
-                    }}
-                />
-                {props.graphState.coords.map((point, i) => (
-                    <MovablePoint
-                        key={i}
-                        point={point}
-                        onMove={(destination) =>
-                            dispatch(actions.polygon.movePoint(i, destination))
-                        }
-                        ref={(ref) => {
-                            pointRef.current[i] = ref;
-                        }}
-                        onFocus={() => {
-                            dispatch(actions.polygon.focusPoint(i));
-                        }}
-                        onClick={() => {
-                            dispatch(actions.polygon.clickPoint(i));
-                        }}
-                    />
-                ))}
-            </>
-        );
+        const closedPolygonProps = {...props, numSides: coords.length};
+        return <LimitedPolygonGraph {...closedPolygonProps} />;
     } else {
         return (
             <>
@@ -372,34 +233,10 @@ const UnlimitedPolygonGraph = (props: Props) => {
                     points={[...points]}
                     color="var(--movable-line-stroke-color)"
                     svgPolylineProps={{
-                        strokeWidth: focusVisible
-                            ? "var(--movable-line-stroke-weight-active)"
-                            : "var(--movable-line-stroke-weight)",
+                        strokeWidth: "var(--movable-line-stroke-weight)",
                         style: {fill: "transparent"},
                     }}
                 />
-                {
-                    // Might want to abstract out the sides logic as it's the same in
-                    // Limited graph.
-                    // Might want to remove as I'll need to add logic
-                    // to not show side when there's 1 point and
-                    // To not show the last side that's not closed.
-                }
-                {/* {showSides &&
-                    lines.map(([start, end], i) => {
-                        const [x, y] = vec.midpoint(start, end);
-                        const length = parseFloat(
-                            vec
-                                .dist(start, end)
-                                .toFixed(snapTo === "sides" ? 0 : 1),
-                        );
-                        return (
-                            <TextLabel key={"side-" + i} x={x} y={y}>
-                                {!Number.isInteger(length) && "≈ "}
-                                {length}
-                            </TextLabel>
-                        );
-                    })} */}
                 {props.graphState.coords.map((point, i) => (
                     <MovablePoint
                         key={i}
@@ -452,59 +289,6 @@ export const hasFocusVisible = (
         return matches(":focus");
     }
 };
-
-// There must be a way to simplify the logic between the two components. Here
-// are my attempts.
-
-// export const PolygonGraph = (props: Props) => {
-//     const numSides = props.graphState.numSides;
-//     const closedPolygon = props.graphState.closedPolygon;
-//     const polygonGraph =
-//         numSides === "unlimited"
-//             ? UnlimitedPolygonGraph(props)
-//             : LimitedPolygonGraph(props);
-
-//     const polygonRef = React.useRef<Array<React.JSX.Element | null>>([
-//         polygonGraph,
-//     ]);
-
-//     React.useEffect(() => {
-//         if (numSides === "unlimited") {
-//             if (closedPolygon) {
-//                 //const points = coords ?? [[0, 0]];
-//                 //const lines = getLines(points);
-//                 polygonRef.current[0] = LimitedPolygonGraph(props);
-//             } else {
-//                 polygonRef.current[0] = UnlimitedPolygonGraph(props);
-//             }
-//         }
-//     }, [closedPolygon, numSides, props]);
-
-//     return polygonRef.current[0];
-// };
-
-// export const PolygonGraph = (props: Props) => {
-//     const numSides = props.graphState.numSides;
-//     const closedPolygon = props.graphState.closedPolygon;
-
-//     const [polygonGraph, setPolygonGraph] = React.useState(
-//         numSides === "unlimited"
-//             ? UnlimitedPolygonGraph(props)
-//             : LimitedPolygonGraph(props),
-//     );
-
-//     React.useEffect(() => {
-//         if (numSides === "unlimited") {
-//             if (closedPolygon) {
-//                 setPolygonGraph(LimitedPolygonGraph(props));
-//             } else {
-//                 setPolygonGraph(UnlimitedPolygonGraph(props));
-//             }
-//         }
-//     }, [closedPolygon, numSides, props]);
-
-//     return polygonGraph;
-// };
 
 const PolygonGraph = (props: Props) => {
     const numSides = props.graphState.numSides;
