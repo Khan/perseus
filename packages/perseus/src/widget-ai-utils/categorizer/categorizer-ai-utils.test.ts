@@ -5,7 +5,10 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
+import {getPromptJSON} from "./categorizer-ai-utils";
+
 import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusCategorizerUserInput} from "../../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
 export const randomizedQuestion: PerseusRenderer = {
@@ -35,7 +38,7 @@ export const randomizedQuestion: PerseusRenderer = {
     },
 };
 
-describe("categorizer widget", () => {
+describe("Categorizer AI utils", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -45,6 +48,31 @@ describe("categorizer widget", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+    });
+
+    it("it returns JSON with the expected format and fields", () => {
+        const renderProps: any = {
+            items: ["Luke Skywalker", "Darth Vader", "Yoda", "Han Solo"],
+            categories: ["Galactic Empire", "Rebel Alliance"],
+            values: [1, 0, 1, 1],
+        };
+
+        const userInput: PerseusCategorizerUserInput = {
+            values: [1, 0, 0, 1],
+        };
+
+        const resultJSON = getPromptJSON(renderProps, userInput);
+
+        expect(resultJSON).toEqual({
+            type: "categorizer",
+            options: {
+                items: ["Luke Skywalker", "Darth Vader", "Yoda", "Han Solo"],
+                categories: ["Galactic Empire", "Rebel Alliance"],
+            },
+            userInput: {
+                itemToCategoryMapping: [1, 0, 0, 1],
+            },
+        });
     });
 
     it("should get prompt json which matches the state of the UI for a randomized question", async () => {

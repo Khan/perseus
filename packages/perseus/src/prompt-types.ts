@@ -1,4 +1,4 @@
-import type {CategorizerPromptJSON} from "./widget-ai-utils/categorizer/prompt-utils";
+import type {CategorizerPromptJSON} from "./widget-ai-utils/categorizer/categorizer-ai-utils";
 import type {DefinitionPromptJSON} from "./widget-ai-utils/definition/prompt-utils";
 import type {DropdownPromptJSON} from "./widget-ai-utils/dropdown/prompt-utils";
 import type {ExplanationPromptJSON} from "./widget-ai-utils/explanation/prompt-utils";

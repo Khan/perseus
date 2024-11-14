@@ -1,6 +1,6 @@
 import {getPromptJSON} from "./prompt-utils";
 
-import type {CategorizerPromptJSON} from "../categorizer/prompt-utils";
+import type {CategorizerPromptJSON} from "../categorizer/categorizer-ai-utils";
 import type {ImagePromptJSON} from "../image/prompt-utils";
 
 describe("GradedGroup getPromptJSON", () => {
