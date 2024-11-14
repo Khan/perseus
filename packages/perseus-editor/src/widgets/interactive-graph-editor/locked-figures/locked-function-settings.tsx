@@ -30,6 +30,7 @@ import examples from "./locked-function-examples";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
 } from "./util";
 
@@ -84,13 +85,19 @@ const LockedFunctionSettings = (props: Props) => {
         ]);
     }, [domain]);
 
-    function getPrepopulatedAriaLabel() {
+    /**
+     * Generate the prepopulated aria label for the polygon,
+     * with the math details converted into spoken words.
+     */
+    async function getPrepopulatedAriaLabel() {
         let visiblelabel = "";
         if (labels && labels.length > 0) {
             visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
 
-        let str = `Function${visiblelabel} with equation ${equationPrefix}${equation}`;
+        let str = await generateSpokenMathDetails(
+            `Function${visiblelabel} with equation ${equationPrefix}${equation}`,
+        );
 
         // Add the domain/range constraints to the aria label
         // if they are not the default values.
@@ -331,7 +338,7 @@ const LockedFunctionSettings = (props: Props) => {
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}

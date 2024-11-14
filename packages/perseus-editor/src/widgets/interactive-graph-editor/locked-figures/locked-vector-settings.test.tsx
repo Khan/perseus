@@ -27,6 +27,14 @@ const defaultProps = {
 
 const defaultLabel = getDefaultFigureForType("label");
 
+// Mock the async function generateSpokenMathDetails
+jest.mock("./util", () => ({
+    ...jest.requireActual("./util"),
+    generateSpokenMathDetails: (input) => {
+        return Promise.resolve(`Spoken math details for ${input}`);
+    },
+}));
+
 describe("Locked Vector Settings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -431,7 +439,7 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Vector from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Spoken math details for Vector from (0, 0) to (2, 2). Appearance solid gray.",
             });
         });
 
@@ -462,7 +470,7 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Vector A from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Spoken math details for Vector A from (0, 0) to (2, 2). Appearance solid gray.",
             });
         });
 
@@ -497,7 +505,7 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Vector A, B from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Spoken math details for Vector A, B from (0, 0) to (2, 2). Appearance solid gray.",
             });
         });
     });
