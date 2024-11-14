@@ -28,6 +28,8 @@ function LockedFigureAria(props: Props) {
     const id = React.useId();
     const ariaLabelId = `aria-label-${id}`;
 
+    const [loading, setLoading] = React.useState(false);
+
     return (
         <View>
             <Strut size={spacing.xSmall_8} />
@@ -58,7 +60,7 @@ function LockedFigureAria(props: Props) {
             <Strut size={spacing.xxSmall_6} />
             <TextArea
                 id={ariaLabelId}
-                value={ariaLabel ?? ""}
+                value={loading ? "Loading..." : ariaLabel ?? ""}
                 onChange={(newValue) => {
                     onChangeProps({
                         // Save as undefined if the field is empty.
@@ -81,7 +83,9 @@ function LockedFigureAria(props: Props) {
                     if (prePopulatedAriaLabel) {
                         onChangeProps({ariaLabel: prePopulatedAriaLabel});
                     } else if (getPrepopulatedAriaLabel) {
+                        setLoading(true);
                         getPrepopulatedAriaLabel().then((ariaLabel) => {
+                            setLoading(false);
                             onChangeProps({ariaLabel});
                         });
                     }
