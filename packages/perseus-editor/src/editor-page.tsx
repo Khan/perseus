@@ -6,6 +6,7 @@ import JsonEditor from "./components/json-editor";
 import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
+import {convertDeprecatedWidgets} from "./util/deprecated-widgets/modernize-widgets-utils";
 
 import type {
     APIOptions,
@@ -16,6 +17,7 @@ import type {
     ImageUploader,
     Version,
     PerseusItem,
+    PerseusRenderer,
 } from "@khanacademy/perseus";
 
 const {HUD} = components;
@@ -57,6 +59,7 @@ type Props = {
 
 type State = {
     json: PerseusItem;
+    question: PerseusRenderer;
     gradeMessage: string;
     wasAnswered: boolean;
     highlightLint: boolean;
@@ -83,15 +86,22 @@ class EditorPage extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
+        // Convert any widgets that need to be converted to newer widget types
+        let convertedQuestionJson: PerseusRenderer = props.question;
+        if (props.question) {
+            convertedQuestionJson = convertDeprecatedWidgets(props.question);
+        }
+
+        const json = {
+            answerArea: this.props.answerArea,
+            hints: this.props.hints,
+            itemDataVersion: this.props.itemDataVersion,
+            question: convertedQuestionJson,
+        };
+
         this.state = {
             // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea" | "itemDataVersion">' is not assignable to type 'PerseusJson'.
-            json: _.pick(
-                this.props,
-                "question",
-                "answerArea",
-                "hints",
-                "itemDataVersion",
-            ),
+            json: json,
             gradeMessage: "",
             wasAnswered: false,
             highlightLint: true,
@@ -287,7 +297,10 @@ class EditorPage extends React.Component<Props, State> {
                     <ItemEditor
                         ref={this.itemEditor}
                         itemId={this.props.itemId}
-                        question={this.props.question}
+                        question={
+                            this.props.question &&
+                            convertDeprecatedWidgets(this.props.question)
+                        }
                         answerArea={this.props.answerArea}
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleChange}
