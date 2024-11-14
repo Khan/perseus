@@ -17,7 +17,7 @@ describe("tableValidator", () => {
         expect(result).toHaveInvalidInput();
     });
 
-    it("is valid, not correct, if all cells are provided", () => {
+    it("is null if all cells are provided", () => {
         // Arrange
         const userInput: PerseusTableUserInput = [
             ["1", "2"],
@@ -28,6 +28,6 @@ describe("tableValidator", () => {
         const result = validateTable(userInput);
 
         // Assert
-        expect(result).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});
+        expect(result).toBeNull();
     });
 });
