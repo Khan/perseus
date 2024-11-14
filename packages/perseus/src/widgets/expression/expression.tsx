@@ -201,15 +201,18 @@ export class Expression
         return Changeable.change.apply(this, args);
     };
 
-    parse(value: string, props: Props) {
+    parse: (value: string, props: Props) => any = (
+        value: string,
+        props: Props,
+    ) => {
         // TODO(jack): Disable icu for content creators here, or
         // make it so that solution answers with ','s or '.'s work
-        const options = {
-            functions: props.functions,
+        const options = _.pick(props || this.props, "functions");
+        _.extend(options, {
             decimal_separator: getDecimalSeparator(this.context.locale),
-        };
+        });
         return KAS.parse(normalizeTex(value), options);
-    }
+    };
 
     changeAndTrack: (e: any, cb: () => void) => void = (
         e: any,
