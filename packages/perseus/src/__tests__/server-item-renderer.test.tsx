@@ -19,14 +19,11 @@ import WrappedServerItemRenderer, {
     ServerItemRenderer,
 } from "../server-item-renderer";
 import {registerWidget} from "../widgets";
-import InputNumberExport from "../widgets/input-number/input-number";
-import RadioWidgetExport from "../widgets/radio";
-
+import {MockWidget} from "../widgets/mock-widgets";
 import MockAssetLoadingWidgetExport, {
     mockedAssetItem,
-} from "./mock-asset-loading-widget";
+} from "../widgets/mock-widgets/mock-asset-loading-widget";
 
-import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
 import type {APIOptions} from "../types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -68,12 +65,7 @@ const renderQuestion = (
 
 describe("server item renderer", () => {
     beforeAll(() => {
-        // TODO(LEMS-2656): remove TS suppression
-        // @ts-expect-error: InputNumberExport is not assignable to type WidgetExports
-        registerWidget("input-number", InputNumberExport);
-        // TODO(LEMS-2656): remove TS suppression
-        // @ts-expect-error: RadioWidgetExport is not assignable to type WidgetExports
-        registerWidget("radio", RadioWidgetExport);
+        registerWidget("mock-widget", MockWidget);
     });
 
     let userEvent: UserEvent;
