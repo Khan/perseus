@@ -1,5 +1,12 @@
 # @khanacademy/perseus-dev-ui
 
+## 3.1.2
+
+### Patch Changes
+
+-   Updated dependencies [[`46dc13f10`](https://github.com/Khan/perseus/commit/46dc13f10b97c22537e70e106540aa754c75b7b0)]:
+    -   @khanacademy/kas@0.4.0
+
 ## 3.1.1
 
 ### Patch Changes

@@ -254,4 +254,4 @@ export type {
     TagsShape,
 } from "./multi-items/shape-types";
 export type {Path} from "./multi-items/trees";
-export type {RendererPromptJSON} from "./prompt-types";
+export type {RendererPromptJSON, WidgetPromptJSON} from "./prompt-types";

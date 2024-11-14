@@ -1,5 +1,5 @@
 import Util from "./util";
-import {getWidgetValidator} from "./widgets";
+import {getWidgetScorer} from "./widgets";
 
 import type {PerseusWidgetsMap} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
@@ -24,7 +24,7 @@ export function emptyWidgetsFunctional(
 
         let score: PerseusScore | null = null;
         const userInput = userInputMap[id];
-        const validator = getWidgetValidator(widget.type);
+        const scorer = getWidgetScorer(widget.type);
 
         if (widget.type === "group") {
             const scores = scoreWidgetsFunctional(
@@ -35,8 +35,8 @@ export function emptyWidgetsFunctional(
                 locale,
             );
             score = Util.flattenScores(scores);
-        } else if (validator) {
-            score = validator(
+        } else if (scorer) {
+            score = scorer(
                 userInput as UserInput,
                 widget.options,
                 strings,
@@ -75,7 +75,7 @@ export function scoreWidgetsFunctional(
         }
 
         const userInput = userInputMap[id];
-        const validator = getWidgetValidator(widget.type);
+        const scorer = getWidgetScorer(widget.type);
         if (widget.type === "group") {
             const scores = scoreWidgetsFunctional(
                 widget.options.widgets,
@@ -85,8 +85,8 @@ export function scoreWidgetsFunctional(
                 locale,
             );
             widgetScores[id] = Util.flattenScores(scores);
-        } else if (validator) {
-            widgetScores[id] = validator(
+        } else if (scorer) {
+            widgetScores[id] = scorer(
                 userInput as UserInput,
                 widget.options,
                 strings,

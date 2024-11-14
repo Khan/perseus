@@ -1,5 +1,44 @@
 # @khanacademy/perseus
 
+## 41.4.0
+
+### Minor Changes
+
+-   [#1849](https://github.com/Khan/perseus/pull/1849) [`f7160d66f`](https://github.com/Khan/perseus/commit/f7160d66f6e0185dd11d8b802ad88f94cf4b92dd) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Introduce validation function for `table` widget - useful for checking if the learner has filled in the table sufficiently to score it (fully client-side)
+
+### Patch Changes
+
+-   [#1856](https://github.com/Khan/perseus/pull/1856) [`281f5647e`](https://github.com/Khan/perseus/commit/281f5647ea2cc6a944651466f0841140a7bc7d7b) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Fix bug that's causing the editor to crash when the label input is empty (and on load)
+
+-   Updated dependencies [[`46dc13f10`](https://github.com/Khan/perseus/commit/46dc13f10b97c22537e70e106540aa754c75b7b0)]:
+    -   @khanacademy/kas@0.4.0
+
+## 41.3.0
+
+### Minor Changes
+
+-   [#1848](https://github.com/Khan/perseus/pull/1848) [`55371ded7`](https://github.com/Khan/perseus/commit/55371ded7a7ff882979022d341026a21637f22ee) Thanks [@Myranae](https://github.com/Myranae)! - Rename all validator functions and related code to reference scoring instead
+
+*   [#1754](https://github.com/Khan/perseus/pull/1754) [`77f1bf98f`](https://github.com/Khan/perseus/commit/77f1bf98fc9027464f2a83967d2a30dba27ee88c) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Adds the getPromptJSON utility method to the renderer and every widget. It can be used to get a JSON representation of the exercise to pass to an LLM.
+
+### Patch Changes
+
+-   [#1844](https://github.com/Khan/perseus/pull/1844) [`092c81f6c`](https://github.com/Khan/perseus/commit/092c81f6ce0ae597e7dabf597d76642abebdf401) Thanks [@Myranae](https://github.com/Myranae)! - Update Radio's userInput and rubric objects and types
+
+*   [#1837](https://github.com/Khan/perseus/pull/1837) [`80f0480e6`](https://github.com/Khan/perseus/commit/80f0480e6dc5fd45e2a870c323b67decc1e8d254) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Type widget exports using 'satisfies' keyword instead of 'as'
+
+-   [#1785](https://github.com/Khan/perseus/pull/1785) [`32b27322c`](https://github.com/Khan/perseus/commit/32b27322c78fc818900d3c48dc738cb50d086505) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add a parsing layer to typecheck PerseusItem data at runtime (ADR #773). The parsing code is not used yet.
+
+*   [#1838](https://github.com/Khan/perseus/pull/1838) [`08fa66103`](https://github.com/Khan/perseus/commit/08fa6610346debf178edb944d7570cdb7d98af6a) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Introduce a PerseusArticle type
+
+-   [#1825](https://github.com/Khan/perseus/pull/1825) [`3dd1fa5ce`](https://github.com/Khan/perseus/commit/3dd1fa5cea46e7c90db8d0e1efdf0e8c449853a7) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding stronger typing to expression editor issues.
+
+*   [#1847](https://github.com/Khan/perseus/pull/1847) [`dcb4b27b3`](https://github.com/Khan/perseus/commit/dcb4b27b3dbd3f8757cd015a390e8badd30dcd4f) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Labels] Allow the usage of `{$}` to denote actual dollar signs within locked label TeX
+
+-   [#1850](https://github.com/Khan/perseus/pull/1850) [`61dbd4a2c`](https://github.com/Khan/perseus/commit/61dbd4a2cb985887de391ea9fd9839770d0deef8) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Export WidgetPromptJSON type so it is accessible
+
+*   [#1842](https://github.com/Khan/perseus/pull/1842) [`cf2ea471e`](https://github.com/Khan/perseus/commit/cf2ea471e7d38cf8f0cd45ac0962eef6fa270b8a) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Fix function signature of getUserInputFromProps for radio widget
+
 ## 41.2.0
 
 ### Minor Changes
