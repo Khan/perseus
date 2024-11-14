@@ -280,7 +280,6 @@ export const polygonWithFourSidesSnappingQuestion: PerseusRenderer =
 
 export const polygonWithUnlimitedSidesQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .withMarkings("none")
         .withContent(
             "**Example of unlimited polygon sides** \n[[\u2603 interactive-graph 1]] \n",
         )
