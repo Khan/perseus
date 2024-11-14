@@ -18,7 +18,7 @@ function scoreTable(
     strings: PerseusStrings,
 ): PerseusScore {
     const validationResult = validateTable(userInput);
-    if (validationResult.type === "invalid") {
+    if (validationResult != null) {
         return validationResult;
     }
 

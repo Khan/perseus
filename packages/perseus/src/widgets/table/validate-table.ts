@@ -3,7 +3,9 @@ import {filterNonEmpty} from "./utils";
 import type {PerseusScore} from "../../types";
 import type {PerseusTableUserInput} from "../../validation.types";
 
-function validateTable(userInput: PerseusTableUserInput): PerseusScore {
+function validateTable(
+    userInput: PerseusTableUserInput,
+): Extract<PerseusScore, {type: "invalid"}> | null {
     const supplied = filterNonEmpty(userInput);
 
     const hasEmptyCell = supplied.some(function (row) {
@@ -19,8 +21,7 @@ function validateTable(userInput: PerseusTableUserInput): PerseusScore {
         };
     }
 
-    // No points earned, but at least we're not invalid
-    return {type: "points", earned: 0, total: 0};
+    return null;
 }
 
 export default validateTable;
