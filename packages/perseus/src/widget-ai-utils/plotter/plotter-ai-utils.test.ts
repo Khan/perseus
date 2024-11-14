@@ -1,6 +1,6 @@
-import {getPromptJSON} from "./prompt-utils";
+import {getPromptJSON} from "./plotter-ai-utils";
 
-describe("Plotter getPromptJSON", () => {
+describe("Plotter AI utils", () => {
     it("it returns JSON with the expected format and fields", () => {
         const resultJSON = getPromptJSON();
 
