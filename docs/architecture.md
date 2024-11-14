@@ -110,7 +110,7 @@ For each widget in `.widgets` the `Renderer`:
 1. Runs each widget's options through any upgrade transforms (see
     `Widgets.upgradeWidgetInfoToLatestVersion()` and
     `WidgetExports.propUpgrades`). See [Prop Upgrades](#Prop_Upgrades) for more info
-1. Prepares upgraded opions for rendering by applying the widget's
+1. Prepares upgraded options for rendering by applying the widget's
     `transform()` or `staticTransform()` (if rendering with
     `static: true`). These functions map the widget options to the widget's
     render Props.
