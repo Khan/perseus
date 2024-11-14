@@ -1,5 +1,7 @@
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
+import {getPromptJSON} from "./cs-program-ai-utils";
+
 import type {PerseusRenderer} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {
@@ -28,7 +30,17 @@ export const question1: PerseusRenderer = {
     },
 };
 
-describe("cs-program widget", () => {
+describe("CS Program AI utils", () => {
+    it("it returns JSON with the expected format and fields", () => {
+        const resultJSON = getPromptJSON();
+
+        expect(resultJSON).toEqual({
+            type: "cs-program",
+            isSupported: false,
+            message: "",
+        });
+    });
+
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1, {isMobile: false});
