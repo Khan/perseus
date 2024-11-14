@@ -263,7 +263,7 @@ class EditorPage extends React.Component<Props, State> {
                 {this.state.conversionWarningRequired && (
                     <div style={{marginBottom: 10}}>
                         <Banner
-                            text="Pre-existing Input Number Widgets have been converted to Numeric Inputs. Please review the changes before publishing."
+                            text="Deprecated Input Number Widgets were found, and have been automatically upgraded to Numeric Inputs. Please review the changes before publishing."
                             kind="warning"
                             layout="floating"
                         />

@@ -72,16 +72,21 @@ export default class ArticleEditor extends React.Component<Props, State> {
         super(props);
 
         // Check if the json needs to be converted
-        const conversionWarningRequired = conversionRequired(
-            props.json as PerseusRenderer,
-        );
+        const conversionWarningRequired =
+            props.json instanceof Array
+                ? props.json
+                      .map(conversionRequired)
+                      .reduce((p, v) => p && v, false)
+                : conversionRequired(props.json);
+
         let json = props.json;
 
         // Convert the json if needed
         if (conversionWarningRequired) {
-            json = Array.isArray(props.json)
-                ? props.json.map(convertDeprecatedWidgets)
-                : convertDeprecatedWidgets(props.json as PerseusRenderer);
+            json =
+                props.json instanceof Array
+                    ? props.json.map(convertDeprecatedWidgets)
+                    : convertDeprecatedWidgets(props.json);
         }
 
         this.state = {
@@ -439,7 +444,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 {this.state.conversionWarningRequired && (
                     <div style={{marginBottom: 10}}>
                         <Banner
-                            text="Pre-existing Input Number Widgets have been converted to Numeric Inputs. Please review the changes before publishing."
+                            text="Deprecated Input Number Widgets were found, and have been automatically upgraded to Numeric Inputs. Please review the changes before publishing."
                             kind="warning"
                             layout="floating"
                         />
