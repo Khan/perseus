@@ -10,7 +10,7 @@ import type {GroupPromptJSON} from "./widget-ai-utils/group/group-ai-utils";
 import type {ImagePromptJSON} from "./widget-ai-utils/image/image-ai-utils";
 import type {InputNumberPromptJSON} from "./widget-ai-utils/input-number/input-number-ai-utils";
 import type {LabelImagePromptJSON} from "./widget-ai-utils/label-image/label-image-ai-utils";
-import type {MatcherPromptJSON} from "./widget-ai-utils/matcher/prompt-utils";
+import type {MatcherPromptJSON} from "./widget-ai-utils/matcher/matcher-ai-utils";
 import type {MatrixPromptJSON} from "./widget-ai-utils/matrix/prompt-utils";
 import type {NumberLinePromptJSON} from "./widget-ai-utils/number-line/prompt-utils";
 import type {NumericInputPromptJSON} from "./widget-ai-utils/numeric-input/prompt-utils";

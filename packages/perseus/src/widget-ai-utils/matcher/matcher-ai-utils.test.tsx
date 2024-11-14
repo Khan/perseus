@@ -5,7 +5,10 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
+import {getPromptJSON} from "./matcher-ai-utils";
+
 import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusMatcherUserInput} from "../../validation.types";
 
 const question1: PerseusRenderer = {
     content:
@@ -39,7 +42,7 @@ const question1: PerseusRenderer = {
     },
 };
 
-describe("matcher widget", () => {
+describe("Matcher AI utils", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
@@ -54,6 +57,42 @@ describe("matcher widget", () => {
                     onLoad?.();
                 }, [onLoad]);
                 return <span className="tex-mock">{children}</span>;
+            },
+        });
+    });
+
+    it("it returns JSON with the expected format and fields", () => {
+        const renderProps: any = {
+            labels: {
+                left: "Number",
+                right: "Letter",
+            },
+            left: ["1", "2", "3"],
+            right: ["a", "b", "c"],
+            orderMatters: false,
+        };
+
+        const userInput: PerseusMatcherUserInput = {
+            left: ["3", "1", "2"],
+            right: ["a", "b", "c"],
+        };
+
+        const resultJSON = getPromptJSON(renderProps, userInput);
+
+        expect(resultJSON).toEqual({
+            type: "matcher",
+            options: {
+                labels: {
+                    left: "Number",
+                    right: "Letter",
+                },
+                left: ["1", "2", "3"],
+                right: ["a", "b", "c"],
+                orderMatters: false,
+            },
+            userInput: {
+                left: ["3", "1", "2"],
+                right: ["a", "b", "c"],
             },
         });
     });
