@@ -6,6 +6,7 @@
 
 import {components, ApiOptions, iconTrash} from "@khanacademy/perseus";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import Banner from "@khanacademy/wonder-blocks-banner";
 import * as React from "react";
 import _ from "underscore";
 
@@ -19,18 +20,21 @@ import {
     iconCircleArrowUp,
     iconPlus,
 } from "./styles/icon-paths";
+import {
+    convertDeprecatedWidgets,
+    conversionRequired,
+} from "./util/deprecated-widgets/modernize-widgets-utils";
 
-import type {APIOptions, Changeable, ImageUploader} from "@khanacademy/perseus";
+import type {
+    APIOptions,
+    Changeable,
+    ImageUploader,
+    PerseusRenderer,
+} from "@khanacademy/perseus";
 
 const {HUD, InlineIcon} = components;
 
-type RendererProps = {
-    content?: string;
-    widgets?: any;
-    images?: any;
-};
-
-type JsonType = RendererProps | ReadonlyArray<RendererProps>;
+type JsonType = PerseusRenderer | PerseusRenderer[];
 type DefaultProps = {
     contentPaths?: ReadonlyArray<string>;
     json: JsonType;
@@ -50,20 +54,47 @@ type Props = DefaultProps & {
 
 type State = {
     highlightLint: boolean;
+    json: JsonType;
+    // Whether the Editor should be warned that the JSON has been converted to modern widgets
+    conversionWarningRequired: boolean;
 };
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         contentPaths: [],
-        json: [{}],
+        json: [],
         mode: "edit",
         screen: "desktop",
         sectionImageUploadGenerator: () => <span />,
         useNewStyles: false,
     };
 
-    state: State = {
-        highlightLint: true,
-    };
+    constructor(props: Props) {
+        super(props);
+
+        // Check if the json needs to be converted
+        const conversionWarningRequired =
+            props.json instanceof Array
+                ? props.json
+                      .map(conversionRequired)
+                      .reduce((p, v) => p && v, false)
+                : conversionRequired(props.json);
+
+        let json = props.json;
+
+        // Convert the json if needed
+        if (conversionWarningRequired) {
+            json =
+                props.json instanceof Array
+                    ? props.json.map(convertDeprecatedWidgets)
+                    : convertDeprecatedWidgets(props.json);
+        }
+
+        this.state = {
+            highlightLint: true,
+            json,
+            conversionWarningRequired,
+        };
+    }
 
     componentDidMount() {
         this._updatePreviewFrames();
@@ -95,7 +126,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         }
     }
 
-    _apiOptionsForSection(section: RendererProps, sectionIndex: number): any {
+    _apiOptionsForSection(section: PerseusRenderer, sectionIndex: number): any {
         // eslint-disable-next-line react/no-string-refs
         const editor = this.refs[`editor${sectionIndex}`];
         return {
@@ -120,10 +151,13 @@ export default class ArticleEditor extends React.Component<Props, State> {
         };
     }
 
-    _sections(): ReadonlyArray<RendererProps> {
-        return Array.isArray(this.props.json)
-            ? this.props.json
-            : [this.props.json];
+    _sections(): PerseusRenderer[] {
+        const sections = Array.isArray(this.state.json)
+            ? this.state.json
+            : [this.state.json];
+        return sections.filter(
+            (section): section is PerseusRenderer => section !== null,
+        );
     }
 
     _renderEditor(): React.ReactElement<React.ComponentProps<"div">> {
@@ -297,13 +331,13 @@ export default class ArticleEditor extends React.Component<Props, State> {
         this.props.onChange({json: newJson});
     };
 
-    _handleEditorChange: (i: number, newProps: RendererProps) => void = (
+    _handleEditorChange: (i: number, newProps: PerseusRenderer) => void = (
         i,
         newProps,
     ) => {
         const sections = _.clone(this._sections());
-        // @ts-expect-error - TS2542 - Index signature in type 'readonly RendererProps[]' only permits reading.
         sections[i] = _.extend({}, sections[i], newProps);
+        this.setState({json: sections});
         this.props.onChange({json: sections});
     };
 
@@ -313,9 +347,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         }
         const sections = _.clone(this._sections());
         const section = sections[i];
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i - 1, 0, section);
         this.props.onChange({
             json: sections,
@@ -328,9 +360,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
             return;
         }
         const section = sections[i];
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i + 1, 0, section);
         this.props.onChange({
             json: sections,
@@ -362,7 +392,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     _handleRemoveSection(i: number) {
         const sections = _.clone(this._sections());
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
         this.props.onChange({
             json: sections,
@@ -378,7 +407,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
             });
         }
         if (this.props.mode === "preview" || this.props.mode === "json") {
-            return this.props.json;
+            return this.state.json;
         }
         throw new PerseusError(
             "Could not serialize; mode " + this.props.mode + " not found",
@@ -392,7 +421,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
      *
      * This function can currently only be called in edit mode.
      */
-    getSaveWarnings(): ReadonlyArray<RendererProps> {
+    getSaveWarnings(): ReadonlyArray<PerseusRenderer> {
         if (this.props.mode !== "edit") {
             // TODO(joshuan): We should be able to get save warnings in
             // preview mode.
@@ -412,6 +441,15 @@ export default class ArticleEditor extends React.Component<Props, State> {
     render(): React.ReactNode {
         return (
             <div className="framework-perseus perseus-article-editor">
+                {this.state.conversionWarningRequired && (
+                    <div style={{marginBottom: 10}}>
+                        <Banner
+                            text="Deprecated Input Number Widgets were found, and have been automatically upgraded to Numeric Inputs. Please review the changes before publishing."
+                            kind="warning"
+                            layout="floating"
+                        />
+                    </div>
+                )}
                 {this.props.mode === "edit" && this._renderEditor()}
 
                 {this.props.mode === "preview" && this._renderPreviewMode()}
@@ -427,7 +465,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                         <JsonEditor
                             multiLine={true}
                             onChange={this._handleJsonChange}
-                            value={this.props.json}
+                            value={this.state.json}
                         />
                     </div>
                 )}

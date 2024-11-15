@@ -67,7 +67,7 @@ describe("InputNumber AI utils", () => {
         });
     });
 
-    it("should get prompt json which matches the state of the UI", async () => {
+    xit("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
 

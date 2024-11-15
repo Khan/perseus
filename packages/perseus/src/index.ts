@@ -207,8 +207,9 @@ export type {
     Size,
     CollinearTuple,
     MathFormat,
-    InputNumberWidget, // TODO(jeremy): remove?
     PerseusArticle,
+    InputNumberWidget, // Used for usurpation of InputNumberWidget in perseus-editor
+    NumericInputWidget, // Used for usurpation of InputNumberWidget in perseus-editor
     // Widget configuration types
     PerseusImageBackground,
     PerseusInputNumberWidgetOptions,

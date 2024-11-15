@@ -13,14 +13,22 @@ const {InfoTip} = components;
 
 type Props = {
     ariaLabel: string | undefined;
-    prePopulatedAriaLabel: string;
+    prePopulatedAriaLabel?: string;
+    getPrepopulatedAriaLabel?: () => Promise<string>;
     onChangeProps: (props: {ariaLabel?: string | undefined}) => void;
 };
 
 function LockedFigureAria(props: Props) {
-    const {ariaLabel, prePopulatedAriaLabel, onChangeProps} = props;
+    const {
+        ariaLabel,
+        prePopulatedAriaLabel,
+        getPrepopulatedAriaLabel,
+        onChangeProps,
+    } = props;
     const id = React.useId();
     const ariaLabelId = `aria-label-${id}`;
+
+    const [loading, setLoading] = React.useState(false);
 
     return (
         <View>
@@ -52,7 +60,7 @@ function LockedFigureAria(props: Props) {
             <Strut size={spacing.xxSmall_6} />
             <TextArea
                 id={ariaLabelId}
-                value={ariaLabel ?? ""}
+                value={loading ? "Loading..." : ariaLabel ?? ""}
                 onChange={(newValue) => {
                     onChangeProps({
                         // Save as undefined if the field is empty.
@@ -69,9 +77,18 @@ function LockedFigureAria(props: Props) {
                 startIcon={pencilCircle}
                 style={styles.button}
                 onClick={() => {
-                    onChangeProps({
-                        ariaLabel: prePopulatedAriaLabel,
-                    });
+                    // TODO(LEMS-2548): remove the prePopulatedAriaLabel prop
+                    // after all the locked figures are updated to use
+                    // getPrepopulatedAriaLabel.
+                    if (prePopulatedAriaLabel) {
+                        onChangeProps({ariaLabel: prePopulatedAriaLabel});
+                    } else if (getPrepopulatedAriaLabel) {
+                        setLoading(true);
+                        getPrepopulatedAriaLabel().then((ariaLabel) => {
+                            setLoading(false);
+                            onChangeProps({ariaLabel});
+                        });
+                    }
                 }}
             >
                 Auto-generate
