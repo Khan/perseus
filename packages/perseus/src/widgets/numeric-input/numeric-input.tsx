@@ -249,21 +249,19 @@ export class NumericInput
         });
 
         return (
-            <div className="perseus-numeric-input">
-                <InputWithExamples
-                    ref={(ref) => (this.inputRef = ref)}
-                    value={this.props.currentValue}
-                    onChange={this.handleChange}
-                    labelText={labelText}
-                    examples={this.examples()}
-                    shouldShowExamples={this.shouldShowExamples()}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur}
-                    id={this.props.widgetId}
-                    disabled={this.props.apiOptions.readOnly}
-                    style={styles.input}
-                />
-            </div>
+            <InputWithExamples
+                ref={(ref) => (this.inputRef = ref)}
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                labelText={labelText}
+                examples={this.examples()}
+                shouldShowExamples={this.shouldShowExamples()}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                id={this.props.widgetId}
+                disabled={this.props.apiOptions.readOnly}
+                style={styles.input}
+            />
         );
     }
 }
