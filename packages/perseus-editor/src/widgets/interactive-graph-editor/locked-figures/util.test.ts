@@ -1,5 +1,6 @@
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
 } from "./util";
 
@@ -257,4 +258,85 @@ describe("generateLockedFigureAppearanceDescription", () => {
             );
         },
     );
+});
+
+// TODO(LEMS-2616): Update these tests to mock SpeechRuleEngine.setup()
+// so that the tests don't have to make HTTP requests.
+describe("generateMathDetails", () => {
+    test("should convert TeX to spoken language (root, fraction)", async () => {
+        const mathString = "$\\sqrt{\\frac{1}{2}}$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("StartRoot one half EndRoot");
+    });
+
+    test("should convert TeX to spoken language (exponent)", async () => {
+        const mathString = "$x^{2}$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("x Superscript 2");
+    });
+
+    test("should convert TeX to spoken language (negative)", async () => {
+        const mathString = "$-2$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("negative 2");
+    });
+
+    test("should converte TeX to spoken language (subtraction)", async () => {
+        const mathString = "$2-1$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("2 minus 1");
+    });
+
+    test("should convert TeX to spoken language (normal words)", async () => {
+        const mathString = "$\\text{square b}$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("square b");
+    });
+
+    test("should convert TeX to spoken language (random letters)", async () => {
+        const mathString = "$cat$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("c a t");
+    });
+
+    test("should keep non-math text as is", async () => {
+        const mathString = "Circle with radius $\\frac{1}{2}$ units";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("Circle with radius one half units");
+    });
+
+    test("should read dollar signs as dollars inside tex", async () => {
+        const mathString = "This sandwich costs ${$}12.34$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("This sandwich costs dollar sign 12.34");
+    });
+
+    test("should read dollar signs as dollars outside tex", async () => {
+        const mathString = "This sandwich costs \\$12.34";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("This sandwich costs $12.34");
+    });
+
+    test("should read curly braces", async () => {
+        const mathString = "Hello}{";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("Hello}{");
+    });
+
+    test("should read backslashes", async () => {
+        const mathString = "\\";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("\\");
+    });
 });
