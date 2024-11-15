@@ -26,6 +26,14 @@ const defaultProps = {
 
 const defaultLabel = getDefaultFigureForType("label");
 
+// Mock the async function generateSpokenMathDetails
+jest.mock("./util", () => ({
+    ...jest.requireActual("./util"),
+    generateSpokenMathDetails: (input) => {
+        return Promise.resolve(`Spoken math details for ${input}`);
+    },
+}));
+
 describe("LockedEllipseSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -383,7 +391,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
+                    "Spoken math details for Circle with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
             });
         });
 
@@ -411,7 +419,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
+                    "Spoken math details for Circle with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
             });
         });
 
@@ -438,7 +446,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Ellipse with x radius 2 and y radius 3, centered at (0, 0). Appearance solid gray border, with no fill.",
+                    "Spoken math details for Ellipse with x radius 2 and y radius 3, centered at (0, 0). Appearance solid gray border, with no fill.",
             });
         });
 
@@ -466,7 +474,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Ellipse with x radius 2 and y radius 3, centered at (0, 0), rotated by 90 degrees. Appearance solid gray border, with no fill.",
+                    "Spoken math details for Ellipse with x radius 2 and y radius 3, centered at (0, 0), rotated by 90 degrees. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -498,7 +506,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle A with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
+                    "Spoken math details for Circle A with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
             });
         });
 
@@ -534,7 +542,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle A, B with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
+                    "Spoken math details for Circle A, B with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
             });
         });
     });
