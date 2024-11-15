@@ -541,32 +541,16 @@
     }
 }
 
-// TODO(joel) - remove?
-.perseus-tooltip {
+.perseus-formats-tooltip {
     background: #fff;
+    color: #777;
     padding: 5px 10px;
     width: 240px;
 }
 
-// CSS is evil; let's overwrite some styles. T_T
-.perseus-formats-tooltip {
-    .perseus-tooltip;
-    color: #777;
-}
-.framework-perseus :not(.perseus-numeric-input /* Not in my widget, buddy! */) .perseus-formats-tooltip .paragraph > ul {
-    padding: 0;
-    margin: -20px 0 -16px 0;
-    > li {
-        list-style-type: none;
-    }
-}
-
-.perseus-numeric-input .perseus-formats-tooltip ul {
-    padding-inline-start: 20px;
-    > li:first-of-type {
-        list-style-type: none;
-        margin-inline-start: -20px;
-    }
+.perseus-formats-tooltip .paragraph,
+.perseus-formats-tooltip ul {
+    margin: 0;
 }
 
 .box-shadow(@shadow: 0 1px 3px rgba(0,0,0,0.25)) {
