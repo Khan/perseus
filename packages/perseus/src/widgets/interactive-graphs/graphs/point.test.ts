@@ -30,7 +30,7 @@ describe("describePointGraph", () => {
     it("describes one point", () => {
         const state: PointGraphState = {...baseState, coords: [[3, 5]]};
         expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
-            "Interactive elements: Point at 3 comma 5",
+            "Interactive elements: Point 1 at 3 comma 5",
         );
     });
 
@@ -43,7 +43,7 @@ describe("describePointGraph", () => {
             ],
         };
         expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
-            "Interactive elements: Point at 3 comma 5, Point at 2 comma 4",
+            "Interactive elements: Point 1 at 3 comma 5, Point 2 at 2 comma 4",
         );
     });
 
@@ -53,7 +53,7 @@ describe("describePointGraph", () => {
             coords: [[-1.1234, 3.5678]],
         };
         expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
-            "Interactive elements: Point at -1.123 comma 3.568",
+            "Interactive elements: Point 1 at -1.123 comma 3.568",
         );
     });
 });

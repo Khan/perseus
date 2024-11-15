@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 14.12.0
+
+### Minor Changes
+
+-   [#1859](https://github.com/Khan/perseus/pull/1859) [`dcf1fbe35`](https://github.com/Khan/perseus/commit/dcf1fbe358e4de059a921ed14688dd2e03041196) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Addition of a new alert for the content editors when Input numbers are converted to Numeric Inputs
+
+*   [#1731](https://github.com/Khan/perseus/pull/1731) [`27126aa00`](https://github.com/Khan/perseus/commit/27126aa00b92ce1facd97abd38989e6981836e3f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Conversion of Input Number to Numeric Input
+
+### Patch Changes
+
+-   [#1839](https://github.com/Khan/perseus/pull/1839) [`150888870`](https://github.com/Khan/perseus/commit/150888870b4934e555cd355c58e6f71f9da21463) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Util function to generate spoken math + use it within Locked Point aria labels
+
+-   Updated dependencies [[`8eb1ff5d1`](https://github.com/Khan/perseus/commit/8eb1ff5d10cc9572682c7283d52d7d96e14e9fd6), [`150888870`](https://github.com/Khan/perseus/commit/150888870b4934e555cd355c58e6f71f9da21463), [`27126aa00`](https://github.com/Khan/perseus/commit/27126aa00b92ce1facd97abd38989e6981836e3f)]:
+    -   @khanacademy/perseus@41.5.0
+
 ## 14.11.2
 
 ### Patch Changes

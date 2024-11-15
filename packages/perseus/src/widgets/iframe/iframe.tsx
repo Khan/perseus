@@ -14,7 +14,7 @@ import _ from "underscore";
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
 
 import {scoreIframe} from "./score-iframe";
 

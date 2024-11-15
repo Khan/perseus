@@ -16,7 +16,7 @@ import {useDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions, ClassNames as ApiClassNames} from "../../perseus-api";
 import a11y from "../../util/a11y";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
 import getDecimalSeparator from "./get-decimal-separator";
 import scoreExpression from "./score-expression";
@@ -28,7 +28,7 @@ import type {
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
 } from "../../validation.types";
-import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/prompt-utils";
+import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
