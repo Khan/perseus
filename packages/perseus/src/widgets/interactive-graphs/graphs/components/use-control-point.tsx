@@ -17,6 +17,11 @@ type Params = {
     point: vec.Vector2;
     color?: string | undefined;
     cursor?: CSSCursor | undefined;
+    /**
+     * Represents where this point stands in the overall point order.
+     * This is used to provide screen readers with context about the point.
+     */
+    currentPointOrder: number;
     constrain?: KeyboardMovementConstraint;
     onMove?: ((newPoint: vec.Vector2) => unknown) | undefined;
     onClick?: (() => unknown) | undefined;
@@ -37,6 +42,7 @@ export function useControlPoint(params: Params): Return {
     const {snapStep, disableKeyboardInteraction} = useGraphConfig();
     const {
         point,
+        currentPointOrder,
         color,
         cursor,
         constrain = (p) => snap(snapStep, p),
@@ -78,6 +84,7 @@ export function useControlPoint(params: Params): Return {
             ref={focusableHandleRef}
             role="button"
             aria-label={strings.srPointAtCoordinates({
+                num: currentPointOrder,
                 x: srFormatNumber(point[X], locale),
                 y: srFormatNumber(point[Y], locale),
             })}

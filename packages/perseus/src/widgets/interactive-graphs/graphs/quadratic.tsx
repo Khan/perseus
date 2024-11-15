@@ -54,6 +54,7 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                 <MovablePoint
                     key={"point-" + i}
                     point={coord}
+                    currentPointOrder={i + 1}
                     onMove={(destination) =>
                         dispatch(actions.quadratic.movePoint(i, destination))
                     }

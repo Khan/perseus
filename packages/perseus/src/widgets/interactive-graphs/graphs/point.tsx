@@ -50,6 +50,7 @@ function LimitedPointGraph(props: PointGraphProps) {
                 <MovablePoint
                     key={i}
                     point={point}
+                    currentPointOrder={i + 1}
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
@@ -113,6 +114,7 @@ function UnlimitedPointGraph(props: PointGraphProps) {
                 <MovablePoint
                     key={i}
                     point={point}
+                    currentPointOrder={i + 1}
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
@@ -149,8 +151,9 @@ export function describePointGraph(
         return strings.srNoInteractiveElements;
     }
 
-    const pointDescriptions = state.coords.map(([x, y]) =>
+    const pointDescriptions = state.coords.map(([x, y], index) =>
         strings.srPointAtCoordinates({
+            num: index + 1,
             x: srFormatNumber(x, locale),
             y: srFormatNumber(y, locale),
         }),
