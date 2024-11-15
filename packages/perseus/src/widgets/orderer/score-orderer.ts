@@ -19,7 +19,7 @@ export function scoreOrderer(
 
     const correct = _.isEqual(
         userInput.current,
-        _.pluck(rubric.correctOptions, "content"),
+        rubric.correctOptions.map((option) => option.content),
     );
 
     return {
