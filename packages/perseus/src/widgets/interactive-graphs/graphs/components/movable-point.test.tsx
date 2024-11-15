@@ -82,7 +82,7 @@ describe("MovablePoint", () => {
                 <Mafs width={200} height={200}>
                     <MovablePoint
                         point={[0, 0]}
-                        currentPointOrder={1}
+                        sequenceNumber={1}
                         onMove={() => {}}
                     />
                     ,
@@ -97,7 +97,7 @@ describe("MovablePoint", () => {
                 <Mafs width={200} height={200}>
                     <MovablePoint
                         point={[0, 0]}
-                        currentPointOrder={1}
+                        sequenceNumber={1}
                         onMove={() => {}}
                     />
                     ,
@@ -112,7 +112,7 @@ describe("MovablePoint", () => {
                 <Mafs width={200} height={200}>
                     <MovablePoint
                         point={[0, 0]}
-                        currentPointOrder={1}
+                        sequenceNumber={1}
                         onMove={() => {}}
                     />
                     ,
@@ -130,7 +130,7 @@ describe("MovablePoint", () => {
                 <Mafs width={200} height={200}>
                     <MovablePoint
                         point={[0, 0]}
-                        currentPointOrder={1}
+                        sequenceNumber={1}
                         color="#9059ff"
                         onMove={() => {}}
                     />
@@ -149,7 +149,7 @@ describe("MovablePoint", () => {
                 <Mafs width={200} height={200}>
                     <MovablePoint
                         point={[0, 0]}
-                        currentPointOrder={1}
+                        sequenceNumber={1}
                         color="#f00"
                         onMove={() => {}}
                     />
@@ -171,7 +171,7 @@ describe("MovablePoint", () => {
                 <Mafs width={200} height={200}>
                     <MovablePoint
                         point={[0, 0]}
-                        currentPointOrder={1}
+                        sequenceNumber={1}
                         onMove={() => {}}
                     />
                     ,
@@ -189,7 +189,7 @@ describe("MovablePoint", () => {
                 <Mafs width={200} height={200}>
                     <MovablePoint
                         point={[0, 0]}
-                        currentPointOrder={1}
+                        sequenceNumber={1}
                         onMove={() => {}}
                     />
                     ,
@@ -210,7 +210,7 @@ describe("MovablePoint", () => {
                 <Mafs width={200} height={200}>
                     <MovablePoint
                         point={[0, 0]}
-                        currentPointOrder={1}
+                        sequenceNumber={1}
                         onMove={() => {}}
                     />
                     ,
@@ -229,7 +229,7 @@ describe("MovablePoint", () => {
             <Mafs width={200} height={200}>
                 <MovablePoint
                     point={[0, 0]}
-                    currentPointOrder={1}
+                    sequenceNumber={1}
                     onFocus={focusSpy}
                 />
                 ,
@@ -250,7 +250,7 @@ describe("MovablePoint", () => {
             <Mafs width={200} height={200}>
                 <MovablePoint
                     point={[0, 0]}
-                    currentPointOrder={1}
+                    sequenceNumber={1}
                     onBlur={blurSpy}
                 />
                 ,
@@ -272,7 +272,7 @@ describe("MovablePoint", () => {
             <Mafs width={200} height={200}>
                 <MovablePoint
                     point={[0, 0]}
-                    currentPointOrder={1}
+                    sequenceNumber={1}
                     onFocus={focusSpy}
                 />
                 ,

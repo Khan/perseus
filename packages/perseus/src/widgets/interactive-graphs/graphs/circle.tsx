@@ -46,7 +46,7 @@ function CircleGraph(props: CircleGraphProps) {
             />
             <MovablePoint
                 point={radiusPoint}
-                currentPointOrder={1}
+                sequenceNumber={1}
                 cursor="ew-resize"
                 onMove={(newRadiusPoint) => {
                     dispatch(actions.circle.moveRadiusPoint(newRadiusPoint));

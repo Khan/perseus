@@ -50,7 +50,7 @@ function LimitedPointGraph(props: PointGraphProps) {
                 <MovablePoint
                     key={i}
                     point={point}
-                    currentPointOrder={i + 1}
+                    sequenceNumber={i + 1}
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
@@ -114,7 +114,7 @@ function UnlimitedPointGraph(props: PointGraphProps) {
                 <MovablePoint
                     key={i}
                     point={point}
-                    currentPointOrder={i + 1}
+                    sequenceNumber={i + 1}
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }

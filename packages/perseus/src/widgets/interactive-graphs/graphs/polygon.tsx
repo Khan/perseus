@@ -153,7 +153,7 @@ const LimitedPolygonGraph = (props: Props) => {
                     key={"point-" + i}
                     constrain={constrain}
                     point={point}
-                    currentPointOrder={i + 1}
+                    sequenceNumber={i + 1}
                     onMove={(destination: vec.Vector2) => {
                         const now = Date.now();
                         const targetFPS = 40;
@@ -346,7 +346,7 @@ const UnlimitedPolygonGraph = (props: Props) => {
                 <MovablePoint
                     key={i}
                     point={point}
-                    currentPointOrder={i + 1}
+                    sequenceNumber={i + 1}
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
