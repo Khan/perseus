@@ -1074,7 +1074,6 @@ export type MathFormat =
     | "improper"
     | "proper"
     | "decimal"
-    | "percent"
     | "pi";
 
 export type PerseusNumericInputAnswerForm = {
