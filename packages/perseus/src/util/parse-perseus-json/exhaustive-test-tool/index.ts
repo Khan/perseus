@@ -30,6 +30,7 @@ async function main() {
     // `node` and the path to this script, so we can get rid of them.
     const realArgs = process.argv.slice(2);
     const {inputDir} = parseCommandLineArguments(realArgs);
+    // eslint-disable-next-line no-console
     console.log("testing files in " + inputDir);
 
     let numFiles = 0;
@@ -38,6 +39,7 @@ async function main() {
         numFiles++;
     }
 
+    // eslint-disable-next-line no-console
     console.log("tested " + numFiles + " files");
 }
 
@@ -54,6 +56,7 @@ async function testFile(path: string) {
     try {
         assessmentItems = JSON.parse(json);
     } catch {
+        // eslint-disable-next-line no-console
         console.warn("Failed to parse JSON file: " + path);
         return;
     }
@@ -82,9 +85,9 @@ async function testFile(path: string) {
 
 function getAssessmentItemData(raw: unknown): unknown {
     if (raw && typeof raw === "object" && "item_data" in raw) {
-        return raw.item_data
+        return raw.item_data;
     } else {
-        return raw
+        return raw;
     }
 }
 
