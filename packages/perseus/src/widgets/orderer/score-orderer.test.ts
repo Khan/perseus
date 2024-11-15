@@ -6,7 +6,7 @@ import type {
     PerseusOrdererUserInput,
 } from "../../validation.types";
 
-describe("ordererValiator", () => {
+describe("scoreOrderer", () => {
     it("is correct when the userInput is in the same order and is the same length as the rubric's correctOption content items", () => {
         // Arrange
         const rubric: PerseusOrdererRubric =
@@ -55,21 +55,5 @@ describe("ordererValiator", () => {
 
         // assert
         expect(result).toHaveBeenAnsweredIncorrectly();
-    });
-
-    it("is invalid when the when the user has not started ordering the options and current is empty", () => {
-        // Arrange
-        const rubric: PerseusOrdererRubric =
-            question1.widgets["orderer 1"].options;
-
-        const userInput: PerseusOrdererUserInput = {
-            current: [],
-        };
-
-        // Act
-        const result = scoreOrderer(userInput, rubric);
-
-        // assert
-        expect(result).toHaveInvalidInput();
     });
 });
