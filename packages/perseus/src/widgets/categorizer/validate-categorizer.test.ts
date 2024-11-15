@@ -20,4 +20,18 @@ describe("validateCategorizer", () => {
             "Make sure you select something for every row.",
         );
     });
+
+    it("returns null if the userInput is valid", () => {
+        const rubric: PerseusCategorizerRubric = {
+            values: [1, 3],
+            items: ["apples", "oranges"],
+        };
+
+        const userInput = {
+            values: [2, 4],
+        } as const;
+        const score = validateCategorizer(userInput, rubric, mockStrings);
+
+        expect(score).toBeNull();
+    });
 });
