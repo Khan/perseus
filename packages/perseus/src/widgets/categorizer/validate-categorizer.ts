@@ -10,13 +10,9 @@ function validateCategorizer(
     rubric: PerseusCategorizerRubric,
     strings: PerseusStrings,
 ): Extract<PerseusScore, {type: "invalid"}> | null {
-    let completed = true;
-    rubric.items.forEach((_, i) => {
-        if (userInput.values[i] == null) {
-            completed = false;
-        }
-    });
-    if (!completed) {
+    const incomplete = rubric.items.some((_, i) => userInput.values[i] == null);
+
+    if (incomplete) {
         return {
             type: "invalid",
             message: strings.invalidSelection,
