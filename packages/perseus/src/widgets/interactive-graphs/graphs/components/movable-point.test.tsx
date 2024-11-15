@@ -80,7 +80,12 @@ describe("MovablePoint", () => {
             useGraphConfigMock.mockReturnValue(graphConfigContextWithTooltips);
             render(
                 <Mafs width={200} height={200}>
-                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
                 </Mafs>,
             );
             expect(Tooltip).toHaveBeenCalled();
@@ -90,7 +95,12 @@ describe("MovablePoint", () => {
             useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
             render(
                 <Mafs width={200} height={200}>
-                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
                 </Mafs>,
             );
             expect(Tooltip).not.toHaveBeenCalled();
@@ -100,7 +110,12 @@ describe("MovablePoint", () => {
             useGraphConfigMock.mockReturnValue(graphConfigContextWithTooltips);
             render(
                 <Mafs width={200} height={200}>
-                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
                 </Mafs>,
             );
             // @ts-expect-error // TS2339: Property mock does not exist on type typeof Tooltip
@@ -115,6 +130,7 @@ describe("MovablePoint", () => {
                 <Mafs width={200} height={200}>
                     <MovablePoint
                         point={[0, 0]}
+                        sequenceNumber={1}
                         color="#9059ff"
                         onMove={() => {}}
                     />
@@ -133,6 +149,7 @@ describe("MovablePoint", () => {
                 <Mafs width={200} height={200}>
                     <MovablePoint
                         point={[0, 0]}
+                        sequenceNumber={1}
                         color="#f00"
                         onMove={() => {}}
                     />
@@ -152,7 +169,12 @@ describe("MovablePoint", () => {
             useDraggableMock.mockReturnValue({dragging: true});
             const {container} = render(
                 <Mafs width={200} height={200}>
-                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
                 </Mafs>,
             );
 
@@ -165,7 +187,12 @@ describe("MovablePoint", () => {
             useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
             const {container} = render(
                 <Mafs width={200} height={200}>
-                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
                 </Mafs>,
             );
 
@@ -181,7 +208,12 @@ describe("MovablePoint", () => {
             useDraggableMock.mockReturnValue({dragging: true});
             const {container} = render(
                 <Mafs width={200} height={200}>
-                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
                 </Mafs>,
             );
 
@@ -195,7 +227,12 @@ describe("MovablePoint", () => {
         const focusSpy = jest.fn();
         render(
             <Mafs width={200} height={200}>
-                <MovablePoint point={[0, 0]} onFocus={focusSpy} />,
+                <MovablePoint
+                    point={[0, 0]}
+                    sequenceNumber={1}
+                    onFocus={focusSpy}
+                />
+                ,
             </Mafs>,
         );
 
@@ -211,7 +248,12 @@ describe("MovablePoint", () => {
         const blurSpy = jest.fn();
         render(
             <Mafs width={200} height={200}>
-                <MovablePoint point={[0, 0]} onBlur={blurSpy} />,
+                <MovablePoint
+                    point={[0, 0]}
+                    sequenceNumber={1}
+                    onBlur={blurSpy}
+                />
+                ,
             </Mafs>,
         );
 
@@ -228,7 +270,12 @@ describe("MovablePoint", () => {
         const focusSpy = jest.fn();
         render(
             <Mafs width={200} height={200}>
-                <MovablePoint point={[0, 0]} onFocus={focusSpy} />,
+                <MovablePoint
+                    point={[0, 0]}
+                    sequenceNumber={1}
+                    onFocus={focusSpy}
+                />
+                ,
             </Mafs>,
         );
 

@@ -21,7 +21,7 @@ import {
     tableBackgroundAccent,
 } from "../../styles/constants";
 import a11y from "../../util/a11y";
-import {getPromptJSON} from "../../widget-ai-utils/graded-group/prompt-utils";
+import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
 
@@ -36,7 +36,7 @@ import type {
     WidgetProps,
 } from "../../types";
 import type {PerseusGradedGroupRubric} from "../../validation.types";
-import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/prompt-utils";
+import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
 const GRADING_STATUSES = {
     ungraded: "ungraded" as const,

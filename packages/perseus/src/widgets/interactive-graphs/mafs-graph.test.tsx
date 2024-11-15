@@ -16,6 +16,10 @@ import type {InteractiveGraphState} from "./types";
 import type {GraphRange} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
+function expectLabelInDoc(label: string) {
+    expect(screen.getByLabelText(label)).toBeInTheDocument();
+}
+
 function getBaseMafsGraphProps(): MafsGraphProps {
     return {
         box: [400, 400],
@@ -150,7 +154,7 @@ describe("MafsGraph", () => {
         expect(screen.getByText("\\text{5/6}")).toBeInTheDocument();
     });
 
-    it("renders ARIA labels for each point", () => {
+    it("renders ARIA labels for each point (segment)", () => {
         const state: InteractiveGraphState = {
             type: "segment",
             hasBeenInteractedWith: true,
@@ -175,10 +179,312 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expect(screen.getByLabelText("Point at 0 comma 0")).toBeInTheDocument();
-        expect(
-            screen.getByLabelText("Point at -7 comma 0.5"),
-        ).toBeInTheDocument();
+        expectLabelInDoc("Point 1 at 0 comma 0");
+        expectLabelInDoc("Point 2 at -7 comma 0.5");
+    });
+
+    it("renders ARIA labels for each point (multiple segments)", () => {
+        const state: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+                [
+                    [1, 1],
+                    [7, 0.5],
+                ],
+            ],
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphProps()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        expectLabelInDoc("Point 1 at 0 comma 0");
+        expectLabelInDoc("Point 2 at -7 comma 0.5");
+        expectLabelInDoc("Point 1 at 1 comma 1");
+        expectLabelInDoc("Point 2 at 7 comma 0.5");
+    });
+
+    it("renders ARIA labels for each point (linear)", () => {
+        const state: InteractiveGraphState = {
+            type: "linear",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [0, 0],
+                [-7, 0.5],
+            ],
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphProps()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        expectLabelInDoc("Point 1 at 0 comma 0");
+        expectLabelInDoc("Point 2 at -7 comma 0.5");
+    });
+
+    it("renders ARIA labels for each point (linear system)", () => {
+        const state: InteractiveGraphState = {
+            type: "linear-system",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+                [
+                    [1, 1],
+                    [7, 0.5],
+                ],
+            ],
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphProps()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        expectLabelInDoc("Point 1 at 0 comma 0");
+        expectLabelInDoc("Point 2 at -7 comma 0.5");
+        expectLabelInDoc("Point 1 at 1 comma 1");
+        expectLabelInDoc("Point 2 at 7 comma 0.5");
+    });
+
+    it("renders ARIA labels for each point (ray)", () => {
+        const state: InteractiveGraphState = {
+            type: "ray",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [0, 0],
+                [-7, 0.5],
+            ],
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphProps()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        expectLabelInDoc("Point 1 at 0 comma 0");
+        expectLabelInDoc("Point 2 at -7 comma 0.5");
+    });
+
+    it("renders ARIA labels for each point (circle)", () => {
+        const state: InteractiveGraphState = {
+            type: "circle",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            center: [0, 0],
+            radiusPoint: [2, 0],
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphProps()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        // Radius point is the only point in a circle graph
+        expectLabelInDoc("Point 1 at 2 comma 0");
+    });
+
+    it("renders ARIA labels for each point (quadratic)", () => {
+        const state: InteractiveGraphState = {
+            type: "quadratic",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphProps()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        expectLabelInDoc("Point 1 at -1 comma 1");
+        expectLabelInDoc("Point 2 at 0 comma 0");
+        expectLabelInDoc("Point 3 at 1 comma 1");
+    });
+
+    it("renders ARIA labels for each point (sinusoid)", () => {
+        const state: InteractiveGraphState = {
+            type: "sinusoid",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [-1, 1],
+                [0, 0],
+            ],
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphProps()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        expectLabelInDoc("Point 1 at -1 comma 1");
+        expectLabelInDoc("Point 2 at 0 comma 0");
+    });
+
+    it("renders ARIA labels for each point (point)", () => {
+        const state: InteractiveGraphState = {
+            type: "point",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            focusedPointIndex: null,
+            showRemovePointButton: false,
+            interactionMode: "mouse",
+            showKeyboardInteractionInvitation: false,
+            // 2 points
+            coords: [
+                [-1, 1],
+                [0, 0],
+            ],
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphProps()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        expectLabelInDoc("Point 1 at -1 comma 1");
+        expectLabelInDoc("Point 2 at 0 comma 0");
+    });
+
+    it("renders ARIA labels for each point (polygon)", () => {
+        const state: InteractiveGraphState = {
+            type: "polygon",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            showAngles: false,
+            showSides: false,
+            snapTo: "grid",
+            focusedPointIndex: null,
+            showRemovePointButton: false,
+            interactionMode: "mouse",
+            showKeyboardInteractionInvitation: false,
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphProps()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        expectLabelInDoc("Point 1 at -1 comma 1");
+        expectLabelInDoc("Point 2 at 0 comma 0");
+        expectLabelInDoc("Point 3 at 1 comma 1");
+    });
+
+    it("renders ARIA labels for each point (angle)", () => {
+        const state: InteractiveGraphState = {
+            type: "angle",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphProps()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        // The middle coords are actually the first point because we want
+        // the vertex to show up first in the point tab order.
+        expectLabelInDoc("Point 1 at 0 comma 0");
+        expectLabelInDoc("Point 2 at -1 comma 1");
+        expectLabelInDoc("Point 3 at 1 comma 1");
     });
 
     it("renders a screenreader description summarizing the interactive elements on the graph", () => {
@@ -206,7 +512,7 @@ describe("MafsGraph", () => {
         );
 
         expect(
-            screen.getByText("Interactive elements: Point at -7 comma 0.5"),
+            screen.getByText("Interactive elements: Point 1 at -7 comma 0.5"),
         ).toBeInTheDocument();
     });
 

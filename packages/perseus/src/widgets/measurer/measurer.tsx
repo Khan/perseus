@@ -5,7 +5,7 @@ import _ from "underscore";
 
 import SvgImage from "../../components/svg-image";
 import GraphUtils from "../../util/graph-utils";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/measurer-ai-utils";
 import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";

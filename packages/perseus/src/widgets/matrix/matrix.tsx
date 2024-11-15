@@ -13,7 +13,7 @@ import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
 import scoreMatrix from "./score-matrix";
 
@@ -23,7 +23,7 @@ import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
 } from "../../validation.types";
-import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/prompt-utils";
+import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
 const {assert} = InteractiveUtil;
 const {stringArrayOfSize} = Util;

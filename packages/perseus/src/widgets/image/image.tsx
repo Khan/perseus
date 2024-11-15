@@ -8,12 +8,12 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/image/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
 import scoreNoop from "../__shared__/score-noop";
 
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, WidgetExports, WidgetProps, Widget} from "../../types";
-import type {ImagePromptJSON} from "../../widget-ai-utils/image/prompt-utils";
+import type {ImagePromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];
