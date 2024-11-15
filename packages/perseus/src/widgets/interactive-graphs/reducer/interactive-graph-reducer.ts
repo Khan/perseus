@@ -66,9 +66,7 @@ import {
     CHANGE_KEYBOARD_INVITATION_VISIBILITY,
     type ChangeKeyboardInvitationVisibility,
     CLOSE_POLYGON,
-    type ClosePolygon,
     OPEN_POLYGON,
-    type OpenPolygon,
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
@@ -118,9 +116,9 @@ export function interactiveGraphReducer(
         case CLICK_POINT:
             return doClickPoint(state, action);
         case CLOSE_POLYGON:
-            return doClosePolygon(state, action);
+            return doClosePolygon(state);
         case OPEN_POLYGON:
-            return doOpenPolygon(state, action);
+            return doOpenPolygon(state);
         case CHANGE_INTERACTION_MODE:
             return doChangeInteractionMode(state, action);
         case CHANGE_KEYBOARD_INVITATION_VISIBILITY:
@@ -200,10 +198,7 @@ function doClickPoint(
     return state;
 }
 
-function doClosePolygon(
-    state: InteractiveGraphState,
-    _action: ClosePolygon,
-): InteractiveGraphState {
+function doClosePolygon(state: InteractiveGraphState): InteractiveGraphState {
     if (isUnlimitedGraphState(state) && state.type === "polygon") {
         return {
             ...state,
@@ -214,10 +209,7 @@ function doClosePolygon(
     return state;
 }
 
-function doOpenPolygon(
-    state: InteractiveGraphState,
-    _action: OpenPolygon,
-): InteractiveGraphState {
+function doOpenPolygon(state: InteractiveGraphState): InteractiveGraphState {
     if (isUnlimitedGraphState(state) && state.type === "polygon") {
         return {
             ...state,
