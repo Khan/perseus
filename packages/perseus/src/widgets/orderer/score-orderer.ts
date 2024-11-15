@@ -1,5 +1,7 @@
 import _ from "underscore";
 
+import {validateOrderer} from "./validate-orderer";
+
 import type {PerseusScore} from "../../types";
 import type {
     PerseusOrdererRubric,
@@ -10,11 +12,9 @@ export function scoreOrderer(
     userInput: PerseusOrdererUserInput,
     rubric: PerseusOrdererRubric,
 ): PerseusScore {
-    if (userInput.current.length === 0) {
-        return {
-            type: "invalid",
-            message: null,
-        };
+    const validateError = validateOrderer(userInput);
+    if (validateError) {
+        return validateError;
     }
 
     const correct = _.isEqual(
