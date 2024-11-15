@@ -133,7 +133,15 @@ export type PerseusStrings = {
     addPoint: string;
     removePoint: string;
     graphKeyboardPrompt: string;
-    srPointAtCoordinates: ({x, y}: {x: string; y: string}) => string;
+    srPointAtCoordinates: ({
+        num,
+        x,
+        y,
+    }: {
+        num: number;
+        x: string;
+        y: string;
+    }) => string;
     srInteractiveElements: ({elements}: {elements: string}) => string;
     srNoInteractiveElements: string;
 };
@@ -313,7 +321,7 @@ export const strings: {
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     srPointAtCoordinates: {
         context: "Screenreader-accessible description of a point on a graph",
-        message: "Point at %(x)s comma %(y)s",
+        message: "Point %(num) at %(x)s comma %(y)s",
     },
     srInteractiveElements: "Interactive elements: %(elements)s",
     srNoInteractiveElements: "No interactive elements",
@@ -476,7 +484,7 @@ export const mockStrings: PerseusStrings = {
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
-    srPointAtCoordinates: ({x, y}) => `Point at ${x} comma ${y}`,
+    srPointAtCoordinates: ({num, x, y}) => `Point ${num} at ${x} comma ${y}`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
 };
