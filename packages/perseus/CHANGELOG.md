@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 41.5.0
+
+### Minor Changes
+
+-   [#1731](https://github.com/Khan/perseus/pull/1731) [`27126aa00`](https://github.com/Khan/perseus/commit/27126aa00b92ce1facd97abd38989e6981836e3f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Conversion of Input Number to Numeric Input
+
+### Patch Changes
+
+-   [#1846](https://github.com/Khan/perseus/pull/1846) [`8eb1ff5d1`](https://github.com/Khan/perseus/commit/8eb1ff5d10cc9572682c7283d52d7d96e14e9fd6) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add widget parsers for ADR 773.
+
+*   [#1839](https://github.com/Khan/perseus/pull/1839) [`150888870`](https://github.com/Khan/perseus/commit/150888870b4934e555cd355c58e6f71f9da21463) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Util function to generate spoken math + use it within Locked Point aria labels
+
 ## 41.4.0
 
 ### Minor Changes

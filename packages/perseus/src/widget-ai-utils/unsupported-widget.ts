@@ -1,4 +1,4 @@
-import type {UnsupportedWidget} from "../prompt-types";
+import type {UnsupportedWidget} from "./prompt-types";
 
 export type UnsupportedWidgetPromptJSON = {
     type: UnsupportedWidget;

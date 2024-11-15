@@ -11,7 +11,7 @@ import {ClassNames as ApiClassNames} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import GraphUtils from "../../util/graph-utils";
 import KhanMath from "../../util/math";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
 
 import scorePlotter from "./score-plotter";
 

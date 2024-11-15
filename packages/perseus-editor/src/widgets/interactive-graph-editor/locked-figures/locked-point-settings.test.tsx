@@ -26,6 +26,14 @@ const defaultProps = {
 
 const defaultLabel = getDefaultFigureForType("label");
 
+// Mock the async function generateSpokenMathDetails
+jest.mock("./util", () => ({
+    ...jest.requireActual("./util"),
+    generateSpokenMathDetails: (input) => {
+        return Promise.resolve(`Spoken math details for ${input}`);
+    },
+}));
+
 describe("LockedPointSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -409,8 +417,11 @@ describe("LockedPointSettings", () => {
         await userEvent.click(autoGenButton);
 
         // Assert
+        // generateSpokenMathDetails is mocked to return the input string
+        // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point at (0, 0). Appearance solid gray.",
+            ariaLabel:
+                "Spoken math details for Point at (0, 0). Appearance solid gray.",
         });
     });
 
@@ -439,8 +450,11 @@ describe("LockedPointSettings", () => {
         await userEvent.click(autoGenButton);
 
         // Assert
+        // generateSpokenMathDetails is mocked to return the input string
+        // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point A at (0, 0). Appearance solid gray.",
+            ariaLabel:
+                "Spoken math details for Point A at (0, 0). Appearance solid gray.",
         });
     });
 
@@ -473,8 +487,11 @@ describe("LockedPointSettings", () => {
         await userEvent.click(autoGenButton);
 
         // Assert
+        // generateSpokenMathDetails is mocked to return the input string
+        // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point A, B at (0, 0). Appearance solid gray.",
+            ariaLabel:
+                "Spoken math details for Point A, B at (0, 0). Appearance solid gray.",
         });
     });
 });

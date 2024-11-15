@@ -17,6 +17,15 @@ type Params = {
     point: vec.Vector2;
     color?: string | undefined;
     cursor?: CSSCursor | undefined;
+    /**
+     * Represents where this point stands in the overall point sequence.
+     * This is used to provide screen readers with context about the point.
+     * Example: sequenceNumber={1} ==> "Point 1 at x comma y"
+     *
+     * Note: This number is 1-indexed, and should restart from 1 for each
+     * interactive figure on the graph.
+     */
+    sequenceNumber: number;
     constrain?: KeyboardMovementConstraint;
     onMove?: ((newPoint: vec.Vector2) => unknown) | undefined;
     onClick?: (() => unknown) | undefined;
@@ -37,6 +46,7 @@ export function useControlPoint(params: Params): Return {
     const {snapStep, disableKeyboardInteraction} = useGraphConfig();
     const {
         point,
+        sequenceNumber,
         color,
         cursor,
         constrain = (p) => snap(snapStep, p),
@@ -78,6 +88,7 @@ export function useControlPoint(params: Params): Return {
             ref={focusableHandleRef}
             role="button"
             aria-label={strings.srPointAtCoordinates({
+                num: sequenceNumber,
                 x: srFormatNumber(point[X], locale),
                 y: srFormatNumber(point[Y], locale),
             })}

@@ -8,7 +8,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import InputWithExamples from "../../components/input-with-examples";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 
 import scoreInputNumber, {answerTypes} from "./score-input-number";
 
@@ -19,7 +19,7 @@ import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
 } from "../../validation.types";
-import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/prompt-utils";
+import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {

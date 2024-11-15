@@ -6,7 +6,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {toAbsoluteUrl} from "../../util/url-utils";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/python-program/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/python-program/python-ai-utils";
 
 import type {FocusPath, Widget, WidgetExports} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
