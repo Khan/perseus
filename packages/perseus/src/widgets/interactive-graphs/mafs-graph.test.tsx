@@ -132,7 +132,7 @@ describe("MafsGraph", () => {
         const basePropsWithTexLabels = {
             ...getBaseMafsGraphProps(),
             labels: ["$1/2$", "1/2"],
-        }
+        };
 
         render(<MafsGraph {...basePropsWithTexLabels} />);
         expect(screen.getByText("1/2")).toBeInTheDocument();
