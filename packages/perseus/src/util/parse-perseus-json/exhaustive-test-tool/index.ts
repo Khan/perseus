@@ -11,7 +11,7 @@
 //
 // Then, run the test tool over the content like so:
 //
-//     find ~/Desktop/content/*/* -type d | xargs -n1 packages/perseus/src/util/parse-perseus-json/exhaustive-test-tool/index.ts
+//     find ~/Desktop/content/*/* -type d | xargs -n1 packages/perseus/src/util/parse-perseus-json/exhaustive-test-tool/index.ts  ~/Desktop/test-results
 
 import {createHash} from "crypto";
 import * as fs from "fs/promises";
@@ -29,13 +29,13 @@ async function main() {
     // process.argv.slice(2) is a common NodeJS idiom. The first two args are
     // `node` and the path to this script, so we can get rid of them.
     const realArgs = process.argv.slice(2);
-    const {inputDir} = parseCommandLineArguments(realArgs);
+    const {inputDir, outputDir} = parseCommandLineArguments(realArgs);
     // eslint-disable-next-line no-console
     console.log("testing files in " + inputDir);
 
     let numFiles = 0;
     for await (const dirent of listFilesRecursively(inputDir)) {
-        await testFile(getPathOfDirent(dirent));
+        await testFile(getPathOfDirent(dirent), outputDir);
         numFiles++;
     }
 
@@ -44,10 +44,11 @@ async function main() {
 }
 
 function parseCommandLineArguments(args: string[]) {
-    return {inputDir: args[0]};
+    const [outputDir, inputDir] = args;
+    return {outputDir, inputDir};
 }
 
-async function testFile(path: string) {
+async function testFile(path: string, outputDir: string) {
     if (!path.endsWith(".json")) {
         return;
     }
@@ -68,14 +69,14 @@ async function testFile(path: string) {
         for (const mismatch of getMismatches(rawItem)) {
             const desc = describeMismatch(mismatch);
             const hash = sha256(desc);
-            await fs.mkdir("/tmp/test-results/" + hash, {recursive: true});
+            await fs.mkdir(join(outputDir, hash), {recursive: true});
             await fs.writeFile(
-                `/tmp/test-results/${hash}/mismatch.txt`,
+                join(outputDir, hash, "mismatch.txt"),
                 desc,
                 "utf-8",
             );
             await fs.writeFile(
-                `/tmp/test-results/${hash}/item.json`,
+                join(outputDir, hash, "item.json"),
                 String(JSON.stringify(rawItem)),
                 "utf-8",
             );
