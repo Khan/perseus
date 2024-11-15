@@ -241,8 +241,8 @@ const UnlimitedPolygonGraph = (props: Props) => {
                 {props.graphState.coords.map((point, i) => (
                     <MovablePoint
                         key={i}
-                        sequenceNumber={i + 1}
                         point={point}
+                        sequenceNumber={i + 1}
                         onMove={(destination) =>
                             dispatch(actions.polygon.movePoint(i, destination))
                         }
