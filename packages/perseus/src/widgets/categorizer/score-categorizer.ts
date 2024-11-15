@@ -12,9 +12,9 @@ function scoreCategorizer(
     rubric: PerseusCategorizerRubric,
     strings: PerseusStrings,
 ): PerseusScore {
-    const validationResult = validateCategorizer(userInput, rubric, strings);
-    if (validationResult) {
-        return validationResult;
+    const validationError = validateCategorizer(userInput, rubric, strings);
+    if (validationError) {
+        return validationError;
     }
 
     let allCorrect = true;
