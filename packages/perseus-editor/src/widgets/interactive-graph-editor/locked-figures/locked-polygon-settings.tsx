@@ -34,6 +34,7 @@ import LockedLabelSettings from "./locked-label-settings";
 import PolygonSwatch from "./polygon-swatch";
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
 } from "./util";
 
@@ -64,13 +65,19 @@ const LockedPolygonSettings = (props: Props) => {
         onRemove,
     } = props;
 
-    function getPrepopulatedAriaLabel() {
+    /**
+     * Generate the prepopulated aria label for the polygon,
+     * with the math details converted into spoken words.
+     */
+    async function getPrepopulatedAriaLabel() {
         let visiblelabel = "";
         if (labels && labels.length > 0) {
             visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
 
-        let str = `Polygon${visiblelabel} with ${points.length} sides, vertices at `;
+        let str = await generateSpokenMathDetails(
+            `Polygon${visiblelabel} with ${points.length} sides, vertices at `,
+        );
 
         // Add the coordinates of each point to the aria label
         str += points.map(([x, y]) => `(${x}, ${y})`).join(", ");
@@ -343,7 +350,7 @@ const LockedPolygonSettings = (props: Props) => {
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}

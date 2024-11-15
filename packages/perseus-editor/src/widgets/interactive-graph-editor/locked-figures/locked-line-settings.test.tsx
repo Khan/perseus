@@ -26,6 +26,14 @@ const defaultProps = {
 
 const defaultLabel = getDefaultFigureForType("label");
 
+// Mock the async function generateSpokenMathDetails
+jest.mock("./util", () => ({
+    ...jest.requireActual("./util"),
+    generateSpokenMathDetails: (input) => {
+        return Promise.resolve(`Spoken math details for ${input}`);
+    },
+}));
+
 describe("LockedLineSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -615,7 +623,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Segment from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Spoken math details for Segment from point at (0, 0) to point at (2, 2). Appearance solid gray.",
             });
         });
 
@@ -640,7 +648,8 @@ describe("LockedLineSettings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Line from (0, 0) to (2, 2). Appearance solid gray.",
+                ariaLabel:
+                    "Spoken math details for Line from point at (0, 0) to point at (2, 2). Appearance solid gray.",
             });
         });
 
@@ -671,7 +680,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line A from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Spoken math details for Line A from point at (0, 0) to point at (2, 2). Appearance solid gray.",
             });
         });
 
@@ -706,7 +715,99 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line A, B from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Spoken math details for Line A, B from point at (0, 0) to point at (2, 2). Appearance solid gray.",
+            });
+        });
+
+        test("aria label auto-generates (one label, including points)", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedLineSettings
+                    {...defaultProps}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "A",
+                        },
+                    ]}
+                    points={[
+                        {
+                            ...defaultProps.points[0],
+                            labels: [{...defaultLabel, text: "C"}],
+                        },
+                        {
+                            ...defaultProps.points[1],
+                            labels: [{...defaultLabel, text: "D"}],
+                        },
+                    ]}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel:
+                    "Spoken math details for Line A from point C at (0, 0) to point D at (2, 2). Appearance solid gray.",
+            });
+        });
+
+        test("aria label auto-generates (multiple labels, including points)", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedLineSettings
+                    {...defaultProps}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "A",
+                        },
+                        {
+                            ...defaultLabel,
+                            text: "B",
+                        },
+                    ]}
+                    points={[
+                        {
+                            ...defaultProps.points[0],
+                            labels: [
+                                {...defaultLabel, text: "C"},
+                                {...defaultLabel, text: "C2"},
+                            ],
+                        },
+                        {
+                            ...defaultProps.points[1],
+                            labels: [
+                                {...defaultLabel, text: "D"},
+                                {...defaultLabel, text: "D2"},
+                            ],
+                        },
+                    ]}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel:
+                    "Spoken math details for Line A, B from point C, C2 at (0, 0) to point D, D2 at (2, 2). Appearance solid gray.",
             });
         });
     });
