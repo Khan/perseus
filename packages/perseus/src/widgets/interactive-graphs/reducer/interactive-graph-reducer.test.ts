@@ -1308,7 +1308,9 @@ describe("doBlurPoint", () => {
     it("showRemovePointButton property is always set to 'false'", () => {
         const state: InteractiveGraphState = {
             ...baseUnlimitedPointGraphState,
+            focusedPointIndex: 0,
             interactionMode: "keyboard",
+            showRemovePointButton: true,
         };
 
         const updated = interactiveGraphReducer(
@@ -1408,30 +1410,6 @@ describe("doAddPoint", () => {
         expect(updated.focusedPointIndex).toBe(1);
     });
 
-    it("showRemovePointButton property is always set to 'false'", () => {
-        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
-
-        const updated = interactiveGraphReducer(
-            state,
-            actions.pointGraph.addPoint([0, 0]),
-        );
-
-        invariant(updated.type === "point");
-        expect(updated.showRemovePointButton).toBeFalsy();
-    });
-
-    it("hasBeenInteractedWith property is always set to 'true'", () => {
-        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
-
-        const updated = interactiveGraphReducer(
-            state,
-            actions.pointGraph.addPoint([0, 0]),
-        );
-
-        invariant(updated.type === "point");
-        expect(updated.hasBeenInteractedWith).toBeTruthy();
-    });
-
     it("does not adds a new point if there is already a point at that location", () => {
         const state: InteractiveGraphState = {
             ...baseUnlimitedPointGraphState,
@@ -1485,6 +1463,7 @@ describe("doRemovePoint", () => {
         const state: InteractiveGraphState = {
             ...baseUnlimitedPointGraphState,
             interactionMode: "mouse",
+            focusedPointIndex: 0,
             coords: [
                 [0, 0],
                 [2, -2],
@@ -1500,24 +1479,6 @@ describe("doRemovePoint", () => {
         expect(updated.coords).toMatchObject([[2, -2]]);
         expect(updated.showRemovePointButton).toBeFalsy();
         expect(updated.focusedPointIndex).toBe(null);
-        expect(updated.showRemovePointButton).toBeFalsy();
-    });
-
-    it("showRemovePointButton property is always set to 'false'", () => {
-        const state: InteractiveGraphState = {
-            ...baseUnlimitedPointGraphState,
-            coords: [
-                [0, 0],
-                [2, -2],
-            ],
-        };
-
-        const updated = interactiveGraphReducer(
-            state,
-            actions.pointGraph.removePoint(0),
-        );
-
-        invariant(updated.type === "point");
         expect(updated.showRemovePointButton).toBeFalsy();
     });
 });
@@ -1549,7 +1510,7 @@ describe("doClosePolygon", () => {
         expect(updated.closedPolygon).toBeFalsy();
     });
 
-    it("changes `closePolygon` property to true", () => {
+    it("changes `closedPolygon` property to true", () => {
         const state: InteractiveGraphState = {
             ...baseUnlimitedPolygonGraphState,
             closedPolygon: false,
@@ -1564,7 +1525,7 @@ describe("doClosePolygon", () => {
         expect(updated.closedPolygon).toBeTruthy();
     });
 
-    it("does not change `closePolygon` property when it's already false", () => {
+    it("does not change `closedPolygon` property when it's already false", () => {
         const state: InteractiveGraphState = {
             ...baseUnlimitedPolygonGraphState,
             closedPolygon: true,
@@ -1608,7 +1569,7 @@ describe("doOpenPolygon", () => {
         expect(updated.closedPolygon).toBeTruthy();
     });
 
-    it("changes `openPolygon` property to false", () => {
+    it("changes `closedPolygon` property to false", () => {
         const state: InteractiveGraphState = {
             ...baseUnlimitedPolygonGraphState,
             closedPolygon: true,
@@ -1623,7 +1584,7 @@ describe("doOpenPolygon", () => {
         expect(updated.closedPolygon).toBeFalsy();
     });
 
-    it("does not change `openPolygon` property when it's already false", () => {
+    it("does not change `closedPolygon` property when it's already false", () => {
         const state: InteractiveGraphState = {
             ...baseUnlimitedPolygonGraphState,
             closedPolygon: false,
