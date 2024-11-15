@@ -109,8 +109,12 @@ type ParsedNode = {
 
 // Helper function for replaceOutsideTeX()
 // Condense adjacent text nodes into a single text node
-function condenseTextNodes(nodes: Array<ParsedNode>): Array<ParsedNode> {
+function condenseTextNodes(nodes: ParsedNode[] | undefined): Array<ParsedNode> {
     const result: ParsedNode[] = [];
+
+    if (!nodes) {
+        return result;
+    }
 
     let currentText = "";
     for (const node of nodes) {

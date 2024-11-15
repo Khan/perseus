@@ -3,7 +3,7 @@ import * as React from "react";
 
 import Sortable from "../../components/sortable";
 import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 import scoreSorter from "./score-sorter";
 
@@ -14,7 +14,7 @@ import type {
     PerseusSorterRubric,
     PerseusSorterUserInput,
 } from "../../validation.types";
-import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/prompt-utils";
+import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 const {shuffle} = Util;
 

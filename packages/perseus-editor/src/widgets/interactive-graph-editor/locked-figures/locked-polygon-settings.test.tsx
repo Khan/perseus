@@ -27,6 +27,14 @@ const defaultProps = {
 
 const defaultLabel = getDefaultFigureForType("label");
 
+// Mock the async function generateSpokenMathDetails
+jest.mock("./util", () => ({
+    ...jest.requireActual("./util"),
+    generateSpokenMathDetails: (input) => {
+        return Promise.resolve(`Spoken math details for ${input}`);
+    },
+}));
+
 describe("LockedPolygonSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -598,7 +606,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
+                    "Spoken math details for Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
             });
         });
 
@@ -634,7 +642,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon A with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
+                    "Spoken math details for Polygon A with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
             });
         });
 
@@ -674,7 +682,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon A, B with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
+                    "Spoken math details for Polygon A, B with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
             });
         });
     });

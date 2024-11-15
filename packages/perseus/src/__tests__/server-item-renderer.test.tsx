@@ -10,7 +10,7 @@ import {
 import {
     itemWithInput,
     itemWithLintingError,
-    itemWithNumericAndNumberInputs,
+    itemWithMultipleNumericInputs,
     itemWithRadioAndExpressionWidgets,
     definitionItem,
 } from "../__testdata__/server-item-renderer.testdata";
@@ -19,7 +19,7 @@ import WrappedServerItemRenderer, {
     ServerItemRenderer,
 } from "../server-item-renderer";
 import {registerWidget} from "../widgets";
-import InputNumberExport from "../widgets/input-number/input-number";
+import NumericInputExport from "../widgets/numeric-input";
 import RadioWidgetExport from "../widgets/radio";
 
 import MockAssetLoadingWidgetExport, {
@@ -68,7 +68,7 @@ const renderQuestion = (
 
 describe("server item renderer", () => {
     beforeAll(() => {
-        registerWidget("input-number", InputNumberExport);
+        registerWidget("numeric-input", NumericInputExport);
         registerWidget("radio", RadioWidgetExport);
     });
 
@@ -154,7 +154,7 @@ describe("server item renderer", () => {
     it("calls onInteraction callback with the current user data", async () => {
         // Arrange
         const interactionCallback = jest.fn();
-        renderQuestion(itemWithNumericAndNumberInputs, {
+        renderQuestion(itemWithMultipleNumericInputs, {
             interactionCallback,
         });
 
@@ -166,8 +166,8 @@ describe("server item renderer", () => {
 
         // Assert
         expect(interactionCallback).toHaveBeenCalledWith({
-            "input-number 1": {currentValue: "1"},
-            "numeric-input 1": {currentValue: "2"},
+            "numeric-input 1": {currentValue: "1"},
+            "numeric-input 2": {currentValue: "2"},
         });
     });
 
@@ -176,7 +176,7 @@ describe("server item renderer", () => {
         const {renderer} = renderQuestion(itemWithInput);
 
         // Act
-        const node = renderer.getDOMNodeForPath(["input-number 1"]);
+        const node = renderer.getDOMNodeForPath(["numeric-input 1"]);
 
         // Assert
         // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
@@ -348,7 +348,7 @@ describe("server item renderer", () => {
             // Assert
             expect(gotFocus).toBe(true);
             expect(onFocusChange).toHaveBeenCalledWith(
-                ["input-number 1"],
+                ["numeric-input 1"],
                 null,
                 0,
                 expect.any(Object),
@@ -393,7 +393,7 @@ describe("server item renderer", () => {
             expect(keypadElement.activate).toHaveBeenCalled();
             expect(gotFocus).toBe(true);
             expect(onFocusChange).toHaveBeenCalledWith(
-                ["input-number 1"],
+                ["numeric-input 1"],
                 null,
                 250,
                 expect.any(Object),
@@ -418,7 +418,7 @@ describe("server item renderer", () => {
             expect(onFocusChange).toHaveBeenCalledTimes(2);
             expect(onFocusChange).toHaveBeenLastCalledWith(
                 null,
-                ["input-number 1"],
+                ["numeric-input 1"],
                 0,
                 null,
             );
@@ -464,7 +464,7 @@ describe("server item renderer", () => {
             expect(onFocusChange).toHaveBeenCalledTimes(2);
             expect(onFocusChange).toHaveBeenLastCalledWith(
                 null,
-                ["input-number 1"],
+                ["numeric-input 1"],
                 0,
                 null,
             );
@@ -478,14 +478,14 @@ describe("server item renderer", () => {
             });
 
             // Act
-            act(() => renderer.focusPath(["input-number 1"]));
+            act(() => renderer.focusPath(["numeric-input 1"]));
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
-                ["input-number 1"],
+                ["numeric-input 1"],
                 null,
                 0,
                 expect.any(Object),
@@ -518,12 +518,14 @@ describe("server item renderer", () => {
                     {},
                   ],
                   "question": {
-                    "input-number 1": {
-                      "answerType": "number",
+                    "numeric-input 1": {
+                      "answerForms": [],
+                      "coefficient": false,
                       "currentValue": "-42",
-                      "rightAlign": undefined,
-                      "simplify": "required",
+                      "labelText": "",
+                      "rightAlign": false,
                       "size": "normal",
+                      "static": false,
                     },
                   },
                 }
@@ -541,7 +543,7 @@ describe("server item renderer", () => {
                     {
                         hints: [{}, {}, {}],
                         question: {
-                            "input-number 1": {
+                            "numeric-input 1": {
                                 answerType: "number",
                                 currentValue: "-42",
                                 rightAlign: undefined,

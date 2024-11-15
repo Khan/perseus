@@ -6,7 +6,7 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {DefinitionConsumer} from "../../definition-context";
 import Renderer from "../../renderer";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
 import scoreNoop from "../__shared__/score-noop";
 
 import type {
@@ -14,7 +14,7 @@ import type {
     PerseusDefinitionWidgetOptions,
 } from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {DefinitionPromptJSON} from "../../widget-ai-utils/definition/prompt-utils";
+import type {DefinitionPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 

@@ -13,14 +13,20 @@ const {InfoTip} = components;
 
 type Props = {
     ariaLabel: string | undefined;
-    prePopulatedAriaLabel: string;
+    /**
+     * The async function that generates the prepopulated aria label
+     * for the locked figure with math details converted to spoken words.
+     */
+    getPrepopulatedAriaLabel: () => Promise<string>;
     onChangeProps: (props: {ariaLabel?: string | undefined}) => void;
 };
 
 function LockedFigureAria(props: Props) {
-    const {ariaLabel, prePopulatedAriaLabel, onChangeProps} = props;
+    const {ariaLabel, getPrepopulatedAriaLabel, onChangeProps} = props;
     const id = React.useId();
     const ariaLabelId = `aria-label-${id}`;
+
+    const [loading, setLoading] = React.useState(false);
 
     return (
         <View>
@@ -52,7 +58,7 @@ function LockedFigureAria(props: Props) {
             <Strut size={spacing.xxSmall_6} />
             <TextArea
                 id={ariaLabelId}
-                value={ariaLabel ?? ""}
+                value={loading ? "Loading..." : ariaLabel ?? ""}
                 onChange={(newValue) => {
                     onChangeProps({
                         // Save as undefined if the field is empty.
@@ -69,8 +75,10 @@ function LockedFigureAria(props: Props) {
                 startIcon={pencilCircle}
                 style={styles.button}
                 onClick={() => {
-                    onChangeProps({
-                        ariaLabel: prePopulatedAriaLabel,
+                    setLoading(true);
+                    getPrepopulatedAriaLabel().then((ariaLabel) => {
+                        setLoading(false);
+                        onChangeProps({ariaLabel});
                     });
                 }}
             >

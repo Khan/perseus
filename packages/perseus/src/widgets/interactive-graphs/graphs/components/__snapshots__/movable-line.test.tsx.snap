@@ -15,7 +15,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
       width="200"
     >
       <g
-        aria-label="Point at -1 comma -1"
+        aria-label="Point 1 at -1 comma -1"
         aria-live="assertive"
         class="movable-point__focusable-handle"
         data-testid="movable-point__focusable-handle"
@@ -60,7 +60,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
         />
       </g>
       <g
-        aria-label="Point at 1 comma 1"
+        aria-label="Point 2 at 1 comma 1"
         aria-live="assertive"
         class="movable-point__focusable-handle"
         data-testid="movable-point__focusable-handle"
@@ -155,7 +155,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
       width="200"
     >
       <g
-        aria-label="Point at -1 comma -1"
+        aria-label="Point 1 at -1 comma -1"
         aria-live="assertive"
         class="movable-point__focusable-handle"
         data-testid="movable-point__focusable-handle"
@@ -200,7 +200,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
         />
       </g>
       <g
-        aria-label="Point at 1 comma 1"
+        aria-label="Point 2 at 1 comma 1"
         aria-live="assertive"
         class="movable-point__focusable-handle"
         data-testid="movable-point__focusable-handle"
@@ -295,7 +295,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
       width="200"
     >
       <g
-        aria-label="Point at -1 comma -1"
+        aria-label="Point 1 at -1 comma -1"
         aria-live="assertive"
         class="movable-point__focusable-handle"
         data-testid="movable-point__focusable-handle"
@@ -394,7 +394,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         </g>
       </g>
       <g
-        aria-label="Point at 1 comma 1"
+        aria-label="Point 2 at 1 comma 1"
         aria-live="assertive"
         class="movable-point__focusable-handle"
         data-testid="movable-point__focusable-handle"

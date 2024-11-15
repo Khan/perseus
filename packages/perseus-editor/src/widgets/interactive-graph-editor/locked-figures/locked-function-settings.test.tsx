@@ -24,6 +24,14 @@ const defaultProps = {
 
 const defaultLabel = getDefaultFigureForType("label");
 
+// Mock the async function generateSpokenMathDetails
+jest.mock("./util", () => ({
+    ...jest.requireActual("./util"),
+    generateSpokenMathDetails: (input) => {
+        return Promise.resolve(`Spoken math details for ${input}`);
+    },
+}));
+
 const exampleEquationsMock = {
     foo: ["bar", "zot"],
 };
@@ -679,7 +687,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Function with equation y=x^2. Appearance solid gray.",
+                        "Spoken math details for Function with equation y=x^2. Appearance solid gray.",
                 });
             });
 
@@ -706,7 +714,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Function with equation x=y^2. Appearance solid gray.",
+                        "Spoken math details for Function with equation x=y^2. Appearance solid gray.",
                 });
             });
 
@@ -732,7 +740,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Function with equation y=x^2, domain from 1 to 2. Appearance solid gray.",
+                        "Spoken math details for Function with equation y=x^2, domain from 1 to 2. Appearance solid gray.",
                 });
             });
 
@@ -758,7 +766,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Function with equation y=x^2. Appearance solid gray.",
+                        "Spoken math details for Function with equation y=x^2. Appearance solid gray.",
                 });
             });
 
@@ -789,7 +797,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Function A with equation y=x^2. Appearance solid gray.",
+                        "Spoken math details for Function A with equation y=x^2. Appearance solid gray.",
                 });
             });
 
@@ -824,7 +832,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Function A, B with equation y=x^2. Appearance solid gray.",
+                        "Spoken math details for Function A, B with equation y=x^2. Appearance solid gray.",
                 });
             });
         });

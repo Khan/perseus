@@ -69,6 +69,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
                 <MovablePoint
                     key={"point-" + i}
                     point={coord}
+                    sequenceNumber={i + 1}
                     onMove={(destination) =>
                         dispatch(actions.sinusoid.movePoint(i, destination))
                     }
