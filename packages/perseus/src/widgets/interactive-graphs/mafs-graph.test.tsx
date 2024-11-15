@@ -128,14 +128,15 @@ describe("MafsGraph", () => {
         expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
     });
 
-    it("renders X axis label with TeX", () => {
+    it("renders X axis label with TeX and Y axis with text", () => {
         const basePropsWithTexLabels = {
             ...getBaseMafsGraphProps(),
-            labels: ["$1/2$", "YAxis"],
+            labels: ["$1/2$", "1/2"],
         }
 
         render(<MafsGraph {...basePropsWithTexLabels} />);
         expect(screen.getByText("1/2")).toBeInTheDocument();
+        expect(screen.getByText("\\text{1/2}")).toBeInTheDocument();
     });
 
     it("renders ARIA labels for each point", () => {
