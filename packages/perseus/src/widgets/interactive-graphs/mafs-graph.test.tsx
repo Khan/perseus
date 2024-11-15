@@ -436,6 +436,7 @@ describe("MafsGraph", () => {
             showRemovePointButton: false,
             interactionMode: "mouse",
             showKeyboardInteractionInvitation: false,
+            closedPolygon: false,
             coords: [
                 [-1, 1],
                 [0, 0],
