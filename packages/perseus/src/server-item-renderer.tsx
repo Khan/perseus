@@ -60,10 +60,24 @@ type DefaultProps = Required<
 >;
 
 type State = {
+    /**
+     * questionCompleted is used by Radio and LabelImage to change what
+     * it renders after a learner has checked the correctness of an answer.
+     * For instance LabelImage disables inputs for correct answers and marks
+     * incorrect answers so learners can update what they submitted.
+     */
     questionCompleted: boolean;
+    /**
+     * As far as I can tell, this is used to highlight empty widgets
+     * after a learner has clicked the "check" button. I don't think this could
+     * still be used though, because the "check" button is disabled while there
+     * are empty widgets.
+     */
     questionHighlightedWidgets: ReadonlyArray<any>;
-    // Keeps track of whether each asset (SvgImage or TeX) rendered by
-    // the questionRenderer has finished loading or rendering.
+    /**
+     * Keeps track of whether each asset (SvgImage or TeX) rendered by
+     * the questionRenderer has finished loading or rendering.
+     */
     assetStatuses: {
         [assetKey: string]: boolean;
     };
