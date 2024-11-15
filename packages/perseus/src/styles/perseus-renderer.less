@@ -548,8 +548,12 @@
     width: 240px;
 }
 
-.perseus-formats-tooltip .paragraph,
-.perseus-formats-tooltip ul {
+/*
+    Extra specificity needed to override other styles that are too broad.
+    Once we get a better framework in place (like CSS Modules), we can fix this selector.
+*/
+.framework-perseus .perseus-formats-tooltip .paragraph,
+.framework-perseus .tooltipContainer .perseus-formats-tooltip .paragraph ul {
     margin: 0;
 }
 
