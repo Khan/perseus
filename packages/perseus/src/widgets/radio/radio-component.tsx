@@ -4,7 +4,7 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio";
@@ -21,7 +21,7 @@ import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
 } from "../../validation.types";
-import type {RadioPromptJSON} from "../../widget-ai-utils/radio/prompt-utils";
+import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {

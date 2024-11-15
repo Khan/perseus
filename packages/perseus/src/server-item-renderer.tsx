@@ -22,12 +22,15 @@ import Renderer from "./renderer";
 import Util from "./util";
 
 import type {PerseusItem, ShowSolutions} from "./perseus-types";
-import type {GetPromptJSONInterface, RendererPromptJSON} from "./prompt-types";
 import type {
     FocusPath,
     PerseusDependenciesV2,
     SharedRendererProps,
 } from "./types";
+import type {
+    GetPromptJSONInterface,
+    RendererPromptJSON,
+} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     KeypadContextRendererInterface,

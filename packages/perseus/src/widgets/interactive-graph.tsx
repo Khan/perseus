@@ -28,7 +28,7 @@ import {
 import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
-import {getPromptJSON} from "../widget-ai-utils/interactive-graph/prompt-utils";
+import {getPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
 import {getClockwiseAngle} from "./interactive-graphs/math";
@@ -55,7 +55,7 @@ import type {
     PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
 } from "../validation.types";
-import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/prompt-utils";
+import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
 
 const TRASH_ICON_URI =
