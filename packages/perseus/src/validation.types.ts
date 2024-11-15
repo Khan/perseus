@@ -24,6 +24,8 @@ export type PerseusCategorizerRubric = {
     // The correct answers where index relates to the items and value relates
     // to the category.  e.g. [0, 1, 0, 1, 2]
     values: ReadonlyArray<number>;
+    // Translatable text; a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
+    items: ReadonlyArray<string>;
 };
 
 export type PerseusCategorizerUserInput = {

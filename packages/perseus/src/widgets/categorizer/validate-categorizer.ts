@@ -11,7 +11,7 @@ function validateCategorizer(
     strings: PerseusStrings,
 ): Extract<PerseusScore, {type: "invalid"}> | null {
     let completed = true;
-    rubric.values.forEach((_, i) => {
+    rubric.items.forEach((_, i) => {
         if (userInput.values[i] == null) {
             completed = false;
         }

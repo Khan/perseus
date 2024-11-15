@@ -8,6 +8,7 @@ describe("scoreCategorizer", () => {
     it("gives points when the answer is correct", () => {
         const rubric: PerseusCategorizerRubric = {
             values: [1, 3],
+            items: ["apples", "oranges"],
         };
 
         const userInput = {
@@ -21,6 +22,7 @@ describe("scoreCategorizer", () => {
     it("does not give points when incorrectly answered", () => {
         const rubric: PerseusCategorizerRubric = {
             values: [1, 3],
+            items: ["apples", "oranges"],
         };
 
         const userInput = {

@@ -8,6 +8,7 @@ describe("validateCategorizer", () => {
     it("tells the learner its not complete if not selected", () => {
         const rubric: PerseusCategorizerRubric = {
             values: [1, 3],
+            items: ["apples", "oranges"],
         };
 
         const userInput = {
