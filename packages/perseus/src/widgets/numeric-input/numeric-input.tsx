@@ -349,7 +349,11 @@ const propUpgrades = {
         // input-number to numeric-input. In this case, we need to upgrade
         // the widget options accordingly.
         if (initialProps.value) {
-            const provideAnswerForm = initialProps.answerType !== "number";
+            // If the answerType is not number or percent, we need to provide
+            // the answer form for the numeric-input widget
+            const provideAnswerForm =
+                initialProps.answerType !== "number" &&
+                initialProps.answerType !== "percent";
 
             // We need to determine the mathFormat for the numeric-input widget
             const mathFormat =
