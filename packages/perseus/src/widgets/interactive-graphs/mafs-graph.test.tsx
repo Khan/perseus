@@ -132,6 +132,28 @@ describe("MafsGraph", () => {
         expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
     });
 
+    it("renders TeX in axis Labels", () => {
+        const basePropsWithTexLabels = {
+            ...getBaseMafsGraphProps(),
+            labels: ["$1/2$", "$3/4$"],
+        };
+
+        render(<MafsGraph {...basePropsWithTexLabels} />);
+        expect(screen.getByText("1/2")).toBeInTheDocument();
+        expect(screen.getByText("3/4")).toBeInTheDocument();
+    });
+
+    it("renders plain text in axis Labels", () => {
+        const basePropsWithTexLabels = {
+            ...getBaseMafsGraphProps(),
+            labels: ["4/5", "5/6"],
+        };
+
+        render(<MafsGraph {...basePropsWithTexLabels} />);
+        expect(screen.getByText("\\text{4/5}")).toBeInTheDocument();
+        expect(screen.getByText("\\text{5/6}")).toBeInTheDocument();
+    });
+
     it("renders ARIA labels for each point (segment)", () => {
         const state: InteractiveGraphState = {
             type: "segment",
