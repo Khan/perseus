@@ -1,5 +1,5 @@
 import {vec} from "mafs";
-import * as React from "react";
+import React from "react";
 
 import {getDependencies} from "../../../dependencies";
 import {pointToPixel} from "../graphs/use-transform";
