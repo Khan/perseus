@@ -75,7 +75,11 @@ async function testFile(path: string, outputDir: string) {
                 desc,
                 "utf-8",
             );
-            await fs.writeFile(
+            // We'd like to find the shortest assessment item that reproduces
+            // each mismatch, to keep our regression tests succinct and
+            // readable. To that end, we only update the item.json file if the
+            // current item is shorter than the one already on disk.
+            await writeFileIfShorterThanExisting(
                 join(outputDir, hash, "item.json"),
                 String(JSON.stringify(rawItem)),
                 "utf-8",
@@ -122,6 +126,21 @@ function typeName(value: unknown): string {
         return "array";
     }
     return typeof value;
+}
+
+async function writeFileIfShorterThanExisting(
+    path: string,
+    content: string,
+    encoding: BufferEncoding,
+) {
+    const size = await fs
+        .stat(path)
+        .then((stat) => stat.size)
+        .catch(() => null);
+    const contentLength = Buffer.byteLength(content, encoding);
+    if (size == null || contentLength < size) {
+        await fs.writeFile(path, content, encoding);
+    }
 }
 
 async function* listFilesRecursively(dir: string) {
