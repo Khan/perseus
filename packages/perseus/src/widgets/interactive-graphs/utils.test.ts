@@ -147,4 +147,19 @@ describe("replaceOutsideTeX", () => {
 
         expect(convertedString).toEqual("\\text{\\\\}");
     });
+
+    test.each`
+        input     | expectedOutput
+        ${"$"}    | ${"\\text{\\$}"}
+        ${"$$"}   | ${""}
+        ${"\\$"}  | ${"\\text{\\$}"}
+        ${"$1$"}  | ${"1"}
+        ${"$1"}   | ${"\\text{\\$1}"}
+        ${"1$"}   | ${"\\text{1\\$}"}
+        ${"$$1$"} | ${"\\text{1\\$}"}
+        ${"$1$$"} | ${"1\\text{\\$}"}
+    `("counts lone unescaped $ as TeX", ({input, expectedOutput}) => {
+        const convertedString = replaceOutsideTeX(input);
+        expect(convertedString).toEqual(expectedOutput);
+    });
 });

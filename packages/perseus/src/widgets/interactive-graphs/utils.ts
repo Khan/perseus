@@ -103,7 +103,7 @@ export function replaceOutsideTeX(mathString: string) {
 }
 
 type ParsedNode = {
-    type: "math" | "text";
+    type: "math" | "text" | "unescapedDollar";
     content: string;
 };
 
@@ -118,14 +118,23 @@ function condenseTextNodes(nodes: ParsedNode[] | undefined): Array<ParsedNode> {
 
     let currentText = "";
     for (const node of nodes) {
-        if (node.type === "math") {
-            if (currentText) {
-                result.push({type: "text", content: currentText});
-                currentText = "";
-            }
-            result.push(node);
-        } else {
-            currentText += node.content;
+        switch (node.type) {
+            case "math":
+                if (currentText) {
+                    result.push({type: "text", content: currentText});
+                    currentText = "";
+                }
+                result.push(node);
+                break;
+            case "unescapedDollar":
+                // If the unescaped dollar had a closing pair to define
+                // math, it would have been caught by the "math" case above.
+                // Since this unescaped dollar is caught here, we can
+                // assume it is alone and used as as a literal dollar sign.
+                currentText += "$";
+                break;
+            default:
+                currentText += node.content;
         }
     }
 
