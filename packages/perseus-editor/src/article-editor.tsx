@@ -74,9 +74,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         // Check if the json needs to be converted
         const conversionWarningRequired =
             props.json instanceof Array
-                ? props.json
-                      .map(conversionRequired)
-                      .reduce((p, v) => p && v, false)
+                ? props.json.some(conversionRequired)
                 : conversionRequired(props.json);
 
         let json = props.json;

@@ -321,7 +321,7 @@ export const strings: {
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     srPointAtCoordinates: {
         context: "Screenreader-accessible description of a point on a graph",
-        message: "Point %(num) at %(x)s comma %(y)s",
+        message: "Point %(num)s at %(x)s comma %(y)s",
     },
     srInteractiveElements: "Interactive elements: %(elements)s",
     srNoInteractiveElements: "No interactive elements",
