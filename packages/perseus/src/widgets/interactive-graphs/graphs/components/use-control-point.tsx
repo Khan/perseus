@@ -88,7 +88,7 @@ export function useControlPoint(params: Params): Return {
             ref={focusableHandleRef}
             role="button"
             aria-label={strings.srPointAtCoordinates({
-                num: sequenceNumber,
+                pointNum: sequenceNumber,
                 x: srFormatNumber(point[X], locale),
                 y: srFormatNumber(point[Y], locale),
             })}

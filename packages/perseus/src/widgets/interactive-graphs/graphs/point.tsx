@@ -153,7 +153,7 @@ export function describePointGraph(
 
     const pointDescriptions = state.coords.map(([x, y], index) =>
         strings.srPointAtCoordinates({
-            num: index + 1,
+            pointNum: index + 1,
             x: srFormatNumber(x, locale),
             y: srFormatNumber(y, locale),
         }),
