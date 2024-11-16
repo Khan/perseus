@@ -6,7 +6,10 @@ import * as React from "react";
 import {flags} from "../../../__stories__/flags-for-api-options";
 
 import LockedPointSettings from "./locked-point-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    getDefaultFigureForType,
+    mockedJoinLabelsAsSpokenMathForTests,
+} from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -29,9 +32,8 @@ const defaultLabel = getDefaultFigureForType("label");
 // Mock the async function generateSpokenMathDetails
 jest.mock("./util", () => ({
     ...jest.requireActual("./util"),
-    generateSpokenMathDetails: (input) => {
-        return Promise.resolve(`Spoken math details for ${input}`);
-    },
+    joinLabelsAsSpokenMath: (input) =>
+        mockedJoinLabelsAsSpokenMathForTests(input),
 }));
 
 describe("LockedPointSettings", () => {
@@ -420,8 +422,7 @@ describe("LockedPointSettings", () => {
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel:
-                "Spoken math details for Point at (0, 0). Appearance solid gray.",
+            ariaLabel: "Point at (0, 0). Appearance solid gray.",
         });
     });
 
@@ -453,8 +454,7 @@ describe("LockedPointSettings", () => {
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel:
-                "Spoken math details for Point A at (0, 0). Appearance solid gray.",
+            ariaLabel: "Point spoken A at (0, 0). Appearance solid gray.",
         });
     });
 
@@ -491,7 +491,7 @@ describe("LockedPointSettings", () => {
         // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
             ariaLabel:
-                "Spoken math details for Point A, B at (0, 0). Appearance solid gray.",
+                "Point spoken A, spoken B at (0, 0). Appearance solid gray.",
         });
     });
 });

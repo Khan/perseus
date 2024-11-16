@@ -30,8 +30,8 @@ import examples from "./locked-function-examples";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
-    generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -90,14 +90,9 @@ const LockedFunctionSettings = (props: Props) => {
      * with the math details converted into spoken words.
      */
     async function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
-        let str = await generateSpokenMathDetails(
-            `Function${visiblelabel} with equation ${equationPrefix}${equation}`,
-        );
+        let str = `Function${visiblelabel} with equation ${equationPrefix}${equation}`;
 
         // Add the domain/range constraints to the aria label
         // if they are not the default values.

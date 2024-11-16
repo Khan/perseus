@@ -127,6 +127,13 @@ export function generateLockedFigureAppearanceDescription(
     }
 }
 
+/**
+ * Given a string that may contain math within TeX represented by $...$,
+ * returns the spoken math equivalent using the SpeechRuleEngine.
+ * Exported for testing.
+ *
+ * Example: "Circle with radius $\frac{1}{2}$" ==> "Circle with radius one half"
+ */
 export async function generateSpokenMathDetails(mathString: string) {
     const engine = await SpeechRuleEngine.setup("en");
     let convertedSpeech = "";
@@ -144,11 +151,59 @@ export async function generateSpokenMathDetails(mathString: string) {
     // to look for individual math blocks.
     if (firstSection.type === "paragraph") {
         for (const piece of firstSection.content) {
-            piece.type === "math"
-                ? (convertedSpeech += engine.texToSpeech(piece.content))
-                : (convertedSpeech += piece.content);
+            switch (piece.type) {
+                case "math":
+                    convertedSpeech += engine.texToSpeech(piece.content);
+                    break;
+                case "unescapedDollar":
+                    // If the unescaped dollar had a closing pair to define
+                    // math, it would have been caught by the "math" case above.
+                    // Since this unescaped dollar is caught here, we can
+                    // assume it is alone and used as as a literal dollar sign.
+                    convertedSpeech += "$";
+                    break;
+                default:
+                    convertedSpeech += piece.content;
+                    break;
+            }
         }
     }
 
     return convertedSpeech;
+}
+
+/**
+ * Take an array of LockedLabelType object and joins the text of each label
+ * with a comma and space in between. The text of each label is converted to
+ * spoken math using the SpeechRuleEngine.
+ */
+export async function joinLabelsAsSpokenMath(
+    labels: LockedLabelType[] | undefined,
+): Promise<string> {
+    if (!labels || labels.length === 0) {
+        return "";
+    }
+
+    const spokenLabelPromises = labels.map(async (label) => {
+        return await generateSpokenMathDetails(label.text);
+    });
+
+    const spokenLabels = await Promise.all(spokenLabelPromises);
+
+    return ` ${spokenLabels.join(", ")}`;
+}
+
+/**
+ * Non-async mocked version of joinLabelsAsSpokenMath for tests.
+ */
+export function mockedJoinLabelsAsSpokenMathForTests(
+    labels: LockedLabelType[] | undefined,
+) {
+    if (!labels || labels.length === 0) {
+        return Promise.resolve("");
+    }
+
+    // Mock this so that each label's text says "joint" before it.
+    const jointMock = labels.map((input) => ` spoken ${input.text}`).join(",");
+    return Promise.resolve(jointMock);
 }

@@ -9,7 +9,10 @@ import {flags} from "../../../__stories__/flags-for-api-options";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import examples from "./locked-function-examples";
 import LockedFunctionSettings from "./locked-function-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    getDefaultFigureForType,
+    mockedJoinLabelsAsSpokenMathForTests,
+} from "./util";
 
 import type {Props} from "./locked-function-settings";
 import type {UserEvent} from "@testing-library/user-event";
@@ -27,9 +30,8 @@ const defaultLabel = getDefaultFigureForType("label");
 // Mock the async function generateSpokenMathDetails
 jest.mock("./util", () => ({
     ...jest.requireActual("./util"),
-    generateSpokenMathDetails: (input) => {
-        return Promise.resolve(`Spoken math details for ${input}`);
-    },
+    joinLabelsAsSpokenMath: (input) =>
+        mockedJoinLabelsAsSpokenMathForTests(input),
 }));
 
 const exampleEquationsMock = {
@@ -687,7 +689,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Spoken math details for Function with equation y=x^2. Appearance solid gray.",
+                        "Function with equation y=x^2. Appearance solid gray.",
                 });
             });
 
@@ -714,7 +716,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Spoken math details for Function with equation x=y^2. Appearance solid gray.",
+                        "Function with equation x=y^2. Appearance solid gray.",
                 });
             });
 
@@ -740,7 +742,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Spoken math details for Function with equation y=x^2, domain from 1 to 2. Appearance solid gray.",
+                        "Function with equation y=x^2, domain from 1 to 2. Appearance solid gray.",
                 });
             });
 
@@ -766,7 +768,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Spoken math details for Function with equation y=x^2. Appearance solid gray.",
+                        "Function with equation y=x^2. Appearance solid gray.",
                 });
             });
 
@@ -797,7 +799,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Spoken math details for Function A with equation y=x^2. Appearance solid gray.",
+                        "Function spoken A with equation y=x^2. Appearance solid gray.",
                 });
             });
 
@@ -832,7 +834,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Spoken math details for Function A, B with equation y=x^2. Appearance solid gray.",
+                        "Function spoken A, spoken B with equation y=x^2. Appearance solid gray.",
                 });
             });
         });

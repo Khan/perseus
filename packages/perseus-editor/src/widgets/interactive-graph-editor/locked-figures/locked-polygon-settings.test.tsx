@@ -6,7 +6,10 @@ import * as React from "react";
 import {flags} from "../../../__stories__/flags-for-api-options";
 
 import LockedPolygonSettings from "./locked-polygon-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    getDefaultFigureForType,
+    mockedJoinLabelsAsSpokenMathForTests,
+} from "./util";
 
 import type {Coord} from "@khanacademy/perseus";
 import type {UserEvent} from "@testing-library/user-event";
@@ -30,9 +33,8 @@ const defaultLabel = getDefaultFigureForType("label");
 // Mock the async function generateSpokenMathDetails
 jest.mock("./util", () => ({
     ...jest.requireActual("./util"),
-    generateSpokenMathDetails: (input) => {
-        return Promise.resolve(`Spoken math details for ${input}`);
-    },
+    joinLabelsAsSpokenMath: (input) =>
+        mockedJoinLabelsAsSpokenMathForTests(input),
 }));
 
 describe("LockedPolygonSettings", () => {
@@ -606,7 +608,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Spoken math details for Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
+                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
             });
         });
 
@@ -642,7 +644,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Spoken math details for Polygon A with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
+                    "Polygon spoken A with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
             });
         });
 
@@ -682,7 +684,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Spoken math details for Polygon A, B with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
+                    "Polygon spoken A, spoken B with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
             });
         });
     });
