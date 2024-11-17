@@ -83,6 +83,9 @@ export type Props = ExternalProps &
         visibleLabel: PerseusExpressionWidgetOptions["visibleLabel"];
         ariaLabel: PerseusExpressionWidgetOptions["ariaLabel"];
         value: string;
+        disabled?: boolean;
+        noBackground?: boolean;
+        noWrapper?: boolean;
     };
 
 export type ExpressionState = {
@@ -112,6 +115,7 @@ export class Expression
 
     _textareaId = `expression_textarea_${Date.now()}`;
     _isMounted = false;
+    _mathInput: React.MutableRefObject<null | MathInput> = React.createRef();
 
     static getUserInputFromProps(props: Props): PerseusExpressionUserInput {
         return normalizeTex(props.value);
@@ -281,6 +285,12 @@ export class Expression
     };
 
     setInputValue(path: FocusPath, newValue: string, cb: () => void) {
+        if (this._mathInput.current) {
+            const inputRef = this._mathInput.current.inputRef;
+            if (inputRef.current) {
+                inputRef.current.setValue(newValue);
+            }
+        }
         this.props.onChange(
             {
                 value: newValue,
@@ -335,7 +345,13 @@ export class Expression
         const {ERROR_MESSAGE, ERROR_TITLE} = this.context.strings;
 
         return (
-            <View className={css(styles.desktopLabelInputWrapper)}>
+            <View
+                className={
+                    this.props.noWrapper
+                        ? undefined
+                        : css(styles.desktopLabelInputWrapper)
+                }
+            >
                 {!!this.props.visibleLabel && (
                     <LabelSmall htmlFor={this._textareaId} tag="label">
                         {this.props.visibleLabel}
@@ -371,13 +387,14 @@ export class Expression
                         content={ERROR_MESSAGE}
                     >
                         <MathInput
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="input"
+                            ref={this._mathInput}
                             className={ApiClassNames.INTERACTIVE}
                             value={this.props.value}
                             onChange={this.changeAndTrack}
                             convertDotToTimes={this.props.times}
                             buttonSets={this.props.buttonSets}
+                            disabled={this.props.disabled}
+                            noBackground={this.props.noBackground}
                             onFocus={this._handleFocus}
                             onBlur={this._handleBlur}
                             hasError={this.state.showErrorStyle}
