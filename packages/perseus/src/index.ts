@@ -18,6 +18,7 @@ export {default as ServerItemRenderer} from "./server-item-renderer";
 export {default as HintsRenderer} from "./hints-renderer";
 export {default as HintRenderer} from "./hint-renderer";
 export {default as Renderer} from "./renderer";
+export {scorePerseusItem} from "./renderer-util";
 
 /**
  * Widgets
@@ -207,7 +208,9 @@ export type {
     Size,
     CollinearTuple,
     MathFormat,
-    InputNumberWidget, // TODO(jeremy): remove?
+    PerseusArticle,
+    InputNumberWidget, // Used for usurpation of InputNumberWidget in perseus-editor
+    NumericInputWidget, // Used for usurpation of InputNumberWidget in perseus-editor
     // Widget configuration types
     PerseusImageBackground,
     PerseusInputNumberWidgetOptions,
@@ -224,6 +227,7 @@ export type {
     PerseusWidgetsMap,
     MultiItem,
 } from "./perseus-types";
+export type {UserInputMap} from "./validation.types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";
 
@@ -253,4 +257,7 @@ export type {
     TagsShape,
 } from "./multi-items/shape-types";
 export type {Path} from "./multi-items/trees";
-export type {RendererPromptJSON} from "./prompt-types";
+export type {
+    RendererPromptJSON,
+    WidgetPromptJSON,
+} from "./widget-ai-utils/prompt-types";

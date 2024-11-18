@@ -8,7 +8,7 @@ import {
     itemWithLintingError,
     labelImageItem,
     itemWithImages,
-    itemWithMultipleInputNumbers,
+    itemWithMultipleNumericInputs,
     itemWithRadioAndExpressionWidgets,
 } from "../__testdata__/server-item-renderer.testdata";
 import {ServerItemRenderer} from "../server-item-renderer";
@@ -23,7 +23,7 @@ export default {
     title: "Perseus/Renderers/Server Item Renderer",
 } as Story;
 
-export const InputNumberItem = (args: StoryArgs): React.ReactElement => {
+export const NumericInputItem = (args: StoryArgs): React.ReactElement => {
     return <ServerItemRendererWithDebugUI item={itemWithInput} />;
 };
 
@@ -56,7 +56,7 @@ export const InputNumberWithInteractionCallback = (
 ): React.ReactElement => {
     return (
         <ServerItemRendererWithDebugUI
-            item={itemWithMultipleInputNumbers}
+            item={itemWithMultipleNumericInputs}
             apiOptions={{
                 interactionCallback: (data) => {
                     // We are logging the interaction callback data to the console

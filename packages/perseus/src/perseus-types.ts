@@ -100,6 +100,12 @@ export type PerseusItem = {
 };
 
 /**
+ * A "PerseusArticle" is an item that is meant to be rendered as an article.
+ * This item is never scored and is rendered by the `ArticleRenderer`.
+ */
+export type PerseusArticle = PerseusRenderer | ReadonlyArray<PerseusRenderer>;
+
+/**
  * A "MultiItem" is an advanced Perseus item. It is rendered by the
  * `MultiRenderer` and you can control the layout of individual parts of the
  * item.
@@ -253,7 +259,7 @@ export type SorterWidget = WidgetOptions<'sorter', PerseusSorterWidgetOptions>;
 // prettier-ignore
 export type TableWidget = WidgetOptions<'table', PerseusTableWidgetOptions>;
 // prettier-ignore
-export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumberWidgetOptions>;
+export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumberWidgetOptions>; // While this widget is deprecated, we still need the type for conversion purposes
 // prettier-ignore
 export type MoleculeRendererWidget = WidgetOptions<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
 // prettier-ignore

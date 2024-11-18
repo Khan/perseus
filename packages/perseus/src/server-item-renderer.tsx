@@ -19,15 +19,20 @@ import HintsRenderer from "./hints-renderer";
 import LoadingContext from "./loading-context";
 import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
+import {scorePerseusItem} from "./renderer-util";
 import Util from "./util";
 
 import type {PerseusItem, ShowSolutions} from "./perseus-types";
-import type {GetPromptJSONInterface, RendererPromptJSON} from "./prompt-types";
 import type {
     FocusPath,
     PerseusDependenciesV2,
     SharedRendererProps,
 } from "./types";
+import type {UserInputArray, UserInputMap} from "./validation.types";
+import type {
+    GetPromptJSONInterface,
+    RendererPromptJSON,
+} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     KeypadContextRendererInterface,
@@ -39,6 +44,7 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 type OwnProps = {
     hintsVisible?: number;
     item: PerseusItem;
+    score?: KEScore | null;
     problemNum?: number;
     reviewMode?: boolean;
     keypadElement?: KeypadAPI | null | undefined;
@@ -57,10 +63,23 @@ type DefaultProps = Required<
 >;
 
 type State = {
+    /**
+     * questionCompleted is used to signal that a learner has attempted
+     * the exercise. This is used when widgets want to show things like
+     * rationale or partial correctness.
+     */
     questionCompleted: boolean;
-    questionHighlightedWidgets: ReadonlyArray<any>;
-    // Keeps track of whether each asset (SvgImage or TeX) rendered by
-    // the questionRenderer has finished loading or rendering.
+    /**
+     * As far as I can tell, this is used to highlight empty widgets
+     * after a learner has clicked the "check" button. I don't think this could
+     * still be used though, because the "check" button is disabled while there
+     * are empty widgets.
+     */
+    questionHighlightedWidgets: ReadonlyArray<string>;
+    /**
+     * Keeps track of whether each asset (SvgImage or TeX) rendered by
+     * the questionRenderer has finished loading or rendering.
+     */
     assetStatuses: {
         [assetKey: string]: boolean;
     };
@@ -135,6 +154,16 @@ export class ServerItemRenderer
                 this._fullyRendered = true;
                 this.props.onRendered(true);
             }
+        }
+
+        if (this.props.score && this.props.score !== prevProps.score) {
+            const emptyQuestionAreaWidgets =
+                this.questionRenderer.emptyWidgets();
+
+            this.setState({
+                questionCompleted: this.props.score.correct,
+                questionHighlightedWidgets: emptyQuestionAreaWidgets,
+            });
         }
     }
 
@@ -240,7 +269,7 @@ export class ServerItemRenderer
 
     /**
      * Accepts a question area widgetId, or an answer area widgetId of
-     * the form "answer-input-number 1", or the string "answer-area"
+     * the form "answer-numeric-input 1", or the string "answer-area"
      * for the whole answer area (if the answer area is a single widget).
      */
     _setWidgetProps(widgetId: string, newProps: Props, callback: any) {
@@ -303,17 +332,41 @@ export class ServerItemRenderer
     }
 
     /**
+     * Returns an array of the widget `.getUserInput()` results
+     *
+     * TODO: can we remove this? Seems to be just for backwards
+     * compatibility with old Perseus Chrome logging
+     * @deprecated use getUserInput
+     */
+    getUserInputLegacy(): UserInputArray {
+        return this.questionRenderer.getUserInput();
+    }
+
+    /**
+     * Returns an object of the widget `.getUserInput()` results
+     */
+    getUserInput(): UserInputMap {
+        return this.questionRenderer.getUserInputMap();
+    }
+
+    /**
      * Grades the item.
+     *
+     * @deprecated use scorePerseusItem
      */
     scoreInput(): KEScore {
-        const guessAndScore = this.questionRenderer.guessAndScore();
-        const guess = guessAndScore[0];
-        const score = guessAndScore[1];
+        const guess = this.getUserInput();
+        const score = scorePerseusItem(
+            this.props.item.question,
+            guess,
+            this.context.strings,
+            this.context.locale,
+        );
 
         // Continue to include an empty guess for the now defunct answer area.
         // TODO(alex): Check whether we rely on the format here for
         //             analyzing ProblemLogs. If not, remove this layer.
-        const maxCompatGuess = [guess, []];
+        const maxCompatGuess = [this.questionRenderer.getUserInput(), []];
 
         const keScore = Util.keScoreFromPerseusScore(
             score,

@@ -3,9 +3,9 @@ import * as React from "react";
 
 import Sortable from "../../components/sortable";
 import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
-import sorterValidator from "./sorter-validator";
+import scoreSorter from "./score-sorter";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
@@ -14,7 +14,7 @@ import type {
     PerseusSorterRubric,
     PerseusSorterUserInput,
 } from "../../validation.types";
-import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/prompt-utils";
+import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 const {shuffle} = Util;
 
@@ -133,5 +133,5 @@ export default {
     displayName: "Sorter",
     widget: Sorter,
     isLintable: true,
-    validator: sorterValidator,
+    scorer: scoreSorter,
 } satisfies WidgetExports<typeof Sorter>;

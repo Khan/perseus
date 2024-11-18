@@ -13,9 +13,9 @@ import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
-import matrixValidator from "./matrix-validator";
+import scoreMatrix from "./score-matrix";
 
 import type {PerseusMatrixWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
@@ -23,7 +23,7 @@ import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
 } from "../../validation.types";
-import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/prompt-utils";
+import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
 const {assert} = InteractiveUtil;
 const {stringArrayOfSize} = Util;
@@ -569,5 +569,5 @@ export default {
     transform: propTransform,
     staticTransform: staticTransform,
     isLintable: true,
-    validator: matrixValidator,
+    scorer: scoreMatrix,
 } satisfies WidgetExports<typeof Matrix>;

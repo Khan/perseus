@@ -1,7 +1,8 @@
 import Util from "./util";
-import {getWidgetValidator} from "./widgets";
+import {getWidgetIdsFromContent} from "./widget-type-utils";
+import {getWidgetScorer} from "./widgets";
 
-import type {PerseusWidgetsMap} from "./perseus-types";
+import type {PerseusRenderer, PerseusWidgetsMap} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {PerseusScore} from "./types";
 import type {UserInput, UserInputMap} from "./validation.types";
@@ -24,7 +25,7 @@ export function emptyWidgetsFunctional(
 
         let score: PerseusScore | null = null;
         const userInput = userInputMap[id];
-        const validator = getWidgetValidator(widget.type);
+        const scorer = getWidgetScorer(widget.type);
 
         if (widget.type === "group") {
             const scores = scoreWidgetsFunctional(
@@ -35,8 +36,8 @@ export function emptyWidgetsFunctional(
                 locale,
             );
             score = Util.flattenScores(scores);
-        } else if (validator) {
-            score = validator(
+        } else if (scorer) {
+            score = scorer(
                 userInput as UserInput,
                 widget.options,
                 strings,
@@ -50,11 +51,35 @@ export function emptyWidgetsFunctional(
     });
 }
 
+// TODO: combine scorePerseusItem with scoreWidgetsFunctional
+// once scorePerseusItem is the only one calling scoreWidgetsFunctional
+export function scorePerseusItem(
+    perseusRenderData: PerseusRenderer,
+    userInputMap: UserInputMap,
+    // TODO(LEMS-2461,LEMS-2391): these probably
+    // need to be removed before we move this to the server
+    strings: PerseusStrings,
+    locale: string,
+): PerseusScore {
+    // There seems to be a chance that PerseusRenderer.widgets might include
+    // widget data for widgets that are not in PerseusRenderer.content,
+    // so this checks that the widgets are being used before scoring them
+    const usedWidgetIds = getWidgetIdsFromContent(perseusRenderData.content);
+    const scores = scoreWidgetsFunctional(
+        perseusRenderData.widgets,
+        usedWidgetIds,
+        userInputMap,
+        strings,
+        locale,
+    );
+    return Util.flattenScores(scores);
+}
+
 export function scoreWidgetsFunctional(
     widgets: PerseusWidgetsMap,
     // This is a port of old code, I'm not sure why
     // we need widgetIds vs the keys of the widgets object
-    widgetIds: Array<string>,
+    widgetIds: ReadonlyArray<string>,
     userInputMap: UserInputMap,
     strings: PerseusStrings,
     locale: string,
@@ -75,18 +100,18 @@ export function scoreWidgetsFunctional(
         }
 
         const userInput = userInputMap[id];
-        const validator = getWidgetValidator(widget.type);
+        const scorer = getWidgetScorer(widget.type);
         if (widget.type === "group") {
             const scores = scoreWidgetsFunctional(
                 widget.options.widgets,
-                Object.keys(widget.options.widgets),
+                getWidgetIdsFromContent(widget.options.content),
                 userInputMap[id] as UserInputMap,
                 strings,
                 locale,
             );
             widgetScores[id] = Util.flattenScores(scores);
-        } else if (validator) {
-            widgetScores[id] = validator(
+        } else if (scorer) {
+            widgetScores[id] = scorer(
                 userInput as UserInput,
                 widget.options,
                 strings,

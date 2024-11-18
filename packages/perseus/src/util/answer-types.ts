@@ -11,7 +11,7 @@ import type {PerseusStrings} from "../strings";
 const MAXERROR_EPSILON = Math.pow(2, -42);
 
 type Guess = any;
-type Predicate = any;
+type Predicate = (guess: number, maxError: number) => boolean;
 
 // TOOD(kevinb): Figure out how this relates to KEScore in
 // perseus-all-package/types.js and see if there's a way to
@@ -26,7 +26,7 @@ export type Score = {
     ungraded?: boolean;
 };
 
-/*
+/**
  * Answer types
  *
  * Utility for creating answerable questions displayed in exercises
@@ -69,7 +69,6 @@ export type Score = {
  * TODO(alpert): Think of a less-absurd name for createValidatorFunctional.
  *
  */
-
 const KhanAnswerTypes = {
     /*
      * predicate answer type
@@ -625,11 +624,11 @@ const KhanAnswerTypes = {
         convertToPredicate: function (
             correctAnswer: string,
             options: any,
-        ): Predicate {
+        ): [predicate: Predicate, options: any] {
             const correctFloat = parseFloat(correctAnswer);
 
             return [
-                function (guess: Predicate, maxError: Predicate) {
+                function (guess, maxError) {
                     return Math.abs(guess - correctFloat) < maxError;
                 },
                 $.extend({}, options, {type: "predicate"}),
@@ -641,7 +640,6 @@ const KhanAnswerTypes = {
             strings: PerseusStrings,
         ): (arg1: Guess) => Score {
             return KhanAnswerTypes.predicate.createValidatorFunctional(
-                // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
                 ...KhanAnswerTypes.number.convertToPredicate(
                     correctAnswer,
                     options,

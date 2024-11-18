@@ -20,12 +20,12 @@ import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import {bodyXsmallBold} from "../../styles/global-styles";
 import mediaQueries from "../../styles/media-queries";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/label-image/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
 
 import AnswerChoices from "./answer-choices";
 import {HideAnswersToggle} from "./hide-answers-toggle";
-import labelImageValidator, {scoreMarker} from "./label-image-validator";
 import Marker from "./marker";
+import scoreLabelImage, {scoreMarker} from "./score-label-image";
 
 import type {InteractiveMarkerType} from "./types";
 import type {DependencyProps} from "../../dependencies";
@@ -36,7 +36,7 @@ import type {
     PerseusLabelImageRubric,
     PerseusLabelImageUserInput,
 } from "../../validation.types";
-import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/prompt-utils";
+import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
@@ -743,5 +743,5 @@ export default {
     widget: LabelImageWithDependencies,
     accessible: true,
     isLintable: true,
-    validator: labelImageValidator,
+    scorer: scoreLabelImage,
 } satisfies WidgetExports<typeof LabelImageWithDependencies>;

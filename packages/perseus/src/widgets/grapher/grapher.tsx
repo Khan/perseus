@@ -18,9 +18,9 @@ import KhanColors from "../../util/colors";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 /* Graphie and relevant components. */
 /* Mixins. */
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/grapher/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
 
-import grapherValidator from "./grapher-validator";
+import scoreGrapher from "./score-grapher";
 import {
     DEFAULT_GRAPHER_PROPS,
     chooseType,
@@ -40,7 +40,7 @@ import type {
     PerseusGrapherRubric,
     PerseusGrapherUserInput,
 } from "../../validation.types";
-import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/prompt-utils";
+import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
@@ -652,5 +652,5 @@ export default {
     widget: Grapher,
     transform: propTransform,
     staticTransform: staticTransform,
-    validator: grapherValidator,
+    scorer: scoreGrapher,
 } satisfies WidgetExports<typeof Grapher>;

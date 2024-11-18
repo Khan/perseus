@@ -1,3 +1,5 @@
+import * as SimpleMarkdown from "@khanacademy/pure-markdown";
+
 import {clampToBox, inset, MIN, size} from "./math";
 
 import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
@@ -77,16 +79,65 @@ export function isUnlimitedGraphState(
  * and the text outside of the $ blocks will be non-TeX text.
  */
 export function replaceOutsideTeX(mathString: string) {
-    let currentlyTeX = mathString[0] === "$";
+    // All the information we need is in the first section,
+    // whether it's typed as "blockmath" or "paragraph"
+    const firstSection = SimpleMarkdown.parse(mathString)[0];
+
+    // If it's blockMath, the outer level has the full math content.
+    if (firstSection.type === "blockMath") {
+        return firstSection.content;
+    }
+
+    // If it's a paragraph, we need to iterate through the sections
+    // to look for individual math blocks.
+    const condensedNodes = condenseTextNodes(firstSection.content);
     let result = "";
 
-    const splitString = mathString.split("$").filter((part) => part !== "");
-
-    for (let i = 0; i < splitString.length; i++) {
-        const part = splitString[i];
-        result += currentlyTeX ? part : `\\text{${part}}`;
-        currentlyTeX = !currentlyTeX;
+    for (const piece of condensedNodes) {
+        piece.type === "math"
+            ? (result += piece.content)
+            : (result += `\\text{${escapeSpecialChars(piece.content)}}`);
     }
 
     return result;
+}
+
+type ParsedNode = {
+    type: "math" | "text";
+    content: string;
+};
+
+// Helper function for replaceOutsideTeX()
+// Condense adjacent text nodes into a single text node
+function condenseTextNodes(nodes: ParsedNode[] | undefined): Array<ParsedNode> {
+    const result: ParsedNode[] = [];
+
+    if (!nodes) {
+        return result;
+    }
+
+    let currentText = "";
+    for (const node of nodes) {
+        if (node.type === "math") {
+            if (currentText) {
+                result.push({type: "text", content: currentText});
+                currentText = "";
+            }
+            result.push(node);
+        } else {
+            currentText += node.content;
+        }
+    }
+
+    if (currentText) {
+        result.push({type: "text", content: currentText});
+    }
+
+    return result;
+}
+
+// Helper function for replaceOutsideTeX()
+function escapeSpecialChars(str) {
+    // Escape $, \, {, and } characters
+    return str.replace(/([$\\{}])/g, "\\$1");
 }

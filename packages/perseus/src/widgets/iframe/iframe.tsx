@@ -14,9 +14,9 @@ import _ from "underscore";
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
 
-import {iframeValidator} from "./iframe-validator";
+import {scoreIframe} from "./score-iframe";
 
 import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
@@ -172,5 +172,5 @@ export default {
     widget: Iframe,
     // Let's not expose it to all content creators yet
     hidden: true,
-    validator: iframeValidator,
+    scorer: scoreIframe,
 } satisfies WidgetExports<typeof Iframe>;

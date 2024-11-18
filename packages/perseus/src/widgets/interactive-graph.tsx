@@ -28,11 +28,11 @@ import {
 import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
-import {getPromptJSON} from "../widget-ai-utils/interactive-graph/prompt-utils";
+import {getPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
-import interactiveGraphValidator from "./interactive-graphs/interactive-graph-validator";
 import {getClockwiseAngle} from "./interactive-graphs/math";
+import scoreInteractiveGraph from "./interactive-graphs/score-interactive-graph";
 
 import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
 import type {QuadraticGraphState} from "./interactive-graphs/types";
@@ -55,7 +55,7 @@ import type {
     PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
 } from "../validation.types";
-import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/prompt-utils";
+import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
 
 const TRASH_ICON_URI =
@@ -2396,5 +2396,5 @@ export default {
     displayName: "Interactive graph (Assessments only)",
     widget: InteractiveGraph,
     staticTransform: staticTransform,
-    validator: interactiveGraphValidator,
+    scorer: scoreInteractiveGraph,
 } satisfies WidgetExports<typeof InteractiveGraph>;

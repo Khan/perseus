@@ -4,13 +4,13 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import PerseusMarkdown from "../../perseus-markdown";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref/prompt-utils";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 import {isPassageWidget} from "../passage/utils";
 
 import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {PassageRefPromptJSON} from "../../widget-ai-utils/passage-ref/prompt-utils";
+import type {PassageRefPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
 
 const EN_DASH = "\u2013";
 
@@ -183,6 +183,6 @@ export default {
         summaryText: widgetOptions.summaryText,
     }),
     version: {major: 0, minor: 1},
-    // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(),
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof PassageRef>;

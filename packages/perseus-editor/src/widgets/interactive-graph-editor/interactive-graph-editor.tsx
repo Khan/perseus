@@ -730,8 +730,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     // value for `match`; a value of undefined
                                     // means exact matching. The code happens
                                     // to work because "exact" falls through
-                                    // to the correct else branch in
-                                    // InteractiveGraph.validate()
+                                    // to the correct else branch when scoring
                                     match: newValue as PerseusGraphTypePolygon["match"],
                                 };
                                 this.props.onChange({correct});
@@ -807,8 +806,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         // value for `match`; a value of undefined
                                         // means exact matching. The code happens
                                         // to work because "exact" falls through
-                                        // to the correct else branch in
-                                        // InteractiveGraph.validate()
+                                        // to the correct else branch when scoring
                                         match: newValue as PerseusGraphTypeAngle["match"],
                                     },
                                 });

@@ -9,9 +9,9 @@ import Sortable from "../../components/sortable";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
-import matcherValidator from "./matcher-validator";
+import scoreMatcher from "./score-matcher";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusMatcherWidgetOptions} from "../../perseus-types";
@@ -20,7 +20,7 @@ import type {
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
 } from "../../validation.types";
-import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/prompt-utils";
+import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
@@ -288,5 +288,5 @@ export default {
     displayName: "Matcher (two column)",
     widget: Matcher,
     isLintable: true,
-    validator: matcherValidator,
+    scorer: scoreMatcher,
 } satisfies WidgetExports<typeof Matcher>;

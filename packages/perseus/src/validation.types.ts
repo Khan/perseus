@@ -13,7 +13,6 @@ import type {
     PerseusOrdererWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusRadioChoice,
-    PerseusTableWidgetOptions,
     PerseusGraphCorrectType,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
@@ -168,9 +167,6 @@ export type PerseusRadioRubric = {
 
 export type PerseusRadioUserInput = {
     choicesSelected: ReadonlyArray<boolean>;
-    numCorrect?: number;
-    noneOfTheAboveIndex?: number | null | undefined;
-    noneOfTheAboveSelected?: boolean;
 };
 
 export type PerseusSorterRubric = {
@@ -183,7 +179,10 @@ export type PerseusSorterUserInput = {
     changed: boolean;
 };
 
-export type PerseusTableRubric = PerseusTableWidgetOptions;
+export type PerseusTableRubric = {
+    // Translatable Text; A 2-dimensional array of text to populate the table with
+    answers: ReadonlyArray<ReadonlyArray<string>>;
+};
 
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 

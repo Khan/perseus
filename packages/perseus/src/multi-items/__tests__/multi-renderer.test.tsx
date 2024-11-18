@@ -142,9 +142,9 @@ describe("multi-item renderer", () => {
             // Nudge the widget to a non-default state (ie. an item is
             // selected, a value is entered). You can see the result of this in the `choiceStates`
             // array in the captured state below where the choice at index 2 has
-            // `"selected": true` (instead of false) and the input-number has a `currentValue`.
+            // `"selected": true` (instead of false) and the numeric-input has a `currentValue`.
             await userEvent.click(screen.getAllByRole("radio")[2]); // Correct
-            await userEvent.type(screen.getByRole("textbox"), "+42"); // Correct
+            await userEvent.type(screen.getByRole("textbox"), "42"); // Correct
 
             // Act
             // @ts-expect-error - TS2339 - Property '_getSerializedState' does not exist on type 'never'.
@@ -160,12 +160,14 @@ describe("multi-item renderer", () => {
                     null,
                   ],
                   "question": {
-                    "input-number 1": {
-                      "answerType": "number",
-                      "currentValue": "+42",
-                      "rightAlign": undefined,
-                      "simplify": "required",
+                    "numeric-input 1": {
+                      "answerForms": [],
+                      "coefficient": false,
+                      "currentValue": "42",
+                      "labelText": "",
+                      "rightAlign": false,
                       "size": "normal",
+                      "static": false,
                     },
                     "radio 1": {
                       "choiceStates": [
@@ -296,12 +298,14 @@ describe("multi-item renderer", () => {
                     undefined,
                   ],
                   "question": {
-                    "input-number 1": {
-                      "answerType": "number",
+                    "numeric-input 1": {
+                      "answerForms": [],
+                      "coefficient": false,
                       "currentValue": "99",
-                      "rightAlign": undefined,
-                      "simplify": "required",
+                      "labelText": "",
+                      "rightAlign": false,
                       "size": "normal",
+                      "static": false,
                     },
                     "radio 1": {
                       "choiceStates": [
@@ -419,9 +423,9 @@ describe("multi-item renderer", () => {
                 blurb: {},
                 hints: [null, null, null],
                 question: {
-                    "input-number 1": {
+                    "numeric-input 1": {
                         answerType: "number",
-                        currentValue: "+42",
+                        currentValue: "42",
                         rightAlign: false,
                         simplify: "required",
                         size: "normal",
@@ -540,7 +544,7 @@ describe("multi-item renderer", () => {
             expect(screen.getAllByRole("radio")[2]).toBeChecked();
             expect(screen.getAllByRole("radio")[3]).not.toBeChecked();
             expect(screen.getAllByRole("radio")[4]).not.toBeChecked();
-            expect(screen.getByRole("textbox")).toHaveValue("+42");
+            expect(screen.getByRole("textbox")).toHaveValue("42");
         });
 
         it("should call callback when restore serialized state is complete", () => {
@@ -629,9 +633,6 @@ describe("multi-item renderer", () => {
                       true,
                       false,
                     ],
-                    "noneOfTheAboveIndex": null,
-                    "noneOfTheAboveSelected": false,
-                    "numCorrect": 1,
                   },
                   {
                     "currentValue": "-42",
@@ -639,12 +640,14 @@ describe("multi-item renderer", () => {
                 ],
                 "message": null,
                 "state": {
-                  "input-number 1": {
-                    "answerType": "number",
+                  "numeric-input 1": {
+                    "answerForms": [],
+                    "coefficient": false,
                     "currentValue": "-42",
-                    "rightAlign": undefined,
-                    "simplify": "required",
+                    "labelText": "",
+                    "rightAlign": false,
                     "size": "normal",
+                    "static": false,
                   },
                   "radio 1": {
                     "choiceStates": [
@@ -784,9 +787,6 @@ describe("multi-item renderer", () => {
                       true,
                       false,
                     ],
-                    "noneOfTheAboveIndex": null,
-                    "noneOfTheAboveSelected": false,
-                    "numCorrect": 1,
                   },
                   {
                     "currentValue": "-42",
@@ -797,12 +797,14 @@ describe("multi-item renderer", () => {
               "state": [
                 {},
                 {
-                  "input-number 1": {
-                    "answerType": "number",
+                  "numeric-input 1": {
+                    "answerForms": [],
+                    "coefficient": false,
                     "currentValue": "-42",
-                    "rightAlign": undefined,
-                    "simplify": "required",
+                    "labelText": "",
+                    "rightAlign": false,
                     "size": "normal",
+                    "static": false,
                   },
                   "radio 1": {
                     "choiceStates": [
