@@ -146,15 +146,18 @@ class InputWithExamples extends React.Component<Props, State> {
     render(): React.ReactNode {
         const input = this._renderInput();
 
-        const examplesContent = this.props.examples
-            .map((example, index) => {
-                // If the first example is bold, then it is most likely a heading/leading text.
-                // So, it shouldn't be part of the list.
-                return index === 0 && example.startsWith("**")
-                    ? `${example}\n`
-                    : `- ${example}`;
-            })
-            .join("\n");
+        const examplesContent =
+            this.props.examples.length <= 2
+                ? this.props.examples.join(" ") // A single item (with or without leading text) is not a "list"
+                : this.props.examples // 2 or more items should display as a list
+                      .map((example, index) => {
+                          // If the first example is bold, then it is most likely a heading/leading text.
+                          // So, it shouldn't be part of the list.
+                          return index === 0 && example.startsWith("**")
+                              ? `${example}\n`
+                              : `- ${example}`;
+                      })
+                      .join("\n");
 
         const showExamples =
             this.props.shouldShowExamples && this.state.showExamples;
