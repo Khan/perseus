@@ -82,41 +82,46 @@ class Dropdown extends React.Component<Props> implements Widget {
         ];
 
         return (
-            <UniqueIDProvider scope="dropdown-widget" mockOnFirstRender={true}>
-                {(ids) => (
-                    <View
-                        // NOTE(jared): These are required to prevent weird behavior
-                        // When there's a dropdown in a zoomable table.
-                        onClick={(e) => {
-                            e.stopPropagation();
-                        }}
-                        onTouchStart={(e) => {
-                            e.stopPropagation();
-                        }}
-                    >
-                        {this.props.visibleLabel && (
-                            <LabelLarge
-                                tag="label"
-                                htmlFor={ids.get("dropdown")}
+            <View
+                // NOTE(jared): These are required to prevent weird behavior
+                // When there's a dropdown in a zoomable table.
+                onClick={(e) => {
+                    e.stopPropagation();
+                }}
+                onTouchStart={(e) => {
+                    e.stopPropagation();
+                }}
+            >
+                <UniqueIDProvider
+                    scope="dropdown-widget"
+                    mockOnFirstRender={true}
+                >
+                    {(ids) => (
+                        <>
+                            {this.props.visibleLabel && (
+                                <LabelLarge
+                                    tag="label"
+                                    htmlFor={ids.get("dropdown")}
+                                >
+                                    {this.props.visibleLabel}
+                                </LabelLarge>
+                            )}
+                            <SingleSelect
+                                id={ids.get("dropdown")}
+                                placeholder=""
+                                onChange={(value) =>
+                                    this._handleChange(parseInt(value))
+                                }
+                                selectedValue={String(this.props.selected)}
+                                disabled={this.props.apiOptions.readOnly}
+                                aria-label={this.props.ariaLabel}
                             >
-                                {this.props.visibleLabel}
-                            </LabelLarge>
-                        )}
-                        <SingleSelect
-                            id={ids.get("dropdown")}
-                            placeholder=""
-                            onChange={(value) =>
-                                this._handleChange(parseInt(value))
-                            }
-                            selectedValue={String(this.props.selected)}
-                            disabled={this.props.apiOptions.readOnly}
-                            aria-label={this.props.ariaLabel}
-                        >
-                            {children}
-                        </SingleSelect>
-                    </View>
-                )}
-            </UniqueIDProvider>
+                                {children}
+                            </SingleSelect>
+                        </>
+                    )}
+                </UniqueIDProvider>
+            </View>
         );
     }
 }
