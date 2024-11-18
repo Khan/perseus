@@ -36,3 +36,4 @@ a third-party library.
 A good place to start reading this code is `parser-types.ts` and `result.ts`.
 Then you should skim the parsers in `general-purpose-parsers/` to get a sense
 of what's available. The Perseus-specific parsers are all in `perseus-parsers/`.
+The public API is in `index.ts`.
