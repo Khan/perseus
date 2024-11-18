@@ -350,7 +350,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
           >
             <label
               class="text_f1191h-o_O-LabelLarge_5s82ln"
-              for="uid-dropdown-widget-1-wb-id"
+              for="uid-dropdown-widget-1-dropdown"
             >
               Test visible label
             </label>
@@ -371,7 +371,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 aria-haspopup="listbox"
                 aria-label="Test ARIA label"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
-                id="uid-dropdown-widget-1-wb-id"
+                id="uid-dropdown-widget-1-dropdown"
                 type="button"
               >
                 <span
@@ -427,7 +427,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
           >
             <label
               class="text_f1191h-o_O-LabelLarge_5s82ln"
-              for="uid-dropdown-widget-2-wb-id"
+              for="uid-dropdown-widget-2-dropdown"
             >
               Test visible label
             </label>
@@ -448,7 +448,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 aria-haspopup="listbox"
                 aria-label="Test ARIA label"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
-                id="uid-dropdown-widget-2-wb-id"
+                id="uid-dropdown-widget-2-dropdown"
                 type="button"
               >
                 <span
@@ -504,7 +504,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
           >
             <label
               class="text_f1191h-o_O-LabelLarge_5s82ln"
-              for="uid-dropdown-widget-0-wb-id"
+              for="uid-dropdown-widget-0-dropdown"
             >
               Test visible label
             </label>
@@ -525,7 +525,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 aria-haspopup="listbox"
                 aria-label="Test ARIA label"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
-                id="uid-dropdown-widget-0-wb-id"
+                id="uid-dropdown-widget-0-dropdown"
                 type="button"
               >
                 <span

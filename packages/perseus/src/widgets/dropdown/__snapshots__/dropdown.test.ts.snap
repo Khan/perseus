@@ -21,7 +21,7 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
           >
             <label
               class="text_f1191h-o_O-LabelLarge_5s82ln"
-              for="uid-dropdown-widget-1-wb-id"
+              for="uid-dropdown-widget-1-dropdown"
             >
               Test visible label
             </label>
@@ -44,7 +44,7 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
                 aria-haspopup="listbox"
                 aria-label="Test ARIA label"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
-                id="uid-dropdown-widget-1-wb-id"
+                id="uid-dropdown-widget-1-dropdown"
                 type="button"
               >
                 <span
@@ -100,7 +100,7 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
           >
             <label
               class="text_f1191h-o_O-LabelLarge_5s82ln"
-              for="uid-dropdown-widget-0-wb-id"
+              for="uid-dropdown-widget-0-dropdown"
             >
               Test visible label
             </label>
@@ -121,7 +121,7 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
                 aria-haspopup="listbox"
                 aria-label="Test ARIA label"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
-                id="uid-dropdown-widget-0-wb-id"
+                id="uid-dropdown-widget-0-dropdown"
                 type="button"
               >
                 <span
