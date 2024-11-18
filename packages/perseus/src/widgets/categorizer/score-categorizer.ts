@@ -3,22 +3,26 @@ import validateCategorizer from "./validate-categorizer";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {
-    PerseusCategorizerRubric,
+    PerseusCategorizerScoringData,
     PerseusCategorizerUserInput,
 } from "../../validation.types";
 
 function scoreCategorizer(
     userInput: PerseusCategorizerUserInput,
-    rubric: PerseusCategorizerRubric,
+    scoringData: PerseusCategorizerScoringData,
     strings: PerseusStrings,
 ): PerseusScore {
-    const validationError = validateCategorizer(userInput, rubric, strings);
+    const validationError = validateCategorizer(
+        userInput,
+        scoringData,
+        strings,
+    );
     if (validationError) {
         return validationError;
     }
 
     let allCorrect = true;
-    rubric.values.forEach((value, i) => {
+    scoringData.values.forEach((value, i) => {
         if (userInput.values[i] !== value) {
             allCorrect = false;
         }

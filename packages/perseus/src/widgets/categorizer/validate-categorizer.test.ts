@@ -2,19 +2,22 @@ import {mockStrings} from "../../strings";
 
 import validateCategorizer from "./validate-categorizer";
 
-import type {PerseusCategorizerRubric} from "../../validation.types";
+import type {PerseusCategorizerValidationData} from "../../validation.types";
 
 describe("validateCategorizer", () => {
     it("tells the learner its not complete if not selected", () => {
-        const rubric: PerseusCategorizerRubric = {
-            values: [1, 3],
+        const validationData: PerseusCategorizerValidationData = {
             items: ["apples", "oranges"],
         };
 
         const userInput = {
             values: [2],
         } as const;
-        const score = validateCategorizer(userInput, rubric, mockStrings);
+        const score = validateCategorizer(
+            userInput,
+            validationData,
+            mockStrings,
+        );
 
         expect(score).toHaveInvalidInput(
             "Make sure you select something for every row.",
@@ -22,15 +25,18 @@ describe("validateCategorizer", () => {
     });
 
     it("returns null if the userInput is valid", () => {
-        const rubric: PerseusCategorizerRubric = {
-            values: [1, 3],
+        const validationData: PerseusCategorizerValidationData = {
             items: ["apples", "oranges"],
         };
 
         const userInput = {
             values: [2, 4],
         } as const;
-        const score = validateCategorizer(userInput, rubric, mockStrings);
+        const score = validateCategorizer(
+            userInput,
+            validationData,
+            mockStrings,
+        );
 
         expect(score).toBeNull();
     });

@@ -20,16 +20,14 @@ import type {Relationship} from "./widgets/number-line/number-line";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
-export type PerseusCategorizerRubric = {
+export type PerseusCategorizerScoringData = {
     // The correct answers where index relates to the items and value relates
     // to the category.  e.g. [0, 1, 0, 1, 2]
     values: ReadonlyArray<number>;
-    // Translatable text; a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
-    items: ReadonlyArray<string>;
-};
+} & PerseusCategorizerValidationData;
 
 export type PerseusCategorizerUserInput = {
-    values: PerseusCategorizerRubric["values"];
+    values: PerseusCategorizerScoringData["values"];
 };
 
 export type PerseusCategorizerValidationData = {
@@ -195,7 +193,7 @@ export type PerseusTableRubric = {
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 
 export type Rubric =
-    | PerseusCategorizerRubric
+    | PerseusCategorizerScoringData
     | PerseusCSProgramRubric
     | PerseusDropdownRubric
     | PerseusExpressionRubric
