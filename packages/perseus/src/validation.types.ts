@@ -55,6 +55,8 @@ export type PerseusExpressionRubric = {
 
 export type PerseusExpressionUserInput = string;
 
+export type ExpressionValidationData = Empty;
+
 export type PerseusGroupRubric = PerseusGroupWidgetOptions;
 
 export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
