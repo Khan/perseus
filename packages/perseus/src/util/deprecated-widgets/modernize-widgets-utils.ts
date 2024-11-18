@@ -1,6 +1,6 @@
 import {inputNumberToNumericInput} from "./input-number";
 
-import type {PerseusRenderer} from "@khanacademy/perseus";
+import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus";
 
 const widgetRegExes = [/input-number \d+/]; // We can add more regexes here in the future
 
@@ -40,4 +40,20 @@ export const conversionRequired = (json: PerseusRenderer): boolean => {
     }
 
     return false;
+};
+
+export const convertUserInputData = (
+    userInputMap: UserInputMap,
+): UserInputMap => {
+    const updatedUserInputMap = {...userInputMap};
+
+    for (const key of Object.keys(userInputMap)) {
+        if (key.includes("input-number")) {
+            const updatedKey = key.replace("input-number", "numeric-input");
+            updatedUserInputMap[updatedKey] = userInputMap[key];
+            delete updatedUserInputMap[key];
+        }
+    }
+
+    return updatedUserInputMap;
 };

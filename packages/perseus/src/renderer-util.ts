@@ -2,6 +2,7 @@ import Util from "./util";
 import {
     conversionRequired,
     convertDeprecatedWidgets,
+    convertUserInputData,
 } from "./util/deprecated-widgets/modernize-widgets-utils";
 import {getWidgetIdsFromContent} from "./widget-type-utils";
 import {getWidgetScorer} from "./widgets";
@@ -68,14 +69,18 @@ export function scorePerseusItem(
     // There seems to be a chance that PerseusRenderer.widgets might include
     // widget data for widgets that are not in PerseusRenderer.content,
     // so this checks that the widgets are being used before scoring them
-    const convertedRenderData = conversionRequired(perseusRenderData)
+    const mustConvertRenderData = conversionRequired(perseusRenderData);
+    const convertedRenderData = mustConvertRenderData
         ? convertDeprecatedWidgets(perseusRenderData) // Convert deprecated widgets to their modern equivalents
         : perseusRenderData;
+    const convertedUserInputMap = mustConvertRenderData
+        ? convertUserInputData(userInputMap)
+        : userInputMap;
     const usedWidgetIds = getWidgetIdsFromContent(convertedRenderData.content);
     const scores = scoreWidgetsFunctional(
         convertedRenderData.widgets,
         usedWidgetIds,
-        userInputMap,
+        convertedUserInputMap,
         strings,
         locale,
     );
