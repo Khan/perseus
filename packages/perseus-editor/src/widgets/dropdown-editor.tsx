@@ -2,6 +2,7 @@
 import {components, EditorJsonify, iconTrash} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
+import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -111,7 +112,7 @@ class DropdownEditor extends React.Component<Props> {
         return (
             <View className="perseus-widget-dropdown">
                 <div className="dropdown-info">
-                    Dropdown
+                    <LabelLarge>Dropdown</LabelLarge>
                     <InfoTip>
                         <p>
                             The drop down is useful for making inequalities in a

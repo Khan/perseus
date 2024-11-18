@@ -1,6 +1,6 @@
 import {IDProvider, View} from "@khanacademy/wonder-blocks-core";
 import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
@@ -95,9 +95,9 @@ class Dropdown extends React.Component<Props> implements Widget {
                         }}
                     >
                         {this.props.visibleLabel && (
-                            <LabelSmall tag="label" htmlFor={uniqueId}>
-                                Dropdown
-                            </LabelSmall>
+                            <LabelLarge tag="label" htmlFor={uniqueId}>
+                                {this.props.visibleLabel}
+                            </LabelLarge>
                         )}
                         <SingleSelect
                             id={uniqueId}
