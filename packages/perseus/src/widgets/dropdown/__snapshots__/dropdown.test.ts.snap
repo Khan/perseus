@@ -20,10 +20,10 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
             class="default_xu2jcg"
           >
             <label
-              class="text_f1191h-o_O-LabelSmall_hl4zs1"
+              class="text_f1191h-o_O-LabelLarge_5s82ln"
               for="uid-dropdown-widget-1-wb-id"
             >
-              Dropdown
+              Test visible label
             </label>
             <div
               class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
@@ -99,10 +99,10 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
             class="default_xu2jcg"
           >
             <label
-              class="text_f1191h-o_O-LabelSmall_hl4zs1"
+              class="text_f1191h-o_O-LabelLarge_5s82ln"
               for="uid-dropdown-widget-0-wb-id"
             >
-              Dropdown
+              Test visible label
             </label>
             <div
               class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
