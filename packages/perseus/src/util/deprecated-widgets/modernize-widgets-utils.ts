@@ -42,6 +42,7 @@ export const conversionRequired = (json: PerseusRenderer): boolean => {
     return false;
 };
 
+// Convert the user input data keys from input-number to numeric-input
 export const convertUserInputData = (
     userInputMap: UserInputMap,
 ): UserInputMap => {

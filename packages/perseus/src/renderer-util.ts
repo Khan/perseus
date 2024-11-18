@@ -66,16 +66,18 @@ export function scorePerseusItem(
     strings: PerseusStrings,
     locale: string,
 ): PerseusScore {
+    // Check if the PerseusRenderer object contains any deprecated widgets that need to be converted
+    const mustConvertData = conversionRequired(perseusRenderData);
+    const convertedRenderData = mustConvertData
+        ? convertDeprecatedWidgets(perseusRenderData) // Convert deprecated widgets to their modern equivalents
+        : perseusRenderData;
+    const convertedUserInputMap = mustConvertData
+        ? convertUserInputData(userInputMap) // Convert deprecated user input data keys to their modern equivalents
+        : userInputMap;
+
     // There seems to be a chance that PerseusRenderer.widgets might include
     // widget data for widgets that are not in PerseusRenderer.content,
     // so this checks that the widgets are being used before scoring them
-    const mustConvertRenderData = conversionRequired(perseusRenderData);
-    const convertedRenderData = mustConvertRenderData
-        ? convertDeprecatedWidgets(perseusRenderData) // Convert deprecated widgets to their modern equivalents
-        : perseusRenderData;
-    const convertedUserInputMap = mustConvertRenderData
-        ? convertUserInputData(userInputMap)
-        : userInputMap;
     const usedWidgetIds = getWidgetIdsFromContent(convertedRenderData.content);
     const scores = scoreWidgetsFunctional(
         convertedRenderData.widgets,
