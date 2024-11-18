@@ -131,7 +131,7 @@ function typeName(value: unknown): string {
 async function writeFileIfShorterThanExisting(
     path: string,
     content: string,
-    encoding: BufferEncoding,
+    encoding: "utf-8", // TODO(benchristel): add more encodings if needed
 ) {
     const size = await fs
         .stat(path)
