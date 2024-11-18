@@ -5,6 +5,7 @@ import {getDependencies} from "../../../dependencies";
 import {pointToPixel} from "../graphs/use-transform";
 import {MAX, X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
+import {replaceOutsideTeX} from "../utils";
 
 import type {GraphDimensions} from "../types";
 
@@ -42,7 +43,7 @@ export default function AxisLabels() {
                     transform: "translate(7px, -50%)",
                 }}
             >
-                <TeX>{xAxisLabelText}</TeX>
+                <TeX>{replaceOutsideTeX(xAxisLabelText)}</TeX>
             </span>
             <span
                 style={{
@@ -53,7 +54,7 @@ export default function AxisLabels() {
                     transform: "translate(-50%, 0px)",
                 }}
             >
-                <TeX>{yAxisLabelText}</TeX>
+                <TeX>{replaceOutsideTeX(yAxisLabelText)}</TeX>
             </span>
         </>
     );

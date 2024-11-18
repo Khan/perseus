@@ -259,7 +259,7 @@ export type SorterWidget = WidgetOptions<'sorter', PerseusSorterWidgetOptions>;
 // prettier-ignore
 export type TableWidget = WidgetOptions<'table', PerseusTableWidgetOptions>;
 // prettier-ignore
-export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumberWidgetOptions>;
+export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumberWidgetOptions>; // While this widget is deprecated, we still need the type for conversion purposes
 // prettier-ignore
 export type MoleculeRendererWidget = WidgetOptions<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
 // prettier-ignore

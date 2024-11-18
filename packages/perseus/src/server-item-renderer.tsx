@@ -23,13 +23,16 @@ import {scorePerseusItem} from "./renderer-util";
 import Util from "./util";
 
 import type {PerseusItem, ShowSolutions} from "./perseus-types";
-import type {GetPromptJSONInterface, RendererPromptJSON} from "./prompt-types";
 import type {
     FocusPath,
     PerseusDependenciesV2,
     SharedRendererProps,
 } from "./types";
 import type {UserInputArray, UserInputMap} from "./validation.types";
+import type {
+    GetPromptJSONInterface,
+    RendererPromptJSON,
+} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     KeypadContextRendererInterface,
@@ -267,7 +270,7 @@ export class ServerItemRenderer
 
     /**
      * Accepts a question area widgetId, or an answer area widgetId of
-     * the form "answer-input-number 1", or the string "answer-area"
+     * the form "answer-numeric-input 1", or the string "answer-area"
      * for the whole answer area (if the answer area is a single widget).
      */
     _setWidgetProps(widgetId: string, newProps: Props, callback: any) {

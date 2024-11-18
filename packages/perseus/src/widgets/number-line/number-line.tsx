@@ -12,14 +12,14 @@ import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import KhanMath from "../../util/math";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
 import scoreNumberLine from "./score-number-line";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
 import type {PerseusNumberLineUserInput} from "../../validation.types";
-import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/prompt-utils";
+import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;

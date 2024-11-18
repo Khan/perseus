@@ -13,7 +13,7 @@ import {articleMaxWidthInPx} from "../../styles/constants";
 import Util from "../../util";
 import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/cs-program-ai-utils";
 
 import scoreCSProgram from "./score-cs-program";
 

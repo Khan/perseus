@@ -4,13 +4,13 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import PerseusMarkdown from "../../perseus-markdown";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
 import scoreNoop from "../__shared__/score-noop";
 import {isPassageWidget} from "../passage/utils";
 
 import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {PassageRefPromptJSON} from "../../widget-ai-utils/passage-ref/prompt-utils";
+import type {PassageRefPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
 
 const EN_DASH = "\u2013";
 

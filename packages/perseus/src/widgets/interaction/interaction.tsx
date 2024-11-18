@@ -8,7 +8,7 @@ import _ from "underscore";
 import Graphie from "../../components/graphie";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction/interaction-ai-utils";
 import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";

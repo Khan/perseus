@@ -17,7 +17,7 @@ import {
     negativePhoneMargin,
 } from "../../styles/constants";
 import a11y from "../../util/a11y";
-import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/prompt-utils";
+import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import {GradedGroup} from "../graded-group/graded-group";
 
 import type {
@@ -26,7 +26,7 @@ import type {
 } from "../../perseus-types";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PerseusGradedGroupSetRubric} from "../../validation.types";
-import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/prompt-utils";
+import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 
 type IndicatorsProps = {
     currentGroup: number;

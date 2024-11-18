@@ -208,8 +208,9 @@ export type {
     Size,
     CollinearTuple,
     MathFormat,
-    InputNumberWidget, // TODO(jeremy): remove?
     PerseusArticle,
+    InputNumberWidget, // Used for usurpation of InputNumberWidget in perseus-editor
+    NumericInputWidget, // Used for usurpation of InputNumberWidget in perseus-editor
     // Widget configuration types
     PerseusImageBackground,
     PerseusInputNumberWidgetOptions,
@@ -256,4 +257,7 @@ export type {
     TagsShape,
 } from "./multi-items/shape-types";
 export type {Path} from "./multi-items/trees";
-export type {RendererPromptJSON} from "./prompt-types";
+export type {
+    RendererPromptJSON,
+    WidgetPromptJSON,
+} from "./widget-ai-utils/prompt-types";

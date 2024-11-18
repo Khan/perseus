@@ -11,7 +11,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import a11y from "../../util/a11y";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/video-ai-utils";
 import scoreNoop from "../__shared__/score-noop";
 
 import VideoTranscriptLink from "./video-transcript-link";

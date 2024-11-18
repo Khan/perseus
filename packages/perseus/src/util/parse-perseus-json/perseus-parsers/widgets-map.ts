@@ -1,3 +1,4 @@
+import {getWidget} from "../../../widgets";
 import {any, pair, isObject, string} from "../general-purpose-parsers";
 import {isFailure} from "../result";
 
@@ -7,7 +8,32 @@ import {parseDefinitionWidget} from "./definition-widget";
 import {parseDropdownWidget} from "./dropdown-widget";
 import {parseExplanationWidget} from "./explanation-widget";
 import {parseExpressionWidget} from "./expression-widget";
+import {parseGradedGroupSetWidget} from "./graded-group-set-widget";
+import {parseGradedGroupWidget} from "./graded-group-widget";
+import {parseGrapherWidget} from "./grapher-widget";
+import {parseGroupWidget} from "./group-widget";
+import {parseIframeWidget} from "./iframe-widget";
+import {parseImageWidget} from "./image-widget";
+import {parseInputNumberWidget} from "./input-number-widget";
+import {parseInteractionWidget} from "./interaction-widget";
 import {parseInteractiveGraphWidget} from "./interactive-graph-widget";
+import {parseLabelImageWidget} from "./label-image-widget";
+import {parseMatcherWidget} from "./matcher-widget";
+import {parseMatrixWidget} from "./matrix-widget";
+import {parseMeasurerWidget} from "./measurer-widget";
+import {parseMoleculeRendererWidget} from "./molecule-renderer-widget";
+import {parseNumberLineWidget} from "./number-line-widget";
+import {parseNumericInputWidget} from "./numeric-input-widget";
+import {parseOrdererWidget} from "./orderer-widget";
+import {parsePassageRefWidget} from "./passage-ref-widget";
+import {parsePassageWidget} from "./passage-widget";
+import {parsePhetSimulationWidget} from "./phet-simulation-widget";
+import {parsePlotterWidget} from "./plotter-widget";
+import {parsePythonProgramWidget} from "./python-program-widget";
+import {parseRadioWidget} from "./radio-widget";
+import {parseSorterWidget} from "./sorter-widget";
+import {parseTableWidget} from "./table-widget";
+import {parseVideoWidget} from "./video-widget";
 
 import type {PerseusWidgetsMap} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
@@ -75,89 +101,86 @@ const parseWidgetsMapEntry: (
         case "expression":
             return parseAndAssign(`expression ${id}`, parseExpressionWidget);
         case "grapher":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`grapher ${id}`, any);
+            return parseAndAssign(`grapher ${id}`, parseGrapherWidget);
         case "group":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`group ${id}`, any);
+            return parseAndAssign(`group ${id}`, parseGroupWidget);
         case "graded-group":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`graded-group ${id}`, any);
+            return parseAndAssign(`graded-group ${id}`, parseGradedGroupWidget);
         case "graded-group-set":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`graded-group-set ${id}`, any);
+            return parseAndAssign(
+                `graded-group-set ${id}`,
+                parseGradedGroupSetWidget,
+            );
         case "iframe":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`iframe ${id}`, any);
+            return parseAndAssign(`iframe ${id}`, parseIframeWidget);
         case "image":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`image ${id}`, any);
+            return parseAndAssign(`image ${id}`, parseImageWidget);
         case "input-number":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`input-number ${id}`, any);
+            return parseAndAssign(`input-number ${id}`, parseInputNumberWidget);
         case "interaction":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`interaction ${id}`, any);
+            return parseAndAssign(`interaction ${id}`, parseInteractionWidget);
         case "interactive-graph":
             return parseAndAssign(
                 `interactive-graph ${id}`,
                 parseInteractiveGraphWidget,
             );
         case "label-image":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`label-image ${id}`, any);
+            return parseAndAssign(`label-image ${id}`, parseLabelImageWidget);
         case "matcher":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`matcher ${id}`, any);
+            return parseAndAssign(`matcher ${id}`, parseMatcherWidget);
         case "matrix":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`matrix ${id}`, any);
+            return parseAndAssign(`matrix ${id}`, parseMatrixWidget);
         case "measurer":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`measurer ${id}`, any);
+            return parseAndAssign(`measurer ${id}`, parseMeasurerWidget);
         case "molecule-renderer":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`molecule-renderer ${id}`, any);
+            return parseAndAssign(
+                `molecule-renderer ${id}`,
+                parseMoleculeRendererWidget,
+            );
         case "number-line":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`number-line ${id}`, any);
+            return parseAndAssign(`number-line ${id}`, parseNumberLineWidget);
         case "numeric-input":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`numeric-input ${id}`, any);
+            return parseAndAssign(
+                `numeric-input ${id}`,
+                parseNumericInputWidget,
+            );
         case "orderer":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`orderer ${id}`, any);
+            return parseAndAssign(`orderer ${id}`, parseOrdererWidget);
         case "passage":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`passage ${id}`, any);
+            return parseAndAssign(`passage ${id}`, parsePassageWidget);
         case "passage-ref":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`passage-ref ${id}`, any);
+            return parseAndAssign(`passage-ref ${id}`, parsePassageRefWidget);
         case "passage-ref-target":
-            // TODO(LEMS-2585): implement a real parser for this widget
+            // NOTE(benchristel): as of 2024-11-12, passage-ref-target is only
+            // used in test content. See:
+            // https://www.khanacademy.org/devadmin/content/search?query=widget:passage-ref-target
             return parseAndAssign(`passage-ref-target ${id}`, any);
         case "phet-simulation":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`phet-simulation ${id}`, any);
+            return parseAndAssign(
+                `phet-simulation ${id}`,
+                parsePhetSimulationWidget,
+            );
         case "plotter":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`plotter ${id}`, any);
+            return parseAndAssign(`plotter ${id}`, parsePlotterWidget);
         case "python-program":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`python-program ${id}`, any);
+            return parseAndAssign(
+                `python-program ${id}`,
+                parsePythonProgramWidget,
+            );
         case "radio":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`radio ${id}`, any);
+            return parseAndAssign(`radio ${id}`, parseRadioWidget);
         case "sorter":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`sorter ${id}`, any);
+            return parseAndAssign(`sorter ${id}`, parseSorterWidget);
         case "table":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`table ${id}`, any);
+            return parseAndAssign(`table ${id}`, parseTableWidget);
         case "video":
-            // TODO(LEMS-2585): implement a real parser for this widget
-            return parseAndAssign(`video ${id}`, any);
+            return parseAndAssign(`video ${id}`, parseVideoWidget);
+
         default:
+            if (getWidget(type)) {
+                // @ts-expect-error - 'type' is not a valid widget type
+                return parseAndAssign(`${type} ${id}`, any);
+            }
             return ctx.failure("a valid widget type", type);
     }
 };

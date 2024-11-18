@@ -27,6 +27,7 @@ import LockedLabelSettings from "./locked-label-settings";
 import LockedPointSettings from "./locked-point-settings";
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
 } from "./util";
 
@@ -73,13 +74,34 @@ const LockedLineSettings = (props: Props) => {
 
     // Check if the line has length 0.
     const isInvalid = kvector.equal(point1.coord, point2.coord);
-
-    function getPrepopulatedAriaLabel() {
+    /**
+     * Generate a prepopulated aria label for the line, with the math
+     * details converted into spoken words.
+     */
+    async function getPrepopulatedAriaLabel() {
         let visiblelabel = "";
+        let point1VisibleLabel = "";
+        let point2VisibleLabel = "";
+
         if (labels && labels.length > 0) {
             visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
-        let str = `${capitalizeKind}${visiblelabel} from (${point1.coord[0]}, ${point1.coord[1]}) to (${point2.coord[0]}, ${point2.coord[1]})`;
+
+        if (point1.labels && point1.labels.length > 0) {
+            point1VisibleLabel += ` ${point1.labels
+                .map((l) => l.text)
+                .join(", ")}`;
+        }
+
+        if (point2.labels && point2.labels.length > 0) {
+            point2VisibleLabel += ` ${point2.labels
+                .map((l) => l.text)
+                .join(", ")}`;
+        }
+
+        let str = await generateSpokenMathDetails(
+            `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at (${point1.coord[0]}, ${point1.coord[1]}) to point${point2VisibleLabel} at (${point2.coord[0]}, ${point2.coord[1]})`,
+        );
         const lineAppearance = generateLockedFigureAppearanceDescription(
             lineColor,
             lineStyle,
@@ -270,7 +292,7 @@ const LockedLineSettings = (props: Props) => {
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}

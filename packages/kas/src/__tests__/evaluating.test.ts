@@ -14,7 +14,7 @@ expect.extend({
         functions?: ReadonlyArray<string>,
     ) {
         const parsed = KAS.parse(input, {functions: functions});
-        if (parsed.false || parsed.error) {
+        if (!parsed.parsed || parsed.error) {
             return {
                 pass: false,
                 message: () =>
