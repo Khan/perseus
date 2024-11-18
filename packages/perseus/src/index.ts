@@ -18,6 +18,7 @@ export {default as ServerItemRenderer} from "./server-item-renderer";
 export {default as HintsRenderer} from "./hints-renderer";
 export {default as HintRenderer} from "./hint-renderer";
 export {default as Renderer} from "./renderer";
+export {scorePerseusItem} from "./renderer-util";
 
 /**
  * Widgets
@@ -81,6 +82,10 @@ export {isItemRenderableByVersion} from "./renderability";
 export {violatingWidgets} from "./a11y";
 export {interactiveSizes} from "./styles/constants";
 export {displaySigFigs} from "./sigfigs";
+export {
+    conversionRequired,
+    convertDeprecatedWidgets,
+} from "./util/deprecated-widgets/modernize-widgets-utils";
 
 // Context for managing i18n
 export {
@@ -226,6 +231,7 @@ export type {
     PerseusWidgetsMap,
     MultiItem,
 } from "./perseus-types";
+export type {UserInputMap} from "./validation.types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";
 

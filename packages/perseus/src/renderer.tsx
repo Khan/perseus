@@ -1124,7 +1124,7 @@ class Renderer
             // /cry(aria)
             this._foundTextNodes = true;
 
-            if (_.contains(this.widgetIds, node.id)) {
+            if (this.widgetIds.includes(node.id)) {
                 // We don't want to render a duplicate widget key/ref,
                 // as this causes problems with react (for obvious
                 // reasons). Instead we just notify the
@@ -1510,7 +1510,7 @@ class Renderer
 
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         const inputPaths: Array<FocusPath> = [];
-        _.each(this.widgetIds, (widgetId: string) => {
+        this.widgetIds.forEach((widgetId: string) => {
             const widget = this.getWidgetInstance(widgetId);
             if (widget && widget.getInputPaths) {
                 // Grab all input paths and add widgetID to the front
@@ -1518,7 +1518,7 @@ class Renderer
                 // Prefix paths with their widgetID and add to collective
                 // list of paths.
                 // @ts-expect-error - TS2345 - Argument of type '(inputPath: string) => void' is not assignable to parameter of type 'CollectionIterator<FocusPath, void, readonly FocusPath[]>'.
-                _.each(widgetInputPaths, (inputPath: string) => {
+                widgetInputPaths.forEach((inputPath: string) => {
                     const relativeInputPath = [widgetId].concat(inputPath);
                     inputPaths.push(relativeInputPath);
                 });
@@ -1742,46 +1742,42 @@ class Renderer
     }
 
     /**
-     * Returns an object mapping from widget ID to perseus-style score.
-     * The keys of this object are the values of the array returned
-     * from `getWidgetIds`.
+     * Scores the content.
+     *
+     * @deprecated use scorePerseusItem
      */
-    scoreWidgets(): {[widgetId: string]: PerseusScore} {
-        return scoreWidgetsFunctional(
+    score(): PerseusScore {
+        const scores = scoreWidgetsFunctional(
             this.state.widgetInfo,
             this.widgetIds,
             this.getUserInputMap(),
             this.props.strings,
             this.context.locale,
         );
-    }
-
-    /**
-     * Grades the content.
-     */
-    score(): PerseusScore {
-        const scores = this.scoreWidgets();
         const combinedScore = Util.flattenScores(scores);
         return combinedScore;
     }
 
-    guessAndScore(): [UserInputArray, PerseusScore] {
+    /**
+     * @deprecated use scorePerseusItem
+     */
+    guessAndScore: () => [UserInputArray, PerseusScore] = () => {
         const totalGuess = this.getUserInput();
         const totalScore = this.score();
 
         return [totalGuess, totalScore];
-    }
+    };
 
     examples: () => ReadonlyArray<string> | null | undefined = () => {
         const widgetIds = this.widgetIds;
-        const examples = _.compact(
-            _.map(widgetIds, (widgetId) => {
+        const examples = widgetIds
+            .map((widgetId) => {
                 const widget = this.getWidgetInstance(widgetId);
                 return widget != null && widget.examples
                     ? widget.examples()
                     : null;
-            }),
-        );
+            })
+            .filter(Boolean);
 
         // no widgets with examples
         if (!examples.length) {

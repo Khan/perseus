@@ -4,6 +4,7 @@ import type {
     NumericInputWidget,
     PerseusRenderer,
     PerseusWidgetsMap,
+    UserInputMap,
 } from "@khanacademy/perseus";
 
 type WidgetRenameMap = {
@@ -156,4 +157,21 @@ export const getInputNumberRenameMap = (
     }
 
     return renameMap;
+};
+
+// Convert the user input data keys from input-number to numeric-input
+export const convertUserInputNumberData = (
+    userInputMap: UserInputMap,
+): UserInputMap => {
+    const updatedUserInputMap = {...userInputMap};
+
+    for (const key of Object.keys(userInputMap)) {
+        if (key.includes("input-number")) {
+            const updatedKey = key.replace("input-number", "numeric-input");
+            updatedUserInputMap[updatedKey] = userInputMap[key];
+            delete updatedUserInputMap[key];
+        }
+    }
+
+    return updatedUserInputMap;
 };

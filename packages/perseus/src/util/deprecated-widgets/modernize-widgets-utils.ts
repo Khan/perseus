@@ -1,6 +1,9 @@
-import {inputNumberToNumericInput} from "./input-number";
+import {
+    inputNumberToNumericInput,
+    convertUserInputNumberData,
+} from "./input-number";
 
-import type {PerseusRenderer} from "@khanacademy/perseus";
+import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus";
 
 const widgetRegExes = [/input-number \d+/]; // We can add more regexes here in the future
 
@@ -40,4 +43,13 @@ export const conversionRequired = (json: PerseusRenderer): boolean => {
     }
 
     return false;
+};
+
+// Convert the user input data keys for deprecated widgets to their modern equivalents
+export const convertUserInputData = (
+    userInputMap: UserInputMap,
+): UserInputMap => {
+    // Currently we're only converting input-number to numeric-input,
+    // But we can add more conversions here in the future
+    return convertUserInputNumberData(userInputMap);
 };

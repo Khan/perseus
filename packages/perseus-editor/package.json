@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "14.12.0",
+    "version": "14.12.2",
     "publishConfig": {
         "access": "public"
     },
@@ -38,7 +38,7 @@
         "@khanacademy/keypad-context": "^1.0.4",
         "@khanacademy/kmath": "^0.1.16",
         "@khanacademy/math-input": "^21.1.4",
-        "@khanacademy/perseus": "^41.5.0",
+        "@khanacademy/perseus": "^42.0.1",
         "@khanacademy/perseus-core": "1.5.3",
         "@khanacademy/pure-markdown": "^0.3.11",
         "mafs": "^0.19.0"
