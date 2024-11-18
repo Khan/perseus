@@ -1,4 +1,7 @@
-import {inputNumberToNumericInput} from "./input-number";
+import {
+    inputNumberToNumericInput,
+    convertUserInputNumberData,
+} from "./input-number";
 
 import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus";
 
@@ -42,19 +45,11 @@ export const conversionRequired = (json: PerseusRenderer): boolean => {
     return false;
 };
 
-// Convert the user input data keys from input-number to numeric-input
+// Convert the user input data keys for deprecated widgets to their modern equivalents
 export const convertUserInputData = (
     userInputMap: UserInputMap,
 ): UserInputMap => {
-    const updatedUserInputMap = {...userInputMap};
-
-    for (const key of Object.keys(userInputMap)) {
-        if (key.includes("input-number")) {
-            const updatedKey = key.replace("input-number", "numeric-input");
-            updatedUserInputMap[updatedKey] = userInputMap[key];
-            delete updatedUserInputMap[key];
-        }
-    }
-
-    return updatedUserInputMap;
+    // Currently we're only converting input-number to numeric-input,
+    // But we can add more conversions here in the future
+    return convertUserInputNumberData(userInputMap);
 };
