@@ -1,9 +1,19 @@
-import {emptyWidgetsFunctional, scoreWidgetsFunctional} from "./renderer-util";
+import {screen} from "@testing-library/react";
+import {userEvent as userEventLib} from "@testing-library/user-event";
+
+import {
+    emptyWidgetsFunctional,
+    scorePerseusItem,
+    scoreWidgetsFunctional,
+} from "./renderer-util";
 import {mockStrings} from "./strings";
 import {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
+import {renderQuestion} from "./widgets/__testutils__/renderQuestion";
+import {question1} from "./widgets/group/group.testdata";
 
 import type {DropdownWidget, PerseusWidgetsMap} from "./perseus-types";
 import type {UserInputMap} from "./validation.types";
+import type {UserEvent} from "@testing-library/user-event";
 
 const testDropdownWidget: DropdownWidget = {
     type: "dropdown",
@@ -467,5 +477,44 @@ describe("scoreWidgetsFunctional", () => {
 
         // Assert
         expect(result["group 1"]).toHaveBeenAnsweredIncorrectly();
+    });
+});
+
+describe("scorePerseusItem", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("should return score from contained Renderer", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question1);
+        // Answer all widgets correctly
+        await userEvent.click(screen.getAllByRole("radio")[4]);
+        // Note(jeremy): If we don't tab away from the radio button in this
+        // test, it seems like the userEvent typing doesn't land in the first
+        // text field.
+        await userEvent.tab();
+        await userEvent.type(
+            screen.getByRole("textbox", {name: /nearest ten/}),
+            "230",
+        );
+        await userEvent.type(
+            screen.getByRole("textbox", {name: /nearest hundred/}),
+            "200",
+        );
+        const userInput = renderer.getUserInputMap();
+        const score = scorePerseusItem(question1, userInput, mockStrings, "en");
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
+        expect(score).toEqual({
+            earned: 3,
+            message: null,
+            total: 3,
+            type: "points",
+        });
     });
 });
