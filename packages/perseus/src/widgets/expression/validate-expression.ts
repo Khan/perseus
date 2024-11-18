@@ -1,7 +1,7 @@
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {
-    ExpressionValidationData,
+    PerseusExpressionValidationData,
     PerseusExpressionUserInput,
 } from "../../validation.types";
 
@@ -14,7 +14,7 @@ import type {
  */
 function validateExpression(
     userInput: PerseusExpressionUserInput,
-    validationData: ExpressionValidationData,
+    validationData: PerseusExpressionValidationData,
     strings: PerseusStrings,
     locale: string,
 ): Extract<PerseusScore, {type: "invalid"}> | null {
