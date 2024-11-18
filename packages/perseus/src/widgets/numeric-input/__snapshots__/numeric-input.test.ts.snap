@@ -482,3 +482,265 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
   </div>
 </div>
 `;
+
+exports[`numeric-input widget Should render tooltip as list when multiple format options are given: render with format list tooltip 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            5008 \\div 4 =
+          </span>
+          <span />
+        </span>
+         
+        <div
+          class="perseus-widget-container widget-nohighlight widget-inline-block"
+        >
+          <span>
+            <div>
+              <input
+                aria-invalid="false"
+                aria-label="Your answer:"
+                autocapitalize="off"
+                autocomplete="off"
+                autocorrect="off"
+                class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_19vw1dn"
+                id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              style="position: relative; height: 0px; display: none;"
+            >
+              <div
+                class="tooltipContainer"
+                style="position: absolute; left: 0px;"
+              >
+                <div
+                  style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
+                >
+                  <div
+                    style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
+                  />
+                  <div
+                    style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
+                  />
+                </div>
+                <div
+                  class="perseus-formats-tooltip preview-measure"
+                  style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
+                >
+                  <div
+                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                  >
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class="paragraph"
+                        data-perseus-paragraph-index="0"
+                      >
+                        <div
+                          class="paragraph"
+                        >
+                          <strong>
+                            Your answer should be
+                          </strong>
+                           
+                        </div>
+                      </div>
+                      <div
+                        class="paragraph"
+                        data-perseus-paragraph-index="1"
+                      >
+                        <ul>
+                          <li>
+                            a 
+                            <em>
+                              simplified proper
+                            </em>
+                             fraction, like 
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                3/5
+                              </span>
+                              <span />
+                            </span>
+                          </li>
+                          <li>
+                            a 
+                            <em>
+                              simplified improper
+                            </em>
+                             fraction, like 
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                7/4
+                              </span>
+                              <span />
+                            </span>
+                          </li>
+                          <li>
+                            a mixed number, like 
+                            <span
+                              style="white-space: nowrap;"
+                            >
+                              <span />
+                              <span
+                                class="mock-TeX"
+                              >
+                                1\\ 3/4
+                              </span>
+                              <span />
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+         
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`numeric-input widget Should render tooltip when format option is given: render with format tooltip 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            5008 \\div 4 =
+          </span>
+          <span />
+        </span>
+         
+        <div
+          class="perseus-widget-container widget-nohighlight widget-inline-block"
+        >
+          <span>
+            <div>
+              <input
+                aria-invalid="false"
+                aria-label="Your answer:"
+                autocapitalize="off"
+                autocomplete="off"
+                autocorrect="off"
+                class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_19vw1dn"
+                id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              style="position: relative; height: 0px; display: none;"
+            >
+              <div
+                class="tooltipContainer"
+                style="position: absolute; left: 0px;"
+              >
+                <div
+                  style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
+                >
+                  <div
+                    style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
+                  />
+                  <div
+                    style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
+                  />
+                </div>
+                <div
+                  class="perseus-formats-tooltip preview-measure"
+                  style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
+                >
+                  <div
+                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                  >
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class="paragraph"
+                        data-perseus-paragraph-index="0"
+                      >
+                        <div
+                          class="paragraph"
+                        >
+                          <strong>
+                            Your answer should be
+                          </strong>
+                            a 
+                          <em>
+                            simplified proper
+                          </em>
+                           fraction, like 
+                          <span
+                            style="white-space: nowrap;"
+                          >
+                            <span />
+                            <span
+                              class="mock-TeX"
+                            >
+                              3/5
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+         
+      </div>
+    </div>
+  </div>
+</div>
+`;
