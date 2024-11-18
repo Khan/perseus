@@ -1,5 +1,4 @@
-import Spacing from "@khanacademy/wonder-blocks-spacing";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 
 import DeviceFramer from "../device-framer";
 
@@ -21,7 +20,7 @@ const SampleContent = () => {
                 color: color.offWhite,
                 width: "90%",
                 height: "300px",
-                padding: Spacing.medium_16,
+                padding: spacing.medium_16,
             }}
         >
             The DeviceFramer controls the size of the content inside the frame.
