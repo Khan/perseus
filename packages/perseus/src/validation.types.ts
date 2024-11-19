@@ -179,7 +179,7 @@ export type PerseusSorterUserInput = {
     changed: boolean;
 };
 
-export type PerseusTableScoringData = {
+export type PerseusTableRubric = {
     // Translatable Text; A 2-dimensional array of text to populate the table with
     answers: ReadonlyArray<ReadonlyArray<string>>;
 };
@@ -207,7 +207,7 @@ export type Rubric =
     | PerseusPlotterRubric
     | PerseusRadioRubric
     | PerseusSorterRubric
-    | PerseusTableScoringData;
+    | PerseusTableRubric;
 
 export type UserInput =
     | PerseusCategorizerUserInput
