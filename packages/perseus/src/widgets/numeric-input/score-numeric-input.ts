@@ -1,6 +1,8 @@
 import TexWrangler from "../../tex-wrangler";
 import KhanAnswerTypes from "../../util/answer-types";
 
+import validateNumericInput from "./validate-numeric-input";
+
 import type {MathFormat, PerseusNumericInputAnswer} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
@@ -70,6 +72,11 @@ function scoreNumericInput(
     rubric: PerseusNumericInputRubric,
     strings: PerseusStrings,
 ): PerseusScore {
+    const validationResult = validateNumericInput(userInput);
+    if (validationResult != null) {
+        return validationResult;
+    }
+
     const defaultAnswerForms = answerFormButtons
         .map((e) => e["value"])
         // Don't default to validating the answer as a pi answer

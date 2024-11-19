@@ -3,6 +3,7 @@ import * as Dependencies from "../../dependencies";
 import {mockStrings} from "../../strings";
 
 import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
+import * as NumericInputValidator from "./validate-numeric-input";
 
 import type {PerseusNumericInputRubric} from "../../validation.types";
 
@@ -11,6 +12,64 @@ describe("static function validate", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+    });
+
+    it("should be correctly answerable if validation passes", function () {
+        // Arrange
+        const mockValidator = jest
+            .spyOn(NumericInputValidator, "default")
+            .mockReturnValue(null);
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 1,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const userInput = {currentValue: "1"} as const;
+
+        // Act
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
+
+        // Assert
+        expect(mockValidator).toHaveBeenCalledWith(userInput);
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should return 'empty' result if validation fails", function () {
+        // Arrange
+        const mockValidator = jest
+            .spyOn(NumericInputValidator, "default")
+            .mockReturnValue({type: "invalid", message: null});
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 1,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const userInput = {currentValue: "1"} as const;
+
+        // Act
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
+
+        // Assert
+        expect(mockValidator).toHaveBeenCalled();
+        expect(score).toHaveInvalidInput();
     });
 
     it("with a simple value", () => {
@@ -28,11 +87,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "1",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -52,11 +111,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "sadasdfas",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveInvalidInput(
             "We could not understand your answer. Please check your answer for extra text or symbols.",
@@ -143,11 +202,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "1.0",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -167,11 +226,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "1.3",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -191,11 +250,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "1.12",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
