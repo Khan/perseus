@@ -1,21 +1,26 @@
 import {mockStrings} from "../../strings";
 
 import scoreTable from "./score-table";
+import * as TableValidator from "./validate-table";
 
 import type {
-    PerseusTableRubric,
+    PerseusTableScoringData,
     PerseusTableUserInput,
 } from "../../validation.types";
 
 describe("scoreTable", () => {
-    it("is invalid if there is an empty cell", () => {
+    it("should be correctly answerable if validation passes", function () {
         // Arrange
+        const mockValidator = jest
+            .spyOn(TableValidator, "default")
+            .mockReturnValue(null);
+
         const userInput: PerseusTableUserInput = [
-            ["1", ""],
+            ["1", "2"],
             ["3", "4"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const scoringData: PerseusTableScoringData = {
             answers: [
                 ["1", "2"],
                 ["3", "4"],
@@ -23,7 +28,55 @@ describe("scoreTable", () => {
         };
 
         // Act
-        const result = scoreTable(userInput, rubric, mockStrings);
+        const score = scoreTable(userInput, scoringData, mockStrings);
+
+        // Assert
+        expect(mockValidator).toHaveBeenCalledWith(userInput);
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should return 'empty' result if validation fails", function () {
+        // Arrange
+        const mockValidator = jest
+            .spyOn(TableValidator, "default")
+            .mockReturnValue({type: "invalid", message: null});
+
+        const userInput: PerseusTableUserInput = [
+            ["1", "2"],
+            ["3", "4"],
+        ];
+
+        const scoringData: PerseusTableScoringData = {
+            answers: [
+                ["1", "2"],
+                ["3", "4"],
+            ],
+        };
+
+        // Act
+        const score = scoreTable(userInput, scoringData, mockStrings);
+
+        // Assert
+        expect(mockValidator).toHaveBeenCalledWith(userInput);
+        expect(score).toHaveInvalidInput();
+    });
+
+    it("is invalid if there is an empty cell", () => {
+        // Arrange
+        const userInput: PerseusTableUserInput = [
+            ["1", ""],
+            ["3", "4"],
+        ];
+
+        const scoringData: PerseusTableScoringData = {
+            answers: [
+                ["1", "2"],
+                ["3", "4"],
+            ],
+        };
+
+        // Act
+        const result = scoreTable(userInput, scoringData, mockStrings);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -37,7 +90,7 @@ describe("scoreTable", () => {
             ["5", "6"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const scoringData: PerseusTableScoringData = {
             answers: [
                 ["1", "2"],
                 ["3", "4"],
@@ -45,7 +98,7 @@ describe("scoreTable", () => {
         };
 
         // Act
-        const result = scoreTable(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, scoringData, mockStrings);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -58,7 +111,7 @@ describe("scoreTable", () => {
             ["3", "5"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const scoringData: PerseusTableScoringData = {
             answers: [
                 ["1", "2"],
                 ["3", "4"],
@@ -66,7 +119,7 @@ describe("scoreTable", () => {
         };
 
         // Act
-        const result = scoreTable(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, scoringData, mockStrings);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -79,7 +132,7 @@ describe("scoreTable", () => {
             ["3", "4"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const scoringData: PerseusTableScoringData = {
             answers: [
                 ["1", "2"],
                 ["3", "4"],
@@ -87,7 +140,7 @@ describe("scoreTable", () => {
         };
 
         // Act
-        const result = scoreTable(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, scoringData, mockStrings);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -100,7 +153,7 @@ describe("scoreTable", () => {
             ["3.0", "4.0"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const scoringData: PerseusTableScoringData = {
             answers: [
                 ["1", "2"],
                 ["3", "4"],
@@ -108,7 +161,7 @@ describe("scoreTable", () => {
         };
 
         // Act
-        const result = scoreTable(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, scoringData, mockStrings);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();

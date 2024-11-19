@@ -8,13 +8,13 @@ import validateTable from "./validate-table";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {
-    PerseusTableRubric,
+    PerseusTableScoringData,
     PerseusTableUserInput,
 } from "../../validation.types";
 
 function scoreTable(
     userInput: PerseusTableUserInput,
-    rubric: PerseusTableRubric,
+    rubric: PerseusTableScoringData,
     strings: PerseusStrings,
 ): PerseusScore {
     const validationResult = validateTable(userInput);
