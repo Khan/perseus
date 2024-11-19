@@ -19,7 +19,7 @@ were generated from a snapshot of Khan Academy content taken in November 2024.
 
 You can run an exhaustive test of the parser (testing against every single
 content item) by following the steps documented in
-`exhaustive-test-tool/README.md`. This test takes about 4 hours to run and
+`exhaustive-test-tool/index.ts`. This test takes about 4 hours to run and
 requires downloading many gigabytes of data, so it does not run as part of our
 normal CI builds. Run this test only if you suspect that the parser has somehow
 drifted out of sync with the production data.
