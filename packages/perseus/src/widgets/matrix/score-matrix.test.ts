@@ -1,6 +1,7 @@
 import {mockStrings} from "../../strings";
 
 import scoreMatrix from "./score-matrix";
+import * as MatrixValidator from "./validate-matrix";
 
 import type {
     PerseusMatrixRubric,
@@ -8,6 +9,58 @@ import type {
 } from "../../validation.types";
 
 describe("scoreMatrix", () => {
+    it("should be correctly answerable if validation passes", function () {
+        // Arrange
+        const mockValidator = jest
+            .spyOn(MatrixValidator, "default")
+            .mockReturnValue(null);
+
+        const rubric: PerseusMatrixRubric = {
+            answers: [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+            ],
+        };
+
+        const userInput: PerseusMatrixUserInput = {
+            answers: rubric.answers,
+        };
+
+        // Act
+        const score = scoreMatrix(userInput, rubric, mockStrings);
+
+        // Assert
+        expect(mockValidator).toHaveBeenCalledWith(userInput, rubric);
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should return 'empty' result if validation fails", function () {
+        // Arrange
+        const mockValidator = jest
+            .spyOn(MatrixValidator, "default")
+            .mockReturnValue({type: "invalid", message: null});
+
+        const rubric: PerseusMatrixRubric = {
+            answers: [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+            ],
+        };
+
+        const userInput: PerseusMatrixUserInput = {
+            answers: rubric.answers,
+        };
+
+        // Act
+        const score = scoreMatrix(userInput, rubric, mockStrings);
+
+        // Assert
+        expect(mockValidator).toHaveBeenCalledWith(userInput, rubric);
+        expect(score).toHaveInvalidInput();
+    });
+
     it("can be answered correctly", () => {
         // Arrange
         const rubric: PerseusMatrixRubric = {

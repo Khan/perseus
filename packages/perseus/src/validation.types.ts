@@ -121,7 +121,9 @@ export type PerseusMatcherUserInput = {
 export type PerseusMatrixRubric = {
     // A data matrix representing the "correct" answers to be entered into the matrix
     answers: PerseusMatrixWidgetAnswers;
-};
+} & PerseusMatrixValidationData;
+
+export type PerseusMatrixValidationData = Empty;
 
 export type PerseusMatrixUserInput = {
     answers: PerseusMatrixRubric["answers"];
