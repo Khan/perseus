@@ -12,6 +12,14 @@
 // Then, run the test tool over the content like so:
 //
 //     find ~/Desktop/content/*/* -type d | xargs -n1 packages/perseus/src/util/parse-perseus-json/exhaustive-test-tool/index.ts  ~/Desktop/test-results
+//
+// Output will be written to ~/Desktop/test-results. The output format is:
+//
+// - one directory per unique parse error, named after the hash of the error
+//   message. Each directory will contain:
+//     - mismatch.txt: a description of the parse error
+//     - item.json: the shortest assessmentItem (in number of JSON bytes) that
+//       produced that parse error.
 
 import {createHash} from "crypto";
 import * as fs from "fs/promises";
