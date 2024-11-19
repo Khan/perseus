@@ -83,8 +83,14 @@ class InputWithExamples extends React.Component<Props, State> {
 
     _renderInput: () => any = () => {
         const id = this._getUniqueId();
+        const examplesAria = `${this.props.examples[0]}
+            ${this.props.examples.slice(1).join(", or\n")}`
+            // @ts-expect-error TS2550: Property replaceAll does not exist on type string.
+            .replaceAll("*", "")
+            .replaceAll("$", "")
+            .replaceAll("\\ ", " ")
+            .replaceAll("\\text{pi}", "pi");
         const inputProps = {
-            id: id,
             "aria-describedby": id,
             ref: "input",
             className: this._getInputClassName(),
@@ -101,7 +107,14 @@ class InputWithExamples extends React.Component<Props, State> {
             autoCorrect: "off",
             spellCheck: "false",
         };
-        return <TextInput {...inputProps} />;
+        return (
+            <>
+                <TextInput {...inputProps} />
+                <span id={id} style={{display: "none"}}>
+                    {examplesAria}
+                </span>
+            </>
+        );
     };
 
     _handleFocus: () => void = () => {

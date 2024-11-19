@@ -340,6 +340,7 @@ class Tooltip extends React.Component<Props, State> {
                     // eslint-disable-next-line react/no-string-refs
                     ref="tooltipContainer"
                     className="tooltipContainer"
+                    role="tooltip"
                     style={{
                         position: "absolute",
                         // height must start out undefined, not null, so that
