@@ -1,4 +1,9 @@
-import {normalizePoints, normalizeCoords, replaceOutsideTeX} from "./utils";
+import {
+    normalizePoints,
+    normalizeCoords,
+    replaceOutsideTeX,
+    mathOnlyParser,
+} from "./utils";
 
 import type {Coord} from "../../interactive2/types";
 import type {GraphRange} from "../../perseus-types";
@@ -78,7 +83,7 @@ describe("replaceOutsideTeX", () => {
         const mathString = "$x^2$";
         const convertedString = replaceOutsideTeX(mathString);
 
-        expect(convertedString).toEqual("x^2");
+        expect(convertedString).toEqual("\\text{$x^2$}");
     });
 
     test("$s within string", () => {
@@ -86,7 +91,7 @@ describe("replaceOutsideTeX", () => {
         const convertedString = replaceOutsideTeX(mathString);
 
         expect(convertedString).toEqual(
-            "\\text{Expression }x^2\\text{ is exponential}",
+            "\\text{Expression $x^2$ is exponential}",
         );
     });
 
@@ -94,30 +99,28 @@ describe("replaceOutsideTeX", () => {
         const mathString = "$A$ is square";
         const convertedString = replaceOutsideTeX(mathString);
 
-        expect(convertedString).toEqual("A\\text{ is square}");
+        expect(convertedString).toEqual("\\text{$A$ is square}");
     });
 
     test("regular text first", () => {
         const mathString = "Square $A$";
         const convertedString = replaceOutsideTeX(mathString);
 
-        expect(convertedString).toEqual("\\text{Square }A");
+        expect(convertedString).toEqual("\\text{Square $A$}");
     });
 
     test("multiple $s", () => {
         const mathString = "$A$ is $B$";
         const convertedString = replaceOutsideTeX(mathString);
 
-        expect(convertedString).toEqual("A\\text{ is }B");
+        expect(convertedString).toEqual("\\text{$A$ is $B$}");
     });
 
     test("multiple $s with surrounding text", () => {
         const mathString = "Square $A$ is $B$ also";
         const convertedString = replaceOutsideTeX(mathString);
 
-        expect(convertedString).toEqual(
-            "\\text{Square }A\\text{ is }B\\text{ also}",
-        );
+        expect(convertedString).toEqual("\\text{Square $A$ is $B$ also}");
     });
 
     test("with a real $ inside a regular string", () => {
@@ -131,7 +134,7 @@ describe("replaceOutsideTeX", () => {
         const mathString = "This sandwich is ${$}12$";
         const convertedString = replaceOutsideTeX(mathString);
 
-        expect(convertedString).toEqual("\\text{This sandwich is }{$}12");
+        expect(convertedString).toEqual("\\text{This sandwich is ${$}12$}");
     });
 
     test("escapes curly braces", () => {
@@ -148,18 +151,162 @@ describe("replaceOutsideTeX", () => {
         expect(convertedString).toEqual("\\text{\\\\}");
     });
 
+    test("treats blockquote syntax as plain text", () => {
+        const mathString = "> ";
+        const convertedString = replaceOutsideTeX(mathString);
+
+        expect(convertedString).toEqual("\\text{> }");
+    });
+
+    test("abc", () => {
+        const mathString = "abc";
+        const convertedString = replaceOutsideTeX(mathString);
+
+        expect(convertedString).toEqual("\\text{abc}");
+    });
+
     test.each`
         input     | expectedOutput
         ${"$"}    | ${"\\text{\\$}"}
-        ${"$$"}   | ${""}
+        ${"$$"}   | ${"\\text{$$}"}
         ${"\\$"}  | ${"\\text{\\$}"}
-        ${"$1$"}  | ${"1"}
+        ${"$1$"}  | ${"\\text{$1$}"}
         ${"$1"}   | ${"\\text{\\$1}"}
         ${"1$"}   | ${"\\text{1\\$}"}
-        ${"$$1$"} | ${"\\text{1\\$}"}
-        ${"$1$$"} | ${"1\\text{\\$}"}
+        ${"$$1$"} | ${"\\text{$$1\\$}"}
+        ${"$1$$"} | ${"\\text{$1$\\$}"}
     `("counts lone unescaped $ as TeX", ({input, expectedOutput}) => {
         const convertedString = replaceOutsideTeX(input);
         expect(convertedString).toEqual(expectedOutput);
+    });
+});
+
+describe("mathOnlyParser", () => {
+    test("empty string", () => {
+        const nodes = mathOnlyParser("");
+
+        expect(nodes).toEqual([]);
+    });
+
+    test("text-only string", () => {
+        const nodes = mathOnlyParser("abc");
+
+        expect(nodes).toEqual([{content: "abc", type: "text"}]);
+    });
+
+    test("math", () => {
+        const nodes = mathOnlyParser("$x^2$");
+
+        expect(nodes).toEqual([{content: "x^2", type: "math"}]);
+    });
+
+    test("math at the start", () => {
+        const nodes = mathOnlyParser("$x^2$ yippee");
+
+        expect(nodes).toEqual([
+            {content: "x^2", type: "math"},
+            {content: " yippee", type: "text"},
+        ]);
+    });
+
+    test("math at the end", () => {
+        const nodes = mathOnlyParser("yippee $x^2$");
+
+        expect(nodes).toEqual([
+            {content: "yippee ", type: "text"},
+            {content: "x^2", type: "math"},
+        ]);
+    });
+
+    test("math contained within text", () => {
+        const nodes = mathOnlyParser("The equation is $x^2$ yippee");
+
+        expect(nodes).toEqual([
+            {content: "The equation is ", type: "text"},
+            {content: "x^2", type: "math"},
+            {content: " yippee", type: "text"},
+        ]);
+    });
+
+    test("multiple math blocks", () => {
+        const nodes = mathOnlyParser("$x^2$ and $y^2$");
+
+        expect(nodes).toEqual([
+            {content: "x^2", type: "math"},
+            {content: " and ", type: "text"},
+            {content: "y^2", type: "math"},
+        ]);
+    });
+
+    test.each`
+        character
+        ${">"}
+        ${"> "}
+        ${" "}
+        ${"["}
+        ${"]"}
+        ${"("}
+        ${")"}
+        ${"^"}
+        ${"*"}
+        ${"/"}
+    `("nonspecial special character as text: '$character'", ({character}) => {
+        const nodes = mathOnlyParser(character);
+
+        expect(nodes).toEqual([{content: character, type: "text"}]);
+    });
+
+    test.each`
+        character
+        ${"\\"}
+        ${"\\\\"}
+        ${"{"}
+        ${"}"}
+        ${"$"}
+        ${"\\$"}
+    `("actually special character: '$character'", ({character}) => {
+        const nodes = mathOnlyParser(character);
+
+        expect(nodes).toEqual([{content: character, type: "specialCharacter"}]);
+    });
+
+    test("special character in text", () => {
+        const nodes = mathOnlyParser("a\\$b");
+
+        expect(nodes).toEqual([
+            {content: "a", type: "text"},
+            {content: "\\$", type: "specialCharacter"},
+            {content: "b", type: "text"},
+        ]);
+    });
+
+    test("special character in math", () => {
+        const nodes = mathOnlyParser("$\\$$");
+
+        expect(nodes).toEqual([{content: "\\$", type: "math"}]);
+    });
+
+    test("mix of special characters", () => {
+        const nodes = mathOnlyParser("\\$\\\\\\$$");
+
+        expect(nodes).toEqual([
+            {content: "\\$", type: "specialCharacter"},
+            {content: "\\\\", type: "specialCharacter"},
+            {content: "\\$", type: "specialCharacter"},
+            {content: "$", type: "specialCharacter"},
+        ]);
+    });
+
+    test("mix all types", () => {
+        const nodes = mathOnlyParser("Hello \\$ \\\\ world $\\frac{1}{2}$");
+
+        expect(nodes).toEqual([
+            {content: "Hello ", type: "text"},
+            {content: "\\$", type: "specialCharacter"},
+            {content: " ", type: "text"},
+            {content: "\\\\", type: "specialCharacter"},
+            {content: " world ", type: "text"},
+            {content: "\\frac{1}{2}", type: "math"},
+        ]);
     });
 });
