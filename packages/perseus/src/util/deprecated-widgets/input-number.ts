@@ -1,5 +1,4 @@
 // Methods to convert input-number widgets to numeric-input widgets
-
 import type {
     NumericInputWidget,
     PerseusRenderer,
@@ -162,16 +161,34 @@ export const getInputNumberRenameMap = (
 // Convert the user input data keys from input-number to numeric-input
 export const convertUserInputNumberData = (
     userInputMap: UserInputMap,
+    renameMap: WidgetRenameMap,
 ): UserInputMap => {
     const updatedUserInputMap = {...userInputMap};
 
     for (const key of Object.keys(userInputMap)) {
         if (key.includes("input-number")) {
-            const updatedKey = key.replace("input-number", "numeric-input");
+            const updatedKey = renameMap[key];
             updatedUserInputMap[updatedKey] = userInputMap[key];
             delete updatedUserInputMap[key];
         }
     }
 
     return updatedUserInputMap;
+};
+
+// Used to convert InputNumber widgets to NumericInput widgets for scoring
+export const convertInputNumberForScoring = (
+    rubric: PerseusRenderer,
+    userInputMap: UserInputMap,
+): {convertedRubric: PerseusRenderer; convertedUserData: UserInputMap} => {
+    // First we need to create a map of the old input-number keys to the new numeric-input keys
+    // so that we can ensure we update the content, widgets, AND userInput accordingly
+    const renameMap = getInputNumberRenameMap(rubric);
+    const convertedRubric = convertInputNumberJson(rubric, renameMap);
+    const convertedUserData = convertUserInputNumberData(
+        userInputMap,
+        renameMap,
+    );
+
+    return {convertedRubric, convertedUserData};
 };
