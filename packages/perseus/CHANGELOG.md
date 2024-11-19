@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 42.0.2
+
+### Patch Changes
+
+-   [#1884](https://github.com/Khan/perseus/pull/1884) [`b4cf444e9`](https://github.com/Khan/perseus/commit/b4cf444e962b5e4c152cad6507ddb63515fc305e) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensuring UserInput and Rubric widget keys match for edge cases
+
 ## 42.0.1
 
 ### Patch Changes
