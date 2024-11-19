@@ -48,7 +48,7 @@ export type PerseusDropdownUserInput = {
     value: number;
 };
 
-export type PerseusExpressionScoringData = {
+export type PerseusExpressionRubric = {
     answerForms: ReadonlyArray<PerseusExpressionAnswerForm>;
     functions: ReadonlyArray<string>;
 } & PerseusExpressionValidationData;

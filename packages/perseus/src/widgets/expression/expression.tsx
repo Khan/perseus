@@ -25,7 +25,7 @@ import type {DependenciesContext} from "../../dependencies";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
-    PerseusExpressionScoringData,
+    PerseusExpressionRubric,
     PerseusExpressionUserInput,
 } from "../../validation.types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
@@ -69,7 +69,7 @@ type RenderProps = {
     keypadConfiguration: ReturnType<typeof keypadConfigurationForProps>;
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusExpressionScoringData>;
+type ExternalProps = WidgetProps<RenderProps, PerseusExpressionRubric>;
 
 export type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -554,7 +554,7 @@ export default {
     scorer: scoreExpression,
 
     getOneCorrectAnswerFromRubric(
-        rubric: PerseusExpressionScoringData,
+        rubric: PerseusExpressionRubric,
     ): string | null | undefined {
         const correctAnswers = (rubric.answerForms || []).filter(
             (answerForm) => answerForm.considered === "correct",

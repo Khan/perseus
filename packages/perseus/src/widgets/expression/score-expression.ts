@@ -13,7 +13,7 @@ import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {Score} from "../../util/answer-types";
 import type {
-    PerseusExpressionScoringData,
+    PerseusExpressionRubric,
     PerseusExpressionUserInput,
 } from "../../validation.types";
 
@@ -37,7 +37,7 @@ import type {
  */
 function scoreExpression(
     userInput: PerseusExpressionUserInput,
-    scoringData: PerseusExpressionScoringData,
+    scoringData: PerseusExpressionRubric,
     strings: PerseusStrings,
     locale: string,
 ): PerseusScore {

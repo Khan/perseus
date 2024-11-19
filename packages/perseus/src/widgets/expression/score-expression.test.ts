@@ -4,7 +4,7 @@ import {expressionItem3Options} from "./expression.testdata";
 import scoreExpression from "./score-expression";
 import * as ExpressionValidator from "./validate-expression";
 
-import type {PerseusExpressionScoringData} from "../../validation.types";
+import type {PerseusExpressionRubric} from "../../validation.types";
 
 describe("scoreExpression", () => {
     it("should be correctly answerable if validation passes", function () {
@@ -12,8 +12,7 @@ describe("scoreExpression", () => {
         const mockValidator = jest
             .spyOn(ExpressionValidator, "default")
             .mockReturnValue(null);
-        const scoringData: PerseusExpressionScoringData =
-            expressionItem3Options;
+        const scoringData: PerseusExpressionRubric = expressionItem3Options;
 
         // Act
         const score = scoreExpression("z+1", scoringData, mockStrings, "en");
@@ -33,8 +32,7 @@ describe("scoreExpression", () => {
         const mockValidator = jest
             .spyOn(ExpressionValidator, "default")
             .mockReturnValue({type: "invalid", message: null});
-        const scoringData: PerseusExpressionScoringData =
-            expressionItem3Options;
+        const scoringData: PerseusExpressionRubric = expressionItem3Options;
 
         // Act
         const score = scoreExpression("z+1", scoringData, mockStrings, "en");
