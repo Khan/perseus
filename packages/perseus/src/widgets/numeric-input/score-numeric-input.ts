@@ -72,7 +72,7 @@ function scoreNumericInput(
     rubric: PerseusNumericInputRubric,
     strings: PerseusStrings,
 ): PerseusScore {
-    const validationResult = validateNumericInput(userInput);
+    const validationResult = validateNumericInput(userInput, rubric);
     if (validationResult != null) {
         return validationResult;
     }

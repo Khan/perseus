@@ -1,5 +1,8 @@
 import type {PerseusScore} from "../../types";
-import type {PerseusNumericInputUserInput} from "../../validation.types";
+import type {
+    PerseusNumericInputUserInput,
+    PerseusNumericInputValidationData,
+} from "../../validation.types";
 
 /**
  * Checks user input from the numeric-input widget to see if it is scorable.
@@ -11,6 +14,7 @@ import type {PerseusNumericInputUserInput} from "../../validation.types";
  */
 function validateNumericInput(
     userInput: PerseusNumericInputUserInput,
+    validationData: PerseusNumericInputValidationData,
 ): Extract<PerseusScore, {type: "invalid"}> | null {
     return null;
 }

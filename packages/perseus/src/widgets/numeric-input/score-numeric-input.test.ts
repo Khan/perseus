@@ -39,7 +39,7 @@ describe("static function validate", () => {
         const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         // Assert
-        expect(mockValidator).toHaveBeenCalledWith(userInput);
+        expect(mockValidator).toHaveBeenCalledWith(userInput, rubric);
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
@@ -68,7 +68,7 @@ describe("static function validate", () => {
         const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         // Assert
-        expect(mockValidator).toHaveBeenCalled();
+        expect(mockValidator).toHaveBeenCalledWith(userInput, rubric);
         expect(score).toHaveInvalidInput();
     });
 
