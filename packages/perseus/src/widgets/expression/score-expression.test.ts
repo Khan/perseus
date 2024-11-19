@@ -12,15 +12,15 @@ describe("scoreExpression", () => {
         const mockValidator = jest
             .spyOn(ExpressionValidator, "default")
             .mockReturnValue(null);
-        const scoringData: PerseusExpressionRubric = expressionItem3Options;
+        const rubric: PerseusExpressionRubric = expressionItem3Options;
 
         // Act
-        const score = scoreExpression("z+1", scoringData, mockStrings, "en");
+        const score = scoreExpression("z+1", rubric, mockStrings, "en");
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith(
             "z+1",
-            scoringData,
+            rubric,
             mockStrings,
             "en",
         );
@@ -32,15 +32,15 @@ describe("scoreExpression", () => {
         const mockValidator = jest
             .spyOn(ExpressionValidator, "default")
             .mockReturnValue({type: "invalid", message: null});
-        const scoringData: PerseusExpressionRubric = expressionItem3Options;
+        const rubric: PerseusExpressionRubric = expressionItem3Options;
 
         // Act
-        const score = scoreExpression("z+1", scoringData, mockStrings, "en");
+        const score = scoreExpression("z+1", rubric, mockStrings, "en");
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith(
             "z+1",
-            scoringData,
+            rubric,
             mockStrings,
             "en",
         );
