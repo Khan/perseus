@@ -350,7 +350,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
           >
             <label
               class="text_f1191h-o_O-LabelLarge_5s82ln"
-              for="uid-dropdown-widget-1-dropdown"
+              for="uid-dropdown-widget-2-dropdown"
             >
               Test visible label
             </label>
@@ -365,13 +365,13 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 data-testid="dropdown-live-region"
               />
               <button
-                aria-controls="uid-single-select-dropdown-1-wb-id"
+                aria-controls="uid-single-select-dropdown-3-wb-id"
                 aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-label="Test ARIA label"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
-                id="uid-dropdown-widget-1-dropdown"
+                id="uid-dropdown-widget-2-dropdown"
                 type="button"
               >
                 <span
@@ -427,7 +427,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
           >
             <label
               class="text_f1191h-o_O-LabelLarge_5s82ln"
-              for="uid-dropdown-widget-2-dropdown"
+              for="uid-dropdown-widget-4-dropdown"
             >
               Test visible label
             </label>
@@ -442,13 +442,13 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 data-testid="dropdown-live-region"
               />
               <button
-                aria-controls="uid-single-select-dropdown-2-wb-id"
+                aria-controls="uid-single-select-dropdown-5-wb-id"
                 aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-label="Test ARIA label"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
-                id="uid-dropdown-widget-2-dropdown"
+                id="uid-dropdown-widget-4-dropdown"
                 type="button"
               >
                 <span
@@ -519,7 +519,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 data-testid="dropdown-live-region"
               />
               <button
-                aria-controls="uid-single-select-dropdown-0-wb-id"
+                aria-controls="uid-single-select-dropdown-1-wb-id"
                 aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
