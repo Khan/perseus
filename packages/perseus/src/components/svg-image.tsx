@@ -413,7 +413,7 @@ class SvgImage extends React.Component<Props, State> {
     onDataLoaded: (
         data: {
             labels: ReadonlyArray<any>;
-            range: ReadonlyArray<any>;
+            range: [Coord, Coord];
         },
         localized: boolean,
     ) => void = (

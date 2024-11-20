@@ -16,6 +16,8 @@ import {iconGear} from "../styles/icon-paths";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 
+type ChangeFn = typeof Changeable.change;
+
 const {
     ButtonGroup,
     InfoTip,
@@ -123,7 +125,7 @@ class NumericInputEditor extends React.Component<Props, State> {
         };
     }
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
