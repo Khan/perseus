@@ -13,28 +13,32 @@ type DefaultProps = {
 
 export class JsonEditor extends React.Component<Props> {
     static displayName: "JsonEditor";
-    currentValue: string
-    valid: boolean;
+    currentValue: string | undefined;
+    valid: boolean | undefined;
 
     static defaultProps: DefaultProps = {
-        value: 0
+        value: 0,
     };
 
-    static getInitialState() {
-        currentValue: JSON.stringify(this.props.value, null, 4),
-        valid: true,
-    };
-
+    getInitialState() {
+        return {
+            currentValue: JSON.stringify(this.props.value, null, 4),
+            valid: true,
+        };
+    }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         const shouldReplaceContent =
             !this.valid ||
-            !_.isEqual(nextProps.value, JSON.parse(this.currentValue));
+            !_.isEqual(
+                nextProps.value,
+                JSON.parse(this.currentValue ? this.currentValue : ""),
+            );
 
         if (shouldReplaceContent) {
             this.setState(this.getInitialState());
         }
-    };
+    }
 
     handleKeyDown(e) {
         // This handler allows the tab character to be entered by pressing
@@ -51,7 +55,7 @@ export class JsonEditor extends React.Component<Props> {
             e.preventDefault();
             this.handleChange(e);
         }
-    };
+    }
 
     handleChange(e) {
         const nextString = e.target.value;
@@ -80,7 +84,7 @@ export class JsonEditor extends React.Component<Props> {
                 valid: false,
             });
         }
-    };
+    }
 
     // You can type whatever you want as you're typing, but if it's not valid
     // when you blur, it will revert to the last valid value.
@@ -111,7 +115,7 @@ export class JsonEditor extends React.Component<Props> {
                 valid: true,
             });
         }
-    };
+    }
 
     render() {
         const classes =
@@ -126,7 +130,7 @@ export class JsonEditor extends React.Component<Props> {
                 onBlur={this.handleBlur}
             />
         );
-    };
-};
+    }
+}
 
 export default JsonEditor;
