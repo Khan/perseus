@@ -201,6 +201,31 @@ describe("mathOnlyParser", () => {
         ]);
     });
 
+    test("math text without math markers", () => {
+        const nodes = mathOnlyParser("yippee x^2");
+
+        expect(nodes).toEqual([{content: "yippee x^2", type: "text"}]);
+    });
+
+    test("lone unescaped dollar sign middle", () => {
+        const nodes = mathOnlyParser("yippee $x^2");
+
+        expect(nodes).toEqual([
+            {content: "yippee ", type: "text"},
+            {content: "$", type: "specialCharacter"},
+            {content: "x^2", type: "text"},
+        ]);
+    });
+
+    test("lone unescaped dollar sign end", () => {
+        const nodes = mathOnlyParser("yippee x^2$");
+
+        expect(nodes).toEqual([
+            {content: "yippee x^2", type: "text"},
+            {content: "$", type: "specialCharacter"},
+        ]);
+    });
+
     test("multiple math blocks", () => {
         const nodes = mathOnlyParser("$x^2$ and $y^2$");
 
@@ -208,6 +233,23 @@ describe("mathOnlyParser", () => {
             {content: "x^2", type: "math"},
             {content: " and ", type: "text"},
             {content: "y^2", type: "math"},
+        ]);
+    });
+
+    test("TeX syntax without dollars", () => {
+        const nodes = mathOnlyParser("\\frac{1}{2}");
+
+        // This looks odd, but this is expected based on our logic
+        // since this is within a text block, not a math block
+        expect(nodes).toEqual([
+            {content: "\\f", type: "specialCharacter"},
+            {content: "rac", type: "text"},
+            {content: "{", type: "specialCharacter"},
+            {content: "1", type: "text"},
+            {content: "}", type: "specialCharacter"},
+            {content: "{", type: "specialCharacter"},
+            {content: "2", type: "text"},
+            {content: "}", type: "specialCharacter"},
         ]);
     });
 
