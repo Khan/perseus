@@ -1673,7 +1673,7 @@ export type PerseusVideoWidgetOptions = {
 
 export type MockWidgetOptions = {
     static?: boolean;
-    currentValue: string;
+    value: string;
 };
 
 export type PerseusInputNumberWidgetOptions = {
