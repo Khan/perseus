@@ -81,7 +81,7 @@ export const renderQuestion = (
         }
     };
 
-    return {container, renderer, rerender: renderAgain, unmount};
+    return {container, renderer, rerender: renderAgain as any, unmount};
 };
 
 const Renderer = React.forwardRef<

@@ -796,5 +796,6 @@ export default {
     hidden: true,
     widget: Orderer,
     isLintable: true,
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusOrdererUserInput
     scorer: scoreOrderer,
 } satisfies WidgetExports<typeof Orderer>;

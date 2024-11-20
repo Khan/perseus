@@ -125,12 +125,14 @@ class InputNumber extends React.Component<Props> implements Widget {
         return true;
     };
 
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     focusInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     };
 
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     blurInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
@@ -148,6 +150,7 @@ class InputNumber extends React.Component<Props> implements Widget {
         return [[]];
     };
 
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     setInputValue: (arg1: Path, arg2: string, arg3: () => void) => void = (
         path,
         newValue,
@@ -278,6 +281,7 @@ export default {
     widget: InputNumber,
     transform: propTransform,
     isLintable: true,
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusInputNumberUserInput'.
     scorer: scoreInputNumber,
 
     getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {

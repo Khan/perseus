@@ -133,5 +133,6 @@ export default {
     displayName: "Sorter",
     widget: Sorter,
     isLintable: true,
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusSorterUserInput
     scorer: scoreSorter,
 } satisfies WidgetExports<typeof Sorter>;

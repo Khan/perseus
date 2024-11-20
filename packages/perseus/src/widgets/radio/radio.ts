@@ -156,5 +156,6 @@ export default {
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
     isLintable: true,
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusRadioUserInput
     scorer: scoreRadio,
 } satisfies WidgetExports<typeof Radio>;

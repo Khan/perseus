@@ -113,6 +113,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     };
 
     change = (...args) => {
+        // @ts-expect-error: Argument of type 'any[]' is not assignable to parameter of type '[newPropsOrSinglePropName: string | { [key: string]: any; }, propValue?: any, callback?: (() => unknown) | undefined]'. Target requires 1 element(s) but source may have fewer.
         return Changeable.change.apply(this, args);
     };
 
@@ -652,5 +653,6 @@ export default {
     widget: Grapher,
     transform: propTransform,
     staticTransform: staticTransform,
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusGrapherUserInput'.
     scorer: scoreGrapher,
 } satisfies WidgetExports<typeof Grapher>;

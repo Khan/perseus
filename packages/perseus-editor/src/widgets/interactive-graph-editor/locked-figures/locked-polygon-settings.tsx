@@ -194,6 +194,7 @@ const LockedPolygonSettings = (props: Props) => {
                 {/* Color */}
                 <ColorSelect
                     selectedValue={color}
+                    // @ts-expect-error: Type 'string' is not assignable to type '"blue" | "green" | "orange" | "pink" | "purple" | "red" | "grayH"'.
                     onChange={handleColorChange}
                 />
                 <Strut size={spacing.medium_16} />
@@ -207,6 +208,7 @@ const LockedPolygonSettings = (props: Props) => {
                     <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
                         selectedValue={fillStyle}
+                        // @ts-expect-error: Type 'string' is not assignable to type 'LockedFigureFillType'.
                         onChange={(value: LockedFigureFillType) =>
                             onChangeProps({fillStyle: value})
                         }
@@ -227,6 +229,7 @@ const LockedPolygonSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
+                // @ts-expect-error: Type 'string' is not assignable to type '"solid" | "dashed"'.
                 onChange={(value: "solid" | "dashed") =>
                     onChangeProps({strokeStyle: value})
                 }
@@ -371,6 +374,7 @@ const LockedPolygonSettings = (props: Props) => {
                         <LockedLabelSettings
                             {...label}
                             expanded={true}
+                            // @ts-expect-error: Type 'Partial<LockedFigure>' is not assignable to type 'LockedLabelType'.
                             onChangeProps={(newLabel: LockedLabelType) => {
                                 handleLabelChange(newLabel, labelIndex);
                             }}

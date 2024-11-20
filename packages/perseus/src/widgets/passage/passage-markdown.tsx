@@ -462,6 +462,7 @@ const CIRCLE_LABEL_STYLE = {
     textAlign: "center",
 } as const;
 
+// @ts-expect-error: State is not assignable to ParseState
 const builtParser = SimpleMarkdown.parserFor(rules);
 const parse: (
     arg1: string,

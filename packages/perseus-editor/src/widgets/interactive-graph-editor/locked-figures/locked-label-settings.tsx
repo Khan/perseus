@@ -150,6 +150,7 @@ export default function LockedLabelSettings(props: Props) {
             <View style={styles.row}>
                 <ColorSelect
                     selectedValue={color}
+                    // @ts-expect-error: Type 'string' is not assignable to type '"blue" | "green" | "grayH" | "purple" | "pink" | "orange" | "red"'.
                     onChange={(newColor: LockedFigureColor) => {
                         onChangeProps({color: newColor});
                     }}
@@ -163,6 +164,7 @@ export default function LockedLabelSettings(props: Props) {
                     <Strut size={spacing.xSmall_8} />
                     <SingleSelect
                         selectedValue={size}
+                        // @ts-expect-error: Type 'string' is not assignable to type '"small" | "medium" | "large"'.
                         onChange={(newValue: "small" | "medium" | "large") =>
                             onChangeProps({
                                 size: newValue,

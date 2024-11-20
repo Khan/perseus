@@ -172,5 +172,6 @@ export default {
     widget: Iframe,
     // Let's not expose it to all content creators yet
     hidden: true,
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusIframeUserInput'.
     scorer: scoreIframe,
 } satisfies WidgetExports<typeof Iframe>;

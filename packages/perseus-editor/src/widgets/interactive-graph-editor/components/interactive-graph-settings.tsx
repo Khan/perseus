@@ -20,6 +20,7 @@ import Heading from "../../../components/heading";
 import LabeledRow from "../locked-figures/labeled-row";
 
 import type {PerseusImageBackground} from "@khanacademy/perseus";
+import {ChangeFn} from "@khanacademy/perseus/src/types";
 
 const {ButtonGroup, InfoTip, RangeInput} = components;
 
@@ -175,7 +176,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         this._isMounted = false;
     }
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 

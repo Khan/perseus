@@ -31,6 +31,7 @@ export function V2KeypadWithMathquill() {
                 mathFieldWrapperRef.current,
                 "en",
                 mockStrings,
+                // @ts-expect-error: Type 'EditableMathQuill' is not assignable to type 'MathFieldInterface'.
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {

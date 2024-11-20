@@ -41,6 +41,7 @@ export default {
             },
         },
     },
+    // @ts-expect-error: Type 'Args' is not assignable to type 'StoryArgs'.
     render: (args: StoryArgs) => (
         <RendererWithDebugUI
             question={applyStoryArgs(args)}

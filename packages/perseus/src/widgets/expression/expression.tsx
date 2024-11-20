@@ -250,12 +250,14 @@ export class Expression
         return true;
     };
 
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'InputPath'.
     focusInputPath(inputPath: InputPath) {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     }
 
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'InputPath'.
     blurInputPath(inputPath: InputPath) {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
@@ -280,7 +282,7 @@ export class Expression
         return [[]];
     };
 
-    setInputValue(path: FocusPath, newValue: string, cb: () => void) {
+    setInputValue(path: FocusPath, newValue: string, cb?: () => void) {
         this.props.onChange(
             {
                 value: newValue,
@@ -551,8 +553,10 @@ export default {
 
     // For use by the editor
     isLintable: true,
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
     scorer: scoreExpression,
 
+    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.
     getOneCorrectAnswerFromRubric(
         rubric: PerseusExpressionRubric,
     ): string | null | undefined {

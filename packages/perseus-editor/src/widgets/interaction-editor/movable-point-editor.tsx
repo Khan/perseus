@@ -9,6 +9,7 @@ import _ from "underscore";
 
 import ConstraintEditor from "./constraint-editor";
 import MathquillInput from "./mathquill-input";
+import {ChangeFn} from "@khanacademy/perseus/src/types";
 
 const {NumberInput} = components;
 const {getDependencies} = Dependencies;
@@ -46,7 +47,7 @@ class MovablePointEditor extends React.Component<Props> {
         constraintYMax: "10",
     };
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 

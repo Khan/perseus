@@ -124,5 +124,6 @@ export default {
     accessible: true,
     widget: Dropdown,
     transform: optionsTransform,
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusDropdownUserInput'.
     scorer: scoreDropdown,
 } satisfies WidgetExports<typeof Dropdown>;

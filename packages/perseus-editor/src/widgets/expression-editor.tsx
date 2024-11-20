@@ -26,6 +26,7 @@ import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
 } from "@khanacademy/perseus";
+import {ChangeFn} from "@khanacademy/perseus/src/types";
 
 const {InfoTip} = components;
 
@@ -109,7 +110,7 @@ class ExpressionEditor extends React.Component<Props, State> {
         };
     }
 
-    change(...args) {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     }
 
@@ -356,6 +357,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     buttonSets: this.props.buttonSets,
                     buttonsVisible: "focused",
                     value: ans.value,
+                    // @ts-expect-error: Type '(props: React.ComponentProps<typeof Expression>) => void' is not assignable to type 'ChangeHandler'. Types of parameters 'props' and 'arg1' are incompatible.
                     onChange: (
                         props: React.ComponentProps<typeof Expression>,
                     ) => this.changeExpressionWidget(key, props),
@@ -553,7 +555,7 @@ class AnswerOption extends React.Component<
 > {
     state = {deleteFocused: false};
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 

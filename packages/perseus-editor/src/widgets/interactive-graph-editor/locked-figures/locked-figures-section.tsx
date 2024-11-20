@@ -191,6 +191,7 @@ const LockedFiguresSection = (props: Props) => {
                         <LockedFigureSelect
                             showLabelsFlag={props.showLabelsFlag}
                             id={`${uniqueId}-select`}
+                            // @ts-expect-error: Type 'string' is not assignable to type '"function" | "label" | "ellipse" | "line" | "polygon" | "point" | "vector"'.
                             onChange={addLockedFigure}
                         />
                         <Strut size={spacing.small_12} />

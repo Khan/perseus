@@ -18,6 +18,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
+import {ChangeFn} from "@khanacademy/perseus/src/types";
 
 const {InfoTip} = components;
 
@@ -39,7 +40,7 @@ class PairEditor extends React.Component<any> {
         value: "",
     };
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -84,7 +85,7 @@ class PairsEditor extends React.Component<any> {
         ).isRequired,
     };
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 

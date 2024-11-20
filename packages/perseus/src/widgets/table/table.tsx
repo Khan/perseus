@@ -324,5 +324,6 @@ export default {
     transform: propTransform,
     hidden: true,
     isLintable: true,
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusTableUserInput
     scorer: scoreTable,
 } satisfies WidgetExports<typeof Table>;

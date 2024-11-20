@@ -90,6 +90,7 @@ class ImageLoader extends React.Component<Props, State> {
 
         this.img = new Image();
         this.img.onload = this.handleLoad;
+        // @ts-expect-error: Type 'string | Event' is not assignable to type 'Event'.
         this.img.onerror = this.handleError;
         this.img.src = this.props.src;
     };

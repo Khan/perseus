@@ -634,6 +634,7 @@ class Editor extends React.Component<Props, State> {
         return safeWidgetMapping;
     };
 
+    // @ts-expect-error: Types of parameter 'widgetType' and 'widgetType' are incompatible. Type 'string' is not assignable to type '"cs-program" | "iframe" | "table" | "video" | "image" | "deprecated-standin" | "categorizer" | "definition" | "dropdown" | "explanation" | "expression" | "graded-group" | "graded-group-set" | ... 20 more ... | "radio"'.
     _addWidgetToContent: (
         oldContent: string,
         cursorRange: ReadonlyArray<number>,

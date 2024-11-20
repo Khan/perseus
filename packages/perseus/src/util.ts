@@ -66,6 +66,7 @@ const nestedMap = function <T, M>(
             return nestedMap(child, func);
         });
     }
+    // @ts-expect-error: T | ReadonlyArray<T> is not assignable to T
     return func.call(context, children);
 };
 

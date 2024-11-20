@@ -127,6 +127,7 @@ const constraints = {
     },
 
     snap: function (snap?: number | null): Constraint {
+        // @ts-expect-error: Type 'boolean | Coord' is not assignable to type 'Coord'.
         return function (coord: Coord) {
             if (snap === null) {
                 // TODO(benchristel), NOTE(kevinb): this should probably return
@@ -155,6 +156,7 @@ const constraints = {
             }
         })();
 
+        // @ts-expect-error: Type 'boolean | Coord' is not assignable to type 'Coord'.
         return function (
             coord: Coord,
             prev: Coord,

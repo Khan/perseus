@@ -402,8 +402,10 @@ export default {
     transform: propsTransform,
     propUpgrades: propUpgrades,
     isLintable: true,
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumericInputUserInput'.
     scorer: scoreNumericInput,
 
+    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusNumericInputRubric'
     getOneCorrectAnswerFromRubric(
         rubric: PerseusNumericInputRubric,
     ): string | null | undefined {

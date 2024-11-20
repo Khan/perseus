@@ -278,6 +278,7 @@ const LockedPointSettings = (props: Props) => {
                                 styles.lockedPointLabelContainer
                             }
                             expanded={true}
+                            // @ts-expect-error: Type 'Partial<LockedFigure>' is not assignable to type 'LockedLabelType'.
                             onChangeProps={(newLabel: LockedLabelType) => {
                                 handleLabelChange(newLabel, labelIndex);
                             }}

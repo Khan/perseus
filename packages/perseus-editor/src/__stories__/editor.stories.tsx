@@ -102,6 +102,7 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                             showWordCount={true}
                             warnNoPrompt={false}
                             warnNoWidgets={true}
+                            // @ts-expect-error: Type '(props: Partial<PerseusRenderer>) => void' is not assignable to type 'ChangeHandler'.
                             onChange={(props: Partial<PerseusRenderer>) => {
                                 action("onChange")(props);
                                 if (props.content) {

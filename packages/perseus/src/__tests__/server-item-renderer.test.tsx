@@ -68,7 +68,9 @@ const renderQuestion = (
 
 describe("server item renderer", () => {
     beforeAll(() => {
+        // @ts-expect-error: NumericInputExport is not assignable to type WidgetExports
         registerWidget("numeric-input", NumericInputExport);
+        // @ts-expect-error: RadioWidgetExport is not assignable to type WidgetExports
         registerWidget("radio", RadioWidgetExport);
     });
 

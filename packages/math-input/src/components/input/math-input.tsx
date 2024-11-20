@@ -984,6 +984,7 @@ class MathInput extends React.Component<Props, State> {
                         }}
                         onTouchMove={this.handleTouchMove}
                         onTouchEnd={this.handleTouchEnd}
+                        // @ts-expect-error: Type '(e: React.MouseEvent<HTMLDivElement>) => void' is not assignable to type '(arg1: SyntheticEvent<HTMLDivElement, Event>) => void'.
                         onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                             this.handleClick(e, keypadActive, setKeypadActive);
                         }}

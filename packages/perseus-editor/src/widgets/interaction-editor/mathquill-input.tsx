@@ -31,6 +31,7 @@ export default function MathquillInput(props: Props) {
                 mathFieldWrapperRef.current,
                 locale,
                 strings,
+                // @ts-expect-error: Types of parameters 'mathField' and 'mq' are incompatible. Type 'EditableMathQuill | BaseMathQuill' is not assignable to type 'MathFieldInterface'.
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {

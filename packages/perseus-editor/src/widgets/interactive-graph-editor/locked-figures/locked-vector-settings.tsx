@@ -164,6 +164,7 @@ const LockedVectorSettings = (props: Props) => {
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
+                    // @ts-expect-error: Type 'string' is not assignable to type '"blue" | "green" | "orange" | "pink" | "purple" | "red" | "grayH"'.
                     onChange={handleColorChange}
                 />
             </View>
@@ -241,6 +242,7 @@ const LockedVectorSettings = (props: Props) => {
                         <LockedLabelSettings
                             {...label}
                             expanded={true}
+                            // @ts-expect-error: Type 'Partial<LockedFigure>' is not assignable to type 'LockedLabelType'
                             onChangeProps={(newLabel: LockedLabelType) => {
                                 handleLabelChange(newLabel, labelIndex);
                             }}

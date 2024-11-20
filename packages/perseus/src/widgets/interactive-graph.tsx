@@ -2396,5 +2396,6 @@ export default {
     displayName: "Interactive graph (Assessments only)",
     widget: InteractiveGraph,
     staticTransform: staticTransform,
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusInteractiveGraphUserInput'.
     scorer: scoreInteractiveGraph,
 } satisfies WidgetExports<typeof InteractiveGraph>;

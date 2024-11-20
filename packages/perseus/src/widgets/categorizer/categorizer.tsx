@@ -325,5 +325,6 @@ export default {
         );
     },
     isLintable: true,
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
     scorer: scoreCategorizer,
 } satisfies WidgetExports<typeof Categorizer>;

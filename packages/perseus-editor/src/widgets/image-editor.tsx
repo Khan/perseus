@@ -13,6 +13,7 @@ import BlurInput from "../components/blur-input";
 import Editor from "../editor";
 
 import type {APIOptions, Range, Size} from "@khanacademy/perseus";
+import {ChangeFn} from "@khanacademy/perseus/src/types";
 
 const {InfoTip, InlineIcon, RangeInput} = components;
 
@@ -159,7 +160,7 @@ class ImageEditor extends React.Component<Props> {
         );
     }
 
-    change(...args) {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     }
 

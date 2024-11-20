@@ -805,5 +805,6 @@ export default {
     widget: NumberLine,
     transform: numberLineTransform,
     staticTransform: staticTransform,
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumberLineUserInput'.
     scorer: scoreNumberLine,
 } satisfies WidgetExports<typeof NumberLine>;

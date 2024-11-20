@@ -255,6 +255,7 @@ const constraints = {
             // bound the delta by the calculated bounds
             const boundedDelta = _.reduce(
                 deltaBounds,
+                // @ts-expect-error: Type 'number[]' is not assignable to type 'Coord'.
                 function (delta, bound) {
                     const lower = bound[0];
                     const upper = bound[1];

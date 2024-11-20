@@ -743,5 +743,6 @@ export default {
     widget: LabelImageWithDependencies,
     accessible: true,
     isLintable: true,
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusLabelImageUserInput'.
     scorer: scoreLabelImage,
 } satisfies WidgetExports<typeof LabelImageWithDependencies>;

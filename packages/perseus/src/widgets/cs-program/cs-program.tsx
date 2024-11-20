@@ -205,5 +205,6 @@ export default {
     supportedAlignments: ["block", "full-width"],
     widget: CSProgram,
     hidden: true,
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
     scorer: scoreCSProgram,
 } satisfies WidgetExports<typeof CSProgram>;
