@@ -184,8 +184,8 @@ export async function joinLabelsAsSpokenMath(
         return "";
     }
 
-    const spokenLabelPromises = labels.map(async (label) => {
-        return await generateSpokenMathDetails(label.text);
+    const spokenLabelPromises = labels.map((label) => {
+        return generateSpokenMathDetails(label.text);
     });
 
     const spokenLabels = await Promise.all(spokenLabelPromises);
@@ -193,6 +193,10 @@ export async function joinLabelsAsSpokenMath(
     return ` ${spokenLabels.join(", ")}`;
 }
 
+// TODO(LEMS-2616): Stop using this mock in tests. Mocking may make tests
+// harder to understand, this will become tech debt. Once we update the
+// speech rule engine to read locale data from local files, we will no longer
+// need to use this mock for the tests to work.
 /**
  * Non-async mocked version of joinLabelsAsSpokenMath for tests.
  */
@@ -203,7 +207,7 @@ export function mockedJoinLabelsAsSpokenMathForTests(
         return Promise.resolve("");
     }
 
-    // Mock this so that each label's text says "joint" before it.
+    // Mock this so that each label's text says "spoken" before it.
     const jointMock = labels.map((input) => ` spoken ${input.text}`).join(",");
     return Promise.resolve(jointMock);
 }
