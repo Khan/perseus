@@ -271,6 +271,7 @@ describe("mafsStateToInteractiveGraph", () => {
                 [3, 4],
                 [5, 6],
             ],
+            closedPolygon: false,
         };
 
         const result: PerseusGraphType = mafsStateToInteractiveGraph(

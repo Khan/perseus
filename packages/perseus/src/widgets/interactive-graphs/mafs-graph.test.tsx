@@ -436,6 +436,7 @@ describe("MafsGraph", () => {
             showRemovePointButton: false,
             interactionMode: "mouse",
             showKeyboardInteractionInvitation: false,
+            closedPolygon: false,
             coords: [
                 [-1, 1],
                 [0, 0],
@@ -838,6 +839,7 @@ describe("MafsGraph", () => {
                 snapStep: [2, 2],
                 snapTo: "grid",
                 coords: [[4, 5]],
+                closedPolygon: false,
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
@@ -921,6 +923,7 @@ describe("MafsGraph", () => {
                 snapStep: [2, 2],
                 snapTo: "grid",
                 coords: [[9, 9]],
+                closedPolygon: false,
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
