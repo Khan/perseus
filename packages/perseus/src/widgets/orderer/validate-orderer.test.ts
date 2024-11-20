@@ -1,4 +1,4 @@
-import {validateOrderer} from "./validate-orderer";
+import validateOrderer from "./validate-orderer";
 
 import type {PerseusOrdererUserInput} from "../../validation.types";
 
