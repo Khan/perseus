@@ -22,61 +22,48 @@
 // * custom styles for global drag and dragOver
 // * only respond to certain types of drags (only images for instance)!
 
+import createReactClass from "create-react-class";
+import PropTypes from "prop-types";
 import * as React from "react";
 
-type Props = {
-    onDrop: (any) => boolean;
-    component: any;
-    shouldDragHighlight: (any) => boolean;
-    style: any;
-};
-
-type DefaultProps = {
-    onDrop: Props["onDrop"];
-    component: Props["component"];
-    shouldDragHighlight: Props["shouldDragHighlight"];
-    style: Props["style"];
-};
-
-export class DragTarget extends React.Component<Props> {
-    dragHover: any;
-
-    static defaultProps: DefaultProps = {
-        onDrop: () => true,
-        component: "div",
-        shouldDragHighlight: () => true,
-        style: {},
-    };
-
-    getInitialState() {
+const DragTarget = createReactClass({
+    propTypes: {
+        // All props not listed here are forwarded to the root element without
+        // modification.
+        onDrop: PropTypes.func.isRequired,
+        component: PropTypes.any, // component type
+        shouldDragHighlight: PropTypes.func,
+        style: PropTypes.any,
+    },
+    getDefaultProps: function () {
+        return {
+            component: "div",
+            shouldDragHighlight: () => true,
+        };
+    },
+    getInitialState: function () {
         return {dragHover: false};
-    }
-
-    handleDrop(e) {
+    },
+    handleDrop: function (e) {
         e.stopPropagation();
         e.preventDefault();
         this.setState({dragHover: false});
         this.props.onDrop(e);
-    }
-
-    handleDragEnd() {
+    },
+    handleDragEnd: function () {
         this.setState({dragHover: false});
-    }
-
-    handleDragOver(e) {
+    },
+    handleDragOver: function (e) {
         e.preventDefault();
-    }
-
-    handleDragLeave() {
+    },
+    handleDragLeave: function () {
         this.setState({dragHover: false});
-    }
-
-    handleDragEnter(e) {
+    },
+    handleDragEnter: function (e) {
         this.setState({dragHover: this.props.shouldDragHighlight(e)});
-    }
-
-    render() {
-        const opacity = this.dragHover ? {opacity: 0.3} : {};
+    },
+    render: function () {
+        const opacity = this.state.dragHover ? {opacity: 0.3} : {};
         const Component = this.props.component;
 
         const forwardProps = Object.assign({}, this.props);
@@ -94,7 +81,7 @@ export class DragTarget extends React.Component<Props> {
                 onDragLeave={this.handleDragLeave}
             />
         );
-    }
-}
+    },
+});
 
 export default DragTarget;
