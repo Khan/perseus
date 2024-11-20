@@ -4,7 +4,13 @@
  * multiple (Renderer) sections concatenated together.
  */
 
-import {components, ApiOptions, iconTrash} from "@khanacademy/perseus";
+import {
+    components,
+    ApiOptions,
+    iconTrash,
+    conversionRequired,
+    convertDeprecatedWidgets,
+} from "@khanacademy/perseus";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import * as React from "react";
@@ -20,10 +26,6 @@ import {
     iconCircleArrowUp,
     iconPlus,
 } from "./styles/icon-paths";
-import {
-    convertDeprecatedWidgets,
-    conversionRequired,
-} from "./util/deprecated-widgets/modernize-widgets-utils";
 
 import type {
     APIOptions,
@@ -74,9 +76,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         // Check if the json needs to be converted
         const conversionWarningRequired =
             props.json instanceof Array
-                ? props.json
-                      .map(conversionRequired)
-                      .reduce((p, v) => p && v, false)
+                ? props.json.some(conversionRequired)
                 : conversionRequired(props.json);
 
         let json = props.json;

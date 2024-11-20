@@ -18,6 +18,8 @@ export type InteractiveGraphAction =
     | BlurPoint
     | DeleteIntent
     | ClickPoint
+    | ClosePolygon
+    | OpenPolygon
     | ChangeInteractionMode
     | ChangeKeyboardInvitationVisibility;
 
@@ -59,6 +61,8 @@ export const actions = {
         focusPoint,
         blurPoint,
         clickPoint,
+        closePolygon,
+        openPolygon,
     },
     quadratic: {
         movePoint,
@@ -186,6 +190,26 @@ function changeKeyboardInvitationVisibility(
     return {
         type: CHANGE_KEYBOARD_INVITATION_VISIBILITY,
         shouldShow,
+    };
+}
+
+export const CLOSE_POLYGON = "close-polygon";
+export interface ClosePolygon {
+    type: typeof CLOSE_POLYGON;
+}
+function closePolygon(): ClosePolygon {
+    return {
+        type: CLOSE_POLYGON,
+    };
+}
+
+export const OPEN_POLYGON = "open-polygon";
+export interface OpenPolygon {
+    type: typeof OPEN_POLYGON;
+}
+function openPolygon(): OpenPolygon {
+    return {
+        type: OPEN_POLYGON,
     };
 }
 

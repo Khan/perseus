@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/radio-missing-noneOfTheAbove.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "$\\begin{align} 
+A &= \\{x: x \\text{ is a rectangle in the plane P} \\} \\\\\\\\
+B &= \\{x: x \\text{ is a square in the plane P} \\}
+\\end{align}$
+
+**Is $A \\subset B$ ?**
+
+[[☃ radio 1]]
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "choices": [
+            {
+              "clue": undefined,
+              "content": "Yes",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "No",
+              "correct": true,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "noneOfTheAbove": undefined,
+          "onePerLine": undefined,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;

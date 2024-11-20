@@ -1,9 +1,9 @@
 // Methods to convert input-number widgets to numeric-input widgets
-
 import type {
     NumericInputWidget,
     PerseusRenderer,
     PerseusWidgetsMap,
+    UserInputMap,
 } from "@khanacademy/perseus";
 
 type WidgetRenameMap = {
@@ -52,8 +52,11 @@ export const convertInputNumberWidgetOptions = (
         }
         // Check if the widget is an input-number
         if (widgets[key].type === "input-number") {
+            // If the answerType is not number or percent, we need to provide
+            // the answer form for the numeric-input widget
             const provideAnswerForm =
-                widgets[key].options.answerType !== "number";
+                widgets[key].options.answerType !== "number" &&
+                widgets[key].options.answerType !== "percent";
             // We need to determine the mathFormat for the numeric-input widget
             const mathFormat =
                 widgets[key].options.answerType === "rational"
@@ -153,4 +156,39 @@ export const getInputNumberRenameMap = (
     }
 
     return renameMap;
+};
+
+// Convert the user input data keys from input-number to numeric-input
+export const convertUserInputNumberData = (
+    userInputMap: UserInputMap,
+    renameMap: WidgetRenameMap,
+): UserInputMap => {
+    const updatedUserInputMap = {...userInputMap};
+
+    for (const key of Object.keys(userInputMap)) {
+        if (key.includes("input-number")) {
+            const updatedKey = renameMap[key];
+            updatedUserInputMap[updatedKey] = userInputMap[key];
+            delete updatedUserInputMap[key];
+        }
+    }
+
+    return updatedUserInputMap;
+};
+
+// Used to convert InputNumber widgets to NumericInput widgets for scoring
+export const convertInputNumberForScoring = (
+    rubric: PerseusRenderer,
+    userInputMap: UserInputMap,
+): {convertedRubric: PerseusRenderer; convertedUserData: UserInputMap} => {
+    // First we need to create a map of the old input-number keys to the new numeric-input keys
+    // so that we can ensure we update the content, widgets, AND userInput accordingly
+    const renameMap = getInputNumberRenameMap(rubric);
+    const convertedRubric = convertInputNumberJson(rubric, renameMap);
+    const convertedUserData = convertUserInputNumberData(
+        userInputMap,
+        renameMap,
+    );
+
+    return {convertedRubric, convertedUserData};
 };
