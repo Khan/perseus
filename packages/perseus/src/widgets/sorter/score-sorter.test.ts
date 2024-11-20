@@ -50,7 +50,7 @@ describe("scoreSorter", () => {
         const score = scoreSorter(userInput, rubric);
 
         // Assert
-        expect(mockValidate).toHaveBeenCalled();
+        expect(mockValidate).toHaveBeenCalledWith(userInput);
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
@@ -72,7 +72,7 @@ describe("scoreSorter", () => {
         const score = scoreSorter(userInput, rubric);
 
         // Assert
-        expect(mockValidate).toHaveBeenCalled();
+        expect(mockValidate).toHaveBeenCalledWith(userInput);
         expect(score).toHaveInvalidInput();
     });
 });
