@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import {validateOrderer} from "./validate-orderer";
+import validateOrderer from "./validate-orderer";
 
 import type {PerseusScore} from "../../types";
 import type {
