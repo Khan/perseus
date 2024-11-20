@@ -40,7 +40,7 @@ describe("scoreSorter", () => {
 
         const userInput: PerseusSorterUserInput = {
             options: ["$15$ grams", "$55$ grams", "$0.005$ kilograms"],
-            changed: true,
+            changed: false,
         };
         const rubric: PerseusSorterRubric = {
             correct: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
