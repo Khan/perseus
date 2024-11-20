@@ -1,12 +1,8 @@
 import type {PerseusScore} from "../../types";
-import type {
-    PerseusSorterRubric,
-    PerseusSorterUserInput,
-} from "../../validation.types";
+import type {PerseusSorterUserInput} from "../../validation.types";
 
 function validateSorter(
     userInput: PerseusSorterUserInput,
-    rubric: PerseusSorterRubric,
 ): Extract<PerseusScore, {type: "invalid"}> | null {
     // If the sorter widget hasn't been changed yet, we treat it as "empty" which
     // prevents the "Check" button from becoming active. We want the user

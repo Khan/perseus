@@ -1,9 +1,6 @@
 import validateSorter from "./validate-sorter";
 
-import type {
-    PerseusSorterRubric,
-    PerseusSorterUserInput,
-} from "../../validation.types";
+import type {PerseusSorterUserInput} from "../../validation.types";
 
 describe("validateSorter", () => {
     it("is invalid when the user has not made any changes", () => {
@@ -11,10 +8,8 @@ describe("validateSorter", () => {
             options: ["$15$ grams", "$55$ grams", "$0.005$ kilograms"],
             changed: false,
         };
-        const rubric: PerseusSorterRubric = {
-            correct: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
-        };
-        const result = validateSorter(userInput, rubric);
+
+        const result = validateSorter(userInput);
         expect(result).toHaveInvalidInput();
     });
 
@@ -23,10 +18,8 @@ describe("validateSorter", () => {
             options: ["$55$ grams", "$0.005$ kilograms", "$15$ grams"],
             changed: true,
         };
-        const rubric: PerseusSorterRubric = {
-            correct: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
-        };
-        const result = validateSorter(userInput, rubric);
+
+        const result = validateSorter(userInput);
         expect(result).toBeNull();
     });
 });

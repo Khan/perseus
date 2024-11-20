@@ -12,7 +12,7 @@ function scoreSorter(
     userInput: PerseusSorterUserInput,
     rubric: PerseusSorterRubric,
 ): PerseusScore {
-    const validationError = validateSorter(userInput, rubric);
+    const validationError = validateSorter(userInput);
     if (validationError) {
         return validationError;
     }
