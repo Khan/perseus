@@ -31,6 +31,28 @@ describe("scoreSorter", () => {
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
+    it("should abort if validator returns invalid", () => {
+        // Arrange
+        // Mock validator saying input is invalid
+        const mockValidate = jest
+            .spyOn(SorterValidator, "default")
+            .mockReturnValue({type: "invalid", message: null});
+
+        const userInput: PerseusSorterUserInput = {
+            options: ["$15$ grams", "$55$ grams", "$0.005$ kilograms"],
+            changed: true,
+        };
+        const rubric: PerseusSorterRubric = {
+            correct: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
+        };
+
+        const score = scoreSorter(userInput, rubric);
+
+        // Assert
+        expect(mockValidate).toHaveBeenCalledWith(userInput);
+        expect(score).toHaveInvalidInput();
+    });
+
     it("should score if validator passes", () => {
         // Arrange
         // Mock validator saying "all good"
@@ -52,27 +74,5 @@ describe("scoreSorter", () => {
         // Assert
         expect(mockValidate).toHaveBeenCalledWith(userInput);
         expect(score).toHaveBeenAnsweredCorrectly();
-    });
-
-    it("should abort if validator returns invalid", () => {
-        // Arrange
-        // Mock validator saying input is invalid
-        const mockValidate = jest
-            .spyOn(SorterValidator, "default")
-            .mockReturnValue({type: "invalid", message: null});
-
-        const userInput: PerseusSorterUserInput = {
-            options: ["$15$ grams", "$55$ grams", "$0.005$ kilograms"],
-            changed: true,
-        };
-        const rubric: PerseusSorterRubric = {
-            correct: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
-        };
-
-        const score = scoreSorter(userInput, rubric);
-
-        // Assert
-        expect(mockValidate).toHaveBeenCalledWith(userInput);
-        expect(score).toHaveInvalidInput();
     });
 });
