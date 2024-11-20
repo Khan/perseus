@@ -90,6 +90,12 @@ export class GraphSettings extends React.Component<Props> {
     };
 
     _isMounted: any;
+    labelsTextbox;
+    rangeTextbox;
+    stepTextbox;
+    gridStepTextbox;
+    snapStepTextbox;
+    backgroundImage;
 
     getInitialState() {
         return this.stateFromProps(this.props);
@@ -314,17 +320,17 @@ export class GraphSettings extends React.Component<Props> {
 
     changeLabel(i, e) {
         const val = e.target.value;
-        const labels = this.state.labelsTextbox.slice();
+        const labels = this.labelsTextbox.slice();
         labels[i] = val;
         this.setState({labelsTextbox: labels}, this.changeGraph);
     }
 
     changeRange(i, values) {
-        const ranges = this.state.rangeTextbox.slice();
+        const ranges = this.rangeTextbox.slice();
         ranges[i] = values;
-        const step = this.state.stepTextbox.slice();
-        const gridStep = this.state.gridStepTextbox.slice();
-        const snapStep = this.state.snapStepTextbox.slice();
+        const step = this.stepTextbox.slice();
+        const gridStep = this.gridStepTextbox.slice();
+        const snapStep = this.snapStepTextbox.slice();
         const scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
         if (this.validRange(ranges[i]) === true) {
             step[i] = Util.tickStepFromExtent(ranges[i], this.props.box[i]);
@@ -363,14 +369,14 @@ export class GraphSettings extends React.Component<Props> {
     }
 
     changeGraph() {
-        const labels = this.state.labelsTextbox;
-        const range = _.map(this.state.rangeTextbox, function (range) {
+        const labels = this.labelsTextbox;
+        const range = _.map(this.rangeTextbox, function (range) {
             return _.map(range, Number);
         });
-        const step = _.map(this.state.stepTextbox, Number);
-        const gridStep = this.state.gridStepTextbox;
-        const snapStep = this.state.snapStepTextbox;
-        const image = this.state.backgroundImage;
+        const step = _.map(this.stepTextbox, Number);
+        const gridStep = this.gridStepTextbox;
+        const snapStep = this.snapStepTextbox;
+        const image = this.backgroundImage;
 
         // validationResult is either:
         //   true -> the settings are valid
@@ -451,7 +457,7 @@ export class GraphSettings extends React.Component<Props> {
                                     // eslint-disable-next-line react/no-string-refs
                                     ref="labels-0"
                                     onChange={(e) => this.changeLabel(0, e)}
-                                    value={this.state.labelsTextbox[0] || ""}
+                                    value={this.labelsTextbox[0] || ""}
                                 />
                             </div>
                             <div className="perseus-widget-right-col">
@@ -463,7 +469,7 @@ export class GraphSettings extends React.Component<Props> {
                                     // eslint-disable-next-line react/no-string-refs
                                     ref="labels-1"
                                     onChange={(e) => this.changeLabel(1, e)}
-                                    value={this.state.labelsTextbox[1] || ""}
+                                    value={this.labelsTextbox[1] || ""}
                                 />
                             </div>
                         </div>
@@ -473,7 +479,7 @@ export class GraphSettings extends React.Component<Props> {
                                 <label htmlFor="range-x">x Range</label>
                                 <RangeInput
                                     id="range-x"
-                                    value={this.state.rangeTextbox[0]}
+                                    value={this.rangeTextbox[0]}
                                     onChange={(vals) =>
                                         this.changeRange(0, vals)
                                     }
@@ -483,7 +489,7 @@ export class GraphSettings extends React.Component<Props> {
                                 <label htmlFor="range-y">y Range</label>
                                 <RangeInput
                                     id="range-y"
-                                    value={this.state.rangeTextbox[1]}
+                                    value={this.rangeTextbox[1]}
                                     onChange={(vals) =>
                                         this.changeRange(1, vals)
                                     }
@@ -495,7 +501,7 @@ export class GraphSettings extends React.Component<Props> {
                                 <label htmlFor="tick-step">Tick Step</label>
                                 <RangeInput
                                     id="tick-step"
-                                    value={this.state.stepTextbox}
+                                    value={this.stepTextbox}
                                     onChange={this.changeStep}
                                 />
                             </div>
@@ -503,7 +509,7 @@ export class GraphSettings extends React.Component<Props> {
                                 <label htmlFor="grid-step">Grid Step</label>
                                 <RangeInput
                                     id="grid-step"
-                                    value={this.state.gridStepTextbox}
+                                    value={this.gridStepTextbox}
                                     onChange={this.changeGridStep}
                                 />
                             </div>
@@ -514,7 +520,7 @@ export class GraphSettings extends React.Component<Props> {
                                     <label htmlFor="snap-step">Snap Step</label>
                                     <RangeInput
                                         id="snap-step"
-                                        value={this.state.snapStepTextbox}
+                                        value={this.snapStepTextbox}
                                         onChange={this.changeSnapStep}
                                     />
                                 </div>
@@ -556,7 +562,7 @@ export class GraphSettings extends React.Component<Props> {
                                 className="graph-settings-background-url"
                                 // eslint-disable-next-line react/no-string-refs
                                 ref="bg-url"
-                                value={this.state.backgroundImage.url || ""}
+                                value={this.backgroundImage.url || ""}
                                 onChange={(e) => {
                                     const image = _.clone(
                                         this.props.backgroundImage,
