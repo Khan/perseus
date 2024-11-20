@@ -75,6 +75,51 @@ describe("numeric-input widget", () => {
         // Assert
         expect(renderer).toHaveBeenAnsweredIncorrectly();
     });
+
+    it("Should render an element with format options as text for use by assistive technologies", async () => {
+        // Arrange - Fractions
+        const questionWithFormatOptions = JSON.parse(JSON.stringify(question1));
+        questionWithFormatOptions.widgets[
+            "numeric-input 1"
+        ].options.answers[0].answerForms = ["proper", "improper", "mixed"];
+
+        // Act
+        const fractionsContainer = renderQuestion(
+            questionWithFormatOptions,
+        ).container;
+        // eslint-disable-next-line testing-library/no-node-access
+        const fractionTextContainer = fractionsContainer.querySelector(
+            "[id*='aria-for-input-with-examples-']",
+        );
+
+        // Assert
+        expect(fractionTextContainer).toHaveTextContent(
+            "a simplified proper fraction",
+        );
+        expect(fractionTextContainer).toHaveTextContent(
+            "a simplified improper fraction",
+        );
+        expect(fractionTextContainer).toHaveTextContent("a mixed number");
+
+        // Arrange - Non-Fractions
+        questionWithFormatOptions.widgets[
+            "numeric-input 1"
+        ].options.answers[0].answerForms = ["integer", "decimal", "pi"];
+
+        // Act
+        const othersContainer = renderQuestion(
+            questionWithFormatOptions,
+        ).container;
+        // eslint-disable-next-line testing-library/no-node-access
+        const othersTextContainer = othersContainer.querySelector(
+            "[id*='aria-for-input-with-examples-']",
+        );
+
+        // Assert
+        expect(othersTextContainer).toHaveTextContent("an integer");
+        expect(othersTextContainer).toHaveTextContent("an exact decimal");
+        expect(othersTextContainer).toHaveTextContent("a multiple of pi");
+    });
 });
 
 describe("static function getOneCorrectAnswerFromRubric", () => {

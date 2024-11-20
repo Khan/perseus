@@ -93,6 +93,7 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
           <span>
             <div>
               <input
+                aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                 aria-invalid="false"
                 aria-label="Your answer:"
                 autocapitalize="off"
@@ -103,12 +104,17 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
                 type="text"
                 value="1252"
               />
+              <span
+                id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                style="display: none;"
+              />
             </div>
             <div
               style="position: relative; height: 0px; display: none;"
             >
               <div
                 class="tooltipContainer"
+                role="tooltip"
                 style="position: absolute; left: 0px;"
               >
                 <div
@@ -295,6 +301,7 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
           <span>
             <div>
               <input
+                aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                 aria-invalid="false"
                 aria-label="Your answer:"
                 autocapitalize="off"
@@ -305,12 +312,17 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
                 type="text"
                 value=""
               />
+              <span
+                id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                style="display: none;"
+              />
             </div>
             <div
               style="position: relative; height: 0px; display: none;"
             >
               <div
                 class="tooltipContainer"
+                role="tooltip"
                 style="position: absolute; left: 0px;"
               >
                 <div
