@@ -223,9 +223,10 @@ const LockedLineSettings = (props: Props) => {
                 <Strut size={spacing.xxxSmall_4} />
                 <SingleSelect
                     selectedValue={kind}
-                    // @ts-expect-error: Type 'string' is not assignable to type '"line" | "ray" | "segment"'.
-                    onChange={(value: "line" | "segment" | "ray") =>
-                        onChangeProps({kind: value})
+                    // TODO(LEMS-2656): remove TS suppression
+                    onChange={
+                        ((value: "line" | "segment" | "ray") =>
+                            onChangeProps({kind: value})) as any
                     }
                     // Placeholder is required, but never gets used.
                     placeholder=""
@@ -240,17 +241,18 @@ const LockedLineSettings = (props: Props) => {
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
-                    // @ts-expect-error: Type 'string' is not assignable to type '"blue" | "green" | "orange" | "pink" | "purple" | "red" | "grayH"'.
-                    onChange={handleColorChange}
+                    // TODO(LEMS-2656): remove TS suppression
+                    onChange={handleColorChange as any}
                 />
                 <Strut size={spacing.small_12} />
 
                 {/* Line style settings */}
                 <LineStrokeSelect
                     selectedValue={lineStyle}
-                    // @ts-expect-error:  Type 'string' is not assignable to type '"solid" | "dashed"'.
-                    onChange={(value: "solid" | "dashed") =>
-                        onChangeProps({lineStyle: value})
+                    // TODO(LEMS-2656): remove TS suppression
+                    onChange={
+                        ((value: "solid" | "dashed") =>
+                            onChangeProps({lineStyle: value})) as any
                     }
                 />
             </View>
@@ -315,10 +317,12 @@ const LockedLineSettings = (props: Props) => {
                         <LockedLabelSettings
                             {...label}
                             expanded={true}
-                            // @ts-expect-error: Type 'Partial<LockedFigure>' is not assignable to type 'LockedLabelType'.
-                            onChangeProps={(newLabel: LockedLabelType) => {
-                                handleLabelChange(newLabel, labelIndex);
-                            }}
+                            // TODO(LEMS-2656): remove TS suppression
+                            onChangeProps={
+                                ((newLabel: LockedLabelType) => {
+                                    handleLabelChange(newLabel, labelIndex);
+                                }) as any
+                            }
                             onRemove={() => {
                                 handleLabelRemove(labelIndex);
                             }}

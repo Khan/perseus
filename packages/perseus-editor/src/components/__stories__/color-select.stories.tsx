@@ -36,8 +36,8 @@ export const Controlled = {
         return (
             <ColorSelect
                 selectedValue={selectedValue}
-                // @ts-expect-error: Type 'string' is not assignable to type '"pink" | "blue" | "green" | "orange" | "purple" | "red" | "grayH"'.
-                onChange={handleColorChange}
+                // TODO(LEMS-2656): remove TS suppression
+                onChange={handleColorChange as any}
             />
         );
     },

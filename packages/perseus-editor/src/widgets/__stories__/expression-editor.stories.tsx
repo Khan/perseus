@@ -59,12 +59,14 @@ class WithDebug extends React.Component<Empty, State> {
                 <div className={css(styles.editorWrapper)}>
                     <ExpressionEditor
                         {...this.state}
-                        // @ts-expect-error: Types of parameters 'props' and 'values' are incompatible. Type '{ [key: string]: any; }' is missing the following properties from type 'PerseusExpressionWidgetOptions': answerForms, buttonSets, functions, times
-                        onChange={(props: PerseusExpressionWidgetOptions) => {
-                            this.setState({
-                                ...props,
-                            });
-                        }}
+                        // TODO(LEMS-2656): remove TS suppression
+                        onChange={
+                            ((props: PerseusExpressionWidgetOptions) => {
+                                this.setState({
+                                    ...props,
+                                });
+                            }) as any
+                        }
                     />
                 </div>
                 <RendererWithDebugUI

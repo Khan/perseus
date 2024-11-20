@@ -242,11 +242,13 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                     {...section}
                                     apiOptions={apiOptions}
                                     imageUploader={imageUploader}
-                                    // @ts-expect-error: Types of parameters 'p2' and 'arg1' are incompatible. Type 'undefined' is not assignable to type 'string'.
-                                    onChange={_.partial(
-                                        this._handleEditorChange,
-                                        i,
-                                    )}
+                                    // TODO(LEMS-2656): remove TS suppression
+                                    onChange={
+                                        _.partial(
+                                            this._handleEditorChange,
+                                            i,
+                                        ) as any
+                                    }
                                     placeholder="Type your section text here..."
                                     ref={"editor" + i}
                                 />

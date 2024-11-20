@@ -102,26 +102,29 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                             showWordCount={true}
                             warnNoPrompt={false}
                             warnNoWidgets={true}
-                            // @ts-expect-error: Type '(props: Partial<PerseusRenderer>) => void' is not assignable to type 'ChangeHandler'.
-                            onChange={(props: Partial<PerseusRenderer>) => {
-                                action("onChange")(props);
-                                if (props.content) {
-                                    setContent(props.content);
-                                } else if (props.widgets) {
-                                    setWidgets(props.widgets);
-                                } else if (props.images) {
-                                    setImages(props.images);
-                                }
-                                // We need to wait for one tick so that the editor
-                                // has been re-rendered with the changed props. If
-                                // we don't wait, we get the values from the n-1
-                                // render and miss the latest change.
-                                setTimeout(() => {
-                                    setOptions(
-                                        editorRef.current?.serialize() || {},
-                                    );
-                                }, 0);
-                            }}
+                            // TODO(LEMS-2656): remove TS suppression
+                            onChange={
+                                ((props: Partial<PerseusRenderer>) => {
+                                    action("onChange")(props);
+                                    if (props.content) {
+                                        setContent(props.content);
+                                    } else if (props.widgets) {
+                                        setWidgets(props.widgets);
+                                    } else if (props.images) {
+                                        setImages(props.images);
+                                    }
+                                    // We need to wait for one tick so that the editor
+                                    // has been re-rendered with the changed props. If
+                                    // we don't wait, we get the values from the n-1
+                                    // render and miss the latest change.
+                                    setTimeout(() => {
+                                        setOptions(
+                                            editorRef.current?.serialize() ||
+                                                {},
+                                        );
+                                    }, 0);
+                                }) as any
+                            }
                         />
                     </View>
                 }

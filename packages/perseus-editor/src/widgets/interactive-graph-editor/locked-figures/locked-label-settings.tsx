@@ -150,10 +150,12 @@ export default function LockedLabelSettings(props: Props) {
             <View style={styles.row}>
                 <ColorSelect
                     selectedValue={color}
-                    // @ts-expect-error: Type 'string' is not assignable to type '"blue" | "green" | "grayH" | "purple" | "pink" | "orange" | "red"'.
-                    onChange={(newColor: LockedFigureColor) => {
-                        onChangeProps({color: newColor});
-                    }}
+                    // TODO(LEMS-2656): remove TS suppression
+                    onChange={
+                        ((newColor: LockedFigureColor) => {
+                            onChangeProps({color: newColor});
+                        }) as any
+                    }
                     style={styles.spaceUnder}
                 />
                 <Strut size={spacing.medium_16} />
@@ -164,11 +166,12 @@ export default function LockedLabelSettings(props: Props) {
                     <Strut size={spacing.xSmall_8} />
                     <SingleSelect
                         selectedValue={size}
-                        // @ts-expect-error: Type 'string' is not assignable to type '"small" | "medium" | "large"'.
-                        onChange={(newValue: "small" | "medium" | "large") =>
-                            onChangeProps({
-                                size: newValue,
-                            })
+                        // TODO(LEMS-2656): remove TS suppression
+                        onChange={
+                            ((newValue: "small" | "medium" | "large") =>
+                                onChangeProps({
+                                    size: newValue,
+                                })) as any
                         }
                         // Placeholder is required, but never gets used since
                         // we have a label for the select.

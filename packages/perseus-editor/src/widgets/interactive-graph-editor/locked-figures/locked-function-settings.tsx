@@ -210,8 +210,8 @@ const LockedFunctionSettings = (props: Props) => {
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
-                    // @ts-expect-error: Type 'string' is not assignable to type '"blue" | "green" | "orange" | "pink" | "purple" | "red" | "grayH"'.
-                    onChange={handleColorChange}
+                    // TODO(LEMS-2656): remove TS suppression
+                    onChange={handleColorChange as any}
                 />
                 <Strut size={spacing.small_12} />
 
@@ -361,10 +361,12 @@ const LockedFunctionSettings = (props: Props) => {
                             key={labelIndex}
                             {...label}
                             expanded={true}
-                            // @ts-expect-error: Type 'Partial<LockedFigure>' is not assignable to type 'LockedLabelType'.
-                            onChangeProps={(newLabel: LockedLabelType) => {
-                                handleLabelChange(newLabel, labelIndex);
-                            }}
+                            // TODO(LEMS-2656): remove TS suppression
+                            onChangeProps={
+                                ((newLabel: LockedLabelType) => {
+                                    handleLabelChange(newLabel, labelIndex);
+                                }) as any
+                            }
                             onRemove={() => {
                                 handleLabelRemove(labelIndex);
                             }}

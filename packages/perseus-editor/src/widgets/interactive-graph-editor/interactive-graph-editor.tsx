@@ -358,15 +358,17 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             this.props.graph?.type ??
                             InteractiveGraph.defaultProps.graph.type
                         }
-                        // @ts-expect-error: Type 'string' is not assignable to type '"none" | "circle" | "polygon" | "point" | "linear" | "angle" | "linear-system" | "quadratic" | "ray" | "segment" | "sinusoid"'.
-                        onChange={(
-                            type: Required<InteractiveGraphProps>["graph"]["type"],
-                        ) => {
-                            this.props.onChange({
-                                graph: {type},
-                                correct: {type},
-                            });
-                        }}
+                        // TODO(LEMS-2656): remove TS suppression
+                        onChange={
+                            ((
+                                type: Required<InteractiveGraphProps>["graph"]["type"],
+                            ) => {
+                                this.props.onChange({
+                                    graph: {type},
+                                    correct: {type},
+                                });
+                            }) as any
+                        }
                         showNoneOption={
                             this.props.apiOptions?.flags?.mafs?.["none"]
                         }
