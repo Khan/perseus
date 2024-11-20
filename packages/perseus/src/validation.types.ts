@@ -1,3 +1,32 @@
+/**
+ * This file contains types used for validation and scoring. The types abide by
+ * a naming convention so that they're easy to follow and that we remain
+ * consistent across all of the widgets.
+ *
+ * These types are:
+ *
+ * `Perseus<Widget>UserInput`: the data returned by the widget that the user
+ * entered. This is referred to as the 'guess' in some older parts of Perseus.
+ *
+ * `Perseus<Widget>ValidationData`: the data needed to do validation of the
+ * user input. Validation is the checks we can do both on the client-side,
+ * before submitting user input for scoring, and on the server-side when we
+ * score it. As such, it cannot contain any of the sensitive scoring data
+ * that would reveal the answer.
+ *
+ * `Perseus<Widget>ScoringData` (nee `Perseus<Widget>Rubric`): the data needed
+ * to score the user input. By convention, this type is defined as the set of
+ * sensitive answer data and then intersected with
+ * `Perseus<Widget>ValidationData`.
+ *
+ * For example:
+ * ```
+ * type Perseus<Widget>ScoringData = {
+ *     correct: string;
+ * } & Perseus<Widget>ValidationData;
+ * ```
+ */
+
 import type {
     GrapherAnswerTypes,
     PerseusDropdownChoice,

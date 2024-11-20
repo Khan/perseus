@@ -6,6 +6,7 @@ import {Log} from "../../logging/log";
 import KhanAnswerTypes from "../../util/answer-types";
 
 import getDecimalSeparator from "./get-decimal-separator";
+import validateExpression from "./validate-expression";
 
 import type {PerseusExpressionAnswerForm} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
@@ -40,6 +41,11 @@ function scoreExpression(
     strings: PerseusStrings,
     locale: string,
 ): PerseusScore {
+    const validationError = validateExpression(userInput);
+    if (validationError) {
+        return validationError;
+    }
+
     const options = _.clone(rubric);
     _.extend(options, {
         decimal_separator: getDecimalSeparator(locale),
