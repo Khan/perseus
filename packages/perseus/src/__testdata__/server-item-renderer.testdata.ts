@@ -7,6 +7,7 @@ import {
     type ExpressionWidget,
     type RadioWidget,
     type NumericInputWidget,
+    type InputNumberWidget,
 } from "../perseus-types";
 
 export const itemWithInput: PerseusItem = {
@@ -36,6 +37,37 @@ export const itemWithInput: PerseusItem = {
                     rightAlign: false,
                 },
             } as NumericInputWidget,
+        },
+    },
+    hints: [
+        {content: "Hint #1", images: {}, widgets: {}},
+        {content: "Hint #2", images: {}, widgets: {}},
+        {content: "Hint #3", images: {}, widgets: {}},
+    ],
+    answerArea: null,
+    itemDataVersion: {major: 0, minor: 0},
+    answer: null,
+};
+
+export const itemWithInputNumber: PerseusItem = {
+    question: {
+        content:
+            "Enter the number $$-42$$ in the box: [[\u2603 input-number 1]]",
+        images: {},
+        widgets: {
+            "input-number 1": {
+                type: "input-number",
+                graded: true,
+                options: {
+                    static: false,
+                    value: 0,
+                    simplify: "required",
+                    maxError: 0.1,
+                    inexact: false,
+                    answerType: "number",
+                    size: "small",
+                },
+            } as InputNumberWidget,
         },
     },
     hints: [
