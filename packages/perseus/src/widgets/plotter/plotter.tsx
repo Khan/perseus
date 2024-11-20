@@ -1179,6 +1179,7 @@ export default {
     hidden: true,
     widget: Plotter,
     staticTransform: staticTransform,
+    // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
     scorer: scorePlotter,
 } satisfies WidgetExports<typeof Plotter>;

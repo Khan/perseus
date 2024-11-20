@@ -81,6 +81,7 @@ export const renderQuestion = (
         }
     };
 
+    // TODO(LEMS-2656): remove TS suppression
     return {container, renderer, rerender: renderAgain as any, unmount};
 };
 

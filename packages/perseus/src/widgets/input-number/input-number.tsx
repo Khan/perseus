@@ -125,6 +125,7 @@ class InputNumber extends React.Component<Props> implements Widget {
         return true;
     };
 
+    // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     focusInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
@@ -132,6 +133,7 @@ class InputNumber extends React.Component<Props> implements Widget {
         this.refs.input.focus();
     };
 
+    // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     blurInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
@@ -150,6 +152,7 @@ class InputNumber extends React.Component<Props> implements Widget {
         return [[]];
     };
 
+    // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     setInputValue: (arg1: Path, arg2: string, arg3: () => void) => void = (
         path,
@@ -281,6 +284,7 @@ export default {
     widget: InputNumber,
     transform: propTransform,
     isLintable: true,
+    // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusInputNumberUserInput'.
     scorer: scoreInputNumber,
 

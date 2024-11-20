@@ -68,8 +68,10 @@ const renderQuestion = (
 
 describe("server item renderer", () => {
     beforeAll(() => {
+        // TODO(LEMS-2656): remove TS suppression
         // @ts-expect-error: NumericInputExport is not assignable to type WidgetExports
         registerWidget("numeric-input", NumericInputExport);
+        // TODO(LEMS-2656): remove TS suppression
         // @ts-expect-error: RadioWidgetExport is not assignable to type WidgetExports
         registerWidget("radio", RadioWidgetExport);
     });

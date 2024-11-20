@@ -156,6 +156,7 @@ export default {
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
     isLintable: true,
+    // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusRadioUserInput
     scorer: scoreRadio,
 } satisfies WidgetExports<typeof Radio>;

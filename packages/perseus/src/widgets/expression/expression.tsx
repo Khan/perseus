@@ -250,6 +250,7 @@ export class Expression
         return true;
     };
 
+    // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'FocusPath' is not assignable to type 'InputPath'.
     focusInputPath(inputPath: InputPath) {
         // eslint-disable-next-line react/no-string-refs
@@ -257,6 +258,7 @@ export class Expression
         this.refs.input.focus();
     }
 
+    // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'FocusPath' is not assignable to type 'InputPath'.
     blurInputPath(inputPath: InputPath) {
         // eslint-disable-next-line react/no-string-refs
@@ -553,9 +555,11 @@ export default {
 
     // For use by the editor
     isLintable: true,
+    // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
     scorer: scoreExpression,
 
+    // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.
     getOneCorrectAnswerFromRubric(
         rubric: PerseusExpressionRubric,

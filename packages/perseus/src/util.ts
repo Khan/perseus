@@ -66,6 +66,7 @@ const nestedMap = function <T, M>(
             return nestedMap(child, func);
         });
     }
+    // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: T | ReadonlyArray<T> is not assignable to T
     return func.call(context, children);
 };

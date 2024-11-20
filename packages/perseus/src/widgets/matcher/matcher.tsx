@@ -288,6 +288,7 @@ export default {
     displayName: "Matcher (two column)",
     widget: Matcher,
     isLintable: true,
+    // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatcherUserInput'.
     scorer: scoreMatcher,
 } satisfies WidgetExports<typeof Matcher>;

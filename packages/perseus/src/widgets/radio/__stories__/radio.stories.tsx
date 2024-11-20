@@ -41,6 +41,7 @@ export default {
             },
         },
     },
+    // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'Args' is not assignable to type 'StoryArgs'.
     render: (args: StoryArgs) => (
         <RendererWithDebugUI
