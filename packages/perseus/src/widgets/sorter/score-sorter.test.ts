@@ -46,11 +46,11 @@ describe("scoreSorter", () => {
             correct: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
         };
 
-        const score = scoreSorter(userInput, rubric);
+        const result = scoreSorter(userInput, rubric);
 
         // Assert
         expect(mockValidate).toHaveBeenCalledWith(userInput);
-        expect(score).toHaveInvalidInput();
+        expect(result).toHaveInvalidInput();
     });
 
     it("should score if validator passes", () => {
@@ -69,10 +69,10 @@ describe("scoreSorter", () => {
         };
 
         // Act
-        const score = scoreSorter(userInput, rubric);
+        const result = scoreSorter(userInput, rubric);
 
         // Assert
         expect(mockValidate).toHaveBeenCalledWith(userInput);
-        expect(score).toHaveBeenAnsweredCorrectly();
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 });
