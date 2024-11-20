@@ -363,11 +363,10 @@ const propUpgrades = {
 
             // If adjusting this logic, also adjust the logic in the convertInputNumberWidgetOptions
             // function in input-number.ts in the Perseus Editor package's util folder
-            const answers = [
+            const answers: PerseusNumericInputWidgetOptions["answers"] = [
                 {
                     value: initialProps.value,
                     simplify: initialProps.simplify,
-                    answerForms: provideAnswerForm ? [mathFormat] : undefined,
                     strict: initialProps.inexact,
                     // We only want to set maxError if the inexact prop is true
                     maxError: initialProps.inexact ? initialProps.maxError : 0,
@@ -375,6 +374,10 @@ const propUpgrades = {
                     message: "",
                 },
             ];
+
+            if (provideAnswerForm) {
+                answers[0].answerForms = [mathFormat];
+            }
 
             return {
                 answers,
