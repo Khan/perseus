@@ -348,7 +348,7 @@ const propUpgrades = {
         // If the initialProps has simplify, it means we're upgrading from
         // input-number to numeric-input. In this case, we need to upgrade
         // the widget options accordingly.
-        if (initialProps.simplify) {
+        if (initialProps.simplify !== undefined) {
             // If the answerType is not number or percent, we need to provide
             // the answer form for the numeric-input widget
             const provideAnswerForm =
