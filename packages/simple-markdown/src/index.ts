@@ -2085,6 +2085,7 @@ var SimpleMarkdown: Exports = {
                 "defaultParse is deprecated, please use `defaultImplicitParse`",
             );
         }
+        // @ts-expect-error - Argument of type 'any[]' is not assignable to parameter of type '[node: ASTNode, state?: State | null | undefined]'. Target requires 1 element(s) but source may have fewer.
         return defaultImplicitParse.apply(null, args);
     },
     defaultOutput: function (...args) {
@@ -2093,6 +2094,7 @@ var SimpleMarkdown: Exports = {
                 "defaultOutput is deprecated, please use `defaultReactOutput`",
             );
         }
+        // @ts-expect-error - Argument of type 'any[]' is not assignable to parameter of type '[node: ASTNode, state?: State | null | undefined]'. Target requires 1 element(s) but source may have fewer.
         return defaultReactOutput.apply(null, args);
     },
 };

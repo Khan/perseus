@@ -242,10 +242,13 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                     {...section}
                                     apiOptions={apiOptions}
                                     imageUploader={imageUploader}
-                                    onChange={_.partial(
-                                        this._handleEditorChange,
-                                        i,
-                                    )}
+                                    // TODO(LEMS-2656): remove TS suppression
+                                    onChange={
+                                        _.partial(
+                                            this._handleEditorChange,
+                                            i,
+                                        ) as any
+                                    }
                                     placeholder="Type your section text here..."
                                     ref={"editor" + i}
                                 />

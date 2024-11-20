@@ -120,7 +120,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
         expect(description).toBe(`. Appearance solid gray.`);
     });
 
-    test.each([["red"], ["blue"], ["green"], ["purple"], ["orange"]])(
+    test.each([["red"], ["blue"], ["green"], ["purple"], ["orange"]] as const)(
         `should return a string with a %s color and a solid stroke style`,
         (color: LockedFigureColor) => {
             const description =
@@ -134,7 +134,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
     test.each([
         ["blue", "solid"],
         ["green", "dashed"],
-    ])(
+    ] as const)(
         `should return a string with color of %s and a stroke style of %s`,
         (color: LockedFigureColor, strokeStyle: LockedLineStyle) => {
             const description = generateLockedFigureAppearanceDescription(
@@ -161,7 +161,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
     test.each([
         ["blue", "solid", "none"],
         ["red", "dashed", "none"],
-    ])(
+    ] as const)(
         `should return a string with a %s color, %s stroke and no fill`,
         (
             color: LockedFigureColor,
@@ -195,7 +195,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
     test.each([
         ["pink", "solid", "white"],
         ["red", "dashed", "white"],
-    ])(
+    ] as const)(
         `should return a string with a %s color, %s stroke and a white fill`,
         (
             color: LockedFigureColor,
@@ -242,7 +242,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
         ["red", "dashed", "solid"],
         ["green", "dashed", "translucent"],
         ["purple", "solid", "translucent"],
-    ])(
+    ] as const)(
         `should return a string with a %s color, %s stroke, and a %s fill`,
         (
             color: LockedFigureColor,

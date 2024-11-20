@@ -36,7 +36,8 @@ export const Controlled = {
         return (
             <ColorSelect
                 selectedValue={selectedValue}
-                onChange={handleColorChange}
+                // TODO(LEMS-2656): remove TS suppression
+                onChange={handleColorChange as any}
             />
         );
     },

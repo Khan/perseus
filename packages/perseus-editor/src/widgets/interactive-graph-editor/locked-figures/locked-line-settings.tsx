@@ -206,8 +206,10 @@ const LockedLineSettings = (props: Props) => {
                 <Strut size={spacing.xxxSmall_4} />
                 <SingleSelect
                     selectedValue={kind}
-                    onChange={(value: "line" | "segment" | "ray") =>
-                        onChangeProps({kind: value})
+                    // TODO(LEMS-2656): remove TS suppression
+                    onChange={
+                        ((value: "line" | "segment" | "ray") =>
+                            onChangeProps({kind: value})) as any
                     }
                     // Placeholder is required, but never gets used.
                     placeholder=""
@@ -222,15 +224,18 @@ const LockedLineSettings = (props: Props) => {
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
-                    onChange={handleColorChange}
+                    // TODO(LEMS-2656): remove TS suppression
+                    onChange={handleColorChange as any}
                 />
                 <Strut size={spacing.small_12} />
 
                 {/* Line style settings */}
                 <LineStrokeSelect
                     selectedValue={lineStyle}
-                    onChange={(value: "solid" | "dashed") =>
-                        onChangeProps({lineStyle: value})
+                    // TODO(LEMS-2656): remove TS suppression
+                    onChange={
+                        ((value: "solid" | "dashed") =>
+                            onChangeProps({lineStyle: value})) as any
                     }
                 />
             </View>
@@ -295,9 +300,12 @@ const LockedLineSettings = (props: Props) => {
                         <LockedLabelSettings
                             {...label}
                             expanded={true}
-                            onChangeProps={(newLabel: LockedLabelType) => {
-                                handleLabelChange(newLabel, labelIndex);
-                            }}
+                            // TODO(LEMS-2656): remove TS suppression
+                            onChangeProps={
+                                ((newLabel: LockedLabelType) => {
+                                    handleLabelChange(newLabel, labelIndex);
+                                }) as any
+                            }
                             onRemove={() => {
                                 handleLabelRemove(labelIndex);
                             }}
