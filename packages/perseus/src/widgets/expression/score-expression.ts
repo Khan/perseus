@@ -41,14 +41,9 @@ function scoreExpression(
     strings: PerseusStrings,
     locale: string,
 ): PerseusScore {
-    const validationResult = validateExpression(
-        userInput,
-        rubric,
-        strings,
-        locale,
-    );
-    if (validationResult) {
-        return validationResult;
+    const validationError = validateExpression(userInput);
+    if (validationError) {
+        return validationError;
     }
 
     const options = _.clone(rubric);
