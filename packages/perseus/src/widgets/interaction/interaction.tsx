@@ -8,18 +8,16 @@ import _ from "underscore";
 import Graphie from "../../components/graphie";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction/interaction-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";
 import type {
     PerseusInteractionElement,
     PerseusInteractionWidgetOptions,
 } from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusInteractionRubric,
-    PerseusInteractionUserInput,
-} from "../../validation.types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 // @ts-expect-error - TS2339 - Property 'Label' does not exist on type 'typeof Graphie'.
 const Label = Graphie.Label;
@@ -100,7 +98,7 @@ const KAScompile = (
 };
 
 type RenderProps = PerseusInteractionWidgetOptions; // There's no transform function in exports
-type Props = WidgetProps<RenderProps, PerseusInteractionRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     graph: Props["graph"];
@@ -112,7 +110,7 @@ type State = {
     functions: any;
 };
 
-class Interaction extends React.Component<Props, State> {
+class Interaction extends React.Component<Props, State> implements Widget {
     static defaultProps: DefaultProps = {
         graph: {
             box: [400, 400],
@@ -128,10 +126,9 @@ class Interaction extends React.Component<Props, State> {
         elements: [],
     };
 
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     state: State = {
         variables: _getInitialVariables(this.props.elements),
@@ -254,17 +251,8 @@ class Interaction extends React.Component<Props, State> {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput(): PerseusInteractionUserInput {
-        // TODO(eater): Perhaps we want to be able to record the state of the
-        // user's interaction. Unfortunately sending all the props will
-        // probably make the attempt payload too large. So for now, don't send
-        // anything.
-        return {};
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
     }
 
     render(): React.ReactNode {
@@ -824,4 +812,6 @@ export default {
     widget: Interaction,
     transform: _.identity,
     hidden: true,
-} as WidgetExports<typeof Interaction>;
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof Interaction>;

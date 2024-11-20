@@ -28,9 +28,11 @@ import {
 import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
+import {getPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
-import interactiveGraphValidator from "./interactive-graphs/interactive-graph-validator";
+import {getClockwiseAngle} from "./interactive-graphs/math";
+import scoreInteractiveGraph from "./interactive-graphs/score-interactive-graph";
 
 import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
 import type {QuadraticGraphState} from "./interactive-graphs/types";
@@ -43,12 +45,7 @@ import type {
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
 } from "../perseus-types";
-import type {
-    ChangeHandler,
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../types";
+import type {ChangeHandler, WidgetExports, WidgetProps} from "../types";
 import type {
     QuadraticCoefficient,
     Range,
@@ -58,6 +55,8 @@ import type {
     PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
 } from "../validation.types";
+import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
+import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
 
 const TRASH_ICON_URI =
     "https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png";
@@ -1211,7 +1210,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
                 });
 
                 const getAngle = function (a: number, vertex, b: number) {
-                    const angle = GraphUtils.findAngle(
+                    const angle = GraphUtils.findAngleDeprecated(
                         coords[rel(a)],
                         coords[rel(b)],
                         coords[rel(vertex)],
@@ -1248,7 +1247,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
                         Math.sin((innerAngles[2] * Math.PI) / 180)) *
                     knownSide;
 
-                const outerAngle = GraphUtils.findAngle(
+                const outerAngle = GraphUtils.findAngleDeprecated(
                     coords[rel(1)],
                     coords[rel(-1)],
                 );
@@ -1292,7 +1291,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
                 // Solve for angle by using the law of cosines
                 const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
 
-                const outerAngle = GraphUtils.findAngle(
+                const outerAngle = GraphUtils.findAngleDeprecated(
                     coords[rel(1)],
                     coords[rel(-1)],
                 );
@@ -1728,10 +1727,6 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         return InteractiveGraph.getUserInputFromProps(this.props);
     }
 
-    simpleValidate(rubric: PerseusInteractiveGraphRubric) {
-        return interactiveGraphValidator(this.getUserInput(), rubric);
-    }
-
     focus: () => void = $.noop;
 
     render(): React.ReactNode {
@@ -1838,8 +1833,8 @@ class InteractiveGraph extends React.Component<Props, State> {
         );
     }
 
-    simpleValidate(rubric: PerseusInteractiveGraphRubric) {
-        return interactiveGraphValidator(this.getUserInput(), rubric);
+    getPromptJSON(): InteractiveGraphPromptJSON | UnsupportedWidgetPromptJSON {
+        return getPromptJSON(this.props, this.getUserInput());
     }
 
     render() {
@@ -2351,7 +2346,8 @@ class InteractiveGraph extends React.Component<Props, State> {
             throw makeInvalidTypeError("getAngleEquationString", "angle");
         }
         const coords = InteractiveGraph.getAngleCoords(props.graph, props);
-        const angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
+        const allowReflexAngles = props.graph.allowReflexAngles;
+        const angle = getClockwiseAngle(coords, allowReflexAngles);
         return (
             angle.toFixed(0) +
             "\u00B0 angle" +
@@ -2359,13 +2355,6 @@ class InteractiveGraph extends React.Component<Props, State> {
             coords[1].join(", ") +
             ")"
         );
-    }
-
-    static validate(
-        userInput: PerseusGraphType,
-        rubric: PerseusInteractiveGraphRubric,
-    ): PerseusScore {
-        return interactiveGraphValidator(userInput, rubric);
     }
 
     static getUserInputFromProps(props: Props): PerseusGraphType {
@@ -2392,10 +2381,7 @@ export function shouldUseMafs(
             return Boolean(mafsFlags["point"]);
         case "polygon":
             if (graph.numSides === UNLIMITED) {
-                // TODO(benchristel): add a feature flag for the "unlimited"
-                // case once we've implemented polygon graphs with unlimited
-                // sides
-                return false;
+                return Boolean(mafsFlags["unlimited-polygon"]);
             }
             return Boolean(mafsFlags["polygon"]);
         default:
@@ -2410,4 +2396,5 @@ export default {
     displayName: "Interactive graph (Assessments only)",
     widget: InteractiveGraph,
     staticTransform: staticTransform,
-} as WidgetExports<typeof InteractiveGraph>;
+    scorer: scoreInteractiveGraph,
+} satisfies WidgetExports<typeof InteractiveGraph>;

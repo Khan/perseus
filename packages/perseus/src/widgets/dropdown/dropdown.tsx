@@ -3,15 +3,17 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {ApiOptions} from "../../perseus-api";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
-import dropdownValidator from "./dropdown-validator";
+import scoreDropdown from "./score-dropdown";
 
 import type {PerseusDropdownWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
 } from "../../validation.types";
+import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
 type Props = WidgetProps<RenderProps, PerseusDropdownRubric> & {
     selected: number;
@@ -24,20 +26,13 @@ type DefaultProps = {
     apiOptions: Props["apiOptions"];
 };
 
-class Dropdown extends React.Component<Props> {
+class Dropdown extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         choices: [],
         selected: 0,
         placeholder: "",
         apiOptions: ApiOptions.defaults,
     };
-
-    static validate(
-        userInput: PerseusDropdownUserInput,
-        rubric: PerseusDropdownRubric,
-    ): PerseusScore {
-        return dropdownValidator(userInput, rubric);
-    }
 
     focus: () => boolean = () => {
         // TODO(LP-10797): This focus() call doesn't do anything because our
@@ -63,8 +58,8 @@ class Dropdown extends React.Component<Props> {
         return {value: this.props.selected};
     }
 
-    simpleValidate(rubric: PerseusDropdownRubric): PerseusScore {
-        return dropdownValidator(this.getUserInput(), rubric);
+    getPromptJSON(): DropdownPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     render(): React.ReactNode {
@@ -129,4 +124,5 @@ export default {
     accessible: true,
     widget: Dropdown,
     transform: optionsTransform,
-} as WidgetExports<typeof Dropdown>;
+    scorer: scoreDropdown,
+} satisfies WidgetExports<typeof Dropdown>;

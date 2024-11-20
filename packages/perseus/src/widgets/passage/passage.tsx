@@ -9,9 +9,11 @@ import HighlightableContent from "../../components/highlighting/highlightable-co
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage/passage-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 
 import PassageMarkdown from "./passage-markdown";
+import {isPassageWidget} from "./utils";
 
 import type {ParseState} from "./passage-markdown";
 import type {SerializedHighlightSet} from "../../components/highlighting/types";
@@ -20,11 +22,8 @@ import type {
     PerseusPassageWidgetOptions,
     PerseusWidget,
 } from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusPassageRubric,
-    PerseusPassageUserInput,
-} from "../../validation.types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {PassagePromptJSON} from "../../widget-ai-utils/passage/passage-ai-utils";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 // A fake paragraph to measure the line height of the passage,
@@ -73,7 +72,7 @@ type RenderProps = {
 type FindWidgetsCallback = (id: string, widgetInfo: PerseusWidget) => boolean;
 
 type PassageProps = ChangeableProps &
-    WidgetProps<RenderProps, PerseusPassageRubric> & {
+    WidgetProps<RenderProps> & {
         findWidgets: (arg1: FindWidgetsCallback) => ReadonlyArray<Passage>;
         highlights: SerializedHighlightSet;
     };
@@ -100,7 +99,10 @@ export type Reference = {
     content: string | null | undefined;
 };
 
-export class Passage extends React.Component<PassageProps, PassageState> {
+export class Passage
+    extends React.Component<PassageProps, PassageState>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -120,16 +122,15 @@ export class Passage extends React.Component<PassageProps, PassageState> {
         linterContext: linterContextDefault,
     };
 
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
+
     state: PassageState = {
         nLines: null,
         startLineNumbersAfter: 0,
         stylesAreApplied: false,
     };
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
 
     componentDidMount() {
         this._updateState();
@@ -230,15 +231,17 @@ export class Passage extends React.Component<PassageProps, PassageState> {
 
     _getInitialLineNumber(): number {
         let isPassageBeforeThisPassage = true;
-        const passagesBeforeUs = this.props.findWidgets((id, widgetInfo) => {
-            if (widgetInfo.type !== "passage") {
-                return false;
-            }
-            if (id === this.props.widgetId) {
-                isPassageBeforeThisPassage = false;
-            }
-            return isPassageBeforeThisPassage;
-        });
+        const passagesBeforeUs = this.props
+            .findWidgets((id, widgetInfo) => {
+                if (widgetInfo.type !== "passage") {
+                    return false;
+                }
+                if (id === this.props.widgetId) {
+                    isPassageBeforeThisPassage = false;
+                }
+                return isPassageBeforeThisPassage;
+            })
+            .filter(isPassageWidget);
 
         return passagesBeforeUs
             .map((passageWidget) => {
@@ -368,19 +371,8 @@ export class Passage extends React.Component<PassageProps, PassageState> {
         };
     }
 
-    /**
-     * Misc functions
-     *
-     * These are misc widget functions used for the widget API
-     */
-
-    getUserInput(): PerseusPassageUserInput {
-        return null;
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
+    getPromptJSON(): PassagePromptJSON {
+        return _getPromptJSON(this.props);
     }
 
     /**
@@ -427,7 +419,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
         const enabled = this.state.stylesAreApplied;
 
         // Highlights are read-only in review mode.
-        const editable = !this.props.reviewModeRubric;
+        const editable = !this.props.reviewMode;
         return (
             <HighlightableContent
                 editable={editable}
@@ -572,4 +564,5 @@ export default {
         );
     },
     isLintable: true,
-} as WidgetExports<typeof Passage>;
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof Passage>;

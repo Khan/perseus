@@ -3,16 +3,18 @@ import * as React from "react";
 
 import Sortable from "../../components/sortable";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
-import sorterValidator from "./sorter-validator";
+import scoreSorter from "./score-sorter";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusSorterRubric,
     PerseusSorterUserInput,
 } from "../../validation.types";
+import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 const {shuffle} = Util;
 
@@ -33,7 +35,7 @@ type State = {
     changed: boolean;
 };
 
-class Sorter extends React.Component<Props, State> {
+class Sorter extends React.Component<Props, State> implements Widget {
     _isMounted: boolean = false;
 
     static defaultProps: DefaultProps = {
@@ -44,13 +46,6 @@ class Sorter extends React.Component<Props, State> {
         onChange: function () {},
         linterContext: linterContextDefault,
     };
-
-    static validate(
-        userInput: PerseusSorterUserInput,
-        rubric: PerseusSorterRubric,
-    ): PerseusScore {
-        return sorterValidator(userInput, rubric);
-    }
 
     state: State = {
         changed: false,
@@ -93,6 +88,10 @@ class Sorter extends React.Component<Props, State> {
         };
     }
 
+    getPromptJSON(): SorterPromptJSON {
+        return _getPromptJSON(this.getUserInput());
+    }
+
     moveOptionToIndex: (option: SortableOption, index: number) => void = (
         option,
         index,
@@ -101,10 +100,6 @@ class Sorter extends React.Component<Props, State> {
         // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
         this.refs.sortable.moveOptionToIndex(option, index);
     };
-
-    simpleValidate(rubric: PerseusSorterRubric): PerseusScore {
-        return sorterValidator(this.getUserInput(), rubric);
-    }
 
     render(): React.ReactNode {
         const options = shuffle(
@@ -138,4 +133,5 @@ export default {
     displayName: "Sorter",
     widget: Sorter,
     isLintable: true,
-} as WidgetExports<typeof Sorter>;
+    scorer: scoreSorter,
+} satisfies WidgetExports<typeof Sorter>;

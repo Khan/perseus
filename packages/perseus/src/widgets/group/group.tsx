@@ -6,22 +6,22 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 
 import type {PerseusGroupWidgetOptions} from "../../perseus-types";
-import type {Widget} from "../../renderer";
 import type {
     APIOptions,
     ChangeFn,
     FocusPath,
-    PerseusScore,
+    Widget,
     WidgetExports,
     WidgetProps,
 } from "../../types";
-import type {UserInput} from "../../validation.types";
+import type {PerseusGroupRubric, UserInputArray} from "../../validation.types";
+import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 
-type Rubric = PerseusGroupWidgetOptions;
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusGroupRubric>;
 type DefaultProps = {
     content: Props["content"];
     widgets: Props["widgets"];
@@ -29,7 +29,7 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
-class Group extends React.Component<Props> {
+class Group extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -53,8 +53,19 @@ class Group extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput(): ReadonlyArray<UserInput | null | undefined> | undefined {
+    getUserInputMap() {
+        return this.rendererRef?.getUserInputMap();
+    }
+
+    /**
+     * @deprecated getUserInputMap should be used for Groups
+     */
+    getUserInput(): UserInputArray | undefined {
         return this.rendererRef?.getUserInput();
+    }
+
+    getPromptJSON(): GroupPromptJSON {
+        return _getPromptJSON(this.rendererRef?.getPromptJSON());
     }
 
     getSerializedState: () => any = () => {
@@ -71,14 +82,10 @@ class Group extends React.Component<Props> {
         return null;
     };
 
-    simpleValidate(): PerseusScore | null | undefined {
-        return this.rendererRef?.score();
-    }
-
     // Mobile API:
-    getInputPaths: () => ReadonlyArray<FocusPath> | null | undefined = () => {
-        return this.rendererRef?.getInputPaths();
-    };
+    getInputPaths() {
+        return this.rendererRef?.getInputPaths() ?? [];
+    }
 
     setInputValue: (
         arg1: FocusPath,
@@ -88,9 +95,9 @@ class Group extends React.Component<Props> {
         return this.rendererRef?.setInputValue(path, newValue, callback);
     };
 
-    focus: () => boolean | null | undefined = () => {
-        return this.rendererRef?.focus();
-    };
+    focus() {
+        return this.rendererRef?.focus() ?? false;
+    }
 
     focusInputPath: (arg1: FocusPath) => void = (path) => {
         this.rendererRef?.focusPath(path);
@@ -130,7 +137,6 @@ class Group extends React.Component<Props> {
         // really we should have a more unidirectional flow. TODO(marcia): fix.
         const groupWidgets: ReadonlyArray<Widget> =
             this.props.findWidgets("group");
-        // @ts-expect-error - TS2345 - Argument of type 'this' is not assignable to parameter of type 'Widget'.
         const number: number = groupWidgets.indexOf(this);
         const problemNumComponent = this.props.apiOptions.groupAnnotator(
             number,
@@ -148,6 +154,8 @@ class Group extends React.Component<Props> {
             }
         };
 
+        // TODO(LEMS-2391): replace this when there's a separate check
+        // for valid/invalid state
         const score = this.rendererRef?.score();
         const isValid = score && score.type !== "invalid";
         const isInvalid = score && score.type === "invalid";
@@ -170,7 +178,7 @@ class Group extends React.Component<Props> {
                     ref={(ref) => (this.rendererRef = ref)}
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findWidgets}
-                    reviewMode={!!this.props.reviewModeRubric}
+                    reviewMode={this.props.reviewMode}
                     onInteractWithWidget={onInteractWithWidget}
                     linterContext={this.props.linterContext}
                     strings={this.context.strings}
@@ -196,4 +204,4 @@ export default {
     traverseChildWidgets: traverseChildWidgets,
     hidden: true,
     isLintable: true,
-} as WidgetExports<typeof Group>;
+} satisfies WidgetExports<typeof Group>;

@@ -1,8 +1,12 @@
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
+import * as SimpleMarkdown from "@khanacademy/pure-markdown";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 import type {
     LockedEllipseType,
     LockedFigure,
+    LockedFigureColor,
+    LockedFigureFillType,
     LockedFigureType,
     LockedFunctionType,
     LockedLabelType,
@@ -10,6 +14,7 @@ import type {
     LockedPointType,
     LockedPolygonType,
     LockedVectorType,
+    LockedLineStyle,
 } from "@khanacademy/perseus";
 
 const DEFAULT_COLOR = "grayH";
@@ -98,4 +103,52 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
         default:
             throw new UnreachableCaseError(type);
     }
+}
+
+export function generateLockedFigureAppearanceDescription(
+    color: LockedFigureColor,
+    strokeStyle: LockedLineStyle = "solid",
+    fill?: LockedFigureFillType,
+) {
+    const convertedColor = color === "grayH" ? "gray" : color;
+
+    switch (fill) {
+        case "none":
+            return `. Appearance ${strokeStyle} ${convertedColor} border, with no fill.`;
+        case "white":
+            return `. Appearance ${strokeStyle} ${convertedColor} border, with a white fill.`;
+        case "solid":
+        case "translucent":
+            return `. Appearance ${strokeStyle} ${convertedColor} border, with a ${fill} ${convertedColor} fill.`;
+        case undefined:
+            return `. Appearance ${strokeStyle} ${convertedColor}.`;
+        default:
+            throw new UnreachableCaseError(fill);
+    }
+}
+
+export async function generateSpokenMathDetails(mathString: string) {
+    const engine = await SpeechRuleEngine.setup("en");
+    let convertedSpeech = "";
+
+    // All the information we need is in the first section,
+    // whether it's typed as "blockmath" or "paragraph"
+    const firstSection = SimpleMarkdown.parse(mathString)[0];
+
+    // If it's blockMath, the outer level has the full math content.
+    if (firstSection.type === "blockMath") {
+        convertedSpeech += engine.texToSpeech(firstSection.content);
+    }
+
+    // If it's a paragraph, we need to iterate through the sections
+    // to look for individual math blocks.
+    if (firstSection.type === "paragraph") {
+        for (const piece of firstSection.content) {
+            piece.type === "math"
+                ? (convertedSpeech += engine.texToSpeech(piece.content))
+                : (convertedSpeech += piece.content);
+        }
+    }
+
+    return convertedSpeech;
 }

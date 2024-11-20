@@ -20,7 +20,11 @@ import LineStrokeSelect from "./line-stroke-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
+    getDefaultFigureForType,
+} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
@@ -59,14 +63,27 @@ const LockedEllipseSettings = (props: Props) => {
         onRemove,
     } = props;
 
-    function getPrepopulatedAriaLabel() {
+    /**
+     * Generate the prepopulated aria label for the ellipse,
+     * with the math details converted into spoken words.
+     */
+    async function getPrepopulatedAriaLabel() {
+        let visiblelabel = "";
+        if (labels && labels.length > 0) {
+            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
+        }
+
         const isCircle = radius[0] === radius[1];
         let str = "";
 
         if (isCircle) {
-            str += `Circle with radius ${radius[0]}`;
+            str += await generateSpokenMathDetails(
+                `Circle${visiblelabel} with radius ${radius[0]}`,
+            );
         } else {
-            str += `Ellipse with x radius ${radius[0]} and y radius ${radius[1]}`;
+            str += await generateSpokenMathDetails(
+                `Ellipse${visiblelabel} with x radius ${radius[0]} and y radius ${radius[1]}`,
+            );
         }
 
         str += `, centered at (${center[0]}, ${center[1]})`;
@@ -75,18 +92,12 @@ const LockedEllipseSettings = (props: Props) => {
             str += `, rotated by ${radianToDegree(angle)} degrees`;
         }
 
-        if (labels && labels.length > 0) {
-            str += ", with label";
-            // Make it "with labels" instead of "with label" if there are
-            // multiple labels.
-            if (labels.length > 1) {
-                str += "s";
-            }
-
-            // Separate additional labels with commas.
-            str += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
-
+        const ellipseAppearance = generateLockedFigureAppearanceDescription(
+            color,
+            strokeStyle,
+            fillStyle,
+        );
+        str += ellipseAppearance;
         return str;
     }
 
@@ -248,7 +259,7 @@ const LockedEllipseSettings = (props: Props) => {
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}

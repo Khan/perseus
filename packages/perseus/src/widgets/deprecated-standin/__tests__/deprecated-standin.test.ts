@@ -41,51 +41,10 @@ describe("Deprecated Standin widget", () => {
     });
 
     it("should be scorable and always give points", () => {
-        // Arrange and act
-        const {renderer} = renderQuestion(question);
-        const result = renderer.scoreWidgets();
-
-        // Assert
-        expect(result["widget 1"]).toMatchObject({
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        });
-    });
-
-    it("should return an empty object for getUserInput()", () => {
-        // Arrange
+        // Arrange / Act
         const {renderer} = renderQuestion(question);
 
-        // Act
-        const userInput = renderer.getUserInput();
-
         // Assert
-        expect(userInput).toMatchInlineSnapshot(`
-            [
-              {},
-            ]
-        `);
-    });
-
-    it("should return a correct answer score for simpleValidate()", () => {
-        // Arrange
-        const {renderer} = renderQuestion(question);
-
-        // Act
-        const score = renderer.scoreWidgets();
-
-        // Assert
-        expect(score).toMatchInlineSnapshot(`
-            {
-              "widget 1": {
-                "earned": 1,
-                "message": null,
-                "total": 1,
-                "type": "points",
-              },
-            }
-        `);
+        expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 });

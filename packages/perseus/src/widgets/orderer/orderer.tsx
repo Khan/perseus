@@ -8,18 +8,26 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import {getDependencies} from "../../dependencies";
 import {Log} from "../../logging/log";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
+
+import {scoreOrderer} from "./score-orderer";
 
 import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusScore,
+    WidgetExports,
+    WidgetProps,
+    Widget,
+} from "../../types";
 import type {
     PerseusOrdererRubric,
     PerseusOrdererUserInput,
 } from "../../validation.types";
+import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type PlaceholderCardProps = {
@@ -300,7 +308,8 @@ const VERTICAL = "vertical";
 type RenderProps = PerseusOrdererWidgetOptions & {
     current: any;
 };
-export type OrdererProps = WidgetProps<RenderProps, PerseusOrdererRubric>;
+
+type OrdererProps = WidgetProps<RenderProps, PerseusOrdererRubric>;
 
 type OrdererDefaultProps = {
     current: OrdererProps["current"];
@@ -327,7 +336,10 @@ type OrdererState = {
     onAnimationEnd?: (arg1: any) => void;
 };
 
-class Orderer extends React.Component<OrdererProps, OrdererState> {
+class Orderer
+    extends React.Component<OrdererProps, OrdererState>
+    implements Widget
+{
     static defaultProps: OrdererDefaultProps = {
         current: [],
         options: [],
@@ -424,7 +436,7 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
             }
 
             this.props.onChange({
-                // @ts-expect-error - TS2345 - Argument of type '{ current: any[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: WidgetDict | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
+                // @ts-expect-error - TS2345 - Argument of type '{ current: any[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: PerseusWidgetsMap | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
                 current: list,
             });
             this.setState({
@@ -616,7 +628,7 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
             return {content: value};
         });
         this.props.onChange({
-            // @ts-expect-error - TS2345 - Argument of type '{ current: { content: string; }[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: WidgetDict | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
+            // @ts-expect-error - TS2345 - Argument of type '{ current: { content: string; }[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: PerseusWidgetsMap | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
             current: list,
         });
 
@@ -631,9 +643,8 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         };
     }
 
-    simpleValidate(rubric: PerseusOrdererRubric) {
-        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Orderer'.
-        return Orderer.validate(this.getUserInput(), rubric);
+    getPromptJSON(): OrdererPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     render(): React.ReactNode {
@@ -779,36 +790,11 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
     }
 }
 
-_.extend(Orderer, {
-    validate: function (
-        userInput: PerseusOrdererUserInput,
-        rubric: PerseusOrdererRubric,
-    ) {
-        if (userInput.current.length === 0) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-
-        const correct = _.isEqual(
-            userInput.current,
-            _.pluck(rubric.correctOptions, "content"),
-        );
-
-        return {
-            type: "points",
-            earned: correct ? 1 : 0,
-            total: 1,
-            message: null,
-        };
-    },
-});
-
 export default {
     name: "orderer",
     displayName: "Orderer",
     hidden: true,
     widget: Orderer,
     isLintable: true,
-} as WidgetExports<typeof Orderer>;
+    scorer: scoreOrderer,
+} satisfies WidgetExports<typeof Orderer>;

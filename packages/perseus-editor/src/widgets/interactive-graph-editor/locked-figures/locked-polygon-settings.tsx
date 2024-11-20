@@ -32,7 +32,11 @@ import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import PolygonSwatch from "./polygon-swatch";
-import {getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
+    getDefaultFigureForType,
+} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 
@@ -61,24 +65,29 @@ const LockedPolygonSettings = (props: Props) => {
         onRemove,
     } = props;
 
-    function getPrepopulatedAriaLabel() {
-        let str = `Polygon with ${points.length} sides, vertices at `;
+    /**
+     * Generate the prepopulated aria label for the polygon,
+     * with the math details converted into spoken words.
+     */
+    async function getPrepopulatedAriaLabel() {
+        let visiblelabel = "";
+        if (labels && labels.length > 0) {
+            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
+        }
+
+        let str = await generateSpokenMathDetails(
+            `Polygon${visiblelabel} with ${points.length} sides, vertices at `,
+        );
 
         // Add the coordinates of each point to the aria label
         str += points.map(([x, y]) => `(${x}, ${y})`).join(", ");
 
-        if (labels && labels.length > 0) {
-            str += ", with label";
-            // Make it "with labels" instead of "with label" if there are
-            // multiple labels.
-            if (labels.length > 1) {
-                str += "s";
-            }
-
-            // Separate additional labels with commas.
-            str += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
-
+        const polygonAppearance = generateLockedFigureAppearanceDescription(
+            color,
+            strokeStyle,
+            fillStyle,
+        );
+        str += polygonAppearance;
         return str;
     }
 
@@ -341,7 +350,7 @@ const LockedPolygonSettings = (props: Props) => {
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}

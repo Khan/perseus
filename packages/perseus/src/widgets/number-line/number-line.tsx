@@ -12,15 +12,14 @@ import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import KhanMath from "../../util/math";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
-import numberLineValidator from "./number-line-validator";
+import scoreNumberLine from "./score-number-line";
 
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {APIOptions, PerseusScore, WidgetExports} from "../../types";
-import type {
-    PerseusNumberLineRubric,
-    PerseusNumberLineUserInput,
-} from "../../validation.types";
+import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
+import type {PerseusNumberLineUserInput} from "../../validation.types";
+import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -127,17 +126,17 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
     const results: Array<any> = [];
 
     // For convenience, extract some props into separate variables
-    const range = props.range;
-    const labelRange = props.labelRange;
+    const {range, labelRange, labelStyle, labelTicks, tickStep, numDivisions} =
+        props;
     const leftLabel = labelRange[0] == null ? range[0] : labelRange[0];
     const rightLabel = labelRange[1] == null ? range[1] : labelRange[1];
 
     // Find base via GCD for non-reduced fractions
     let base;
-    if (props.labelStyle === "non-reduced") {
+    if (labelStyle === "non-reduced") {
         const fractions = [leftLabel, rightLabel];
-        for (let i = 0; i <= props.numDivisions; i++) {
-            const x = range[0] + i * props.tickStep;
+        for (let i = 0; i <= numDivisions; i++) {
+            const x = range[0] + i * tickStep;
             fractions.push(x);
         }
         const getDenom = (x: any) => knumber.toFraction(x)[1];
@@ -147,52 +146,45 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
         base = undefined;
     }
 
-    // Draw and save the tick marks and tick labels
-    for (let i = 0; i <= props.numDivisions; i++) {
-        const x = range[0] + i * props.tickStep;
-        results.push(graphie.line([x, -0.2], [x, 0.2]));
+    const highlightedLineStyle = {
+        stroke: KhanColors.BLUE,
+        strokeWidth: 3.5,
+    };
+    const highlightedTextStyle = {color: KhanColors.BLUE};
 
-        const labelTicks = props.labelTicks;
-        if (labelTicks || props.labelStyle === "decimal ticks") {
-            results.push(_label(graphie, props.labelStyle, x, x, base));
+    // Generate an array of tick numbers:
+    //    `Array(Math.round(numDivisions))` makes an array of null values - one for every division marker
+    //    `.keys()` gets the index values for each marker placeholder
+    //    `.map()` converts the index values into actual tick numbers
+    // NOTE: 'numDivisions' can sometimes be a non-integer (i.e. 7.000001).
+    //       Using Math.round() to ensure that an integer is used in the Array setup.
+    const initialTicks: number[] = [
+        ...Array(Math.round(numDivisions)).keys(),
+    ].map((index) => range[0] + index * tickStep);
+
+    // .sort() comparator
+    const byNumericAscending = (a: number, b: number) => a - b;
+
+    // Ensure that any label markers and range endpoints are included in the array
+    // Using `Set()` prevents duplication of tick numbers (and is quite performant)
+    const allTicks: number[] = [
+        ...new Set([...initialTicks, leftLabel, rightLabel, ...range]),
+    ].sort(byNumericAscending);
+
+    // Cycle through each tick number and add a tick line, and a label (if needed)
+    allTicks.forEach((tick) => {
+        const tickIsHighlighted = tick === leftLabel || tick === rightLabel;
+        const lineStyle = tickIsHighlighted ? highlightedLineStyle : null;
+        const textStyle = tickIsHighlighted ? highlightedTextStyle : null;
+        graphie.style(lineStyle, () => {
+            results.push(graphie.line([tick, -0.2], [tick, 0.2]));
+        });
+        if (labelTicks || tickIsHighlighted || labelStyle === "decimal ticks") {
+            graphie.style(textStyle, () => {
+                results.push(_label(graphie, labelStyle, tick, tick, base));
+            });
         }
-    }
-
-    // Render the text labels
-    results.push(
-        graphie.style(
-            props.isMobile
-                ? {
-                      color: KhanColors.BLUE,
-                  }
-                : {},
-            () => _label(graphie, props.labelStyle, leftLabel, leftLabel, base),
-        ),
-    );
-
-    results.push(
-        graphie.style(
-            props.isMobile
-                ? {
-                      color: KhanColors.BLUE,
-                  }
-                : {},
-            () =>
-                _label(graphie, props.labelStyle, rightLabel, rightLabel, base),
-        ),
-    );
-
-    // Render the labels' lines
-    graphie.style(
-        {
-            stroke: KhanColors.BLUE,
-            strokeWidth: 3.5,
-        },
-        () => {
-            results.push(graphie.line([leftLabel, -0.2], [leftLabel, 0.2]));
-            results.push(graphie.line([rightLabel, -0.2], [rightLabel, 0.2]));
-        },
-    );
+    });
 
     return results;
 });
@@ -241,7 +233,7 @@ type DefaultProps = {
 type State = {
     numDivisionsEmpty: boolean;
 };
-class NumberLine extends React.Component<Props, State> {
+class NumberLine extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -263,13 +255,6 @@ class NumberLine extends React.Component<Props, State> {
     state: any = {
         numDivisionsEmpty: false,
     };
-
-    static validate(
-        state: PerseusNumberLineUserInput,
-        rubric: PerseusNumberLineRubric,
-    ): PerseusScore {
-        return numberLineValidator(state, rubric);
-    }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
@@ -350,14 +335,15 @@ class NumberLine extends React.Component<Props, State> {
         this.props.onBlur(["tick-ctrl"]);
     };
 
-    focus: () => boolean | null | undefined = () => {
+    focus() {
         if (this.props.isTickCtrl) {
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs["tick-ctrl"].focus();
             return true;
         }
-    };
+        return false;
+    }
 
     focusInputPath: (arg1: any) => void = (path) => {
         if (path.length === 1) {
@@ -382,22 +368,13 @@ class NumberLine extends React.Component<Props, State> {
         return [];
     };
 
-    getDOMNodeForPath: (arg1: any) => Element | Text | null | undefined = (
-        inputPath,
-    ) => {
-        if (inputPath.length === 1) {
+    getDOMNodeForPath(inputPath: FocusPath) {
+        if (inputPath?.length === 1) {
             // eslint-disable-next-line react/no-string-refs
             return ReactDOM.findDOMNode(this.refs[inputPath[0]]);
         }
-    };
-
-    getGrammarTypeForPath: (arg1: any) => string | null | undefined = (
-        inputPath,
-    ) => {
-        if (inputPath.length === 1 && inputPath[0] === "tick-ctrl") {
-            return "number";
-        }
-    };
+        return null;
+    }
 
     setInputValue: (arg1: any, arg2: any, arg3: any) => void = (
         inputPath,
@@ -644,8 +621,8 @@ class NumberLine extends React.Component<Props, State> {
         };
     }
 
-    simpleValidate(rubric: PerseusNumberLineRubric): PerseusScore {
-        return numberLineValidator(this.getUserInput(), rubric);
+    getPromptJSON(): NumberLinePromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     render(): React.ReactNode {
@@ -828,4 +805,5 @@ export default {
     widget: NumberLine,
     transform: numberLineTransform,
     staticTransform: staticTransform,
-} as WidgetExports<typeof NumberLine>;
+    scorer: scoreNumberLine,
+} satisfies WidgetExports<typeof NumberLine>;

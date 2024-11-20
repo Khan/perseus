@@ -10,12 +10,11 @@ import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
-import tableValidator from "./table-validator";
+import scoreTable from "./score-table";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusTableWidgetOptions} from "../../perseus-types";
-import type {PerseusStrings} from "../../strings";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusTableRubric,
     PerseusTableUserInput,
@@ -69,7 +68,7 @@ const getRefForPath = function (path) {
     return "answer" + row + "," + column;
 };
 
-class Table extends React.Component<Props> {
+class Table extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -89,14 +88,6 @@ class Table extends React.Component<Props> {
             linterContext: linterContextDefault,
         };
     })();
-
-    static validate(
-        state: PerseusTableUserInput,
-        rubric: PerseusTableRubric,
-        strings: PerseusStrings,
-    ): PerseusScore {
-        return tableValidator(state, rubric, strings);
-    }
 
     _getRows: () => number = () => {
         return this.props.answers.length;
@@ -138,14 +129,6 @@ class Table extends React.Component<Props> {
         });
     };
 
-    simpleValidate(rubric: PerseusTableWidgetOptions): PerseusScore {
-        return tableValidator(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-        );
-    }
-
     _handleFocus: (arg1: any) => void = (inputPath) => {
         this.props.onFocus(inputPath);
     };
@@ -185,13 +168,11 @@ class Table extends React.Component<Props> {
         }
     };
 
-    getDOMNodeForPath: (arg1: any) => Text | Element | null | undefined = (
-        path,
-    ) => {
+    getDOMNodeForPath(path) {
         const inputID = getRefForPath(path);
         // eslint-disable-next-line react/no-string-refs
         return ReactDOM.findDOMNode(this.refs[inputID]);
-    };
+    }
 
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
         const rows = this._getRows();
@@ -204,10 +185,6 @@ class Table extends React.Component<Props> {
             });
         });
         return inputPaths;
-    };
-
-    getGrammarTypeForPath: (arg1: any) => string = (inputPath) => {
-        return "number";
     };
 
     setInputValue: (arg1: any, arg2: any, arg3: any) => void = (
@@ -347,4 +324,5 @@ export default {
     transform: propTransform,
     hidden: true,
     isLintable: true,
-} as WidgetExports<typeof Table>;
+    scorer: scoreTable,
+} satisfies WidgetExports<typeof Table>;

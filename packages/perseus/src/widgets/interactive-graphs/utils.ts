@@ -1,5 +1,9 @@
+import {parse, pureMarkdownRules} from "@khanacademy/pure-markdown";
+import SimpleMarkdown from "@khanacademy/simple-markdown";
+
 import {clampToBox, inset, MIN, size} from "./math";
 
+import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {Interval, vec} from "mafs";
@@ -9,6 +13,8 @@ import type {Interval, vec} from "mafs";
  * https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
  */
 export const TARGET_SIZE = 44;
+
+export const REMOVE_BUTTON_ID = "perseus_mafs_remove_button";
 
 // same as pointsFromNormalized in interactive-graph.tsx
 export const normalizePoints = <A extends Coord[]>(
@@ -58,3 +64,110 @@ export function bound({
     const boundingBox = inset(snapStep, range);
     return clampToBox(boundingBox, point);
 }
+
+export function isUnlimitedGraphState(
+    state: InteractiveGraphState,
+): state is UnlimitedGraphState {
+    return (
+        (state.type === "point" && state.numPoints === "unlimited") ||
+        (state.type === "polygon" && state.numSides === "unlimited")
+    );
+}
+
+/**
+ * Replace all text outside of the $ TeX blocks with `\\text{...}`
+ * This way, the entire resulting string can be rendered within <TeX>
+ * and the text outside of the $ blocks will be non-TeX text.
+ */
+export function replaceOutsideTeX(mathString: string) {
+    // All the information we need is in the first section,
+    // whether it's typed as "blockmath" or "paragraph"
+    const firstSection = parse(mathString)[0];
+
+    // If it's blockMath, the outer level has the full math content.
+    if (firstSection.type === "blockMath") {
+        return firstSection.content;
+    }
+
+    // If it's a paragraph, we need to iterate through the sections
+    // to look for individual math blocks.
+    const condensedNodes = condenseTextNodes(firstSection.content);
+    let result = "";
+
+    for (const piece of condensedNodes) {
+        piece.type === "math"
+            ? (result += piece.content)
+            : (result += `\\text{${escapeSpecialChars(piece.content)}}`);
+    }
+
+    return result;
+}
+
+type ParsedNode = {
+    type: "math" | "text";
+    content: string;
+};
+
+// Helper function for replaceOutsideTeX()
+// Condense adjacent text nodes into a single text node
+function condenseTextNodes(nodes: ParsedNode[] | undefined): Array<ParsedNode> {
+    const result: ParsedNode[] = [];
+
+    if (!nodes) {
+        return result;
+    }
+
+    let currentText = "";
+    for (const node of nodes) {
+        if (node.type === "math") {
+            if (currentText) {
+                result.push({type: "text", content: currentText});
+                currentText = "";
+            }
+            result.push(node);
+        } else {
+            currentText += node.content;
+        }
+    }
+
+    if (currentText) {
+        result.push({type: "text", content: currentText});
+    }
+
+    return result;
+}
+
+// Helper function for replaceOutsideTeX()
+function escapeSpecialChars(str) {
+    // Escape $, \, {, and } characters
+    return str.replace(/([$\\{}])/g, "\\$1");
+}
+
+/**
+ * Parse a string of text and math into a list of objects with type and content
+ *
+ * Example: "Pi is about $\frac{22}{7}$" ==>
+ *    [
+ *      {type: "text", content: "Pi is about "},
+ *      {type: "math", content: "\\frac{22}{7}"},
+ *    ]
+ */
+export const mathOnlyParser = SimpleMarkdown.parserFor(
+    {
+        math: {
+            ...pureMarkdownRules.math,
+            order: 0,
+        },
+        text: {
+            order: 1,
+            match: SimpleMarkdown.anyScopeRegex(/^([^$\\{}]+)/),
+            parse: (capture) => ({content: capture[0]}),
+        },
+        specialCharacter: {
+            order: 2,
+            match: SimpleMarkdown.anyScopeRegex(/^(\\[\S\s]|\$|\\$|{|})/),
+            parse: (capture) => ({content: capture[0]}),
+        },
+    },
+    {inline: true},
+);

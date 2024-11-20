@@ -11,15 +11,17 @@ import {ClassNames as ApiClassNames} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import GraphUtils from "../../util/graph-utils";
 import KhanMath from "../../util/math";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
 
-import plotterValidator from "./plotter-validator";
+import scorePlotter from "./score-plotter";
 
 import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusPlotterRubric,
     PerseusPlotterUserInput,
 } from "../../validation.types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 
@@ -47,7 +49,7 @@ type State = {
     categoryHeights: Record<string, number>;
 };
 
-export class Plotter extends React.Component<Props, State> {
+export class Plotter extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -83,13 +85,6 @@ export class Plotter extends React.Component<Props, State> {
         // bottom label.
         categoryHeights: {},
     };
-
-    static validate(
-        userInput: PerseusPlotterUserInput,
-        rubric: PerseusPlotterRubric,
-    ): PerseusScore {
-        return plotterValidator(userInput, rubric);
-    }
 
     componentDidMount() {
         this._isMounted = true;
@@ -1148,8 +1143,8 @@ export class Plotter extends React.Component<Props, State> {
         return this.state.values;
     }
 
-    simpleValidate(rubric: PerseusPlotterRubric): PerseusScore {
-        return plotterValidator(this.getUserInput(), rubric);
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
     }
 
     render(): React.ReactNode {
@@ -1184,4 +1179,5 @@ export default {
     hidden: true,
     widget: Plotter,
     staticTransform: staticTransform,
-} as WidgetExports<typeof Plotter>;
+    scorer: scorePlotter,
+} satisfies WidgetExports<typeof Plotter>;

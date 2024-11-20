@@ -14,16 +14,17 @@ import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
-import categorizerValidator from "./categorizer-validator";
+import scoreCategorizer from "./score-categorizer";
 
 import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
-import type {PerseusStrings} from "../../strings";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusCategorizerRubric,
     PerseusCategorizerUserInput,
 } from "../../validation.types";
+import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
 type Props = WidgetProps<RenderProps, PerseusCategorizerRubric> & {
     values: ReadonlyArray<string>;
@@ -40,7 +41,10 @@ type State = {
     uniqueId: string;
 };
 
-export class Categorizer extends React.Component<Props, State> {
+export class Categorizer
+    extends React.Component<Props, State>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -55,14 +59,6 @@ export class Categorizer extends React.Component<Props, State> {
         uniqueId: _.uniqueId("perseus_radio_"),
     };
 
-    static validate(
-        userInput: PerseusCategorizerUserInput,
-        rubric: PerseusCategorizerRubric,
-        strings: PerseusStrings,
-    ): PerseusScore {
-        return categorizerValidator(userInput, rubric, strings);
-    }
-
     static getUserInputFromProps(props: Props): PerseusCategorizerUserInput {
         return {values: props.values};
     }
@@ -76,20 +72,16 @@ export class Categorizer extends React.Component<Props, State> {
         return Categorizer.getUserInputFromProps(this.props);
     }
 
+    getPromptJSON(): CategorizerPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
+
     onChange(itemNum, catNum) {
         const values = [...this.props.values];
         // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'never'.
         values[itemNum] = catNum;
         this.change("values", values);
         this.props.trackInteraction();
-    }
-
-    simpleValidate(rubric: PerseusCategorizerRubric): PerseusScore {
-        return categorizerValidator(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-        );
     }
 
     render(): React.ReactNode {
@@ -333,4 +325,5 @@ export default {
         );
     },
     isLintable: true,
-} as WidgetExports<typeof Categorizer>;
+    scorer: scoreCategorizer,
+} satisfies WidgetExports<typeof Categorizer>;

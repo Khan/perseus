@@ -18,21 +18,30 @@ const sampleItemNoWidgets = {
     hints: [],
 } as const;
 
-const sampleV0InputNumberItem = {
+const sampleV0NumericInputItem = {
     question: {
-        content: "[[☃ input-number 1]]",
+        content: "[[☃ numeric-input 1]]",
         images: {},
         widgets: {
-            "input-number 1": {
-                type: "input-number",
+            "numeric-input 1": {
+                type: "numeric-input",
                 graded: true,
                 options: {
-                    value: "0",
-                    simplify: "required",
+                    static: false,
+                    answers: [
+                        {
+                            value: 0,
+                            status: "correct",
+                            message: "",
+                            simplify: "required",
+                            strict: true,
+                            maxError: 0.1,
+                        },
+                    ],
                     size: "normal",
-                    inexact: false,
-                    maxError: 0.1,
-                    answerType: "number",
+                    coefficient: false,
+                    labelText: "",
+                    rightAlign: false,
                 },
                 version: {
                     major: 0,
@@ -329,7 +338,7 @@ describe("Renderability", () => {
 
             it("should be able to render v0 or v1 widgets", () => {
                 const result1 = isItemRenderableByVersion(
-                    sampleV0InputNumberItem,
+                    sampleV0NumericInputItem,
                     PerseusItemVersion,
                 );
                 const result2 = isItemRenderableByVersion(
@@ -376,9 +385,9 @@ describe("Renderability", () => {
                 expect(result).toBe(true);
             });
 
-            it("should be able to render just an input-number", () => {
+            it("should be able to render just a numeric-input", () => {
                 const result = isItemRenderableByVersion(
-                    sampleV0InputNumberItem,
+                    sampleV0NumericInputItem,
                     inputOnlyPerseusVersion,
                 );
                 expect(result).toBe(true);
@@ -436,7 +445,7 @@ describe("Renderability", () => {
                         _multi: {
                             sharedContext: {
                                 __type: "content",
-                                ...sampleV0InputNumberItem.question,
+                                ...sampleV0NumericInputItem.question,
                             },
                             questions: [
                                 {
@@ -457,7 +466,7 @@ describe("Renderability", () => {
                         _multi: {
                             sharedContext: {
                                 __type: "content",
-                                ...sampleV0InputNumberItem.question,
+                                ...sampleV0NumericInputItem.question,
                             },
                             questions: [
                                 {

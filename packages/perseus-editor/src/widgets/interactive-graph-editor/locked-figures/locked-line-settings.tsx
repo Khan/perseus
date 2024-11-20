@@ -25,7 +25,11 @@ import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import LockedPointSettings from "./locked-point-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
+    getDefaultFigureForType,
+} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
@@ -70,21 +74,39 @@ const LockedLineSettings = (props: Props) => {
 
     // Check if the line has length 0.
     const isInvalid = kvector.equal(point1.coord, point2.coord);
-
-    function getPrepopulatedAriaLabel() {
-        let str = `${capitalizeKind} from (${point1.coord[0]}, ${point1.coord[1]}) to (${point2.coord[0]}, ${point2.coord[1]})`;
+    /**
+     * Generate a prepopulated aria label for the line, with the math
+     * details converted into spoken words.
+     */
+    async function getPrepopulatedAriaLabel() {
+        let visiblelabel = "";
+        let point1VisibleLabel = "";
+        let point2VisibleLabel = "";
 
         if (labels && labels.length > 0) {
-            str += " with label";
-            // Make it "with labels" instead of "with label" if there are
-            // multiple labels.
-            if (labels.length > 1) {
-                str += "s";
-            }
-
-            // Separate additional labels with commas.
-            str += ` ${labels.map((l) => l.text).join(", ")}`;
+            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
+
+        if (point1.labels && point1.labels.length > 0) {
+            point1VisibleLabel += ` ${point1.labels
+                .map((l) => l.text)
+                .join(", ")}`;
+        }
+
+        if (point2.labels && point2.labels.length > 0) {
+            point2VisibleLabel += ` ${point2.labels
+                .map((l) => l.text)
+                .join(", ")}`;
+        }
+
+        let str = await generateSpokenMathDetails(
+            `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at (${point1.coord[0]}, ${point1.coord[1]}) to point${point2VisibleLabel} at (${point2.coord[0]}, ${point2.coord[1]})`,
+        );
+        const lineAppearance = generateLockedFigureAppearanceDescription(
+            lineColor,
+            lineStyle,
+        );
+        str += lineAppearance;
 
         return str;
     }
@@ -270,7 +292,7 @@ const LockedLineSettings = (props: Props) => {
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}

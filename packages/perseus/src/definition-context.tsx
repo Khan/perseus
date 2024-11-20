@@ -21,7 +21,7 @@ type ProviderState = {
     activeDefinitionId: string | null | undefined;
 };
 
-export type ProviderProps = {
+type ProviderProps = {
     children: any;
 };
 export class DefinitionProvider extends React.Component<

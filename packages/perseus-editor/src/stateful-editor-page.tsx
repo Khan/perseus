@@ -76,11 +76,6 @@ export class StatefulEditorPage extends React.Component<Props> {
         }
     }
 
-    scorePreview() {
-        // eslint-disable-next-line react/no-string-refs
-        return this.scorePreview();
-    }
-
     render() {
         const Component = this.props.componentClass;
         return <Component {...this.state} />;

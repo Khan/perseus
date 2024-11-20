@@ -14,14 +14,11 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import {phoneMargin} from "../../styles/constants";
-import {
-    basicBorderColor,
-    borderRadiusLarge,
-} from "../../styles/global-constants";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/phet-simulation/phet-simulation-ai-utils";
 
 import type {PerseusPhetSimulationWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
-import type {PerseusPhetSimulationUserInput} from "../../validation.types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 type RenderProps = PerseusPhetSimulationWidgetOptions;
 type Props = WidgetProps<RenderProps, PerseusPhetSimulationWidgetOptions>;
@@ -35,12 +32,19 @@ type State = {
 };
 
 // This renders the PhET sim
-export class PhetSimulation extends React.Component<Props, State> {
+export class PhetSimulation
+    extends React.Component<Props, State>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
     private readonly iframeRef: React.RefObject<HTMLIFrameElement> =
         React.createRef<HTMLIFrameElement>();
     private readonly locale: string;
+
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     state: State = {
         url: null,
@@ -63,11 +67,6 @@ export class PhetSimulation extends React.Component<Props, State> {
         }
     }
 
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    getUserInput(): PerseusPhetSimulationUserInput {
-        return null;
-    }
-
     // kaLocales and PhET locales use different formats and abbreviations.
     // PhET accepts different formats, i.e. kaLocale's hyphens, but it does not accept
     // different abbreviations, so in points of divergence of abbreviations, we need to
@@ -86,6 +85,10 @@ export class PhetSimulation extends React.Component<Props, State> {
                 return kaLocale;
         }
     };
+
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
+    }
 
     displayLoadFailure: () => void = () => {
         this.setState({
@@ -228,9 +231,9 @@ export const makeSafeUrl = (urlString: string, locale: string): URL | null => {
 
 const styles = StyleSheet.create({
     widgetContainer: {
-        borderRadius: borderRadiusLarge,
+        borderRadius: 6,
         borderWidth: 1,
-        borderColor: basicBorderColor,
+        borderColor: "#CCC",
         padding: spacing.medium_16,
         paddingBottom: 0,
     },
@@ -258,4 +261,4 @@ export default {
     displayName: "PhET Simulation",
     widget: PhetSimulation,
     isLintable: true,
-} as WidgetExports<typeof PhetSimulation>;
+} satisfies WidgetExports<typeof PhetSimulation>;

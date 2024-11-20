@@ -3,15 +3,26 @@ import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {WidgetProps} from "../../types";
 import type {Interval, vec} from "mafs";
+import type {ReactNode} from "react";
 
 export type InteractiveGraphProps = WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
     PerseusInteractiveGraphWidgetOptions
 >;
 
+export type Dispatch = (action: InteractiveGraphAction) => unknown;
+
 export type MafsGraphProps<T extends InteractiveGraphState> = {
     graphState: T;
-    dispatch: (action: InteractiveGraphAction) => unknown;
+    dispatch: Dispatch;
+};
+
+// InteractiveGraphElementSuite contains parts of the graph UI which need to
+// end up in different sections of the DOM.
+export type InteractiveGraphElementSuite = {
+    graph: ReactNode;
+    interactiveElementsDescription: ReactNode;
+    // TODO(benchristel): add actionBar controls here
 };
 
 export type InteractiveGraphState =
@@ -26,6 +37,8 @@ export type InteractiveGraphState =
     | CircleGraphState
     | QuadraticGraphState
     | SinusoidGraphState;
+
+export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
@@ -77,6 +90,12 @@ export interface PolygonGraphState extends InteractiveGraphStateCommon {
     showSides: boolean;
     snapTo: "grid" | "angles" | "sides";
     coords: Coord[];
+    numSides?: number | "unlimited";
+    focusedPointIndex: number | null;
+    showRemovePointButton: boolean;
+    interactionMode: InteractionMode;
+    showKeyboardInteractionInvitation: boolean;
+    closedPolygon: boolean;
 }
 
 export interface CircleGraphState extends InteractiveGraphStateCommon {

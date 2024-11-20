@@ -10,9 +10,10 @@ export const mafsSupportedGraphTypes = [
     "quadratic",
     "sinusoid",
     "unlimited-point",
+    "unlimited-polygon",
 ] as const;
 
-export type MafsSupportedGraphType = (typeof mafsSupportedGraphTypes)[number];
+type MafsSupportedGraphType = (typeof mafsSupportedGraphTypes)[number];
 
 // Pass these to the `flags` property of the `apiOptions` prop of the Renderer
 // component, e.g.:

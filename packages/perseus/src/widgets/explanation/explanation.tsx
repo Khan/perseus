@@ -10,18 +10,16 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusExplanationRubric,
-    PerseusExplanationUserInput,
-} from "../../validation.types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
 
-type Props = WidgetProps<RenderProps, PerseusExplanationRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     showPrompt: Props["showPrompt"];
@@ -42,14 +40,9 @@ function mediaQueryIsMatched(mediaQuery: string): boolean {
     return window.matchMedia(mediaQuery).matches;
 }
 
-class Explanation extends React.Component<Props, State> {
+class Explanation extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
-
-    state: State = {
-        expanded: false,
-    };
-    _mounted: boolean = false;
 
     static defaultProps: DefaultProps = {
         showPrompt: "Explain",
@@ -59,10 +52,14 @@ class Explanation extends React.Component<Props, State> {
         linterContext: linterContextDefault,
     };
 
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
+
+    state: State = {
+        expanded: false,
+    };
+    _mounted: boolean = false;
 
     componentDidMount() {
         this._mounted = true;
@@ -83,13 +80,8 @@ class Explanation extends React.Component<Props, State> {
         this.props.trackInteraction();
     };
 
-    getUserInput(): PerseusExplanationUserInput {
-        return {};
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
+    getPromptJSON(): ExplanationPromptJSON {
+        return _getPromptJSON(this.props);
     }
 
     render(): React.ReactNode {
@@ -238,4 +230,6 @@ export default {
     widget: Explanation,
     transform: _.identity,
     isLintable: true,
-} as WidgetExports<typeof Explanation>;
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof Explanation>;

@@ -577,6 +577,44 @@ function injectWidgets(
     return context;
 }
 
+/**
+ * Looks through widgets to identify images that do not have alt text.
+ *
+ * We pass in the fuller perseusRenderer object to allow for the possibility
+ * of expanding to include other img data from content & images in the future.
+ *
+ * @param {PerseusRenderer} perseusRenderer
+ * @returns a stringified list of {widgetId, imageUrl} for imgs that don't have alt text
+ */
+function getImagesWithoutAltData(perseusRenderer: PerseusRenderer): string {
+    if (!perseusRenderer.widgets) {
+        return "";
+    }
+
+    const imgsWithoutAltData: {imgUrl: string; widgetId: string}[] = [];
+
+    Object.entries(perseusRenderer.widgets).forEach(([widgetId, widget]) => {
+        if (!widget.options) {
+            return;
+        }
+
+        // Add to imagesWithoutAltData if img alt is missing and
+        // image has valid img url data.
+        if (
+            widget.type === "image" &&
+            !widget.options.alt &&
+            widget.options.backgroundImage?.url
+        ) {
+            imgsWithoutAltData.push({
+                widgetId,
+                imgUrl: widget.options.backgroundImage.url,
+            });
+        }
+    });
+
+    return JSON.stringify(imgsWithoutAltData);
+}
+
 /* Widgets that have individual answers */
 const INDIVIDUAL_ANSWER_WIDGETS = [
     "interactive-graph",
@@ -640,14 +678,13 @@ export const getAnswerFromUserInput = (widgetType: string, userInput: any) => {
 export const getCorrectAnswerForWidgetId = (
     widgetId: string,
     itemData: PerseusItem,
-): string | undefined => {
+): string | null | undefined => {
     const rubric = itemData.question.widgets[widgetId].options;
     const widgetMap = getWidgetsMapFromItemData(itemData);
     const widgetType = getWidgetTypeByWidgetId(widgetId, widgetMap) as string;
 
-    const widget = Widgets.getWidget(widgetType);
+    const widget = Widgets.getWidgetExport(widgetType);
 
-    // @ts-expect-error - TS2339 - Property 'getOneCorrectAnswerFromRubric' does not exist on type 'ComponentType<any>'.
     return widget?.getOneCorrectAnswerFromRubric?.(rubric);
 };
 
@@ -665,4 +702,4 @@ export const getValidWidgetIds = (perseusItem: PerseusItem): Array<string> => {
     return keys(widgets).filter((id) => isWidgetIdInContent(perseusItem, id));
 };
 
-export {getAnswersFromWidgets, injectWidgets};
+export {getAnswersFromWidgets, getImagesWithoutAltData, injectWidgets};

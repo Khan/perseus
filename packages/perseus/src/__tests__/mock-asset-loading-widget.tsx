@@ -31,8 +31,7 @@ export const mockedAssetItem: PerseusItem = {
 } as const;
 
 export class MockAssetLoadingWidget extends React.Component<Record<any, any>> {
-    // @ts-expect-error - TS2564 - Property 'setAssetStatus' has no initializer and is not definitely assigned in the constructor.
-    setAssetStatus: (assetKey: string, loaded: boolean) => void;
+    setAssetStatus: ((assetKey: string, loaded: boolean) => void) | null = null;
 
     render(): React.ReactNode {
         return (
@@ -50,4 +49,4 @@ export default {
     name: "mocked-asset-widget",
     displayName: "Mocked Asset Widget",
     widget: MockAssetLoadingWidget,
-} as WidgetExports<typeof MockAssetLoadingWidget>;
+} satisfies WidgetExports<typeof MockAssetLoadingWidget>;

@@ -70,4 +70,19 @@ describe("orderer widget", () => {
         // assert
         expect(renderer).toHaveBeenAnsweredIncorrectly();
     });
+
+    it("is invalid when no options are selected", () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            isMobile: false,
+        };
+        const {renderer} = renderQuestion(question2, apiOptions);
+        const [orderer] = renderer.findWidgets("orderer 1");
+
+        // Act
+        act(() => orderer.setListValues([]));
+
+        // assert
+        expect(renderer).toHaveInvalidInput();
+    });
 });

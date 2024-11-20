@@ -13,23 +13,21 @@ import {articleMaxWidthInPx} from "../../styles/constants";
 import Util from "../../util";
 import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/cs-program-ai-utils";
 
-import {csProgramValidator} from "./cs-program-validator";
+import scoreCSProgram from "./score-cs-program";
 
 import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusCSProgramRubric,
     PerseusCSProgramUserInput,
-    UserInputStatus,
 } from "../../validation.types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 const {updateQueryString} = Util;
 
-type RenderProps = PerseusCSProgramWidgetOptions & {
-    status: UserInputStatus;
-    message: string | null;
-};
+type RenderProps = PerseusCSProgramWidgetOptions & PerseusCSProgramUserInput;
 
 type Props = WidgetProps<RenderProps, PerseusCSProgramRubric>;
 
@@ -59,7 +57,7 @@ function getUrlFromProgramID(programID: any) {
 
 /* This renders the scratchpad in an iframe and handles validation via
  * window.postMessage */
-class CSProgram extends React.Component<Props> {
+class CSProgram extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         showEditor: false,
         showButtons: false,
@@ -67,11 +65,6 @@ class CSProgram extends React.Component<Props> {
         // optional message
         message: null,
     };
-
-    // The widget's grading function
-    static validate(state: PerseusCSProgramUserInput): PerseusScore {
-        return csProgramValidator(state);
-    }
 
     componentDidMount() {
         $(window).on("message", this.handleMessageEvent);
@@ -115,8 +108,8 @@ class CSProgram extends React.Component<Props> {
         };
     }
 
-    simpleValidate(): PerseusScore {
-        return csProgramValidator(this.getUserInput());
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
     }
 
     render(): React.ReactNode {
@@ -212,4 +205,5 @@ export default {
     supportedAlignments: ["block", "full-width"],
     widget: CSProgram,
     hidden: true,
-} as WidgetExports<typeof CSProgram>;
+    scorer: scoreCSProgram,
+} satisfies WidgetExports<typeof CSProgram>;

@@ -9,16 +9,18 @@ import Sortable from "../../components/sortable";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
-import matcherValidator from "./matcher-validator";
+import scoreMatcher from "./score-matcher";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusMatcherWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
 } from "../../validation.types";
+import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
@@ -44,7 +46,7 @@ type State = {
     texRendererLoaded: boolean;
 };
 
-export class Matcher extends React.Component<Props, State> {
+export class Matcher extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -64,13 +66,6 @@ export class Matcher extends React.Component<Props, State> {
         rightHeight: 0,
         texRendererLoaded: false,
     };
-
-    static validate(
-        state: PerseusMatcherUserInput,
-        rubric: PerseusMatcherRubric,
-    ): PerseusScore {
-        return matcherValidator(state, rubric);
-    }
 
     changeAndTrack: (arg1: any) => void = (e) => {
         this.props.onChange(e);
@@ -108,6 +103,10 @@ export class Matcher extends React.Component<Props, State> {
         };
     };
 
+    getPromptJSON(): MatcherPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
+
     // Programatic API for moving options
     // This is used by testing
     moveLeftOptionToIndex: (option: SortableOption, index: number) => void = (
@@ -129,10 +128,6 @@ export class Matcher extends React.Component<Props, State> {
         // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
         this.refs.right.moveOptionToIndex(option, index);
     };
-
-    simpleValidate(rubric: PerseusMatcherRubric) {
-        return matcherValidator(this.getUserInput(), rubric);
-    }
 
     render(): React.ReactElement {
         // To minimize layout shift, we display a spinner until our math
@@ -293,4 +288,5 @@ export default {
     displayName: "Matcher (two column)",
     widget: Matcher,
     isLintable: true,
-} as WidgetExports<typeof Matcher>;
+    scorer: scoreMatcher,
+} satisfies WidgetExports<typeof Matcher>;

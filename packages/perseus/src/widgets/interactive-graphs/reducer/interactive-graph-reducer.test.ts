@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 
-import {findAngle} from "../math/angles";
+import {getClockwiseAngle} from "../math/angles";
 
 import {changeSnapStep, changeRange, actions} from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
@@ -10,6 +10,7 @@ import type {
     CircleGraphState,
     PointGraphState,
     InteractiveGraphState,
+    PolygonGraphState,
 } from "../types";
 
 const baseSegmentGraphState: InteractiveGraphState = {
@@ -111,6 +112,10 @@ const baseQuadraticGraphState: InteractiveGraphState = {
 };
 
 const basePolygonGraphState: InteractiveGraphState = {
+    showRemovePointButton: false,
+    interactionMode: "mouse",
+    showKeyboardInteractionInvitation: false,
+    focusedPointIndex: null,
     hasBeenInteractedWith: false,
     type: "polygon",
     showAngles: false,
@@ -126,7 +131,29 @@ const basePolygonGraphState: InteractiveGraphState = {
         [0, 1],
         [1, 0],
     ],
+    closedPolygon: false,
 };
+
+const baseUnlimitedPolygonGraphState: PolygonGraphState = {
+    showRemovePointButton: false,
+    interactionMode: "mouse",
+    showKeyboardInteractionInvitation: false,
+    focusedPointIndex: null,
+    hasBeenInteractedWith: false,
+    type: "polygon",
+    showAngles: false,
+    showSides: false,
+    snapTo: "grid",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [],
+    numSides: "unlimited",
+    closedPolygon: false,
+};
+
 describe("movePointInFigure", () => {
     it("moves the given point", () => {
         const state: InteractiveGraphState = {
@@ -462,7 +489,7 @@ describe("movePoint on an angle graph", () => {
         invariant(updated.type === "angle");
 
         expect(
-            findAngle(updated.coords[0], updated.coords[2], updated.coords[1]),
+            getClockwiseAngle(updated.coords, updated.allowReflexAngles),
         ).toBeCloseTo(50);
     });
 
@@ -487,7 +514,10 @@ describe("movePoint on an angle graph", () => {
         // The point will get snapped to the nearest 5 degrees, which should be 30 degrees
         expect(updated.coords[0]).toEqual([5.04975246918104, 2.91547594742265]);
         expect(
-            findAngle(updated.coords[0], updated.coords[2], updated.coords[1]),
+            getClockwiseAngle(
+                updated.coords,
+                updated.allowReflexAngles || false,
+            ),
         ).toBeCloseTo(30);
     });
 
@@ -978,23 +1008,11 @@ describe("doMoveRadiusPoint", () => {
     });
 });
 
-describe("unlimited points", () => {
-    it("adds points", () => {
-        const state: PointGraphState = {
-            ...baseUnlimitedPointGraphState,
-        };
-
-        const stateAfterAddingPoint = interactiveGraphReducer(
-            state,
-            actions.pointGraph.addPoint([8, 10]),
-        ) as PointGraphState;
-
-        expect(stateAfterAddingPoint.coords).toMatchObject([[8, 10]]);
-    });
-
-    it("removes points", () => {
+describe("doDeleteIntent", () => {
+    it("does nothing when no points are selected for unlimited points", () => {
         let state: PointGraphState = {
             ...baseUnlimitedPointGraphState,
+            interactionMode: "mouse",
         };
 
         state = interactiveGraphReducer(
@@ -1009,35 +1027,7 @@ describe("unlimited points", () => {
 
         state = interactiveGraphReducer(
             state,
-            actions.pointGraph.addPoint([3, 3]),
-        ) as PointGraphState;
-
-        state = interactiveGraphReducer(
-            state,
-            actions.pointGraph.removePoint(1),
-        ) as PointGraphState;
-
-        expect(state.coords).toMatchObject([
-            [1, 1],
-            [3, 3],
-        ]);
-    });
-});
-
-describe("delete intent", () => {
-    it("does nothing when no points are selected", () => {
-        let state: PointGraphState = {
-            ...baseUnlimitedPointGraphState,
-        };
-
-        state = interactiveGraphReducer(
-            state,
-            actions.pointGraph.addPoint([1, 1]),
-        ) as PointGraphState;
-
-        state = interactiveGraphReducer(
-            state,
-            actions.pointGraph.addPoint([2, 2]),
+            actions.pointGraph.blurPoint(),
         ) as PointGraphState;
 
         state = interactiveGraphReducer(
@@ -1051,7 +1041,39 @@ describe("delete intent", () => {
         ]);
     });
 
-    it("removes points when a point is focused and a delete intent is received", () => {
+    it("does nothing when no points are selected for unlimited polygon", () => {
+        let state: PolygonGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+            interactionMode: "mouse",
+        };
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([1, 1]),
+        ) as PolygonGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([2, 2]),
+        ) as PolygonGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.blurPoint(),
+        ) as PolygonGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.global.deleteIntent(),
+        ) as PolygonGraphState;
+
+        expect(state.coords).toMatchObject([
+            [1, 1],
+            [2, 2],
+        ]);
+    });
+
+    it("removes points when a point is focused and a delete intent is received for unlimited point", () => {
         let state: PointGraphState = {
             ...baseUnlimitedPointGraphState,
         };
@@ -1089,6 +1111,493 @@ describe("delete intent", () => {
             [3, 3],
         ]);
     });
+
+    it("removes points when a point is focused and a delete intent is received for unlimited polygon", () => {
+        let state: PolygonGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+        };
+
+        // Add some points
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([1, 1]),
+        ) as PolygonGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([2, 2]),
+        ) as PolygonGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([3, 3]),
+        ) as PolygonGraphState;
+
+        // Focus a point
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.focusPoint(0),
+        ) as PolygonGraphState;
+
+        // Fire a delete intent
+        state = interactiveGraphReducer(
+            state,
+            actions.global.deleteIntent(),
+        ) as PolygonGraphState;
+
+        expect(state.coords).toMatchObject([
+            [2, 2],
+            [3, 3],
+        ]);
+    });
+});
+
+describe("doChangeInteractionMode", () => {
+    it("does nothing when type is not an unlimited graph", () => {
+        const state: InteractiveGraphState = baseCircleGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.global.changeInteractionMode("keyboard"),
+        );
+
+        expect(updated).toMatchObject(state);
+    });
+
+    it("updates interactionMode to `keyboard` and all other required state values", () => {
+        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.global.changeInteractionMode("keyboard"),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.interactionMode).toBe("keyboard");
+        expect(updated.showKeyboardInteractionInvitation).toBeFalsy();
+    });
+
+    it("updates interactionMode to `mouse` and all other required state values", () => {
+        const state: PointGraphState = {
+            ...baseUnlimitedPointGraphState,
+            interactionMode: "keyboard",
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.global.changeInteractionMode("mouse"),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.interactionMode).toBe("mouse");
+        expect(updated.showKeyboardInteractionInvitation).toBe(
+            state.showKeyboardInteractionInvitation,
+        );
+    });
+});
+
+describe("doChangeKeyboardInvitationVisibility", () => {
+    it("does nothing when type is not an unlimited graph", () => {
+        const state: InteractiveGraphState = baseCircleGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.global.changeKeyboardInvitationVisibility(true),
+        );
+
+        expect(updated).toMatchObject(state);
+    });
+
+    it("updates keyboard invitation visibility to `true`", () => {
+        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.global.changeKeyboardInvitationVisibility(true),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.showKeyboardInteractionInvitation).toBeTruthy();
+        expect(updated.hasBeenInteractedWith).toBeTruthy();
+    });
+
+    it("updates keyboard invitation visibility to `false`", () => {
+        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.global.changeKeyboardInvitationVisibility(false),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.showKeyboardInteractionInvitation).toBeFalsy();
+        expect(updated.hasBeenInteractedWith).toBeTruthy();
+    });
+
+    it("hasBeenInteractedWith property is always set to 'true'", () => {
+        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
+
+        const updated1 = interactiveGraphReducer(
+            state,
+            actions.global.changeKeyboardInvitationVisibility(false),
+        );
+
+        invariant(updated1.type === "point");
+        expect(updated1.hasBeenInteractedWith).toBeTruthy();
+
+        const updated2 = interactiveGraphReducer(
+            state,
+            actions.global.changeKeyboardInvitationVisibility(true),
+        );
+
+        invariant(updated2.type === "point");
+        expect(updated2.hasBeenInteractedWith).toBeTruthy();
+    });
+});
+
+describe("doClickPoint", () => {
+    it("does nothing when type is not an unlimited graph", () => {
+        const state: InteractiveGraphState = baseCircleGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.clickPoint(0),
+        );
+
+        expect(updated).toMatchObject(state);
+    });
+
+    it("updates focusedPointIndex with new index value", () => {
+        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.clickPoint(0),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.focusedPointIndex).toBe(0);
+        expect(updated.showRemovePointButton).toBeTruthy();
+    });
+
+    it("showRemovePointButton property is always set to 'true'", () => {
+        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.clickPoint(10),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.showRemovePointButton).toBeTruthy();
+    });
+});
+
+describe("doBlurPoint", () => {
+    it("does nothing when type is not an unlimited graph", () => {
+        const state: InteractiveGraphState = baseCircleGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.blurPoint(),
+        );
+
+        expect(updated).toMatchObject(state);
+    });
+
+    it("showRemovePointButton property is always set to 'false'", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPointGraphState,
+            focusedPointIndex: 0,
+            interactionMode: "keyboard",
+            showRemovePointButton: true,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.blurPoint(),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.focusedPointIndex).toBe(state.focusedPointIndex);
+        expect(updated.showRemovePointButton).toBeFalsy();
+    });
+
+    it("if interactionMode is `mouse`, updates focusedPointIndex to null", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPointGraphState,
+            interactionMode: "mouse",
+        };
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.blurPoint(),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.focusedPointIndex).toBe(null);
+        expect(updated.showRemovePointButton).toBeFalsy();
+    });
+});
+
+describe("doFocusPoint", () => {
+    it("does nothing when type is not an unlimited graph", () => {
+        const state: InteractiveGraphState = baseCircleGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.focusPoint(0),
+        );
+
+        expect(updated).toMatchObject(state);
+    });
+
+    it("updates focusedPointIndex with new index value", () => {
+        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.focusPoint(0),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.focusedPointIndex).toBe(0);
+        expect(updated.showRemovePointButton).toBe(state.showRemovePointButton);
+    });
+
+    it("showRemovePointButton property is not changed", () => {
+        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.focusPoint(10),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.showRemovePointButton).toBe(state.showRemovePointButton);
+    });
+});
+
+describe("doAddPoint", () => {
+    it("does nothing when type is not an unlimited graph", () => {
+        const state: InteractiveGraphState = baseCircleGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([0, 0]),
+        );
+
+        expect(updated).toMatchObject(state);
+    });
+
+    it("adds a new point at a specified graph location", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPointGraphState,
+            coords: [[2, -2]],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([0, 0]),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.coords).toMatchObject([
+            [2, -2],
+            [0, 0],
+        ]);
+        expect(updated.hasBeenInteractedWith).toBeTruthy();
+        expect(updated.showRemovePointButton).toBeFalsy();
+        expect(updated.focusedPointIndex).toBe(1);
+    });
+
+    it("does not adds a new point if there is already a point at that location", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPointGraphState,
+            coords: [[0, 0]],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([0, 0]),
+        );
+
+        expect(updated).toMatchObject(state);
+    });
+});
+
+describe("doRemovePoint", () => {
+    it("does nothing when type is not an unlimited graph", () => {
+        const state: InteractiveGraphState = baseCircleGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.removePoint(0),
+        );
+
+        expect(updated).toMatchObject(state);
+    });
+
+    it("removes a point at a specific index in our coordinates array", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPointGraphState,
+            interactionMode: "keyboard",
+            coords: [
+                [0, 0],
+                [2, -2],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.removePoint(0),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.coords).toMatchObject([[2, -2]]);
+        expect(updated.showRemovePointButton).toBeFalsy();
+        expect(updated.focusedPointIndex).toBe(0);
+        expect(updated.showRemovePointButton).toBeFalsy();
+    });
+
+    it("focusedPointIndex is set to null if interaction mode is in mouse", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPointGraphState,
+            interactionMode: "mouse",
+            focusedPointIndex: 0,
+            coords: [
+                [0, 0],
+                [2, -2],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.removePoint(0),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.coords).toMatchObject([[2, -2]]);
+        expect(updated.showRemovePointButton).toBeFalsy();
+        expect(updated.focusedPointIndex).toBe(null);
+        expect(updated.showRemovePointButton).toBeFalsy();
+    });
+});
+
+describe("doClosePolygon", () => {
+    it("does nothing when type is not `polygon`", () => {
+        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.closePolygon(),
+        );
+        invariant(updated.type !== "polygon");
+        expect(updated).toMatchObject(state);
+    });
+
+    it("does nothing when type is not an unlimited graph", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            closedPolygon: false,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.closePolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeFalsy();
+    });
+
+    it("changes `closedPolygon` property to true", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+            closedPolygon: false,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.closePolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeTruthy();
+    });
+
+    it("does not change `closedPolygon` property when it's already false", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+            closedPolygon: true,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.closePolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeTruthy();
+    });
+});
+
+describe("doOpenPolygon", () => {
+    it("does nothing when type is not `polygon`", () => {
+        const state: InteractiveGraphState = baseUnlimitedPointGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.openPolygon(),
+        );
+
+        invariant(updated.type !== "polygon");
+        expect(updated).toMatchObject(state);
+    });
+
+    it("does nothing when type is not an unlimited graph", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            closedPolygon: true,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.openPolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeTruthy();
+    });
+
+    it("changes `closedPolygon` property to false", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+            closedPolygon: true,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.openPolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeFalsy();
+    });
+
+    it("does not change `closedPolygon` property when it's already false", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+            closedPolygon: false,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.openPolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeFalsy();
+    });
 });
 
 describe("unlimited points", () => {
@@ -1129,6 +1638,52 @@ describe("unlimited points", () => {
             state,
             actions.pointGraph.removePoint(1),
         ) as PointGraphState;
+
+        expect(state.coords).toMatchObject([
+            [1, 1],
+            [3, 3],
+        ]);
+    });
+});
+
+describe("unlimited polygon", () => {
+    it("adds point to polygon", () => {
+        const state: PolygonGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+        };
+
+        const stateAfterAddingPoint = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([8, 10]),
+        ) as PolygonGraphState;
+
+        expect(stateAfterAddingPoint.coords).toMatchObject([[8, 10]]);
+    });
+
+    it("removes point to polygon", () => {
+        let state: PolygonGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+        };
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([1, 1]),
+        ) as PolygonGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([2, 2]),
+        ) as PolygonGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([3, 3]),
+        ) as PolygonGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.removePoint(1),
+        ) as PolygonGraphState;
 
         expect(state.coords).toMatchObject([
             [1, 1],

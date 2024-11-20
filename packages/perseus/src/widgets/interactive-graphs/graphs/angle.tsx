@@ -16,11 +16,26 @@ import {getIntersectionOfRayWithBox} from "./utils";
 
 import type {CollinearTuple} from "../../../perseus-types";
 import type {Segment} from "../math/geometry";
-import type {AngleGraphState, MafsGraphProps} from "../types";
+import type {
+    AngleGraphState,
+    Dispatch,
+    InteractiveGraphElementSuite,
+    MafsGraphProps,
+} from "../types";
 
 type AngleGraphProps = MafsGraphProps<AngleGraphState>;
 
-export function AngleGraph(props: AngleGraphProps) {
+export function renderAngleGraph(
+    state: AngleGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <AngleGraph graphState={state} dispatch={dispatch} />,
+        interactiveElementsDescription: null,
+    };
+}
+
+function AngleGraph(props: AngleGraphProps) {
     const {dispatch, graphState} = props;
     const {graphDimensionsInPixels} = useGraphConfig();
 
@@ -88,6 +103,7 @@ export function AngleGraph(props: AngleGraphProps) {
             {/* vertex */}
             <MovablePoint
                 point={coords[1]}
+                sequenceNumber={1}
                 constrain={(p) => p}
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(1, destination))
@@ -96,6 +112,7 @@ export function AngleGraph(props: AngleGraphProps) {
             {/* side 1 */}
             <MovablePoint
                 point={coords[0]}
+                sequenceNumber={2}
                 constrain={getAngleSideConstraint(
                     coords[0],
                     coords[1],
@@ -108,6 +125,7 @@ export function AngleGraph(props: AngleGraphProps) {
             {/* side 2 */}
             <MovablePoint
                 point={coords[2]}
+                sequenceNumber={3}
                 constrain={getAngleSideConstraint(
                     coords[2],
                     coords[1],

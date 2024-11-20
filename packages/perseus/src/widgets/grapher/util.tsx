@@ -7,12 +7,22 @@ import Graphie from "../../components/graphie";
 import {getDependencies} from "../../dependencies";
 import Util from "../../util";
 
+import type {
+    Coords,
+    LinearType,
+    QuadraticType,
+    SinusoidType,
+    TangentType,
+    ExponentialType,
+    LogarithmType,
+    AbsoluteValueType,
+} from "./grapher-types";
 import type {Coord} from "../../interactive2/types";
 
 // @ts-expect-error - TS2339 - Property 'Plot' does not exist on type 'typeof Graphie'.
 const Plot = Graphie.Plot;
 
-export const DEFAULT_BACKGROUND_IMAGE = {
+const DEFAULT_BACKGROUND_IMAGE = {
     url: null,
 } as const;
 
@@ -89,13 +99,14 @@ function canonicalTangentCoefficients(coeffs: any) {
 }
 
 const PlotDefaults = {
-    areEqual: function (coeffs1, coeffs2) {
+    areEqual: function (
+        coeffs1: ReadonlyArray<number>,
+        coeffs2: ReadonlyArray<number>,
+    ): boolean {
         return Util.deepEq(coeffs1, coeffs2);
     },
-
     Movable: Plot,
-
-    getPropsForCoeffs: function (coeffs) {
+    getPropsForCoeffs: function (coeffs: ReadonlyArray<number>): {fn: any} {
         return {
             // @ts-expect-error - TS2339 - Property 'getFunctionForCoeffs' does not exist on type '{ readonly areEqual: (coeffs1: any, coeffs2: any) => boolean; readonly Movable: any; readonly getPropsForCoeffs: (coeffs: any) => any; }'.
             fn: _.partial(this.getFunctionForCoeffs, coeffs),
@@ -103,7 +114,7 @@ const PlotDefaults = {
     },
 } as const;
 
-const Linear = _.extend({}, PlotDefaults, {
+const Linear: LinearType = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/67aaf581e6d9ef9038c10558a1f70ac21c11c9f8.png",
 
     defaultCoords: [
@@ -111,7 +122,9 @@ const Linear = _.extend({}, PlotDefaults, {
         [0.75, 0.75],
     ],
 
-    getCoefficients: function (coords) {
+    getCoefficients: function (
+        coords: Coords,
+    ): ReadonlyArray<number> | undefined {
         const p1 = coords[0];
         const p2 = coords[1];
 
@@ -127,21 +140,21 @@ const Linear = _.extend({}, PlotDefaults, {
         return [m, b];
     },
 
-    getFunctionForCoeffs: function (coeffs, x) {
+    getFunctionForCoeffs: function (coeffs: ReadonlyArray<number>, x: number) {
         const m = coeffs[0],
             b = coeffs[1];
         return m * x + b;
     },
 
-    getEquationString: function (coords) {
-        const coeffs = this.getCoefficients(coords);
-        const m = coeffs[0],
-            b = coeffs[1];
+    getEquationString: function (coords: Coords) {
+        const coeffs: ReadonlyArray<number> = this.getCoefficients(coords);
+        const m: number = coeffs[0],
+            b: number = coeffs[1];
         return "y = " + m.toFixed(3) + "x + " + b.toFixed(3);
     },
 });
 
-const Quadratic = _.extend({}, PlotDefaults, {
+const Quadratic: QuadraticType = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/e23d36e6fc29ee37174e92c9daba2a66677128ab.png",
 
     defaultCoords: [
@@ -151,7 +164,7 @@ const Quadratic = _.extend({}, PlotDefaults, {
     // @ts-expect-error - TS2339 - Property 'Parabola' does not exist on type 'typeof Graphie'.
     Movable: Graphie.Parabola,
 
-    getCoefficients: function (coords) {
+    getCoefficients: function (coords: Coords): ReadonlyArray<number> {
         const p1 = coords[0];
         const p2 = coords[1];
 
@@ -167,14 +180,21 @@ const Quadratic = _.extend({}, PlotDefaults, {
         return [a, b, c];
     },
 
-    getFunctionForCoeffs: function (coeffs, x) {
+    getFunctionForCoeffs: function (
+        coeffs: ReadonlyArray<number>,
+        x: number,
+    ): number {
         const a = coeffs[0],
             b = coeffs[1],
             c = coeffs[2];
         return (a * x + b) * x + c;
     },
 
-    getPropsForCoeffs: function (coeffs) {
+    getPropsForCoeffs: function (coeffs: ReadonlyArray<number>): {
+        a: number;
+        b: number;
+        c: number;
+    } {
         return {
             a: coeffs[0],
             b: coeffs[1],
@@ -182,7 +202,7 @@ const Quadratic = _.extend({}, PlotDefaults, {
         };
     },
 
-    getEquationString: function (coords) {
+    getEquationString: function (coords: Coords) {
         const coeffs = this.getCoefficients(coords);
         const a = coeffs[0],
             b = coeffs[1],
@@ -198,7 +218,7 @@ const Quadratic = _.extend({}, PlotDefaults, {
     },
 });
 
-const Sinusoid = _.extend({}, PlotDefaults, {
+const Sinusoid: SinusoidType = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/3d68e7718498475f53b206c2ab285626baf8857e.png",
 
     defaultCoords: [
@@ -208,7 +228,7 @@ const Sinusoid = _.extend({}, PlotDefaults, {
     // @ts-expect-error - TS2339 - Property 'Sinusoid' does not exist on type 'typeof Graphie'.
     Movable: Graphie.Sinusoid,
 
-    getCoefficients: function (coords) {
+    getCoefficients: function (coords: Coords) {
         const p1 = coords[0];
         const p2 = coords[1];
 
@@ -220,7 +240,7 @@ const Sinusoid = _.extend({}, PlotDefaults, {
         return [a, b, c, d];
     },
 
-    getFunctionForCoeffs: function (coeffs, x) {
+    getFunctionForCoeffs: function (coeffs: ReadonlyArray<number>, x: number) {
         const a = coeffs[0],
             b = coeffs[1],
             c = coeffs[2],
@@ -228,7 +248,7 @@ const Sinusoid = _.extend({}, PlotDefaults, {
         return a * Math.sin(b * x - c) + d;
     },
 
-    getPropsForCoeffs: function (coeffs) {
+    getPropsForCoeffs: function (coeffs: ReadonlyArray<number>) {
         return {
             a: coeffs[0],
             b: coeffs[1],
@@ -237,7 +257,7 @@ const Sinusoid = _.extend({}, PlotDefaults, {
         };
     },
 
-    getEquationString: function (coords) {
+    getEquationString: function (coords: Coords) {
         const coeffs = this.getCoefficients(coords);
         const a = coeffs[0],
             b = coeffs[1],
@@ -255,7 +275,10 @@ const Sinusoid = _.extend({}, PlotDefaults, {
         );
     },
 
-    areEqual: function (coeffs1, coeffs2) {
+    areEqual: function (
+        coeffs1: ReadonlyArray<number>,
+        coeffs2: ReadonlyArray<number>,
+    ) {
         return Util.deepEq(
             canonicalSineCoefficients(coeffs1),
             canonicalSineCoefficients(coeffs2),
@@ -263,7 +286,7 @@ const Sinusoid = _.extend({}, PlotDefaults, {
     },
 });
 
-const Tangent = _.extend({}, PlotDefaults, {
+const Tangent: TangentType = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/7db80d23c35214f98659fe1cf0765811c1bbfbba.png",
 
     defaultCoords: [
@@ -271,7 +294,7 @@ const Tangent = _.extend({}, PlotDefaults, {
         [0.75, 0.75],
     ],
 
-    getCoefficients: function (coords) {
+    getCoefficients: function (coords: Coords) {
         const p1 = coords[0];
         const p2 = coords[1];
 
@@ -283,7 +306,7 @@ const Tangent = _.extend({}, PlotDefaults, {
         return [a, b, c, d];
     },
 
-    getFunctionForCoeffs: function (coeffs, x) {
+    getFunctionForCoeffs: function (coeffs: ReadonlyArray<number>, x: number) {
         const a = coeffs[0],
             b = coeffs[1],
             c = coeffs[2],
@@ -291,7 +314,7 @@ const Tangent = _.extend({}, PlotDefaults, {
         return a * Math.tan(b * x - c) + d;
     },
 
-    getEquationString: function (coords) {
+    getEquationString: function (coords: Coords) {
         const coeffs = this.getCoefficients(coords);
         const a = coeffs[0],
             b = coeffs[1],
@@ -309,7 +332,10 @@ const Tangent = _.extend({}, PlotDefaults, {
         );
     },
 
-    areEqual: function (coeffs1, coeffs2) {
+    areEqual: function (
+        coeffs1: ReadonlyArray<number>,
+        coeffs2: ReadonlyArray<number>,
+    ) {
         return Util.deepEq(
             canonicalTangentCoefficients(coeffs1),
             canonicalTangentCoefficients(coeffs2),
@@ -317,7 +343,7 @@ const Tangent = _.extend({}, PlotDefaults, {
     },
 });
 
-const Exponential = _.extend({}, PlotDefaults, {
+const Exponential: ExponentialType = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/9cbfad55525e3ce755a31a631b074670a5dad611.png",
 
     defaultCoords: [
@@ -348,23 +374,23 @@ const Exponential = _.extend({}, PlotDefaults, {
      * coordinate, and `false` uses oldCoord as the resulting coordinate.
      */
     extraCoordConstraint: function (
-        newCoord,
-        oldCoord,
-        coords,
-        asymptote,
+        newCoord: Coord,
+        oldCoord: Coord,
+        coords: Coords,
+        asymptote: Coords,
         graph,
     ) {
-        const y = _.head(asymptote)[1];
+        const y: number = asymptote[0][1];
         return _.all(coords, (coord) => coord[1] !== y);
     },
 
     extraAsymptoteConstraint: function (
-        newCoord,
-        oldCoord,
-        coords,
-        asymptote,
+        newCoord: Coord,
+        oldCoord: Coord,
+        coords: Coords,
+        asymptote: Coords,
         graph,
-    ) {
+    ): Coord {
         const y = newCoord[1];
         const isValid =
             _.all(coords, (coord) => coord[1] > y) ||
@@ -387,24 +413,30 @@ const Exponential = _.extend({}, PlotDefaults, {
 
     allowReflectOverAsymptote: true,
 
-    getCoefficients: function (coords, asymptote) {
+    getCoefficients: function (
+        coords: Coords,
+        asymptote: Coords,
+    ): ReadonlyArray<number> {
         const p1 = coords[0];
         const p2 = coords[1];
 
-        const c = _.head(asymptote)[1];
+        const c = asymptote[0][1];
         const b = Math.log((p1[1] - c) / (p2[1] - c)) / (p1[0] - p2[0]);
         const a = (p1[1] - c) / Math.exp(b * p1[0]);
         return [a, b, c];
     },
 
-    getFunctionForCoeffs: function (coeffs, x) {
+    getFunctionForCoeffs: function (
+        coeffs: ReadonlyArray<number>,
+        x: number,
+    ): number {
         const a = coeffs[0],
             b = coeffs[1],
             c = coeffs[2];
         return a * Math.exp(b * x) + c;
     },
 
-    getEquationString: function (coords, asymptote) {
+    getEquationString: function (coords: Coords, asymptote: Coords) {
         if (!asymptote) {
             return null;
         }
@@ -423,7 +455,7 @@ const Exponential = _.extend({}, PlotDefaults, {
     },
 });
 
-const Logarithm = _.extend({}, PlotDefaults, {
+const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/f6491e99d34af34d924bfe0231728ad912068dc3.png",
 
     defaultCoords: [
@@ -437,13 +469,13 @@ const Logarithm = _.extend({}, PlotDefaults, {
     ],
 
     extraCoordConstraint: function (
-        newCoord,
-        oldCoord,
-        coords,
-        asymptote,
+        newCoord: Coord,
+        oldCoord: Coord,
+        coords: Coord,
+        asymptote: Coords,
         graph,
     ) {
-        const x = _.head(asymptote)[0];
+        const x = asymptote[0][0];
         return (
             _.all(coords, (coord) => coord[0] !== x) &&
             coords[0][1] !== coords[1][1]
@@ -451,12 +483,12 @@ const Logarithm = _.extend({}, PlotDefaults, {
     },
 
     extraAsymptoteConstraint: function (
-        newCoord,
-        oldCoord,
-        coords,
-        asymptote,
+        newCoord: Coord,
+        oldCoord: Coord,
+        coords: Coords,
+        asymptote: Coords,
         graph,
-    ) {
+    ): ReadonlyArray<number> {
         const x = newCoord[0];
         const isValid =
             _.all(coords, (coord) => coord[0] > x) ||
@@ -479,34 +511,46 @@ const Logarithm = _.extend({}, PlotDefaults, {
 
     allowReflectOverAsymptote: true,
 
-    getCoefficients: function (coords, asymptote) {
+    getCoefficients: function (
+        coords: Coords,
+        asymptote: Coords,
+    ): ReadonlyArray<number> | undefined {
         // It's easiest to calculate the logarithm's coefficients by thinking
         // about it as the inverse of the exponential, so we flip x and y and
         // perform some algebra on the coefficients. This also unifies the
         // logic between the two 'models'.
-        const flip = (coord: any) => [coord[1], coord[0]];
+        const flip = (coord: Coord): Coord => [coord[1], coord[0]];
         const inverseCoeffs = Exponential.getCoefficients(
-            _.map(coords, flip),
-            _.map(asymptote, flip),
+            _.map(coords, flip) as Coords,
+            _.map(asymptote, flip) as Coords,
         );
-        const c = -inverseCoeffs[2] / inverseCoeffs[0];
-        const b = 1 / inverseCoeffs[0];
-        const a = 1 / inverseCoeffs[1];
-        return [a, b, c];
+        if (inverseCoeffs) {
+            const c = -inverseCoeffs[2] / inverseCoeffs[0];
+            const b = 1 / inverseCoeffs[0];
+            const a = 1 / inverseCoeffs[1];
+            return [a, b, c];
+        }
     },
 
-    getFunctionForCoeffs: function (coeffs, x, asymptote) {
+    getFunctionForCoeffs: function (
+        coeffs: ReadonlyArray<number>,
+        x: number,
+        asymptote: Coords,
+    ) {
         const a = coeffs[0],
             b = coeffs[1],
             c = coeffs[2];
         return a * Math.log(b * x + c);
     },
 
-    getEquationString: function (coords, asymptote) {
+    getEquationString: function (coords: Coords, asymptote: Coords) {
         if (!asymptote) {
             return null;
         }
-        const coeffs = this.getCoefficients(coords, asymptote);
+        const coeffs: ReadonlyArray<number> = this.getCoefficients(
+            coords,
+            asymptote,
+        );
         const a = coeffs[0],
             b = coeffs[1],
             c = coeffs[2];
@@ -521,7 +565,7 @@ const Logarithm = _.extend({}, PlotDefaults, {
     },
 });
 
-const AbsoluteValue = _.extend({}, PlotDefaults, {
+const AbsoluteValue: AbsoluteValueType = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/8256a630175a0cb1d11de223d6de0266daf98721.png",
 
     defaultCoords: [
@@ -529,7 +573,9 @@ const AbsoluteValue = _.extend({}, PlotDefaults, {
         [0.75, 0.75],
     ],
 
-    getCoefficients: function (coords) {
+    getCoefficients: function (
+        coords: Coords,
+    ): ReadonlyArray<number> | undefined {
         const p1 = coords[0];
         const p2 = coords[1];
 
@@ -550,15 +596,15 @@ const AbsoluteValue = _.extend({}, PlotDefaults, {
         return [m, horizontalOffset, verticalOffset];
     },
 
-    getFunctionForCoeffs: function (coeffs, x) {
+    getFunctionForCoeffs: function (coeffs: ReadonlyArray<number>, x: number) {
         const m = coeffs[0],
             horizontalOffset = coeffs[1],
             verticalOffset = coeffs[2];
         return m * Math.abs(x - horizontalOffset) + verticalOffset;
     },
 
-    getEquationString: function (coords) {
-        const coeffs = this.getCoefficients(coords);
+    getEquationString: function (coords: Coords) {
+        const coeffs: ReadonlyArray<number> = this.getCoefficients(coords);
         const m = coeffs[0],
             horizontalOffset = coeffs[1],
             verticalOffset = coeffs[2];
@@ -586,12 +632,24 @@ const functionTypeMapping = {
 
 export const allTypes: any = _.keys(functionTypeMapping);
 
-export function functionForType(
-    // TODO(jeremy): Actually `$Keys<typeof functionTypeMapping>` but that
-    // triggers TypeScript to require all of our Plot types to be fully typed which
-    // is a big amount of work/change.
-    type: string,
-): any {
+type FunctionTypeMappingKeys = keyof typeof functionTypeMapping;
+
+type ConditionalGraderType<T extends FunctionTypeMappingKeys> =
+    // prettier-ignore
+    T extends "linear" ? LinearType
+    : T extends "quadratic" ? QuadraticType
+    : T extends "sinusoid" ? SinusoidType
+    : T extends "tangent" ? TangentType
+    : T extends "exponential" ? ExponentialType
+    : T extends "logarithm" ? LogarithmType
+    : T extends "absolute_value" ? AbsoluteValueType
+    : never;
+
+export function functionForType<T extends FunctionTypeMappingKeys>(
+    type: T,
+): ConditionalGraderType<T> {
+    // @ts-expect-error: TypeScript doesn't know how to use deal with generics
+    // and conditional types in this way.
     return functionTypeMapping[type];
 }
 
@@ -605,7 +663,7 @@ export const getEquationString = (props: any): string => {
     return "";
 };
 
-export const pointsFromNormalized = (
+const pointsFromNormalized = (
     coordsList: ReadonlyArray<Coord>,
     range: [Coord, Coord],
     step: [number, number],
@@ -646,7 +704,10 @@ export const maybePointsFromNormalized = (
 
 /* Given a plot type, return the appropriate default value for a grapher
  * widget's plot props: type, default coords, default asymptote. */
-export const defaultPlotProps = (type: string, graph: any): any => {
+export const defaultPlotProps = (
+    type: FunctionTypeMappingKeys,
+    graph: any,
+): any => {
     // The coords are null by default, to indicate that the user has not
     // moved them from the default position, and that this widget should
     // therefore be considered empty and ineligible for grading. The user
@@ -669,13 +730,15 @@ export const defaultPlotProps = (type: string, graph: any): any => {
     // widget before even reading the question; you can't lose, but you
     // might get a free win.
     const model = functionForType(type);
+    const defaultAsymptote =
+        "defaultAsymptote" in model ? model.defaultAsymptote : null;
     const gridStep = [1, 1];
     // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type '[number, number]'.
     const snapStep = Util.snapStepFromGridStep(gridStep);
     return {
         type,
         asymptote: maybePointsFromNormalized(
-            model.defaultAsymptote,
+            defaultAsymptote,
             graph.range,
             graph.step,
             snapStep,
@@ -736,7 +799,7 @@ export const DEFAULT_GRAPHER_PROPS: any = {
     availableTypes: [defaultPlot.type],
 };
 
-export const typeToButton = (type: string): any => {
+export const typeToButton = (type: FunctionTypeMappingKeys): any => {
     const capitalized = type.charAt(0).toUpperCase() + type.substring(1);
     const staticUrl = getDependencies().staticUrl;
 

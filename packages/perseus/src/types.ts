@@ -9,6 +9,13 @@ import type {
 } from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
+import type {
+    Rubric,
+    UserInput,
+    UserInputArray,
+    UserInputMap,
+} from "./validation.types";
+import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -24,12 +31,67 @@ export type Dimensions = {
 
 export type DeviceType = "phone" | "tablet" | "desktop";
 
-// TODO(CP-4839): Create a proper type for Widget
-// Is this the same as the Widget type in `renderer.jsx`?
-export type Widget = any;
-export type WidgetDict = {
-    [name: string]: Widget;
-};
+/**
+ * This is the type returned by a widget's `getSerializedState` function (and
+ * provided to the same widget's `restoreSerializedState` function). However,
+ * note that in most cases the widgets do _not_ implement these functions.
+ * In that case, the `Renderer` just returns the widget's render props as the
+ * serialized state.
+ */
+export type SerializedState = Record<string, any>;
+
+/**
+ * The Widget type represents the common API that the Renderer uses to interact
+ * with all widgets. All widgets must implement the methods in this API, unless
+ * they are marked as optional (?: ...).
+ *
+ * These methods are called on the widget ref and allow the renderer to
+ * communicate with the individual widgets to coordinate actions such as
+ * scoring, state serialization/deserialization, and focus management.
+ */
+export interface Widget {
+    /**
+     * don't use isWidget; it's just a dummy property to help TypeScript's weak
+     * typing to recognize non-interactive widgets as Widgets
+     * @deprecated
+     */
+    isWidget?: true;
+    focus?: () =>
+        | {
+              id: string;
+              path: FocusPath;
+          }
+        | boolean;
+    getDOMNodeForPath?: (path: FocusPath) => Element | Text | null;
+    deselectIncorrectSelectedChoices?: () => void;
+
+    // TODO(jeremy): I think this return value is wrong. The widget
+    // getSerializedState should just return _its_ serialized state, not a
+    // key/value list of all widget states (i think!)
+    // Returns widget state that can be passed back to `restoreSerializedState`
+    // to put the widget back into exactly the same state. If the widget does
+    // not implement this function, the renderer simply returns all of the
+    // widget's props.
+    getSerializedState?: () => SerializedState; // SUSPECT,
+    restoreSerializedState?: (props: any, callback: () => void) => any;
+
+    blurInputPath?: (path: FocusPath) => void;
+    focusInputPath?: (path: FocusPath) => void;
+    getInputPaths?: () => ReadonlyArray<FocusPath>;
+    setInputValue?: (
+        path: FocusPath,
+        newValue: string,
+        // TODO(jeremy): I think this is actually a callback
+        focus?: () => unknown,
+    ) => void;
+    getUserInputMap?: () => UserInputMap | undefined;
+    getUserInput?: () => UserInputArray | UserInput | undefined;
+
+    showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
+    examples?: () => ReadonlyArray<string>;
+    getPromptJSON?: () => WidgetPromptJSON;
+}
+
 export type ImageDict = {
     [url: string]: Dimensions;
 };
@@ -69,7 +131,7 @@ export type ChangeHandler = (
         hints?: ReadonlyArray<Hint>;
         replace?: boolean;
         content?: string;
-        widgets?: WidgetDict;
+        widgets?: PerseusWidgetsMap;
         images?: ImageDict;
         // used only in EditorPage
         question?: any;
@@ -100,8 +162,6 @@ export type ImageUploader = (
     file: File,
     callback: (url: string) => unknown,
 ) => unknown;
-
-export type WidgetSize = "normal" | "small" | "mini";
 
 export type Path = ReadonlyArray<string>;
 
@@ -134,6 +194,8 @@ export const MafsGraphTypeFlags = [
     "ray",
     /** Enables the `polygon` interactive-graph type a fixed number of sides. */
     "polygon",
+    /** Enable the `unlimited-polygon` interactive graph type for an unlimited number of sides */
+    "unlimited-polygon",
     /** Enables the `circle` interactive-graph type.  */
     "circle",
     /** Enables the `quadratic` interactive-graph type.  */
@@ -419,6 +481,24 @@ export type PerseusDependencies = {
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
 
+    Log: ILogger;
+
+    // RequestInfo
+    isDevServer: boolean;
+    kaLocale: string;
+};
+
+/**
+ * The modern iteration of Perseus Depedndencies. These dependencies are
+ * provided to Perseus through its entrypoints (for example:
+ * ServerItemRenderer) and then attached to the DependenciesContext so they are
+ * available anywhere down the React render tree.
+ *
+ * Prefer using this type over `PerseusDependencies` when possible.
+ */
+export interface PerseusDependenciesV2 {
+    analytics: {onAnalyticsEvent: AnalyticsEventHandlerFn};
+
     // video widget
     // This is used as a hook to fetch data about a video which is used to
     // add a link to the video transcript.  The return value conforms to
@@ -430,26 +510,7 @@ export type PerseusDependencies = {
     ): Result<{
         video: VideoData | null | undefined;
     }>;
-
-    Log: ILogger;
-
-    // RequestInfo
-    isDevServer: boolean;
-    kaLocale: string;
-    isMobile: boolean;
-};
-
-/**
- * The modern iteration of Perseus Depedndencies. These dependencies are
- * provided to Perseus through its entrypoints (for example:
- * ServerItemRenderer) and then attached to the DependenciesContext so they are
- * available anywhere down the React render tree.
- *
- * Prefer using this type over `PerseusDependencies` when possible.
- */
-export type PerseusDependenciesV2 = {
-    analytics: {onAnalyticsEvent: AnalyticsEventHandlerFn};
-};
+}
 
 /**
  * APIOptionsWithDefaults represents the type that is provided to all widgets.
@@ -487,7 +548,7 @@ export type TrackingGradedGroupExtraArguments = {
 };
 
 // See sequence widget
-export type TrackingSequenceExtraArguments = {
+type TrackingSequenceExtraArguments = {
     visible: number;
 };
 
@@ -513,8 +574,20 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
+export type WidgetScorerFunction = (
+    // The user data needed to score
+    userInput: UserInput,
+    // The scoring criteria to score against
+    rubric: Rubric,
+    // Strings, for error messages in invalid widgets
+    string?: PerseusStrings,
+    // Locale, for math evaluation
+    // (1,000.00 === 1.000,00 in some countries)
+    locale?: string,
+) => PerseusScore;
+
 export type WidgetExports<
-    T extends React.ComponentType<any> = React.ComponentType<any>,
+    T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
 > = Readonly<{
     name: string;
     displayName: string;
@@ -550,6 +623,11 @@ export type WidgetExports<
     static renders  */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
+    scorer?: WidgetScorerFunction;
+    getOneCorrectAnswerFromRubric?: (
+        rubric: Rubric,
+    ) => string | null | undefined;
+
     /**
     A map of major version numbers (as a string, eg "1") to a function that
     migrates from the _previous_ major version.
@@ -576,7 +654,7 @@ export type FilterCriterion =
 // and Rubric is what we use to score the widgets (which not all widgets need validation)
 export type WidgetProps<
     RenderProps,
-    Rubric,
+    Rubric = Empty,
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
@@ -588,11 +666,17 @@ export type WidgetProps<
     problemNum: number | null | undefined;
     apiOptions: APIOptionsWithDefaults;
     keypadElement?: any;
+    /**
+     * questionCompleted is used to signal that a learner has attempted
+     * the exercise. This is used when widgets want to show things like
+     * rationale or partial correctness.
+     */
     questionCompleted?: boolean;
     onFocus: (blurPath: FocusPath) => void;
     onBlur: (blurPath: FocusPath) => void;
-    findWidgets: (arg1: FilterCriterion) => ReadonlyArray<Widget>;
-    reviewModeRubric: Rubric;
+    findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
+    reviewModeRubric?: Rubric | null | undefined;
+    reviewMode: boolean;
     onChange: ChangeHandler;
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer

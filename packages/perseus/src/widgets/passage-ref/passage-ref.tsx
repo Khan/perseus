@@ -4,15 +4,13 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import PerseusMarkdown from "../../perseus-markdown";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
+import {isPassageWidget} from "../passage/utils";
 
 import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
-import type {ChangeFn, WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusPassageRefRubric,
-    PerseusPassageRefUserInput,
-} from "../../validation.types";
-import type {Passage, Reference} from "../passage";
+import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {PassageRefPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
 
 const EN_DASH = "\u2013";
 
@@ -22,7 +20,7 @@ type RenderProps = {
     summaryText: PerseusPassageRefWidgetOptions["summaryText"];
 };
 
-type Props = WidgetProps<RenderProps, PerseusPassageRefRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     passageNumber: Props["passageNumber"];
@@ -35,7 +33,7 @@ type State = {
     content: string | null | undefined;
 };
 
-class PassageRef extends React.Component<Props, State> {
+class PassageRef extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -51,15 +49,14 @@ class PassageRef extends React.Component<Props, State> {
         summaryText: "",
     };
 
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
+
     state: State = {
         lineRange: null,
         content: null,
     };
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
 
     componentDidMount() {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
@@ -89,31 +86,24 @@ class PassageRef extends React.Component<Props, State> {
         this._isMounted = false;
     }
 
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    getUserInput(): PerseusPassageRefUserInput {
-        return null;
-    }
-
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
+
+    getPromptJSON(): PassageRefPromptJSON {
+        return _getPromptJSON(this.props);
+    }
 
     _deferredUpdateRange: () => void = () => {
         _.defer(this._updateRange);
     };
 
     _updateRange: () => void = () => {
-        // Note(TB): findWidgets runs findInternal and findExternal;
-        // findExternal runs findInternal for the renderers involved;
-        // findInternal returns type $ReadOnlyArray<?Widget>
-        const passage: Passage | null | undefined = this.props.findWidgets(
-            "passage " + this.props.passageNumber,
-        )[0];
+        const passage = this.props
+            .findWidgets("passage " + this.props.passageNumber)
+            .filter(isPassageWidget)[0];
 
-        let refInfo: Reference | null | undefined = null;
-        if (passage) {
-            refInfo = passage.getReference(this.props.referenceNumber);
-        }
+        const refInfo = passage?.getReference(this.props.referenceNumber);
 
         if (this._isMounted) {
             if (refInfo) {
@@ -129,11 +119,6 @@ class PassageRef extends React.Component<Props, State> {
             }
         }
     };
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
 
     render(): React.ReactNode {
         const {strings} = this.context;
@@ -198,4 +183,6 @@ export default {
         summaryText: widgetOptions.summaryText,
     }),
     version: {major: 0, minor: 1},
-} as WidgetExports<typeof PassageRef>;
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof PassageRef>;

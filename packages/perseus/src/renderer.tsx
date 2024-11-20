@@ -10,6 +10,7 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import AssetContext from "./asset-context";
+import {PerseusI18nContext} from "./components/i18n-context";
 import SvgImage from "./components/svg-image";
 import TeX from "./components/tex";
 import Zoomable from "./components/zoomable";
@@ -24,6 +25,7 @@ import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
+import {emptyWidgetsFunctional, scoreWidgetsFunctional} from "./renderer-util";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
@@ -45,15 +47,21 @@ import type {
     FilterCriterion,
     FocusPath,
     PerseusScore,
+    SerializedState,
+    Widget,
     WidgetProps,
 } from "./types";
-import type {UserInput} from "./validation.types";
+import type {UserInputArray, UserInputMap} from "./validation.types";
+import type {
+    GetPromptJSONInterface,
+    RendererPromptJSON,
+} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.less";
 
-const {mapObject, mapObjectFromArray} = Objective;
+const {mapObject} = Objective;
 
 const rContainsNonWhitespace = /\S/;
 const rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
@@ -104,60 +112,6 @@ type SetWidgetPropsFn = (
     silent?: boolean,
 ) => void;
 
-type SerializedState = {
-    [id: string]: any;
-};
-
-/**
- * The Widget type represents the common API that the Renderer uses to interact
- * with all widgets. All widgets must implement the methods in this API, unless
- * they are marked as optional (?: ...).
- *
- * These methods are called on the widget ref and allow the renderer to
- * communicate with the individual widgets to coordinate actions such as
- * scoring, state serialization/deserialization, and focus management.
- */
-export type Widget = {
-    focus: () =>
-        | {
-              id: string;
-              path: FocusPath;
-          }
-        | boolean;
-    getDOMNodeForPath: (path: FocusPath) => Element | Text | null;
-    deselectIncorrectSelectedChoices?: () => void;
-    restoreSerializedState: (props: any, callback: () => void) => any;
-    // TODO(jeremy): I think this return value is wrong. The widget
-    // getSerializedState should just return _its_ serialized state, not a
-    // key/value list of all widget states (i think!)
-    // Returns widget state that can be passed back to `restoreSerializedState`
-    // to put the widget back into exactly the same state. If the widget does
-    // not implement this function, the renderer simply returns all of the
-    // widget's props.
-    getSerializedState?: () => SerializedState; // SUSPECT,
-    getGrammarTypeForPath: (path: FocusPath) => string;
-    blurInputPath?: (path: FocusPath) => null;
-    focusInputPath?: (path: FocusPath) => null;
-    getInputPaths?: () => ReadonlyArray<FocusPath>;
-    setInputValue?: (
-        path: FocusPath,
-        newValue: string,
-        // TODO(jeremy): I think this is actually a callback
-        focus?: () => unknown,
-    ) => void;
-    getUserInput?: () => UserInput | null | undefined;
-    simpleValidate?: (
-        options?: any,
-        onOutputError?: (
-            widgetId: any,
-            value: string,
-            message?: string | null | undefined,
-        ) => unknown | null | undefined,
-    ) => PerseusScore;
-    showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
-    examples?: () => ReadonlyArray<string>;
-};
-
 type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     apiOptions?: APIOptions;
     alwaysUpdate?: boolean;
@@ -201,9 +155,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
 
 type State = {
     translationLintErrors: ReadonlyArray<string>;
-    widgetInfo: Readonly<{
-        [id: string]: PerseusWidget | null | undefined;
-    }>;
+    widgetInfo: Readonly<PerseusWidgetsMap>;
     widgetProps: Readonly<{
         [id: string]: any | null | undefined;
     }>;
@@ -211,7 +163,7 @@ type State = {
     lastUsedWidgetId: string | null | undefined;
 };
 
-type Context = LinterContextProps & {
+type FullLinterContext = LinterContextProps & {
     content: string;
     widgets: {
         [id: string]: any;
@@ -239,7 +191,13 @@ type DefaultProps = Required<
     >
 >;
 
-class Renderer extends React.Component<Props, State> {
+class Renderer
+    extends React.Component<Props, State>
+    implements GetPromptJSONInterface
+{
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     _currentFocus: FocusPath | null | undefined;
     // @ts-expect-error - TS2564 - Property '_foundTextNodes' has no initializer and is not definitely assigned in the constructor.
     _foundTextNodes: boolean;
@@ -424,9 +382,9 @@ class Renderer extends React.Component<Props, State> {
         // WidgetContainers don't update their widgets' props when
         // they are re-rendered, so even if they've been
         // re-rendered we need to call these methods on them.
-        _.each(this.widgetIds, (id) => {
+        this.widgetIds.forEach((id) => {
             const container = this._widgetContainers.get(makeContainerId(id));
-            container && container.replaceWidgetProps(this.getWidgetProps(id));
+            container?.replaceWidgetProps(this.getWidgetProps(id));
         });
 
         if (
@@ -616,15 +574,13 @@ class Renderer extends React.Component<Props, State> {
         return null;
     };
 
-    getWidgetProps: (id: string) => WidgetProps<any, PerseusWidgetOptions> = (
-        id,
-    ) => {
+    getWidgetProps(widgetId: string): WidgetProps<any, PerseusWidgetOptions> {
         const apiOptions = this.getApiOptions();
-        const widgetProps = this.state.widgetProps[id] || {};
+        const widgetProps = this.state.widgetProps[widgetId] || {};
 
         // The widget needs access to its "rubric" at all times when in review
         // mode (which is really just part of its widget info).
-        const widgetInfo = this.state.widgetInfo[id];
+        const widgetInfo = this.state.widgetInfo[widgetId];
         const reviewModeRubric =
             this.props.reviewMode && widgetInfo ? widgetInfo.options : null;
 
@@ -632,22 +588,20 @@ class Renderer extends React.Component<Props, State> {
             this._interactionTrackers = {};
         }
 
-        let interactionTracker = this._interactionTrackers[id];
+        let interactionTracker = this._interactionTrackers[widgetId];
         if (!interactionTracker) {
-            interactionTracker = this._interactionTrackers[id] =
+            interactionTracker = this._interactionTrackers[widgetId] =
                 new InteractionTracker(
                     apiOptions.trackInteraction,
-                    // @ts-expect-error - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
                     widgetInfo && widgetInfo.type,
-                    id,
-                    // @ts-expect-error - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
+                    widgetId,
                     Widgets.getTracking(widgetInfo && widgetInfo.type),
                 );
         }
 
         return {
             ...widgetProps,
-            widgetId: id,
+            widgetId: widgetId,
             alignment: widgetInfo && widgetInfo.alignment,
             static: widgetInfo?.static,
             problemNum: this.props.problemNum,
@@ -655,17 +609,18 @@ class Renderer extends React.Component<Props, State> {
             keypadElement: this.props.keypadElement,
             questionCompleted: this.props.questionCompleted,
             showSolutions: this.props.showSolutions,
-            onFocus: _.partial(this._onWidgetFocus, id),
-            onBlur: _.partial(this._onWidgetBlur, id),
+            onFocus: _.partial(this._onWidgetFocus, widgetId),
+            onBlur: _.partial(this._onWidgetBlur, widgetId),
             findWidgets: this.findWidgets,
             reviewModeRubric: reviewModeRubric,
+            reviewMode: this.props.reviewMode,
             onChange: (newProps, cb, silent = false) => {
-                this._setWidgetProps(id, newProps, cb, silent);
+                this._setWidgetProps(widgetId, newProps, cb, silent);
             },
             trackInteraction: interactionTracker.track,
-            isLastUsedWidget: id === this.state.lastUsedWidgetId,
+            isLastUsedWidget: widgetId === this.state.lastUsedWidgetId,
         };
-    };
+    }
 
     /**
      * Serializes the questions state so it can be recovered.
@@ -1169,7 +1124,7 @@ class Renderer extends React.Component<Props, State> {
             // /cry(aria)
             this._foundTextNodes = true;
 
-            if (_.contains(this.widgetIds, node.id)) {
+            if (this.widgetIds.includes(node.id)) {
                 // We don't want to render a duplicate widget key/ref,
                 // as this causes problems with react (for obvious
                 // reasons). Instead we just notify the
@@ -1490,7 +1445,7 @@ class Renderer extends React.Component<Props, State> {
         for (let i = 0; i < this.widgetIds.length; i++) {
             const widgetId = this.widgetIds[i];
             const widget = this.getWidgetInstance(widgetId);
-            const widgetFocusResult = widget && widget.focus && widget.focus();
+            const widgetFocusResult = widget?.focus?.();
             if (widgetFocusResult) {
                 id = widgetId;
                 focusResult = widgetFocusResult;
@@ -1544,9 +1499,8 @@ class Renderer extends React.Component<Props, State> {
             // beyond the widgetID, as a special case we just return the widget's
             // DOM node.
             const widget = this.getWidgetInstance(widgetId);
-            const getNode = widget && widget.getDOMNodeForPath;
-            if (getNode) {
-                return getNode(interWidgetPath);
+            if (widget?.getDOMNodeForPath) {
+                return widget.getDOMNodeForPath(interWidgetPath);
             }
             if (interWidgetPath.length === 0) {
                 // @ts-expect-error - TS2345 - Argument of type 'Widget | null | undefined' is not assignable to parameter of type 'ReactInstance | null | undefined'.
@@ -1554,23 +1508,9 @@ class Renderer extends React.Component<Props, State> {
             }
         };
 
-    getGrammarTypeForPath: (path: FocusPath) => string | null | undefined = (
-        path: FocusPath,
-    ) => {
-        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-        const widgetId = _.first(path);
-        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-        const interWidgetPath = _.rest(path);
-
-        const widget = this.getWidgetInstance(widgetId);
-        if (widget && widget.getGrammarTypeForPath) {
-            return widget.getGrammarTypeForPath(interWidgetPath);
-        }
-    };
-
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         const inputPaths: Array<FocusPath> = [];
-        _.each(this.widgetIds, (widgetId: string) => {
+        this.widgetIds.forEach((widgetId: string) => {
             const widget = this.getWidgetInstance(widgetId);
             if (widget && widget.getInputPaths) {
                 // Grab all input paths and add widgetID to the front
@@ -1578,7 +1518,7 @@ class Renderer extends React.Component<Props, State> {
                 // Prefix paths with their widgetID and add to collective
                 // list of paths.
                 // @ts-expect-error - TS2345 - Argument of type '(inputPath: string) => void' is not assignable to parameter of type 'CollectionIterator<FocusPath, void, readonly FocusPath[]>'.
-                _.each(widgetInputPaths, (inputPath: string) => {
+                widgetInputPaths.forEach((inputPath: string) => {
                     const relativeInputPath = [widgetId].concat(inputPath);
                     inputPaths.push(relativeInputPath);
                 });
@@ -1605,9 +1545,7 @@ class Renderer extends React.Component<Props, State> {
 
         // Widget handles parsing of the interWidgetPath
         const focusWidget = this.getWidgetInstance(widgetId);
-        if (focusWidget && focusWidget.focusInputPath) {
-            focusWidget.focusInputPath(interWidgetPath);
-        }
+        focusWidget?.focusInputPath?.(interWidgetPath);
     };
 
     blurPath: (path: FocusPath) => void = (path: FocusPath) => {
@@ -1625,10 +1563,8 @@ class Renderer extends React.Component<Props, State> {
         // longer exists, so only blur if we actually found the widget
         if (widget) {
             const blurWidget = this.getWidgetInstance(widgetId);
-            if (blurWidget && blurWidget.blurInputPath) {
-                // Widget handles parsing of the interWidgetPath
-                blurWidget.blurInputPath(interWidgetPath);
-            }
+            // Widget handles parsing of the interWidgetPath
+            blurWidget?.blurInputPath?.(interWidgetPath);
         }
     };
 
@@ -1658,25 +1594,15 @@ class Renderer extends React.Component<Props, State> {
         return state;
     };
 
-    emptyWidgets: () => any = () => {
-        // @ts-expect-error - TS2345 - Argument of type '(id: string) => boolean | undefined' is not assignable to parameter of type 'Iteratee<string[], boolean, string>'.
-        return _.filter(this.widgetIds, (id) => {
-            const widgetInfo = this._getWidgetInfo(id);
-            if (widgetInfo.static) {
-                // Static widgets shouldn't count as empty
-                return false;
-            }
-            const widget = this.getWidgetInstance(id);
-            if (widget && widget.simpleValidate) {
-                const score: PerseusScore = widget.simpleValidate(
-                    widgetInfo.options,
-                    // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '((widgetId: any, value: string, message?: string | null | undefined) => unknown) | undefined'.
-                    null,
-                );
-                return Util.scoreIsEmpty(score);
-            }
-        });
-    };
+    emptyWidgets(): ReadonlyArray<string> {
+        return emptyWidgetsFunctional(
+            this.state.widgetInfo,
+            this.widgetIds,
+            this.getUserInputMap(),
+            this.props.strings,
+            this.context.locale,
+        );
+    }
 
     _setWidgetProps: SetWidgetPropsFn = (id, newProps, cb, silent) => {
         this.setState(
@@ -1755,8 +1681,11 @@ class Renderer extends React.Component<Props, State> {
 
     /**
      * Returns an array of the widget `.getUserInput()` results
+     *
+     * TODO: can we remove this?
+     * @deprecated use getUserInputMap
      */
-    getUserInput: () => ReadonlyArray<UserInput | null | undefined> = () => {
+    getUserInput(): UserInputArray {
         return this.widgetIds.map((id: string) => {
             const widget = this.getWidgetInstance(id);
             if (widget && widget.getUserInput) {
@@ -1765,7 +1694,24 @@ class Renderer extends React.Component<Props, State> {
                 return widget.getUserInput();
             }
         });
-    };
+    }
+
+    /**
+     * Returns an object of the widget `.getUserInput()` results
+     */
+    getUserInputMap(): UserInputMap {
+        const userInputMap = {};
+        this.widgetIds.forEach((id: string) => {
+            const widget = this.getWidgetInstance(id);
+            // Handle Groups, which have their own sets of widgets
+            if (widget?.getUserInputMap) {
+                userInputMap[id] = widget.getUserInputMap();
+            } else if (widget?.getUserInput) {
+                userInputMap[id] = widget.getUserInput();
+            }
+        });
+        return userInputMap;
+    }
 
     /**
      * Returns an array of all widget IDs in the order they occur in
@@ -1776,68 +1722,46 @@ class Renderer extends React.Component<Props, State> {
     };
 
     /**
-     * Returns the result of `.getUserInput()` for each widget, in
-     * a map from widgetId to userInput.
-     * NOTE(jeremy): This function is hauntingly similar to `getUserInput` with
-     * the major difference being that this function returns a map of
-     * `widgetID` => UserInput and `getUserInput` simply returns an array. It
-     * would be trivial to map between the results of each of these functions,
-     * so we should aim to remove one of these functions.
+     * Returns a JSON representation of the content and widgets
+     * that can be passed to an LLM for prompt context.
      */
-    getUserInputForWidgets: () => {
-        [widgetId: string]: UserInput | null | undefined;
-    } = () => {
-        return mapObjectFromArray(this.widgetIds, (id) => {
+    getPromptJSON(): RendererPromptJSON {
+        const {content} = this.props;
+        const widgetJSON = {};
+
+        this.widgetIds.forEach((id) => {
             const widget = this.getWidgetInstance(id);
-            if (widget && widget.getUserInput) {
-                return widget.getUserInput();
-            }
+
+            widgetJSON[id] = widget?.getPromptJSON?.() || {};
         });
-    };
+
+        return {
+            content,
+            widgets: widgetJSON,
+        };
+    }
 
     /**
-     * Returns an object mapping from widget ID to perseus-style score.
-     * The keys of this object are the values of the array returned
-     * from `getWidgetIds`.
+     * Scores the content.
+     *
+     * @deprecated use scorePerseusItem
      */
-    scoreWidgets: () => {
-        [widgetId: string]: PerseusScore;
-    } = () => {
-        const widgetProps = this.state.widgetInfo;
-
-        const gradedWidgetIds = _.filter(this.widgetIds, (id) => {
-            const props = widgetProps[id];
-            const widgetIsGraded: boolean =
-                props?.graded == null || props.graded;
-            const widgetIsStatic = !!props?.static;
-            // Ungraded widgets or widgets set to static shouldn't be graded.
-            return widgetIsGraded && !widgetIsStatic;
-        });
-
-        const widgetScores: Record<string, PerseusScore> = {};
-        _.each(gradedWidgetIds, (id) => {
-            const props = widgetProps[id];
-            const widget = this.getWidgetInstance(id);
-            // widget can be undefined if it hasn't yet been rendered
-            if (widget && widget.simpleValidate) {
-                widgetScores[id] = widget.simpleValidate({
-                    ...props?.options,
-                    scoring: true,
-                });
-            }
-        });
-
-        return widgetScores;
-    };
+    score(): PerseusScore {
+        const scores = scoreWidgetsFunctional(
+            this.state.widgetInfo,
+            this.widgetIds,
+            this.getUserInputMap(),
+            this.props.strings,
+            this.context.locale,
+        );
+        const combinedScore = Util.flattenScores(scores);
+        return combinedScore;
+    }
 
     /**
-     * Grades the content.
+     * @deprecated use scorePerseusItem
      */
-    score: () => PerseusScore = () => {
-        return _.reduce(this.scoreWidgets(), Util.combineScores, Util.noScore);
-    };
-
-    guessAndScore: () => [any, PerseusScore] = () => {
+    guessAndScore: () => [UserInputArray, PerseusScore] = () => {
         const totalGuess = this.getUserInput();
         const totalScore = this.score();
 
@@ -1846,14 +1770,14 @@ class Renderer extends React.Component<Props, State> {
 
     examples: () => ReadonlyArray<string> | null | undefined = () => {
         const widgetIds = this.widgetIds;
-        const examples = _.compact(
-            _.map(widgetIds, (widgetId) => {
+        const examples = widgetIds
+            .map((widgetId) => {
                 const widget = this.getWidgetInstance(widgetId);
                 return widget != null && widget.examples
                     ? widget.examples()
                     : null;
-            }),
-        );
+            })
+            .filter(Boolean);
 
         // no widgets with examples
         if (!examples.length) {
@@ -1974,13 +1898,13 @@ class Renderer extends React.Component<Props, State> {
             // If highlightLint is true and lint is detected, this call
             // will modify the parse tree by adding lint nodes that will
             // serve to highlight the lint when rendered
-            const context: Context = {
+            const fullLinterContext: FullLinterContext = {
                 content: this.props.content,
                 widgets: this.props.widgets,
                 ...this.props.linterContext,
             };
 
-            PerseusLinter.runLinter(parsedMarkdown, context, true);
+            PerseusLinter.runLinter(parsedMarkdown, fullLinterContext, true);
 
             // Apply the lint errors from the last TranslationLinter run.
             // TODO(joshuan): Support overlapping dots.

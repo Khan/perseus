@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {
     components,
-    icons,
     Changeable,
     EditorJsonify,
     Util,
+    iconTrash,
 } from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
@@ -152,7 +152,7 @@ class ImageEditor extends React.Component<Props> {
                         // eslint-disable-next-line react/jsx-no-bind
                         onClick={this.removeLabel.bind(this, i)}
                     >
-                        <InlineIcon {...icons.iconTrash} />
+                        <InlineIcon {...iconTrash} />
                     </a>
                 </td>
             </tr>

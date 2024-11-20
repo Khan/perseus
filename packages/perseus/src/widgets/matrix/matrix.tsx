@@ -13,16 +13,17 @@ import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
-import matrixValidator from "./matrix-validator";
+import scoreMatrix from "./score-matrix";
 
 import type {PerseusMatrixWidgetOptions} from "../../perseus-types";
-import type {PerseusStrings} from "../../strings";
-import type {WidgetExports, WidgetProps, PerseusScore} from "../../types";
+import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
 import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
 } from "../../validation.types";
+import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
 const {assert} = InteractiveUtil;
 const {stringArrayOfSize} = Util;
@@ -68,7 +69,7 @@ const getColumnFromPath = function (path) {
     return +path[1];
 };
 
-const getRefForPath = function (path) {
+const getRefForPath = function (path: FocusPath) {
     const row = getRowFromPath(path);
     const column = getColumnFromPath(path);
     return "answer" + row + "," + column;
@@ -127,7 +128,7 @@ type DefaultProps = {
 type State = {
     enterTheMatrix: number;
 };
-class Matrix extends React.Component<Props, State> {
+class Matrix extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -143,14 +144,6 @@ class Matrix extends React.Component<Props, State> {
         apiOptions: ApiOptions.defaults,
         linterContext: linterContextDefault,
     };
-
-    static validate(
-        state: PerseusMatrixUserInput,
-        rubric: PerseusMatrixRubric,
-        strings: PerseusStrings,
-    ): PerseusScore {
-        return matrixValidator(state, rubric, strings);
-    }
 
     state: State = {
         enterTheMatrix: 0,
@@ -174,10 +167,6 @@ class Matrix extends React.Component<Props, State> {
         });
 
         return inputPaths;
-    };
-
-    getGrammarTypeForPath: (arg1: any) => string = (inputPath) => {
-        return "number";
     };
 
     _handleFocus: (arg1: any, arg2: any) => void = (row, col) => {
@@ -211,13 +200,11 @@ class Matrix extends React.Component<Props, State> {
         this.refs[inputID].blur();
     };
 
-    getDOMNodeForPath: (arg1: any) => Element | Text | null | undefined = (
-        inputPath,
-    ) => {
-        const inputID = getRefForPath(inputPath);
+    getDOMNodeForPath(path: FocusPath) {
+        const inputID = getRefForPath(path);
         // eslint-disable-next-line react/no-string-refs
         return ReactDOM.findDOMNode(this.refs[inputID]);
-    };
+    }
 
     setInputValue: (arg1: any, arg2: any, arg3: any) => void = (
         inputPath,
@@ -332,12 +319,8 @@ class Matrix extends React.Component<Props, State> {
         };
     }
 
-    simpleValidate(rubric: PerseusMatrixRubric) {
-        return matrixValidator(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-        );
+    getPromptJSON(): MatrixPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     render(): React.ReactNode {
@@ -586,4 +569,5 @@ export default {
     transform: propTransform,
     staticTransform: staticTransform,
     isLintable: true,
-} as WidgetExports<typeof Matrix>;
+    scorer: scoreMatrix,
+} satisfies WidgetExports<typeof Matrix>;

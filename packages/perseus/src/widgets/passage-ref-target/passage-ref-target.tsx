@@ -6,11 +6,10 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
-import noopValidator from "../__shared__/noop-validator";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {PerseusPassageRefTargetWidgetOptions} from "../../perseus-types";
-import type {APIOptions, WidgetExports} from "../../types";
-import type {PerseusPassageRefTargetUserInput} from "../../validation.types";
+import type {APIOptions, WidgetExports, Widget} from "../../types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = Changeable.ChangeableProps & {
@@ -23,7 +22,8 @@ type DefaultProps = {
     content: Props["content"];
     linterContext: Props["linterContext"];
 };
-class PassageRefTarget extends React.Component<Props> {
+
+class PassageRefTarget extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -32,25 +32,14 @@ class PassageRefTarget extends React.Component<Props> {
         linterContext: linterContextDefault,
     };
 
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
-
-    // TODO passage-ref-target isn't interactive; remove
-    getUserInput(): PerseusPassageRefTargetUserInput {
-        return null;
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     // TODO passage-ref-target isn't interactive; remove
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
 
     render(): React.ReactNode {
         return (
@@ -80,4 +69,6 @@ export default {
     },
     version: {major: 0, minor: 0},
     isLintable: true,
-} as WidgetExports<typeof PassageRefTarget>;
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof PassageRefTarget>;

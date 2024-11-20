@@ -15,8 +15,18 @@ import {
     vector,
 } from "../../../util/geometry";
 import {getQuadraticCoefficients} from "../graphs/quadratic";
-import {clamp, clampToBox, findAngle, inset, polar, snap, X, Y} from "../math";
-import {bound} from "../utils";
+import {
+    clamp,
+    clampToBox,
+    getAngleFromVertex,
+    getClockwiseAngle,
+    inset,
+    polar,
+    snap,
+    X,
+    Y,
+} from "../math";
+import {bound, isUnlimitedGraphState} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
 import {
@@ -55,6 +65,8 @@ import {
     type ChangeInteractionMode,
     CHANGE_KEYBOARD_INVITATION_VISIBILITY,
     type ChangeKeyboardInvitationVisibility,
+    CLOSE_POLYGON,
+    OPEN_POLYGON,
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
@@ -103,6 +115,10 @@ export function interactiveGraphReducer(
             return doDeleteIntent(state, action);
         case CLICK_POINT:
             return doClickPoint(state, action);
+        case CLOSE_POLYGON:
+            return doClosePolygon(state);
+        case OPEN_POLYGON:
+            return doOpenPolygon(state);
         case CHANGE_INTERACTION_MODE:
             return doChangeInteractionMode(state, action);
         case CHANGE_KEYBOARD_INVITATION_VISIBILITY:
@@ -117,10 +133,9 @@ function doDeleteIntent(
     action: DeleteIntent,
 ): InteractiveGraphState {
     // For unlimited point graphs
-    if (state.type === "point" && state.numPoints === "unlimited") {
-        // if there's a focused point
+    if (isUnlimitedGraphState(state)) {
+        // Remove the last point that was focused, if any
         if (state.focusedPointIndex !== null) {
-            // Remove the focused focus
             return doRemovePoint(
                 state,
                 actions.pointGraph.removePoint(state.focusedPointIndex),
@@ -135,6 +150,7 @@ function doFocusPoint(
     action: FocusPoint,
 ): InteractiveGraphState {
     switch (state.type) {
+        case "polygon":
         case "point":
             return {
                 ...state,
@@ -150,12 +166,18 @@ function doBlurPoint(
     action: BlurPoint,
 ): InteractiveGraphState {
     switch (state.type) {
+        case "polygon":
         case "point":
-            return {
+            const nextState = {
                 ...state,
-                focusedPointIndex: null,
                 showRemovePointButton: false,
             };
+
+            if (state.interactionMode === "mouse") {
+                nextState.focusedPointIndex = null;
+            }
+
+            return nextState;
         default:
             return state;
     }
@@ -165,11 +187,7 @@ function doClickPoint(
     state: InteractiveGraphState,
     action: ClickPoint,
 ): InteractiveGraphState {
-    if (state.type !== "point") {
-        return state;
-    }
-
-    if (state.numPoints === "unlimited") {
+    if (isUnlimitedGraphState(state)) {
         return {
             ...state,
             focusedPointIndex: action.index,
@@ -180,15 +198,33 @@ function doClickPoint(
     return state;
 }
 
+function doClosePolygon(state: InteractiveGraphState): InteractiveGraphState {
+    if (isUnlimitedGraphState(state) && state.type === "polygon") {
+        return {
+            ...state,
+            closedPolygon: true,
+        };
+    }
+
+    return state;
+}
+
+function doOpenPolygon(state: InteractiveGraphState): InteractiveGraphState {
+    if (isUnlimitedGraphState(state) && state.type === "polygon") {
+        return {
+            ...state,
+            closedPolygon: false,
+        };
+    }
+
+    return state;
+}
+
 function doChangeInteractionMode(
     state: InteractiveGraphState,
     action: ChangeInteractionMode,
 ): InteractiveGraphState {
-    if (state.type !== "point") {
-        return state;
-    }
-
-    if (state.numPoints === "unlimited") {
+    if (isUnlimitedGraphState(state)) {
         const nextKeyboardInvitation =
             action.mode === "keyboard"
                 ? false
@@ -207,11 +243,7 @@ function doChangeKeyboardInvitationVisibility(
     state: InteractiveGraphState,
     action: ChangeKeyboardInvitationVisibility,
 ): InteractiveGraphState {
-    if (state.type !== "point") {
-        return state;
-    }
-
-    if (state.numPoints === "unlimited") {
+    if (isUnlimitedGraphState(state)) {
         return {
             ...state,
             showKeyboardInteractionInvitation: action.shouldShow,
@@ -647,7 +679,7 @@ function doAddPoint(
     state: InteractiveGraphState,
     action: AddPoint,
 ): InteractiveGraphState {
-    if (state.type !== "point") {
+    if (!isUnlimitedGraphState(state)) {
         return state;
     }
     const {snapStep} = state;
@@ -660,12 +692,15 @@ function doAddPoint(
         }
     }
 
+    const newCoords = [...state.coords, snappedPoint];
+
     // If there's no point in spot where we want the new point to go we add it there
     return {
         ...state,
         hasBeenInteractedWith: true,
-        coords: [...state.coords, snappedPoint],
+        coords: newCoords,
         showRemovePointButton: false,
+        focusedPointIndex: newCoords.length - 1,
     };
 }
 
@@ -673,14 +708,22 @@ function doRemovePoint(
     state: InteractiveGraphState,
     action: RemovePoint,
 ): InteractiveGraphState {
-    if (state.type !== "point") {
+    if (!isUnlimitedGraphState(state)) {
         return state;
+    }
+
+    let nextFocusedPointIndex: number | null;
+    if (state.interactionMode === "mouse") {
+        nextFocusedPointIndex = null;
+    } else {
+        nextFocusedPointIndex =
+            state.coords.length > 1 ? state.coords.length - 2 : null;
     }
 
     return {
         ...state,
         coords: state.coords.filter((_, i) => i !== action.index),
-        focusedPointIndex: null,
+        focusedPointIndex: nextFocusedPointIndex,
         showRemovePointButton: false,
     };
 }
@@ -774,7 +817,7 @@ function boundAndSnapAngleVertex(
         const oldPoint = coordsCopy[i];
         let newPoint = vec.add(oldPoint, delta);
 
-        let angle = findAngle(newVertex, newPoint);
+        let angle = getAngleFromVertex(newVertex, newPoint);
         angle *= Math.PI / 180;
 
         newPoint = constrainToBoundsOnAngle(newPoint, angle, range, snapStep);
@@ -892,7 +935,7 @@ function boundAndSnapAngleEndPoints(
     const vertex = coords[1];
 
     // Gets the angle between the coords and the vertex
-    let angle = findAngle(coordsCopy[index], vertex);
+    let angle = getAngleFromVertex(coordsCopy[index], vertex);
 
     // Snap the angle to the nearest multiple of snapDegrees (if provided)
     angle = Math.round((angle - offsetDegrees) / snap) * snap + offsetDegrees;
@@ -954,12 +997,12 @@ function boundAndSnapToPolygonAngle(
     });
 
     const getAngle = function (a: number, vertex, b: number) {
-        const angle = findAngle(
+        const angle = getClockwiseAngle([
             coordsCopy[rel(a)],
-            coordsCopy[rel(b)],
             coordsCopy[rel(vertex)],
-        );
-        return (angle + 360) % 360;
+            coordsCopy[rel(b)],
+        ]);
+        return angle;
     };
 
     const innerAngles = [
@@ -1001,7 +1044,10 @@ function boundAndSnapToPolygonAngle(
         knownSide;
 
     // Angle at the second vertex of the polygon
-    const outerAngle = findAngle(coordsCopy[rel(1)], coordsCopy[rel(-1)]);
+    const outerAngle = getAngleFromVertex(
+        coordsCopy[rel(1)],
+        coordsCopy[rel(-1)],
+    );
 
     // Uses the length of the side of the polygon (radial coordinate)
     // and the angle between the first and second sides of the
@@ -1064,7 +1110,10 @@ function boundAndSnapToSides(
     const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
 
     // Angle at the second vertex of the polygon
-    const outerAngle = findAngle(coordsCopy[rel(1)], coordsCopy[rel(-1)]);
+    const outerAngle = getAngleFromVertex(
+        coordsCopy[rel(1)],
+        coordsCopy[rel(-1)],
+    );
 
     // Returns true if the points form a counter-clockwise turn;
     // a.k.a if the point is on the left or right of the polygon.

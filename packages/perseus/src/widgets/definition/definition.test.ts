@@ -123,11 +123,12 @@ describe("Definition widget", () => {
     });
 
     it("should not affect answerable", () => {
-        // Arrange and act
+        // Arrange / Act
         const {renderer} = renderQuestion(question);
-        const result = renderer.scoreWidgets();
 
         // Assert
-        expect(result["definition 1"]).toHaveBeenAnsweredCorrectly();
+        expect(renderer).toHaveBeenAnsweredCorrectly({
+            shouldHavePoints: false,
+        });
     });
 });

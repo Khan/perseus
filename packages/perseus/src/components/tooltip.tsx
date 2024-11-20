@@ -1,42 +1,4 @@
 /* eslint-disable react/no-unsafe */
-/**
- * A generic tooltip library for React.js
- *
- * This should eventually end up in react-components
- *
- * Interface: ({a, b} means one of a or b)
- * import Tooltip from "./tooltip";
- * <Tooltip
- *     className="class-for-tooltip-contents"
- *     horizontalPosition={HoriziontalDirection.Left}
- *     horizontalAlign={HoriziontalDirection.Left}
- *     verticalPosition={VerticalDirection.Top}
- *     arrowSize={10} // arrow size in pixels
- *     borderColor="#ccc" // color of the border for the tooltip
- *     show={true} // whether the tooltip should currently be visible
- *     targetContainerStyle={targetContainerStyle}
- * >
- *     <TargetElementOfTheTooltip />
- *     <TooltipContents1 />
- *     <TooltipContents2 />
- * </Tooltip>
- *
- * To show/hide the tooltip, the parent component should call the
- * .show() and .hide() methods of the tooltip when appropriate.
- * (These are usually set up as handlers of events on the target element.)
- *
- * Notes:
- *     className should not specify a border; that is handled by borderColor
- *     so that the arrow and tooltip match
- */
-
-//          __,,--``\\
-//  _,,-''``         \\     ,
-// '----------_.------'-.___|\__
-//    _.--''``    `)__   )__   @\__
-//   (  .. ''---/___,,E/__,E'------`
-//    `-''`''
-// Here be dragons.
 
 // TODO(joel/aria) fix z-index issues https://s3.amazonaws.com/uploads.hipchat.com/6574/29028/yOApjwmgiMhEZYJ/Screen%20Shot%202014-05-30%20at%203.34.18%20PM.png
 // z-index: 3 on perseus-formats-tooltip seemed to work
@@ -96,7 +58,7 @@ const Triangle = (props: TriangleProps) => {
                 width: 0,
                 position: "absolute",
                 left: props.left,
-                top: props["top"],
+                top: props.top,
                 borderLeft: borderLeft,
                 borderRight: borderRight,
                 borderTop: borderTop,
@@ -107,10 +69,10 @@ const Triangle = (props: TriangleProps) => {
 };
 
 type TooltipArrowProps = {
-    position: Property.Position;
-    visibility: Property.Visibility;
-    left: number;
-    top: number;
+    position?: Property.Position;
+    visibility?: Property.Visibility;
+    left?: number;
+    top?: number;
     color: string; // a css color
     border: string; // a css color
     width: number;
@@ -120,7 +82,13 @@ type TooltipArrowProps = {
     zIndex?: number;
 };
 
-const TooltipArrow = (props: TooltipArrowProps) => {
+const TooltipArrow = ({
+    position = "relative",
+    visibility = "visible",
+    left = 100,
+    top = 0,
+    ...props
+}: TooltipArrowProps) => {
     // TODO(aria): Think about adding a box-shadow to the triangle here
     // See http://css-tricks.com/triangle-with-shadow/
 
@@ -134,10 +102,10 @@ const TooltipArrow = (props: TooltipArrowProps) => {
         <div
             style={{
                 display: "block",
-                position: props.position,
-                visibility: props.visibility,
-                left: props.left,
-                top: props["top"],
+                position: position,
+                visibility: visibility,
+                left: left,
+                top: top,
                 width: props.width + 2,
                 height: props.height + 1,
                 marginTop: -1,
@@ -169,13 +137,6 @@ const TooltipArrow = (props: TooltipArrowProps) => {
             />
         </div>
     );
-};
-
-TooltipArrow.defaultProps = {
-    position: "relative",
-    visibility: "visible",
-    left: 0,
-    top: 0,
 };
 
 const VERTICAL_CORNERS = {
@@ -234,6 +195,47 @@ type State = {
     height: number | null;
 };
 
+/**
+ * DEPRECATED! Use Wonder Blocks tooltip instead.
+ *
+ * A generic tooltip library for React.js
+ *
+ * ```
+ * import Tooltip from "./tooltip";
+ * <Tooltip
+ *     className="class-for-tooltip-contents"
+ *     horizontalPosition={HoriziontalDirection.Left}
+ *     horizontalAlign={HoriziontalDirection.Left}
+ *     verticalPosition={VerticalDirection.Top}
+ *     arrowSize={10} // arrow size in pixels
+ *     borderColor="#ccc" // color of the border for the tooltip
+ *     show={true} // whether the tooltip should currently be visible
+ *     targetContainerStyle={targetContainerStyle}
+ * >
+ *     <TargetElementOfTheTooltip />
+ *     <TooltipContents1 />
+ *     <TooltipContents2 />
+ * </Tooltip>
+ * ```
+ *
+ * To show/hide the tooltip, the parent component should call the
+ * `.show()` and `.hide()` methods of the tooltip when appropriate.
+ * (These are usually set up as handlers of events on the target element.)
+ *
+ * Notes:
+ *     `className` should not specify a border; that is handled by `borderColor`
+ *     so that the arrow and tooltip match
+ *
+ * ```
+ *          __,,--``\\
+ *  _,,-''``         \\     ,
+ * '----------_.------'-.___|\__
+ *    _.--''``    `)__   )__   @\__
+ *   (  .. ''---/___,,E/__,E'------`
+ *    `-''`''
+ * Here be dragons.
+ * ```
+ */
 class Tooltip extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         className: "",

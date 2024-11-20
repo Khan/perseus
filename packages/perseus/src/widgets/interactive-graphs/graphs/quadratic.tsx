@@ -6,13 +6,28 @@ import {actions} from "../reducer/interactive-graph-action";
 
 import {MovablePoint} from "./components/movable-point";
 
-import type {QuadraticGraphState, MafsGraphProps} from "../types";
+import type {
+    QuadraticGraphState,
+    MafsGraphProps,
+    Dispatch,
+    InteractiveGraphElementSuite,
+} from "../types";
+
+export function renderQuadraticGraph(
+    state: QuadraticGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <QuadraticGraph graphState={state} dispatch={dispatch} />,
+        interactiveElementsDescription: null,
+    };
+}
 
 type QuadraticGraphProps = MafsGraphProps<QuadraticGraphState>;
 type QuadraticCoefficient = [number, number, number];
 export type QuadraticCoords = QuadraticGraphState["coords"];
 
-export function QuadraticGraph(props: QuadraticGraphProps) {
+function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
 
     const {coords} = graphState;
@@ -39,6 +54,7 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
                 <MovablePoint
                     key={"point-" + i}
                     point={coord}
+                    sequenceNumber={i + 1}
                     onMove={(destination) =>
                         dispatch(actions.quadratic.movePoint(i, destination))
                     }

@@ -1675,6 +1675,8 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             marginTop: -height / 2 - y * scale,
         });
     } else {
+        const currentHeightMatchesProps = span.scrollHeight === height;
+
         // We are using jQuery to collect information and calculate a scale
         //     since we don't have a way to pass it to this function.
         // We need the width of the container in order to calculate the scale to apply to the label.
@@ -1695,6 +1697,14 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // Ensuring that the line-height of the text doesn't throw off placement of the text element.
         // Inherited line-height values can really mess up placement.
         $container.css("line-height", "normal");
+
+        // If the change in line-height affected the height of the element,
+        //     then the height used for calculations should be updated.
+        // This can happen when the first label in the container calls this method,
+        //     and the line-height was different when the height measurement was originally referenced.
+        if (currentHeightMatchesProps && span.scrollHeight !== height) {
+            height = span.scrollHeight;
+        }
 
         // The expected width of the graphie is found in the "max-width" property on ".svg-image" containers,
         //     and is found in the "width" property on ".graphie" containers.
@@ -1771,7 +1781,14 @@ const GraphUtils = {
     },
 
     // Find the angle in degrees between two or three points
-    findAngle: function (point1: Coord, point2: Coord, vertex?: Coord) {
+    // This function is deprecated as it has several issues calculating
+    // correctly when dealing with reflex angles or the position of point2
+    // (LEMS-2202) Remove this function while removing the Legacy Interactive Graph.
+    findAngleDeprecated: function (
+        point1: Coord,
+        point2: Coord,
+        vertex?: Coord,
+    ) {
         if (vertex === undefined) {
             const x = point1[0] - point2[0];
             const y = point1[1] - point2[1];
@@ -1781,8 +1798,8 @@ const GraphUtils = {
             return (180 + (Math.atan2(-y, -x) * 180) / Math.PI + 360) % 360;
         }
         return (
-            GraphUtils.findAngle(point1, vertex) -
-            GraphUtils.findAngle(point2, vertex)
+            GraphUtils.findAngleDeprecated(point1, vertex) -
+            GraphUtils.findAngleDeprecated(point2, vertex)
         );
     },
 

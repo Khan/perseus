@@ -18,22 +18,25 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
-import {typography} from "../../styles/global-styles";
+import {bodyXsmallBold} from "../../styles/global-styles";
 import mediaQueries from "../../styles/media-queries";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
 
 import AnswerChoices from "./answer-choices";
 import {HideAnswersToggle} from "./hide-answers-toggle";
-import labelImageValidator, {scoreMarker} from "./label-image-validator";
 import Marker from "./marker";
+import scoreLabelImage, {scoreMarker} from "./score-label-image";
 
 import type {InteractiveMarkerType} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {APIOptions, PerseusScore, WidgetExports} from "../../types";
+import type {PerseusLabelImageWidgetOptions} from "../../perseus-types";
+import type {APIOptions, Widget, WidgetExports} from "../../types";
 import type {
     PerseusLabelImageRubric,
     PerseusLabelImageUserInput,
 } from "../../validation.types";
+import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
@@ -67,23 +70,14 @@ type Point = {
     y: number;
 };
 
-// TODO: should this be using WidgetProps / PerseusLabelImageWidgetOptions?
 type LabelImageProps = ChangeableProps &
-    DependencyProps & {
+    DependencyProps &
+    // TODO: there's some weirdness in our types between
+    // PerseusLabelImageMarker and InteractiveMarkerType
+    Omit<PerseusLabelImageWidgetOptions, "markers"> & {
         apiOptions: APIOptions;
-        // The list of possible answer choices.
-        choices: ReadonlyArray<string>;
-        // The question image properties.
-        imageAlt: string;
-        imageUrl: string;
-        imageWidth: number;
-        imageHeight: number;
         // The list of label markers on the question image.
         markers: ReadonlyArray<InteractiveMarkerType>;
-        // Whether multiple answer choices may be selected for markers.
-        multipleAnswers: boolean;
-        // Whether to hide answer choices from user instructions.
-        hideChoicesFromInstructions: boolean;
         // Whether the question has been answered by the user.
         questionCompleted: boolean;
         // preferred placement for popover (preference, not MUST)
@@ -99,23 +93,16 @@ type LabelImageState = {
     hideAnswers: boolean;
 };
 
-export class LabelImage extends React.Component<
-    LabelImageProps,
-    LabelImageState
-> {
+export class LabelImage
+    extends React.Component<LabelImageProps, LabelImageState>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     // The rendered markers on the question image for labeling.
     _markers: Array<Marker | null | undefined>;
     _mounted: boolean = false;
-
-    static validate(
-        state: PerseusLabelImageUserInput,
-        rubric?: PerseusLabelImageRubric,
-    ): PerseusScore {
-        return labelImageValidator(state, rubric);
-    }
 
     /**
      * Test whether point is contained within triangle.
@@ -322,16 +309,17 @@ export class LabelImage extends React.Component<
         this._mounted = false;
     }
 
-    simpleValidate(rubric: PerseusLabelImageRubric): PerseusScore {
-        return labelImageValidator(this.getUserInput(), rubric);
-    }
-
     getUserInput(): PerseusLabelImageUserInput {
         const {markers} = this.props;
         return {markers};
     }
 
-    showRationalesForCurrentlySelectedChoices(rubric: LabelImageProps) {
+    getPromptJSON(): LabelImagePromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
+
+    // TODO(LEMS-2544): Investigate impact on scoring; possibly pull out &/or remove rubric parameter.
+    showRationalesForCurrentlySelectedChoices(rubric: PerseusLabelImageRubric) {
         const {markers} = this.props;
         const {onChange} = this.props;
 
@@ -689,7 +677,7 @@ const styles = StyleSheet.create({
     },
 
     instructionsCaption: {
-        ...typography.bodyXsmallBold,
+        ...bodyXsmallBold,
 
         paddingBottom: 16,
     },
@@ -749,17 +737,11 @@ const LabelImageWithDependencies = React.forwardRef<
     return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
 });
 
-// HACK: Propogate "static" methods onto our wrapper component.
-// In the future we should adjust client apps to not depend on these static
-// methods and instead adjust Peresus to provide these facilities through
-// instance methods on our Renderers.
-// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
-LabelImageWithDependencies.validate = labelImageValidator;
-
 export default {
     name: "label-image",
     displayName: "Label Image",
     widget: LabelImageWithDependencies,
     accessible: true,
     isLintable: true,
-} as WidgetExports<typeof LabelImageWithDependencies>;
+    scorer: scoreLabelImage,
+} satisfies WidgetExports<typeof LabelImageWithDependencies>;

@@ -14,16 +14,18 @@ import _ from "underscore";
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
 
-import {iframeValidator} from "./iframe-validator";
+import {scoreIframe} from "./score-iframe";
 
 import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
     PerseusIFrameRubric,
     PerseusIFrameUserInput,
     UserInputStatus,
 } from "../../validation.types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 const {updateQueryString} = Util;
 
@@ -44,7 +46,7 @@ type DefaultProps = {
 };
 
 /* This renders the iframe and handles validation via window.postMessage */
-class Iframe extends React.Component<Props> {
+class Iframe extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         status: "incomplete",
         // optional message
@@ -52,10 +54,6 @@ class Iframe extends React.Component<Props> {
         allowFullScreen: false,
         allowTopNavigation: false,
     };
-
-    static validate(state: PerseusIFrameUserInput): PerseusScore {
-        return iframeValidator(state);
-    }
 
     componentDidMount() {
         $(window).on("message", this.handleMessageEvent);
@@ -67,6 +65,10 @@ class Iframe extends React.Component<Props> {
 
     getUserInput(): PerseusIFrameUserInput {
         return {status: this.props.status, message: this.props.message};
+    }
+
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
     }
 
     handleMessageEvent: (arg1: any) => void = (e) => {
@@ -95,10 +97,6 @@ class Iframe extends React.Component<Props> {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
-
-    simpleValidate(): PerseusScore {
-        return iframeValidator(this.getUserInput());
-    }
 
     render(): React.ReactNode {
         const style = {
@@ -174,4 +172,5 @@ export default {
     widget: Iframe,
     // Let's not expose it to all content creators yet
     hidden: true,
-} as WidgetExports<typeof Iframe>;
+    scorer: scoreIframe,
+} satisfies WidgetExports<typeof Iframe>;

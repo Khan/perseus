@@ -16,23 +16,19 @@ import {useDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions, ClassNames as ApiClassNames} from "../../perseus-api";
 import a11y from "../../util/a11y";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
-import expressionValidator from "./expression-validator";
 import getDecimalSeparator from "./get-decimal-separator";
+import scoreExpression from "./score-expression";
 
 import type {DependenciesContext} from "../../dependencies";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
-import type {PerseusStrings} from "../../strings";
-import type {
-    APIOptions,
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
 } from "../../validation.types";
+import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -61,16 +57,6 @@ const anglicizeOperators = (tex: string): string => {
 
 const normalizeTex = (tex: string): string => {
     return anglicizeOperators(tex);
-};
-
-const deriveKeypadVersion = (apiOptions: APIOptions) => {
-    // We can derive which version of the keypad is in use. This is
-    // a bit tricky, but this code will be relatively short-lived
-    // as we coalesce onto the new, v2 Keypad, at which point we
-    // can remove this `virtualKeypadVersion` field entirely.
-    return apiOptions.nativeKeypadProxy != null
-        ? "REACT_NATIVE_KEYPAD"
-        : "MATH_INPUT_KEYPAD_V2";
 };
 
 type RenderProps = {
@@ -117,39 +103,19 @@ type DefaultProps = {
 };
 
 // The new, MathQuill input expression widget
-export class Expression extends React.Component<Props, ExpressionState> {
+export class Expression
+    extends React.Component<Props, ExpressionState>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     _textareaId = `expression_textarea_${Date.now()}`;
     _isMounted = false;
 
-    // TODO remove this in favor of just using expressionValidator
-    static validate(
-        userInput: PerseusExpressionUserInput,
-        rubric: PerseusExpressionRubric,
-        strings: PerseusStrings,
-        locale: string,
-    ): PerseusScore {
-        return expressionValidator(userInput, rubric, strings, locale);
-    }
-
     static getUserInputFromProps(props: Props): PerseusExpressionUserInput {
         return normalizeTex(props.value);
     }
-
-    static getOneCorrectAnswerFromRubric(
-        rubric: PerseusExpressionRubric,
-    ): string | null | undefined {
-        const correctAnswers = (rubric.answerForms || []).filter(
-            (answerForm) => answerForm.considered === "correct",
-        );
-        if (correctAnswers.length === 0) {
-            return;
-        }
-        return correctAnswers[0].value;
-    }
-    //#endregion
 
     static defaultProps: DefaultProps = {
         value: "",
@@ -223,36 +189,12 @@ export class Expression extends React.Component<Props, ExpressionState> {
         }
     };
 
-    simpleValidate: (
-        rubric: PerseusExpressionRubric & {scoring?: boolean},
-    ) => PerseusScore = ({scoring, ...rubric}) => {
-        const score = expressionValidator(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-            this.context.locale,
-        );
-
-        // "scoring" is a flag that indicates when we are checking answers.
-        // otherwise, we may just be checking validity after changes.
-        if (scoring && score.type !== "invalid") {
-            this.props.analytics?.onAnalyticsEvent({
-                type: "perseus:expression-evaluated",
-                payload: {
-                    result:
-                        score.earned === score.total ? "correct" : "incorrect",
-                    virtualKeypadVersion: deriveKeypadVersion(
-                        this.props.apiOptions,
-                    ),
-                },
-            });
-        }
-
-        return score;
-    };
-
     getUserInput(): PerseusExpressionUserInput {
         return Expression.getUserInputFromProps(this.props);
+    }
+
+    getPromptJSON(): ExpressionPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     change: (...args: any) => any | undefined = (...args: any) => {
@@ -308,13 +250,13 @@ export class Expression extends React.Component<Props, ExpressionState> {
         return true;
     };
 
-    focusInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
+    focusInputPath(inputPath: InputPath) {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
-    };
+    }
 
-    blurInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
+    blurInputPath(inputPath: InputPath) {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         if (typeof this.refs.input?.blur === "function") {
@@ -322,7 +264,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
             // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
             this.refs.input?.blur();
         }
-    };
+    }
 
     // HACK(joel)
     insert(keyPressed: Key) {
@@ -338,26 +280,14 @@ export class Expression extends React.Component<Props, ExpressionState> {
         return [[]];
     };
 
-    // TODO(Nicole): I believe this is going away and won't be needed anymore
-    getGrammarTypeForPath: (inputPath: string) => string = (
-        inputPath: string,
-    ) => {
-        /* c8 ignore next */
-        return "expression";
-    };
-
-    setInputValue: (path: string, newValue: string, cb: () => void) => void = (
-        path: string,
-        newValue: string,
-        cb: () => void,
-    ) => {
+    setInputValue(path: FocusPath, newValue: string, cb: () => void) {
         this.props.onChange(
             {
                 value: newValue,
             },
             cb,
         );
-    };
+    }
 
     render() {
         if (this.props.apiOptions.customKeypad) {
@@ -458,10 +388,9 @@ export class Expression extends React.Component<Props, ExpressionState> {
                             extraKeys={
                                 this.props.keypadConfiguration?.extraKeys
                             }
-                            analytics={
-                                this.props.analytics ?? {
-                                    onAnalyticsEvent: async () => {},
-                                }
+                            onAnalyticsEvent={
+                                this.props.analytics?.onAnalyticsEvent ??
+                                (async () => {})
                             }
                         />
                     </Tooltip>
@@ -548,7 +477,11 @@ const keypadConfigurationForProps = (
         extraKeys = ["PI"];
     }
 
-    return {keypadType, extraKeys, times: widgetOptions.times};
+    return {
+        keypadType,
+        extraKeys,
+        times: widgetOptions.times,
+    };
 };
 
 const propUpgrades = {
@@ -585,13 +518,8 @@ const ExpressionWithDependencies = React.forwardRef<
 // methods and instead adjust Perseus to provide these facilities through
 // instance methods on our Renderers.
 // @ts-expect-error - TS2339 - Property 'validate' does not exist on type
-ExpressionWithDependencies.validate = expressionValidator;
-// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
 ExpressionWithDependencies.getUserInputFromProps =
     Expression.getUserInputFromProps;
-// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
-ExpressionWithDependencies.getOneCorrectAnswerFromRubric =
-    Expression.getOneCorrectAnswerFromRubric;
 
 export default {
     name: "expression",
@@ -623,4 +551,17 @@ export default {
 
     // For use by the editor
     isLintable: true,
-} as WidgetExports<typeof ExpressionWithDependencies>;
+    scorer: scoreExpression,
+
+    getOneCorrectAnswerFromRubric(
+        rubric: PerseusExpressionRubric,
+    ): string | null | undefined {
+        const correctAnswers = (rubric.answerForms || []).filter(
+            (answerForm) => answerForm.considered === "correct",
+        );
+        if (correctAnswers.length === 0) {
+            return;
+        }
+        return correctAnswers[0].value;
+    },
+} satisfies WidgetExports<typeof ExpressionWithDependencies>;

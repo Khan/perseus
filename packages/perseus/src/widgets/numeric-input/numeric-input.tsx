@@ -8,24 +8,21 @@ import InputWithExamples from "../../components/input-with-examples";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
 import KhanMath from "../../util/math";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
-import numericInputValidator from "./numeric-input-validator";
+import scoreNumericInput from "./score-numeric-input";
 
 import type {
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
 } from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {
-    FocusPath,
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
 } from "../../validation.types";
+import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 const formExamples: {
     [key: string]: (
@@ -80,7 +77,10 @@ type State = {
     previousValues: ReadonlyArray<string>;
 };
 
-export class NumericInput extends React.Component<Props, State> {
+export class NumericInput
+    extends React.Component<Props, State>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -101,48 +101,6 @@ export class NumericInput extends React.Component<Props, State> {
         return {
             currentValue: props.currentValue,
         };
-    }
-
-    static getOneCorrectAnswerFromRubric(
-        rubric: PerseusNumericInputRubric,
-    ): string | null | undefined {
-        const correctAnswers = rubric.answers.filter(
-            (answer) => answer.status === "correct",
-        );
-        const answerStrings = correctAnswers.map((answer) => {
-            // Figure out how this answer is supposed to be
-            // displayed
-            let format = "decimal";
-            if (answer.answerForms && answer.answerForms[0]) {
-                // NOTE(johnsullivan): This isn't exactly ideal, but
-                // it does behave well for all the currently known
-                // problems. See D14742 for some discussion on
-                // alternate strategies.
-                format = answer.answerForms[0];
-            }
-
-            // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
-            let answerString = KhanMath.toNumericString(answer.value, format);
-            if (answer.maxError) {
-                answerString +=
-                    " \u00B1 " +
-                    // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
-                    KhanMath.toNumericString(answer.maxError, format);
-            }
-            return answerString;
-        });
-        if (answerStrings.length === 0) {
-            return;
-        }
-        return answerStrings[0];
-    }
-
-    static validate(
-        userInput: PerseusNumericInputUserInput,
-        rubric: PerseusNumericInputRubric,
-        strings: PerseusStrings,
-    ): PerseusScore {
-        return numericInputValidator(userInput, rubric, strings);
     }
 
     state: State = {
@@ -187,14 +145,6 @@ export class NumericInput extends React.Component<Props, State> {
         return !noFormsAccepted && !allFormsAccepted;
     };
 
-    simpleValidate(rubric: PerseusNumericInputRubric): PerseusScore {
-        return numericInputValidator(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-        );
-    }
-
     focus: () => boolean = () => {
         this.inputRef?.focus();
         return true;
@@ -215,11 +165,6 @@ export class NumericInput extends React.Component<Props, State> {
         return [[]];
     };
 
-    getGrammarTypeForPath: (arg1: FocusPath) => string = (inputPath) => {
-        /* c8 ignore next */
-        return "number";
-    };
-
     setInputValue: (
         arg1: FocusPath,
         arg2: string,
@@ -236,6 +181,10 @@ export class NumericInput extends React.Component<Props, State> {
 
     getUserInput(): PerseusNumericInputUserInput {
         return NumericInput.getUserInputFromProps(this.props);
+    }
+
+    getPromptJSON(): NumericInputPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     handleChange: (
@@ -300,21 +249,19 @@ export class NumericInput extends React.Component<Props, State> {
         });
 
         return (
-            <div>
-                <InputWithExamples
-                    ref={(ref) => (this.inputRef = ref)}
-                    value={this.props.currentValue}
-                    onChange={this.handleChange}
-                    labelText={labelText}
-                    examples={this.examples()}
-                    shouldShowExamples={this.shouldShowExamples()}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur}
-                    id={this.props.widgetId}
-                    disabled={this.props.apiOptions.readOnly}
-                    style={styles.input}
-                />
-            </div>
+            <InputWithExamples
+                ref={(ref) => (this.inputRef = ref)}
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                labelText={labelText}
+                examples={this.examples()}
+                shouldShowExamples={this.shouldShowExamples()}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                id={this.props.widgetId}
+                disabled={this.props.apiOptions.readOnly}
+                style={styles.input}
+            />
         );
     }
 }
@@ -393,12 +340,101 @@ const propsTransform = function (
     return rendererProps;
 };
 
+// This function is being used to replace the input-number widget
+// with the numeric-input widget
+const propUpgrades = {
+    /* c8 ignore next */
+    "1": (initialProps: any): PerseusNumericInputWidgetOptions => {
+        // If the initialProps has simplify, it means we're upgrading from
+        // input-number to numeric-input. In this case, we need to upgrade
+        // the widget options accordingly.
+        if (initialProps.simplify !== undefined) {
+            // If the answerType is not number or percent, we need to provide
+            // the answer form for the numeric-input widget
+            const provideAnswerForm =
+                initialProps.answerType !== "number" &&
+                initialProps.answerType !== "percent";
+
+            // We need to determine the mathFormat for the numeric-input widget
+            const mathFormat =
+                initialProps.answerType === "rational"
+                    ? "proper" // input-number uses "rational" for proper fractions
+                    : initialProps.answerType; // Otherwise, we can use the answerType directly
+
+            // If adjusting this logic, also adjust the logic in the convertInputNumberWidgetOptions
+            // function in input-number.ts in the Perseus Editor package's util folder
+            const answers = [
+                {
+                    value: initialProps.value,
+                    simplify: initialProps.simplify,
+                    answerForms: provideAnswerForm ? [mathFormat] : undefined,
+                    strict: initialProps.inexact,
+                    // We only want to set maxError if the inexact prop is true
+                    maxError: initialProps.inexact ? initialProps.maxError : 0,
+                    status: "correct", // Input-number only allows correct answers
+                    message: "",
+                },
+            ];
+
+            return {
+                answers,
+                size: initialProps.size,
+                coefficient: false, // input-number doesn't have a coefficient prop
+                labelText: "", // input-number doesn't have a labelText prop
+                static: false, // static is always false for numeric-input
+                rightAlign: initialProps.rightAlign || false,
+            };
+        } else {
+            // Otherwise simply return the initialProps as there's no differences
+            // between v0 and v1 for numeric-input
+            return initialProps;
+        }
+    },
+} as const;
+
 export default {
     name: "numeric-input",
     displayName: "Numeric input",
     defaultAlignment: "inline-block",
     accessible: true,
     widget: NumericInput,
+    version: {major: 1, minor: 0},
     transform: propsTransform,
+    propUpgrades: propUpgrades,
     isLintable: true,
-} as WidgetExports<typeof NumericInput>;
+    scorer: scoreNumericInput,
+
+    getOneCorrectAnswerFromRubric(
+        rubric: PerseusNumericInputRubric,
+    ): string | null | undefined {
+        const correctAnswers = rubric.answers.filter(
+            (answer) => answer.status === "correct",
+        );
+        const answerStrings = correctAnswers.map((answer) => {
+            // Figure out how this answer is supposed to be
+            // displayed
+            let format = "decimal";
+            if (answer.answerForms && answer.answerForms[0]) {
+                // NOTE(johnsullivan): This isn't exactly ideal, but
+                // it does behave well for all the currently known
+                // problems. See D14742 for some discussion on
+                // alternate strategies.
+                format = answer.answerForms[0];
+            }
+
+            // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
+            let answerString = KhanMath.toNumericString(answer.value, format);
+            if (answer.maxError) {
+                answerString +=
+                    " \u00B1 " +
+                    // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
+                    KhanMath.toNumericString(answer.maxError, format);
+            }
+            return answerString;
+        });
+        if (answerStrings.length === 0) {
+            return;
+        }
+        return answerStrings[0];
+    },
+} satisfies WidgetExports<typeof NumericInput>;

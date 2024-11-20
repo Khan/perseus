@@ -22,7 +22,11 @@ import LabeledSwitch from "./labeled-switch";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
+    getDefaultFigureForType,
+} from "./util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {
@@ -102,28 +106,28 @@ const LockedPointSettings = (props: Props) => {
     const isDefiningPoint = !onMove && !onRemove;
 
     /**
-     * Get a prepopulated aria label for the point.
+     * Get a prepopulated aria label for the point, with the math
+     * details converted into spoken words.
      *
      * If the point has no labels, the aria label will just be
      * "Point at (x, y)".
      *
      * If the point has labels, the aria label will be
-     * "Point at (x, y) with label1, label2, label3".
+     * "Point label1, label2, label3 at (x, y)".
      */
-    function getPrepopulatedAriaLabel() {
-        let str = `Point at (${coord[0]}, ${coord[1]})`;
-
+    async function getPrepopulatedAriaLabel() {
+        let visiblelabel = "";
         if (labels && labels.length > 0) {
-            str += " with label";
-            // Make it "with labels" instead of "with label" if there are
-            // multiple labels.
-            if (labels.length > 1) {
-                str += "s";
-            }
-
-            // Separate additional labels with commas.
-            str += ` ${labels.map((l) => l.text).join(", ")}`;
+            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
+
+        let str = await generateSpokenMathDetails(
+            `Point${visiblelabel} at (${coord[0]}, ${coord[1]})`,
+        );
+
+        const pointAppearance =
+            generateLockedFigureAppearanceDescription(pointColor);
+        str += pointAppearance;
 
         return str;
     }
@@ -248,7 +252,7 @@ const LockedPointSettings = (props: Props) => {
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}

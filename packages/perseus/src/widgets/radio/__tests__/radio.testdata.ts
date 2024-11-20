@@ -323,3 +323,96 @@ export const multiChoiceQuestionAndAnswer: [
         [0, 1, 2, 3],
     ],
 ];
+
+export const shuffledQuestion: PerseusRenderer = {
+    content: "[[\u2603 radio 1]]",
+    images: {},
+    widgets: {
+        "radio 1": {
+            graded: true,
+            version: {
+                major: 1,
+                minor: 0,
+            },
+            static: false,
+            type: "radio",
+            options: {
+                displayCount: null,
+                onePerLine: false,
+                choices: [
+                    {
+                        content: "Incorrect Choice 1",
+                        correct: false,
+                    },
+                    {
+                        content: "Incorrect Choice 2",
+                        correct: false,
+                    },
+                    {
+                        content: "Correct Choice",
+                        correct: true,
+                    },
+                    {
+                        content: "Incorrect Choice 3",
+                        correct: false,
+                    },
+                ],
+                countChoices: false,
+                hasNoneOfTheAbove: false,
+                multipleSelect: false,
+                randomize: true,
+                deselectEnabled: false,
+            },
+            alignment: "default",
+        } as RadioWidget,
+    },
+};
+
+export const shuffledNoneQuestion: PerseusRenderer = {
+    content: "[[\u2603 radio 1]]",
+    images: {},
+    widgets: {
+        "radio 1": {
+            graded: true,
+            version: {
+                major: 1,
+                minor: 0,
+            },
+            static: false,
+            type: "radio",
+            options: {
+                displayCount: null,
+                onePerLine: false,
+                choices: [
+                    {
+                        content: "Incorrect Choice 1",
+                        correct: false,
+                    },
+                    {
+                        content: "Incorrect Choice 2",
+                        correct: false,
+                    },
+                    {
+                        content: "Incorrect Choice 3",
+                        correct: false,
+                    },
+                    {
+                        content: "Incorrect Choice 4",
+                        correct: false,
+                    },
+                    {
+                        content: "None of the above",
+                        correct: true,
+                        isNoneOfTheAbove: true,
+                    },
+                ],
+                countChoices: false,
+                hasNoneOfTheAbove: true,
+                multipleSelect: false,
+                randomize: true,
+                deselectEnabled: false,
+            },
+            alignment: "default",
+        } as RadioWidget,
+    },
+};

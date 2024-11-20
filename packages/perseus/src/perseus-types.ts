@@ -100,6 +100,12 @@ export type PerseusItem = {
 };
 
 /**
+ * A "PerseusArticle" is an item that is meant to be rendered as an article.
+ * This item is never scored and is rendered by the `ArticleRenderer`.
+ */
+export type PerseusArticle = PerseusRenderer | ReadonlyArray<PerseusRenderer>;
+
+/**
  * A "MultiItem" is an advanced Perseus item. It is rendered by the
  * `MultiRenderer` and you can control the layout of individual parts of the
  * item.
@@ -108,8 +114,6 @@ export type MultiItem = {
     // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
     _multi: any;
 };
-
-export type PerseusArticle = ReadonlyArray<PerseusRenderer>;
 
 export type Version = {
     // The major part of the version
@@ -174,7 +178,7 @@ export const ItemExtras = [
 ] as const;
 export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
 
-type Widget<Type extends string, Options> = {
+export type WidgetOptions<Type extends string, Options> = {
     // The "type" of widget which will define what the Options field looks like
     type: Type;
     // Whether this widget is displayed with the values and is immutable.  For display only
@@ -197,73 +201,73 @@ type Widget<Type extends string, Options> = {
 };
 
 // prettier-ignore
-export type CategorizerWidget = Widget<'categorizer', PerseusCategorizerWidgetOptions>;
+export type CategorizerWidget = WidgetOptions<'categorizer', PerseusCategorizerWidgetOptions>;
 // prettier-ignore
-export type CSProgramWidget = Widget<'cs-program', PerseusCSProgramWidgetOptions>;
+export type CSProgramWidget = WidgetOptions<'cs-program', PerseusCSProgramWidgetOptions>;
 // prettier-ignore
-export type DefinitionWidget = Widget<'definition', PerseusDefinitionWidgetOptions>;
+export type DefinitionWidget = WidgetOptions<'definition', PerseusDefinitionWidgetOptions>;
 // prettier-ignore
-export type DropdownWidget = Widget<'dropdown', PerseusDropdownWidgetOptions>;
+export type DropdownWidget = WidgetOptions<'dropdown', PerseusDropdownWidgetOptions>;
 // prettier-ignore
-export type ExplanationWidget = Widget<'explanation', PerseusExplanationWidgetOptions>;
+export type ExplanationWidget = WidgetOptions<'explanation', PerseusExplanationWidgetOptions>;
 // prettier-ignore
-export type ExpressionWidget = Widget<'expression', PerseusExpressionWidgetOptions>;
+export type ExpressionWidget = WidgetOptions<'expression', PerseusExpressionWidgetOptions>;
 // prettier-ignore
-export type GradedGroupSetWidget = Widget<'graded-group-set', PerseusGradedGroupSetWidgetOptions>;
+export type GradedGroupSetWidget = WidgetOptions<'graded-group-set', PerseusGradedGroupSetWidgetOptions>;
 // prettier-ignore
-export type GradedGroupWidget = Widget<'graded-group', PerseusGradedGroupWidgetOptions>;
+export type GradedGroupWidget = WidgetOptions<'graded-group', PerseusGradedGroupWidgetOptions>;
 // prettier-ignore
-export type GrapherWidget = Widget<'grapher', PerseusGrapherWidgetOptions>;
+export type GrapherWidget = WidgetOptions<'grapher', PerseusGrapherWidgetOptions>;
 // prettier-ignore
-export type GroupWidget = Widget<'group', PerseusGroupWidgetOptions>;
+export type GroupWidget = WidgetOptions<'group', PerseusGroupWidgetOptions>;
 // prettier-ignore
-export type IFrameWidget = Widget<'iframe', PerseusIFrameWidgetOptions>;
+export type IFrameWidget = WidgetOptions<'iframe', PerseusIFrameWidgetOptions>;
 // prettier-ignore
-export type ImageWidget = Widget<'image', PerseusImageWidgetOptions>;
+export type ImageWidget = WidgetOptions<'image', PerseusImageWidgetOptions>;
 // prettier-ignore
-export type InteractionWidget = Widget<'interaction', PerseusInteractionWidgetOptions>;
+export type InteractionWidget = WidgetOptions<'interaction', PerseusInteractionWidgetOptions>;
 // prettier-ignore
-export type InteractiveGraphWidget = Widget<'interactive-graph', PerseusInteractiveGraphWidgetOptions>;
+export type InteractiveGraphWidget = WidgetOptions<'interactive-graph', PerseusInteractiveGraphWidgetOptions>;
 // prettier-ignore
-export type LabelImageWidget = Widget<'label-image', PerseusLabelImageWidgetOptions>;
+export type LabelImageWidget = WidgetOptions<'label-image', PerseusLabelImageWidgetOptions>;
 // prettier-ignore
-export type MatcherWidget = Widget<'matcher', PerseusMatcherWidgetOptions>;
+export type MatcherWidget = WidgetOptions<'matcher', PerseusMatcherWidgetOptions>;
 // prettier-ignore
-export type MatrixWidget = Widget<'matrix', PerseusMatrixWidgetOptions>;
+export type MatrixWidget = WidgetOptions<'matrix', PerseusMatrixWidgetOptions>;
 // prettier-ignore
-export type MeasurerWidget = Widget<'measurer', PerseusMeasurerWidgetOptions>;
+export type MeasurerWidget = WidgetOptions<'measurer', PerseusMeasurerWidgetOptions>;
 // prettier-ignore
-export type NumberLineWidget = Widget<'number-line', PerseusNumberLineWidgetOptions>;
+export type NumberLineWidget = WidgetOptions<'number-line', PerseusNumberLineWidgetOptions>;
 // prettier-ignore
-export type NumericInputWidget = Widget<'numeric-input', PerseusNumericInputWidgetOptions>;
+export type NumericInputWidget = WidgetOptions<'numeric-input', PerseusNumericInputWidgetOptions>;
 // prettier-ignore
-export type OrdererWidget = Widget<'orderer', PerseusOrdererWidgetOptions>;
+export type OrdererWidget = WidgetOptions<'orderer', PerseusOrdererWidgetOptions>;
 // prettier-ignore
-export type PassageRefWidget = Widget<'passage-ref', PerseusPassageRefWidgetOptions>;
+export type PassageRefWidget = WidgetOptions<'passage-ref', PerseusPassageRefWidgetOptions>;
 // prettier-ignore
-export type PassageWidget = Widget<'passage', PerseusPassageWidgetOptions>;
+export type PassageWidget = WidgetOptions<'passage', PerseusPassageWidgetOptions>;
 // prettier-ignore
-export type PhetSimulationWidget = Widget<'phet-simulation', PerseusPhetSimulationWidgetOptions>;
+export type PhetSimulationWidget = WidgetOptions<'phet-simulation', PerseusPhetSimulationWidgetOptions>;
 // prettier-ignore
-export type PlotterWidget = Widget<'plotter', PerseusPlotterWidgetOptions>;
+export type PlotterWidget = WidgetOptions<'plotter', PerseusPlotterWidgetOptions>;
 // prettier-ignore
-export type PythonProgramWidget = Widget<'python-program', PerseusPythonProgramWidgetOptions>;
+export type PythonProgramWidget = WidgetOptions<'python-program', PerseusPythonProgramWidgetOptions>;
 // prettier-ignore
-export type RadioWidget = Widget<'radio', PerseusRadioWidgetOptions>;
+export type RadioWidget = WidgetOptions<'radio', PerseusRadioWidgetOptions>;
 // prettier-ignore
-export type SorterWidget = Widget<'sorter', PerseusSorterWidgetOptions>;
+export type SorterWidget = WidgetOptions<'sorter', PerseusSorterWidgetOptions>;
 // prettier-ignore
-export type TableWidget = Widget<'table', PerseusTableWidgetOptions>;
+export type TableWidget = WidgetOptions<'table', PerseusTableWidgetOptions>;
 // prettier-ignore
-export type InputNumberWidget = Widget<'input-number', PerseusInputNumberWidgetOptions>;
+export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumberWidgetOptions>; // While this widget is deprecated, we still need the type for conversion purposes
 // prettier-ignore
-export type MoleculeRendererWidget = Widget<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
+export type MoleculeRendererWidget = WidgetOptions<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
 // prettier-ignore
-export type RefTargetWidget = Widget<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
+export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
 // prettier-ignore
-export type VideoWidget = Widget<'video', PerseusVideoWidgetOptions>;
+export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
-export type AutoCorrectWidget = Widget<'deprecated-standin', PerseusWidgetOptions>;
+export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', PerseusWidgetOptions>;
 
 export type PerseusWidget =
     | CategorizerWidget
@@ -406,7 +410,6 @@ export type LegacyButtonSets = ReadonlyArray<
 export type PerseusExpressionWidgetOptions = {
     // The expression forms the answer may come in
     answerForms: ReadonlyArray<PerseusExpressionAnswerForm>;
-    // Different buttons sets that can show in the expression. Options are "basic", "basic+div", "trig", "prealgebra", "logarithms", "basic relations", "advanced relations"
     buttonSets: LegacyButtonSets;
     // Variables that can be used as functions.  Default: ["f", "g", "h"]
     functions: ReadonlyArray<string>;
@@ -475,6 +478,56 @@ export type GraphRange = [
     y: [min: number, max: number],
 ];
 
+export type GrapherAnswerTypes =
+    | {
+          type: "absolute_value";
+          coords: [
+              // The vertex
+              Coord, // A point along one line of the absolute value "V" lines
+              Coord,
+          ];
+      }
+    | {
+          type: "exponential";
+          // Two points along the asymptote line. Usually (always?) a
+          // horizontal or vertical line.
+          asymptote: [Coord, Coord];
+          // Two points along the exponential curve. One end of the curve
+          // trends towards the asymptote.
+          coords: [Coord, Coord];
+      }
+    | {
+          type: "linear";
+          // Two points along the straight line
+          coords: [Coord, Coord];
+      }
+    | {
+          type: "logarithm";
+          // Two points along the asymptote line.
+          asymptote: [Coord, Coord];
+          // Two points along the logarithmic curve. One end of the curve
+          // trends towards the asymptote.
+          coords: [Coord, Coord];
+      }
+    | {
+          type: "quadratic";
+          coords: [
+              // The vertex of the parabola
+              Coord, // A point along the parabola
+              Coord,
+          ];
+      }
+    | {
+          type: "sinusoid";
+          // Two points on the same slope in the sinusoid wave line.
+          coords: [Coord, Coord];
+      }
+    | {
+          type: "tangent";
+          // Two points on the same slope in the tangent wave line.
+          coords: [Coord, Coord];
+      };
+
 export type PerseusGrapherWidgetOptions = {
     availableTypes: ReadonlyArray<
         | "absolute_value"
@@ -485,55 +538,7 @@ export type PerseusGrapherWidgetOptions = {
         | "sinusoid"
         | "tangent"
     >;
-    correct:
-        | {
-              type: "absolute_value";
-              coords: [
-                  // The vertex
-                  Coord, // A point along one line of the absolute value "V" lines
-                  Coord,
-              ];
-          }
-        | {
-              type: "exponential";
-              // Two points along the asymptote line. Usually (always?) a
-              // horizontal or vertical line.
-              asymptote: [Coord, Coord];
-              // Two points along the exponential curve. One end of the curve
-              // trends towards the asymptote.
-              coords: [Coord, Coord];
-          }
-        | {
-              type: "linear";
-              // Two points along the straight line
-              coords: [Coord, Coord];
-          }
-        | {
-              type: "logarithm";
-              // Two points along the asymptote line.
-              asymptote: [Coord, Coord];
-              // Two points along the logarithmic curve. One end of the curve
-              // trends towards the asymptote.
-              coords: [Coord, Coord];
-          }
-        | {
-              type: "quadratic";
-              coords: [
-                  // The vertex of the parabola
-                  Coord, // A point along the parabola
-                  Coord,
-              ];
-          }
-        | {
-              type: "sinusoid";
-              // Two points on the same slope in the sinusoid wave line.
-              coords: [Coord, Coord];
-          }
-        | {
-              type: "tangent";
-              // Two points on the same slope in the tangent wave line.
-              coords: [Coord, Coord];
-          };
+    correct: GrapherAnswerTypes;
     graph: {
         backgroundImage: {
             bottom?: number;
@@ -667,7 +672,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     fullGraphAriaDescription?: string;
 };
 
-const lockedFigureColorNames = [
+export const lockedFigureColorNames = [
     "blue",
     "green",
     "grayH",
@@ -795,7 +800,7 @@ export type PerseusGraphType =
     | PerseusGraphTypeSegment
     | PerseusGraphTypeSinusoid;
 
-export type PerseusGraphTypeCommon = {
+type PerseusGraphTypeCommon = {
     // NOTE(jeremy): This is referenced in the component. Verify if there's any
     // production data that still has this.
     coord?: Coord; // Legacy!
@@ -910,6 +915,77 @@ export type PerseusGraphTypeRay = {
     startCoords?: CollinearTuple;
 } & PerseusGraphTypeCommon;
 
+type AngleGraphCorrect = {
+    type: "angle";
+    allowReflexAngles: boolean;
+    match: "congruent";
+    coords: [Coord, Coord, Coord];
+};
+
+type CircleGraphCorrect = {
+    type: "circle";
+    center: Coord;
+    radius: number;
+};
+
+type LinearGraphCorrect = {
+    type: "linear";
+    coords: CollinearTuple;
+};
+
+type LinearSystemGraphCorrect = {
+    type: "linear-system";
+    coords: [CollinearTuple, CollinearTuple];
+};
+
+type NoneGraphCorrect = {
+    type: "none";
+};
+
+type PointGraphCorrect = {
+    type: "point";
+    coords: ReadonlyArray<Coord>;
+};
+
+type PolygonGraphCorrect = {
+    type: "polygon";
+    match: "similar" | "congruent" | "approx";
+    coords: ReadonlyArray<Coord>;
+};
+
+type QuadraticGraphCorrect = {
+    type: "quadratic";
+    coords: [Coord, Coord, Coord];
+};
+
+type SegmentGraphCorrect = {
+    type: "segment";
+    coords: CollinearTuple[];
+};
+
+type SinusoidGraphCorrect = {
+    type: "sinusoid";
+    coords: CollinearTuple;
+};
+
+type RayGraphCorrect = {
+    type: "ray";
+    coords: CollinearTuple;
+};
+
+export type PerseusGraphCorrectType =
+    | AngleGraphCorrect
+    | CircleGraphCorrect
+    | LinearGraphCorrect
+    | LinearSystemGraphCorrect
+    | NoneGraphCorrect
+    | PointGraphCorrect
+    | PolygonGraphCorrect
+    | QuadraticGraphCorrect
+    | RayGraphCorrect
+    | SegmentGraphCorrect
+    | SinusoidGraphCorrect;
+
 export type PerseusLabelImageWidgetOptions = {
     // Translatable Text; Tex representation of choices
     choices: ReadonlyArray<string>;
@@ -987,7 +1063,7 @@ export type PerseusMeasurerWidgetOptions = {
     // The number of units to display on the ruler
     rulerLength: number;
     // Containing area [width, height]
-    box: ReadonlyArray<number>;
+    box: [number, number];
     // Always false.  Not used for this widget
     static: boolean;
 };
@@ -1201,24 +1277,6 @@ export type PerseusRadioChoice = {
     widgets?: PerseusWidgetsMap;
 };
 
-export type PerseusSequenceWidgetOptions = {
-    // A list of Renderers to display in sequence
-    json: ReadonlyArray<PerseusRenderer>;
-};
-
-export type PerseusSimulatorWidgetOptions = {
-    // Translatable Text; The X Axis
-    xAxisLabel: string;
-    // Translatable Text; The Y Axis
-    yAxisLabel: string;
-    // Translatable Text; A lable to define the proportion of the simulation
-    proportionLabel: string;
-    // The type of simulation. options: "proportion", "percentage"
-    proportionOrPercentage: string;
-    // The number of times to run the simulation
-    numTrials: number;
-};
-
 export type PerseusSorterWidgetOptions = {
     // Translatable Text; The correct answer (in the correct order). The user will see the cards in a randomized order.
     correct: ReadonlyArray<string>;
@@ -1237,38 +1295,6 @@ export type PerseusTableWidgetOptions = {
     columns: number;
     // Translatable Text; A 2-dimensional array of text to populate the table with
     answers: ReadonlyArray<ReadonlyArray<string>>;
-};
-
-export type DilationTransformation = {
-    type: "dilation";
-    center: Coord;
-    scale: number;
-    constraints: {
-        fixed: boolean;
-    };
-};
-
-export type ReflectionTransformation = {
-    type: "reflection";
-    line: [Coord, Coord];
-    constraints?: {
-        fixed: boolean;
-    };
-};
-
-export type RotationTransformation = {
-    type: "rotation";
-    angleDeg: number;
-    center: Coord;
-    constraints: {
-        fixed: boolean;
-    };
-};
-
-export type TranslationTransformation = {
-    type: "translation";
-    vector: Coord;
-    contraints: Empty;
 };
 
 export type PerseusInteractionWidgetOptions = {
@@ -1602,7 +1628,8 @@ export type PerseusPassageRefTargetWidgetOptions = {
 export type PerseusSimpleMarkdownTesterWidgetOptions = {
     value: string;
 };
-export type PerseusUnitInputWidgetOptions = {
+
+type PerseusUnitInputWidgetOptions = {
     value: string;
 };
 

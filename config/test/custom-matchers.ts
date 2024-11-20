@@ -6,7 +6,12 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
         interface Matchers<R> {
-            toHaveBeenAnsweredCorrectly(): R;
+            toHaveBeenAnsweredCorrectly(options?: {
+                // TODO: some non-interactive widgets have scoring functions
+                // that just return no points. They should probably just
+                // not have scoring functions if they're not interactive.
+                shouldHavePoints: boolean;
+            }): R;
             toHaveInvalidInput(message?: string | null): R;
             toHaveBeenAnsweredIncorrectly(): R;
             toBeHighlighted(): R;
@@ -49,7 +54,13 @@ function maybeAddState(message: string, widgetState: string): string {
 }
 
 expect.extend({
-    toHaveBeenAnsweredCorrectly(answerable: Answerable) {
+    toHaveBeenAnsweredCorrectly(
+        answerable: Answerable,
+        options: {
+            shouldHavePoints: boolean;
+        },
+    ) {
+        const shouldHavePoints = options?.shouldHavePoints ?? true;
         const {widgetState, score} = check(answerable);
 
         if (score.type === "invalid") {
@@ -74,6 +85,28 @@ expect.extend({
         if (score.earned !== score.total) {
             const errMessage = maybeAddState(
                 "Problem was answered incorrectly",
+                widgetState,
+            );
+
+            return {
+                pass: false,
+                message: () => errMessage,
+            };
+        }
+
+        if (shouldHavePoints && score.total < 1) {
+            const errMessage = maybeAddState(
+                "Score did not have any points",
+                widgetState,
+            );
+
+            return {
+                pass: false,
+                message: () => errMessage,
+            };
+        } else if (!shouldHavePoints && score.total > 0) {
+            const errMessage = maybeAddState(
+                "Score had points when it shouldn't have",
                 widgetState,
             );
 
@@ -140,6 +173,9 @@ expect.extend({
             };
         }
 
+        // TODO: Are we sure this is right? I wonder if it should be
+        // score.earned === score.total
+        // (in multi-widget questions, you can get some right and some wrong)
         if (score.earned !== 0) {
             return {
                 pass: false,

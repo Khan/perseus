@@ -74,7 +74,8 @@ function imageTintColor(
     }
     return color.offBlack64;
 }
-export type ItemState = "active" | "inactive" | "disabled";
+
+type ItemState = "active" | "inactive" | "disabled";
 type TabItemProps = {
     onClick: () => void;
     itemState: ItemState;
@@ -164,7 +165,5 @@ function TabbarItem(props: TabItemProps): React.ReactElement {
         </Clickable>
     );
 }
-
-export const TabbarItemForTesting = TabbarItem;
 
 export default TabbarItem;

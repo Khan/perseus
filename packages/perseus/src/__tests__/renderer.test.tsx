@@ -9,17 +9,19 @@ import {testDependencies} from "../../../../testing/test-dependencies";
 import {
     dropdownWidget,
     imageWidget,
-    inputNumberWidget,
+    numericInputWidget,
     question1,
     question2,
     definitionItem,
     mockedRandomItem,
     mockedShuffledRadioProps,
+    numericInputWidget2,
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
-import InputNumberExport from "../widgets/input-number";
+import {simpleGroupQuestion} from "../widgets/group/group.testdata";
+import InputNumberExport from "../widgets/numeric-input";
 import RadioWidgetExport from "../widgets/radio";
 
 import type {DropdownWidget} from "../perseus-types";
@@ -45,7 +47,7 @@ jest.mock("../translation-linter", () => {
 
 describe("renderer", () => {
     beforeAll(() => {
-        registerWidget("input-number", InputNumberExport);
+        registerWidget("numeric-input", InputNumberExport);
         registerWidget("radio", RadioWidgetExport);
     });
 
@@ -839,11 +841,11 @@ describe("renderer", () => {
             // Arrange
             const question = {
                 content:
-                    "A dropdown [[☃ dropdown 1]]\nAn input [[☃ input-number 1]]\n\nAnd an image [[☃ image 1]].",
+                    "A dropdown [[☃ dropdown 1]]\nAn input [[☃ numeric-input 1]]\n\nAnd an image [[☃ image 1]].",
                 images: {},
                 widgets: {
                     "dropdown 1": dropdownWidget,
-                    "input-number 1": inputNumberWidget,
+                    "numeric-input 1": numericInputWidget,
                     "image 1": imageWidget,
                 },
             } as const;
@@ -905,11 +907,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Enter 1 in this field: [[☃ input-number 1]].\n\n" +
-                        "Enter 2 in this field: [[☃ input-number 2]] $60$.",
+                        "Enter 1 in this field: [[☃ numeric-input 1]].\n\n" +
+                        "Enter 2 in this field: [[☃ numeric-input 2]] $60$.",
                     widgets: {
-                        "input-number 1": question2.widgets["input-number 1"],
-                        "input-number 2": question2.widgets["input-number 1"],
+                        "numeric-input 1": question2.widgets["numeric-input 1"],
+                        "numeric-input 2": question2.widgets["numeric-input 1"],
                     },
                 },
                 {onFocusChange},
@@ -920,7 +922,7 @@ describe("renderer", () => {
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
-                /* new focus path */ ["input-number 2"],
+                /* new focus path */ ["numeric-input 2"],
                 /* old focus path */ null,
             );
         });
@@ -932,11 +934,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Enter 1 in this field: [[☃ input-number 1]].\n\n" +
-                        "Enter 2 in this field: [[☃ input-number 2]] $60$.",
+                        "Enter 1 in this field: [[☃ numeric-input 1]].\n\n" +
+                        "Enter 2 in this field: [[☃ numeric-input 2]] $60$.",
                     widgets: {
-                        "input-number 1": question2.widgets["input-number 1"],
-                        "input-number 2": question2.widgets["input-number 1"],
+                        "numeric-input 1": question2.widgets["numeric-input 1"],
+                        "numeric-input 2": question2.widgets["numeric-input 1"],
                     },
                 },
                 {onFocusChange},
@@ -952,7 +954,7 @@ describe("renderer", () => {
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
                 /* new focus path */ null,
-                /* old focus path */ ["input-number 2"],
+                /* old focus path */ ["numeric-input 2"],
             );
         });
 
@@ -975,7 +977,7 @@ describe("renderer", () => {
             const {renderer} = renderQuestion(question2);
 
             // Act
-            act(() => renderer.focusPath(["input-number 1"]));
+            act(() => renderer.focusPath(["numeric-input 1"]));
 
             // Assert
             expect(screen.getByRole("textbox")).toHaveFocus();
@@ -987,11 +989,11 @@ describe("renderer", () => {
             const {renderer} = renderQuestion(question2, {
                 onFocusChange,
             });
-            act(() => renderer.focusPath(["input-number 1"]));
+            act(() => renderer.focusPath(["numeric-input 1"]));
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.focusPath(["input-number 1"]));
+            act(() => renderer.focusPath(["numeric-input 1"]));
 
             // Assert
             expect(onFocusChange).not.toHaveBeenCalled();
@@ -1004,25 +1006,25 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Input 1: [[☃ input-number 1]]\n\n" +
-                        "Input 2: [[☃ input-number 2]]",
+                        "Input 1: [[☃ numeric-input 1]]\n\n" +
+                        "Input 2: [[☃ numeric-input 2]]",
                     widgets: {
                         ...question2.widgets,
-                        "input-number 2": question2.widgets["input-number 1"],
+                        "numeric-input 2": question2.widgets["numeric-input 1"],
                     },
                 },
                 {onFocusChange},
             );
-            act(() => renderer.focusPath(["input-number 1"]));
+            act(() => renderer.focusPath(["numeric-input 1"]));
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.focusPath(["input-number 2"]));
+            act(() => renderer.focusPath(["numeric-input 2"]));
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
-                ["input-number 2"], // New focus
-                ["input-number 1"], // Old focus
+                ["numeric-input 2"], // New focus
+                ["numeric-input 1"], // Old focus
             );
         });
 
@@ -1033,11 +1035,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Input 1: [[☃ input-number 1]]\n\n" +
-                        "Input 2: [[☃ input-number 2]]",
+                        "Input 1: [[☃ numeric-input 1]]\n\n" +
+                        "Input 2: [[☃ numeric-input 2]]",
                     widgets: {
                         ...question2.widgets,
-                        "input-number 2": question2.widgets["input-number 1"],
+                        "numeric-input 2": question2.widgets["numeric-input 1"],
                     },
                 },
                 {onFocusChange},
@@ -1047,7 +1049,7 @@ describe("renderer", () => {
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.blurPath(["input-number 1"]));
+            act(() => renderer.blurPath(["numeric-input 1"]));
 
             // Assert
             expect(onFocusChange).not.toHaveBeenCalled();
@@ -1060,11 +1062,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Input 1: [[☃ input-number 1]]\n\n" +
-                        "Input 2: [[☃ input-number 2]]",
+                        "Input 1: [[☃ numeric-input 1]]\n\n" +
+                        "Input 2: [[☃ numeric-input 2]]",
                     widgets: {
                         ...question2.widgets,
-                        "input-number 2": question2.widgets["input-number 1"],
+                        "numeric-input 2": question2.widgets["numeric-input 1"],
                     },
                 },
                 {onFocusChange},
@@ -1080,7 +1082,7 @@ describe("renderer", () => {
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
                 null, // New focus
-                ["input-number 2"], // Old focus
+                ["numeric-input 2"], // Old focus
             );
         });
 
@@ -1091,11 +1093,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Input 1: [[☃ input-number 1]]\n\n" +
-                        "Input 2: [[☃ input-number 2]]",
+                        "Input 1: [[☃ numeric-input 1]]\n\n" +
+                        "Input 2: [[☃ numeric-input 2]]",
                     widgets: {
                         ...question2.widgets,
-                        "input-number 2": question2.widgets["input-number 1"],
+                        "numeric-input 2": question2.widgets["numeric-input 1"],
                     },
                 },
                 {onFocusChange},
@@ -1400,13 +1402,13 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]\n\n" +
+                    "Input 1: [[☃ numeric-input 1]]\n\n" +
+                    "Input 2: [[☃ numeric-input 2]]\n\n" +
                     "A widget that doesn't implement getUserInput: [[☃ image 1]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": {
-                        ...question2.widgets["input-number 1"],
+                    "numeric-input 2": {
+                        ...question2.widgets["numeric-input 1"],
                         static: true,
                     },
                     "image 1": {
@@ -1435,7 +1437,7 @@ describe("renderer", () => {
             expect(input).toStrictEqual([
                 {currentValue: "0"},
                 {currentValue: "1"},
-                null, // image widget doesn't implement getUserinput
+                undefined, // image widget doesn't implement getUserinput
             ]);
         });
 
@@ -1444,13 +1446,13 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]\n\n" +
+                    "Input 1: [[☃ numeric-input 1]]\n\n" +
+                    "Input 2: [[☃ numeric-input 2]]\n\n" +
                     "A widget that doesn't implement getUserInput: [[☃ image 1]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": {
-                        ...question2.widgets["input-number 1"],
+                    "numeric-input 2": {
+                        ...question2.widgets["numeric-input 1"],
                         static: true,
                     },
                     "image 1": {
@@ -1472,8 +1474,8 @@ describe("renderer", () => {
 
             // Assert
             expect(widgetIds).toStrictEqual([
-                "input-number 1",
-                "input-number 2",
+                "numeric-input 1",
+                "numeric-input 2",
                 "image 1",
             ]);
         });
@@ -1505,32 +1507,6 @@ describe("renderer", () => {
 
             // Assert
             expect(node).toBe(widget2DOMNode);
-        });
-    });
-
-    describe("getGrammarTypeForPath", () => {
-        it("should return undefined if matching widget doesn't implement getGrammarTypeForPath", () => {
-            // Arrange
-            const {renderer} = renderQuestion(question1);
-
-            // Act
-            const grammarType = renderer.getGrammarTypeForPath(["dropdown 1"]);
-
-            // Assert
-            expect(grammarType).toBeUndefined();
-        });
-
-        it("should return widget result if matching widget implements getGrammarTypeForPath", () => {
-            // Arrange
-            const {renderer} = renderQuestion(question2);
-
-            // Act
-            const grammarType = renderer.getGrammarTypeForPath([
-                "input-number 1",
-            ]);
-
-            // Assert
-            expect(grammarType).toBe("number");
         });
     });
 
@@ -1589,11 +1565,11 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]",
+                    "Input 1: [[☃ numeric-input 1]]\n\n" +
+                    "Input 2: [[☃ numeric-input 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": question2.widgets["input-number 1"],
+                    "numeric-input 2": question2.widgets["numeric-input 1"],
                 },
             });
             await userEvent.type(screen.getAllByRole("textbox")[0], "150");
@@ -1602,7 +1578,7 @@ describe("renderer", () => {
             const emptyWidgets = renderer.emptyWidgets();
 
             // Assert
-            expect(emptyWidgets).toStrictEqual(["input-number 2"]);
+            expect(emptyWidgets).toStrictEqual(["numeric-input 2"]);
         });
 
         it("should not return static widgets even if empty", () => {
@@ -1610,12 +1586,12 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]",
+                    "Input 1: [[☃ numeric-input 1]]\n\n" +
+                    "Input 2: [[☃ numeric-input 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": {
-                        ...question2.widgets["input-number 1"],
+                    "numeric-input 2": {
+                        ...question2.widgets["numeric-input 1"],
                         static: true,
                     },
                 },
@@ -1625,7 +1601,47 @@ describe("renderer", () => {
             const emptyWidgets = renderer.emptyWidgets();
 
             // Assert
-            expect(emptyWidgets).toStrictEqual(["input-number 1"]);
+            expect(emptyWidgets).toStrictEqual(["numeric-input 1"]);
+        });
+
+        it("should return widget ID for group with empty widget", () => {
+            // Arrange
+            const {renderer} = renderQuestion(simpleGroupQuestion);
+
+            // Act
+            const emptyWidgets = renderer.emptyWidgets();
+
+            // Assert
+            expect(emptyWidgets).toStrictEqual(["group 1"]);
+        });
+
+        it("should not return ID for group with empty static widget", () => {
+            // Arrange
+            const simpleGroupQuestionCopy = JSON.parse(
+                JSON.stringify(simpleGroupQuestion),
+            );
+            simpleGroupQuestionCopy.widgets["group 1"].options.widgets[
+                "numeric-input 1"
+            ].static = true;
+            const {renderer} = renderQuestion(simpleGroupQuestionCopy);
+
+            // Act
+            const emptyWidgets = renderer.emptyWidgets();
+
+            // Assert
+            expect(emptyWidgets).toStrictEqual([]);
+        });
+
+        it("should not return ID for group with non-empty widget", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(simpleGroupQuestion);
+            await userEvent.type(screen.getByRole("textbox"), "99");
+
+            // Act
+            const emptyWidgets = renderer.emptyWidgets();
+
+            // Assert
+            expect(emptyWidgets).toStrictEqual([]);
         });
     });
 
@@ -1635,12 +1651,12 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]",
+                    "Input 1: [[☃ numeric-input 1]]\n\n" +
+                    "Input 2: [[☃ numeric-input 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": {
-                        ...question2.widgets["input-number 1"],
+                    "numeric-input 2": {
+                        ...question2.widgets["numeric-input 1"],
                         static: true,
                     },
                 },
@@ -1648,7 +1664,7 @@ describe("renderer", () => {
             const cb = jest.fn();
 
             // Act
-            act(() => renderer.setInputValue(["input-number 2"], "1000", cb));
+            act(() => renderer.setInputValue(["numeric-input 2"], "1000", cb));
 
             // Assert
             expect(screen.getAllByRole("textbox")[0]).toHaveValue("");
@@ -1660,12 +1676,12 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]",
+                    "Input 1: [[☃ numeric-input 1]]\n\n" +
+                    "Input 2: [[☃ numeric-input 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": {
-                        ...question2.widgets["input-number 1"],
+                    "numeric-input 2": {
+                        ...question2.widgets["numeric-input 1"],
                         static: true,
                     },
                 },
@@ -1673,7 +1689,7 @@ describe("renderer", () => {
             const cb = jest.fn();
 
             // Act
-            act(() => renderer.setInputValue(["input-number 2"], "1000", cb));
+            act(() => renderer.setInputValue(["numeric-input 2"], "1000", cb));
             act(() => jest.runOnlyPendingTimers());
 
             // Assert
@@ -1681,19 +1697,19 @@ describe("renderer", () => {
         });
     });
 
-    describe("getUserInputForWidgets", () => {
+    describe("getUserInputMap", () => {
         it("should return user input for all rendered widgets", async () => {
             // Arrange
             const {renderer} = renderQuestion({
                 content:
-                    "Input widget: [[\u2603 input-number 1]]\n\n" +
+                    "Input widget: [[\u2603 numeric-input 1]]\n\n" +
                     "Dropdown widget: [[\u2603 dropdown 1]]\n\n" +
                     "Image widget (won't have user input): [[\u2603 image 1]]\n\n" +
-                    "Another input widget: [[\u2603 input-number 2]]",
+                    "Another input widget: [[\u2603 numeric-input 2]]",
                 widgets: {
                     "image 1": imageWidget,
-                    "input-number 1": inputNumberWidget,
-                    "input-number 2": inputNumberWidget,
+                    "numeric-input 1": numericInputWidget,
+                    "numeric-input 2": numericInputWidget,
                     "dropdown 1": dropdownWidget,
                 },
                 images: {},
@@ -1709,7 +1725,7 @@ describe("renderer", () => {
             act(() => jest.runOnlyPendingTimers());
 
             // Act
-            const userInput = renderer.getUserInputForWidgets();
+            const userInput = renderer.getUserInputMap();
 
             // Assert
             expect(userInput).toMatchInlineSnapshot(`
@@ -1717,15 +1733,30 @@ describe("renderer", () => {
                   "dropdown 1": {
                     "value": 1,
                   },
-                  "image 1": null,
-                  "input-number 1": {
+                  "numeric-input 1": {
                     "currentValue": "100",
                   },
-                  "input-number 2": {
+                  "numeric-input 2": {
                     "currentValue": "200",
                   },
                 }
             `);
+        });
+    });
+
+    describe("getPromptJSON", () => {
+        it("should return prompt JSON with the correct content and widgets", () => {
+            // Act
+            const {renderer} = renderQuestion(mockedRandomItem);
+
+            const json = renderer.getPromptJSON();
+
+            // Assert
+            expect(json.content).toBe(mockedRandomItem.content);
+
+            const widgetKeys = Object.keys(mockedRandomItem.widgets);
+
+            expect(Object.keys(json.widgets)).toEqual(widgetKeys);
         });
     });
 
@@ -1734,14 +1765,14 @@ describe("renderer", () => {
             // Arrange
             const {renderer} = renderQuestion({
                 content:
-                    "Input widget: [[\u2603 input-number 1]]\n\n" +
+                    "Input widget: [[\u2603 numeric-input 1]]\n\n" +
                     "Dropdown widget: [[\u2603 dropdown 1]]\n\n" +
                     "Image widget (won't have user input): [[\u2603 image 1]]\n\n" +
-                    "Another input widget: [[\u2603 input-number 2]]",
+                    "Another input widget: [[\u2603 numeric-input 2]]",
                 widgets: {
                     "image 1": imageWidget,
-                    "input-number 1": inputNumberWidget,
-                    "input-number 2": inputNumberWidget,
+                    "numeric-input 1": numericInputWidget,
+                    "numeric-input 2": numericInputWidget,
                     "dropdown 1": dropdownWidget,
                 },
                 images: {},
@@ -1751,13 +1782,16 @@ describe("renderer", () => {
             const examples = renderer.examples();
 
             // Assert
+
             expect(examples).toMatchInlineSnapshot(`
                 [
                   "**Your answer should be** ",
                   "an integer, like $6$",
-                  "a *proper* fraction, like $1/2$ or $6/10$",
-                  "an *improper* fraction, like $10/7$ or $14/8$",
+                  "a *simplified proper* fraction, like $3/5$",
+                  "a *simplified improper* fraction, like $7/4$",
                   "a mixed number, like $1\\ 3/4$",
+                  "an *exact* decimal, like $0.75$",
+                  "a multiple of pi, like $12\\ \\text{pi}$ or $2/3\\ \\text{pi}$",
                 ]
             `);
         });
@@ -1770,18 +1804,17 @@ describe("renderer", () => {
             // Arrange
             const {renderer} = renderQuestion({
                 content:
-                    "Input widget: [[\u2603 input-number 1]]\n\n" +
+                    "Input widget: [[\u2603 numeric-input 1]]\n\n" +
                     "Dropdown widget: [[\u2603 dropdown 1]]\n\n" +
                     "Image widget (won't have user input): [[\u2603 image 1]]\n\n" +
-                    "Another input widget: [[\u2603 input-number 2]]",
+                    "Another input widget: [[\u2603 numeric-input 2]]",
                 widgets: {
                     "image 1": imageWidget,
-                    "input-number 1": inputNumberWidget,
-                    "input-number 2": {
-                        ...inputNumberWidget,
+                    "numeric-input 1": numericInputWidget,
+                    "numeric-input 2": {
+                        ...numericInputWidget2,
                         options: {
-                            ...inputNumberWidget.options,
-                            answerType: "percent",
+                            ...numericInputWidget2.options,
                         },
                     },
                     "dropdown 1": dropdownWidget,

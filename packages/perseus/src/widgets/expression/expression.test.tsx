@@ -7,9 +7,11 @@ import {
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItem} from "../../renderer-util";
+import {mockStrings} from "../../strings";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {Expression} from "./expression";
+import ExpressionWidgetExport from "./expression";
 import {
     expressionItem2,
     expressionItem3,
@@ -18,7 +20,6 @@ import {
 } from "./expression.testdata";
 
 import type {PerseusItem} from "../../perseus-types";
-import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
@@ -47,14 +48,6 @@ const assertCorrect = async (
         true,
     );
     expect(renderer).toHaveBeenAnsweredCorrectly();
-
-    expect(testDependenciesV2.analytics.onAnalyticsEvent).toHaveBeenCalledWith({
-        type: "perseus:expression-evaluated",
-        payload: {
-            result: "correct",
-            virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2",
-        },
-    });
 };
 
 const assertIncorrect = async (
@@ -69,14 +62,6 @@ const assertIncorrect = async (
         false,
     );
     expect(renderer).toHaveBeenAnsweredIncorrectly();
-
-    expect(testDependenciesV2.analytics.onAnalyticsEvent).toHaveBeenCalledWith({
-        type: "perseus:expression-evaluated",
-        payload: {
-            result: "incorrect",
-            virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2",
-        },
-    });
 };
 
 // TODO: actually Assert that message is being set on the score object.
@@ -222,54 +207,6 @@ describe("Expression Widget", function () {
         });
     });
 
-    describe("analytics", () => {
-        const assertKeypadVersion = (
-            apiOptions: APIOptions,
-            virtualKeypadVersion: string,
-        ) => {
-            const {renderer} = renderQuestion(
-                expressionItem2.question,
-                apiOptions,
-            );
-
-            renderer.guessAndScore();
-
-            expect(
-                testDependenciesV2.analytics.onAnalyticsEvent,
-            ).toHaveBeenCalledWith({
-                type: "perseus:expression-evaluated",
-                payload: {
-                    // We're not interested in validating that the expression
-                    // widget did anything useful or that the keypad worked. We
-                    // just want to make sure the code that derives which
-                    // keypad version it detected is correct.
-                    result: "correct",
-                    virtualKeypadVersion,
-                },
-            });
-        };
-
-        beforeEach(() => {
-            const actual = jest.requireActual("./expression-validator");
-            jest.spyOn(actual, "default").mockReturnValue({
-                type: "points",
-                earned: 1,
-                total: 1,
-            });
-        });
-
-        it("should set the virtual keypad version to REACT_NATIVE_KEYPAD when nativeKeypadProxy is provided", () => {
-            assertKeypadVersion(
-                {nativeKeypadProxy: jest.fn()},
-                "REACT_NATIVE_KEYPAD",
-            );
-        });
-
-        it("should default the virtual keypad version to MATH_INPUT_KEYPAD_V2", () => {
-            assertKeypadVersion(Object.freeze({}), "MATH_INPUT_KEYPAD_V2");
-        });
-    });
-
     describe("international trig operators", () => {
         it("treats sen as equivalent to sin", async () => {
             const item = expressionItemWithAnswer("sin(x)");
@@ -329,7 +266,8 @@ describe("Expression Widget", function () {
             } as const;
 
             // Act
-            const result = Expression.getOneCorrectAnswerFromRubric(rubric);
+            const result =
+                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
 
             // Assert
             expect(result).toBeUndefined();
@@ -352,7 +290,8 @@ describe("Expression Widget", function () {
             } as const;
 
             // Act
-            const result = Expression.getOneCorrectAnswerFromRubric(rubric);
+            const result =
+                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
 
             // Assert
             expect(result).toEqual("123");
@@ -381,7 +320,8 @@ describe("Expression Widget", function () {
             } as const;
 
             // Act
-            const result = Expression.getOneCorrectAnswerFromRubric(rubric);
+            const result =
+                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
 
             // Assert
             expect(result).toEqual("123");
@@ -506,7 +446,12 @@ describe("Expression Widget", function () {
                 renderer.setInputValue(["expression 1"], "123-x", () => {}),
             );
             act(() => jest.runOnlyPendingTimers());
-            const score = renderer.guessAndScore()[1];
+            const score = scorePerseusItem(
+                expressionItem2.question,
+                renderer.getUserInputMap(),
+                mockStrings,
+                "en",
+            );
 
             // Assert
             expect(score.type).toBe("points");
@@ -526,7 +471,12 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
 
             // act
-            const score = renderer.score();
+            const score = scorePerseusItem(
+                expressionItem2.question,
+                renderer.getUserInputMap(),
+                mockStrings,
+                "en",
+            );
 
             // Assert
             // Score.total doesn't exist if the input is invalid
@@ -557,7 +507,6 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
             act(() => screen.getByRole("textbox").blur());
             act(() => jest.runOnlyPendingTimers());
-            renderer.guessAndScore();
 
             // Assert
             await waitFor(() =>
@@ -576,7 +525,6 @@ describe("Expression Widget", function () {
             act(() => expression.insert("sen(x)"));
             act(() => jest.runOnlyPendingTimers());
             act(() => screen.getByRole("textbox").blur());
-            renderer.guessAndScore();
 
             // Assert
             expect(screen.queryByText("Oops!")).toBeNull();

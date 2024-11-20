@@ -181,7 +181,9 @@ describe("interactive-graph widget", function () {
                 .build();
             const {renderer} = renderQuestion(question, blankOptions);
 
-            expect(renderer).toHaveBeenAnsweredCorrectly();
+            expect(renderer).toHaveBeenAnsweredCorrectly({
+                shouldHavePoints: false,
+            });
         });
     });
 });
@@ -213,6 +215,7 @@ describe("a mafs graph", () => {
         quadratic: quadraticQuestion,
         sinusoid: sinusoidQuestion,
         "unlimited-point": pointQuestion,
+        "unlimited-polygon": polygonQuestion,
     };
 
     const graphQuestionRenderersCorrect: {
@@ -229,6 +232,7 @@ describe("a mafs graph", () => {
         quadratic: quadraticQuestionWithDefaultCorrect,
         sinusoid: sinusoidQuestionWithDefaultCorrect,
         "unlimited-point": pointQuestionWithDefaultCorrect,
+        "unlimited-polygon": polygonQuestionDefaultCorrect,
     };
 
     describe.each(Object.entries(graphQuestionRenderers))(
@@ -1235,9 +1239,9 @@ describe("locked layer", () => {
         expect(labels).toHaveLength(3);
 
         // content
-        expect(labels[0]).toHaveTextContent("small \\frac{1}{2}");
-        expect(labels[1]).toHaveTextContent("medium E_0 = mc^2");
-        expect(labels[2]).toHaveTextContent("large \\sqrt{2a}");
+        expect(labels[0]).toHaveTextContent("\\text{small }\\frac{1}{2}");
+        expect(labels[1]).toHaveTextContent("\\text{medium }E_0 = mc^2");
+        expect(labels[2]).toHaveTextContent("\\text{large }\\sqrt{2a}");
 
         // styles
         expect(labels[0]).toHaveStyle({

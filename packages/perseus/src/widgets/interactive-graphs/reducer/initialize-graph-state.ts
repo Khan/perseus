@@ -66,10 +66,16 @@ export function initializeGraphState(
             return {
                 ...shared,
                 type: "polygon",
+                numSides: graph.numSides || 0,
                 showAngles: Boolean(graph.showAngles),
                 showSides: Boolean(graph.showSides),
                 coords: getPolygonCoords(graph, range, step),
                 snapTo: graph.snapTo ?? "grid",
+                focusedPointIndex: null,
+                showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                closedPolygon: false,
             };
         case "point":
             return {

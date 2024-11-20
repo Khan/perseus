@@ -8,14 +8,12 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
-import type {ChangeFn, WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusImageRubric,
-    PerseusImageUserInput,
-} from "../../validation.types";
+import type {ChangeFn, WidgetExports, WidgetProps, Widget} from "../../types";
+import type {ImagePromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];
@@ -25,13 +23,13 @@ const defaultBackgroundImage = {
     height: 0,
 } as const;
 
-const editorAlignments = ["block", "full-width"];
+const editorAlignments = ["block", "full-width"] as const;
 
 const DEFAULT_ALIGNMENT = "block";
 
 type RenderProps = PerseusImageWidgetOptions; // there is no transform as part of exports
 
-type ExternalProps = WidgetProps<RenderProps, PerseusImageRubric>;
+type ExternalProps = WidgetProps<RenderProps>;
 
 type Props = ExternalProps & {
     alignment: NonNullable<ExternalProps["alignment"]>;
@@ -57,7 +55,7 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
-class ImageWidget extends React.Component<Props> {
+class ImageWidget extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -73,25 +71,17 @@ class ImageWidget extends React.Component<Props> {
         linterContext: linterContextDefault,
     };
 
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput(): PerseusImageUserInput {
-        return null;
+    getPromptJSON(): ImagePromptJSON {
+        return _getPromptJSON(this.props);
     }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
-
-    focus: () => void = () => {}; // no-op
 
     render(): React.ReactNode {
         let image;
@@ -273,4 +263,6 @@ export default {
     displayName: "Image",
     widget: ImageWidget,
     isLintable: true,
-} as WidgetExports<typeof ImageWidget>;
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof ImageWidget>;

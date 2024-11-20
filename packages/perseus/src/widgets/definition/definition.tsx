@@ -6,21 +6,19 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {DefinitionConsumer} from "../../definition-context";
 import Renderer from "../../renderer";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
 } from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusDefinitionRubric,
-    PerseusDefinitionUserInput,
-} from "../../validation.types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {DefinitionPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 
-type DefinitionProps = WidgetProps<RenderProps, PerseusDefinitionRubric> & {
+type DefinitionProps = WidgetProps<RenderProps> & {
     widgets: PerseusRenderer["widgets"];
 };
 
@@ -29,7 +27,7 @@ type DefaultProps = {
     definition: string;
 };
 
-class Definition extends React.Component<DefinitionProps> {
+class Definition extends React.Component<DefinitionProps> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -38,18 +36,12 @@ class Definition extends React.Component<DefinitionProps> {
         definition: "definition goes here",
     };
 
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
-    getUserInput(): PerseusDefinitionUserInput {
-        return {};
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
+    getPromptJSON(): DefinitionPromptJSON {
+        return _getPromptJSON(this.props);
     }
 
     render(): React.ReactNode {
@@ -118,4 +110,6 @@ export default {
     defaultAlignment: "inline",
     widget: Definition,
     transform: (x: any) => x,
-} as WidgetExports<typeof Definition>;
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof Definition>;

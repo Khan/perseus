@@ -7,7 +7,8 @@ import * as GraphieUtil from "./util.graphie";
 
 import type {Range} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
-import type {Widget, PerseusScore} from "./types";
+import type {PerseusScore} from "./types";
+import type {UserInputArray} from "./validation.types";
 import type {KEScore} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
@@ -263,13 +264,20 @@ function combineScores(
     );
 }
 
+function flattenScores(widgetScoreMap: {
+    [widgetId: string]: PerseusScore;
+}): PerseusScore {
+    return Object.values(widgetScoreMap).reduce(combineScores, noScore);
+}
+
 export function isCorrect(score: PerseusScore): boolean {
     return score.type === "points" && score.earned >= score.total;
 }
 
 function keScoreFromPerseusScore(
     score: PerseusScore,
-    guess: any,
+    // It's weird, but this is what we're passing it
+    guess: UserInputArray | [UserInputArray, []],
     state: any,
 ): KEScore {
     if (score.type === "points") {
@@ -647,34 +655,6 @@ function strongEncodeURIComponent(str: string): string {
 }
 
 /**
- * TODO(somewhatabstract, JIRA-XXXX):
- * This does not appear to be used within webapp. Could be dead code.
- * Need to check with mobile.
- */
-// There are certain widgets where we don't want to provide the "answered"
-// highlight indicator.
-// The issue with just using the `graded` flag on questions is that showing
-// that a certain widget is ungraded can sometimes reveal the answer to a
-// question ("is this transformation possible? if so, do it")
-// This is kind of a hack to get around this.
-function widgetShouldHighlight(widget: Widget): boolean {
-    if (!widget) {
-        return false;
-    }
-    switch (widget.type) {
-        /**
-         * Highlight bar denylist
-         */
-        case "measurer":
-        case "protractor":
-            return true;
-
-        default:
-            return false;
-    }
-}
-
-/**
  * If a widget says that it is empty once it is graded.
  * Trying to encapsulate references to the score format.
  */
@@ -908,6 +888,7 @@ const Util = {
     shuffle,
     split,
     combineScores,
+    flattenScores,
     keScoreFromPerseusScore,
     firstNumericalParse,
     stringArrayOfSize,
@@ -924,7 +905,6 @@ const Util = {
     parseQueryString,
     updateQueryString,
     strongEncodeURIComponent,
-    widgetShouldHighlight,
     scoreIsEmpty,
     touchHandlers,
     resetTouchHandlers,

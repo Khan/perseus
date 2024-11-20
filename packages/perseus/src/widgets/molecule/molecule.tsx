@@ -2,15 +2,14 @@
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import noopValidator from "../__shared__/noop-validator";
+import scoreNoop from "../__shared__/score-noop";
 
 import draw from "./molecule-drawing";
 import MoleculeLayout from "./molecule-layout";
 import SmilesParser from "./smiles-parser";
 
 import type {PerseusMoleculeRendererWidgetOptions} from "../../perseus-types";
-import type {WidgetExports} from "../../types";
-import type {PerseusMoleculeUserInput} from "../../validation.types";
+import type {Widget, WidgetExports} from "../../types";
 
 const {layout} = MoleculeLayout;
 const parse = SmilesParser.parse;
@@ -29,7 +28,7 @@ type Props = {
     rotationAngle: PerseusMoleculeRendererWidgetOptions["rotationAngle"];
 };
 
-export class Molecule extends React.Component<Props, MoleculeState> {
+class Molecule extends React.Component<Props, MoleculeState> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -135,24 +134,15 @@ export class Molecule extends React.Component<Props, MoleculeState> {
 type DefaultProps = {
     rotationAngle: Props["rotationAngle"];
 };
-class MoleculeWidget extends React.Component<Props> {
+
+class MoleculeWidget extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         rotationAngle: 0,
     };
 
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
-
-    getUserInput(): PerseusMoleculeUserInput {
-        return [];
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    validate() {
-        return noopValidator();
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     render(): React.ReactNode {
         return (
@@ -170,4 +160,5 @@ export default {
     displayName: "Molecule renderer",
     hidden: true,
     widget: MoleculeWidget,
-} as WidgetExports<typeof MoleculeWidget>;
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof MoleculeWidget>;

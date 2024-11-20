@@ -8,42 +8,6 @@ describe("Widget API support", () => {
         registerAllWidgetsForTesting();
     });
 
-    // This verifies a known list of widgets to ensure they provide the static
-    // validate function. Not all widgets support this function so even though
-    // this list looks exhaustive, it's not!
-    it.each([
-        "deprecated-standin",
-        "radio",
-        "input-number",
-        "numeric-input",
-        "expression",
-        "categorizer",
-        "cs-program",
-        "dropdown",
-        "explanation",
-        "definition",
-        "grapher",
-        "iframe",
-        "image",
-        "interaction",
-        "interactive-graph",
-        "label-image",
-        "matrix",
-        "matcher",
-        "measurer",
-        "number-line",
-        "orderer",
-        "passage",
-        "passage-ref",
-        "passage-ref-target",
-        "plotter",
-        "sorter",
-        "table",
-        "video",
-    ])("%s widget should provide static validate function", (widgetType) => {
-        expect(Widgets.getWidget(widgetType)).toHaveProperty("validate");
-    });
-
     // This list is mirrored in Khan Academy's webapp for the coach reports.
     // If you change this, be sure to double-check that consuming applications
     // agree on this list of supported widgets.
@@ -63,13 +27,154 @@ describe("Widget API support", () => {
         },
     );
 
-    it.each(["expression", "input-number", "numeric-input"])(
-        "%s widget should provide static getOneCorrectAnswerFromRubric function",
-        (widgetType) => {
-            const Widget = Widgets.getWidget(widgetType);
-            expect(Widget).toHaveProperty("getOneCorrectAnswerFromRubric");
-        },
-    );
+    it("categorizer widget getUserInputFromProps should return the correct user input", () => {
+        const Widget = Widgets.getWidget("categorizer");
+
+        if (Widget && "getUserInputFromProps" in Widget) {
+            const props = {
+                values: [0, 1, 0, 1, 2],
+            };
+
+            // @ts-expect-error - TS2339 - Property 'getUserInputFromProps' does not exist on type 'ComponentType<any>'.
+            const userInput = Widget.getUserInputFromProps(props);
+            expect(userInput).toEqual({
+                values: [0, 1, 0, 1, 2],
+            });
+        } else {
+            throw new Error("Widget does not have getUserInputFromProps");
+        }
+    });
+
+    it("expression widget getUserInputFromProps should return the correct user input", () => {
+        const Widget = Widgets.getWidget("expression");
+
+        if (Widget && "getUserInputFromProps" in Widget) {
+            const props = {
+                value: "100 / 45",
+            };
+
+            // @ts-expect-error - TS2339 - Property 'getUserInputFromProps' does not exist on type 'ComponentType<any>'.
+            const userInput = Widget.getUserInputFromProps(props);
+            expect(userInput).toEqual("100 / 45");
+        } else {
+            throw new Error("Widget does not have getUserInputFromProps");
+        }
+    });
+
+    it("grapher widget getUserInputFromProps should return the correct user input", () => {
+        const Widget = Widgets.getWidget("grapher");
+
+        if (Widget && "getUserInputFromProps" in Widget) {
+            const props = {
+                plot: {
+                    type: "linear",
+                    coords: [
+                        [0, 0],
+                        [1, 1],
+                    ],
+                },
+            };
+
+            // @ts-expect-error - TS2339 - Property 'getUserInputFromProps' does not exist on type 'ComponentType<any>'.
+            const userInput = Widget.getUserInputFromProps(props);
+            expect(userInput).toEqual({
+                type: "linear",
+                coords: [
+                    [0, 0],
+                    [1, 1],
+                ],
+            });
+        } else {
+            throw new Error("Widget does not have getUserInputFromProps");
+        }
+    });
+
+    it("input-number widget getUserInputFromProps should return the correct user input", () => {
+        const Widget = Widgets.getWidget("input-number");
+
+        if (Widget && "getUserInputFromProps" in Widget) {
+            const props = {
+                currentValue: "42",
+            };
+
+            // @ts-expect-error - TS2339 - Property 'getUserInputFromProps' does not exist on type 'ComponentType<any>'.
+            const userInput = Widget.getUserInputFromProps(props);
+            expect(userInput).toEqual({
+                currentValue: "42",
+            });
+        } else {
+            throw new Error("Widget does not have getUserInputFromProps");
+        }
+    });
+
+    it("interactive-graph widget getUserInputFromProps should return the correct user input", () => {
+        const Widget = Widgets.getWidget("interactive-graph");
+
+        if (Widget && "getUserInputFromProps" in Widget) {
+            const props = {
+                graph: {
+                    type: "circle",
+                    radius: 5,
+                    center: [0, 0],
+                },
+            };
+
+            // @ts-expect-error - TS2339 - Property 'getUserInputFromProps' does not exist on type 'ComponentType<any>'.
+            const userInput = Widget.getUserInputFromProps(props);
+            expect(userInput).toEqual({
+                type: "circle",
+                radius: 5,
+                center: [0, 0],
+            });
+        } else {
+            throw new Error("Widget does not have getUserInputFromProps");
+        }
+    });
+
+    it("numeric-input widget getUserInputFromProps should return the correct user input", () => {
+        const Widget = Widgets.getWidget("numeric-input");
+
+        if (Widget && "getUserInputFromProps" in Widget) {
+            const props = {
+                currentValue: 42,
+            };
+
+            // @ts-expect-error - TS2339 - Property 'getUserInputFromProps' does not exist on type 'ComponentType<any>'.
+            const userInput = Widget.getUserInputFromProps(props);
+            expect(userInput).toEqual({
+                currentValue: 42,
+            });
+        } else {
+            throw new Error("Widget does not have getUserInputFromProps");
+        }
+    });
+
+    it("radio widget getUserInputFromProps should return the correct user input", () => {
+        const Widget = Widgets.getWidget("radio");
+
+        if (Widget && "getUserInputFromProps" in Widget) {
+            const props = {
+                choiceStates: [
+                    {selected: false},
+                    {selected: true},
+                    {selected: false},
+                ],
+                choices: [
+                    {content: "a", originalIndex: 0},
+                    {content: "b", originalIndex: 1},
+                    {content: "c", originalIndex: 2},
+                ],
+            };
+
+            // @ts-expect-error - TS2339 - Property 'getUserInputFromProps' does not exist on type 'ComponentType<any>'.
+            const userInput = Widget.getUserInputFromProps(props);
+            expect(userInput).toEqual({
+                choicesSelected: [false, true, false],
+            });
+        } else {
+            throw new Error("Widget does not have getUserInputFromProps");
+        }
+    });
 });
 
 describe("replaceWidget", () => {

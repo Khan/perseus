@@ -1,4 +1,4 @@
-import {Polygon, vec} from "mafs";
+import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
 
 import {snap} from "../math";
@@ -10,13 +10,29 @@ import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
 import {useDraggable} from "./use-draggable";
+import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
 
 import type {CollinearTuple} from "../../../perseus-types";
-import type {MafsGraphProps, PolygonGraphState} from "../types";
+import type {
+    Dispatch,
+    InteractiveGraphElementSuite,
+    MafsGraphProps,
+    PolygonGraphState,
+} from "../types";
+
+export function renderPolygonGraph(
+    state: PolygonGraphState,
+    dispatch: Dispatch,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <PolygonGraph graphState={state} dispatch={dispatch} />,
+        interactiveElementsDescription: null,
+    };
+}
 
 type Props = MafsGraphProps<PolygonGraphState>;
 
-export const PolygonGraph = (props: Props) => {
+const LimitedPolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
     // This is more so required for the re-rendering that occurs when state
     // updates; specifically with regard to line weighting and polygon focus.
@@ -137,6 +153,7 @@ export const PolygonGraph = (props: Props) => {
                     key={"point-" + i}
                     constrain={constrain}
                     point={point}
+                    sequenceNumber={i + 1}
                     onMove={(destination: vec.Vector2) => {
                         const now = Date.now();
                         const targetFPS = 40;
@@ -151,6 +168,107 @@ export const PolygonGraph = (props: Props) => {
             ))}
         </>
     );
+};
+
+const UnlimitedPolygonGraph = (props: Props) => {
+    const {dispatch} = props;
+    const {coords, closedPolygon} = props.graphState;
+
+    const graphConfig = useGraphConfig();
+
+    const {
+        range: [x, y],
+        graphDimensionsInPixels,
+    } = graphConfig;
+
+    const widthPx = graphDimensionsInPixels[0];
+    const heightPx = graphDimensionsInPixels[1];
+
+    const [[left, top]] = useTransformVectorsToPixels([x[0], y[1]]);
+    const pointRef = React.useRef<Array<SVGElement | null>>([]);
+
+    // TODO(benchristel): can the default set of points be removed here? I don't
+    // think coords can be null.
+    const points = coords ?? [[0, 0]];
+
+    React.useEffect(() => {
+        const focusedIndex = props.graphState.focusedPointIndex;
+        if (focusedIndex != null) {
+            pointRef.current[focusedIndex]?.focus();
+        }
+    }, [props.graphState.focusedPointIndex, pointRef]);
+
+    if (closedPolygon) {
+        const closedPolygonProps = {...props, numSides: coords.length};
+        return <LimitedPolygonGraph {...closedPolygonProps} />;
+    } else {
+        return (
+            <>
+                {/* This rect is here to grab clicks so that new points can be added */}
+                {/* It's important because it stops mouse events from propogating
+                when dragging a points around */}
+                <rect
+                    style={{
+                        fill: "rgba(0,0,0,0)",
+                        cursor: "crosshair",
+                    }}
+                    width={widthPx}
+                    height={heightPx}
+                    x={left}
+                    y={top}
+                    onClick={(event) => {
+                        const elementRect =
+                            event.currentTarget.getBoundingClientRect();
+
+                        const x = event.clientX - elementRect.x;
+                        const y = event.clientY - elementRect.y;
+
+                        const graphCoordinates = pixelsToVectors(
+                            [[x, y]],
+                            graphConfig,
+                        );
+                        dispatch(actions.polygon.addPoint(graphCoordinates[0]));
+                    }}
+                />
+                <Polyline
+                    points={[...points]}
+                    color="var(--movable-line-stroke-color)"
+                    svgPolylineProps={{
+                        strokeWidth: "var(--movable-line-stroke-weight)",
+                        style: {fill: "transparent"},
+                    }}
+                />
+                {props.graphState.coords.map((point, i) => (
+                    <MovablePoint
+                        key={i}
+                        point={point}
+                        sequenceNumber={i + 1}
+                        onMove={(destination) =>
+                            dispatch(actions.polygon.movePoint(i, destination))
+                        }
+                        ref={(ref) => {
+                            pointRef.current[i] = ref;
+                        }}
+                        onFocus={() => {
+                            dispatch(actions.polygon.focusPoint(i));
+                        }}
+                        onClick={() => {
+                            // If the point being clicked is the first point and
+                            // there's enough points to form a polygon (3 or more)
+                            // Close the shape before setting focus.
+                            if (
+                                i === 0 &&
+                                props.graphState.coords.length >= 3
+                            ) {
+                                dispatch(actions.polygon.closePolygon());
+                            }
+                            dispatch(actions.polygon.clickPoint(i));
+                        }}
+                    />
+                ))}
+            </>
+        );
+    }
 };
 
 function getLines(points: readonly vec.Vector2[]): CollinearTuple[] {
@@ -172,4 +290,12 @@ export const hasFocusVisible = (
         // so the call to matches(":focus-visible") will fail in tests.
         return matches(":focus");
     }
+};
+
+const PolygonGraph = (props: Props) => {
+    const numSides = props.graphState.numSides;
+
+    return numSides === "unlimited"
+        ? UnlimitedPolygonGraph(props)
+        : LimitedPolygonGraph(props);
 };

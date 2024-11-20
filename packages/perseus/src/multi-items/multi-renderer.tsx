@@ -37,8 +37,9 @@
  *   </MultiRenderer>
  */
 import {Errors} from "@khanacademy/perseus-core";
-import {StyleSheet, css} from "aphrodite"; // eslint-disable-line import/no-extraneous-dependencies
-import lens from "hubble"; // eslint-disable-line import/no-extraneous-dependencies
+import {StyleSheet, css} from "aphrodite";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import lens from "hubble";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../components/i18n-context";
@@ -55,12 +56,12 @@ import type {Item, ContentNode, HintNode, TagsNode} from "./item-types";
 import type {Shape, ArrayShape} from "./shape-types";
 import type {Tree} from "./tree-types";
 import type {TreeMapper, ContentMapper, HintMapper, Path} from "./trees";
-import type {Widget} from "../renderer";
 import type {
     APIOptions,
     FilterCriterion,
     PerseusDependenciesV2,
     PerseusScore,
+    Widget,
 } from "../types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 

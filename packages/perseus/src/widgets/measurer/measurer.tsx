@@ -1,18 +1,18 @@
-/* eslint-disable @babel/no-invalid-this */
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import SvgImage from "../../components/svg-image";
-import {ApiOptions} from "../../perseus-api";
 import GraphUtils from "../../util/graph-utils";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/measurer-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusMeasurerWidgetOptions} from "../../perseus-types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {Interval} from "../../util/interval";
-import {PerseusMeasurerWidgetOptions} from "../../perseus-types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 const defaultImage = {
     url: null,
@@ -20,28 +20,22 @@ const defaultImage = {
     left: 0,
 } as const;
 
-type RenderProps = PerseusMeasurerWidgetOptions; // there is no transform as part of exports
-type Rubric = {};
-
-type ExternalProps = WidgetProps<RenderProps, Rubric>;
-
-type Props = ExternalProps & {
-    apiOptions: NonNullable<ExternalProps["apiOptions"]>;
-    box: NonNullable<ExternalProps["box"]>;
-    image: ExternalProps["image"];
-    showProtractor: NonNullable<ExternalProps["showProtractor"]>;
-    showRuler: NonNullable<ExternalProps["showRuler"]>;
-    rulerLabel: NonNullable<ExternalProps["rulerLabel"]>;
-    rulerTicks: NonNullable<ExternalProps["rulerTicks"]>;
-    rulerPixels: NonNullable<ExternalProps["rulerPixels"]>;
-    rulerLength: NonNullable<ExternalProps["rulerLength"]>;
+type Props = WidgetProps<
+    PerseusMeasurerWidgetOptions,
+    PerseusMeasurerWidgetOptions
+> & {
+    // TODO: these don't show up anywhere else in code
+    // I'm guessing they could just be constants
+    protractorX: number;
+    protractorY: number;
 };
 
 type DefaultProps = {
-    apiOptions: Props["apiOptions"];
     box: Props["box"];
     image: Props["image"];
     showProtractor: Props["showProtractor"];
+    protractorX: Props["protractorX"];
+    protractorY: Props["protractorY"];
     showRuler: Props["showRuler"];
     rulerLabel: Props["rulerLabel"];
     rulerTicks: Props["rulerTicks"];
@@ -49,18 +43,13 @@ type DefaultProps = {
     rulerLength: Props["rulerLength"];
 };
 
-export class Measurer extends React.Component<Props> {
-    displayName: string = "Measurer";
-    protractorX: number = 7.5;
-    protractorY: number = 0.5;
-
+class Measurer extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
-        apiOptions: ApiOptions.defaults,
         box: [480, 480],
-        image: {
-            url: null,
-        },
+        image: defaultImage,
         showProtractor: true,
+        protractorX: 7.5,
+        protractorY: 0.5,
         showRuler: false,
         rulerLabel: "",
         rulerTicks: 10,
@@ -68,13 +57,13 @@ export class Measurer extends React.Component<Props> {
         rulerLength: 10,
     };
 
-    focus = $.noop;
-    protractor: any;
-    ruler: any;
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
-    getInitialState() {
-        return {};
-    }
+    state = {};
+    ruler;
+    protractor;
 
     componentDidMount() {
         this.setupGraphie();
@@ -91,8 +80,7 @@ export class Measurer extends React.Component<Props> {
                 "rulerPixels",
                 "rulerLength",
             ],
-            function (prop) {
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            (prop) => {
                 return prevProps[prop] !== this.props[prop];
             },
             this,
@@ -157,26 +145,8 @@ export class Measurer extends React.Component<Props> {
         }
     }
 
-    getUserInput() {
-        return {};
-    }
-
-    validate(
-        state: {
-            currentValue: string;
-        },
-        rubric: Rubric,
-    ) {
-        return {
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        };
-    }
-
-    simpleValidate() {
-        return noopValidator(1);
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
     }
 
     render() {
@@ -211,10 +181,6 @@ export class Measurer extends React.Component<Props> {
     }
 }
 
-_.extend(Measurer, {
-    validate: noopValidator(1),
-});
-
 const propUpgrades = {
     "1": (v0props: any): any => {
         const v1props = _(v0props)
@@ -239,12 +205,6 @@ export default {
     widget: Measurer,
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
-} as WidgetExports<typeof Measurer>;
-
-function getUserInput() {
-    throw new Error("Function not implemented.");
-}
-
-function simpleValidate(rubric: any) {
-    throw new Error("Function not implemented.");
-}
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(1),
+} satisfies WidgetExports<typeof Measurer>;

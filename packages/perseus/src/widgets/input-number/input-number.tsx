@@ -8,16 +8,18 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import InputWithExamples from "../../components/input-with-examples";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 
-import inputNumberValidator, {answerTypes} from "./input-number-validator";
+import scoreInputNumber, {answerTypes} from "./score-input-number";
 
 import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {Path, PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
 } from "../../validation.types";
+import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {
@@ -77,7 +79,7 @@ type DefaultProps = {
     size: Props["size"];
 };
 
-class InputNumber extends React.Component<Props> {
+class InputNumber extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -92,35 +94,12 @@ class InputNumber extends React.Component<Props> {
         linterContext: linterContextDefault,
     };
 
-    static validate(
-        state: {
-            currentValue: string;
-        },
-        rubric: PerseusInputNumberRubric,
-        strings: PerseusStrings,
-    ): PerseusScore {
-        return inputNumberValidator(state, rubric, strings);
-    }
-
     static getUserInputFromProps(props: Props): {
         currentValue: string;
     } {
         return {
             currentValue: props.currentValue,
         };
-    }
-
-    static getOneCorrectAnswerFromRubric(
-        rubric: any,
-    ): string | null | undefined {
-        if (rubric.value == null) {
-            return;
-        }
-        let answerString = String(rubric.value);
-        if (rubric.inexact && rubric.maxError) {
-            answerString += " \u00B1 " + rubric.maxError;
-        }
-        return answerString;
     }
 
     shouldShowExamples: () => boolean = () => {
@@ -169,13 +148,6 @@ class InputNumber extends React.Component<Props> {
         return [[]];
     };
 
-    // Note: We believe that this isn't used anywhere but are leaving it during
-    // the initial refactor
-    getGrammarTypeForPath: (arg1: Path) => string = (path) => {
-        /* c8 ignore next */
-        return "number";
-    };
-
     setInputValue: (arg1: Path, arg2: string, arg3: () => void) => void = (
         path,
         newValue,
@@ -193,12 +165,8 @@ class InputNumber extends React.Component<Props> {
         return InputNumber.getUserInputFromProps(this.props);
     }
 
-    simpleValidate(rubric: PerseusInputNumberRubric): PerseusScore {
-        return inputNumberValidator(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-        );
+    getPromptJSON(): InputNumberPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     examples: () => ReadonlyArray<string> = () => {
@@ -234,10 +202,6 @@ class InputNumber extends React.Component<Props> {
 
             return input;
         }
-        // HACK(johnsullivan): Create a function with shared logic between
-        // this and NumericInput.
-        // TODO(jeremy): Deprecate this widget and prefer numeric-input.
-        const rubric = this.props.reviewModeRubric;
 
         // Note: This is _very_ similar to what `numeric-input.jsx` does. If
         // you modify this, double-check if you also need to modify that
@@ -248,7 +212,7 @@ class InputNumber extends React.Component<Props> {
             this.props.rightAlign ? styles.rightAlign : styles.leftAlign,
         ];
         // Unanswered
-        if (rubric && !this.props.currentValue) {
+        if (this.props.reviewMode && !this.props.currentValue) {
             inputStyles.push(styles.answerStateUnanswered);
         }
 
@@ -314,4 +278,16 @@ export default {
     widget: InputNumber,
     transform: propTransform,
     isLintable: true,
-} as WidgetExports<typeof InputNumber>;
+    scorer: scoreInputNumber,
+
+    getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {
+        if (rubric.value == null) {
+            return;
+        }
+        let answerString = String(rubric.value);
+        if (rubric.inexact && rubric.maxError) {
+            answerString += " \u00B1 " + rubric.maxError;
+        }
+        return answerString;
+    },
+} satisfies WidgetExports<typeof InputNumber>;

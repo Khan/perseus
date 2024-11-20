@@ -17,14 +17,16 @@ import {
     negativePhoneMargin,
 } from "../../styles/constants";
 import a11y from "../../util/a11y";
+import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import {GradedGroup} from "../graded-group/graded-group";
 
 import type {
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
 } from "../../perseus-types";
-import type {FocusPath, WidgetExports, WidgetProps} from "../../types";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PerseusGradedGroupSetRubric} from "../../validation.types";
+import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 
 type IndicatorsProps = {
     currentGroup: number;
@@ -106,7 +108,7 @@ type State = {
 
 // TODO(jared): find a better name for this :) and for GradedGroup; the names
 // are currently a little confusing.
-class GradedGroupSet extends React.Component<Props, State> {
+class GradedGroupSet extends React.Component<Props, State> implements Widget {
     // @ts-expect-error - TS2564 - Property '_childGroup' has no initializer and is not definitely assigned in the constructor.
     _childGroup: GradedGroup;
 
@@ -130,9 +132,15 @@ class GradedGroupSet extends React.Component<Props, State> {
     };
 
     // Mobile API
-    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
+    getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         return this._childGroup.getInputPaths();
     };
+
+    getPromptJSON(): GradedGroupSetPromptJSON {
+        const activeGroupPromptJSON = this._childGroup.getPromptJSON();
+
+        return getPromptJSON(this.props, activeGroupPromptJSON);
+    }
 
     setInputValue: (arg1: FocusPath, arg2: any, arg3: any) => any = (
         path,
@@ -258,7 +266,7 @@ export default {
     hidden: false,
     tracking: "all",
     isLintable: true,
-} as WidgetExports<typeof GradedGroupSet>;
+} satisfies WidgetExports<typeof GradedGroupSet>;
 
 const styles = StyleSheet.create({
     top: {
