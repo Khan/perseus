@@ -121,8 +121,8 @@ class Measurer extends React.Component<Props> implements Widget {
         if (this.props.showProtractor) {
             // @ts-expect-error - Property 'protractor' does not exist on type 'Graphie'.
             this.protractor = graphie.protractor([
-                this.protractorX,
-                this.protractorY,
+                this.props.protractorX,
+                this.props.protractorY,
             ]);
         }
 
@@ -132,7 +132,7 @@ class Measurer extends React.Component<Props> implements Widget {
 
         if (this.props.showRuler) {
             // @ts-expect-error - Property 'ruler' does not exist on type 'Graphie'.
-            this._ruler = graphie.ruler({
+            this.ruler = graphie.ruler({
                 center: [
                     (range[0][0] + range[0][1]) / 2,
                     (range[1][0] + range[1][1]) / 2,
