@@ -13,3 +13,4 @@ export * from "./record";
 export * from "./string";
 export * from "./trio";
 export * from "./union";
+export * from "./pipe-parsers";
