@@ -7,7 +7,7 @@ import type {
 /**
  * Checks user input from the numeric-input widget to see if it is scorable.
  *
- * Note: Most of the expression widget's validation requires the Rubric because
+ * Note: Most of the numeric-input widget's validation requires the Rubric because
  * of its use of KhanAnswerTypes as a core part of scoring.
  *
  * @see `scoreNumericInput()` for more details.
