@@ -483,8 +483,14 @@ function doMovePoint(
                 newValue: newValue,
             });
 
-            // Reject the move if it would cause the sides of the polygon to cross
-            if (polygonSidesIntersect(newCoords)) {
+            // Boolean value to tract whether we can't let the polygon sides interact.
+            // They can't interact if it's a limited polygon or
+            // an unlimited polygon that is closed.
+            const polygonSidesCantIntersect =
+                state.numSides !== "unlimited" || state.closedPolygon;
+
+            // Reject the move if it would cause the sides of the polygon to cross.
+            if (polygonSidesCantIntersect && polygonSidesIntersect(newCoords)) {
                 return state;
             }
 
