@@ -1,16 +1,10 @@
 /* eslint-disable react/no-unsafe */
+import createReactClass from "create-react-class";
+import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import EditorPage from "./editor-page";
-
-type Props = {
-    componentClass: any;
-};
-
-type DefaultProps = {
-    componentClass: Props["componentClass"];
-};
 
 /* Renders an EditorPage (or an ArticleEditor) as a non-controlled component.
  *
@@ -19,31 +13,35 @@ type DefaultProps = {
  * changes. With StatefulEditorPage changes are stored in state so you can
  * query them with serialize.
  */
-export class StatefulEditorPage extends React.Component<Props> {
-    static displayName: "StatefulEditorPage";
+const StatefulEditorPage = createReactClass({
+    displayName: "StatefulEditorPage",
 
-    static defaultProps: DefaultProps = {
-        componentClass: EditorPage,
-    };
+    propTypes: {
+        componentClass: PropTypes.func,
+    },
 
-    _isMounted: any;
+    getDefaultProps: function () {
+        return {
+            componentClass: EditorPage,
+        };
+    },
 
-    getInitialState() {
+    getInitialState: function () {
         return _({}).extend(_.omit(this.props, "componentClass"), {
             onChange: this.handleChange,
             ref: "editor",
         });
-    }
+    },
 
-    componentDidMount() {
+    componentDidMount: function () {
         this._isMounted = true;
-    }
+    },
 
     // getInitialState isn't called if the react component is re-rendered
     // in-place on the dom, in which case this is called instead, so we
     // need to update the state here.
     // (This component is currently re-rendered by the "Add image" button.)
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps: function (nextProps) {
         this.setState(
             _(nextProps).pick(
                 "apiOptions",
@@ -54,32 +52,32 @@ export class StatefulEditorPage extends React.Component<Props> {
                 "frameSource",
             ),
         );
-    }
+    },
 
-    componentWillUnmount() {
+    componentWillUnmount: function () {
         this._isMounted = false;
-    }
+    },
 
-    getSaveWarnings() {
+    getSaveWarnings: function () {
         // eslint-disable-next-line react/no-string-refs
-        return this.getSaveWarnings();
-    }
+        return this.refs.editor.getSaveWarnings();
+    },
 
-    serialize() {
+    serialize: function () {
         // eslint-disable-next-line react/no-string-refs
-        return this.serialize();
-    }
+        return this.refs.editor.serialize();
+    },
 
-    handleChange(newState, cb) {
+    handleChange: function (newState, cb) {
         if (this._isMounted) {
             this.setState(newState, cb);
         }
-    }
+    },
 
-    render() {
+    render: function () {
         const Component = this.props.componentClass;
         return <Component {...this.state} />;
-    }
-}
+    },
+});
 
 export default StatefulEditorPage;
