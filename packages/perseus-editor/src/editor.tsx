@@ -19,7 +19,7 @@ import "./katex-mhchem";
 import * as React from "react";
 import _ from "underscore";
 
-import DragTarget from "./components/drag-target";
+import {DragTarget} from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";

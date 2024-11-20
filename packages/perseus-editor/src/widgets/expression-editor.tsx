@@ -20,7 +20,7 @@ import lens from "hubble";
 import * as React from "react";
 import _ from "underscore";
 
-import SortableArea from "../components/sortable";
+import {SortableArea} from "../components/sortable";
 
 import type {
     PerseusExpressionWidgetOptions,
