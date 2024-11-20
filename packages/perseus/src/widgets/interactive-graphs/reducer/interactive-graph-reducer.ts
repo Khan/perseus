@@ -716,11 +716,6 @@ function doRemovePoint(
     if (state.interactionMode === "mouse") {
         nextFocusedPointIndex = null;
     } else {
-        /**
-         * Question: Should we always be setting the focus index to the end of the list?
-         *           Perhaps a better solution is the next point in the coordinates,
-         *           unless that does not exist.
-         * */
         nextFocusedPointIndex =
             state.coords.length > 1 ? state.coords.length - 2 : null;
     }
