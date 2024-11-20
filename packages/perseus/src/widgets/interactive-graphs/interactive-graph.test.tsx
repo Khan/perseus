@@ -1239,9 +1239,9 @@ describe("locked layer", () => {
         expect(labels).toHaveLength(3);
 
         // content
-        expect(labels[0]).toHaveTextContent("\\text{small }\\frac{1}{2}");
-        expect(labels[1]).toHaveTextContent("\\text{medium }E_0 = mc^2");
-        expect(labels[2]).toHaveTextContent("\\text{large }\\sqrt{2a}");
+        expect(labels[0]).toHaveTextContent("\\text{small $\\frac{1}{2}$}");
+        expect(labels[1]).toHaveTextContent("\\text{medium $E_0 = mc^2$}");
+        expect(labels[2]).toHaveTextContent("\\text{large $\\sqrt{2a}$}");
 
         // styles
         expect(labels[0]).toHaveStyle({
