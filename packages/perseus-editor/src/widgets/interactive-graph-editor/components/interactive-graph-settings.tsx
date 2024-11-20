@@ -21,6 +21,8 @@ import LabeledRow from "../locked-figures/labeled-row";
 
 import type {PerseusImageBackground} from "@khanacademy/perseus";
 
+type ChangeFn = typeof Changeable.change;
+
 const {ButtonGroup, InfoTip, RangeInput} = components;
 
 const defaultBackgroundImage = {
@@ -175,7 +177,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         this._isMounted = false;
     }
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 

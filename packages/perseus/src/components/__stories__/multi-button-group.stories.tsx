@@ -12,6 +12,7 @@ const meta: Meta = {
         allowEmpty: true,
         buttons: [],
     },
+    // @ts-expect-error: Type 'Args' is missing the following properties from type 'Pick<Props, "onChange" | "buttons">': onChange, buttons
     render: function WithState(props: PropsFor<typeof MultiButtonGroup>) {
         const [values, updateValues] = React.useState(props.values);
         return (
