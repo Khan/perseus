@@ -1,42 +1,30 @@
 /* eslint-disable @babel/no-invalid-this */
 /* eslint-disable react/no-unsafe */
+import createReactClass from "create-react-class";
 import * as React from "react";
 import _ from "underscore";
 
-type Props = {
-    value: any;
-};
+const JsonEditor: any = createReactClass({
+    displayName: "JsonEditor",
 
-type DefaultProps = {
-    value: Props["value"];
-};
+    getInitialState: function () {
+        return {
+            currentValue: JSON.stringify(this.props.value, null, 4),
+            valid: true,
+        };
+    },
 
-export class JsonEditor extends React.Component<Props> {
-    static displayName: "JsonEditor";
-    currentValue: string
-    valid: boolean;
-
-    static defaultProps: DefaultProps = {
-        value: 0
-    };
-
-    static getInitialState() {
-        currentValue: JSON.stringify(this.props.value, null, 4),
-        valid: true,
-    };
-
-
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps: function (nextProps) {
         const shouldReplaceContent =
-            !this.valid ||
-            !_.isEqual(nextProps.value, JSON.parse(this.currentValue));
+            !this.state.valid ||
+            !_.isEqual(nextProps.value, JSON.parse(this.state.currentValue));
 
         if (shouldReplaceContent) {
             this.setState(this.getInitialState());
         }
-    };
+    },
 
-    handleKeyDown(e) {
+    handleKeyDown: function (e) {
         // This handler allows the tab character to be entered by pressing
         // tab, instead of jumping to the next (non-existant) field
         if (e.key === "Tab") {
@@ -51,9 +39,9 @@ export class JsonEditor extends React.Component<Props> {
             e.preventDefault();
             this.handleChange(e);
         }
-    };
+    },
 
-    handleChange(e) {
+    handleChange: function (e) {
         const nextString = e.target.value;
         try {
             let json = JSON.parse(nextString);
@@ -80,11 +68,11 @@ export class JsonEditor extends React.Component<Props> {
                 valid: false,
             });
         }
-    };
+    },
 
     // You can type whatever you want as you're typing, but if it's not valid
     // when you blur, it will revert to the last valid value.
-    handleBlur(e) {
+    handleBlur: function (e) {
         const nextString = e.target.value;
         try {
             let json = JSON.parse(nextString);
@@ -111,22 +99,22 @@ export class JsonEditor extends React.Component<Props> {
                 valid: true,
             });
         }
-    };
+    },
 
-    render() {
+    render: function () {
         const classes =
-            "perseus-json-editor " + (this.valid ? "valid" : "invalid");
+            "perseus-json-editor " + (this.state.valid ? "valid" : "invalid");
 
         return (
             <textarea
                 className={classes}
-                value={this.currentValue}
+                value={this.state.currentValue}
                 onChange={this.handleChange}
                 onKeyDown={this.handleKeyDown}
                 onBlur={this.handleBlur}
             />
         );
-    };
-};
+    },
+});
 
 export default JsonEditor;
