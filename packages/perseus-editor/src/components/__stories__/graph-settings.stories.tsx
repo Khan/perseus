@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import GraphSettings from "../graph-settings";
+import {GraphSettings} from "../graph-settings";
 
 import GraphSettingsArgTypes from "./graph-settings.argtypes";
 

@@ -93,11 +93,11 @@ export class GraphSettings extends React.Component<Props> {
     _isMounted: any;
     state: any = {
         labelsTextbox: [],
-        rangeTextbox: "",
-        stepTextbox: "",
-        gridStepTextbox: "",
-        snapStepTextbox: "",
-        backgroundImage: "",
+        rangeTextbox: [],
+        stepTextbox: [],
+        gridStepTextbox: [],
+        snapStepTextbox: [],
+        backgroundImage: {},
     };
 
     getInitialState() {
