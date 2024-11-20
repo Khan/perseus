@@ -9,7 +9,8 @@ import _ from "underscore";
 
 import ConstraintEditor from "./constraint-editor";
 import MathquillInput from "./mathquill-input";
-import {ChangeFn} from "@khanacademy/perseus/src/types";
+
+import type {ChangeFn} from "@khanacademy/perseus/src/types";
 
 const {NumberInput} = components;
 const {getDependencies} = Dependencies;

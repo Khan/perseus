@@ -6,7 +6,8 @@ import * as React from "react";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
-import {ChangeFn} from "@khanacademy/perseus/src/types";
+
+import type {ChangeFn} from "@khanacademy/perseus/src/types";
 
 type PairEditorProps = any;
 

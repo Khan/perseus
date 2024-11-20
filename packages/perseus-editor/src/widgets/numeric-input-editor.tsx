@@ -15,7 +15,7 @@ import Editor from "../editor";
 import {iconGear} from "../styles/icon-paths";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import {ChangeFn} from "@khanacademy/perseus/src/types";
+import type {ChangeFn} from "@khanacademy/perseus/src/types";
 
 const {
     ButtonGroup,

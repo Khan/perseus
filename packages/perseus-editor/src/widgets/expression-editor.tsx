@@ -26,7 +26,7 @@ import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
 } from "@khanacademy/perseus";
-import {ChangeFn} from "@khanacademy/perseus/src/types";
+import type {ChangeFn} from "@khanacademy/perseus/src/types";
 
 const {InfoTip} = components;
 
@@ -112,7 +112,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
-    }
+    };
 
     serialize: () => any = () => {
         const formSerializables = [

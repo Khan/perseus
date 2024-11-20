@@ -9,7 +9,8 @@ import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {
     PerseusTableRubric,
-    PerseusTableUserInput, UserInput,
+    PerseusTableUserInput,
+    UserInput,
 } from "../../validation.types";
 
 function scoreTable(
