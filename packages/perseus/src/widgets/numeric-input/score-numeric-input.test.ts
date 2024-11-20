@@ -3,7 +3,6 @@ import * as Dependencies from "../../dependencies";
 import {mockStrings} from "../../strings";
 
 import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
-import * as NumericInputValidator from "./validate-numeric-input";
 
 import type {PerseusNumericInputRubric} from "../../validation.types";
 
@@ -12,64 +11,6 @@ describe("static function validate", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-    });
-
-    it("should be correctly answerable if validation passes", function () {
-        // Arrange
-        const mockValidator = jest
-            .spyOn(NumericInputValidator, "default")
-            .mockReturnValue(null);
-        const rubric: PerseusNumericInputRubric = {
-            answers: [
-                {
-                    value: 1,
-                    status: "correct",
-                    maxError: 0,
-                    simplify: "",
-                    strict: false,
-                    message: "",
-                },
-            ],
-            coefficient: true,
-        };
-
-        const userInput = {currentValue: "1"} as const;
-
-        // Act
-        const score = scoreNumericInput(userInput, rubric, mockStrings);
-
-        // Assert
-        expect(mockValidator).toHaveBeenCalledWith(userInput, rubric);
-        expect(score).toHaveBeenAnsweredCorrectly();
-    });
-
-    it("should return 'empty' result if validation fails", function () {
-        // Arrange
-        const mockValidator = jest
-            .spyOn(NumericInputValidator, "default")
-            .mockReturnValue({type: "invalid", message: null});
-        const rubric: PerseusNumericInputRubric = {
-            answers: [
-                {
-                    value: 1,
-                    status: "correct",
-                    maxError: 0,
-                    simplify: "",
-                    strict: false,
-                    message: "",
-                },
-            ],
-            coefficient: true,
-        };
-
-        const userInput = {currentValue: "1"} as const;
-
-        // Act
-        const score = scoreNumericInput(userInput, rubric, mockStrings);
-
-        // Assert
-        expect(mockValidator).toHaveBeenCalledWith(userInput, rubric);
-        expect(score).toHaveInvalidInput();
     });
 
     it("with a simple value", () => {

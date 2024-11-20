@@ -173,13 +173,11 @@ export type PerseusNumericInputRubric = {
     answers: ReadonlyArray<PerseusNumericInputAnswer>;
     // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
     coefficient: boolean;
-} & PerseusNumericInputValidationData;
+};
 
 export type PerseusNumericInputUserInput = {
     currentValue: string;
 };
-
-export type PerseusNumericInputValidationData = Empty;
 
 export type PerseusOrdererRubric = PerseusOrdererWidgetOptions;
 
