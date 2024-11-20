@@ -5,18 +5,25 @@ import {string} from "./string";
 
 import type {Parser, PartialParser} from "../parser-types";
 
+const stringToNumber = summon<PartialParser<string, number>>();
+const numberToBoolean = summon<PartialParser<number, boolean>>();
+
 {
-    const stringToNumber = summon<PartialParser<string, number>>();
-    const numberToBoolean = summon<PartialParser<number, boolean>>();
     pipeParsers(string).then(stringToNumber).then(numberToBoolean)
         .parser satisfies Parser<boolean>;
+}
 
+{
     // @ts-expect-error - partial parser types don't match
     pipeParsers(string).then(stringToNumber).then(stringToNumber).parser;
+}
 
-    pipeParsers(string).then(stringToNumber).then(numberToBoolean)
-        // @ts-expect-error - return value is not assignable to Parser<string>
-        .parser satisfies Parser<string>;
+{
+    const p = pipeParsers(string)
+        .then(stringToNumber)
+        .then(numberToBoolean).parser;
+    // @ts-expect-error - return value is not assignable to Parser<string>
+    p satisfies Parser<string>;
 }
 
 function summon<T>(): T {

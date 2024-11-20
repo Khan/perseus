@@ -40,4 +40,20 @@ describe("parsePerseusItem", () => {
             `At (root).answerArea.bork -- expected "calculator", "chi2Table", "financialCalculatorMonthlyPayment", "financialCalculatorTotalAmount", "financialCalculatorTimeToPayOff", "periodicTable", "periodicTableWithKey", "tTable", or "zTable", but got "bork"`,
         );
     });
+
+    it("removes 'type' and 'options' keys from answerArea", () => {
+        const item = {
+            ...baseItem,
+            answerArea: {
+                calculator: true,
+                type: "should get removed",
+                options: {},
+            }
+        }
+
+        const result = parse(item, parsePerseusItem);
+
+        assertSuccess(result);
+        expect(result.value.answerArea).toEqual({calculator: true});
+    })
 });
