@@ -18,12 +18,7 @@ describe("scoreExpression", () => {
         const score = scoreExpression("z+1", rubric, mockStrings, "en");
 
         // Assert
-        expect(mockValidator).toHaveBeenCalledWith(
-            "z+1",
-            rubric,
-            mockStrings,
-            "en",
-        );
+        expect(mockValidator).toHaveBeenCalledWith("z+1");
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
@@ -38,12 +33,7 @@ describe("scoreExpression", () => {
         const score = scoreExpression("z+1", rubric, mockStrings, "en");
 
         // Assert
-        expect(mockValidator).toHaveBeenCalledWith(
-            "z+1",
-            rubric,
-            mockStrings,
-            "en",
-        );
+        expect(mockValidator).toHaveBeenCalledWith("z+1");
         expect(score).toHaveInvalidInput();
     });
 
