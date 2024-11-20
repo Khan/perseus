@@ -26,7 +26,8 @@ import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
 } from "@khanacademy/perseus";
-import type {ChangeFn} from "@khanacademy/perseus/src/types";
+
+type ChangeFn = typeof Changeable.change;
 
 const {InfoTip} = components;
 

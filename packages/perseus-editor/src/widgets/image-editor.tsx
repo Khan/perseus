@@ -13,7 +13,8 @@ import BlurInput from "../components/blur-input";
 import Editor from "../editor";
 
 import type {APIOptions, Range, Size} from "@khanacademy/perseus";
-import type {ChangeFn} from "@khanacademy/perseus/src/types";
+
+type ChangeFn = typeof Changeable.change;
 
 const {InfoTip, InlineIcon, RangeInput} = components;
 

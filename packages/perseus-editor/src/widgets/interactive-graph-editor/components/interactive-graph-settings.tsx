@@ -20,7 +20,8 @@ import Heading from "../../../components/heading";
 import LabeledRow from "../locked-figures/labeled-row";
 
 import type {PerseusImageBackground} from "@khanacademy/perseus";
-import type {ChangeFn} from "@khanacademy/perseus/src/types";
+
+type ChangeFn = typeof Changeable.change;
 
 const {ButtonGroup, InfoTip, RangeInput} = components;
 

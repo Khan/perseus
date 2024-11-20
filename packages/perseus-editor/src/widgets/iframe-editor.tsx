@@ -7,7 +7,7 @@ import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
-import type {ChangeFn} from "@khanacademy/perseus/src/types";
+type ChangeFn = typeof Changeable.change;
 
 type PairEditorProps = any;
 
