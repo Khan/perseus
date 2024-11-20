@@ -17,7 +17,7 @@ function scoreMatrix(
     rubric: PerseusMatrixRubric,
     strings: PerseusStrings,
 ): PerseusScore {
-    const validationResult = validateMatrix(userInput, rubric);
+    const validationResult = validateMatrix(userInput, rubric, strings);
     if (validationResult != null) {
         return validationResult;
     }
@@ -33,16 +33,9 @@ function scoreMatrix(
 
     const createValidator = KhanAnswerTypes.number.createValidatorFunctional;
     let message = null;
-    let hasEmptyCell = false;
     let incorrect = false;
     _(suppliedSize[0]).times((row) => {
         _(suppliedSize[1]).times((col) => {
-            if (
-                supplied[row][col] == null ||
-                supplied[row][col].toString().length === 0
-            ) {
-                hasEmptyCell = true;
-            }
             if (!incorrectSize) {
                 const validator = createValidator(
                     // @ts-expect-error - TS2345 - Argument of type 'number' is not assignable to parameter of type 'string'.
@@ -63,13 +56,6 @@ function scoreMatrix(
             }
         });
     });
-
-    if (hasEmptyCell) {
-        return {
-            type: "invalid",
-            message: strings.fillAllCells,
-        };
-    }
 
     if (incorrectSize) {
         return {

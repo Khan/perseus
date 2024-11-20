@@ -1,3 +1,5 @@
+import {mockStrings} from "../../strings";
+
 import validateMatrix from "./validate-matrix";
 
 import type {PerseusMatrixUserInput} from "../../validation.types";
@@ -6,11 +8,11 @@ describe("matrixValidator", () => {
     it("should return invalid when answers is completely empty", () => {
         // Arrange
         const userInput: PerseusMatrixUserInput = {
-            answers: [],
+            answers: [[]],
         };
 
         // Act
-        const result = validateMatrix(userInput, {});
+        const result = validateMatrix(userInput, {}, mockStrings);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -23,7 +25,7 @@ describe("matrixValidator", () => {
         };
 
         // Act
-        const result = validateMatrix(userInput, {});
+        const result = validateMatrix(userInput, {}, mockStrings);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -40,7 +42,7 @@ describe("matrixValidator", () => {
         };
 
         // Act
-        const result = validateMatrix(userInput, {});
+        const result = validateMatrix(userInput, {}, mockStrings);
 
         // Assert
         expect(result).toBeNull();

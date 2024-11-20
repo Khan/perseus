@@ -1,3 +1,8 @@
+import _ from "underscore";
+
+import {getMatrixSize} from "./matrix";
+
+import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {
     PerseusMatrixUserInput,
@@ -14,16 +19,26 @@ import type {
  */
 function validateMatrix(
     userInput: PerseusMatrixUserInput,
-    rubric: PerseusMatrixValidationData,
+    validationData: PerseusMatrixValidationData,
+    strings: PerseusStrings,
 ): Extract<PerseusScore, {type: "invalid"}> | null {
-    // Very basic check: did we get 0 rows or any rows with 0 answers? If so,
-    // then the user input is not gradable.
-    if (
-        userInput.answers.length === 0 ||
-        userInput.answers.some((row) => row.length === 0)
-    ) {
-        return {type: "invalid", message: null};
+    const supplied = userInput.answers;
+    const suppliedSize = getMatrixSize(supplied);
+
+    for (let row = 0; row < suppliedSize[0]; row++) {
+        for (let col = 0; col < suppliedSize[1]; col++) {
+            if (
+                supplied[row][col] == null ||
+                supplied[row][col].toString().length === 0
+            ) {
+                return {
+                    type: "invalid",
+                    message: strings.fillAllCells,
+                };
+            }
+        }
     }
+
     return null;
 }
 
