@@ -60,7 +60,7 @@ export const itemWithInputNumber: PerseusItem = {
                 graded: true,
                 options: {
                     static: false,
-                    value: 1,
+                    value: 0,
                     simplify: "required",
                     maxError: 0.1,
                     inexact: false,
