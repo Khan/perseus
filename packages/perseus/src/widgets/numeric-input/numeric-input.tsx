@@ -345,7 +345,7 @@ const propsTransform = function (
 const propUpgrades = {
     /* c8 ignore next */
     "1": (initialProps: any): PerseusNumericInputWidgetOptions => {
-        // If the initialProps has a value, it means we're upgrading from
+        // If the initialProps has simplify, it means we're upgrading from
         // input-number to numeric-input. In this case, we need to upgrade
         // the widget options accordingly.
         if (initialProps.simplify) {
