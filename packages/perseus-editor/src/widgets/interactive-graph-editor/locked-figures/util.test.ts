@@ -348,6 +348,13 @@ describe("generateMathDetails", () => {
 
         expect(convertedString).toBe("$50");
     });
+
+    test("Should read lone escaped dollar signs in text as regular dollar signs", async () => {
+        const mathString = "\\$50";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("$50");
+    });
 });
 
 describe("joinLabelsAsSpokenText", () => {

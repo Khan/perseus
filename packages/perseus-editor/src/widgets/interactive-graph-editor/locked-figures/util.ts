@@ -1,21 +1,20 @@
 import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
-import * as SimpleMarkdown from "@khanacademy/pure-markdown";
-import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-
-import type {
-    LockedEllipseType,
-    LockedFigure,
-    LockedFigureColor,
-    LockedFigureFillType,
-    LockedFigureType,
-    LockedFunctionType,
-    LockedLabelType,
-    LockedLineType,
-    LockedPointType,
-    LockedPolygonType,
-    LockedVectorType,
-    LockedLineStyle,
+import {
+    type LockedEllipseType,
+    type LockedFigure,
+    type LockedFigureColor,
+    type LockedFigureFillType,
+    type LockedFigureType,
+    type LockedFunctionType,
+    type LockedLabelType,
+    type LockedLineType,
+    type LockedPointType,
+    type LockedPolygonType,
+    type LockedVectorType,
+    type LockedLineStyle,
+    mathOnlyParser,
 } from "@khanacademy/perseus";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 const DEFAULT_COLOR = "grayH";
 
@@ -140,32 +139,25 @@ export async function generateSpokenMathDetails(mathString: string) {
 
     // All the information we need is in the first section,
     // whether it's typed as "blockmath" or "paragraph"
-    const firstSection = SimpleMarkdown.parse(mathString)[0];
-
-    // If it's blockMath, the outer level has the full math content.
-    if (firstSection.type === "blockMath") {
-        convertedSpeech += engine.texToSpeech(firstSection.content);
-    }
+    const parsedContent = mathOnlyParser(mathString);
 
     // If it's a paragraph, we need to iterate through the sections
     // to look for individual math blocks.
-    if (firstSection.type === "paragraph") {
-        for (const piece of firstSection.content) {
-            switch (piece.type) {
-                case "math":
-                    convertedSpeech += engine.texToSpeech(piece.content);
-                    break;
-                case "unescapedDollar":
-                    // If the unescaped dollar had a closing pair to define
-                    // math, it would have been caught by the "math" case above.
-                    // Since this unescaped dollar is caught here, we can
-                    // assume it is alone and used as as a literal dollar sign.
-                    convertedSpeech += "$";
-                    break;
-                default:
-                    convertedSpeech += piece.content;
-                    break;
-            }
+    for (const piece of parsedContent) {
+        switch (piece.type) {
+            case "math":
+                convertedSpeech += engine.texToSpeech(piece.content);
+                break;
+            case "specialCharacter":
+                // We don't want the backslash from special character
+                // to show up in the generated aria label.
+                piece.content.length > 1
+                    ? (convertedSpeech += piece.content.slice(1))
+                    : (convertedSpeech += piece.content);
+                break;
+            default:
+                convertedSpeech += piece.content;
+                break;
         }
     }
 
