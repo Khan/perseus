@@ -323,12 +323,17 @@ export const strings: {
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     closePolygon: "Close shape",
     openPolygon: "Re-open shape",
+    srInteractiveElements: "Interactive elements: %(elements)s",
+    srNoInteractiveElements: "No interactive elements",
+
+    // TODO(LEMS-2660): The following strings are ones that will need
+    // translation tickets after all interactive graph SR strings have
+    // been finalized. Remove this comment after the tickets have been
+    // created.
     srPointAtCoordinates: {
         context: "Screenreader-accessible description of a point on a graph",
         message: "Point %(num)s at %(x)s comma %(y)s",
     },
-    srInteractiveElements: "Interactive elements: %(elements)s",
-    srNoInteractiveElements: "No interactive elements",
 };
 
 /**
