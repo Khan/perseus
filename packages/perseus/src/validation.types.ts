@@ -37,7 +37,6 @@ import type {
     PerseusGroupWidgetOptions,
     PerseusMatcherWidgetOptions,
     PerseusMatrixWidgetAnswers,
-    PerseusNumberLineWidgetOptions,
     PerseusNumericInputAnswer,
     PerseusOrdererWidgetOptions,
     PerseusPlotterWidgetOptions,
