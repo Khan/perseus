@@ -20,10 +20,10 @@ import {lintGutterWidth} from "./styles/constants";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 /**
- * The `ContentPreview` component provides a simple preview system for Perseus
- * Content. Due to how Persus styles are built, the preview styling matches the
- * current device based on the viewport width (using `@media` queries for
- * `min-width` and `max-width`).
+ * BETA!! The `ContentPreview` component provides a simple preview system for
+ * Perseus Content. Due to how Persus styles are built, the preview styling
+ * matches the current device based on the viewport width (using `@media`
+ * queries for `min-width` and `max-width`).
  *
  * The preview will render the mobile variant (styling and layout) when the
  * `previewDevice` is phone or tablet. Note that the styling cannot be matched
