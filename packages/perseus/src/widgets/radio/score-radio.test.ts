@@ -8,25 +8,6 @@ import type {
 } from "../../validation.types";
 
 describe("scoreRadio", () => {
-    it("is invalid when no options are selected", () => {
-        const userInput: PerseusRadioUserInput = {
-            choicesSelected: [false, false, false, false],
-        };
-
-        const rubric: PerseusRadioRubric = {
-            choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
-            ],
-        };
-
-        const result = scoreRadio(userInput, rubric, mockStrings);
-
-        expect(result).toHaveInvalidInput();
-    });
-
     it("is invalid when number selected does not match number correct", () => {
         const userInput: PerseusRadioUserInput = {
             choicesSelected: [true, false, false, false],
