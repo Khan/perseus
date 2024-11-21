@@ -121,13 +121,12 @@ const convertDeprecatedWidgetsInContent = (
     json: PerseusRenderer | PerseusExplanationWidgetOptions,
     renameMap: WidgetRenameMap,
 ): string => {
-    return Object.keys(renameMap).reduce(
-        (newContent, oldKey) => {
-            const newKey = renameMap[oldKey];
-            return newKey ? newContent.replace(oldKey, newKey) : newContent;
-        },
-        "content" in json ? json.content : json.explanation,
-    );
+    const contentString = "content" in json ? json.content : json.explanation;
+    console.log("contentString", contentString);
+    return Object.keys(renameMap).reduce((newContent, oldKey) => {
+        const newKey = renameMap[oldKey];
+        return newKey ? newContent.replace(oldKey, newKey) : newContent;
+    }, contentString);
 };
 
 // Create a map of the old input-number keys to the new numeric-input keys
