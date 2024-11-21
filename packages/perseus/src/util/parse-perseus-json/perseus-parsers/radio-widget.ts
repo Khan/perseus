@@ -43,6 +43,6 @@ export const parseRadioWidget: Parser<RadioWidget> = parseWidget(
         displayCount: optional(any),
         // v0 props
         // `noneOfTheAbove` is still in use (but only set to `false`).
-        noneOfTheAbove: constant(false),
+        noneOfTheAbove: optional(constant(false)),
     }),
 );

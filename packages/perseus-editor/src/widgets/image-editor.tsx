@@ -14,6 +14,8 @@ import Editor from "../editor";
 
 import type {APIOptions, Range, Size} from "@khanacademy/perseus";
 
+type ChangeFn = typeof Changeable.change;
+
 const {InfoTip, InlineIcon, RangeInput} = components;
 
 const defaultBoxSize = 400;
@@ -159,9 +161,9 @@ class ImageEditor extends React.Component<Props> {
         );
     }
 
-    change(...args) {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
-    }
+    };
 
     removeLabel(labelIndex, e) {
         e.preventDefault();

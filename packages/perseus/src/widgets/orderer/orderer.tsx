@@ -796,5 +796,7 @@ export default {
     hidden: true,
     widget: Orderer,
     isLintable: true,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusOrdererUserInput
     scorer: scoreOrderer,
 } satisfies WidgetExports<typeof Orderer>;

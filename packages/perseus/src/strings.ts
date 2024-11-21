@@ -133,6 +133,8 @@ export type PerseusStrings = {
     addPoint: string;
     removePoint: string;
     graphKeyboardPrompt: string;
+    closePolygon: string;
+    openPolygon: string;
     srPointAtCoordinates: ({
         num,
         x,
@@ -319,6 +321,8 @@ export const strings: {
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
+    closePolygon: "Close shape",
+    openPolygon: "Re-open shape",
     srPointAtCoordinates: {
         context: "Screenreader-accessible description of a point on a graph",
         message: "Point %(num)s at %(x)s comma %(y)s",
@@ -484,6 +488,8 @@ export const mockStrings: PerseusStrings = {
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
+    closePolygon: "Close shape",
+    openPolygon: "Re-open shape",
     srPointAtCoordinates: ({num, x, y}) => `Point ${num} at ${x} comma ${y}`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",

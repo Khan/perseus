@@ -1,4 +1,10 @@
-import {components, ApiOptions, ClassNames} from "@khanacademy/perseus";
+import {
+    components,
+    ApiOptions,
+    ClassNames,
+    conversionRequired,
+    convertDeprecatedWidgets,
+} from "@khanacademy/perseus";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import * as React from "react";
 import _ from "underscore";
@@ -7,10 +13,6 @@ import JsonEditor from "./components/json-editor";
 import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
-import {
-    convertDeprecatedWidgets,
-    conversionRequired,
-} from "./util/deprecated-widgets/modernize-widgets-utils";
 
 import type {
     APIOptions,

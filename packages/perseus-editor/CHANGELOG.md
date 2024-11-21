@@ -1,5 +1,28 @@
 # @khanacademy/perseus-editor
 
+## 14.12.4
+
+### Patch Changes
+
+-   Updated dependencies [[`4c2db8d38`](https://github.com/Khan/perseus/commit/4c2db8d384f5542cfc7f6aafd8294049a7afe1c3), [`7ca5bbf0e`](https://github.com/Khan/perseus/commit/7ca5bbf0e0f5c24a0bda5de9142703a913ce3fa8), [`500315145`](https://github.com/Khan/perseus/commit/5003151457ce737056950192225cb0ac522571a6), [`44933f88e`](https://github.com/Khan/perseus/commit/44933f88e90c4b8f15dc2d1d39a4297d69e21c39), [`d0e7a0383`](https://github.com/Khan/perseus/commit/d0e7a0383002414d874297ccc88bf5c9863b4ea5)]:
+    -   @khanacademy/perseus@42.0.3
+
+## 14.12.3
+
+### Patch Changes
+
+-   Updated dependencies [[`b4cf444e9`](https://github.com/Khan/perseus/commit/b4cf444e962b5e4c152cad6507ddb63515fc305e)]:
+    -   @khanacademy/perseus@42.0.2
+
+## 14.12.2
+
+### Patch Changes
+
+-   [#1879](https://github.com/Khan/perseus/pull/1879) [`04d6e60de`](https://github.com/Khan/perseus/commit/04d6e60de2b9176f546a7058038a10689e52f9ac) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing conflicts that arose from scoring and widget conversion efforts
+
+-   Updated dependencies [[`04d6e60de`](https://github.com/Khan/perseus/commit/04d6e60de2b9176f546a7058038a10689e52f9ac)]:
+    -   @khanacademy/perseus@42.0.1
+
 ## 14.12.1
 
 ### Patch Changes

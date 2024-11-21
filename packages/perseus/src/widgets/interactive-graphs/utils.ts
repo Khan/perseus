@@ -1,4 +1,5 @@
-import * as SimpleMarkdown from "@khanacademy/pure-markdown";
+import {parse, pureMarkdownRules} from "@khanacademy/pure-markdown";
+import SimpleMarkdown from "@khanacademy/simple-markdown";
 
 import {clampToBox, inset, MIN, size} from "./math";
 
@@ -81,7 +82,7 @@ export function isUnlimitedGraphState(
 export function replaceOutsideTeX(mathString: string) {
     // All the information we need is in the first section,
     // whether it's typed as "blockmath" or "paragraph"
-    const firstSection = SimpleMarkdown.parse(mathString)[0];
+    const firstSection = parse(mathString)[0];
 
     // If it's blockMath, the outer level has the full math content.
     if (firstSection.type === "blockMath") {
@@ -141,3 +142,32 @@ function escapeSpecialChars(str) {
     // Escape $, \, {, and } characters
     return str.replace(/([$\\{}])/g, "\\$1");
 }
+
+/**
+ * Parse a string of text and math into a list of objects with type and content
+ *
+ * Example: "Pi is about $\frac{22}{7}$" ==>
+ *    [
+ *      {type: "text", content: "Pi is about "},
+ *      {type: "math", content: "\\frac{22}{7}"},
+ *    ]
+ */
+export const mathOnlyParser = SimpleMarkdown.parserFor(
+    {
+        math: {
+            ...pureMarkdownRules.math,
+            order: 0,
+        },
+        text: {
+            order: 1,
+            match: SimpleMarkdown.anyScopeRegex(/^([^$\\{}]+)/),
+            parse: (capture) => ({content: capture[0]}),
+        },
+        specialCharacter: {
+            order: 2,
+            match: SimpleMarkdown.anyScopeRegex(/^(\\[\S\s]|\$|\\$|{|})/),
+            parse: (capture) => ({content: capture[0]}),
+        },
+    },
+    {inline: true},
+);

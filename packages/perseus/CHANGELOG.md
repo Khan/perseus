@@ -1,5 +1,31 @@
 # @khanacademy/perseus
 
+## 42.0.3
+
+### Patch Changes
+
+-   [#1887](https://github.com/Khan/perseus/pull/1887) [`4c2db8d38`](https://github.com/Khan/perseus/commit/4c2db8d384f5542cfc7f6aafd8294049a7afe1c3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add snapshot tests for `parseAndTypecheckPerseusItem`.
+
+*   [#1872](https://github.com/Khan/perseus/pull/1872) [`7ca5bbf0e`](https://github.com/Khan/perseus/commit/7ca5bbf0e0f5c24a0bda5de9142703a913ce3fa8) Thanks [@benchristel](https://github.com/benchristel)! - Internal: make the exhaustive test tool for PerseusItem parsing find the shortest input file that repros each failure
+
+-   [#1871](https://github.com/Khan/perseus/pull/1871) [`500315145`](https://github.com/Khan/perseus/commit/5003151457ce737056950192225cb0ac522571a6) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add regression tests for PerseusItem parser
+
+*   [#1877](https://github.com/Khan/perseus/pull/1877) [`44933f88e`](https://github.com/Khan/perseus/commit/44933f88e90c4b8f15dc2d1d39a4297d69e21c39) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add README.md for packages/perseus/src/util/parse-perseus-json
+
+-   [#1888](https://github.com/Khan/perseus/pull/1888) [`d0e7a0383`](https://github.com/Khan/perseus/commit/d0e7a0383002414d874297ccc88bf5c9863b4ea5) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Hypothesis
+
+## 42.0.2
+
+### Patch Changes
+
+-   [#1884](https://github.com/Khan/perseus/pull/1884) [`b4cf444e9`](https://github.com/Khan/perseus/commit/b4cf444e962b5e4c152cad6507ddb63515fc305e) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensuring UserInput and Rubric widget keys match for edge cases
+
+## 42.0.1
+
+### Patch Changes
+
+-   [#1879](https://github.com/Khan/perseus/pull/1879) [`04d6e60de`](https://github.com/Khan/perseus/commit/04d6e60de2b9176f546a7058038a10689e52f9ac) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing conflicts that arose from scoring and widget conversion efforts
+
 ## 42.0.0
 
 ### Major Changes

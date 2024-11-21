@@ -1,6 +1,9 @@
-import {inputNumberToNumericInput} from "./input-number";
+import {
+    inputNumberToNumericInput,
+    convertInputNumberForScoring,
+} from "./input-number";
 
-import type {PerseusRenderer} from "@khanacademy/perseus";
+import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus";
 
 const widgetRegExes = [/input-number \d+/]; // We can add more regexes here in the future
 
@@ -9,6 +12,7 @@ const widgetRegExes = [/input-number \d+/]; // We can add more regexes here in t
 // content creators use the Editor Page to update content containing these widgets.
 // Currently, we're only converting input-number to numeric-input,
 // but we can add more conversions here in the future.
+
 // Modernize the json content of a PerseusRenderer object
 // by converting deprecated widgets to their modern equivalents
 export const convertDeprecatedWidgets = (
@@ -40,4 +44,16 @@ export const conversionRequired = (json: PerseusRenderer): boolean => {
     }
 
     return false;
+};
+
+/**
+ * Convert the deprecated widgets in the rubric and user data to their
+ * modern equivalents for scoring. These need to be updated together
+ * in order to ensure that the widgetKeys match between the rubric and user data.
+ */
+export const convertDeprecatedWidgetsForScoring = (
+    rubric: PerseusRenderer,
+    userInputMap: UserInputMap,
+): {convertedRubric: PerseusRenderer; convertedUserData: UserInputMap} => {
+    return convertInputNumberForScoring(rubric, userInputMap);
 };

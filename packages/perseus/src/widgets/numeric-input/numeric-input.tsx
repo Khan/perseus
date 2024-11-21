@@ -345,10 +345,10 @@ const propsTransform = function (
 const propUpgrades = {
     /* c8 ignore next */
     "1": (initialProps: any): PerseusNumericInputWidgetOptions => {
-        // If the initialProps has a value, it means we're upgrading from
+        // If the initialProps has simplify, it means we're upgrading from
         // input-number to numeric-input. In this case, we need to upgrade
         // the widget options accordingly.
-        if (initialProps.value) {
+        if (initialProps.simplify !== undefined) {
             // If the answerType is not number or percent, we need to provide
             // the answer form for the numeric-input widget
             const provideAnswerForm =
@@ -402,8 +402,12 @@ export default {
     transform: propsTransform,
     propUpgrades: propUpgrades,
     isLintable: true,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumericInputUserInput'.
     scorer: scoreNumericInput,
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusNumericInputRubric'
     getOneCorrectAnswerFromRubric(
         rubric: PerseusNumericInputRubric,
     ): string | null | undefined {

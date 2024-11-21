@@ -569,5 +569,7 @@ export default {
     transform: propTransform,
     staticTransform: staticTransform,
     isLintable: true,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatrixUserInput'.
     scorer: scoreMatrix,
 } satisfies WidgetExports<typeof Matrix>;
