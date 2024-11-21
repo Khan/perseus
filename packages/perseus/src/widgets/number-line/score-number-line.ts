@@ -1,47 +1,33 @@
 import {number as knumber} from "@khanacademy/kmath";
 
+import validateNumberLine from "./validate-number-line";
+
 import type {PerseusScore} from "../../types";
 import type {
-    PerseusNumberLineRubric,
+    PerseusNumberLineScoringData,
     PerseusNumberLineUserInput,
 } from "../../validation.types";
 
 function scoreNumberLine(
-    state: PerseusNumberLineUserInput,
-    rubric: PerseusNumberLineRubric,
+    userInput: PerseusNumberLineUserInput,
+    scoringData: PerseusNumberLineScoringData,
 ): PerseusScore {
-    const range = rubric.range;
-    const divisionRange = state.divisionRange;
-    const start = rubric.initialX != null ? rubric.initialX : range[0];
-    const startRel = rubric.isInequality ? "ge" : "eq";
-    const correctRel = rubric.correctRel || "eq";
-    const correctPos = knumber.equal(
-        state.numLinePosition,
-        rubric.correctX || 0,
-    );
-    const outsideAllowedRange =
-        state.numDivisions > divisionRange[1] ||
-        state.numDivisions < divisionRange[0];
-
-    // TODO: I don't think isTickCrtl is a thing anymore
-    if (state.isTickCrtl && outsideAllowedRange) {
-        return {
-            type: "invalid",
-            message: "Number of divisions is outside the allowed range.",
-        };
+    const validationError = validateNumberLine(userInput, scoringData);
+    if (validationError) {
+        return validationError;
     }
-    if (correctPos && correctRel === state.rel) {
+
+    const correctRel = scoringData.correctRel || "eq";
+    const correctPos = knumber.equal(
+        userInput.numLinePosition,
+        scoringData.correctX || 0,
+    );
+
+    if (correctPos && correctRel === userInput.rel) {
         return {
             type: "points",
             earned: 1,
             total: 1,
-            message: null,
-        };
-    }
-    if (state.numLinePosition === start && state.rel === startRel) {
-        // We're where we started.
-        return {
-            type: "invalid",
             message: null,
         };
     }
