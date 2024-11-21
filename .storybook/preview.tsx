@@ -59,6 +59,12 @@ const preview: Preview = {
                 value,
             })),
         },
+        // Disabling Chromatic snapshots across all stories, since we have
+        // a limited snapshot budget. Set this explicitly to false on
+        // stories that we want snapshots for in their respective files.
+        chromatic: {
+            disableSnapshot: true,
+        },
     },
 };
 

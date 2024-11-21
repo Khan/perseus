@@ -28,10 +28,20 @@ import {
 } from "./interactive-graph.testdata";
 
 import type {APIOptions} from "../../types";
+import type {Meta} from "@storybook/react";
 
-export default {
+const meta: Meta = {
     title: "Perseus/Widgets/Interactive Graph",
+    parameters: {
+        chromatic: {
+            // Enable chromatic snapshots for all the different
+            // visual cases in these stories.
+            disableSnapshot: false,
+        },
+    },
 };
+
+export default meta;
 
 const enableMafs: APIOptions = {
     flags: {

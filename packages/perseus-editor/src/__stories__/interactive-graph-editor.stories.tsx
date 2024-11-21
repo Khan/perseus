@@ -34,12 +34,22 @@ import type {
     PerseusAnswerArea,
     PerseusRenderer,
 } from "@khanacademy/perseus";
+import type {Meta} from "@storybook/react";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
-export default {
+const meta: Meta = {
     title: "PerseusEditor/Widgets/Interactive Graph",
+    parameters: {
+        chromatic: {
+            // Enable chromatic snapshots for all the different
+            // visual cases in these stories.
+            disableSnapshot: false,
+        },
+    },
 };
+
+export default meta;
 
 const onChangeAction = action("onChange");
 

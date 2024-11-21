@@ -6,12 +6,22 @@ import {mockStrings} from "../../strings";
 import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 
 import type {PerseusRenderer} from "../../perseus-types";
+import type {Meta} from "@storybook/react";
 
 type StoryArgs = Record<any, any>;
 
-export default {
+const meta: Meta = {
     title: "Perseus/Widgets/Interactive Graph Visual Regression Tests",
+    parameters: {
+        chromatic: {
+            // We want snapshots for these regression tests, so that
+            // visual differences can be caught if there are any
+            // unexpected changes.
+            disableSnapshot: false,
+        },
+    },
 };
+export default meta;
 
 export const MafsWithCustomAxisLabels = (
     args: StoryArgs,
