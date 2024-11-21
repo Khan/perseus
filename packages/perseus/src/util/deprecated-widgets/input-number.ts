@@ -122,7 +122,6 @@ const convertDeprecatedWidgetsInContent = (
     renameMap: WidgetRenameMap,
 ): string => {
     const contentString = "content" in json ? json.content : json.explanation;
-    console.log("contentString", contentString);
     return Object.keys(renameMap).reduce((newContent, oldKey) => {
         const newKey = renameMap[oldKey];
         return newKey ? newContent.replace(oldKey, newKey) : newContent;
