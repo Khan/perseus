@@ -138,7 +138,7 @@ export const getInputNumberRenameMap = (
     const allContentStrings =
         "content" in json ? json.content : json.explanation || "";
 
-    // If there are no content strings, we can return an empty object
+    // If there are no content strings, we can return null
     if (allContentStrings === "") {
         return null;
     }
@@ -148,6 +148,11 @@ export const getInputNumberRenameMap = (
     const inputNumberMatches: string[] = [
         ...(allContentStrings.match(inputNumberRegex) || []),
     ];
+
+    // If there are no input-number widgets, we can return null
+    if (inputNumberMatches.length === 0) {
+        return null;
+    }
 
     // We want to count any pre-existing numeric-input widgets
     // so that we can start the new ids at the next number
