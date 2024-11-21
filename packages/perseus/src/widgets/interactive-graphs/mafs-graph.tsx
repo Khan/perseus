@@ -94,6 +94,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const uniqueId = React.useId();
     const descriptionId = `interactive-graph-description-${uniqueId}`;
     const interactiveElementsDescriptionId = `interactive-graph-interactive-elements-description-${uniqueId}`;
+    const unlimitedGraphKeyboardPromptId = `unlimited-graph-keyboard-prompt-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
     const {analytics} = useDependencies();
 
@@ -173,6 +174,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         fullGraphAriaDescription && descriptionId,
                         interactiveElementsDescription &&
                             interactiveElementsDescriptionId,
+                        isUnlimitedGraphState(state) &&
+                            "unlimited-graph-keyboard-prompt",
                     )}
                     ref={graphRef}
                     tabIndex={0}
@@ -301,6 +304,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     {interactionPrompt && (
                         <View
                             style={{
+                                display: interactionPrompt
+                                    ? undefined
+                                    : "hidden",
                                 textAlign: "center",
                                 backgroundColor: "white",
                                 border: "1px solid #21242C52",
@@ -314,7 +320,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 transform: "translateY(-50%)",
                             }}
                         >
-                            <LabelMedium>
+                            <LabelMedium id={unlimitedGraphKeyboardPromptId}>
                                 {strings.graphKeyboardPrompt}
                             </LabelMedium>
                         </View>
@@ -440,7 +446,7 @@ const renderPolygonGraphControls = (props: {
                 width: "100%",
                 marginLeft: "20px",
             }}
-            tabIndex={0}
+            tabIndex={coords.length < 3 ? -1 : 0}
             onClick={() => {
                 props.dispatch(actions.polygon.closePolygon());
             }}
