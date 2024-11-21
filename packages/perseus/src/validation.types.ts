@@ -40,7 +40,6 @@ import type {
     PerseusNumberLineWidgetOptions,
     PerseusNumericInputAnswer,
     PerseusOrdererWidgetOptions,
-    PerseusPlotterWidgetOptions,
     PerseusRadioChoice,
     PerseusGraphCorrectType,
 } from "./perseus-types";
