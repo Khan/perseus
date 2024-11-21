@@ -20,6 +20,7 @@ import LabelImage from "./widgets/label-image";
 import Matcher from "./widgets/matcher";
 import Matrix from "./widgets/matrix";
 import Measurer from "./widgets/measurer";
+import {MockWidget} from "./widgets/mock-widgets";
 import Molecule from "./widgets/molecule";
 import NumberLine from "./widgets/number-line";
 import Orderer from "./widgets/orderer";
@@ -53,6 +54,7 @@ export default [
     Matrix,
     Matcher,
     Measurer,
+    MockWidget,
     Molecule,
     NumberLine,
     Orderer,

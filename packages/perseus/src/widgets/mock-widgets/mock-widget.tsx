@@ -1,18 +1,30 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import {TextField} from "@khanacademy/wonder-blocks-form";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/phet-simulation/prompt-utils";
 
+import mockWidgetValidator from "./mock-widget-validator";
+
 import type {MockWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget, Path} from "../../types";
-import type {PerseusMockWidgetUserInput} from "../../validation.types";
+import type {
+    PerseusMockWidgetRubric,
+    PerseusMockWidgetUserInput,
+} from "../../validation.types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
-type Props = WidgetProps<MockWidgetOptions, MockWidgetOptions>;
+type ExternalProps = WidgetProps<RenderProps, PerseusMockWidgetRubric>;
+
+type RenderProps = MockWidgetOptions;
 
 type DefaultProps = {
     currentValue: Props["currentValue"];
+};
+
+type Props = ExternalProps & {
+    currentValue: string;
 };
 
 /**
@@ -57,8 +69,26 @@ export class MockWidget extends React.Component<Props> implements Widget {
         return MockWidget.getUserInputFromProps(this.props);
     }
 
+    handleChange: (
+        arg1: string,
+        arg2?: () => unknown | null | undefined,
+    ) => void = (newValue, cb) => {
+        this.props.onChange({currentValue: newValue}, cb);
+        this.props.trackInteraction();
+    };
+
     render(): React.ReactNode {
-        return <View style={styles.widgetContainer} />;
+        return (
+            <View style={styles.widgetContainer}>
+                <TextField
+                    aria-label="Mock Widget"
+                    value={this.props.currentValue}
+                    onChange={this.handleChange}
+                    id={this.props.widgetId}
+                    role="textbox"
+                />
+            </View>
+        );
     }
 }
 
@@ -73,4 +103,5 @@ export default {
     displayName: "Mock Widget",
     widget: MockWidget,
     isLintable: true,
+    validator: mockWidgetValidator,
 } satisfies WidgetExports<typeof MockWidget>;
