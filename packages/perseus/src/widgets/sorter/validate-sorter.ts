@@ -1,6 +1,13 @@
 import type {PerseusScore} from "../../types";
 import type {PerseusSorterUserInput} from "../../validation.types";
 
+/**
+ * Checks user input for the sorter widget to ensure that the user has made
+ * changes before attempting to score the widget.
+ * @param userInput
+ * @see 'scoreSorter' in 'packages/perseus/src/widgets/sorter/score-sorter.ts'
+ * for more details on how the sorter widget is scored.
+ */
 function validateSorter(
     userInput: PerseusSorterUserInput,
 ): Extract<PerseusScore, {type: "invalid"}> | null {
