@@ -140,7 +140,7 @@ export const getInputNumberRenameMap = (
 
     // If there are no content strings, we can return an empty object
     if (allContentStrings === "") {
-        return {};
+        return null;
     }
 
     // Loop through the content strings to get all the input-number widgets
