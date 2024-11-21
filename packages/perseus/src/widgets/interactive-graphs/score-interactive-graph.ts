@@ -13,6 +13,7 @@ import {
 } from "../interactive-graph";
 
 import {getClockwiseAngle} from "./math/angles";
+import validateInteractiveGraph from "./validate-interactive-graph";
 
 import type {PerseusScore} from "../../types";
 import type {
@@ -280,14 +281,11 @@ function scoreInteractiveGraph(
         }
     }
 
-    // The input wasn't correct, so check if it's a blank input or if it's
-    // actually just wrong
-    if (!hasValue || _.isEqual(userInput, rubric.graph)) {
-        // We're where we started.
-        return {
-            type: "invalid",
-            message: null,
-        };
+    // The input wasn't correct, so check if it's a blank input (validate) or if
+    // it's actually just wrong
+    const validationError = validateInteractiveGraph(userInput, scoringData);
+    if (validationError) {
+        return validationError;
     }
     return {
         type: "points",
