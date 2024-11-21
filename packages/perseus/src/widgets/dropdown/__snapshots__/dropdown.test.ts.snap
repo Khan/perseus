@@ -19,12 +19,6 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
           <div
             class="default_xu2jcg"
           >
-            <label
-              class="text_f1191h-o_O-LabelLarge_5s82ln"
-              for="uid-dropdown-widget-2-dropdown"
-            >
-              Test visible label
-            </label>
             <div
               class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
             >
@@ -43,8 +37,10 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
                 aria-expanded="true"
                 aria-haspopup="listbox"
                 aria-label="Test ARIA label"
+                aria-labelledby="uid-dropdown-widget-2-dropdown-label"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
                 id="uid-dropdown-widget-2-dropdown"
+                role="combobox"
                 type="button"
               >
                 <span
@@ -98,12 +94,6 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
           <div
             class="default_xu2jcg"
           >
-            <label
-              class="text_f1191h-o_O-LabelLarge_5s82ln"
-              for="uid-dropdown-widget-0-dropdown"
-            >
-              Test visible label
-            </label>
             <div
               class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
             >
@@ -120,8 +110,10 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-label="Test ARIA label"
+                aria-labelledby="uid-dropdown-widget-0-dropdown-label"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
                 id="uid-dropdown-widget-0-dropdown"
+                role="combobox"
                 type="button"
               >
                 <span
