@@ -1,4 +1,5 @@
 // Methods to convert input-number widgets to numeric-input widgets
+import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
 import type {
     NumericInputWidget,
     PerseusRenderer,
@@ -14,6 +15,11 @@ export const inputNumberToNumericInput = (json: PerseusRenderer) => {
     // First we need to create a map of the old input-number keys to the new numeric-input keys
     // so that we can ensure we update the content and widgets accordingly
     const renameMap = getInputNumberRenameMap(json);
+
+    // If there are no input-number widgets, we can return the json as is
+    if (renameMap === null) {
+        return json;
+    }
 
     // Then we can use this to update the JSON
     return convertInputNumberJson(json, renameMap);
@@ -123,13 +129,19 @@ const convertDeprecatedWidgetsInContent = (
 
 // Create a map of the old input-number keys to the new numeric-input keys
 export const getInputNumberRenameMap = (
-    json: PerseusRenderer,
-): WidgetRenameMap => {
+    json: PerseusRenderer | PerseusExplanationWidgetOptions,
+): WidgetRenameMap | null => {
     const numericRegex = /(?<=\[\[\u2603 )(numeric-input \d+)(?=\]\])/g;
     const inputNumberRegex = /(?<=\[\[\u2603 )(input-number \d+)(?=\]\])/g;
 
     // Get all the content strings within the json, which might be nested within widgets
-    const allContentStrings = json.content;
+    const allContentStrings =
+        "content" in json ? json.content : json.explanation || "";
+
+    // If there are no content strings, we can return an empty object
+    if (allContentStrings === "") {
+        return {};
+    }
 
     // Loop through the content strings to get all the input-number widgets
     const renameMap: WidgetRenameMap = {};
@@ -184,6 +196,12 @@ export const convertInputNumberForScoring = (
     // First we need to create a map of the old input-number keys to the new numeric-input keys
     // so that we can ensure we update the content, widgets, AND userInput accordingly
     const renameMap = getInputNumberRenameMap(rubric);
+
+    // If there are no input-number widgets, we can return the json as is
+    if (renameMap === null) {
+        return {convertedRubric: rubric, convertedUserData: userInputMap};
+    }
+
     const convertedRubric = convertInputNumberJson(rubric, renameMap);
     const convertedUserData = convertUserInputNumberData(
         userInputMap,
