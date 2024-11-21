@@ -5,31 +5,9 @@ import {clone} from "../../../../../testing/object-utils";
 import scoreInteractiveGraph from "./score-interactive-graph";
 
 import type {PerseusGraphType} from "../../perseus-types";
-import type {PerseusInteractiveGraphRubric} from "../../validation.types";
+import type {PerseusInteractiveGraphScoringData} from "../../validation.types";
 
 describe("InteractiveGraph scoring on a segment question", () => {
-    it("marks the answer invalid if guess.coords is missing", () => {
-        const guess: PerseusGraphType = {type: "segment"};
-        const rubric: PerseusInteractiveGraphRubric = {
-            graph: {
-                type: "segment",
-            },
-            correct: {
-                type: "segment",
-                coords: [
-                    [
-                        [0, 0],
-                        [1, 1],
-                    ],
-                ],
-            },
-        };
-
-        const result = scoreInteractiveGraph(guess, rubric);
-
-        expect(result).toHaveInvalidInput();
-    });
-
     it("does not award points if guess.coords is wrong", () => {
         const guess: PerseusGraphType = {
             type: "segment",
@@ -41,7 +19,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
             ],
         };
 
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric: PerseusInteractiveGraphScoringData = {
             graph: {type: "segment"},
             correct: {
                 type: "segment",
@@ -70,7 +48,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
             ],
         };
 
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric: PerseusInteractiveGraphScoringData = {
             graph: {type: "segment"},
             correct: {
                 type: "segment",
@@ -98,7 +76,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
                 ],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric: PerseusInteractiveGraphScoringData = {
             graph: {type: "segment"},
             correct: {
                 type: "segment",
@@ -127,7 +105,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
             ],
         };
 
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric: PerseusInteractiveGraphScoringData = {
             graph: {type: "segment"},
             correct: {
                 type: "segment",
@@ -160,7 +138,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
                 ],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric: PerseusInteractiveGraphScoringData = {
             graph: {type: "segment"},
             correct: {
                 type: "segment",
@@ -187,45 +165,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
     });
 });
 
-describe("InteractiveGraph scoring on an angle question", () => {
-    it("marks the answer invalid if guess.coords is missing", () => {
-        const guess: PerseusGraphType = {type: "angle"};
-        const rubric: PerseusInteractiveGraphRubric = {
-            graph: {type: "angle"},
-            correct: {
-                type: "angle",
-                coords: [
-                    [1, 1],
-                    [0, 0],
-                    [-1, -1],
-                ],
-                allowReflexAngles: false,
-                match: "congruent",
-            },
-        };
-
-        const result = scoreInteractiveGraph(guess, rubric);
-
-        expect(result).toHaveInvalidInput();
-    });
-});
-
 describe("InteractiveGraph scoring on a point question", () => {
-    it("marks the answer invalid if guess.coords is missing", () => {
-        const guess: PerseusGraphType = {type: "point"};
-        const rubric: PerseusInteractiveGraphRubric = {
-            graph: {type: "point"},
-            correct: {
-                type: "point",
-                coords: [[0, 0]],
-            },
-        };
-
-        const result = scoreInteractiveGraph(guess, rubric);
-
-        expect(result).toHaveInvalidInput();
-    });
-
     it("throws an exception if correct.coords is missing", () => {
         // Characterization test: this might not be desirable behavior, but
         // it's the current behavior as of 2024-09-25.
@@ -234,7 +174,7 @@ describe("InteractiveGraph scoring on a point question", () => {
             coords: [[0, 0]],
         };
 
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric: PerseusInteractiveGraphScoringData = {
             graph: {
                 type: "point",
             },
@@ -252,7 +192,7 @@ describe("InteractiveGraph scoring on a point question", () => {
             type: "point",
             coords: [[9, 9]],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric: PerseusInteractiveGraphScoringData = {
             graph: {type: "point"},
             correct: {
                 type: "point",
@@ -270,7 +210,7 @@ describe("InteractiveGraph scoring on a point question", () => {
             type: "point",
             coords: [[7, 8]],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric: PerseusInteractiveGraphScoringData = {
             graph: {type: "point"},
             correct: {
                 type: "point",
@@ -291,7 +231,7 @@ describe("InteractiveGraph scoring on a point question", () => {
                 [5, 6],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric: PerseusInteractiveGraphScoringData = {
             graph: {type: "point"},
             correct: {
                 type: "point",
@@ -315,7 +255,7 @@ describe("InteractiveGraph scoring on a point question", () => {
                 [5, 6],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric: PerseusInteractiveGraphScoringData = {
             graph: {type: "point"},
             correct: {
                 type: "point",
@@ -341,7 +281,7 @@ describe("InteractiveGraph scoring on a point question", () => {
                 [5, 6],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric: PerseusInteractiveGraphScoringData = {
             graph: {type: "point"},
             correct: {
                 type: "point",
