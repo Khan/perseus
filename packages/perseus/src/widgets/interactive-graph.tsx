@@ -52,7 +52,7 @@ import type {
     SineCoefficient,
 } from "../util/geometry";
 import type {
-    PerseusInteractiveGraphRubric,
+    PerseusInteractiveGraphScoringData,
     PerseusInteractiveGraphUserInput,
 } from "../validation.types";
 import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
@@ -119,7 +119,7 @@ const makeInvalidTypeError = (
 };
 
 type RenderProps = PerseusInteractiveGraphWidgetOptions; // There's no transform function in exports
-type Props = WidgetProps<RenderProps, PerseusInteractiveGraphRubric>;
+type Props = WidgetProps<RenderProps, PerseusInteractiveGraphScoringData>;
 type State = any;
 type DefaultProps = {
     labels: Props["labels"];
