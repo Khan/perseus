@@ -24,7 +24,7 @@ type StoryArgs = {
     "reviewMode" | "showSolutions"
 >;
 
-export default {
+const meta: Meta = {
     title: "Perseus/Widgets/Radio",
     args: {
         static: false,
@@ -41,8 +41,6 @@ export default {
             },
         },
     },
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'Args' is not assignable to type 'StoryArgs'.
     render: (args: StoryArgs) => (
         <RendererWithDebugUI
             question={applyStoryArgs(args)}
@@ -51,7 +49,14 @@ export default {
             showSolutions={args.showSolutions}
         />
     ),
-} satisfies Meta;
+    parameters: {
+        chromatic: {
+            // Visual snapshot testing for all the variants of this widget.
+            disableSnapshot: false,
+        },
+    },
+};
+export default meta;
 
 const applyStoryArgs = (args: StoryArgs): PerseusRenderer => {
     const q = {

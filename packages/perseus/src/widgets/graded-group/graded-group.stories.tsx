@@ -4,29 +4,33 @@ import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui
 
 import {question1} from "./graded-group.testdata";
 
+import type {Meta} from "@storybook/react";
+
+const meta: Meta = {
+    title: "Perseus/Widgets/Graded Group",
+    args: {
+        isMobile: false,
+    },
+};
+export default meta;
+
 type StoryArgs = {
     isMobile: boolean;
 };
 
-type Story = {
-    title: string;
-    args: StoryArgs;
-};
-
-export const Question1 = (args: StoryArgs): React.ReactElement => {
-    return (
+export const Question1 = {
+    render: (args: StoryArgs) => (
         <RendererWithDebugUI
             question={question1}
             apiOptions={{
                 isMobile: args.isMobile,
             }}
         />
-    );
-};
-
-export default {
-    title: "Perseus/Widgets/Graded Group",
-    args: {
-        isMobile: false,
+    ),
+    parameters: {
+        chromatic: {
+            // Visual snapshot testing for this widget.
+            disableSnapshot: false,
+        },
     },
-} as Story;
+};

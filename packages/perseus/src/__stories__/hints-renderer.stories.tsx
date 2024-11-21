@@ -116,6 +116,13 @@ export const WithAllInteractiveGraphs: Story = {
             },
         ],
     },
+    parameters: {
+        chromatic: {
+            // Visual snapshot testing for this story in particular since
+            // it contains all the different interactive graph types.
+            disableSnapshot: false,
+        },
+    },
 };
 
 export const WithSegmentInteractiveGraph: Story = {

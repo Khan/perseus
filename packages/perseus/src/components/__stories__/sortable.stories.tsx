@@ -8,6 +8,12 @@ const meta: Meta = {
     args: {
         options: ["Option 1", "Option 2", "Option 3"],
     },
+    parameters: {
+        chromatic: {
+            // Enable visual testing on the visual variants of this component.
+            disableSnapshot: false,
+        },
+    },
 };
 export default meta;
 

@@ -4,12 +4,19 @@ import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui
 
 import {question1} from "./cs-program.testdata";
 
-export default {
+import type {Meta} from "@storybook/react";
+
+const meta: Meta = {
     title: "Perseus/Widgets/CS Program",
 };
+export default meta;
 
-type StoryArgs = Record<any, any>;
-
-export const Question1 = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question1} />;
+export const Question1 = {
+    render: () => <RendererWithDebugUI question={question1} />,
+    parameters: {
+        chromatic: {
+            // Visual snapshot testing for this widget.
+            disableSnapshot: false,
+        },
+    },
 };

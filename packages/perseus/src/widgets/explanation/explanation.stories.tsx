@@ -9,9 +9,19 @@ import {
     wideButton,
 } from "./explanation.testdata";
 
-export default {
+import type {Meta} from "@storybook/react";
+
+const meta: Meta = {
     title: "Perseus/Widgets/Explanation",
+    parameters: {
+        chromatic: {
+            // Visual snapshot testing for all the variants of this widget.
+            disableSnapshot: false,
+        },
+    },
 };
+
+export default meta;
 
 type StoryArgs = Record<any, any>;
 

@@ -11,14 +11,22 @@ import {expressionItem2, expressionItem3} from "./expression.testdata";
 
 import type {PerseusItem} from "../../perseus-types";
 import type {Keys as Key} from "@khanacademy/math-input";
+import type {Meta} from "@storybook/react";
+
+const meta: Meta = {
+    title: "Perseus/Widgets/Expression",
+    argTypes: {customKeypad: {control: "boolean"}},
+    parameters: {
+        chromatic: {
+            // Visual snapshot testing for all the variants of this widget.
+            disableSnapshot: false,
+        },
+    },
+};
+export default meta;
 
 type StoryArgs = {
     customKeypad: boolean;
-};
-
-type Story = {
-    title: string;
-    argTypes: any;
 };
 
 type WrappedKeypadContextProps = {
@@ -123,8 +131,3 @@ export const ExpressionItem3 = (args: StoryArgs): React.ReactElement => {
         />
     );
 };
-
-export default {
-    title: "Perseus/Widgets/Expression",
-    argTypes: {customKeypad: {control: "boolean"}},
-} as Story;

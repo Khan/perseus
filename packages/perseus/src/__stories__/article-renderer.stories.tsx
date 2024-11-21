@@ -13,14 +13,23 @@ import {
 import ArticleRenderer from "../article-renderer";
 import TestKeypadContextWrapper from "../widgets/__shared__/test-keypad-context-wrapper";
 
-export default {
+import type {Meta} from "@storybook/react";
+
+const meta: Meta = {
     title: "Perseus/Renderers/Article Renderer",
     argTypes: {
         useNewStyles: {
             control: "boolean",
         },
     },
+    parameters: {
+        chromatic: {
+            // Visual snapshot testing for all the stories here.
+            disableSnapshot: false,
+        },
+    },
 };
+export default meta;
 
 export const ASingleSectionArticle = (args: {
     useNewStyles;

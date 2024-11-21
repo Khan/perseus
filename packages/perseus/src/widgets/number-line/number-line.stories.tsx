@@ -8,10 +8,18 @@ import TestKeypadContextWrapper from "../__shared__/test-keypad-context-wrapper"
 import {question1, question2} from "./number-line.testdata";
 
 import type {PerseusItem} from "../../perseus-types";
+import type {Meta} from "@storybook/react";
 
-export default {
+const meta: Meta = {
     title: "Perseus/Widgets/Number Line",
+    parameters: {
+        chromatic: {
+            // Visual snapshot testing for all the variants of this widget.
+            disableSnapshot: false,
+        },
+    },
 };
+export default meta;
 
 type StoryArgs = Record<any, any>;
 

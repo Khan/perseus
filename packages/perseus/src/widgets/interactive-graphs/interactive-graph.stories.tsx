@@ -25,6 +25,7 @@ import {
     staticGraphQuestionWithAnotherWidget,
     segmentWithLockedLabels,
     unlimitedPolygonQuestion,
+    segmentWithLockedFigures,
 } from "./interactive-graph.testdata";
 
 import type {APIOptions} from "../../types";
@@ -51,6 +52,12 @@ const enableMafs: APIOptions = {
             "unlimited-polygon": true,
             angle: true,
             "interactive-graph-locked-features-labels": true,
+            "locked-point-labels": true,
+            "locked-line-labels": true,
+            "locked-vector-labels": true,
+            "locked-ellipse-labels": true,
+            "locked-polygon-labels": true,
+            "locked-function-labels": true,
         },
     },
 };
@@ -208,6 +215,21 @@ export const StaticGraphWithAnotherWidget = (
         question={staticGraphQuestionWithAnotherWidget()}
     />
 );
+
+export const AllLabeledLockedFigures = {
+    render: () => (
+        <RendererWithDebugUI
+            apiOptions={enableMafs}
+            question={segmentWithLockedFigures}
+        />
+    ),
+    parameters: {
+        chromatic: {
+            // Visual snapshot testing for all locked figures.
+            disableSnapshot: false,
+        },
+    },
+};
 
 // TODO(jeremy): As of Jan 2022 there are no peresus items in production that
 // use the "quadratic" graph type.

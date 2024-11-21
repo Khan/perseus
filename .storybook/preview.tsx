@@ -23,7 +23,14 @@ const preview: Preview = {
         (Story) => (
             <RenderStateRoot>
                 <DependenciesContext.Provider value={storybookDependenciesV2}>
-                    <Story />
+                    {/* Most of our components have an expectation to be
+                        rendered inside of a .framework-perseus container.
+                        We want to make sure we can include it here, since it
+                        can also affect the styling.
+                    */}
+                    <div className="framework-perseus">
+                        <Story />
+                    </div>
                 </DependenciesContext.Provider>
             </RenderStateRoot>
         ),

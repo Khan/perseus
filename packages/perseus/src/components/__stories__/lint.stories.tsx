@@ -41,6 +41,12 @@ const meta: Meta = {
             },
         },
     },
+    parameters: {
+        chromatic: {
+            // Enable visual snapshot testing for all the stories here.
+            disableSnapshot: false,
+        },
+    },
 };
 
 export default meta;

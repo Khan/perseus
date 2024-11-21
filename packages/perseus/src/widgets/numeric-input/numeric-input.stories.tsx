@@ -6,6 +6,8 @@ import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui
 import {NumericInput} from "./numeric-input";
 import {question1} from "./numeric-input.testdata";
 
+import type {Meta} from "@storybook/react";
+
 type StoryArgs = {
     coefficient: boolean;
     currentValue: string;
@@ -36,7 +38,7 @@ function generateProps(overwrite) {
     return {...base, ...overwrite};
 }
 
-export default {
+const meta: Meta = {
     title: "Perseus/Widgets/NumericInput",
     args: {
         coefficient: false,
@@ -51,6 +53,7 @@ export default {
         },
     },
 };
+export default meta;
 
 export const Question1 = (): React.ReactElement => {
     return <RendererWithDebugUI question={question1} />;
@@ -62,38 +65,54 @@ export const Interactive = (args: StoryArgs): React.ReactElement => {
     return <NumericInput {...props} />;
 };
 
-export const Sizes = (args: StoryArgs): React.ReactElement => {
-    const smallProps = generateProps({...args, size: "small"});
-    const normalProps = generateProps({...args, size: "normal"});
+export const Sizes = {
+    render: function Render(args: StoryArgs) {
+        const smallProps = generateProps({...args, size: "small"});
+        const normalProps = generateProps({...args, size: "normal"});
 
-    return (
-        <div>
-            <label>
-                Small:
-                <NumericInput {...smallProps} />
-            </label>
-            <label>
-                Normal:
-                <NumericInput {...normalProps} />
-            </label>
-        </div>
-    );
+        return (
+            <div>
+                <label>
+                    Small:
+                    <NumericInput {...smallProps} />
+                </label>
+                <label>
+                    Normal:
+                    <NumericInput {...normalProps} />
+                </label>
+            </div>
+        );
+    },
+    parameters: {
+        chromatic: {
+            // Visual snapshot testing for the different sizes.
+            disableSnapshot: false,
+        },
+    },
 };
 
-export const TextAlignment = (args: StoryArgs): React.ReactElement => {
-    const leftProps = generateProps({...args, rightAlign: false});
-    const rightProps = generateProps({...args, rightAlign: true});
+export const TextAlignment = {
+    render: function Render(args: StoryArgs) {
+        const leftProps = generateProps({...args, rightAlign: false});
+        const rightProps = generateProps({...args, rightAlign: true});
 
-    return (
-        <div>
-            <label>
-                Left:
-                <NumericInput {...leftProps} />
-            </label>
-            <label>
-                Right:
-                <NumericInput {...rightProps} />
-            </label>
-        </div>
-    );
+        return (
+            <div>
+                <label>
+                    Left:
+                    <NumericInput {...leftProps} />
+                </label>
+                <label>
+                    Right:
+                    <NumericInput {...rightProps} />
+                </label>
+            </div>
+        );
+    },
+    parameters: {
+        chromatic: {
+            // Visual snapshot testing for the different alignments.
+            disableSnapshot: false,
+        },
+    },
 };

@@ -57,6 +57,13 @@ export const SingleItem = (args: StoryArgs): React.ReactElement => {
     );
 };
 
+SingleItem.parameters = {
+    chromatic: {
+        // Enable visual snapshot testing for this story.
+        disableSnapshot: false,
+    },
+};
+
 const styles = StyleSheet.create({
     section: {
         backgroundColor: "#F5F5F5",

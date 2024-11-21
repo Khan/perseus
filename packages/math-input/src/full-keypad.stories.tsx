@@ -5,20 +5,24 @@ import * as React from "react";
 import Keypad from "./components/keypad";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-import type {ComponentStory} from "@storybook/react";
+import type {ComponentStory, Meta} from "@storybook/react";
 
 const opsPage = "Operators Page";
 const numsPage = "Numbers Page";
 const geoPage = "Geometry Page";
 const fracPage = "Fractions Page";
 
-export default {
+const meta: Meta = {
     title: "math-input/Full Keypad",
     parameters: {
         backgrounds: {
             values: [{name: "light background", value: "white", default: true}],
         },
         viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
+        chromatic: {
+            // Visual snapshot testing for all the variants of the keypad.
+            disableSnapshot: false,
+        },
     },
     component: Keypad,
     args: {
@@ -84,6 +88,7 @@ export default {
         },
     },
 };
+export default meta;
 
 const Template: ComponentStory<typeof Keypad> = (
     args: PropsFor<typeof Keypad>,

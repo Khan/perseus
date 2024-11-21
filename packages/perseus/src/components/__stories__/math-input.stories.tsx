@@ -46,6 +46,13 @@ export const DefaultWithAriaLabel: Story = {
 
 export const KeypadOpenByDefault: Story = {
     args: {buttonsVisible: "always"},
+    parameters: {
+        chromatic: {
+            // Enable visual snapshot for this story in paritcular since
+            // it contains all the visual elements for this widget.
+            disableSnapshot: false,
+        },
+    },
 };
 
 export const KeypadNeverVisible: Story = {

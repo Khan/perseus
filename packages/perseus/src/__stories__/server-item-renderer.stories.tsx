@@ -18,11 +18,16 @@ import type {StoryObj, Meta} from "@storybook/react";
 
 type StoryArgs = StoryObj<ServerItemRenderer>;
 
-type Story = Meta<ServerItemRenderer>;
-
-export default {
+const meta: Meta = {
     title: "Perseus/Renderers/Server Item Renderer",
-} as Story;
+    parameters: {
+        chromatic: {
+            // Visual snapshot testing for all the stories here.
+            disableSnapshot: false,
+        },
+    },
+};
+export default meta;
 
 export const NumericInputItem = (args: StoryArgs): React.ReactElement => {
     return <ServerItemRendererWithDebugUI item={itemWithInput} />;
