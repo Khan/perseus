@@ -82,46 +82,47 @@ class Dropdown extends React.Component<Props> implements Widget {
         ];
 
         return (
-            <View
-                // NOTE(jared): These are required to prevent weird behavior
-                // When there's a dropdown in a zoomable table.
-                onClick={(e) => {
-                    e.stopPropagation();
-                }}
-                onTouchStart={(e) => {
-                    e.stopPropagation();
-                }}
-            >
-                <UniqueIDProvider
-                    scope="dropdown-widget"
-                    mockOnFirstRender={true}
-                >
-                    {(ids) => (
-                        <>
-                            {this.props.visibleLabel && (
-                                <LabelLarge
-                                    tag="label"
-                                    htmlFor={ids.get("dropdown")}
-                                >
-                                    {this.props.visibleLabel}
-                                </LabelLarge>
-                            )}
-                            <SingleSelect
-                                id={ids.get("dropdown")}
-                                placeholder=""
-                                onChange={(value) =>
-                                    this._handleChange(parseInt(value))
-                                }
-                                selectedValue={String(this.props.selected)}
-                                disabled={this.props.apiOptions.readOnly}
-                                aria-label={this.props.ariaLabel}
+            <UniqueIDProvider scope="dropdown-widget" mockOnFirstRender={true}>
+                {(ids) => (
+                    <View
+                        // NOTE(jared): These are required to prevent weird behavior
+                        // When there's a dropdown in a zoomable table.
+                        onClick={(e) => {
+                            e.stopPropagation();
+                        }}
+                        onTouchStart={(e) => {
+                            e.stopPropagation();
+                        }}
+                    >
+                        {this.props.visibleLabel && (
+                            <LabelLarge
+                                tag="label"
+                                id={ids.get("dropdown-label")}
                             >
-                                {children}
-                            </SingleSelect>
-                        </>
-                    )}
-                </UniqueIDProvider>
-            </View>
+                                {this.props.visibleLabel}
+                            </LabelLarge>
+                        )}
+                        <SingleSelect
+                            id={ids.get("dropdown")}
+                            placeholder=""
+                            onChange={(value) =>
+                                this._handleChange(parseInt(value))
+                            }
+                            selectedValue={String(this.props.selected)}
+                            disabled={this.props.apiOptions.readOnly}
+                            aria-label={this.props.ariaLabel}
+                            aria-labelledby={ids.get("dropdown-label")}
+                            // This is currently necessary for SRs to read the labels properly.
+                            // However, WB is working on a change to add the "combobox" role to
+                            // all dropdowns.
+                            // See https://khanacademy.atlassian.net/browse/WB-1671
+                            role="combobox"
+                        >
+                            {children}
+                        </SingleSelect>
+                    </View>
+                )}
+            </UniqueIDProvider>
         );
     }
 }
