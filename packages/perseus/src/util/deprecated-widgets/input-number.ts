@@ -118,13 +118,16 @@ export const convertInputNumberWidgetOptions = (
 // Convert the deprecated widget refs in the content string
 // of a PerseusRenderer object to their renamed equivalents
 const convertDeprecatedWidgetsInContent = (
-    json: PerseusRenderer,
+    json: PerseusRenderer | PerseusExplanationWidgetOptions,
     renameMap: WidgetRenameMap,
 ): string => {
-    return Object.keys(renameMap).reduce((newContent, oldKey) => {
-        const newKey = renameMap[oldKey];
-        return newKey ? newContent.replace(oldKey, newKey) : newContent;
-    }, json.content);
+    return Object.keys(renameMap).reduce(
+        (newContent, oldKey) => {
+            const newKey = renameMap[oldKey];
+            return newKey ? newContent.replace(oldKey, newKey) : newContent;
+        },
+        "content" in json ? json.content : json.explanation,
+    );
 };
 
 // Create a map of the old input-number keys to the new numeric-input keys
