@@ -1,10 +1,7 @@
-import {action} from "@storybook/addon-actions";
 import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
-import * as React from "react";
 
 import Keypad from "./components/keypad";
 
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {StoryObj} from "@storybook/react";
 
 const opsPage = "Operators Page";
