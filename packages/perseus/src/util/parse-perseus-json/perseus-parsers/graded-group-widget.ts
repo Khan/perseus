@@ -15,9 +15,10 @@ import {parseWidgetsMap} from "./widgets-map";
 
 import type {GradedGroupWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 export const parseGradedGroupWidgetOptions = object({
-    title: string,
+    title: defaulted(string, () => ""),
     hasHint: optional(nullable(boolean)),
     // This module has an import cycle with parsePerseusRenderer.
     // The anonymous function below ensures that we don't try to access
