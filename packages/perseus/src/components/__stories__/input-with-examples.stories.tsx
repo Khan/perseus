@@ -14,9 +14,7 @@ const meta: Meta = {
         value: "",
     },
     argTypes: {
-        onChange: {
-            control: {type: null},
-        },
+        onChange: {table: {disable: true}},
     },
 };
 export default meta;

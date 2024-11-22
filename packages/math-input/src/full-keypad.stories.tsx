@@ -5,7 +5,7 @@ import * as React from "react";
 import Keypad from "./components/keypad";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-import type {ComponentStory} from "@storybook/react";
+import type {StoryObj} from "@storybook/react";
 
 const opsPage = "Operators Page";
 const numsPage = "Numbers Page";
@@ -85,58 +85,55 @@ export default {
     },
 };
 
-const Template: ComponentStory<typeof Keypad> = (
-    args: PropsFor<typeof Keypad>,
-): React.ReactElement => (
-    <Keypad
-        {...args}
-        onClickKey={action("onClickKey")}
-        onAnalyticsEvent={async (e) => action("onAnalyticsEvent")(e)}
-    />
-);
+type Story = StoryObj<typeof Keypad>;
 
-export const Default = Template.bind({});
+export const Default: Story = {};
 
-export const PreAlgebra = Template.bind({});
-PreAlgebra.args = {
-    preAlgebra: true,
+export const PreAlgebra: Story = {
+    args: {
+        preAlgebra: true,
+    },
 };
 
-export const Trigonometry = Template.bind({});
-Trigonometry.args = {
-    preAlgebra: true,
-    trigonometry: true,
+export const Trigonometry: Story = {
+    args: {
+        preAlgebra: true,
+        trigonometry: true,
+    },
 };
 
-export const FractionsOnly = Template.bind({});
-FractionsOnly.args = {
-    fractionsOnly: true,
+export const FractionsOnly: Story = {
+    args: {
+        fractionsOnly: true,
+    },
 };
 
-export const Everything = Template.bind({});
-Everything.args = {
-    advancedRelations: true,
-    basicRelations: true,
-    divisionKey: true,
-    logarithms: true,
-    convertDotToTimes: false,
-    preAlgebra: true,
-    trigonometry: true,
-    expandedView: true,
-    showDismiss: true,
-    extraKeys: ["a", "b", "c"],
+export const Everything: Story = {
+    args: {
+        advancedRelations: true,
+        basicRelations: true,
+        divisionKey: true,
+        logarithms: true,
+        convertDotToTimes: false,
+        preAlgebra: true,
+        trigonometry: true,
+        expandedView: true,
+        showDismiss: true,
+        extraKeys: ["a", "b", "c"],
+    },
 };
 
-export const EverythingMinusNavigationPad = Template.bind({});
-EverythingMinusNavigationPad.args = {
-    advancedRelations: true,
-    basicRelations: true,
-    divisionKey: true,
-    logarithms: true,
-    convertDotToTimes: false,
-    preAlgebra: true,
-    trigonometry: true,
-    expandedView: false,
-    showDismiss: true,
-    extraKeys: ["a", "b", "c"],
+export const EverythingMinusNavigationPad: Story = {
+    args: {
+        advancedRelations: true,
+        basicRelations: true,
+        divisionKey: true,
+        logarithms: true,
+        convertDotToTimes: false,
+        preAlgebra: true,
+        trigonometry: true,
+        expandedView: false,
+        showDismiss: true,
+        extraKeys: ["a", "b", "c"],
+    },
 };

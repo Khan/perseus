@@ -23,12 +23,8 @@ const meta: Meta = {
         labelText: "Math input",
     },
     argTypes: {
-        onChange: {
-            control: {type: null},
-        },
-        analytics: {
-            control: {type: null},
-        },
+        onChange: {table: {disable: true}},
+        analytics: {table: {disable: true}},
     },
     parameters: {
         controls: {exclude: ["onChange", "analytics"]},

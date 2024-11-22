@@ -13,7 +13,7 @@ const meta: Meta = {
         onChange: action("onChange"),
     },
     argTypes: {
-        onChange: {control: {type: null}},
+        onChange: {table: {disable: true}},
     },
     decorators: [
         (Story) => (

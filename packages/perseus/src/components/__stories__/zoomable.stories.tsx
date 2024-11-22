@@ -26,7 +26,7 @@ const meta: Meta = {
         computeChildBounds,
     },
     argTypes: {
-        children: {control: {type: null}},
+        children: {table: {disable: true}},
     },
     parameters: {
         chromatic: {

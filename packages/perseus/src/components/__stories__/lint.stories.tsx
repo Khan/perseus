@@ -31,7 +31,7 @@ const meta: Meta = {
         ruleName: "Test rule",
     },
     argTypes: {
-        children: {control: {type: null}},
+        children: {table: {disable: true}},
         severity: {
             type: "number",
             control: {

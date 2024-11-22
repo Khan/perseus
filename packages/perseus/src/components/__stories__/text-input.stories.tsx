@@ -13,9 +13,9 @@ const meta: Meta = {
         onFocus: action("onFocus"),
     },
     argTypes: {
-        onChange: {control: {type: null}},
-        onBlur: {control: {type: null}},
-        onFocus: {control: {type: null}},
+        onChange: {table: {disable: true}},
+        onBlur: {table: {disable: true}},
+        onFocus: {table: {disable: true}},
     },
 };
 export default meta;
