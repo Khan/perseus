@@ -5,8 +5,6 @@ import React from "react";
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
-import {scorePerseusItem} from "../../../renderer-util";
-import {mockStrings} from "../../../strings";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import PassageWidgetExport, {LineHeightMeasurer} from "../passage";
 
@@ -135,12 +133,7 @@ describe("passage widget", () => {
         act(() => jest.runOnlyPendingTimers());
 
         // Act
-        const score = scorePerseusItem(
-            question2,
-            renderer.getUserInputMap(),
-            mockStrings,
-            "en",
-        );
+        const score = renderer.score();
 
         // Assert
         expect(score).toMatchInlineSnapshot(`
