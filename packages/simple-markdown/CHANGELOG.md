@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 0.13.5
+
+### Patch Changes
+
+-   [#1889](https://github.com/Khan/perseus/pull/1889) [`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: enable strict typechecking of function parameters
+
 ## 0.13.4
 
 ### Patch Changes
