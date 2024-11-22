@@ -2,10 +2,13 @@ import {
     array,
     boolean,
     constant,
-    enumeration, number,
+    enumeration,
+    number,
     object,
-    optional, pipeParsers,
-    string, union,
+    optional,
+    pipeParsers,
+    string,
+    union,
 } from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
@@ -21,9 +24,9 @@ const parseAnswerForm: Parser<PerseusExpressionAnswerForm> = object({
     form: boolean,
     simplify: boolean,
     considered: enumeration("correct", "wrong", "ungraded"),
-    key: pipeParsers(optional(union(string).or(number).parser))
-        .then((key, ctx) => ctx.success(String(key)))
-        .parser,
+    key: pipeParsers(optional(union(string).or(number).parser)).then(
+        (key, ctx) => ctx.success(String(key)),
+    ).parser,
 });
 
 export const parseExpressionWidget: Parser<ExpressionWidget> = parseWidget(

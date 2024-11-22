@@ -8,6 +8,7 @@ import {
     record,
     string,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parsePerseusRenderer} from "./perseus-renderer";
 import {parseWidget} from "./widget";
@@ -15,7 +16,6 @@ import {parseWidgetsMap} from "./widgets-map";
 
 import type {GradedGroupWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
-import {defaulted} from "../general-purpose-parsers/defaulted";
 
 export const parseGradedGroupWidgetOptions = object({
     title: defaulted(string, () => ""),

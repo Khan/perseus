@@ -8,12 +8,12 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
 import type {IFrameWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
-import {defaulted} from "../general-purpose-parsers/defaulted";
 
 export const parseIframeWidget: Parser<IFrameWidget> = parseWidget(
     constant("iframe"),
