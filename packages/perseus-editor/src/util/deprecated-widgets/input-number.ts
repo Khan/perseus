@@ -52,11 +52,8 @@ export const convertInputNumberWidgetOptions = (
         }
         // Check if the widget is an input-number
         if (widgets[key].type === "input-number") {
-            // If the answerType is not number or percent, we need to provide
-            // the answer form for the numeric-input widget
             const provideAnswerForm =
-                widgets[key].options.answerType !== "number" &&
-                widgets[key].options.answerType !== "percent";
+                widgets[key].options.answerType !== "number";
             // We need to determine the mathFormat for the numeric-input widget
             const mathFormat =
                 widgets[key].options.answerType === "rational"
