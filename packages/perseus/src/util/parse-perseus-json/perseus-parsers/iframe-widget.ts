@@ -13,6 +13,7 @@ import {parseWidget} from "./widget";
 
 import type {IFrameWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 export const parseIframeWidget: Parser<IFrameWidget> = parseWidget(
     constant("iframe"),
@@ -23,6 +24,6 @@ export const parseIframeWidget: Parser<IFrameWidget> = parseWidget(
         height: union(number).or(string).parser,
         allowFullScreen: boolean,
         allowTopNavigation: optional(boolean),
-        static: boolean,
+        static: defaulted(boolean, () => false),
     }),
 );
