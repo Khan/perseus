@@ -14,12 +14,17 @@ const widgetRegExes = [/input-number \d+/]; // We can add more regexes here in t
 export const convertDeprecatedWidgets = (
     json: PerseusRenderer,
 ): PerseusRenderer => {
+    // If there's no widgets that require conversion, return the original json
+    if (!conversionRequired(json)) {
+        return json;
+    }
+
     // Currently we're only converting input-number to numeric-input,
     // But we can add more conversions here in the future
     return inputNumberToNumericInput(json);
 };
 
-export const conversionRequired = (json: PerseusRenderer): boolean => {
+const conversionRequired = (json: PerseusRenderer): boolean => {
     // If there's no content, then there's no conversion required
     if (!json.content) {
         return false;
