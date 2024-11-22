@@ -8,8 +8,9 @@ import InputWithExamples from "../../components/input-with-examples";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
 import KhanMath from "../../util/math";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
-import numericInputValidator from "./numeric-input-validator";
+import scoreNumericInput from "./score-numeric-input";
 
 import type {
     PerseusNumericInputWidgetOptions,
@@ -21,6 +22,7 @@ import type {
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
 } from "../../validation.types";
+import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 const formExamples: {
     [key: string]: (
@@ -181,6 +183,10 @@ export class NumericInput
 
     getUserInput(): PerseusNumericInputUserInput {
         return NumericInput.getUserInputFromProps(this.props);
+    }
+
+    getPromptJSON(): NumericInputPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     handleChange: (
@@ -357,8 +363,12 @@ export default {
     widget: NumericInput,
     transform: propsTransform,
     isLintable: true,
-    validator: numericInputValidator,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumericInputUserInput'.
+    scorer: scoreNumericInput,
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusNumericInputRubric'
     getOneCorrectAnswerFromRubric(
         rubric: PerseusNumericInputRubric,
     ): string | null | undefined {
@@ -392,4 +402,4 @@ export default {
         }
         return answerStrings[0];
     },
-} as WidgetExports<typeof NumericInput>;
+} satisfies WidgetExports<typeof NumericInput>;

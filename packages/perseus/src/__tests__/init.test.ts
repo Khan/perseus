@@ -3,7 +3,7 @@ import {getWidget} from "../widgets";
 
 describe("init", () => {
     it("should correctly replace the transformer widget", async () => {
-        await init({skipMathJax: true});
+        await init();
 
         expect(getWidget("transformer")).not.toBeNull();
     });

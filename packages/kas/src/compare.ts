@@ -1,11 +1,15 @@
 import type {CompareOptions, CompareResult, Expression} from "./types";
 
-// Assumes that both expressions have already been parsed
+/**
+ * Compares two expressions for equality.
+ *
+ * Assumes that both expressions have already been parsed.
+ */
 // TODO(alex): be able to pass a random() function to compare()
 export const compare = function (
     expr1: Expression,
     expr2: Expression,
-    options: CompareOptions,
+    options: Partial<CompareOptions> = {},
 ): CompareResult {
     const defaults: CompareOptions = {
         form: false,
@@ -17,7 +21,10 @@ export const compare = function (
      *   like slope
      * - Allow student to choose their own variable names
      */
-    options = {...defaults, ...options};
+    const optionsWithDefaults: CompareOptions = {
+        ...defaults,
+        ...options,
+    };
 
     // TODO(CP-1614): Figure out how to make these messages translatable
 
@@ -48,7 +55,7 @@ export const compare = function (
     }
 
     // Syntactic check
-    if (options.form && !expr1.sameForm(expr2)) {
+    if (optionsWithDefaults.form && !expr1.sameForm(expr2)) {
         return {
             equal: false,
             message: "Your answer is not in the correct form.",
@@ -56,7 +63,7 @@ export const compare = function (
     }
 
     // Syntactic check
-    if (options.simplify && !expr1.isSimplified()) {
+    if (optionsWithDefaults.simplify && !expr1.isSimplified()) {
         return {
             equal: false,
             message: "Your answer is not fully expanded and simplified.",

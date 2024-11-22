@@ -151,6 +151,14 @@ class LabelImageEditor extends React.Component<Props> {
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 this.props.onChange({
+                    /**
+                     * Sending `imageUrl` up again
+                     * (even though we did so at the beginning of handleImageChange)
+                     * because we ran into a race condition (LEMS-2583) where
+                     * `imageUrl` was getting set to an empty string if measuring
+                     * happened too fast.
+                     */
+                    imageUrl: url,
                     imageWidth: width,
                     imageHeight: height,
                 });

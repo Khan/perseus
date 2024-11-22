@@ -12,12 +12,14 @@ import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import KhanMath from "../../util/math";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
-import numberLineValidator from "./number-line-validator";
+import scoreNumberLine from "./score-number-line";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
 import type {PerseusNumberLineUserInput} from "../../validation.types";
+import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -619,6 +621,10 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         };
     }
 
+    getPromptJSON(): NumberLinePromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
+
     render(): React.ReactNode {
         const {strings} = this.context;
         const divisionRange = this.props.divisionRange;
@@ -799,5 +805,7 @@ export default {
     widget: NumberLine,
     transform: numberLineTransform,
     staticTransform: staticTransform,
-    validator: numberLineValidator,
-} as WidgetExports<typeof NumberLine>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumberLineUserInput'.
+    scorer: scoreNumberLine,
+} satisfies WidgetExports<typeof NumberLine>;

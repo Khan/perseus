@@ -3,8 +3,9 @@ import * as React from "react";
 
 import Sortable from "../../components/sortable";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
-import sorterValidator from "./sorter-validator";
+import scoreSorter from "./score-sorter";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
@@ -13,6 +14,7 @@ import type {
     PerseusSorterRubric,
     PerseusSorterUserInput,
 } from "../../validation.types";
+import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 const {shuffle} = Util;
 
@@ -86,6 +88,10 @@ class Sorter extends React.Component<Props, State> implements Widget {
         };
     }
 
+    getPromptJSON(): SorterPromptJSON {
+        return _getPromptJSON(this.getUserInput());
+    }
+
     moveOptionToIndex: (option: SortableOption, index: number) => void = (
         option,
         index,
@@ -127,5 +133,7 @@ export default {
     displayName: "Sorter",
     widget: Sorter,
     isLintable: true,
-    validator: sorterValidator,
-} as WidgetExports<typeof Sorter>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusSorterUserInput
+    scorer: scoreSorter,
+} satisfies WidgetExports<typeof Sorter>;

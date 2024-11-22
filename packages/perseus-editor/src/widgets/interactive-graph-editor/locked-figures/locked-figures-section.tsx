@@ -191,7 +191,8 @@ const LockedFiguresSection = (props: Props) => {
                         <LockedFigureSelect
                             showLabelsFlag={props.showLabelsFlag}
                             id={`${uniqueId}-select`}
-                            onChange={addLockedFigure}
+                            // TODO(LEMS-2656): remove TS suppression
+                            onChange={addLockedFigure as any}
                         />
                         <Strut size={spacing.small_12} />
                         {showExpandButton && (

@@ -13,8 +13,9 @@ import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
-import matrixValidator from "./matrix-validator";
+import scoreMatrix from "./score-matrix";
 
 import type {PerseusMatrixWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
@@ -22,6 +23,7 @@ import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
 } from "../../validation.types";
+import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
 const {assert} = InteractiveUtil;
 const {stringArrayOfSize} = Util;
@@ -317,6 +319,10 @@ class Matrix extends React.Component<Props, State> implements Widget {
         };
     }
 
+    getPromptJSON(): MatrixPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
+
     render(): React.ReactNode {
         // Set the input sizes through JS so we can control the size of the
         // brackets. (If we set them in CSS we won't know values until the
@@ -563,5 +569,7 @@ export default {
     transform: propTransform,
     staticTransform: staticTransform,
     isLintable: true,
-    validator: matrixValidator,
-} as WidgetExports<typeof Matrix>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatrixUserInput'.
+    scorer: scoreMatrix,
+} satisfies WidgetExports<typeof Matrix>;

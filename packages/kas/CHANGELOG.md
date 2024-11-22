@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 0.4.0
+
+### Minor Changes
+
+-   [#1851](https://github.com/Khan/perseus/pull/1851) [`46dc13f10`](https://github.com/Khan/perseus/commit/46dc13f10b97c22537e70e106540aa754c75b7b0) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Convert main KAS file to TypeScript which enables types for the library
+
 ## 0.3.16
 
 ### Patch Changes

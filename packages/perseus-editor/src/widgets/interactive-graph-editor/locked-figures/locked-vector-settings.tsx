@@ -25,6 +25,7 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
 } from "./util";
 
@@ -64,13 +65,19 @@ const LockedVectorSettings = (props: Props) => {
     // Check if the line has length 0.
     const isInvalid = kvector.equal(tail, tip);
 
-    function getPrepopulatedAriaLabel() {
+    /**
+     * Generate the prepopulated aria label for the vector,
+     * with the math details converted into spoken words.
+     */
+    async function getPrepopulatedAriaLabel() {
         let visiblelabel = "";
         if (labels && labels.length > 0) {
             visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
 
-        let str = `Vector${visiblelabel} from (${tail[0]}, ${tail[1]}) to (${tip[0]}, ${tip[1]})`;
+        let str = await generateSpokenMathDetails(
+            `Vector${visiblelabel} from (${tail[0]}, ${tail[1]}) to (${tip[0]}, ${tip[1]})`,
+        );
 
         const vectorAppearance =
             generateLockedFigureAppearanceDescription(lineColor);
@@ -157,7 +164,8 @@ const LockedVectorSettings = (props: Props) => {
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
-                    onChange={handleColorChange}
+                    // TODO(LEMS-2656): remove TS suppression
+                    onChange={handleColorChange as any}
                 />
             </View>
 
@@ -214,7 +222,7 @@ const LockedVectorSettings = (props: Props) => {
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}
@@ -234,9 +242,12 @@ const LockedVectorSettings = (props: Props) => {
                         <LockedLabelSettings
                             {...label}
                             expanded={true}
-                            onChangeProps={(newLabel: LockedLabelType) => {
-                                handleLabelChange(newLabel, labelIndex);
-                            }}
+                            // TODO(LEMS-2656): remove TS suppression
+                            onChangeProps={
+                                ((newLabel: LockedLabelType) => {
+                                    handleLabelChange(newLabel, labelIndex);
+                                }) as any
+                            }
                             onRemove={() => {
                                 handleLabelRemove(labelIndex);
                             }}

@@ -27,6 +27,10 @@ import type {
     PerseusDependenciesV2,
     SharedRendererProps,
 } from "./types";
+import type {
+    GetPromptJSONInterface,
+    RendererPromptJSON,
+} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     KeypadContextRendererInterface,
@@ -72,7 +76,10 @@ type SerializedState = {
 
 export class ServerItemRenderer
     extends React.Component<Props, State>
-    implements RendererInterface, KeypadContextRendererInterface
+    implements
+        RendererInterface,
+        KeypadContextRendererInterface,
+        GetPromptJSONInterface
 {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -292,6 +299,10 @@ export class ServerItemRenderer
 
     getNumHints(): number {
         return this.props.item.hints.length;
+    }
+
+    getPromptJSON(): RendererPromptJSON {
+        return this.questionRenderer.getPromptJSON();
     }
 
     /**

@@ -17,7 +17,7 @@
         /* Type Checking */
         "strict": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "strictPropertyInitialization": true,
         "strictBindCallApply": true,
         "noImplicitAny": false,

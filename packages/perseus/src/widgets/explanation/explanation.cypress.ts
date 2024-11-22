@@ -16,7 +16,7 @@ describe("Explanation Widget", () => {
 
     beforeEach(() => {
         Dependencies.setDependencies(cypressTestDependencies);
-        Perseus.init({skipMathJax: true});
+        Perseus.init();
     });
 
     it("prevents interacting with actionable items within content when COLLAPSED (initial state)", () => {

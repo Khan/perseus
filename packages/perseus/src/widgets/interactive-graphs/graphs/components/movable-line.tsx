@@ -50,12 +50,14 @@ export const MovableLine = (props: Props) => {
     const {visiblePoint: visiblePoint1, focusableHandle: focusableHandle1} =
         useControlPoint({
             point: start,
+            sequenceNumber: 1,
             color,
             onMove: (p) => onMovePoint(0, p),
         });
     const {visiblePoint: visiblePoint2, focusableHandle: focusableHandle2} =
         useControlPoint({
             point: end,
+            sequenceNumber: 2,
             color,
             onMove: (p) => onMovePoint(1, p),
         });

@@ -31,6 +31,8 @@ export function V2KeypadWithMathquill() {
                 mathFieldWrapperRef.current,
                 "en",
                 mockStrings,
+                // TODO(LEMS-2656): remove TS suppression
+                // @ts-expect-error: Type 'EditableMathQuill' is not assignable to type 'MathFieldInterface'.
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {

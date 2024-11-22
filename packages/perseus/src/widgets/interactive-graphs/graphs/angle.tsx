@@ -103,6 +103,7 @@ function AngleGraph(props: AngleGraphProps) {
             {/* vertex */}
             <MovablePoint
                 point={coords[1]}
+                sequenceNumber={1}
                 constrain={(p) => p}
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(1, destination))
@@ -111,6 +112,7 @@ function AngleGraph(props: AngleGraphProps) {
             {/* side 1 */}
             <MovablePoint
                 point={coords[0]}
+                sequenceNumber={2}
                 constrain={getAngleSideConstraint(
                     coords[0],
                     coords[1],
@@ -123,6 +125,7 @@ function AngleGraph(props: AngleGraphProps) {
             {/* side 2 */}
             <MovablePoint
                 point={coords[2]}
+                sequenceNumber={3}
                 constrain={getAngleSideConstraint(
                     coords[2],
                     coords[1],

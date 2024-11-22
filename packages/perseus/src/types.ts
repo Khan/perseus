@@ -15,6 +15,7 @@ import type {
     UserInputArray,
     UserInputMap,
 } from "./validation.types";
+import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -88,6 +89,7 @@ export interface Widget {
 
     showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
     examples?: () => ReadonlyArray<string>;
+    getPromptJSON?: () => WidgetPromptJSON;
 }
 
 export type ImageDict = {
@@ -572,7 +574,7 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
-export type WidgetValidatorFunction = (
+export type WidgetScorerFunction = (
     // The user data needed to score
     userInput: UserInput,
     // The scoring criteria to score against
@@ -621,7 +623,7 @@ export type WidgetExports<
     static renders  */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
-    validator?: WidgetValidatorFunction;
+    scorer?: WidgetScorerFunction;
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,
     ) => string | null | undefined;

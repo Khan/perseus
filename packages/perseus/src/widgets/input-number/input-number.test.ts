@@ -12,8 +12,8 @@ import {mockStrings} from "../../strings";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import InputNumber from "./input-number";
-import inputNumberValidator from "./input-number-validator";
 import {question3 as question} from "./input-number.testdata";
+import scoreInputNumber from "./score-input-number";
 
 import type {
     PerseusInputNumberWidgetOptions,
@@ -237,7 +237,7 @@ describe("input-number", function () {
         if (!transform) {
             throw new Error("transform not defined");
         }
-        const widgetProps = transform(editorProps, mockStrings);
+        const widgetProps = transform(editorProps);
         expect(_.has(widgetProps, "value")).toBe(false);
     });
 });
@@ -250,7 +250,7 @@ describe("invalid", function () {
     });
 
     it("should handle invalid answers with no error callback", function () {
-        const err = inputNumberValidator(
+        const err = scoreInputNumber(
             {currentValue: "x+1"},
             options,
             mockStrings,

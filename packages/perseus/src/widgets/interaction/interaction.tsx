@@ -8,7 +8,8 @@ import _ from "underscore";
 import Graphie from "../../components/graphie";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction/interaction-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";
 import type {
@@ -16,6 +17,7 @@ import type {
     PerseusInteractionWidgetOptions,
 } from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 // @ts-expect-error - TS2339 - Property 'Label' does not exist on type 'typeof Graphie'.
 const Label = Graphie.Label;
@@ -248,6 +250,10 @@ class Interaction extends React.Component<Props, State> implements Widget {
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
+
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
+    }
 
     render(): React.ReactNode {
         const range = this.props.graph.range;
@@ -806,6 +812,6 @@ export default {
     widget: Interaction,
     transform: _.identity,
     hidden: true,
-    // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(),
-} as WidgetExports<typeof Interaction>;
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof Interaction>;

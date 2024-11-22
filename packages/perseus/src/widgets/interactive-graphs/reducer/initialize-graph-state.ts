@@ -75,6 +75,7 @@ export function initializeGraphState(
                 showRemovePointButton: false,
                 interactionMode: "mouse",
                 showKeyboardInteractionInvitation: false,
+                closedPolygon: false,
             };
         case "point":
             return {

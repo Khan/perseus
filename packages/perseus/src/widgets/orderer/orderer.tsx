@@ -12,8 +12,9 @@ import {Log} from "../../logging/log";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 
-import {ordererValidator} from "./orderer-validator";
+import {scoreOrderer} from "./score-orderer";
 
 import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
 import type {
@@ -26,6 +27,7 @@ import type {
     PerseusOrdererRubric,
     PerseusOrdererUserInput,
 } from "../../validation.types";
+import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type PlaceholderCardProps = {
@@ -641,6 +643,10 @@ class Orderer
         };
     }
 
+    getPromptJSON(): OrdererPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
+
     render(): React.ReactNode {
         // This is the card we are currently dragging
         const dragging = this.state.dragging && (
@@ -790,5 +796,7 @@ export default {
     hidden: true,
     widget: Orderer,
     isLintable: true,
-    validator: ordererValidator,
-} as WidgetExports<typeof Orderer>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusOrdererUserInput
+    scorer: scoreOrderer,
+} satisfies WidgetExports<typeof Orderer>;

@@ -3,8 +3,9 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {ApiOptions} from "../../perseus-api";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
-import dropdownValidator from "./dropdown-validator";
+import scoreDropdown from "./score-dropdown";
 
 import type {PerseusDropdownWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -12,6 +13,7 @@ import type {
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
 } from "../../validation.types";
+import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
 type Props = WidgetProps<RenderProps, PerseusDropdownRubric> & {
     selected: number;
@@ -54,6 +56,10 @@ class Dropdown extends React.Component<Props> implements Widget {
 
     getUserInput(): PerseusDropdownUserInput {
         return {value: this.props.selected};
+    }
+
+    getPromptJSON(): DropdownPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     render(): React.ReactNode {
@@ -118,5 +124,7 @@ export default {
     accessible: true,
     widget: Dropdown,
     transform: optionsTransform,
-    validator: dropdownValidator,
-} as WidgetExports<typeof Dropdown>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusDropdownUserInput'.
+    scorer: scoreDropdown,
+} satisfies WidgetExports<typeof Dropdown>;

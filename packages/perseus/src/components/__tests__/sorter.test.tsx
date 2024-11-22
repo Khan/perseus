@@ -23,7 +23,6 @@ describe("sorter widget", () => {
             ...testDependencies,
             TeX: ({
                 children,
-                // alias onRender to onLoad to quiet the overzealous testing-library linter
                 onRender: onLoad,
             }: {
                 children: React.ReactNode;

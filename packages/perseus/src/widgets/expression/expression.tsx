@@ -16,9 +16,10 @@ import {useDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions, ClassNames as ApiClassNames} from "../../perseus-api";
 import a11y from "../../util/a11y";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
-import expressionValidator from "./expression-validator";
 import getDecimalSeparator from "./get-decimal-separator";
+import scoreExpression from "./score-expression";
 
 import type {DependenciesContext} from "../../dependencies";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
@@ -27,6 +28,7 @@ import type {
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
 } from "../../validation.types";
+import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -191,6 +193,10 @@ export class Expression
         return Expression.getUserInputFromProps(this.props);
     }
 
+    getPromptJSON(): ExpressionPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
+
     change: (...args: any) => any | undefined = (...args: any) => {
         return Changeable.change.apply(this, args);
     };
@@ -244,12 +250,16 @@ export class Expression
         return true;
     };
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'InputPath'.
     focusInputPath(inputPath: InputPath) {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     }
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'InputPath'.
     blurInputPath(inputPath: InputPath) {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
@@ -274,7 +284,7 @@ export class Expression
         return [[]];
     };
 
-    setInputValue(path: FocusPath, newValue: string, cb: () => void) {
+    setInputValue(path: FocusPath, newValue: string, cb?: () => void) {
         this.props.onChange(
             {
                 value: newValue,
@@ -545,8 +555,12 @@ export default {
 
     // For use by the editor
     isLintable: true,
-    validator: expressionValidator,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
+    scorer: scoreExpression,
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.
     getOneCorrectAnswerFromRubric(
         rubric: PerseusExpressionRubric,
     ): string | null | undefined {
@@ -558,4 +572,4 @@ export default {
         }
         return correctAnswers[0].value;
     },
-} as WidgetExports<typeof ExpressionWithDependencies>;
+} satisfies WidgetExports<typeof ExpressionWithDependencies>;

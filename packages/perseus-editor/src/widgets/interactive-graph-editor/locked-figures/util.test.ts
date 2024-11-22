@@ -1,5 +1,6 @@
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
 } from "./util";
 
@@ -117,7 +118,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
         expect(description).toBe(`. Appearance solid gray.`);
     });
 
-    test.each([["red"], ["blue"], ["green"], ["purple"], ["orange"]])(
+    test.each([["red"], ["blue"], ["green"], ["purple"], ["orange"]] as const)(
         `should return a string with a %s color and a solid stroke style`,
         (color: LockedFigureColor) => {
             const description =
@@ -131,7 +132,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
     test.each([
         ["blue", "solid"],
         ["green", "dashed"],
-    ])(
+    ] as const)(
         `should return a string with color of %s and a stroke style of %s`,
         (color: LockedFigureColor, strokeStyle: LockedLineStyle) => {
             const description = generateLockedFigureAppearanceDescription(
@@ -158,7 +159,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
     test.each([
         ["blue", "solid", "none"],
         ["red", "dashed", "none"],
-    ])(
+    ] as const)(
         `should return a string with a %s color, %s stroke and no fill`,
         (
             color: LockedFigureColor,
@@ -192,7 +193,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
     test.each([
         ["pink", "solid", "white"],
         ["red", "dashed", "white"],
-    ])(
+    ] as const)(
         `should return a string with a %s color, %s stroke and a white fill`,
         (
             color: LockedFigureColor,
@@ -239,7 +240,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
         ["red", "dashed", "solid"],
         ["green", "dashed", "translucent"],
         ["purple", "solid", "translucent"],
-    ])(
+    ] as const)(
         `should return a string with a %s color, %s stroke, and a %s fill`,
         (
             color: LockedFigureColor,
@@ -257,4 +258,85 @@ describe("generateLockedFigureAppearanceDescription", () => {
             );
         },
     );
+});
+
+// TODO(LEMS-2616): Update these tests to mock SpeechRuleEngine.setup()
+// so that the tests don't have to make HTTP requests.
+describe("generateMathDetails", () => {
+    test("should convert TeX to spoken language (root, fraction)", async () => {
+        const mathString = "$\\sqrt{\\frac{1}{2}}$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("StartRoot one half EndRoot");
+    });
+
+    test("should convert TeX to spoken language (exponent)", async () => {
+        const mathString = "$x^{2}$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("x Superscript 2");
+    });
+
+    test("should convert TeX to spoken language (negative)", async () => {
+        const mathString = "$-2$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("negative 2");
+    });
+
+    test("should converte TeX to spoken language (subtraction)", async () => {
+        const mathString = "$2-1$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("2 minus 1");
+    });
+
+    test("should convert TeX to spoken language (normal words)", async () => {
+        const mathString = "$\\text{square b}$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("square b");
+    });
+
+    test("should convert TeX to spoken language (random letters)", async () => {
+        const mathString = "$cat$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("c a t");
+    });
+
+    test("should keep non-math text as is", async () => {
+        const mathString = "Circle with radius $\\frac{1}{2}$ units";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("Circle with radius one half units");
+    });
+
+    test("should read dollar signs as dollars inside tex", async () => {
+        const mathString = "This sandwich costs ${$}12.34$";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("This sandwich costs dollar sign 12.34");
+    });
+
+    test("should read dollar signs as dollars outside tex", async () => {
+        const mathString = "This sandwich costs \\$12.34";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("This sandwich costs $12.34");
+    });
+
+    test("should read curly braces", async () => {
+        const mathString = "Hello}{";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("Hello}{");
+    });
+
+    test("should read backslashes", async () => {
+        const mathString = "\\";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("\\");
+    });
 });
