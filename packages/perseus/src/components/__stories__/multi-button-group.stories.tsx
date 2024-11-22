@@ -1,19 +1,21 @@
-import {View, type PropsFor} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import MultiButtonGroup from "../multi-button-group";
 
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {Meta, StoryObj} from "@storybook/react";
 
 const meta: Meta = {
-    title: "Perseus/Components/Multi-Button Group",
+    title: "Perseus/Components/Muli-Button Group",
     component: MultiButtonGroup,
     args: {
         allowEmpty: true,
         buttons: [],
     },
+    // @ts-expect-error: Type 'Args' is missing the following properties from type 'Pick<Props, "onChange" | "buttons">': onChange, buttons
     render: function WithState(props: PropsFor<typeof MultiButtonGroup>) {
         const [values, updateValues] = React.useState(props.values);
         return (
@@ -51,6 +53,7 @@ export const ButtonsWithTitles: Story = {
         ],
     },
 };
+
 // Putting all of these variants together in one story so that we only need
 // one snapshot test to capture all of them.
 /**

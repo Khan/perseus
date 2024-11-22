@@ -1,4 +1,4 @@
-import {View, type PropsFor} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
@@ -7,39 +7,54 @@ import ButtonGroup from "../button-group";
 
 import type {Meta, StoryObj} from "@storybook/react";
 
-const meta: Meta = {
+type StoryArgs = StoryObj<ButtonGroup>;
+
+type Story = Meta<ButtonGroup>;
+
+export default {
     title: "Perseus/Components/Button Group",
-    component: ButtonGroup,
-    render: function WithState(props: PropsFor<typeof ButtonGroup>) {
-        const [value, updateValue] = React.useState(props.value);
-        return <ButtonGroup {...props} value={value} onChange={updateValue} />;
-    },
+} as Story;
+
+const HarnassedButtonGroup = (
+    props: Pick<React.ComponentProps<typeof ButtonGroup>, "buttons">,
+) => {
+    const [value, updateValue] = React.useState(
+        null as string | null | undefined,
+    );
+
+    return (
+        <ButtonGroup
+            buttons={props.buttons}
+            value={value}
+            onChange={(newValue) => {
+                updateValue(newValue);
+            }}
+        />
+    );
 };
-export default meta;
 
-type Story = StoryObj<typeof ButtonGroup>;
-
-export const ButtonsWithNoTitles: Story = {
-    args: {
-        buttons: [
-            {value: "One", content: "Item #1"},
-            {value: "Two", content: "Item #2"},
-            {value: "Three", content: "Item #3"},
-        ],
-    },
+export const ButtonsWithNoTitles = (args: StoryArgs): React.ReactElement => {
+    return (
+        <HarnassedButtonGroup
+            buttons={[
+                {value: "One", content: "Item #1"},
+                {value: "Two", content: "Item #2"},
+                {value: "Three", content: "Item #3"},
+            ]}
+        />
+    );
 };
 
-/**
- * Hover over the buttons to see their titles.
- */
-export const ButtonsWithTitles: Story = {
-    args: {
-        buttons: [
-            {value: "One", content: "Item #1", title: "The first item"},
-            {value: "Two", content: "Item #2", title: "The second item"},
-            {value: "Three", content: "Item #3", title: "The third item"},
-        ],
-    },
+export const ButtonsWithTitles = (args: StoryArgs): React.ReactElement => {
+    return (
+        <HarnassedButtonGroup
+            buttons={[
+                {value: "One", content: "Item #1", title: "The first item"},
+                {value: "Two", content: "Item #2", title: "The second item"},
+                {value: "Three", content: "Item #3", title: "The third item"},
+            ]}
+        />
+    );
 };
 
 // Putting all of these variants together in one story so that we only need
