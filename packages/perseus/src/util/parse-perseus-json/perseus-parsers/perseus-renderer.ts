@@ -1,9 +1,4 @@
-import {
-    array,
-    object,
-    optional,
-    string,
-} from "../general-purpose-parsers";
+import {array, object, optional, string} from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseImages} from "./images-map";
