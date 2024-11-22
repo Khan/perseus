@@ -5,7 +5,6 @@ import {ServerItemRendererWithDebugUI} from "../../../../testing/server-item-ren
 import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
 import {
     itemWithInput,
-    itemWithInputNumber,
     itemWithLintingError,
     labelImageItem,
     itemWithImages,
@@ -26,10 +25,6 @@ export default {
 
 export const NumericInputItem = (args: StoryArgs): React.ReactElement => {
     return <ServerItemRendererWithDebugUI item={itemWithInput} />;
-};
-
-export const InputNumberItem = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={itemWithInputNumber} />;
 };
 
 export const LabelImageItem = (args: StoryArgs): React.ReactElement => {
