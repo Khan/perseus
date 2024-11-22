@@ -20,9 +20,11 @@ export function parseWidget<Type extends string, Options>(
         alignment: optional(string),
         options: parseOptions,
         key: optional(number),
-        version: object({
-            major: number,
-            minor: number,
-        }),
+        version: optional(
+            object({
+                major: number,
+                minor: number,
+            }),
+        ),
     });
 }

@@ -6,6 +6,7 @@ import {
     enumeration,
     number,
     object,
+    optional,
     pipeParsers,
     record,
 } from "../general-purpose-parsers";
@@ -22,10 +23,12 @@ export const parsePerseusItem: Parser<PerseusItem> = object({
     answerArea: pipeParsers(object({}))
         .then(migrateAnswerArea)
         .then(record(enumeration(...ItemExtras), boolean)).parser,
-    itemDataVersion: object({
-        major: number,
-        minor: number,
-    }),
+    itemDataVersion: optional(
+        object({
+            major: number,
+            minor: number,
+        }),
+    ),
     // Deprecated field
     answer: any,
 });
