@@ -10,6 +10,7 @@ import {
     pipeParsers,
     record,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseHint} from "./hint";
 import {parsePerseusRenderer} from "./perseus-renderer";
@@ -19,8 +20,8 @@ import type {ParseContext, Parser, ParseResult} from "../parser-types";
 
 export const parsePerseusItem: Parser<PerseusItem> = object({
     question: parsePerseusRenderer,
-    hints: array(parseHint),
-    answerArea: pipeParsers(object({}))
+    hints: defaulted(array(parseHint), () => []),
+    answerArea: pipeParsers(defaulted(object({}), () => ({})))
         .then(migrateAnswerArea)
         .then(record(enumeration(...ItemExtras), boolean)).parser,
     itemDataVersion: optional(
