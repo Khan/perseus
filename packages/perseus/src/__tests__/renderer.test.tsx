@@ -46,7 +46,11 @@ jest.mock("../translation-linter", () => {
 
 describe("renderer", () => {
     beforeAll(() => {
+        // TODO(LEMS-2656): remove TS suppression
+        // @ts-expect-error: InputNumberExport is not assignable to type WidgetExports
         registerWidget("input-number", InputNumberExport);
+        // TODO(LEMS-2656): remove TS suppression
+        // @ts-expect-error: RadioWidgetExport is not assignable to type WidgetExports
         registerWidget("radio", RadioWidgetExport);
     });
 
