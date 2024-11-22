@@ -2,7 +2,11 @@ import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 
-import {dropdownWithVisibleLabel, question1} from "./dropdown.testdata";
+import {
+    dropdownWithVisibleLabel,
+    inlineDropdownWithVisibleLabel,
+    question1,
+} from "./dropdown.testdata";
 
 export default {
     title: "Perseus/Widgets/Dropdown",
@@ -18,4 +22,10 @@ export const DropdownWithVisibleLabel = (
     args: StoryArgs,
 ): React.ReactElement => {
     return <RendererWithDebugUI question={dropdownWithVisibleLabel} />;
+};
+
+export const InlineDropdownWithVisibleLabel = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return <RendererWithDebugUI question={inlineDropdownWithVisibleLabel} />;
 };
