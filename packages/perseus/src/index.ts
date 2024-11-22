@@ -18,7 +18,6 @@ export {default as ServerItemRenderer} from "./server-item-renderer";
 export {default as HintsRenderer} from "./hints-renderer";
 export {default as HintRenderer} from "./hint-renderer";
 export {default as Renderer} from "./renderer";
-export {scorePerseusItem} from "./renderer-util";
 
 /**
  * Widgets
@@ -228,7 +227,6 @@ export type {
     PerseusWidgetsMap,
     MultiItem,
 } from "./perseus-types";
-export type {UserInputMap} from "./validation.types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";
 
