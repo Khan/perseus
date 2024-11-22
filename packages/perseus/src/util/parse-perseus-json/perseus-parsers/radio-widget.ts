@@ -13,13 +13,14 @@ import {parseWidgetsMap} from "./widgets-map";
 
 import type {RadioWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 export const parseRadioWidget: Parser<RadioWidget> = parseWidget(
     constant("radio"),
     object({
         choices: array(
             object({
-                content: string,
+                content: defaulted(string, () => ""),
                 clue: optional(string),
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),
