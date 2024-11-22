@@ -101,8 +101,6 @@ describe("parseWidgetsMap", () => {
                     choices: [],
                     placeholder: "",
                     static: false,
-                    ariaLabel: "",
-                    visibleLabel: undefined,
                 },
             },
         };

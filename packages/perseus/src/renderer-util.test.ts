@@ -18,7 +18,6 @@ import type {UserEvent} from "@testing-library/user-event";
 const testDropdownWidget: DropdownWidget = {
     type: "dropdown",
     options: {
-        ariaLabel: "",
         choices: [
             {
                 content: "Test choice 1",

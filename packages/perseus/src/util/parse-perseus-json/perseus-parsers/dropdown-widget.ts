@@ -16,7 +16,7 @@ export const parseDropdownWidget: Parser<DropdownWidget> = parseWidget(
     constant("dropdown"),
     object({
         placeholder: string,
-        ariaLabel: string,
+        ariaLabel: optional(string),
         visibleLabel: optional(string),
         static: boolean,
         choices: array(

@@ -4,6 +4,7 @@ import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import {PerseusI18nContext} from "../../components/i18n-context";
 import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
@@ -29,6 +30,9 @@ type DefaultProps = {
 };
 
 class Dropdown extends React.Component<Props> implements Widget {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         choices: [],
         selected: 0,
@@ -110,7 +114,10 @@ class Dropdown extends React.Component<Props> implements Widget {
                             }
                             selectedValue={String(this.props.selected)}
                             disabled={this.props.apiOptions.readOnly}
-                            aria-label={this.props.ariaLabel}
+                            aria-label={
+                                this.props.ariaLabel ||
+                                this.context.strings.selectAnAnswer
+                            }
                             aria-labelledby={ids.get("dropdown-label")}
                             // This is currently necessary for SRs to read the labels properly.
                             // However, WB is working on a change to add the "combobox" role to

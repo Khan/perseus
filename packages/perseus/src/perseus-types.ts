@@ -374,7 +374,7 @@ export type PerseusDropdownWidgetOptions = {
     // Translatable Text; visible label for the dropdown
     visibleLabel?: string;
     // Translatable Text; aria label that screen readers will read
-    ariaLabel: string;
+    ariaLabel?: string;
 };
 
 export type PerseusDropdownChoice = {

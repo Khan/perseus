@@ -144,6 +144,7 @@ export type PerseusStrings = {
     }) => string;
     srInteractiveElements: ({elements}: {elements: string}) => string;
     srNoInteractiveElements: string;
+    selectAnAnswer: string;
 };
 
 /**
@@ -325,6 +326,7 @@ export const strings: {
     },
     srInteractiveElements: "Interactive elements: %(elements)s",
     srNoInteractiveElements: "No interactive elements",
+    selectAnAnswer: "Select an answer",
 };
 
 /**
@@ -487,4 +489,5 @@ export const mockStrings: PerseusStrings = {
     srPointAtCoordinates: ({num, x, y}) => `Point ${num} at ${x} comma ${y}`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
+    selectAnAnswer: "Select an answer",
 };

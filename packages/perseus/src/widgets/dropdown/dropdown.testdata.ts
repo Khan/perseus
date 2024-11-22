@@ -13,7 +13,6 @@ export const question1: PerseusRenderer = {
             options: {
                 static: false,
                 placeholder: "greater/less than or equal to",
-                ariaLabel: "Test ARIA label",
                 choices: [
                     {
                         content: "greater than or equal to",

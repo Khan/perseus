@@ -149,7 +149,8 @@ class DropdownEditor extends React.Component<Props> {
                                 href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
                                 target="_blank"
                             >
-                                this article.
+                                this article. If left blank, the value will
+                                default to "Select an answer".
                             </a>
                         </p>
                     </InfoTip>
