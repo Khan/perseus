@@ -36,6 +36,29 @@ const parseAnswerForm: Parser<PerseusExpressionAnswerForm> = object({
     ).parser,
 });
 
+const parseExpressionWidgetLatest: Parser<ExpressionWidget> = parseWidget(
+    constant("expression"),
+    object({
+        answerForms: array(parseAnswerForm),
+        functions: array(string),
+        times: boolean,
+        visibleLabel: optional(string),
+        ariaLabel: optional(string),
+        buttonSets: array(
+            enumeration(
+                "basic",
+                "basic+div",
+                "trig",
+                "prealgebra",
+                "logarithms",
+                "basic relations",
+                "advanced relations",
+            ),
+        ),
+        buttonsVisible: optional(enumeration("always", "never", "focused")),
+    }),
+);
+
 const parseExpressionWidgetV0 = parseWidgetWithVersion(
     optional(object({major: constant(0), minor: number})),
     constant("expression"),
@@ -59,31 +82,8 @@ const parseExpressionWidgetV0 = parseWidgetWithVersion(
             ),
         ),
         buttonsVisible: optional(enumeration("always", "never", "focused")),
-    })
+    }),
 );
-
-const parseExpressionWidgetLatest: Parser<ExpressionWidget> = parseWidget(
-    constant("expression"),
-    object({
-        answerForms: array(parseAnswerForm),
-        functions: array(string),
-        times: boolean,
-        visibleLabel: optional(string),
-        ariaLabel: optional(string),
-        buttonSets: array(
-            enumeration(
-                "basic",
-                "basic+div",
-                "trig",
-                "prealgebra",
-                "logarithms",
-                "basic relations",
-                "advanced relations",
-            ),
-        ),
-        buttonsVisible: optional(enumeration("always", "never", "focused")),
-    })
-)
 
 function migrateV0ToLatest(widget: ParsedValue<typeof parseExpressionWidgetV0>, ctx: ParseContext): ParseResult<ExpressionWidget> {
     const {options} = widget;
