@@ -5,6 +5,7 @@ import {useControlPoint} from "./use-control-point";
 import type {CSSCursor} from "./css-cursor";
 import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
+import { AriaLive } from "../../types";
 
 type Props = {
     point: vec.Vector2;
@@ -17,13 +18,16 @@ type Props = {
      * interactive figure on the graph.
      */
     sequenceNumber: number;
-    onMove?: (newPoint: vec.Vector2) => unknown;
-    onClick?: () => unknown;
+    ariaDescribedBy?: string;
+    ariaLabel?: string;
+    ariaLive?: AriaLive;
     color?: string;
-    cursor?: CSSCursor | undefined;
     constrain?: KeyboardMovementConstraint;
-    onFocus?: ((event: React.FocusEvent) => unknown) | undefined;
+    cursor?: CSSCursor | undefined;
     onBlur?: ((event: React.FocusEvent) => unknown) | undefined;
+    onClick?: () => unknown;
+    onFocus?: ((event: React.FocusEvent) => unknown) | undefined;
+    onMove?: (newPoint: vec.Vector2) => unknown;
 };
 
 export const MovablePoint = React.forwardRef(
