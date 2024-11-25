@@ -5,7 +5,7 @@ import _ from "underscore";
 import EditorPage from "./editor-page";
 
 type Props = {
-    componentClass: React.ComponentType;
+    componentClass: any;
 };
 
 type DefaultProps = {

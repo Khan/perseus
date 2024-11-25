@@ -25,10 +25,12 @@
 import * as React from "react";
 
 type Props = {
-    onDrop: (any) => boolean;
+    onDrop: (e: DragEvent) => void;
     component: any;
     shouldDragHighlight: (any) => boolean;
     style: any;
+    children: any;
+    className: string;
 };
 
 type DefaultProps = {
@@ -36,23 +38,26 @@ type DefaultProps = {
     component: Props["component"];
     shouldDragHighlight: Props["shouldDragHighlight"];
     style: Props["style"];
+    children: Props["children"];
+    className: Props["className"];
 };
 
-export class DragTarget extends React.Component<Props> {
-    dragHover: any;
-
+type State = {
+    dragHover: boolean;
+};
+export class DragTarget extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
-        onDrop: () => true,
+        onDrop: () => {},
         component: "div",
         shouldDragHighlight: () => true,
         style: {},
+        children: {},
+        className: "",
     };
 
-    getInitialState() {
-        return {dragHover: false};
-    }
+    state: State = {dragHover: false};
 
-    handleDrop(e) {
+    handleDrop(e: DragEvent) {
         e.stopPropagation();
         e.preventDefault();
         this.setState({dragHover: false});
@@ -76,12 +81,13 @@ export class DragTarget extends React.Component<Props> {
     }
 
     render() {
-        const opacity = this.dragHover ? {opacity: 0.3} : {};
-        const Component = this.props.component;
-
-        const forwardProps = Object.assign({}, this.props);
-        delete forwardProps.component;
-        delete forwardProps.shouldDragHighlight;
+        const opacity = this.state.dragHover ? {opacity: 0.3} : {};
+        const {
+            component: Component,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            shouldDragHighlight,
+            ...forwardProps
+        } = this.props;
 
         return (
             <Component
