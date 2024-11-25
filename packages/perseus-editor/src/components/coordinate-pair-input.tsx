@@ -15,7 +15,7 @@ type Props = {
     labels?: [string, string];
     error?: boolean;
     style?: StyleType;
-    onChange: (newCoord: Coord) => void;
+    onChange: (newCoord: Coord) => unknown;
 };
 
 const CoordinatePairInput = (props: Props) => {
@@ -52,6 +52,8 @@ const CoordinatePairInput = (props: Props) => {
         newCoords[coordIndex] = +newValue;
         onChange(newCoords);
     }
+
+    console.log("error", error);
 
     return (
         <View style={[styles.row, style]}>
