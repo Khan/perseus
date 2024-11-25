@@ -98,9 +98,9 @@ type State = {
 
 // Assert that the PerseusGradedGroupWidgetOptions parsed from JSON can be
 // passed as props to this component. This ensures that the
-// PerseusMatrixWidgetOptions stays in sync with the prop types. The
+// PerseusGradedGroupWidgetOptions stays in sync with the prop types. The
 // PropsFor<Component> type takes defaultProps into account, which is important
-// because PerseusMatrixWidgetOptions has optional fields which receive defaults
+// because PerseusGradedGroupWidgetOptions has optional fields which receive defaults
 // via defaultProps.
 0 as any as WidgetProps<PerseusGradedGroupWidgetOptions, PerseusGradedGroupRubric> satisfies PropsFor<typeof GradedGroup>;
 
