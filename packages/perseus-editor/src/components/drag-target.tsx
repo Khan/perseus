@@ -26,20 +26,16 @@ import * as React from "react";
 
 type Props = {
     onDrop: (e: DragEvent) => void;
-    component: any;
+    component?: any;
     shouldDragHighlight: (any) => boolean;
-    style: any;
-    children: any;
-    className: string;
+    style?: any;
+    children?: any;
+    className?: string;
 };
 
 type DefaultProps = {
-    onDrop: Props["onDrop"];
     component: Props["component"];
     shouldDragHighlight: Props["shouldDragHighlight"];
-    style: Props["style"];
-    children: Props["children"];
-    className: Props["className"];
 };
 
 type State = {
@@ -47,15 +43,22 @@ type State = {
 };
 export class DragTarget extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
-        onDrop: () => {},
         component: "div",
         shouldDragHighlight: () => true,
-        style: {},
-        children: {},
-        className: "",
     };
 
-    state: State = {dragHover: false};
+    constructor(props) {
+        super(props);
+        this.state = {
+            dragHover: false,
+        };
+
+        this.handleDrop = this.handleDrop.bind(this);
+        this.handleDragEnd = this.handleDragEnd.bind(this);
+        this.handleDragOver = this.handleDragOver.bind(this);
+        this.handleDragLeave = this.handleDragLeave.bind(this);
+        this.handleDragEnter = this.handleDragEnter.bind(this);
+    }
 
     handleDrop(e: DragEvent) {
         e.stopPropagation();
