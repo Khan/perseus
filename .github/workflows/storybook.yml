@@ -43,4 +43,3 @@ jobs:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
                   autoAcceptChanges: "main"
-                  onlyStoryFiles: "**/*regression.stories.tsx"
