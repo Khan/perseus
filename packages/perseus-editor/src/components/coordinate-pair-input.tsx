@@ -53,8 +53,6 @@ const CoordinatePairInput = (props: Props) => {
         onChange(newCoords);
     }
 
-    console.log("error", error);
-
     return (
         <View style={[styles.row, style]}>
             <LabelMedium tag="label" style={styles.row}>
