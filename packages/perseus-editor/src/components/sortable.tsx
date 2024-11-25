@@ -4,19 +4,20 @@ import ReactDOM from "react-dom";
 
 // Need to update these values.
 type Props = {
-    className: string;
+    className?: string;
     components: any[];
     onReorder: (i: any[]) => void;
-    style: any;
+    style?: any;
     verify: (i: any) => boolean;
 };
 
 type DefaultProps = {
-    className: Props["className"];
-    components: Props["components"];
-    onReorder: Props["onReorder"];
-    style: Props["style"];
     verify: Props["verify"];
+};
+
+type State = {
+    dragging: number;
+    components: any[];
 };
 
 /**
@@ -26,25 +27,26 @@ type DefaultProps = {
  * As far as I can tell, this one is only used in ExpressionEditor.
  */
 // eslint-disable-next-line react/no-unsafe
-export class SortableArea extends React.Component<Props> {
-    dragging: any;
+export class SortableArea extends React.Component<Props, State> {
     _dragItems: any;
 
     static defaultProps: DefaultProps = {
-        className: "",
-        components: [],
-        onReorder: () => true,
-        style: {},
         verify: () => true,
     };
 
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             // index of the component being dragged
-            dragging: null,
+            dragging: -1,
             components: this.props.components,
         };
+
+        this.onDrop = this.onDrop.bind(this);
+        this.onDragStart = this.onDragStart.bind(this);
+        this.onDragEnter = this.onDragEnter.bind(this);
     }
+
     // Firefox refuses to drag an element unless you set data on it. Hackily
     // add data each time an item is dragged.
     componentDidMount() {
@@ -68,21 +70,21 @@ export class SortableArea extends React.Component<Props> {
 
     onDrop() {
         // tell the parent component
-        this.setState({dragging: null});
+        this.setState({dragging: -1});
         this.props.onReorder(this.props.components);
     }
 
     onDragEnter(enterIndex) {
         // When a label is first dragged it triggers a dragEnter with itself,
         // which we don't care about.
-        if (this.dragging === enterIndex) {
+        if (this.state.dragging === enterIndex) {
             return;
         }
 
         const newComponents = this.props.components.slice();
 
         // splice the tab out of its old position
-        const removed = newComponents.splice(this.dragging, 1);
+        const removed = newComponents.splice(this.state.dragging, 1);
         // ... and into its new position
         newComponents.splice(enterIndex, 0, removed[0]);
 
@@ -149,7 +151,7 @@ export class SortableArea extends React.Component<Props> {
                 area={this}
                 key={component.key}
                 draggable={component.props.draggable}
-                dragging={index === this.dragging}
+                dragging={index === this.state.dragging}
             />
         ));
         return (
