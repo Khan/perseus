@@ -1,3 +1,4 @@
+import ExpressionWidgetModule from "../../../widgets/expression/expression";
 import {
     array,
     boolean,
@@ -11,9 +12,7 @@ import {
     union,
 } from "../general-purpose-parsers";
 
-import {parseWidgetWithVersion, parseWidget} from "./widget";
-
-import Expression from "../../../widgets/expression/expression"
+import {parseWidgetWithVersion} from "./widget";
 
 import type {
     ExpressionWidget,
@@ -23,7 +22,7 @@ import type {
     ParseContext,
     ParsedValue,
     Parser,
-    ParseResult
+    ParseResult,
 } from "../parser-types";
 
 const parseAnswerForm: Parser<PerseusExpressionAnswerForm> = object({
@@ -36,28 +35,30 @@ const parseAnswerForm: Parser<PerseusExpressionAnswerForm> = object({
     ).parser,
 });
 
-const parseExpressionWidgetLatest: Parser<ExpressionWidget> = parseWidget(
-    constant("expression"),
-    object({
-        answerForms: array(parseAnswerForm),
-        functions: array(string),
-        times: boolean,
-        visibleLabel: optional(string),
-        ariaLabel: optional(string),
-        buttonSets: array(
-            enumeration(
-                "basic",
-                "basic+div",
-                "trig",
-                "prealgebra",
-                "logarithms",
-                "basic relations",
-                "advanced relations",
+const parseExpressionWidgetV1: Parser<ExpressionWidget> =
+    parseWidgetWithVersion(
+        object({major: constant(1), minor: number}),
+        constant("expression"),
+        object({
+            answerForms: array(parseAnswerForm),
+            functions: array(string),
+            times: boolean,
+            visibleLabel: optional(string),
+            ariaLabel: optional(string),
+            buttonSets: array(
+                enumeration(
+                    "basic",
+                    "basic+div",
+                    "trig",
+                    "prealgebra",
+                    "logarithms",
+                    "basic relations",
+                    "advanced relations",
+                ),
             ),
-        ),
-        buttonsVisible: optional(enumeration("always", "never", "focused")),
-    }),
-);
+            buttonsVisible: optional(enumeration("always", "never", "focused")),
+        }),
+    );
 
 const parseExpressionWidgetV0 = parseWidgetWithVersion(
     optional(object({major: constant(0), minor: number})),
@@ -85,11 +86,14 @@ const parseExpressionWidgetV0 = parseWidgetWithVersion(
     }),
 );
 
-function migrateV0ToLatest(widget: ParsedValue<typeof parseExpressionWidgetV0>, ctx: ParseContext): ParseResult<ExpressionWidget> {
+function migrateV0ToV1(
+    widget: ParsedValue<typeof parseExpressionWidgetV0>,
+    ctx: ParseContext,
+): ParseResult<ExpressionWidget> {
     const {options} = widget;
     return ctx.success({
         ...widget,
-        version: Expression.version,
+        version: ExpressionWidgetModule.version,
         options: {
             times: options.times,
             buttonSets: options.buttonSets,
@@ -107,9 +111,9 @@ function migrateV0ToLatest(widget: ParsedValue<typeof parseExpressionWidgetV0>, 
                 },
             ],
         },
-    })
+    });
 }
 
-export const parseExpressionWidget: Parser<ExpressionWidget> =
-    union(pipeParsers(parseExpressionWidgetV0).then(migrateV0ToLatest).parser)
-        .or(parseExpressionWidgetLatest).parser
+export const parseExpressionWidget: Parser<ExpressionWidget> = union(
+    parseExpressionWidgetV1,
+).or(pipeParsers(parseExpressionWidgetV0).then(migrateV0ToV1).parser).parser;

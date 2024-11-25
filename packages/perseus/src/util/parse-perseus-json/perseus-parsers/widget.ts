@@ -29,7 +29,11 @@ export function parseWidget<Type extends string, Options>(
     });
 }
 
-export function parseWidgetWithVersion<Version extends {major: number, minor: number} | undefined, Type extends string, Options>(
+export function parseWidgetWithVersion<
+    Version extends {major: number; minor: number} | undefined,
+    Type extends string,
+    Options,
+>(
     parseVersion: Parser<Version>,
     parseType: Parser<Type>,
     parseOptions: Parser<Options>,
