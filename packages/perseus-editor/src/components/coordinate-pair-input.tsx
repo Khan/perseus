@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     },
     textField: {
         width: spacing.xxxLarge_64,
+        border: "5px solid red",
     },
     errorField: {
         borderColor: wbColor.red,

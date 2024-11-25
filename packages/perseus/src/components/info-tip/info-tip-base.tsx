@@ -18,6 +18,7 @@ const InfoTipBase = (props: Props) => {
         >
             <PhosphorIcon
                 size="small"
+                color="red"
                 icon={questionIcon}
                 style={styles.spacingLeft}
             />

@@ -133,7 +133,7 @@ class Icon extends React.Component<Props> {
                 viewBox={`${xMin} ${yMin} ${icon.width} ${icon.height}`}
             >
                 {!!title && <title>{title}</title>}
-                <path className={pathClassName} fill={color} d={icon.path} />
+                <path className={pathClassName} fill={"red"} d={icon.path} />
             </svg>
         );
     }
