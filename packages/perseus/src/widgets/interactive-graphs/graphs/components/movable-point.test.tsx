@@ -285,4 +285,80 @@ describe("MovablePoint", () => {
 
         expect(focusSpy).toHaveBeenCalledTimes(1);
     });
+
+    describe("accessibility", () => {
+        it("uses the default ariaLabel when not provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} sequenceNumber={1} />
+                </Mafs>
+            );
+
+            expect(screen.getByLabelText("Point 1 at 0 comma 0")).toBeInTheDocument();
+        });
+
+        it("uses the ariaLabel when provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        ariaLabel="Custom aria label"
+                    />
+                </Mafs>
+            );
+
+            expect(screen.getByLabelText("Custom aria label")).toBeInTheDocument();
+        })
+
+        it("uses the ariaDescribedBy when provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        ariaDescribedBy="description"
+                    />
+                    <p id="description">Aria is described by me</p>
+                </Mafs>
+            );
+
+            const pointElement = screen.getByRole("button", { name: "Point 1 at 0 comma 0" });
+            expect(pointElement).toHaveAttribute("aria-describedby", "description");
+
+            const descriptionElement = screen.getByText("Aria is described by me");
+            expect(descriptionElement).toBeInTheDocument();
+        });
+
+        it("uses the ariaLive when provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        ariaLive="assertive"
+                    />
+                </Mafs>
+            );
+
+            expect(screen.getByLabelText("Point 1 at 0 comma 0")).toHaveAttribute(
+                "aria-live",
+                "assertive",
+            );
+        });
+
+        it("uses the default ariaLive when not provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} sequenceNumber={1} />
+                </Mafs>
+            );
+
+            expect(screen.getByLabelText("Point 1 at 0 comma 0")).toHaveAttribute(
+                "aria-live",
+                "polite",
+            );
+        });
+    })
+
 });
