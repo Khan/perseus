@@ -104,4 +104,12 @@ describe("Dropdown widget", () => {
         // element), which is not actually focusable because it doesn't have a
         // tabindex.
     });
+
+    it("has an ARIA label", async () => {
+        // Arrange and Act
+        renderQuestion(question1);
+
+        // Assert
+        expect(screen.getByLabelText("Select an answer")).toBeInTheDocument();
+    });
 });
