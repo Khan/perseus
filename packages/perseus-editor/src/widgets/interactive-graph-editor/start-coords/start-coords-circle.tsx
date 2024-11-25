@@ -72,7 +72,7 @@ const StartCoordsCircle = (props: Props) => {
                 <Strut size={spacing.small_12} />
                 <ScrolllessNumberTextField
                     value={radiusState}
-                    onChange={(newValue) => handleRadiuschange(newValue)}
+                    onChange={handleRadiuschange}
                     style={styles.textField}
                 />
             </LabelLarge>

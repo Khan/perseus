@@ -15,7 +15,7 @@ type Props = {
     labels?: [string, string];
     error?: boolean;
     style?: StyleType;
-    onChange: (newCoord: Coord) => unknown;
+    onChange: (newCoord: Coord) => void;
 };
 
 const CoordinatePairInput = (props: Props) => {

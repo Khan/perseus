@@ -37,12 +37,7 @@ export const Controlled: StoryComponentType = {
     render: function Render() {
         const [value, setValue] = React.useState("");
 
-        return (
-            <ScrolllessNumberTextField
-                value={value}
-                onChange={(newValue) => setValue(newValue)}
-            />
-        );
+        return <ScrolllessNumberTextField value={value} onChange={setValue} />;
     },
 };
 
@@ -71,10 +66,7 @@ export const LongPageScroll: StoryComponentType = {
                     Observe that scrolling on the input field with a mouse wheel
                     changes the number, but does not scroll the page.
                 </LabelLarge>
-                <ScrolllessNumberTextField
-                    value={value}
-                    onChange={(newValue) => setValue(newValue)}
-                />
+                <ScrolllessNumberTextField value={value} onChange={setValue} />
                 <View style={{height: "100vh"}} />
             </>
         );

@@ -1,20 +1,8 @@
-import {
-    addStyle,
-    type PropsFor,
-    type StyleType,
-} from "@khanacademy/wonder-blocks-core";
-import {border, color, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {styles as typographyStyles} from "@khanacademy/wonder-blocks-typography";
-import {StyleSheet} from "aphrodite";
+import {addStyle, type PropsFor} from "@khanacademy/wonder-blocks-core";
+import {TextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
-type Props = Omit<PropsFor<"input">, "value" | "onInput"> & {
-    value: string;
-    onChange: (newValue: string) => unknown;
-    style?: StyleType;
-};
-
-const StyledInput = addStyle("input");
+type Props = PropsFor<typeof TextField>;
 
 /**
  * This is a custom text field of type="number" for use in Perseus Editors.
@@ -63,46 +51,32 @@ function ScrolllessNumberTextField(props: Props): React.ReactElement {
     }, [inputRef]);
 
     return (
-        <StyledInput
+        <TextField
             {...restOfProps}
             type="number"
             value={focused ? wipValue : value}
-            onChange={(e) => {
-                setWipValue(e.target.value);
-                onChange(e.target.value);
+            onChange={(newValue) => {
+                setWipValue(newValue);
+                onChange(newValue);
             }}
-            onFocus={() => {
+            onFocus={(e) => {
                 setWipValue(value);
                 setFocused(true);
+
+                if (props.onFocus) {
+                    props.onFocus(e);
+                }
             }}
-            onBlur={() => {
+            onBlur={(e) => {
                 setFocused(false);
+
+                if (props.onBlur) {
+                    props.onBlur(e);
+                }
             }}
-            style={[
-                styles.wonderBlocksInputStyle,
-                typographyStyles.LabelMedium,
-                style,
-            ]}
             ref={inputRef}
         />
     );
 }
-
-const styles = StyleSheet.create({
-    wonderBlocksInputStyle: {
-        height: 40,
-        width: "100%",
-        borderRadius: border.radius.medium_4,
-        boxSizing: "border-box",
-        paddingLeft: spacing.medium_16,
-        margin: 0,
-        background: color.white,
-        border: `1px solid ${color.offBlack50}`,
-        color: color.offBlack,
-        "::placeholder": {
-            color: color.offBlack64,
-        },
-    },
-});
 
 export default ScrolllessNumberTextField;
