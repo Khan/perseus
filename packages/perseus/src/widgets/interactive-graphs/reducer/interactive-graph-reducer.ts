@@ -65,6 +65,8 @@ import {
     type ChangeInteractionMode,
     CHANGE_KEYBOARD_INVITATION_VISIBILITY,
     type ChangeKeyboardInvitationVisibility,
+    CLOSE_POLYGON,
+    OPEN_POLYGON,
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
@@ -113,6 +115,10 @@ export function interactiveGraphReducer(
             return doDeleteIntent(state, action);
         case CLICK_POINT:
             return doClickPoint(state, action);
+        case CLOSE_POLYGON:
+            return doClosePolygon(state);
+        case OPEN_POLYGON:
+            return doOpenPolygon(state);
         case CHANGE_INTERACTION_MODE:
             return doChangeInteractionMode(state, action);
         case CHANGE_KEYBOARD_INVITATION_VISIBILITY:
@@ -186,6 +192,28 @@ function doClickPoint(
             ...state,
             focusedPointIndex: action.index,
             showRemovePointButton: true,
+        };
+    }
+
+    return state;
+}
+
+function doClosePolygon(state: InteractiveGraphState): InteractiveGraphState {
+    if (isUnlimitedGraphState(state) && state.type === "polygon") {
+        return {
+            ...state,
+            closedPolygon: true,
+        };
+    }
+
+    return state;
+}
+
+function doOpenPolygon(state: InteractiveGraphState): InteractiveGraphState {
+    if (isUnlimitedGraphState(state) && state.type === "polygon") {
+        return {
+            ...state,
+            closedPolygon: false,
         };
     }
 
@@ -664,13 +692,15 @@ function doAddPoint(
         }
     }
 
+    const newCoords = [...state.coords, snappedPoint];
+
     // If there's no point in spot where we want the new point to go we add it there
     return {
         ...state,
         hasBeenInteractedWith: true,
-        coords: [...state.coords, snappedPoint],
+        coords: newCoords,
         showRemovePointButton: false,
-        focusedPointIndex: state.coords.length,
+        focusedPointIndex: newCoords.length - 1,
     };
 }
 

@@ -2,8 +2,41 @@ import {mockStrings} from "../../strings";
 
 import {expressionItem3Options} from "./expression.testdata";
 import scoreExpression from "./score-expression";
+import * as ExpressionValidator from "./validate-expression";
+
+import type {PerseusExpressionRubric} from "../../validation.types";
 
 describe("scoreExpression", () => {
+    it("should be correctly answerable if validation passes", function () {
+        // Arrange
+        const mockValidator = jest
+            .spyOn(ExpressionValidator, "default")
+            .mockReturnValue(null);
+        const rubric: PerseusExpressionRubric = expressionItem3Options;
+
+        // Act
+        const score = scoreExpression("z+1", rubric, mockStrings, "en");
+
+        // Assert
+        expect(mockValidator).toHaveBeenCalledWith("z+1");
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should return 'empty' result if validation fails", function () {
+        // Arrange
+        const mockValidator = jest
+            .spyOn(ExpressionValidator, "default")
+            .mockReturnValue({type: "invalid", message: null});
+        const rubric: PerseusExpressionRubric = expressionItem3Options;
+
+        // Act
+        const score = scoreExpression("z+1", rubric, mockStrings, "en");
+
+        // Assert
+        expect(mockValidator).toHaveBeenCalledWith("z+1");
+        expect(score).toHaveInvalidInput();
+    });
+
     it("should handle defined ungraded answer case with no error callback", function () {
         const err = scoreExpression(
             "x+1",

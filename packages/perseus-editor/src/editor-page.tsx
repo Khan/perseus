@@ -1,5 +1,4 @@
 import {components, ApiOptions, ClassNames} from "@khanacademy/perseus";
-import Banner from "@khanacademy/wonder-blocks-banner";
 import * as React from "react";
 import _ from "underscore";
 
@@ -7,10 +6,6 @@ import JsonEditor from "./components/json-editor";
 import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
-import {
-    convertDeprecatedWidgets,
-    conversionRequired,
-} from "./util/deprecated-widgets/modernize-widgets-utils";
 
 import type {
     APIOptions,
@@ -21,7 +16,6 @@ import type {
     ImageUploader,
     Version,
     PerseusItem,
-    PerseusRenderer,
 } from "@khanacademy/perseus";
 
 const {HUD} = components;
@@ -63,9 +57,6 @@ type Props = {
 
 type State = {
     json: PerseusItem;
-    // Whether the Editor should be warned that the JSON has been converted to modern widgets
-    conversionWarningRequired: boolean;
-    question: PerseusRenderer;
     gradeMessage: string;
     wasAnswered: boolean;
     highlightLint: boolean;
@@ -92,30 +83,15 @@ class EditorPage extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        // Convert any widgets that need to be converted to newer widget types
-        let convertedQuestionJson: PerseusRenderer = props.question;
-        let conversionWarningRequired = false;
-        if (props.question) {
-            // Check if the question JSON needs to be converted
-            conversionWarningRequired = conversionRequired(props.question);
-            if (conversionWarningRequired) {
-                convertedQuestionJson = convertDeprecatedWidgets(
-                    props.question,
-                );
-            }
-        }
-
-        const json = {
-            answerArea: this.props.answerArea,
-            hints: this.props.hints,
-            itemDataVersion: this.props.itemDataVersion,
-            question: convertedQuestionJson,
-        };
-
         this.state = {
             // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea" | "itemDataVersion">' is not assignable to type 'PerseusJson'.
-            json: json,
-            conversionWarningRequired: conversionWarningRequired,
+            json: _.pick(
+                this.props,
+                "question",
+                "answerArea",
+                "hints",
+                "itemDataVersion",
+            ),
             gradeMessage: "",
             wasAnswered: false,
             highlightLint: true,
@@ -260,15 +236,6 @@ class EditorPage extends React.Component<Props, State> {
 
         return (
             <div id="perseus" className={className}>
-                {this.state.conversionWarningRequired && (
-                    <div style={{marginBottom: 10}}>
-                        <Banner
-                            text="Deprecated Input Number Widgets were found, and have been automatically upgraded to Numeric Inputs. Please review the changes before publishing."
-                            kind="warning"
-                            layout="floating"
-                        />
-                    </div>
-                )}
                 <div style={{marginBottom: 10}}>
                     {this.props.developerMode && (
                         <span>
@@ -320,10 +287,7 @@ class EditorPage extends React.Component<Props, State> {
                     <ItemEditor
                         ref={this.itemEditor}
                         itemId={this.props.itemId}
-                        question={
-                            this.props.question &&
-                            convertDeprecatedWidgets(this.props.question)
-                        }
+                        question={this.props.question}
                         answerArea={this.props.answerArea}
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleChange}

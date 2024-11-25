@@ -396,73 +396,120 @@ const renderPointGraphControls = (props: {
     );
 };
 
-/**
- * TODO(catjohnson): The polygon controls will be vastly different from the point controls.
- * Will be keeping this function as is for the time being, even if it's a copy of the point graph
- * controls.
- */
 const renderPolygonGraphControls = (props: {
     state: PolygonGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
     width: number;
     perseusStrings: PerseusStrings;
 }) => {
-    const {interactionMode, showRemovePointButton, focusedPointIndex} =
-        props.state;
+    const {
+        interactionMode,
+        showRemovePointButton,
+        focusedPointIndex,
+        closedPolygon,
+        coords,
+    } = props.state;
     const {perseusStrings} = props;
 
     const shouldShowRemoveButton =
         showRemovePointButton && focusedPointIndex !== null;
 
-    return (
-        <View
+    // If polygon is closed, show open button.
+    // If polygon is open, show close button.
+    const polygonButton = closedPolygon ? (
+        <Button
+            kind="secondary"
             style={{
-                flexDirection: "row",
-                width: props.width,
+                width: "100%",
+                marginLeft: "20px",
+            }}
+            tabIndex={0}
+            onClick={() => {
+                props.dispatch(actions.polygon.openPolygon());
             }}
         >
-            {interactionMode === "keyboard" && (
-                <Button
-                    kind="secondary"
-                    style={{
-                        width: "100%",
-                        marginLeft: "20px",
-                    }}
-                    tabIndex={0}
-                    onClick={() => {
-                        props.dispatch(actions.polygon.addPoint([0, 0]));
-                    }}
-                >
-                    {perseusStrings.addPoint}
-                </Button>
-            )}
-            {interactionMode === "mouse" && (
-                <Button
-                    id={REMOVE_BUTTON_ID}
-                    kind="secondary"
-                    color="destructive"
-                    // This button is meant to be interacted with by the mouse only
-                    // Never allow learners to tab to this button
-                    tabIndex={-1}
-                    style={{
-                        width: "100%",
-                        marginLeft: "20px",
-                        visibility: shouldShowRemoveButton
-                            ? "visible"
-                            : "hidden",
-                    }}
-                    onClick={(_event) => {
-                        props.dispatch(
-                            actions.polygon.removePoint(
-                                props.state.focusedPointIndex!,
-                            ),
-                        );
-                    }}
-                >
-                    {perseusStrings.removePoint}
-                </Button>
-            )}
-        </View>
+            {perseusStrings.openPolygon}
+        </Button>
+    ) : (
+        <Button
+            kind="secondary"
+            // Conditional disable when there are less than 3 points in
+            // the graph
+            disabled={coords.length < 3}
+            style={{
+                width: "100%",
+                marginLeft: "20px",
+            }}
+            tabIndex={0}
+            onClick={() => {
+                props.dispatch(actions.polygon.closePolygon());
+            }}
+        >
+            {perseusStrings.closePolygon}
+        </Button>
+    );
+
+    return (
+        <>
+            <View
+                style={{
+                    flexDirection: "row",
+                    width: props.width,
+                }}
+            >
+                {/**
+                 * Only show this in keyboard mode.
+                 */}
+                {interactionMode === "keyboard" && (
+                    <Button
+                        kind="secondary"
+                        style={{
+                            width: "100%",
+                            marginLeft: "20px",
+                        }}
+                        // Disable button when polygon is closed.
+                        disabled={closedPolygon}
+                        // Do not make the button tabbable when it is disabled.
+                        tabIndex={closedPolygon ? -1 : 0}
+                        onClick={() => {
+                            props.dispatch(actions.polygon.addPoint([0, 0]));
+                        }}
+                    >
+                        {perseusStrings.addPoint}
+                    </Button>
+                )}
+                {/*
+                    Make sure remove button is always present, just disabled/enabled depending
+                    on when a point is selected or if the polygon is closed.
+                */}
+                {interactionMode === "mouse" && (
+                    <Button
+                        id={REMOVE_BUTTON_ID}
+                        kind="secondary"
+                        color="destructive"
+                        // Disable button when polygon is closed.
+                        disabled={closedPolygon || !shouldShowRemoveButton}
+                        // This button is meant to be interacted with by the mouse only
+                        // Never allow learners to tab to this button
+                        tabIndex={-1}
+                        style={{
+                            width: "100%",
+                            marginLeft: "20px",
+                        }}
+                        onClick={(_event) => {
+                            props.dispatch(
+                                actions.polygon.removePoint(
+                                    props.state.focusedPointIndex!,
+                                ),
+                            );
+                        }}
+                    >
+                        {perseusStrings.removePoint}
+                    </Button>
+                )}
+                {polygonButton}
+            </View>
+        </>
     );
 };
 
@@ -531,7 +578,7 @@ function handleKeyboardEvent(
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
     if (isUnlimitedGraphState(state)) {
-        if (event.key === "Backspace") {
+        if (event.key === "Backspace" || event.key === "Delete") {
             // TODO(benchristel): Checking classList here is a hack to prevent
             // points from being deleted if the user presses the backspace key
             // while the whole graph is focused. Instead of doing this, we
@@ -542,7 +589,13 @@ function handleKeyboardEvent(
                     "movable-point__focusable-handle",
                 )
             ) {
-                dispatch(actions.global.deleteIntent());
+                // Only allow delete if type is point or a polygon that is open.
+                if (
+                    state.type === "point" ||
+                    (state.type === "polygon" && !state.closedPolygon)
+                ) {
+                    dispatch(actions.global.deleteIntent());
+                }
             }
 
             // After removing a point blur

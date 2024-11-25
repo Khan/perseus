@@ -101,6 +101,7 @@ export {
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
 } from "./util/sizing-utils";
+export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
 export {
     getAnswersFromWidgets,
     injectWidgets,
@@ -208,9 +209,8 @@ export type {
     Size,
     CollinearTuple,
     MathFormat,
+    InputNumberWidget, // TODO(jeremy): remove?
     PerseusArticle,
-    InputNumberWidget, // Used for usurpation of InputNumberWidget in perseus-editor
-    NumericInputWidget, // Used for usurpation of InputNumberWidget in perseus-editor
     // Widget configuration types
     PerseusImageBackground,
     PerseusInputNumberWidgetOptions,

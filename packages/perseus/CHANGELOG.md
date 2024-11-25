@@ -1,5 +1,81 @@
 # @khanacademy/perseus
 
+## 43.0.0
+
+### Major Changes
+
+-   [#1905](https://github.com/Khan/perseus/pull/1905) [`9c225f936`](https://github.com/Khan/perseus/commit/9c225f9365cbb2e92bba3bd67b1abde724809367) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - We're reverting work done for the Server Side Scoring and Input Number Conversion projects.
+
+### Minor Changes
+
+-   [#1883](https://github.com/Khan/perseus/pull/1883) [`adad642ab`](https://github.com/Khan/perseus/commit/adad642ab0ae95de6600e7018f0aff836acc5911) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Introduces a validation function for the matrix widget (extracted from matrix scoring function).
+
+*   [#1878](https://github.com/Khan/perseus/pull/1878) [`a27f23bb4`](https://github.com/Khan/perseus/commit/a27f23bb48e585aa2229975b1779161b921cbd9d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add expression validator function
+
+### Patch Changes
+
+-   [#1890](https://github.com/Khan/perseus/pull/1890) [`0afb1a4f7`](https://github.com/Khan/perseus/commit/0afb1a4f70e35de7e2b04ee1af835a0ebe84bbe5) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Labels + Aria] Create math only parser to help parse TeX how we want
+
+*   [#1889](https://github.com/Khan/perseus/pull/1889) [`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: enable strict typechecking of function parameters
+
+-   [#1852](https://github.com/Khan/perseus/pull/1852) [`4b8836b84`](https://github.com/Khan/perseus/commit/4b8836b846c4f6adc6f4bb9c204deedb019c9f51) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding open and closing behavior to unlimited polygon graph type.
+
+-   Updated dependencies [[`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9)]:
+    -   @khanacademy/kas@0.4.1
+    -   @khanacademy/math-input@21.1.5
+    -   @khanacademy/simple-markdown@0.13.5
+    -   @khanacademy/pure-markdown@0.3.12
+
+## 42.0.3
+
+### Patch Changes
+
+-   [#1887](https://github.com/Khan/perseus/pull/1887) [`4c2db8d38`](https://github.com/Khan/perseus/commit/4c2db8d384f5542cfc7f6aafd8294049a7afe1c3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add snapshot tests for `parseAndTypecheckPerseusItem`.
+
+*   [#1872](https://github.com/Khan/perseus/pull/1872) [`7ca5bbf0e`](https://github.com/Khan/perseus/commit/7ca5bbf0e0f5c24a0bda5de9142703a913ce3fa8) Thanks [@benchristel](https://github.com/benchristel)! - Internal: make the exhaustive test tool for PerseusItem parsing find the shortest input file that repros each failure
+
+-   [#1871](https://github.com/Khan/perseus/pull/1871) [`500315145`](https://github.com/Khan/perseus/commit/5003151457ce737056950192225cb0ac522571a6) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add regression tests for PerseusItem parser
+
+*   [#1877](https://github.com/Khan/perseus/pull/1877) [`44933f88e`](https://github.com/Khan/perseus/commit/44933f88e90c4b8f15dc2d1d39a4297d69e21c39) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add README.md for packages/perseus/src/util/parse-perseus-json
+
+-   [#1888](https://github.com/Khan/perseus/pull/1888) [`d0e7a0383`](https://github.com/Khan/perseus/commit/d0e7a0383002414d874297ccc88bf5c9863b4ea5) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Hypothesis
+
+## 42.0.2
+
+### Patch Changes
+
+-   [#1884](https://github.com/Khan/perseus/pull/1884) [`b4cf444e9`](https://github.com/Khan/perseus/commit/b4cf444e962b5e4c152cad6507ddb63515fc305e) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensuring UserInput and Rubric widget keys match for edge cases
+
+## 42.0.1
+
+### Patch Changes
+
+-   [#1879](https://github.com/Khan/perseus/pull/1879) [`04d6e60de`](https://github.com/Khan/perseus/commit/04d6e60de2b9176f546a7058038a10689e52f9ac) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing conflicts that arose from scoring and widget conversion efforts
+
+## 42.0.0
+
+### Major Changes
+
+-   [#1753](https://github.com/Khan/perseus/pull/1753) [`c1ba55fc0`](https://github.com/Khan/perseus/commit/c1ba55fc0247e16d9a78558721969382ee6992f8) Thanks [@handeyeco](https://github.com/handeyeco)! - Change ServerItemRenderer scoring APIs to externalize scoring
+
+### Patch Changes
+
+-   [#1864](https://github.com/Khan/perseus/pull/1864) [`7b18e94d7`](https://github.com/Khan/perseus/commit/7b18e94d7d2102669b3afde7988c63fd3de8b568) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add script for exhaustive testing of PerseusItem parser
+
+*   [#1865](https://github.com/Khan/perseus/pull/1865) [`ec5f8773e`](https://github.com/Khan/perseus/commit/ec5f8773e97c8357b14e525c03fcb5842c0db6aa) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Require \$ to display TeX in axis labels
+
+-   [#1866](https://github.com/Khan/perseus/pull/1866) [`94eba15ca`](https://github.com/Khan/perseus/commit/94eba15cacf904daabce378d080291613490c4a1) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing a regression and a bug in the Input Conversion Logic
+
+*   [#1860](https://github.com/Khan/perseus/pull/1860) [`9c2289b3f`](https://github.com/Khan/perseus/commit/9c2289b3fb0e415c4cef979ab146dc583ef91b7d) Thanks [@handeyeco](https://github.com/handeyeco)! - Rename AI util files
+
+-   [#1858](https://github.com/Khan/perseus/pull/1858) [`5e930cebe`](https://github.com/Khan/perseus/commit/5e930cebec1e7cac9d9a49214b2cbe036da482b0) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Util function to generate spoken math + use it within Locked Point aria labels
+
+*   [#1867](https://github.com/Khan/perseus/pull/1867) [`c303009f5`](https://github.com/Khan/perseus/commit/c303009f54b90bf006cce01acf82b886d19472f5) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Represent point order in interactive elements' aria labels
+
+-   [#1873](https://github.com/Khan/perseus/pull/1873) [`def463014`](https://github.com/Khan/perseus/commit/def46301492122490183a72f6b17050b0a329e00) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [BUGFIX] - Adjust parameter name in srPointAtCoordinates to account for variable name conflict
+
+*   [#1854](https://github.com/Khan/perseus/pull/1854) [`ef0ad9883`](https://github.com/Khan/perseus/commit/ef0ad9883d57115edc0e8c9d73b4abda061aba57) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Add math descriptions to locked line aria labels
+
 ## 41.5.0
 
 ### Minor Changes
