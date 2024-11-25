@@ -291,10 +291,12 @@ describe("MovablePoint", () => {
             render(
                 <Mafs width={200} height={200}>
                     <MovablePoint point={[0, 0]} sequenceNumber={1} />
-                </Mafs>
+                </Mafs>,
             );
 
-            expect(screen.getByLabelText("Point 1 at 0 comma 0")).toBeInTheDocument();
+            expect(
+                screen.getByLabelText("Point 1 at 0 comma 0"),
+            ).toBeInTheDocument();
         });
 
         it("uses the ariaLabel when provided", () => {
@@ -305,11 +307,13 @@ describe("MovablePoint", () => {
                         sequenceNumber={1}
                         ariaLabel="Custom aria label"
                     />
-                </Mafs>
+                </Mafs>,
             );
 
-            expect(screen.getByLabelText("Custom aria label")).toBeInTheDocument();
-        })
+            expect(
+                screen.getByLabelText("Custom aria label"),
+            ).toBeInTheDocument();
+        });
 
         it("uses the ariaDescribedBy when provided", () => {
             render(
@@ -320,13 +324,20 @@ describe("MovablePoint", () => {
                         ariaDescribedBy="description"
                     />
                     <p id="description">Aria is described by me</p>
-                </Mafs>
+                </Mafs>,
             );
 
-            const pointElement = screen.getByRole("button", { name: "Point 1 at 0 comma 0" });
-            expect(pointElement).toHaveAttribute("aria-describedby", "description");
+            const pointElement = screen.getByRole("button", {
+                name: "Point 1 at 0 comma 0",
+            });
+            expect(pointElement).toHaveAttribute(
+                "aria-describedby",
+                "description",
+            );
 
-            const descriptionElement = screen.getByText("Aria is described by me");
+            const descriptionElement = screen.getByText(
+                "Aria is described by me",
+            );
             expect(descriptionElement).toBeInTheDocument();
         });
 
@@ -338,27 +349,24 @@ describe("MovablePoint", () => {
                         sequenceNumber={1}
                         ariaLive="assertive"
                     />
-                </Mafs>
+                </Mafs>,
             );
 
-            expect(screen.getByLabelText("Point 1 at 0 comma 0")).toHaveAttribute(
-                "aria-live",
-                "assertive",
-            );
+            expect(
+                screen.getByLabelText("Point 1 at 0 comma 0"),
+            ).toHaveAttribute("aria-live", "assertive");
         });
 
         it("uses the default ariaLive when not provided", () => {
             render(
                 <Mafs width={200} height={200}>
                     <MovablePoint point={[0, 0]} sequenceNumber={1} />
-                </Mafs>
+                </Mafs>,
             );
 
-            expect(screen.getByLabelText("Point 1 at 0 comma 0")).toHaveAttribute(
-                "aria-live",
-                "polite",
-            );
+            expect(
+                screen.getByLabelText("Point 1 at 0 comma 0"),
+            ).toHaveAttribute("aria-live", "polite");
         });
-    })
-
+    });
 });
