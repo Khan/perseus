@@ -805,5 +805,7 @@ export default {
     widget: NumberLine,
     transform: numberLineTransform,
     staticTransform: staticTransform,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumberLineUserInput'.
     scorer: scoreNumberLine,
 } satisfies WidgetExports<typeof NumberLine>;
