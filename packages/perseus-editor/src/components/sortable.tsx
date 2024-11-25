@@ -1,9 +1,6 @@
 import {css, StyleSheet} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
-
-const PT = PropTypes;
 
 // Need to update these values.
 type Props = {
