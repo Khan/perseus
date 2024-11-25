@@ -1,8 +1,7 @@
-import {type PropsFor} from "@khanacademy/wonder-blocks-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
-type Props = PropsFor<typeof TextField>;
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 /**
  * This is a custom text field of type="number" for use in Perseus Editors.
@@ -26,7 +25,7 @@ type Props = PropsFor<typeof TextField>;
  * NOTE 2: Firefox seems to have a custom override for input scroll. Even
  * with this stopPropogation, Firefox matches the native HTML behavior.
  */
-function ScrolllessNumberTextField(props: Props): React.ReactElement {
+const ScrolllessNumberTextField = (props: PropsFor<typeof TextField>) => {
     const {value, onChange, ...restOfProps} = props;
     const [focused, setFocused] = React.useState(false);
     const [wipValue, setWipValue] = React.useState("");
@@ -77,6 +76,6 @@ function ScrolllessNumberTextField(props: Props): React.ReactElement {
             ref={inputRef}
         />
     );
-}
+};
 
 export default ScrolllessNumberTextField;
