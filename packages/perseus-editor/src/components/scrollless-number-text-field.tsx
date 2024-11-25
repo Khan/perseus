@@ -1,4 +1,4 @@
-import {addStyle, type PropsFor} from "@khanacademy/wonder-blocks-core";
+import {type PropsFor} from "@khanacademy/wonder-blocks-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
@@ -27,7 +27,7 @@ type Props = PropsFor<typeof TextField>;
  * with this stopPropogation, Firefox matches the native HTML behavior.
  */
 function ScrolllessNumberTextField(props: Props): React.ReactElement {
-    const {value, onChange, style, ...restOfProps} = props;
+    const {value, onChange, ...restOfProps} = props;
     const [focused, setFocused] = React.useState(false);
     const [wipValue, setWipValue] = React.useState("");
 
