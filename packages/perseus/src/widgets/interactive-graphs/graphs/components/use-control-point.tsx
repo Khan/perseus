@@ -10,9 +10,9 @@ import {useDraggable} from "../use-draggable";
 import {MovablePointView} from "./movable-point-view";
 
 import type {CSSCursor} from "./css-cursor";
+import type {AriaLive} from "../../types";
 import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
-import { AriaLive } from "../../types";
 
 type Params = {
     point: vec.Vector2;
@@ -84,11 +84,13 @@ export function useControlPoint(params: Params): Return {
     });
 
     // if custom aria label is not provided, will use default of sequence number and point coordinates
-    const pointAriaLabel = ariaLabel || strings.srPointAtCoordinates({
-        num: sequenceNumber,
-        x: srFormatNumber(point[X], locale),
-        y: srFormatNumber(point[Y], locale),
-    })
+    const pointAriaLabel =
+        ariaLabel ||
+        strings.srPointAtCoordinates({
+            num: sequenceNumber,
+            x: srFormatNumber(point[X], locale),
+            y: srFormatNumber(point[Y], locale),
+        });
 
     useLayoutEffect(() => {
         setForwardedRef(forwardedRef, focusableHandleRef.current);
