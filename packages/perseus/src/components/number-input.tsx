@@ -38,7 +38,7 @@ const getNumericFormat = KhanMath.getNumericFormat;
 class NumberInput extends React.Component<any, any> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
-    inputRef: React.RefObject<HTMLInputElement> = React.createRef();
+    inputRef = React.createRef<HTMLInputElement>();
 
     static propTypes = {
         value: PropTypes.number,
