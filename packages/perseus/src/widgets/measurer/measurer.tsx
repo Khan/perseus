@@ -183,18 +183,16 @@ class Measurer extends React.Component<Props> implements Widget {
 
 const propUpgrades = {
     "1": (v0props: any): any => {
-        const v1props = _(v0props)
-            .chain()
-            .omit("imageUrl", "imageTop", "imageLeft")
-            .extend({
-                image: {
-                    url: v0props.imageUrl,
-                    top: v0props.imageTop,
-                    left: v0props.imageLeft,
-                },
-            })
-            .value();
-        return v1props;
+        const {imageUrl, imageTop, imageLeft, ...rest} = v0props;
+
+        return {
+            ...rest,
+            image: {
+                url: imageUrl,
+                top: imageTop,
+                left: imageLeft,
+            },
+        };
     },
 } as const;
 
