@@ -1114,7 +1114,7 @@ export type PerseusNumericInputWidgetOptions = {
     // A list of all the possible correct and incorrect answers
     answers: ReadonlyArray<PerseusNumericInputAnswer>;
     // Translatable Text; Text to describe this input. This will be shown to users using screenreaders.
-    labelText: string;
+    labelText?: string | undefined;
     // Use size "Normal" for all text boxes, unless there are multiple text boxes in one line and the answer area is too narrow to fit them. Options: "normal" or "small"
     size: string;
     // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.

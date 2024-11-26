@@ -9,6 +9,7 @@ import {
     boolean,
     nullable,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
@@ -39,11 +40,11 @@ export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
                 simplify: optional(nullable(string)),
             }),
         ),
-        labelText: string,
+        labelText: optional(string),
         size: string,
         coefficient: boolean,
         rightAlign: optional(boolean),
-        static: boolean,
+        static: defaulted(boolean, () => false),
         answerForms: optional(
             array(
                 object({
