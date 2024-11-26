@@ -144,6 +144,22 @@ export type PerseusStrings = {
         x: string;
         y: string;
     }) => string;
+    srInitialSideAtCoordinates: ({x, y}: {x: string; y: string}) => string;
+    srTerminalSideAtCoordinates: ({x, y}: {x: string; y: string}) => string;
+    srUpdatedInitialSideAtCoordinates: ({
+        x,
+        y,
+    }: {
+        x: string;
+        y: string;
+    }) => string;
+    srUpdatedTerminalSideAtCoordinates: ({
+        x,
+        y,
+    }: {
+        x: string;
+        y: string;
+    }) => string;
     srInteractiveElements: ({elements}: {elements: string}) => string;
     srNoInteractiveElements: string;
 };
@@ -334,6 +350,26 @@ export const strings: {
         context: "Screenreader-accessible description of a point on a graph",
         message: "Point %(num)s at %(x)s comma %(y)s",
     },
+    srInitialSideAtCoordinates: {
+        context:
+            "Screenreader-accessible description of the initial side of an angle",
+        message: "Point 3, initial side at %(x)s comma %(y)s",
+    },
+    srTerminalSideAtCoordinates: {
+        context:
+            "Screenreader-accessible description of the terminal side of an angle",
+        message: "Point 1, terminal side at %(x)s comma %(y)s",
+    },
+    srUpdatedInitialSideAtCoordinates: {
+        context:
+            "Screenreader-accessible description of the initial side of an angle",
+        message: "Point 3, initial side, moved to %(x)s comma %(y)s",
+    },
+    srUpdatedTerminalSideAtCoordinates: {
+        context:
+            "Screenreader-accessible description of the terminal side of an angle",
+        message: "Point 1, terminal side, moved to %(x)s comma %(y)s",
+    },
 };
 
 /**
@@ -496,6 +532,14 @@ export const mockStrings: PerseusStrings = {
     closePolygon: "Close shape",
     openPolygon: "Re-open shape",
     srPointAtCoordinates: ({num, x, y}) => `Point ${num} at ${x} comma ${y}`,
+    srInitialSideAtCoordinates: ({x, y}) =>
+        `Point 3, initial side at ${x} comma ${y}`,
+    srTerminalSideAtCoordinates: ({x, y}) =>
+        `Point 1, terminal side at ${x} comma ${y}`,
+    srUpdatedInitialSideAtCoordinates: ({x, y}) =>
+        `Point 3, initial side, moved to ${x} comma ${y}`,
+    srUpdatedTerminalSideAtCoordinates: ({x, y}) =>
+        `Point 1, terminal side, moved to ${x} comma ${y}`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
 };

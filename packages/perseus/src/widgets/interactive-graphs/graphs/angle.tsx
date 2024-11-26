@@ -1,7 +1,8 @@
 import {vec} from "mafs";
 import * as React from "react";
 
-import {calculateAngleInDegrees, polar} from "../math";
+import {usePerseusI18n} from "../../../components/i18n-context";
+import {X, Y, calculateAngleInDegrees, polar} from "../math";
 import {findIntersectionOfRays} from "../math/geometry";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
@@ -11,6 +12,7 @@ import {trimRange} from "./components/movable-line";
 import {MovablePoint} from "./components/movable-point";
 import {SVGLine} from "./components/svg-line";
 import {Vector} from "./components/vector";
+import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {getIntersectionOfRayWithBox} from "./utils";
 
@@ -35,8 +37,7 @@ export function renderAngleGraph(
     };
 }
 
-function AngleGraph(props: AngleGraphProps) {
-    const {dispatch, graphState} = props;
+function AngleGraph({dispatch, graphState}: AngleGraphProps) {
     const {graphDimensionsInPixels} = useGraphConfig();
 
     const {coords, showAngles, range, allowReflexAngles, snapDegrees} =
@@ -95,6 +96,51 @@ function AngleGraph(props: AngleGraphProps) {
         showAngles: showAngles || false, // Whether to show the angle or not
     };
 
+    const {strings, locale} = usePerseusI18n();
+    const [initialSideAriaLabel, setInitialSideAriaLabel] =
+        React.useState<string>(
+            strings.srInitialSideAtCoordinates({
+                x: srFormatNumber(coords[2][X], locale),
+                y: srFormatNumber(coords[2][Y], locale),
+            }),
+        );
+
+    const [terminalSideAriaLabel, setTerminalSideAriaLabel] =
+        React.useState<string>(
+            strings.srTerminalSideAtCoordinates({
+                x: srFormatNumber(coords[0][X], locale),
+                y: srFormatNumber(coords[0][Y], locale),
+            }),
+        );
+
+    const handleSideAriaLabelUpdates = (
+        side: "terminal" | "initial",
+        newPoint: vec.Vector2,
+    ): void => {
+        side === "terminal"
+            ? setTerminalSideAriaLabel(
+                  strings.srUpdatedTerminalSideAtCoordinates({
+                      x: srFormatNumber(newPoint[X], locale),
+                      y: srFormatNumber(newPoint[Y], locale),
+                  }),
+              )
+            : setInitialSideAriaLabel(
+                  strings.srUpdatedInitialSideAtCoordinates({
+                      x: srFormatNumber(newPoint[X], locale),
+                      y: srFormatNumber(newPoint[Y], locale),
+                  }),
+              );
+    };
+
+    const handlePointMove = (
+        newPoint: vec.Vector2,
+        coordPoint: number,
+        side: "terminal" | "initial",
+    ): unknown => {
+        handleSideAriaLabelUpdates(side, newPoint);
+        return dispatch(actions.angle.movePoint(coordPoint, newPoint));
+    };
+
     // Render the lines, angle, and then movable points
     return (
         <>
@@ -103,7 +149,6 @@ function AngleGraph(props: AngleGraphProps) {
             {/* vertex */}
             <MovablePoint
                 point={coords[1]}
-                sequenceNumber={1}
                 constrain={(p) => p}
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(1, destination))
@@ -112,28 +157,28 @@ function AngleGraph(props: AngleGraphProps) {
             {/* side 1 */}
             <MovablePoint
                 point={coords[0]}
-                sequenceNumber={2}
                 constrain={getAngleSideConstraint(
                     coords[0],
                     coords[1],
                     snapDegrees || 1,
                 )}
                 onMove={(destination: vec.Vector2) =>
-                    dispatch(actions.angle.movePoint(0, destination))
+                    handlePointMove(destination, 0, "terminal")
                 }
+                ariaLabel={terminalSideAriaLabel}
             />
             {/* side 2 */}
             <MovablePoint
                 point={coords[2]}
-                sequenceNumber={3}
                 constrain={getAngleSideConstraint(
                     coords[2],
                     coords[1],
                     snapDegrees || 1,
                 )}
                 onMove={(destination: vec.Vector2) =>
-                    dispatch(actions.angle.movePoint(2, destination))
+                    handlePointMove(destination, 2, "initial")
                 }
+                ariaLabel={initialSideAriaLabel}
             />
         </>
     );
