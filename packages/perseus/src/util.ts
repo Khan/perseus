@@ -1,4 +1,3 @@
-/* eslint-disable @babel/no-invalid-this, getter-return */
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
