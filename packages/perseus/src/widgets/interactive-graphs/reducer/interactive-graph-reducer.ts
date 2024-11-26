@@ -483,7 +483,7 @@ function doMovePoint(
                 newValue: newValue,
             });
 
-            // Boolean value to tract whether we can let the polygon sides interact.
+            // Boolean value to track whether we can let the polygon sides interact.
             // They can interact if it's an unlimited polygon that is open.
             const polygonSidesCanIntersect =
                 state.numSides === "unlimited" && !state.closedPolygon;

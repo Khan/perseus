@@ -420,6 +420,10 @@ const renderPolygonGraphControls = (props: {
     const shouldShowRemoveButton =
         showRemovePointButton && focusedPointIndex !== null;
 
+    // We want to disable the closePolygon button when
+    // there are not enough coords to make a polygon
+    const disableCloseButton = coords.length < 3;
+
     // If polygon is closed, show open button.
     // If polygon is open, show close button.
     const polygonButton = closedPolygon ? (
@@ -441,12 +445,12 @@ const renderPolygonGraphControls = (props: {
             kind="secondary"
             // Conditional disable when there are less than 3 points in
             // the graph
-            disabled={coords.length < 3}
+            disabled={disableCloseButton}
             style={{
                 width: "100%",
                 marginLeft: "20px",
             }}
-            tabIndex={coords.length < 3 ? -1 : 0}
+            tabIndex={disableCloseButton ? -1 : 0}
             onClick={() => {
                 props.dispatch(actions.polygon.closePolygon());
             }}
