@@ -24,9 +24,9 @@ type Props = {
      * interactive figure on the graph.
      */
     sequenceNumber?: number;
-    onBlur?: ((event: React.FocusEvent) => unknown) | undefined;
+    onBlur?: (event: React.FocusEvent) => unknown;
     onClick?: () => unknown;
-    onFocus?: ((event: React.FocusEvent) => unknown) | undefined;
+    onFocus?: (event: React.FocusEvent) => unknown;
     onMove?: (newPoint: vec.Vector2) => unknown;
 };
 
