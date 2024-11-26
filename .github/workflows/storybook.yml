@@ -44,3 +44,4 @@ jobs:
                   projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
                   autoAcceptChanges: "main"
                   onlyStoryFiles: "**/*regression.stories.tsx"
+                  onlyChanged: true # Enable TurboSnap!
