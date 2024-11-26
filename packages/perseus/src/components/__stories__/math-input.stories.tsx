@@ -22,10 +22,6 @@ const meta: Meta = {
         analytics: {onAnalyticsEvent: () => Promise.resolve()},
         labelText: "Math input",
     },
-    argTypes: {
-        onChange: {table: {disable: true}},
-        analytics: {table: {disable: true}},
-    },
     parameters: {
         controls: {exclude: ["onChange", "analytics"]},
     },

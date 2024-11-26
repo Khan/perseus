@@ -25,9 +25,6 @@ const meta: Meta = {
     args: {
         computeChildBounds,
     },
-    argTypes: {
-        children: {table: {disable: true}},
-    },
     parameters: {
         chromatic: {
             // Disable the snapshot for this story because it's testing

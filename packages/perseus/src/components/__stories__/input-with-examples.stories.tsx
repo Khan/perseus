@@ -13,9 +13,6 @@ const meta: Meta = {
         onChange: action("onChange"),
         value: "",
     },
-    argTypes: {
-        onChange: {table: {disable: true}},
-    },
 };
 export default meta;
 

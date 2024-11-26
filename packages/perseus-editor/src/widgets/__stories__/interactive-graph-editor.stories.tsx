@@ -41,14 +41,6 @@ const meta: Meta = {
         onChange: action("onChange"),
     },
     argTypes: {
-        // Hide controls that don't make sense to edit, or aren't easily
-        // editable, in Storybook.
-        apiOptions: {table: {disable: true}},
-        backgroundImage: {table: {disable: true}},
-        correct: {table: {disable: true}},
-        graph: {table: {disable: true}},
-        onChange: {table: {disable: true}},
-        valid: {table: {disable: true}},
         // Readonly controls - so we can see what the args are
         lockedFigures: {table: {readonly: true}},
     },

@@ -12,11 +12,6 @@ const meta: Meta = {
         onBlur: action("onBlur"),
         onFocus: action("onFocus"),
     },
-    argTypes: {
-        onChange: {table: {disable: true}},
-        onBlur: {table: {disable: true}},
-        onFocus: {table: {disable: true}},
-    },
 };
 export default meta;
 

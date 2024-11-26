@@ -11,10 +11,6 @@ const meta: Meta = {
         onChange: action("onChange"),
         onFormatChange: action("onFormatChange"),
     },
-    argTypes: {
-        onChange: {table: {disable: true}},
-        onFormatChange: {table: {disable: true}},
-    },
 };
 export default meta;
 
