@@ -41,7 +41,6 @@ import type {
     PerseusNumberLineWidgetOptions,
     PerseusNumericInputAnswer,
     PerseusOrdererWidgetOptions,
-    PerseusPlotterWidgetOptions,
     PerseusRadioChoice,
     PerseusGraphCorrectType,
 } from "./perseus-types";
@@ -188,7 +187,15 @@ export type PerseusOrdererUserInput = {
     current: ReadonlyArray<string>;
 };
 
-export type PerseusPlotterRubric = PerseusPlotterWidgetOptions;
+export type PerseusPlotterScoringData = {
+    // The Y values that represent the correct answer expected
+    correct: ReadonlyArray<number>;
+} & PerseusPlotterValidationData;
+
+export type PerseusPlotterValidationData = {
+    // The Y values the graph should start with
+    starting: ReadonlyArray<number>;
+};
 
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
 
@@ -236,7 +243,7 @@ export type Rubric =
     | PerseusNumberLineRubric
     | PerseusNumericInputRubric
     | PerseusOrdererRubric
-    | PerseusPlotterRubric
+    | PerseusPlotterScoringData
     | PerseusRadioRubric
     | PerseusSorterRubric
     | PerseusTableRubric;
