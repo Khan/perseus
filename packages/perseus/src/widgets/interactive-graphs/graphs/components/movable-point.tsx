@@ -9,6 +9,12 @@ import type {vec} from "mafs";
 
 type Props = {
     point: vec.Vector2;
+    ariaDescribedBy?: string;
+    ariaLabel?: string;
+    ariaLive?: AriaLive;
+    color?: string;
+    constrain?: KeyboardMovementConstraint;
+    cursor?: CSSCursor | undefined;
     /**
      * Represents where this point stands in the overall point sequence.
      * This is used to provide screen readers with context about the point.
@@ -17,13 +23,7 @@ type Props = {
      * Note: This number is 1-indexed, and should restart from 1 for each
      * interactive figure on the graph.
      */
-    sequenceNumber: number;
-    ariaDescribedBy?: string;
-    ariaLabel?: string;
-    ariaLive?: AriaLive;
-    color?: string;
-    constrain?: KeyboardMovementConstraint;
-    cursor?: CSSCursor | undefined;
+    sequenceNumber?: number;
     onBlur?: ((event: React.FocusEvent) => unknown) | undefined;
     onClick?: () => unknown;
     onFocus?: ((event: React.FocusEvent) => unknown) | undefined;

@@ -16,15 +16,6 @@ import type {vec} from "mafs";
 
 type Params = {
     point: vec.Vector2;
-    /**
-     * Represents where this point stands in the overall point sequence.
-     * This is used to provide screen readers with context about the point.
-     * Example: sequenceNumber={1} ==> "Point 1 at x comma y"
-     *
-     * Note: This number is 1-indexed, and should restart from 1 for each
-     * interactive figure on the graph.
-     */
-    sequenceNumber: number;
     ariaDescribedBy?: string;
     ariaLabel?: string;
     ariaLive?: AriaLive;
@@ -33,6 +24,15 @@ type Params = {
     constrain?: KeyboardMovementConstraint;
     // The focusableHandle element is assigned to the forwarded ref.
     forwardedRef?: React.ForwardedRef<SVGGElement | null> | undefined;
+    /**
+     * Represents where this point stands in the overall point sequence.
+     * This is used to provide screen readers with context about the point.
+     * Example: sequenceNumber={1} ==> "Point 1 at x comma y"
+     *
+     * Note: This number is 1-indexed, and should restart from 1 for each
+     * interactive figure on the graph.
+     */
+    sequenceNumber?: number;
     onMove?: ((newPoint: vec.Vector2) => unknown) | undefined;
     onClick?: (() => unknown) | undefined;
     onFocus?: ((event: React.FocusEvent) => unknown) | undefined;
@@ -50,18 +50,18 @@ export function useControlPoint(params: Params): Return {
     const {snapStep, disableKeyboardInteraction} = useGraphConfig();
     const {
         point,
-        sequenceNumber,
         ariaDescribedBy,
         ariaLabel,
         ariaLive = "polite",
         color,
         cursor,
         constrain = (p) => snap(snapStep, p),
+        forwardedRef = noop,
+        sequenceNumber = 1,
         onMove = noop,
         onClick = noop,
         onFocus = noop,
         onBlur = noop,
-        forwardedRef = noop,
     } = params;
 
     const {strings, locale} = usePerseusI18n();
