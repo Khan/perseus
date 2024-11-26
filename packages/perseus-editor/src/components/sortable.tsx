@@ -2,7 +2,6 @@ import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-// Need to update these values.
 type Props = {
     className?: string;
     components: React.ReactElement[];
