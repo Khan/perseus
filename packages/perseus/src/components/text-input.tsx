@@ -1,4 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -31,6 +32,7 @@ function uniqueIdForInput(prefix = "input-") {
 }
 
 class TextInput extends React.Component<Props> {
+    inputRef: React.RefObject<HTMLInputElement> = React.createRef();
     static defaultProps: DefaultProps = {
         value: "",
         disabled: false,
@@ -46,6 +48,17 @@ class TextInput extends React.Component<Props> {
             this.id = uniqueIdForInput();
         }
     }
+
+    _getInput: () => HTMLInputElement = () => {
+        if (!this.inputRef.current) {
+            throw new PerseusError(
+                "Input ref accessed before set",
+                Errors.Internal,
+            );
+        }
+
+        return this.inputRef.current;
+    };
 
     focus: () => void = () => {
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
@@ -104,6 +117,7 @@ class TextInput extends React.Component<Props> {
 
         return (
             <TextField
+                ref={this.inputRef}
                 style={style}
                 disabled={disabled}
                 id={this.id}
