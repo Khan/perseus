@@ -35,7 +35,8 @@ describe("measurer", () => {
                 static: false,
             };
 
-            const result = MeasurerWidgetExport.propUpgrades["1"](v0props);
+            const result: PerseusMeasurerWidgetOptions =
+                MeasurerWidgetExport.propUpgrades["1"](v0props);
 
             expect(result).toEqual(expected);
         });

@@ -126,7 +126,7 @@ const transform = (
 };
 
 const propUpgrades = {
-    "1": (v0props: any): any => {
+    "1": (v0props: any): PerseusRadioWidgetOptions => {
         const {noneOfTheAbove, ...rest} = v0props;
 
         if (noneOfTheAbove) {

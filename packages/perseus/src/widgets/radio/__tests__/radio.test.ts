@@ -1000,7 +1000,8 @@ describe("propsUpgrade", () => {
             hasNoneOfTheAbove: false,
         };
 
-        const result = RadioWidgetExport.propUpgrades["1"](v0props);
+        const result: PerseusRadioWidgetOptions =
+            RadioWidgetExport.propUpgrades["1"](v0props);
 
         expect(result).toEqual(expected);
     });

@@ -182,7 +182,7 @@ class Measurer extends React.Component<Props> implements Widget {
 }
 
 const propUpgrades = {
-    "1": (v0props: any): any => {
+    "1": (v0props: any): PerseusMeasurerWidgetOptions => {
         const {imageUrl, imageTop, imageLeft, ...rest} = v0props;
 
         return {
