@@ -523,4 +523,33 @@ describe("Expression Widget", function () {
             ).toBeNull();
         });
     });
+
+    describe("propUpgrades", () => {
+        it("can upgrade from v0 to v1", () => {
+            const v0props = {
+                times: false,
+                buttonSets: ["basic"],
+                functions: [],
+                form: false,
+                simplify: false,
+                value: "42",
+            };
+
+            const result = ExpressionWidgetExport.propUpgrades["1"](v0props);
+
+            expect(result).toEqual({
+                times: false,
+                buttonSets: ["basic"],
+                functions: [],
+                answerForms: [
+                    {
+                        considered: "correct",
+                        form: false,
+                        simplify: false,
+                        value: "42",
+                    },
+                ],
+            });
+        });
+    });
 });
