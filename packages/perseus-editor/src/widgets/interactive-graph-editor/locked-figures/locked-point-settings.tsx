@@ -98,6 +98,7 @@ const LockedPointSettings = (props: Props) => {
         onRemove,
         // defining point props
         showPoint,
+        error,
         expanded,
         onTogglePoint,
         onToggle,
@@ -210,6 +211,7 @@ const LockedPointSettings = (props: Props) => {
                 coord={coord}
                 style={styles.spaceUnder}
                 onChange={handleCoordChange}
+                error={!!error}
             />
 
             {/* Toggle switch */}
