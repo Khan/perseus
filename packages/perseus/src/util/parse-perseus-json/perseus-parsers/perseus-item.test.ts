@@ -48,12 +48,12 @@ describe("parsePerseusItem", () => {
                 calculator: true,
                 type: "should get removed",
                 options: {},
-            }
-        }
+            },
+        };
 
         const result = parse(item, parsePerseusItem);
 
         assertSuccess(result);
         expect(result.value.answerArea).toEqual({calculator: true});
-    })
+    });
 });
