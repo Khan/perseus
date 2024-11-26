@@ -37,9 +37,7 @@ import type {
 } from "../../types";
 import type {PerseusGradedGroupRubric} from "../../validation.types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
-import {PerseusMatrixWidgetOptions} from "../../perseus-types";
-import {PerseusMatrixRubric} from "../../validation.types";
-import {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const GRADING_STATUSES = {
     ungraded: "ungraded" as const,
