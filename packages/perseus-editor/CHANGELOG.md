@@ -1,5 +1,21 @@
 # @khanacademy/perseus-editor
 
+## 15.0.0
+
+### Major Changes
+
+-   [#1905](https://github.com/Khan/perseus/pull/1905) [`9c225f936`](https://github.com/Khan/perseus/commit/9c225f9365cbb2e92bba3bd67b1abde724809367) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - We're reverting work done for the Server Side Scoring and Input Number Conversion projects.
+
+### Patch Changes
+
+-   [#1889](https://github.com/Khan/perseus/pull/1889) [`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: enable strict typechecking of function parameters
+
+-   Updated dependencies [[`adad642ab`](https://github.com/Khan/perseus/commit/adad642ab0ae95de6600e7018f0aff836acc5911), [`0afb1a4f7`](https://github.com/Khan/perseus/commit/0afb1a4f70e35de7e2b04ee1af835a0ebe84bbe5), [`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9), [`9c225f936`](https://github.com/Khan/perseus/commit/9c225f9365cbb2e92bba3bd67b1abde724809367), [`4b8836b84`](https://github.com/Khan/perseus/commit/4b8836b846c4f6adc6f4bb9c204deedb019c9f51), [`a27f23bb4`](https://github.com/Khan/perseus/commit/a27f23bb48e585aa2229975b1779161b921cbd9d)]:
+    -   @khanacademy/perseus@43.0.0
+    -   @khanacademy/kas@0.4.1
+    -   @khanacademy/math-input@21.1.5
+    -   @khanacademy/pure-markdown@0.3.12
+
 ## 14.12.4
 
 ### Patch Changes

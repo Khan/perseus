@@ -105,7 +105,6 @@ describe("matcher widget", () => {
         const {renderer} = renderQuestion(question1, apiOptions);
         await wait();
 
-        // Act
         const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
 
         // Put the right options in the correct order by repeatedly moving
@@ -120,6 +119,9 @@ describe("matcher widget", () => {
             act(() => matcher.moveRightOptionToIndex(option, 4));
         });
 
+        // Act
+        renderer.guessAndScore();
+
         // assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
@@ -132,7 +134,6 @@ describe("matcher widget", () => {
         const {renderer} = renderQuestion(question1, apiOptions);
         await wait();
 
-        // Act
         const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
 
         // Put the left options in reverse order
@@ -145,6 +146,9 @@ describe("matcher widget", () => {
         ].forEach((option, index) => {
             matcher.moveLeftOptionToIndex(option, 0);
         });
+
+        // Act
+        renderer.guessAndScore();
 
         // Assert
         expect(renderer).toHaveBeenAnsweredIncorrectly();
@@ -160,11 +164,13 @@ describe("matcher widget", () => {
             },
         });
 
-        // Act
         const apiOptions: APIOptions = {
             isMobile: false,
         };
         const {renderer} = renderQuestion(question1, apiOptions);
+
+        // Act
+        renderer.guessAndScore();
 
         // Assert
         expect(renderer).toHaveBeenAnsweredIncorrectly();

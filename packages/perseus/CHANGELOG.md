@@ -1,5 +1,31 @@
 # @khanacademy/perseus
 
+## 43.0.0
+
+### Major Changes
+
+-   [#1905](https://github.com/Khan/perseus/pull/1905) [`9c225f936`](https://github.com/Khan/perseus/commit/9c225f9365cbb2e92bba3bd67b1abde724809367) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - We're reverting work done for the Server Side Scoring and Input Number Conversion projects.
+
+### Minor Changes
+
+-   [#1883](https://github.com/Khan/perseus/pull/1883) [`adad642ab`](https://github.com/Khan/perseus/commit/adad642ab0ae95de6600e7018f0aff836acc5911) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Introduces a validation function for the matrix widget (extracted from matrix scoring function).
+
+*   [#1878](https://github.com/Khan/perseus/pull/1878) [`a27f23bb4`](https://github.com/Khan/perseus/commit/a27f23bb48e585aa2229975b1779161b921cbd9d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add expression validator function
+
+### Patch Changes
+
+-   [#1890](https://github.com/Khan/perseus/pull/1890) [`0afb1a4f7`](https://github.com/Khan/perseus/commit/0afb1a4f70e35de7e2b04ee1af835a0ebe84bbe5) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Labels + Aria] Create math only parser to help parse TeX how we want
+
+*   [#1889](https://github.com/Khan/perseus/pull/1889) [`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: enable strict typechecking of function parameters
+
+-   [#1852](https://github.com/Khan/perseus/pull/1852) [`4b8836b84`](https://github.com/Khan/perseus/commit/4b8836b846c4f6adc6f4bb9c204deedb019c9f51) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding open and closing behavior to unlimited polygon graph type.
+
+-   Updated dependencies [[`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9)]:
+    -   @khanacademy/kas@0.4.1
+    -   @khanacademy/math-input@21.1.5
+    -   @khanacademy/simple-markdown@0.13.5
+    -   @khanacademy/pure-markdown@0.3.12
+
 ## 42.0.3
 
 ### Patch Changes
