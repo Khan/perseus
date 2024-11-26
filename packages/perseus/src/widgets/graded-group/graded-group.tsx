@@ -102,7 +102,10 @@ type State = {
 // PropsFor<Component> type takes defaultProps into account, which is important
 // because PerseusGradedGroupWidgetOptions has optional fields which receive defaults
 // via defaultProps.
-0 as any as WidgetProps<PerseusGradedGroupWidgetOptions, PerseusGradedGroupRubric> satisfies PropsFor<typeof GradedGroup>;
+0 as any as WidgetProps<
+    PerseusGradedGroupWidgetOptions,
+    PerseusGradedGroupRubric
+> satisfies PropsFor<typeof GradedGroup>;
 
 // A Graded Group is more or less a Group widget that displays a check
 // answer button below the rendered content. When clicked, the widget grades
