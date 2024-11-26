@@ -2,7 +2,6 @@
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
-import ReactDOM from "react-dom";
 
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
@@ -32,7 +31,7 @@ function uniqueIdForInput(prefix = "input-") {
 }
 
 class TextInput extends React.Component<Props> {
-    inputRef: React.RefObject<HTMLInputElement> = React.createRef();
+    inputRef = React.createRef<HTMLInputElement>();
     static defaultProps: DefaultProps = {
         value: "",
         disabled: false,
@@ -61,44 +60,34 @@ class TextInput extends React.Component<Props> {
     };
 
     focus: () => void = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this).focus();
+        this._getInput().focus();
     };
 
     blur: () => void = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'blur' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this).blur();
+        this._getInput().blur();
     };
 
     getValue: () => string | null | undefined = () => {
-        // @ts-expect-error - TS2339 - Property 'value' does not exist on type 'Element | Text'.
-        return ReactDOM.findDOMNode(this)?.value;
+        return this.inputRef.current?.value;
     };
 
     getStringValue: () => string | null | undefined = () => {
-        // @ts-expect-error - TS2339 - Property 'value' does not exist on type 'Element | Text'.
-        return ReactDOM.findDOMNode(this)?.value.toString();
+        return this.inputRef.current?.value.toString();
     };
 
     setSelectionRange: (arg1: number, arg2: number) => void = (
         selectionStart,
         selectionEnd,
     ) => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'setSelectionRange' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this).setSelectionRange(
-            selectionStart,
-            selectionEnd,
-        );
+        this._getInput().setSelectionRange(selectionStart, selectionEnd);
     };
 
-    getSelectionStart: () => number = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'.
-        return ReactDOM.findDOMNode(this).selectionStart;
+    getSelectionStart: () => number | null = () => {
+        return this._getInput().selectionStart;
     };
 
-    getSelectionEnd: () => number = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'selectionEnd' does not exist on type 'Element | Text'.
-        return ReactDOM.findDOMNode(this).selectionEnd;
+    getSelectionEnd: () => number | null = () => {
+        return this._getInput().selectionEnd;
     };
 
     render(): React.ReactNode {
