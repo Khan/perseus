@@ -285,4 +285,112 @@ describe("MovablePoint", () => {
 
         expect(focusSpy).toHaveBeenCalledTimes(1);
     });
+
+    describe("accessibility", () => {
+        it("uses the default sequence number when ariaLabel and sequence number are not provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} />
+                </Mafs>,
+            );
+
+            expect(
+                screen.getByLabelText("Point 1 at 0 comma 0"),
+            ).toBeInTheDocument();
+        });
+
+        it("uses sequence number when sequence is provided and aria label is not provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} sequenceNumber={2} />
+                </Mafs>,
+            );
+
+            expect(
+                screen.getByLabelText("Point 2 at 0 comma 0"),
+            ).toBeInTheDocument();
+        });
+
+        it("uses the ariaLabel when both sequence and ariaLabel are provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        ariaLabel="Aria Label being used instead of sequence number"
+                    />
+                </Mafs>,
+            );
+
+            expect(
+                screen.getByLabelText(
+                    "Aria Label being used instead of sequence number",
+                ),
+            ).toBeInTheDocument();
+        });
+
+        it("uses the ariaLabel when only ariaLabel is provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint
+                        point={[0, 0]}
+                        ariaLabel="Custom aria label"
+                    />
+                </Mafs>,
+            );
+
+            expect(
+                screen.getByLabelText("Custom aria label"),
+            ).toBeInTheDocument();
+        });
+
+        it("uses the ariaDescribedBy when provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint
+                        point={[0, 0]}
+                        ariaDescribedBy="description"
+                    />
+                    <p id="description">Aria is described by me</p>
+                </Mafs>,
+            );
+
+            const pointElement = screen.getByRole("button", {
+                name: "Point 1 at 0 comma 0",
+            });
+            expect(pointElement).toHaveAttribute(
+                "aria-describedby",
+                "description",
+            );
+
+            const descriptionElement = screen.getByText(
+                "Aria is described by me",
+            );
+            expect(descriptionElement).toBeInTheDocument();
+        });
+
+        it("uses the ariaLive when provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} ariaLive="assertive" />
+                </Mafs>,
+            );
+
+            expect(
+                screen.getByLabelText("Point 1 at 0 comma 0"),
+            ).toHaveAttribute("aria-live", "assertive");
+        });
+
+        it("uses the default ariaLive when not provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} />
+                </Mafs>,
+            );
+
+            expect(
+                screen.getByLabelText("Point 1 at 0 comma 0"),
+            ).toHaveAttribute("aria-live", "polite");
+        });
+    });
 });
