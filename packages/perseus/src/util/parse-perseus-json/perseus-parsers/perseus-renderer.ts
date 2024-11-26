@@ -6,6 +6,7 @@ import {
     record,
     string,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidgetsMap} from "./widgets-map";
 
@@ -18,13 +19,19 @@ export const parsePerseusRenderer: Parser<PerseusRenderer> = object({
     // `group` widget can contain another renderer.
     // The anonymous function below ensures that we don't try to access
     // parseWidgetsMap before it's defined.
-    widgets: (rawVal, ctx) => parseWidgetsMap(rawVal, ctx),
+    widgets: defaulted(
+        (rawVal, ctx) => parseWidgetsMap(rawVal, ctx),
+        () => ({}),
+    ),
     metadata: optional(array(string)),
-    images: record(
-        string,
-        object({
-            width: number,
-            height: number,
-        }),
+    images: defaulted(
+        record(
+            string,
+            object({
+                width: number,
+                height: number,
+            }),
+        ),
+        () => ({}),
     ),
 });

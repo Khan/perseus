@@ -1,5 +1,148 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missing-widgets.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "Extinction is a natural process, and the rate of extinction can be determined by studying changes in biodiversity during the history of life on Earth.
+",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {
+        "orderer 1": {
+          "alignment": undefined,
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "correctOptions": [
+              {
+                "content": "$x$",
+                "images": {},
+                "metadata": undefined,
+                "widgets": {},
+              },
+            ],
+            "height": "normal",
+            "layout": "horizontal",
+            "options": [
+              {
+                "content": "$x$",
+                "images": {},
+                "metadata": undefined,
+                "widgets": {},
+              },
+              {
+                "content": "$y$",
+                "images": {},
+                "metadata": undefined,
+                "widgets": {},
+              },
+            ],
+            "otherOptions": [
+              {
+                "content": "$y$",
+                "images": {},
+                "metadata": undefined,
+                "widgets": {},
+              },
+            ],
+          },
+          "static": undefined,
+          "type": "orderer",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "Humans are causing a current sixth mass extinction event, but are not the only reason species go extinct.",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "What is the definition of the natural background rate of extinction? 
+
+![](https://ka-perseus-images.s3.amazonaws.com/1f68a48ffbc7b137e99fbcbb11e9747ae799fe01.jpg)
+
+[[☃ radio 1]]",
+    "images": {
+      "https://ka-perseus-images.s3.amazonaws.com/1f68a48ffbc7b137e99fbcbb11e9747ae799fe01.jpg": {
+        "height": 253,
+        "width": 396,
+      },
+    },
+    "metadata": undefined,
+    "widgets": {
+      "radio 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "choices": [
+            {
+              "clue": undefined,
+              "content": "a.	the rate of extinction that balances the rate of speciation",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "b.	the average rate at which extinctions have occurred naturally in the geologic past, without human involvement",
+              "correct": true,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "c.	the rate of extinction that is currently occurring in protected areas like national parks and marine sanctuaries",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "d.	the rate of extinction that can be determined by using Geiger counters and detecting radiation",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+          ],
+          "countChoices": undefined,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": undefined,
+          "multipleSelect": false,
+          "noneOfTheAbove": false,
+          "onePerLine": true,
+          "randomize": false,
+        },
+        "static": undefined,
+        "type": "radio",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/radio-missing-noneOfTheAbove.json 1`] = `
 {
   "answer": undefined,
