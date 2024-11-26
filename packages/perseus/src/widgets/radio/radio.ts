@@ -129,13 +129,7 @@ const propUpgrades = {
     "1": (v0props: any): any => {
         const {noneOfTheAbove, ...rest} = v0props;
 
-        let choices;
-        let hasNoneOfTheAbove;
-
-        if (!noneOfTheAbove) {
-            choices = v0props.choices;
-            hasNoneOfTheAbove = false;
-        } else {
+        if (noneOfTheAbove) {
             throw new Error(
                 "radio widget v0 no longer supports auto noneOfTheAbove",
             );
@@ -143,8 +137,7 @@ const propUpgrades = {
 
         return {
             ...rest,
-            choices,
-            hasNoneOfTheAbove,
+            hasNoneOfTheAbove: false,
         };
     },
 } as const;
