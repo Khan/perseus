@@ -20,8 +20,8 @@ type Params = {
     ariaLabel?: string;
     ariaLive?: AriaLive;
     color?: string | undefined;
-    cursor?: CSSCursor | undefined;
     constrain?: KeyboardMovementConstraint;
+    cursor?: CSSCursor | undefined;
     // The focusableHandle element is assigned to the forwarded ref.
     forwardedRef?: React.ForwardedRef<SVGGElement | null> | undefined;
     /**
@@ -54,8 +54,8 @@ export function useControlPoint(params: Params): Return {
         ariaLabel,
         ariaLive = "polite",
         color,
-        cursor,
         constrain = (p) => snap(snapStep, p),
+        cursor,
         forwardedRef = noop,
         sequenceNumber = 1,
         onMove = noop,
