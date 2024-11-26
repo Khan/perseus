@@ -21,6 +21,11 @@ type State = {
 };
 
 /**
+ * TODO(LEMS-2667): 11/26/24, at the time of writing this comment
+ * it has been identified that this file has been broken long before
+ * the refactoring of createReactClass. Future implementation need
+ * to determine how to fix this functionality or deprecate it.
+ * *
  * Takes an array of components to sort.
  * As of 08/05/24, there are two sortable components
  * (one in perseus and one in perseus-editor).
