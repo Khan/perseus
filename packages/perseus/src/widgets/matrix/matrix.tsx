@@ -17,13 +17,17 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matr
 
 import scoreMatrix from "./score-matrix";
 
-import type {PerseusMatrixWidgetOptions} from "../../perseus-types";
+import type {
+    PerseusMatrixWidgetAnswers,
+    PerseusMatrixWidgetOptions,
+} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
 import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
 } from "../../validation.types";
 import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {assert} = InteractiveUtil;
 const {stringArrayOfSize} = Util;
@@ -100,9 +104,33 @@ export function getMatrixSize(matrix: ReadonlyArray<ReadonlyArray<number>>) {
 }
 
 type ExternalProps = WidgetProps<
-    PerseusMatrixWidgetOptions,
+    {
+        // Translatable Text; Shown before the matrix
+        prefix: string;
+        // Translatable Text; Shown after the matrix
+        suffix: string;
+        // A data matrix representing the "correct" answers to be entered into the matrix
+        answers: PerseusMatrixWidgetAnswers;
+        // The coordinate location of the cursor position at start. default: [0, 0]
+        cursorPosition: ReadonlyArray<number>;
+        // The coordinate size of the matrix.  Only supports 2-dimensional matrix.  default: [3, 3]
+        matrixBoardSize: ReadonlyArray<number>;
+        // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
+        static?: boolean | undefined;
+    },
     PerseusMatrixRubric
 >;
+
+// Assert that the PerseusMatrixWidgetOptions parsed from JSON can be passed
+// as props to this component. This ensures that the PerseusMatrixWidgetOptions
+// stays in sync with the prop types. The PropsFor<Component> type takes
+// defaultProps into account, which is important because
+// PerseusMatrixWidgetOptions has optional fields which receive defaults via
+// defaultProps.
+0 as any as WidgetProps<
+    PerseusMatrixWidgetOptions,
+    PerseusMatrixRubric
+> satisfies PropsFor<typeof Matrix>;
 
 type Props = ExternalProps & {
     onChange: (
@@ -118,9 +146,9 @@ type Props = ExternalProps & {
 type DefaultProps = {
     matrixBoardSize: Props["matrixBoardSize"];
     answers: Props["answers"];
-    prefix: Props["prefix"];
-    suffix: Props["suffix"];
-    cursorPosition: Props["cursorPosition"];
+    prefix: string;
+    suffix: string;
+    cursorPosition: ReadonlyArray<number>;
     apiOptions: Props["apiOptions"];
     linterContext: Props["linterContext"];
 };

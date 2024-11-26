@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 43.0.1
+
+### Patch Changes
+
+-   [#1896](https://github.com/Khan/perseus/pull/1896) [`56fd44806`](https://github.com/Khan/perseus/commit/56fd448063b2e13c5e9cb9e1874c12494c6f0e34) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing intersecting polygon sides issues for unlimited sided polygon.
+
+*   [#1894](https://github.com/Khan/perseus/pull/1894) [`01edfb8be`](https://github.com/Khan/perseus/commit/01edfb8be849f869c26ada923e275648780d36f3) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Add comment about making translation tickets
+
+-   [#1875](https://github.com/Khan/perseus/pull/1875) [`28cae9d2a`](https://github.com/Khan/perseus/commit/28cae9d2afe65e1345906de8106d349c93ddb97c) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Labels] Count lone unescaped \$ as regular dollar signs in TeX
+
 ## 43.0.0
 
 ### Major Changes

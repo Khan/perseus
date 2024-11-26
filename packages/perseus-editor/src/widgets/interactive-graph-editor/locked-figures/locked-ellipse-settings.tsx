@@ -22,8 +22,8 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
-    generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -68,22 +68,15 @@ const LockedEllipseSettings = (props: Props) => {
      * with the math details converted into spoken words.
      */
     async function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
         const isCircle = radius[0] === radius[1];
         let str = "";
 
         if (isCircle) {
-            str += await generateSpokenMathDetails(
-                `Circle${visiblelabel} with radius ${radius[0]}`,
-            );
+            str += `Circle${visiblelabel} with radius ${radius[0]}`;
         } else {
-            str += await generateSpokenMathDetails(
-                `Ellipse${visiblelabel} with x radius ${radius[0]} and y radius ${radius[1]}`,
-            );
+            str += `Ellipse${visiblelabel} with x radius ${radius[0]} and y radius ${radius[1]}`;
         }
 
         str += `, centered at (${center[0]}, ${center[1]})`;

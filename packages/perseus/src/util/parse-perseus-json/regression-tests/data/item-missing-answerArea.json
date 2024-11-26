@@ -1,0 +1,16 @@
+{
+  "_multi": {
+    "blurb": {
+      "__type": "content",
+      "content": "",
+      "images": {},
+      "widgets": {}
+    },
+    "hints": [],
+    "question": {
+      "__type": "content",
+      "content": "",
+      "widgets": {}
+    }
+  }
+}
