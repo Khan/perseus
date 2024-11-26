@@ -1,5 +1,34 @@
 # @khanacademy/perseus-editor
 
+## 15.0.1
+
+### Patch Changes
+
+-   [#1874](https://github.com/Khan/perseus/pull/1874) [`42d25c2d2`](https://github.com/Khan/perseus/commit/42d25c2d2d844d6408d76b07794f171d962b91a7) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Fix \$ edge cases for spoken math aria labels
+
+*   [#1912](https://github.com/Khan/perseus/pull/1912) [`44e78a95d`](https://github.com/Khan/perseus/commit/44e78a95dc1f0d2d4a16794feb590d05df0f2e0a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Stop cursor jumps in number input fields
+
+-   [#1875](https://github.com/Khan/perseus/pull/1875) [`28cae9d2a`](https://github.com/Khan/perseus/commit/28cae9d2afe65e1345906de8106d349c93ddb97c) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Labels] Count lone unescaped \$ as regular dollar signs in TeX
+
+-   Updated dependencies [[`56fd44806`](https://github.com/Khan/perseus/commit/56fd448063b2e13c5e9cb9e1874c12494c6f0e34), [`01edfb8be`](https://github.com/Khan/perseus/commit/01edfb8be849f869c26ada923e275648780d36f3), [`28cae9d2a`](https://github.com/Khan/perseus/commit/28cae9d2afe65e1345906de8106d349c93ddb97c)]:
+    -   @khanacademy/perseus@43.0.1
+
+## 15.0.0
+
+### Major Changes
+
+-   [#1905](https://github.com/Khan/perseus/pull/1905) [`9c225f936`](https://github.com/Khan/perseus/commit/9c225f9365cbb2e92bba3bd67b1abde724809367) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - We're reverting work done for the Server Side Scoring and Input Number Conversion projects.
+
+### Patch Changes
+
+-   [#1889](https://github.com/Khan/perseus/pull/1889) [`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: enable strict typechecking of function parameters
+
+-   Updated dependencies [[`adad642ab`](https://github.com/Khan/perseus/commit/adad642ab0ae95de6600e7018f0aff836acc5911), [`0afb1a4f7`](https://github.com/Khan/perseus/commit/0afb1a4f70e35de7e2b04ee1af835a0ebe84bbe5), [`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9), [`9c225f936`](https://github.com/Khan/perseus/commit/9c225f9365cbb2e92bba3bd67b1abde724809367), [`4b8836b84`](https://github.com/Khan/perseus/commit/4b8836b846c4f6adc6f4bb9c204deedb019c9f51), [`a27f23bb4`](https://github.com/Khan/perseus/commit/a27f23bb48e585aa2229975b1779161b921cbd9d)]:
+    -   @khanacademy/perseus@43.0.0
+    -   @khanacademy/kas@0.4.1
+    -   @khanacademy/math-input@21.1.5
+    -   @khanacademy/pure-markdown@0.3.12
+
 ## 14.12.4
 
 ### Patch Changes

@@ -5,11 +5,10 @@ import {ServerItemRendererWithDebugUI} from "../../../../testing/server-item-ren
 import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
 import {
     itemWithInput,
-    itemWithInputNumber,
     itemWithLintingError,
     labelImageItem,
     itemWithImages,
-    itemWithMultipleNumericInputs,
+    itemWithMultipleInputNumbers,
     itemWithRadioAndExpressionWidgets,
 } from "../__testdata__/server-item-renderer.testdata";
 import {ServerItemRenderer} from "../server-item-renderer";
@@ -24,12 +23,8 @@ export default {
     title: "Perseus/Renderers/Server Item Renderer",
 } as Story;
 
-export const NumericInputItem = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={itemWithInput} />;
-};
-
 export const InputNumberItem = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={itemWithInputNumber} />;
+    return <ServerItemRendererWithDebugUI item={itemWithInput} />;
 };
 
 export const LabelImageItem = (args: StoryArgs): React.ReactElement => {
@@ -61,7 +56,7 @@ export const InputNumberWithInteractionCallback = (
 ): React.ReactElement => {
     return (
         <ServerItemRendererWithDebugUI
-            item={itemWithMultipleNumericInputs}
+            item={itemWithMultipleInputNumbers}
             apiOptions={{
                 interactionCallback: (data) => {
                     // We are logging the interaction callback data to the console

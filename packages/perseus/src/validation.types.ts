@@ -9,10 +9,10 @@
  * entered. This is referred to as the 'guess' in some older parts of Perseus.
  *
  * `Perseus<Widget>ValidationData`: the data needed to do validation of the
- * user input. Validation is the checks we can do both on the client-side,
- * before submitting user input for scoring, and on the server-side when we
- * score it. As such, it cannot contain any of the sensitive scoring data
- * that would reveal the answer.
+ * user input. Validation refers to the different checks that we can do both on
+ * the client-side (before submitting user input for scoring) and on the
+ * server-side (when we score it). As such, it cannot contain any of the
+ * sensitive scoring data that would reveal the answer.
  *
  * `Perseus<Widget>ScoringData` (nee `Perseus<Widget>Rubric`): the data needed
  * to score the user input. By convention, this type is defined as the set of
@@ -22,7 +22,8 @@
  * For example:
  * ```
  * type Perseus<Widget>ScoringData = {
- *     correct: string;
+ *     correct: string;  // Used _only_ for scoring
+ *     size: number;     // Used _only_ for scoring
  * } & Perseus<Widget>ValidationData;
  * ```
  */
@@ -150,7 +151,9 @@ export type PerseusMatcherUserInput = {
 export type PerseusMatrixRubric = {
     // A data matrix representing the "correct" answers to be entered into the matrix
     answers: PerseusMatrixWidgetAnswers;
-};
+} & PerseusMatrixValidationData;
+
+export type PerseusMatrixValidationData = Empty;
 
 export type PerseusMatrixUserInput = {
     answers: PerseusMatrixRubric["answers"];

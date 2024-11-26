@@ -139,8 +139,8 @@ describe("MafsGraph", () => {
         };
 
         render(<MafsGraph {...basePropsWithTexLabels} />);
-        expect(screen.getByText("1/2")).toBeInTheDocument();
-        expect(screen.getByText("3/4")).toBeInTheDocument();
+        expect(screen.getByText("\\text{$1/2$}")).toBeInTheDocument();
+        expect(screen.getByText("\\text{$3/4$}")).toBeInTheDocument();
     });
 
     it("renders plain text in axis Labels", () => {
