@@ -7,6 +7,7 @@ import {
     optional,
     string,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
@@ -19,7 +20,7 @@ export const parseCategorizerWidget: Parser<CategorizerWidget> = parseWidget(
         items: array(string),
         categories: array(string),
         randomizeItems: boolean,
-        static: boolean,
+        static: defaulted(boolean, () => false),
         values: array(number),
         highlightLint: optional(boolean),
         linterContext: optional(
