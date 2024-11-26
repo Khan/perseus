@@ -8,7 +8,6 @@ import * as Perseus from "@khanacademy/perseus";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {scorePerseusItem} from "../../renderer-util";
 import {mockStrings} from "../../strings";
 import {traverse} from "../../traversal";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -414,13 +413,10 @@ describe("group widget", () => {
             screen.getByRole("textbox", {name: /nearest hundred/}),
             "200",
         );
-
-        const guess = renderer.getUserInputMap();
-        const score = scorePerseusItem(question1, guess, mockStrings, "en");
-        const guessAndScore = [renderer.getUserInput(), score];
+        const guessAndScore = renderer.guessAndScore();
 
         // Assert
-        expect(score).toHaveBeenAnsweredCorrectly();
+        expect(guessAndScore[1]).toHaveBeenAnsweredCorrectly();
         expect(guessAndScore).toMatchInlineSnapshot(`
             [
               [
