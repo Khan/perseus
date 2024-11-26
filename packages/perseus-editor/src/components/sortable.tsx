@@ -164,29 +164,17 @@ export class SortableArea extends React.Component<Props, State> {
 
 type ItemProps = {
     area: any;
-    component: any;
+    component: React.ReactNode;
     dragging: boolean;
     draggable: boolean;
     index: number;
 };
 
-type DefaultItemProps = {
-    area: ItemProps["area"];
-    component: ItemProps["component"];
-    dragging: ItemProps["dragging"];
-    draggable: ItemProps["draggable"];
-    index: ItemProps["index"];
-};
-
 // An individual sortable item
 export class SortableItem extends React.Component<ItemProps> {
-    static defaultProps: DefaultItemProps = {
-        area: "",
-        component: {},
-        dragging: false,
-        draggable: false,
-        index: 0,
-    };
+    constructor(props) {
+        super(props);
+    }
 
     handleDragStart(e) {
         e.nativeEvent.dataTransfer.effectAllowed = "move";
