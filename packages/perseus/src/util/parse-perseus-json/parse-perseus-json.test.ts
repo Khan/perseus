@@ -24,11 +24,11 @@ describe("parseAndTypecheckPerseusItem", () => {
     });
 
     it("returns an error given an invalid PerseusItem", () => {
-        const result = parseAndTypecheckPerseusItem(`{ "bad": "value" }`);
+        const result = parseAndTypecheckPerseusItem(`{"question": "bad value"}`);
 
         assertFailure(result);
         expect(result.detail).toContain(
-            "At (root).question -- expected object, but got undefined",
+            `At (root).question -- expected object, but got "bad value"`,
         );
     });
 });

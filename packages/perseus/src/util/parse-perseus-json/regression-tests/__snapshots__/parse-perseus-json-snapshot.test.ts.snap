@@ -51,6 +51,58 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-version.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "While the Articles of Confederation did not provide for a federal executive, delegates to the Continental Congress did elect a president.",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": undefined,
+  "question": {
+    "content": "**Under the Articles of Confederation[[☃ dropdown 1]] chose the president of the United States.** ",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "dropdown 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "choices": [
+            {
+              "content": "state legislatures",
+              "correct": false,
+            },
+            {
+              "content": "delegates to the Continental Congress",
+              "correct": true,
+            },
+            {
+              "content": "the people",
+              "correct": false,
+            },
+          ],
+          "placeholder": "",
+          "static": false,
+        },
+        "static": undefined,
+        "type": "dropdown",
+        "version": undefined,
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/hint-missing-images.json 1`] = `
 {
   "answer": undefined,
@@ -414,6 +466,34 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-stati
     "content": "This is a question.",
     "images": {},
     "metadata": undefined,
+    "widgets": {},
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/item-missing-answerArea.json 1`] = `
+{
+  "_multi": {
+    "blurb": {
+      "__type": "content",
+      "content": "",
+      "images": {},
+      "widgets": {},
+    },
+    "hints": [],
+    "question": {
+      "__type": "content",
+      "content": "",
+      "widgets": {},
+    },
+  },
+  "answer": undefined,
+  "answerArea": {},
+  "hints": [],
+  "itemDataVersion": undefined,
+  "question": {
+    "content": "",
+    "images": {},
     "widgets": {},
   },
 }
