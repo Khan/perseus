@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @babel/no-invalid-this, @typescript-eslint/no-unused-vars, react/no-unsafe */
+/* eslint-disable @babel/no-invalid-this, react/no-unsafe */
 import {Errors} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import $ from "jquery";
@@ -17,12 +17,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/ord
 import {scoreOrderer} from "./score-orderer";
 
 import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
-import type {
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-    Widget,
-} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
     PerseusOrdererRubric,
     PerseusOrdererUserInput,
@@ -300,11 +295,6 @@ class Card extends React.Component<CardProps, CardState> {
     }
 }
 
-const NORMAL = "normal";
-const AUTO = "auto";
-const HORIZONTAL = "horizontal";
-const VERTICAL = "vertical";
-
 type RenderProps = PerseusOrdererWidgetOptions & {
     current: any;
 };
@@ -344,8 +334,8 @@ class Orderer
         current: [],
         options: [],
         correctOptions: [],
-        height: NORMAL,
-        layout: HORIZONTAL,
+        height: "normal",
+        layout: "horizontal",
         linterContext: linterContextDefault,
     };
 
@@ -521,7 +511,7 @@ class Orderer
 
     findCorrectIndex: (arg1: any, arg2: any) => any = (draggable, list) => {
         // Find the correct index for a card given the current cards.
-        const isHorizontal = this.props.layout === HORIZONTAL;
+        const isHorizontal = this.props.layout === "horizontal";
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $dragList = $(ReactDOM.findDOMNode(this.refs.dragList));
@@ -585,7 +575,7 @@ class Orderer
             return false;
         }
 
-        const isHorizontal = this.props.layout === HORIZONTAL;
+        const isHorizontal = this.props.layout === "horizontal";
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $draggable = $(ReactDOM.findDOMNode(draggable));
         // eslint-disable-next-line react/no-string-refs
@@ -601,10 +591,6 @@ class Orderer
         const bankHeight = $bank.outerHeight(true);
         // @ts-expect-error - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
         const bankWidth = $bank.outerWidth(true);
-        // eslint-disable-next-line react/no-string-refs
-        const dragList = ReactDOM.findDOMNode(this.refs.dragList);
-        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'width' does not exist on type 'JQueryStatic'.
-        const dragListWidth = $(dragList).width();
         // @ts-expect-error - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
         const draggableWidth = $draggable.outerWidth(true);
 
