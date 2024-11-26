@@ -62,16 +62,12 @@ const ScrolllessNumberTextField = (props: PropsFor<typeof TextField>) => {
                 setWipValue(value);
                 setFocused(true);
 
-                if (props.onFocus) {
-                    props.onFocus(e);
-                }
+                props.onFocus?.(e);
             }}
             onBlur={(e) => {
                 setFocused(false);
 
-                if (props.onBlur) {
-                    props.onBlur(e);
-                }
+                props.onBlur?.(e);
             }}
             ref={inputRef}
         />
