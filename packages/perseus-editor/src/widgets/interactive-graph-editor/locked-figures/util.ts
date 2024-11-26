@@ -185,10 +185,8 @@ export async function joinLabelsAsSpokenMath(
     return ` ${spokenLabels.join(", ")}`;
 }
 
-// TODO(LEMS-2616): Stop using this mock in tests. Mocking may make tests
-// harder to understand, this will become tech debt. Once we update the
-// speech rule engine to read locale data from local files, we will no longer
-// need to use this mock for the tests to work.
+// TODO(LEMS-2616): Stop using this mock in tests once we update the
+// speech rule engine to read locale data from local files.
 /**
  * Non-async mocked version of joinLabelsAsSpokenMath for tests.
  */
