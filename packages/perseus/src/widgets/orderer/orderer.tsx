@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @babel/no-invalid-this, @typescript-eslint/no-unused-vars, one-var, react/no-unsafe */
+/* eslint-disable @babel/no-invalid-this, @typescript-eslint/no-unused-vars, react/no-unsafe */
 import {Errors} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import $ from "jquery";
@@ -585,28 +585,28 @@ class Orderer
             return false;
         }
 
-        const isHorizontal = this.props.layout === HORIZONTAL,
-            // @ts-expect-error - TS2769 - No overload matches this call.
-            $draggable = $(ReactDOM.findDOMNode(draggable)),
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2769 - No overload matches this call.
-            $bank = $(ReactDOM.findDOMNode(this.refs.bank)),
-            // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
-            draggableOffset = $draggable.offset(),
-            // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
-            bankOffset = $bank.offset(),
-            // @ts-expect-error - TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
-            draggableHeight = $draggable.outerHeight(true),
-            // @ts-expect-error - TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
-            bankHeight = $bank.outerHeight(true),
-            // @ts-expect-error - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
-            bankWidth = $bank.outerWidth(true),
-            // eslint-disable-next-line react/no-string-refs
-            dragList = ReactDOM.findDOMNode(this.refs.dragList),
-            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'width' does not exist on type 'JQueryStatic'.
-            dragListWidth = $(dragList).width(),
-            // @ts-expect-error - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
-            draggableWidth = $draggable.outerWidth(true);
+        const isHorizontal = this.props.layout === HORIZONTAL;
+        // @ts-expect-error - TS2769 - No overload matches this call.
+        const $draggable = $(ReactDOM.findDOMNode(draggable));
+        // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error - TS2769 - No overload matches this call.
+        const $bank = $(ReactDOM.findDOMNode(this.refs.bank));
+        // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+        const draggableOffset = $draggable.offset();
+        // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+        const bankOffset = $bank.offset();
+        // @ts-expect-error - TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
+        const draggableHeight = $draggable.outerHeight(true);
+        // @ts-expect-error - TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
+        const bankHeight = $bank.outerHeight(true);
+        // @ts-expect-error - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
+        const bankWidth = $bank.outerWidth(true);
+        // eslint-disable-next-line react/no-string-refs
+        const dragList = ReactDOM.findDOMNode(this.refs.dragList);
+        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'width' does not exist on type 'JQueryStatic'.
+        const dragListWidth = $(dragList).width();
+        // @ts-expect-error - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
+        const draggableWidth = $draggable.outerWidth(true);
 
         if (isHorizontal) {
             return (
