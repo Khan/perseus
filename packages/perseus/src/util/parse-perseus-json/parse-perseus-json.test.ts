@@ -24,7 +24,9 @@ describe("parseAndTypecheckPerseusItem", () => {
     });
 
     it("returns an error given an invalid PerseusItem", () => {
-        const result = parseAndTypecheckPerseusItem(`{"question": "bad value"}`);
+        const result = parseAndTypecheckPerseusItem(
+            `{"question": "bad value"}`,
+        );
 
         assertFailure(result);
         expect(result.detail).toContain(
