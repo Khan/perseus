@@ -17,7 +17,10 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
-import type {PerseusItem} from "../../perseus-types";
+import type {
+    PerseusExpressionWidgetOptions,
+    PerseusItem,
+} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
@@ -535,9 +538,7 @@ describe("Expression Widget", function () {
                 value: "42",
             };
 
-            const result = ExpressionWidgetExport.propUpgrades["1"](v0props);
-
-            expect(result).toEqual({
+            const expected: PerseusExpressionWidgetOptions = {
                 times: false,
                 buttonSets: ["basic"],
                 functions: [],
@@ -549,7 +550,11 @@ describe("Expression Widget", function () {
                         value: "42",
                     },
                 ],
-            });
+            };
+
+            const result = ExpressionWidgetExport.propUpgrades["1"](v0props);
+
+            expect(result).toEqual(expected);
         });
     });
 });

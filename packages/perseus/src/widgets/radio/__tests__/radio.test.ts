@@ -18,7 +18,10 @@ import {
     shuffledNoneQuestion,
 } from "./radio.testdata";
 
-import type {PerseusRenderer} from "../../../perseus-types";
+import type {
+    PerseusRadioWidgetOptions,
+    PerseusRenderer,
+} from "../../../perseus-types";
 import type {APIOptions} from "../../../types";
 import type {PerseusRadioUserInput} from "../../../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -992,12 +995,14 @@ describe("propsUpgrade", () => {
             choices: [{content: "Choice 1"}, {content: "Choice 2"}],
         };
 
-        const result = RadioWidgetExport.propUpgrades["1"](v0props);
-
-        expect(result).toEqual({
+        const expected: PerseusRadioWidgetOptions = {
             choices: [{content: "Choice 1"}, {content: "Choice 2"}],
             hasNoneOfTheAbove: false,
-        });
+        };
+
+        const result = RadioWidgetExport.propUpgrades["1"](v0props);
+
+        expect(result).toEqual(expected);
     });
 
     it("throws from noneOfTheAbove", () => {

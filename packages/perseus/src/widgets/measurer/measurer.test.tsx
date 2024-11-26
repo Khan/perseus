@@ -1,5 +1,7 @@
 import MeasurerWidgetExport from "./measurer";
 
+import type {PerseusMeasurerWidgetOptions} from "../../perseus-types";
+
 describe("measurer", () => {
     describe("propUpgrades", () => {
         it("can upgrade from v0 to v1", () => {
@@ -17,9 +19,7 @@ describe("measurer", () => {
                 static: false,
             };
 
-            const result = MeasurerWidgetExport.propUpgrades["1"](v0props);
-
-            expect(result).toEqual({
+            const expected: PerseusMeasurerWidgetOptions = {
                 image: {
                     url: "url",
                     top: 42,
@@ -33,7 +33,11 @@ describe("measurer", () => {
                 rulerLength: 4,
                 box: [4, 4],
                 static: false,
-            });
+            };
+
+            const result = MeasurerWidgetExport.propUpgrades["1"](v0props);
+
+            expect(result).toEqual(expected);
         });
     });
 });
