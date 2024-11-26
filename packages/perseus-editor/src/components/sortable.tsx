@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 // Need to update these values.
 type Props = {
     className?: string;
-    components: any[];
+    components: React.ReactElement[];
     onReorder: (i: any[]) => void;
     style?: any;
     verify: (i: any) => boolean;
@@ -17,7 +17,7 @@ type DefaultProps = {
 
 type State = {
     dragging: number;
-    components: any[];
+    components: React.ReactElement[];
 };
 
 /**
@@ -76,7 +76,7 @@ export class SortableArea extends React.Component<Props, State> {
     onDrop() {
         // tell the parent component
         this.setState({dragging: -1});
-        this.props.onReorder(this.props.components);
+        this.props.onReorder(this.state.components);
     }
 
     onDragEnter(enterIndex) {
@@ -86,7 +86,7 @@ export class SortableArea extends React.Component<Props, State> {
             return;
         }
 
-        const newComponents = this.props.components.slice();
+        const newComponents = this.state.components.slice();
 
         // splice the tab out of its old position
         const removed = newComponents.splice(this.state.dragging, 1);
@@ -149,7 +149,7 @@ export class SortableArea extends React.Component<Props, State> {
     }
 
     render() {
-        const sortables = this.props.components.map((component, index) => (
+        const sortables = this.state.components.map((component, index) => (
             <SortableItem
                 index={index}
                 component={component}
