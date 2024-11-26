@@ -8,6 +8,7 @@ import * as Dependencies from "../../../dependencies";
 import {mockStrings} from "../../../strings";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import PassageWidget from "../../passage";
+import RadioWidgetExport from "../radio";
 import scoreRadio from "../score-radio";
 
 import {
@@ -982,5 +983,31 @@ describe("scoring", () => {
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();
         expect(renderer).toHaveBeenAnsweredIncorrectly();
+    });
+});
+
+describe("propsUpgrade", () => {
+    it("can upgrade from v0 to v1", () => {
+        const v0props = {
+            choices: [{content: "Choice 1"}, {content: "Choice 2"}],
+        };
+
+        const result = RadioWidgetExport.propUpgrades["1"](v0props);
+
+        expect(result).toEqual({
+            choices: [{content: "Choice 1"}, {content: "Choice 2"}],
+            hasNoneOfTheAbove: false,
+        });
+    });
+
+    it("throws from noneOfTheAbove", () => {
+        const v0props = {
+            choices: [{content: "Choice 1"}, {content: "Choice 2"}],
+            noneOfTheAbove: true,
+        };
+
+        expect(() => RadioWidgetExport.propUpgrades["1"](v0props)).toThrow(
+            "radio widget v0 no longer supports auto noneOfTheAbove",
+        );
     });
 });

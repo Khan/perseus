@@ -127,10 +127,12 @@ const transform = (
 
 const propUpgrades = {
     "1": (v0props: any): any => {
+        const {noneOfTheAbove, ...rest} = v0props;
+
         let choices;
         let hasNoneOfTheAbove;
 
-        if (!v0props.noneOfTheAbove) {
+        if (!noneOfTheAbove) {
             choices = v0props.choices;
             hasNoneOfTheAbove = false;
         } else {
@@ -139,10 +141,11 @@ const propUpgrades = {
             );
         }
 
-        return _.extend(_.omit(v0props, "noneOfTheAbove"), {
-            choices: choices,
-            hasNoneOfTheAbove: hasNoneOfTheAbove,
-        });
+        return {
+            ...rest,
+            choices,
+            hasNoneOfTheAbove,
+        };
     },
 } as const;
 
