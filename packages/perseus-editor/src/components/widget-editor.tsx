@@ -8,8 +8,8 @@ import {
 } from "@khanacademy/perseus";
 import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
 import Switch from "@khanacademy/wonder-blocks-switch";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import _ from "underscore";
 
@@ -241,7 +241,7 @@ function LabeledSwitch(props: {
     return (
         <>
             <label htmlFor={id}>{label}</label>
-            <Strut size={Spacing.xxSmall_6} />
+            <Strut size={spacing.xxSmall_6} />
             <Switch id={id} {...switchProps} />
         </>
     );

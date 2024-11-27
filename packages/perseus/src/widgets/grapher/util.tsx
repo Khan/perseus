@@ -1,4 +1,3 @@
-/* eslint-disable one-var */
 import {point as kpoint} from "@khanacademy/kmath";
 import * as React from "react";
 import _ from "underscore";
@@ -141,15 +140,15 @@ const Linear: LinearType = _.extend({}, PlotDefaults, {
     },
 
     getFunctionForCoeffs: function (coeffs: ReadonlyArray<number>, x: number) {
-        const m = coeffs[0],
-            b = coeffs[1];
+        const m = coeffs[0];
+        const b = coeffs[1];
         return m * x + b;
     },
 
     getEquationString: function (coords: Coords) {
         const coeffs: ReadonlyArray<number> = this.getCoefficients(coords);
-        const m: number = coeffs[0],
-            b: number = coeffs[1];
+        const m: number = coeffs[0];
+        const b: number = coeffs[1];
         return "y = " + m.toFixed(3) + "x + " + b.toFixed(3);
     },
 });
@@ -184,9 +183,9 @@ const Quadratic: QuadraticType = _.extend({}, PlotDefaults, {
         coeffs: ReadonlyArray<number>,
         x: number,
     ): number {
-        const a = coeffs[0],
-            b = coeffs[1],
-            c = coeffs[2];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
         return (a * x + b) * x + c;
     },
 
@@ -204,9 +203,9 @@ const Quadratic: QuadraticType = _.extend({}, PlotDefaults, {
 
     getEquationString: function (coords: Coords) {
         const coeffs = this.getCoefficients(coords);
-        const a = coeffs[0],
-            b = coeffs[1],
-            c = coeffs[2];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
         return (
             "y = " +
             a.toFixed(3) +
@@ -241,10 +240,10 @@ const Sinusoid: SinusoidType = _.extend({}, PlotDefaults, {
     },
 
     getFunctionForCoeffs: function (coeffs: ReadonlyArray<number>, x: number) {
-        const a = coeffs[0],
-            b = coeffs[1],
-            c = coeffs[2],
-            d = coeffs[3];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
+        const d = coeffs[3];
         return a * Math.sin(b * x - c) + d;
     },
 
@@ -259,10 +258,10 @@ const Sinusoid: SinusoidType = _.extend({}, PlotDefaults, {
 
     getEquationString: function (coords: Coords) {
         const coeffs = this.getCoefficients(coords);
-        const a = coeffs[0],
-            b = coeffs[1],
-            c = coeffs[2],
-            d = coeffs[3];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
+        const d = coeffs[3];
         return (
             "y = " +
             a.toFixed(3) +
@@ -307,19 +306,19 @@ const Tangent: TangentType = _.extend({}, PlotDefaults, {
     },
 
     getFunctionForCoeffs: function (coeffs: ReadonlyArray<number>, x: number) {
-        const a = coeffs[0],
-            b = coeffs[1],
-            c = coeffs[2],
-            d = coeffs[3];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
+        const d = coeffs[3];
         return a * Math.tan(b * x - c) + d;
     },
 
     getEquationString: function (coords: Coords) {
         const coeffs = this.getCoefficients(coords);
-        const a = coeffs[0],
-            b = coeffs[1],
-            c = coeffs[2],
-            d = coeffs[3];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
+        const d = coeffs[3];
         return (
             "y = " +
             a.toFixed(3) +
@@ -430,9 +429,9 @@ const Exponential: ExponentialType = _.extend({}, PlotDefaults, {
         coeffs: ReadonlyArray<number>,
         x: number,
     ): number {
-        const a = coeffs[0],
-            b = coeffs[1],
-            c = coeffs[2];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
         return a * Math.exp(b * x) + c;
     },
 
@@ -441,9 +440,9 @@ const Exponential: ExponentialType = _.extend({}, PlotDefaults, {
             return null;
         }
         const coeffs = this.getCoefficients(coords, asymptote);
-        const a = coeffs[0],
-            b = coeffs[1],
-            c = coeffs[2];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
         return (
             "y = " +
             a.toFixed(3) +
@@ -537,9 +536,9 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
         x: number,
         asymptote: Coords,
     ) {
-        const a = coeffs[0],
-            b = coeffs[1],
-            c = coeffs[2];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
         return a * Math.log(b * x + c);
     },
 
@@ -551,9 +550,9 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
             coords,
             asymptote,
         );
-        const a = coeffs[0],
-            b = coeffs[1],
-            c = coeffs[2];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
         return (
             "y = ln(" +
             a.toFixed(3) +
@@ -597,17 +596,17 @@ const AbsoluteValue: AbsoluteValueType = _.extend({}, PlotDefaults, {
     },
 
     getFunctionForCoeffs: function (coeffs: ReadonlyArray<number>, x: number) {
-        const m = coeffs[0],
-            horizontalOffset = coeffs[1],
-            verticalOffset = coeffs[2];
+        const m = coeffs[0];
+        const horizontalOffset = coeffs[1];
+        const verticalOffset = coeffs[2];
         return m * Math.abs(x - horizontalOffset) + verticalOffset;
     },
 
     getEquationString: function (coords: Coords) {
         const coeffs: ReadonlyArray<number> = this.getCoefficients(coords);
-        const m = coeffs[0],
-            horizontalOffset = coeffs[1],
-            verticalOffset = coeffs[2];
+        const m = coeffs[0];
+        const horizontalOffset = coeffs[1];
+        const verticalOffset = coeffs[2];
         return (
             "y = " +
             m.toFixed(3) +

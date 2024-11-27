@@ -24,8 +24,8 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
-    generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
@@ -98,6 +98,7 @@ const LockedPointSettings = (props: Props) => {
         onRemove,
         // defining point props
         showPoint,
+        error,
         expanded,
         onTogglePoint,
         onToggle,
@@ -116,14 +117,9 @@ const LockedPointSettings = (props: Props) => {
      * "Point label1, label2, label3 at (x, y)".
      */
     async function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
-        let str = await generateSpokenMathDetails(
-            `Point${visiblelabel} at (${coord[0]}, ${coord[1]})`,
-        );
+        let str = `Point${visiblelabel} at (${coord[0]}, ${coord[1]})`;
 
         const pointAppearance =
             generateLockedFigureAppearanceDescription(pointColor);
@@ -215,6 +211,7 @@ const LockedPointSettings = (props: Props) => {
                 coord={coord}
                 style={styles.spaceUnder}
                 onChange={handleCoordChange}
+                error={!!error}
             />
 
             {/* Toggle switch */}

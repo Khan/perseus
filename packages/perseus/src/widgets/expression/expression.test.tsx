@@ -19,7 +19,10 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
-import type {PerseusItem} from "../../perseus-types";
+import type {
+    PerseusExpressionWidgetOptions,
+    PerseusItem,
+} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
@@ -531,6 +534,38 @@ describe("Expression Widget", function () {
             expect(
                 screen.queryByText("Sorry, I don't understand that!"),
             ).toBeNull();
+        });
+    });
+
+    describe("propUpgrades", () => {
+        it("can upgrade from v0 to v1", () => {
+            const v0props = {
+                times: false,
+                buttonSets: ["basic"],
+                functions: [],
+                form: false,
+                simplify: false,
+                value: "42",
+            };
+
+            const expected: PerseusExpressionWidgetOptions = {
+                times: false,
+                buttonSets: ["basic"],
+                functions: [],
+                answerForms: [
+                    {
+                        considered: "correct",
+                        form: false,
+                        simplify: false,
+                        value: "42",
+                    },
+                ],
+            };
+
+            const result: PerseusExpressionWidgetOptions =
+                ExpressionWidgetExport.propUpgrades["1"](v0props);
+
+            expect(result).toEqual(expected);
         });
     });
 });

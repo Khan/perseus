@@ -134,7 +134,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "expression 1": {
                 type: "expression",
-                version: {major: 0, minor: 0},
+                version: {major: 1, minor: 0},
                 options: {
                     answerForms: [],
                     buttonSets: [],
@@ -512,8 +512,8 @@ describe("parseWidgetsMap", () => {
                     options: [],
                     correctOptions: [],
                     otherOptions: [],
-                    height: "",
-                    layout: "",
+                    height: "normal",
+                    layout: "horizontal",
                 },
             },
         };
