@@ -41,7 +41,7 @@ type DefaultProps = {
 type State = {
     dragHover: boolean;
 };
-export class DragTarget extends React.Component<Props, State> {
+class DragTarget extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         component: "div",
         shouldDragHighlight: () => true,

@@ -31,7 +31,7 @@ type State = {
  * As far as I can tell, this one is only used in ExpressionEditor.
  */
 // eslint-disable-next-line react/no-unsafe
-export class SortableArea extends React.Component<Props, State> {
+class SortableArea extends React.Component<Props, State> {
     _dragItems: any;
 
     static defaultProps: DefaultProps = {
@@ -175,7 +175,7 @@ type ItemProps = {
 };
 
 // An individual sortable item
-export class SortableItem extends React.Component<ItemProps> {
+class SortableItem extends React.Component<ItemProps> {
     handleDragStart(e) {
         e.nativeEvent.dataTransfer.effectAllowed = "move";
         this.props.area.onDragStart(this.props.index);
