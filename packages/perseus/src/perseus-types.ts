@@ -1133,7 +1133,7 @@ export type PerseusNumericInputAnswer = {
     // Translatable Display; A description for why this answer is correct, wrong, or ungraded
     message: string;
     // The expected answer
-    value: number;
+    value?: number;
     // Whether this answer is "correct", "wrong", or "ungraded"
     status: string;
     // The forms available for this answer.  Options: "integer, ""decimal", "proper", "improper", "mixed", or "pi"

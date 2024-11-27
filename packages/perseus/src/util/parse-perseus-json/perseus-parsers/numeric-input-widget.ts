@@ -32,7 +32,7 @@ export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
         answers: array(
             object({
                 message: string,
-                value: number,
+                value: optional(number),
                 status: string,
                 answerForms: optional(array(parseMathFormat)),
                 strict: boolean,
