@@ -27,9 +27,9 @@ export type StatefulMafsGraphProps = {
     correct: PerseusGraphType;
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
     range: InteractiveGraphProps["range"];
-    snapStep: InteractiveGraphProps["snapStep"];
+    snapStep: [x: number, y: number];
     step: InteractiveGraphProps["step"];
-    gridStep: InteractiveGraphProps["gridStep"];
+    gridStep: [x: number, y: number];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];

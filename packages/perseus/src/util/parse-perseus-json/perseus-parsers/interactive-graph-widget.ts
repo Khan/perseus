@@ -13,6 +13,7 @@ import {
     trio,
     union,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
@@ -276,11 +277,11 @@ export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
         constant("interactive-graph"),
         object({
             step: pairOfNumbers,
-            gridStep: pairOfNumbers,
-            snapStep: pairOfNumbers,
+            gridStep: optional(pairOfNumbers),
+            snapStep: optional(pairOfNumbers),
             backgroundImage: optional(parsePerseusImageBackground),
             markings: enumeration("graph", "grid", "none"),
-            labels: array(string),
+            labels: defaulted(array(string), () => []),
             showProtractor: boolean,
             showRuler: optional(boolean),
             showTooltips: optional(boolean),
