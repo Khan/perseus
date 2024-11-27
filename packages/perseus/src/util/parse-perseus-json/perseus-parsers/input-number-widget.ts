@@ -19,7 +19,7 @@ const booleanToString: Parser<string> = (rawValue, ctx) => {
         return ctx.success(String(rawValue));
     }
     return ctx.failure("boolean", rawValue);
-}
+};
 
 export const parseInputNumberWidget: Parser<InputNumberWidget> = parseWidget(
     constant("input-number"),

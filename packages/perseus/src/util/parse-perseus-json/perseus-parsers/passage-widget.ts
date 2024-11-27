@@ -1,5 +1,5 @@
 import {constant, object, string, boolean} from "../general-purpose-parsers";
-import {defaulted} from "../general-purpose-parsers/defaulted"
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 

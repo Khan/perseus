@@ -14,6 +14,7 @@ import {parseWidget} from "./widget";
 
 import type {PlotterWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 export const parsePlotterWidget: Parser<PlotterWidget> = parseWidget(
     constant("plotter"),
@@ -30,6 +31,9 @@ export const parsePlotterWidget: Parser<PlotterWidget> = parseWidget(
         picUrl: optional(nullable(string)),
         picSize: optional(nullable(number)),
         picBoxHeight: optional(nullable(number)),
-        plotDimensions: array(number),
+        // NOTE(benchristel): I copied the default plotDimensions from
+        // plotter.tsx. See the parse-perseus-json/README.md for an explanation
+        // of why we want to duplicate the defaults here.
+        plotDimensions: defaulted(array(number), () => [380, 300]),
     }),
 );

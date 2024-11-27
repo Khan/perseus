@@ -1,11 +1,11 @@
 import {array, constant, enumeration, object} from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parsePerseusRenderer} from "./perseus-renderer";
 import {parseWidget} from "./widget";
 
 import type {OrdererWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
-import {defaulted} from "../general-purpose-parsers/defaulted";
 
 // There is an import cycle between orderer-widget.ts and perseus-renderer.ts.
 // This wrapper ensures that we don't refer to parsePerseusRenderer before
