@@ -175,6 +175,10 @@ const parseWidgetsMapEntry: (
             return parseAndAssign(`table ${id}`, parseTableWidget);
         case "video":
             return parseAndAssign(`video ${id}`, parseVideoWidget);
+        case "sequence":
+            // sequence is a deprecated widget type, and the corresponding
+            // widget component no longer exists.
+            return ctx.success(null);
 
         default:
             if (getWidget(type)) {
