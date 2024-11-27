@@ -25,7 +25,7 @@ const LINES = "[data-interactive-kind-for-testing=movable-line] > svg > path";
 
 describe("Grapher widget", () => {
     beforeEach(() => {
-        Perseus.init({skipMathJax: true});
+        Perseus.init();
         Perseus.Dependencies.setDependencies(cypressTestDependencies);
     });
 

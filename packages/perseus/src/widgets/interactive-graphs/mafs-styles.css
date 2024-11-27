@@ -235,3 +235,9 @@
     stroke: black;
     stroke-width: 1px;
 }
+
+.mafs-sr-only {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}

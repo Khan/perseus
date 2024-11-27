@@ -36,18 +36,32 @@ export {default as TableWidget} from "./widgets/table";
 export {default as PlotterWidget} from "./widgets/plotter";
 export {default as GrapherWidget} from "./widgets/grapher";
 
-export * as GrapherUtil from "./widgets/grapher/util";
+// Some utils in grapher/utils don't need to be used outside of `perseus`,
+// so only export the stuff that does need to be exposed
+import {
+    allTypes,
+    DEFAULT_GRAPHER_PROPS,
+    chooseType,
+    defaultPlotProps,
+    getEquationString,
+    typeToButton,
+} from "./widgets/grapher/util";
+
+export const GrapherUtil = {
+    allTypes,
+    DEFAULT_GRAPHER_PROPS,
+    chooseType,
+    defaultPlotProps,
+    getEquationString,
+    typeToButton,
+};
 
 /**
  * Misc
  */
 export * as components from "./components";
-export * as constants from "./components/constants";
-// TODO(FEI-4504): Replace globalStyles with wonder-blocks where possible
-export * as globalStyles from "./styles/global-styles";
-// TODO(FEI-4504): Replace globalStyles with wonder-blocks where possible
-export * as globalConstants from "./styles/global-constants";
-export * as icons from "./icon-paths";
+export {iconChevronDown, iconTrash} from "./icon-paths";
+export {bodyXsmallBold} from "./styles/global-styles";
 export * as Dependencies from "./dependencies";
 export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
@@ -82,7 +96,11 @@ export {default as Util} from "./util";
 export {default as KhanColors} from "./util/colors";
 export {default as preprocessTex} from "./util/tex-preprocess";
 export {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
-export * as SizingUtils from "./util/sizing-utils";
+export {
+    containerSizeClass,
+    getInteractiveBoxFromSizeClass,
+} from "./util/sizing-utils";
+export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
 export {
     getAnswersFromWidgets,
     injectWidgets,
@@ -142,7 +160,6 @@ export {default as WIDGET_PROP_DENYLIST} from "./mixins/widget-prop-denylist";
 /**
  * Types
  */
-export type {PerseusOptions} from "./init";
 export type {ILogger, LogErrorOptions} from "./logging/log";
 export type {ServerItemRenderer as ServerItemRendererComponent} from "./server-item-renderer";
 export type {
@@ -159,6 +176,7 @@ export type {
     JiptLabelStore,
     JiptRenderer,
     PerseusDependencies,
+    PerseusDependenciesV2,
     PerseusScore,
     Version,
     VideoData,
@@ -191,6 +209,7 @@ export type {
     CollinearTuple,
     MathFormat,
     InputNumberWidget, // TODO(jeremy): remove?
+    PerseusArticle,
     // Widget configuration types
     PerseusImageBackground,
     PerseusInputNumberWidgetOptions,
@@ -236,3 +255,7 @@ export type {
     TagsShape,
 } from "./multi-items/shape-types";
 export type {Path} from "./multi-items/trees";
+export type {
+    RendererPromptJSON,
+    WidgetPromptJSON,
+} from "./widget-ai-utils/prompt-types";

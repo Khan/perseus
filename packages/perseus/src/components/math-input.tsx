@@ -27,8 +27,8 @@ import {debounce} from "../util/debounce";
 import {PerseusI18nContext} from "./i18n-context";
 
 import type {LegacyButtonSets} from "../perseus-types";
-import type {PerseusDependenciesV2} from "../types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
+import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
@@ -68,7 +68,7 @@ type Props = {
      * - `never` means that the keypad is **never shown**.
      */
     buttonsVisible?: ButtonsVisibleType;
-    analytics: PerseusDependenciesV2["analytics"];
+    onAnalyticsEvent: AnalyticsEventHandlerFn;
 };
 
 type InnerProps = Props & {
@@ -173,6 +173,8 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                 this.__mathFieldWrapperRef,
                 locale,
                 this.props.mathInputStrings,
+                // TODO(LEMS-2656): remove TS suppression
+                // @ts-expect-error: Type 'EditableMathQuill' is not assignable to type 'MathFieldInterface'.
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
@@ -352,8 +354,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 >
                                     <DesktopKeypad
                                         onAnalyticsEvent={
-                                            this.props.analytics
-                                                .onAnalyticsEvent
+                                            this.props.onAnalyticsEvent
                                         }
                                         extraKeys={this.props.extraKeys}
                                         onClickKey={this.handleKeypadPress}

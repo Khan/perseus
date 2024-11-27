@@ -2,34 +2,40 @@ import * as React from "react";
 
 import InfoTip from "../info-tip";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
-
-export default {
+const meta: Meta = {
     title: "Perseus/Components/Info Tip",
-} as Story;
+    component: InfoTip,
+};
+export default meta;
 
-export const TextOnMouseover = (args: StoryArgs): React.ReactElement => {
-    return <InfoTip>Sample text</InfoTip>;
+type Story = StoryObj<typeof InfoTip>;
+
+export const TextOnMouseover: Story = {
+    args: {
+        children: "Sample text",
+    },
 };
 
-export const CodeInText = (args: StoryArgs): React.ReactElement => {
-    return (
-        <InfoTip>
-            Settings that you add here are available to the program as an object
-            returned by <code>Program.settings()</code>
-        </InfoTip>
-    );
+export const CodeInText: Story = {
+    args: {
+        children: (
+            <>
+                Settings that you add here are available to the program as an
+                object returned by <code>Program.settings()</code>
+            </>
+        ),
+    },
 };
 
-export const MultipleElements = (args: StoryArgs): React.ReactElement => {
-    return (
-        <InfoTip>
-            <p>First paragraph</p>
-            <p>Second paragraph</p>
-        </InfoTip>
-    );
+export const MultipleElements: Story = {
+    args: {
+        children: (
+            <>
+                <p>First paragraph</p>
+                <p>Second paragraph</p>
+            </>
+        ),
+    },
 };

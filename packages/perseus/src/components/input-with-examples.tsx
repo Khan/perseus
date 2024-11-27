@@ -155,8 +155,6 @@ class InputWithExamples extends React.Component<Props, State> {
 
         return (
             <Tooltip
-                // eslint-disable-next-line react/no-string-refs
-                ref="tooltip"
                 className="perseus-formats-tooltip preview-measure"
                 horizontalPosition={HorizontalDirection.Left}
                 horizontalAlign={HorizontalDirection.Left}

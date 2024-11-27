@@ -52,19 +52,12 @@ the previous heading was level ${previousHeading.level}`;
         },
     ];
 
-    let rules: Array<never> | Array<Rule | any> = [];
-
     function parseTree() {
         return PureMarkdown.parse(markdown);
     }
 
-    it("makeRules() factory method", () => {
-        rules = ruleDescriptions.map((r) => Rule.makeRule(r));
-        expect(rules).toHaveLength(ruleDescriptions.length);
-        rules.forEach((r) => expect(r instanceof Rule).toBeTruthy());
-    });
-
     it("check() method", () => {
+        const rules = ruleDescriptions.map((r) => Rule.makeRule(r));
         const tree = parseTree();
         const tt = new TreeTransformer(tree);
         const warnings: Array<
@@ -80,7 +73,7 @@ the previous heading was level ${previousHeading.level}`;
 
         tt.traverse((node, state, content) => {
             rules.forEach((r) => {
-                const lint = r.check(node, state, content);
+                const lint = r.check(node, state, content, undefined);
                 if (lint) {
                     warnings.push(lint);
                 }

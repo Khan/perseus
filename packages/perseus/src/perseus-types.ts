@@ -93,11 +93,22 @@ export type PerseusItem = {
     hints: ReadonlyArray<Hint>;
     // Details about the tools the user might need to answer the question
     answerArea: PerseusAnswerArea | null | undefined;
-    // The version of the item.  Not used by Perseus
-    itemDataVersion: Version;
-    // Deprecated field
+    /**
+     * The version of the item.
+     * @deprecated Not used.
+     */
+    itemDataVersion: any;
+    /**
+     * @deprecated Superseded by per-widget answers.
+     */
     answer: any;
 };
+
+/**
+ * A "PerseusArticle" is an item that is meant to be rendered as an article.
+ * This item is never scored and is rendered by the `ArticleRenderer`.
+ */
+export type PerseusArticle = PerseusRenderer | ReadonlyArray<PerseusRenderer>;
 
 /**
  * A "MultiItem" is an advanced Perseus item. It is rendered by the
@@ -172,7 +183,7 @@ export const ItemExtras = [
 ] as const;
 export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
 
-type WidgetOptions<Type extends string, Options> = {
+export type WidgetOptions<Type extends string, Options> = {
     // The "type" of widget which will define what the Options field looks like
     type: Type;
     // Whether this widget is displayed with the values and is immutable.  For display only
@@ -666,7 +677,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     fullGraphAriaDescription?: string;
 };
 
-const lockedFigureColorNames = [
+export const lockedFigureColorNames = [
     "blue",
     "green",
     "grayH",
@@ -909,6 +920,77 @@ export type PerseusGraphTypeRay = {
     startCoords?: CollinearTuple;
 } & PerseusGraphTypeCommon;
 
+type AngleGraphCorrect = {
+    type: "angle";
+    allowReflexAngles: boolean;
+    match: "congruent";
+    coords: [Coord, Coord, Coord];
+};
+
+type CircleGraphCorrect = {
+    type: "circle";
+    center: Coord;
+    radius: number;
+};
+
+type LinearGraphCorrect = {
+    type: "linear";
+    coords: CollinearTuple;
+};
+
+type LinearSystemGraphCorrect = {
+    type: "linear-system";
+    coords: [CollinearTuple, CollinearTuple];
+};
+
+type NoneGraphCorrect = {
+    type: "none";
+};
+
+type PointGraphCorrect = {
+    type: "point";
+    coords: ReadonlyArray<Coord>;
+};
+
+type PolygonGraphCorrect = {
+    type: "polygon";
+    match: "similar" | "congruent" | "approx";
+    coords: ReadonlyArray<Coord>;
+};
+
+type QuadraticGraphCorrect = {
+    type: "quadratic";
+    coords: [Coord, Coord, Coord];
+};
+
+type SegmentGraphCorrect = {
+    type: "segment";
+    coords: CollinearTuple[];
+};
+
+type SinusoidGraphCorrect = {
+    type: "sinusoid";
+    coords: CollinearTuple;
+};
+
+type RayGraphCorrect = {
+    type: "ray";
+    coords: CollinearTuple;
+};
+
+export type PerseusGraphCorrectType =
+    | AngleGraphCorrect
+    | CircleGraphCorrect
+    | LinearGraphCorrect
+    | LinearSystemGraphCorrect
+    | NoneGraphCorrect
+    | PointGraphCorrect
+    | PolygonGraphCorrect
+    | QuadraticGraphCorrect
+    | RayGraphCorrect
+    | SegmentGraphCorrect
+    | SinusoidGraphCorrect;
+
 export type PerseusLabelImageWidgetOptions = {
     // Translatable Text; Tex representation of choices
     choices: ReadonlyArray<string>;
@@ -957,17 +1039,17 @@ export type PerseusMatcherWidgetOptions = {
 export type PerseusMatrixWidgetAnswers = ReadonlyArray<ReadonlyArray<number>>;
 export type PerseusMatrixWidgetOptions = {
     // Translatable Text; Shown before the matrix
-    prefix: string;
+    prefix?: string | undefined;
     // Translatable Text; Shown after the matrix
-    suffix: string;
+    suffix?: string | undefined;
     // A data matrix representing the "correct" answers to be entered into the matrix
     answers: PerseusMatrixWidgetAnswers;
     // The coordinate location of the cursor position at start. default: [0, 0]
-    cursorPosition: ReadonlyArray<number>;
+    cursorPosition?: ReadonlyArray<number> | undefined;
     // The coordinate size of the matrix.  Only supports 2-dimensional matrix.  default: [3, 3]
     matrixBoardSize: ReadonlyArray<number>;
     // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
-    static: boolean;
+    static?: boolean | undefined;
 };
 
 export type PerseusMeasurerWidgetOptions = {

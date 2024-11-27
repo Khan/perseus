@@ -24,6 +24,7 @@ import {
     staticGraphQuestion,
     staticGraphQuestionWithAnotherWidget,
     segmentWithLockedLabels,
+    unlimitedPolygonQuestion,
 } from "./interactive-graph.testdata";
 
 import type {APIOptions} from "../../types";
@@ -37,6 +38,7 @@ const enableMafs: APIOptions = {
         mafs: {
             segment: true,
             polygon: true,
+            "unlimited-polygon": true,
             angle: true,
             "interactive-graph-locked-features-labels": true,
         },
@@ -77,6 +79,15 @@ export const PolygonWithMafs = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
         apiOptions={{...enableMafs}}
         question={polygonQuestion}
+    />
+);
+
+export const UnlimitedPolygonWithMafs = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <RendererWithDebugUI
+        apiOptions={{...enableMafs}}
+        question={unlimitedPolygonQuestion}
     />
 );
 

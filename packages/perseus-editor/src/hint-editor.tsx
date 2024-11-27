@@ -4,13 +4,18 @@
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
-import {components, icons} from "@khanacademy/perseus";
+import {components, iconTrash} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
+import {
+    iconCircleArrowDown,
+    iconCircleArrowUp,
+    iconPlus,
+} from "./styles/icon-paths";
 
 import type {
     APIOptions,
@@ -23,7 +28,6 @@ import type {
 } from "@khanacademy/perseus";
 
 const {InfoTip, InlineIcon} = components;
-const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} = icons;
 
 type HintEditorProps = {
     itemId?: string;

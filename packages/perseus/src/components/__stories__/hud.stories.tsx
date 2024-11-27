@@ -1,35 +1,21 @@
-import * as React from "react";
+import {action} from "@storybook/addon-actions";
 
 import Hud from "../hud";
 
 import type {StoryObj, Meta} from "@storybook/react";
 
-type StoryArgs = StoryObj<typeof Hud>;
+type Story = StoryObj<typeof Hud>;
 
-type Story = Meta<typeof Hud>;
-
-export default {
+const meta: Meta = {
     title: "Perseus/Components/HUD",
-} as Story;
-
-export const TestMessageDisabled = (args: StoryArgs): React.ReactElement => {
-    return (
-        <Hud
-            fixedPosition={false}
-            message="Test message"
-            enabled={false}
-            onClick={() => {}}
-        />
-    );
+    component: Hud,
+    args: {
+        enabled: true,
+        fixedPosition: false,
+        message: "Test message",
+        onClick: action("onClick"),
+    },
 };
+export default meta;
 
-export const TestMessageEnabled = (args: StoryArgs): React.ReactElement => {
-    return (
-        <Hud
-            fixedPosition={false}
-            message="Test message"
-            enabled={true}
-            onClick={() => {}}
-        />
-    );
-};
+export const Default: Story = {};

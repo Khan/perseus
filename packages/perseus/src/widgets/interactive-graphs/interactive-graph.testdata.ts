@@ -162,6 +162,25 @@ export const polygonQuestion: PerseusRenderer =
         })
         .build();
 
+export const unlimitedPolygonQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withContent(
+            "**Sides shown** Drag the vertices of the triangle below to draw a right triangle with side lengths $3$, $4$, and $5$. \n[[\u2603 interactive-graph 1]] \n",
+        )
+        .withGridStep(1, 1)
+        .withSnapStep(0.25, 0.25)
+        .withTickStep(1, 1)
+        .withXRange(-10, 10)
+        .withYRange(-10, 10)
+        .withPolygon("grid", {
+            match: "congruent",
+            numSides: "unlimited",
+            showSides: true,
+            showAngles: true,
+            coords: [],
+        })
+        .build();
+
 export const polygonWithStartingCoordsQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withPolygon("grid", {
@@ -275,6 +294,23 @@ export const polygonWithFourSidesSnappingQuestion: PerseusRenderer =
             numSides: 4,
             showSides: true,
             showAngles: false,
+        })
+        .build();
+
+export const polygonWithUnlimitedSidesQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withContent(
+            "**Example of unlimited polygon sides** \n[[\u2603 interactive-graph 1]] \n",
+        )
+        .withPolygon("grid", {
+            showAngles: true,
+            showSides: true,
+            numSides: "unlimited",
+            coords: [
+                [0, 0],
+                [-2.5, 0],
+                [-1, 0],
+            ],
         })
         .build();
 
@@ -814,15 +850,15 @@ export const segmentWithLockedFunction = (
 
 export const segmentWithLockedLabels: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .addLockedLabel("small \\frac{1}{2}", [-6, 2], {
+        .addLockedLabel("small $\\frac{1}{2}$", [-6, 2], {
             color: "pink",
             size: "small",
         })
-        .addLockedLabel("medium E_0 = mc^2", [1, 2], {
+        .addLockedLabel("medium $E_0 = mc^2$", [1, 2], {
             color: "blue",
             size: "medium",
         })
-        .addLockedLabel("large \\sqrt{2a}", [-3, -2], {
+        .addLockedLabel("large $\\sqrt{2a}$", [-3, -2], {
             color: "green",
             size: "large",
         })
@@ -862,7 +898,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
             labels: [{text: "F"}],
             ariaLabel: "Function F",
         })
-        .addLockedLabel("\\sqrt{\\frac{1}{2}}", [6, -5])
+        .addLockedLabel("$\\sqrt{\\frac{1}{2}}$", [6, -5])
         .build();
 
 export const quadraticQuestion: PerseusRenderer =

@@ -9,7 +9,10 @@ expect.extend({
 
         return actual === expected
             ? {pass: true, message: () => ""}
-            : {pass: false, message: () => `${input} factors as ${reference}`};
+            : {
+                  pass: false,
+                  message: () => `${input} does not factor as ${reference}`,
+              };
     },
     toExpandAs(input: string, reference: string): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.expand().normalize().print();
@@ -17,21 +20,33 @@ expect.extend({
 
         return actual === expected
             ? {pass: true, message: () => ""}
-            : {pass: false, message: () => `${input} expands as ${reference}`};
+            : {
+                  pass: false,
+                  message: () =>
+                      `${input} does not expand as expected.\nExpected: ${this.utils.printExpected(reference)}\nReceived: ${this.utils.printReceived(actual)}`,
+              };
     },
     toExpandAsRepr(input: string, reference: string): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.expand().repr();
 
         return actual === reference
             ? {pass: true, message: () => ""}
-            : {pass: false, message: () => `${input} expands as ${reference}`};
+            : {
+                  pass: false,
+                  message: () =>
+                      `${input} does not expand to the expected repr().\nExpected: ${this.utils.printExpected(reference)}\nReceived: ${this.utils.printReceived(actual)}`,
+              };
     },
     toExpandAsTex(input: string, reference: string): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.expand().tex();
 
         return actual === reference
             ? {pass: true, message: () => ""}
-            : {pass: false, message: () => `${input} expands as ${reference}`};
+            : {
+                  pass: false,
+                  message: () =>
+                      `${input} does not expand to the expected tex().\nExpected: ${this.utils.printExpected(reference)}\nReceived: ${this.utils.printReceived(actual)}`,
+              };
     },
     toCollectAs(input: string, reference: string): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.collect().normalize().print();
@@ -99,9 +114,10 @@ describe("transforming", () => {
         expect("x^3+x^2").toFactorAs("x^2(x+1)");
         expect("2x+xy").toFactorAs("x(2+y)");
         expect("2xy+xy^2").toFactorAs("xy(2+y)");
-        expect("2+2/3").toFactorAs("2/3(3+1)"); // a little questionable, but 2/3 is what
+        // a little questionable, but 2/3 is what
         // wolframalpha returns for the gcd, so
         // we pull it out
+        expect("2+2/3").toFactorAs("2/3(3+1)");
         expect("2x+1.1").toFactorAs("2x+1.1");
     });
 

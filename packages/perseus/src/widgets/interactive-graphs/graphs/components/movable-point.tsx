@@ -1,78 +1,46 @@
-import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
-import {useRef} from "react";
 
-import {snap} from "../../math";
-import useGraphConfig from "../../reducer/use-graph-config";
-import {useDraggable} from "../use-draggable";
-
-import {MovablePointView} from "./movable-point-view";
+import {useControlPoint} from "./use-control-point";
 
 import type {CSSCursor} from "./css-cursor";
+import type {AriaLive} from "../../types";
 import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
 
 type Props = {
     point: vec.Vector2;
-    onMove?: (newPoint: vec.Vector2) => unknown;
-    onClick?: () => unknown;
+    ariaDescribedBy?: string;
+    ariaLabel?: string;
+    ariaLive?: AriaLive;
     color?: string;
-    cursor?: CSSCursor | undefined;
     constrain?: KeyboardMovementConstraint;
-    onFocusChange?: (event: React.FocusEvent, isFocused: boolean) => unknown;
+    cursor?: CSSCursor | undefined;
+    /**
+     * Represents where this point stands in the overall point sequence.
+     * This is used to provide screen readers with context about the point.
+     * Example: sequenceNumber={1} ==> "Point 1 at x comma y"
+     *
+     * Note: This number is 1-indexed, and should restart from 1 for each
+     * interactive figure on the graph.
+     */
+    sequenceNumber?: number;
+    onBlur?: (event: React.FocusEvent) => unknown;
+    onClick?: () => unknown;
+    onFocus?: (event: React.FocusEvent) => unknown;
+    onMove?: (newPoint: vec.Vector2) => unknown;
 };
 
 export const MovablePoint = React.forwardRef(
     (props: Props, pointRef: React.ForwardedRef<SVGGElement | null>) => {
-        const {snapStep} = useGraphConfig();
-        const elementRef = useRef<SVGGElement | null>(null);
-        const {
-            point,
-            onMove = () => {},
-            onFocusChange = () => {},
-            onClick = () => {},
-            cursor,
-            color = WBColor.blue,
-            constrain = (p) => snap(snapStep, p),
-        } = props;
-        const {dragging} = useDraggable({
-            gestureTarget: elementRef,
-            point,
-            onMove,
-            constrainKeyboardMovement: constrain,
+        const {visiblePoint, focusableHandle} = useControlPoint({
+            ...props,
+            forwardedRef: pointRef,
         });
-
         return (
-            <MovablePointView
-                ref={(ref) => {
-                    // Note: This handles the case where pointRef is either a
-                    // function or a MutableRefObject. Mostly this is to satisfy
-                    // the type system, the function branch seems to be the only
-                    // one that occurs
-                    if (typeof pointRef === "function") {
-                        pointRef(ref);
-                    } else if (pointRef !== null) {
-                        pointRef.current = ref;
-                    }
-
-                    // This ref is for the useDraggable and is not passed up the
-                    // chain
-                    elementRef.current = ref;
-                }}
-                point={point}
-                color={color}
-                dragging={dragging}
-                focusBehavior={{
-                    type: "uncontrolled",
-                    tabIndex: 0,
-                    onFocusChange,
-                }}
-                onClick={() => {
-                    onClick && onClick();
-                    elementRef.current?.focus();
-                }}
-                cursor={cursor}
-            />
+            <>
+                {focusableHandle}
+                {visiblePoint}
+            </>
         );
     },
 );

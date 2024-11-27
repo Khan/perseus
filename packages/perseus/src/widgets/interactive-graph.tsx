@@ -28,10 +28,11 @@ import {
 import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
+import {getPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
-import interactiveGraphValidator from "./interactive-graphs/interactive-graph-validator";
 import {getClockwiseAngle} from "./interactive-graphs/math";
+import scoreInteractiveGraph from "./interactive-graphs/score-interactive-graph";
 
 import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
 import type {QuadraticGraphState} from "./interactive-graphs/types";
@@ -54,6 +55,8 @@ import type {
     PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
 } from "../validation.types";
+import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
+import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
 
 const TRASH_ICON_URI =
     "https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png";
@@ -1830,6 +1833,10 @@ class InteractiveGraph extends React.Component<Props, State> {
         );
     }
 
+    getPromptJSON(): InteractiveGraphPromptJSON | UnsupportedWidgetPromptJSON {
+        return getPromptJSON(this.props, this.getUserInput());
+    }
+
     render() {
         // Mafs shim
         const mafsFlags = this.props.apiOptions?.flags?.["mafs"];
@@ -2374,9 +2381,6 @@ export function shouldUseMafs(
             return Boolean(mafsFlags["point"]);
         case "polygon":
             if (graph.numSides === UNLIMITED) {
-                // TODO(benchristel): add a feature flag for the "unlimited"
-                // case once we've implemented polygon graphs with unlimited
-                // sides
                 return Boolean(mafsFlags["unlimited-polygon"]);
             }
             return Boolean(mafsFlags["polygon"]);
@@ -2392,5 +2396,7 @@ export default {
     displayName: "Interactive graph (Assessments only)",
     widget: InteractiveGraph,
     staticTransform: staticTransform,
-    validator: interactiveGraphValidator,
-} as WidgetExports<typeof InteractiveGraph>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusInteractiveGraphUserInput'.
+    scorer: scoreInteractiveGraph,
+} satisfies WidgetExports<typeof InteractiveGraph>;

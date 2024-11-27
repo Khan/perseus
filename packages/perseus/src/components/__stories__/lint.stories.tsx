@@ -2,24 +2,9 @@ import * as React from "react";
 
 import Lint from "../lint";
 
-import type {Meta} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react";
 
-const meta: Meta<typeof Lint> = {
-    title: "Perseus/Components/Lint",
-};
-
-export default meta;
-
-type StoryArgs = Record<any, any>;
-
-const defaultObject = {
-    children: <div>This is the sample lint child</div>,
-    insideTable: false,
-    message: "Test message",
-    ruleName: "Test rule",
-} as const;
-
-const Container = ({children}: {children: React.ReactNode}) => {
+const Container = (Story) => {
     return (
         <div
             style={{
@@ -29,58 +14,47 @@ const Container = ({children}: {children: React.ReactNode}) => {
                 border: "solid 1px grey",
             }}
         >
-            {children}
+            <Story />
         </div>
     );
 };
 
-export const DefaultLintContainerAndMessage = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <Container>
-            <Lint {...defaultObject} />
-        </Container>
-    );
+const meta: Meta = {
+    title: "Perseus/Components/Lint",
+    component: Lint,
+    decorators: [Container],
+    args: {
+        children: <div>This is the sample lint child</div>,
+        insideTable: false,
+        severity: 1,
+        message: "Test message",
+        ruleName: "Test rule",
+    },
+    argTypes: {
+        children: {control: {type: null}},
+        severity: {
+            type: "number",
+            control: {
+                type: "range",
+                min: 1,
+                max: 4,
+            },
+        },
+    },
 };
-export const LintSeverity1Error = (args: StoryArgs): React.ReactElement => {
-    return (
-        <Container>
-            <Lint {...defaultObject} severity={1} />
-        </Container>
-    );
-};
-export const LintSeverity2Warning = (args: StoryArgs): React.ReactElement => {
-    return (
-        <Container>
-            <Lint {...defaultObject} severity={2} />
-        </Container>
-    );
-};
-export const LintSeverity3Recommendation = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <Container>
-            <Lint {...defaultObject} severity={3} />
-        </Container>
-    );
-};
-export const LintSeverity4OfflineReportingOnly = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <Container>
-            <Lint {...defaultObject} severity={4} />
-        </Container>
-    );
-};
-export const InlineLintContainerAndMessage = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <Container>
-            <Lint {...defaultObject} inline={true} />
-        </Container>
-    );
+
+export default meta;
+
+type Story = StoryObj<typeof Lint>;
+
+export const DefaultLintContainerAndMessage: Story = {};
+
+export const LintSeverity1Error: Story = {args: {severity: 1}};
+export const LintSeverity2Warning: Story = {args: {severity: 2}};
+export const LintSeverity3Recommendation: Story = {args: {severity: 3}};
+export const LintSeverity4OfflineReportingOnly: Story = {args: {severity: 4}};
+export const InlineLintContainerAndMessage: Story = {
+    args: {
+        inline: true,
+    },
 };

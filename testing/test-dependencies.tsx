@@ -46,9 +46,9 @@ export const testDependencies: PerseusDependencies = {
     // Mocking this here so that we don't fail because of this issue.
     logKaTeXError: (expression: string, error: Error): Promise<any> =>
         Promise.resolve({}),
-    TeX: ({children}: {children: React.ReactNode}) => (
-        <span className="mock-TeX">{children}</span>
-    ),
+    TeX: ({children}: {children: React.ReactNode}) => {
+        return <span className="mock-TeX">{children}</span>;
+    },
 
     // @ts-expect-error - TS2322 - Type '(str?: string | null | undefined) => string' is not assignable to type 'StaticUrlFn'.
     staticUrl: (str?: string | null) => {
@@ -114,6 +114,14 @@ export const testDependenciesV2: PerseusDependenciesV2 = {
     analytics: {
         onAnalyticsEvent: async () => {},
     },
+    useVideo: () => {
+        return {
+            status: "success",
+            data: {
+                video: null,
+            },
+        };
+    },
 };
 
 export const storybookTestDependencies: PerseusDependencies = {
@@ -123,6 +131,7 @@ export const storybookTestDependencies: PerseusDependencies = {
 };
 
 export const storybookDependenciesV2: PerseusDependenciesV2 = {
+    ...testDependenciesV2,
     analytics: {
         onAnalyticsEvent: async (event) => {
             console.log("⚡️ Sending analytics event:", event);

@@ -9,7 +9,10 @@ import {flags} from "../../../__stories__/flags-for-api-options";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import examples from "./locked-function-examples";
 import LockedFunctionSettings from "./locked-function-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    getDefaultFigureForType,
+    mockedJoinLabelsAsSpokenMathForTests,
+} from "./util";
 
 import type {Props} from "./locked-function-settings";
 import type {UserEvent} from "@testing-library/user-event";
@@ -23,6 +26,13 @@ const defaultProps = {
 } as Props;
 
 const defaultLabel = getDefaultFigureForType("label");
+
+// Mock the async function generateSpokenMathDetails
+jest.mock("./util", () => ({
+    ...jest.requireActual("./util"),
+    joinLabelsAsSpokenMath: (input) =>
+        mockedJoinLabelsAsSpokenMathForTests(input),
+}));
 
 const exampleEquationsMock = {
     foo: ["bar", "zot"],
@@ -537,7 +547,7 @@ describe("Locked Function Settings", () => {
                 );
 
                 // Act
-                const labelText = screen.getByLabelText("TeX");
+                const labelText = screen.getByLabelText("text");
                 await userEvent.type(labelText, "!");
 
                 // Assert
@@ -789,7 +799,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Function A with equation y=x^2. Appearance solid gray.",
+                        "Function spoken A with equation y=x^2. Appearance solid gray.",
                 });
             });
 
@@ -824,7 +834,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Function A, B with equation y=x^2. Appearance solid gray.",
+                        "Function spoken A, spoken B with equation y=x^2. Appearance solid gray.",
                 });
             });
         });

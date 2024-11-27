@@ -147,7 +147,7 @@ module.exports = {
             },
         },
         {
-            files: ["*-validator.ts"],
+            files: ["score-*.ts"],
             rules: {
                 "no-restricted-syntax": [
                     "error",
@@ -155,12 +155,12 @@ module.exports = {
                         selector:
                             "ImportDeclaration > ImportSpecifier[local.name='APIOptions']",
                         message:
-                            "APIOptions is not available and should not be imported in validators.",
+                            "APIOptions is not available and should not be imported in scoring functions.",
                     },
                     {
                         selector: "ImportDeclaration[source.value='react']",
                         message:
-                            "React is not available and should not be imported in validators.",
+                            "React is not available and should not be imported in scoring functions.",
                     },
                 ],
             },

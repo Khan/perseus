@@ -68,7 +68,11 @@ const renderQuestion = (
 
 describe("server item renderer", () => {
     beforeAll(() => {
+        // TODO(LEMS-2656): remove TS suppression
+        // @ts-expect-error: InputNumberExport is not assignable to type WidgetExports
         registerWidget("input-number", InputNumberExport);
+        // TODO(LEMS-2656): remove TS suppression
+        // @ts-expect-error: RadioWidgetExport is not assignable to type WidgetExports
         registerWidget("radio", RadioWidgetExport);
     });
 
@@ -313,6 +317,22 @@ describe("server item renderer", () => {
 
         // Assert
         expect(onRendered).toHaveBeenCalledWith(true);
+    });
+
+    it("should get prompt JSON with the correct content and widgets", () => {
+        const {renderer} = renderQuestion(itemWithRadioAndExpressionWidgets);
+
+        const json = renderer.getPromptJSON();
+
+        expect(json.content).toBe(
+            itemWithRadioAndExpressionWidgets.question.content,
+        );
+
+        const widgetKeys = Object.keys(
+            itemWithRadioAndExpressionWidgets.question.widgets,
+        );
+
+        expect(Object.keys(json.widgets)).toEqual(widgetKeys);
     });
 
     describe("focus management", () => {

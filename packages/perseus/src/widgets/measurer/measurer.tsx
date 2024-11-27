@@ -5,12 +5,14 @@ import _ from "underscore";
 
 import SvgImage from "../../components/svg-image";
 import GraphUtils from "../../util/graph-utils";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/measurer-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";
 import type {PerseusMeasurerWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {Interval} from "../../util/interval";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 const defaultImage = {
     url: null,
@@ -143,6 +145,10 @@ class Measurer extends React.Component<Props> implements Widget {
         }
     }
 
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
+    }
+
     render() {
         const image = _.extend({}, defaultImage, this.props.image);
 
@@ -199,6 +205,6 @@ export default {
     widget: Measurer,
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
-    // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(1),
-} as WidgetExports<typeof Measurer>;
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(1),
+} satisfies WidgetExports<typeof Measurer>;

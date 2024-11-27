@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {
     components,
-    icons,
     Changeable,
     EditorJsonify,
     Util,
+    iconTrash,
 } from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
@@ -13,6 +13,8 @@ import BlurInput from "../components/blur-input";
 import Editor from "../editor";
 
 import type {APIOptions, Range, Size} from "@khanacademy/perseus";
+
+type ChangeFn = typeof Changeable.change;
 
 const {InfoTip, InlineIcon, RangeInput} = components;
 
@@ -152,16 +154,16 @@ class ImageEditor extends React.Component<Props> {
                         // eslint-disable-next-line react/jsx-no-bind
                         onClick={this.removeLabel.bind(this, i)}
                     >
-                        <InlineIcon {...icons.iconTrash} />
+                        <InlineIcon {...iconTrash} />
                     </a>
                 </td>
             </tr>
         );
     }
 
-    change(...args) {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
-    }
+    };
 
     removeLabel(labelIndex, e) {
         e.preventDefault();

@@ -5,15 +5,16 @@
  * OptionGroup which is an internal component used in the dropdowns to house
  * a list of options.
  **/
-import {components, globalStyles} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import {gray17, gray76, gray95} from "../styles/global-colors";
+
 import {focusWithChromeStickyFocusBugWorkaround} from "./util";
 
 const {Icon} = components;
-const {colors} = globalStyles;
 
 const findAndFocusElement = (component?: Element | null) => {
     const DOMNode: Element | Text | null | undefined =
@@ -238,19 +239,19 @@ const styles = StyleSheet.create({
         whiteSpace: "nowrap",
         overflow: "hidden",
         textOverflow: "ellipsis",
-        color: colors.gray17,
+        color: gray17,
         userSelect: "none",
 
         ":hover": {
-            backgroundColor: colors.gray95,
+            backgroundColor: gray95,
         },
     },
     optionSelected: {
-        backgroundColor: colors.gray95,
+        backgroundColor: gray95,
         color: "#11ACCD",
     },
     optionDisabled: {
-        color: colors.gray76,
+        color: gray76,
         ":hover": {
             backgroundColor: "transparent",
         },

@@ -1,77 +1,53 @@
-import * as React from "react";
-
 import Sortable from "../sortable";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
-
-const defaultOptions = ["Option 1", "Option 2", "Option 3"];
-
-export default {
+const meta: Meta = {
     title: "Perseus/Components/Sortable",
-} as Story;
+    component: Sortable,
+    args: {
+        options: ["Option 1", "Option 2", "Option 3"],
+    },
+};
+export default meta;
 
-export const SortableHorizontalExample = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <Sortable
-            layout={"horizontal"}
-            options={["a", "b", "c"]}
-            waitForTexRendererToLoad={false}
-        />
-    );
+type Story = StoryObj<typeof Sortable>;
+
+export const SortableHorizontalExample: Story = {
+    args: {
+        layout: "horizontal",
+        options: ["a", "b", "c"],
+        waitForTexRendererToLoad: false,
+    },
 };
 
-export const SortableVerticalExample = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <Sortable
-            layout={"vertical"}
-            options={["a", "b", "c"]}
-            waitForTexRendererToLoad={false}
-        />
-    );
+export const SortableVerticalExample: Story = {
+    args: {
+        layout: "vertical",
+        options: ["a", "b", "c"],
+        waitForTexRendererToLoad: false,
+    },
 };
 
-export const BasicSortableOptionsTest = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return <Sortable options={defaultOptions} />;
+export const BasicSortableOptionsTest: Story = {};
+
+export const BasicSortableOptionsTestWithNoPadding: Story = {
+    args: {padding: false},
 };
 
-export const BasicSortableOptionsTestWithNoPadding = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return <Sortable options={defaultOptions} padding={false} />;
+export const BasicSortableOptionsTestWithLargeMargin: Story = {
+    args: {margin: 64},
 };
 
-export const BasicSortableOptionsTestWithLargeMargin = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return <Sortable options={defaultOptions} margin={64} />;
+export const BasicSortableOptionsTestDisabled: Story = {
+    args: {disabled: true},
 };
 
-export const BasicSortableOptionsTestDisabled = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return <Sortable options={defaultOptions} disabled={true} />;
-};
-
-export const BasicSortableOptionsTestWithWidthAndHeightConstraints = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <Sortable
-            options={defaultOptions}
-            constraints={{
-                height: 128,
-                width: 256,
-            }}
-        />
-    );
+export const BasicSortableOptionsTestWithWidthAndHeightConstraints: Story = {
+    args: {
+        constraints: {
+            height: 128,
+            width: 256,
+        },
+    },
 };

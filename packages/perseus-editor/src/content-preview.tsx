@@ -5,7 +5,6 @@ import {
 import {MobileKeypad} from "@khanacademy/math-input";
 import {
     Renderer,
-    constants,
     usePerseusI18n,
     type APIOptions,
     type DeviceType,
@@ -15,6 +14,8 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+
+import {lintGutterWidth} from "./styles/constants";
 
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
         containerType: "inline-size",
         containerName: "perseus-root",
     },
-    gutter: {marginRight: constants.lintGutterWidth},
+    gutter: {marginRight: lintGutterWidth},
 });
 
 export default ContentPreview;

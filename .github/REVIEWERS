@@ -50,3 +50,6 @@ Regex Examples:
 [ON PULL REQUEST] (DO NOT DELETE THIS LINE)
 
 **/*    @Khan/perseus!
+
+# AI Utils are owned by Tutor Platform
+widget-ai-utils/* @Khan/tut

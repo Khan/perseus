@@ -1,3 +1,33 @@
+/**
+ * This file contains types used for validation and scoring. The types abide by
+ * a naming convention so that they're easy to follow and that we remain
+ * consistent across all of the widgets.
+ *
+ * These types are:
+ *
+ * `Perseus<Widget>UserInput`: the data returned by the widget that the user
+ * entered. This is referred to as the 'guess' in some older parts of Perseus.
+ *
+ * `Perseus<Widget>ValidationData`: the data needed to do validation of the
+ * user input. Validation refers to the different checks that we can do both on
+ * the client-side (before submitting user input for scoring) and on the
+ * server-side (when we score it). As such, it cannot contain any of the
+ * sensitive scoring data that would reveal the answer.
+ *
+ * `Perseus<Widget>ScoringData` (nee `Perseus<Widget>Rubric`): the data needed
+ * to score the user input. By convention, this type is defined as the set of
+ * sensitive answer data and then intersected with
+ * `Perseus<Widget>ValidationData`.
+ *
+ * For example:
+ * ```
+ * type Perseus<Widget>ScoringData = {
+ *     correct: string;  // Used _only_ for scoring
+ *     size: number;     // Used _only_ for scoring
+ * } & Perseus<Widget>ValidationData;
+ * ```
+ */
+
 import type {
     GrapherAnswerTypes,
     PerseusDropdownChoice,
@@ -13,7 +43,7 @@ import type {
     PerseusOrdererWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusRadioChoice,
-    PerseusTableWidgetOptions,
+    PerseusGraphCorrectType,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -97,7 +127,7 @@ export type PerseusInputNumberUserInput = {
 
 export type PerseusInteractiveGraphRubric = {
     // TODO(LEMS-2344): make the type of `correct` more specific
-    correct: PerseusGraphType;
+    correct: PerseusGraphCorrectType;
     graph: PerseusGraphType;
 };
 
@@ -121,7 +151,9 @@ export type PerseusMatcherUserInput = {
 export type PerseusMatrixRubric = {
     // A data matrix representing the "correct" answers to be entered into the matrix
     answers: PerseusMatrixWidgetAnswers;
-};
+} & PerseusMatrixValidationData;
+
+export type PerseusMatrixValidationData = Empty;
 
 export type PerseusMatrixUserInput = {
     answers: PerseusMatrixRubric["answers"];
@@ -167,9 +199,6 @@ export type PerseusRadioRubric = {
 
 export type PerseusRadioUserInput = {
     choicesSelected: ReadonlyArray<boolean>;
-    numCorrect?: number;
-    noneOfTheAboveIndex?: number | null | undefined;
-    noneOfTheAboveSelected?: boolean;
 };
 
 export type PerseusSorterRubric = {
@@ -182,7 +211,10 @@ export type PerseusSorterUserInput = {
     changed: boolean;
 };
 
-export type PerseusTableRubric = PerseusTableWidgetOptions;
+export type PerseusTableRubric = {
+    // Translatable Text; A 2-dimensional array of text to populate the table with
+    answers: ReadonlyArray<ReadonlyArray<string>>;
+};
 
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 

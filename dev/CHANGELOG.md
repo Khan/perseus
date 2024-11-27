@@ -1,5 +1,56 @@
 # @khanacademy/perseus-dev-ui
 
+## 4.0.0
+
+### Major Changes
+
+-   [#1905](https://github.com/Khan/perseus/pull/1905) [`9c225f936`](https://github.com/Khan/perseus/commit/9c225f9365cbb2e92bba3bd67b1abde724809367) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - We're reverting work done for the Server Side Scoring and Input Number Conversion projects.
+
+### Patch Changes
+
+-   Updated dependencies [[`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9)]:
+    -   @khanacademy/kas@0.4.1
+    -   @khanacademy/math-input@21.1.5
+    -   @khanacademy/simple-markdown@0.13.5
+    -   @khanacademy/pure-markdown@0.3.12
+
+## 3.1.3
+
+### Patch Changes
+
+-   [#1753](https://github.com/Khan/perseus/pull/1753) [`c1ba55fc0`](https://github.com/Khan/perseus/commit/c1ba55fc0247e16d9a78558721969382ee6992f8) Thanks [@handeyeco](https://github.com/handeyeco)! - Change ServerItemRenderer scoring APIs to externalize scoring
+
+## 3.1.2
+
+### Patch Changes
+
+-   Updated dependencies [[`46dc13f10`](https://github.com/Khan/perseus/commit/46dc13f10b97c22537e70e106540aa754c75b7b0)]:
+    -   @khanacademy/kas@0.4.0
+
+## 3.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`d6381f773`](https://github.com/Khan/perseus/commit/d6381f7737ff44f1ec3d91c4ab25ce51f47b35b9)]:
+    -   @khanacademy/math-input@21.1.4
+
+## 3.1.0
+
+### Minor Changes
+
+-   [#1764](https://github.com/Khan/perseus/pull/1764) [`c2e678e5c`](https://github.com/Khan/perseus/commit/c2e678e5c109a8e0161907fea54aacb572e16bb3) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding new interactive graph type "unlimited-points" for mafs.
+
+### Patch Changes
+
+-   Updated dependencies [[`14d0764e4`](https://github.com/Khan/perseus/commit/14d0764e4498dae81921a91e5202291461b52374), [`b119147fc`](https://github.com/Khan/perseus/commit/b119147fc042bf71193d61f9cea99b5f3d73b484)]:
+    -   @khanacademy/perseus-linter@1.2.4
+    -   @khanacademy/kas@0.3.16
+    -   @khanacademy/kmath@0.1.16
+    -   @khanacademy/math-input@21.1.3
+    -   @khanacademy/perseus-core@1.5.3
+    -   @khanacademy/pure-markdown@0.3.11
+    -   @khanacademy/simple-markdown@0.13.4
+
 ## 3.0.11
 
 ### Patch Changes

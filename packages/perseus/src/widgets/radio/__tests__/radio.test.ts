@@ -8,7 +8,7 @@ import * as Dependencies from "../../../dependencies";
 import {mockStrings} from "../../../strings";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import PassageWidget from "../../passage";
-import radioValidator from "../radio-validator";
+import scoreRadio from "../score-radio";
 
 import {
     questionAndAnswer,
@@ -908,7 +908,7 @@ describe("scoring", () => {
 
         const userInput = renderer.getUserInput()[0] as PerseusRadioUserInput;
         const rubric = shuffledQuestion.widgets["radio 1"].options;
-        const score = radioValidator(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric, mockStrings);
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -931,7 +931,7 @@ describe("scoring", () => {
 
         const userInput = renderer.getUserInput()[0] as PerseusRadioUserInput;
         const rubric = shuffledQuestion.widgets["radio 1"].options;
-        const score = radioValidator(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric, mockStrings);
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();
@@ -954,7 +954,7 @@ describe("scoring", () => {
 
         const userInput = renderer.getUserInput()[0] as PerseusRadioUserInput;
         const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
-        const score = radioValidator(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric, mockStrings);
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -977,7 +977,7 @@ describe("scoring", () => {
 
         const userInput = renderer.getUserInput()[0] as PerseusRadioUserInput;
         const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
-        const score = radioValidator(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric, mockStrings);
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();

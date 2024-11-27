@@ -172,7 +172,7 @@ MafsWithLockedFiguresCurrent.parameters = {
     chromatic: {
         // Disabling because this isn't visually testing anything on the
         // initial load of the editor page.
-        disable: true,
+        disableSnapshot: true,
     },
 };
 
@@ -413,7 +413,7 @@ WithSaveWarnings.parameters = {
         // Disabling because this isn't testing anything visually on the
         // editor page. It's testing the error message, which don't
         // even show up on the initial load.
-        disable: true,
+        disableSnapshot: true,
     },
 };
 

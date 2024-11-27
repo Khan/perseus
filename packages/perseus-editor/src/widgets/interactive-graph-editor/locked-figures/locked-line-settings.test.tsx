@@ -6,7 +6,10 @@ import * as React from "react";
 import {flags} from "../../../__stories__/flags-for-api-options";
 
 import LockedLineSettings from "./locked-line-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    getDefaultFigureForType,
+    mockedJoinLabelsAsSpokenMathForTests,
+} from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -25,6 +28,13 @@ const defaultProps = {
 };
 
 const defaultLabel = getDefaultFigureForType("label");
+
+// Mock the async function generateSpokenMathDetails
+jest.mock("./util", () => ({
+    ...jest.requireActual("./util"),
+    joinLabelsAsSpokenMath: (input) =>
+        mockedJoinLabelsAsSpokenMathForTests(input),
+}));
 
 describe("LockedLineSettings", () => {
     let userEvent: UserEvent;
@@ -469,7 +479,7 @@ describe("LockedLineSettings", () => {
             );
 
             // Act
-            const labelText = screen.getByLabelText("TeX");
+            const labelText = screen.getByLabelText("text");
             await userEvent.type(labelText, "!");
 
             // Assert
@@ -615,7 +625,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Segment from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Segment from point at (0, 0) to point at (2, 2). Appearance solid gray.",
             });
         });
 
@@ -640,7 +650,8 @@ describe("LockedLineSettings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Line from (0, 0) to (2, 2). Appearance solid gray.",
+                ariaLabel:
+                    "Line from point at (0, 0) to point at (2, 2). Appearance solid gray.",
             });
         });
 
@@ -671,7 +682,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line A from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Line spoken A from point at (0, 0) to point at (2, 2). Appearance solid gray.",
             });
         });
 
@@ -706,7 +717,99 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line A, B from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Line spoken A, spoken B from point at (0, 0) to point at (2, 2). Appearance solid gray.",
+            });
+        });
+
+        test("aria label auto-generates (one label, including points)", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedLineSettings
+                    {...defaultProps}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "A",
+                        },
+                    ]}
+                    points={[
+                        {
+                            ...defaultProps.points[0],
+                            labels: [{...defaultLabel, text: "C"}],
+                        },
+                        {
+                            ...defaultProps.points[1],
+                            labels: [{...defaultLabel, text: "D"}],
+                        },
+                    ]}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel:
+                    "Line spoken A from point spoken C at (0, 0) to point spoken D at (2, 2). Appearance solid gray.",
+            });
+        });
+
+        test("aria label auto-generates (multiple labels, including points)", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedLineSettings
+                    {...defaultProps}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "A",
+                        },
+                        {
+                            ...defaultLabel,
+                            text: "B",
+                        },
+                    ]}
+                    points={[
+                        {
+                            ...defaultProps.points[0],
+                            labels: [
+                                {...defaultLabel, text: "C"},
+                                {...defaultLabel, text: "C2"},
+                            ],
+                        },
+                        {
+                            ...defaultProps.points[1],
+                            labels: [
+                                {...defaultLabel, text: "D"},
+                                {...defaultLabel, text: "D2"},
+                            ],
+                        },
+                    ]}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel:
+                    "Line spoken A, spoken B from point spoken C, spoken C2 at (0, 0) to point spoken D, spoken D2 at (2, 2). Appearance solid gray.",
             });
         });
     });

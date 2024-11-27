@@ -7,9 +7,9 @@ declare global {
     namespace jest {
         interface Matchers<R> {
             toHaveBeenAnsweredCorrectly(options?: {
-                // TODO: some non-interactive widgets have "validators"
+                // TODO: some non-interactive widgets have scoring functions
                 // that just return no points. They should probably just
-                // not have validators if they're not interactive.
+                // not have scoring functions if they're not interactive.
                 shouldHavePoints: boolean;
             }): R;
             toHaveInvalidInput(message?: string | null): R;

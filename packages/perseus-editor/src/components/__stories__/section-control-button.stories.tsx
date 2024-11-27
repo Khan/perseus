@@ -1,4 +1,4 @@
-import {icons} from "@khanacademy/perseus";
+import {iconTrash} from "@khanacademy/perseus";
 import * as React from "react";
 
 import SectionControlButton from "../section-control-button";
@@ -18,7 +18,7 @@ export const ButtonForEditingSectionsOfContentWithInArticleEditor = (
 ): React.ReactElement => {
     return (
         <SectionControlButton
-            icon={icons.iconTrash}
+            icon={iconTrash}
             onClick={() => {}}
             title="Remove image widget"
         />

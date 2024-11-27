@@ -25,6 +25,7 @@ import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
@@ -97,6 +98,7 @@ const LockedPointSettings = (props: Props) => {
         onRemove,
         // defining point props
         showPoint,
+        error,
         expanded,
         onTogglePoint,
         onToggle,
@@ -105,19 +107,18 @@ const LockedPointSettings = (props: Props) => {
     const isDefiningPoint = !onMove && !onRemove;
 
     /**
-     * Get a prepopulated aria label for the point.
+     * Get a prepopulated aria label for the point, with the math
+     * details converted into spoken words.
      *
      * If the point has no labels, the aria label will just be
      * "Point at (x, y)".
      *
      * If the point has labels, the aria label will be
-     * "Point at (x, y) with label1, label2, label3".
+     * "Point label1, label2, label3 at (x, y)".
      */
-    function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+    async function getPrepopulatedAriaLabel() {
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
+
         let str = `Point${visiblelabel} at (${coord[0]}, ${coord[1]})`;
 
         const pointAppearance =
@@ -210,6 +211,7 @@ const LockedPointSettings = (props: Props) => {
                 coord={coord}
                 style={styles.spaceUnder}
                 onChange={handleCoordChange}
+                error={!!error}
             />
 
             {/* Toggle switch */}
@@ -247,7 +249,7 @@ const LockedPointSettings = (props: Props) => {
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}
@@ -273,9 +275,12 @@ const LockedPointSettings = (props: Props) => {
                                 styles.lockedPointLabelContainer
                             }
                             expanded={true}
-                            onChangeProps={(newLabel: LockedLabelType) => {
-                                handleLabelChange(newLabel, labelIndex);
-                            }}
+                            // TODO(LEMS-2656): remove TS suppression
+                            onChangeProps={
+                                ((newLabel: LockedLabelType) => {
+                                    handleLabelChange(newLabel, labelIndex);
+                                }) as any
+                            }
                             onRemove={() => {
                                 handleLabelRemove(labelIndex);
                             }}

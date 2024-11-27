@@ -1,41 +1,54 @@
-import * as React from "react";
+import {action} from "@storybook/addon-actions";
 
 import NumberInput from "../number-input";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
-
-const defaultObject = {
-    onChange: () => {},
-} as const;
-
-export default {
+const meta: Meta = {
     title: "Perseus/Components/Number Input",
-} as Story;
+    component: NumberInput,
+    args: {
+        onChange: action("onChange"),
+        onFormatChange: action("onFormatChange"),
+    },
+    argTypes: {
+        onChange: {control: {type: null}},
+        onFormatChange: {control: {type: null}},
+    },
+};
+export default meta;
 
-export const EmptyPropsObject = (args: StoryArgs): React.ReactElement => {
-    return <NumberInput {...defaultObject} />;
+type Story = StoryObj<typeof NumberInput>;
+
+export const EmptyPropsObject: Story = {};
+
+export const SampleValue: Story = {
+    args: {value: 1234567890},
 };
 
-export const SampleValue = (args: StoryArgs): React.ReactElement => {
-    return <NumberInput {...defaultObject} value={1234567890} />;
+export const Placeholder: Story = {
+    args: {
+        placeholder: "Sample placeholder",
+    },
 };
 
-export const Placeholder = (args: StoryArgs): React.ReactElement => {
-    return <NumberInput {...defaultObject} placeholder="Sample placeholder" />;
+export const SizeMini: Story = {
+    args: {
+        size: "mini",
+        placeholder: "Sample placeholder",
+    },
 };
 
-export const SizeMini = (args: StoryArgs): React.ReactElement => {
-    return <NumberInput {...defaultObject} placeholder="Sample placeholder" />;
+export const SizeSmall: Story = {
+    args: {
+        size: "small",
+        placeholder: "Sample placeholder",
+    },
 };
 
-export const SizeSmall = (args: StoryArgs): React.ReactElement => {
-    return <NumberInput {...defaultObject} size="small" />;
-};
-
-export const SizeNormal = (args: StoryArgs): React.ReactElement => {
-    return <NumberInput {...defaultObject} size="normal" />;
+export const SizeNormal: Story = {
+    args: {
+        size: "normal",
+        placeholder: "Sample placeholder",
+    },
 };

@@ -6,8 +6,8 @@ import NumberInput from "./number-input";
 
 const truth = () => true;
 
-/* A minor abstraction on top of NumberInput for ranges
- *
+/**
+ * A minor abstraction on top of `NumberInput` for ranges
  */
 class RangeInput extends React.Component<any> {
     static propTypes = {

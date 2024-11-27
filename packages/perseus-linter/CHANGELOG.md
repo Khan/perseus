@@ -1,5 +1,16 @@
 # @khanacademy/perseus-linter
 
+## 1.2.4
+
+### Patch Changes
+
+-   [#1811](https://github.com/Khan/perseus/pull/1811) [`14d0764e4`](https://github.com/Khan/perseus/commit/14d0764e4498dae81921a91e5202291461b52374) Thanks [@benchristel](https://github.com/benchristel)! - Internal: fix types in test for Perseus linter
+
+*   [#1791](https://github.com/Khan/perseus/pull/1791) [`b119147fc`](https://github.com/Khan/perseus/commit/b119147fc042bf71193d61f9cea99b5f3d73b484) Thanks [@handeyeco](https://github.com/handeyeco)! - Check types for import/no-extraneous-dependencies eslint check
+
+*   Updated dependencies [[`b119147fc`](https://github.com/Khan/perseus/commit/b119147fc042bf71193d61f9cea99b5f3d73b484)]:
+    -   @khanacademy/perseus-core@1.5.3
+
 ## 1.2.3
 
 ### Patch Changes

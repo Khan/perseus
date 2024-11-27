@@ -1,5 +1,26 @@
 # @khanacademy/kas
 
+## 0.4.1
+
+### Patch Changes
+
+-   [#1889](https://github.com/Khan/perseus/pull/1889) [`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: enable strict typechecking of function parameters
+
+## 0.4.0
+
+### Minor Changes
+
+-   [#1851](https://github.com/Khan/perseus/pull/1851) [`46dc13f10`](https://github.com/Khan/perseus/commit/46dc13f10b97c22537e70e106540aa754c75b7b0) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Convert main KAS file to TypeScript which enables types for the library
+
+## 0.3.16
+
+### Patch Changes
+
+-   [#1791](https://github.com/Khan/perseus/pull/1791) [`b119147fc`](https://github.com/Khan/perseus/commit/b119147fc042bf71193d61f9cea99b5f3d73b484) Thanks [@handeyeco](https://github.com/handeyeco)! - Check types for import/no-extraneous-dependencies eslint check
+
+-   Updated dependencies [[`b119147fc`](https://github.com/Khan/perseus/commit/b119147fc042bf71193d61f9cea99b5f3d73b484)]:
+    -   @khanacademy/perseus-core@1.5.3
+
 ## 0.3.15
 
 ### Patch Changes

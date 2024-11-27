@@ -6,7 +6,10 @@ import * as React from "react";
 import {flags} from "../../../__stories__/flags-for-api-options";
 
 import LockedPolygonSettings from "./locked-polygon-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    getDefaultFigureForType,
+    mockedJoinLabelsAsSpokenMathForTests,
+} from "./util";
 
 import type {Coord} from "@khanacademy/perseus";
 import type {UserEvent} from "@testing-library/user-event";
@@ -26,6 +29,13 @@ const defaultProps = {
 };
 
 const defaultLabel = getDefaultFigureForType("label");
+
+// Mock the async function generateSpokenMathDetails
+jest.mock("./util", () => ({
+    ...jest.requireActual("./util"),
+    joinLabelsAsSpokenMath: (input) =>
+        mockedJoinLabelsAsSpokenMathForTests(input),
+}));
 
 describe("LockedPolygonSettings", () => {
     let userEvent: UserEvent;
@@ -332,7 +342,7 @@ describe("LockedPolygonSettings", () => {
             );
 
             // Assert
-            const inputField = screen.getByRole("textbox", {name: "TeX"});
+            const inputField = screen.getByRole("textbox", {name: "text"});
             expect(inputField).toHaveValue("label text");
         });
 
@@ -447,7 +457,7 @@ describe("LockedPolygonSettings", () => {
             );
 
             // Act
-            const labelText = screen.getByLabelText("TeX");
+            const labelText = screen.getByLabelText("text");
             await userEvent.type(labelText, "!");
 
             // Assert
@@ -634,7 +644,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon A with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
+                    "Polygon spoken A with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
             });
         });
 
@@ -674,7 +684,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon A, B with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
+                    "Polygon spoken A, spoken B with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
             });
         });
     });

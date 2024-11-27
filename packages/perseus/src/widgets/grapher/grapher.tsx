@@ -16,10 +16,11 @@ import {interactiveSizes} from "../../styles/constants";
 import Util from "../../util";
 import KhanColors from "../../util/colors";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
-
 /* Graphie and relevant components. */
 /* Mixins. */
-import grapherValidator from "./grapher-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
+
+import scoreGrapher from "./score-grapher";
 import {
     DEFAULT_GRAPHER_PROPS,
     chooseType,
@@ -39,6 +40,7 @@ import type {
     PerseusGrapherRubric,
     PerseusGrapherUserInput,
 } from "../../validation.types";
+import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
@@ -111,6 +113,8 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     };
 
     change = (...args) => {
+        // TODO(LEMS-2656): remove TS suppression
+        // @ts-expect-error: Argument of type 'any[]' is not assignable to parameter of type '[newPropsOrSinglePropName: string | { [key: string]: any; }, propValue?: any, callback?: (() => unknown) | undefined]'. Target requires 1 element(s) but source may have fewer.
         return Changeable.change.apply(this, args);
     };
 
@@ -537,6 +541,10 @@ class Grapher extends React.Component<Props> implements Widget {
         return Grapher.getUserInputFromProps(this.props);
     }
 
+    getPromptJSON(): GrapherPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
+
     render(): React.ReactNode {
         const type = this.props.plot.type;
         const coords = this.props.plot.coords;
@@ -646,5 +654,7 @@ export default {
     widget: Grapher,
     transform: propTransform,
     staticTransform: staticTransform,
-    validator: grapherValidator,
-} as WidgetExports<typeof Grapher>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusGrapherUserInput'.
+    scorer: scoreGrapher,
+} satisfies WidgetExports<typeof Grapher>;

@@ -1,15 +1,20 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
-import {components, icons, ApiOptions, Changeable} from "@khanacademy/perseus";
+import {
+    components,
+    ApiOptions,
+    Changeable,
+    iconTrash,
+} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../editor";
+import {iconPlus} from "../styles/icon-paths";
 
 const {InlineIcon, TextInput} = components;
-const {iconPlus, iconTrash} = icons;
 
 type Props = any;
 

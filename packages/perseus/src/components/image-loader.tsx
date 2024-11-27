@@ -1,15 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable jsx-a11y/alt-text, react/no-unsafe */
 // TODO(scottgrant): Enable the alt-text eslint rule above.
-/**
- * Component to display an image (or other React components) while the desired
- * image is loading.
- *
- * Derived from
- * https://github.com/hzdg/react-imageloader/blob/master/src/index.js
- * to better suit our environment/build tools. Additionally, this one does
- * not introduce a wrapper element, which makes styling easier.
- */
 
 import * as React from "react";
 
@@ -49,6 +40,15 @@ type State = {
     status: (typeof Status)[keyof typeof Status];
 };
 
+/**
+ * Component to display an image (or other React components) while the desired
+ * image is loading.
+ *
+ * Derived from
+ * https://github.com/hzdg/react-imageloader/blob/master/src/index.js
+ * to better suit our environment/build tools. Additionally, this one does
+ * not introduce a wrapper element, which makes styling easier.
+ */
 class ImageLoader extends React.Component<Props, State> {
     img: HTMLImageElement | null | undefined;
 
@@ -90,6 +90,7 @@ class ImageLoader extends React.Component<Props, State> {
 
         this.img = new Image();
         this.img.onload = this.handleLoad;
+        // @ts-expect-error: Type 'string | Event' is not assignable to type 'Event'.
         this.img.onerror = this.handleError;
         this.img.src = this.props.src;
     };

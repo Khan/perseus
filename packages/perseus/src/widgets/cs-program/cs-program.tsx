@@ -13,8 +13,9 @@ import {articleMaxWidthInPx} from "../../styles/constants";
 import Util from "../../util";
 import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/cs-program-ai-utils";
 
-import {csProgramValidator} from "./cs-program-validator";
+import scoreCSProgram from "./score-cs-program";
 
 import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -22,6 +23,7 @@ import type {
     PerseusCSProgramRubric,
     PerseusCSProgramUserInput,
 } from "../../validation.types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 const {updateQueryString} = Util;
 
@@ -104,6 +106,10 @@ class CSProgram extends React.Component<Props> implements Widget {
             status: this.props.status,
             message: this.props.message,
         };
+    }
+
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
     }
 
     render(): React.ReactNode {
@@ -199,5 +205,7 @@ export default {
     supportedAlignments: ["block", "full-width"],
     widget: CSProgram,
     hidden: true,
-    validator: csProgramValidator,
-} as WidgetExports<typeof CSProgram>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
+    scorer: scoreCSProgram,
+} satisfies WidgetExports<typeof CSProgram>;

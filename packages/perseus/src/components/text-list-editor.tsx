@@ -21,7 +21,7 @@ function getTextWidth(text: any) {
 class TextListEditor extends React.Component<any, any> {
     static propTypes = {
         options: PropTypes.array,
-        layout: PropTypes.string,
+        layout: PropTypes.oneOf(["horizontal", "vertical"]),
         onChange: PropTypes.func.isRequired,
     };
 

@@ -2,8 +2,9 @@
  * A component that displays its contents inside a device frame.
  */
 
-import {constants} from "@khanacademy/perseus";
 import * as React from "react";
+
+import {lintGutterWidth, perseusFrameBorderWidth} from "../styles/constants";
 
 import type {DeviceType} from "@khanacademy/perseus";
 
@@ -71,8 +72,8 @@ const DeviceFramer = ({
                     overflow: "scroll",
                     width:
                         SCREEN_SIZES[deviceType].framedWidth +
-                        2 * constants.perseusFrameBorderWidth +
-                        constants.lintGutterWidth,
+                        2 * perseusFrameBorderWidth +
+                        lintGutterWidth,
                 }}
             >
                 <div>{children}</div>

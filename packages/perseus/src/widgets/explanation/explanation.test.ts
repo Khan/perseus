@@ -265,12 +265,9 @@ describe("Explanation", function () {
         expect(changeMock).toHaveBeenCalledWith("foo", "bar", callbackMock);
     });
 
-    describe("validator", () => {
+    describe("scorer", () => {
         it("should always return 0 points", async () => {
-            const result = ExplanationWidgetExports?.validator?.(
-                null as any,
-                null as any,
-            );
+            const result = ExplanationWidgetExports?.scorer?.();
 
             expect(result).toHaveBeenAnsweredCorrectly({
                 shouldHavePoints: false,

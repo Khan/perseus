@@ -15,6 +15,7 @@ import type {
     UserInputArray,
     UserInputMap,
 } from "./validation.types";
+import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -88,6 +89,7 @@ export interface Widget {
 
     showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
     examples?: () => ReadonlyArray<string>;
+    getPromptJSON?: () => WidgetPromptJSON;
 }
 
 export type ImageDict = {
@@ -479,18 +481,6 @@ export type PerseusDependencies = {
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
 
-    // video widget
-    // This is used as a hook to fetch data about a video which is used to
-    // add a link to the video transcript.  The return value conforms to
-    // the wonder-blocks-data `Result` type which is used by our GraphQL
-    // framework.
-    useVideo(
-        id: string,
-        kind: VideoKind,
-    ): Result<{
-        video: VideoData | null | undefined;
-    }>;
-
     Log: ILogger;
 
     // RequestInfo
@@ -506,9 +496,21 @@ export type PerseusDependencies = {
  *
  * Prefer using this type over `PerseusDependencies` when possible.
  */
-export type PerseusDependenciesV2 = {
+export interface PerseusDependenciesV2 {
     analytics: {onAnalyticsEvent: AnalyticsEventHandlerFn};
-};
+
+    // video widget
+    // This is used as a hook to fetch data about a video which is used to
+    // add a link to the video transcript.  The return value conforms to
+    // the wonder-blocks-data `Result` type which is used by our GraphQL
+    // framework.
+    useVideo(
+        id: string,
+        kind: VideoKind,
+    ): Result<{
+        video: VideoData | null | undefined;
+    }>;
+}
 
 /**
  * APIOptionsWithDefaults represents the type that is provided to all widgets.
@@ -572,7 +574,7 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
-export type WidgetValidatorFunction = (
+export type WidgetScorerFunction = (
     // The user data needed to score
     userInput: UserInput,
     // The scoring criteria to score against
@@ -621,7 +623,7 @@ export type WidgetExports<
     static renders  */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
-    validator?: WidgetValidatorFunction;
+    scorer?: WidgetScorerFunction;
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,
     ) => string | null | undefined;
