@@ -288,7 +288,12 @@ export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
             rulerLabel: optional(string),
             rulerTicks: optional(number),
             range: pair(pairOfNumbers, pairOfNumbers),
-            graph: parsePerseusGraphType,
+            // NOTE(benchristel): I copied the default graph from
+            // interactive-graph.tsx. See the parse-perseus-json/README.md for
+            // an explanation of why we want to duplicate the default here.
+            graph: defaulted(parsePerseusGraphType, () => ({
+                type: "linear" as const,
+            })),
             correct: parsePerseusGraphType,
             // TODO(benchristel): default lockedFigures to empty array
             lockedFigures: optional(array(parseLockedFigure)),
