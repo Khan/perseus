@@ -1171,9 +1171,9 @@ export type PerseusOrdererWidgetOptions = {
     // Cards that are not part of the answer
     otherOptions: ReadonlyArray<PerseusRenderer>;
     // "normal" for text options.  "auto" for image options.
-    height: string;
+    height: "normal" | "auto";
     // Use the "horizontal" layout for short text and small images. The "vertical" layout is best for longer text (e.g. proofs).
-    layout: string;
+    layout: "horizontal" | "vertical";
 };
 
 export type PerseusPassageWidgetOptions = {
