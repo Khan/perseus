@@ -93,9 +93,14 @@ export type PerseusItem = {
     hints: ReadonlyArray<Hint>;
     // Details about the tools the user might need to answer the question
     answerArea: PerseusAnswerArea | null | undefined;
-    // The version of the item.  Not used by Perseus
-    itemDataVersion: Version;
-    // Deprecated field
+    /**
+     * The version of the item.
+     * @deprecated Not used.
+     */
+    itemDataVersion: any;
+    /**
+     * @deprecated Superseded by per-widget answers.
+     */
     answer: any;
 };
 
@@ -1034,17 +1039,17 @@ export type PerseusMatcherWidgetOptions = {
 export type PerseusMatrixWidgetAnswers = ReadonlyArray<ReadonlyArray<number>>;
 export type PerseusMatrixWidgetOptions = {
     // Translatable Text; Shown before the matrix
-    prefix: string;
+    prefix?: string | undefined;
     // Translatable Text; Shown after the matrix
-    suffix: string;
+    suffix?: string | undefined;
     // A data matrix representing the "correct" answers to be entered into the matrix
     answers: PerseusMatrixWidgetAnswers;
     // The coordinate location of the cursor position at start. default: [0, 0]
-    cursorPosition: ReadonlyArray<number>;
+    cursorPosition?: ReadonlyArray<number> | undefined;
     // The coordinate size of the matrix.  Only supports 2-dimensional matrix.  default: [3, 3]
     matrixBoardSize: ReadonlyArray<number>;
     // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
-    static: boolean;
+    static?: boolean | undefined;
 };
 
 export type PerseusMeasurerWidgetOptions = {
@@ -1166,9 +1171,9 @@ export type PerseusOrdererWidgetOptions = {
     // Cards that are not part of the answer
     otherOptions: ReadonlyArray<PerseusRenderer>;
     // "normal" for text options.  "auto" for image options.
-    height: string;
+    height: "normal" | "auto";
     // Use the "horizontal" layout for short text and small images. The "vertical" layout is best for longer text (e.g. proofs).
-    layout: string;
+    layout: "horizontal" | "vertical";
 };
 
 export type PerseusPassageWidgetOptions = {

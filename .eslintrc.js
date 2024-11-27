@@ -172,6 +172,11 @@ module.exports = {
         "no-invalid-this": "off",
         "@typescript-eslint/no-this-alias": "off",
         "no-unused-expressions": "off",
+        "no-restricted-imports": [
+            "error",
+            "@khanacademy/wonder-blocks-color",
+            "@khanacademy/wonder-blocks-spacing",
+        ],
         "object-curly-spacing": "off",
         semi: "off",
 

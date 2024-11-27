@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape, no-prototype-builtins */
 import {pureMarkdownRules} from "@khanacademy/pure-markdown";
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 import * as React from "react";
@@ -201,7 +200,7 @@ const rules = {
             // link was not put together properly, let's make sure it's there so we
             // don't break the entire page.
             const isKAUrl = href
-                ? href.match(/https?:\/\/[^\/]*khanacademy.org|^\//)
+                ? href.match(/https?:\/\/[^/]*khanacademy.org|^\//)
                 : false;
             if (!isKAUrl) {
                 // Prevents "reverse tabnabbing" phishing attacks
