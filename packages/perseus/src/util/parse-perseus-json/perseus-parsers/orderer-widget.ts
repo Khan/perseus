@@ -5,6 +5,7 @@ import {parseWidget} from "./widget";
 
 import type {OrdererWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 // There is an import cycle between orderer-widget.ts and perseus-renderer.ts.
 // This wrapper ensures that we don't refer to parsePerseusRenderer before
@@ -16,7 +17,7 @@ function parseRenderer(rawValue, ctx) {
 export const parseOrdererWidget: Parser<OrdererWidget> = parseWidget(
     constant("orderer"),
     object({
-        options: array(parseRenderer),
+        options: defaulted(array(parseRenderer), () => []),
         correctOptions: array(parseRenderer),
         otherOptions: array(parseRenderer),
         height: enumeration("normal", "auto"),
