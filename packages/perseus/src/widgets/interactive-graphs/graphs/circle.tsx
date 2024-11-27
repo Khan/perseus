@@ -37,31 +37,76 @@ function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
     const {center, radiusPoint} = graphState;
 
+    const [edgePointAriaLive, setEdgePointAriaLive] = React.useState<
+        "off" | "polite"
+    >("off");
+
+    const radius = getRadius(graphState);
+    const id = React.useId();
+    const circleId = id + "-circle";
+    const diameterId = id + "-diameter";
+    const outerPointsId = id + "-outer-points";
+
+    // Move this string to string.ts file
+    const wholeGraphAriaLabel = "A circle on a coordinate plane.";
+    const circleAriaLabel = `Circle. The center point is at ${center[0]} comma
+        ${center[1]}.`;
+    const edgePointAriaLabel = `Edge point at ${radiusPoint[0]} comma
+        ${radiusPoint[1]}.`;
+    const diameterAriaLabel = `Circle diameter is ${radius * 2}.`;
+    const outerPoints = `Points on the circle at
+        ${center[0] + radius} comma ${center[1]},
+        ${center[0]} comma ${center[1] + radius},
+        ${center[0] - radius} comma ${center[1]},
+        ${center[0]} comma ${center[1] - radius}.`;
+
     return (
-        <>
+        <g
+            aria-label={wholeGraphAriaLabel}
+            aria-describedby={`${circleId} ${diameterId} ${outerPointsId}`}
+        >
             <MovableCircle
+                id={circleId}
+                ariaLabel={circleAriaLabel}
+                ariaDescribedBy={`${diameterId} ${outerPointsId}`}
                 center={center}
-                radius={getRadius(graphState)}
-                onMove={(c) => dispatch(actions.circle.moveCenter(c))}
+                radius={radius}
+                onMove={(c) => {
+                    setEdgePointAriaLive("off");
+                    dispatch(actions.circle.moveCenter(c));
+                }}
             />
             <MovablePoint
+                ariaLabel={`${edgePointAriaLabel} ${diameterAriaLabel}`}
+                ariaDescribedBy={`${outerPointsId}`}
+                ariaLive={edgePointAriaLive}
                 point={radiusPoint}
                 sequenceNumber={1}
                 cursor="ew-resize"
                 onMove={(newRadiusPoint) => {
+                    setEdgePointAriaLive("polite");
                     dispatch(actions.circle.moveRadiusPoint(newRadiusPoint));
                 }}
             />
-        </>
+            <g id={diameterId} style={{display: "hidden"}}>
+                {diameterAriaLabel}
+            </g>
+            <g id={outerPointsId} style={{display: "hidden"}}>
+                {outerPoints}
+            </g>
+        </g>
     );
 }
 
 function MovableCircle(props: {
+    id?: string;
+    ariaLabel?: string;
+    ariaDescribedBy?: string;
     center: vec.Vector2;
     radius: number;
     onMove: (newCenter: vec.Vector2) => unknown;
 }) {
-    const {center, radius, onMove} = props;
+    const {id, ariaLabel, ariaDescribedBy, center, radius, onMove} = props;
     const {snapStep, disableKeyboardInteraction} = useGraphConfig();
 
     const draggableRef = useRef<SVGGElement>(null);
@@ -90,6 +135,10 @@ function MovableCircle(props: {
                 ry={radiiPx[Y] + 3}
             />
             <ellipse
+                id={id}
+                aria-label={ariaLabel}
+                aria-describedby={ariaDescribedBy}
+                aria-live="assertive"
                 className="circle"
                 cx={centerPx[X]}
                 cy={centerPx[Y]}
