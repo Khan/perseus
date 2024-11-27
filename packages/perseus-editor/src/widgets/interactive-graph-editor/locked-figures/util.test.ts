@@ -2,11 +2,13 @@ import {
     generateLockedFigureAppearanceDescription,
     generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {
     LockedFigureColor,
     LockedFigureFillType,
+    LockedLabelType,
     LockedLineStyle,
 } from "@khanacademy/perseus";
 
@@ -118,7 +120,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
         expect(description).toBe(`. Appearance solid gray.`);
     });
 
-    test.each([["red"], ["blue"], ["green"], ["purple"], ["orange"]])(
+    test.each([["red"], ["blue"], ["green"], ["purple"], ["orange"]] as const)(
         `should return a string with a %s color and a solid stroke style`,
         (color: LockedFigureColor) => {
             const description =
@@ -132,7 +134,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
     test.each([
         ["blue", "solid"],
         ["green", "dashed"],
-    ])(
+    ] as const)(
         `should return a string with color of %s and a stroke style of %s`,
         (color: LockedFigureColor, strokeStyle: LockedLineStyle) => {
             const description = generateLockedFigureAppearanceDescription(
@@ -159,7 +161,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
     test.each([
         ["blue", "solid", "none"],
         ["red", "dashed", "none"],
-    ])(
+    ] as const)(
         `should return a string with a %s color, %s stroke and no fill`,
         (
             color: LockedFigureColor,
@@ -193,7 +195,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
     test.each([
         ["pink", "solid", "white"],
         ["red", "dashed", "white"],
-    ])(
+    ] as const)(
         `should return a string with a %s color, %s stroke and a white fill`,
         (
             color: LockedFigureColor,
@@ -240,7 +242,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
         ["red", "dashed", "solid"],
         ["green", "dashed", "translucent"],
         ["purple", "solid", "translucent"],
-    ])(
+    ] as const)(
         `should return a string with a %s color, %s stroke, and a %s fill`,
         (
             color: LockedFigureColor,
@@ -338,5 +340,59 @@ describe("generateMathDetails", () => {
         const convertedString = await generateSpokenMathDetails(mathString);
 
         expect(convertedString).toBe("\\");
+    });
+
+    test("Should read lone dollar signs as regular dollar signs", async () => {
+        const mathString = "$50";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("$50");
+    });
+
+    test("Should read lone escaped dollar signs in text as regular dollar signs", async () => {
+        const mathString = "\\$50";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("$50");
+    });
+});
+
+describe("joinLabelsAsSpokenText", () => {
+    test("returns empty string for undefined input", async () => {
+        const actualOutput = await joinLabelsAsSpokenMath(undefined);
+
+        expect(actualOutput).toBe("");
+    });
+
+    test("return empty string if input is an empty array", async () => {
+        const actualOutput = await joinLabelsAsSpokenMath([]);
+
+        expect(actualOutput).toBe("");
+    });
+
+    test.each`
+        input                   | expectedOutput
+        ${["a"]}                | ${" a"}
+        ${["a", "b"]}           | ${" a, b"}
+        ${["$A$", "$B$"]}       | ${" upper A, upper B"}
+        ${["$1", "$2"]}         | ${" $1, $2"}
+        ${["\\$1", "\\$2"]}     | ${" $1, $2"}
+        ${["$\\$1$", "$\\$2$"]} | ${" normal dollar sign 1, normal dollar sign 2"}
+        ${["${$}1$", "${$}2$"]} | ${" dollar sign 1, dollar sign 2"}
+        ${["$$1$", "$$2$"]}     | ${" 1$, 2$"}
+        ${["hello $world$"]}    | ${" hello w o r l d"}
+        ${["$hello$ world"]}    | ${" h e l l o world"}
+        ${["x^2"]}              | ${" x^2"}
+        ${["$x^2$"]}            | ${" x Superscript 2"}
+        ${["{}"]}               | ${" {}"}
+        ${["${}$"]}             | ${" "}
+    `("should join labels", async ({input, expectedOutput}) => {
+        const lockedLabels: LockedLabelType[] = input.map((label) => {
+            return {...getDefaultFigureForType("label"), text: label};
+        });
+
+        const actualOutput = await joinLabelsAsSpokenMath(lockedLabels);
+
+        expect(actualOutput).toBe(expectedOutput);
     });
 });

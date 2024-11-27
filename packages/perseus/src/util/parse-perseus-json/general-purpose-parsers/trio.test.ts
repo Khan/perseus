@@ -1,8 +1,8 @@
 import {success} from "../result";
 
 import {boolean} from "./boolean";
-import {composeParsers} from "./compose-parsers";
 import {number} from "./number";
+import {pipeParsers} from "./pipe-parsers";
 import {string} from "./string";
 import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 import {trio} from "./trio";
@@ -86,10 +86,10 @@ describe("trio()", () => {
     });
 
     it("returns the parsed values from each of its sub-parsers", () => {
-        const increment = composeParsers(number, (x, ctx) =>
+        const increment = pipeParsers(number).then((x, ctx) =>
             ctx.success(x + 1),
-        );
-        const incrementBoth = trio(increment, increment, increment);
-        expect(incrementBoth([1, 5, 10], ctx())).toEqual(success([2, 6, 11]));
+        ).parser;
+        const incrementAll = trio(increment, increment, increment);
+        expect(incrementAll([1, 5, 10], ctx())).toEqual(success([2, 6, 11]));
     });
 });

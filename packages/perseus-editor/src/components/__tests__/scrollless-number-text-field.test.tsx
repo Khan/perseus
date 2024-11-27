@@ -53,4 +53,45 @@ describe("ScrolllessNumberTextField", () => {
         // Assert
         expect(onChange).not.toHaveBeenCalled();
     });
+
+    test("calls onFocus on focus", async () => {
+        // Arrange
+        const onFocus = jest.fn();
+        render(
+            <ScrolllessNumberTextField
+                value="42"
+                onChange={() => {}}
+                onFocus={onFocus}
+            />,
+        );
+
+        // Act
+        // Tab to focus on input
+        await userEvent.tab();
+
+        // Assert
+        expect(onFocus).toHaveBeenCalled();
+    });
+
+    test("calls onBlur on blur", async () => {
+        // Arrange
+        const onBlur = jest.fn();
+        render(
+            <ScrolllessNumberTextField
+                value="42"
+                onChange={() => {}}
+                onBlur={onBlur}
+            />,
+        );
+
+        // Tab to focus on input
+        await userEvent.tab();
+
+        // Act
+        // Tab to move focus away
+        await userEvent.tab();
+
+        // Assert
+        expect(onBlur).toHaveBeenCalled();
+    });
 });

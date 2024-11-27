@@ -6,6 +6,7 @@ import {
     string,
     optional,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
@@ -18,7 +19,7 @@ export const parseDropdownWidget: Parser<DropdownWidget> = parseWidget(
         placeholder: string,
         ariaLabel: optional(string),
         visibleLabel: optional(string),
-        static: boolean,
+        static: defaulted(boolean, () => false),
         choices: array(
             object({
                 content: string,

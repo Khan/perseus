@@ -90,7 +90,7 @@ class Group extends React.Component<Props> implements Widget {
     setInputValue: (
         arg1: FocusPath,
         arg2: string,
-        arg3: () => unknown,
+        arg3?: () => unknown,
     ) => void = (path, newValue, callback) => {
         return this.rendererRef?.setInputValue(path, newValue, callback);
     };
@@ -154,8 +154,6 @@ class Group extends React.Component<Props> implements Widget {
             }
         };
 
-        // TODO(LEMS-2391): replace this when there's a separate check
-        // for valid/invalid state
         const score = this.rendererRef?.score();
         const isValid = score && score.type !== "invalid";
         const isInvalid = score && score.type === "invalid";

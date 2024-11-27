@@ -313,6 +313,7 @@ abstract class Expr {
 
     // return the child nodes of this node
     exprArgs(): Expr[] {
+        // @ts-expect-error: Type 'string | number | Expr | undefined' is not assignable to type 'string | Expr'.
         return this.args().filter(isExpr);
     }
 
@@ -817,6 +818,7 @@ export class Add extends Seq {
     reduce(options?: Options): Expr {
         return _.reduce(
             this.terms,
+            // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
             (memo, term) => {
                 return memo.add(term, options);
             },
@@ -1300,6 +1302,7 @@ export class Mul extends Seq {
     reduce(options?: {preciseFloats: boolean}) {
         return _.reduce(
             this.terms,
+            // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
             (memo, term) => {
                 return memo.mul(term, options);
             },
@@ -1557,12 +1560,15 @@ export class Mul extends Seq {
                 return pos(num) || neg(num);
             };
 
+            // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
             const posNum = numbers.find(pos);
+            // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
             const negNum = numbers.find(neg);
             if (
                 numbers.length > 1 &&
                 negNum &&
                 posNum &&
+                // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
                 _.every(numbers, posOrNeg)
             ) {
                 var firstNeg = _.indexOf(expr.terms, negNum);

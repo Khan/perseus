@@ -8,6 +8,7 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
@@ -23,6 +24,6 @@ export const parseIframeWidget: Parser<IFrameWidget> = parseWidget(
         height: union(number).or(string).parser,
         allowFullScreen: boolean,
         allowTopNavigation: optional(boolean),
-        static: boolean,
+        static: defaulted(boolean, () => false),
     }),
 );

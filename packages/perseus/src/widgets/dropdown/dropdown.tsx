@@ -159,5 +159,7 @@ export default {
     accessible: true,
     widget: Dropdown,
     transform: optionsTransform,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusDropdownUserInput'.
     scorer: scoreDropdown,
 } satisfies WidgetExports<typeof Dropdown>;
