@@ -37,3 +37,24 @@ A good place to start reading this code is `parser-types.ts` and `result.ts`.
 Then you should skim the parsers in `general-purpose-parsers/` to get a sense
 of what's available. The Perseus-specific parsers are all in `perseus-parsers/`.
 The public API is in `index.ts`.
+
+### Default values
+
+One architectural question that arose during the creation of these parsers was
+"where should defaults be applied? In the parser, or in the widget's
+`defaultProps`?"
+
+Our answer, for the time being, is "both." These defaults serve different
+purposes.
+
+The `defaultProps` of a widget are used during content editing to initialize
+the widget options. They represent our _current version_ of the initial widget
+configuration that content creators should see when they add a widget to an
+exercise.
+
+The defaults in the parsers represent the values that should be used for
+_old content_, created before the associated prop was added to the widget.
+**The default values in the parser should not change over time**, because any
+changes might cause old exercises to become unsolvable or otherwise
+misconfigured. The snapshot regression tests in this folder are designed to
+ensure that we don't accidentally change the defaults.
