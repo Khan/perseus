@@ -176,10 +176,6 @@ type ItemProps = {
 
 // An individual sortable item
 export class SortableItem extends React.Component<ItemProps> {
-    constructor(props) {
-        super(props);
-    }
-
     handleDragStart(e) {
         e.nativeEvent.dataTransfer.effectAllowed = "move";
         this.props.area.onDragStart(this.props.index);
