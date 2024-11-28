@@ -146,6 +146,16 @@ export type PerseusStrings = {
     }) => string;
     srInitialSideAtCoordinates: ({x, y}: {x: string; y: string}) => string;
     srTerminalSideAtCoordinates: ({x, y}: {x: string; y: string}) => string;
+    srVertexAtCoordinates: ({x, y}: {x: string; y: string}) => string;
+    srVertexWithAngleAtCoordinates: ({
+        x,
+        y,
+        angle,
+    }: {
+        x: string;
+        y: string;
+        angle: string;
+    }) => string;
     srUpdatedInitialSideAtCoordinates: ({
         x,
         y,
@@ -159,6 +169,16 @@ export type PerseusStrings = {
     }: {
         x: string;
         y: string;
+    }) => string;
+    srUpdatedVertexAtCoordinates: ({x, y}: {x: string; y: string}) => string;
+    srUpdatedVertexWithAngleAtCoordinates: ({
+        x,
+        y,
+        angle,
+    }: {
+        x: string;
+        y: string;
+        angle: string;
     }) => string;
     srInteractiveElements: ({elements}: {elements: string}) => string;
     srNoInteractiveElements: string;
@@ -360,15 +380,36 @@ export const strings: {
             "Screenreader-accessible description of the terminal side of an angle",
         message: "Point 1, terminal side at %(x)s comma %(y)s",
     },
+    srVertexAtCoordinates: {
+        context: "Screenreader-accessible description of a vertex on a graph",
+        message: "POint 2, vertex at %(x)s comma %(y)s",
+    },
+    srVertexWithAngleAtCoordinates: {
+        context:
+            "Screenreader-accessible description of a vertex on a graph with an angle",
+        message:
+            "Point 2, vertex at %(x)s comma %(y)s. Angle %(angle)s degrees",
+    },
     srUpdatedInitialSideAtCoordinates: {
         context:
-            "Screenreader-accessible description of the initial side of an angle",
+            "Updated screenreader-accessible description of the initial side of an angle",
         message: "Point 3, initial side, moved to %(x)s comma %(y)s",
     },
     srUpdatedTerminalSideAtCoordinates: {
         context:
-            "Screenreader-accessible description of the terminal side of an angle",
+            "Updated screenreader-accessible description of the terminal side of an angle",
         message: "Point 1, terminal side, moved to %(x)s comma %(y)s",
+    },
+    srUpdatedVertexAtCoordinates: {
+        context:
+            "Updated screenreader-accessible description of a vertex on a graph",
+        message: "Point 2, vertex, moved to %(x)s comma %(y)s",
+    },
+    srUpdatedVertexWithAngleAtCoordinates: {
+        context:
+            "Updated screenreader-accessible description of a vertex on a graph with an angle",
+        message:
+            "Point 2, vertex, moved to %(x)s comma %(y)s. Angle %(angle)s degrees",
     },
 };
 
@@ -536,10 +577,17 @@ export const mockStrings: PerseusStrings = {
         `Point 3, initial side at ${x} comma ${y}`,
     srTerminalSideAtCoordinates: ({x, y}) =>
         `Point 1, terminal side at ${x} comma ${y}`,
+    srVertexAtCoordinates: ({x, y}) => `Point 2, vertex at ${x} comma ${y}`,
+    srVertexWithAngleAtCoordinates: ({x, y, angle}) =>
+        `Point 2, vertex at ${x} comma ${y}. Angle ${angle} degrees`,
     srUpdatedInitialSideAtCoordinates: ({x, y}) =>
         `Point 3, initial side, moved to ${x} comma ${y}`,
     srUpdatedTerminalSideAtCoordinates: ({x, y}) =>
         `Point 1, terminal side, moved to ${x} comma ${y}`,
+    srUpdatedVertexAtCoordinates: ({x, y}) =>
+        `Point 2, vertex, moved to ${x} comma ${y}`,
+    srUpdatedVertexWithAngleAtCoordinates: ({x, y, angle}) =>
+        `Point 2, vertex, moved to ${x} comma ${y}. Angle ${angle} degrees`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
 };

@@ -10,6 +10,7 @@ import {MafsCssTransformWrapper} from "./css-transform-wrapper";
 import {TextLabel} from "./text-label";
 
 import type {CollinearTuple} from "../../../../perseus-types";
+import type {Vector2} from "@use-gesture/react";
 import type {Interval} from "mafs";
 
 interface PolygonAngleProps {
@@ -144,6 +145,28 @@ interface AngleProps {
     range: [Interval, Interval];
 }
 
+export function getWholeAngleMeasure(coords: Vector2[], vertex: vec.Vector2) {
+    const startAngle = getAngleFromVertex(coords[0], vertex);
+    const endAngle = getAngleFromVertex(coords[1], vertex);
+    const angle = (startAngle + 360 - endAngle) % 360;
+
+    // return only whole angles
+    return parseFloat(angle.toFixed(0));
+}
+
+export function getClockwiseCoords(
+    coords: Vector2[],
+    vertex: vec.Vector2,
+    allowReflexAngles: boolean = false,
+) {
+    // Check if the points are clockwise or not, depending on whether we allow reflex angles
+    const areClockwise = clockwise([...coords, vertex]);
+    const shouldReverseCoords = areClockwise && !allowReflexAngles;
+
+    // Reverse the coordinates accordingly to ensure the angle is calculated correctly
+    return shouldReverseCoords ? coords : coords.reverse();
+}
+
 export const Angle = ({
     vertex,
     coords,
@@ -151,17 +174,15 @@ export const Angle = ({
     allowReflexAngles,
     range,
 }: AngleProps) => {
-    // Check if the points are clockwise or not, depending on whether we allow reflex angles
-    const areClockwise = clockwise([...coords, vertex]);
-    const shouldReverseCoords = areClockwise && !allowReflexAngles;
-
-    // Reverse the coordinates accordingly to ensure the angle is calculated correctly
-    const clockwiseCoords = shouldReverseCoords ? coords : coords.reverse();
+    // Get the clockwise coordinates
+    const clockwiseCoords = getClockwiseCoords(
+        coords,
+        vertex,
+        allowReflexAngles,
+    );
 
     // Calculate the angles between the two points
-    const startAngle = getAngleFromVertex(clockwiseCoords[0], vertex);
-    const endAngle = getAngleFromVertex(clockwiseCoords[1], vertex);
-    const angle = (startAngle + 360 - endAngle) % 360;
+    const angle = getWholeAngleMeasure(clockwiseCoords, vertex);
 
     // Check if the angle is reflexive
     const isReflexive = angle > 180;
@@ -204,9 +225,6 @@ export const Angle = ({
     // Create the SVG path for the arc
     const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
 
-    // We only ever want to show whole angles
-    const angleLabel = parseFloat(angle.toFixed(0)); // Only want to show whole angles
-
     // Calculate the text position based on the angle and whether we allow reflex angles
     // Let's try the angle bisector method to find the midpoint of the arc
     const [textX, textY] = calculateBisectorPoint(
@@ -245,7 +263,7 @@ export const Angle = ({
             )}
             {showAngles && (
                 <TextLabel x={textX} y={textY} color={color.blue}>
-                    {angleLabel}°
+                    {angle}°
                 </TextLabel>
             )}
         </>
