@@ -1594,6 +1594,9 @@ class Renderer
         return state;
     };
 
+    /**
+     * Returns an array of widget ids that are empty.
+     */
     emptyWidgets(): ReadonlyArray<string> {
         return emptyWidgetsFunctional(
             this.state.widgetInfo,

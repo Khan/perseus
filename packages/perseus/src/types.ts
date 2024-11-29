@@ -65,13 +65,15 @@ export interface Widget {
     getDOMNodeForPath?: (path: FocusPath) => Element | Text | null;
     deselectIncorrectSelectedChoices?: () => void;
 
+    /**
+     * Returns widget state that can be passed back to `restoreSerializedState`
+     * to put the widget back into exactly the same state. If the widget does
+     * not implement this function, the renderer simply returns all of the
+     * widget's props.
+     */
     // TODO(jeremy): I think this return value is wrong. The widget
     // getSerializedState should just return _its_ serialized state, not a
     // key/value list of all widget states (i think!)
-    // Returns widget state that can be passed back to `restoreSerializedState`
-    // to put the widget back into exactly the same state. If the widget does
-    // not implement this function, the renderer simply returns all of the
-    // widget's props.
     getSerializedState?: () => SerializedState; // SUSPECT,
     restoreSerializedState?: (props: any, callback: () => void) => any;
 
@@ -459,15 +461,17 @@ type InitialRequestUrlInterface = {
 
 export type VideoKind = "YOUTUBE_ID" | "READABLE_ID";
 
-// An object for dependency injection, to allow different clients
-// to provide different methods for logging, translation, network
-// requests, etc.
-//
-// NOTE: You should avoid adding new dependencies here as this type was added
-// as a quick fix to get around the fact that some of the dependencies Perseus
-// needs are used in places where neither `APIOptions` nor a React Context
-// could be used. Aim to shrink the footprint of PerseusDependencies and try to
-// use alternative methods where possible.
+/**
+ * An object for dependency injection, to allow different clients
+ * to provide different methods for logging, translation, network
+ * requests, etc.
+ *
+ * NOTE: You should avoid adding new dependencies here as this type was added
+ * as a quick fix to get around the fact that some of the dependencies Perseus
+ * needs are used in places where neither `APIOptions` nor a React Context
+ * could be used. Aim to shrink the footprint of PerseusDependencies and try to
+ * use alternative methods where possible.
+ */
 export type PerseusDependencies = {
     // JIPT
     JIPT: JIPT;
@@ -563,9 +567,11 @@ export type Alignment =
 
 type WidgetOptions = any;
 
-// A transform that maps the WidgetOptions (sometimes referred to as
-// EditorProps) to the props used to render the widget. Often this is an
-// identity transform.
+/**
+ * A transform that maps the WidgetOptions (sometimes referred to as
+ * EditorProps) to the props used to render the widget. Often this is an
+ * identity transform.
+ */
 // TODO(jeremy): Make this generic so that the WidgetOptions and output type
 // become strongly typed.
 export type WidgetTransform = (
@@ -602,11 +608,12 @@ export type WidgetExports<
     /** Supresses widget from showing up in the dropdown in the content editor */
     hidden?: boolean;
     /**
-    The widget version. Any time the _major_ version changes, the widget
-    should provide a new entry in the propUpgrades map to migrate from the
-    older version to the current (new) version. Minor version changes must
-    be backwards compatible with previous minor versions widget options.
-    This key defaults to `{major: 0, minor: 0}` if not provided.
+     * The widget version. Any time the _major_ version changes, the widget
+     * should provide a new entry in the propUpgrades map to migrate from the
+     * older version to the current (new) version. Minor version changes must
+     * be backwards compatible with previous minor versions widget options.
+     *
+     * This key defaults to `{major: 0, minor: 0}` if not provided.
      */
     version?: Version;
     supportedAlignments?: ReadonlyArray<Alignment>;
@@ -617,27 +624,40 @@ export type WidgetExports<
 
     traverseChildWidgets?: any; // (Props, traverseRenderer) => NewProps,
 
-    /** transforms the widget options to the props used to render the widget */
+    /**
+     * Transforms the widget options to the props used to render the widget.
+     */
     transform?: WidgetTransform;
-    /** transforms the widget options to the props used to render the widget for
-    static renders  */
+    /**
+     * Transforms the widget options to the props used to render the widget for
+     * static renders.
+     */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
+    /**
+     * A function that scores user input (the guess) for the widget.
+     */
     scorer?: WidgetScorerFunction;
+
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,
     ) => string | null | undefined;
 
     /**
-    A map of major version numbers (as a string, eg "1") to a function that
-    migrates from the _previous_ major version.
-    Example:
-      propUpgrades: {'1': (options) => ({...options})}
-    would migrate from major version 0 to 1.
-    */
+     * A map of major version numbers (as a string, eg "1") to a function that
+     * migrates from the _previous_ major version.
+     *
+     * Example:
+     * ```
+     * propUpgrades: {'1': (options) => ({...options})}
+     * ```
+     *
+     * This configuration would migrate options from major version 0 to 1.
+     */
     propUpgrades?: {
-        [key: string]: (arg1: any) => any;
-    }; // OldProps => NewProps,
+        // OldProps => NewProps,
+        [targetMajorVersion: string]: (arg1: any) => any;
+    };
 }>;
 
 export type FilterCriterion =
@@ -648,6 +668,14 @@ export type FilterCriterion =
           widget?: Widget | null | undefined,
       ) => boolean);
 
+/**
+ * The full set of props provided to all widgets when they are rendered. The
+ * `RenderProps` generic argument are the widget-specific props that originate
+ * from the stored PerseusItem. Note that they may not match the serialized
+ * widget options exactly as they are the result of running the options through
+ * any `propUpgrades` the widget defines as well as its `transform` or
+ * `staticTransform` functions (depending on the options `static` flag).
+ */
 // NOTE: Rubric should always be the corresponding widget options type for the component.
 // TODO: in fact, is it really the rubric? WidgetOptions is what we use to configure the widget
 // (which is what this seems to be for)

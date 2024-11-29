@@ -114,6 +114,9 @@ export type PerseusArticle = PerseusRenderer | ReadonlyArray<PerseusRenderer>;
  * A "MultiItem" is an advanced Perseus item. It is rendered by the
  * `MultiRenderer` and you can control the layout of individual parts of the
  * item.
+ *
+ * @deprecated MultiItem support is slated for removal in a future Perseus
+ * release.
  */
 export type MultiItem = {
     // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
@@ -128,20 +131,28 @@ export type Version = {
 };
 
 export type PerseusRenderer = {
-    // Translatable Markdown content to be rendered.  May include references to
-    // widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
-    // For each image found in this content, there can be an entry in the
-    // `images` dict (below) with the key being the image's url which defines
-    // additional attributes for the image.
+    /**
+     * Translatable Markdown content to be rendered.  May include references to
+     * widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
+     * For each image found in this content, there can be an entry in the
+     * `images` dict (below) with the key being the image's url which defines
+     * additional attributes for the image.
+     */
     content: string;
-    // A dictionary of {[widgetName]: Widget} to be referenced from the content field
+    /**
+     * A dictionary of {[widgetName]: Widget} to be referenced from the content
+     * field.
+     */
     widgets: PerseusWidgetsMap;
-    // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys that represent other content in the system.  Not rendered to the user.
+    // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys
+    // that represent other content in the system.  Not rendered to the user.
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     metadata?: ReadonlyArray<string>;
-    // A dictionary of {[imageUrl]: PerseusImageDetail}.
+    /**
+     * A dictionary of {[imageUrl]: PerseusImageDetail}.
+     */
     images: {
-        [key: string]: PerseusImageDetail;
+        [imageUrl: string]: PerseusImageDetail;
     };
 };
 
@@ -183,6 +194,10 @@ export const ItemExtras = [
 ] as const;
 export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
 
+/**
+ * The type representing the common structure of all widget's options. The
+ * `Options` generic type represents the widget-specific option data.
+ */
 export type WidgetOptions<Type extends string, Options> = {
     // The "type" of widget which will define what the Options field looks like
     type: Type;
@@ -310,7 +325,9 @@ export type PerseusWidget =
     | VideoWidget
     | AutoCorrectWidget;
 
-// A background image applied to various widgets.
+/**
+ * A background image applied to various widgets.
+ */
 export type PerseusImageBackground = {
     // The URL of the image
     url: string | null | undefined;
