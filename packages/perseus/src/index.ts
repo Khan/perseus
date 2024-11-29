@@ -222,7 +222,9 @@ export type {
     PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
+    PerseusWidgetTypes,
     MultiItem,
+    WidgetOptions,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";

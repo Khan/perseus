@@ -11,72 +11,83 @@ export type Size = [number, number];
 export type CollinearTuple = [vec.Vector2, vec.Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
 
+/**
+ * Our core set of Perseus widgets.
+ *
+ * This interface is the basis for "registering" all Perseus widget types.
+ * There should be one key/value pair for each supported widget. If you create
+ * a new widget, an entry should be added to this interface.
+ *
+ * Importantly, the key is not important and is not used anywhere outside of
+ * this interface so it is arbitrary.
+ *
+ * If you define the widget outside of this package, you can still add the new
+ * widget to this interface by writing the following in that pacakge that
+ * contains the widget. TypeScript will merge that definition of the
+ * `PerseusWidgets` with the one defined below.
+ *
+ * ```typescript
+ * declare module "@khanacademy/perseus" {
+ *     interface PerseusWidgetTypes {
+ *         Awesomeness: MyAwesomeNewWidget;
+ *     }
+ * }
+ *
+ * type MyAwesomeNewWidget = WidgetOptions<'awesomeness', MyAwesomeNewWidgetOptions>;
+ * ```
+ *
+ * This interface can be extended through the magic of TypeScript "Declaration
+ * merging". Specifically, we augment this module and extend this interface.
+ *
+ * @see {@link https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation}
+ */
+export interface PerseusWidgetTypes {
+    Categorizer: CategorizerWidget;
+    CSProgram: CSProgramWidget;
+    Definition: DefinitionWidget;
+    Dropdown: DropdownWidget;
+    Explanation: ExplanationWidget;
+    Expression: ExpressionWidget;
+    Grapher: GrapherWidget;
+    GradedGroupSet: GradedGroupSetWidget;
+    GradedGroup: GradedGroupWidget;
+    Group: GroupWidget;
+    IFrame: IFrameWidget;
+    Image: ImageWidget;
+    InputNumber: InputNumberWidget;
+    Interaction: InteractionWidget;
+    InteractiveGraph: InteractiveGraphWidget;
+    LabelImage: LabelImageWidget;
+    Matcher: MatcherWidget;
+    Matrix: MatrixWidget;
+    Measurer: MeasurerWidget;
+    MoleculeRenderer: MoleculeRendererWidget;
+    NumberLine: NumberLineWidget;
+    NumericInput: NumericInputWidget;
+    Orderer: OrdererWidget;
+    PassageRefTarget: RefTargetWidget;
+    PassageRef: PassageRefWidget;
+    Passage: PassageWidget;
+    PhetSimulation: PhetSimulationWidget;
+    Python: PythonProgramWidget;
+    Plotter: PlotterWidget;
+    Radio: RadioWidget;
+    Sorter: SorterWidget;
+    Table: TableWidget;
+    Video: VideoWidget;
+}
+
+/**
+ * A map of widget IDs to widget options. This is most often used as the type
+ * for a set of widgets defined in a `PerseusItem` but can also be useful to
+ * represent a function parameter where only `widgets` from a `PerseusItem` are
+ * needed.
+ *
+ * @see {@link PerseusWidgetTypes} additional widgets can be added to this map type
+ * by augmenting the PerseusWidgetTypes with new widget types!
+ */
 export type PerseusWidgetsMap = {
-    [key in `categorizer ${number}`]: CategorizerWidget;
-} & {
-    [key in `cs-program ${number}`]: CSProgramWidget;
-} & {
-    [key in `definition ${number}`]: DefinitionWidget;
-} & {
-    [key in `dropdown ${number}`]: DropdownWidget;
-} & {
-    [key in `explanation ${number}`]: ExplanationWidget;
-} & {
-    [key in `expression ${number}`]: ExpressionWidget;
-} & {
-    [key in `grapher ${number}`]: GrapherWidget;
-} & {
-    [key in `group ${number}`]: GroupWidget;
-} & {
-    [key in `graded-group ${number}`]: GradedGroupWidget;
-} & {
-    [key in `graded-group-set ${number}`]: GradedGroupSetWidget;
-} & {
-    [key in `iframe ${number}`]: IFrameWidget;
-} & {
-    [key in `image ${number}`]: ImageWidget;
-} & {
-    [key in `input-number ${number}`]: InputNumberWidget;
-} & {
-    [key in `interaction ${number}`]: InteractionWidget;
-} & {
-    [key in `interactive-graph ${number}`]: InteractiveGraphWidget;
-} & {
-    [key in `label-image ${number}`]: LabelImageWidget;
-} & {
-    [key in `matcher ${number}`]: MatcherWidget;
-} & {
-    [key in `matrix ${number}`]: MatrixWidget;
-} & {
-    [key in `measurer ${number}`]: MeasurerWidget;
-} & {
-    [key in `molecule-renderer ${number}`]: MoleculeRendererWidget;
-} & {
-    [key in `number-line ${number}`]: NumberLineWidget;
-} & {
-    [key in `numeric-input ${number}`]: NumericInputWidget;
-} & {
-    [key in `orderer ${number}`]: OrdererWidget;
-} & {
-    [key in `passage ${number}`]: PassageWidget;
-} & {
-    [key in `passage-ref ${number}`]: PassageRefWidget;
-} & {
-    [key in `passage-ref-target ${number}`]: PassageRefWidget;
-} & {
-    [key in `phet-simulation ${number}`]: PhetSimulationWidget;
-} & {
-    [key in `plotter ${number}`]: PlotterWidget;
-} & {
-    [key in `python-program ${number}`]: PythonProgramWidget;
-} & {
-    [key in `radio ${number}`]: RadioWidget;
-} & {
-    [key in `sorter ${number}`]: SorterWidget;
-} & {
-    [key in `table ${number}`]: TableWidget;
-} & {
-    [key in `video ${number}`]: VideoWidget;
+    [Property in keyof PerseusWidgetTypes as `${PerseusWidgetTypes[Property]["type"]} ${number}`]: PerseusWidgetTypes[Property];
 };
 
 /**
