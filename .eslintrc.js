@@ -49,6 +49,7 @@ function banImportExtension(extension) {
 module.exports = {
     extends: [
         "@khanacademy",
+        "plugin:react/recommended",
         // This config includes rules from storybook to enforce story best
         // practices
         "plugin:storybook/recommended",
@@ -308,6 +309,10 @@ module.exports = {
         /**
          * react
          */
+        "react/no-string-refs": "off", // on in recommended, but #legacy-code
+        "react/no-find-dom-node": "off", // on in recommended, but #legacy-code
+        "react/display-name": "off", // on in recommended, but we have many components that don't have a displayName
+        "react/no-unescaped-entities": "off", // on in recommended, but #legacy-code
         // This rule results in false-positives when using some types of React
         // components (such as functional components or hooks). Since
         // TypeScript is already checking that components are only using props

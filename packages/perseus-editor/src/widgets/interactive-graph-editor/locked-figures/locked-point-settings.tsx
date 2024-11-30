@@ -270,6 +270,7 @@ const LockedPointSettings = (props: Props) => {
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
+                            key={labelIndex}
                             containerStyle={
                                 !isDefiningPoint &&
                                 styles.lockedPointLabelContainer

@@ -1,4 +1,5 @@
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import * as React from "react";
 
 import DeviceFramer from "../device-framer";
 

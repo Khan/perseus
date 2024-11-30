@@ -39,6 +39,7 @@ class DefinitionEditor extends React.Component<Props> {
                 <a
                     href="https://docs.google.com/document/d/1udaPef4imOfTMhmLDlWq4SM0mxL0r3YHFZE-5J1uGfo"
                     target="_blank"
+                    rel="noreferrer"
                 >
                     Definition style guide
                 </a>

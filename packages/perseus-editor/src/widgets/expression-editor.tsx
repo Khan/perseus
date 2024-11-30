@@ -370,6 +370,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
                 return (
                     <AnswerOption
+                        key={ans.key}
                         draggable={true}
                         considered={ans.considered}
                         expressionProps={expressionProps}
@@ -456,6 +457,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                             <a
                                 href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
                                 target="_blank"
+                                rel="noreferrer"
                             >
                                 this article.
                             </a>
