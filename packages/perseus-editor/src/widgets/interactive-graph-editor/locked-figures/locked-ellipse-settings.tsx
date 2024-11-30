@@ -126,7 +126,7 @@ const LockedEllipseSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -206,8 +206,7 @@ const LockedEllipseSettings = (props: Props) => {
                 {/* Color */}
                 <ColorSelect
                     selectedValue={color}
-                    // TODO(LEMS-2656): remove TS suppression
-                    onChange={handleColorChange as any}
+                    onChange={handleColorChange}
                 />
                 <Strut size={spacing.medium_16} />
 
@@ -242,11 +241,7 @@ const LockedEllipseSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
-                // TODO(LEMS-2656): remove TS suppression
-                onChange={
-                    ((value: "solid" | "dashed") =>
-                        onChangeProps({strokeStyle: value})) as any
-                }
+                onChange={(value) => onChangeProps({strokeStyle: value})}
             />
 
             {/* Aria label */}
@@ -278,12 +273,9 @@ const LockedEllipseSettings = (props: Props) => {
                         <LockedLabelSettings
                             {...label}
                             expanded={true}
-                            // TODO(LEMS-2656): remove TS suppression
-                            onChangeProps={
-                                ((newLabel: LockedLabelType) => {
-                                    handleLabelChange(newLabel, labelIndex);
-                                }) as any
-                            }
+                            onChangeProps={(newLabel) => {
+                                handleLabelChange(newLabel, labelIndex);
+                            }}
                             onRemove={() => {
                                 handleLabelRemove(labelIndex);
                             }}

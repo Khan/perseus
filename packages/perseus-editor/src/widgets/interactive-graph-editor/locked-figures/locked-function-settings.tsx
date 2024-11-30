@@ -161,7 +161,7 @@ const LockedFunctionSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -205,8 +205,7 @@ const LockedFunctionSettings = (props: Props) => {
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
-                    // TODO(LEMS-2656): remove TS suppression
-                    onChange={handleColorChange as any}
+                    onChange={handleColorChange}
                 />
                 <Strut size={spacing.small_12} />
 
@@ -356,12 +355,9 @@ const LockedFunctionSettings = (props: Props) => {
                             key={labelIndex}
                             {...label}
                             expanded={true}
-                            // TODO(LEMS-2656): remove TS suppression
-                            onChangeProps={
-                                ((newLabel: LockedLabelType) => {
-                                    handleLabelChange(newLabel, labelIndex);
-                                }) as any
-                            }
+                            onChangeProps={(newLabel) => {
+                                handleLabelChange(newLabel, labelIndex);
+                            }}
                             onRemove={() => {
                                 handleLabelRemove(labelIndex);
                             }}
