@@ -41,8 +41,6 @@ export default {
             },
         },
     },
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'Args' is not assignable to type 'StoryArgs'.
     render: (args: StoryArgs) => (
         <RendererWithDebugUI
             question={applyStoryArgs(args)}
@@ -51,7 +49,7 @@ export default {
             showSolutions={args.showSolutions}
         />
     ),
-} satisfies Meta;
+} satisfies Meta<StoryArgs>;
 
 const applyStoryArgs = (args: StoryArgs): PerseusRenderer => {
     const q = {

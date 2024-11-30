@@ -154,7 +154,7 @@ export type ChangeHandler = (
         // Interactive Graph callback (see legacy: interactive-graph.tsx)
         graph?: PerseusGraphType;
     },
-    callback?: () => unknown | null | undefined,
+    callback?: () => void,
     silent?: boolean,
 ) => unknown;
 
