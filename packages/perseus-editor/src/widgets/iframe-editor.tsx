@@ -7,6 +7,8 @@ import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
+type ChangeFn = typeof Changeable.change;
+
 type PairEditorProps = any;
 
 /**
@@ -24,7 +26,7 @@ class PairEditor extends React.Component<PairEditorProps> {
         value: "",
     };
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -70,7 +72,7 @@ class PairsEditor extends React.Component<PairsEditorProps> {
         ).isRequired,
     };
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 

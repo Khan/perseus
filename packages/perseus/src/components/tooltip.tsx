@@ -4,7 +4,6 @@
 // z-index: 3 on perseus-formats-tooltip seemed to work
 
 import * as React from "react";
-import ReactDOM from "react-dom";
 
 import type {Property} from "csstype";
 
@@ -237,6 +236,8 @@ type State = {
  * ```
  */
 class Tooltip extends React.Component<Props, State> {
+    tooltipContainerRef = React.createRef<HTMLDivElement>();
+
     static defaultProps: DefaultProps = {
         className: "",
         arrowSize: 10,
@@ -337,8 +338,7 @@ class Tooltip extends React.Component<Props, State> {
                 }}
             >
                 <div
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="tooltipContainer"
+                    ref={this.tooltipContainerRef}
                     className="tooltipContainer"
                     style={{
                         position: "absolute",
@@ -377,11 +377,9 @@ class Tooltip extends React.Component<Props, State> {
     }
 
     _updateHeight() {
-        const tooltipContainer = ReactDOM.findDOMNode(
-            // eslint-disable-next-line react/no-string-refs
-            this.refs.tooltipContainer,
-        ) as HTMLDivElement;
-        const height = tooltipContainer.offsetHeight;
+        const tooltipContainer = this.tooltipContainerRef.current;
+
+        const height = tooltipContainer?.offsetHeight || 0;
         if (height !== this.state.height) {
             this.setState({height});
         }

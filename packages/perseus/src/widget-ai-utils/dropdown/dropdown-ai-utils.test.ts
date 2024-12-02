@@ -32,6 +32,8 @@ const question1: PerseusRenderer = {
                         correct: true,
                     },
                 ],
+                ariaLabel: "Test ARIA label",
+                visibleLabel: "Test visible label",
             },
             version: {
                 major: 0,
@@ -77,7 +79,7 @@ describe("Dropdown AI utils", () => {
         const {renderer} = renderQuestion(question1);
 
         // Act
-        const dropdown = screen.getByRole("button");
+        const dropdown = screen.getByRole("combobox");
         await userEvent.click(dropdown);
         await userEvent.click(screen.getByText("greater than or equal to"));
 

@@ -1,10 +1,8 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {number as knumber} from "@khanacademy/kmath";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import classNames from "classnames";
-import $ from "jquery";
 import PropTypes from "prop-types";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import Util from "../util";
@@ -40,6 +38,7 @@ const getNumericFormat = KhanMath.getNumericFormat;
 class NumberInput extends React.Component<any, any> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
+    inputRef = React.createRef<HTMLInputElement>();
 
     static propTypes = {
         value: PropTypes.number,
@@ -71,20 +70,27 @@ class NumberInput extends React.Component<any, any> {
         }
     }
 
+    _getInput: () => HTMLInputElement = () => {
+        if (!this.inputRef.current) {
+            throw new PerseusError(
+                "Input ref accessed before set",
+                Errors.Internal,
+            );
+        }
+
+        return this.inputRef.current;
+    };
+
     /* Return the current "value" of this input
      * If empty, it returns the placeholder (if it is a number) or null
      */
     getValue: () => any = () => {
-        return this.parseInputValue(
-            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-            ReactDOM.findDOMNode(this.refs.input).value, // eslint-disable-line react/no-string-refs
-        );
+        return this.parseInputValue(this._getInput().value);
     };
 
     /* Return the current string value of this input */
     getStringValue: () => string = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-        return ReactDOM.findDOMNode(this.refs.input).value.toString(); // eslint-disable-line react/no-string-refs
+        return this._getInput().toString();
     };
 
     parseInputValue: (arg1: any) => any = (value) => {
@@ -98,36 +104,28 @@ class NumberInput extends React.Component<any, any> {
 
     /* Set text input focus to this input */
     focus: () => void = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this.refs.input).focus(); // eslint-disable-line react/no-string-refs
+        this._getInput().focus();
         this._handleFocus();
     };
 
     blur: () => void = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'blur' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this.refs.input).blur(); // eslint-disable-line react/no-string-refs
+        this._getInput().blur();
         this._handleBlur();
     };
 
-    setSelectionRange: (arg1: number, arg2: number) => any = (
+    setSelectionRange: (arg1: number, arg2: number) => void = (
         selectionStart,
         selectionEnd,
     ) => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'setSelectionRange' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this).setSelectionRange(
-            selectionStart,
-            selectionEnd,
-        );
+        this._getInput().setSelectionRange(selectionStart, selectionEnd);
     };
 
-    getSelectionStart: () => number = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'.
-        return ReactDOM.findDOMNode(this).selectionStart;
+    getSelectionStart: () => number | null = () => {
+        return this._getInput().selectionStart;
     };
 
-    getSelectionEnd: () => number = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'selectionEnd' does not exist on type 'Element | Text'.
-        return ReactDOM.findDOMNode(this).selectionEnd;
+    getSelectionEnd: () => number | null = () => {
+        return this._getInput().selectionEnd;
     };
 
     _checkValidity: (arg1: any) => boolean = (value) => {
@@ -203,11 +201,7 @@ class NumberInput extends React.Component<any, any> {
     };
 
     _setValue: (arg1: number, arg2: MathFormat) => void = (val, format) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'val' does not exist on type 'JQueryStatic'.
-        $(ReactDOM.findDOMNode(this.refs.input)).val(
-            toNumericString(val, format),
-        );
+        this._getInput().value = toNumericString(val, format);
     };
 
     render(): React.ReactNode {
@@ -237,8 +231,7 @@ class NumberInput extends React.Component<any, any> {
                 {...restProps}
                 className={classes}
                 type="text"
-                // eslint-disable-next-line react/no-string-refs
-                ref="input"
+                ref={this.inputRef}
                 onChange={this._handleChange}
                 onFocus={this._handleFocus}
                 onBlur={this._handleBlur}

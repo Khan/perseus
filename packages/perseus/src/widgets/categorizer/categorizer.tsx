@@ -21,12 +21,12 @@ import scoreCategorizer from "./score-categorizer";
 import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
-    PerseusCategorizerRubric,
+    PerseusCategorizerScoringData,
     PerseusCategorizerUserInput,
 } from "../../validation.types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
-type Props = WidgetProps<RenderProps, PerseusCategorizerRubric> & {
+type Props = WidgetProps<RenderProps, PerseusCategorizerScoringData> & {
     values: ReadonlyArray<string>;
 };
 
@@ -325,5 +325,7 @@ export default {
         );
     },
     isLintable: true,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
     scorer: scoreCategorizer,
 } satisfies WidgetExports<typeof Categorizer>;

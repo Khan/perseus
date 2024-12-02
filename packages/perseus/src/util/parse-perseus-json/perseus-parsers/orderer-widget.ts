@@ -1,4 +1,4 @@
-import {array, constant, object, string} from "../general-purpose-parsers";
+import {array, constant, enumeration, object} from "../general-purpose-parsers";
 
 import {parsePerseusRenderer} from "./perseus-renderer";
 import {parseWidget} from "./widget";
@@ -19,7 +19,7 @@ export const parseOrdererWidget: Parser<OrdererWidget> = parseWidget(
         options: array(parseRenderer),
         correctOptions: array(parseRenderer),
         otherOptions: array(parseRenderer),
-        height: string,
-        layout: string,
+        height: enumeration("normal", "auto"),
+        layout: enumeration("horizontal", "vertical"),
     }),
 );

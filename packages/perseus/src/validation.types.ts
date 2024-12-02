@@ -9,10 +9,10 @@
  * entered. This is referred to as the 'guess' in some older parts of Perseus.
  *
  * `Perseus<Widget>ValidationData`: the data needed to do validation of the
- * user input. Validation is the checks we can do both on the client-side,
- * before submitting user input for scoring, and on the server-side when we
- * score it. As such, it cannot contain any of the sensitive scoring data
- * that would reveal the answer.
+ * user input. Validation refers to the different checks that we can do both on
+ * the client-side (before submitting user input for scoring) and on the
+ * server-side (when we score it). As such, it cannot contain any of the
+ * sensitive scoring data that would reveal the answer.
  *
  * `Perseus<Widget>ScoringData` (nee `Perseus<Widget>Rubric`): the data needed
  * to score the user input. By convention, this type is defined as the set of
@@ -22,7 +22,8 @@
  * For example:
  * ```
  * type Perseus<Widget>ScoringData = {
- *     correct: string;
+ *     correct: string;  // Used _only_ for scoring
+ *     size: number;     // Used _only_ for scoring
  * } & Perseus<Widget>ValidationData;
  * ```
  */
@@ -40,7 +41,6 @@ import type {
     PerseusNumberLineWidgetOptions,
     PerseusNumericInputAnswer,
     PerseusOrdererWidgetOptions,
-    PerseusPlotterWidgetOptions,
     PerseusRadioChoice,
     PerseusGraphCorrectType,
 } from "./perseus-types";
@@ -49,15 +49,21 @@ import type {Relationship} from "./widgets/number-line/number-line";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
-export type PerseusCategorizerRubric = {
+export type PerseusCategorizerScoringData = {
     // The correct answers where index relates to the items and value relates
     // to the category.  e.g. [0, 1, 0, 1, 2]
     values: ReadonlyArray<number>;
-};
+} & PerseusCategorizerValidationData;
 
 export type PerseusCategorizerUserInput = {
-    values: PerseusCategorizerRubric["values"];
+    values: PerseusCategorizerScoringData["values"];
 };
+
+export type PerseusCategorizerValidationData = {
+    // Translatable text; a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
+    items: ReadonlyArray<string>;
+};
+
 // TODO(LEMS-2440): Can possibly be removed during 2440?
 // This is not used for grading at all. The only place it is used is to define
 // Props type in cs-program.tsx, but RenderProps already contains WidgetOptions
@@ -150,7 +156,9 @@ export type PerseusMatcherUserInput = {
 export type PerseusMatrixRubric = {
     // A data matrix representing the "correct" answers to be entered into the matrix
     answers: PerseusMatrixWidgetAnswers;
-};
+} & PerseusMatrixValidationData;
+
+export type PerseusMatrixValidationData = Empty;
 
 export type PerseusMatrixUserInput = {
     answers: PerseusMatrixRubric["answers"];
@@ -185,7 +193,15 @@ export type PerseusOrdererUserInput = {
     current: ReadonlyArray<string>;
 };
 
-export type PerseusPlotterRubric = PerseusPlotterWidgetOptions;
+export type PerseusPlotterScoringData = {
+    // The Y values that represent the correct answer expected
+    correct: ReadonlyArray<number>;
+} & PerseusPlotterValidationData;
+
+export type PerseusPlotterValidationData = {
+    // The Y values the graph should start with
+    starting: ReadonlyArray<number>;
+};
 
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
 
@@ -216,7 +232,7 @@ export type PerseusTableRubric = {
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 
 export type Rubric =
-    | PerseusCategorizerRubric
+    | PerseusCategorizerScoringData
     | PerseusCSProgramRubric
     | PerseusDropdownRubric
     | PerseusExpressionRubric
@@ -233,7 +249,7 @@ export type Rubric =
     | PerseusNumberLineRubric
     | PerseusNumericInputRubric
     | PerseusOrdererRubric
-    | PerseusPlotterRubric
+    | PerseusPlotterScoringData
     | PerseusRadioRubric
     | PerseusSorterRubric
     | PerseusTableRubric;

@@ -337,6 +337,7 @@ const constraints = {
             // bound the delta by the calculated bounds
             const boundedDelta = _.reduce(
                 deltaBounds,
+                // @ts-expect-error - TS2345 - Type 'number[]' is not assignable to type 'Coord'.
                 function (delta, bound) {
                     const lower = bound[0];
                     const upper = bound[1];
@@ -353,7 +354,6 @@ const constraints = {
                 delta,
             );
 
-            // @ts-expect-error - TS2322 - Type 'number[]' is not assignable to type 'Coord'.
             return kvector.add(prevCoord, boundedDelta);
         };
     },

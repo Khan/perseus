@@ -1,5 +1,84 @@
 # @khanacademy/perseus
 
+## 43.1.0
+
+### Minor Changes
+
+-   [#1898](https://github.com/Khan/perseus/pull/1898) [`3a9b5921b`](https://github.com/Khan/perseus/commit/3a9b5921bff7ae038f59ecb6817babd2b21df0bb) Thanks [@Myranae](https://github.com/Myranae)! - Introduces a validation function for the dropdown widget (extracted from dropdown scoring function).
+
+*   [#1862](https://github.com/Khan/perseus/pull/1862) [`451de899f`](https://github.com/Khan/perseus/commit/451de899fd3d40bf415cb2318048e90fb1e6670f) Thanks [@Myranae](https://github.com/Myranae)! - Split out validation function for the `categorizer` widget. This can be used to check if the user selected an answer for every row, confirming the question is ready to be scored.
+
+-   [#1882](https://github.com/Khan/perseus/pull/1882) [`40d2ebb75`](https://github.com/Khan/perseus/commit/40d2ebb75fdadfb361330236e0fb9e54a32d0fc2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Introduces a validation function for the numeric-input widget (extracted from numeric-input scoring function).
+
+*   [#1899](https://github.com/Khan/perseus/pull/1899) [`2437ce61b`](https://github.com/Khan/perseus/commit/2437ce61bae1aef2db28e89956aa73463ada16cc) Thanks [@Myranae](https://github.com/Myranae)! - Introduces a validation function for the plotter widget (extracted from the scoring function).
+
+-   [#1869](https://github.com/Khan/perseus/pull/1869) [`f43edd42c`](https://github.com/Khan/perseus/commit/f43edd42ccfacd1500d2f73ccb0d3f8dce777173) Thanks [@Myranae](https://github.com/Myranae)! - Split out validation function for the `orderer` widget. This can be used to check if the user has ordered at least one option, confirming the question is ready to be scored.
+
+*   [#1902](https://github.com/Khan/perseus/pull/1902) [`0cec7628c`](https://github.com/Khan/perseus/commit/0cec7628c4a061f14b126fd1e3dab6df45fc0178) Thanks [@Myranae](https://github.com/Myranae)! - Introduces a validation function for the radio widget (extracted from the scoring function), though not all validation logic can be extracted.
+
+-   [#1876](https://github.com/Khan/perseus/pull/1876) [`0bd4270ad`](https://github.com/Khan/perseus/commit/0bd4270ade576bec1ac0c86b251f972a2c354056) Thanks [@Myranae](https://github.com/Myranae)! - Split out validation function for the `sorter` widget. This can be used to check if the user has made any changes to the sorting order, confirming whether or not the question can be scored.
+
+### Patch Changes
+
+-   [#1907](https://github.com/Khan/perseus/pull/1907) [`3dbca965a`](https://github.com/Khan/perseus/commit/3dbca965a2bbaa2d980c1cc4c439469157e0bd33) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add and pass regression tests for `PerseusItem` parser.
+
+*   [#1915](https://github.com/Khan/perseus/pull/1915) [`ee09e9fc0`](https://github.com/Khan/perseus/commit/ee09e9fc0ad5eb65340d0f1cbe240741ebfcd3c3) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove use of findDOMNode in number-input component
+
+-   [#1920](https://github.com/Khan/perseus/pull/1920) [`88ba71bef`](https://github.com/Khan/perseus/commit/88ba71bef0cdd75fa0c8b467dcea2cccc637d034) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix some file-wide error suppressions
+
+*   [#1919](https://github.com/Khan/perseus/pull/1919) [`64ea2ee86`](https://github.com/Khan/perseus/commit/64ea2ee86264a20f1d0e34968831945fea8ed36b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove usage of findDOMNode in text-input component
+
+-   [#1906](https://github.com/Khan/perseus/pull/1906) [`799ffe4a5`](https://github.com/Khan/perseus/commit/799ffe4a50e3e3bc435d0ef96388c1e8fae2167d) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - update moveable point component and use control point method to have optional params
+
+*   [#1895](https://github.com/Khan/perseus/pull/1895) [`841551a65`](https://github.com/Khan/perseus/commit/841551a65732a276266690ddaaa51a3810398d03) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove unused fields from `answerArea` when parsing `PerseusItem`s.
+
+-   [#1921](https://github.com/Khan/perseus/pull/1921) [`8ec06f444`](https://github.com/Khan/perseus/commit/8ec06f444d8f4559eda5c3dbf189e5183b1c5b42) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Inline widget version into Expression widget parser.
+
+*   [#1914](https://github.com/Khan/perseus/pull/1914) [`3e98b7cd3`](https://github.com/Khan/perseus/commit/3e98b7cd300052eeacbe9fcdbd312091c678107b) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests for propUpgrades functions (and remove underscore usage)
+
+-   [#1908](https://github.com/Khan/perseus/pull/1908) [`7f2866cf4`](https://github.com/Khan/perseus/commit/7f2866cf401aa4fc7a3b2b15d8cdc247a953e9f8) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Migrate expression widget options to the latest version in parseAndTypecheckPerseusItem (not yet used in production).
+
+-   Updated dependencies [[`88ba71bef`](https://github.com/Khan/perseus/commit/88ba71bef0cdd75fa0c8b467dcea2cccc637d034)]:
+    -   @khanacademy/kas@0.4.2
+    -   @khanacademy/simple-markdown@0.13.6
+    -   @khanacademy/pure-markdown@0.3.13
+
+## 43.0.1
+
+### Patch Changes
+
+-   [#1896](https://github.com/Khan/perseus/pull/1896) [`56fd44806`](https://github.com/Khan/perseus/commit/56fd448063b2e13c5e9cb9e1874c12494c6f0e34) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing intersecting polygon sides issues for unlimited sided polygon.
+
+*   [#1894](https://github.com/Khan/perseus/pull/1894) [`01edfb8be`](https://github.com/Khan/perseus/commit/01edfb8be849f869c26ada923e275648780d36f3) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Add comment about making translation tickets
+
+-   [#1875](https://github.com/Khan/perseus/pull/1875) [`28cae9d2a`](https://github.com/Khan/perseus/commit/28cae9d2afe65e1345906de8106d349c93ddb97c) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Labels] Count lone unescaped \$ as regular dollar signs in TeX
+
+## 43.0.0
+
+### Major Changes
+
+-   [#1905](https://github.com/Khan/perseus/pull/1905) [`9c225f936`](https://github.com/Khan/perseus/commit/9c225f9365cbb2e92bba3bd67b1abde724809367) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - We're reverting work done for the Server Side Scoring and Input Number Conversion projects.
+
+### Minor Changes
+
+-   [#1883](https://github.com/Khan/perseus/pull/1883) [`adad642ab`](https://github.com/Khan/perseus/commit/adad642ab0ae95de6600e7018f0aff836acc5911) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Introduces a validation function for the matrix widget (extracted from matrix scoring function).
+
+*   [#1878](https://github.com/Khan/perseus/pull/1878) [`a27f23bb4`](https://github.com/Khan/perseus/commit/a27f23bb48e585aa2229975b1779161b921cbd9d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add expression validator function
+
+### Patch Changes
+
+-   [#1890](https://github.com/Khan/perseus/pull/1890) [`0afb1a4f7`](https://github.com/Khan/perseus/commit/0afb1a4f70e35de7e2b04ee1af835a0ebe84bbe5) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Labels + Aria] Create math only parser to help parse TeX how we want
+
+*   [#1889](https://github.com/Khan/perseus/pull/1889) [`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: enable strict typechecking of function parameters
+
+-   [#1852](https://github.com/Khan/perseus/pull/1852) [`4b8836b84`](https://github.com/Khan/perseus/commit/4b8836b846c4f6adc6f4bb9c204deedb019c9f51) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding open and closing behavior to unlimited polygon graph type.
+
+-   Updated dependencies [[`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9)]:
+    -   @khanacademy/kas@0.4.1
+    -   @khanacademy/math-input@21.1.5
+    -   @khanacademy/simple-markdown@0.13.5
+    -   @khanacademy/pure-markdown@0.3.12
+
 ## 42.0.3
 
 ### Patch Changes

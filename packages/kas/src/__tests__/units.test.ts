@@ -77,6 +77,7 @@ expect.extend({
             return {pass: false, message: () => `could not parse ${x}`};
         }
 
+        // @ts-expect-error: Type 'Expression' is not assignable to type 'Expr'.
         const equal = KAS.compare(parsedX.unit, parsedY.unit).equal;
 
         return equal
@@ -167,6 +168,7 @@ describe("units", () => {
 
         expect(
             KAS.compare(
+                // @ts-expect-error: Type 'Expression' is not assignable to type 'Expr'.
                 new KAS.Mul(new KAS.Int(50), new KAS.Unit("m")),
                 new KAS.Int(50),
             ).equal,
