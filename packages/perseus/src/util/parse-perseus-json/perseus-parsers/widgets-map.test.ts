@@ -4,6 +4,7 @@ import {parse} from "../parse";
 import {failure, success} from "../result";
 
 import {parseWidgetsMap} from "./widgets-map";
+import {PerseusWidgetsMap} from "@khanacademy/perseus";
 
 describe("parseWidgetsMap", () => {
     it("rejects null", () => {
@@ -688,6 +689,46 @@ describe("parseWidgetsMap", () => {
 
         expect(result).toEqual(success(widgetsMap));
     });
+
+    it("converts a sequence widget to the deprecated-standin widget", () => {
+        const widgetsMap: unknown = {
+            "sequence 1": {
+                type: "sequence",
+                version: {major: 0, minor: 0},
+                graded: true,
+                options: {
+                    json: [
+                        {
+                            content: "",
+                            images: {},
+                            widgets: {}
+                        }
+                    ]
+                },
+            },
+        };
+
+        const expected: PerseusWidgetsMap = {
+            "sequence 1": {
+                type: "deprecated-standin",
+                version: {major: 0, minor: 0},
+                graded: true,
+                options: {
+                    json: [
+                        {
+                            content: "",
+                            images: {},
+                            widgets: {}
+                        }
+                    ]
+                },
+            }
+        }
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(expected));
+    })
 
     it("rejects an unknown widget type", () => {
         const widgetsMap: unknown = {

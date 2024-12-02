@@ -1,5 +1,5 @@
 import {getWidget} from "../../../widgets";
-import {any, pair, isObject, string} from "../general-purpose-parsers";
+import {any, pair, isObject, string, object} from "../general-purpose-parsers";
 import {isFailure} from "../result";
 
 import {parseCategorizerWidget} from "./categorizer-widget";
@@ -35,8 +35,12 @@ import {parseSorterWidget} from "./sorter-widget";
 import {parseTableWidget} from "./table-widget";
 import {parseVideoWidget} from "./video-widget";
 
-import type {PerseusWidgetsMap} from "../../../perseus-types";
+import type {
+    AutoCorrectWidget,
+    PerseusWidgetsMap
+} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
+import {parseWidget} from "./widget";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
@@ -178,7 +182,7 @@ const parseWidgetsMapEntry: (
         case "sequence":
             // sequence is a deprecated widget type, and the corresponding
             // widget component no longer exists.
-            return ctx.success(null);
+            return parseAndAssign(`sequence ${id}`, parseDeprecatedWidget);
 
         default:
             if (getWidget(type)) {
@@ -188,6 +192,13 @@ const parseWidgetsMapEntry: (
             return ctx.failure("a valid widget type", type);
     }
 };
+
+const parseDeprecatedWidget: Parser<AutoCorrectWidget> = parseWidget(
+    // Ignore the incoming widget type and hardcode "deprecated-standin"
+    (_, ctx) => ctx.success("deprecated-standin" as const),
+    // Allow any widget options
+    object({}),
+);
 
 const parseStringToPositiveInt: Parser<number> = (rawValue, ctx) => {
     if (typeof rawValue !== "string" || !/^[1-9][0-9]*$/.test(rawValue)) {

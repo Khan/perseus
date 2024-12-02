@@ -6,9 +6,9 @@ import scoreNoop from "../__shared__/score-noop";
 
 import type {Widget, WidgetExports} from "../../types";
 
-// The props are type `any` on purpose so that this can receive props
-// from any deprecated widget
-type Props = any;
+// There are no required props, but this component can receive props from any
+// deprecated widget
+type Props = {};
 
 class DeprecatedStandin extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;

@@ -565,3 +565,60 @@ exports[`renderer snapshots initial render: initial render 1`] = `
   </div>
 </div>
 `;
+
+exports[`renderer snapshots renders a placeholder for a deprecated widget: deprecated widget 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            style="padding-top: 8px; padding-bottom: 8px;"
+          >
+            <div
+              class="default_xu2jcg-o_O-containerOuter_xu9ezy-o_O-inlineStyles_1ipey8s"
+              role="status"
+            >
+              <div
+                class="default_xu2jcg-o_O-backgroundColor_10s9e9d-o_O-inlineStyles_14jsc6v"
+              />
+              <div
+                class="default_xu2jcg-o_O-containerInner_mm2xcu"
+              >
+                <span
+                  aria-label="info"
+                  class="svg_1q6jc65-o_O-icon_1521uiv-o_O-icon_16tp01m-o_O-inlineStyles_94g682"
+                  data-testid="banner-kind-icon"
+                  role="img"
+                />
+                <div
+                  class="default_xu2jcg-o_O-labelAndButtonsContainer_14rogkt"
+                >
+                  <div
+                    class="default_xu2jcg-o_O-labelContainer_1fjq5ke"
+                  >
+                    <span
+                      class="text_f1191h-o_O-LabelSmall_hl4zs1"
+                    >
+                      Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
