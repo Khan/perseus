@@ -277,6 +277,10 @@ export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
         constant("interactive-graph"),
         object({
             step: pairOfNumbers,
+            // TODO(benchristel): rather than making gridStep and snapStep
+            // optional, we should duplicate the defaulting logic from the
+            // InteractiveGraph component. See parse-perseus-json/README.md for
+            // why.
             gridStep: optional(pairOfNumbers),
             snapStep: optional(pairOfNumbers),
             backgroundImage: optional(parsePerseusImageBackground),
