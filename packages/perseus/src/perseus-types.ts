@@ -385,10 +385,6 @@ export type PerseusDropdownChoice = {
     correct: boolean;
 };
 
-export type PerseusExampleWidgetOptions = {
-    value: string;
-};
-
 export type PerseusExplanationWidgetOptions = {
     // Translatable Text; The clickable text to expand an explanation.  e.g. "What is an apple?"
     showPrompt: string;
@@ -1630,20 +1626,11 @@ export type PerseusPassageRefTargetWidgetOptions = {
     content: string;
 };
 
-export type PerseusSimpleMarkdownTesterWidgetOptions = {
-    value: string;
-};
-
-type PerseusUnitInputWidgetOptions = {
-    value: string;
-};
-
 export type PerseusWidgetOptions =
     | PerseusCategorizerWidgetOptions
     | PerseusCSProgramWidgetOptions
     | PerseusDefinitionWidgetOptions
     | PerseusDropdownWidgetOptions
-    | PerseusExampleWidgetOptions
     | PerseusExplanationWidgetOptions
     | PerseusExpressionWidgetOptions
     | PerseusGradedGroupSetWidgetOptions
@@ -1667,8 +1654,6 @@ export type PerseusWidgetOptions =
     | PerseusPhetSimulationWidgetOptions
     | PerseusPlotterWidgetOptions
     | PerseusRadioWidgetOptions
-    | PerseusSimpleMarkdownTesterWidgetOptions
     | PerseusSorterWidgetOptions
     | PerseusTableWidgetOptions
-    | PerseusUnitInputWidgetOptions
     | PerseusVideoWidgetOptions;
