@@ -8,12 +8,12 @@ import {
     optional,
     nullable,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
 import type {NumberLineWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
-import {defaulted} from "../general-purpose-parsers/defaulted";
 
 export const parseNumberLineWidget: Parser<NumberLineWidget> = parseWidget(
     constant("number-line"),

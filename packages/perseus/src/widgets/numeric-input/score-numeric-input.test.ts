@@ -312,10 +312,14 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "50%"}, rubric, mockStrings);
+        const score = scoreNumericInput(
+            {currentValue: "50%"},
+            rubric,
+            mockStrings,
+        );
 
         expect(score).toHaveBeenAnsweredCorrectly();
-    })
+    });
 
     it("converts a percentage input value to a decimal", () => {
         const rubric: PerseusNumericInputRubric = {
@@ -332,7 +336,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "20%"}, rubric, mockStrings);
+        const score = scoreNumericInput(
+            {currentValue: "20%"},
+            rubric,
+            mockStrings,
+        );
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -355,7 +363,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "120%"}, rubric, mockStrings);
+        const score = scoreNumericInput(
+            {currentValue: "120%"},
+            rubric,
+            mockStrings,
+        );
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -378,7 +390,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "1.1%"}, rubric, mockStrings);
+        const score = scoreNumericInput(
+            {currentValue: "1.1%"},
+            rubric,
+            mockStrings,
+        );
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -398,7 +414,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "0.9%"}, rubric, mockStrings);
+        const score = scoreNumericInput(
+            {currentValue: "0.9%"},
+            rubric,
+            mockStrings,
+        );
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });

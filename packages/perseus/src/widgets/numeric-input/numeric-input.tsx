@@ -23,7 +23,7 @@ import type {
     PerseusNumericInputUserInput,
 } from "../../validation.types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
-import {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const formExamples: {
     [key: string]: (
@@ -78,7 +78,10 @@ type DefaultProps = {
 // defaultProps into account, which is important because
 // PerseusNumericInputWidgetOptions has optional fields which receive defaults
 // via defaultProps.
-0 as any as WidgetProps<PerseusNumericInputWidgetOptions, PerseusNumericInputRubric> satisfies PropsFor<typeof NumericInput>;
+0 as any as WidgetProps<
+    PerseusNumericInputWidgetOptions,
+    PerseusNumericInputRubric
+> satisfies PropsFor<typeof NumericInput>;
 
 type State = {
     // keeps track of the other set of values when switching
