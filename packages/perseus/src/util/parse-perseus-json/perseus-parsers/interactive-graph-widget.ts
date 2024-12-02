@@ -285,7 +285,7 @@ export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
             snapStep: optional(pairOfNumbers),
             backgroundImage: optional(parsePerseusImageBackground),
             markings: enumeration("graph", "grid", "none"),
-            labels: defaulted(array(string), () => []),
+            labels: optional(array(string)),
             showProtractor: boolean,
             showRuler: optional(boolean),
             showTooltips: optional(boolean),

@@ -1415,7 +1415,7 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
             "type": "polygon",
           },
           "gridStep": undefined,
-          "labels": [],
+          "labels": undefined,
           "lockedFigures": undefined,
           "markings": "none",
           "range": [

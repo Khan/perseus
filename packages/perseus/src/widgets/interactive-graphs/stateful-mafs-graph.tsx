@@ -35,7 +35,7 @@ export type StatefulMafsGraphProps = {
     onChange: InteractiveGraphProps["onChange"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
-    labels: InteractiveGraphProps["labels"];
+    labels: ReadonlyArray<string>;
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     readOnly: boolean;
