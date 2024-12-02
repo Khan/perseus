@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 0.4.2
+
+### Patch Changes
+
+-   [#1920](https://github.com/Khan/perseus/pull/1920) [`88ba71bef`](https://github.com/Khan/perseus/commit/88ba71bef0cdd75fa0c8b467dcea2cccc637d034) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix some file-wide error suppressions
+
 ## 0.4.1
 
 ### Patch Changes

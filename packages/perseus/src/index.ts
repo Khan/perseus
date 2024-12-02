@@ -219,8 +219,6 @@ export type {
     PerseusPlotterWidgetOptions,
     PerseusPythonProgramWidgetOptions,
     PerseusRadioWidgetOptions,
-    PerseusExampleWidgetOptions,
-    PerseusSimpleMarkdownTesterWidgetOptions,
     PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,

@@ -1,12 +1,13 @@
 import {question1} from "./orderer.testdata";
 import {scoreOrderer} from "./score-orderer";
+import * as OrdererValidator from "./validate-orderer";
 
 import type {
     PerseusOrdererRubric,
     PerseusOrdererUserInput,
 } from "../../validation.types";
 
-describe("ordererValiator", () => {
+describe("scoreOrderer", () => {
     it("is correct when the userInput is in the same order and is the same length as the rubric's correctOption content items", () => {
         // Arrange
         const rubric: PerseusOrdererRubric =
@@ -21,7 +22,7 @@ describe("ordererValiator", () => {
         // Act
         const result = scoreOrderer(userInput, rubric);
 
-        // assert
+        // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 
@@ -37,7 +38,7 @@ describe("ordererValiator", () => {
         // Act
         const result = scoreOrderer(userInput, rubric);
 
-        // assert
+        // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
@@ -53,12 +54,41 @@ describe("ordererValiator", () => {
         // Act
         const result = scoreOrderer(userInput, rubric);
 
-        // assert
+        // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
-    it("is invalid when the when the user has not started ordering the options and current is empty", () => {
+    it("should be correctly answerable if validation passes", () => {
         // Arrange
+        const mockValidator = jest
+            .spyOn(OrdererValidator, "default")
+            .mockReturnValue(null);
+
+        const rubric: PerseusOrdererRubric =
+            question1.widgets["orderer 1"].options;
+
+        const userInput: PerseusOrdererUserInput = {
+            current: question1.widgets["orderer 1"].options.correctOptions.map(
+                (option) => option.content,
+            ),
+        };
+        // Act
+        const result = scoreOrderer(userInput, rubric);
+
+        // Assert
+        expect(mockValidator).toHaveBeenCalledWith(userInput);
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should return an invalid response if validation fails", () => {
+        // Arrange
+        const mockValidator = jest
+            .spyOn(OrdererValidator, "default")
+            .mockReturnValue({
+                type: "invalid",
+                message: null,
+            });
+
         const rubric: PerseusOrdererRubric =
             question1.widgets["orderer 1"].options;
 
@@ -69,7 +99,8 @@ describe("ordererValiator", () => {
         // Act
         const result = scoreOrderer(userInput, rubric);
 
-        // assert
+        // Assert
+        expect(mockValidator).toHaveBeenCalledWith(userInput);
         expect(result).toHaveInvalidInput();
     });
 });
