@@ -81,7 +81,10 @@ export interface PerseusWidgetTypes {
  * A map of widget IDs to widget options. This is most often used as the type
  * for a set of widgets defined in a `PerseusItem` but can also be useful to
  * represent a function parameter where only `widgets` from a `PerseusItem` are
- * needed.
+ * needed. Today Widget IDs are made up of the widget type and an incrementing
+ * integer (eg. `interactive-graph 1` or `radio 3`). It is suggested to avoid
+ * reading/parsing the widget id to derive any information from it, except in
+ * the case of this map.
  *
  * @see {@link PerseusWidgetTypes} additional widgets can be added to this map type
  * by augmenting the PerseusWidgetTypes with new widget types!
