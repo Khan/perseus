@@ -288,7 +288,7 @@ describe("static function validate", () => {
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
-    it("ignores missing values when determining if the answer can be formatted as a percentage", () => {
+    it("rejects responses formatted as a percentage when any answer has no value field", () => {
         const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
@@ -318,7 +318,7 @@ describe("static function validate", () => {
             mockStrings,
         );
 
-        expect(score).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("converts a percentage input value to a decimal", () => {
