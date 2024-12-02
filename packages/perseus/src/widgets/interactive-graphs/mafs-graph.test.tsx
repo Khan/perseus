@@ -482,7 +482,7 @@ describe("MafsGraph", () => {
         );
 
         expectLabelInDoc("Point 1, terminal side at -1 comma 1");
-        // expectLabelInDoc("Point 2 at 0 comma 0");
+        expectLabelInDoc("Point 2, vertex at 0 comma 0");
         expectLabelInDoc("Point 3, initial side at 1 comma 1");
     });
 
