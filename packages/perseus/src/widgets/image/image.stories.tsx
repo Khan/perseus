@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 
-import {question, zoomableQuestion} from "./image.testdata";
+import {question} from "./image.testdata";
 
 import type {APIOptions} from "../../types";
 
@@ -71,35 +71,6 @@ export const Question2 = (args: StoryArgs): React.ReactElement => {
     return (
         <RendererWithDebugUI
             question={questionWithCaptionAndArgs}
-            apiOptions={apiOptions}
-        />
-    );
-};
-
-export const Question3 = (args: StoryArgs): React.ReactElement => {
-    const apiOptions: APIOptions = {
-        isMobile: args.isMobile,
-    };
-    const imageOptions = zoomableQuestion.widgets["image 1"].options;
-
-    const questionWithArgs = {
-        ...zoomableQuestion,
-        widgets: {
-            ...zoomableQuestion.widgets,
-            "image 1": {
-                ...zoomableQuestion.widgets["image 1"],
-                options: {
-                    ...imageOptions,
-                    title: args.title,
-                    caption: args.caption,
-                },
-            },
-        },
-    } as const;
-
-    return (
-        <RendererWithDebugUI
-            question={questionWithArgs}
             apiOptions={apiOptions}
         />
     );
