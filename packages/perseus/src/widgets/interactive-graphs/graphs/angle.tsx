@@ -110,62 +110,65 @@ function AngleGraph({dispatch, graphState}: AngleGraphProps) {
     const angleLabel = `${allowReflexAngles ? 360 - angleMeasure : angleMeasure}`;
 
     const {strings, locale} = usePerseusI18n();
+
+    const formatCoordinates = (x: number, y: number) => ({
+        x: srFormatNumber(x, locale),
+        y: srFormatNumber(y, locale),
+    });
+
     const [initialSideAriaLabel, setInitialSideAriaLabel] =
         React.useState<string>(
-            strings.srInitialSideAtCoordinates({
-                x: srFormatNumber(coords[2][X], locale),
-                y: srFormatNumber(coords[2][Y], locale),
-            }),
+            strings.srInitialSideAtCoordinates(
+                formatCoordinates(coords[2][X], coords[2][Y]),
+            ),
         );
 
     const [terminalSideAriaLabel, setTerminalSideAriaLabel] =
         React.useState<string>(
-            strings.srTerminalSideAtCoordinates({
-                x: srFormatNumber(coords[0][X], locale),
-                y: srFormatNumber(coords[0][Y], locale),
-            }),
+            strings.srTerminalSideAtCoordinates(
+                formatCoordinates(coords[0][X], coords[0][Y]),
+            ),
         );
 
     const [vertexAriaLabel, setVertexAriaLabel] = React.useState<string>(
-        strings.srVertexAtCoordinates({
-            x: srFormatNumber(coords[1][X], locale),
-            y: srFormatNumber(coords[1][Y], locale),
-        }),
+        strings.srVertexAtCoordinates(
+            formatCoordinates(coords[1][X], coords[1][Y]),
+        ),
     );
 
-    const handleVertexAriaLabelUpdate = (newPoint: vec.Vector2) => {
+    const updateVertexAriaLabel = (newPoint: vec.Vector2) => {
         showAngles
             ? setVertexAriaLabel(
                   strings.srUpdatedVertexWithAngleAtCoordinates({
-                      x: srFormatNumber(newPoint[X], locale),
-                      y: srFormatNumber(newPoint[Y], locale),
+                      ...formatCoordinates(newPoint[X], newPoint[Y]),
                       angle: angleLabel,
                   }),
               )
             : setVertexAriaLabel(
-                  strings.srUpdatedVertexAtCoordinates({
-                      x: srFormatNumber(newPoint[X], locale),
-                      y: srFormatNumber(newPoint[Y], locale),
-                  }),
+                  strings.srUpdatedVertexAtCoordinates(
+                      formatCoordinates(newPoint[X], newPoint[Y]),
+                  ),
               );
     };
 
-    const handleSideAriaLabelUpdates = (
+    const updateSideAriaLabel = (
         side: "terminal" | "initial",
         newPoint: vec.Vector2,
     ): void => {
+        const formattedCoordinates = formatCoordinates(
+            newPoint[X],
+            newPoint[Y],
+        );
         side === "terminal"
             ? setTerminalSideAriaLabel(
-                  strings.srUpdatedTerminalSideAtCoordinates({
-                      x: srFormatNumber(newPoint[X], locale),
-                      y: srFormatNumber(newPoint[Y], locale),
-                  }),
+                  strings.srUpdatedTerminalSideAtCoordinates(
+                      formattedCoordinates,
+                  ),
               )
             : setInitialSideAriaLabel(
-                  strings.srUpdatedInitialSideAtCoordinates({
-                      x: srFormatNumber(newPoint[X], locale),
-                      y: srFormatNumber(newPoint[Y], locale),
-                  }),
+                  strings.srUpdatedInitialSideAtCoordinates(
+                      formattedCoordinates,
+                  ),
               );
     };
 
@@ -174,31 +177,28 @@ function AngleGraph({dispatch, graphState}: AngleGraphProps) {
         newPoint: vec.Vector2,
         side: "terminal" | "initial",
     ): unknown => {
-        handleVertexAriaLabelUpdate(newPoint);
-        handleSideAriaLabelUpdates(side, newPoint);
+        updateVertexAriaLabel(newPoint);
+        updateSideAriaLabel(side, newPoint);
         return dispatch(actions.angle.movePoint(coordIndex, newPoint));
     };
 
     const handleVertexMove = (coordIndex: number, newPoint: vec.Vector2) => {
-        handleVertexAriaLabelUpdate(newPoint);
+        updateVertexAriaLabel(newPoint);
         return dispatch(actions.angle.movePoint(coordIndex, newPoint));
     };
-    
+
     React.useEffect(() => {
-        showAngles
-            ? setVertexAriaLabel(
-                  strings.srVertexWithAngleAtCoordinates({
-                      x: srFormatNumber(coords[1][X], locale),
-                      y: srFormatNumber(coords[1][Y], locale),
-                      angle: angleLabel,
-                  }),
-              )
-            : setVertexAriaLabel(
-                  strings.srVertexAtCoordinates({
-                      x: srFormatNumber(coords[1][X], locale),
-                      y: srFormatNumber(coords[1][Y], locale),
-                  }),
-              );
+        const formattedVertexCoordinates = formatCoordinates(
+            coords[1][X],
+            coords[1][Y],
+        );
+        const label = showAngles
+            ? strings.srVertexWithAngleAtCoordinates({
+                  ...formattedVertexCoordinates,
+                  angle: angleLabel,
+              })
+            : strings.srVertexAtCoordinates(formattedVertexCoordinates);
+        setVertexAriaLabel(label);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showAngles]);
 
