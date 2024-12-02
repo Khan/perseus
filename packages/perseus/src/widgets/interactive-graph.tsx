@@ -44,6 +44,9 @@ import type {
     PerseusGraphTypePolygon,
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
+    GraphRange,
+    LockedFigure,
+    PerseusImageBackground,
 } from "../perseus-types";
 import type {ChangeHandler, WidgetExports, WidgetProps} from "../types";
 import type {
@@ -58,11 +61,6 @@ import type {
 import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-import {
-    GraphRange,
-    LockedFigure,
-    PerseusImageBackground, PerseusMatrixWidgetOptions
-} from "../perseus-types";
 
 const TRASH_ICON_URI =
     "https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png";

@@ -23,10 +23,9 @@ import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import InputNumberExport from "../widgets/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
-import type {DropdownWidget} from "../perseus-types";
+import type {PerseusRenderer, DropdownWidget} from "../perseus-types";
 import type {APIOptions} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
-import {PerseusRenderer} from "../perseus-types";
 
 // NOTE(jeremy): We can't use an automatic mock for the translation linter,
 // because one of it's "instance" methods is created using `debounce` and Jest
@@ -124,20 +123,20 @@ describe("renderer", () => {
                                 {
                                     content: "",
                                     images: {},
-                                    widgets: {}
-                                }
-                            ]
+                                    widgets: {},
+                                },
+                            ],
                         },
-                    }
+                    },
                 },
-            }
+            };
 
             // Act
             const {container} = renderQuestion(question);
 
             // Assert
-            expect(container).toMatchSnapshot("deprecated widget")
-        })
+            expect(container).toMatchSnapshot("deprecated widget");
+        });
     });
 
     describe("linting (TranslationLinter)", () => {

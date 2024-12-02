@@ -34,13 +34,13 @@ import {parseRadioWidget} from "./radio-widget";
 import {parseSorterWidget} from "./sorter-widget";
 import {parseTableWidget} from "./table-widget";
 import {parseVideoWidget} from "./video-widget";
+import {parseWidget} from "./widget";
 
 import type {
     AutoCorrectWidget,
-    PerseusWidgetsMap
+    PerseusWidgetsMap,
 } from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
-import {parseWidget} from "./widget";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {

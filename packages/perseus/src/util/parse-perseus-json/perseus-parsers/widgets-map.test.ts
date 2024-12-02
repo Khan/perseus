@@ -4,7 +4,8 @@ import {parse} from "../parse";
 import {failure, success} from "../result";
 
 import {parseWidgetsMap} from "./widgets-map";
-import {PerseusWidgetsMap} from "@khanacademy/perseus";
+
+import type {PerseusWidgetsMap} from "@khanacademy/perseus";
 
 describe("parseWidgetsMap", () => {
     it("rejects null", () => {
@@ -701,9 +702,9 @@ describe("parseWidgetsMap", () => {
                         {
                             content: "",
                             images: {},
-                            widgets: {}
-                        }
-                    ]
+                            widgets: {},
+                        },
+                    ],
                 },
             },
         };
@@ -718,17 +719,17 @@ describe("parseWidgetsMap", () => {
                         {
                             content: "",
                             images: {},
-                            widgets: {}
-                        }
-                    ]
+                            widgets: {},
+                        },
+                    ],
                 },
-            }
-        }
+            },
+        };
 
         const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(expected));
-    })
+    });
 
     it("rejects an unknown widget type", () => {
         const widgetsMap: unknown = {
