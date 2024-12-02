@@ -1,7 +1,6 @@
 import {Errors} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import InteractiveUtil from "../interactive2/interactive-util";
@@ -176,7 +175,7 @@ class Graphie extends React.Component<Props> {
     _setupGraphie: () => void = () => {
         this._removeMovables();
 
-        const graphieDiv = ReactDOM.findDOMNode(this.graphieDivRef.current);
+        const graphieDiv = this.graphieDivRef.current;
         if (graphieDiv == null || graphieDiv instanceof Text) {
             throw new Error("No graphie container div found");
         }
