@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 45.0.0
+
+### Major Changes
+
+-   [#1910](https://github.com/Khan/perseus/pull/1910) [`0a44d468d`](https://github.com/Khan/perseus/commit/0a44d468dd127bf15dc32e720b9b0301af41a572) Thanks [@handeyeco](https://github.com/handeyeco)! - Change ServerItemRenderer scoring APIs to externalize scoring
+
 ## 44.0.0
 
 ### Major Changes
