@@ -1,10 +1,11 @@
 import {getClockwiseAngle} from "../../math";
 
-import {shouldDrawArcOutside} from "./angle-indicators";
+import {getClockwiseCoords, getWholeAngleMeasure, shouldDrawArcOutside} from "./angle-indicators";
 
 import type {CollinearTuple} from "../../../../perseus-types";
 import type {Coord} from "@khanacademy/perseus";
 import type {vec, Interval} from "mafs";
+import { get } from "underscore";
 
 describe("shouldDrawArcOutside", () => {
     const range = [
@@ -102,5 +103,66 @@ describe("shouldDrawArcOutside", () => {
         const vertex = [0, 0] as vec.Vector2;
         const coords: [Coord, Coord, Coord] = [point1, vertex, point2];
         expect(getClockwiseAngle(coords)).toBe(45);
+    });
+});
+
+describe("getWholeAngleMeasure", () => {
+    test("should return 0 for no angle", () => {
+        const coords: [Coord, Coord, Coord] = [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ];
+        const vertex = coords[1];
+
+        expect(getWholeAngleMeasure(coords, vertex)).toBe(0);
+    });
+
+    test("should return 270 for a reflex right angle", () => {
+        const coords: [Coord, Coord, Coord] = [
+            [0, 0],
+            [0, 1],
+            [1, 0],
+        ];
+        const vertex = coords[1];
+
+        expect(getWholeAngleMeasure(coords, vertex)).toBe(270);
+    });
+
+    test("should not return decimals for angle", () => {
+        const coords: [Coord, Coord, Coord] = [
+            [0, 0],
+            [7, 0.5],
+            [12.5, 2.5],
+        ];
+        const vertex = coords[1];
+        expect(getWholeAngleMeasure(coords, vertex)).toBe(184);
+        expect(getWholeAngleMeasure(coords, vertex)).not.toBe(184.08561677997488);
+    });
+});
+
+describe("getClockwiseCoords", () => {
+    test("should return the coordinates in clockwise order", () => {
+        const coords: [Coord, Coord, Coord] = [
+            [0, 0],
+            [0, 1],
+            [1, 1],
+        ];
+
+        expect(getClockwiseCoords(coords, coords[0])).toEqual(coords);
+    });
+
+    test("should return the coordinates in counter-clockwise order when reflex angles are allowed", () => {
+        const coords: [Coord, Coord, Coord] = [
+            [0, 0],
+            [1, 0],
+            [0, 1],
+        ];
+
+        expect(getClockwiseCoords(coords, coords[0], false)).toEqual([
+            [0, 1],
+            [1, 0],
+            [0, 0],
+        ]);
     });
 });
