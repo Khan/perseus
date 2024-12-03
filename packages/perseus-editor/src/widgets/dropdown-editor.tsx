@@ -117,8 +117,8 @@ class DropdownEditor extends React.Component<Props> {
                             The drop down is useful for making inequalities in a
                             custom format. We normally use the symbols {"<"},{" "}
                             {">"}, ≤, ≥ (in that order) which you can copy into
-                            the choices. When possible, use the "multiple
-                            choice" answer type instead.
+                            the choices. When possible, use the &quot;multiple
+                            choice&quot; answer type instead.
                         </p>
                     </InfoTip>
                 </div>

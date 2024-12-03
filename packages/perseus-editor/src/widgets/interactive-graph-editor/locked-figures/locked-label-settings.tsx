@@ -140,8 +140,8 @@ export default function LockedLabelSettings(props: Props) {
                     <br />
                     <br />
                     It is important to use TeX when appropriate for
-                    accessibility. The above example would be read as "This
-                    circle has radius one-half units" by screen readers.
+                    accessibility. The above example would be read as &quot;This
+                    circle has radius one-half units&quot; by screen readers.
                 </InfoTip>
             </View>
 

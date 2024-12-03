@@ -408,8 +408,8 @@ class PlotterEditor extends React.Component<Props, State> {
                     <InfoTip>
                         <p>
                             Which ticks to display the labels for. For instance,
-                            setting this to "4" will only show every 4th label
-                            (plus the last one)
+                            setting this to &quot;4&quot; will only show every
+                            4th label (plus the last one)
                         </p>
                     </InfoTip>
                 </div>
@@ -426,7 +426,7 @@ class PlotterEditor extends React.Component<Props, State> {
                                 <p>
                                     Use the default picture of Earth, or insert
                                     the URL for a different picture using the
-                                    "Add image" function.
+                                    &quot;Add image&quot; function.
                                 </p>
                             </InfoTip>
                         </label>

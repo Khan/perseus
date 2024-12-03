@@ -312,7 +312,6 @@ module.exports = {
         "react/no-string-refs": "off", // on in react/recommended, but we have #legacy-code
         "react/no-find-dom-node": "off", // on in react/recommended, but we have #legacy-code
         "react/display-name": "off", // on in react/recommended, but doesn't seem that useful to fix
-        "react/no-unescaped-entities": "off", // on in react/recommended, but we have #legacy-code
         // This rule results in false-positives when using some types of React
         // components (such as functional components or hooks). Since
         // TypeScript is already checking that components are only using props

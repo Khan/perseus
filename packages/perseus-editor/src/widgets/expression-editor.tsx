@@ -450,8 +450,8 @@ class ExpressionEditor extends React.Component<Props, State> {
                     />
                     <InfoTip>
                         <p>
-                            Label text that's read by screen readers. Highly
-                            recommend adding a label here to ensure your
+                            Label text that&apos;s read by screen readers.
+                            Highly recommend adding a label here to ensure your
                             exercise is accessible. For more information on
                             writting accessible labels, please see{" "}
                             <a
@@ -475,7 +475,8 @@ class ExpressionEditor extends React.Component<Props, State> {
                         <p>
                             Single-letter variables listed here will be
                             interpreted as functions. This let us know that f(x)
-                            means "f of x" and not "f times x".
+                            means &quot;f of x&quot; and not &quot;f times
+                            x&quot;.
                         </p>
                     </InfoTip>
                 </div>
@@ -590,7 +591,7 @@ class AnswerOption extends React.Component<
                     onClick={this.handleImSure}
                     color="destructive"
                 >
-                    I'm sure!
+                    I&apos;m sure!
                 </Button>
                 <Strut size={spacing.small_12} />
                 <Button size="small" onClick={this.handleCancelDelete} light>
@@ -641,9 +642,9 @@ class AnswerOption extends React.Component<
                         />
                         <InfoTip>
                             <p>
-                                The student's answer must be in the same form.
-                                Commutativity and excess negative signs are
-                                ignored.
+                                The student&apos;s answer must be in the same
+                                form. Commutativity and excess negative signs
+                                are ignored.
                             </p>
                         </InfoTip>
                     </div>
@@ -656,11 +657,11 @@ class AnswerOption extends React.Component<
                         />
                         <InfoTip>
                             <p>
-                                The student's answer must be fully expanded and
-                                simplified. Answering this equation (x^2+2x+1)
-                                with this factored equation (x+1)^2 will render
-                                this response "Your answer is not fully expanded
-                                and simplified."
+                                The student&apos;s answer must be fully expanded
+                                and simplified. Answering this equation
+                                (x^2+2x+1) with this factored equation (x+1)^2
+                                will render this response &quot;Your answer is
+                                not fully expanded and simplified.&quot;
                             </p>
                         </InfoTip>
                     </div>
