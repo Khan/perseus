@@ -60,6 +60,10 @@ const preview: Preview = {
             })),
         },
     },
+    tags: [
+        //👇 Enables auto-generated documentation for all stories
+        "autodocs",
+    ],
 };
 
 export default preview;

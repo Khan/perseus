@@ -31,8 +31,7 @@ import type {
 
     // Multi-item item types
     Item,
-    // ItemTree is used below, the linter is confused.
-    ItemTree, // eslint-disable-line @typescript-eslint/no-unused-vars
+    ItemTree,
     ItemObjectNode,
     ItemArrayNode,
     ContentNode,

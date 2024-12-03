@@ -182,6 +182,7 @@ export type PerseusStrings = {
     }) => string;
     srInteractiveElements: ({elements}: {elements: string}) => string;
     srNoInteractiveElements: string;
+    selectAnAnswer: string;
 };
 
 /**
@@ -370,6 +371,7 @@ export const strings: {
         context: "Screenreader-accessible description of a point on a graph",
         message: "Point %(num)s at %(x)s comma %(y)s",
     },
+    selectAnAnswer: "Select an answer",
     srInitialSideAtCoordinates: {
         context:
             "Screenreader-accessible description of the initial side of an angle",
@@ -590,4 +592,5 @@ export const mockStrings: PerseusStrings = {
         `Point 2, vertex, moved to ${x} comma ${y}. Angle ${angle} degrees`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
+    selectAnAnswer: "Select an answer",
 };

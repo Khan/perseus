@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable one-var, react/forbid-prop-types */
+/* eslint-disable react/forbid-prop-types */
 import {components} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -7,10 +7,10 @@ import _ from "underscore";
 
 const {InfoTip, TextListEditor} = components;
 
-const NORMAL = "normal",
-    AUTO = "auto",
-    HORIZONTAL = "horizontal",
-    VERTICAL = "vertical";
+const NORMAL = "normal";
+const AUTO = "auto";
+const HORIZONTAL = "horizontal";
+const VERTICAL = "vertical";
 
 type Props = any;
 

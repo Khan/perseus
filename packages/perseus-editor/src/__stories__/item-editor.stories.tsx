@@ -10,7 +10,6 @@ import "../styles/perseus-editor.less";
 type Props = React.ComponentProps<typeof ItemExtrasEditor>;
 
 const Wrapper = (props: Props) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {onChange, ...rest} = props;
     const [extras, setExtras] =
         React.useState<Partial<typeof ItemExtrasEditor.defaultProps>>(rest);
@@ -19,7 +18,7 @@ const Wrapper = (props: Props) => {
         <ItemExtrasEditor
             {...extras}
             onChange={(e) => {
-                props.onChange?.(e); // to register action in storybook
+                onChange?.(e); // to register action in storybook
                 setExtras((prevExtras) => ({...prevExtras, ...e}));
             }}
         />

@@ -512,8 +512,8 @@ describe("parseWidgetsMap", () => {
                     options: [],
                     correctOptions: [],
                     otherOptions: [],
-                    height: "",
-                    layout: "",
+                    height: "normal",
+                    layout: "horizontal",
                 },
             },
         };

@@ -376,6 +376,10 @@ export type PerseusDropdownWidgetOptions = {
     placeholder: string;
     // Always false.  Not used for this widget
     static: boolean;
+    // Translatable Text; visible label for the dropdown
+    visibleLabel?: string;
+    // Translatable Text; aria label that screen readers will read
+    ariaLabel?: string;
 };
 
 export type PerseusDropdownChoice = {
@@ -383,10 +387,6 @@ export type PerseusDropdownChoice = {
     content: string;
     // Whether this is the correct option or not
     correct: boolean;
-};
-
-export type PerseusExampleWidgetOptions = {
-    value: string;
 };
 
 export type PerseusExplanationWidgetOptions = {
@@ -1171,9 +1171,9 @@ export type PerseusOrdererWidgetOptions = {
     // Cards that are not part of the answer
     otherOptions: ReadonlyArray<PerseusRenderer>;
     // "normal" for text options.  "auto" for image options.
-    height: string;
+    height: "normal" | "auto";
     // Use the "horizontal" layout for short text and small images. The "vertical" layout is best for longer text (e.g. proofs).
-    layout: string;
+    layout: "horizontal" | "vertical";
 };
 
 export type PerseusPassageWidgetOptions = {
@@ -1630,20 +1630,11 @@ export type PerseusPassageRefTargetWidgetOptions = {
     content: string;
 };
 
-export type PerseusSimpleMarkdownTesterWidgetOptions = {
-    value: string;
-};
-
-type PerseusUnitInputWidgetOptions = {
-    value: string;
-};
-
 export type PerseusWidgetOptions =
     | PerseusCategorizerWidgetOptions
     | PerseusCSProgramWidgetOptions
     | PerseusDefinitionWidgetOptions
     | PerseusDropdownWidgetOptions
-    | PerseusExampleWidgetOptions
     | PerseusExplanationWidgetOptions
     | PerseusExpressionWidgetOptions
     | PerseusGradedGroupSetWidgetOptions
@@ -1667,8 +1658,6 @@ export type PerseusWidgetOptions =
     | PerseusPhetSimulationWidgetOptions
     | PerseusPlotterWidgetOptions
     | PerseusRadioWidgetOptions
-    | PerseusSimpleMarkdownTesterWidgetOptions
     | PerseusSorterWidgetOptions
     | PerseusTableWidgetOptions
-    | PerseusUnitInputWidgetOptions
     | PerseusVideoWidgetOptions;
