@@ -117,8 +117,8 @@ class DropdownEditor extends React.Component<Props> {
                             The drop down is useful for making inequalities in a
                             custom format. We normally use the symbols {"<"},{" "}
                             {">"}, ≤, ≥ (in that order) which you can copy into
-                            the choices. When possible, use the "multiple
-                            choice" answer type instead.
+                            the choices. When possible, use the &quot;multiple
+                            choice&quot; answer type instead.
                         </p>
                     </InfoTip>
                 </div>
@@ -145,18 +145,19 @@ class DropdownEditor extends React.Component<Props> {
                     </LabelMedium>
                     <InfoTip>
                         <p>
-                            Label text that's read by screen readers. Highly
-                            recommend adding a label here to ensure your
+                            Label text that&apos;s read by screen readers.
+                            Highly recommend adding a label here to ensure your
                             exercise is accessible. For more information on
                             writing accessible labels, please see{" "}
                             <a
                                 href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
                                 target="_blank"
+                                rel="noreferrer"
                             >
                                 this article.
                             </a>{" "}
-                            If left blank, the value will default to "Select an
-                            answer".
+                            If left blank, the value will default to
+                            &quot;Select an answer&quot;.
                         </p>
                     </InfoTip>
                 </div>

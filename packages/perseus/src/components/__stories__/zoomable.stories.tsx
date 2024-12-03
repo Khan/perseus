@@ -41,7 +41,7 @@ export const ZoomableExample: Story = {
     args: {
         children: (
             <span>
-                Here's some zoomed-out content.
+                Here&apos;s some zoomed-out content.
                 <br />
                 <br />
                 Click on the content to zoom/unzoom.

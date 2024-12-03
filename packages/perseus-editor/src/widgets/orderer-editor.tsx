@@ -161,7 +161,10 @@ class OrdererEditor extends React.Component<Props> {
                         </select>
                     </label>
                     <InfoTip>
-                        <p>Use "Normal" for text, "Automatic" for images.</p>
+                        <p>
+                            Use &quot;Normal&quot; for text,
+                            &quot;Automatic&quot; for images.
+                        </p>
                     </InfoTip>
                 </div>
             </div>
