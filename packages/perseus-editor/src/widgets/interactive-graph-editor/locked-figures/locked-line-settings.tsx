@@ -162,7 +162,7 @@ const LockedLineSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -224,15 +224,13 @@ const LockedLineSettings = (props: Props) => {
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
-                    // TODO(LEMS-2656): remove TS suppression
-                    onChange={handleColorChange as any}
+                    onChange={handleColorChange}
                 />
                 <Strut size={spacing.small_12} />
 
                 {/* Line style settings */}
                 <LineStrokeSelect
                     selectedValue={lineStyle}
-                    // TODO(LEMS-2656): remove TS suppression
                     onChange={
                         ((value: "solid" | "dashed") =>
                             onChangeProps({lineStyle: value})) as any
@@ -300,12 +298,9 @@ const LockedLineSettings = (props: Props) => {
                         <LockedLabelSettings
                             {...label}
                             expanded={true}
-                            // TODO(LEMS-2656): remove TS suppression
-                            onChangeProps={
-                                ((newLabel: LockedLabelType) => {
-                                    handleLabelChange(newLabel, labelIndex);
-                                }) as any
-                            }
+                            onChangeProps={(newLabel) => {
+                                handleLabelChange(newLabel, labelIndex);
+                            }}
                             onRemove={() => {
                                 handleLabelRemove(labelIndex);
                             }}

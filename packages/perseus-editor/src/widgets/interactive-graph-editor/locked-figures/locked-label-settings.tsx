@@ -7,8 +7,6 @@
  */
 import {
     lockedFigureColors,
-    type LockedFigure,
-    type LockedFigureColor,
     type LockedLabelType,
     components,
 } from "@khanacademy/perseus";
@@ -36,7 +34,7 @@ export type Props = LockedLabelType & {
     /**
      * Called when the props (coord, color, etc.) are updated.
      */
-    onChangeProps: (newProps: Partial<LockedFigure>) => void;
+    onChangeProps: (newProps: Partial<LockedLabelType>) => void;
 
     // Movement props. Used for standalone label actions.
     // Not used within other locked figure settings.
@@ -150,12 +148,9 @@ export default function LockedLabelSettings(props: Props) {
             <View style={styles.row}>
                 <ColorSelect
                     selectedValue={color}
-                    // TODO(LEMS-2656): remove TS suppression
-                    onChange={
-                        ((newColor: LockedFigureColor) => {
-                            onChangeProps({color: newColor});
-                        }) as any
-                    }
+                    onChange={(newColor) => {
+                        onChangeProps({color: newColor});
+                    }}
                     style={styles.spaceUnder}
                 />
                 <Strut size={spacing.medium_16} />
