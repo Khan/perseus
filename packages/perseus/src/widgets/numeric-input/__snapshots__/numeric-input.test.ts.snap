@@ -525,6 +525,7 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
           <span>
             <div>
               <input
+                aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                 aria-invalid="false"
                 aria-label="Your answer:"
                 autocapitalize="off"
@@ -535,12 +536,22 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
                 type="text"
                 value=""
               />
+              <span
+                id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                style="display: none;"
+              >
+                Your answer should be 
+                   a simplified proper fraction, like 3/5, or
+a simplified improper fraction, like 7/4, or
+a mixed number, like 1 and 3/4
+              </span>
             </div>
             <div
               style="position: relative; height: 0px; display: none;"
             >
               <div
                 class="tooltipContainer"
+                role="tooltip"
                 style="position: absolute; left: 0px;"
               >
                 <div
@@ -677,6 +688,7 @@ exports[`numeric-input widget Should render tooltip when format option is given:
           <span>
             <div>
               <input
+                aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                 aria-invalid="false"
                 aria-label="Your answer:"
                 autocapitalize="off"
@@ -687,12 +699,20 @@ exports[`numeric-input widget Should render tooltip when format option is given:
                 type="text"
                 value=""
               />
+              <span
+                id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                style="display: none;"
+              >
+                Your answer should be 
+                   a simplified proper fraction, like 3/5
+              </span>
             </div>
             <div
               style="position: relative; height: 0px; display: none;"
             >
               <div
                 class="tooltipContainer"
+                role="tooltip"
                 style="position: absolute; left: 0px;"
               >
                 <div
