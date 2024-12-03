@@ -1,4 +1,4 @@
-import type {PerseusScore} from "../../types";
+import type {ValidationResult} from "../../types";
 import type {PerseusRadioUserInput} from "../../validation.types";
 
 /**
@@ -9,9 +9,7 @@ import type {PerseusRadioUserInput} from "../../validation.types";
  * @param userInput
  * @see `scoreRadio` for the additional validation logic and the scoring logic.
  */
-function validateRadio(
-    userInput: PerseusRadioUserInput,
-): Extract<PerseusScore, {type: "invalid"}> | null {
+function validateRadio(userInput: PerseusRadioUserInput): ValidationResult {
     const numSelected = userInput.choicesSelected.reduce((sum, selected) => {
         return sum + (selected ? 1 : 0);
     }, 0);
