@@ -47,6 +47,20 @@ describe("numeric-input widget", () => {
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
+    it("should reject an incorrect answer", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question);
+
+        // Act
+        await userEvent.type(
+            screen.getByRole("textbox", {hidden: true}),
+            incorrect,
+        );
+
+        // Assert
+        expect(renderer).toHaveBeenAnsweredIncorrectly();
+    });
+
     it("Should render predictably", async () => {
         // Arrange
         const {container} = renderQuestion(question);
@@ -62,18 +76,32 @@ describe("numeric-input widget", () => {
         expect(container).toMatchSnapshot("after interaction");
     });
 
-    it("should reject an incorrect answer", async () => {
+    it("Should render tooltip when format option is given", async () => {
         // Arrange
-        const {renderer} = renderQuestion(question);
+        const questionWithFormatOptions = JSON.parse(JSON.stringify(question1));
+        questionWithFormatOptions.widgets[
+            "numeric-input 1"
+        ].options.answers[0].answerForms = ["proper"];
 
         // Act
-        await userEvent.type(
-            screen.getByRole("textbox", {hidden: true}),
-            incorrect,
-        );
+        const {container} = renderQuestion(questionWithFormatOptions);
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(container).toMatchSnapshot("render with format tooltip");
+    });
+
+    it("Should render tooltip as list when multiple format options are given", async () => {
+        // Arrange
+        const questionWithFormatOptions = JSON.parse(JSON.stringify(question1));
+        questionWithFormatOptions.widgets[
+            "numeric-input 1"
+        ].options.answers[0].answerForms = ["proper", "improper", "mixed"];
+
+        // Act
+        const {container} = renderQuestion(questionWithFormatOptions);
+
+        // Assert
+        expect(container).toMatchSnapshot("render with format list tooltip");
     });
 });
 
