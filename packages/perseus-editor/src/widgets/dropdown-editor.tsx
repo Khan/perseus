@@ -145,18 +145,19 @@ class DropdownEditor extends React.Component<Props> {
                     </LabelMedium>
                     <InfoTip>
                         <p>
-                            Label text that's read by screen readers. Highly
-                            recommend adding a label here to ensure your
+                            Label text that&apos;s read by screen readers.
+                            Highly recommend adding a label here to ensure your
                             exercise is accessible. For more information on
                             writing accessible labels, please see{" "}
                             <a
                                 href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
                                 target="_blank"
+                                rel="noreferrer"
                             >
                                 this article.
                             </a>{" "}
-                            If left blank, the value will default to "Select an
-                            answer".
+                            If left blank, the value will default to
+                            &quot;Select an answer&quot;.
                         </p>
                     </InfoTip>
                 </div>
