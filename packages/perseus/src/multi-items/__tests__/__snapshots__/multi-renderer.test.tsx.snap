@@ -975,6 +975,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
               <span>
                 <div>
                   <input
+                    aria-describedby="aria-for-input-with-examples-aW5wdXQtbnVtYmVyIDE"
                     aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
@@ -984,12 +985,24 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                     type="text"
                     value=""
                   />
+                  <span
+                    id="aria-for-input-with-examples-aW5wdXQtbnVtYmVyIDE"
+                    style="display: none;"
+                  >
+                    Your answer should be 
+                   an integer, like 6, or
+an exact decimal, like 0.75, or
+a simplified proper fraction, like 3/5, or
+a simplified improper fraction, like 7/4, or
+a mixed number, like 1 and 3/4
+                  </span>
                 </div>
                 <div
                   style="position: relative; height: 0px; display: none;"
                 >
                   <div
                     class="tooltipContainer"
+                    role="tooltip"
                     style="position: absolute; left: 0px;"
                   >
                     <div

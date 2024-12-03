@@ -340,6 +340,7 @@ class Tooltip extends React.Component<Props, State> {
                 <div
                     ref={this.tooltipContainerRef}
                     className="tooltipContainer"
+                    role="tooltip"
                     style={{
                         position: "absolute",
                         // height must start out undefined, not null, so that
