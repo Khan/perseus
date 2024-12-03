@@ -1,4 +1,4 @@
-import type {PerseusScore} from "../../types";
+import type {ValidationResult} from "../../types";
 import type {PerseusDropdownUserInput} from "../../validation.types";
 
 /**
@@ -7,7 +7,7 @@ import type {PerseusDropdownUserInput} from "../../validation.types";
  */
 function validateDropdown(
     userInput: PerseusDropdownUserInput,
-): Extract<PerseusScore, {type: "invalid"}> | null {
+): ValidationResult {
     if (userInput.value === 0) {
         return {
             type: "invalid",
