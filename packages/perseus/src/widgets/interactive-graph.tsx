@@ -123,17 +123,28 @@ const makeInvalidTypeError = (
 };
 
 type RenderProps = {
-    // Where the little black axis lines & labels (ticks) should render.
-    // Also known as the tick step. default [1, 1]
-    // NOTE(kevinb): perseus_data.go defines this as Array<number>
+    /**
+     * Where the little black axis lines & labels (ticks) should render.
+     * Also known as the tick step. default [1, 1]
+     *
+     * NOTE(kevinb): perseus_data.go defines this as Array<number>
+     */
     step: [number, number];
-    // Where the grid lines on the graph will render. default [1, 1]
-    // NOTE(kevinb): perseus_data.go defines this as Array<number>
+    /**
+     * Where the grid lines on the graph will render. default [1, 1]
+     *
+     * NOTE(kevinb): perseus_data.go defines this as Array<number>
+     */
     gridStep?: [x: number, y: number];
-    // Where the graph points will lock to when they are dragged. default [0.5, 0.5]
-    // NOTE(kevinb): perseus_data.go defines this as Array<number>
+    /**
+     * Where the graph points will lock to when they are dragged. default [0.5, 0.5]
+     *
+     * NOTE(kevinb): perseus_data.go defines this as Array<number>
+     */
     snapStep?: [x: number, y: number];
-    // An optional image to use in the background
+    /**
+     * An optional image to use in the background
+     */
     backgroundImage?: PerseusImageBackground;
     /**
      * The type of markings to display on the graph.
@@ -142,18 +153,24 @@ type RenderProps = {
      * - none: shows no markings
      */
     markings: "graph" | "grid" | "none";
-    // How to label the X and Y axis.  default: ["x", "y"]
+    /**
+     * How to label the X and Y axis.  default: ["x", "y"]
+     */
     labels: ReadonlyArray<string>;
-    // Whether to show the Protractor tool overlayed on top of the graph
+    /**
+     * Whether to show the Protractor tool overlaid on top of the graph
+     */
     showProtractor: boolean;
     /**
-     * Whether to show the Ruler tool overlayed on top of the graph.
+     * Whether to show the Ruler tool overlaid on top of the graph.
      * @deprecated - no longer used by the InteractiveGraph widget. The
      * property is kept on this type to prevent its accidental reuse in future
      * features, since it may appear in production data.
      */
     showRuler?: boolean;
-    // Whether to show tooltips on the graph
+    /**
+     * Whether to show tooltips on the graph
+     */
     showTooltips?: boolean;
     /**
      * The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft",
@@ -171,22 +188,35 @@ type RenderProps = {
      * features, since it may appear in production data.
      */
     rulerTicks?: number;
-    // The X and Y coordinate ranges for the view of the graph.  default: [[-10, 10], [-10, 10]]
-    // NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
+    /**
+     * The X and Y coordinate ranges for the view of the graph.  default: [[-10, 10], [-10, 10]]
+     *
+     * NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
+     */
     // TODO(kevinb): Add a transform function to interactive-graph.jsx to
     // rename `range` to `ranges` so that things are less confusing.
     range: GraphRange;
-    // The type of graph
+    /**
+     * The type of graph
+     */
     graph: PerseusGraphType;
-    // The correct kind of graph, if being used to select function type
+    /**
+     * The correct kind of graph, if being used to select function type
+     */
     // TODO(LEMS-2344): make the type of `correct` more specific
     correct: PerseusGraphType;
-    // Shapes (points, chords, etc) displayed on the graph that cannot
-    // be moved by the user.
+    /**
+     * Shapes (points, chords, etc) displayed on the graph that cannot be moved
+     * by the user.
+     */
     lockedFigures?: ReadonlyArray<LockedFigure>;
-    // Aria label that applies to the entire graph.
+    /**
+     * Aria label that applies to the entire graph.
+     */
     fullGraphAriaLabel?: string;
-    // Aria description that applies to the entire graph.
+    /**
+     * Aria description that applies to the entire graph.
+     */
     fullGraphAriaDescription?: string;
 }; // There's no transform function in exports
 type Props = WidgetProps<RenderProps, PerseusInteractiveGraphRubric>;
