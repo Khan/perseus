@@ -2431,6 +2431,26 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
           "minor": 0,
         },
       },
+      "sequence 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "json": [
+            {
+              "content": "",
+              "images": {},
+              "widgets": {},
+            },
+          ],
+        },
+        "static": undefined,
+        "type": "deprecated-standin",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
     },
   },
 }
