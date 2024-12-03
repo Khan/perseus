@@ -8,25 +8,6 @@ import type {
 } from "../../validation.types";
 
 describe("scoreRadio", () => {
-    it("is invalid when no options are selected", () => {
-        const userInput: PerseusRadioUserInput = {
-            choicesSelected: [false, false, false, false],
-        };
-
-        const rubric: PerseusRadioRubric = {
-            choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
-            ],
-        };
-
-        const result = scoreRadio(userInput, rubric, mockStrings);
-
-        expect(result).toHaveInvalidInput();
-    });
-
     it("is invalid when number selected does not match number correct", () => {
         const userInput: PerseusRadioUserInput = {
             choicesSelected: [true, false, false, false],
@@ -41,9 +22,9 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const result = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric, mockStrings);
 
-        expect(result).toHaveInvalidInput();
+        expect(score).toHaveInvalidInput();
     });
 
     it("is invalid when none of the above and an answer are both selected", () => {
@@ -65,9 +46,9 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const result = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric, mockStrings);
 
-        expect(result).toHaveInvalidInput();
+        expect(score).toHaveInvalidInput();
     });
 
     it("can handle single correct answer", () => {
@@ -84,9 +65,9 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const result = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric, mockStrings);
 
-        expect(result).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("can handle single incorrect answer", () => {
@@ -103,9 +84,9 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const result = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric, mockStrings);
 
-        expect(result).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("can handle multiple correct answer", () => {
@@ -122,9 +103,9 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const result = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric, mockStrings);
 
-        expect(result).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("can handle multiple incorrect answer", () => {
@@ -141,9 +122,9 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const result = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric, mockStrings);
 
-        expect(result).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("can handle none of the above correct answer", () => {
@@ -161,9 +142,9 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const result = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric, mockStrings);
 
-        expect(result).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("can handle none of the above incorrect answer", () => {
@@ -181,8 +162,8 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const result = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric, mockStrings);
 
-        expect(result).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 });

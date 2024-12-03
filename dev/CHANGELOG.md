@@ -1,5 +1,28 @@
 # @khanacademy/perseus-dev-ui
 
+## 4.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`88ba71bef`](https://github.com/Khan/perseus/commit/88ba71bef0cdd75fa0c8b467dcea2cccc637d034)]:
+    -   @khanacademy/kas@0.4.2
+    -   @khanacademy/simple-markdown@0.13.6
+    -   @khanacademy/pure-markdown@0.3.13
+
+## 4.0.0
+
+### Major Changes
+
+-   [#1905](https://github.com/Khan/perseus/pull/1905) [`9c225f936`](https://github.com/Khan/perseus/commit/9c225f9365cbb2e92bba3bd67b1abde724809367) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - We're reverting work done for the Server Side Scoring and Input Number Conversion projects.
+
+### Patch Changes
+
+-   Updated dependencies [[`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9)]:
+    -   @khanacademy/kas@0.4.1
+    -   @khanacademy/math-input@21.1.5
+    -   @khanacademy/simple-markdown@0.13.5
+    -   @khanacademy/pure-markdown@0.3.12
+
 ## 3.1.3
 
 ### Patch Changes

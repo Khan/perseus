@@ -1,4 +1,3 @@
-/* eslint-disable @babel/no-invalid-this, getter-return, one-var */
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
@@ -150,8 +149,8 @@ function shuffle<T>(
     do {
         // Fischer-Yates shuffle
         for (let top = shuffled.length; top > 0; top--) {
-            const newEnd = Math.floor(random() * top),
-                temp = shuffled[newEnd];
+            const newEnd = Math.floor(random() * top);
+            const temp = shuffled[newEnd];
 
             // @ts-expect-error - TS2542 - Index signature in type 'readonly T[]' only permits reading.
             shuffled[newEnd] = shuffled[top - 1];

@@ -643,6 +643,29 @@ describe("movePoint on a polygon graph", () => {
         expect(updated.coords[0]).toEqual([0, 0]);
     });
 
+    it("does not reject intersecting sides if the polygon is unlimited and it's open", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            numSides: "unlimited",
+            closedPolygon: false,
+            snapTo: "grid",
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [1, 3]),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([1, 3]);
+    });
+
     it("does not snap to grid when snapTo is angles using moveAll", () => {
         const state: InteractiveGraphState = {
             ...basePolygonGraphState,

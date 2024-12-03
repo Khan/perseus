@@ -135,3 +135,5 @@ export type GraphDimensions = {
     width: number; // pixels
     height: number; // pixels
 };
+
+export type AriaLive = "off" | "assertive" | "polite" | undefined;

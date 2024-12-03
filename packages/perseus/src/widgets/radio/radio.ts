@@ -126,23 +126,19 @@ const transform = (
 };
 
 const propUpgrades = {
-    "1": (v0props: any): any => {
-        let choices;
-        let hasNoneOfTheAbove;
+    "1": (v0props: any): PerseusRadioWidgetOptions => {
+        const {noneOfTheAbove, ...rest} = v0props;
 
-        if (!v0props.noneOfTheAbove) {
-            choices = v0props.choices;
-            hasNoneOfTheAbove = false;
-        } else {
+        if (noneOfTheAbove) {
             throw new Error(
                 "radio widget v0 no longer supports auto noneOfTheAbove",
             );
         }
 
-        return _.extend(_.omit(v0props, "noneOfTheAbove"), {
-            choices: choices,
-            hasNoneOfTheAbove: hasNoneOfTheAbove,
-        });
+        return {
+            ...rest,
+            hasNoneOfTheAbove: false,
+        };
     },
 } as const;
 

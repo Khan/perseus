@@ -1,4 +1,4 @@
-/* eslint-disable prefer-spread, no-regex-spaces, @typescript-eslint/no-unused-vars, guard-for-in, no-console, no-var */
+/* eslint-disable prefer-spread, no-regex-spaces, guard-for-in, no-console, no-var */
 /**
  * Simple-Markdown
  * ===============
@@ -710,7 +710,6 @@ var TABLES = (function () {
     // predefine regexes so we don't have to create them inside functions
     // sure, regex literals should be fast, even inside functions, but they
     // aren't in all browsers.
-    var TABLE_BLOCK_TRIM = /\n+/g;
     var TABLE_ROW_SEPARATOR_TRIM = /^ *\| *| *\| *$/g;
     var TABLE_CELL_END_TRIM = / *$/;
     var TABLE_RIGHT_ALIGN = /^ *-+: *$/;
@@ -931,7 +930,7 @@ var defaultRules: DefaultRules = {
 
             // map output over the ast, except group any text
             // nodes together into a single string output.
-            for (var i = 0, key = 0; i < arr.length; i++) {
+            for (var i = 0; i < arr.length; i++) {
                 var node = arr[i];
                 if (node.type === "text") {
                     node = {type: "text", content: node.content};
@@ -1901,7 +1900,7 @@ var markdownToHtml = function (source: string, state?: State | null): string {
 
 // TODO: This needs definition
 type Props = any;
-var ReactMarkdown = function (props): React.ReactElement {
+var ReactMarkdown = function (props: Props): React.ReactElement {
     var divProps: Record<string, any> = {};
 
     for (var prop in props) {

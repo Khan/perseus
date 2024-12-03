@@ -1,31 +1,32 @@
+import validateCategorizer from "./validate-categorizer";
+
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {
-    PerseusCategorizerRubric,
+    PerseusCategorizerScoringData,
     PerseusCategorizerUserInput,
 } from "../../validation.types";
 
 function scoreCategorizer(
     userInput: PerseusCategorizerUserInput,
-    rubric: PerseusCategorizerRubric,
+    scoringData: PerseusCategorizerScoringData,
     strings: PerseusStrings,
 ): PerseusScore {
-    let completed = true;
+    const validationError = validateCategorizer(
+        userInput,
+        scoringData,
+        strings,
+    );
+    if (validationError) {
+        return validationError;
+    }
+
     let allCorrect = true;
-    rubric.values.forEach((value, i) => {
-        if (userInput.values[i] == null) {
-            completed = false;
-        }
+    scoringData.values.forEach((value, i) => {
         if (userInput.values[i] !== value) {
             allCorrect = false;
         }
     });
-    if (!completed) {
-        return {
-            type: "invalid",
-            message: strings.invalidSelection,
-        };
-    }
     return {
         type: "points",
         earned: allCorrect ? 1 : 0,
