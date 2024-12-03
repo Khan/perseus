@@ -471,6 +471,166 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-stati
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-with-string-backgroundImage-left.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "Ally is excited to compete in a $6$-mile race. The race organizers plotted the course on a coordinate map. The starting point is at $(4,3)$, and the ending point is at $(4,9)$.  Ally's family decides to stand at $(4,6)$ on the map.
+
+**Plot the starting point, ending point, and place where Ally's family stands on the map.**
+
+[[☃ interactive-graph 1]]
+
+**How far along will Ally be in the race when she reaches her family?**  
+[[☃ radio 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": 4,
+            "height": 0,
+            "left": 0,
+            "scale": 1,
+            "top": undefined,
+            "url": "",
+            "width": 0,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": [
+              [
+                4,
+                3,
+              ],
+              [
+                4,
+                6,
+              ],
+              [
+                4,
+                9,
+              ],
+            ],
+            "numPoints": 3,
+            "startCoords": undefined,
+            "type": "point",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "coords": undefined,
+            "numPoints": 3,
+            "startCoords": undefined,
+            "type": "point",
+          },
+          "gridStep": [
+            1,
+            1,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": undefined,
+          "markings": "graph",
+          "range": [
+            [
+              -1,
+              10,
+            ],
+            [
+              -1,
+              10,
+            ],
+          ],
+          "rulerLabel": "",
+          "rulerTicks": 10,
+          "showProtractor": false,
+          "showRuler": false,
+          "showTooltips": false,
+          "snapStep": [
+            0.5,
+            0.5,
+          ],
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "choices": [
+            {
+              "clue": undefined,
+              "content": "Less than halfway through the race",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "Halfway through the race",
+              "correct": true,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "More than halfway through the race",
+              "correct": undefined,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "noneOfTheAbove": undefined,
+          "onePerLine": undefined,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/item-missing-answerArea.json 1`] = `
 {
   "_multi": {
