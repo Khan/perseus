@@ -1,11 +1,14 @@
 import {getClockwiseAngle} from "../../math";
 
-import {getClockwiseCoords, getWholeAngleMeasure, shouldDrawArcOutside} from "./angle-indicators";
+import {
+    getClockwiseCoords,
+    getWholeAngleMeasure,
+    shouldDrawArcOutside,
+} from "./angle-indicators";
 
 import type {CollinearTuple} from "../../../../perseus-types";
 import type {Coord} from "@khanacademy/perseus";
 import type {vec, Interval} from "mafs";
-import { get } from "underscore";
 
 describe("shouldDrawArcOutside", () => {
     const range = [
@@ -137,7 +140,9 @@ describe("getWholeAngleMeasure", () => {
         ];
         const vertex = coords[1];
         expect(getWholeAngleMeasure(coords, vertex)).toBe(184);
-        expect(getWholeAngleMeasure(coords, vertex)).not.toBe(184.08561677997488);
+        expect(getWholeAngleMeasure(coords, vertex)).not.toBe(
+            184.08561677997488,
+        );
     });
 });
 
