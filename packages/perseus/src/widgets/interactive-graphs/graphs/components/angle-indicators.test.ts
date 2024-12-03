@@ -164,7 +164,7 @@ describe("getClockwiseCoords", () => {
             [0, 1],
         ];
 
-        expect(getClockwiseCoords(coords, coords[0], false)).toEqual([
+        expect(getClockwiseCoords(coords, coords[0], true)).toEqual([
             [0, 1],
             [1, 0],
             [0, 0],
