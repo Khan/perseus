@@ -10,6 +10,8 @@ import * as React from "react";
 import ReactJson from "react-json-view";
 
 import {Renderer, usePerseusI18n} from "../packages/perseus/src/index";
+import {scorePerseusItem} from "../packages/perseus/src/renderer-util";
+import {mockStrings} from "../packages/perseus/src/strings";
 import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
 
 import SideBySide from "./side-by-side";
@@ -80,7 +82,14 @@ export const RendererWithDebugUI = ({
                                 if (!ref.current) {
                                     return;
                                 }
-                                setState(ref.current.guessAndScore());
+                                const guess = ref.current.getUserInputMap();
+                                const score = scorePerseusItem(
+                                    question,
+                                    ref.current.getUserInputMap(),
+                                    mockStrings,
+                                    "en",
+                                );
+                                setState([guess, score]);
                             }}
                         >
                             Check

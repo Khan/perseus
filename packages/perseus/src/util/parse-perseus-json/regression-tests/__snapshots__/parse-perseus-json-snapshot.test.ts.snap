@@ -77,6 +77,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-ver
         "graded": true,
         "key": undefined,
         "options": {
+          "ariaLabel": undefined,
           "choices": [
             {
               "content": "state legislatures",
@@ -93,6 +94,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-ver
           ],
           "placeholder": "",
           "static": false,
+          "visibleLabel": undefined,
         },
         "static": undefined,
         "type": "dropdown",

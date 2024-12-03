@@ -7,6 +7,8 @@ import {
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItem} from "../../renderer-util";
+import {mockStrings} from "../../strings";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import ExpressionWidgetExport from "./expression";
@@ -17,7 +19,10 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
-import type {PerseusItem} from "../../perseus-types";
+import type {
+    PerseusExpressionWidgetOptions,
+    PerseusItem,
+} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
@@ -444,7 +449,12 @@ describe("Expression Widget", function () {
                 renderer.setInputValue(["expression 1"], "123-x", () => {}),
             );
             act(() => jest.runOnlyPendingTimers());
-            const score = renderer.guessAndScore()[1];
+            const score = scorePerseusItem(
+                expressionItem2.question,
+                renderer.getUserInputMap(),
+                mockStrings,
+                "en",
+            );
 
             // Assert
             expect(score.type).toBe("points");
@@ -464,7 +474,12 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
 
             // act
-            const score = renderer.score();
+            const score = scorePerseusItem(
+                expressionItem2.question,
+                renderer.getUserInputMap(),
+                mockStrings,
+                "en",
+            );
 
             // Assert
             // Score.total doesn't exist if the input is invalid
@@ -495,7 +510,6 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
             act(() => screen.getByRole("textbox").blur());
             act(() => jest.runOnlyPendingTimers());
-            renderer.guessAndScore();
 
             // Assert
             await waitFor(() =>
@@ -514,13 +528,44 @@ describe("Expression Widget", function () {
             act(() => expression.insert("sen(x)"));
             act(() => jest.runOnlyPendingTimers());
             act(() => screen.getByRole("textbox").blur());
-            renderer.guessAndScore();
 
             // Assert
             expect(screen.queryByText("Oops!")).toBeNull();
             expect(
                 screen.queryByText("Sorry, I don't understand that!"),
             ).toBeNull();
+        });
+    });
+
+    describe("propUpgrades", () => {
+        it("can upgrade from v0 to v1", () => {
+            const v0props = {
+                times: false,
+                buttonSets: ["basic"],
+                functions: [],
+                form: false,
+                simplify: false,
+                value: "42",
+            };
+
+            const expected: PerseusExpressionWidgetOptions = {
+                times: false,
+                buttonSets: ["basic"],
+                functions: [],
+                answerForms: [
+                    {
+                        considered: "correct",
+                        form: false,
+                        simplify: false,
+                        value: "42",
+                    },
+                ],
+            };
+
+            const result: PerseusExpressionWidgetOptions =
+                ExpressionWidgetExport.propUpgrades["1"](v0props);
+
+            expect(result).toEqual(expected);
         });
     });
 });

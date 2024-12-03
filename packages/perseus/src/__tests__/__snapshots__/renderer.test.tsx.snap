@@ -345,7 +345,15 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
         <div
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
-          <div>
+          <div
+            class="default_xu2jcg"
+          >
+            <label
+              class="text_f1191h-o_O-LabelLarge_5s82ln"
+              id="uid-dropdown-widget-2-dropdown-label"
+            >
+              Test visible label
+            </label>
             <div
               class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
             >
@@ -357,12 +365,15 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 data-testid="dropdown-live-region"
               />
               <button
-                aria-controls="uid-single-select-dropdown-2-wb-id"
+                aria-controls="uid-single-select-dropdown-3-wb-id"
                 aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
+                aria-label="Test ARIA label"
+                aria-labelledby="uid-dropdown-widget-2-dropdown-label"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
-                id="uid-single-select-opener-3-wb-id"
+                id="uid-dropdown-widget-2-dropdown"
+                role="combobox"
                 type="button"
               >
                 <span
@@ -422,7 +433,15 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
         <div
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
-          <div>
+          <div
+            class="default_xu2jcg"
+          >
+            <label
+              class="text_f1191h-o_O-LabelLarge_5s82ln"
+              id="uid-dropdown-widget-4-dropdown-label"
+            >
+              Test visible label
+            </label>
             <div
               class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
             >
@@ -434,12 +453,15 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 data-testid="dropdown-live-region"
               />
               <button
-                aria-controls="uid-single-select-dropdown-4-wb-id"
+                aria-controls="uid-single-select-dropdown-5-wb-id"
                 aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
+                aria-label="Test ARIA label"
+                aria-labelledby="uid-dropdown-widget-4-dropdown-label"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
-                id="uid-single-select-opener-5-wb-id"
+                id="uid-dropdown-widget-4-dropdown"
+                role="combobox"
                 type="button"
               >
                 <span
@@ -499,7 +521,15 @@ exports[`renderer snapshots initial render: initial render 1`] = `
         <div
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
-          <div>
+          <div
+            class="default_xu2jcg"
+          >
+            <label
+              class="text_f1191h-o_O-LabelLarge_5s82ln"
+              id="uid-dropdown-widget-0-dropdown-label"
+            >
+              Test visible label
+            </label>
             <div
               class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
             >
@@ -511,12 +541,15 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 data-testid="dropdown-live-region"
               />
               <button
-                aria-controls="uid-single-select-dropdown-0-wb-id"
+                aria-controls="uid-single-select-dropdown-1-wb-id"
                 aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
+                aria-label="Test ARIA label"
+                aria-labelledby="uid-dropdown-widget-0-dropdown-label"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
-                id="uid-single-select-opener-1-wb-id"
+                id="uid-dropdown-widget-0-dropdown"
+                role="combobox"
                 type="button"
               >
                 <span

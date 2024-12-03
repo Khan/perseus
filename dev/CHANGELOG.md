@@ -1,5 +1,31 @@
 # @khanacademy/perseus-dev-ui
 
+## 4.0.3
+
+### Patch Changes
+
+-   [#1910](https://github.com/Khan/perseus/pull/1910) [`0a44d468d`](https://github.com/Khan/perseus/commit/0a44d468dd127bf15dc32e720b9b0301af41a572) Thanks [@handeyeco](https://github.com/handeyeco)! - Change ServerItemRenderer scoring APIs to externalize scoring
+
+## 4.0.2
+
+### Patch Changes
+
+-   [#1904](https://github.com/Khan/perseus/pull/1904) [`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Upgrade Storybook to v8.x
+
+*   [#1904](https://github.com/Khan/perseus/pull/1904) [`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Upgrade Storybook to v8.x
+
+*   Updated dependencies [[`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71)]:
+    -   @khanacademy/math-input@21.1.6
+
+## 4.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`88ba71bef`](https://github.com/Khan/perseus/commit/88ba71bef0cdd75fa0c8b467dcea2cccc637d034)]:
+    -   @khanacademy/kas@0.4.2
+    -   @khanacademy/simple-markdown@0.13.6
+    -   @khanacademy/pure-markdown@0.3.13
+
 ## 4.0.0
 
 ### Major Changes

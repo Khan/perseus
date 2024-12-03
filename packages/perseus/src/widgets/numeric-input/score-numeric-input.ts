@@ -61,7 +61,7 @@ export function maybeParsePercentInput(
         return value / 100;
     }
 
-    // Otherwise, we return input valuåe (number) stripped of the "%".
+    // Otherwise, we return input value (number) stripped of the "%".
     return value;
 }
 

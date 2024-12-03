@@ -34,7 +34,7 @@ describe("Dropdown widget", () => {
         const {container} = renderQuestion(question1);
 
         // Act
-        const dropdown = screen.getByRole("button");
+        const dropdown = screen.getByRole("combobox");
         await userEvent.click(dropdown);
 
         // Assert
@@ -47,7 +47,7 @@ describe("Dropdown widget", () => {
         renderQuestion(question1);
 
         // Act
-        const dropdown = screen.getByRole("button");
+        const dropdown = screen.getByRole("combobox");
 
         // Assert
         // get asserts if it doesn't find a single matching element
@@ -59,7 +59,7 @@ describe("Dropdown widget", () => {
         const {renderer} = renderQuestion(question1);
 
         // Act
-        const dropdown = screen.getByRole("button");
+        const dropdown = screen.getByRole("combobox");
         await userEvent.click(dropdown);
         await userEvent.click(screen.getByText("less than or equal to"));
 
@@ -73,7 +73,7 @@ describe("Dropdown widget", () => {
         const {renderer} = renderQuestion(question1);
 
         // Act
-        const dropdown = screen.getByRole("button");
+        const dropdown = screen.getByRole("combobox");
         await userEvent.click(dropdown);
         await userEvent.click(screen.getByText("greater than or equal to"));
 
@@ -103,5 +103,13 @@ describe("Dropdown widget", () => {
         // actually set because the dropdown widget focuses a <div> (it's root
         // element), which is not actually focusable because it doesn't have a
         // tabindex.
+    });
+
+    it("has an ARIA label", async () => {
+        // Arrange and Act
+        renderQuestion(question1);
+
+        // Assert
+        expect(screen.getByLabelText("Select an answer")).toBeInTheDocument();
     });
 });

@@ -1,5 +1,41 @@
 # @khanacademy/perseus-editor
 
+## 15.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`0a44d468d`](https://github.com/Khan/perseus/commit/0a44d468dd127bf15dc32e720b9b0301af41a572)]:
+    -   @khanacademy/perseus@45.0.0
+
+## 15.1.0
+
+### Minor Changes
+
+-   [#1845](https://github.com/Khan/perseus/pull/1845) [`066daab0e`](https://github.com/Khan/perseus/commit/066daab0ea8463e8b2a5381e90ed8392ea20a5bf) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Add labels to Dropdown widget
+
+### Patch Changes
+
+-   [#1904](https://github.com/Khan/perseus/pull/1904) [`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Upgrade Storybook to v8.x
+
+*   [#1893](https://github.com/Khan/perseus/pull/1893) [`3d777d1c1`](https://github.com/Khan/perseus/commit/3d777d1c13eefedee250d8a494e08b513ddec937) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removing usage of createReactClass from several component files.
+
+*   Updated dependencies [[`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71), [`066daab0e`](https://github.com/Khan/perseus/commit/066daab0ea8463e8b2a5381e90ed8392ea20a5bf), [`834bd8bfb`](https://github.com/Khan/perseus/commit/834bd8bfbc063d0a1935ae9a697e5505c5ee606d), [`89244ccc0`](https://github.com/Khan/perseus/commit/89244ccc0d7384d7f76678204cd49dd7e8301185)]:
+    -   @khanacademy/math-input@21.1.6
+    -   @khanacademy/perseus@44.0.0
+
+## 15.0.2
+
+### Patch Changes
+
+-   [#1920](https://github.com/Khan/perseus/pull/1920) [`88ba71bef`](https://github.com/Khan/perseus/commit/88ba71bef0cdd75fa0c8b467dcea2cccc637d034) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix some file-wide error suppressions
+
+*   [#1863](https://github.com/Khan/perseus/pull/1863) [`584153588`](https://github.com/Khan/perseus/commit/584153588be04c6deb7b5d76ed2b258d0f75a3e1) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Switch two corner usages of deprecated @khanacademy/wonder-blocks-spacing to @khanacademy/wonder-blocks-tokens
+
+*   Updated dependencies [[`3dbca965a`](https://github.com/Khan/perseus/commit/3dbca965a2bbaa2d980c1cc4c439469157e0bd33), [`ee09e9fc0`](https://github.com/Khan/perseus/commit/ee09e9fc0ad5eb65340d0f1cbe240741ebfcd3c3), [`3a9b5921b`](https://github.com/Khan/perseus/commit/3a9b5921bff7ae038f59ecb6817babd2b21df0bb), [`88ba71bef`](https://github.com/Khan/perseus/commit/88ba71bef0cdd75fa0c8b467dcea2cccc637d034), [`64ea2ee86`](https://github.com/Khan/perseus/commit/64ea2ee86264a20f1d0e34968831945fea8ed36b), [`451de899f`](https://github.com/Khan/perseus/commit/451de899fd3d40bf415cb2318048e90fb1e6670f), [`40d2ebb75`](https://github.com/Khan/perseus/commit/40d2ebb75fdadfb361330236e0fb9e54a32d0fc2), [`799ffe4a5`](https://github.com/Khan/perseus/commit/799ffe4a50e3e3bc435d0ef96388c1e8fae2167d), [`2437ce61b`](https://github.com/Khan/perseus/commit/2437ce61bae1aef2db28e89956aa73463ada16cc), [`841551a65`](https://github.com/Khan/perseus/commit/841551a65732a276266690ddaaa51a3810398d03), [`8ec06f444`](https://github.com/Khan/perseus/commit/8ec06f444d8f4559eda5c3dbf189e5183b1c5b42), [`f43edd42c`](https://github.com/Khan/perseus/commit/f43edd42ccfacd1500d2f73ccb0d3f8dce777173), [`0cec7628c`](https://github.com/Khan/perseus/commit/0cec7628c4a061f14b126fd1e3dab6df45fc0178), [`0bd4270ad`](https://github.com/Khan/perseus/commit/0bd4270ade576bec1ac0c86b251f972a2c354056), [`3e98b7cd3`](https://github.com/Khan/perseus/commit/3e98b7cd300052eeacbe9fcdbd312091c678107b), [`7f2866cf4`](https://github.com/Khan/perseus/commit/7f2866cf401aa4fc7a3b2b15d8cdc247a953e9f8)]:
+    -   @khanacademy/perseus@43.1.0
+    -   @khanacademy/kas@0.4.2
+    -   @khanacademy/pure-markdown@0.3.13
+
 ## 15.0.1
 
 ### Patch Changes
