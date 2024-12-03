@@ -1,5 +1,6 @@
 import {
     ItemExtras,
+    type InputNumberWidget,
     type LabelImageWidget,
     type PerseusItem,
     type PerseusRenderer,
@@ -12,30 +13,21 @@ import {
 export const itemWithInput: PerseusItem = {
     question: {
         content:
-            "Enter the number $$-42$$ in the box: [[\u2603 numeric-input 1]]",
+            "Enter the number $$-42$$ in the box: [[\u2603 input-number 1]]",
         images: {},
         widgets: {
-            "numeric-input 1": {
-                type: "numeric-input",
+            "input-number 1": {
+                type: "input-number",
                 graded: true,
                 options: {
-                    static: false,
-                    answers: [
-                        {
-                            value: -42,
-                            status: "correct",
-                            message: "",
-                            simplify: "required",
-                            strict: true,
-                            maxError: 0.1,
-                        },
-                    ],
+                    answerType: "number",
+                    value: "-42",
+                    simplify: "required",
                     size: "normal",
-                    coefficient: false,
-                    labelText: "",
-                    rightAlign: false,
+                    inexact: false,
+                    maxError: 0.1,
                 },
-            } as NumericInputWidget,
+            } as InputNumberWidget,
         },
     },
     hints: [
@@ -48,53 +40,87 @@ export const itemWithInput: PerseusItem = {
     answer: null,
 };
 
-export const itemWithMultipleNumericInputs: PerseusItem = {
+export const itemWithMultipleInputNumbers: PerseusItem = {
     question: {
         content:
-            "Enter the number $$1$$ in box one: [[\u2603 numeric-input 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 numeric-input 2]]",
+            "Enter the number $$1$$ in box one: [[\u2603 input-number 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 input-number 2]]",
         images: {},
         widgets: {
+            "input-number 1": {
+                type: "input-number",
+                graded: true,
+                options: {
+                    answerType: "number",
+                    value: "1",
+                    simplify: "required",
+                    size: "normal",
+                    inexact: false,
+                    maxError: 0.1,
+                },
+            } as InputNumberWidget,
+            "input-number 2": {
+                type: "input-number",
+                graded: true,
+                options: {
+                    answerType: "number",
+                    value: "2",
+                    simplify: "required",
+                    size: "normal",
+                    inexact: false,
+                    maxError: 0.1,
+                },
+            } as InputNumberWidget,
+        },
+    },
+    hints: [
+        {content: "Hint #1", images: {}, widgets: {}},
+        {content: "Hint #2", images: {}, widgets: {}},
+        {content: "Hint #3", images: {}, widgets: {}},
+    ],
+    answerArea: null,
+    itemDataVersion: {major: 0, minor: 0},
+    answer: null,
+};
+
+export const itemWithNumericAndNumberInputs: PerseusItem = {
+    question: {
+        content:
+            "Enter the number $$1$$ in box one: [[\u2603 input-number 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 numeric-input 1]]",
+        images: {},
+        widgets: {
+            "input-number 1": {
+                type: "input-number",
+                graded: true,
+                options: {
+                    answerType: "number",
+                    value: "1",
+                    simplify: "required",
+                    size: "normal",
+                    inexact: false,
+                    maxError: 0.1,
+                },
+            } as InputNumberWidget,
             "numeric-input 1": {
-                type: "numeric-input",
                 graded: true,
+                static: false,
+                type: "numeric-input",
                 options: {
+                    coefficient: false,
                     static: false,
                     answers: [
                         {
-                            value: 1,
                             status: "correct",
-                            message: "",
+                            maxError: null,
+                            strict: false,
+                            value: 1252,
                             simplify: "required",
-                            strict: true,
-                            maxError: 0.1,
+                            message: "",
                         },
                     ],
-                    size: "normal",
-                    coefficient: false,
                     labelText: "",
-                    rightAlign: false,
-                },
-            } as NumericInputWidget,
-            "numeric-input 2": {
-                type: "numeric-input",
-                graded: true,
-                options: {
-                    static: false,
-                    answers: [
-                        {
-                            value: 2,
-                            status: "correct",
-                            message: "",
-                            simplify: "required",
-                            strict: true,
-                            maxError: 0.1,
-                        },
-                    ],
                     size: "normal",
-                    coefficient: false,
-                    labelText: "",
-                    rightAlign: false,
                 },
+                alignment: "default",
             } as NumericInputWidget,
         },
     },

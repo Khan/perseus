@@ -95,6 +95,7 @@ export interface PolygonGraphState extends InteractiveGraphStateCommon {
     showRemovePointButton: boolean;
     interactionMode: InteractionMode;
     showKeyboardInteractionInvitation: boolean;
+    closedPolygon: boolean;
 }
 
 export interface CircleGraphState extends InteractiveGraphStateCommon {
@@ -134,3 +135,5 @@ export type GraphDimensions = {
     width: number; // pixels
     height: number; // pixels
 };
+
+export type AriaLive = "off" | "assertive" | "polite" | undefined;

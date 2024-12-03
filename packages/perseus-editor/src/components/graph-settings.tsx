@@ -121,7 +121,11 @@ const GraphSettings = createReactClass({
         };
     },
 
+    // TODO(benchristel): Refactor this component to be an ES6 class, so we can
+    // type change as ChangeFn.
     change(...args) {
+        // TODO(LEMS-2656): remove TS suppression
+        // @ts-expect-error: Argument of type 'any[]' is not assignable to parameter of type '[newPropsOrSinglePropName: string | { [key: string]: any; }, propValue?: any, callback?: (() => unknown) | undefined]'. Target requires 1 element(s) but source may have fewer.
         return Changeable.change.apply(this, args);
     },
 

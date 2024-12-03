@@ -1,8 +1,8 @@
 import {describe, it, expect} from "@jest/globals";
 
-import {Radio, NumericInput} from "..";
+import {InputNumber, Radio} from "..";
 import {
-    PerseusItemWithNumericInput,
+    PerseusItemWithInputNumber,
     PerseusItemWithRadioWidget,
 } from "../__testdata__/extract-perseus-data.testdata";
 import {
@@ -99,28 +99,16 @@ describe("ExtractPerseusData", () => {
                     `);
         });
 
-        it("should get the answer from a numeric-input widget", () => {
+        it("should get the answer from a input-number widget", () => {
             const widget = {
-                type: "numeric-input",
+                type: "input-number",
                 options: {
-                    static: false,
-                    answers: [
-                        {
-                            value: 42,
-                            status: "correct",
-                            message: "",
-                            simplify: "required",
-                            strict: true,
-                            maxError: 0.1,
-                        },
-                    ],
+                    value: 42,
+                    simplify: "required",
                     size: "normal",
-                    coefficient: false,
-                    labelText: "",
-                    rightAlign: false,
                 },
             } as const;
-            const answer = getAnswersFromWidgets({"numeric-input 1": widget});
+            const answer = getAnswersFromWidgets({"input-number 1": widget});
             expect(answer).toEqual(["42"]);
         });
 
@@ -205,24 +193,12 @@ describe("ExtractPerseusData", () => {
                                 ],
                             },
                         },
-                        "numeric-input 1": {
-                            type: "numeric-input",
+                        "input-number 1": {
+                            type: "input-number",
                             options: {
-                                static: false,
-                                answers: [
-                                    {
-                                        value: 42,
-                                        status: "correct",
-                                        message: "",
-                                        simplify: "required",
-                                        strict: true,
-                                        maxError: 0.1,
-                                    },
-                                ],
+                                value: 42,
+                                simplify: "required",
                                 size: "normal",
-                                coefficient: false,
-                                labelText: "",
-                                rightAlign: false,
                             },
                         },
                     },
@@ -316,6 +292,7 @@ describe("ExtractPerseusData", () => {
                 type: "dropdown",
                 options: {
                     placeholder: "Select an option",
+                    ariaLabel: "",
                     static: false,
                     choices: [
                         {
@@ -1023,24 +1000,12 @@ describe("ExtractPerseusData", () => {
                         static: false,
                     },
                 },
-                "numeric-input 2": {
-                    type: "numeric-input",
+                "input-number 1": {
+                    type: "input-number",
                     options: {
-                        static: false,
-                        answers: [
-                            {
-                                value: 42,
-                                status: "correct",
-                                message: "",
-                                simplify: "required",
-                                strict: true,
-                                maxError: 0.1,
-                            },
-                        ],
+                        value: 42,
+                        simplify: "required",
                         size: "normal",
-                        coefficient: false,
-                        labelText: "",
-                        rightAlign: false,
                     },
                 },
                 "expression 1": {
@@ -1062,11 +1027,11 @@ describe("ExtractPerseusData", () => {
                 },
             } as const;
             const content = injectWidgets(
-                "Enter your numeric-input [[☃ numeric-input 1]], Enter your numeric-input [[☃ numeric-input 2]], Enter your expression [[☃ expression 1]]",
+                "Enter your numeric-input [[☃ numeric-input 1]], Enter your input-number [[☃ input-number 1]], Enter your expression [[☃ expression 1]]",
                 widgets,
             );
             expect(content).toEqual(
-                "Enter your numeric-input ?, Enter your numeric-input ?, Enter your expression ?",
+                "Enter your numeric-input ?, Enter your input-number ?, Enter your expression ?",
             );
         });
 
@@ -1154,11 +1119,11 @@ describe("ExtractPerseusData", () => {
             ).toBeUndefined();
         });
         it("returns a correct answer if the widget type supports one correct answer", () => {
-            stub.mockReturnValue(NumericInput.widget);
+            stub.mockReturnValue(InputNumber.widget);
             expect(
                 getCorrectAnswerForWidgetId(
-                    "numeric-input 1",
-                    PerseusItemWithNumericInput,
+                    "input-number 1",
+                    PerseusItemWithInputNumber,
                 ),
             ).toEqual("66");
         });
@@ -1171,14 +1136,14 @@ describe("ExtractPerseusData", () => {
             ).toBe(true);
             expect(
                 isWidgetIdInContent(
-                    PerseusItemWithNumericInput,
-                    "numeric-input 1",
+                    PerseusItemWithInputNumber,
+                    "input-number 1",
                 ),
             ).toBe(true);
         });
         it("returns false if the widget ID is NOT in the content", () => {
             expect(
-                isWidgetIdInContent(PerseusItemWithNumericInput, "not-found"),
+                isWidgetIdInContent(PerseusItemWithInputNumber, "not-found"),
             ).toBe(false);
         });
     });

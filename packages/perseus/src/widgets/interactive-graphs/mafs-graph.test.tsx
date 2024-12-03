@@ -139,8 +139,8 @@ describe("MafsGraph", () => {
         };
 
         render(<MafsGraph {...basePropsWithTexLabels} />);
-        expect(screen.getByText("1/2")).toBeInTheDocument();
-        expect(screen.getByText("3/4")).toBeInTheDocument();
+        expect(screen.getByText("\\text{$1/2$}")).toBeInTheDocument();
+        expect(screen.getByText("\\text{$3/4$}")).toBeInTheDocument();
     });
 
     it("renders plain text in axis Labels", () => {
@@ -436,6 +436,7 @@ describe("MafsGraph", () => {
             showRemovePointButton: false,
             interactionMode: "mouse",
             showKeyboardInteractionInvitation: false,
+            closedPolygon: false,
             coords: [
                 [-1, 1],
                 [0, 0],
@@ -838,6 +839,7 @@ describe("MafsGraph", () => {
                 snapStep: [2, 2],
                 snapTo: "grid",
                 coords: [[4, 5]],
+                closedPolygon: false,
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
@@ -921,6 +923,7 @@ describe("MafsGraph", () => {
                 snapStep: [2, 2],
                 snapTo: "grid",
                 coords: [[9, 9]],
+                closedPolygon: false,
             };
 
             const baseMafsGraphProps: MafsGraphProps = {

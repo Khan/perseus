@@ -18,14 +18,14 @@ import scorePlotter from "./score-plotter";
 import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
-    PerseusPlotterRubric,
+    PerseusPlotterScoringData,
     PerseusPlotterUserInput,
 } from "../../validation.types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusPlotterRubric> & {
+type Props = WidgetProps<RenderProps, PerseusPlotterScoringData> & {
     labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
     picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
 };
@@ -1179,5 +1179,7 @@ export default {
     hidden: true,
     widget: Plotter,
     staticTransform: staticTransform,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
     scorer: scorePlotter,
 } satisfies WidgetExports<typeof Plotter>;

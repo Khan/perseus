@@ -1,4 +1,3 @@
-/* eslint-disable @babel/no-invalid-this */
 import {
     point as kpoint,
     vector as kvector,

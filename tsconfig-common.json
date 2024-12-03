@@ -9,7 +9,7 @@
         // Required for dynamic imports even though we aren't using
         // tsc to output any modules.
         "module": "ESNext",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "resolveJsonModule": true,
         /* Interop Constraints */
         "esModuleInterop": true,
@@ -17,7 +17,7 @@
         /* Type Checking */
         "strict": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "strictPropertyInitialization": true,
         "strictBindCallApply": true,
         "noImplicitAny": false,

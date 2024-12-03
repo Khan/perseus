@@ -90,7 +90,7 @@ class Group extends React.Component<Props> implements Widget {
     setInputValue: (
         arg1: FocusPath,
         arg2: string,
-        arg3: () => unknown,
+        arg3?: () => unknown,
     ) => void = (path, newValue, callback) => {
         return this.rendererRef?.setInputValue(path, newValue, callback);
     };

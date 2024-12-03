@@ -81,7 +81,8 @@ export const renderQuestion = (
         }
     };
 
-    return {container, renderer, rerender: renderAgain, unmount};
+    // TODO(LEMS-2656): remove TS suppression
+    return {container, renderer, rerender: renderAgain as any, unmount};
 };
 
 const Renderer = React.forwardRef<

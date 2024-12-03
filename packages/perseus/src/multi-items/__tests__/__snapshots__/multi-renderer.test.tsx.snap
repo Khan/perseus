@@ -977,12 +977,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                   <input
                     aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                     aria-invalid="false"
-                    aria-label="Your answer:"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_19vw1dn"
-                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-default_1gznapd-o_O-leftAlign_7jg4r4"
+                    id="input-with-examples-aW5wdXQtbnVtYmVyIDE"
                     type="text"
                     value=""
                   />
@@ -1014,7 +1013,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                       style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
                     >
                       <div
-                        id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                        id="input-with-examples-aW5wdXQtbnVtYmVyIDE"
                       >
                         <div
                           class="perseus-renderer perseus-renderer-responsive"
@@ -1023,12 +1022,20 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                             class="paragraph"
                             data-perseus-paragraph-index="0"
                           >
+                            <div
+                              class="paragraph"
+                            >
+                              <strong>
+                                Your answer should be
+                              </strong>
+                               
+                            </div>
+                          </div>
+                          <div
+                            class="paragraph"
+                            data-perseus-paragraph-index="1"
+                          >
                             <ul>
-                              <li>
-                                <strong>
-                                  Your answer should be
-                                </strong>
-                              </li>
                               <li>
                                 an integer, like 
                                 <span
@@ -1039,6 +1046,24 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     class="mock-TeX"
                                   >
                                     6
+                                  </span>
+                                  <span />
+                                </span>
+                              </li>
+                              <li>
+                                an 
+                                <em>
+                                  exact
+                                </em>
+                                 decimal, like 
+                                <span
+                                  style="white-space: nowrap;"
+                                >
+                                  <span />
+                                  <span
+                                    class="mock-TeX"
+                                  >
+                                    0.75
                                   </span>
                                   <span />
                                 </span>
@@ -1089,50 +1114,6 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                     class="mock-TeX"
                                   >
                                     1\\ 3/4
-                                  </span>
-                                  <span />
-                                </span>
-                              </li>
-                              <li>
-                                an 
-                                <em>
-                                  exact
-                                </em>
-                                 decimal, like 
-                                <span
-                                  style="white-space: nowrap;"
-                                >
-                                  <span />
-                                  <span
-                                    class="mock-TeX"
-                                  >
-                                    0.75
-                                  </span>
-                                  <span />
-                                </span>
-                              </li>
-                              <li>
-                                a multiple of pi, like 
-                                <span
-                                  style="white-space: nowrap;"
-                                >
-                                  <span />
-                                  <span
-                                    class="mock-TeX"
-                                  >
-                                    12\\ \\text{pi}
-                                  </span>
-                                  <span />
-                                </span>
-                                 or 
-                                <span
-                                  style="white-space: nowrap;"
-                                >
-                                  <span />
-                                  <span
-                                    class="mock-TeX"
-                                  >
-                                    2/3\\ \\text{pi}
                                   </span>
                                   <span />
                                 </span>

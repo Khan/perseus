@@ -28,11 +28,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "1",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -52,11 +52,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "sadasdfas",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveInvalidInput(
             "We could not understand your answer. Please check your answer for extra text or symbols.",
@@ -143,11 +143,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "1.0",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -167,11 +167,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "1.3",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -191,11 +191,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "1.12",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });

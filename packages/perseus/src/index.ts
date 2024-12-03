@@ -82,10 +82,6 @@ export {isItemRenderableByVersion} from "./renderability";
 export {violatingWidgets} from "./a11y";
 export {interactiveSizes} from "./styles/constants";
 export {displaySigFigs} from "./sigfigs";
-export {
-    conversionRequired,
-    convertDeprecatedWidgets,
-} from "./util/deprecated-widgets/modernize-widgets-utils";
 
 // Context for managing i18n
 export {
@@ -105,6 +101,7 @@ export {
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
 } from "./util/sizing-utils";
+export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
 export {
     getAnswersFromWidgets,
     injectWidgets,
@@ -212,9 +209,8 @@ export type {
     Size,
     CollinearTuple,
     MathFormat,
+    InputNumberWidget, // TODO(jeremy): remove?
     PerseusArticle,
-    InputNumberWidget, // Used for usurpation of InputNumberWidget in perseus-editor
-    NumericInputWidget, // Used for usurpation of InputNumberWidget in perseus-editor
     // Widget configuration types
     PerseusImageBackground,
     PerseusInputNumberWidgetOptions,
@@ -224,8 +220,6 @@ export type {
     PerseusPlotterWidgetOptions,
     PerseusPythonProgramWidgetOptions,
     PerseusRadioWidgetOptions,
-    PerseusExampleWidgetOptions,
-    PerseusSimpleMarkdownTesterWidgetOptions,
     PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
