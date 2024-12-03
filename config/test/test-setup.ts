@@ -35,7 +35,6 @@ if (typeof window !== "undefined") {
     // Override the window.location implementation to mock out assign()
     // We need to access window.location.assign to verify that we're
     // redirecting to the right place.
-    /* eslint-disable no-restricted-syntax */
     const oldLocation = window.location;
     // @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
     delete window.location;

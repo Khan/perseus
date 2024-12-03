@@ -84,31 +84,27 @@ export const PerseusItemWithRadioWidget = generateTestPerseusItem({
     answer: null,
 });
 
-export const PerseusItemWithNumericInput = generateTestPerseusItem({
+export const PerseusItemWithInputNumber = generateTestPerseusItem({
     question: {
-        content:
-            "$6 \\text{ tens}+6 \\text { ones} =$ \n[[☃ numeric-input 1]]",
+        content: "$6 \\text{ tens}+6 \\text { ones} =$ \n[[☃ input-number 1]]",
         images: {} as Record<any, any>,
         widgets: {
-            "numeric-input 1": {
-                type: "numeric-input",
+            "input-number 1": {
+                type: "input-number",
+                alignment: "default",
+                static: false,
                 graded: true,
                 options: {
-                    static: false,
-                    answers: [
-                        {
-                            value: 66,
-                            status: "correct",
-                            message: "",
-                            simplify: "required",
-                            strict: true,
-                            maxError: 0,
-                        },
-                    ],
+                    value: 66,
+                    simplify: "required",
                     size: "normal",
-                    coefficient: false,
-                    labelText: "",
-                    rightAlign: false,
+                    inexact: false,
+                    maxError: 0.1,
+                    answerType: "number",
+                },
+                version: {
+                    major: 0,
+                    minor: 0,
                 },
             },
         },

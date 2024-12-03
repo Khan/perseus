@@ -27,6 +27,8 @@ import type {
     LegacyButtonSets,
 } from "@khanacademy/perseus";
 
+type ChangeFn = typeof Changeable.change;
+
 const {InfoTip} = components;
 
 type Props = {
@@ -109,9 +111,9 @@ class ExpressionEditor extends React.Component<Props, State> {
         };
     }
 
-    change(...args) {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
-    }
+    };
 
     serialize: () => any = () => {
         const formSerializables = [
@@ -356,6 +358,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     buttonSets: this.props.buttonSets,
                     buttonsVisible: "focused",
                     value: ans.value,
+                    // @ts-expect-error: Type '(props: React.ComponentProps<typeof Expression>) => void' is not assignable to type 'ChangeHandler'. Types of parameters 'props' and 'arg1' are incompatible.
                     onChange: (
                         props: React.ComponentProps<typeof Expression>,
                     ) => this.changeExpressionWidget(key, props),
@@ -553,7 +556,7 @@ class AnswerOption extends React.Component<
 > {
     state = {deleteFocused: false};
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 

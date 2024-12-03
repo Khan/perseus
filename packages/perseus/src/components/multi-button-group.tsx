@@ -1,6 +1,5 @@
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 type Props = {
     /**
@@ -52,14 +51,15 @@ type DefaultProps = {
  * this component allows multiple selection!
  */
 class MultiButtonGroup extends React.Component<Props> {
+    buttonContainerRef = React.createRef<HTMLDivElement>();
+
     static defaultProps: DefaultProps = {
         values: [],
         allowEmpty: true,
     };
 
     focus(): boolean {
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this)?.focus();
+        this.buttonContainerRef.current?.focus();
         return true;
     }
 
@@ -108,7 +108,11 @@ class MultiButtonGroup extends React.Component<Props> {
         const outerStyle = {
             display: "inline-block",
         } as const;
-        return <div style={outerStyle}>{buttons}</div>;
+        return (
+            <div style={outerStyle} ref={this.buttonContainerRef}>
+                {buttons}
+            </div>
+        );
     }
 }
 
