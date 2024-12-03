@@ -25,7 +25,7 @@ export type ShowSolutions = "all" | "selected" | "none";
  * this interface so it is arbitrary.
  *
  * If you define the widget outside of this package, you can still add the new
- * widget to this interface by writing the following in that pacakge that
+ * widget to this interface by writing the following in that package that
  * contains the widget. TypeScript will merge that definition of the
  * `PerseusWidgets` with the one defined below.
  *
