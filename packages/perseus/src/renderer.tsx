@@ -1573,6 +1573,12 @@ class Renderer
         return state;
     };
 
+    /**
+     * Returns an array of widget ids that are empty (meaning widgets where the
+     * learner has not interacted with the widget yet or has not filled in all
+     * fields).  For example, the `interactive-graph` widget is considered
+     * empty if the graph is in the starting state.
+     */
     emptyWidgets(): ReadonlyArray<string> {
         return emptyWidgetsFunctional(
             this.state.widgetInfo,
