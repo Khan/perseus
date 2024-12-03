@@ -137,18 +137,17 @@ function AngleGraph({dispatch, graphState}: AngleGraphProps) {
     );
 
     const updateVertexAriaLabel = (newPoint: vec.Vector2) => {
-        showAngles
-            ? setVertexAriaLabel(
-                  strings.srUpdatedVertexWithAngleAtCoordinates({
-                      ...formatCoordinates(newPoint[X], newPoint[Y]),
-                      angle: angleLabel,
-                  }),
-              )
-            : setVertexAriaLabel(
-                  strings.srUpdatedVertexAtCoordinates(
-                      formatCoordinates(newPoint[X], newPoint[Y]),
-                  ),
-              );
+        const formattedVertexCoordinates = formatCoordinates(
+            newPoint[X],
+            newPoint[Y],
+        );
+        const label = showAngles
+            ? strings.srVertexWithAngleAtCoordinates({
+                  ...formattedVertexCoordinates,
+                  angle: angleLabel,
+              })
+            : strings.srVertexAtCoordinates(formattedVertexCoordinates);
+        setVertexAriaLabel(label);
     };
 
     const updateSideAriaLabel = (
@@ -177,7 +176,7 @@ function AngleGraph({dispatch, graphState}: AngleGraphProps) {
         newPoint: vec.Vector2,
         side: "terminal" | "initial",
     ): unknown => {
-        updateVertexAriaLabel(newPoint);
+        updateVertexAriaLabel(coords[1]);
         updateSideAriaLabel(side, newPoint);
         return dispatch(actions.angle.movePoint(coordIndex, newPoint));
     };
@@ -188,17 +187,7 @@ function AngleGraph({dispatch, graphState}: AngleGraphProps) {
     };
 
     React.useEffect(() => {
-        const formattedVertexCoordinates = formatCoordinates(
-            coords[1][X],
-            coords[1][Y],
-        );
-        const label = showAngles
-            ? strings.srVertexWithAngleAtCoordinates({
-                  ...formattedVertexCoordinates,
-                  angle: angleLabel,
-              })
-            : strings.srVertexAtCoordinates(formattedVertexCoordinates);
-        setVertexAriaLabel(label);
+        updateVertexAriaLabel(coords[1]);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showAngles]);
 
