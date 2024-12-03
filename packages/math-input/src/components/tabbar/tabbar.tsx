@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         paddingTop: 2,
         paddingBottom: 2,
+        direction: "ltr",
     },
     pages: {
         display: "flex",
