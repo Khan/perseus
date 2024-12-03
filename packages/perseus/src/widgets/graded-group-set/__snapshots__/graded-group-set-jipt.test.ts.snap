@@ -105,12 +105,20 @@ exports[`graded-group-set should render all graded groups 1`] = `
                                       class="paragraph"
                                       data-perseus-paragraph-index="0"
                                     >
+                                      <div
+                                        class="paragraph"
+                                      >
+                                        <strong>
+                                          Your answer should be
+                                        </strong>
+                                         
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="paragraph"
+                                      data-perseus-paragraph-index="1"
+                                    >
                                       <ul>
-                                        <li>
-                                          <strong>
-                                            Your answer should be
-                                          </strong>
-                                        </li>
                                         <li>
                                           an integer, like 
                                           <span
@@ -334,12 +342,20 @@ exports[`graded-group-set should render all graded groups 1`] = `
                                       class="paragraph"
                                       data-perseus-paragraph-index="0"
                                     >
+                                      <div
+                                        class="paragraph"
+                                      >
+                                        <strong>
+                                          Your answer should be
+                                        </strong>
+                                         
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="paragraph"
+                                      data-perseus-paragraph-index="1"
+                                    >
                                       <ul>
-                                        <li>
-                                          <strong>
-                                            Your answer should be
-                                          </strong>
-                                        </li>
                                         <li>
                                           an integer, like 
                                           <span
@@ -563,12 +579,20 @@ exports[`graded-group-set should render all graded groups 1`] = `
                                       class="paragraph"
                                       data-perseus-paragraph-index="0"
                                     >
+                                      <div
+                                        class="paragraph"
+                                      >
+                                        <strong>
+                                          Your answer should be
+                                        </strong>
+                                         
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="paragraph"
+                                      data-perseus-paragraph-index="1"
+                                    >
                                       <ul>
-                                        <li>
-                                          <strong>
-                                            Your answer should be
-                                          </strong>
-                                        </li>
                                         <li>
                                           an integer, like 
                                           <span
