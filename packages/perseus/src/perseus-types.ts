@@ -77,6 +77,8 @@ export type PerseusWidgetsMap = {
     [key in `table ${number}`]: TableWidget;
 } & {
     [key in `video ${number}`]: VideoWidget;
+} & {
+    [key in `sequence ${number}`]: AutoCorrectWidget;
 };
 
 /**
@@ -287,7 +289,7 @@ export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassage
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
-export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', PerseusWidgetOptions>;
+export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', object>;
 
 export type PerseusWidget =
     | CategorizerWidget
@@ -633,10 +635,10 @@ export type PerseusInteractiveGraphWidgetOptions = {
     step: [number, number];
     // Where the grid lines on the graph will render. default [1, 1]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
-    gridStep: [number, number];
+    gridStep?: [x: number, y: number];
     // Where the graph points will lock to when they are dragged. default [0.5, 0.5]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
-    snapStep: [number, number];
+    snapStep?: [x: number, y: number];
     // An optional image to use in the background
     backgroundImage?: PerseusImageBackground;
     /**
@@ -647,7 +649,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     markings: "graph" | "grid" | "none";
     // How to label the X and Y axis.  default: ["x", "y"]
-    labels: ReadonlyArray<string>;
+    labels?: ReadonlyArray<string>;
     // Whether to show the Protractor tool overlayed on top of the graph
     showProtractor: boolean;
     /**
@@ -1114,7 +1116,7 @@ export type PerseusNumericInputWidgetOptions = {
     // A list of all the possible correct and incorrect answers
     answers: ReadonlyArray<PerseusNumericInputAnswer>;
     // Translatable Text; Text to describe this input. This will be shown to users using screenreaders.
-    labelText: string;
+    labelText?: string | undefined;
     // Use size "Normal" for all text boxes, unless there are multiple text boxes in one line and the answer area is too narrow to fit them. Options: "normal" or "small"
     size: string;
     // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
@@ -1133,7 +1135,7 @@ export type PerseusNumericInputAnswer = {
     // Translatable Display; A description for why this answer is correct, wrong, or ungraded
     message: string;
     // The expected answer
-    value: number;
+    value?: number;
     // Whether this answer is "correct", "wrong", or "ungraded"
     status: string;
     // The forms available for this answer.  Options: "integer, ""decimal", "proper", "improper", "mixed", or "pi"

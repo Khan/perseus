@@ -23,7 +23,7 @@ import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import InputNumberExport from "../widgets/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
-import type {DropdownWidget} from "../perseus-types";
+import type {PerseusRenderer, DropdownWidget} from "../perseus-types";
 import type {APIOptions} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -106,6 +106,36 @@ describe("renderer", () => {
 
             // Assert
             expect(container).toMatchSnapshot("incorrect answer");
+        });
+
+        it("renders a placeholder for a deprecated widget", () => {
+            // Arrange
+            const question: PerseusRenderer = {
+                content: "[[☃ sequence 1]]",
+                images: {},
+                widgets: {
+                    "sequence 1": {
+                        type: "deprecated-standin",
+                        version: {major: 0, minor: 0},
+                        graded: true,
+                        options: {
+                            json: [
+                                {
+                                    content: "",
+                                    images: {},
+                                    widgets: {},
+                                },
+                            ],
+                        },
+                    },
+                },
+            };
+
+            // Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            expect(container).toMatchSnapshot("deprecated widget");
         });
     });
 

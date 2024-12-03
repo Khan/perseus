@@ -64,12 +64,12 @@ export type MafsGraphProps = {
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
     step: InteractiveGraphProps["step"];
-    gridStep: InteractiveGraphProps["gridStep"];
+    gridStep: [x: number, y: number];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
-    labels: InteractiveGraphProps["labels"];
+    labels: ReadonlyArray<string>;
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     state: InteractiveGraphState;

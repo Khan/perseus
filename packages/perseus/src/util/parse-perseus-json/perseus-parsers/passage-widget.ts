@@ -1,4 +1,5 @@
 import {constant, object, string, boolean} from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
@@ -12,6 +13,6 @@ export const parsePassageWidget: Parser<PassageWidget> = parseWidget(
         passageText: string,
         passageTitle: string,
         showLineNumbers: boolean,
-        static: boolean,
+        static: defaulted(boolean, () => false),
     }),
 );
