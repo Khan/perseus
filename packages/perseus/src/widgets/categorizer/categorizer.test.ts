@@ -3,6 +3,8 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItem} from "../../renderer-util";
+import {mockStrings} from "../../strings";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {Categorizer} from "./categorizer";
@@ -57,7 +59,12 @@ describe("categorizer widget", () => {
         const {renderer} = renderQuestion(question1, apiOptions);
 
         // Act
-        const [_, score] = renderer.guessAndScore();
+        const score = scorePerseusItem(
+            question1,
+            renderer.getUserInputMap(),
+            mockStrings,
+            "en",
+        );
 
         // Assert
         expect(score).toMatchInlineSnapshot(`
@@ -76,7 +83,12 @@ describe("categorizer widget", () => {
         await userEvent.click(firstItem);
 
         // act
-        const [_, score] = renderer.guessAndScore();
+        const score = scorePerseusItem(
+            question1,
+            renderer.getUserInputMap(),
+            mockStrings,
+            "en",
+        );
 
         // assert
         expect(score).toMatchInlineSnapshot(`
@@ -110,8 +122,6 @@ describe("categorizer widget", () => {
                 name: "Nonlinear relationship",
             })[1],
         );
-
-        renderer.guessAndScore();
 
         // assert
         expect(renderer).toHaveBeenAnsweredCorrectly();

@@ -666,6 +666,11 @@ export type WidgetProps<
     problemNum: number | null | undefined;
     apiOptions: APIOptionsWithDefaults;
     keypadElement?: any;
+    /**
+     * questionCompleted is used to signal that a learner has attempted
+     * the exercise. This is used when widgets want to show things like
+     * rationale or partial correctness.
+     */
     questionCompleted?: boolean;
     onFocus: (blurPath: FocusPath) => void;
     onBlur: (blurPath: FocusPath) => void;

@@ -7,6 +7,8 @@ import {
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItem} from "../../renderer-util";
+import {mockStrings} from "../../strings";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import ExpressionWidgetExport from "./expression";
@@ -447,7 +449,12 @@ describe("Expression Widget", function () {
                 renderer.setInputValue(["expression 1"], "123-x", () => {}),
             );
             act(() => jest.runOnlyPendingTimers());
-            const score = renderer.guessAndScore()[1];
+            const score = scorePerseusItem(
+                expressionItem2.question,
+                renderer.getUserInputMap(),
+                mockStrings,
+                "en",
+            );
 
             // Assert
             expect(score.type).toBe("points");
@@ -467,7 +474,12 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
 
             // act
-            const score = renderer.score();
+            const score = scorePerseusItem(
+                expressionItem2.question,
+                renderer.getUserInputMap(),
+                mockStrings,
+                "en",
+            );
 
             // Assert
             // Score.total doesn't exist if the input is invalid
@@ -498,7 +510,6 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
             act(() => screen.getByRole("textbox").blur());
             act(() => jest.runOnlyPendingTimers());
-            renderer.guessAndScore();
 
             // Assert
             await waitFor(() =>
@@ -517,7 +528,6 @@ describe("Expression Widget", function () {
             act(() => expression.insert("sen(x)"));
             act(() => jest.runOnlyPendingTimers());
             act(() => screen.getByRole("textbox").blur());
-            renderer.guessAndScore();
 
             // Assert
             expect(screen.queryByText("Oops!")).toBeNull();
