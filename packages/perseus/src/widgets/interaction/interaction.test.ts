@@ -6,7 +6,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {
     question1,
-    questionWithMovablePointMissingConstraints
+    questionWithMovablePointMissingConstraints,
 } from "./interaction.testdata";
 
 describe("interaction widget", () => {
@@ -43,9 +43,11 @@ describe("interaction widget", () => {
     });
 
     it("renders movable point elements with blank constraintXMin, constraintXMax, etc.", async () => {
-        const {container} = renderQuestion(questionWithMovablePointMissingConstraints);
+        const {container} = renderQuestion(
+            questionWithMovablePointMissingConstraints,
+        );
         await waitForInitialGraphieRender();
 
         expect(container).toMatchSnapshot();
-    })
+    });
 });

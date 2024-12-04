@@ -8,10 +8,10 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref
 import scoreNoop from "../__shared__/score-noop";
 import {isPassageWidget} from "../passage/utils";
 
-import type {PropsFor} from "@khanacademy/wonder-blocks-core"
 import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PassageRefPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const EN_DASH = "\u2013";
 
@@ -34,7 +34,9 @@ type State = {
     content: string | null | undefined;
 };
 
-0 as any as WidgetProps<PerseusPassageRefWidgetOptions> satisfies PropsFor<typeof PassageRef>
+0 as any as WidgetProps<PerseusPassageRefWidgetOptions> satisfies PropsFor<
+    typeof PassageRef
+>;
 
 class PassageRef extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
@@ -178,9 +180,7 @@ export default {
     hidden: true,
     defaultAlignment: "inline",
     widget: PassageRef,
-    transform: (
-        widgetOptions: PerseusPassageRefWidgetOptions,
-    ) => ({
+    transform: (widgetOptions: PerseusPassageRefWidgetOptions) => ({
         passageNumber: widgetOptions.passageNumber,
         referenceNumber: widgetOptions.referenceNumber,
         summaryText: widgetOptions.summaryText,
