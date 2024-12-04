@@ -119,22 +119,14 @@ export function scoreWidgetsFunctional(
 
         const userInput = userInputMap[id];
         const scorer = getWidgetScorer(widget.type);
-        if (widget.type === "group") {
-            const scores = scoreWidgetsFunctional(
-                widget.options.widgets,
-                getWidgetIdsFromContent(widget.options.content),
-                userInputMap[id] as UserInputMap,
-                strings,
-                locale,
-            );
-            widgetScores[id] = Util.flattenScores(scores);
-        } else if (scorer) {
-            widgetScores[id] = scorer(
-                userInput as UserInput,
-                widget.options,
-                strings,
-                locale,
-            );
+        const score = scorer?.(
+            userInput as UserInput,
+            widget.options,
+            strings,
+            locale,
+        );
+        if (score != null) {
+            widgetScores[id] = score;
         }
     });
 
