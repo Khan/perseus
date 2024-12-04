@@ -41,6 +41,7 @@ import {MIN, X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
+import FocusTrap from "./trap-focus";
 import {isUnlimitedGraphState, REMOVE_BUTTON_ID} from "./utils";
 
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
@@ -96,6 +97,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const interactiveElementsDescriptionId = `interactive-graph-interactive-elements-description-${uniqueId}`;
     const unlimitedGraphKeyboardPromptId = `unlimited-graph-keyboard-prompt-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
+    const graphContainerRef = React.useRef<HTMLElement>(null);
     const {analytics} = useDependencies();
 
     // Set up the SVG attributes for the nested SVGs that help lock
@@ -136,6 +138,189 @@ export const MafsGraph = (props: MafsGraphProps) => {
         dispatch,
     });
 
+    const mafsGraph = (
+        <View
+            className="mafs-graph"
+            style={{
+                position: "relative",
+                padding: "25px 25px 0 0",
+                boxSizing: "content-box",
+                marginLeft: "20px",
+                marginBottom: "30px",
+                pointerEvents: props.static ? "none" : "auto",
+                userSelect: "none",
+                width,
+                height,
+            }}
+            onKeyUp={(event) => {
+                handleKeyboardEvent(event, state, dispatch);
+            }}
+            aria-label={fullGraphAriaLabel}
+            aria-describedby={describedByIds(
+                fullGraphAriaDescription && descriptionId,
+                interactiveElementsDescription &&
+                    interactiveElementsDescriptionId,
+                isUnlimitedGraphState(state) &&
+                    "unlimited-graph-keyboard-prompt",
+            )}
+            ref={graphRef}
+            tabIndex={0}
+            onFocus={(event) => {
+                handleFocusEvent(event, state, dispatch);
+            }}
+            onBlur={(event) => {
+                handleBlurEvent(event, state, dispatch);
+            }}
+        >
+            {fullGraphAriaDescription && (
+                <View id={descriptionId} tabIndex={-1} className="mafs-sr-only">
+                    {fullGraphAriaDescription}
+                </View>
+            )}
+            {interactiveElementsDescription && (
+                <View
+                    id={interactiveElementsDescriptionId}
+                    tabIndex={-1}
+                    className="mafs-sr-only"
+                >
+                    {interactiveElementsDescription}
+                </View>
+            )}
+            <LegacyGrid
+                box={props.box}
+                backgroundImage={props.backgroundImage}
+            />
+            <View
+                style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                }}
+            >
+                {props.markings === "graph" && (
+                    <>
+                        <AxisLabels />
+                    </>
+                )}
+                <Mafs
+                    preserveAspectRatio={false}
+                    viewBox={{
+                        x: state.range[X],
+                        y: state.range[Y],
+                        padding: 0,
+                    }}
+                    pan={false}
+                    zoom={false}
+                    width={width}
+                    height={height}
+                >
+                    {/* Svg definitions to render only once */}
+                    <SvgDefs />
+                    {/* Cartesian grid nested in an SVG to lock to graph bounds */}
+                    <svg {...nestedSVGAttributes}>
+                        <Grid
+                            gridStep={props.gridStep}
+                            range={state.range}
+                            containerSizeClass={props.containerSizeClass}
+                            markings={props.markings}
+                            width={width}
+                            height={height}
+                        />
+                    </svg>
+                    {/* Axis Ticks, Labels, and Arrows */}
+                    {
+                        // Only render the axis ticks and arrows if the markings are set to a full "graph"
+                        props.markings === "graph" && (
+                            <>
+                                <AxisTicks />
+                                <AxisArrows />
+                            </>
+                        )
+                    }
+                    {/* Locked & Interactive elements nested an SVG to lock to graph bounds*/}
+                    <svg {...nestedSVGAttributes}>
+                        {/* Locked figures layer */}
+                        {props.lockedFigures && (
+                            <GraphLockedLayer
+                                flags={props.flags}
+                                lockedFigures={props.lockedFigures}
+                                range={state.range}
+                            />
+                        )}
+                    </svg>
+                </Mafs>
+                {props.flags?.["mafs"]?.[
+                    "interactive-graph-locked-features-labels"
+                ] &&
+                    props.lockedFigures && (
+                        <GraphLockedLabelsLayer
+                            flags={props.flags}
+                            lockedFigures={props.lockedFigures}
+                        />
+                    )}
+                <View style={{position: "absolute"}}>
+                    <Mafs
+                        preserveAspectRatio={false}
+                        viewBox={{
+                            x: state.range[X],
+                            y: state.range[Y],
+                            padding: 0,
+                        }}
+                        pan={false}
+                        zoom={false}
+                        width={width}
+                        height={height}
+                    >
+                        {/* Intearctive Elements are nested in an SVG to lock them to graph bounds */}
+                        <svg {...nestedSVGAttributes}>
+                            {/* Protractor */}
+                            {props.showProtractor && <Protractor />}
+                            {/* Interactive layer */}
+                            {graph}
+                        </svg>
+                    </Mafs>
+                </View>
+            </View>
+            {interactionPrompt && (
+                <View
+                    style={{
+                        display: interactionPrompt ? undefined : "hidden",
+                        textAlign: "center",
+                        backgroundColor: "white",
+                        border: "1px solid #21242C52",
+                        padding: "16px 0",
+                        boxShadow: "0px 8px 8px 0px #21242C14",
+
+                        // This translates the box to the center of the
+                        // graph Then backs it off by half of its
+                        // overall height so it's perfectly centered
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                    }}
+                >
+                    <LabelMedium id={unlimitedGraphKeyboardPromptId}>
+                        {strings.graphKeyboardPrompt}
+                    </LabelMedium>
+                </View>
+            )}
+        </View>
+    );
+
+    const mafsGraphWithControls = (
+        <View ref={graphContainerRef}>
+            {mafsGraph}
+            {renderGraphControls({
+                state,
+                dispatch,
+                width,
+                perseusStrings: strings,
+            })}
+        </View>
+    );
+
+    const isTrapFocusEnabled =
+        isUnlimitedGraphState(state) && state.interactionMode === "keyboard";
+
     return (
         <GraphConfigContext.Provider
             value={{
@@ -152,187 +337,13 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 disableKeyboardInteraction: readOnly || !!props.static,
             }}
         >
-            <View>
-                <View
-                    className="mafs-graph"
-                    style={{
-                        position: "relative",
-                        padding: "25px 25px 0 0",
-                        boxSizing: "content-box",
-                        marginLeft: "20px",
-                        marginBottom: "30px",
-                        pointerEvents: props.static ? "none" : "auto",
-                        userSelect: "none",
-                        width,
-                        height,
-                    }}
-                    onKeyUp={(event) => {
-                        handleKeyboardEvent(event, state, dispatch);
-                    }}
-                    aria-label={fullGraphAriaLabel}
-                    aria-describedby={describedByIds(
-                        fullGraphAriaDescription && descriptionId,
-                        interactiveElementsDescription &&
-                            interactiveElementsDescriptionId,
-                        isUnlimitedGraphState(state) &&
-                            "unlimited-graph-keyboard-prompt",
-                    )}
-                    ref={graphRef}
-                    tabIndex={0}
-                    onFocus={(event) => {
-                        handleFocusEvent(event, state, dispatch);
-                    }}
-                    onBlur={(event) => {
-                        handleBlurEvent(event, state, dispatch);
-                    }}
-                >
-                    {fullGraphAriaDescription && (
-                        <View
-                            id={descriptionId}
-                            tabIndex={-1}
-                            className="mafs-sr-only"
-                        >
-                            {fullGraphAriaDescription}
-                        </View>
-                    )}
-                    {interactiveElementsDescription && (
-                        <View
-                            id={interactiveElementsDescriptionId}
-                            tabIndex={-1}
-                            className="mafs-sr-only"
-                        >
-                            {interactiveElementsDescription}
-                        </View>
-                    )}
-                    <LegacyGrid
-                        box={props.box}
-                        backgroundImage={props.backgroundImage}
-                    />
-                    <View
-                        style={{
-                            position: "absolute",
-                            bottom: 0,
-                            left: 0,
-                        }}
-                    >
-                        {props.markings === "graph" && (
-                            <>
-                                <AxisLabels />
-                            </>
-                        )}
-                        <Mafs
-                            preserveAspectRatio={false}
-                            viewBox={{
-                                x: state.range[X],
-                                y: state.range[Y],
-                                padding: 0,
-                            }}
-                            pan={false}
-                            zoom={false}
-                            width={width}
-                            height={height}
-                        >
-                            {/* Svg definitions to render only once */}
-                            <SvgDefs />
-                            {/* Cartesian grid nested in an SVG to lock to graph bounds */}
-                            <svg {...nestedSVGAttributes}>
-                                <Grid
-                                    gridStep={props.gridStep}
-                                    range={state.range}
-                                    containerSizeClass={
-                                        props.containerSizeClass
-                                    }
-                                    markings={props.markings}
-                                    width={width}
-                                    height={height}
-                                />
-                            </svg>
-                            {/* Axis Ticks, Labels, and Arrows */}
-                            {
-                                // Only render the axis ticks and arrows if the markings are set to a full "graph"
-                                props.markings === "graph" && (
-                                    <>
-                                        <AxisTicks />
-                                        <AxisArrows />
-                                    </>
-                                )
-                            }
-                            {/* Locked & Interactive elements nested an SVG to lock to graph bounds*/}
-                            <svg {...nestedSVGAttributes}>
-                                {/* Locked figures layer */}
-                                {props.lockedFigures && (
-                                    <GraphLockedLayer
-                                        flags={props.flags}
-                                        lockedFigures={props.lockedFigures}
-                                        range={state.range}
-                                    />
-                                )}
-                            </svg>
-                        </Mafs>
-                        {props.flags?.["mafs"]?.[
-                            "interactive-graph-locked-features-labels"
-                        ] &&
-                            props.lockedFigures && (
-                                <GraphLockedLabelsLayer
-                                    flags={props.flags}
-                                    lockedFigures={props.lockedFigures}
-                                />
-                            )}
-                        <View style={{position: "absolute"}}>
-                            <Mafs
-                                preserveAspectRatio={false}
-                                viewBox={{
-                                    x: state.range[X],
-                                    y: state.range[Y],
-                                    padding: 0,
-                                }}
-                                pan={false}
-                                zoom={false}
-                                width={width}
-                                height={height}
-                            >
-                                {/* Intearctive Elements are nested in an SVG to lock them to graph bounds */}
-                                <svg {...nestedSVGAttributes}>
-                                    {/* Protractor */}
-                                    {props.showProtractor && <Protractor />}
-                                    {/* Interactive layer */}
-                                    {graph}
-                                </svg>
-                            </Mafs>
-                        </View>
-                    </View>
-                    {interactionPrompt && (
-                        <View
-                            style={{
-                                display: interactionPrompt
-                                    ? undefined
-                                    : "hidden",
-                                textAlign: "center",
-                                backgroundColor: "white",
-                                border: "1px solid #21242C52",
-                                padding: "16px 0",
-                                boxShadow: "0px 8px 8px 0px #21242C14",
-
-                                // This translates the box to the center of the
-                                // graph Then backs it off by half of its
-                                // overall height so it's perfectly centered
-                                top: "50%",
-                                transform: "translateY(-50%)",
-                            }}
-                        >
-                            <LabelMedium id={unlimitedGraphKeyboardPromptId}>
-                                {strings.graphKeyboardPrompt}
-                            </LabelMedium>
-                        </View>
-                    )}
-                </View>
-                {renderGraphControls({
-                    state,
-                    dispatch,
-                    width,
-                    perseusStrings: strings,
-                })}
-            </View>
+            {isTrapFocusEnabled ? (
+                <FocusTrap isOpen={isTrapFocusEnabled} onClose={() => console}>
+                    {mafsGraphWithControls}
+                </FocusTrap>
+            ) : (
+                mafsGraphWithControls
+            )}
         </GraphConfigContext.Provider>
     );
 };
