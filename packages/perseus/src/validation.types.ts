@@ -166,9 +166,6 @@ export type PerseusMatrixUserInput = {
 export type PerseusNumberLineScoringData = {
     correctRel: string | null | undefined;
     correctX: number;
-} & PerseusNumberLineValidationData;
-
-export type PerseusNumberLineValidationData = {
     range: ReadonlyArray<number>;
     initialX: number | null | undefined;
     isInequality: boolean;

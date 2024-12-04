@@ -1,25 +1,16 @@
 import type {PerseusScore} from "../../types";
-import type {
-    PerseusNumberLineUserInput,
-    PerseusNumberLineValidationData,
-} from "../../validation.types";
+import type {PerseusNumberLineUserInput} from "../../validation.types";
 
 /**
  * Checks user input is within the allowed range and not the same as the initial
  * state.
  * @param userInput
- * @param validationData
  * @see 'scoreNumberLine' for the scoring logic.
  */
 function validateNumberLine(
     userInput: PerseusNumberLineUserInput,
-    validationData: PerseusNumberLineValidationData,
 ): Extract<PerseusScore, {type: "invalid"}> | null {
-    const range = validationData.range;
     const divisionRange = userInput.divisionRange;
-    const start =
-        validationData.initialX != null ? validationData.initialX : range[0];
-    const startRel = validationData.isInequality ? "ge" : "eq";
     const outsideAllowedRange =
         userInput.numDivisions > divisionRange[1] ||
         userInput.numDivisions < divisionRange[0];

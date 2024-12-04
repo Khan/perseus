@@ -16,14 +16,8 @@ describe("validateNumberLine", () => {
             numLinePosition: 10,
         };
 
-        const validationData: PerseusNumberLineValidationData = {
-            range: [-1.5, 1.5],
-            initialX: -1,
-            isInequality: false,
-        };
-
         // Act
-        const validationError = validateNumberLine(userInput, validationData);
+        const validationError = validateNumberLine(userInput);
 
         // Assert
         expect(validationError).toHaveInvalidInput(
@@ -41,14 +35,8 @@ describe("validateNumberLine", () => {
             numLinePosition: 0,
         };
 
-        const validationData: PerseusNumberLineValidationData = {
-            range: [-1.5, 1.5],
-            isInequality: false,
-            initialX: 0,
-        };
-
         // Act
-        const validationError = validateNumberLine(userInput, validationData);
+        const validationError = validateNumberLine(userInput);
 
         // Assert
         expect(validationError).toHaveInvalidInput();
@@ -64,14 +52,8 @@ describe("validateNumberLine", () => {
             numLinePosition: -1.5,
         };
 
-        const validationData: PerseusNumberLineValidationData = {
-            initialX: -1,
-            range: [-1.5, 1.5],
-            isInequality: false,
-        };
-
         // Act
-        const validationError = validateNumberLine(userInput, validationData);
+        const validationError = validateNumberLine(userInput);
 
         // Assert
         expect(validationError).toBeNull();

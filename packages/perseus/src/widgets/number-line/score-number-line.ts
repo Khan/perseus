@@ -12,7 +12,7 @@ function scoreNumberLine(
     userInput: PerseusNumberLineUserInput,
     scoringData: PerseusNumberLineScoringData,
 ): PerseusScore {
-    const validationError = validateNumberLine(userInput, scoringData);
+    const validationError = validateNumberLine(userInput);
     if (validationError) {
         return validationError;
     }
