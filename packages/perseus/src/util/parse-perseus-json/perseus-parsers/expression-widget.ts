@@ -10,6 +10,8 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
+import {convert} from "../general-purpose-parsers/convert";
+import {discriminatedUnion} from "../general-purpose-parsers/discriminated-union";
 
 import {parseWidgetWithVersion} from "./widget";
 
@@ -23,10 +25,6 @@ import type {
     Parser,
     ParseResult,
 } from "../parser-types";
-import {convert} from "../general-purpose-parsers/convert";
-import {
-    discriminatedUnion
-} from "../general-purpose-parsers/discriminated-union";
 
 const parsePossiblyInvalidAnswerForm = object({
     // `value` is the possibly invalid part of this. It should always be a
@@ -44,15 +42,15 @@ const parsePossiblyInvalidAnswerForm = object({
 function removeInvalidAnswerForms(
     possiblyInvalid: Array<ParsedValue<typeof parsePossiblyInvalidAnswerForm>>,
 ): PerseusExpressionAnswerForm[] {
-    const valid: PerseusExpressionAnswerForm[] = []
+    const valid: PerseusExpressionAnswerForm[] = [];
     for (const answerForm of possiblyInvalid) {
-        const {value} = answerForm
+        const {value} = answerForm;
         if (value != null) {
             // Copying the object seems to be needed to make TypeScript happy
-            valid.push({...answerForm, value})
+            valid.push({...answerForm, value});
         }
     }
-    return valid
+    return valid;
 }
 
 const version1 = object({major: constant(1), minor: number});
@@ -61,9 +59,9 @@ const parseExpressionWidgetV1: Parser<ExpressionWidget> =
         version1,
         constant("expression"),
         object({
-            answerForms: pipeParsers(array(parsePossiblyInvalidAnswerForm))
-                .then(convert(removeInvalidAnswerForms))
-                .parser,
+            answerForms: pipeParsers(
+                array(parsePossiblyInvalidAnswerForm),
+            ).then(convert(removeInvalidAnswerForms)).parser,
             functions: array(string),
             times: boolean,
             visibleLabel: optional(string),
@@ -138,10 +136,8 @@ function migrateV0ToV1(
     });
 }
 
-export const parseExpressionWidget: Parser<ExpressionWidget> = discriminatedUnion(
-    object({version: version1}),
-    parseExpressionWidgetV1,
-).or(
-    object({version: version0}),
-    pipeParsers(parseExpressionWidgetV0).then(migrateV0ToV1).parser,
-).parser;
+export const parseExpressionWidget: Parser<ExpressionWidget> =
+    discriminatedUnion(object({version: version1}), parseExpressionWidgetV1).or(
+        object({version: version0}),
+        pipeParsers(parseExpressionWidgetV0).then(migrateV0ToV1).parser,
+    ).parser;
