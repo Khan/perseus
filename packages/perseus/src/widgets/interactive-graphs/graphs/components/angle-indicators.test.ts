@@ -1,10 +1,6 @@
 import {getClockwiseAngle} from "../../math";
 
-import {
-    adjustCoordsForAngleCalculation,
-    getWholeAngleMeasure,
-    shouldDrawArcOutside,
-} from "./angle-indicators";
+import {shouldDrawArcOutside} from "./angle-indicators";
 
 import type {CollinearTuple} from "../../../../perseus-types";
 import type {Coord} from "@khanacademy/perseus";
@@ -106,69 +102,5 @@ describe("shouldDrawArcOutside", () => {
         const vertex = [0, 0] as vec.Vector2;
         const coords: [Coord, Coord, Coord] = [point1, vertex, point2];
         expect(getClockwiseAngle(coords)).toBe(45);
-    });
-});
-
-describe("getWholeAngleMeasure", () => {
-    test("should return 0 for no angle", () => {
-        const coords: [Coord, Coord, Coord] = [
-            [0, 0],
-            [0, 0],
-            [0, 0],
-        ];
-        const vertex = coords[1];
-
-        expect(getWholeAngleMeasure(coords, vertex)).toBe(0);
-    });
-
-    test("should return 270 for a reflex right angle", () => {
-        const coords: [Coord, Coord, Coord] = [
-            [0, 0],
-            [0, 1],
-            [1, 0],
-        ];
-        const vertex = coords[1];
-
-        expect(getWholeAngleMeasure(coords, vertex)).toBe(270);
-    });
-
-    test("should not return decimals for angle", () => {
-        const coords: [Coord, Coord, Coord] = [
-            [0, 0],
-            [7, 0.5],
-            [12.5, 2.5],
-        ];
-        const vertex = coords[1];
-        expect(getWholeAngleMeasure(coords, vertex)).toBe(184);
-    });
-});
-
-describe("getClockwiseCoords", () => {
-    test("should return the coordinates in clockwise order", () => {
-        const coords: [Coord, Coord, Coord] = [
-            [0, 0],
-            [0, 1],
-            [1, 1],
-        ];
-
-        expect(adjustCoordsForAngleCalculation(coords, coords[0])).toEqual(
-            coords,
-        );
-    });
-
-    test("should return the coordinates in counter-clockwise order when reflex angles are allowed", () => {
-        const coords: [Coord, Coord, Coord] = [
-            [0, 0],
-            [1, 0],
-            [0, 1],
-        ];
-
-        expect(
-            adjustCoordsForAngleCalculation(coords, coords[0], true),
-        ).toEqual([
-            [0, 1],
-            [1, 0],
-            [0, 0],
-        ]);
     });
 });
