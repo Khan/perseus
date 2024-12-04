@@ -8,6 +8,8 @@ import type {
     PerseusGroupUserInput,
 } from "../../validation.types";
 
+// The `group` widget is basically a widget hosting a full Perseus system in
+// it. As such, scoring a group means scoring all widgets it contains.
 function scoreGroup(
     userInput: PerseusGroupUserInput,
     options: PerseusGroupRubric,
