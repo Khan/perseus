@@ -9,22 +9,21 @@ import {testDependencies} from "../../../../testing/test-dependencies";
 import {
     dropdownWidget,
     imageWidget,
-    numericInputWidget,
+    inputNumberWidget,
     question1,
     question2,
     definitionItem,
     mockedRandomItem,
     mockedShuffledRadioProps,
-    numericInputWidget2,
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
-import InputNumberExport from "../widgets/numeric-input";
+import InputNumberExport from "../widgets/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
-import type {DropdownWidget} from "../perseus-types";
+import type {PerseusRenderer, DropdownWidget} from "../perseus-types";
 import type {APIOptions} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -49,7 +48,7 @@ describe("renderer", () => {
     beforeAll(() => {
         // TODO(LEMS-2656): remove TS suppression
         // @ts-expect-error: InputNumberExport is not assignable to type WidgetExports
-        registerWidget("numeric-input", InputNumberExport);
+        registerWidget("input-number", InputNumberExport);
         // TODO(LEMS-2656): remove TS suppression
         // @ts-expect-error: RadioWidgetExport is not assignable to type WidgetExports
         registerWidget("radio", RadioWidgetExport);
@@ -88,7 +87,7 @@ describe("renderer", () => {
             const {container} = renderQuestion(question1);
 
             // Act
-            await userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getByRole("combobox"));
             await userEvent.click(screen.getAllByRole("option")[2]);
             act(() => jest.runOnlyPendingTimers());
 
@@ -101,12 +100,42 @@ describe("renderer", () => {
             const {container} = renderQuestion(question1);
 
             // Act
-            await userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getByRole("combobox"));
             await userEvent.click(screen.getAllByRole("option")[1]);
             act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot("incorrect answer");
+        });
+
+        it("renders a placeholder for a deprecated widget", () => {
+            // Arrange
+            const question: PerseusRenderer = {
+                content: "[[☃ sequence 1]]",
+                images: {},
+                widgets: {
+                    "sequence 1": {
+                        type: "deprecated-standin",
+                        version: {major: 0, minor: 0},
+                        graded: true,
+                        options: {
+                            json: [
+                                {
+                                    content: "",
+                                    images: {},
+                                    widgets: {},
+                                },
+                            ],
+                        },
+                    },
+                },
+            };
+
+            // Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            expect(container).toMatchSnapshot("deprecated widget");
         });
     });
 
@@ -176,11 +205,13 @@ describe("renderer", () => {
             expect(renderer.state.widgetProps).toMatchInlineSnapshot(`
                 {
                   "dropdown 1": {
+                    "ariaLabel": "Test ARIA label",
                     "choices": [
                       "greater than or equal to",
                       "less than or equal to",
                     ],
                     "placeholder": "greater/less than or equal to",
+                    "visibleLabel": "Test visible label",
                   },
                 }
             `);
@@ -287,7 +318,7 @@ describe("renderer", () => {
             );
 
             // Assert
-            expect(screen.getByRole("button")).toHaveTextContent(
+            expect(screen.getByRole("combobox")).toHaveTextContent(
                 /^less than or equal to$/,
             );
         });
@@ -522,7 +553,7 @@ describe("renderer", () => {
                 screen.getByText("This is a placeholder"),
             ).toBeInTheDocument();
             // Make sure the 'dropdown' widget wasn't rendered!
-            expect(screen.queryAllByRole("button")).toHaveLength(0);
+            expect(screen.queryAllByRole("combobox")).toHaveLength(0);
         });
 
         it("should render columns", () => {
@@ -776,7 +807,7 @@ describe("renderer", () => {
             originalWidgetProps = clone(renderer.state.widgetProps);
 
             // Poke the renderer so it's not in it's initial-render state
-            await userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getByRole("combobox"));
             act(() => jest.runOnlyPendingTimers()); // There's a setTimeout to open the dropdown
             await userEvent.click(screen.getAllByRole("option")[1]);
         });
@@ -845,11 +876,11 @@ describe("renderer", () => {
             // Arrange
             const question = {
                 content:
-                    "A dropdown [[☃ dropdown 1]]\nAn input [[☃ numeric-input 1]]\n\nAnd an image [[☃ image 1]].",
+                    "A dropdown [[☃ dropdown 1]]\nAn input [[☃ input-number 1]]\n\nAnd an image [[☃ image 1]].",
                 images: {},
                 widgets: {
                     "dropdown 1": dropdownWidget,
-                    "numeric-input 1": numericInputWidget,
+                    "input-number 1": inputNumberWidget,
                     "image 1": imageWidget,
                 },
             } as const;
@@ -911,11 +942,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Enter 1 in this field: [[☃ numeric-input 1]].\n\n" +
-                        "Enter 2 in this field: [[☃ numeric-input 2]] $60$.",
+                        "Enter 1 in this field: [[☃ input-number 1]].\n\n" +
+                        "Enter 2 in this field: [[☃ input-number 2]] $60$.",
                     widgets: {
-                        "numeric-input 1": question2.widgets["numeric-input 1"],
-                        "numeric-input 2": question2.widgets["numeric-input 1"],
+                        "input-number 1": question2.widgets["input-number 1"],
+                        "input-number 2": question2.widgets["input-number 1"],
                     },
                 },
                 {onFocusChange},
@@ -926,7 +957,7 @@ describe("renderer", () => {
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
-                /* new focus path */ ["numeric-input 2"],
+                /* new focus path */ ["input-number 2"],
                 /* old focus path */ null,
             );
         });
@@ -938,11 +969,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Enter 1 in this field: [[☃ numeric-input 1]].\n\n" +
-                        "Enter 2 in this field: [[☃ numeric-input 2]] $60$.",
+                        "Enter 1 in this field: [[☃ input-number 1]].\n\n" +
+                        "Enter 2 in this field: [[☃ input-number 2]] $60$.",
                     widgets: {
-                        "numeric-input 1": question2.widgets["numeric-input 1"],
-                        "numeric-input 2": question2.widgets["numeric-input 1"],
+                        "input-number 1": question2.widgets["input-number 1"],
+                        "input-number 2": question2.widgets["input-number 1"],
                     },
                 },
                 {onFocusChange},
@@ -958,7 +989,7 @@ describe("renderer", () => {
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
                 /* new focus path */ null,
-                /* old focus path */ ["numeric-input 2"],
+                /* old focus path */ ["input-number 2"],
             );
         });
 
@@ -981,7 +1012,7 @@ describe("renderer", () => {
             const {renderer} = renderQuestion(question2);
 
             // Act
-            act(() => renderer.focusPath(["numeric-input 1"]));
+            act(() => renderer.focusPath(["input-number 1"]));
 
             // Assert
             expect(screen.getByRole("textbox")).toHaveFocus();
@@ -993,11 +1024,11 @@ describe("renderer", () => {
             const {renderer} = renderQuestion(question2, {
                 onFocusChange,
             });
-            act(() => renderer.focusPath(["numeric-input 1"]));
+            act(() => renderer.focusPath(["input-number 1"]));
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.focusPath(["numeric-input 1"]));
+            act(() => renderer.focusPath(["input-number 1"]));
 
             // Assert
             expect(onFocusChange).not.toHaveBeenCalled();
@@ -1010,25 +1041,25 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Input 1: [[☃ numeric-input 1]]\n\n" +
-                        "Input 2: [[☃ numeric-input 2]]",
+                        "Input 1: [[☃ input-number 1]]\n\n" +
+                        "Input 2: [[☃ input-number 2]]",
                     widgets: {
                         ...question2.widgets,
-                        "numeric-input 2": question2.widgets["numeric-input 1"],
+                        "input-number 2": question2.widgets["input-number 1"],
                     },
                 },
                 {onFocusChange},
             );
-            act(() => renderer.focusPath(["numeric-input 1"]));
+            act(() => renderer.focusPath(["input-number 1"]));
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.focusPath(["numeric-input 2"]));
+            act(() => renderer.focusPath(["input-number 2"]));
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
-                ["numeric-input 2"], // New focus
-                ["numeric-input 1"], // Old focus
+                ["input-number 2"], // New focus
+                ["input-number 1"], // Old focus
             );
         });
 
@@ -1039,11 +1070,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Input 1: [[☃ numeric-input 1]]\n\n" +
-                        "Input 2: [[☃ numeric-input 2]]",
+                        "Input 1: [[☃ input-number 1]]\n\n" +
+                        "Input 2: [[☃ input-number 2]]",
                     widgets: {
                         ...question2.widgets,
-                        "numeric-input 2": question2.widgets["numeric-input 1"],
+                        "input-number 2": question2.widgets["input-number 1"],
                     },
                 },
                 {onFocusChange},
@@ -1053,7 +1084,7 @@ describe("renderer", () => {
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.blurPath(["numeric-input 1"]));
+            act(() => renderer.blurPath(["input-number 1"]));
 
             // Assert
             expect(onFocusChange).not.toHaveBeenCalled();
@@ -1066,11 +1097,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Input 1: [[☃ numeric-input 1]]\n\n" +
-                        "Input 2: [[☃ numeric-input 2]]",
+                        "Input 1: [[☃ input-number 1]]\n\n" +
+                        "Input 2: [[☃ input-number 2]]",
                     widgets: {
                         ...question2.widgets,
-                        "numeric-input 2": question2.widgets["numeric-input 1"],
+                        "input-number 2": question2.widgets["input-number 1"],
                     },
                 },
                 {onFocusChange},
@@ -1086,7 +1117,7 @@ describe("renderer", () => {
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
                 null, // New focus
-                ["numeric-input 2"], // Old focus
+                ["input-number 2"], // Old focus
             );
         });
 
@@ -1097,11 +1128,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Input 1: [[☃ numeric-input 1]]\n\n" +
-                        "Input 2: [[☃ numeric-input 2]]",
+                        "Input 1: [[☃ input-number 1]]\n\n" +
+                        "Input 2: [[☃ input-number 2]]",
                     widgets: {
                         ...question2.widgets,
-                        "numeric-input 2": question2.widgets["numeric-input 1"],
+                        "input-number 2": question2.widgets["input-number 1"],
                     },
                 },
                 {onFocusChange},
@@ -1318,7 +1349,7 @@ describe("renderer", () => {
                 },
             });
 
-            expect(screen.getByRole("button")).toHaveTextContent(
+            expect(screen.getByRole("combobox")).toHaveTextContent(
                 /greater than or equal to/,
             );
         });
@@ -1337,7 +1368,7 @@ describe("renderer", () => {
             });
 
             // Assert
-            let el = screen.getByRole("button");
+            let el = screen.getByRole("combobox");
             while (el != null) {
                 if (el.classList.contains("widget-full-width")) {
                     break;
@@ -1406,13 +1437,13 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ numeric-input 1]]\n\n" +
-                    "Input 2: [[☃ numeric-input 2]]\n\n" +
+                    "Input 1: [[☃ input-number 1]]\n\n" +
+                    "Input 2: [[☃ input-number 2]]\n\n" +
                     "A widget that doesn't implement getUserInput: [[☃ image 1]]",
                 widgets: {
                     ...question2.widgets,
-                    "numeric-input 2": {
-                        ...question2.widgets["numeric-input 1"],
+                    "input-number 2": {
+                        ...question2.widgets["input-number 1"],
                         static: true,
                     },
                     "image 1": {
@@ -1450,13 +1481,13 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ numeric-input 1]]\n\n" +
-                    "Input 2: [[☃ numeric-input 2]]\n\n" +
+                    "Input 1: [[☃ input-number 1]]\n\n" +
+                    "Input 2: [[☃ input-number 2]]\n\n" +
                     "A widget that doesn't implement getUserInput: [[☃ image 1]]",
                 widgets: {
                     ...question2.widgets,
-                    "numeric-input 2": {
-                        ...question2.widgets["numeric-input 1"],
+                    "input-number 2": {
+                        ...question2.widgets["input-number 1"],
                         static: true,
                     },
                     "image 1": {
@@ -1478,8 +1509,8 @@ describe("renderer", () => {
 
             // Assert
             expect(widgetIds).toStrictEqual([
-                "numeric-input 1",
-                "numeric-input 2",
+                "input-number 1",
+                "input-number 2",
                 "image 1",
             ]);
         });
@@ -1494,9 +1525,8 @@ describe("renderer", () => {
             const node = renderer.getDOMNodeForPath(["dropdown 1"]);
 
             // Assert
-            // "button" role is the WB dropdown's "opener" element
             // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
-            expect(within(node).queryAllByRole("button")).toHaveLength(1);
+            expect(within(node).queryAllByRole("combobox")).toHaveLength(1);
         });
 
         it("should return the widget's getDOMNodeForPath() result for the widget at requested FocusPath", () => {
@@ -1569,11 +1599,11 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ numeric-input 1]]\n\n" +
-                    "Input 2: [[☃ numeric-input 2]]",
+                    "Input 1: [[☃ input-number 1]]\n\n" +
+                    "Input 2: [[☃ input-number 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "numeric-input 2": question2.widgets["numeric-input 1"],
+                    "input-number 2": question2.widgets["input-number 1"],
                 },
             });
             await userEvent.type(screen.getAllByRole("textbox")[0], "150");
@@ -1582,7 +1612,7 @@ describe("renderer", () => {
             const emptyWidgets = renderer.emptyWidgets();
 
             // Assert
-            expect(emptyWidgets).toStrictEqual(["numeric-input 2"]);
+            expect(emptyWidgets).toStrictEqual(["input-number 2"]);
         });
 
         it("should not return static widgets even if empty", () => {
@@ -1590,12 +1620,12 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ numeric-input 1]]\n\n" +
-                    "Input 2: [[☃ numeric-input 2]]",
+                    "Input 1: [[☃ input-number 1]]\n\n" +
+                    "Input 2: [[☃ input-number 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "numeric-input 2": {
-                        ...question2.widgets["numeric-input 1"],
+                    "input-number 2": {
+                        ...question2.widgets["input-number 1"],
                         static: true,
                     },
                 },
@@ -1605,7 +1635,7 @@ describe("renderer", () => {
             const emptyWidgets = renderer.emptyWidgets();
 
             // Assert
-            expect(emptyWidgets).toStrictEqual(["numeric-input 1"]);
+            expect(emptyWidgets).toStrictEqual(["input-number 1"]);
         });
 
         it("should return widget ID for group with empty widget", () => {
@@ -1655,12 +1685,12 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ numeric-input 1]]\n\n" +
-                    "Input 2: [[☃ numeric-input 2]]",
+                    "Input 1: [[☃ input-number 1]]\n\n" +
+                    "Input 2: [[☃ input-number 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "numeric-input 2": {
-                        ...question2.widgets["numeric-input 1"],
+                    "input-number 2": {
+                        ...question2.widgets["input-number 1"],
                         static: true,
                     },
                 },
@@ -1668,7 +1698,7 @@ describe("renderer", () => {
             const cb = jest.fn();
 
             // Act
-            act(() => renderer.setInputValue(["numeric-input 2"], "1000", cb));
+            act(() => renderer.setInputValue(["input-number 2"], "1000", cb));
 
             // Assert
             expect(screen.getAllByRole("textbox")[0]).toHaveValue("");
@@ -1680,12 +1710,12 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ numeric-input 1]]\n\n" +
-                    "Input 2: [[☃ numeric-input 2]]",
+                    "Input 1: [[☃ input-number 1]]\n\n" +
+                    "Input 2: [[☃ input-number 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "numeric-input 2": {
-                        ...question2.widgets["numeric-input 1"],
+                    "input-number 2": {
+                        ...question2.widgets["input-number 1"],
                         static: true,
                     },
                 },
@@ -1693,7 +1723,7 @@ describe("renderer", () => {
             const cb = jest.fn();
 
             // Act
-            act(() => renderer.setInputValue(["numeric-input 2"], "1000", cb));
+            act(() => renderer.setInputValue(["input-number 2"], "1000", cb));
             act(() => jest.runOnlyPendingTimers());
 
             // Assert
@@ -1706,14 +1736,14 @@ describe("renderer", () => {
             // Arrange
             const {renderer} = renderQuestion({
                 content:
-                    "Input widget: [[\u2603 numeric-input 1]]\n\n" +
+                    "Input widget: [[\u2603 input-number 1]]\n\n" +
                     "Dropdown widget: [[\u2603 dropdown 1]]\n\n" +
                     "Image widget (won't have user input): [[\u2603 image 1]]\n\n" +
-                    "Another input widget: [[\u2603 numeric-input 2]]",
+                    "Another input widget: [[\u2603 input-number 2]]",
                 widgets: {
                     "image 1": imageWidget,
-                    "numeric-input 1": numericInputWidget,
-                    "numeric-input 2": numericInputWidget,
+                    "input-number 1": inputNumberWidget,
+                    "input-number 2": inputNumberWidget,
                     "dropdown 1": dropdownWidget,
                 },
                 images: {},
@@ -1723,7 +1753,7 @@ describe("renderer", () => {
             await userEvent.type(screen.getAllByRole("textbox")[1], "200");
 
             // Open the dropdown and select the second (idx: 1) item
-            await userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getByRole("combobox"));
             act(() => jest.runOnlyPendingTimers());
             await userEvent.click(screen.getAllByRole("option")[1]);
             act(() => jest.runOnlyPendingTimers());
@@ -1737,10 +1767,10 @@ describe("renderer", () => {
                   "dropdown 1": {
                     "value": 1,
                   },
-                  "numeric-input 1": {
+                  "input-number 1": {
                     "currentValue": "100",
                   },
-                  "numeric-input 2": {
+                  "input-number 2": {
                     "currentValue": "200",
                   },
                 }
@@ -1769,14 +1799,14 @@ describe("renderer", () => {
             // Arrange
             const {renderer} = renderQuestion({
                 content:
-                    "Input widget: [[\u2603 numeric-input 1]]\n\n" +
+                    "Input widget: [[\u2603 input-number 1]]\n\n" +
                     "Dropdown widget: [[\u2603 dropdown 1]]\n\n" +
                     "Image widget (won't have user input): [[\u2603 image 1]]\n\n" +
-                    "Another input widget: [[\u2603 numeric-input 2]]",
+                    "Another input widget: [[\u2603 input-number 2]]",
                 widgets: {
                     "image 1": imageWidget,
-                    "numeric-input 1": numericInputWidget,
-                    "numeric-input 2": numericInputWidget,
+                    "input-number 1": inputNumberWidget,
+                    "input-number 2": inputNumberWidget,
                     "dropdown 1": dropdownWidget,
                 },
                 images: {},
@@ -1786,16 +1816,13 @@ describe("renderer", () => {
             const examples = renderer.examples();
 
             // Assert
-
             expect(examples).toMatchInlineSnapshot(`
                 [
                   "**Your answer should be** ",
                   "an integer, like $6$",
-                  "a *simplified proper* fraction, like $3/5$",
-                  "a *simplified improper* fraction, like $7/4$",
+                  "a *proper* fraction, like $1/2$ or $6/10$",
+                  "an *improper* fraction, like $10/7$ or $14/8$",
                   "a mixed number, like $1\\ 3/4$",
-                  "an *exact* decimal, like $0.75$",
-                  "a multiple of pi, like $12\\ \\text{pi}$ or $2/3\\ \\text{pi}$",
                 ]
             `);
         });
@@ -1808,17 +1835,18 @@ describe("renderer", () => {
             // Arrange
             const {renderer} = renderQuestion({
                 content:
-                    "Input widget: [[\u2603 numeric-input 1]]\n\n" +
+                    "Input widget: [[\u2603 input-number 1]]\n\n" +
                     "Dropdown widget: [[\u2603 dropdown 1]]\n\n" +
                     "Image widget (won't have user input): [[\u2603 image 1]]\n\n" +
-                    "Another input widget: [[\u2603 numeric-input 2]]",
+                    "Another input widget: [[\u2603 input-number 2]]",
                 widgets: {
                     "image 1": imageWidget,
-                    "numeric-input 1": numericInputWidget,
-                    "numeric-input 2": {
-                        ...numericInputWidget2,
+                    "input-number 1": inputNumberWidget,
+                    "input-number 2": {
+                        ...inputNumberWidget,
                         options: {
-                            ...numericInputWidget2.options,
+                            ...inputNumberWidget.options,
+                            answerType: "percent",
                         },
                     },
                     "dropdown 1": dropdownWidget,

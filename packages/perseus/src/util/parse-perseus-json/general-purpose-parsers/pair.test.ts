@@ -1,8 +1,8 @@
 import {success} from "../result";
 
-import {composeParsers} from "./compose-parsers";
 import {number} from "./number";
 import {pair} from "./pair";
+import {pipeParsers} from "./pipe-parsers";
 import {string} from "./string";
 import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 
@@ -72,9 +72,9 @@ describe("pair", () => {
     });
 
     it("returns the parsed values from each of its sub-parsers", () => {
-        const increment = composeParsers(number, (x, ctx) =>
+        const increment = pipeParsers(number).then((x, ctx) =>
             ctx.success(x + 1),
-        );
+        ).parser;
         const incrementBoth = pair(increment, increment);
         expect(incrementBoth([1, 5], ctx())).toEqual(success([2, 6]));
     });

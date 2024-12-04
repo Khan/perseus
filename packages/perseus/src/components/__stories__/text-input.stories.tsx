@@ -12,11 +12,6 @@ const meta: Meta = {
         onBlur: action("onBlur"),
         onFocus: action("onFocus"),
     },
-    argTypes: {
-        onChange: {control: {type: null}},
-        onBlur: {control: {type: null}},
-        onFocus: {control: {type: null}},
-    },
 };
 export default meta;
 

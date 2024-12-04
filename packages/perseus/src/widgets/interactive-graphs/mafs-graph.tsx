@@ -64,12 +64,12 @@ export type MafsGraphProps = {
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
     step: InteractiveGraphProps["step"];
-    gridStep: InteractiveGraphProps["gridStep"];
+    gridStep: [x: number, y: number];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
-    labels: InteractiveGraphProps["labels"];
+    labels: ReadonlyArray<string>;
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     state: InteractiveGraphState;
@@ -94,6 +94,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const uniqueId = React.useId();
     const descriptionId = `interactive-graph-description-${uniqueId}`;
     const interactiveElementsDescriptionId = `interactive-graph-interactive-elements-description-${uniqueId}`;
+    const unlimitedGraphKeyboardPromptId = `unlimited-graph-keyboard-prompt-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
     const {analytics} = useDependencies();
 
@@ -173,6 +174,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         fullGraphAriaDescription && descriptionId,
                         interactiveElementsDescription &&
                             interactiveElementsDescriptionId,
+                        isUnlimitedGraphState(state) &&
+                            "unlimited-graph-keyboard-prompt",
                     )}
                     ref={graphRef}
                     tabIndex={0}
@@ -301,6 +304,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     {interactionPrompt && (
                         <View
                             style={{
+                                display: interactionPrompt
+                                    ? undefined
+                                    : "hidden",
                                 textAlign: "center",
                                 backgroundColor: "white",
                                 border: "1px solid #21242C52",
@@ -314,7 +320,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 transform: "translateY(-50%)",
                             }}
                         >
-                            <LabelMedium>
+                            <LabelMedium id={unlimitedGraphKeyboardPromptId}>
                                 {strings.graphKeyboardPrompt}
                             </LabelMedium>
                         </View>
@@ -414,6 +420,10 @@ const renderPolygonGraphControls = (props: {
     const shouldShowRemoveButton =
         showRemovePointButton && focusedPointIndex !== null;
 
+    // We want to disable the closePolygon button when
+    // there are not enough coords to make a polygon
+    const disableCloseButton = coords.length < 3;
+
     // If polygon is closed, show open button.
     // If polygon is open, show close button.
     const polygonButton = closedPolygon ? (
@@ -435,12 +445,12 @@ const renderPolygonGraphControls = (props: {
             kind="secondary"
             // Conditional disable when there are less than 3 points in
             // the graph
-            disabled={coords.length < 3}
+            disabled={disableCloseButton}
             style={{
                 width: "100%",
                 marginLeft: "20px",
             }}
-            tabIndex={0}
+            tabIndex={disableCloseButton ? -1 : 0}
             onClick={() => {
                 props.dispatch(actions.polygon.closePolygon());
             }}

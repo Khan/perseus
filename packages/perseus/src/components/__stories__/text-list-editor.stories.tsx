@@ -12,9 +12,6 @@ const meta: Meta = {
         options: ["Test option 1", "Test option 2", "Test option 3"],
         onChange: action("onChange"),
     },
-    argTypes: {
-        onChange: {control: {type: null}},
-    },
     decorators: [
         (Story) => (
             <div className={"framework-perseus orderer"}>

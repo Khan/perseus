@@ -1,4 +1,3 @@
-/* eslint-disable @babel/no-invalid-this */
 /**
  * Default methods for a wrapped movable.
  */

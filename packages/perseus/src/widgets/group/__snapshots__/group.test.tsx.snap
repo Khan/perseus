@@ -755,15 +755,20 @@ exports[`group widget should snapshot: initial render 1`] = `
                           <span>
                             <div>
                               <input
+                                aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                                 aria-invalid="false"
                                 aria-label="value rounded to the nearest ten"
                                 autocapitalize="off"
                                 autocomplete="off"
                                 autocorrect="off"
-                                class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_19vw1dn"
+                                class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1y6ajxo"
                                 id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                                 type="text"
                                 value=""
+                              />
+                              <span
+                                id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                                style="display: none;"
                               />
                             </div>
                             <div
@@ -771,6 +776,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             >
                               <div
                                 class="tooltipContainer"
+                                role="tooltip"
                                 style="position: absolute; left: 0px;"
                               >
                                 <div
@@ -797,12 +803,20 @@ exports[`group widget should snapshot: initial render 1`] = `
                                         class="paragraph"
                                         data-perseus-paragraph-index="0"
                                       >
+                                        <div
+                                          class="paragraph"
+                                        >
+                                          <strong>
+                                            Your answer should be
+                                          </strong>
+                                           
+                                        </div>
+                                      </div>
+                                      <div
+                                        class="paragraph"
+                                        data-perseus-paragraph-index="1"
+                                      >
                                         <ul>
-                                          <li>
-                                            <strong>
-                                              Your answer should be
-                                            </strong>
-                                          </li>
                                           <li>
                                             an integer, like 
                                             <span
@@ -960,15 +974,20 @@ exports[`group widget should snapshot: initial render 1`] = `
                           <span>
                             <div>
                               <input
+                                aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAy"
                                 aria-invalid="false"
                                 aria-label="value rounded to the nearest hundred"
                                 autocapitalize="off"
                                 autocomplete="off"
                                 autocorrect="off"
-                                class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_19vw1dn"
+                                class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1y6ajxo"
                                 id="input-with-examples-bnVtZXJpYy1pbnB1dCAy"
                                 type="text"
                                 value=""
+                              />
+                              <span
+                                id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAy"
+                                style="display: none;"
                               />
                             </div>
                             <div
@@ -976,6 +995,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             >
                               <div
                                 class="tooltipContainer"
+                                role="tooltip"
                                 style="position: absolute; left: 0px;"
                               >
                                 <div
@@ -1002,12 +1022,20 @@ exports[`group widget should snapshot: initial render 1`] = `
                                         class="paragraph"
                                         data-perseus-paragraph-index="0"
                                       >
+                                        <div
+                                          class="paragraph"
+                                        >
+                                          <strong>
+                                            Your answer should be
+                                          </strong>
+                                           
+                                        </div>
+                                      </div>
+                                      <div
+                                        class="paragraph"
+                                        data-perseus-paragraph-index="1"
+                                      >
                                         <ul>
-                                          <li>
-                                            <strong>
-                                              Your answer should be
-                                            </strong>
-                                          </li>
                                           <li>
                                             an integer, like 
                                             <span

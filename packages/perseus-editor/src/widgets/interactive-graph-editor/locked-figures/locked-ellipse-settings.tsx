@@ -22,8 +22,8 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
-    generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -68,22 +68,15 @@ const LockedEllipseSettings = (props: Props) => {
      * with the math details converted into spoken words.
      */
     async function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
         const isCircle = radius[0] === radius[1];
         let str = "";
 
         if (isCircle) {
-            str += await generateSpokenMathDetails(
-                `Circle${visiblelabel} with radius ${radius[0]}`,
-            );
+            str += `Circle${visiblelabel} with radius ${radius[0]}`;
         } else {
-            str += await generateSpokenMathDetails(
-                `Ellipse${visiblelabel} with x radius ${radius[0]} and y radius ${radius[1]}`,
-            );
+            str += `Ellipse${visiblelabel} with x radius ${radius[0]} and y radius ${radius[1]}`;
         }
 
         str += `, centered at (${center[0]}, ${center[1]})`;
@@ -133,7 +126,7 @@ const LockedEllipseSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -213,8 +206,7 @@ const LockedEllipseSettings = (props: Props) => {
                 {/* Color */}
                 <ColorSelect
                     selectedValue={color}
-                    // TODO(LEMS-2656): remove TS suppression
-                    onChange={handleColorChange as any}
+                    onChange={handleColorChange}
                 />
                 <Strut size={spacing.medium_16} />
 
@@ -249,11 +241,7 @@ const LockedEllipseSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
-                // TODO(LEMS-2656): remove TS suppression
-                onChange={
-                    ((value: "solid" | "dashed") =>
-                        onChangeProps({strokeStyle: value})) as any
-                }
+                onChange={(value) => onChangeProps({strokeStyle: value})}
             />
 
             {/* Aria label */}
@@ -284,13 +272,11 @@ const LockedEllipseSettings = (props: Props) => {
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
+                            key={labelIndex}
                             expanded={true}
-                            // TODO(LEMS-2656): remove TS suppression
-                            onChangeProps={
-                                ((newLabel: LockedLabelType) => {
-                                    handleLabelChange(newLabel, labelIndex);
-                                }) as any
-                            }
+                            onChangeProps={(newLabel) => {
+                                handleLabelChange(newLabel, labelIndex);
+                            }}
                             onRemove={() => {
                                 handleLabelRemove(labelIndex);
                             }}

@@ -8,6 +8,7 @@ import {
     optional,
     nullable,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
@@ -24,7 +25,10 @@ export const parseNumberLineWidget: Parser<NumberLineWidget> = parseWidget(
         isTickCtrl: optional(nullable(boolean)),
         divisionRange: array(number),
         numDivisions: optional(nullable(number)),
-        snapDivisions: number,
+        // NOTE(benchristel): I copied the default snapDivisions from
+        // number-line.tsx. See the parse-perseus-json/README.md for
+        // an explanation of why we want to duplicate the default here.
+        snapDivisions: defaulted(number, () => 2),
         tickStep: optional(nullable(number)),
         correctRel: optional(nullable(string)),
         correctX: number,

@@ -7,6 +7,7 @@ import {
     optional,
     string,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
@@ -19,7 +20,7 @@ export const parseRadioWidget: Parser<RadioWidget> = parseWidget(
     object({
         choices: array(
             object({
-                content: string,
+                content: defaulted(string, () => ""),
                 clue: optional(string),
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),

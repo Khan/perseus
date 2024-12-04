@@ -28,11 +28,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "1",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -52,11 +52,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "sadasdfas",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveInvalidInput(
             "We could not understand your answer. Please check your answer for extra text or symbols.",
@@ -143,11 +143,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "1.0",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -167,11 +167,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "1.3",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -191,11 +191,11 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const useInput = {
+        const userInput = {
             currentValue: "1.12",
         } as const;
 
-        const score = scoreNumericInput(useInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, rubric, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -286,6 +286,141 @@ describe("static function validate", () => {
 
         // Assert - "incomplete"
         expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("rejects responses formatted as a percentage when any answer has no value field", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    // This answer is missing its value field.
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+                {
+                    // This is the actual correct answer
+                    value: 0.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const score = scoreNumericInput(
+            {currentValue: "50%"},
+            rubric,
+            mockStrings,
+        );
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("converts a percentage input value to a decimal", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 0.2,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const score = scoreNumericInput(
+            {currentValue: "20%"},
+            rubric,
+            mockStrings,
+        );
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("rejects percentages greater than 100%", () => {
+        // TODO(benchristel): This seems like incorrect behavior. I've added
+        // this test to characterize the current behavior. Feel free to
+        // delete/change it if it's in your way.
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 1.2,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const score = scoreNumericInput(
+            {currentValue: "120%"},
+            rubric,
+            mockStrings,
+        );
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("accepts answers with an extra, incorrect percent sign if > 1", () => {
+        // TODO(benchristel): This seems like incorrect behavior. I've added
+        // this test to characterize the current behavior. Feel free to
+        // delete/change it if it's in your way.
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 1.1,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const score = scoreNumericInput(
+            {currentValue: "1.1%"},
+            rubric,
+            mockStrings,
+        );
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("rejects answers with an extra, incorrect percent sign if < 1", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 0.9,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const score = scoreNumericInput(
+            {currentValue: "0.9%"},
+            rubric,
+            mockStrings,
+        );
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 });
 

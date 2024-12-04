@@ -34,8 +34,8 @@ import LockedLabelSettings from "./locked-label-settings";
 import PolygonSwatch from "./polygon-swatch";
 import {
     generateLockedFigureAppearanceDescription,
-    generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -70,14 +70,9 @@ const LockedPolygonSettings = (props: Props) => {
      * with the math details converted into spoken words.
      */
     async function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
-        let str = await generateSpokenMathDetails(
-            `Polygon${visiblelabel} with ${points.length} sides, vertices at `,
-        );
+        let str = `Polygon${visiblelabel} with ${points.length} sides, vertices at `;
 
         // Add the coordinates of each point to the aria label
         str += points.map(([x, y]) => `(${x}, ${y})`).join(", ");
@@ -147,7 +142,7 @@ const LockedPolygonSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -194,8 +189,7 @@ const LockedPolygonSettings = (props: Props) => {
                 {/* Color */}
                 <ColorSelect
                     selectedValue={color}
-                    // TODO(LEMS-2656): remove TS suppression
-                    onChange={handleColorChange as any}
+                    onChange={handleColorChange}
                 />
                 <Strut size={spacing.medium_16} />
 
@@ -230,11 +224,7 @@ const LockedPolygonSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
-                // TODO(LEMS-2656): remove TS suppression
-                onChange={
-                    ((value: "solid" | "dashed") =>
-                        onChangeProps({strokeStyle: value})) as any
-                }
+                onChange={(value) => onChangeProps({strokeStyle: value})}
             />
 
             {/* Show vertices switch */}
@@ -375,13 +365,11 @@ const LockedPolygonSettings = (props: Props) => {
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
+                            key={labelIndex}
                             expanded={true}
-                            // TODO(LEMS-2656): remove TS suppression
-                            onChangeProps={
-                                ((newLabel: LockedLabelType) => {
-                                    handleLabelChange(newLabel, labelIndex);
-                                }) as any
-                            }
+                            onChangeProps={(newLabel) => {
+                                handleLabelChange(newLabel, labelIndex);
+                            }}
                             onRemove={() => {
                                 handleLabelRemove(labelIndex);
                             }}

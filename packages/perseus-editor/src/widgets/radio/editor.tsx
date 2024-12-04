@@ -293,6 +293,7 @@ class RadioEditor extends React.Component<any> {
                             "https://docs.google.com/document/d/1frZf7yrWVWb1n4tVjqlzqVUiv1pn4cZXbxgP62-JDBY/edit#heading=h.8ng1isya19nu"
                         }
                         target="_blank"
+                        rel="noreferrer"
                     >
                         Multiple choice style guide
                     </a>
