@@ -133,6 +133,7 @@ export type PerseusStrings = {
     addPoint: string;
     removePoint: string;
     graphKeyboardPrompt: string;
+    // The following strings are used for interactive graph SR descriptions.
     closePolygon: string;
     openPolygon: string;
     srPointAtCoordinates: ({
@@ -146,6 +147,41 @@ export type PerseusStrings = {
     }) => string;
     srInteractiveElements: ({elements}: {elements: string}) => string;
     srNoInteractiveElements: string;
+    circleGraphAriaLabel: string;
+    circleShapeAriaLabel: ({
+        centerX,
+        centerY,
+    }: {
+        centerX: number;
+        centerY: number;
+    }) => string;
+    circleRadiusPointAriaLabel: ({
+        radiusPointX,
+        radiusPointY,
+    }: {
+        radiusPointX: number;
+        radiusPointY: number;
+    }) => string;
+    circleRadiusDescription: ({radius}: {radius: number}) => string;
+    circleOuterPointsDescription: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        point3X,
+        point3Y,
+        point4X,
+        point4Y,
+    }: {
+        point1X: number;
+        point1Y: number;
+        point2X: number;
+        point2Y: number;
+        point3X: number;
+        point3Y: number;
+        point4X: number;
+        point4Y: number;
+    }) => string;
 };
 
 /**
@@ -334,6 +370,32 @@ export const strings: {
         context: "Screenreader-accessible description of a point on a graph",
         message: "Point %(num)s at %(x)s comma %(y)s",
     },
+    circleGraphAriaLabel: {
+        context: "Aria label for the circle graph as a whole.",
+        message: "A circle on a coordinate plane.",
+    },
+    circleShapeAriaLabel: {
+        context:
+            "Aria label for the interactive circle shape in a circle graph.",
+        message:
+            "Circle. The center point is at %(centerX)s comma %(centerY)s.",
+    },
+    circleRadiusPointAriaLabel: {
+        context:
+            "Aria label for the interactive point that sits on the edge of the circle in a circle graph. Moving this point updates the radius of the circle",
+        message: "Radius point at %(radiusPointX)s comma %(radiusPointY)s.",
+    },
+    circleRadiusDescription: {
+        context:
+            "Screenreader-only description of the radius of a circle in a circle graph.",
+        message: "Circle radius is %(radius)s.",
+    },
+    circleOuterPointsDescription: {
+        context:
+            "Screenreader-only description of key points on a circle in a circle graph.",
+        message:
+            "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
+    },
 };
 
 /**
@@ -493,9 +555,28 @@ export const mockStrings: PerseusStrings = {
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
+
+    // The following strings are used for interactive graph SR descriptions.
     closePolygon: "Close shape",
     openPolygon: "Re-open shape",
     srPointAtCoordinates: ({num, x, y}) => `Point ${num} at ${x} comma ${y}`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
+    circleGraphAriaLabel: "A circle on a coordinate plane.",
+    circleShapeAriaLabel: ({centerX, centerY}) =>
+        `Circle. The center point is at ${centerX} comma ${centerY}.`,
+    circleRadiusPointAriaLabel: ({radiusPointX, radiusPointY}) =>
+        `Radius point at ${radiusPointX} comma ${radiusPointY}.`,
+    circleRadiusDescription: ({radius}) => `Circle radius is ${radius}.`,
+    circleOuterPointsDescription: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        point3X,
+        point3Y,
+        point4X,
+        point4Y,
+    }) =>
+        `Points on the circle at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, ${point3X} comma ${point3Y}, ${point4X} comma ${point4Y}.`,
 };

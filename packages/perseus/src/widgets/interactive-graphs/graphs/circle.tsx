@@ -2,6 +2,7 @@ import {vec} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
+import {usePerseusI18n} from "../../../components/i18n-context";
 import {snap, X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
@@ -37,6 +38,7 @@ function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
     const {center, radiusPoint} = graphState;
 
+    const {strings} = usePerseusI18n();
     const [edgePointAriaLive, setEdgePointAriaLive] = React.useState<
         "off" | "polite"
     >("off");
@@ -47,27 +49,38 @@ function CircleGraph(props: CircleGraphProps) {
     const diameterId = id + "-diameter";
     const outerPointsId = id + "-outer-points";
 
-    // Move this string to string.ts file
-    const wholeGraphAriaLabel = "A circle on a coordinate plane.";
-    const circleAriaLabel = `Circle. The center point is at ${center[0]} comma
-        ${center[1]}.`;
-    const edgePointAriaLabel = `Edge point at ${radiusPoint[0]} comma
-        ${radiusPoint[1]}.`;
-    const diameterAriaLabel = `Circle diameter is ${radius * 2}.`;
-    const outerPoints = `Points on the circle at
-        ${center[0] + radius} comma ${center[1]},
-        ${center[0]} comma ${center[1] + radius},
-        ${center[0] - radius} comma ${center[1]},
-        ${center[0]} comma ${center[1] - radius}.`;
+    // Aria label strings
+    const circleGraphAriaLabel = strings.circleGraphAriaLabel;
+    const circleShapeAriaLabel = strings.circleShapeAriaLabel({
+        centerX: center[0],
+        centerY: center[1],
+    });
+    const circleRadiusPointAriaLabel = strings.circleRadiusPointAriaLabel({
+        radiusPointX: radiusPoint[0],
+        radiusPointY: radiusPoint[1],
+    });
+    const circleRadiusDescription = strings.circleRadiusDescription({
+        radius,
+    });
+    const circleOuterPointsDescription = strings.circleOuterPointsDescription({
+        point1X: center[0] + radius,
+        point1Y: center[1],
+        point2X: center[0],
+        point2Y: center[1] + radius,
+        point3X: center[0] - radius,
+        point3Y: center[1],
+        point4X: center[0],
+        point4Y: center[1] - radius,
+    });
 
     return (
         <g
-            aria-label={wholeGraphAriaLabel}
+            aria-label={circleGraphAriaLabel}
             aria-describedby={`${circleId} ${diameterId} ${outerPointsId}`}
         >
             <MovableCircle
                 id={circleId}
-                ariaLabel={circleAriaLabel}
+                ariaLabel={circleShapeAriaLabel}
                 ariaDescribedBy={`${diameterId} ${outerPointsId}`}
                 center={center}
                 radius={radius}
@@ -77,7 +90,7 @@ function CircleGraph(props: CircleGraphProps) {
                 }}
             />
             <MovablePoint
-                ariaLabel={`${edgePointAriaLabel} ${diameterAriaLabel}`}
+                ariaLabel={`${circleRadiusPointAriaLabel} ${circleRadiusDescription}`}
                 ariaDescribedBy={`${outerPointsId}`}
                 ariaLive={edgePointAriaLive}
                 point={radiusPoint}
@@ -89,10 +102,10 @@ function CircleGraph(props: CircleGraphProps) {
                 }}
             />
             <g id={diameterId} style={{display: "hidden"}}>
-                {diameterAriaLabel}
+                {circleRadiusDescription}
             </g>
             <g id={outerPointsId} style={{display: "hidden"}}>
-                {outerPoints}
+                {circleOuterPointsDescription}
             </g>
         </g>
     );
