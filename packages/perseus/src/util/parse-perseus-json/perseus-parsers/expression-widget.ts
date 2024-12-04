@@ -24,6 +24,9 @@ import type {
     ParseResult,
 } from "../parser-types";
 import {convert} from "../general-purpose-parsers/convert";
+import {
+    discriminatedUnion
+} from "../general-purpose-parsers/discriminated-union";
 
 const parsePossiblyInvalidAnswerForm = object({
     // `value` is the possibly invalid part of this. It should always be a
@@ -52,9 +55,10 @@ function removeInvalidAnswerForms(
     return valid
 }
 
+const version1 = object({major: constant(1), minor: number});
 const parseExpressionWidgetV1: Parser<ExpressionWidget> =
     parseWidgetWithVersion(
-        object({major: constant(1), minor: number}),
+        version1,
         constant("expression"),
         object({
             answerForms: pipeParsers(array(parsePossiblyInvalidAnswerForm))
@@ -79,8 +83,9 @@ const parseExpressionWidgetV1: Parser<ExpressionWidget> =
         }),
     );
 
+const version0 = optional(object({major: constant(0), minor: number}));
 const parseExpressionWidgetV0 = parseWidgetWithVersion(
-    optional(object({major: constant(0), minor: number})),
+    version0,
     constant("expression"),
     object({
         functions: array(string),
@@ -133,6 +138,10 @@ function migrateV0ToV1(
     });
 }
 
-export const parseExpressionWidget: Parser<ExpressionWidget> = union(
+export const parseExpressionWidget: Parser<ExpressionWidget> = discriminatedUnion(
+    object({version: version1}),
     parseExpressionWidgetV1,
-).or(pipeParsers(parseExpressionWidgetV0).then(migrateV0ToV1).parser).parser;
+).or(
+    object({version: version0}),
+    pipeParsers(parseExpressionWidgetV0).then(migrateV0ToV1).parser,
+).parser;
