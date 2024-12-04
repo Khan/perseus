@@ -1,7 +1,7 @@
 import {getClockwiseAngle} from "../../math";
 
 import {
-    getClockwiseCoords,
+    adjustCoordsForAngleCalculation,
     getWholeAngleMeasure,
     shouldDrawArcOutside,
 } from "./angle-indicators";
@@ -151,7 +151,9 @@ describe("getClockwiseCoords", () => {
             [1, 1],
         ];
 
-        expect(getClockwiseCoords(coords, coords[0])).toEqual(coords);
+        expect(adjustCoordsForAngleCalculation(coords, coords[0])).toEqual(
+            coords,
+        );
     });
 
     test("should return the coordinates in counter-clockwise order when reflex angles are allowed", () => {
@@ -161,7 +163,9 @@ describe("getClockwiseCoords", () => {
             [0, 1],
         ];
 
-        expect(getClockwiseCoords(coords, coords[0], true)).toEqual([
+        expect(
+            adjustCoordsForAngleCalculation(coords, coords[0], true),
+        ).toEqual([
             [0, 1],
             [1, 0],
             [0, 0],

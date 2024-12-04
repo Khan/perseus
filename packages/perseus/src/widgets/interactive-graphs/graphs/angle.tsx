@@ -2,16 +2,12 @@ import {vec} from "mafs";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
-import {X, Y, calculateAngleInDegrees, polar} from "../math";
+import {X, Y, calculateAngleInDegrees, getClockwiseAngle, polar} from "../math";
 import {findIntersectionOfRays} from "../math/geometry";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {
-    Angle,
-    getWholeAngleMeasure,
-    getClockwiseCoords,
-} from "./components/angle-indicators";
+import {Angle} from "./components/angle-indicators";
 import {trimRange} from "./components/movable-line";
 import {MovablePoint} from "./components/movable-point";
 import {SVGLine} from "./components/svg-line";
@@ -100,14 +96,10 @@ function AngleGraph({dispatch, graphState}: AngleGraphProps) {
         showAngles: showAngles || false, // Whether to show the angle or not
     };
 
-    // Get angle measure
-    const clockwiseCoords = getClockwiseCoords(
-        endPoints,
-        centerPoint,
+    const angleLabel = getClockwiseAngle(
+        [endPoints[0], centerPoint, endPoints[1]],
         allowReflexAngles,
     );
-    const angleMeasure = getWholeAngleMeasure(clockwiseCoords, centerPoint);
-    const angleLabel = `${allowReflexAngles ? 360 - angleMeasure : angleMeasure}`;
 
     const {strings, locale} = usePerseusI18n();
 
@@ -144,7 +136,7 @@ function AngleGraph({dispatch, graphState}: AngleGraphProps) {
         const label = showAngles
             ? strings.srVertexWithAngleAtCoordinates({
                   ...formattedVertexCoordinates,
-                  angle: angleLabel,
+                  angle: `${angleLabel}`,
               })
             : strings.srVertexAtCoordinates(formattedVertexCoordinates);
         setVertexAriaLabel(label);

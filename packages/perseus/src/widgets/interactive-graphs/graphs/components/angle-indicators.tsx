@@ -154,7 +154,7 @@ export function getWholeAngleMeasure(coords: Vector2[], vertex: vec.Vector2) {
     return parseFloat(angle.toFixed(0));
 }
 
-export function getClockwiseCoords(
+export function adjustCoordsForAngleCalculation(
     coords: Vector2[],
     vertex: vec.Vector2,
     allowReflexAngles: boolean = false,
@@ -175,7 +175,7 @@ export const Angle = ({
     range,
 }: AngleProps) => {
     // Get the clockwise coordinates
-    const clockwiseCoords = getClockwiseCoords(
+    const clockwiseCoords = adjustCoordsForAngleCalculation(
         coords,
         vertex,
         allowReflexAngles,
