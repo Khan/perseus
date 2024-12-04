@@ -10,6 +10,7 @@ import {
 } from "../testing/test-dependencies";
 
 import type {Preview} from "@storybook/react";
+import StoryWrapper from "./story-wrapper";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
@@ -23,7 +24,9 @@ const preview: Preview = {
         (Story) => (
             <RenderStateRoot>
                 <DependenciesContext.Provider value={storybookDependenciesV2}>
-                    <Story />
+                    <StoryWrapper>
+                        <Story />
+                    </StoryWrapper>
                 </DependenciesContext.Provider>
             </RenderStateRoot>
         ),
