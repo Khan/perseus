@@ -27,7 +27,6 @@ import type {
     PerseusExpressionWidgetOptions,
 } from "../../perseus-types";
 import type {KeypadConfiguration} from "@khanacademy/math-input";
-
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
