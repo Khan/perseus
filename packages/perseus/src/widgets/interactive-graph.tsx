@@ -44,6 +44,9 @@ import type {
     PerseusGraphTypePolygon,
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
+    GraphRange,
+    LockedFigure,
+    PerseusImageBackground,
 } from "../perseus-types";
 import type {ChangeHandler, WidgetExports, WidgetProps} from "../types";
 import type {
@@ -57,6 +60,7 @@ import type {
 } from "../validation.types";
 import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const TRASH_ICON_URI =
     "https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png";
@@ -118,11 +122,107 @@ const makeInvalidTypeError = (
     );
 };
 
-type RenderProps = PerseusInteractiveGraphWidgetOptions; // There's no transform function in exports
+type RenderProps = {
+    /**
+     * Where the little black axis lines & labels (ticks) should render.
+     * Also known as the tick step. default [1, 1]
+     *
+     * NOTE(kevinb): perseus_data.go defines this as Array<number>
+     */
+    step: [number, number];
+    /**
+     * Where the grid lines on the graph will render. default [1, 1]
+     *
+     * NOTE(kevinb): perseus_data.go defines this as Array<number>
+     */
+    gridStep?: [x: number, y: number];
+    /**
+     * Where the graph points will lock to when they are dragged. default [0.5, 0.5]
+     *
+     * NOTE(kevinb): perseus_data.go defines this as Array<number>
+     */
+    snapStep?: [x: number, y: number];
+    /**
+     * An optional image to use in the background
+     */
+    backgroundImage?: PerseusImageBackground;
+    /**
+     * The type of markings to display on the graph.
+     * - graph: shows the axes and the grid lines
+     * - grid: shows only the grid lines
+     * - none: shows no markings
+     */
+    markings: "graph" | "grid" | "none";
+    /**
+     * How to label the X and Y axis.  default: ["x", "y"]
+     */
+    labels: ReadonlyArray<string>;
+    /**
+     * Whether to show the Protractor tool overlaid on top of the graph
+     */
+    showProtractor: boolean;
+    /**
+     * Whether to show the Ruler tool overlaid on top of the graph.
+     * @deprecated - no longer used by the InteractiveGraph widget. The
+     * property is kept on this type to prevent its accidental reuse in future
+     * features, since it may appear in production data.
+     */
+    showRuler?: boolean;
+    /**
+     * Whether to show tooltips on the graph
+     */
+    showTooltips?: boolean;
+    /**
+     * The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft",
+     * "yd", "mi".
+     * @deprecated - no longer used by the InteractiveGraph widget. The
+     * property is kept on this type to prevent its accidental reuse in future
+     * features, since it may appear in production data.
+     */
+    rulerLabel?: string;
+    /**
+     * How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16. Must be
+     * an integer.
+     * @deprecated - no longer used by the InteractiveGraph widget. The
+     * property is kept on this type to prevent its accidental reuse in future
+     * features, since it may appear in production data.
+     */
+    rulerTicks?: number;
+    /**
+     * The X and Y coordinate ranges for the view of the graph.  default: [[-10, 10], [-10, 10]]
+     *
+     * NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
+     */
+    // TODO(kevinb): Add a transform function to interactive-graph.jsx to
+    // rename `range` to `ranges` so that things are less confusing.
+    range: GraphRange;
+    /**
+     * The type of graph
+     */
+    graph: PerseusGraphType;
+    /**
+     * The correct kind of graph, if being used to select function type
+     */
+    // TODO(LEMS-2344): make the type of `correct` more specific
+    correct: PerseusGraphType;
+    /**
+     * Shapes (points, chords, etc) displayed on the graph that cannot be moved
+     * by the user.
+     */
+    lockedFigures?: ReadonlyArray<LockedFigure>;
+    /**
+     * Aria label that applies to the entire graph.
+     */
+    fullGraphAriaLabel?: string;
+    /**
+     * Aria description that applies to the entire graph.
+     */
+    fullGraphAriaDescription?: string;
+}; // There's no transform function in exports
 type Props = WidgetProps<RenderProps, PerseusInteractiveGraphRubric>;
 type State = any;
 type DefaultProps = {
-    labels: Props["labels"];
+    labels: ReadonlyArray<string>;
     range: Props["range"];
     step: Props["step"];
     backgroundImage: Props["backgroundImage"];
@@ -131,6 +231,17 @@ type DefaultProps = {
     showProtractor: Props["showProtractor"];
     graph: Props["graph"];
 };
+
+// Assert that the PerseusInteractiveGraphWidgetOptions parsed from JSON can be
+// passed as props to this component. This ensures that the
+// PerseusInteractiveGraphWidgetOptions type stays in sync with the prop types.
+// The PropsFor<Component> type takes defaultProps into account, which is
+// important because PerseusInteractiveGraphWidgetOptions has optional fields
+// which receive defaults via defaultProps.
+0 as any as WidgetProps<
+    PerseusInteractiveGraphWidgetOptions,
+    PerseusInteractiveGraphRubric
+> satisfies PropsFor<typeof InteractiveGraph>;
 
 // TODO: there's another, very similar getSinusoidCoefficients function
 // they should probably be merged

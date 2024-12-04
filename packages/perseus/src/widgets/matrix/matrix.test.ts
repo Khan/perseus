@@ -62,8 +62,6 @@ describe("matrix widget", () => {
             await userEvent.type(textboxes[i], correctAnswers[i].toString());
         }
 
-        renderer.guessAndScore();
-
         // assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
@@ -80,8 +78,6 @@ describe("matrix widget", () => {
         for (let i = 0; i < textboxes.length; i++) {
             await userEvent.type(textboxes[i], "1");
         }
-
-        renderer.guessAndScore();
 
         // Assert
         expect(renderer).toHaveBeenAnsweredIncorrectly();

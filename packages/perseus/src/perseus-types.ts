@@ -21,8 +21,10 @@ export type ShowSolutions = "all" | "selected" | "none";
  * widget so that it's available at runtime (@see
  * {@link file://./widgets.ts#registerWidget}).
  *
- * Importantly, the key is not important and is not used anywhere outside of
- * this interface so it is arbitrary.
+ * Importantly, the key should be the name that is used in widget IDs. For most
+ * widgets that is the same as the widget option's `type` field. In cases where
+ * a widget has been deprecated and replaced with the deprecated-standin
+ * widget, it should be the original widget type!
  *
  * If you define the widget outside of this package, you can still add the new
  * widget to this interface by writing the following in that package that
@@ -32,11 +34,19 @@ export type ShowSolutions = "all" | "selected" | "none";
  * ```typescript
  * declare module "@khanacademy/perseus" {
  *     interface PerseusWidgetTypes {
- *         Awesomeness: MyAwesomeNewWidget;
+ *         // A new widget
+ *         "new-awesomeness": MyAwesomeNewWidget;
+ *
+ *         // A deprecated widget
+ *         "super-old-widget": AutoCorrectWidget;
  *     }
  * }
  *
- * type MyAwesomeNewWidget = WidgetOptions<'awesomeness', MyAwesomeNewWidgetOptions>;
+ * // The new widget's options definition
+ * type MyAwesomeNewWidget = WidgetOptions<'new-awesomeness', MyAwesomeNewWidgetOptions>;
+ *
+ * // The deprecated widget's options definition
+ * type SuperOldWidget = WidgetOptions<'super-old-widget', object>;
  * ```
  *
  * This interface can be extended through the magic of TypeScript "Declaration
@@ -45,39 +55,42 @@ export type ShowSolutions = "all" | "selected" | "none";
  * @see {@link https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation}
  */
 export interface PerseusWidgetTypes {
-    Categorizer: CategorizerWidget;
-    CSProgram: CSProgramWidget;
-    Definition: DefinitionWidget;
-    Dropdown: DropdownWidget;
-    Explanation: ExplanationWidget;
-    Expression: ExpressionWidget;
-    Grapher: GrapherWidget;
-    GradedGroupSet: GradedGroupSetWidget;
-    GradedGroup: GradedGroupWidget;
-    Group: GroupWidget;
-    IFrame: IFrameWidget;
-    Image: ImageWidget;
-    InputNumber: InputNumberWidget;
-    Interaction: InteractionWidget;
-    InteractiveGraph: InteractiveGraphWidget;
-    LabelImage: LabelImageWidget;
-    Matcher: MatcherWidget;
-    Matrix: MatrixWidget;
-    Measurer: MeasurerWidget;
-    MoleculeRenderer: MoleculeRendererWidget;
-    NumberLine: NumberLineWidget;
-    NumericInput: NumericInputWidget;
-    Orderer: OrdererWidget;
-    PassageRefTarget: RefTargetWidget;
-    PassageRef: PassageRefWidget;
-    Passage: PassageWidget;
-    PhetSimulation: PhetSimulationWidget;
-    Python: PythonProgramWidget;
-    Plotter: PlotterWidget;
-    Radio: RadioWidget;
-    Sorter: SorterWidget;
-    Table: TableWidget;
-    Video: VideoWidget;
+    categorizer: CategorizerWidget;
+    "cs-program": CSProgramWidget;
+    definition: DefinitionWidget;
+    dropdown: DropdownWidget;
+    explanation: ExplanationWidget;
+    expression: ExpressionWidget;
+    grapher: GrapherWidget;
+    "graded-group-set": GradedGroupSetWidget;
+    "graded-group": GradedGroupWidget;
+    group: GroupWidget;
+    iframe: IFrameWidget;
+    image: ImageWidget;
+    "input-number": InputNumberWidget;
+    interaction: InteractionWidget;
+    "interactive-graph": InteractiveGraphWidget;
+    "label-image": LabelImageWidget;
+    matcher: MatcherWidget;
+    matrix: MatrixWidget;
+    measurer: MeasurerWidget;
+    "molecule-renderer": MoleculeRendererWidget;
+    "number-line": NumberLineWidget;
+    "numeric-input": NumericInputWidget;
+    orderer: OrdererWidget;
+    "passage-ref-target": RefTargetWidget;
+    "passage-ref": PassageRefWidget;
+    passage: PassageWidget;
+    "phet-simulation": PhetSimulationWidget;
+    "python-program": PythonProgramWidget;
+    plotter: PlotterWidget;
+    radio: RadioWidget;
+    sorter: SorterWidget;
+    table: TableWidget;
+    video: VideoWidget;
+
+    // Deprecated widgets
+    sequence: AutoCorrectWidget;
 }
 
 /**
@@ -93,7 +106,7 @@ export interface PerseusWidgetTypes {
  * by augmenting the PerseusWidgetTypes with new widget types!
  */
 export type PerseusWidgetsMap = {
-    [Property in keyof PerseusWidgetTypes as `${PerseusWidgetTypes[Property]["type"]} ${number}`]: PerseusWidgetTypes[Property];
+    [Property in keyof PerseusWidgetTypes as `${Property} ${number}`]: PerseusWidgetTypes[Property];
 };
 
 /**
@@ -131,6 +144,9 @@ export type PerseusArticle = PerseusRenderer | ReadonlyArray<PerseusRenderer>;
  * A "MultiItem" is an advanced Perseus item. It is rendered by the
  * `MultiRenderer` and you can control the layout of individual parts of the
  * item.
+ *
+ * @deprecated MultiItem support is slated for removal in a future Perseus
+ * release.
  */
 export type MultiItem = {
     // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
@@ -145,20 +161,28 @@ export type Version = {
 };
 
 export type PerseusRenderer = {
-    // Translatable Markdown content to be rendered.  May include references to
-    // widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
-    // For each image found in this content, there can be an entry in the
-    // `images` dict (below) with the key being the image's url which defines
-    // additional attributes for the image.
+    /**
+     * Translatable Markdown content to be rendered.  May include references to
+     * widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
+     * For each image found in this content, there can be an entry in the
+     * `images` dict (below) with the key being the image's url which defines
+     * additional attributes for the image.
+     */
     content: string;
-    // A dictionary of {[widgetName]: Widget} to be referenced from the content field
+    /**
+     * A dictionary of {[widgetName]: Widget} to be referenced from the content
+     * field.
+     */
     widgets: PerseusWidgetsMap;
-    // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys that represent other content in the system.  Not rendered to the user.
+    // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys
+    // that represent other content in the system.  Not rendered to the user.
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     metadata?: ReadonlyArray<string>;
-    // A dictionary of {[imageUrl]: PerseusImageDetail}.
+    /**
+     * A dictionary of {[imageUrl]: PerseusImageDetail}.
+     */
     images: {
-        [key: string]: PerseusImageDetail;
+        [imageUrl: string]: PerseusImageDetail;
     };
 };
 
@@ -200,6 +224,10 @@ export const ItemExtras = [
 ] as const;
 export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
 
+/**
+ * The type representing the common structure of all widget's options. The
+ * `Options` generic type represents the widget-specific option data.
+ */
 export type WidgetOptions<Type extends string, Options> = {
     // The "type" of widget which will define what the Options field looks like
     type: Type;
@@ -289,7 +317,7 @@ export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassage
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
-export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', PerseusWidgetOptions>;
+export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', object>;
 
 export type PerseusWidget =
     | CategorizerWidget
@@ -327,7 +355,9 @@ export type PerseusWidget =
     | VideoWidget
     | AutoCorrectWidget;
 
-// A background image applied to various widgets.
+/**
+ * A background image applied to various widgets.
+ */
 export type PerseusImageBackground = {
     // The URL of the image
     url: string | null | undefined;
@@ -393,6 +423,10 @@ export type PerseusDropdownWidgetOptions = {
     placeholder: string;
     // Always false.  Not used for this widget
     static: boolean;
+    // Translatable Text; visible label for the dropdown
+    visibleLabel?: string;
+    // Translatable Text; aria label that screen readers will read
+    ariaLabel?: string;
 };
 
 export type PerseusDropdownChoice = {
@@ -629,10 +663,10 @@ export type PerseusInteractiveGraphWidgetOptions = {
     step: [number, number];
     // Where the grid lines on the graph will render. default [1, 1]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
-    gridStep: [number, number];
+    gridStep?: [x: number, y: number];
     // Where the graph points will lock to when they are dragged. default [0.5, 0.5]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
-    snapStep: [number, number];
+    snapStep?: [x: number, y: number];
     // An optional image to use in the background
     backgroundImage?: PerseusImageBackground;
     /**
@@ -643,7 +677,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     markings: "graph" | "grid" | "none";
     // How to label the X and Y axis.  default: ["x", "y"]
-    labels: ReadonlyArray<string>;
+    labels?: ReadonlyArray<string>;
     // Whether to show the Protractor tool overlayed on top of the graph
     showProtractor: boolean;
     /**
@@ -1110,7 +1144,7 @@ export type PerseusNumericInputWidgetOptions = {
     // A list of all the possible correct and incorrect answers
     answers: ReadonlyArray<PerseusNumericInputAnswer>;
     // Translatable Text; Text to describe this input. This will be shown to users using screenreaders.
-    labelText: string;
+    labelText?: string | undefined;
     // Use size "Normal" for all text boxes, unless there are multiple text boxes in one line and the answer area is too narrow to fit them. Options: "normal" or "small"
     size: string;
     // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
@@ -1129,7 +1163,7 @@ export type PerseusNumericInputAnswer = {
     // Translatable Display; A description for why this answer is correct, wrong, or ungraded
     message: string;
     // The expected answer
-    value: number;
+    value?: number;
     // Whether this answer is "correct", "wrong", or "ungraded"
     status: string;
     // The forms available for this answer.  Options: "integer, ""decimal", "proper", "improper", "mixed", or "pi"

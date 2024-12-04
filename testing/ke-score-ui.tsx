@@ -8,7 +8,7 @@ type Props = {
     score: KEScore | null | undefined;
 };
 
-export default ({score}: Props): React.ReactElement | null => {
+export default function KEScoreUI({score}: Props) {
     if (score == null) {
         return null;
     }
@@ -46,4 +46,4 @@ export default ({score}: Props): React.ReactElement | null => {
             />
         </>
     );
-};
+}

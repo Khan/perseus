@@ -1,5 +1,30 @@
 # @khanacademy/perseus
 
+## 45.0.0
+
+### Major Changes
+
+-   [#1910](https://github.com/Khan/perseus/pull/1910) [`0a44d468d`](https://github.com/Khan/perseus/commit/0a44d468dd127bf15dc32e720b9b0301af41a572) Thanks [@handeyeco](https://github.com/handeyeco)! - Change ServerItemRenderer scoring APIs to externalize scoring
+
+## 44.0.0
+
+### Major Changes
+
+-   [#1930](https://github.com/Khan/perseus/pull/1930) [`834bd8bfb`](https://github.com/Khan/perseus/commit/834bd8bfbc063d0a1935ae9a697e5505c5ee606d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove PerseusExampleWidgetOptions, PerseusSimpleMarkdownTesterWidgetOptions, and PerseusExampleWidgetOptions types - widgets no longer exist
+
+### Minor Changes
+
+-   [#1845](https://github.com/Khan/perseus/pull/1845) [`066daab0e`](https://github.com/Khan/perseus/commit/066daab0ea8463e8b2a5381e90ed8392ea20a5bf) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Add labels to Dropdown widget
+
+### Patch Changes
+
+-   [#1904](https://github.com/Khan/perseus/pull/1904) [`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Upgrade Storybook to v8.x
+
+*   [#1925](https://github.com/Khan/perseus/pull/1925) [`89244ccc0`](https://github.com/Khan/perseus/commit/89244ccc0d7384d7f76678204cd49dd7e8301185) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove some uses of findDOMNode
+
+*   Updated dependencies [[`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71)]:
+    -   @khanacademy/math-input@21.1.6
+
 ## 43.1.0
 
 ### Minor Changes

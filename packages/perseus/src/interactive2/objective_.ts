@@ -46,7 +46,7 @@ const mapObject = function <K extends string, V, U>(
     lambda: (arg1: V, arg2: K) => U,
 ): Record<K, U> {
     const result: Record<string, any> = {};
-    _.each(_.keys(obj), function (key) {
+    Object.keys(obj).forEach((key) => {
         // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'K'.
         result[key] = lambda(obj[key], key);
     });
@@ -66,7 +66,7 @@ const mapObjectFromArray = function <K extends string, V>(
     lambda: (arg1: K) => V,
 ): Record<K, V> {
     const result: Record<string, any> = {};
-    _.each(arr, function (elem) {
+    arr.forEach((elem) => {
         result[elem] = lambda(elem);
     });
     return result;

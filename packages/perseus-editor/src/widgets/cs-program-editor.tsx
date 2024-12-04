@@ -231,8 +231,9 @@ class CSProgramEditor extends React.Component<any> {
                     }}
                 />
                 <InfoTip>
-                    If you show the editor, you should use the "full-width"
-                    alignment to make room for the width of the editor.
+                    If you show the editor, you should use the
+                    &quot;full-width&quot; alignment to make room for the width
+                    of the editor.
                 </InfoTip>
                 <br />
                 <Checkbox

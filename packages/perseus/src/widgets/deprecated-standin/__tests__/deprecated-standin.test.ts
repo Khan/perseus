@@ -41,13 +41,10 @@ describe("Deprecated Standin widget", () => {
     });
 
     it("should be scorable and always give points", () => {
-        // Arrange
+        // Arrange / Act
         const {renderer} = renderQuestion(question);
 
-        // Act
-        const result = renderer.scoreWidgets();
-
         // Assert
-        expect(result["widget 1"]).toHaveBeenAnsweredCorrectly();
+        expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 });

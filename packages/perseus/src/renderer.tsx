@@ -25,7 +25,11 @@ import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
-import {emptyWidgetsFunctional, scoreWidgetsFunctional} from "./renderer-util";
+import {
+    emptyWidgetsFunctional,
+    getUpgradedWidgetOptions,
+    scoreWidgetsFunctional,
+} from "./renderer-util";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
@@ -438,36 +442,11 @@ class Renderer
         widgetInfo: State["widgetInfo"];
         widgetProps: State["widgetProps"];
     } = (props: Props) => {
-        const allWidgetInfo = this._getAllWidgetsInfo(props);
+        const allWidgetInfo = getUpgradedWidgetOptions(props.widgets);
         return {
             widgetInfo: allWidgetInfo,
             widgetProps: this._getAllWidgetsStartProps(allWidgetInfo, props),
         };
-    };
-
-    // @ts-expect-error - TS2322 - Type '(props: Props) => Partial<Record<string, CategorizerWidget | CSProgramWidget | DefinitionWidget | DropdownWidget | ... 35 more ... | VideoWidget>>' is not assignable to type '(props: Props) => { [key: string]: PerseusWidget; }'.
-    _getAllWidgetsInfo: (props: Props) => PerseusWidgetsMap = (
-        props: Props,
-    ) => {
-        return mapObject(props.widgets, (widgetInfo, widgetId) => {
-            if (!widgetInfo.type || !widgetInfo.alignment) {
-                const newValues: Record<string, any> = {};
-
-                if (!widgetInfo.type) {
-                    // TODO: why does widget have no type?
-                    // We don't want to derive type from widget ID
-                    // see: LEMS-1845
-                    newValues.type = widgetId.split(" ")[0];
-                }
-
-                if (!widgetInfo.alignment) {
-                    newValues.alignment = "default";
-                }
-
-                widgetInfo = _.extend({}, widgetInfo, newValues);
-            }
-            return Widgets.upgradeWidgetInfoToLatestVersion(widgetInfo);
-        });
     };
 
     _getAllWidgetsStartProps: (
@@ -1124,7 +1103,7 @@ class Renderer
             // /cry(aria)
             this._foundTextNodes = true;
 
-            if (_.contains(this.widgetIds, node.id)) {
+            if (this.widgetIds.includes(node.id)) {
                 // We don't want to render a duplicate widget key/ref,
                 // as this causes problems with react (for obvious
                 // reasons). Instead we just notify the
@@ -1510,7 +1489,7 @@ class Renderer
 
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         const inputPaths: Array<FocusPath> = [];
-        _.each(this.widgetIds, (widgetId: string) => {
+        this.widgetIds.forEach((widgetId: string) => {
             const widget = this.getWidgetInstance(widgetId);
             if (widget && widget.getInputPaths) {
                 // Grab all input paths and add widgetID to the front
@@ -1518,7 +1497,7 @@ class Renderer
                 // Prefix paths with their widgetID and add to collective
                 // list of paths.
                 // @ts-expect-error - TS2345 - Argument of type '(inputPath: string) => void' is not assignable to parameter of type 'CollectionIterator<FocusPath, void, readonly FocusPath[]>'.
-                _.each(widgetInputPaths, (inputPath: string) => {
+                widgetInputPaths.forEach((inputPath: string) => {
                     const relativeInputPath = [widgetId].concat(inputPath);
                     inputPaths.push(relativeInputPath);
                 });
@@ -1594,6 +1573,12 @@ class Renderer
         return state;
     };
 
+    /**
+     * Returns an array of widget ids that are empty (meaning widgets where the
+     * learner has not interacted with the widget yet or has not filled in all
+     * fields).  For example, the `interactive-graph` widget is considered
+     * empty if the graph is in the starting state.
+     */
     emptyWidgets(): ReadonlyArray<string> {
         return emptyWidgetsFunctional(
             this.state.widgetInfo,
@@ -1667,8 +1652,8 @@ class Renderer
     setInputValue: (
         path: FocusPath,
         newValue: string,
-        focus?: () => unknown,
-    ) => void = (path, newValue, focus) => {
+        cb?: () => void,
+    ) => void = (path, newValue, cb) => {
         // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
         const widgetId = _.first(path);
         // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
@@ -1676,7 +1661,7 @@ class Renderer
         const widget = this.getWidgetInstance(widgetId);
 
         // Widget handles parsing of the interWidgetPath.
-        widget?.setInputValue?.(interWidgetPath, newValue, focus);
+        widget?.setInputValue?.(interWidgetPath, newValue, cb);
     };
 
     /**
@@ -1742,46 +1727,42 @@ class Renderer
     }
 
     /**
-     * Returns an object mapping from widget ID to perseus-style score.
-     * The keys of this object are the values of the array returned
-     * from `getWidgetIds`.
+     * Scores the content.
+     *
+     * @deprecated use scorePerseusItem
      */
-    scoreWidgets(): {[widgetId: string]: PerseusScore} {
-        return scoreWidgetsFunctional(
+    score(): PerseusScore {
+        const scores = scoreWidgetsFunctional(
             this.state.widgetInfo,
             this.widgetIds,
             this.getUserInputMap(),
             this.props.strings,
             this.context.locale,
         );
-    }
-
-    /**
-     * Grades the content.
-     */
-    score(): PerseusScore {
-        const scores = this.scoreWidgets();
         const combinedScore = Util.flattenScores(scores);
         return combinedScore;
     }
 
-    guessAndScore(): [UserInputArray, PerseusScore] {
+    /**
+     * @deprecated use scorePerseusItem
+     */
+    guessAndScore: () => [UserInputArray, PerseusScore] = () => {
         const totalGuess = this.getUserInput();
         const totalScore = this.score();
 
         return [totalGuess, totalScore];
-    }
+    };
 
     examples: () => ReadonlyArray<string> | null | undefined = () => {
         const widgetIds = this.widgetIds;
-        const examples = _.compact(
-            _.map(widgetIds, (widgetId) => {
+        const examples = widgetIds
+            .map((widgetId) => {
                 const widget = this.getWidgetInstance(widgetId);
                 return widget != null && widget.examples
                     ? widget.examples()
                     : null;
-            }),
-        );
+            })
+            .filter(Boolean);
 
         // no widgets with examples
         if (!examples.length) {
