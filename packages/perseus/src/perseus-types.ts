@@ -116,6 +116,7 @@ export interface PerseusWidgetTypes {
     video: VideoWidget;
 
     // Deprecated widgets
+    "lights-puzzle": AutoCorrectWidget;
     sequence: AutoCorrectWidget;
 }
 
