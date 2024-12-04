@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import "./global.less";
-
 /**
  * Wrapper for Storybook stories that
  * 1. Renders the story inside of a .framework-perseus container
