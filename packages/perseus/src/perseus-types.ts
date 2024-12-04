@@ -79,6 +79,8 @@ export type PerseusWidgetsMap = {
     [key in `video ${number}`]: VideoWidget;
 } & {
     [key in `sequence ${number}`]: AutoCorrectWidget;
+} & {
+    [key in `lights-puzzle ${number}`]: AutoCorrectWidget;
 };
 
 /**
