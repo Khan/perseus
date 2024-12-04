@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import "./webapp-styles.less";
+import "./global.less";
 
 /**
  * Wrapper for Storybook stories that
  * 1. Renders the story inside of a .framework-perseus container
- * 2. Includes the global styles from webapp
+ * 2. Includes the global styles from prod
  */
 function StoryWrapper(props) {
     // Most of our components have an expectation to be
