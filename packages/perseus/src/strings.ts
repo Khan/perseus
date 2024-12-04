@@ -399,12 +399,12 @@ export const strings: {
     },
     srUpdatedTerminalSideAtCoordinates: {
         context:
-            "Updated screenreader-accessible description of the terminal side of an angle",
+            "Screen-reader accessible description of an update to the terminal side of an angle",
         message: "Point 1, terminal side, moved to %(x)s comma %(y)s",
     },
     srUpdatedVertexAtCoordinates: {
         context:
-            "Updated screenreader-accessible description of a vertex on a graph",
+            "Screen-reader accessible description of an update to the vertex on a graph",
         message: "Point 2, vertex, moved to %(x)s comma %(y)s",
     },
     srUpdatedVertexWithAngleAtCoordinates: {
