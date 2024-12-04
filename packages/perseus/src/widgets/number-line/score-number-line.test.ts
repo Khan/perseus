@@ -1,5 +1,4 @@
 import scoreNumberLine from "./score-number-line";
-import validateNumberLine from "./validate-number-line";
 
 import type {
     PerseusNumberLineScoringData,
