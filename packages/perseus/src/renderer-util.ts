@@ -53,27 +53,13 @@ export function emptyWidgetsFunctional(
             return false;
         }
 
-        let score: PerseusScore | null = null;
-        const userInput = userInputMap[id];
         const scorer = getWidgetScorer(widget.type);
-
-        if (widget.type === "group") {
-            const scores = scoreWidgetsFunctional(
-                widget.options.widgets,
-                Object.keys(widget.options.widgets),
-                userInputMap[id] as UserInputMap,
-                strings,
-                locale,
-            );
-            score = Util.flattenScores(scores);
-        } else if (scorer) {
-            score = scorer(
-                userInput as UserInput,
-                widget.options,
-                strings,
-                locale,
-            );
-        }
+        const score = scorer?.(
+            userInputMap[id] as UserInput,
+            widget.options,
+            strings,
+            locale,
+        );
 
         if (score) {
             return Util.scoreIsEmpty(score);
@@ -133,22 +119,14 @@ export function scoreWidgetsFunctional(
 
         const userInput = userInputMap[id];
         const scorer = getWidgetScorer(widget.type);
-        if (widget.type === "group") {
-            const scores = scoreWidgetsFunctional(
-                widget.options.widgets,
-                getWidgetIdsFromContent(widget.options.content),
-                userInputMap[id] as UserInputMap,
-                strings,
-                locale,
-            );
-            widgetScores[id] = Util.flattenScores(scores);
-        } else if (scorer) {
-            widgetScores[id] = scorer(
-                userInput as UserInput,
-                widget.options,
-                strings,
-                locale,
-            );
+        const score = scorer?.(
+            userInput as UserInput,
+            widget.options,
+            strings,
+            locale,
+        );
+        if (score != null) {
+            widgetScores[id] = score;
         }
     });
 

@@ -208,12 +208,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                     {...section}
                                     apiOptions={apiOptions}
                                     imageUploader={imageUploader}
-                                    // TODO(LEMS-2656): remove TS suppression
-                                    onChange={
-                                        _.partial(
-                                            this._handleEditorChange,
-                                            i,
-                                        ) as any
+                                    onChange={(newProps) =>
+                                        this._handleEditorChange(i, newProps)
                                     }
                                     placeholder="Type your section text here..."
                                     ref={"editor" + i}
@@ -304,9 +300,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
         i,
         newProps,
     ) => {
-        const sections = _.clone(this._sections());
-        // @ts-expect-error - TS2542 - Index signature in type 'readonly RendererProps[]' only permits reading.
-        sections[i] = _.extend({}, sections[i], newProps);
+        const sections = [...this._sections()];
+        sections[i] = {...sections[i], ...newProps};
         this.props.onChange({json: sections});
     };
 
@@ -314,11 +309,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
         if (i === 0) {
             return;
         }
-        const sections = _.clone(this._sections());
+        const sections = [...this._sections()];
         const section = sections[i];
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i - 1, 0, section);
         this.props.onChange({
             json: sections,
@@ -326,14 +319,12 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     _handleMoveSectionLater(i: number) {
-        const sections = _.clone(this._sections());
+        const sections = [...this._sections()];
         if (i + 1 === sections.length) {
             return;
         }
         const section = sections[i];
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i + 1, 0, section);
         this.props.onChange({
             json: sections,
@@ -364,8 +355,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     _handleRemoveSection(i: number) {
-        const sections = _.clone(this._sections());
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
+        const sections = [...this._sections()];
         sections.splice(i, 1);
         this.props.onChange({
             json: sections,

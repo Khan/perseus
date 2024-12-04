@@ -13,6 +13,7 @@ import {
     trio,
     union,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
@@ -276,18 +277,27 @@ export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
         constant("interactive-graph"),
         object({
             step: pairOfNumbers,
-            gridStep: pairOfNumbers,
-            snapStep: pairOfNumbers,
+            // TODO(benchristel): rather than making gridStep and snapStep
+            // optional, we should duplicate the defaulting logic from the
+            // InteractiveGraph component. See parse-perseus-json/README.md for
+            // why.
+            gridStep: optional(pairOfNumbers),
+            snapStep: optional(pairOfNumbers),
             backgroundImage: optional(parsePerseusImageBackground),
             markings: enumeration("graph", "grid", "none"),
-            labels: array(string),
+            labels: optional(array(string)),
             showProtractor: boolean,
             showRuler: optional(boolean),
             showTooltips: optional(boolean),
             rulerLabel: optional(string),
             rulerTicks: optional(number),
             range: pair(pairOfNumbers, pairOfNumbers),
-            graph: parsePerseusGraphType,
+            // NOTE(benchristel): I copied the default graph from
+            // interactive-graph.tsx. See the parse-perseus-json/README.md for
+            // an explanation of why we want to duplicate the default here.
+            graph: defaulted(parsePerseusGraphType, () => ({
+                type: "linear" as const,
+            })),
             correct: parsePerseusGraphType,
             // TODO(benchristel): default lockedFigures to empty array
             lockedFigures: optional(array(parseLockedFigure)),
