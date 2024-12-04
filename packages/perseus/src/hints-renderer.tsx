@@ -1,4 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";

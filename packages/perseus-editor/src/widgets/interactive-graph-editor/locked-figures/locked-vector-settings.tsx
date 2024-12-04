@@ -26,6 +26,7 @@ import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -64,11 +65,12 @@ const LockedVectorSettings = (props: Props) => {
     // Check if the line has length 0.
     const isInvalid = kvector.equal(tail, tip);
 
-    function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+    /**
+     * Generate the prepopulated aria label for the vector,
+     * with the math details converted into spoken words.
+     */
+    async function getPrepopulatedAriaLabel() {
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
         let str = `Vector${visiblelabel} from (${tail[0]}, ${tail[1]}) to (${tip[0]}, ${tip[1]})`;
 
@@ -115,7 +117,7 @@ const LockedVectorSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -214,7 +216,7 @@ const LockedVectorSettings = (props: Props) => {
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}
@@ -233,8 +235,9 @@ const LockedVectorSettings = (props: Props) => {
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
+                            key={labelIndex}
                             expanded={true}
-                            onChangeProps={(newLabel: LockedLabelType) => {
+                            onChangeProps={(newLabel) => {
                                 handleLabelChange(newLabel, labelIndex);
                             }}
                             onRemove={() => {

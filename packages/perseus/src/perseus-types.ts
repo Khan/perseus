@@ -77,6 +77,8 @@ export type PerseusWidgetsMap = {
     [key in `table ${number}`]: TableWidget;
 } & {
     [key in `video ${number}`]: VideoWidget;
+} & {
+    [key in `sequence ${number}`]: AutoCorrectWidget;
 };
 
 /**
@@ -93,16 +95,30 @@ export type PerseusItem = {
     hints: ReadonlyArray<Hint>;
     // Details about the tools the user might need to answer the question
     answerArea: PerseusAnswerArea | null | undefined;
-    // The version of the item.  Not used by Perseus
-    itemDataVersion: Version;
-    // Deprecated field
+    /**
+     * The version of the item.
+     * @deprecated Not used.
+     */
+    itemDataVersion: any;
+    /**
+     * @deprecated Superseded by per-widget answers.
+     */
     answer: any;
 };
+
+/**
+ * A "PerseusArticle" is an item that is meant to be rendered as an article.
+ * This item is never scored and is rendered by the `ArticleRenderer`.
+ */
+export type PerseusArticle = PerseusRenderer | ReadonlyArray<PerseusRenderer>;
 
 /**
  * A "MultiItem" is an advanced Perseus item. It is rendered by the
  * `MultiRenderer` and you can control the layout of individual parts of the
  * item.
+ *
+ * @deprecated MultiItem support is slated for removal in a future Perseus
+ * release.
  */
 export type MultiItem = {
     // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
@@ -117,20 +133,28 @@ export type Version = {
 };
 
 export type PerseusRenderer = {
-    // Translatable Markdown content to be rendered.  May include references to
-    // widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
-    // For each image found in this content, there can be an entry in the
-    // `images` dict (below) with the key being the image's url which defines
-    // additional attributes for the image.
+    /**
+     * Translatable Markdown content to be rendered.  May include references to
+     * widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
+     * For each image found in this content, there can be an entry in the
+     * `images` dict (below) with the key being the image's url which defines
+     * additional attributes for the image.
+     */
     content: string;
-    // A dictionary of {[widgetName]: Widget} to be referenced from the content field
+    /**
+     * A dictionary of {[widgetName]: Widget} to be referenced from the content
+     * field.
+     */
     widgets: PerseusWidgetsMap;
-    // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys that represent other content in the system.  Not rendered to the user.
+    // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys
+    // that represent other content in the system.  Not rendered to the user.
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     metadata?: ReadonlyArray<string>;
-    // A dictionary of {[imageUrl]: PerseusImageDetail}.
+    /**
+     * A dictionary of {[imageUrl]: PerseusImageDetail}.
+     */
     images: {
-        [key: string]: PerseusImageDetail;
+        [imageUrl: string]: PerseusImageDetail;
     };
 };
 
@@ -172,7 +196,11 @@ export const ItemExtras = [
 ] as const;
 export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
 
-type WidgetOptions<Type extends string, Options> = {
+/**
+ * The type representing the common structure of all widget's options. The
+ * `Options` generic type represents the widget-specific option data.
+ */
+export type WidgetOptions<Type extends string, Options> = {
     // The "type" of widget which will define what the Options field looks like
     type: Type;
     // Whether this widget is displayed with the values and is immutable.  For display only
@@ -261,7 +289,7 @@ export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassage
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
-export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', PerseusWidgetOptions>;
+export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', object>;
 
 export type PerseusWidget =
     | CategorizerWidget
@@ -299,7 +327,9 @@ export type PerseusWidget =
     | VideoWidget
     | AutoCorrectWidget;
 
-// A background image applied to various widgets.
+/**
+ * A background image applied to various widgets.
+ */
 export type PerseusImageBackground = {
     // The URL of the image
     url: string | null | undefined;
@@ -365,6 +395,10 @@ export type PerseusDropdownWidgetOptions = {
     placeholder: string;
     // Always false.  Not used for this widget
     static: boolean;
+    // Translatable Text; visible label for the dropdown
+    visibleLabel?: string;
+    // Translatable Text; aria label that screen readers will read
+    ariaLabel?: string;
 };
 
 export type PerseusDropdownChoice = {
@@ -372,10 +406,6 @@ export type PerseusDropdownChoice = {
     content: string;
     // Whether this is the correct option or not
     correct: boolean;
-};
-
-export type PerseusExampleWidgetOptions = {
-    value: string;
 };
 
 export type PerseusExplanationWidgetOptions = {
@@ -606,10 +636,10 @@ export type PerseusInteractiveGraphWidgetOptions = {
     step: [number, number];
     // Where the grid lines on the graph will render. default [1, 1]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
-    gridStep: [number, number];
+    gridStep?: [x: number, y: number];
     // Where the graph points will lock to when they are dragged. default [0.5, 0.5]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
-    snapStep: [number, number];
+    snapStep?: [x: number, y: number];
     // An optional image to use in the background
     backgroundImage?: PerseusImageBackground;
     /**
@@ -620,7 +650,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     markings: "graph" | "grid" | "none";
     // How to label the X and Y axis.  default: ["x", "y"]
-    labels: ReadonlyArray<string>;
+    labels?: ReadonlyArray<string>;
     // Whether to show the Protractor tool overlayed on top of the graph
     showProtractor: boolean;
     /**
@@ -667,7 +697,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     fullGraphAriaDescription?: string;
 };
 
-const lockedFigureColorNames = [
+export const lockedFigureColorNames = [
     "blue",
     "green",
     "grayH",
@@ -1029,17 +1059,17 @@ export type PerseusMatcherWidgetOptions = {
 export type PerseusMatrixWidgetAnswers = ReadonlyArray<ReadonlyArray<number>>;
 export type PerseusMatrixWidgetOptions = {
     // Translatable Text; Shown before the matrix
-    prefix: string;
+    prefix?: string | undefined;
     // Translatable Text; Shown after the matrix
-    suffix: string;
+    suffix?: string | undefined;
     // A data matrix representing the "correct" answers to be entered into the matrix
     answers: PerseusMatrixWidgetAnswers;
     // The coordinate location of the cursor position at start. default: [0, 0]
-    cursorPosition: ReadonlyArray<number>;
+    cursorPosition?: ReadonlyArray<number> | undefined;
     // The coordinate size of the matrix.  Only supports 2-dimensional matrix.  default: [3, 3]
     matrixBoardSize: ReadonlyArray<number>;
     // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
-    static: boolean;
+    static?: boolean | undefined;
 };
 
 export type PerseusMeasurerWidgetOptions = {
@@ -1087,7 +1117,7 @@ export type PerseusNumericInputWidgetOptions = {
     // A list of all the possible correct and incorrect answers
     answers: ReadonlyArray<PerseusNumericInputAnswer>;
     // Translatable Text; Text to describe this input. This will be shown to users using screenreaders.
-    labelText: string;
+    labelText?: string | undefined;
     // Use size "Normal" for all text boxes, unless there are multiple text boxes in one line and the answer area is too narrow to fit them. Options: "normal" or "small"
     size: string;
     // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
@@ -1106,7 +1136,7 @@ export type PerseusNumericInputAnswer = {
     // Translatable Display; A description for why this answer is correct, wrong, or ungraded
     message: string;
     // The expected answer
-    value: number;
+    value?: number;
     // Whether this answer is "correct", "wrong", or "ungraded"
     status: string;
     // The forms available for this answer.  Options: "integer, ""decimal", "proper", "improper", "mixed", or "pi"
@@ -1161,9 +1191,9 @@ export type PerseusOrdererWidgetOptions = {
     // Cards that are not part of the answer
     otherOptions: ReadonlyArray<PerseusRenderer>;
     // "normal" for text options.  "auto" for image options.
-    height: string;
+    height: "normal" | "auto";
     // Use the "horizontal" layout for short text and small images. The "vertical" layout is best for longer text (e.g. proofs).
-    layout: string;
+    layout: "horizontal" | "vertical";
 };
 
 export type PerseusPassageWidgetOptions = {
@@ -1620,20 +1650,11 @@ export type PerseusPassageRefTargetWidgetOptions = {
     content: string;
 };
 
-export type PerseusSimpleMarkdownTesterWidgetOptions = {
-    value: string;
-};
-
-type PerseusUnitInputWidgetOptions = {
-    value: string;
-};
-
 export type PerseusWidgetOptions =
     | PerseusCategorizerWidgetOptions
     | PerseusCSProgramWidgetOptions
     | PerseusDefinitionWidgetOptions
     | PerseusDropdownWidgetOptions
-    | PerseusExampleWidgetOptions
     | PerseusExplanationWidgetOptions
     | PerseusExpressionWidgetOptions
     | PerseusGradedGroupSetWidgetOptions
@@ -1657,8 +1678,6 @@ export type PerseusWidgetOptions =
     | PerseusPhetSimulationWidgetOptions
     | PerseusPlotterWidgetOptions
     | PerseusRadioWidgetOptions
-    | PerseusSimpleMarkdownTesterWidgetOptions
     | PerseusSorterWidgetOptions
     | PerseusTableWidgetOptions
-    | PerseusUnitInputWidgetOptions
     | PerseusVideoWidgetOptions;

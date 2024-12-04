@@ -8,8 +8,9 @@ import InputWithExamples from "../../components/input-with-examples";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
 import KhanMath from "../../util/math";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
-import numericInputValidator from "./numeric-input-validator";
+import scoreNumericInput from "./score-numeric-input";
 
 import type {
     PerseusNumericInputWidgetOptions,
@@ -21,6 +22,8 @@ import type {
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
 } from "../../validation.types";
+import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const formExamples: {
     [key: string]: (
@@ -53,7 +56,7 @@ type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     coefficient: NonNullable<ExternalProps["coefficient"]>;
     answerForms: NonNullable<ExternalProps["answerForms"]>;
-    labelText: NonNullable<ExternalProps["labelText"]>;
+    labelText: string;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
     currentValue: string;
 };
@@ -69,10 +72,22 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
+// Assert that the PerseusNumericInputWidgetOptions parsed from JSON can be passed
+// as props to this component. This ensures that the PerseusMatrixWidgetOptions
+// stays in sync with the prop types. The PropsFor<Component> type takes
+// defaultProps into account, which is important because
+// PerseusNumericInputWidgetOptions has optional fields which receive defaults
+// via defaultProps.
+0 as any as WidgetProps<
+    PerseusNumericInputWidgetOptions,
+    PerseusNumericInputRubric
+> satisfies PropsFor<typeof NumericInput>;
+
 type State = {
     // keeps track of the other set of values when switching
     // between 0 and finite solutions
     previousValues: ReadonlyArray<string>;
+    isFocused: boolean;
 };
 
 export class NumericInput
@@ -105,6 +120,7 @@ export class NumericInput
         // keeps track of the other set of values when switching
         // between 0 and finite solutions
         previousValues: [""],
+        isFocused: false,
     };
 
     // TODO(Nicole, Jeremy): This is maybe never used and should be removed
@@ -181,6 +197,10 @@ export class NumericInput
         return NumericInput.getUserInputFromProps(this.props);
     }
 
+    getPromptJSON(): NumericInputPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
+
     handleChange: (
         arg1: string,
         arg2?: () => unknown | null | undefined,
@@ -191,10 +211,16 @@ export class NumericInput
 
     _handleFocus: () => void = () => {
         this.props.onFocus([]);
+        this.setState((currentState) => {
+            return {...currentState, isFocused: true};
+        });
     };
 
     _handleBlur: () => void = () => {
         this.props.onBlur([]);
+        this.setState((currentState) => {
+            return {...currentState, isFocused: false};
+        });
     };
 
     render(): React.ReactNode {
@@ -235,29 +261,33 @@ export class NumericInput
         // component.
         const styles = StyleSheet.create({
             input: {
+                borderRadius: "3px",
+                borderWidth: this.state.isFocused ? "2px" : "1px",
+                display: "inline-block",
+                fontFamily: `Symbola, "Times New Roman", serif`,
+                fontSize: "18px",
+                height: "32px",
+                lineHeight: "18px",
+                padding: this.state.isFocused ? "4px" : "4px 5px", // account for added focus border thickness
                 textAlign: this.props.rightAlign ? "right" : "left",
                 width: this.props.size === "small" ? 40 : 80,
-                padding: 0,
-                height: "auto",
             },
         });
 
         return (
-            <div>
-                <InputWithExamples
-                    ref={(ref) => (this.inputRef = ref)}
-                    value={this.props.currentValue}
-                    onChange={this.handleChange}
-                    labelText={labelText}
-                    examples={this.examples()}
-                    shouldShowExamples={this.shouldShowExamples()}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur}
-                    id={this.props.widgetId}
-                    disabled={this.props.apiOptions.readOnly}
-                    style={styles.input}
-                />
-            </div>
+            <InputWithExamples
+                ref={(ref) => (this.inputRef = ref)}
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                labelText={labelText}
+                examples={this.examples()}
+                shouldShowExamples={this.shouldShowExamples()}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                id={this.props.widgetId}
+                disabled={this.props.apiOptions.readOnly}
+                style={styles.input}
+            />
         );
     }
 }
@@ -344,8 +374,12 @@ export default {
     widget: NumericInput,
     transform: propsTransform,
     isLintable: true,
-    validator: numericInputValidator,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumericInputUserInput'.
+    scorer: scoreNumericInput,
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusNumericInputRubric'
     getOneCorrectAnswerFromRubric(
         rubric: PerseusNumericInputRubric,
     ): string | null | undefined {
@@ -379,4 +413,4 @@ export default {
         }
         return answerStrings[0];
     },
-} as WidgetExports<typeof NumericInput>;
+} satisfies WidgetExports<typeof NumericInput>;

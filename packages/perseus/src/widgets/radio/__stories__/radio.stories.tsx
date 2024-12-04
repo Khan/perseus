@@ -49,7 +49,7 @@ export default {
             showSolutions={args.showSolutions}
         />
     ),
-} satisfies Meta;
+} satisfies Meta<StoryArgs>;
 
 const applyStoryArgs = (args: StoryArgs): PerseusRenderer => {
     const q = {

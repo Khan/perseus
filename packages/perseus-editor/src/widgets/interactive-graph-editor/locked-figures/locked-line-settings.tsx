@@ -28,6 +28,7 @@ import LockedPointSettings from "./locked-point-settings";
 import {
     generateLockedFigureAppearanceDescription,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -73,13 +74,17 @@ const LockedLineSettings = (props: Props) => {
 
     // Check if the line has length 0.
     const isInvalid = kvector.equal(point1.coord, point2.coord);
+    /**
+     * Generate a prepopulated aria label for the line, with the math
+     * details converted into spoken words.
+     */
+    async function getPrepopulatedAriaLabel() {
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
+        const point1VisibleLabel = await joinLabelsAsSpokenMath(point1.labels);
+        const point2VisibleLabel = await joinLabelsAsSpokenMath(point2.labels);
 
-    function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
-        let str = `${capitalizeKind}${visiblelabel} from (${point1.coord[0]}, ${point1.coord[1]}) to (${point2.coord[0]}, ${point2.coord[1]})`;
+        let str = `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at (${point1.coord[0]}, ${point1.coord[1]}) to point${point2VisibleLabel} at (${point2.coord[0]}, ${point2.coord[1]})`;
+
         const lineAppearance = generateLockedFigureAppearanceDescription(
             lineColor,
             lineStyle,
@@ -157,7 +162,7 @@ const LockedLineSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -201,8 +206,10 @@ const LockedLineSettings = (props: Props) => {
                 <Strut size={spacing.xxxSmall_4} />
                 <SingleSelect
                     selectedValue={kind}
-                    onChange={(value: "line" | "segment" | "ray") =>
-                        onChangeProps({kind: value})
+                    // TODO(LEMS-2656): remove TS suppression
+                    onChange={
+                        ((value: "line" | "segment" | "ray") =>
+                            onChangeProps({kind: value})) as any
                     }
                     // Placeholder is required, but never gets used.
                     placeholder=""
@@ -224,8 +231,9 @@ const LockedLineSettings = (props: Props) => {
                 {/* Line style settings */}
                 <LineStrokeSelect
                     selectedValue={lineStyle}
-                    onChange={(value: "solid" | "dashed") =>
-                        onChangeProps({lineStyle: value})
+                    onChange={
+                        ((value: "solid" | "dashed") =>
+                            onChangeProps({lineStyle: value})) as any
                     }
                 />
             </View>
@@ -270,7 +278,7 @@ const LockedLineSettings = (props: Props) => {
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}
@@ -289,8 +297,9 @@ const LockedLineSettings = (props: Props) => {
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
+                            key={labelIndex}
                             expanded={true}
-                            onChangeProps={(newLabel: LockedLabelType) => {
+                            onChangeProps={(newLabel) => {
                                 handleLabelChange(newLabel, labelIndex);
                             }}
                             onRemove={() => {

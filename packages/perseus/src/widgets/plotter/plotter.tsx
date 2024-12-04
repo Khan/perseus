@@ -11,19 +11,21 @@ import {ClassNames as ApiClassNames} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import GraphUtils from "../../util/graph-utils";
 import KhanMath from "../../util/math";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
 
-import plotterValidator from "./plotter-validator";
+import scorePlotter from "./score-plotter";
 
 import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
-    PerseusPlotterRubric,
+    PerseusPlotterScoringData,
     PerseusPlotterUserInput,
 } from "../../validation.types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusPlotterRubric> & {
+type Props = WidgetProps<RenderProps, PerseusPlotterScoringData> & {
     labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
     picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
 };
@@ -1141,6 +1143,10 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         return this.state.values;
     }
 
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
+    }
+
     render(): React.ReactNode {
         // TODO(kevinb) actually compute the size of the graphie correctly and
         // make it that size so we don't have to add extra padding.  The value
@@ -1173,5 +1179,7 @@ export default {
     hidden: true,
     widget: Plotter,
     staticTransform: staticTransform,
-    validator: plotterValidator,
-} as WidgetExports<typeof Plotter>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
+    scorer: scorePlotter,
+} satisfies WidgetExports<typeof Plotter>;

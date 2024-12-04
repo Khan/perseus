@@ -23,6 +23,7 @@ import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -62,11 +63,12 @@ const LockedEllipseSettings = (props: Props) => {
         onRemove,
     } = props;
 
-    function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+    /**
+     * Generate the prepopulated aria label for the ellipse,
+     * with the math details converted into spoken words.
+     */
+    async function getPrepopulatedAriaLabel() {
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
         const isCircle = radius[0] === radius[1];
         let str = "";
@@ -124,7 +126,7 @@ const LockedEllipseSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -217,8 +219,10 @@ const LockedEllipseSettings = (props: Props) => {
                     <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
                         selectedValue={fillStyle}
-                        onChange={(value: LockedFigureFillType) =>
-                            onChangeProps({fillStyle: value})
+                        // TODO(LEMS-2656): remove TS suppression
+                        onChange={
+                            ((value: LockedFigureFillType) =>
+                                onChangeProps({fillStyle: value})) as any
                         }
                         // Placeholder is required, but never gets used.
                         placeholder=""
@@ -237,9 +241,7 @@ const LockedEllipseSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
-                onChange={(value: "solid" | "dashed") =>
-                    onChangeProps({strokeStyle: value})
-                }
+                onChange={(value) => onChangeProps({strokeStyle: value})}
             />
 
             {/* Aria label */}
@@ -250,7 +252,7 @@ const LockedEllipseSettings = (props: Props) => {
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}
@@ -270,8 +272,9 @@ const LockedEllipseSettings = (props: Props) => {
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
+                            key={labelIndex}
                             expanded={true}
-                            onChangeProps={(newLabel: LockedLabelType) => {
+                            onChangeProps={(newLabel) => {
                                 handleLabelChange(newLabel, labelIndex);
                             }}
                             onRemove={() => {

@@ -27,6 +27,8 @@ import type {
     LegacyButtonSets,
 } from "@khanacademy/perseus";
 
+type ChangeFn = typeof Changeable.change;
+
 const {InfoTip} = components;
 
 type Props = {
@@ -103,16 +105,16 @@ class ExpressionEditor extends React.Component<Props, State> {
         functions: ["f", "g", "h"],
     };
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
         this.state = {
             functionsInternal: this.props.functions.join(" "),
         };
     }
 
-    change(...args) {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
-    }
+    };
 
     serialize: () => any = () => {
         const formSerializables = [
@@ -213,15 +215,16 @@ class ExpressionEditor extends React.Component<Props, State> {
         this.change({answerForms});
     };
 
-    // called when the options (including the expression itself) to an answer
-    // form change
-    updateForm: (i: number, props: any) => void = (i, props) => {
+    // This function is designed to update the answerForm property
+    // with new data. This function should not be used to update any
+    // other properties within ExpressionEditor.
+    updateAnswerForm(i: number, props: AnswerForm) {
         const answerForms = lens(this.props.answerForms)
             .merge([i], props)
             .freeze();
 
         this.change({answerForms});
-    };
+    }
 
     handleReorder: (components: any) => void = (components) => {
         const answerForms = components.map((component) => {
@@ -291,45 +294,101 @@ class ExpressionEditor extends React.Component<Props, State> {
         this.props.onChange(newProps);
     };
 
+    changeSimplify(key: number, simplify: boolean) {
+        const answerForm: AnswerForm = {
+            ...this.props.answerForms[key],
+            key: `${key}`,
+            simplify,
+        };
+
+        this.updateAnswerForm(key, answerForm);
+    }
+
+    changeForm(key: number, form: boolean) {
+        const answerForm: AnswerForm = {
+            ...this.props.answerForms[key],
+            form,
+            key: `${key}`,
+        };
+
+        this.updateAnswerForm(key, answerForm);
+    }
+
+    changeConsidered(
+        key: number,
+        considered: (typeof PerseusExpressionAnswerFormConsidered)[number],
+    ) {
+        const answerForm: AnswerForm = {
+            ...this.props.answerForms[key],
+            key: `${key}`,
+            considered,
+        };
+
+        this.updateAnswerForm(key, answerForm);
+    }
+
+    changeTimes(times: boolean) {
+        this.change({times: times});
+    }
+
+    changeExpressionWidget: (
+        key: number,
+        props: React.ComponentProps<typeof Expression>,
+    ) => void = (key, props) => {
+        const answerForm: AnswerForm = {
+            ...this.props.answerForms[key],
+            key: `${key}`,
+            value: props.value,
+        };
+        this.updateAnswerForm(key, answerForm);
+    };
+
     render(): React.ReactNode {
-        const answerOptions = this.props.answerForms
-            .map((ans: AnswerForm) => {
+        const answerOptions: React.JSX.Element[] = this.props.answerForms.map(
+            (ans: AnswerForm) => {
                 const key = parseAnswerKey(ans);
 
-                const expressionProps = {
+                const expressionProps: Partial<
+                    React.ComponentProps<typeof Expression>
+                > = {
                     // note we're using
                     // *this.props*.{times,functions,buttonSets} since each
                     // answer area has the same settings for those
                     times: this.props.times,
                     functions: this.props.functions,
                     buttonSets: this.props.buttonSets,
-
                     buttonsVisible: "focused",
-                    form: ans.form,
-                    simplify: ans.simplify,
                     value: ans.value,
-
-                    onChange: (props) => this.updateForm(key, props),
+                    // @ts-expect-error: Type '(props: React.ComponentProps<typeof Expression>) => void' is not assignable to type 'ChangeHandler'. Types of parameters 'props' and 'arg1' are incompatible.
+                    onChange: (
+                        props: React.ComponentProps<typeof Expression>,
+                    ) => this.changeExpressionWidget(key, props),
                     trackInteraction: () => {},
-
                     widgetId: this.props.widgetId + "-" + ans.key,
+                    visibleLabel: this.props.visibleLabel,
+                    ariaLabel: this.props.ariaLabel,
                 } as const;
 
-                return lens(ans)
-                    .merge([], {
-                        key,
-                        draggable: true,
-                        onChange: (props) =>
-                            this.updateForm(
-                                Number.parseInt(ans.key ?? ""),
-                                props,
-                            ),
-                        onDelete: () => this.handleRemoveForm(key),
-                        expressionProps: expressionProps,
-                    })
-                    .freeze();
-            })
-            .map((obj) => <AnswerOption key={obj.key} {...obj} />);
+                return (
+                    <AnswerOption
+                        key={ans.key}
+                        draggable={true}
+                        considered={ans.considered}
+                        expressionProps={expressionProps}
+                        form={ans.form}
+                        simplify={ans.simplify}
+                        onDelete={() => this.handleRemoveForm(key)}
+                        onChangeSimplify={(simplify) =>
+                            this.changeSimplify(key, simplify)
+                        }
+                        onChangeForm={(form) => this.changeForm(key, form)}
+                        onChangeConsidered={(considered) =>
+                            this.changeConsidered(key, considered)
+                        }
+                    />
+                );
+            },
+        );
 
         const sortable = (
             <SortableArea
@@ -392,13 +451,14 @@ class ExpressionEditor extends React.Component<Props, State> {
                     />
                     <InfoTip>
                         <p>
-                            Label text that's read by screen readers. Highly
-                            recommend adding a label here to ensure your
+                            Label text that&apos;s read by screen readers.
+                            Highly recommend adding a label here to ensure your
                             exercise is accessible. For more information on
                             writting accessible labels, please see{" "}
                             <a
                                 href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
                                 target="_blank"
+                                rel="noreferrer"
                             >
                                 this article.
                             </a>
@@ -416,7 +476,8 @@ class ExpressionEditor extends React.Component<Props, State> {
                         <p>
                             Single-letter variables listed here will be
                             interpreted as functions. This let us know that f(x)
-                            means "f of x" and not "f times x".
+                            means &quot;f of x&quot; and not &quot;f times
+                            x&quot;.
                         </p>
                     </InfoTip>
                 </div>
@@ -425,8 +486,8 @@ class ExpressionEditor extends React.Component<Props, State> {
                     <Checkbox
                         label="Use × instead of ⋅ for multiplication"
                         checked={this.props.times}
-                        onChange={(value) => {
-                            this.props.onChange({times: value});
+                        onChange={(newCheckedState) => {
+                            this.changeTimes(newCheckedState);
                         }}
                     />
                     <InfoTip>
@@ -464,7 +525,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 }
 
 // Find the next element in arr after val, wrapping around to the first.
-const findNextIn = function (arr: ReadonlyArray<string>, val: any) {
+const findNextIn = function <T>(arr: ReadonlyArray<T>, val: T) {
     let ix = arr.indexOf(val);
     ix = (ix + 1) % arr.length;
     return arr[ix];
@@ -476,12 +537,18 @@ type AnswerOptionProps = {
 
     // Must the answer have the same form as this answer.
     form: boolean;
+    draggable: boolean;
 
     // Must the answer be simplified.
     simplify: boolean;
 
     onDelete: () => void;
-} & Changeable.ChangeableProps;
+    onChangeSimplify: (simplify: boolean) => void;
+    onChangeForm: (form: boolean) => void;
+    onChangeConsidered: (
+        considered: (typeof PerseusExpressionAnswerFormConsidered)[number],
+    ) => void;
+};
 
 type AnswerOptionState = {
     deleteFocused: boolean;
@@ -493,7 +560,7 @@ class AnswerOption extends React.Component<
 > {
     state = {deleteFocused: false};
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -510,11 +577,11 @@ class AnswerOption extends React.Component<
     };
 
     toggleConsidered = () => {
-        const newVal = findNextIn(
-            PerseusExpressionAnswerFormConsidered,
-            this.props.considered,
-        );
-        this.change({considered: newVal});
+        // Update findNextIn to have stronger typing.
+        const newVal = findNextIn<
+            (typeof PerseusExpressionAnswerFormConsidered)[number]
+        >(PerseusExpressionAnswerFormConsidered, this.props.considered);
+        this.props.onChangeConsidered(newVal);
     };
 
     render(): React.ReactNode {
@@ -525,7 +592,7 @@ class AnswerOption extends React.Component<
                     onClick={this.handleImSure}
                     color="destructive"
                 >
-                    I'm sure!
+                    I&apos;m sure!
                 </Button>
                 <Strut size={spacing.small_12} />
                 <Button size="small" onClick={this.handleCancelDelete} light>
@@ -572,15 +639,13 @@ class AnswerOption extends React.Component<
                         <Checkbox
                             label="Answer expression must have the same form."
                             checked={this.props.form}
-                            onChange={(value) => {
-                                this.props.onChange({form: value});
-                            }}
+                            onChange={this.props.onChangeForm}
                         />
                         <InfoTip>
                             <p>
-                                The student's answer must be in the same form.
-                                Commutativity and excess negative signs are
-                                ignored.
+                                The student&apos;s answer must be in the same
+                                form. Commutativity and excess negative signs
+                                are ignored.
                             </p>
                         </InfoTip>
                     </div>
@@ -589,17 +654,15 @@ class AnswerOption extends React.Component<
                         <Checkbox
                             label="Answer expression must be fully expanded and simplified."
                             checked={this.props.simplify}
-                            onChange={(value) => {
-                                this.props.onChange({simplify: value});
-                            }}
+                            onChange={this.props.onChangeSimplify}
                         />
                         <InfoTip>
                             <p>
-                                The student's answer must be fully expanded and
-                                simplified. Answering this equation (x^2+2x+1)
-                                with this factored equation (x+1)^2 will render
-                                this response "Your answer is not fully expanded
-                                and simplified."
+                                The student&apos;s answer must be fully expanded
+                                and simplified. Answering this equation
+                                (x^2+2x+1) with this factored equation (x+1)^2
+                                will render this response &quot;Your answer is
+                                not fully expanded and simplified.&quot;
                             </p>
                         </InfoTip>
                     </div>

@@ -3,7 +3,7 @@ import _ from "underscore";
 import Util from "../../util";
 
 import Radio from "./radio-component";
-import radioValidator from "./radio-validator";
+import scoreRadio from "./score-radio";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusRadioWidgetOptions} from "../../perseus-types";
@@ -126,23 +126,19 @@ const transform = (
 };
 
 const propUpgrades = {
-    "1": (v0props: any): any => {
-        let choices;
-        let hasNoneOfTheAbove;
+    "1": (v0props: any): PerseusRadioWidgetOptions => {
+        const {noneOfTheAbove, ...rest} = v0props;
 
-        if (!v0props.noneOfTheAbove) {
-            choices = v0props.choices;
-            hasNoneOfTheAbove = false;
-        } else {
+        if (noneOfTheAbove) {
             throw new Error(
                 "radio widget v0 no longer supports auto noneOfTheAbove",
             );
         }
 
-        return _.extend(_.omit(v0props, "noneOfTheAbove"), {
-            choices: choices,
-            hasNoneOfTheAbove: hasNoneOfTheAbove,
-        });
+        return {
+            ...rest,
+            hasNoneOfTheAbove: false,
+        };
     },
 } as const;
 
@@ -156,5 +152,7 @@ export default {
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
     isLintable: true,
-    validator: radioValidator,
-} as WidgetExports<typeof Radio>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusRadioUserInput
+    scorer: scoreRadio,
+} satisfies WidgetExports<typeof Radio>;

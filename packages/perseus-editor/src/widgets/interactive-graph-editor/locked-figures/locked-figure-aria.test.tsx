@@ -22,7 +22,9 @@ describe("LockedFigureAria", () => {
         render(
             <LockedFigureAria
                 ariaLabel={undefined}
-                prePopulatedAriaLabel="Pre-populated aria label"
+                getPrepopulatedAriaLabel={() =>
+                    Promise.resolve("Pre-populated aria label")
+                }
                 onChangeProps={() => {}}
             />,
             {wrapper: RenderStateRoot},
@@ -52,7 +54,9 @@ describe("LockedFigureAria", () => {
         render(
             <LockedFigureAria
                 ariaLabel="Point at (x, y)"
-                prePopulatedAriaLabel="Pre-populated aria label"
+                getPrepopulatedAriaLabel={() =>
+                    Promise.resolve("Pre-populated aria label")
+                }
                 onChangeProps={() => {}}
             />,
             {wrapper: RenderStateRoot},
@@ -72,7 +76,9 @@ describe("LockedFigureAria", () => {
         render(
             <LockedFigureAria
                 ariaLabel={undefined}
-                prePopulatedAriaLabel="Pre-populated aria label"
+                getPrepopulatedAriaLabel={() =>
+                    Promise.resolve("Pre-populated aria label")
+                }
                 onChangeProps={onChangeProps}
             />,
             {wrapper: RenderStateRoot},
@@ -96,7 +102,9 @@ describe("LockedFigureAria", () => {
         render(
             <LockedFigureAria
                 ariaLabel="Point at (x, y)"
-                prePopulatedAriaLabel="Pre-populated aria label"
+                getPrepopulatedAriaLabel={() =>
+                    Promise.resolve("Pre-populated aria label")
+                }
                 onChangeProps={onChangeProps}
             />,
             {wrapper: RenderStateRoot},

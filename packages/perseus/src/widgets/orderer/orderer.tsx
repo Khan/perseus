@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @babel/no-invalid-this, @typescript-eslint/no-unused-vars, one-var, react/no-unsafe */
+/* eslint-disable @babel/no-invalid-this, react/no-unsafe */
 import {Errors} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import $ from "jquery";
@@ -12,20 +12,17 @@ import {Log} from "../../logging/log";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 
-import {ordererValidator} from "./orderer-validator";
+import {scoreOrderer} from "./score-orderer";
 
 import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
-import type {
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-    Widget,
-} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
     PerseusOrdererRubric,
     PerseusOrdererUserInput,
 } from "../../validation.types";
+import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type PlaceholderCardProps = {
@@ -298,11 +295,6 @@ class Card extends React.Component<CardProps, CardState> {
     }
 }
 
-const NORMAL = "normal";
-const AUTO = "auto";
-const HORIZONTAL = "horizontal";
-const VERTICAL = "vertical";
-
 type RenderProps = PerseusOrdererWidgetOptions & {
     current: any;
 };
@@ -342,8 +334,8 @@ class Orderer
         current: [],
         options: [],
         correctOptions: [],
-        height: NORMAL,
-        layout: HORIZONTAL,
+        height: "normal",
+        layout: "horizontal",
         linterContext: linterContextDefault,
     };
 
@@ -519,7 +511,7 @@ class Orderer
 
     findCorrectIndex: (arg1: any, arg2: any) => any = (draggable, list) => {
         // Find the correct index for a card given the current cards.
-        const isHorizontal = this.props.layout === HORIZONTAL;
+        const isHorizontal = this.props.layout === "horizontal";
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $dragList = $(ReactDOM.findDOMNode(this.refs.dragList));
@@ -583,28 +575,24 @@ class Orderer
             return false;
         }
 
-        const isHorizontal = this.props.layout === HORIZONTAL,
-            // @ts-expect-error - TS2769 - No overload matches this call.
-            $draggable = $(ReactDOM.findDOMNode(draggable)),
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2769 - No overload matches this call.
-            $bank = $(ReactDOM.findDOMNode(this.refs.bank)),
-            // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
-            draggableOffset = $draggable.offset(),
-            // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
-            bankOffset = $bank.offset(),
-            // @ts-expect-error - TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
-            draggableHeight = $draggable.outerHeight(true),
-            // @ts-expect-error - TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
-            bankHeight = $bank.outerHeight(true),
-            // @ts-expect-error - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
-            bankWidth = $bank.outerWidth(true),
-            // eslint-disable-next-line react/no-string-refs
-            dragList = ReactDOM.findDOMNode(this.refs.dragList),
-            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'width' does not exist on type 'JQueryStatic'.
-            dragListWidth = $(dragList).width(),
-            // @ts-expect-error - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
-            draggableWidth = $draggable.outerWidth(true);
+        const isHorizontal = this.props.layout === "horizontal";
+        // @ts-expect-error - TS2769 - No overload matches this call.
+        const $draggable = $(ReactDOM.findDOMNode(draggable));
+        // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error - TS2769 - No overload matches this call.
+        const $bank = $(ReactDOM.findDOMNode(this.refs.bank));
+        // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+        const draggableOffset = $draggable.offset();
+        // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+        const bankOffset = $bank.offset();
+        // @ts-expect-error - TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
+        const draggableHeight = $draggable.outerHeight(true);
+        // @ts-expect-error - TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
+        const bankHeight = $bank.outerHeight(true);
+        // @ts-expect-error - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
+        const bankWidth = $bank.outerWidth(true);
+        // @ts-expect-error - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
+        const draggableWidth = $draggable.outerWidth(true);
 
         if (isHorizontal) {
             return (
@@ -639,6 +627,10 @@ class Orderer
                 return v.content;
             }),
         };
+    }
+
+    getPromptJSON(): OrdererPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     render(): React.ReactNode {
@@ -790,5 +782,7 @@ export default {
     hidden: true,
     widget: Orderer,
     isLintable: true,
-    validator: ordererValidator,
-} as WidgetExports<typeof Orderer>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusOrdererUserInput
+    scorer: scoreOrderer,
+} satisfies WidgetExports<typeof Orderer>;

@@ -5,12 +5,14 @@ import _ from "underscore";
 
 import SvgImage from "../../components/svg-image";
 import GraphUtils from "../../util/graph-utils";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/measurer-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";
 import type {PerseusMeasurerWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {Interval} from "../../util/interval";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 const defaultImage = {
     url: null,
@@ -143,6 +145,10 @@ class Measurer extends React.Component<Props> implements Widget {
         }
     }
 
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
+    }
+
     render() {
         const image = _.extend({}, defaultImage, this.props.image);
 
@@ -176,19 +182,17 @@ class Measurer extends React.Component<Props> implements Widget {
 }
 
 const propUpgrades = {
-    "1": (v0props: any): any => {
-        const v1props = _(v0props)
-            .chain()
-            .omit("imageUrl", "imageTop", "imageLeft")
-            .extend({
-                image: {
-                    url: v0props.imageUrl,
-                    top: v0props.imageTop,
-                    left: v0props.imageLeft,
-                },
-            })
-            .value();
-        return v1props;
+    "1": (v0props: any): PerseusMeasurerWidgetOptions => {
+        const {imageUrl, imageTop, imageLeft, ...rest} = v0props;
+
+        return {
+            ...rest,
+            image: {
+                url: imageUrl,
+                top: imageTop,
+                left: imageLeft,
+            },
+        };
     },
 } as const;
 
@@ -199,6 +203,6 @@ export default {
     widget: Measurer,
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
-    // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(1),
-} as WidgetExports<typeof Measurer>;
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(1),
+} satisfies WidgetExports<typeof Measurer>;

@@ -6,7 +6,10 @@ import * as React from "react";
 import {flags} from "../../../__stories__/flags-for-api-options";
 
 import LockedPointSettings from "./locked-point-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    getDefaultFigureForType,
+    mockedJoinLabelsAsSpokenMathForTests,
+} from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -25,6 +28,13 @@ const defaultProps = {
 };
 
 const defaultLabel = getDefaultFigureForType("label");
+
+// Mock the async function generateSpokenMathDetails
+jest.mock("./util", () => ({
+    ...jest.requireActual("./util"),
+    joinLabelsAsSpokenMath: (input) =>
+        mockedJoinLabelsAsSpokenMathForTests(input),
+}));
 
 describe("LockedPointSettings", () => {
     let userEvent: UserEvent;
@@ -270,7 +280,7 @@ describe("LockedPointSettings", () => {
         );
 
         // Act
-        const labelText = screen.getByLabelText("TeX");
+        const labelText = screen.getByLabelText("text");
         await userEvent.type(labelText, "!");
 
         // Assert
@@ -409,6 +419,8 @@ describe("LockedPointSettings", () => {
         await userEvent.click(autoGenButton);
 
         // Assert
+        // generateSpokenMathDetails is mocked to return the input string
+        // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
             ariaLabel: "Point at (0, 0). Appearance solid gray.",
         });
@@ -439,8 +451,10 @@ describe("LockedPointSettings", () => {
         await userEvent.click(autoGenButton);
 
         // Assert
+        // generateSpokenMathDetails is mocked to return the input string
+        // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point A at (0, 0). Appearance solid gray.",
+            ariaLabel: "Point spoken A at (0, 0). Appearance solid gray.",
         });
     });
 
@@ -473,8 +487,11 @@ describe("LockedPointSettings", () => {
         await userEvent.click(autoGenButton);
 
         // Assert
+        // generateSpokenMathDetails is mocked to return the input string
+        // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point A, B at (0, 0). Appearance solid gray.",
+            ariaLabel:
+                "Point spoken A, spoken B at (0, 0). Appearance solid gray.",
         });
     });
 });

@@ -10,20 +10,33 @@ import {useDraggable} from "../use-draggable";
 import {MovablePointView} from "./movable-point-view";
 
 import type {CSSCursor} from "./css-cursor";
+import type {AriaLive} from "../../types";
 import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
 
 type Params = {
     point: vec.Vector2;
+    ariaDescribedBy?: string;
+    ariaLabel?: string;
+    ariaLive?: AriaLive;
     color?: string | undefined;
-    cursor?: CSSCursor | undefined;
     constrain?: KeyboardMovementConstraint;
+    cursor?: CSSCursor | undefined;
+    // The focusableHandle element is assigned to the forwarded ref.
+    forwardedRef?: React.ForwardedRef<SVGGElement | null> | undefined;
+    /**
+     * Represents where this point stands in the overall point sequence.
+     * This is used to provide screen readers with context about the point.
+     * Example: sequenceNumber={1} ==> "Point 1 at x comma y"
+     *
+     * Note: This number is 1-indexed, and should restart from 1 for each
+     * interactive figure on the graph.
+     */
+    sequenceNumber?: number;
     onMove?: ((newPoint: vec.Vector2) => unknown) | undefined;
     onClick?: (() => unknown) | undefined;
     onFocus?: ((event: React.FocusEvent) => unknown) | undefined;
     onBlur?: ((event: React.FocusEvent) => unknown) | undefined;
-    // The focusableHandle element is assigned to the forwarded ref.
-    forwardedRef?: React.ForwardedRef<SVGGElement | null> | undefined;
 };
 
 type Return = {
@@ -37,14 +50,18 @@ export function useControlPoint(params: Params): Return {
     const {snapStep, disableKeyboardInteraction} = useGraphConfig();
     const {
         point,
+        ariaDescribedBy,
+        ariaLabel,
+        ariaLive = "polite",
         color,
-        cursor,
         constrain = (p) => snap(snapStep, p),
+        cursor,
+        forwardedRef = noop,
+        sequenceNumber = 1,
         onMove = noop,
         onClick = noop,
         onFocus = noop,
         onBlur = noop,
-        forwardedRef = noop,
     } = params;
 
     const {strings, locale} = usePerseusI18n();
@@ -66,6 +83,15 @@ export function useControlPoint(params: Params): Return {
         constrainKeyboardMovement: constrain,
     });
 
+    // if custom aria label is not provided, will use default of sequence number and point coordinates
+    const pointAriaLabel =
+        ariaLabel ||
+        strings.srPointAtCoordinates({
+            num: sequenceNumber,
+            x: srFormatNumber(point[X], locale),
+            y: srFormatNumber(point[Y], locale),
+        });
+
     useLayoutEffect(() => {
         setForwardedRef(forwardedRef, focusableHandleRef.current);
     }, [forwardedRef]);
@@ -77,13 +103,9 @@ export function useControlPoint(params: Params): Return {
             tabIndex={disableKeyboardInteraction ? -1 : 0}
             ref={focusableHandleRef}
             role="button"
-            aria-label={strings.srPointAtCoordinates({
-                x: srFormatNumber(point[X], locale),
-                y: srFormatNumber(point[Y], locale),
-            })}
-            // aria-live="assertive" causes the new location of the point to be
-            // announced immediately on move.
-            aria-live="assertive"
+            aria-describedby={ariaDescribedBy}
+            aria-label={pointAriaLabel}
+            aria-live={ariaLive}
             onFocus={(event) => {
                 onFocus(event);
                 setFocused(true);

@@ -133,9 +133,20 @@ export type PerseusStrings = {
     addPoint: string;
     removePoint: string;
     graphKeyboardPrompt: string;
-    srPointAtCoordinates: ({x, y}: {x: string; y: string}) => string;
+    closePolygon: string;
+    openPolygon: string;
+    srPointAtCoordinates: ({
+        num,
+        x,
+        y,
+    }: {
+        num: number;
+        x: string;
+        y: string;
+    }) => string;
     srInteractiveElements: ({elements}: {elements: string}) => string;
     srNoInteractiveElements: string;
+    selectAnAnswer: string;
 };
 
 /**
@@ -311,12 +322,20 @@ export const strings: {
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
-    srPointAtCoordinates: {
-        context: "Screenreader-accessible description of a point on a graph",
-        message: "Point at %(x)s comma %(y)s",
-    },
+    closePolygon: "Close shape",
+    openPolygon: "Re-open shape",
     srInteractiveElements: "Interactive elements: %(elements)s",
     srNoInteractiveElements: "No interactive elements",
+
+    // TODO(LEMS-2660): The following strings are ones that will need
+    // translation tickets after all interactive graph SR strings have
+    // been finalized. Remove this comment after the tickets have been
+    // created.
+    srPointAtCoordinates: {
+        context: "Screenreader-accessible description of a point on a graph",
+        message: "Point %(num)s at %(x)s comma %(y)s",
+    },
+    selectAnAnswer: "Select an answer",
 };
 
 /**
@@ -476,7 +495,10 @@ export const mockStrings: PerseusStrings = {
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
-    srPointAtCoordinates: ({x, y}) => `Point at ${x} comma ${y}`,
+    closePolygon: "Close shape",
+    openPolygon: "Re-open shape",
+    srPointAtCoordinates: ({num, x, y}) => `Point ${num} at ${x} comma ${y}`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
+    selectAnAnswer: "Select an answer",
 };

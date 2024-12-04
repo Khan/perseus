@@ -18,6 +18,7 @@ export {default as ServerItemRenderer} from "./server-item-renderer";
 export {default as HintsRenderer} from "./hints-renderer";
 export {default as HintRenderer} from "./hint-renderer";
 export {default as Renderer} from "./renderer";
+export {scorePerseusItem} from "./renderer-util";
 
 /**
  * Widgets
@@ -100,6 +101,7 @@ export {
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
 } from "./util/sizing-utils";
+export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
 export {
     getAnswersFromWidgets,
     injectWidgets,
@@ -159,7 +161,6 @@ export {default as WIDGET_PROP_DENYLIST} from "./mixins/widget-prop-denylist";
 /**
  * Types
  */
-export type {PerseusOptions} from "./init";
 export type {ILogger, LogErrorOptions} from "./logging/log";
 export type {ServerItemRenderer as ServerItemRendererComponent} from "./server-item-renderer";
 export type {
@@ -209,6 +210,7 @@ export type {
     CollinearTuple,
     MathFormat,
     InputNumberWidget, // TODO(jeremy): remove?
+    PerseusArticle,
     // Widget configuration types
     PerseusImageBackground,
     PerseusInputNumberWidgetOptions,
@@ -218,13 +220,12 @@ export type {
     PerseusPlotterWidgetOptions,
     PerseusPythonProgramWidgetOptions,
     PerseusRadioWidgetOptions,
-    PerseusExampleWidgetOptions,
-    PerseusSimpleMarkdownTesterWidgetOptions,
     PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
     MultiItem,
 } from "./perseus-types";
+export type {UserInputMap} from "./validation.types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";
 
@@ -254,3 +255,7 @@ export type {
     TagsShape,
 } from "./multi-items/shape-types";
 export type {Path} from "./multi-items/trees";
+export type {
+    RendererPromptJSON,
+    WidgetPromptJSON,
+} from "./widget-ai-utils/prompt-types";

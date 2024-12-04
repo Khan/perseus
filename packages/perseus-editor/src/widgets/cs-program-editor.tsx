@@ -19,6 +19,8 @@ import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
+type ChangeFn = typeof Changeable.change;
+
 const {InfoTip} = components;
 
 const DEFAULT_WIDTH = 400;
@@ -39,7 +41,7 @@ class PairEditor extends React.Component<any> {
         value: "",
     };
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -84,7 +86,7 @@ class PairsEditor extends React.Component<any> {
         ).isRequired,
     };
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -229,8 +231,9 @@ class CSProgramEditor extends React.Component<any> {
                     }}
                 />
                 <InfoTip>
-                    If you show the editor, you should use the "full-width"
-                    alignment to make room for the width of the editor.
+                    If you show the editor, you should use the
+                    &quot;full-width&quot; alignment to make room for the width
+                    of the editor.
                 </InfoTip>
                 <br />
                 <Checkbox

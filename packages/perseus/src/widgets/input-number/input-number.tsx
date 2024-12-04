@@ -8,8 +8,9 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import InputWithExamples from "../../components/input-with-examples";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 
-import inputNumberValidator, {answerTypes} from "./input-number-validator";
+import scoreInputNumber, {answerTypes} from "./score-input-number";
 
 import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
@@ -18,6 +19,7 @@ import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
 } from "../../validation.types";
+import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {
@@ -123,12 +125,16 @@ class InputNumber extends React.Component<Props> implements Widget {
         return true;
     };
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     focusInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     };
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     blurInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
@@ -146,6 +152,8 @@ class InputNumber extends React.Component<Props> implements Widget {
         return [[]];
     };
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     setInputValue: (arg1: Path, arg2: string, arg3: () => void) => void = (
         path,
         newValue,
@@ -161,6 +169,10 @@ class InputNumber extends React.Component<Props> implements Widget {
 
     getUserInput(): PerseusInputNumberUserInput {
         return InputNumber.getUserInputFromProps(this.props);
+    }
+
+    getPromptJSON(): InputNumberPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     examples: () => ReadonlyArray<string> = () => {
@@ -272,7 +284,9 @@ export default {
     widget: InputNumber,
     transform: propTransform,
     isLintable: true,
-    validator: inputNumberValidator,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusInputNumberUserInput'.
+    scorer: scoreInputNumber,
 
     getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {
         if (rubric.value == null) {
@@ -284,4 +298,4 @@ export default {
         }
         return answerString;
     },
-} as WidgetExports<typeof InputNumber>;
+} satisfies WidgetExports<typeof InputNumber>;

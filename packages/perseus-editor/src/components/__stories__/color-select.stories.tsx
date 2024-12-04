@@ -29,14 +29,10 @@ export const Controlled = {
         const [selectedValue, setSelectedValue] =
             React.useState<LockedFigureColor>(defaultColor);
 
-        const handleColorChange = (color: LockedFigureColor) => {
-            setSelectedValue(color);
-        };
-
         return (
             <ColorSelect
                 selectedValue={selectedValue}
-                onChange={handleColorChange}
+                onChange={setSelectedValue}
             />
         );
     },

@@ -14,14 +14,14 @@ import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import Util from "./util";
 
-import type {PerseusRenderer} from "./perseus-types";
+import type {PerseusArticle, PerseusRenderer} from "./perseus-types";
 import type {PerseusDependenciesV2, SharedRendererProps} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
 
 type Props = Partial<React.ContextType<typeof DependenciesContext>> &
     SharedRendererProps & {
-        json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
+        json: PerseusArticle;
         // Whether to use the new Bibliotron styles for articles
         /**
          * @deprecated Does nothing

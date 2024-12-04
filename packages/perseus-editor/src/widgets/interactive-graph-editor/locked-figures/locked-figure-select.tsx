@@ -11,29 +11,29 @@ import {spacing, color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import type {LockedFigureType} from "@khanacademy/perseus";
+
 type Props = {
     // Whether to show the locked labels in the locked figure settings.
     // TODO(LEMS-2274): Remove this prop once the label flag is
     // sfully rolled out.
     showLabelsFlag?: boolean;
     id: string;
-    onChange: (value: string) => void;
+    onChange: (value: LockedFigureType) => void;
 };
 
 const LockedFigureSelect = (props: Props) => {
     const {id, onChange} = props;
 
-    const figureTypes = [
+    const figureTypes: ReadonlyArray<LockedFigureType> = [
         "point",
         "line",
         "vector",
         "ellipse",
         "polygon",
         "function",
+        ...(props.showLabelsFlag ? ["label" as const] : []),
     ];
-    if (props.showLabelsFlag) {
-        figureTypes.push("label");
-    }
 
     return (
         <View style={styles.container}>

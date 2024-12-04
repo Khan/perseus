@@ -6,7 +6,10 @@ import * as React from "react";
 import {flags} from "../../../__stories__/flags-for-api-options";
 
 import LockedEllipseSettings from "./locked-ellipse-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    getDefaultFigureForType,
+    mockedJoinLabelsAsSpokenMathForTests,
+} from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -25,6 +28,13 @@ const defaultProps = {
 };
 
 const defaultLabel = getDefaultFigureForType("label");
+
+// Mock the async function generateSpokenMathDetails
+jest.mock("./util", () => ({
+    ...jest.requireActual("./util"),
+    joinLabelsAsSpokenMath: (input) =>
+        mockedJoinLabelsAsSpokenMathForTests(input),
+}));
 
 describe("LockedEllipseSettings", () => {
     let userEvent: UserEvent;
@@ -240,7 +250,7 @@ describe("LockedEllipseSettings", () => {
             );
 
             // Act
-            const labelText = screen.getByLabelText("TeX");
+            const labelText = screen.getByLabelText("text");
             await userEvent.type(labelText, "!");
 
             // Assert
@@ -498,7 +508,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle A with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
+                    "Circle spoken A with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
             });
         });
 
@@ -534,7 +544,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle A, B with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
+                    "Circle spoken A, spoken B with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
             });
         });
     });

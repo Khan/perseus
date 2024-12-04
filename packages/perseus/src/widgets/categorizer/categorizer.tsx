@@ -14,17 +14,19 @@ import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
-import categorizerValidator from "./categorizer-validator";
+import scoreCategorizer from "./score-categorizer";
 
 import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
-    PerseusCategorizerRubric,
+    PerseusCategorizerScoringData,
     PerseusCategorizerUserInput,
 } from "../../validation.types";
+import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
-type Props = WidgetProps<RenderProps, PerseusCategorizerRubric> & {
+type Props = WidgetProps<RenderProps, PerseusCategorizerScoringData> & {
     values: ReadonlyArray<string>;
 };
 
@@ -68,6 +70,10 @@ export class Categorizer
 
     getUserInput(): PerseusCategorizerUserInput {
         return Categorizer.getUserInputFromProps(this.props);
+    }
+
+    getPromptJSON(): CategorizerPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     onChange(itemNum, catNum) {
@@ -319,5 +325,7 @@ export default {
         );
     },
     isLintable: true,
-    validator: categorizerValidator,
-} as WidgetExports<typeof Categorizer>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
+    scorer: scoreCategorizer,
+} satisfies WidgetExports<typeof Categorizer>;

@@ -22,17 +22,16 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type RenderResult = ReturnType<typeof render>;
 
+type ExtraProps = Omit<PropsFor<typeof Perseus.Renderer>, "strings">;
+
 export const renderQuestion = (
     question: PerseusRenderer,
     apiOptions: APIOptions = Object.freeze({}),
-    extraProps?: Omit<PropsFor<typeof Perseus.Renderer>, "strings">,
+    extraProps?: ExtraProps,
 ): {
     container: HTMLElement;
     renderer: Perseus.Renderer;
-    rerender: (
-        question: PerseusRenderer,
-        extraProps?: Omit<PropsFor<typeof Perseus.Renderer>, "strings">,
-    ) => void;
+    rerender: (question: PerseusRenderer, extraProps?: ExtraProps) => void;
     unmount: RenderResult["unmount"];
 } => {
     setDependencies(testDependencies);
@@ -59,7 +58,7 @@ export const renderQuestion = (
     }
     const renderAgain = (
         question: PerseusRenderer,
-        extraProps: undefined | React.ComponentProps<typeof Perseus.Renderer>,
+        extraProps?: ExtraProps,
     ) => {
         rerender(
             <RenderStateRoot>
