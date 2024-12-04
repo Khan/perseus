@@ -1,4 +1,10 @@
-import {constant, object, string, number} from "../general-purpose-parsers";
+import {
+    constant,
+    object,
+    string,
+    number,
+    optional
+} from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
 
@@ -10,6 +16,6 @@ export const parsePassageRefWidget: Parser<PassageRefWidget> = parseWidget(
     object({
         passageNumber: number,
         referenceNumber: number,
-        summaryText: string,
+        summaryText: optional(string),
     }),
 );
