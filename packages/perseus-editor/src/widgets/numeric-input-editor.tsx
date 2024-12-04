@@ -5,8 +5,10 @@ import {
     EditorJsonify,
     Util,
     PerseusI18nContext,
-    iconTrash,
+    iconTrash, LockedLabelType,
 } from "@khanacademy/perseus";
+import Heading from "../components/heading";
+import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
@@ -15,6 +17,7 @@ import Editor from "../editor";
 import {iconGear} from "../styles/icon-paths";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import {getDefaultFigureForType} from "./interactive-graph-editor/locked-figures/util";
 
 type ChangeFn = typeof Changeable.change;
 
@@ -100,6 +103,8 @@ type Props = PerseusNumericInputWidgetOptions & {
 type State = {
     lastStatus: string;
     showOptions: boolean[];
+    showSettings: boolean;
+    showAnswers: boolean;
 };
 
 class NumericInputEditor extends React.Component<Props, State> {
@@ -122,6 +127,8 @@ class NumericInputEditor extends React.Component<Props, State> {
         this.state = {
             lastStatus: "wrong",
             showOptions: _.map(this.props.answers, () => false),
+            showSettings: true,
+            showAnswers: true,
         };
     }
 
@@ -134,6 +141,15 @@ class NumericInputEditor extends React.Component<Props, State> {
         showOptions[choiceIndex] = !showOptions[choiceIndex];
         this.setState({showOptions: showOptions});
     };
+
+    onToggleAccordion = (accordionName: string) => {
+        return () => {
+            const toggleName = `show${accordionName}`;
+            const newState = {[toggleName]: !this.state[toggleName]};
+            // @ts-expect-error
+            this.setState(newState);
+        }
+    }
 
     onTrashAnswer = (choiceIndex) => {
         if (choiceIndex >= 0 && choiceIndex < this.props.answers.length) {
@@ -397,24 +413,6 @@ class NumericInputEditor extends React.Component<Props, State> {
             </div>
         );
 
-        const addAnswerButton = (
-            <div>
-                <a
-                    href="#"
-                    className="simple-button orange"
-                    onClick={(e) => {
-                        // preventDefault ensures that href="#"
-                        // doesn't scroll to the top of the page
-                        e.preventDefault();
-                        this.addAnswer();
-                    }}
-                    onKeyDown={(e) => this.onSpace(e, this.addAnswer)}
-                >
-                    <span>Add new answer</span>
-                </a>
-            </div>
-        );
-
         const instructions = {
             wrong: "(address the mistake/misconception)",
             ungraded: "(explain in detail to avoid confusion)",
@@ -602,16 +600,37 @@ class NumericInputEditor extends React.Component<Props, State> {
 
         return (
             <div className="perseus-input-number-editor">
-                <div className="ui-title">User input</div>
-                <div className="msg-title">
-                    Message shown to user on attempt
-                </div>
-                {generateInputAnswerEditors()}
-                {addAnswerButton}
-                {inputSize}
-                {rightAlign}
-                {coefficientCheck}
-                {labelText}
+                <Heading
+                    title="Common Settings"
+                    isCollapsible={true}
+                    isOpen={this.state.showSettings}
+                    onToggle={this.onToggleAccordion("Settings")}
+                />
+                {this.state.showSettings && inputSize}
+                {this.state.showSettings && rightAlign}
+                {this.state.showSettings && coefficientCheck}
+                {this.state.showSettings && labelText}
+                <Heading
+                    title="Answers"
+                    isCollapsible={true}
+                    isOpen={this.state.showAnswers}
+                    onToggle={this.onToggleAccordion("Answers")}
+                />
+                {this.state.showAnswers && (
+                    <>
+                        <div className="ui-title">User input</div>
+                        <div className="msg-title">
+                            Message shown to user on attempt
+                        </div>
+                        {generateInputAnswerEditors()}
+                        <Button
+                            kind="tertiary"
+                            onClick={this.addAnswer}
+                        >
+                            Add new answer
+                        </Button>
+                    </>
+                )}
             </div>
         );
     }
