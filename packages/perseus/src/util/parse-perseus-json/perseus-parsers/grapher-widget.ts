@@ -11,6 +11,7 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
+import {discriminatedUnion} from "../general-purpose-parsers/discriminated-union";
 
 import {parseWidget} from "./widget";
 
@@ -35,13 +36,15 @@ export const parseGrapherWidget: Parser<GrapherWidget> = parseWidget(
                 "tangent",
             ),
         ),
-        correct: union(
+        correct: discriminatedUnion(
+            object({type: constant("absolute_value")}),
             object({
                 type: constant("absolute_value"),
                 coords: pairOfPoints,
             }),
         )
             .or(
+                object({type: constant("exponential")}),
                 object({
                     type: constant("exponential"),
                     asymptote: pairOfPoints,
@@ -49,12 +52,14 @@ export const parseGrapherWidget: Parser<GrapherWidget> = parseWidget(
                 }),
             )
             .or(
+                object({type: constant("linear")}),
                 object({
                     type: constant("linear"),
                     coords: pairOfPoints,
                 }),
             )
             .or(
+                object({type: constant("logarithm")}),
                 object({
                     type: constant("logarithm"),
                     asymptote: pairOfPoints,
@@ -62,18 +67,21 @@ export const parseGrapherWidget: Parser<GrapherWidget> = parseWidget(
                 }),
             )
             .or(
+                object({type: constant("quadratic")}),
                 object({
                     type: constant("quadratic"),
                     coords: pairOfPoints,
                 }),
             )
             .or(
+                object({type: constant("sinusoid")}),
                 object({
                     type: constant("sinusoid"),
                     coords: pairOfPoints,
                 }),
             )
             .or(
+                object({type: constant("tangent")}),
                 object({
                     type: constant("tangent"),
                     coords: pairOfPoints,
