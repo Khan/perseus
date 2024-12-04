@@ -31,14 +31,6 @@ function validateNumberLine(
             message: "Number of divisions is outside the allowed range.",
         };
     }
-
-    if (userInput.numLinePosition === start && userInput.rel === startRel) {
-        // We're where we started.
-        return {
-            type: "invalid",
-            message: null,
-        };
-    }
     return null;
 }
 

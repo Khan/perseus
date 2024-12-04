@@ -17,6 +17,10 @@ function scoreNumberLine(
         return validationError;
     }
 
+    const range = scoringData.range;
+    const start =
+        scoringData.initialX != null ? scoringData.initialX : range[0];
+    const startRel = scoringData.isInequality ? "ge" : "eq";
     const correctRel = scoringData.correctRel || "eq";
     const correctPos = knumber.equal(
         userInput.numLinePosition,
@@ -28,6 +32,13 @@ function scoreNumberLine(
             type: "points",
             earned: 1,
             total: 1,
+            message: null,
+        };
+    }
+    if (userInput.numLinePosition === start && userInput.rel === startRel) {
+        // We're where we started.
+        return {
+            type: "invalid",
             message: null,
         };
     }
