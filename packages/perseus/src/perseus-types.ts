@@ -1214,7 +1214,7 @@ export type PerseusPassageRefWidgetOptions = {
     // The reference number
     referenceNumber: number;
     // Short summary of the referenced section. This will be included in parentheses and quotes automatically.
-    summaryText: string;
+    summaryText?: string;
 };
 
 export const plotterPlotTypes = [
