@@ -11,18 +11,27 @@ import {stringToNumber} from "../general-purpose-parsers/string-to-number";
 
 import type {Parser} from "../parser-types";
 import type {PerseusImageBackground} from "@khanacademy/perseus";
+import {convert} from "../general-purpose-parsers/convert";
 
-const numericToNumber = pipeParsers(union(number).or(string).parser).then(
-    stringToNumber,
-).parser;
+function emptyToZero(x: string | number): string | number {
+    return x === "" ? 0 : x
+}
+
+const imageDimensionToNumber = pipeParsers(union(number).or(string).parser)
+    // In this specific case, empty string is equivalent to zero. An empty
+    // string parses to either NaN (using parseInt) or 0 (using unary +) and
+    // CSS will treat NaN as invalid and default to 0 instead.
+    .then(convert(emptyToZero))
+    .then(stringToNumber)
+    .parser;
 
 export const parsePerseusImageBackground: Parser<PerseusImageBackground> =
     object({
         url: optional(nullable(string)),
-        width: optional(numericToNumber),
-        height: optional(numericToNumber),
-        top: optional(numericToNumber),
-        left: optional(numericToNumber),
-        bottom: optional(numericToNumber),
-        scale: optional(numericToNumber),
+        width: optional(imageDimensionToNumber),
+        height: optional(imageDimensionToNumber),
+        top: optional(imageDimensionToNumber),
+        left: optional(imageDimensionToNumber),
+        bottom: optional(imageDimensionToNumber),
+        scale: optional(imageDimensionToNumber),
     });
