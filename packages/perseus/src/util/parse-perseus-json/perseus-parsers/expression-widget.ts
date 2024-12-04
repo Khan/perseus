@@ -23,9 +23,13 @@ import type {
     Parser,
     ParseResult,
 } from "../parser-types";
+import {convert} from "../general-purpose-parsers/convert";
 
-const parseAnswerForm: Parser<PerseusExpressionAnswerForm> = object({
-    value: string,
+const parsePossiblyInvalidAnswerForm = object({
+    // `value` is the possibly invalid part of this. It should always be a
+    // string, but some answer forms don't have it. The Expression widget
+    // ignores invalid values, so we can safely filter them out during parsing.
+    value: optional(string),
     form: boolean,
     simplify: boolean,
     considered: enumeration("correct", "wrong", "ungraded"),
@@ -34,12 +38,28 @@ const parseAnswerForm: Parser<PerseusExpressionAnswerForm> = object({
     ).parser,
 });
 
+function removeInvalidAnswerForms(
+    possiblyInvalid: Array<ParsedValue<typeof parsePossiblyInvalidAnswerForm>>,
+): PerseusExpressionAnswerForm[] {
+    const valid: PerseusExpressionAnswerForm[] = []
+    for (const answerForm of possiblyInvalid) {
+        const {value} = answerForm
+        if (value != null) {
+            // Copying the object seems to be needed to make TypeScript happy
+            valid.push({...answerForm, value})
+        }
+    }
+    return valid
+}
+
 const parseExpressionWidgetV1: Parser<ExpressionWidget> =
     parseWidgetWithVersion(
         object({major: constant(1), minor: number}),
         constant("expression"),
         object({
-            answerForms: array(parseAnswerForm),
+            answerForms: pipeParsers(array(parsePossiblyInvalidAnswerForm))
+                .then(convert(removeInvalidAnswerForms))
+                .parser,
             functions: array(string),
             times: boolean,
             visibleLabel: optional(string),
