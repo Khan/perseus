@@ -160,7 +160,6 @@ const GraphSettings = createReactClass({
 
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value; // eslint-disable-line react/no-string-refs
-        url; //  ?
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 if (this._isMounted) {
