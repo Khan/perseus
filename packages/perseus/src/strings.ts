@@ -394,7 +394,7 @@ export const strings: {
     },
     srUpdatedInitialSideAtCoordinates: {
         context:
-            "Updated screenreader-accessible description of the initial side of an angle",
+            "Screenreader-accessible description of an update to the initial side of an angle",
         message: "Point 3, initial side, moved to %(x)s comma %(y)s",
     },
     srUpdatedTerminalSideAtCoordinates: {

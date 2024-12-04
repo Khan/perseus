@@ -140,9 +140,6 @@ describe("getWholeAngleMeasure", () => {
         ];
         const vertex = coords[1];
         expect(getWholeAngleMeasure(coords, vertex)).toBe(184);
-        expect(getWholeAngleMeasure(coords, vertex)).not.toBe(
-            184.08561677997488,
-        );
     });
 });
 
