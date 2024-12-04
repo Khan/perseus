@@ -10,7 +10,6 @@ import {
 } from "../testing/test-dependencies";
 
 import type {Preview} from "@storybook/react";
-import StoryWrapper from "./story-wrapper";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
@@ -24,9 +23,17 @@ const preview: Preview = {
         (Story) => (
             <RenderStateRoot>
                 <DependenciesContext.Provider value={storybookDependenciesV2}>
-                    <StoryWrapper>
+                    {/* Most of our components have an expectation to be
+                        rendered inside of a .framework-perseus container.
+                        We want to make sure we can include it here, since it
+                        can also affect the styling.
+
+                        Inclue box-sizing-border-box-reset to reflect
+                        the global styles from prod.
+                    */}
+                    <div className="framework-perseus box-sizing-border-box-reset">
                         <Story />
-                    </StoryWrapper>
+                    </div>
                 </DependenciesContext.Provider>
             </RenderStateRoot>
         ),
