@@ -11,6 +11,7 @@ import {
     union,
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 import {discriminatedUnion} from "../general-purpose-parsers/discriminated-union";
 
 import {parseWidgetWithVersion} from "./widget";
@@ -31,8 +32,8 @@ const parsePossiblyInvalidAnswerForm = object({
     // string, but some answer forms don't have it. The Expression widget
     // ignores invalid values, so we can safely filter them out during parsing.
     value: optional(string),
-    form: boolean,
-    simplify: boolean,
+    form: defaulted(boolean, () => false),
+    simplify: defaulted(boolean, () => false),
     considered: enumeration("correct", "wrong", "ungraded"),
     key: pipeParsers(optional(union(string).or(number).parser)).then(
         (key, ctx) => ctx.success(String(key)),
