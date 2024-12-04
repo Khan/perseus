@@ -10,6 +10,8 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
+import {discriminatedUnion} from "../general-purpose-parsers/discriminated-union";
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
@@ -19,10 +21,6 @@ import type {
     PerseusInteractionElement,
 } from "../../../perseus-types";
 import type {Parser} from "../parser-types";
-import {
-    discriminatedUnion
-} from "../general-purpose-parsers/discriminated-union";
-import {defaulted} from "../general-purpose-parsers/defaulted";
 
 const pairOfNumbers = pair(number, number);
 const stringOrEmpty = defaulted(string, () => "");
@@ -186,14 +184,24 @@ export const parseInteractionWidget: Parser<InteractionWidget> = parseWidget(
             tickStep: pairOfNumbers,
         }),
         elements: array(
-            discriminatedUnion(object({type: parseFunctionType}), parseFunctionElement)
+            discriminatedUnion(
+                object({type: parseFunctionType}),
+                parseFunctionElement,
+            )
                 .or(object({type: parseLabelType}), parseLabelElement)
                 .or(object({type: parseLineType}), parseLineElement)
-                .or(object({type: parseMovableLineType}), parseMovableLineElement)
-                .or(object({type: parseMovablePointType}), parseMovablePointElement)
+                .or(
+                    object({type: parseMovableLineType}),
+                    parseMovableLineElement,
+                )
+                .or(
+                    object({type: parseMovablePointType}),
+                    parseMovablePointElement,
+                )
                 .or(object({type: parseParametricType}), parseParametricElement)
                 .or(object({type: parsePointType}), parsePointElement)
-                .or(object({type: parseRectangleType}), parseRectangleElement).parser,
+                .or(object({type: parseRectangleType}), parseRectangleElement)
+                .parser,
         ),
     }),
 );

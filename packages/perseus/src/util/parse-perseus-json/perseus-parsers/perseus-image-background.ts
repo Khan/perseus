@@ -7,14 +7,14 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
+import {convert} from "../general-purpose-parsers/convert";
 import {stringToNumber} from "../general-purpose-parsers/string-to-number";
 
 import type {Parser} from "../parser-types";
 import type {PerseusImageBackground} from "@khanacademy/perseus";
-import {convert} from "../general-purpose-parsers/convert";
 
 function emptyToZero(x: string | number): string | number {
-    return x === "" ? 0 : x
+    return x === "" ? 0 : x;
 }
 
 const imageDimensionToNumber = pipeParsers(union(number).or(string).parser)
@@ -22,8 +22,7 @@ const imageDimensionToNumber = pipeParsers(union(number).or(string).parser)
     // string parses to either NaN (using parseInt) or 0 (using unary +) and
     // CSS will treat NaN as invalid and default to 0 instead.
     .then(convert(emptyToZero))
-    .then(stringToNumber)
-    .parser;
+    .then(stringToNumber).parser;
 
 export const parsePerseusImageBackground: Parser<PerseusImageBackground> =
     object({

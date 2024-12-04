@@ -3,7 +3,7 @@ import {
     object,
     string,
     number,
-    optional
+    optional,
 } from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
