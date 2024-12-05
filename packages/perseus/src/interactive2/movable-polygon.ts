@@ -10,7 +10,7 @@ import GraphUtils from "../util/graph-utils";
 
 import InteractiveUtil from "./interactive-util";
 import MovablePolygonOptions from "./movable-polygon-options";
-import objective_ from "./objective_";
+import {pluck} from "./objective_";
 
 const assert = InteractiveUtil.assert;
 const normalizeOptions = InteractiveUtil.normalizeOptions;
@@ -91,7 +91,7 @@ _.extend(MovablePolygon.prototype, {
                 //    - are objects, not primitives (and need a deeper copy)
                 //    - they don't need getters created for them
                 // TODO(jack): Consider "default" once we es3ify perseus
-                objective_.pluck(MovablePolygonOptions, "standard"),
+                pluck(MovablePolygonOptions, "standard"),
 
                 // We only update props here, because we want things on state to
                 // be persistent, and updated appropriately in modify()
