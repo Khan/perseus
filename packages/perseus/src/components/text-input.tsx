@@ -17,6 +17,7 @@ type Props = {
     placeholder?: string;
     onKeyDown?: () => void;
     style?: StyleType;
+    "aria-describedby"?: string;
 };
 
 type DefaultProps = {
@@ -113,6 +114,7 @@ class TextInput extends React.Component<Props> {
                 value={formattedValue}
                 type="text"
                 aria-label={labelText}
+                aria-describedby={this.props["aria-describedby"]}
                 onChange={(value) => this.props.onChange(value)}
                 placeholder={placeholder}
                 onFocus={onFocus}

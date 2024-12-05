@@ -38,7 +38,6 @@ import type {
     PerseusGroupWidgetOptions,
     PerseusMatcherWidgetOptions,
     PerseusMatrixWidgetAnswers,
-    PerseusNumberLineWidgetOptions,
     PerseusNumericInputAnswer,
     PerseusOrdererWidgetOptions,
     PerseusRadioChoice,
@@ -91,6 +90,7 @@ export type PerseusExpressionRubric = {
 export type PerseusExpressionUserInput = string;
 
 export type PerseusGroupRubric = PerseusGroupWidgetOptions;
+export type PerseusGroupUserInput = UserInputMap;
 
 export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
 
@@ -164,7 +164,11 @@ export type PerseusMatrixUserInput = {
     answers: PerseusMatrixRubric["answers"];
 };
 
-export type PerseusNumberLineRubric = PerseusNumberLineWidgetOptions & {
+export type PerseusNumberLineScoringData = {
+    correctRel: string | null | undefined;
+    correctX: number;
+    range: ReadonlyArray<number>;
+    initialX: number | null | undefined;
     isInequality: boolean;
 };
 
@@ -246,7 +250,7 @@ export type Rubric =
     | PerseusLabelImageRubric
     | PerseusMatcherRubric
     | PerseusMatrixRubric
-    | PerseusNumberLineRubric
+    | PerseusNumberLineScoringData
     | PerseusNumericInputRubric
     | PerseusOrdererRubric
     | PerseusPlotterScoringData

@@ -23,6 +23,7 @@ import type {
     PerseusNumericInputUserInput,
 } from "../../validation.types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const formExamples: {
     [key: string]: (
@@ -55,7 +56,7 @@ type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     coefficient: NonNullable<ExternalProps["coefficient"]>;
     answerForms: NonNullable<ExternalProps["answerForms"]>;
-    labelText: NonNullable<ExternalProps["labelText"]>;
+    labelText: string;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
     currentValue: string;
 };
@@ -70,6 +71,17 @@ type DefaultProps = {
     labelText: Props["labelText"];
     linterContext: Props["linterContext"];
 };
+
+// Assert that the PerseusNumericInputWidgetOptions parsed from JSON can be passed
+// as props to this component. This ensures that the PerseusMatrixWidgetOptions
+// stays in sync with the prop types. The PropsFor<Component> type takes
+// defaultProps into account, which is important because
+// PerseusNumericInputWidgetOptions has optional fields which receive defaults
+// via defaultProps.
+0 as any as WidgetProps<
+    PerseusNumericInputWidgetOptions,
+    PerseusNumericInputRubric
+> satisfies PropsFor<typeof NumericInput>;
 
 type State = {
     // keeps track of the other set of values when switching

@@ -137,13 +137,11 @@ export class ServerItemRenderer
     }
 
     componentDidUpdate(prevProps: Props, prevState: State) {
-        if (this.props.apiOptions.answerableCallback) {
+        const answerableCallback = this.props.apiOptions.answerableCallback;
+        if (answerableCallback != null) {
             const isAnswerable =
                 this.questionRenderer.emptyWidgets().length === 0;
-            const {answerableCallback} = this.props.apiOptions;
-            if (answerableCallback) {
-                answerableCallback(isAnswerable);
-            }
+            answerableCallback(isAnswerable);
         }
 
         if (!this._fullyRendered) {

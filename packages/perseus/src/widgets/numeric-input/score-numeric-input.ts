@@ -111,7 +111,10 @@ function scoreNumericInput(
 
     const normalizedAnswerExpected = rubric.answers
         .filter((answer) => answer.status === "correct")
-        .every((answer) => Math.abs(answer.value) <= 1);
+        .every(
+            (answer) =>
+                answer.value !== undefined && Math.abs(answer.value) <= 1,
+        );
 
     // The coefficient is an attribute of the widget
     let localValue: string | number = currentValue;

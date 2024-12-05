@@ -582,8 +582,9 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                             />
                             <InfoTip>
                                 <p>
-                                    Create an image in graphie, or use the "Add
-                                    image" function to create a background.
+                                    Create an image in graphie, or use the
+                                    &quot;Add image&quot; function to create a
+                                    background.
                                 </p>
                             </InfoTip>
                         </LabeledRow>

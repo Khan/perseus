@@ -160,7 +160,6 @@ const GraphSettings = createReactClass({
 
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value; // eslint-disable-line react/no-string-refs
-        url; //  ?
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 if (this._isMounted) {
@@ -561,8 +560,9 @@ const GraphSettings = createReactClass({
                             />
                             <InfoTip>
                                 <p>
-                                    Create an image in graphie, or use the "Add
-                                    image" function to create a background.
+                                    Create an image in graphie, or use the
+                                    &quot;Add image&quot; function to create a
+                                    background.
                                 </p>
                             </InfoTip>
                         </div>

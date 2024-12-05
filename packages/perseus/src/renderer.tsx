@@ -19,7 +19,7 @@ import {DefinitionProvider} from "./definition-context";
 import {getDependencies} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
 import InteractionTracker from "./interaction-tracker";
-import Objective from "./interactive2/objective_";
+import {mapObject} from "./interactive2/objective_";
 import JiptParagraphs from "./jipt-paragraphs";
 import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
@@ -64,8 +64,6 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.less";
-
-const {mapObject} = Objective;
 
 const rContainsNonWhitespace = /\S/;
 const rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
@@ -1652,8 +1650,8 @@ class Renderer
     setInputValue: (
         path: FocusPath,
         newValue: string,
-        focus?: () => unknown,
-    ) => void = (path, newValue, focus) => {
+        cb?: () => void,
+    ) => void = (path, newValue, cb) => {
         // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
         const widgetId = _.first(path);
         // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
@@ -1661,7 +1659,7 @@ class Renderer
         const widget = this.getWidgetInstance(widgetId);
 
         // Widget handles parsing of the interWidgetPath.
-        widget?.setInputValue?.(interWidgetPath, newValue, focus);
+        widget?.setInputValue?.(interWidgetPath, newValue, cb);
     };
 
     /**

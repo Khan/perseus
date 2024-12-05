@@ -11,72 +11,102 @@ export type Size = [number, number];
 export type CollinearTuple = [vec.Vector2, vec.Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
 
+/**
+ * Our core set of Perseus widgets.
+ *
+ * This interface is the basis for "registering" all Perseus widget types.
+ * There should be one key/value pair for each supported widget. If you create
+ * a new widget, an entry should be added to this interface. Note that this
+ * only registers the widget options type, you'll also need to register the
+ * widget so that it's available at runtime (@see
+ * {@link file://./widgets.ts#registerWidget}).
+ *
+ * Importantly, the key should be the name that is used in widget IDs. For most
+ * widgets that is the same as the widget option's `type` field. In cases where
+ * a widget has been deprecated and replaced with the deprecated-standin
+ * widget, it should be the original widget type!
+ *
+ * If you define the widget outside of this package, you can still add the new
+ * widget to this interface by writing the following in that package that
+ * contains the widget. TypeScript will merge that definition of the
+ * `PerseusWidgets` with the one defined below.
+ *
+ * ```typescript
+ * declare module "@khanacademy/perseus" {
+ *     interface PerseusWidgetTypes {
+ *         // A new widget
+ *         "new-awesomeness": MyAwesomeNewWidget;
+ *
+ *         // A deprecated widget
+ *         "super-old-widget": AutoCorrectWidget;
+ *     }
+ * }
+ *
+ * // The new widget's options definition
+ * type MyAwesomeNewWidget = WidgetOptions<'new-awesomeness', MyAwesomeNewWidgetOptions>;
+ *
+ * // The deprecated widget's options definition
+ * type SuperOldWidget = WidgetOptions<'super-old-widget', object>;
+ * ```
+ *
+ * This interface can be extended through the magic of TypeScript "Declaration
+ * merging". Specifically, we augment this module and extend this interface.
+ *
+ * @see {@link https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation}
+ */
+export interface PerseusWidgetTypes {
+    categorizer: CategorizerWidget;
+    "cs-program": CSProgramWidget;
+    definition: DefinitionWidget;
+    dropdown: DropdownWidget;
+    explanation: ExplanationWidget;
+    expression: ExpressionWidget;
+    grapher: GrapherWidget;
+    "graded-group-set": GradedGroupSetWidget;
+    "graded-group": GradedGroupWidget;
+    group: GroupWidget;
+    iframe: IFrameWidget;
+    image: ImageWidget;
+    "input-number": InputNumberWidget;
+    interaction: InteractionWidget;
+    "interactive-graph": InteractiveGraphWidget;
+    "label-image": LabelImageWidget;
+    matcher: MatcherWidget;
+    matrix: MatrixWidget;
+    measurer: MeasurerWidget;
+    "molecule-renderer": MoleculeRendererWidget;
+    "number-line": NumberLineWidget;
+    "numeric-input": NumericInputWidget;
+    orderer: OrdererWidget;
+    "passage-ref-target": RefTargetWidget;
+    "passage-ref": PassageRefWidget;
+    passage: PassageWidget;
+    "phet-simulation": PhetSimulationWidget;
+    "python-program": PythonProgramWidget;
+    plotter: PlotterWidget;
+    radio: RadioWidget;
+    sorter: SorterWidget;
+    table: TableWidget;
+    video: VideoWidget;
+
+    // Deprecated widgets
+    sequence: AutoCorrectWidget;
+}
+
+/**
+ * A map of widget IDs to widget options. This is most often used as the type
+ * for a set of widgets defined in a `PerseusItem` but can also be useful to
+ * represent a function parameter where only `widgets` from a `PerseusItem` are
+ * needed. Today Widget IDs are made up of the widget type and an incrementing
+ * integer (eg. `interactive-graph 1` or `radio 3`). It is suggested to avoid
+ * reading/parsing the widget id to derive any information from it, except in
+ * the case of this map.
+ *
+ * @see {@link PerseusWidgetTypes} additional widgets can be added to this map type
+ * by augmenting the PerseusWidgetTypes with new widget types!
+ */
 export type PerseusWidgetsMap = {
-    [key in `categorizer ${number}`]: CategorizerWidget;
-} & {
-    [key in `cs-program ${number}`]: CSProgramWidget;
-} & {
-    [key in `definition ${number}`]: DefinitionWidget;
-} & {
-    [key in `dropdown ${number}`]: DropdownWidget;
-} & {
-    [key in `explanation ${number}`]: ExplanationWidget;
-} & {
-    [key in `expression ${number}`]: ExpressionWidget;
-} & {
-    [key in `grapher ${number}`]: GrapherWidget;
-} & {
-    [key in `group ${number}`]: GroupWidget;
-} & {
-    [key in `graded-group ${number}`]: GradedGroupWidget;
-} & {
-    [key in `graded-group-set ${number}`]: GradedGroupSetWidget;
-} & {
-    [key in `iframe ${number}`]: IFrameWidget;
-} & {
-    [key in `image ${number}`]: ImageWidget;
-} & {
-    [key in `input-number ${number}`]: InputNumberWidget;
-} & {
-    [key in `interaction ${number}`]: InteractionWidget;
-} & {
-    [key in `interactive-graph ${number}`]: InteractiveGraphWidget;
-} & {
-    [key in `label-image ${number}`]: LabelImageWidget;
-} & {
-    [key in `matcher ${number}`]: MatcherWidget;
-} & {
-    [key in `matrix ${number}`]: MatrixWidget;
-} & {
-    [key in `measurer ${number}`]: MeasurerWidget;
-} & {
-    [key in `molecule-renderer ${number}`]: MoleculeRendererWidget;
-} & {
-    [key in `number-line ${number}`]: NumberLineWidget;
-} & {
-    [key in `numeric-input ${number}`]: NumericInputWidget;
-} & {
-    [key in `orderer ${number}`]: OrdererWidget;
-} & {
-    [key in `passage ${number}`]: PassageWidget;
-} & {
-    [key in `passage-ref ${number}`]: PassageRefWidget;
-} & {
-    [key in `passage-ref-target ${number}`]: PassageRefWidget;
-} & {
-    [key in `phet-simulation ${number}`]: PhetSimulationWidget;
-} & {
-    [key in `plotter ${number}`]: PlotterWidget;
-} & {
-    [key in `python-program ${number}`]: PythonProgramWidget;
-} & {
-    [key in `radio ${number}`]: RadioWidget;
-} & {
-    [key in `sorter ${number}`]: SorterWidget;
-} & {
-    [key in `table ${number}`]: TableWidget;
-} & {
-    [key in `video ${number}`]: VideoWidget;
+    [Property in keyof PerseusWidgetTypes as `${Property} ${number}`]: PerseusWidgetTypes[Property];
 };
 
 /**
@@ -287,7 +317,7 @@ export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassage
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
-export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', PerseusWidgetOptions>;
+export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', object>;
 
 export type PerseusWidget =
     | CategorizerWidget
@@ -633,10 +663,10 @@ export type PerseusInteractiveGraphWidgetOptions = {
     step: [number, number];
     // Where the grid lines on the graph will render. default [1, 1]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
-    gridStep: [number, number];
+    gridStep?: [x: number, y: number];
     // Where the graph points will lock to when they are dragged. default [0.5, 0.5]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
-    snapStep: [number, number];
+    snapStep?: [x: number, y: number];
     // An optional image to use in the background
     backgroundImage?: PerseusImageBackground;
     /**
@@ -647,7 +677,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     markings: "graph" | "grid" | "none";
     // How to label the X and Y axis.  default: ["x", "y"]
-    labels: ReadonlyArray<string>;
+    labels?: ReadonlyArray<string>;
     // Whether to show the Protractor tool overlayed on top of the graph
     showProtractor: boolean;
     /**
@@ -1114,7 +1144,7 @@ export type PerseusNumericInputWidgetOptions = {
     // A list of all the possible correct and incorrect answers
     answers: ReadonlyArray<PerseusNumericInputAnswer>;
     // Translatable Text; Text to describe this input. This will be shown to users using screenreaders.
-    labelText: string;
+    labelText?: string | undefined;
     // Use size "Normal" for all text boxes, unless there are multiple text boxes in one line and the answer area is too narrow to fit them. Options: "normal" or "small"
     size: string;
     // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
@@ -1133,7 +1163,7 @@ export type PerseusNumericInputAnswer = {
     // Translatable Display; A description for why this answer is correct, wrong, or ungraded
     message: string;
     // The expected answer
-    value: number;
+    value?: number;
     // Whether this answer is "correct", "wrong", or "ungraded"
     status: string;
     // The forms available for this answer.  Options: "integer, ""decimal", "proper", "improper", "mixed", or "pi"
