@@ -8,11 +8,11 @@ import {
     iconTrash,
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
-import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 import _ from "underscore";
 
@@ -455,6 +455,17 @@ class NumericInputEditor extends React.Component<Props, State> {
                         }}
                     />
                 );
+                const statusProper =
+                    answer.status.charAt(0).toUpperCase() +
+                    answer.status.slice(1);
+                const answerRangeText = answer.maxError
+                    ? `± ${answer.maxError}`
+                    : "";
+                const answerHeading =
+                    answer.value === null
+                        ? "New Answer"
+                        : `${statusProper} answer: ${answer.value} ${answerRangeText}`;
+
                 return (
                     <div className="perseus-widget-row" key={i}>
                         <PerseusEditorAccordion
@@ -464,7 +475,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                             }}
                             header={
                                 <div className="section-accordion">
-                                    <LabelLarge>Answer Option</LabelLarge>
+                                    <LabelLarge>{answerHeading}</LabelLarge>
                                     <Strut size={spacing.xSmall_8} />
                                 </div>
                             }
@@ -576,22 +587,22 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 >
                                     {answer.status}
                                 </a>
-                                <a
-                                    href="#"
-                                    className="answer-trash"
-                                    aria-label="Delete answer"
-                                    onClick={(e) => {
-                                        // preventDefault ensures that href="#"
-                                        // doesn't scroll to the top of the page
-                                        e.preventDefault();
-                                        this.onTrashAnswer(i);
-                                    }}
-                                    onKeyDown={(e) =>
-                                        this.onSpace(e, this.onTrashAnswer)
-                                    }
-                                >
-                                    <InlineIcon {...iconTrash} />
-                                </a>
+                                {/*<a*/}
+                                {/*    href="#"*/}
+                                {/*    className="answer-trash"*/}
+                                {/*    aria-label="Delete answer"*/}
+                                {/*    onClick={(e) => {*/}
+                                {/*        // preventDefault ensures that href="#"*/}
+                                {/*        // doesn't scroll to the top of the page*/}
+                                {/*        e.preventDefault();*/}
+                                {/*        this.onTrashAnswer(i);*/}
+                                {/*    }}*/}
+                                {/*    onKeyDown={(e) =>*/}
+                                {/*        this.onSpace(e, this.onTrashAnswer)*/}
+                                {/*    }*/}
+                                {/*>*/}
+                                {/*    <InlineIcon {...iconTrash} />*/}
+                                {/*</a>*/}
                                 <a
                                     href="#"
                                     className="options-toggle"
@@ -620,6 +631,17 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     {suggestedAnswerTypes(i)}
                                 </div>
                             )}
+                            <Button
+                                startIcon={trashIcon}
+                                aria-label={`Delete ${answerHeading}`}
+                                className="delete-item-button"
+                                onClick={() => {
+                                    this.onTrashAnswer(i);
+                                }}
+                                kind="tertiary"
+                            >
+                                Delete
+                            </Button>
                         </PerseusEditorAccordion>
                     </div>
                 );
