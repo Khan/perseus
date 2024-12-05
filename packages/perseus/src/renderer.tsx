@@ -32,6 +32,7 @@ import {
 } from "./renderer-util";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
+import {flattenScores} from "./util/scoring";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
@@ -1737,7 +1738,7 @@ class Renderer
             this.props.strings,
             this.context.locale,
         );
-        const combinedScore = Util.flattenScores(scores);
+        const combinedScore = flattenScores(scores);
         return combinedScore;
     }
 

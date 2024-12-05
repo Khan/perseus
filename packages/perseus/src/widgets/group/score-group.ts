@@ -1,5 +1,6 @@
 import {scoreWidgetsFunctional} from "../../renderer-util";
 import Util from "../../util";
+import {flattenScores} from "../../util/scoring";
 
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
@@ -24,7 +25,7 @@ function scoreGroup(
         locale,
     );
 
-    return Util.flattenScores(scores);
+    return flattenScores(scores);
 }
 
 export default scoreGroup;
