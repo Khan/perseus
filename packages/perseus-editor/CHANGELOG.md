@@ -1,18 +1,5 @@
 # @khanacademy/perseus-editor
 
-## 15.1.2
-
-### Patch Changes
-
--   [#1938](https://github.com/Khan/perseus/pull/1938) [`5e8d8468b`](https://github.com/Khan/perseus/commit/5e8d8468bb307ab8168be8e15d30af2be61ffd4a) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Type fixes
-
-*   [#1937](https://github.com/Khan/perseus/pull/1937) [`3cdabf1a3`](https://github.com/Khan/perseus/commit/3cdabf1a39b4ef3e1f6b8a76f53669f64818e407) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Ensure links opening to style guide (Google Docs) set `rel="noreferrer"`
-
--   [#1946](https://github.com/Khan/perseus/pull/1946) [`f35512786`](https://github.com/Khan/perseus/commit/f35512786117e51515a50f3a769c45de9714dfc2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove debugging call in GraphSettings component
-
--   Updated dependencies [[`3cdabf1a3`](https://github.com/Khan/perseus/commit/3cdabf1a39b4ef3e1f6b8a76f53669f64818e407), [`e21a3a39b`](https://github.com/Khan/perseus/commit/e21a3a39b69baf12a06ad13900fd7696ee0f3c87), [`5e8d8468b`](https://github.com/Khan/perseus/commit/5e8d8468bb307ab8168be8e15d30af2be61ffd4a), [`1d2b4e7bf`](https://github.com/Khan/perseus/commit/1d2b4e7bf13ec299f92da43024889702230014fa), [`763a4ba38`](https://github.com/Khan/perseus/commit/763a4ba380ac95f38e24e966107054dcd2dddd4c), [`b8926e38a`](https://github.com/Khan/perseus/commit/b8926e38a8fbdab126bff491de5cef333c483c03), [`f35512786`](https://github.com/Khan/perseus/commit/f35512786117e51515a50f3a769c45de9714dfc2), [`ef819ea95`](https://github.com/Khan/perseus/commit/ef819ea959fbab0849724529538f9a9912173aa3), [`e69ca3146`](https://github.com/Khan/perseus/commit/e69ca3146a237652837c3a02279e36583293ebd1), [`be8c06c75`](https://github.com/Khan/perseus/commit/be8c06c755f2fe5726e03866d1a15541e4258ad4), [`051c50cf7`](https://github.com/Khan/perseus/commit/051c50cf720b4766e353f24d2d15230ede1d499d), [`129adebef`](https://github.com/Khan/perseus/commit/129adebefe25e25c1b2a9e37f707cd13c673b64f), [`d05272661`](https://github.com/Khan/perseus/commit/d052726618fb9ec5a6b9d800d1a89183803e1882), [`2d89ef87d`](https://github.com/Khan/perseus/commit/2d89ef87d572b5d70dc0906bec7bfc309c16d2ab), [`e3062b3c8`](https://github.com/Khan/perseus/commit/e3062b3c8d7a27956bc49e2364e20169cba59781)]:
-    -   @khanacademy/perseus@45.1.0
-
 ## 15.1.1
 
 ### Patch Changes
