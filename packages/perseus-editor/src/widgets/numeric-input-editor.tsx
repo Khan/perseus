@@ -5,7 +5,6 @@ import {
     EditorJsonify,
     Util,
     PerseusI18nContext,
-    iconTrash,
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -613,7 +612,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                             </div>
                             {this.state.showOptions[i] && (
                                 <div className="options-container">
-                                {maxError(i)}
+                                    {maxError(i)}
                                     {answer.status === "correct" &&
                                         unsimplifiedAnswers(i)}
                                     {suggestedAnswerTypes(i)}
