@@ -52,22 +52,3 @@ export const mapObject = function <K extends string, V, U>(
     });
     return result;
 };
-
-/**
- * Maps an array to an object
- *
- * > mapObjectFromArray(['a', 'b'], function(elem) {
- *       return elem + elem;
- *   });
- * {a: 'aa', b: 'bb'}
- */
-export const mapObjectFromArray = function <K extends string, V>(
-    arr: ReadonlyArray<K>,
-    lambda: (arg1: K) => V,
-): Record<K, V> {
-    const result: Record<string, any> = {};
-    arr.forEach((elem) => {
-        result[elem] = lambda(elem);
-    });
-    return result;
-};
