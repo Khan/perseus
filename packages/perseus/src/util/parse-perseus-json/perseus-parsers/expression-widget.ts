@@ -54,6 +54,20 @@ function removeInvalidAnswerForms(
     return valid;
 }
 
+const buttonSet = enumeration(
+    "basic",
+    "basic+div",
+    "trig",
+    "prealgebra",
+    "logarithms",
+    "basic relations",
+    "advanced relations",
+);
+
+// This default is copied from the default props of the Expression component.
+// See parse-perseus-json/README.md for why the default is duplicated here.
+const defaultButtonSets = () => ["basic", "trig", "prealgebra", "logarithms"] as const;
+
 const version1 = object({major: constant(1), minor: number});
 const parseExpressionWidgetV1: Parser<ExpressionWidget> =
     parseWidgetWithVersion(
@@ -67,17 +81,7 @@ const parseExpressionWidgetV1: Parser<ExpressionWidget> =
             times: boolean,
             visibleLabel: optional(string),
             ariaLabel: optional(string),
-            buttonSets: array(
-                enumeration(
-                    "basic",
-                    "basic+div",
-                    "trig",
-                    "prealgebra",
-                    "logarithms",
-                    "basic relations",
-                    "advanced relations",
-                ),
-            ),
+            buttonSets: defaulted(array(buttonSet), defaultButtonSets),
             buttonsVisible: optional(enumeration("always", "never", "focused")),
         }),
     );
@@ -94,17 +98,7 @@ const parseExpressionWidgetV0 = parseWidgetWithVersion(
         form: boolean,
         simplify: boolean,
         value: string,
-        buttonSets: array(
-            enumeration(
-                "basic",
-                "basic+div",
-                "trig",
-                "prealgebra",
-                "logarithms",
-                "basic relations",
-                "advanced relations",
-            ),
-        ),
+        buttonSets: defaulted(array(buttonSet), defaultButtonSets),
         buttonsVisible: optional(enumeration("always", "never", "focused")),
     }),
 );
