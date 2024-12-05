@@ -297,6 +297,7 @@ const LockedLineSettings = (props: Props) => {
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
+                            key={labelIndex}
                             expanded={true}
                             onChangeProps={(newLabel) => {
                                 handleLabelChange(newLabel, labelIndex);
