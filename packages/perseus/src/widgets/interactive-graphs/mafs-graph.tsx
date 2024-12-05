@@ -121,10 +121,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const interactionPrompt =
         isUnlimitedGraphState(state) && state.showKeyboardInteractionInvitation;
 
+    // This use effect is responsible for handling keyboard/mouse mode for our users when interacting with a graph.
     React.useEffect(() => {
         if (isUnlimitedGraphState(state)) {
             const isTrapped = state.interactionMode === "keyboard";
 
+            // Likely want to move this into the handleKeyboardEvent function.
             const handleKeyDown = (event: KeyboardEvent) => {
                 // If we have nto enabled trap focus, don't handle keydown events.
                 if (!isTrapped) {
@@ -136,7 +138,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     const focusableElements:
                         | NodeListOf<HTMLElement>
                         | undefined = trapRef.current?.querySelectorAll(
-                        'a[href], button[tabindex="0"], input, textarea, select, [tabindex]:not([tabindex="-1"])',
+                        'a[href], button[tabindex="0"], input, textarea, select, [tabindex]:not([tabindex="-1"]):not(.mafs-graph)',
                     );
 
                     // If there are no focus elements or length is empty, return void.
@@ -145,6 +147,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     }
 
                     // Grab the first focusable element
+                    // Note, might want to ensure when they're trapped that they can't focus
+                    // on the whole graph as that makes no sense once you've entered the graph.
                     const firstFocusableElement = focusableElements[0];
                     // Grab the last focusable element
                     const lastFocusableElement =
