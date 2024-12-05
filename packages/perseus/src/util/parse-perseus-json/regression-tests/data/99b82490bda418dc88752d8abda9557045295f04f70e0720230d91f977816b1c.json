@@ -1,0 +1,15 @@
+{
+  "answerArea": {},
+  "hints": [],
+  "question": {
+    "content": "\n[[☃ matcher 1]]",
+    "widgets": {
+      "matcher 1": {
+        "type": "matcher"
+      },
+      "orderer 1": {
+        "type": "orderer"
+      }
+    }
+  }
+}

@@ -21,7 +21,10 @@ export const parseCategorizerWidget: Parser<CategorizerWidget> = parseWidget(
         categories: array(string),
         randomizeItems: boolean,
         static: defaulted(boolean, () => false),
-        values: array(number),
+        // `values` contains indexes into the `categories` array, which are
+        // either compared using ===, or used for array lookups. -1 is
+        // equivalent to null for either of these purposes.
+        values: array(defaulted(number, () => -1)),
         highlightLint: optional(boolean),
         linterContext: optional(
             object({
