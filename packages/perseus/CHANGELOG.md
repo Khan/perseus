@@ -1,5 +1,41 @@
 # @khanacademy/perseus
 
+## 45.1.0
+
+### Minor Changes
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Introduces a validation function for the number line widget (extracted from the scoring function).
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Changes the PerseusWidgetsMap to be extensible so that widgets can be registered outside of Perseus and still have full type safety.
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - [Numeric Input] - Update the UI to match Expression widget
+
+### Patch Changes
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - TypeScript fixes
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Refactor internally used object mapping utilities to use ES6 exports
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Type fixes
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Ensure that zoomed-in images retain alt text
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - [Numeric Input] - Show format options as a list
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor refactoring of ServerItemRenderer's componentDidUpdate to reduce duplication
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Refactor scoring for `group` widget to follow the same pattern as all other widgets
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - [Numeric Input] - Associate format options tooltip content with input field for assistive technologies
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add global styles to reflect prod styling
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Internal: convert backgroundImage dimensions to numbers during parsing.
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Improve comments on some Perseus types
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Internal: add and pass regression tests for PerseusItem parser's handling of legacy data
+
 ## 45.0.0
 
 ### Major Changes
