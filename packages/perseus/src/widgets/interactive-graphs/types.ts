@@ -46,6 +46,7 @@ export interface InteractiveGraphStateCommon {
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
+    announcement?: {text: string};
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {

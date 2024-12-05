@@ -77,6 +77,7 @@ import type {
     PairOfPoints,
 } from "../types";
 import type {Interval} from "mafs";
+import {ariaLiveAnnounce} from "../ariaLiveAnnounce";
 
 const minDistanceBetweenAngleVertexAndSidePoint = 2;
 
@@ -507,6 +508,7 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundAndSnapToGrid(action.destination, state),
                 }),
+                announcement: {text: "updated"}
             };
         }
         case "sinusoid": {
