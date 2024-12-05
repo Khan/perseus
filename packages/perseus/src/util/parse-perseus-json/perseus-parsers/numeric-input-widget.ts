@@ -7,15 +7,17 @@ import {
     optional,
     enumeration,
     boolean,
-    nullable, union, pipeParsers,
+    nullable,
+    union,
+    pipeParsers,
 } from "../general-purpose-parsers";
+import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
 import type {NumericInputWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
-import {convert} from "../general-purpose-parsers/convert";
 
 const parseMathFormat = enumeration(
     "integer",
@@ -41,7 +43,14 @@ export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
                 // TODO(benchristel): simplify should never be `true`, but we
                 // have some content where it is anyway. If we ever backfill
                 // the data, we should simplify `simplify`.
-                simplify: optional(nullable(pipeParsers(union(string).or(constant(true)).parser).then(convert(String)).parser)),
+                simplify: optional(
+                    nullable(
+                        union(string).or(
+                            pipeParsers(constant(true)).then(convert(String))
+                                .parser,
+                        ).parser,
+                    ),
+                ),
             }),
         ),
         labelText: optional(string),
