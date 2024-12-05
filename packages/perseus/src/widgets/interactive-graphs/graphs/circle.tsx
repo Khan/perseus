@@ -46,7 +46,7 @@ function CircleGraph(props: CircleGraphProps) {
     const radius = getRadius(graphState);
     const id = React.useId();
     const circleId = id + "-circle";
-    const diameterId = id + "-diameter";
+    const radiusId = id + "-radius";
     const outerPointsId = id + "-outer-points";
 
     // Aria label strings
@@ -76,12 +76,12 @@ function CircleGraph(props: CircleGraphProps) {
     return (
         <g
             aria-label={circleGraphAriaLabel}
-            aria-describedby={`${circleId} ${diameterId} ${outerPointsId}`}
+            aria-describedby={`${circleId} ${radiusId} ${outerPointsId}`}
         >
             <MovableCircle
                 id={circleId}
-                ariaLabel={`${circleShapeAriaLabel} ${circleRadiusPointAriaLabel} ${circleOuterPointsDescription}`}
-                ariaDescribedBy={diameterId}
+                ariaLabel={circleShapeAriaLabel}
+                ariaDescribedBy={`${radiusId} ${outerPointsId}`}
                 center={center}
                 radius={radius}
                 onMove={(c) => {
@@ -90,7 +90,8 @@ function CircleGraph(props: CircleGraphProps) {
                 }}
             />
             <MovablePoint
-                ariaLabel={`${circleRadiusPointAriaLabel} ${circleRadiusDescription} ${circleOuterPointsDescription}`}
+                ariaLabel={`${circleRadiusPointAriaLabel} ${circleRadiusDescription}`}
+                ariaDescribedBy={`${outerPointsId}`}
                 ariaLive={edgePointAriaLive}
                 point={radiusPoint}
                 sequenceNumber={1}
@@ -100,7 +101,7 @@ function CircleGraph(props: CircleGraphProps) {
                     dispatch(actions.circle.moveRadiusPoint(newRadiusPoint));
                 }}
             />
-            <g id={diameterId} style={{display: "hidden"}}>
+            <g id={radiusId} style={{display: "hidden"}}>
                 {circleRadiusDescription}
             </g>
             <g id={outerPointsId} style={{display: "hidden"}}>
