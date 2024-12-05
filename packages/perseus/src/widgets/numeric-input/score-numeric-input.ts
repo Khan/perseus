@@ -113,7 +113,7 @@ function scoreNumericInput(
         .filter((answer) => answer.status === "correct")
         .every(
             (answer) =>
-                answer.value !== undefined && Math.abs(answer.value) <= 1,
+                answer.value != null && Math.abs(answer.value) <= 1,
         );
 
     // The coefficient is an attribute of the widget

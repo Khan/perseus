@@ -35,7 +35,10 @@ export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
         answers: array(
             object({
                 message: string,
-                value: optional(number),
+                // TODO(benchristel): value should never be null or undefined,
+                // but we have some content where it is anyway. If we backfill
+                // the data, simplify this.
+                value: optional(nullable(number)),
                 status: string,
                 answerForms: optional(array(parseMathFormat)),
                 strict: boolean,
