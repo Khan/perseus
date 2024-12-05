@@ -41,7 +41,6 @@ import {MIN, X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
-import FocusTrap from "./trap-focus";
 import {isUnlimitedGraphState, REMOVE_BUTTON_ID} from "./utils";
 
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
@@ -97,7 +96,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const interactiveElementsDescriptionId = `interactive-graph-interactive-elements-description-${uniqueId}`;
     const unlimitedGraphKeyboardPromptId = `unlimited-graph-keyboard-prompt-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
-    const graphContainerRef = React.useRef<HTMLElement>(null);
+    const trapRef = React.useRef<HTMLElement>(null);
     const {analytics} = useDependencies();
 
     // Set up the SVG attributes for the nested SVGs that help lock
@@ -121,6 +120,70 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
     const interactionPrompt =
         isUnlimitedGraphState(state) && state.showKeyboardInteractionInvitation;
+
+    React.useEffect(() => {
+        if (isUnlimitedGraphState(state)) {
+            const isTrapped = state.interactionMode === "keyboard";
+
+            const handleKeyDown = (event: KeyboardEvent) => {
+                // If we have nto enabled trap focus, don't handle keydown events.
+                if (!isTrapped) {
+                    return;
+                }
+
+                // If we're trapped, let's handle tab keys.
+                if (event.key === "Tab") {
+                    const focusableElements:
+                        | NodeListOf<HTMLElement>
+                        | undefined = trapRef.current?.querySelectorAll(
+                        'a[href], button[tabindex="0"], input, textarea, select, [tabindex]:not([tabindex="-1"])',
+                    );
+
+                    // If there are no focus elements or length is empty, return void.
+                    if (!focusableElements || focusableElements.length === 0) {
+                        return;
+                    }
+
+                    // Grab the first focusable element
+                    const firstFocusableElement = focusableElements[0];
+                    // Grab the last focusable element
+                    const lastFocusableElement =
+                        focusableElements[focusableElements.length - 1];
+
+                    if (event.shiftKey) {
+                        // If we're on the first focusable element and want to go back.
+                        // Send the user to the end of the focus elements.
+                        if (document.activeElement === firstFocusableElement) {
+                            event.preventDefault();
+                            lastFocusableElement.focus();
+                        }
+                    } else {
+                        // If were at the end of the focus elements,
+                        // Send the user to the first focus element.
+                        if (document.activeElement === lastFocusableElement) {
+                            event.preventDefault();
+                            firstFocusableElement.focus();
+                        }
+                    }
+                } else if (event.key === "Escape") {
+                    // If the user wants to exit the experience dispatch to change the interaction mode.
+                    dispatch(actions.global.changeInteractionMode("mouse"));
+                    // Set the focus to the graph.
+                    if (graphRef && graphRef.current) {
+                        graphRef.current.focus();
+                    }
+                }
+            };
+
+            if (isTrapped) {
+                document.addEventListener("keydown", handleKeyDown);
+            }
+
+            return () => {
+                document.removeEventListener("keydown", handleKeyDown);
+            };
+        }
+    }, [state.type, state.interactionMode, state, dispatch]);
 
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
@@ -307,7 +370,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     );
 
     const mafsGraphWithControls = (
-        <View ref={graphContainerRef}>
+        <View ref={trapRef}>
             {mafsGraph}
             {renderGraphControls({
                 state,
@@ -317,9 +380,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
             })}
         </View>
     );
-
-    const isTrapFocusEnabled =
-        isUnlimitedGraphState(state) && state.interactionMode === "keyboard";
 
     return (
         <GraphConfigContext.Provider
@@ -337,13 +397,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 disableKeyboardInteraction: readOnly || !!props.static,
             }}
         >
-            {isTrapFocusEnabled ? (
-                <FocusTrap isOpen={isTrapFocusEnabled} onClose={() => console}>
-                    {mafsGraphWithControls}
-                </FocusTrap>
-            ) : (
-                mafsGraphWithControls
-            )}
+            {mafsGraphWithControls}
         </GraphConfigContext.Provider>
     );
 };
