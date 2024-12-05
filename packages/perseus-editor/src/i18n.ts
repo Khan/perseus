@@ -1,11 +1,8 @@
 /**
  * Functions for extracting data from items for use in i18n.
  */
-import {traverse, MultiItems, PerseusMarkdown} from "@khanacademy/perseus";
+import {traverse, PerseusMarkdown} from "@khanacademy/perseus";
 import _ from "underscore";
-
-const {findContentNodesInItem, findHintNodesInItem, inferItemShape} =
-    MultiItems;
 
 // Takes a renderer content and parses the markdown for images
 function findImagesInContent(content: any, images: Array<any>) {
@@ -114,17 +111,7 @@ function findImagesInRenderers(renderers) {
 // Calls findImagesInContent on all of the different content areas for
 // assessment items
 function findImagesInItemData(itemData: any): any {
-    let renderers = [];
-    if (itemData._multi) {
-        const shape = inferItemShape(itemData);
-        // @ts-expect-error - TS2345 - Argument of type 'ContentNode' is not assignable to parameter of type 'never'.
-        findContentNodesInItem(itemData, shape, (node) => renderers.push(node));
-        // @ts-expect-error - TS2345 - Argument of type 'HintNode' is not assignable to parameter of type 'never'.
-        findHintNodesInItem(itemData, shape, (node) => renderers.push(node));
-    } else {
-        // @ts-expect-error - TS2322 - Type 'any' is not assignable to type 'never'. | TS2322 - Type 'any' is not assignable to type 'never'.
-        renderers = [itemData.question, ...itemData.hints];
-    }
+    const renderers = [itemData.question, ...itemData.hints];
     return findImagesInRenderers(renderers);
 }
 

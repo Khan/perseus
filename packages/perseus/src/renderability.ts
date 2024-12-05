@@ -11,13 +11,10 @@
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import MultiItems from "./multi-items";
 import {traverse} from "./traversal";
 import * as Widgets from "./widgets";
 
 import type {PerseusWidget} from "./perseus-types";
-
-const {findContentNodesInItem, inferItemShape} = MultiItems;
 
 const isUpgradedWidgetInfoRenderableBy = function (
     widgetInfo: PerseusWidget,
@@ -85,21 +82,6 @@ export const isItemRenderableByVersion = function (
             "missing parameter to Perseus.isRenderable.item",
             Errors.InvalidInput,
         );
-    }
-    if (itemData._multi) {
-        const shape = inferItemShape(itemData);
-
-        let isRenderable = true;
-        findContentNodesInItem(itemData, shape, (node) => {
-            const nodeIsRenderable = isRendererContentRenderableBy(
-                node,
-                rendererContentVersion,
-            );
-            if (!nodeIsRenderable) {
-                isRenderable = false;
-            }
-        });
-        return isRenderable;
     }
     return isRendererContentRenderableBy(
         itemData.question,

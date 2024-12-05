@@ -475,27 +475,4 @@ describe("i18n", () => {
             });
         });
     });
-
-    describe("Multi-item image finding", () => {
-        it("should find all of the images in each leaf node", () => {
-            const foundImages = i18n.findImagesInItemData({
-                _multi: {
-                    question: {
-                        __type: "content",
-                        ...exerciseImagesEverywhere.question,
-                    },
-                    hints: exerciseImagesEverywhere.hints.map((hint) => ({
-                        __type: "hint",
-                        ...hint,
-                    })),
-                },
-            });
-
-            expect(foundImages.length <= allImages.length).toBeTruthy();
-
-            _.each(allImages, (image) => {
-                expect(foundImages.indexOf(image) !== -1).toBeTruthy();
-            });
-        });
-    });
 });
