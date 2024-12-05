@@ -1,5 +1,41 @@
 # @khanacademy/perseus
 
+## 45.1.0
+
+### Minor Changes
+
+-   [#1901](https://github.com/Khan/perseus/pull/1901) [`051c50cf7`](https://github.com/Khan/perseus/commit/051c50cf720b4766e353f24d2d15230ede1d499d) Thanks [@Myranae](https://github.com/Myranae)! - Introduces a validation function for the number line widget (extracted from the scoring function).
+
+*   [#1936](https://github.com/Khan/perseus/pull/1936) [`d05272661`](https://github.com/Khan/perseus/commit/d052726618fb9ec5a6b9d800d1a89183803e1882) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Changes the PerseusWidgetsMap to be extensible so that widgets can be registered outside of Perseus and still have full type safety.
+
+-   [#1832](https://github.com/Khan/perseus/pull/1832) [`e3062b3c8`](https://github.com/Khan/perseus/commit/e3062b3c8d7a27956bc49e2364e20169cba59781) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Numeric Input] - Update the UI to match Expression widget
+
+### Patch Changes
+
+-   [#1937](https://github.com/Khan/perseus/pull/1937) [`3cdabf1a3`](https://github.com/Khan/perseus/commit/3cdabf1a39b4ef3e1f6b8a76f53669f64818e407) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - TypeScript fixes
+
+*   [#1948](https://github.com/Khan/perseus/pull/1948) [`e21a3a39b`](https://github.com/Khan/perseus/commit/e21a3a39b69baf12a06ad13900fd7696ee0f3c87) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Refactor internally used object mapping utilities to use ES6 exports
+
+-   [#1938](https://github.com/Khan/perseus/pull/1938) [`5e8d8468b`](https://github.com/Khan/perseus/commit/5e8d8468bb307ab8168be8e15d30af2be61ffd4a) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Type fixes
+
+*   [#1942](https://github.com/Khan/perseus/pull/1942) [`1d2b4e7bf`](https://github.com/Khan/perseus/commit/1d2b4e7bf13ec299f92da43024889702230014fa) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that zoomed-in images retain alt text
+
+-   [#1861](https://github.com/Khan/perseus/pull/1861) [`763a4ba38`](https://github.com/Khan/perseus/commit/763a4ba380ac95f38e24e966107054dcd2dddd4c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Numeric Input] - Show format options as a list
+
+*   [#1947](https://github.com/Khan/perseus/pull/1947) [`b8926e38a`](https://github.com/Khan/perseus/commit/b8926e38a8fbdab126bff491de5cef333c483c03) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor refactoring of ServerItemRenderer's componentDidUpdate to reduce duplication
+
+-   [#1946](https://github.com/Khan/perseus/pull/1946) [`f35512786`](https://github.com/Khan/perseus/commit/f35512786117e51515a50f3a769c45de9714dfc2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Refactor scoring for `group` widget to follow the same pattern as all other widgets
+
+*   [#1891](https://github.com/Khan/perseus/pull/1891) [`ef819ea95`](https://github.com/Khan/perseus/commit/ef819ea959fbab0849724529538f9a9912173aa3) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Numeric Input] - Associate format options tooltip content with input field for assistive technologies
+
+-   [#1945](https://github.com/Khan/perseus/pull/1945) [`e69ca3146`](https://github.com/Khan/perseus/commit/e69ca3146a237652837c3a02279e36583293ebd1) Thanks [@nishasy](https://github.com/nishasy)! - Add global styles to reflect prod styling
+
+*   [#1923](https://github.com/Khan/perseus/pull/1923) [`be8c06c75`](https://github.com/Khan/perseus/commit/be8c06c755f2fe5726e03866d1a15541e4258ad4) Thanks [@benchristel](https://github.com/benchristel)! - Internal: convert backgroundImage dimensions to numbers during parsing.
+
+-   [#1934](https://github.com/Khan/perseus/pull/1934) [`129adebef`](https://github.com/Khan/perseus/commit/129adebefe25e25c1b2a9e37f707cd13c673b64f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Improve comments on some Perseus types
+
+*   [#1924](https://github.com/Khan/perseus/pull/1924) [`2d89ef87d`](https://github.com/Khan/perseus/commit/2d89ef87d572b5d70dc0906bec7bfc309c16d2ab) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add and pass regression tests for PerseusItem parser's handling of legacy data
+
 ## 45.0.0
 
 ### Major Changes
