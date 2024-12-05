@@ -1,5 +1,5 @@
 import {mapObject} from "./interactive2/objective_";
-import Util from "./util";
+import {scoreIsEmpty, flattenScores} from "./util/scoring";
 import {getWidgetIdsFromContent} from "./widget-type-utils";
 import {getWidgetScorer, upgradeWidgetInfoToLatestVersion} from "./widgets";
 
@@ -59,8 +59,8 @@ export function emptyWidgetsFunctional(
             locale,
         );
 
-        if (score) {
-            return Util.scoreIsEmpty(score);
+        if (score != null) {
+            return scoreIsEmpty(score);
         }
     });
 }
@@ -86,7 +86,7 @@ export function scorePerseusItem(
         strings,
         locale,
     );
-    return Util.flattenScores(scores);
+    return flattenScores(scores);
 }
 
 export function scoreWidgetsFunctional(

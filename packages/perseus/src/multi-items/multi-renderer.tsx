@@ -47,7 +47,7 @@ import {DependenciesContext} from "../dependencies";
 import HintsRenderer from "../hints-renderer";
 import {Log} from "../logging/log";
 import Renderer from "../renderer";
-import Util from "../util";
+import {combineScores, keScoreFromPerseusScore} from "../util/scoring";
 
 import {itemToTree} from "./items";
 import {buildMapper} from "./trees";
@@ -404,7 +404,7 @@ class MultiRenderer extends React.Component<Props, State> {
         if (ref.getSerializedState) {
             state = ref.getSerializedState();
         }
-        return Util.keScoreFromPerseusScore(score, guess, state);
+        return keScoreFromPerseusScore(score, guess, state);
     }
 
     /**
@@ -441,9 +441,9 @@ class MultiRenderer extends React.Component<Props, State> {
             return data.ref?.getUserInput();
         });
 
-        const combinedScore = scores.reduce(Util.combineScores);
+        const combinedScore = scores.reduce(combineScores);
 
-        return Util.keScoreFromPerseusScore(combinedScore, guess, state);
+        return keScoreFromPerseusScore(combinedScore, guess, state);
     }
 
     /**
