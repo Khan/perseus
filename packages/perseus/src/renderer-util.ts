@@ -1,4 +1,4 @@
-import Objective from "./interactive2/objective_";
+import {mapObject} from "./interactive2/objective_";
 import Util from "./util";
 import {getWidgetIdsFromContent} from "./widget-type-utils";
 import {getWidgetScorer, upgradeWidgetInfoToLatestVersion} from "./widgets";
@@ -7,8 +7,6 @@ import type {PerseusRenderer, PerseusWidgetsMap} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {PerseusScore} from "./types";
 import type {UserInput, UserInputMap} from "./validation.types";
-
-const {mapObject} = Objective;
 
 export function getUpgradedWidgetOptions(
     oldWidgetOptions: PerseusWidgetsMap,
