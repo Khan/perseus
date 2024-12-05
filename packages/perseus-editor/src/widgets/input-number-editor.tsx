@@ -168,20 +168,20 @@ class InputNumberEditor extends React.Component<Props> {
                     </label>
                     <InfoTip>
                         <p>
-                            Normally select "will not be graded". This will give
-                            the user a message saying the answer is correct but
-                            not simplified. The user will then have to simplify
-                            it and re-enter, but will not be penalized. (5th
-                            grade and anything after)
+                            Normally select &quot;will not be graded&quot;. This
+                            will give the user a message saying the answer is
+                            correct but not simplified. The user will then have
+                            to simplify it and re-enter, but will not be
+                            penalized. (5th grade and anything after)
                         </p>
                         <p>
-                            Select "will be accepted" only if the user is not
-                            expected to know how to simplify fractions yet.
-                            (Anything prior to 5th grade)
+                            Select &quot;will be accepted&quot; only if the user
+                            is not expected to know how to simplify fractions
+                            yet. (Anything prior to 5th grade)
                         </p>
                         <p>
-                            Select "will be marked wrong" only if we are
-                            specifically assessing the ability to simplify.
+                            Select &quot;will be marked wrong&quot; only if we
+                            are specifically assessing the ability to simplify.
                         </p>
                     </InfoTip>
                 </div>
@@ -240,9 +240,9 @@ class InputNumberEditor extends React.Component<Props> {
                     </select>
                     <InfoTip>
                         <p>
-                            Use the default "Numbers" unless the answer must be
-                            in a specific form (e.g., question is about
-                            converting decimals to fractions).
+                            Use the default &quot;Numbers&quot; unless the
+                            answer must be in a specific form (e.g., question is
+                            about converting decimals to fractions).
                         </p>
                     </InfoTip>
                 </div>
@@ -263,9 +263,9 @@ class InputNumberEditor extends React.Component<Props> {
                     </label>
                     <InfoTip>
                         <p>
-                            Use size "Normal" for all text boxes, unless there
-                            are multiple text boxes in one line and the answer
-                            area is too narrow to fit them.
+                            Use size &quot;Normal&quot; for all text boxes,
+                            unless there are multiple text boxes in one line and
+                            the answer area is too narrow to fit them.
                         </p>
                     </InfoTip>
                 </div>

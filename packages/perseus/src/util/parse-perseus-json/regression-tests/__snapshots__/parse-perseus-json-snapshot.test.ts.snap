@@ -51,6 +51,88 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/definition-missing-static.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "An object is released from rest near the surface of the Earth and allowed to fall freely. 
+
+**How does the speed and acceleration of the object change immediately after release?**
+
+[[☃ categorizer 1]]
+
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "categorizer 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "categories": [
+            "Increases",
+            "Decreases",
+            "Stays constant",
+          ],
+          "highlightLint": undefined,
+          "items": [
+            "Speed",
+            "Acceleration",
+          ],
+          "linterContext": {
+            "contentType": "",
+            "highlightLint": false,
+            "paths": [],
+            "stack": [],
+          },
+          "randomizeItems": false,
+          "static": false,
+          "values": [
+            0,
+            2,
+          ],
+        },
+        "static": false,
+        "type": "categorizer",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "definition 1": {
+        "alignment": undefined,
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "definition": "",
+          "static": false,
+          "togglePrompt": "",
+        },
+        "static": undefined,
+        "type": "definition",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-version.json 1`] = `
 {
   "answer": undefined,
@@ -77,6 +159,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-ver
         "graded": true,
         "key": undefined,
         "options": {
+          "ariaLabel": undefined,
           "choices": [
             {
               "content": "state legislatures",
@@ -93,6 +176,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-ver
           ],
           "placeholder": "",
           "static": false,
+          "visibleLabel": undefined,
         },
         "static": undefined,
         "type": "dropdown",
@@ -471,6 +555,1059 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-stati
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-boolean-value.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "Subtract $ \\red{3|x - 5|} $ from both sides: 
+
+ $\\qquad\\begin{eqnarray} 3|x - 5|& - 3 &=& 4|x - 5| + 7 \\\\ \\\\
+ \\red{- 3|x - 5|}& && \\red{- 3|x - 5|} \\\\ \\\\
+& -3 &=& 1|x - 5| + 7 \\end{eqnarray} $",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "Subtract $7$ from both sides: 
+
+ $\\qquad\\begin{eqnarray} -3 &=& 1|x - 5| &+ 7 \\\\ \\\\
+ \\red{- 7} && &\\red{- 7} \\\\ \\\\
+ -10 &=& 1|x - 5| \\end{eqnarray} $",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "Simplify:
+
+ $\\qquad -10 = |x - 5| $",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "The absolute value cannot be negative. Therefore, there is no solution.",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "** Which of the following is a solution to the equation below?**
+  
+ $ \\qquad 3|x - 5| - 3 = 4|x - 5| + 7 $ 
+
+[[☃ radio 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "input-number 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerType": "number",
+          "customKeypad": undefined,
+          "inexact": false,
+          "maxError": 0.1,
+          "rightAlign": undefined,
+          "simplify": "required",
+          "size": "small",
+          "value": 0,
+        },
+        "static": undefined,
+        "type": "input-number",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "input-number 2": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerType": "number",
+          "customKeypad": undefined,
+          "inexact": false,
+          "maxError": 0.1,
+          "rightAlign": undefined,
+          "simplify": "required",
+          "size": "small",
+          "value": "true",
+        },
+        "static": undefined,
+        "type": "input-number",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "radio 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "choices": [
+            {
+              "clue": "Absolute values cannot be negative.",
+              "content": "$-5$",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": "Check your signs.",
+              "content": " $5$",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": "You might have made a sign error.",
+              "content": " $15$",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "There are no solutions.",
+              "correct": true,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+          ],
+          "countChoices": undefined,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": undefined,
+          "multipleSelect": false,
+          "noneOfTheAbove": false,
+          "onePerLine": true,
+          "randomize": false,
+        },
+        "static": undefined,
+        "type": "radio",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-missing-graph.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "##Strategy
+
+Let's remember what magnetic dip means. It is the angle that the magnetic field makes with the horizontal at a place. So, we can start by drawing a vector arrow for the magnetic field $B_E$ and take component of this vector to find the vertical component.
+
+*Tip: The **dip** angle is **positive** when the magnetic field **dips**!*",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "##Solution
+
+Here, the dip angle is **positive**, so the magnetic field is **below** the horizontal as shown below.
+
+[[☃ image 1]]
+
+As we can see the direction of the vertical component is downwards $(\\downarrow)$, now let's find the magnitude.",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {
+        "image 1": {
+          "alignment": "block",
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "alt": "",
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 151,
+              "left": undefined,
+              "scale": undefined,
+              "top": undefined,
+              "url": "https://ka-perseus-images.s3.amazonaws.com/d36824c27f73d6263d9a1c548ead1fdac535243e.svg",
+              "width": 255,
+            },
+            "box": [
+              255,
+              151,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "Taking the vertical component of $B_E$,
+
+$\\begin{align} 
+\\purpleD{B_V} &= B_E \\sin I \\\\\\\\
+&= B_E \\sin 45\\degree 
+ \\end{align}$
+
+[[☃ explanation 1]]",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {
+        "explanation 1": {
+          "alignment": "default",
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "explanation": "We can move $\\purpleD {B_V}$ to the right in the diagram to get the right angle triangle as shown below.
+
+[[☃ image 1]]
+
+Now, taking sine of the angle $I$,
+
+$\\begin{align} 
+\\sin I &= \\dfrac{\\text{Perpendicular}}{\\text{Hypotenuse}} \\\\\\\\
+&= \\dfrac{\\purpleD{B_V}}{B_E}\\\\\\\\
+\\Rightarrow \\purpleD{B_V}&=B_E \\sin I \\end{align}$",
+            "hidePrompt": "Got it, thanks!",
+            "showPrompt": "How sin 45° and not cos 45°?",
+            "static": false,
+            "widgets": {
+              "image 1": {
+                "alignment": "block",
+                "graded": true,
+                "key": undefined,
+                "options": {
+                  "alt": "",
+                  "backgroundImage": {
+                    "bottom": undefined,
+                    "height": 156,
+                    "left": undefined,
+                    "scale": undefined,
+                    "top": undefined,
+                    "url": "https://ka-perseus-images.s3.amazonaws.com/d3b512adb0f11756344a3838f91aa35eda75439b.svg",
+                    "width": 255,
+                  },
+                  "box": [
+                    255,
+                    156,
+                  ],
+                  "caption": "",
+                  "labels": [],
+                  "range": [
+                    [
+                      0,
+                      10,
+                    ],
+                    [
+                      0,
+                      10,
+                    ],
+                  ],
+                  "static": false,
+                  "title": "",
+                },
+                "static": false,
+                "type": "image",
+                "version": {
+                  "major": 0,
+                  "minor": 0,
+                },
+              },
+              "interactive-graph 1": {
+                "alignment": undefined,
+                "graded": undefined,
+                "key": undefined,
+                "options": {
+                  "backgroundImage": {
+                    "bottom": undefined,
+                    "height": undefined,
+                    "left": undefined,
+                    "scale": undefined,
+                    "top": undefined,
+                    "url": null,
+                    "width": undefined,
+                  },
+                  "correct": {
+                    "coord": undefined,
+                    "coords": null,
+                    "startCoords": undefined,
+                    "type": "linear",
+                  },
+                  "fullGraphAriaDescription": undefined,
+                  "fullGraphLabel": undefined,
+                  "graph": {
+                    "type": "linear",
+                  },
+                  "gridStep": undefined,
+                  "labels": [
+                    "x",
+                    "y",
+                  ],
+                  "lockedFigures": undefined,
+                  "markings": "graph",
+                  "range": [
+                    [
+                      -10,
+                      10,
+                    ],
+                    [
+                      -10,
+                      10,
+                    ],
+                  ],
+                  "rulerLabel": "",
+                  "rulerTicks": 10,
+                  "showProtractor": false,
+                  "showRuler": false,
+                  "showTooltips": false,
+                  "snapStep": undefined,
+                  "step": [
+                    1,
+                    1,
+                  ],
+                  "valid": true,
+                },
+                "static": undefined,
+                "type": "interactive-graph",
+                "version": {
+                  "major": 0,
+                  "minor": 0,
+                },
+              },
+            },
+          },
+          "static": false,
+          "type": "explanation",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "The vertical component of the magnetic field vector is:
+
+$B_E\\ \\sin{45\\degree}\\downarrow$
+",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "The magnetic field of the Earth is $B_E$ at a location where the magnetic dip is $I=+45\\degree$.
+
+**Which of these best describes the vertical component of the magnetic field vector at this location?**  
+*Note: $\\uparrow$ and $\\downarrow$ indicate upward and downward direction respectively.*
+
+[[☃ radio 1]]",
+    "images": {
+      "https://ka-perseus-images.s3.amazonaws.com/88526ae51e43ccf8a96bbdb602d9397d073479e1.svg": {
+        "height": 429,
+        "width": 352,
+      },
+    },
+    "metadata": undefined,
+    "widgets": {
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "choices": [
+            {
+              "clue": undefined,
+              "content": "$B_E\\ \\cos{45\\degree} \\uparrow$",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "$B_E\\ \\cos{45\\degree} \\downarrow$",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "$B_E\\ \\sin{45\\degree} \\downarrow$",
+              "correct": true,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "$B_E\\ \\sin{45\\degree}\\uparrow$",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "$B_E\\ \\tan {45\\degree} \\uparrow$",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "$B_E\\ \\tan {45\\degree} \\downarrow$",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "noneOfTheAbove": undefined,
+          "onePerLine": undefined,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-missing-gridStep.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "This graph is set to be \`static\`, so you should not be able to move the line or select it with the keyboard.
+
+[[☃ interactive-graph 1]]
+
+",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {
+        "interactive-graph 1": {
+          "alignment": "default",
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": undefined,
+              "left": undefined,
+              "scale": undefined,
+              "top": undefined,
+              "url": null,
+              "width": undefined,
+            },
+            "correct": {
+              "coord": undefined,
+              "coords": null,
+              "startCoords": undefined,
+              "type": "linear",
+            },
+            "fullGraphAriaDescription": undefined,
+            "fullGraphLabel": undefined,
+            "graph": {
+              "coord": undefined,
+              "coords": undefined,
+              "startCoords": undefined,
+              "type": "linear",
+            },
+            "gridStep": undefined,
+            "labels": [
+              "x",
+              "y",
+            ],
+            "lockedFigures": undefined,
+            "markings": "graph",
+            "range": [
+              [
+                -10,
+                10,
+              ],
+              [
+                -10,
+                10,
+              ],
+            ],
+            "rulerLabel": undefined,
+            "rulerTicks": undefined,
+            "showProtractor": false,
+            "showRuler": undefined,
+            "showTooltips": false,
+            "snapStep": undefined,
+            "step": [
+              1,
+              1,
+            ],
+          },
+          "static": true,
+          "type": "interactive-graph",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "Move the line on the first graph so it is in the same position as the line on the second graph.
+
+[[☃ interactive-graph 1]]
+
+[[☃ interactive-graph 2]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": undefined,
+            "left": undefined,
+            "scale": undefined,
+            "top": undefined,
+            "url": null,
+            "width": undefined,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": [
+              [
+                -3,
+                0,
+              ],
+              [
+                0,
+                2,
+              ],
+            ],
+            "hasBeenInteractedWith": true,
+            "range": [
+              [
+                -10,
+                10,
+              ],
+              [
+                -10,
+                10,
+              ],
+            ],
+            "snapStep": [
+              0.5,
+              0.5,
+            ],
+            "startCoords": undefined,
+            "type": "linear",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "coords": undefined,
+            "startCoords": undefined,
+            "type": "linear",
+          },
+          "gridStep": undefined,
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": undefined,
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "rulerLabel": undefined,
+          "rulerTicks": undefined,
+          "showProtractor": false,
+          "showRuler": undefined,
+          "showTooltips": false,
+          "snapStep": undefined,
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 2": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": undefined,
+            "left": undefined,
+            "scale": undefined,
+            "top": undefined,
+            "url": null,
+            "width": undefined,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": [
+              [
+                -3,
+                0,
+              ],
+              [
+                0,
+                2,
+              ],
+            ],
+            "hasBeenInteractedWith": true,
+            "range": [
+              [
+                -10,
+                10,
+              ],
+              [
+                -10,
+                10,
+              ],
+            ],
+            "snapStep": [
+              0.5,
+              0.5,
+            ],
+            "startCoords": undefined,
+            "type": "linear",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "coords": undefined,
+            "startCoords": undefined,
+            "type": "linear",
+          },
+          "gridStep": undefined,
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": undefined,
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "rulerLabel": undefined,
+          "rulerTicks": undefined,
+          "showProtractor": false,
+          "showRuler": undefined,
+          "showTooltips": false,
+          "snapStep": undefined,
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": true,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-missing-labels.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "This graph shows what happens to point $R$ when you translate the figure by $\\langle\\red{3},\\purple{7}\\rangle.$  The point moves by $\\red{+3}$ horizontally and $\\purple{+7}$ vertically.
+
+$R$ $(1,-3)$ is transformed into $R'$ $(4,4)$.
+
+![](https://ka-perseus-graphie.s3.amazonaws.com/0450d707e93ac22809e8e4063f74b98bf35d079e.png)",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "We can transform the other vertices by adding $\\red{3}$ to the $x$-coordinate and adding $\\purple{7}$ to the $y$-coordinate.
+ 
+$G$ $(-3,-3)$ is transformed into $G'$ $(0,4)$.  
+$A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "The translated image looks like this:
+
+![](https://ka-perseus-graphie.s3.amazonaws.com/dcbfde322f50640db9f40bf4b79824ad9014d8db.png)
+",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": undefined,
+  "question": {
+    "content": "**Arrange the vertices of the movable triangle to construct the image of $\\triangle GAR$ after a translation by $\\langle3,7\\rangle$.**
+
+[[☃ interactive-graph 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": 0,
+            "height": 425,
+            "left": 0,
+            "scale": 1,
+            "top": undefined,
+            "url": "https://ka-perseus-graphie.s3.amazonaws.com/31eb6c4f83e061ca7e28bb4382469cb4d682f7b4.png",
+            "width": 425,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": [
+              [
+                4,
+                7,
+              ],
+              [
+                0,
+                4,
+              ],
+              [
+                4,
+                4,
+              ],
+            ],
+            "match": undefined,
+            "numSides": 3,
+            "showAngles": undefined,
+            "showSides": undefined,
+            "snapTo": undefined,
+            "startCoords": undefined,
+            "type": "polygon",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "match": undefined,
+            "numSides": 3,
+            "showAngles": undefined,
+            "showSides": undefined,
+            "snapTo": undefined,
+            "startCoords": undefined,
+            "type": "polygon",
+          },
+          "gridStep": undefined,
+          "labels": undefined,
+          "lockedFigures": undefined,
+          "markings": "none",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "rulerLabel": undefined,
+          "rulerTicks": undefined,
+          "showProtractor": false,
+          "showRuler": undefined,
+          "showTooltips": undefined,
+          "snapStep": undefined,
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": undefined,
+        "type": "interactive-graph",
+        "version": undefined,
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-with-string-backgroundImage-left.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "Ally is excited to compete in a $6$-mile race. The race organizers plotted the course on a coordinate map. The starting point is at $(4,3)$, and the ending point is at $(4,9)$.  Ally's family decides to stand at $(4,6)$ on the map.
+
+**Plot the starting point, ending point, and place where Ally's family stands on the map.**
+
+[[☃ interactive-graph 1]]
+
+**How far along will Ally be in the race when she reaches her family?**  
+[[☃ radio 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": 4,
+            "height": 0,
+            "left": 0,
+            "scale": 1,
+            "top": undefined,
+            "url": "",
+            "width": 0,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": [
+              [
+                4,
+                3,
+              ],
+              [
+                4,
+                6,
+              ],
+              [
+                4,
+                9,
+              ],
+            ],
+            "numPoints": 3,
+            "startCoords": undefined,
+            "type": "point",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "coords": undefined,
+            "numPoints": 3,
+            "startCoords": undefined,
+            "type": "point",
+          },
+          "gridStep": [
+            1,
+            1,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": undefined,
+          "markings": "graph",
+          "range": [
+            [
+              -1,
+              10,
+            ],
+            [
+              -1,
+              10,
+            ],
+          ],
+          "rulerLabel": "",
+          "rulerTicks": 10,
+          "showProtractor": false,
+          "showRuler": false,
+          "showTooltips": false,
+          "snapStep": [
+            0.5,
+            0.5,
+          ],
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "choices": [
+            {
+              "clue": undefined,
+              "content": "Less than halfway through the race",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "Halfway through the race",
+              "correct": true,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "More than halfway through the race",
+              "correct": undefined,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "noneOfTheAbove": undefined,
+          "onePerLine": undefined,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/item-missing-answerArea.json 1`] = `
 {
   "_multi": {
@@ -620,6 +1757,699 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
         "static": undefined,
         "type": "matrix",
         "version": undefined,
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-snapDivisions.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "Janey wants to earn enough money to buy a CD for $\\$13.50$.
+
+Can Janey buy the CD if she has. . . | Response
+-|-
+Less than $\\$13.50$? | No
+Exactly $\\$13.50$? | **Yes**
+More than $\\$13.50$? | **Yes**
+Conclusion| Total dollars $\\maroonD{\\geq} 13.50$
+
+If Janie does $c$ chores, she will earn $\\greenD{1.2}c$ dollars for doing chores, plus $\\blueD{3}$ dollars she already has.  The amount she has is :
+
+$\\blueD{3}+\\greenD{1.2}c$
+
+This amount must be *greater than or equal to* $\\purpleC{13.50}$, so the inequality is:
+
+$\\blueD{3}+\\greenD{1.2c}\\maroonD{\\geq}\\purpleC{13.50}$",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "To solve the inequality, let's start by subtracting $\\blueD{3}$ from both sides of the inequality:
+
+$\\begin{align}
+3+1.2c &≥ 13.5\\\\\\\\
+3+1.2c -\\blueD{3} &≥ 13.5- \\blueD{ 3}\\\\\\\\
+1.2c &≥ 10.5
+\\\\\\\\
+\\dfrac{1.2c}{\\greenD{1.2}} &≥ \\dfrac{10.5}{\\greenD{1.2}}\\\\
+\\\\
+c &≥ 8.75
+\\end{align}$
+
+Janie must do $8.75$ or more chores to have enough money to purchase the CD.",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "To graph the inequality $c\\geq 8.75$, we first draw a circle at $8.75$.  This circle divides the number line into two sections: one that contains solutions to the inequality and one that does not.  
+
+The solution  includes the point $c=8.75$, so we *fill in* the circle at $8.75$.
+
+Because the solution to the inequality says that $c\\geq 8.75$, this means that solutions are numbers to the *right* of $8.75$.",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "The inequality is:
+
+$3+1.2c\\geq 13.50$
+
+The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
+
+[[☃ number-line 3]]",
+      "images": {
+        "https://ka-perseus-graphie.s3.amazonaws.com/1f33350b0a703e439e6f9923dab48413e9b12710.png": {
+          "height": 80,
+          "width": 460,
+        },
+      },
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {
+        "number-line 3": {
+          "alignment": "default",
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "correctRel": "ge",
+            "correctX": 8.75,
+            "divisionRange": [
+              1,
+              12,
+            ],
+            "initialX": 7.5,
+            "isInequality": true,
+            "isTickCtrl": false,
+            "labelRange": [
+              null,
+              null,
+            ],
+            "labelStyle": "decimal",
+            "labelTicks": true,
+            "numDivisions": null,
+            "range": [
+              5,
+              10,
+            ],
+            "showTooltip": undefined,
+            "showTooltips": false,
+            "snapDivisions": 2,
+            "static": false,
+            "tickStep": 0.5,
+          },
+          "static": true,
+          "type": "number-line",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "Janie has $\\$3$.  She earns $\\$1.20$ for each chore she does and can do fractions of chores.  She wants to earn enough money to buy a CD for $\\$13.50$.
+
+**Write an inequality to determine the number of chores, $c$, Janie could do to have enough money to buy the CD.**
+
+[[☃ expression 1]]
+
+**Graph the solution set to this inequality.**
+
+[[☃ number-line 1]]",
+    "images": {
+      "https://ka-perseus-graphie.s3.amazonaws.com/1f33350b0a703e439e6f9923dab48413e9b12710.png": {
+        "height": 80,
+        "width": 460,
+      },
+      "https://ka-perseus-graphie.s3.amazonaws.com/49de5812223589549db52f64ee864673ec1941f8.png": {
+        "height": 80,
+        "width": 460,
+      },
+      "https://ka-perseus-graphie.s3.amazonaws.com/889400758083e0abba1d64433788cf92cf67f6ad.png": {
+        "height": 80,
+        "width": 460,
+      },
+      "https://ka-perseus-graphie.s3.amazonaws.com/bf50e3ef3e86d65899d785dd675b4c01b9b512ae.png": {
+        "height": 80,
+        "width": 460,
+      },
+    },
+    "metadata": undefined,
+    "widgets": {
+      "expression 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": [
+            {
+              "considered": "correct",
+              "form": false,
+              "key": "undefined",
+              "simplify": false,
+              "value": "1.2c+3\\ge13.5",
+            },
+          ],
+          "ariaLabel": undefined,
+          "buttonSets": [
+            "basic",
+            "basic relations",
+            "advanced relations",
+          ],
+          "buttonsVisible": undefined,
+          "functions": [
+            "f",
+            "g",
+            "h",
+          ],
+          "times": false,
+          "visibleLabel": undefined,
+        },
+        "static": false,
+        "type": "expression",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+      "number-line 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "correctRel": "ge",
+          "correctX": 8.75,
+          "divisionRange": [
+            1,
+            12,
+          ],
+          "initialX": 7.5,
+          "isInequality": true,
+          "isTickCtrl": false,
+          "labelRange": [
+            null,
+            null,
+          ],
+          "labelStyle": "decimal",
+          "labelTicks": true,
+          "numDivisions": null,
+          "range": [
+            5,
+            10,
+          ],
+          "showTooltip": undefined,
+          "showTooltips": false,
+          "snapDivisions": 2,
+          "static": false,
+          "tickStep": 0.5,
+        },
+        "static": false,
+        "type": "number-line",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer-without-value.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "$\\bigg(\\dfrac{2}{3} \\bigg)^3 =\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}$
+
+Let's perform this multiplication to find the answer.",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "On multiplying, we see that
+
+$\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$.",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "$\\bigg(\\dfrac{2}{3} \\bigg)^3 =$ [[☃ expression 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "expression 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": [
+            {
+              "buttonSets": [
+                "basic",
+              ],
+              "buttonsVisible": "focused",
+              "considered": "correct",
+              "form": true,
+              "functions": [
+                "f",
+                "g",
+                "h",
+              ],
+              "key": "0",
+              "linterContext": {
+                "contentType": "",
+                "highlightLint": false,
+                "paths": [],
+                "stack": [],
+              },
+              "simplify": true,
+              "times": false,
+              "value": "\\frac{8}{27}",
+            },
+          ],
+          "ariaLabel": undefined,
+          "buttonSets": [
+            "basic",
+          ],
+          "buttonsVisible": undefined,
+          "functions": [
+            "f",
+            "g",
+            "h",
+          ],
+          "static": false,
+          "times": false,
+          "visibleLabel": undefined,
+        },
+        "static": false,
+        "type": "expression",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": undefined,
+          "answers": [
+            {
+              "answerForms": [
+                "proper",
+                "improper",
+              ],
+              "maxError": null,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": undefined,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "multipleNumberInput": false,
+          "rightAlign": false,
+          "size": "normal",
+          "static": false,
+        },
+        "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missing-labelText.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "Heart rate is measured in beats per minute: $\\dfrac{beats}{minutes}$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {
+        "expression 1": {
+          "alignment": undefined,
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "answerForms": [
+              {
+                "considered": "correct",
+                "form": false,
+                "simplify": false,
+                "value": "",
+              },
+            ],
+            "ariaLabel": undefined,
+            "buttonSets": [
+              "basic",
+            ],
+            "buttonsVisible": "never",
+            "functions": [
+              "f",
+              "g",
+              "h",
+            ],
+            "times": false,
+            "visibleLabel": undefined,
+          },
+          "static": undefined,
+          "type": "expression",
+          "version": {
+            "major": 1,
+            "minor": 0,
+          },
+        },
+        "input-number 1": {
+          "alignment": undefined,
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "answerType": "number",
+            "customKeypad": undefined,
+            "inexact": false,
+            "maxError": 0.1,
+            "rightAlign": undefined,
+            "simplify": "required",
+            "size": "normal",
+            "value": 0,
+          },
+          "static": undefined,
+          "type": "input-number",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+        "passage 1": {
+          "alignment": undefined,
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "footnotes": "",
+            "passageText": "",
+            "passageTitle": "",
+            "showLineNumbers": true,
+            "static": false,
+          },
+          "static": undefined,
+          "type": "passage",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "The questions first requires you to convert beats per second into beats per minute so the resting heart rate and active heart rate can be compared.
+
+",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {
+        "expression 1": {
+          "alignment": undefined,
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "answerForms": [
+              {
+                "considered": "correct",
+                "form": false,
+                "simplify": false,
+                "value": "",
+              },
+            ],
+            "ariaLabel": undefined,
+            "buttonSets": [
+              "basic",
+            ],
+            "buttonsVisible": undefined,
+            "functions": [
+              "f",
+              "g",
+              "h",
+            ],
+            "times": false,
+            "visibleLabel": undefined,
+          },
+          "static": undefined,
+          "type": "expression",
+          "version": {
+            "major": 1,
+            "minor": 0,
+          },
+        },
+        "image 1": {
+          "alignment": undefined,
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "alt": undefined,
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 0,
+              "left": undefined,
+              "scale": undefined,
+              "top": undefined,
+              "url": null,
+              "width": 0,
+            },
+            "box": [
+              400,
+              400,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": undefined,
+            "title": "",
+          },
+          "static": undefined,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "To convert the active heart rate from beats per second into beats per minute we must multiply 1.6 beats per second by 60 seconds.
+
+![](https://ka-perseus-images.s3.amazonaws.com/810a87bbf09a2c41bbe02b1611cd91b047f69412.png)",
+      "images": {
+        "https://ka-perseus-images.s3.amazonaws.com/810a87bbf09a2c41bbe02b1611cd91b047f69412.png": {
+          "height": 66,
+          "width": 342,
+        },
+      },
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "From the previous calculation, we get 96 beats per minute as  Lance's active heart rate.",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "To find the difference between the active and resting heart rate, subtract the resting heart rate from the active heart rate. The next hint shows this.",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "$96$ $bpm$ $-$ $32$ $bpm$ $=$ $64$ $bpm$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "The difference between Lance Armstrong's  active and resting heart rate is $64$ $bpm$. ",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "![](https://ka-perseus-images.s3.amazonaws.com/ec3199bd52c57bcdb3ab16d727a172def834d4fe.jpg)
+
+
+Heart rate is described as the number of heart beats per minute.  The normal human heart rate ranges from 60-100 beats per minute (bpm). Lance Armstrong (pictured above) had a resting heart rate of 32 beats per minute. While racing, his heart rate would increase to 1.6 beats per second. How many more bpm was his heart rate while racing than while resting?
+
+[[☃ numeric-input 1]] bpm 
+",
+    "images": {
+      "https://ka-perseus-images.s3.amazonaws.com/810a87bbf09a2c41bbe02b1611cd91b047f69412.png": {
+        "height": 66,
+        "width": 342,
+      },
+      "https://ka-perseus-images.s3.amazonaws.com/ec3199bd52c57bcdb3ab16d727a172def834d4fe.jpg": {
+        "height": 296,
+        "width": 478,
+      },
+    },
+    "metadata": undefined,
+    "widgets": {
+      "expression 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": [
+            {
+              "considered": "correct",
+              "form": false,
+              "simplify": false,
+              "value": "",
+            },
+          ],
+          "ariaLabel": undefined,
+          "buttonSets": [
+            "basic",
+          ],
+          "buttonsVisible": "never",
+          "functions": [
+            "f",
+            "g",
+            "h",
+          ],
+          "times": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "expression",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+      "numeric-input 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": undefined,
+          "answers": [
+            {
+              "answerForms": undefined,
+              "maxError": null,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 64,
+            },
+          ],
+          "coefficient": false,
+          "labelText": undefined,
+          "rightAlign": undefined,
+          "size": "normal",
+          "static": false,
+        },
+        "static": undefined,
+        "type": "numeric-input",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "sequence 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "json": [
+            {
+              "content": "",
+              "images": {},
+              "widgets": {},
+            },
+          ],
+        },
+        "static": undefined,
+        "type": "deprecated-standin",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
       },
     },
   },
@@ -1621,6 +3451,456 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missi
           "noneOfTheAbove": false,
           "onePerLine": true,
           "randomize": false,
+        },
+        "static": undefined,
+        "type": "radio",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-invalid-height.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "The doric is the oldest and simplest order, the Corinthian is the latest and most complex.",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": undefined,
+  "question": {
+    "content": "Here is a doric, ionic and corinthian capital. Put these  in the chronological order of their development. [[☃ orderer 1]]
+
+
+
+
+
+
+
+
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "orderer 1": {
+        "alignment": undefined,
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "correctOptions": [
+            {
+              "content": "![](https://ka-perseus-images.s3.amazonaws.com/a9387c1491bb743a0c76d2ab74c4dd145c964c7b.jpeg)",
+              "images": {},
+              "metadata": undefined,
+              "widgets": {},
+            },
+            {
+              "content": "![](https://ka-perseus-images.s3.amazonaws.com/45ff66c9387dcb419651883677cfb11fbbf8e075.jpeg)",
+              "images": {},
+              "metadata": undefined,
+              "widgets": {},
+            },
+            {
+              "content": "![](https://ka-perseus-images.s3.amazonaws.com/54ea9b0cf1a57bf2879772ea81f656264605d75e.jpeg)",
+              "images": {},
+              "metadata": undefined,
+              "widgets": {},
+            },
+          ],
+          "height": "auto",
+          "layout": "horizontal",
+          "options": [
+            {
+              "content": "![](https://ka-perseus-images.s3.amazonaws.com/45ff66c9387dcb419651883677cfb11fbbf8e075.jpeg)",
+              "images": {},
+              "metadata": undefined,
+              "widgets": {},
+            },
+            {
+              "content": "![](https://ka-perseus-images.s3.amazonaws.com/54ea9b0cf1a57bf2879772ea81f656264605d75e.jpeg)",
+              "images": {},
+              "metadata": undefined,
+              "widgets": {},
+            },
+            {
+              "content": "![](https://ka-perseus-images.s3.amazonaws.com/a9387c1491bb743a0c76d2ab74c4dd145c964c7b.jpeg)",
+              "images": {},
+              "metadata": undefined,
+              "widgets": {},
+            },
+          ],
+          "otherOptions": [],
+        },
+        "static": undefined,
+        "type": "orderer",
+        "version": undefined,
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-undefined-options.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "A woman slides a box onto a shelf.
+
+[[☃ image 1]]
+
+A free body diagram of the **box** is shown below.
+
+[[☃ image 2]]
+
+**Which forces on the box result from the box interacting with other objects?**
+
+[[☃ radio 1]]",
+    "images": {
+      "https://cdn.kastatic.org/ka-content-images/89e2cabd1261ec9119c501bd6c9c0f541e09ab2f.png": {
+        "height": 263,
+        "width": 400,
+      },
+    },
+    "metadata": undefined,
+    "widgets": {
+      "image 1": {
+        "alignment": "block",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "alt": "A woman places a box on a shelf and pushes it to the left, sliding it further onto the shelf.",
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": 263,
+            "left": undefined,
+            "scale": undefined,
+            "top": undefined,
+            "url": "https://cdn.kastatic.org/ka-content-images/89e2cabd1261ec9119c501bd6c9c0f541e09ab2f.png",
+            "width": 400,
+          },
+          "box": [
+            400,
+            263,
+          ],
+          "caption": "",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "image 2": {
+        "alignment": "block",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "alt": "A model shows a square with four arrows pointing out of it. An arrow points down and is labelled F g. Another arrow points up and is labelled F N. Another arrow points left and is labelled F a. Another arrow points right and is labelled F f.",
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": 306,
+            "left": undefined,
+            "scale": undefined,
+            "top": undefined,
+            "url": "https://cdn.kastatic.org/ka-content-images/48c2597aa0e5a7ac27771cfc2e7c955c7cb14881.svg",
+            "width": 300,
+          },
+          "box": [
+            300,
+            306,
+          ],
+          "caption": "",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "orderer 1": {
+        "alignment": undefined,
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "correctOptions": [
+            {
+              "content": "$x$",
+              "images": {},
+              "metadata": undefined,
+              "widgets": {},
+            },
+          ],
+          "height": "normal",
+          "layout": "horizontal",
+          "options": [],
+          "otherOptions": [
+            {
+              "content": "$y$",
+              "images": {},
+              "metadata": undefined,
+              "widgets": {},
+            },
+          ],
+        },
+        "static": undefined,
+        "type": "orderer",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "choices": [
+            {
+              "clue": "$F_\\text{N}$ results from the box interacting with the shelf.",
+              "content": "normal force $(F_\\text{N})$",
+              "correct": true,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": "$F_\\text{g}$ results from the box interacting with Earth.",
+              "content": "gravitational force $(F_\\text{g})$",
+              "correct": true,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": "$F_\\text{a}$ results from the box interacting with the woman's hand.",
+              "content": "applied force $(F_\\text{a})$",
+              "correct": true,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+            {
+              "clue": "$F_\\text{f}$ results from the box interacting with the shelf.",
+              "content": "frictional force $(F_\\text{f})$",
+              "correct": true,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": true,
+          "noneOfTheAbove": undefined,
+          "onePerLine": undefined,
+          "randomize": true,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+      "sorter 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "correct": [
+            "$x$",
+            "$y$",
+            "$z$",
+          ],
+          "layout": "vertical",
+          "padding": true,
+        },
+        "static": false,
+        "type": "sorter",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefined-plotDimensions.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "If there is a 60° angle to the ground, this gives us a 30-60-90 triangle. ",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {
+        "plotter 1": {
+          "alignment": undefined,
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "categories": [
+              "",
+            ],
+            "correct": [
+              1,
+            ],
+            "labelInterval": 1,
+            "labels": [
+              "",
+              "",
+            ],
+            "maxY": 10,
+            "picBoxHeight": undefined,
+            "picSize": undefined,
+            "picUrl": undefined,
+            "plotDimensions": [
+              380,
+              300,
+            ],
+            "scaleY": 1,
+            "snapsPerLine": 2,
+            "starting": [
+              1,
+            ],
+            "type": "bar",
+          },
+          "static": undefined,
+          "type": "plotter",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "In this case, the horizontal component of force should be equal to the cos θ multiplied by the force of tension. ",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "Since we know θ=60, and T=30N, we can solve: 30cos60 = 15 N.",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "A kite enthusiast flies her kite on a particularly windy day. The kite string is pulled upward to make a 60° angle with respect to the ground. Using a tension meter, she finds that the kite is pulling with 30 N of force. What is the horizontal component of force produced by the kite?
+
+[[☃ radio 1]]
+
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "radio 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "choices": [
+            {
+              "clue": undefined,
+              "content": "15 N",
+              "correct": true,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "30 N",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "60 N",
+              "correct": undefined,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "180 N",
+              "correct": undefined,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+          ],
+          "countChoices": undefined,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": undefined,
+          "multipleSelect": false,
+          "noneOfTheAbove": false,
+          "onePerLine": true,
+          "randomize": true,
         },
         "static": undefined,
         "type": "radio",

@@ -364,6 +364,7 @@ Zoom.prototype.zoomImage = function () {
     }.bind(this);
 
     img.src = this._targetImage.src;
+    img.alt = this._targetImage.alt;
 
     this.$zoomedImage = $zoomedImage;
 };

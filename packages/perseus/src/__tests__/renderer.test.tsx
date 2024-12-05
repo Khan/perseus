@@ -23,7 +23,7 @@ import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import InputNumberExport from "../widgets/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
-import type {DropdownWidget} from "../perseus-types";
+import type {PerseusRenderer, DropdownWidget} from "../perseus-types";
 import type {APIOptions} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -87,7 +87,7 @@ describe("renderer", () => {
             const {container} = renderQuestion(question1);
 
             // Act
-            await userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getByRole("combobox"));
             await userEvent.click(screen.getAllByRole("option")[2]);
             act(() => jest.runOnlyPendingTimers());
 
@@ -100,12 +100,42 @@ describe("renderer", () => {
             const {container} = renderQuestion(question1);
 
             // Act
-            await userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getByRole("combobox"));
             await userEvent.click(screen.getAllByRole("option")[1]);
             act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot("incorrect answer");
+        });
+
+        it("renders a placeholder for a deprecated widget", () => {
+            // Arrange
+            const question: PerseusRenderer = {
+                content: "[[☃ sequence 1]]",
+                images: {},
+                widgets: {
+                    "sequence 1": {
+                        type: "deprecated-standin",
+                        version: {major: 0, minor: 0},
+                        graded: true,
+                        options: {
+                            json: [
+                                {
+                                    content: "",
+                                    images: {},
+                                    widgets: {},
+                                },
+                            ],
+                        },
+                    },
+                },
+            };
+
+            // Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            expect(container).toMatchSnapshot("deprecated widget");
         });
     });
 
@@ -175,11 +205,13 @@ describe("renderer", () => {
             expect(renderer.state.widgetProps).toMatchInlineSnapshot(`
                 {
                   "dropdown 1": {
+                    "ariaLabel": "Test ARIA label",
                     "choices": [
                       "greater than or equal to",
                       "less than or equal to",
                     ],
                     "placeholder": "greater/less than or equal to",
+                    "visibleLabel": "Test visible label",
                   },
                 }
             `);
@@ -286,7 +318,7 @@ describe("renderer", () => {
             );
 
             // Assert
-            expect(screen.getByRole("button")).toHaveTextContent(
+            expect(screen.getByRole("combobox")).toHaveTextContent(
                 /^less than or equal to$/,
             );
         });
@@ -521,7 +553,7 @@ describe("renderer", () => {
                 screen.getByText("This is a placeholder"),
             ).toBeInTheDocument();
             // Make sure the 'dropdown' widget wasn't rendered!
-            expect(screen.queryAllByRole("button")).toHaveLength(0);
+            expect(screen.queryAllByRole("combobox")).toHaveLength(0);
         });
 
         it("should render columns", () => {
@@ -775,7 +807,7 @@ describe("renderer", () => {
             originalWidgetProps = clone(renderer.state.widgetProps);
 
             // Poke the renderer so it's not in it's initial-render state
-            await userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getByRole("combobox"));
             act(() => jest.runOnlyPendingTimers()); // There's a setTimeout to open the dropdown
             await userEvent.click(screen.getAllByRole("option")[1]);
         });
@@ -1317,7 +1349,7 @@ describe("renderer", () => {
                 },
             });
 
-            expect(screen.getByRole("button")).toHaveTextContent(
+            expect(screen.getByRole("combobox")).toHaveTextContent(
                 /greater than or equal to/,
             );
         });
@@ -1336,7 +1368,7 @@ describe("renderer", () => {
             });
 
             // Assert
-            let el = screen.getByRole("button");
+            let el = screen.getByRole("combobox");
             while (el != null) {
                 if (el.classList.contains("widget-full-width")) {
                     break;
@@ -1493,9 +1525,8 @@ describe("renderer", () => {
             const node = renderer.getDOMNodeForPath(["dropdown 1"]);
 
             // Assert
-            // "button" role is the WB dropdown's "opener" element
             // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
-            expect(within(node).queryAllByRole("button")).toHaveLength(1);
+            expect(within(node).queryAllByRole("combobox")).toHaveLength(1);
         });
 
         it("should return the widget's getDOMNodeForPath() result for the widget at requested FocusPath", () => {
@@ -1722,7 +1753,7 @@ describe("renderer", () => {
             await userEvent.type(screen.getAllByRole("textbox")[1], "200");
 
             // Open the dropdown and select the second (idx: 1) item
-            await userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getByRole("combobox"));
             act(() => jest.runOnlyPendingTimers());
             await userEvent.click(screen.getAllByRole("option")[1]);
             act(() => jest.runOnlyPendingTimers());

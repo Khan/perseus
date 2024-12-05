@@ -2,6 +2,7 @@
 
 @import "./variables.less";
 @import "./util.less";
+@import "./global.less";
 
 @import "./styles.less";
 
@@ -541,24 +542,20 @@
     }
 }
 
-// TODO(joel) - remove?
-.perseus-tooltip {
+.perseus-formats-tooltip {
     background: #fff;
+    color: #777;
     padding: 5px 10px;
     width: 240px;
 }
 
-// CSS is evil; let's overwrite some styles. T_T
-.perseus-formats-tooltip {
-    .perseus-tooltip;
-    color: #777;
-}
-.framework-perseus .perseus-formats-tooltip .paragraph > ul {
-    padding: 0;
-    margin: -20px 0 -16px 0;
-    > li {
-        list-style-type: none;
-    }
+/*
+    Extra specificity needed to override other styles that are too broad.
+    Once we get a better framework in place (like CSS Modules), we can fix this selector.
+*/
+.framework-perseus .perseus-formats-tooltip .paragraph,
+.framework-perseus .tooltipContainer .perseus-formats-tooltip .paragraph ul {
+    margin: 0;
 }
 
 .box-shadow(@shadow: 0 1px 3px rgba(0,0,0,0.25)) {

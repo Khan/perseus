@@ -29,15 +29,10 @@ export const Controlled = {
         const [selectedValue, setSelectedValue] =
             React.useState<LockedFigureColor>(defaultColor);
 
-        const handleColorChange = (color: LockedFigureColor) => {
-            setSelectedValue(color);
-        };
-
         return (
             <ColorSelect
                 selectedValue={selectedValue}
-                // TODO(LEMS-2656): remove TS suppression
-                onChange={handleColorChange as any}
+                onChange={setSelectedValue}
             />
         );
     },

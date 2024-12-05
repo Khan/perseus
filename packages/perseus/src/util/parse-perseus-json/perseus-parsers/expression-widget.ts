@@ -1,4 +1,3 @@
-import ExpressionWidgetModule from "../../../widgets/expression/expression";
 import {
     array,
     boolean,
@@ -93,7 +92,7 @@ function migrateV0ToV1(
     const {options} = widget;
     return ctx.success({
         ...widget,
-        version: ExpressionWidgetModule.version,
+        version: {major: 1, minor: 0},
         options: {
             times: options.times,
             buttonSets: options.buttonSets,

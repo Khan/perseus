@@ -25,9 +25,6 @@ const meta: Meta = {
     args: {
         computeChildBounds,
     },
-    argTypes: {
-        children: {control: {type: null}},
-    },
     parameters: {
         chromatic: {
             // Disable the snapshot for this story because it's testing
@@ -44,7 +41,7 @@ export const ZoomableExample: Story = {
     args: {
         children: (
             <span>
-                Here's some zoomed-out content.
+                Here&apos;s some zoomed-out content.
                 <br />
                 <br />
                 Click on the content to zoom/unzoom.

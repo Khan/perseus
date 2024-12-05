@@ -18,14 +18,14 @@ import scorePlotter from "./score-plotter";
 import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
-    PerseusPlotterRubric,
+    PerseusPlotterScoringData,
     PerseusPlotterUserInput,
 } from "../../validation.types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusPlotterRubric> & {
+type Props = WidgetProps<RenderProps, PerseusPlotterScoringData> & {
     labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
     picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
 };

@@ -8,6 +8,8 @@ import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 
+import scoreGroup from "./score-group";
+
 import type {PerseusGroupWidgetOptions} from "../../perseus-types";
 import type {
     APIOptions,
@@ -154,6 +156,8 @@ class Group extends React.Component<Props> implements Widget {
             }
         };
 
+        // TODO(LEMS-2391): replace this when there's a separate check
+        // for valid/invalid state
         const score = this.rendererRef?.score();
         const isValid = score && score.type !== "invalid";
         const isInvalid = score && score.type === "invalid";
@@ -200,6 +204,9 @@ export default {
     displayName: "Group (SAT only)",
     widget: Group,
     traverseChildWidgets: traverseChildWidgets,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
+    scorer: scoreGroup,
     hidden: true,
     isLintable: true,
 } satisfies WidgetExports<typeof Group>;

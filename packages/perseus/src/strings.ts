@@ -182,6 +182,7 @@ export type PerseusStrings = {
         point4X: number;
         point4Y: number;
     }) => string;
+    selectAnAnswer: string;
 };
 
 /**
@@ -396,6 +397,7 @@ export const strings: {
         message:
             "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
     },
+    selectAnAnswer: "Select an answer",
 };
 
 /**
@@ -579,4 +581,5 @@ export const mockStrings: PerseusStrings = {
         point4Y,
     }) =>
         `Points on the circle at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, ${point3X} comma ${point3Y}, ${point4X} comma ${point4Y}.`,
+    selectAnAnswer: "Select an answer",
 };

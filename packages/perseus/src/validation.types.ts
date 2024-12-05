@@ -38,10 +38,8 @@ import type {
     PerseusGroupWidgetOptions,
     PerseusMatcherWidgetOptions,
     PerseusMatrixWidgetAnswers,
-    PerseusNumberLineWidgetOptions,
     PerseusNumericInputAnswer,
     PerseusOrdererWidgetOptions,
-    PerseusPlotterWidgetOptions,
     PerseusRadioChoice,
     PerseusGraphCorrectType,
 } from "./perseus-types";
@@ -50,15 +48,21 @@ import type {Relationship} from "./widgets/number-line/number-line";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
-export type PerseusCategorizerRubric = {
+export type PerseusCategorizerScoringData = {
     // The correct answers where index relates to the items and value relates
     // to the category.  e.g. [0, 1, 0, 1, 2]
     values: ReadonlyArray<number>;
-};
+} & PerseusCategorizerValidationData;
 
 export type PerseusCategorizerUserInput = {
-    values: PerseusCategorizerRubric["values"];
+    values: PerseusCategorizerScoringData["values"];
 };
+
+export type PerseusCategorizerValidationData = {
+    // Translatable text; a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
+    items: ReadonlyArray<string>;
+};
+
 // TODO(LEMS-2440): Can possibly be removed during 2440?
 // This is not used for grading at all. The only place it is used is to define
 // Props type in cs-program.tsx, but RenderProps already contains WidgetOptions
@@ -86,6 +90,7 @@ export type PerseusExpressionRubric = {
 export type PerseusExpressionUserInput = string;
 
 export type PerseusGroupRubric = PerseusGroupWidgetOptions;
+export type PerseusGroupUserInput = UserInputMap;
 
 export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
 
@@ -159,7 +164,11 @@ export type PerseusMatrixUserInput = {
     answers: PerseusMatrixRubric["answers"];
 };
 
-export type PerseusNumberLineRubric = PerseusNumberLineWidgetOptions & {
+export type PerseusNumberLineScoringData = {
+    correctRel: string | null | undefined;
+    correctX: number;
+    range: ReadonlyArray<number>;
+    initialX: number | null | undefined;
     isInequality: boolean;
 };
 
@@ -188,7 +197,15 @@ export type PerseusOrdererUserInput = {
     current: ReadonlyArray<string>;
 };
 
-export type PerseusPlotterRubric = PerseusPlotterWidgetOptions;
+export type PerseusPlotterScoringData = {
+    // The Y values that represent the correct answer expected
+    correct: ReadonlyArray<number>;
+} & PerseusPlotterValidationData;
+
+export type PerseusPlotterValidationData = {
+    // The Y values the graph should start with
+    starting: ReadonlyArray<number>;
+};
 
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
 
@@ -219,7 +236,7 @@ export type PerseusTableRubric = {
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 
 export type Rubric =
-    | PerseusCategorizerRubric
+    | PerseusCategorizerScoringData
     | PerseusCSProgramRubric
     | PerseusDropdownRubric
     | PerseusExpressionRubric
@@ -233,10 +250,10 @@ export type Rubric =
     | PerseusLabelImageRubric
     | PerseusMatcherRubric
     | PerseusMatrixRubric
-    | PerseusNumberLineRubric
+    | PerseusNumberLineScoringData
     | PerseusNumericInputRubric
     | PerseusOrdererRubric
-    | PerseusPlotterRubric
+    | PerseusPlotterScoringData
     | PerseusRadioRubric
     | PerseusSorterRubric
     | PerseusTableRubric;

@@ -1,5 +1,5 @@
-import Spacing from "@khanacademy/wonder-blocks-spacing";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import * as React from "react";
 
 import DeviceFramer from "../device-framer";
 
@@ -21,12 +21,12 @@ const SampleContent = () => {
                 color: color.offWhite,
                 width: "90%",
                 height: "300px",
-                padding: Spacing.medium_16,
+                padding: spacing.medium_16,
             }}
         >
             The DeviceFramer controls the size of the content inside the frame.
-            So there's not much to look at here except how large each device
-            type's size is.
+            So there&apos;s not much to look at here except how large each
+            device type&apos;s size is.
         </div>
     );
 };

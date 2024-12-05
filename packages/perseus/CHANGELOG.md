@@ -1,5 +1,73 @@
 # @khanacademy/perseus
 
+## 45.0.0
+
+### Major Changes
+
+-   [#1910](https://github.com/Khan/perseus/pull/1910) [`0a44d468d`](https://github.com/Khan/perseus/commit/0a44d468dd127bf15dc32e720b9b0301af41a572) Thanks [@handeyeco](https://github.com/handeyeco)! - Change ServerItemRenderer scoring APIs to externalize scoring
+
+## 44.0.0
+
+### Major Changes
+
+-   [#1930](https://github.com/Khan/perseus/pull/1930) [`834bd8bfb`](https://github.com/Khan/perseus/commit/834bd8bfbc063d0a1935ae9a697e5505c5ee606d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove PerseusExampleWidgetOptions, PerseusSimpleMarkdownTesterWidgetOptions, and PerseusExampleWidgetOptions types - widgets no longer exist
+
+### Minor Changes
+
+-   [#1845](https://github.com/Khan/perseus/pull/1845) [`066daab0e`](https://github.com/Khan/perseus/commit/066daab0ea8463e8b2a5381e90ed8392ea20a5bf) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Add labels to Dropdown widget
+
+### Patch Changes
+
+-   [#1904](https://github.com/Khan/perseus/pull/1904) [`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Upgrade Storybook to v8.x
+
+*   [#1925](https://github.com/Khan/perseus/pull/1925) [`89244ccc0`](https://github.com/Khan/perseus/commit/89244ccc0d7384d7f76678204cd49dd7e8301185) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove some uses of findDOMNode
+
+*   Updated dependencies [[`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71)]:
+    -   @khanacademy/math-input@21.1.6
+
+## 43.1.0
+
+### Minor Changes
+
+-   [#1898](https://github.com/Khan/perseus/pull/1898) [`3a9b5921b`](https://github.com/Khan/perseus/commit/3a9b5921bff7ae038f59ecb6817babd2b21df0bb) Thanks [@Myranae](https://github.com/Myranae)! - Introduces a validation function for the dropdown widget (extracted from dropdown scoring function).
+
+*   [#1862](https://github.com/Khan/perseus/pull/1862) [`451de899f`](https://github.com/Khan/perseus/commit/451de899fd3d40bf415cb2318048e90fb1e6670f) Thanks [@Myranae](https://github.com/Myranae)! - Split out validation function for the `categorizer` widget. This can be used to check if the user selected an answer for every row, confirming the question is ready to be scored.
+
+-   [#1882](https://github.com/Khan/perseus/pull/1882) [`40d2ebb75`](https://github.com/Khan/perseus/commit/40d2ebb75fdadfb361330236e0fb9e54a32d0fc2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Introduces a validation function for the numeric-input widget (extracted from numeric-input scoring function).
+
+*   [#1899](https://github.com/Khan/perseus/pull/1899) [`2437ce61b`](https://github.com/Khan/perseus/commit/2437ce61bae1aef2db28e89956aa73463ada16cc) Thanks [@Myranae](https://github.com/Myranae)! - Introduces a validation function for the plotter widget (extracted from the scoring function).
+
+-   [#1869](https://github.com/Khan/perseus/pull/1869) [`f43edd42c`](https://github.com/Khan/perseus/commit/f43edd42ccfacd1500d2f73ccb0d3f8dce777173) Thanks [@Myranae](https://github.com/Myranae)! - Split out validation function for the `orderer` widget. This can be used to check if the user has ordered at least one option, confirming the question is ready to be scored.
+
+*   [#1902](https://github.com/Khan/perseus/pull/1902) [`0cec7628c`](https://github.com/Khan/perseus/commit/0cec7628c4a061f14b126fd1e3dab6df45fc0178) Thanks [@Myranae](https://github.com/Myranae)! - Introduces a validation function for the radio widget (extracted from the scoring function), though not all validation logic can be extracted.
+
+-   [#1876](https://github.com/Khan/perseus/pull/1876) [`0bd4270ad`](https://github.com/Khan/perseus/commit/0bd4270ade576bec1ac0c86b251f972a2c354056) Thanks [@Myranae](https://github.com/Myranae)! - Split out validation function for the `sorter` widget. This can be used to check if the user has made any changes to the sorting order, confirming whether or not the question can be scored.
+
+### Patch Changes
+
+-   [#1907](https://github.com/Khan/perseus/pull/1907) [`3dbca965a`](https://github.com/Khan/perseus/commit/3dbca965a2bbaa2d980c1cc4c439469157e0bd33) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add and pass regression tests for `PerseusItem` parser.
+
+*   [#1915](https://github.com/Khan/perseus/pull/1915) [`ee09e9fc0`](https://github.com/Khan/perseus/commit/ee09e9fc0ad5eb65340d0f1cbe240741ebfcd3c3) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove use of findDOMNode in number-input component
+
+-   [#1920](https://github.com/Khan/perseus/pull/1920) [`88ba71bef`](https://github.com/Khan/perseus/commit/88ba71bef0cdd75fa0c8b467dcea2cccc637d034) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix some file-wide error suppressions
+
+*   [#1919](https://github.com/Khan/perseus/pull/1919) [`64ea2ee86`](https://github.com/Khan/perseus/commit/64ea2ee86264a20f1d0e34968831945fea8ed36b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove usage of findDOMNode in text-input component
+
+-   [#1906](https://github.com/Khan/perseus/pull/1906) [`799ffe4a5`](https://github.com/Khan/perseus/commit/799ffe4a50e3e3bc435d0ef96388c1e8fae2167d) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - update moveable point component and use control point method to have optional params
+
+*   [#1895](https://github.com/Khan/perseus/pull/1895) [`841551a65`](https://github.com/Khan/perseus/commit/841551a65732a276266690ddaaa51a3810398d03) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove unused fields from `answerArea` when parsing `PerseusItem`s.
+
+-   [#1921](https://github.com/Khan/perseus/pull/1921) [`8ec06f444`](https://github.com/Khan/perseus/commit/8ec06f444d8f4559eda5c3dbf189e5183b1c5b42) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Inline widget version into Expression widget parser.
+
+*   [#1914](https://github.com/Khan/perseus/pull/1914) [`3e98b7cd3`](https://github.com/Khan/perseus/commit/3e98b7cd300052eeacbe9fcdbd312091c678107b) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests for propUpgrades functions (and remove underscore usage)
+
+-   [#1908](https://github.com/Khan/perseus/pull/1908) [`7f2866cf4`](https://github.com/Khan/perseus/commit/7f2866cf401aa4fc7a3b2b15d8cdc247a953e9f8) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Migrate expression widget options to the latest version in parseAndTypecheckPerseusItem (not yet used in production).
+
+-   Updated dependencies [[`88ba71bef`](https://github.com/Khan/perseus/commit/88ba71bef0cdd75fa0c8b467dcea2cccc637d034)]:
+    -   @khanacademy/kas@0.4.2
+    -   @khanacademy/simple-markdown@0.13.6
+    -   @khanacademy/pure-markdown@0.3.13
+
 ## 43.0.1
 
 ### Patch Changes

@@ -4,7 +4,7 @@ import {
 } from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {useState} from "react";
+import * as React from "react";
 
 import {articleWithImages} from "../../../perseus/src/__testdata__/article-renderer.testdata";
 import {mockStrings} from "../../../perseus/src/strings";
@@ -18,7 +18,8 @@ import type {Meta, StoryObj} from "@storybook/react";
 import "../styles/perseus-editor.less";
 
 const PreviewWrapper = (props) => {
-    const [previewDevice, setPreviewDevice] = useState<DeviceType>("phone");
+    const [previewDevice, setPreviewDevice] =
+        React.useState<DeviceType>("phone");
 
     return (
         <View>
