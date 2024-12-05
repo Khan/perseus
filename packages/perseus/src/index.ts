@@ -224,7 +224,6 @@ export type {
     PerseusWidget,
     PerseusWidgetsMap,
     PerseusWidgetTypes,
-    MultiItem,
     WidgetOptions,
 } from "./perseus-types";
 export type {UserInputMap} from "./validation.types";
