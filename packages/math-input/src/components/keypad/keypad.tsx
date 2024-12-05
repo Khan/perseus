@@ -34,6 +34,7 @@ export type Props = {
     basicRelations?: boolean;
     advancedRelations?: boolean;
     fractionsOnly?: boolean;
+    scientific?: boolean;
 
     onClickKey: ClickKeyCallback;
     onAnalyticsEvent: AnalyticsEventHandlerFn;
@@ -89,6 +90,7 @@ export default function Keypad({extraKeys = [], ...props}: Props) {
         logarithms,
         basicRelations,
         advancedRelations,
+        scientific,
         showDismiss,
         onAnalyticsEvent,
         fractionsOnly,
@@ -182,6 +184,7 @@ export default function Keypad({extraKeys = [], ...props}: Props) {
                                 convertDotToTimes={convertDotToTimes}
                                 divisionKey={divisionKey}
                                 selectedPage={selectedPage}
+                                scientific={scientific}
                             />
                         )}
                     </View>

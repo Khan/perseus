@@ -457,6 +457,7 @@ export type LegacyButtonSets = ReadonlyArray<
     | "logarithms"
     | "basic relations"
     | "advanced relations"
+    | "scientific"
 >;
 
 export type PerseusExpressionWidgetOptions = {
