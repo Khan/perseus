@@ -118,31 +118,6 @@ describe("server item renderer", () => {
         expect(screen.getByRole("textbox")).toBeVisible();
     });
 
-    it("should be invalid if no input provided", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(itemWithInput);
-
-        // Act
-        const score = await act(() => renderer.scoreInput());
-
-        // Assert
-        expect(score.correct).toBe(false);
-        expect(score.empty).toBe(true);
-    });
-
-    it("should be answerable", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(itemWithInput);
-        await userEvent.type(screen.getByRole("textbox"), "-42");
-
-        // Act
-        const score = await act(() => renderer.scoreInput());
-
-        // Assert
-        expect(score.correct).toBe(true);
-        expect(score.empty).toBe(false);
-    });
-
     it("should pass showSolutions to the widgets", () => {
         // Arrange
         renderQuestion(itemWithRadioAndExpressionWidgets, Object.freeze({}), {

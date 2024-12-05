@@ -4,6 +4,7 @@ import {Strut} from "@khanacademy/wonder-blocks-layout";
 import * as React from "react";
 
 import * as Perseus from "../packages/perseus/src/index";
+import {mockStrings} from "../packages/perseus/src/strings";
 
 import KEScoreUI from "./ke-score-ui";
 import SideBySide from "./side-by-side";
@@ -29,6 +30,31 @@ export const ServerItemRendererWithDebugUI = ({
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
     const options = apiOptions || Object.freeze({});
 
+    const getKeScore = () => {
+        const renderer = ref.current;
+        if (!renderer) {
+            return;
+        }
+
+        const userInput = renderer.getUserInput();
+        const score = Perseus.scorePerseusItem(
+            item.question,
+            userInput,
+            mockStrings,
+            "en",
+        );
+
+        // Continue to include an empty guess for the now defunct answer area.
+        // TODO(alex): Check whether we rely on the format here for
+        //             analyzing ProblemLogs. If not, remove this layer.
+        const maxCompatGuess = [renderer.getUserInputLegacy(), []];
+        return Perseus.Util.keScoreFromPerseusScore(
+            score,
+            maxCompatGuess,
+            renderer.getSerializedState().question,
+        );
+    };
+
     return (
         <SideBySide
             leftTitle="Renderer"
@@ -48,7 +74,7 @@ export const ServerItemRendererWithDebugUI = ({
                                 if (!ref.current) {
                                     return;
                                 }
-                                setState(ref.current.scoreInput());
+                                setState(getKeScore());
                             }}
                         >
                             Check

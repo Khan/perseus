@@ -153,7 +153,7 @@ class WidgetContainer extends React.Component<Props, State> {
             : {...this.props.linterContext, highlightLint: false};
 
         // Note: if you add more props here, please consider whether or not
-        // it should be auto-serialized (e.g. used in scoreInput()). See
+        // it should be auto-serialized. See
         // widget-jsonify-deprecated.jsx and widget-prop-denylist.jsx
 
         // We default to an empty object for style instead of null
