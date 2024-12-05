@@ -5,21 +5,28 @@ import {
     number,
     object,
     optional,
+    pipeParsers,
     string,
+    union,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
+import {stringToNumber} from "../general-purpose-parsers/string-to-number";
 
 import {parseWidget} from "./widget";
 
 import type {MatrixWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
 
+const numeric = pipeParsers(union(number).or(string).parser).then(
+    stringToNumber,
+).parser;
+
 export const parseMatrixWidget: Parser<MatrixWidget> = parseWidget(
     defaulted(constant("matrix"), () => "matrix"),
     object({
         prefix: optional(string),
         suffix: optional(string),
-        answers: array(array(number)),
+        answers: array(array(numeric)),
         cursorPosition: optional(array(number)),
         matrixBoardSize: array(number),
         static: optional(boolean),
