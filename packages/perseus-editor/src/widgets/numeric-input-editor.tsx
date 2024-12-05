@@ -5,19 +5,23 @@ import {
     EditorJsonify,
     Util,
     PerseusI18nContext,
-    iconTrash, LockedLabelType,
+    iconTrash,
 } from "@khanacademy/perseus";
-import Heading from "../components/heading";
 import Button from "@khanacademy/wonder-blocks-button";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import _ from "underscore";
 
+import Heading from "../components/heading";
+import PerseusEditorAccordion from "../components/perseus-editor-accordion";
 import Editor from "../editor";
 import {iconGear} from "../styles/icon-paths";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import {getDefaultFigureForType} from "./interactive-graph-editor/locked-figures/util";
 
 type ChangeFn = typeof Changeable.change;
 
@@ -103,6 +107,7 @@ type Props = PerseusNumericInputWidgetOptions & {
 type State = {
     lastStatus: string;
     showOptions: boolean[];
+    showAnswerDetails: boolean[];
     showSettings: boolean;
     showAnswers: boolean;
 };
@@ -127,6 +132,7 @@ class NumericInputEditor extends React.Component<Props, State> {
         this.state = {
             lastStatus: "wrong",
             showOptions: _.map(this.props.answers, () => false),
+            showAnswerDetails: _.map(this.props.answers, () => true),
             showSettings: true,
             showAnswers: true,
         };
@@ -142,14 +148,20 @@ class NumericInputEditor extends React.Component<Props, State> {
         this.setState({showOptions: showOptions});
     };
 
-    onToggleAccordion = (accordionName: string) => {
+    onToggleAnswers = (answerIndex) => {
+        const showAnswerDetails = this.state.showAnswerDetails.slice();
+        showAnswerDetails[answerIndex] = !showAnswerDetails[answerIndex];
+        this.setState({showAnswerDetails: showAnswerDetails});
+    };
+
+    onToggleHeading = (accordionName: string) => {
         return () => {
             const toggleName = `show${accordionName}`;
             const newState = {[toggleName]: !this.state[toggleName]};
             // @ts-expect-error
             this.setState(newState);
-        }
-    }
+        };
+    };
 
     onTrashAnswer = (choiceIndex) => {
         if (choiceIndex >= 0 && choiceIndex < this.props.answers.length) {
@@ -211,6 +223,8 @@ class NumericInputEditor extends React.Component<Props, State> {
     addAnswer = () => {
         const lastAnswer: any = initAnswer(this.state.lastStatus);
         const answers = this.props.answers.concat(lastAnswer);
+        const showAnswerDetails = this.state.showAnswerDetails.concat(true);
+        this.setState({showAnswerDetails: showAnswerDetails});
         this.props.onChange({answers: answers});
     };
 
@@ -443,157 +457,170 @@ class NumericInputEditor extends React.Component<Props, State> {
                 );
                 return (
                     <div className="perseus-widget-row" key={i}>
-                        <div
-                            className={
-                                "input-answer-editor-value-container" +
-                                (answer.maxError ? " with-max-error" : "")
+                        <PerseusEditorAccordion
+                            expanded={this.state.showAnswerDetails[i]}
+                            onToggle={() => {
+                                this.onToggleAnswers(i);
+                            }}
+                            header={
+                                <div className="section-accordion">
+                                    <LabelLarge>Answer Option</LabelLarge>
+                                    <Strut size={spacing.xSmall_8} />
+                                </div>
                             }
                         >
-                            <NumberInput
-                                value={answer.value}
-                                className="numeric-input-value"
-                                placeholder="answer"
-                                format={_.last(answer.answerForms || [])}
-                                onFormatChange={(newValue, format) => {
-                                    // NOTE(charlie): The mobile web expression
-                                    // editor relies on this automatic answer
-                                    // form resolution for determining when to
-                                    // show the Pi symbol. If we get rid of it,
-                                    // we should also disable Pi for
-                                    // NumericInput and require problems that
-                                    // use Pi to build on Expression.
-                                    // Alternatively, we could store answers
-                                    // as plaintext and parse them to determine
-                                    // whether or not to reveal Pi on the
-                                    // keypad (right now, answers are stored as
-                                    // resolved values, like '0.125' rather
-                                    // than '1/8').
-                                    let forms;
-                                    if (format === "pi") {
-                                        forms = ["pi"];
-                                    } else if (format === "mixed") {
-                                        forms = ["proper", "mixed"];
-                                    } else if (
-                                        format === "proper" ||
-                                        format === "improper"
-                                    ) {
-                                        forms = ["proper", "improper"];
-                                    }
-                                    this.updateAnswer(i, {
-                                        value: firstNumericalParse(
-                                            newValue,
-                                            this.context.strings,
-                                        ),
-                                        answerForms: forms,
-                                    });
-                                }}
-                                onChange={(newValue) => {
-                                    this.updateAnswer(i, {
-                                        value: firstNumericalParse(
-                                            newValue,
-                                            this.context.strings,
-                                        ),
-                                    });
-                                }}
-                            />
-                            {answer.strict && (
-                                <div
-                                    className="is-strict-indicator"
-                                    title="strictly equivalent to"
-                                >
-                                    &equiv;
-                                </div>
-                            )}
-                            {answer.simplify !== "required" &&
-                                answer.status === "correct" && (
-                                    <div
-                                        className={
-                                            "simplify-indicator " +
-                                            answer.simplify
+                            <div
+                                className={
+                                    "input-answer-editor-value-container" +
+                                    (answer.maxError ? " with-max-error" : "")
+                                }
+                            >
+                                <NumberInput
+                                    value={answer.value}
+                                    className="numeric-input-value"
+                                    placeholder="answer"
+                                    format={_.last(answer.answerForms || [])}
+                                    onFormatChange={(newValue, format) => {
+                                        // NOTE(charlie): The mobile web expression
+                                        // editor relies on this automatic answer
+                                        // form resolution for determining when to
+                                        // show the Pi symbol. If we get rid of it,
+                                        // we should also disable Pi for
+                                        // NumericInput and require problems that
+                                        // use Pi to build on Expression.
+                                        // Alternatively, we could store answers
+                                        // as plaintext and parse them to determine
+                                        // whether or not to reveal Pi on the
+                                        // keypad (right now, answers are stored as
+                                        // resolved values, like '0.125' rather
+                                        // than '1/8').
+                                        let forms;
+                                        if (format === "pi") {
+                                            forms = ["pi"];
+                                        } else if (format === "mixed") {
+                                            forms = ["proper", "mixed"];
+                                        } else if (
+                                            format === "proper" ||
+                                            format === "improper"
+                                        ) {
+                                            forms = ["proper", "improper"];
                                         }
-                                        title="accepts unsimplified answers"
+                                        this.updateAnswer(i, {
+                                            value: firstNumericalParse(
+                                                newValue,
+                                                this.context.strings,
+                                            ),
+                                            answerForms: forms,
+                                        });
+                                    }}
+                                    onChange={(newValue) => {
+                                        this.updateAnswer(i, {
+                                            value: firstNumericalParse(
+                                                newValue,
+                                                this.context.strings,
+                                            ),
+                                        });
+                                    }}
+                                />
+                                {answer.strict && (
+                                    <div
+                                        className="is-strict-indicator"
+                                        title="strictly equivalent to"
                                     >
-                                        &permil;
+                                        &equiv;
                                     </div>
                                 )}
-                            {answer.maxError ? (
-                                <div className="max-error-container">
-                                    <div className="max-error-plusmn">
-                                        &plusmn;
+                                {answer.simplify !== "required" &&
+                                    answer.status === "correct" && (
+                                        <div
+                                            className={
+                                                "simplify-indicator " +
+                                                answer.simplify
+                                            }
+                                            title="accepts unsimplified answers"
+                                        >
+                                            &permil;
+                                        </div>
+                                    )}
+                                {answer.maxError ? (
+                                    <div className="max-error-container">
+                                        <div className="max-error-plusmn">
+                                            &plusmn;
+                                        </div>
+                                        <NumberInput
+                                            placeholder={0}
+                                            value={answers[i]["maxError"]}
+                                            format={_.last(
+                                                answer.answerForms || [],
+                                            )}
+                                            onChange={this.updateAnswer(
+                                                i,
+                                                "maxError",
+                                            )}
+                                        />
                                     </div>
-                                    <NumberInput
-                                        placeholder={0}
-                                        value={answers[i]["maxError"]}
-                                        format={_.last(
-                                            answer.answerForms || [],
-                                        )}
-                                        onChange={this.updateAnswer(
-                                            i,
-                                            "maxError",
-                                        )}
-                                    />
-                                </div>
-                            ) : null}
-                            <div className="value-divider" />
-                            <a
-                                href="#"
-                                className={"answer-status " + answer.status}
-                                onClick={(e) => {
-                                    // preventDefault ensures that href="#"
-                                    // doesn't scroll to the top of the page
-                                    e.preventDefault();
-                                    this.onStatusChange(i);
-                                }}
-                                onKeyDown={(e) =>
-                                    this.onSpace(e, this.onStatusChange)
-                                }
-                            >
-                                {answer.status}
-                            </a>
-                            <a
-                                href="#"
-                                className="answer-trash"
-                                aria-label="Delete answer"
-                                onClick={(e) => {
-                                    // preventDefault ensures that href="#"
-                                    // doesn't scroll to the top of the page
-                                    e.preventDefault();
-                                    this.onTrashAnswer(i);
-                                }}
-                                onKeyDown={(e) =>
-                                    this.onSpace(e, this.onTrashAnswer)
-                                }
-                            >
-                                <InlineIcon {...iconTrash} />
-                            </a>
-                            <a
-                                href="#"
-                                className="options-toggle"
-                                aria-label="Toggle options"
-                                onClick={(e) => {
-                                    // preventDefault ensures that href="#"
-                                    // doesn't scroll to the top of the page
-                                    e.preventDefault();
-                                    this.onToggleOptions(i);
-                                }}
-                                onKeyDown={(e) =>
-                                    this.onSpace(e, this.onToggleOptions)
-                                }
-                            >
-                                <InlineIcon {...iconGear} />
-                            </a>
-                        </div>
-                        <div className="input-answer-editor-message">
-                            {editor}
-                        </div>
-                        {this.state.showOptions[i] && (
-                            <div className="options-container">
-                                {maxError(i)}
-                                {answer.status === "correct" &&
-                                    unsimplifiedAnswers(i)}
-                                {suggestedAnswerTypes(i)}
+                                ) : null}
+                                <div className="value-divider" />
+                                <a
+                                    href="#"
+                                    className={"answer-status " + answer.status}
+                                    onClick={(e) => {
+                                        // preventDefault ensures that href="#"
+                                        // doesn't scroll to the top of the page
+                                        e.preventDefault();
+                                        this.onStatusChange(i);
+                                    }}
+                                    onKeyDown={(e) =>
+                                        this.onSpace(e, this.onStatusChange)
+                                    }
+                                >
+                                    {answer.status}
+                                </a>
+                                <a
+                                    href="#"
+                                    className="answer-trash"
+                                    aria-label="Delete answer"
+                                    onClick={(e) => {
+                                        // preventDefault ensures that href="#"
+                                        // doesn't scroll to the top of the page
+                                        e.preventDefault();
+                                        this.onTrashAnswer(i);
+                                    }}
+                                    onKeyDown={(e) =>
+                                        this.onSpace(e, this.onTrashAnswer)
+                                    }
+                                >
+                                    <InlineIcon {...iconTrash} />
+                                </a>
+                                <a
+                                    href="#"
+                                    className="options-toggle"
+                                    aria-label="Toggle options"
+                                    onClick={(e) => {
+                                        // preventDefault ensures that href="#"
+                                        // doesn't scroll to the top of the page
+                                        e.preventDefault();
+                                        this.onToggleOptions(i);
+                                    }}
+                                    onKeyDown={(e) =>
+                                        this.onSpace(e, this.onToggleOptions)
+                                    }
+                                >
+                                    <InlineIcon {...iconGear} />
+                                </a>
                             </div>
-                        )}
+                            <div className="input-answer-editor-message">
+                                {editor}
+                            </div>
+                            {this.state.showOptions[i] && (
+                                <div className="options-container">
+                                    {maxError(i)}
+                                    {answer.status === "correct" &&
+                                        unsimplifiedAnswers(i)}
+                                    {suggestedAnswerTypes(i)}
+                                </div>
+                            )}
+                        </PerseusEditorAccordion>
                     </div>
                 );
             });
@@ -604,7 +631,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                     title="Common Settings"
                     isCollapsible={true}
                     isOpen={this.state.showSettings}
-                    onToggle={this.onToggleAccordion("Settings")}
+                    onToggle={this.onToggleHeading("Settings")}
                 />
                 {this.state.showSettings && inputSize}
                 {this.state.showSettings && rightAlign}
@@ -614,7 +641,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                     title="Answers"
                     isCollapsible={true}
                     isOpen={this.state.showAnswers}
-                    onToggle={this.onToggleAccordion("Answers")}
+                    onToggle={this.onToggleHeading("Answers")}
                 />
                 {this.state.showAnswers && (
                     <>
@@ -623,10 +650,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                             Message shown to user on attempt
                         </div>
                         {generateInputAnswerEditors()}
-                        <Button
-                            kind="tertiary"
-                            onClick={this.addAnswer}
-                        >
+                        <Button kind="tertiary" onClick={this.addAnswer}>
                             Add new answer
                         </Button>
                     </>
