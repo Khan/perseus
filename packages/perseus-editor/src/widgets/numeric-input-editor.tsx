@@ -156,7 +156,8 @@ class NumericInputEditor extends React.Component<Props, State> {
     onToggleHeading = (accordionName: string) => {
         return () => {
             const toggleName = `show${accordionName}`;
-            const newState = {[toggleName]: !this.state[toggleName]};
+            const newState = {...this.state};
+            newState[toggleName] === !newState[toggleName];
             this.setState(newState);
         };
     };
@@ -639,7 +640,7 @@ class NumericInputEditor extends React.Component<Props, State> {
         return (
             <div className="perseus-input-number-editor">
                 <Heading
-                    title="Common Settings"
+                    title="General Settings"
                     isCollapsible={true}
                     isOpen={this.state.showSettings}
                     onToggle={this.onToggleHeading("Settings")}
