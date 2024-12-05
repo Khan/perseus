@@ -480,6 +480,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 </div>
                             }
                         >
+                            <div className="ui-title">User input</div>
                             <div
                                 className={
                                     "input-answer-editor-value-container" +
@@ -587,22 +588,6 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 >
                                     {answer.status}
                                 </a>
-                                {/*<a*/}
-                                {/*    href="#"*/}
-                                {/*    className="answer-trash"*/}
-                                {/*    aria-label="Delete answer"*/}
-                                {/*    onClick={(e) => {*/}
-                                {/*        // preventDefault ensures that href="#"*/}
-                                {/*        // doesn't scroll to the top of the page*/}
-                                {/*        e.preventDefault();*/}
-                                {/*        this.onTrashAnswer(i);*/}
-                                {/*    }}*/}
-                                {/*    onKeyDown={(e) =>*/}
-                                {/*        this.onSpace(e, this.onTrashAnswer)*/}
-                                {/*    }*/}
-                                {/*>*/}
-                                {/*    <InlineIcon {...iconTrash} />*/}
-                                {/*</a>*/}
                                 <a
                                     href="#"
                                     className="options-toggle"
@@ -621,11 +606,14 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 </a>
                             </div>
                             <div className="input-answer-editor-message">
+                                <div className="msg-title">
+                                    Message shown to user on attempt
+                                </div>
                                 {editor}
                             </div>
                             {this.state.showOptions[i] && (
                                 <div className="options-container">
-                                    {maxError(i)}
+                                {maxError(i)}
                                     {answer.status === "correct" &&
                                         unsimplifiedAnswers(i)}
                                     {suggestedAnswerTypes(i)}
@@ -667,10 +655,6 @@ class NumericInputEditor extends React.Component<Props, State> {
                 />
                 {this.state.showAnswers && (
                     <>
-                        <div className="ui-title">User input</div>
-                        <div className="msg-title">
-                            Message shown to user on attempt
-                        </div>
                         {generateInputAnswerEditors()}
                         <Button kind="tertiary" onClick={this.addAnswer}>
                             Add new answer
