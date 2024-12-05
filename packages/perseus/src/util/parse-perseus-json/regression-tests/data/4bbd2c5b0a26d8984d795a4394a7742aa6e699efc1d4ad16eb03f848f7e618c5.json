@@ -1,0 +1,370 @@
+{
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false
+  },
+  "hints": [
+    {
+      "content": "[[☃ transformer 1]]",
+      "images": {},
+      "replace": false,
+      "widgets": {
+        "transformer 1": {
+          "alignment": "default",
+          "graded": false,
+          "options": {
+            "correct": {
+              "shape": {
+                "coords": [
+                  [
+                    -0.5857864376269042,
+                    -5.550510257216821
+                  ],
+                  [
+                    -2,
+                    -8
+                  ],
+                  [
+                    -4.777659142006717,
+                    -1.4973382610790447
+                  ]
+                ],
+                "options": [
+                  {
+                    "reflex": false
+                  }
+                ],
+                "type": [
+                  "angle"
+                ]
+              },
+              "transformations": [
+                {
+                  "angleDeg": -75,
+                  "center": [
+                    7,
+                    1
+                  ],
+                  "type": "rotation"
+                },
+                {
+                  "type": "translation",
+                  "vector": [
+                    -9,
+                    -9
+                  ]
+                }
+              ]
+            },
+            "drawSolutionShape": false,
+            "gradeEmpty": false,
+            "graph": {
+              "backgroundImage": {
+                "height": 400,
+                "url": "web+graphie://ka-perseus-graphie.s3.amazonaws.com/05ab28bab959295c1cfa3db474049d22f65c86c9",
+                "width": 400
+              },
+              "gridStep": [
+                1,
+                1
+              ],
+              "labels": [
+                "x",
+                "y"
+              ],
+              "markings": "grid",
+              "range": [
+                [
+                  -10,
+                  10
+                ],
+                [
+                  -10,
+                  10
+                ]
+              ],
+              "rulerLabel": "",
+              "rulerTicks": 10,
+              "showProtractor": false,
+              "showRuler": false,
+              "snapStep": [
+                0.5,
+                0.5
+              ],
+              "step": [
+                1,
+                1
+              ]
+            },
+            "graphMode": "interactive",
+            "listMode": "static",
+            "starting": {
+              "shape": {
+                "coords": [
+                  [
+                    5,
+                    3
+                  ],
+                  [
+                    7,
+                    1
+                  ],
+                  [
+                    0,
+                    0
+                  ]
+                ],
+                "options": [
+                  {
+                    "reflex": false
+                  }
+                ],
+                "type": [
+                  "angle"
+                ]
+              },
+              "transformations": []
+            },
+            "tools": {
+              "dilation": {
+                "constraints": {
+                  "fixed": false
+                },
+                "coord": [
+                  6,
+                  6
+                ],
+                "enabled": true,
+                "required": false
+              },
+              "reflection": {
+                "constraints": {
+                  "fixed": false
+                },
+                "coords": [
+                  [
+                    2,
+                    -4
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "enabled": true,
+                "required": false
+              },
+              "rotation": {
+                "constraints": {
+                  "fixed": false
+                },
+                "coord": [
+                  7,
+                  1
+                ],
+                "enabled": true,
+                "required": false
+              },
+              "translation": {
+                "constraints": {},
+                "enabled": true,
+                "required": false
+              }
+            },
+            "version": 1.2
+          },
+          "static": false,
+          "type": "transformer",
+          "version": {
+            "major": 0,
+            "minor": 0
+          }
+        }
+      }
+    }
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1
+  },
+  "question": {
+    "content": "[[☃ transformer 1]]\n\n",
+    "images": {},
+    "widgets": {
+      "transformer 1": {
+        "alignment": "default",
+        "graded": false,
+        "options": {
+          "correct": {
+            "shape": {
+              "coords": [
+                [
+                  -0.5857864376269042,
+                  -5.550510257216821
+                ],
+                [
+                  -2,
+                  -8
+                ],
+                [
+                  -4.777659142006717,
+                  -1.4973382610790447
+                ]
+              ],
+              "options": [
+                {
+                  "reflex": false
+                }
+              ],
+              "type": [
+                "angle"
+              ]
+            },
+            "transformations": [
+              {
+                "angleDeg": -75,
+                "center": [
+                  7,
+                  1
+                ],
+                "type": "rotation"
+              },
+              {
+                "type": "translation",
+                "vector": [
+                  -9,
+                  -9
+                ]
+              }
+            ]
+          },
+          "drawSolutionShape": true,
+          "gradeEmpty": false,
+          "graph": {
+            "backgroundImage": {
+              "height": 0,
+              "url": null,
+              "width": 0
+            },
+            "gridStep": [
+              1,
+              1
+            ],
+            "labels": [
+              "x",
+              "y"
+            ],
+            "markings": "none",
+            "range": [
+              [
+                -10,
+                10
+              ],
+              [
+                -10,
+                10
+              ]
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "showProtractor": false,
+            "showRuler": false,
+            "snapStep": [
+              0.5,
+              0.5
+            ],
+            "step": [
+              1,
+              1
+            ]
+          },
+          "graphMode": "interactive",
+          "listMode": "static",
+          "starting": {
+            "shape": {
+              "coords": [
+                [
+                  5,
+                  3
+                ],
+                [
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  0
+                ]
+              ],
+              "options": [
+                {
+                  "reflex": false
+                }
+              ],
+              "type": [
+                "angle"
+              ]
+            },
+            "transformations": []
+          },
+          "tools": {
+            "dilation": {
+              "constraints": {
+                "fixed": false
+              },
+              "coord": [
+                6,
+                6
+              ],
+              "enabled": true,
+              "required": false
+            },
+            "reflection": {
+              "constraints": {
+                "fixed": false
+              },
+              "coords": [
+                [
+                  2,
+                  -4
+                ],
+                [
+                  2,
+                  2
+                ]
+              ],
+              "enabled": true,
+              "required": false
+            },
+            "rotation": {
+              "constraints": {
+                "fixed": false
+              },
+              "coord": [
+                7,
+                1
+              ],
+              "enabled": true,
+              "required": false
+            },
+            "translation": {
+              "constraints": {},
+              "enabled": true,
+              "required": false
+            }
+          },
+          "version": 1.2
+        },
+        "static": false,
+        "type": "transformer",
+        "version": {
+          "major": 0,
+          "minor": 0
+        }
+      }
+    }
+  }
+}
