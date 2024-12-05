@@ -80,8 +80,8 @@ function CircleGraph(props: CircleGraphProps) {
         >
             <MovableCircle
                 id={circleId}
-                ariaLabel={circleShapeAriaLabel}
-                ariaDescribedBy={`${diameterId} ${outerPointsId}`}
+                ariaLabel={`${circleShapeAriaLabel} ${circleRadiusPointAriaLabel} ${circleOuterPointsDescription}`}
+                ariaDescribedBy={diameterId}
                 center={center}
                 radius={radius}
                 onMove={(c) => {
@@ -90,8 +90,7 @@ function CircleGraph(props: CircleGraphProps) {
                 }}
             />
             <MovablePoint
-                ariaLabel={`${circleRadiusPointAriaLabel} ${circleRadiusDescription}`}
-                ariaDescribedBy={`${outerPointsId}`}
+                ariaLabel={`${circleRadiusPointAriaLabel} ${circleRadiusDescription} ${circleOuterPointsDescription}`}
                 ariaLive={edgePointAriaLive}
                 point={radiusPoint}
                 sequenceNumber={1}
@@ -137,6 +136,7 @@ function MovableCircle(props: {
     return (
         <g
             ref={draggableRef}
+            role="button"
             tabIndex={disableKeyboardInteraction ? -1 : 0}
             className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}
         >
@@ -151,7 +151,7 @@ function MovableCircle(props: {
                 id={id}
                 aria-label={ariaLabel}
                 aria-describedby={ariaDescribedBy}
-                aria-live="assertive"
+                aria-live="polite"
                 className="circle"
                 cx={centerPx[X]}
                 cy={centerPx[Y]}
