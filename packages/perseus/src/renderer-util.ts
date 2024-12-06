@@ -101,7 +101,7 @@ export function emptyWidgetsFunctional(
         const validationData = widget.options;
         const score = validator?.(userInput, validationData, strings, locale);
 
-        if (score != null) {
+        if (score) {
             return scoreIsEmpty(score);
         }
     });
