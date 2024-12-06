@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -21,7 +22,9 @@ describe("numeric-input-editor", () => {
     });
 
     it("should render", async () => {
-        render(<NumericInputEditor onChange={() => undefined} />);
+        render(<NumericInputEditor onChange={() => undefined} />, {
+            wrapper: RenderStateRoot,
+        });
 
         await waitFor(async () =>
             expect(
@@ -33,7 +36,9 @@ describe("numeric-input-editor", () => {
     it("should be possible to select normal width", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<NumericInputEditor onChange={onChangeMock} />, {
+            wrapper: RenderStateRoot,
+        });
 
         await userEvent.click(
             screen.getByRole("button", {name: "Normal (80px)"}),
@@ -48,7 +53,9 @@ describe("numeric-input-editor", () => {
     it("should be possible to select small width", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<NumericInputEditor onChange={onChangeMock} />, {
+            wrapper: RenderStateRoot,
+        });
 
         await userEvent.click(
             screen.getByRole("button", {name: "Small (40px)"}),
@@ -63,7 +70,9 @@ describe("numeric-input-editor", () => {
     it("should be possible to select right alignment", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<NumericInputEditor onChange={onChangeMock} />, {
+            wrapper: RenderStateRoot,
+        });
 
         await userEvent.click(
             screen.getByRole("checkbox", {name: "Right alignment"}),
@@ -75,7 +84,9 @@ describe("numeric-input-editor", () => {
     it("should be possible to select coefficient", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<NumericInputEditor onChange={onChangeMock} />, {
+            wrapper: RenderStateRoot,
+        });
 
         await userEvent.click(
             screen.getByRole("checkbox", {name: "Coefficient"}),
@@ -87,9 +98,10 @@ describe("numeric-input-editor", () => {
     it("should be possible to select strictly match only these formats", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<NumericInputEditor onChange={onChangeMock} />, {
+            wrapper: RenderStateRoot,
+        });
 
-        await userEvent.click(screen.getByLabelText("Toggle options"));
         await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "Strictly match only these formats",
@@ -114,7 +126,9 @@ describe("numeric-input-editor", () => {
     it("should be possible to update label text", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<NumericInputEditor onChange={onChangeMock} />, {
+            wrapper: RenderStateRoot,
+        });
 
         const input = screen.getByRole("textbox", {
             name: "Aria label",
@@ -128,26 +142,13 @@ describe("numeric-input-editor", () => {
         );
     });
 
-    it("should be possible to toggle options", async () => {
-        render(<NumericInputEditor onChange={() => {}} />);
-
-        await userEvent.click(
-            screen.getByRole("link", {name: "Toggle options"}),
-        );
-
-        expect(
-            screen.getByText("Unsimplified answers are"),
-        ).toBeInTheDocument();
-    });
-
     it("should be possible to set unsimplified answers to ungraded", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<NumericInputEditor onChange={onChangeMock} />, {
+            wrapper: RenderStateRoot,
+        });
 
-        await userEvent.click(
-            screen.getByRole("link", {name: "Toggle options"}),
-        );
         await userEvent.click(screen.getByRole("button", {name: "ungraded"}));
 
         expect(onChangeMock).toBeCalledWith(
@@ -162,11 +163,10 @@ describe("numeric-input-editor", () => {
     it("should be possible to set unsimplified answers to accepted", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<NumericInputEditor onChange={onChangeMock} />, {
+            wrapper: RenderStateRoot,
+        });
 
-        await userEvent.click(
-            screen.getByRole("link", {name: "Toggle options"}),
-        );
         await userEvent.click(screen.getByRole("button", {name: "accepted"}));
 
         expect(onChangeMock).toBeCalledWith(
@@ -181,11 +181,10 @@ describe("numeric-input-editor", () => {
     it("should be possible to set unsimplified answers to wrong", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<NumericInputEditor onChange={onChangeMock} />, {
+            wrapper: RenderStateRoot,
+        });
 
-        await userEvent.click(
-            screen.getByRole("link", {name: "Toggle options"}),
-        );
         await userEvent.click(screen.getByRole("button", {name: "wrong"}));
 
         expect(onChangeMock).toBeCalledWith(
@@ -210,11 +209,10 @@ describe("numeric-input-editor", () => {
         it(`should be possible to set suggested answer format to: ${name}`, async () => {
             const onChangeMock = jest.fn();
 
-            render(<NumericInputEditor onChange={onChangeMock} />);
+            render(<NumericInputEditor onChange={onChangeMock} />, {
+                wrapper: RenderStateRoot,
+            });
 
-            await userEvent.click(
-                screen.getByRole("link", {name: "Toggle options"}),
-            );
             await userEvent.click(screen.getByTitle(name));
 
             expect(onChangeMock).toBeCalledWith(
