@@ -59,7 +59,7 @@ export function emptyWidgetsFunctional(
             locale,
         );
 
-        if (score != null) {
+        if (score) {
             return scoreIsEmpty(score);
         }
     });
