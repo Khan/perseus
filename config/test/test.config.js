@@ -42,6 +42,9 @@ const pkgMap = fs
 /** @type {import('jest').Config} */
 module.exports = {
     rootDir: path.join(__dirname, "../../"),
+    // Jest does not support Prettier v3!
+    // See: https://jestjs.io/docs/configuration/#prettierpath-string
+    prettierPath: require.resolve("prettier-2"),
     transform: {
         "^.+\\.(j|t)sx?$": "<rootDir>/config/test/test.transform.js",
         // Compile .svg files using a custom transformer that returns the
