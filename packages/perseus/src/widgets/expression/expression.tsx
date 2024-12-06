@@ -20,6 +20,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/
 
 import getDecimalSeparator from "./get-decimal-separator";
 import scoreExpression from "./score-expression";
+import validateExpression from "./validate-expression";
 
 import type {DependenciesContext} from "../../dependencies";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
@@ -558,6 +559,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
     scorer: scoreExpression,
+    validator: validateExpression,
 
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.

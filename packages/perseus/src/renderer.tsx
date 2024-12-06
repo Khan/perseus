@@ -56,7 +56,11 @@ import type {
     Widget,
     WidgetProps,
 } from "./types";
-import type {UserInputArray, UserInputMap} from "./validation.types";
+import type {
+    UserInputArray,
+    UserInputMap,
+    ValidationDataMap,
+} from "./validation.types";
 import type {
     GetPromptJSONInterface,
     RendererPromptJSON,
@@ -1579,6 +1583,15 @@ class Renderer
      * empty if the graph is in the starting state.
      */
     emptyWidgets(): ReadonlyArray<string> {
+        // We need to do a small mapping so that our widget options can be
+        // passed as validation data.
+        const validationData: ValidationDataMap = {};
+        Object.entries(this.state.widgetInfo).forEach(
+            ([widgetId, widgetOptions]) => {
+                validationData[widgetId] = widgetOptions.options;
+            },
+        );
+
         return emptyWidgetsFunctional(
             this.state.widgetInfo,
             this.widgetIds,

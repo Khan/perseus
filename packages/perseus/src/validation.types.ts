@@ -90,6 +90,7 @@ export type PerseusExpressionRubric = {
 export type PerseusExpressionUserInput = string;
 
 export type PerseusGroupRubric = PerseusGroupWidgetOptions;
+export type PerseusGroupValidationData = {widgets: ValidationDataMap};
 export type PerseusGroupUserInput = UserInputMap;
 
 export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
@@ -256,27 +257,39 @@ export type Rubric =
     | PerseusSorterRubric
     | PerseusTableRubric;
 
-export type UserInput =
-    | PerseusCategorizerUserInput
-    | PerseusCSProgramUserInput
-    | PerseusDropdownUserInput
-    | PerseusExpressionUserInput
-    | PerseusGrapherUserInput
-    | PerseusIFrameUserInput
-    | PerseusInputNumberUserInput
-    | PerseusInteractiveGraphUserInput
-    | PerseusLabelImageUserInput
-    | PerseusMatcherUserInput
-    | PerseusMatrixUserInput
-    | PerseusNumberLineUserInput
-    | PerseusNumericInputUserInput
-    | PerseusOrdererUserInput
-    | PerseusPlotterUserInput
-    | PerseusRadioUserInput
-    | PerseusSorterUserInput
-    | PerseusTableUserInput;
+// This is an interface so that it can be extended if a widget is created
+// outside of this Perseus package. See `PerseusWidgetTypes` for a full
+// explanation.
+interface UserInputTypes {
+    categorizer: PerseusCategorizerUserInput;
+    "cs-program": PerseusCSProgramUserInput;
+    dropdown: PerseusDropdownUserInput;
+    expression: PerseusExpressionUserInput;
+    grapher: PerseusGrapherUserInput;
+    group: PerseusGroupUserInput;
+    iframe: PerseusIFrameUserInput;
+    "input-number": PerseusInputNumberUserInput;
+    "interactive-graph": PerseusInteractiveGraphUserInput;
+    "label-image": PerseusLabelImageUserInput;
+    matcher: PerseusMatcherUserInput;
+    matrix: PerseusMatrixUserInput;
+    "number-line": PerseusNumberLineUserInput;
+    "numeric-input": PerseusNumericInputUserInput;
+    orderer: PerseusOrdererUserInput;
+    plotter: PerseusPlotterUserInput;
+    radio: PerseusRadioUserInput;
+    sorter: PerseusSorterUserInput;
+    table: PerseusTableUserInput;
+}
 
-export type UserInputMap = {[widgetId: string]: UserInput | UserInputMap};
+// A union type of all the widget user input types
+export type UserInput = UserInputTypes[keyof UserInputTypes];
+
+// A map of widget IDs to user input types (strongly typed based on the format
+// of the widget ID).
+export type UserInputMap = {
+    [Property in keyof UserInputTypes as `${Property} ${number}`]: UserInputTypes[Property];
+};
 
 /**
  * deprecated prefer using UserInputMap
@@ -284,3 +297,50 @@ export type UserInputMap = {[widgetId: string]: UserInput | UserInputMap};
 export type UserInputArray = ReadonlyArray<
     UserInputArray | UserInput | null | undefined
 >;
+
+export interface ValidationDataTypes {
+    categorizer: PerseusCategorizerValidationData;
+    // "cs-program": PerseusCSProgramValidationData;
+    // definition: PerseusDefinitionValidationData;
+    // dropdown: PerseusDropdownRubric;
+    // explanation: PerseusExplanationValidationData;
+    // expression: PerseusExpressionValidationData;
+    // grapher: PerseusGrapherValidationData;
+    // "graded-group-set": PerseusGradedGroupSetValidationData;
+    // "graded-group": PerseusGradedGroupValidationData;
+    group: PerseusGroupValidationData;
+    // iframe: PerseusIFrameValidationData;
+    // image: PerseusImageValidationData;
+    // "input-number": PerseusInputNumberValidationData;
+    // interaction: PerseusInteractionValidationData;
+    // "interactive-graph": PerseusInteractiveGraphValidationData;
+    // "label-image": PerseusLabelImageValidationData;
+    // matcher: PerseusMatcherValidationData;
+    // matrix: PerseusMatrixValidationData;
+    // measurer: PerseusMeasurerValidationData;
+    // "molecule-renderer": PerseusMoleculeRendererValidationData;
+    // "number-line": PerseusNumberLineValidationData;
+    // "numeric-input": PerseusNumericInputValidationData;
+    // orderer: PerseusOrdererValidationData;
+    // "passage-ref-target": PerseusRefTargetValidationData;
+    // "passage-ref": PerseusPassageRefValidationData;
+    // passage: PerseusPassageValidationData;
+    // "phet-simulation": PerseusPhetSimulationValidationData;
+    // "python-program": PerseusPythonProgramValidationData;
+    plotter: PerseusPlotterValidationData;
+    // radio: PerseusRadioValidationData;
+    // sorter: PerseusSorterValidationData;
+    // table: PerseusTableValidationData;
+    // video: PerseusVideoValidationData;
+
+    // Deprecated widgets
+    // sequence: PerseusAutoCorrectValidationData;
+}
+
+export type ValidationDataMap = {
+    [Property in keyof ValidationDataTypes as `${Property} ${number}`]: {
+        type: Property;
+        static?: boolean;
+        options: ValidationDataTypes[Property];
+    };
+};

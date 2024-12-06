@@ -21,6 +21,7 @@ import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import InputNumberExport from "../widgets/input-number";
+import NumericInputExport from "../widgets/numeric-input";
 import RadioWidgetExport from "../widgets/radio";
 
 import type {PerseusRenderer, DropdownWidget} from "../perseus-types";
@@ -1596,6 +1597,12 @@ describe("renderer", () => {
     describe("emptyWidgets", () => {
         it("should return all empty widgets", async () => {
             // Arrange
+            // This mock is dependant on the validator being called in the
+            // order that the widgets appear in the `widgets` field of the item
+            jest.spyOn(NumericInputExport, "validator")
+                .mockReturnValueOnce(null) // numeric-input 1
+                .mockReturnValueOnce({type: "invalid", message: null}); // numeric-input 2
+
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
@@ -1617,6 +1624,11 @@ describe("renderer", () => {
 
         it("should not return static widgets even if empty", () => {
             // Arrange
+            jest.spyOn(NumericInputExport, "validator").mockReturnValue({
+                type: "invalid",
+                message: null,
+            });
+
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
@@ -1640,6 +1652,13 @@ describe("renderer", () => {
 
         it("should return widget ID for group with empty widget", () => {
             // Arrange
+            // The group widget has an numeric-input in it... we'll make it
+            // empty!
+            jest.spyOn(NumericInputExport, "validator").mockReturnValue({
+                type: "invalid",
+                message: null,
+            });
+
             const {renderer} = renderQuestion(simpleGroupQuestion);
 
             // Act

@@ -138,10 +138,11 @@ export class ServerItemRenderer
     }
 
     componentDidUpdate(prevProps: Props, prevState: State) {
+        const emptyWidgets = this.questionRenderer.emptyWidgets();
+
         const answerableCallback = this.props.apiOptions.answerableCallback;
         if (answerableCallback != null) {
-            const isAnswerable =
-                this.questionRenderer.emptyWidgets().length === 0;
+            const isAnswerable = emptyWidgets.length === 0;
             answerableCallback(isAnswerable);
         }
 
@@ -156,12 +157,9 @@ export class ServerItemRenderer
         }
 
         if (this.props.score && this.props.score !== prevProps.score) {
-            const emptyQuestionAreaWidgets =
-                this.questionRenderer.emptyWidgets();
-
             this.setState({
                 questionCompleted: this.props.score.correct,
-                questionHighlightedWidgets: emptyQuestionAreaWidgets,
+                questionHighlightedWidgets: emptyWidgets,
             });
         }
     }

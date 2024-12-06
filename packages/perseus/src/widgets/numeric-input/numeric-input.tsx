@@ -17,7 +17,13 @@ import type {
     PerseusNumericInputAnswerForm,
 } from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    FocusPath,
+    ValidationResult,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
@@ -380,6 +386,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumericInputUserInput'.
     scorer: scoreNumericInput,
+    validator: (): ValidationResult => null,
 
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusNumericInputRubric'

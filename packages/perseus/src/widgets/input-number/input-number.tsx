@@ -14,7 +14,13 @@ import scoreInputNumber, {answerTypes} from "./score-input-number";
 
 import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    Path,
+    ValidationResult,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
@@ -287,6 +293,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusInputNumberUserInput'.
     scorer: scoreInputNumber,
+    validator: (): ValidationResult => null,
 
     getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {
         if (rubric.value == null) {

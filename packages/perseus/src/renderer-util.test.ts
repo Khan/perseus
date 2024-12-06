@@ -15,6 +15,7 @@ import {
 import {mockStrings} from "./strings";
 import {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 import {renderQuestion} from "./widgets/__testutils__/renderQuestion";
+import ExpressionWidgetExport from "./widgets/expression";
 import {question1} from "./widgets/group/group.testdata";
 
 import type {
@@ -303,6 +304,10 @@ describe("emptyWidgetsFunctional", () => {
 
     it("upgrades an empty legacy Expression widget", () => {
         // Arrange
+        const propUpgradesSpy = jest.spyOn(
+            ExpressionWidgetExport.propUpgrades,
+            "1",
+        );
         const widgets: PerseusWidgetsMap = {
             "expression 1": getLegacyExpressionWidget() as any,
         };
@@ -312,7 +317,7 @@ describe("emptyWidgetsFunctional", () => {
         };
 
         // Act
-        const result = emptyWidgetsFunctional(
+        const result = scoreWidgetsFunctional(
             widgets,
             widgetIds,
             userInputMap,
@@ -321,7 +326,15 @@ describe("emptyWidgetsFunctional", () => {
         );
 
         // Assert
-        expect(result).toEqual(["expression 1"]);
+        expect(result).toMatchInlineSnapshot(`
+            {
+              "expression 1": {
+                "message": null,
+                "type": "invalid",
+              },
+            }
+        `);
+        expect(propUpgradesSpy).toHaveBeenCalled();
     });
 
     it("handles a non-empty modern Expression widget", () => {

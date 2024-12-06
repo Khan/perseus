@@ -1,12 +1,20 @@
 import {mapObject} from "./interactive2/objective_";
 import {scoreIsEmpty, flattenScores} from "./util/scoring";
 import {getWidgetIdsFromContent} from "./widget-type-utils";
-import {getWidgetScorer, upgradeWidgetInfoToLatestVersion} from "./widgets";
+import {
+    getWidgetScorer,
+    getWidgetValidator,
+    upgradeWidgetInfoToLatestVersion,
+} from "./widgets";
 
 import type {PerseusRenderer, PerseusWidgetsMap} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
-import type {PerseusScore} from "./types";
-import type {UserInput, UserInputMap} from "./validation.types";
+import type {PerseusScore, ValidationResult} from "./types";
+import type {
+    UserInput,
+    UserInputMap,
+    ValidationDataMap,
+} from "./validation.types";
 
 export function getUpgradedWidgetOptions(
     oldWidgetOptions: PerseusWidgetsMap,
@@ -33,8 +41,47 @@ export function getUpgradedWidgetOptions(
     });
 }
 
+export function validateFunctional(
+    userInputMap: UserInputMap,
+    validationDataMap: ValidationDataMap,
+    strings: PerseusStrings,
+    locale: string,
+): ValidationResult {
+    const validationResults: Record<string, ValidationResult> = {};
+    Object.keys(userInputMap).forEach((id) => {
+        id; // ?
+        const validationData = validationDataMap[id];
+        validationData; // ?
+        if (!validationData) {
+            return;
+        }
+
+        const userInput = userInputMap[id];
+        userInput; // ?
+        validationData.type; // ?
+        const validator = getWidgetValidator(validationData.type);
+        validator; // ?
+        const result = validator?.(
+            userInput,
+            validationData.options,
+            strings,
+            locale,
+        );
+        result; // ?
+        if (result != null) {
+            validationResults[id] = result;
+        }
+    });
+
+    // @ts-expect-error asdkf
+    return validationResults;
+}
+
+/**
+ *
+ */
 export function emptyWidgetsFunctional(
-    widgets: PerseusWidgetsMap,
+    widgets: ValidationDataMap,
     // This is a port of old code, I'm not sure why
     // we need widgetIds vs the keys of the widgets object
     widgetIds: Array<string>,
@@ -42,22 +89,17 @@ export function emptyWidgetsFunctional(
     strings: PerseusStrings,
     locale: string,
 ): ReadonlyArray<string> {
-    const upgradedWidgets = getUpgradedWidgetOptions(widgets);
-
     return widgetIds.filter((id) => {
-        const widget = upgradedWidgets[id];
-        if (!widget || widget.static) {
+        const widget = widgets[id];
+        if (!widget || widget.static === true) {
             // Static widgets shouldn't count as empty
             return false;
         }
 
-        const scorer = getWidgetScorer(widget.type);
-        const score = scorer?.(
-            userInputMap[id] as UserInput,
-            widget.options,
-            strings,
-            locale,
-        );
+        const validator = getWidgetValidator(widget.type);
+        const userInput = userInputMap[id];
+        const validationData = widget.options;
+        const score = validator?.(userInput, validationData, strings, locale);
 
         if (score != null) {
             return scoreIsEmpty(score);
