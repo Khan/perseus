@@ -165,9 +165,6 @@ function scoreExpression(
     // We matched a graded answer form, so we can now tell the user
     // whether their input was correct or incorrect, and hand out
     // points accordingly
-    // TODO(eater): Seems silly to translate result to this
-    // invalid/points thing and immediately translate it back in
-    // ItemRenderer.scoreInput()
     return {
         type: "points",
         earned: matchingAnswerForm.considered === "correct" ? 1 : 0,
