@@ -4,10 +4,7 @@ import {getMatrixSize} from "./matrix";
 
 import type {PerseusStrings} from "../../strings";
 import type {ValidationResult} from "../../types";
-import type {
-    PerseusMatrixUserInput,
-    PerseusMatrixValidationData,
-} from "../../validation.types";
+import type {PerseusMatrixUserInput} from "../../validation.types";
 
 /**
  * Checks user input from the matrix widget to see if it is scorable.
@@ -19,7 +16,6 @@ import type {
  */
 function validateMatrix(
     userInput: PerseusMatrixUserInput,
-    validationData: PerseusMatrixValidationData,
     strings: PerseusStrings,
 ): ValidationResult {
     const supplied = userInput.answers;
