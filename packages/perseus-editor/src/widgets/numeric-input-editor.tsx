@@ -590,22 +590,6 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 >
                                     {answer.status}
                                 </a>
-                                <a
-                                    href="#"
-                                    className="options-toggle"
-                                    aria-label="Toggle options"
-                                    onClick={(e) => {
-                                        // preventDefault ensures that href="#"
-                                        // doesn't scroll to the top of the page
-                                        e.preventDefault();
-                                        this.onToggleOptions(i);
-                                    }}
-                                    onKeyDown={(e) =>
-                                        this.onSpace(e, this.onToggleOptions)
-                                    }
-                                >
-                                    <InlineIcon {...iconGear} />
-                                </a>
                             </div>
                             <div className="input-answer-editor-message">
                                 <div className="msg-title">
@@ -613,14 +597,12 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 </div>
                                 {editor}
                             </div>
-                            {this.state.showOptions[i] && (
-                                <div className="options-container">
-                                    {maxError(i)}
-                                    {answer.status === "correct" &&
-                                        unsimplifiedAnswers(i)}
-                                    {suggestedAnswerTypes(i)}
-                                </div>
-                            )}
+                            <div className="options-container">
+                                {maxError(i)}
+                                {answer.status === "correct" &&
+                                    unsimplifiedAnswers(i)}
+                                {suggestedAnswerTypes(i)}
+                            </div>
                             <Button
                                 startIcon={trashIcon}
                                 aria-label={`Delete ${answerHeading}`}

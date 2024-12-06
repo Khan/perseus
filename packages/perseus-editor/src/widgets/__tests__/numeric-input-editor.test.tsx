@@ -102,7 +102,6 @@ describe("numeric-input-editor", () => {
             wrapper: RenderStateRoot,
         });
 
-        await userEvent.click(screen.getByLabelText("Toggle options"));
         await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "Strictly match only these formats",
@@ -143,20 +142,6 @@ describe("numeric-input-editor", () => {
         );
     });
 
-    it("should be possible to toggle options", async () => {
-        render(<NumericInputEditor onChange={() => {}} />, {
-            wrapper: RenderStateRoot,
-        });
-
-        await userEvent.click(
-            screen.getByRole("link", {name: "Toggle options"}),
-        );
-
-        expect(
-            screen.getByText("Unsimplified answers are"),
-        ).toBeInTheDocument();
-    });
-
     it("should be possible to set unsimplified answers to ungraded", async () => {
         const onChangeMock = jest.fn();
 
@@ -164,9 +149,6 @@ describe("numeric-input-editor", () => {
             wrapper: RenderStateRoot,
         });
 
-        await userEvent.click(
-            screen.getByRole("link", {name: "Toggle options"}),
-        );
         await userEvent.click(screen.getByRole("button", {name: "ungraded"}));
 
         expect(onChangeMock).toBeCalledWith(
@@ -185,9 +167,6 @@ describe("numeric-input-editor", () => {
             wrapper: RenderStateRoot,
         });
 
-        await userEvent.click(
-            screen.getByRole("link", {name: "Toggle options"}),
-        );
         await userEvent.click(screen.getByRole("button", {name: "accepted"}));
 
         expect(onChangeMock).toBeCalledWith(
@@ -206,9 +185,6 @@ describe("numeric-input-editor", () => {
             wrapper: RenderStateRoot,
         });
 
-        await userEvent.click(
-            screen.getByRole("link", {name: "Toggle options"}),
-        );
         await userEvent.click(screen.getByRole("button", {name: "wrong"}));
 
         expect(onChangeMock).toBeCalledWith(
@@ -237,9 +213,6 @@ describe("numeric-input-editor", () => {
                 wrapper: RenderStateRoot,
             });
 
-            await userEvent.click(
-                screen.getByRole("link", {name: "Toggle options"}),
-            );
             await userEvent.click(screen.getByTitle(name));
 
             expect(onChangeMock).toBeCalledWith(
