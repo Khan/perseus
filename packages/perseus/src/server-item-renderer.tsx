@@ -21,6 +21,7 @@ import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import {scorePerseusItem} from "./renderer-util";
 import Util from "./util";
+import {keScoreFromPerseusScore} from "./util/scoring";
 
 import type {PerseusItem, ShowSolutions} from "./perseus-types";
 import type {
@@ -366,7 +367,7 @@ export class ServerItemRenderer
         //             analyzing ProblemLogs. If not, remove this layer.
         const maxCompatGuess = [this.questionRenderer.getUserInput(), []];
 
-        const keScore = Util.keScoreFromPerseusScore(
+        const keScore = keScoreFromPerseusScore(
             score,
             maxCompatGuess,
             this.questionRenderer.getSerializedState(),

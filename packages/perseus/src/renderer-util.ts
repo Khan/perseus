@@ -1,5 +1,5 @@
-import Objective from "./interactive2/objective_";
-import Util from "./util";
+import {mapObject} from "./interactive2/objective_";
+import {scoreIsEmpty, flattenScores} from "./util/scoring";
 import {getWidgetIdsFromContent} from "./widget-type-utils";
 import {getWidgetScorer, upgradeWidgetInfoToLatestVersion} from "./widgets";
 
@@ -7,8 +7,6 @@ import type {PerseusRenderer, PerseusWidgetsMap} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {PerseusScore} from "./types";
 import type {UserInput, UserInputMap} from "./validation.types";
-
-const {mapObject} = Objective;
 
 export function getUpgradedWidgetOptions(
     oldWidgetOptions: PerseusWidgetsMap,
@@ -62,7 +60,7 @@ export function emptyWidgetsFunctional(
         );
 
         if (score) {
-            return Util.scoreIsEmpty(score);
+            return scoreIsEmpty(score);
         }
     });
 }
@@ -88,7 +86,7 @@ export function scorePerseusItem(
         strings,
         locale,
     );
-    return Util.flattenScores(scores);
+    return flattenScores(scores);
 }
 
 export function scoreWidgetsFunctional(
