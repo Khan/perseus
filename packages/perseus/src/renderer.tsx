@@ -1751,35 +1751,6 @@ class Renderer
         return [totalGuess, totalScore];
     };
 
-    examples: () => ReadonlyArray<string> | null | undefined = () => {
-        const widgetIds = this.widgetIds;
-        const examples = widgetIds
-            .map((widgetId) => {
-                const widget = this.getWidgetInstance(widgetId);
-                return widget != null && widget.examples
-                    ? widget.examples()
-                    : null;
-            })
-            .filter(Boolean);
-
-        // no widgets with examples
-        if (!examples.length) {
-            return null;
-        }
-
-        const allEqual = _.all(examples, function (example) {
-            return _.isEqual(examples[0], example);
-        });
-
-        // some widgets have different examples
-        // TODO(alex): handle this better
-        if (!allEqual) {
-            return null;
-        }
-
-        return examples[0];
-    };
-
     // TranslationLinter callback
     handletranslationLintErrors: (lintErrors: ReadonlyArray<string>) => void = (
         lintErrors: ReadonlyArray<string>,

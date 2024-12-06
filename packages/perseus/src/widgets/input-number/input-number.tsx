@@ -175,7 +175,7 @@ class InputNumber extends React.Component<Props> implements Widget {
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
-    examples: () => ReadonlyArray<string> = () => {
+    examples(): ReadonlyArray<string> {
         const {strings} = this.context;
         const type = this.props.answerType;
         const forms = answerTypes[type].forms.split(/\s*,\s*/);
@@ -185,7 +185,7 @@ class InputNumber extends React.Component<Props> implements Widget {
         );
 
         return [strings.yourAnswer].concat(examples);
-    };
+    }
 
     render(): React.ReactNode {
         if (this.props.apiOptions.customKeypad) {
