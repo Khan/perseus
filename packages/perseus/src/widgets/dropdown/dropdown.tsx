@@ -137,6 +137,7 @@ class Dropdown extends React.Component<Props> implements Widget {
                             // all dropdowns.
                             // See https://khanacademy.atlassian.net/browse/WB-1671
                             role="combobox"
+                            showOpenerLabelAsText={false}
                         >
                             {children}
                         </SingleSelect>
