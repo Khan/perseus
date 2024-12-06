@@ -190,7 +190,7 @@ export class LabelImage
      */
     static navigateToMarkerIndex(
         navigateDirection: Direction,
-        markers: ReadonlyArray<InteractiveMarkerType>,
+        markers: PerseusLabelImageUserInput["markers"],
         thisIndex: number,
     ): number {
         const thisMarker = markers[thisIndex];

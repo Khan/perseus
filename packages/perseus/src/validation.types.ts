@@ -43,7 +43,10 @@ import type {
     PerseusRadioChoice,
     PerseusGraphCorrectType,
 } from "./perseus-types";
-import type {InteractiveMarkerType} from "./widgets/label-image/types";
+import type {
+    InteractiveMarkerType,
+    MarkerAnswers,
+} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
@@ -138,12 +141,12 @@ export type PerseusInteractiveGraphRubric = {
 
 export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
-/* TODO(LEMS-2440): Should be removed or refactored. Grading info may need
-    to be moved to the rubric from userInput. */
-export type PerseusLabelImageRubric = Empty;
+export type PerseusLabelImageScoringData = {
+    markers: ReadonlyArray<MarkerAnswers>;
+};
 
 export type PerseusLabelImageUserInput = {
-    markers: ReadonlyArray<InteractiveMarkerType>;
+    markers: ReadonlyArray<Omit<InteractiveMarkerType, "answers">>;
 };
 
 export type PerseusMatcherRubric = PerseusMatcherWidgetOptions;
