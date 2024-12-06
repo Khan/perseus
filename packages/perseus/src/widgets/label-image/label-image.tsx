@@ -317,6 +317,7 @@ export class LabelImage
     }
 
     // TODO(LEMS-2544): Investigate impact on scoring; possibly pull out &/or remove scoringData parameter.
+    // Also consider how scoreMarker is being called as it seems to require the marker.answers property.
     showRationalesForCurrentlySelectedChoices(
         scoringData: PerseusLabelImageScoringData,
     ) {
