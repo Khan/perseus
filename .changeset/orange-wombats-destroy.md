@@ -2,4 +2,4 @@
 "@khanacademy/perseus": major
 ---
 
-Remove `examples()` function from `Renderer`
+Remove deprecated/unused `examples()` function from `Renderer`
