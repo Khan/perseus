@@ -9,7 +9,7 @@ import {testDependencies} from "../../../../testing/test-dependencies";
 import {
     dropdownWidget,
     imageWidget,
-    inputNumberWidget,
+    numericInputWidget,
     question1,
     question2,
     definitionItem,
@@ -888,7 +888,7 @@ describe("renderer", () => {
                 images: {},
                 widgets: {
                     "dropdown 1": dropdownWidget,
-                    "input-number 1": inputNumberWidget,
+                    "input-number 1": numericInputWidget,
                     "image 1": imageWidget,
                 },
             } as const;
@@ -1607,11 +1607,11 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]",
+                    "Input 1: [[☃ numeric-input 1]]\n\n" +
+                    "Input 2: [[☃ numeric-input 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": question2.widgets["input-number 1"],
+                    "numeric-input 2": question2.widgets["numeric-input 1"],
                 },
             });
             await userEvent.type(screen.getAllByRole("textbox")[0], "150");
@@ -1620,7 +1620,7 @@ describe("renderer", () => {
             const emptyWidgets = renderer.emptyWidgets();
 
             // Assert
-            expect(emptyWidgets).toStrictEqual(["input-number 2"]);
+            expect(emptyWidgets).toStrictEqual(["numeric-input 2"]);
         });
 
         it("should not return static widgets even if empty", () => {
@@ -1628,12 +1628,12 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]",
+                    "Input 1: [[☃ numeric-input 1]]\n\n" +
+                    "Input 2: [[☃ numeric-input 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": {
-                        ...question2.widgets["input-number 1"],
+                    "numeric-input 2": {
+                        ...question2.widgets["numeric-input 1"],
                         static: true,
                     },
                 },
@@ -1643,7 +1643,7 @@ describe("renderer", () => {
             const emptyWidgets = renderer.emptyWidgets();
 
             // Assert
-            expect(emptyWidgets).toStrictEqual(["input-number 1"]);
+            expect(emptyWidgets).toStrictEqual(["numeric-input 1"]);
         });
 
         it("should return widget ID for group with empty widget", () => {
@@ -1750,8 +1750,8 @@ describe("renderer", () => {
                     "Another input widget: [[\u2603 input-number 2]]",
                 widgets: {
                     "image 1": imageWidget,
-                    "input-number 1": inputNumberWidget,
-                    "input-number 2": inputNumberWidget,
+                    "input-number 1": numericInputWidget,
+                    "input-number 2": numericInputWidget,
                     "dropdown 1": dropdownWidget,
                 },
                 images: {},
