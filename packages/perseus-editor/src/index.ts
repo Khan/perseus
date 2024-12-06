@@ -7,7 +7,6 @@ export {default as ArticleDiff} from "./diffs/article-diff";
 export {default as ItemDiff} from "./diffs/item-diff";
 export {default as EditorPage} from "./editor-page";
 export {default as Editor} from "./editor";
-export {default as i18n} from "./i18n";
 export {default as IframeContentRenderer} from "./iframe-content-renderer";
 
 import "./styles/perseus-editor.less";
