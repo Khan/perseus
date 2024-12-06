@@ -18,7 +18,6 @@ import _ from "underscore";
 import Heading from "../components/heading";
 import PerseusEditorAccordion from "../components/perseus-editor-accordion";
 import Editor from "../editor";
-import {iconGear} from "../styles/icon-paths";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 
@@ -27,7 +26,6 @@ type ChangeFn = typeof Changeable.change;
 const {
     ButtonGroup,
     InfoTip,
-    InlineIcon,
     MultiButtonGroup,
     NumberInput,
     TextInput,
