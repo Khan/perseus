@@ -128,19 +128,37 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
             // Likely want to move this into the handleKeyboardEvent function.
             const handleKeyDown = (event: KeyboardEvent) => {
-                // If we have nto enabled trap focus, don't handle keydown events.
+                const movablePointElement: NodeListOf<HTMLElement> | undefined =
+                    trapRef.current?.querySelectorAll(
+                        // Focus on only on focusable movable points, a movable-polygon, an tabbable buttons.
+                        ".movable-point__focusable-handle, .movable-polygon",
+                    );
+
+                // If we have not enabled trap focus, don't handle keydown events.
                 if (!isTrapped) {
+                    console.log("We're trapped!!");
+                    // This code is likely very redundant, can keep the empty return but maybe delete this.
+                    movablePointElement?.forEach((element, index) => {
+                        element.tabIndex = -1;
+                    });
+
                     return;
                 }
 
                 // If we're trapped, let's handle tab keys.
                 if (event.key === "Tab") {
+                    // Change tabIndex of all movable elements in the graph.
+                    console.log("We're setting tab focus");
+                    movablePointElement?.forEach((element, index) => {
+                        element.tabIndex = 0;
+                    });
+
                     const focusableElements:
                         | NodeListOf<HTMLElement>
                         | undefined = trapRef.current?.querySelectorAll(
-                        'a[href], button[tabindex="0"], input, textarea, select, [tabindex]:not([tabindex="-1"]):not(.mafs-graph)',
+                        // Focus on only on focusable movable points, a movable-polygon, an tabbable buttons.
+                        '.movable-point__focusable-handle, button[tabindex="0"], .movable-polygon',
                     );
-
                     // If there are no focus elements or length is empty, return void.
                     if (!focusableElements || focusableElements.length === 0) {
                         return;
@@ -179,8 +197,19 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 }
             };
 
+            const movablePointElement: NodeListOf<HTMLElement> | undefined =
+                trapRef.current?.querySelectorAll(
+                    // Focus on only on focusable movable points, a movable-polygon, an tabbable buttons.
+                    ".movable-point__focusable-handle, .movable-polygon",
+                );
+
             if (isTrapped) {
                 document.addEventListener("keydown", handleKeyDown);
+            } else {
+                console.log("We're trapped!!");
+                movablePointElement?.forEach((element, index) => {
+                    element.tabIndex = -1;
+                });
             }
 
             return () => {
