@@ -72,10 +72,12 @@ type Point = {
 
 type LabelImageProps = ChangeableProps &
     DependencyProps &
-    PerseusLabelImageWidgetOptions & {
+    Omit<PerseusLabelImageWidgetOptions, "markers"> & {
         apiOptions: APIOptions;
         // Whether the question has been answered by the user.
         questionCompleted: boolean;
+        // The list of label markers on the question image.
+        markers: ReadonlyArray<InteractiveMarkerType>;
         // preferred placement for popover (preference, not MUST)
         preferredPopoverDirection?: PreferredPopoverDirection;
     };
