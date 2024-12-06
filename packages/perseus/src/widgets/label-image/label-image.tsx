@@ -342,7 +342,10 @@ export class LabelImage
         onChange({markers: updatedMarkers}, null, true);
     }
 
-    handleMarkerChange(index: number, marker: InteractiveMarkerType) {
+    handleMarkerChange(
+        index: number,
+        marker: PerseusLabelImageUserInput["markers"][number],
+    ) {
         const {markers, onChange} = this.props;
 
         // Replace marker with a changed version at the specified index.
