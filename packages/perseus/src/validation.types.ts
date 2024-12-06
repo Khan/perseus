@@ -247,7 +247,7 @@ export type Rubric =
     | PerseusIFrameRubric
     | PerseusInputNumberRubric
     | PerseusInteractiveGraphRubric
-    | PerseusLabelImageRubric
+    | PerseusLabelImageScoringData
     | PerseusMatcherRubric
     | PerseusMatrixRubric
     | PerseusNumberLineScoringData

@@ -33,7 +33,7 @@ import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusLabelImageWidgetOptions} from "../../perseus-types";
 import type {APIOptions, Widget, WidgetExports} from "../../types";
 import type {
-    PerseusLabelImageRubric,
+    PerseusLabelImageScoringData,
     PerseusLabelImageUserInput,
 } from "../../validation.types";
 import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
@@ -318,8 +318,10 @@ export class LabelImage
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
-    // TODO(LEMS-2544): Investigate impact on scoring; possibly pull out &/or remove rubric parameter.
-    showRationalesForCurrentlySelectedChoices(rubric: PerseusLabelImageRubric) {
+    // TODO(LEMS-2544): Investigate impact on scoring; possibly pull out &/or remove scoringData parameter.
+    showRationalesForCurrentlySelectedChoices(
+        scoringData: PerseusLabelImageScoringData,
+    ) {
         const {markers} = this.props;
         const {onChange} = this.props;
 
