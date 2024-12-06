@@ -275,29 +275,6 @@ describe("a11y", () => {
                 const result = violatingWidgets(emptyImageWithoutAltText);
                 expect(result).toHaveLength(0);
             });
-
-            it("should handle all these same cases in multi-items", () => {
-                const decorateItem = (item) => ({
-                    __type: "content",
-                    ...item.question,
-                });
-                const result = violatingWidgets({
-                    _multi: {
-                        sharedContext: decorateItem(oneInaccessibleWidget),
-                        questions: [
-                            decorateItem(noWidgets),
-                            decorateItem(oneAccessibleWidget),
-                            decorateItem(imageWithAltText),
-                            decorateItem(imageWithoutAltText),
-                            decorateItem(emptyImageWithoutAltText),
-                        ],
-                    },
-                });
-                result.sort(); // don't depend on iteration order
-                expect(result).toHaveLength(2);
-                expect(result[0]).toBe("image");
-                expect(result[1]).toBe("matrix");
-            });
         });
     });
 });

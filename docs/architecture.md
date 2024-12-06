@@ -56,17 +56,6 @@ with a short description and the main Perseus data type it accepts.
         </td>
     </tr>
     <tr>
-        <td><code>MultiItemRenderer</code></td>
-        <td> <code>{ _multi: any }</code></td>
-        <td>
-            The `MultiItemRenderer` is a more advanced renderer. It accepts an
-            object representing a tree of `PerseusRenderer` objects. A `Shape`
-            object defines the structure of the tree and you must provide a
-            "callback" object of the same structure which defines how and where
-            to render each `PerseusRenderer` that appears in the tree.
-        </td>
-    </tr>
-    <tr>
         <td><code>Renderer</code></td>
         <td><code>PerseusRenderer</code></td>
         <td>
