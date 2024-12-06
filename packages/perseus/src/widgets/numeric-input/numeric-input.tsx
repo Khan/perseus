@@ -123,8 +123,11 @@ export class NumericInput
         isFocused: false,
     };
 
-    // TODO(Nicole, Jeremy): This is maybe never used and should be removed
-    examples: () => ReadonlyArray<string> = () => {
+    /**
+     * Generates a string that demonstrates how to input the various supported
+     * answer forms.
+     */
+    examples(): ReadonlyArray<string> {
         // if the set of specified forms are empty, allow all forms
         const forms =
             this.props.answerForms?.length !== 0
@@ -144,7 +147,7 @@ export class NumericInput
         examples = _.uniq(examples);
 
         return [this.context.strings.yourAnswer].concat(examples);
-    };
+    }
 
     shouldShowExamples: () => boolean = () => {
         const noFormsAccepted = this.props.answerForms?.length === 0;
