@@ -23,13 +23,8 @@ import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 
 type ChangeFn = typeof Changeable.change;
 
-const {
-    ButtonGroup,
-    InfoTip,
-    MultiButtonGroup,
-    NumberInput,
-    TextInput,
-} = components;
+const {ButtonGroup, InfoTip, MultiButtonGroup, NumberInput, TextInput} =
+    components;
 const {firstNumericalParse} = Util;
 
 // NOTE(john): Copied from perseus-types.d.ts in the Perseus package.
