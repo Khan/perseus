@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Refactor label image to use scoringData and userInput when scoring
+Refactor the LabelImage widget to separate out answers from userInput into scoringData
