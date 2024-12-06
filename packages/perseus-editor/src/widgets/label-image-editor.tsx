@@ -17,7 +17,7 @@ import Behavior from "./label-image/behavior";
 import QuestionMarkers from "./label-image/question-markers";
 import SelectImage from "./label-image/select-image";
 
-import type {MarkerType} from "@khanacademy/perseus";
+import type {MarkerAnswers} from "@khanacademy/perseus";
 
 type Props = {
     // List of answer choices to label question image with.
@@ -28,7 +28,7 @@ type Props = {
     imageWidth: number;
     imageHeight: number;
     // The list of label markers on the question image.
-    markers: ReadonlyArray<MarkerType>;
+    markers: ReadonlyArray<MarkerAnswers>;
     // Whether multiple answer choices may be selected for markers.
     multipleAnswers: boolean;
     // Whether to hide answer choices from user instructions.
@@ -176,8 +176,8 @@ class LabelImageEditor extends React.Component<Props> {
         this.props.onChange({choices});
     };
 
-    handleMarkersChange: (markers: ReadonlyArray<MarkerType>) => void = (
-        markers: ReadonlyArray<MarkerType>,
+    handleMarkersChange: (markers: ReadonlyArray<MarkerAnswers>) => void = (
+        markers: ReadonlyArray<MarkerAnswers>,
     ) => {
         this.props.onChange({markers});
     };

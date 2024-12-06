@@ -14,13 +14,13 @@ import Option, {OptionGroup} from "../../components/dropdown-option";
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
 import {gray17, gray85, gray98} from "../../styles/global-colors";
 
-import type {MarkerType} from "@khanacademy/perseus";
+import type {MarkerAnswers} from "@khanacademy/perseus";
 
-type Props = MarkerType & {
+type Props = MarkerAnswers & {
     // The list of possible answer choices.
     choices: ReadonlyArray<string>;
     // Callback for when any of the marker props are changed.
-    onChange: (marker: MarkerType) => void;
+    onChange: (marker: MarkerAnswers) => void;
     // Callback to remove marker from the question image.
     onRemove: () => void;
 };

@@ -1,5 +1,5 @@
 // Base marker, with the props that are set by the editor.
-export type MarkerType = {
+export type MarkerAnswers = {
     // The list of correct answers expected for the marker.
     answers: ReadonlyArray<string>;
     // The marker title or description.
