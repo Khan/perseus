@@ -328,8 +328,8 @@ describe("MafsGraph", () => {
             />,
         );
 
-        // Radius point is the only point in a circle graph
-        expectLabelInDoc("Point 1 at 2 comma 0");
+        // Circle's radius point has a special label
+        expectLabelInDoc("Radius point at 2 comma 0. Circle radius is 2.");
     });
 
     it("renders ARIA labels for each point (quadratic)", () => {
