@@ -1,7 +1,7 @@
 import type {InteractiveMarkerType} from "./types";
 import type {PerseusScore} from "../../types";
 import type {
-    PerseusLabelImageRubric,
+    PerseusLabelImageScoringData,
     PerseusLabelImageUserInput,
 } from "../../validation.types";
 
@@ -43,15 +43,21 @@ export function scoreMarker(
     return score;
 }
 
-// TODO(LEMS-2440): May need to pull answers out of PerseusLabelImageWidgetOptions[markers] for the rubric
 function scoreLabelImage(
     userInput: PerseusLabelImageUserInput,
-    rubric?: PerseusLabelImageRubric,
+    scoringData: PerseusLabelImageScoringData,
 ): PerseusScore {
     let numAnswered = 0;
     let numCorrect = 0;
+    const combinedData = userInput.markers.map((marker, index) => {
+        return {
+            ...marker,
+            answers: scoringData.markers[index].answers,
+        };
+    });
+    const allMarkerData = {markers: combinedData};
 
-    for (const marker of userInput.markers) {
+    for (const marker of allMarkerData.markers) {
         const score = scoreMarker(marker);
 
         if (score.hasAnswers) {
