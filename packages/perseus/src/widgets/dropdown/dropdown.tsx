@@ -74,7 +74,7 @@ class Dropdown extends React.Component<Props> implements Widget {
                 key="placeholder"
                 value="0"
                 disabled
-                label={this.props.placeholder}
+                label={this.props.placeholder || " "}
             />,
             ...this.props.choices.map((choice, i) => (
                 <OptionItem
