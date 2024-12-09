@@ -228,42 +228,23 @@ class SvgImage extends React.Component<Props, State> {
     }
 
     loadResources() {
-        loadGraphie(this.props.src, this.onDataLoaded);
+        loadGraphie(this.props.src, (data, localized) => {
+            if (this._isMounted && data.labels && data.range) {
+                const labelsRendered: LabelsRenderedMap = {};
+                data.labels.forEach((label) => {
+                    labelsRendered[label.content] = false;
+                });
+
+                this.setState({
+                    dataLoaded: true,
+                    labelDataIsLocalized: localized,
+                    labelsRendered,
+                    labels: data.labels,
+                    range: data.range,
+                });
+            }
+        });
     }
-
-    onDataLoaded: (
-        data: {
-            labels: ReadonlyArray<any>;
-            range: [Coord, Coord];
-        },
-        localized: boolean,
-    ) => void = (
-        data: {
-            labels: ReadonlyArray<any>;
-            range: [Coord, Coord];
-        },
-        localized: boolean,
-    ) => {
-        if (this._isMounted && data.labels && data.range) {
-            const labelsRendered: LabelsRenderedMap = data.labels.reduce<
-                Record<string, any>
-            >(
-                (dict: LabelsRenderedMap, label) => ({
-                    ...dict,
-                    [label.content]: false,
-                }),
-                {},
-            );
-
-            this.setState({
-                dataLoaded: true,
-                labelDataIsLocalized: localized,
-                labelsRendered,
-                labels: data.labels,
-                range: data.range,
-            });
-        }
-    };
 
     sizeProvided(): boolean {
         return this.props.width != null && this.props.height != null;
