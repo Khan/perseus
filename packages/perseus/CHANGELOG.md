@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 46.0.0
+
+### Major Changes
+
+-   [#1962](https://github.com/Khan/perseus/pull/1962) [`435280ac4`](https://github.com/Khan/perseus/commit/435280ac4cf33ee98ddb1166631f87f81cafa0fc) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Move scoring utility functions out of `Util` object into their own file and only export externally used function (`keScoreFromPerseusScore`)
+
+*   [#1961](https://github.com/Khan/perseus/pull/1961) [`d93e3ecde`](https://github.com/Khan/perseus/commit/d93e3ecdeb6bd714a35dcd9f886299fa80ba71ec) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove deprecated/unused `examples()` function from `Renderer`
+
 ## 45.1.0
 
 ### Minor Changes
