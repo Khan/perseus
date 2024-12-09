@@ -578,6 +578,13 @@ export type WidgetTransform = (
 
 export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
 
+export type WidgetValidatorFunction = (
+    userInput: any, // STOPSHIP
+    validationData: any, // STOPHIP
+    strings: PerseusStrings,
+    locale: string,
+) => ValidationResult;
+
 export type WidgetScorerFunction = (
     // The user data needed to score
     userInput: UserInput,
@@ -631,6 +638,14 @@ export type WidgetExports<
      * static renders.
      */
     staticTransform?: WidgetTransform; // this is a function of some sort,
+
+    /**
+     * Validates the learner's guess to check if it's sufficient for scoring.
+     * Typically, this is basically an "emptiness" check, but for some widgets
+     * such as `interactive-graph` it is a check that the learner has made any
+     * edits (ie. the widget is not in it's origin state).
+     */
+    validator?: WidgetValidatorFunction;
 
     /**
      * A function that scores user input (the guess) for the widget.
