@@ -10,6 +10,7 @@ import _ from "underscore";
 import {getDependencies} from "../dependencies";
 import {Log} from "../logging/log";
 import Util from "../util";
+import {doJSONP} from "../util/graphie-utils";
 import * as Zoom from "../zoom";
 
 import FixedToResponsive from "./fixed-to-responsive";
@@ -35,44 +36,6 @@ const ZOOMABLE_THRESHOLD = 700;
 //   ...
 // }
 const labelDataCache: Record<string, any> = {};
-
-// Write our own JSONP handler because all the other ones don't do things we
-// need.
-const doJSONP = function (url: string, options) {
-    options = {
-        callbackName: "callback",
-        success: $.noop,
-        error: $.noop,
-        ...options,
-    };
-
-    // Create the script
-    const script = document.createElement("script");
-    script.setAttribute("async", "");
-    script.setAttribute("src", url);
-
-    // A cleanup function to run when we're done.
-    function cleanup() {
-        document.head?.removeChild(script);
-        delete window[options.callbackName];
-    }
-
-    // Add the global callback.
-    // @ts-expect-error - TS2740 - Type '() => void' is missing the following properties from type 'Window': clientInformation, closed, customElements, devicePixelRatio, and 206 more.
-    window[options.callbackName] = function (...args) {
-        cleanup();
-        options.success.apply(null, args);
-    };
-
-    // Add the error handler.
-    script.addEventListener("error", function (...args) {
-        cleanup();
-        options.error.apply(null, args);
-    });
-
-    // Insert the script to start the download.
-    document.head?.appendChild(script);
-};
 
 // For offline exercises in the mobile app, we download the graphie data
 // (svgs and localized data files) and serve them from the local file
