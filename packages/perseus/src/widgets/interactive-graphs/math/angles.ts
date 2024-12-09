@@ -38,9 +38,13 @@ export const getAngleFromVertex = (
     return (180 + (Math.atan2(-y, -x) * 180) / Math.PI + 360) % 360;
 };
 
-// This function calculates the clockwise angle between three points,
-// and is used to generate the labels and equation strings of the
-// current angle for the interactive graph.
+/**
+ * This function calculates the clockwise angle between three points,
+ * and is used to generate the labels and equation strings of the
+ * current angle for the interactive graph.
+ * @param coords - The three points that make up the angle. Points are saved as [point1, vertex, point2]
+ * @param allowReflexAngles - Whether or not to allow reflex angles
+ */
 export const getClockwiseAngle = (
     coords: [Coord, Coord, Coord],
     allowReflexAngles: boolean = false,
