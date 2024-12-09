@@ -5,11 +5,8 @@
 
 import _ from "underscore";
 
-import MultiItems from "./multi-items";
 import {traverse} from "./traversal";
 import * as Widgets from "./widgets";
-
-const {findContentNodesInItem, inferItemShape} = MultiItems;
 
 // Iterate over a single Perseus renderer, mutating `widgets` by appending
 // violating widget types discovered in this item.
@@ -31,14 +28,7 @@ export function violatingWidgets(itemData: any): any {
     // TODO(jordan): Hints as well
     const widgets = [];
 
-    if (itemData._multi) {
-        const shape = inferItemShape(itemData);
-        findContentNodesInItem(itemData, shape, (content) =>
-            traverseRenderer(content, widgets),
-        );
-    } else {
-        traverseRenderer(itemData.question, widgets);
-    }
+    traverseRenderer(itemData.question, widgets);
 
     // Uniquify the list of widgets (by type)
     return _.uniq(widgets);
