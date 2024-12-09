@@ -19,8 +19,8 @@ export const MafsWithCustomAxisLabels = (
     <MafsQuestionRenderer
         question={interactiveGraphQuestionBuilder()
             .withAxisLabels(
-                "\\text{Custom $x$ label}",
-                "\\text{Custom $y$ label}",
+                "$\\text{Custom $x$ label}$",
+                "$\\text{Custom $y$ label}$",
             )
             .build()}
     />
