@@ -102,7 +102,11 @@ type CacheEntry = {
 // }
 const labelDataCache: Record<
     string,
-    | {loaded: false; localized: boolean; dataCallbacks: Array<any>}
+    | {
+          loaded: false;
+          localized: boolean;
+          dataCallbacks: Array<any>;
+      }
     | {
           loaded: true;
           data: CacheEntry;
