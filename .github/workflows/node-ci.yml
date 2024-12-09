@@ -11,8 +11,8 @@ on:
 # Although our GITHUB_TOKEN has enough permissions for standard PRs, when these
 # actions are run for Dependabot PRs, we need to explicitly increase access.
 permissions:
-  pull-requests: write
-  issues: write
+    pull-requests: write
+    issues: write
 
 # When a new revision is pushed to a PR, cancel all in-progress CI runs for that
 # PR. See https://docs.github.com/en/actions/using-jobs/using-concurrency
