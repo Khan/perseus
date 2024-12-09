@@ -8,9 +8,8 @@ import * as React from "react";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
-import {Log} from "../logging/log";
 import Util from "../util";
-import {doJSONP} from "../util/graphie-utils";
+import {loadGraphie} from "../util/graphie-utils";
 import * as Zoom from "../zoom";
 
 import FixedToResponsive from "./fixed-to-responsive";
@@ -25,61 +24,10 @@ import type {Alignment, Dimensions} from "../types";
 // Minimum image width to make an image appear as zoomable.
 const ZOOMABLE_THRESHOLD = 700;
 
-// The global cache of label data. Its format is:
-// {
-//   hash (e.g. "c21435944d2cf0c8f39d9059cb35836aa701d04a"): {
-//     loaded: a boolean of whether the data has been loaded or not
-//     dataCallbacks: a list of callbacks to call with the data when the data
-//                    is loaded
-//     data: the other data for this hash
-//   },
-//   ...
-// }
-const labelDataCache: Record<string, any> = {};
-
-// For offline exercises in the mobile app, we download the graphie data
-// (svgs and localized data files) and serve them from the local file
-// system (with file://). We replace urls that start with `web+graphie`
-// in the perseus json with this `file+graphie` prefix to indicate that
-// they should have the `file://` protocol instead of `https://`.
-const svgLocalLabelsRegex = /^file\+graphie:/;
-const hashRegex = /\/([^/]+)$/;
-
 function isImageProbablyPhotograph(imageUrl) {
     // TODO(david): Do an inventory to refine this heuristic. For example, what
     //     % of .png images are illustrations?
     return /\.(jpg|jpeg)$/i.test(imageUrl);
-}
-
-function getLocale() {
-    const {JIPT, kaLocale} = getDependencies();
-    return JIPT.useJIPT ? "en-pt" : kaLocale;
-}
-
-function shouldUseLocalizedData() {
-    return getLocale() !== "en";
-}
-
-// A regex to split at the last / of a URL, separating the base part from the
-// hash. This is used to create the localized label data URLs.
-const splitHashRegex = /\/(?=[^/]+$)/;
-
-function getLocalizedDataUrl(url: string) {
-    // For local (cached) graphie images, they are already localized.
-    if (svgLocalLabelsRegex.test(url)) {
-        return Util.getDataUrl(url);
-    }
-    const [base, hash] = Util.getBaseUrl(url).split(splitHashRegex);
-    return `${base}/${getLocale()}/${hash}-data.json`;
-}
-
-// Get the hash from the url, which is just the filename
-function getUrlHash(url: string) {
-    const match = url.match(hashRegex);
-    if (match == null) {
-        throw new PerseusError("not a valid URL", Errors.InvalidInput);
-    }
-    return match && match[1];
 }
 
 function defaultPreloader(dimensions: Dimensions) {
@@ -280,97 +228,7 @@ class SvgImage extends React.Component<Props, State> {
     }
 
     loadResources() {
-        const hash = getUrlHash(this.props.src);
-
-        // We can't make multiple jsonp calls to the same file because their
-        // callbacks will collide with each other. Instead, we cache the data
-        // and only make the jsonp calls once.
-        if (labelDataCache[hash]) {
-            if (labelDataCache[hash].loaded) {
-                const {data, localized} = labelDataCache[hash];
-                this.onDataLoaded(data, localized);
-            } else {
-                labelDataCache[hash].dataCallbacks.push(this.onDataLoaded);
-            }
-        } else {
-            const cacheData = {
-                loaded: false,
-                dataCallbacks: [this.onDataLoaded],
-                data: null,
-                localized: shouldUseLocalizedData(),
-            } as const;
-
-            labelDataCache[hash] = cacheData;
-
-            const retrieveData = (
-                url: string,
-                errorCallback: (x?: any, status?: any, error?: any) => void,
-            ) => {
-                doJSONP(url, {
-                    callbackName: "svgData" + hash,
-                    success: (data) => {
-                        // @ts-expect-error - TS2540 - Cannot assign to 'data' because it is a read-only property.
-                        cacheData.data = data;
-                        // @ts-expect-error - TS2540 - Cannot assign to 'loaded' because it is a read-only property.
-                        cacheData.loaded = true;
-
-                        _.each(cacheData.dataCallbacks, (callback) => {
-                            // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '{ labels: readonly any[]; range: readonly any[]; }'.
-                            callback(cacheData.data, cacheData.localized);
-                        });
-                    },
-                    error: errorCallback,
-                });
-            };
-
-            if (shouldUseLocalizedData()) {
-                retrieveData(
-                    getLocalizedDataUrl(this.props.src),
-                    (x, status, error) => {
-                        // @ts-expect-error - TS2540 - Cannot assign to 'localized' because it is a read-only property.
-                        cacheData.localized = false;
-
-                        // If there is isn't any localized data, fall back to
-                        // the original, unlocalized data
-                        retrieveData(
-                            Util.getDataUrl(this.props.src),
-                            (x, status, error) => {
-                                Log.error(
-                                    "Data load failed for svg-image",
-                                    Errors.Service,
-                                    {
-                                        cause: error,
-                                        loggedMetadata: {
-                                            dataUrl: Util.getDataUrl(
-                                                this.props.src,
-                                            ),
-                                            status,
-                                        },
-                                    },
-                                );
-                            },
-                        );
-                    },
-                );
-            } else {
-                retrieveData(
-                    Util.getDataUrl(this.props.src),
-                    (x, status, error) => {
-                        Log.error(
-                            "Data load failed for svg-image",
-                            Errors.Service,
-                            {
-                                cause: error,
-                                loggedMetadata: {
-                                    dataUrl: Util.getDataUrl(this.props.src),
-                                    status,
-                                },
-                            },
-                        );
-                    },
-                );
-            }
-        }
+        loadGraphie(this.props.src, this.onDataLoaded);
     }
 
     onDataLoaded: (

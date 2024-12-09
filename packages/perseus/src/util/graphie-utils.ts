@@ -1,4 +1,49 @@
-import $ from "underscore";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import $ from "jquery";
+import _ from "underscore";
+
+import {getDependencies} from "../dependencies";
+import {Log} from "../logging/log";
+import Util from "../util";
+
+// For offline exercises in the mobile app, we download the graphie data
+// (svgs and localized data files) and serve them from the local file
+// system (with file://). We replace urls that start with `web+graphie`
+// in the perseus json with this `file+graphie` prefix to indicate that
+// they should have the `file://` protocol instead of `https://`.
+const svgLocalLabelsRegex = /^file\+graphie:/;
+const hashRegex = /\/([^/]+)$/;
+
+function getLocale() {
+    const {JIPT, kaLocale} = getDependencies();
+    return JIPT.useJIPT ? "en-pt" : kaLocale;
+}
+
+function shouldUseLocalizedData() {
+    return getLocale() !== "en";
+}
+
+// A regex to split at the last / of a URL, separating the base part from the
+// hash. This is used to create the localized label data URLs.
+const splitHashRegex = /\/(?=[^/]+$)/;
+
+function getLocalizedDataUrl(url: string) {
+    // For local (cached) graphie images, they are already localized.
+    if (svgLocalLabelsRegex.test(url)) {
+        return Util.getDataUrl(url);
+    }
+    const [base, hash] = Util.getBaseUrl(url).split(splitHashRegex);
+    return `${base}/${getLocale()}/${hash}-data.json`;
+}
+
+// Get the hash from the url, which is just the filename
+function getUrlHash(url: string) {
+    const match = url.match(hashRegex);
+    if (match == null) {
+        throw new PerseusError("not a valid URL", Errors.InvalidInput);
+    }
+    return match && match[1];
+}
 
 // Write our own JSONP handler because all the other ones don't do things we
 // need.
@@ -37,3 +82,93 @@ export const doJSONP = function (url: string, options) {
     // Insert the script to start the download.
     document.head && document.head.appendChild(script);
 };
+
+// The global cache of label data. Its format is:
+// {
+//   hash (e.g. "c21435944d2cf0c8f39d9059cb35836aa701d04a"): {
+//     loaded: a boolean of whether the data has been loaded or not
+//     dataCallbacks: a list of callbacks to call with the data when the data
+//                    is loaded
+//     data: the other data for this hash
+//   },
+//   ...
+// }
+const labelDataCache: Record<string, any> = {};
+
+export function loadGraphie(url: string, onDataLoaded: any) {
+    const hash = getUrlHash(url);
+
+    // We can't make multiple jsonp calls to the same file because their
+    // callbacks will collide with each other. Instead, we cache the data
+    // and only make the jsonp calls once.
+    if (labelDataCache[hash]) {
+        if (labelDataCache[hash].loaded) {
+            const {data, localized} = labelDataCache[hash];
+            onDataLoaded(data, localized);
+        } else {
+            labelDataCache[hash].dataCallbacks.push(onDataLoaded);
+        }
+    } else {
+        const cacheData = {
+            loaded: false,
+            dataCallbacks: [onDataLoaded],
+            data: null,
+            localized: shouldUseLocalizedData(),
+        } as const;
+
+        labelDataCache[hash] = cacheData;
+
+        const retrieveData = (
+            url: string,
+            errorCallback: (x?: any, status?: any, error?: any) => void,
+        ) => {
+            doJSONP(url, {
+                callbackName: "svgData" + hash,
+                success: (data) => {
+                    // @ts-expect-error - TS2540 - Cannot assign to 'data' because it is a read-only property.
+                    cacheData.data = data;
+                    // @ts-expect-error - TS2540 - Cannot assign to 'loaded' because it is a read-only property.
+                    cacheData.loaded = true;
+
+                    _.each(cacheData.dataCallbacks, (callback) => {
+                        callback(cacheData.data, cacheData.localized);
+                    });
+                },
+                error: errorCallback,
+            });
+        };
+
+        if (shouldUseLocalizedData()) {
+            retrieveData(getLocalizedDataUrl(url), (x, status, error) => {
+                // @ts-expect-error - TS2540 - Cannot assign to 'localized' because it is a read-only property.
+                cacheData.localized = false;
+
+                // If there is isn't any localized data, fall back to
+                // the original, unlocalized data
+                retrieveData(Util.getDataUrl(url), (x, status, error) => {
+                    Log.error(
+                        "Data load failed for svg-image",
+                        Errors.Service,
+                        {
+                            cause: error,
+                            loggedMetadata: {
+                                dataUrl: Util.getDataUrl(url),
+                                status,
+                            },
+                        },
+                    );
+                });
+            });
+        } else {
+            retrieveData(Util.getDataUrl(url), (x, status, error) => {
+                Log.error("Data load failed for svg-image", Errors.Service, {
+                    cause: error,
+                    loggedMetadata: {
+                        dataUrl: Util.getDataUrl(url),
+                        status,
+                    },
+                });
+            });
+        }
+    }
+}
