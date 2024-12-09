@@ -53,7 +53,7 @@ const doJSONP = function (url: string, options) {
 
     // A cleanup function to run when we're done.
     function cleanup() {
-        document.head && document.head.removeChild(script);
+        document.head?.removeChild(script);
         delete window[options.callbackName];
     }
 
@@ -71,7 +71,7 @@ const doJSONP = function (url: string, options) {
     });
 
     // Insert the script to start the download.
-    document.head && document.head.appendChild(script);
+    document.head?.appendChild(script);
 };
 
 // For offline exercises in the mobile app, we download the graphie data
@@ -594,7 +594,7 @@ class SvgImage extends React.Component<Props, State> {
                 this.props.zoomToFullSizeOnMobile,
             );
         }
-        this.props.trackInteraction && this.props.trackInteraction();
+        this.props.trackInteraction?.();
     };
 
     handleUpdate: (status: string) => void = (status: string) => {
