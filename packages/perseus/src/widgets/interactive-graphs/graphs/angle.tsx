@@ -108,27 +108,22 @@ function AngleGraph({dispatch, graphState}: AngleGraphProps) {
         y: srFormatNumber(y, locale),
     });
 
-    const [initialSideAriaLabel, setInitialSideAriaLabel] =
-        React.useState<string>(
-            strings.srInitialSideAtCoordinates(
-                formatCoordinates(coords[2][X], coords[2][Y]),
-            ),
+    const formatSideAriaLabel = (
+        side: "terminal" | "initial",
+        newPoint: vec.Vector2,
+    ): string => {
+        const formattedCoordinates = formatCoordinates(
+            newPoint[X],
+            newPoint[Y],
         );
+        const label =
+            side === "terminal"
+                ? strings.srTerminalSideAtCoordinates(formattedCoordinates)
+                : strings.srInitialSideAtCoordinates(formattedCoordinates);
+        return label;
+    };
 
-    const [terminalSideAriaLabel, setTerminalSideAriaLabel] =
-        React.useState<string>(
-            strings.srTerminalSideAtCoordinates(
-                formatCoordinates(coords[0][X], coords[0][Y]),
-            ),
-        );
-
-    const [vertexAriaLabel, setVertexAriaLabel] = React.useState<string>(
-        strings.srVertexAtCoordinates(
-            formatCoordinates(coords[1][X], coords[1][Y]),
-        ),
-    );
-
-    const updateVertexAriaLabel = (newPoint: vec.Vector2) => {
+    const formatVertexAriaLabel = (newPoint: vec.Vector2) => {
         const formattedVertexCoordinates = formatCoordinates(
             newPoint[X],
             newPoint[Y],
@@ -139,49 +134,30 @@ function AngleGraph({dispatch, graphState}: AngleGraphProps) {
                   angle: `${angleLabel}`,
               })
             : strings.srVertexAtCoordinates(formattedVertexCoordinates);
-        setVertexAriaLabel(label);
+
+        return label;
     };
 
-    const updateSideAriaLabel = (
-        side: "terminal" | "initial",
-        newPoint: vec.Vector2,
-    ): void => {
-        const formattedCoordinates = formatCoordinates(
-            newPoint[X],
-            newPoint[Y],
-        );
-        side === "terminal"
-            ? setTerminalSideAriaLabel(
-                  strings.srUpdatedTerminalSideAtCoordinates(
-                      formattedCoordinates,
-                  ),
-              )
-            : setInitialSideAriaLabel(
-                  strings.srUpdatedInitialSideAtCoordinates(
-                      formattedCoordinates,
-                  ),
-              );
-    };
+    const vertexAriaLabel = formatVertexAriaLabel(coords[1]);
+
+    const initialSideAriaLabel = formatSideAriaLabel("initial", coords[2]);
+
+    const terminalSideAriaLabel = formatSideAriaLabel("terminal", coords[0]);
 
     const handleSidePointMove = (
         coordIndex: number,
         newPoint: vec.Vector2,
         side: "terminal" | "initial",
     ): unknown => {
-        updateVertexAriaLabel(coords[1]);
-        updateSideAriaLabel(side, newPoint);
+        formatVertexAriaLabel(coords[1]);
+        formatSideAriaLabel(side, newPoint);
         return dispatch(actions.angle.movePoint(coordIndex, newPoint));
     };
 
     const handleVertexMove = (coordIndex: number, newPoint: vec.Vector2) => {
-        updateVertexAriaLabel(newPoint);
+        formatVertexAriaLabel(newPoint);
         return dispatch(actions.angle.movePoint(coordIndex, newPoint));
     };
-
-    React.useEffect(() => {
-        updateVertexAriaLabel(coords[1]);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [showAngles]);
 
     // Render the lines, angle, and then movable points
     return (
