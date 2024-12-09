@@ -52,7 +52,7 @@ function findPositionInScrollContainer(
                 : childRect.bottom < parentRect.top;
 
         return isAbove ? "hidden-above" : "hidden-below";
-    } catch (e) {
+    } catch {
         return "unknown";
     }
 }

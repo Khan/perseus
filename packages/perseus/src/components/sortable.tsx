@@ -596,8 +596,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         });
 
         this.setState({items}, () => {
-            this.props.onMeasure &&
-                this.props.onMeasure({widths: widths, heights: heights});
+            this.props.onMeasure?.({widths: widths, heights: heights});
         });
     }
 
@@ -646,7 +645,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         nextItems.splice(index, 0, item);
 
         this.setState({items: nextItems});
-        this.props.onChange && this.props.onChange({});
+        this.props.onChange?.({});
     }
 
     onMouseMove(key: SortableItem["key"]) {
@@ -736,7 +735,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             // HACK: We need to know *that* the widget changed, but currently it's
             // not set up in a nice way to tell us *how* it changed, since the
             // permutation of the items is stored in state.
-            this.props.onChange && this.props.onChange({});
+            this.props.onChange?.({});
         });
 
         // @ts-expect-error - TS2339 - Property 'animationFrameRequest' does not exist on type 'Sortable'.

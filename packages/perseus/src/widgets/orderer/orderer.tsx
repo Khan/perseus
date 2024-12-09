@@ -213,7 +213,7 @@ class Card extends React.Component<CardProps, CardState> {
         if (loc) {
             this.setState({dragging: true});
             this.bindMouseMoveUp();
-            this.props.onMouseDown && this.props.onMouseDown(loc, this);
+            this.props.onMouseDown?.(loc, this);
         }
     };
 
@@ -225,7 +225,7 @@ class Card extends React.Component<CardProps, CardState> {
         event.preventDefault();
         const loc = Util.extractPointerLocation(event);
         if (loc) {
-            this.props.onMouseMove && this.props.onMouseMove(loc);
+            this.props.onMouseMove?.(loc);
         }
     };
 
@@ -235,7 +235,7 @@ class Card extends React.Component<CardProps, CardState> {
         if (loc) {
             this.setState({dragging: false});
             this.unbindMouseMoveUp();
-            this.props.onMouseUp && this.props.onMouseUp(loc);
+            this.props.onMouseUp?.(loc);
         }
     };
 

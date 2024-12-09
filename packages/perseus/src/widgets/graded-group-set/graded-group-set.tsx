@@ -122,7 +122,6 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
     };
 
     shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
-        nextProps.gradedGroups as ReadonlyArray<PerseusGradedGroupWidgetOptions>;
         return nextProps !== this.props || nextState !== this.state;
     }
 

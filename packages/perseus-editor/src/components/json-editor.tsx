@@ -62,7 +62,7 @@ const JsonEditor: any = createReactClass({
                     this.props.onChange(json);
                 },
             );
-        } catch (ex: any) {
+        } catch {
             this.setState({
                 currentValue: nextString,
                 valid: false,
@@ -93,7 +93,7 @@ const JsonEditor: any = createReactClass({
                     this.props.onChange(json);
                 },
             );
-        } catch (ex: any) {
+        } catch {
             this.setState({
                 currentValue: JSON.stringify(this.props.value, null, 4),
                 valid: true,

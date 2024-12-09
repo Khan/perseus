@@ -607,7 +607,7 @@ const supportsPassiveEvents: () => boolean = () => {
         window.addEventListener("testPassive", null, opts);
         // @ts-expect-error - TS2769 - No overload matches this call.
         window.removeEventListener("testPassive", null, opts);
-    } catch (e: any) {
+    } catch {
         // Intentionally left empty!
     }
 

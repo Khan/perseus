@@ -125,7 +125,9 @@ function changeViewportTag(
         // finished resetting.
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        callback && setTimeout(callback, 0);
+        if (callback != null) {
+            setTimeout(callback, 0);
+        }
     }, 0);
 }
 

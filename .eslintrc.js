@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable import/no-commonjs */
 const fs = require("fs");
 const path = require("path");
@@ -139,7 +139,7 @@ module.exports = {
         {
             files: ["config/**", "utils/**", "testing/*"],
             rules: {
-                "@typescript-eslint/no-var-requires": "off",
+                "@typescript-eslint/no-require-imports": "off",
                 "import/no-commonjs": "off",
                 "import/no-extraneous-dependencies": "off",
                 "import/no-relative-packages": "off",
@@ -164,6 +164,18 @@ module.exports = {
                             "React is not available and should not be imported in scoring functions.",
                     },
                 ],
+            },
+        },
+        {
+            /**
+             * .typetest.ts files are used to do "type testing" :mindblown:
+             * It is common practice in these files to declare variables and
+             * expressions that are never used.
+             */
+            files: ["*.typetest.ts"],
+            rules: {
+                "@typescript-eslint/no-unused-vars": "off",
+                "@typescript-eslint/no-unused-expressions": "off",
             },
         },
     ],

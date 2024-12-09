@@ -116,6 +116,7 @@ export function replaceOutsideTeX(mathString: string) {
     let result = "";
 
     for (const piece of parsed) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         piece.type === "math"
             ? (result += "$" + piece.content + "$")
             : piece.type === "specialCharacter"

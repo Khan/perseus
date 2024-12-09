@@ -18,6 +18,7 @@ fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
     (pkgPaths) => {
         // eslint-disable-next-line promise/always-return
         for (const pkgPath of pkgPaths) {
+            // eslint-disable-next-line @typescript-eslint/no-require-imports
             const pkgJson = require(path.relative(__dirname, pkgPath));
 
             if (!checkPrivate(pkgJson)) {

@@ -78,7 +78,7 @@ class Iframe extends React.Component<Props> implements Widget {
         let data: Record<string, any> = {};
         try {
             data = JSON.parse(e.originalEvent.data);
-        } catch (err: any) {
+        } catch {
             return;
         }
 

@@ -70,12 +70,12 @@ export default class SimpleKeypadInput extends React.Component<any> {
                             },
                             () => {
                                 if (_this._isMounted) {
-                                    onFocus && onFocus();
+                                    onFocus?.();
                                 }
                             },
                         );
                     } else {
-                        onFocus && onFocus();
+                        onFocus?.();
                     }
                 }}
                 value={value == null ? "" : "" + value}
