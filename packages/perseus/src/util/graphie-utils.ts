@@ -6,6 +6,8 @@ import {getDependencies} from "../dependencies";
 import {Log} from "../logging/log";
 import Util from "../util";
 
+import type {Coord} from "../interactive2/types";
+
 // For offline exercises in the mobile app, we download the graphie data
 // (svgs and localized data files) and serve them from the local file
 // system (with file://). We replace urls that start with `web+graphie`
@@ -83,6 +85,11 @@ export const doJSONP = function (url: string, options) {
     document.head && document.head.appendChild(script);
 };
 
+type CacheEntry = {
+    labels: ReadonlyArray<any>;
+    range: [Coord, Coord];
+};
+
 // The global cache of label data. Its format is:
 // {
 //   hash (e.g. "c21435944d2cf0c8f39d9059cb35836aa701d04a"): {
@@ -93,28 +100,40 @@ export const doJSONP = function (url: string, options) {
 //   },
 //   ...
 // }
-const labelDataCache: Record<string, any> = {};
+const labelDataCache: Record<
+    string,
+    | {loaded: false; localized: boolean; dataCallbacks: Array<any>}
+    | {
+          loaded: true;
+          data: CacheEntry;
+          localized: boolean;
+          dataCallbacks: Array<any>;
+      }
+> = {};
 
-export function loadGraphie(url: string, onDataLoaded: any) {
+export function loadGraphie(
+    url: string,
+    onDataLoaded: (data: CacheEntry, localized: boolean) => void,
+) {
     const hash = getUrlHash(url);
 
     // We can't make multiple jsonp calls to the same file because their
     // callbacks will collide with each other. Instead, we cache the data
     // and only make the jsonp calls once.
-    if (labelDataCache[hash]) {
-        if (labelDataCache[hash].loaded) {
-            const {data, localized} = labelDataCache[hash];
+    const entry = labelDataCache[hash];
+    if (entry != null) {
+        if (entry.loaded) {
+            const {data, localized} = entry;
             onDataLoaded(data, localized);
         } else {
-            labelDataCache[hash].dataCallbacks.push(onDataLoaded);
+            entry.dataCallbacks.push(onDataLoaded);
         }
     } else {
         const cacheData = {
-            loaded: false,
+            loaded: false as const,
             dataCallbacks: [onDataLoaded],
-            data: null,
             localized: shouldUseLocalizedData(),
-        } as const;
+        };
 
         labelDataCache[hash] = cacheData;
 
@@ -125,13 +144,14 @@ export function loadGraphie(url: string, onDataLoaded: any) {
             doJSONP(url, {
                 callbackName: "svgData" + hash,
                 success: (data) => {
-                    // @ts-expect-error - TS2540 - Cannot assign to 'data' because it is a read-only property.
-                    cacheData.data = data;
-                    // @ts-expect-error - TS2540 - Cannot assign to 'loaded' because it is a read-only property.
-                    cacheData.loaded = true;
+                    const newCacheEntry = (labelDataCache[hash] = {
+                        ...labelDataCache[hash],
+                        loaded: true as const,
+                        data,
+                    });
 
-                    _.each(cacheData.dataCallbacks, (callback) => {
-                        callback(cacheData.data, cacheData.localized);
+                    _.each(newCacheEntry.dataCallbacks, (callback) => {
+                        callback(newCacheEntry.data, cacheData.localized);
                     });
                 },
                 error: errorCallback,
@@ -140,7 +160,6 @@ export function loadGraphie(url: string, onDataLoaded: any) {
 
         if (shouldUseLocalizedData()) {
             retrieveData(getLocalizedDataUrl(url), (x, status, error) => {
-                // @ts-expect-error - TS2540 - Cannot assign to 'localized' because it is a read-only property.
                 cacheData.localized = false;
 
                 // If there is isn't any localized data, fall back to
