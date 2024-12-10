@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {ApiOptions} from "../../perseus-api";
+import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
 import scoreDropdown from "./score-dropdown";
@@ -74,13 +75,25 @@ class Dropdown extends React.Component<Props> implements Widget {
                 key="placeholder"
                 value="0"
                 disabled
-                label={this.props.placeholder}
+                label={
+                    <Renderer
+                        content={this.props.placeholder}
+                        strings={this.context.strings}
+                        inline
+                    />
+                }
             />,
             ...this.props.choices.map((choice, i) => (
                 <OptionItem
                     key={String(i + 1)}
                     value={String(i + 1)}
-                    label={choice}
+                    label={
+                        <Renderer
+                            content={choice}
+                            strings={this.context.strings}
+                            inline
+                        />
+                    }
                 />
             )),
         ];
@@ -124,6 +137,7 @@ class Dropdown extends React.Component<Props> implements Widget {
                             // all dropdowns.
                             // See https://khanacademy.atlassian.net/browse/WB-1671
                             role="combobox"
+                            showOpenerLabelAsText={false}
                         >
                             {children}
                         </SingleSelect>
