@@ -39,7 +39,7 @@ function CircleGraph(props: CircleGraphProps) {
     const {center, radiusPoint} = graphState;
 
     const {strings} = usePerseusI18n();
-    const [edgePointAriaLive, setEdgePointAriaLive] = React.useState<
+    const [radiusPointAriaLive, setRadiusPointAriaLive] = React.useState<
         "off" | "polite"
     >("off");
 
@@ -85,19 +85,19 @@ function CircleGraph(props: CircleGraphProps) {
                 center={center}
                 radius={radius}
                 onMove={(c) => {
-                    setEdgePointAriaLive("off");
+                    setRadiusPointAriaLive("off");
                     dispatch(actions.circle.moveCenter(c));
                 }}
             />
             <MovablePoint
                 ariaLabel={`${circleRadiusPointAriaLabel} ${circleRadiusDescription}`}
                 ariaDescribedBy={`${outerPointsId}`}
-                ariaLive={edgePointAriaLive}
+                ariaLive={radiusPointAriaLive}
                 point={radiusPoint}
                 sequenceNumber={1}
                 cursor="ew-resize"
                 onMove={(newRadiusPoint) => {
-                    setEdgePointAriaLive("polite");
+                    setRadiusPointAriaLive("polite");
                     dispatch(actions.circle.moveRadiusPoint(newRadiusPoint));
                 }}
             />
