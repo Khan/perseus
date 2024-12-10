@@ -16,12 +16,12 @@ import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 
 import {AnswerPill} from "./answer-pill";
 
-import type {InteractiveMarkerType} from "./types";
+import type {LabelImageFullMarker} from "./types";
 import type {IconType} from "../../components/icon";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {CSSProperties} from "aphrodite";
 
-type Props = InteractiveMarkerType & {
+type Props = LabelImageFullMarker & {
     // Whether this marker has been selected by user.
     showSelected: boolean;
     // Whether this marker should pulsate to draw user attention.

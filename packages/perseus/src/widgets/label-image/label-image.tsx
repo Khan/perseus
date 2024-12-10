@@ -27,13 +27,13 @@ import {HideAnswersToggle} from "./hide-answers-toggle";
 import Marker from "./marker";
 import scoreLabelImage, {scoreMarker} from "./score-label-image";
 
-import type {InteractiveMarkerType} from "./types";
+import type {LabelImageFullMarker} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusLabelImageWidgetOptions} from "../../perseus-types";
 import type {APIOptions, Widget, WidgetExports} from "../../types";
 import type {
-    PerseusLabelImageRubric,
+    PerseusLabelImageScoringData,
     PerseusLabelImageUserInput,
 } from "../../validation.types";
 import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
@@ -72,12 +72,10 @@ type Point = {
 
 type LabelImageProps = ChangeableProps &
     DependencyProps &
-    // TODO: there's some weirdness in our types between
-    // PerseusLabelImageMarker and InteractiveMarkerType
     Omit<PerseusLabelImageWidgetOptions, "markers"> & {
         apiOptions: APIOptions;
         // The list of label markers on the question image.
-        markers: ReadonlyArray<InteractiveMarkerType>;
+        markers: ReadonlyArray<LabelImageFullMarker>;
         // Whether the question has been answered by the user.
         questionCompleted: boolean;
         // preferred placement for popover (preference, not MUST)
@@ -194,7 +192,7 @@ export class LabelImage
      */
     static navigateToMarkerIndex(
         navigateDirection: Direction,
-        markers: ReadonlyArray<InteractiveMarkerType>,
+        markers: PerseusLabelImageUserInput["markers"],
         thisIndex: number,
     ): number {
         const thisMarker = markers[thisIndex];
@@ -311,20 +309,33 @@ export class LabelImage
 
     getUserInput(): PerseusLabelImageUserInput {
         const {markers} = this.props;
-        return {markers};
+        const copyMarkers = [...markers];
+        const markersWithoutAnswers = copyMarkers.map((marker) => {
+            const tempMarker = {};
+            for (const key in marker) {
+                if (key !== "answers") {
+                    tempMarker[key] = marker[key];
+                }
+            }
+            return tempMarker as PerseusLabelImageUserInput["markers"][number];
+        });
+        return {markers: markersWithoutAnswers};
     }
 
     getPromptJSON(): LabelImagePromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
-    // TODO(LEMS-2544): Investigate impact on scoring; possibly pull out &/or remove rubric parameter.
-    showRationalesForCurrentlySelectedChoices(rubric: PerseusLabelImageRubric) {
+    // TODO(LEMS-2544): Investigate impact on scoring; possibly pull out &/or remove scoringData parameter.
+    // Also consider how scoreMarker is being called as it seems to require the marker.answers property.
+    showRationalesForCurrentlySelectedChoices(
+        scoringData: PerseusLabelImageScoringData,
+    ) {
         const {markers} = this.props;
         const {onChange} = this.props;
 
         const updatedMarkers = markers.map((marker) => {
-            const score = scoreMarker(marker);
+            const score = scoreMarker(marker.selected, marker.answers);
 
             return {
                 ...marker,
@@ -342,7 +353,10 @@ export class LabelImage
         onChange({markers: updatedMarkers}, null, true);
     }
 
-    handleMarkerChange(index: number, marker: InteractiveMarkerType) {
+    handleMarkerChange(
+        index: number,
+        marker: PerseusLabelImageUserInput["markers"][number],
+    ) {
         const {markers, onChange} = this.props;
 
         // Replace marker with a changed version at the specified index.
@@ -476,7 +490,7 @@ export class LabelImage
                 }[markerPosition];
             }
 
-            const score = scoreMarker(marker);
+            const score = scoreMarker(marker.selected, marker.answers);
             // Once the question is answered, show markers
             // with correct answers, otherwise passthrough
             // the correctness state.

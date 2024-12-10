@@ -4,7 +4,10 @@ import * as React from "react";
 
 import LabelImageEditor from "../label-image-editor";
 
-import type {MarkerType} from "@khanacademy/perseus";
+import type {
+    LabelImageMarker,
+    LabelImageMarkerScoringData,
+} from "@khanacademy/perseus";
 
 type StoryArgs = Record<any, any>;
 
@@ -29,7 +32,7 @@ type State = {
     imageUrl: string;
     imageWidth: number;
     imageHeight: number;
-    markers: ReadonlyArray<MarkerType>;
+    markers: ReadonlyArray<LabelImageMarker & LabelImageMarkerScoringData>;
 };
 
 class WithState extends React.Component<Empty, State> {

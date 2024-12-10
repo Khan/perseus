@@ -8,11 +8,23 @@ const emptyMarker = {
     y: 0,
 } as const;
 
+const emptyUserInput = {
+    label: "",
+    selected: [],
+    x: 0,
+    y: 0,
+} as const;
+
+const emptyScoringData = {
+    label: "",
+    answers: [],
+    x: 0,
+    y: 0,
+} as const;
+
 describe("scoreMarker", function () {
     it("should score correct for empty marker with no user answers", function () {
-        const score = scoreMarker({
-            ...emptyMarker,
-        });
+        const score = scoreMarker([], []);
 
         expect(score).toEqual({
             hasAnswers: false,
@@ -21,10 +33,7 @@ describe("scoreMarker", function () {
     });
 
     it("should score incorrect for empty marker with user answer", function () {
-        const score = scoreMarker({
-            ...emptyMarker,
-            selected: ["Fiat"],
-        });
+        const score = scoreMarker(["Fiat"], []);
 
         expect(score).toEqual({
             hasAnswers: true,
@@ -33,10 +42,7 @@ describe("scoreMarker", function () {
     });
 
     it("should score incorrect for no user answers", function () {
-        const score = scoreMarker({
-            ...emptyMarker,
-            answers: ["Lamborghini", "Fiat", "Ferrari"],
-        });
+        const score = scoreMarker([], ["Lamborghini", "Fiat", "Ferrari"]);
 
         expect(score).toEqual({
             hasAnswers: false,
@@ -45,11 +51,10 @@ describe("scoreMarker", function () {
     });
 
     it("should score incorrect for wrong user answers", function () {
-        const score = scoreMarker({
-            ...emptyMarker,
-            answers: ["Lamborghini", "Fiat", "Ferrari"],
-            selected: ["Fiat", "Ferrari"],
-        });
+        const score = scoreMarker(
+            ["Fiat", "Ferrari"],
+            ["Lamborghini", "Fiat", "Ferrari"],
+        );
 
         expect(score).toEqual({
             hasAnswers: true,
@@ -58,11 +63,10 @@ describe("scoreMarker", function () {
     });
 
     it("should score correct for user answers", function () {
-        const score = scoreMarker({
-            ...emptyMarker,
-            answers: ["Lamborghini", "Fiat", "Ferrari"],
-            selected: ["Lamborghini", "Fiat", "Ferrari"],
-        });
+        const score = scoreMarker(
+            ["Lamborghini", "Fiat", "Ferrari"],
+            ["Lamborghini", "Fiat", "Ferrari"],
+        );
 
         expect(score).toEqual({
             hasAnswers: true,
@@ -73,41 +77,58 @@ describe("scoreMarker", function () {
 
 describe("scoreLabelImage", function () {
     it("should not grade non-interacted widget", function () {
-        const state = {
+        const userInput = {
             markers: [
                 {
-                    ...emptyMarker,
+                    ...emptyUserInput,
                     label: "England",
-                    answers: ["Mini", "Morris Minor", "Reliant Robin"],
                 },
                 {
-                    ...emptyMarker,
+                    ...emptyUserInput,
                     label: "Germany",
-                    answers: ["BMW", "Volkswagen", "Porsche"],
                 },
                 {
-                    ...emptyMarker,
+                    ...emptyUserInput,
                     label: "Italy",
-                    answers: ["Lamborghini", "Fiat", "Ferrari"],
                 },
             ],
         } as const;
 
-        const score = scoreLabelImage(state);
+        const scoringData = {
+            markers: [
+                {
+                    ...emptyScoringData,
+                    label: "England",
+                    answers: ["Mini", "Morris Minor", "Reliant Robin"],
+                },
+                {
+                    ...emptyScoringData,
+                    label: "Germany",
+                    answers: ["BMW", "Volkswagen", "Porsche"],
+                },
+                {
+                    ...emptyScoringData,
+                    label: "Italy",
+                    answers: ["Lamborghini", "Fiat", "Ferrari"],
+                },
+            ],
+        };
+
+        const score = scoreLabelImage(userInput, scoringData);
 
         expect(score).toHaveInvalidInput();
     });
 
     it("should not grade widget with not all markers answered", function () {
-        const state = {
+        const userInput = {
             markers: [
                 {
-                    ...emptyMarker,
+                    ...emptyUserInput,
                     label: "England",
                     selected: ["Fiat"],
                 },
                 {
-                    ...emptyMarker,
+                    ...emptyUserInput,
                     label: "Germany",
                     answers: ["BMW", "Volkswagen", "Porsche"],
                     selected: ["Lamborghini"],
@@ -115,96 +136,165 @@ describe("scoreLabelImage", function () {
                 {
                     ...emptyMarker,
                     label: "Italy",
+                },
+            ],
+        } as const;
+
+        const scoringData = {
+            markers: [
+                {
+                    ...emptyScoringData,
+                    label: "England",
+                },
+                {
+                    ...emptyScoringData,
+                    label: "Germany",
+                    answers: ["BMW", "Volkswagen", "Porsche"],
+                },
+                {
+                    ...emptyScoringData,
+                    label: "Italy",
                     answers: ["Lamborghini", "Fiat", "Ferrari"],
                 },
             ],
         } as const;
 
-        const score = scoreLabelImage(state);
+        const score = scoreLabelImage(userInput, scoringData);
 
         expect(score).toHaveInvalidInput();
     });
 
     it("should grade as incorrect for widget with no answers for markers", function () {
-        const state = {
+        const userInput = {
             markers: [
                 {
-                    ...emptyMarker,
+                    ...emptyUserInput,
                     label: "England",
                     selected: ["Fiat"],
                 },
                 {
-                    ...emptyMarker,
+                    ...emptyUserInput,
                     label: "Germany",
                     selected: ["Lamborghini"],
                 },
                 {
-                    ...emptyMarker,
+                    ...emptyUserInput,
                     label: "Italy",
                     selected: ["Ferrari"],
                 },
             ],
         } as const;
 
-        const score = scoreLabelImage(state);
+        const scoringData = {
+            markers: [
+                {
+                    ...emptyScoringData,
+                    label: "England",
+                },
+                {
+                    ...emptyScoringData,
+                    label: "Germany",
+                },
+                {
+                    ...emptyScoringData,
+                    label: "Italy",
+                },
+            ],
+        } as const;
+
+        const score = scoreLabelImage(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("should grade as incorrect for widget with some wrong answers", function () {
-        const state = {
+        const userInput = {
             markers: [
                 {
                     ...emptyMarker,
                     label: "England",
-                    answers: ["Mini", "Morris Minor", "Reliant Robin"],
                     selected: ["Mini"],
                 },
                 {
                     ...emptyMarker,
                     label: "Germany",
-                    answers: ["BMW", "Volkswagen", "Porsche"],
                     selected: ["BMW", "Volkswagen", "Porsche"],
                 },
                 {
                     ...emptyMarker,
                     label: "Italy",
-                    answers: ["Lamborghini", "Fiat", "Ferrari"],
                     selected: ["Ferrari"],
                 },
             ],
         } as const;
 
-        const score = scoreLabelImage(state);
-
-        expect(score).toHaveBeenAnsweredIncorrectly();
-    });
-
-    it("should grade as correct for widget with all correct answers", function () {
-        const state = {
+        const scoringData = {
             markers: [
                 {
                     ...emptyMarker,
                     label: "England",
                     answers: ["Mini", "Morris Minor", "Reliant Robin"],
-                    selected: ["Mini", "Morris Minor", "Reliant Robin"],
                 },
                 {
                     ...emptyMarker,
                     label: "Germany",
                     answers: ["BMW", "Volkswagen", "Porsche"],
-                    selected: ["BMW", "Volkswagen", "Porsche"],
                 },
                 {
                     ...emptyMarker,
                     label: "Italy",
                     answers: ["Lamborghini", "Fiat", "Ferrari"],
+                },
+            ],
+        } as const;
+
+        const score = scoreLabelImage(userInput, scoringData);
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("should grade as correct for widget with all correct answers", function () {
+        const userInput = {
+            markers: [
+                {
+                    ...emptyMarker,
+                    label: "England",
+                    selected: ["Mini", "Morris Minor", "Reliant Robin"],
+                },
+                {
+                    ...emptyMarker,
+                    label: "Germany",
+                    selected: ["BMW", "Volkswagen", "Porsche"],
+                },
+                {
+                    ...emptyMarker,
+                    label: "Italy",
                     selected: ["Lamborghini", "Fiat", "Ferrari"],
                 },
             ],
         } as const;
 
-        const score = scoreLabelImage(state);
+        const scoringData = {
+            markers: [
+                {
+                    ...emptyMarker,
+                    label: "England",
+                    answers: ["Mini", "Morris Minor", "Reliant Robin"],
+                },
+                {
+                    ...emptyMarker,
+                    label: "Germany",
+                    answers: ["BMW", "Volkswagen", "Porsche"],
+                },
+                {
+                    ...emptyMarker,
+                    label: "Italy",
+                    answers: ["Lamborghini", "Fiat", "Ferrari"],
+                },
+            ],
+        } as const;
+
+        const score = scoreLabelImage(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
