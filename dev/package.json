@@ -30,7 +30,7 @@
         "@khanacademy/wonder-blocks-tokens": "2.0.0",
         "@khanacademy/wonder-blocks-toolbar": "3.0.35",
         "@khanacademy/wonder-blocks-tooltip": "2.4.0",
-        "@khanacademy/wonder-stuff-core": "1.5.2",
+        "@khanacademy/wonder-stuff-core": "1.5.4",
         "@phosphor-icons/core": "^2.0.2"
     },
     "devDependencies": {
