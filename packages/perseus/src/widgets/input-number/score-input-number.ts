@@ -75,8 +75,6 @@ function scoreInputNumber(
 
     const result = val(currentValue);
 
-    // TODO(eater): Seems silly to translate result to this invalid/points
-    // thing and immediately translate it back in ItemRenderer.scoreInput()
     if (result.empty) {
         return {
             type: "invalid",
