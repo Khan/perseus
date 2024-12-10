@@ -75,12 +75,16 @@ function CircleGraph(props: CircleGraphProps) {
 
     return (
         <g
+            // Outer circle minimal description
             aria-label={circleGraphAriaLabel}
             aria-describedby={`${circleId} ${radiusId} ${outerPointsId}`}
         >
             <MovableCircle
                 id={circleId}
+                // Focusable circle aria label reads with every update
+                // because of the aria-live property in the circle <g>.
                 ariaLabel={circleShapeAriaLabel}
+                // Aria-describedby describes additional info on focus.
                 ariaDescribedBy={`${radiusId} ${outerPointsId}`}
                 center={center}
                 radius={radius}
@@ -90,8 +94,15 @@ function CircleGraph(props: CircleGraphProps) {
                 }}
             />
             <MovablePoint
+                // Radius point aria label reads with every update.
                 ariaLabel={`${circleRadiusPointAriaLabel} ${circleRadiusDescription}`}
+                // Aria-describedby describes additional info on focus.
                 ariaDescribedBy={`${outerPointsId}`}
+                // The radius point's aria-live property is set to "off" when
+                // the circle is moved, so that it doesn't override the circle's
+                // aria-live (since the point is moved along with the circle).
+                // When the radius point is moved, the aria-live is set to
+                // "polite" so that the radius is read out.
                 ariaLive={radiusPointAriaLive}
                 point={radiusPoint}
                 sequenceNumber={1}
@@ -101,6 +112,8 @@ function CircleGraph(props: CircleGraphProps) {
                     dispatch(actions.circle.moveRadiusPoint(newRadiusPoint));
                 }}
             />
+            {/* Hidden elements to provide the descriptions for the
+                circle and radius point's `aria-describedby` properties. */}
             <g id={radiusId} style={{display: "hidden"}}>
                 {circleRadiusDescription}
             </g>
