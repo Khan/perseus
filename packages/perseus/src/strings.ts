@@ -133,6 +133,7 @@ export type PerseusStrings = {
     addPoint: string;
     removePoint: string;
     graphKeyboardPrompt: string;
+    selectAnAnswer: string;
     // The following strings are used for interactive graph SR descriptions.
     closePolygon: string;
     openPolygon: string;
@@ -182,7 +183,7 @@ export type PerseusStrings = {
         point4X: number;
         point4Y: number;
     }) => string;
-    selectAnAnswer: string;
+    // The above strings are used for interactive graph SR descriptions.
 };
 
 /**
@@ -362,6 +363,7 @@ export const strings: {
     openPolygon: "Re-open shape",
     srInteractiveElements: "Interactive elements: %(elements)s",
     srNoInteractiveElements: "No interactive elements",
+    selectAnAnswer: "Select an answer",
 
     // TODO(LEMS-2660): The following strings are ones that will need
     // translation tickets after all interactive graph SR strings have
@@ -397,7 +399,7 @@ export const strings: {
         message:
             "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
     },
-    selectAnAnswer: "Select an answer",
+    // The above strings are used for interactive graph SR descriptions.
 };
 
 /**
@@ -557,6 +559,7 @@ export const mockStrings: PerseusStrings = {
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
+    selectAnAnswer: "Select an answer",
 
     // The following strings are used for interactive graph SR descriptions.
     closePolygon: "Close shape",
@@ -581,5 +584,5 @@ export const mockStrings: PerseusStrings = {
         point4Y,
     }) =>
         `Points on the circle at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, ${point3X} comma ${point3Y}, ${point4X} comma ${point4Y}.`,
-    selectAnAnswer: "Select an answer",
+    // The above strings are used for interactive graph SR descriptions.
 };
