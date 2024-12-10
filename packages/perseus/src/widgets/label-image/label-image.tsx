@@ -33,7 +33,7 @@ import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusLabelImageWidgetOptions} from "../../perseus-types";
 import type {APIOptions, Widget, WidgetExports} from "../../types";
 import type {
-    PerseusLabelImageRubric,
+    PerseusLabelImageScoringData,
     PerseusLabelImageUserInput,
 } from "../../validation.types";
 import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
@@ -72,8 +72,6 @@ type Point = {
 
 type LabelImageProps = ChangeableProps &
     DependencyProps &
-    // TODO: there's some weirdness in our types between
-    // PerseusLabelImageMarker and InteractiveMarkerType
     Omit<PerseusLabelImageWidgetOptions, "markers"> & {
         apiOptions: APIOptions;
         // The list of label markers on the question image.
@@ -194,7 +192,7 @@ export class LabelImage
      */
     static navigateToMarkerIndex(
         navigateDirection: Direction,
-        markers: ReadonlyArray<InteractiveMarkerType>,
+        markers: PerseusLabelImageUserInput["markers"],
         thisIndex: number,
     ): number {
         const thisMarker = markers[thisIndex];
@@ -318,8 +316,11 @@ export class LabelImage
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
-    // TODO(LEMS-2544): Investigate impact on scoring; possibly pull out &/or remove rubric parameter.
-    showRationalesForCurrentlySelectedChoices(rubric: PerseusLabelImageRubric) {
+    // TODO(LEMS-2544): Investigate impact on scoring; possibly pull out &/or remove scoringData parameter.
+    // Also consider how scoreMarker is being called as it seems to require the marker.answers property.
+    showRationalesForCurrentlySelectedChoices(
+        scoringData: PerseusLabelImageScoringData,
+    ) {
         const {markers} = this.props;
         const {onChange} = this.props;
 
@@ -342,7 +343,10 @@ export class LabelImage
         onChange({markers: updatedMarkers}, null, true);
     }
 
-    handleMarkerChange(index: number, marker: InteractiveMarkerType) {
+    handleMarkerChange(
+        index: number,
+        marker: PerseusLabelImageUserInput["markers"][number],
+    ) {
         const {markers, onChange} = this.props;
 
         // Replace marker with a changed version at the specified index.
