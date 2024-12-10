@@ -32,6 +32,7 @@ import {
 } from "./renderer-util";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
+import {flattenScores} from "./util/scoring";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
@@ -1737,7 +1738,7 @@ class Renderer
             this.props.strings,
             this.context.locale,
         );
-        const combinedScore = Util.flattenScores(scores);
+        const combinedScore = flattenScores(scores);
         return combinedScore;
     }
 
@@ -1749,35 +1750,6 @@ class Renderer
         const totalScore = this.score();
 
         return [totalGuess, totalScore];
-    };
-
-    examples: () => ReadonlyArray<string> | null | undefined = () => {
-        const widgetIds = this.widgetIds;
-        const examples = widgetIds
-            .map((widgetId) => {
-                const widget = this.getWidgetInstance(widgetId);
-                return widget != null && widget.examples
-                    ? widget.examples()
-                    : null;
-            })
-            .filter(Boolean);
-
-        // no widgets with examples
-        if (!examples.length) {
-            return null;
-        }
-
-        const allEqual = _.all(examples, function (example) {
-            return _.isEqual(examples[0], example);
-        });
-
-        // some widgets have different examples
-        // TODO(alex): handle this better
-        if (!allEqual) {
-            return null;
-        }
-
-        return examples[0];
     };
 
     // TranslationLinter callback

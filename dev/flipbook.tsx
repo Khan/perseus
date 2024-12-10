@@ -20,7 +20,7 @@ import {Renderer} from "../packages/perseus/src";
 import {SvgImage} from "../packages/perseus/src/components";
 import {scorePerseusItem} from "../packages/perseus/src/renderer-util";
 import {mockStrings} from "../packages/perseus/src/strings";
-import {isCorrect} from "../packages/perseus/src/util";
+import {isCorrect} from "../packages/perseus/src/util/scoring";
 import {trueForAllMafsSupportedGraphTypes} from "../packages/perseus/src/widgets/interactive-graphs/mafs-supported-graph-types";
 
 import {EditableControlledInput} from "./editable-controlled-input";
