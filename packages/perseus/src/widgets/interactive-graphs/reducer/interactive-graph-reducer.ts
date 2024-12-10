@@ -508,7 +508,7 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundAndSnapToGrid(action.destination, state),
                 }),
-                announcement: {text: "updated"}
+                announcement: {text: state.announcement?.text},
             };
         }
         case "sinusoid": {

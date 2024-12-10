@@ -46,7 +46,7 @@ export interface InteractiveGraphStateCommon {
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
-    announcement?: {text: string};
+    announcement?: {text?: string};
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {
@@ -137,4 +137,4 @@ export type GraphDimensions = {
     height: number; // pixels
 };
 
-export type AriaLive = "off" | "assertive" | "polite" | undefined;
+export type AriaLivePolitenessLevel = "off" | "assertive" | "polite";

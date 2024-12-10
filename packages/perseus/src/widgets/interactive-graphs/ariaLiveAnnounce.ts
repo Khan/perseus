@@ -1,12 +1,12 @@
-type PolitenessLevel = "assertive" | "polite";
+import { AriaLivePolitenessLevel } from "./types"
 
-export function ariaLiveAnnounce(message: string, options?: {level?: PolitenessLevel}): void {
+export function ariaLiveAnnounce(message: string, options?: {level?: AriaLivePolitenessLevel}): void {
     const region = recreateAriaLiveRegion(options?.level ?? "polite")
     region.innerText = message
 }
 
 let currentAriaLiveRegion: HTMLDivElement | null = null
-function recreateAriaLiveRegion(politenessLevel: PolitenessLevel): HTMLDivElement {
+function recreateAriaLiveRegion(politenessLevel: AriaLivePolitenessLevel): HTMLDivElement {
     if (currentAriaLiveRegion) {
         document.body.removeChild(currentAriaLiveRegion)
     }
@@ -15,8 +15,7 @@ function recreateAriaLiveRegion(politenessLevel: PolitenessLevel): HTMLDivElemen
     return currentAriaLiveRegion
 }
 
-function createAriaLiveRegion(politenessLevel: PolitenessLevel): HTMLDivElement {
-    console.log("createAriaLiveRegion")
+function createAriaLiveRegion(politenessLevel: AriaLivePolitenessLevel): HTMLDivElement {
     const newRegion = document.createElement("div")
     newRegion.setAttribute("aria-live", politenessLevel)
     newRegion.classList.add("perseus-aria-live-region")

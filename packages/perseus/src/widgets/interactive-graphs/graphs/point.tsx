@@ -46,9 +46,11 @@ function LimitedPointGraph(props: PointGraphProps) {
     const {dispatch, graphState} = props;
     const {announcement} = graphState;
 
+    // Announcement would get updated here
+
     React.useEffect(() => {
-        if (announcement) {
-            ariaLiveAnnounce(announcement.text, {level: "assertive"})
+        if (announcement && announcement.text) {
+            ariaLiveAnnounce(announcement.text, {level: "polite"})
         }
     }, [announcement])
 
