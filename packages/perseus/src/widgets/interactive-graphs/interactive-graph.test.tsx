@@ -13,6 +13,7 @@ import {getDefaultFigureForType} from "../../../../perseus-editor/src/widgets/in
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
@@ -107,9 +108,13 @@ describe("interactive-graph widget", function () {
                     ),
                 );
                 await waitForInitialGraphieRender();
+                const score = scorePerseusItemTesting(
+                    question,
+                    renderer.getUserInputMap(),
+                );
 
                 // Assert
-                expect(renderer).toHaveBeenAnsweredCorrectly();
+                expect(score).toHaveBeenAnsweredCorrectly();
             });
 
             it("Should render predictably", async () => {
@@ -140,9 +145,13 @@ describe("interactive-graph widget", function () {
 
                 // Act
                 await waitForInitialGraphieRender();
+                const score = scorePerseusItemTesting(
+                    question,
+                    renderer.getUserInputMap(),
+                );
 
                 // Assert
-                expect(renderer).toHaveInvalidInput();
+                expect(score).toHaveInvalidInput();
             });
 
             it("should reject an incorrect answer", async () => {
@@ -158,9 +167,13 @@ describe("interactive-graph widget", function () {
                     ),
                 );
                 await waitForInitialGraphieRender();
+                const score = scorePerseusItemTesting(
+                    question,
+                    renderer.getUserInputMap(),
+                );
 
                 // Assert
-                expect(renderer).toHaveBeenAnsweredIncorrectly();
+                expect(score).toHaveBeenAnsweredIncorrectly();
             });
         },
     );
@@ -180,8 +193,12 @@ describe("interactive-graph widget", function () {
                 .withNoInteractiveFigure()
                 .build();
             const {renderer} = renderQuestion(question, blankOptions);
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
 
-            expect(renderer).toHaveBeenAnsweredCorrectly({
+            expect(score).toHaveBeenAnsweredCorrectly({
                 shouldHavePoints: false,
             });
         });
@@ -247,10 +264,13 @@ describe("a mafs graph", () => {
                 const {renderer} = renderQuestion(question, apiOptions);
 
                 // Act
-                // no action
+                const score = scorePerseusItemTesting(
+                    question,
+                    renderer.getUserInputMap(),
+                );
 
                 // Assert
-                expect(renderer).toHaveInvalidInput();
+                expect(score).toHaveInvalidInput();
             });
         },
     );
@@ -277,7 +297,11 @@ describe("a mafs graph", () => {
                 // Assert
                 await waitFor(
                     () => {
-                        expect(renderer).toHaveBeenAnsweredIncorrectly();
+                        const score = scorePerseusItemTesting(
+                            question,
+                            renderer.getUserInputMap(),
+                        );
+                        expect(score).toHaveBeenAnsweredIncorrectly();
                     },
                     {timeout: 5000},
                 );
@@ -297,7 +321,11 @@ describe("a mafs graph", () => {
                 // Assert
                 await waitFor(
                     () => {
-                        expect(renderer).toHaveBeenAnsweredCorrectly();
+                        const score = scorePerseusItemTesting(
+                            question,
+                            renderer.getUserInputMap(),
+                        );
+                        expect(score).toHaveBeenAnsweredCorrectly();
                     },
                     {timeout: 5000},
                 );
@@ -317,7 +345,11 @@ describe("a mafs graph", () => {
                 // Assert
                 await waitFor(
                     () => {
-                        expect(renderer).toHaveInvalidInput();
+                        const score = scorePerseusItemTesting(
+                            question,
+                            renderer.getUserInputMap(),
+                        );
+                        expect(score).toHaveInvalidInput();
                     },
                     {timeout: 5000},
                 );
