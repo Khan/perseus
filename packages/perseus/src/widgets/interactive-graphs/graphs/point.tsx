@@ -19,6 +19,7 @@ import type {
     Dispatch,
     InteractiveGraphElementSuite,
 } from "../types";
+import {ariaLiveAnnounce} from "../ariaLiveAnnounce";
 
 export function renderPointGraph(
     state: PointGraphState,
@@ -42,7 +43,14 @@ function PointGraph(props: PointGraphProps) {
 }
 
 function LimitedPointGraph(props: PointGraphProps) {
-    const {dispatch} = props;
+    const {dispatch, graphState} = props;
+    const {announcement} = graphState;
+
+    React.useEffect(() => {
+        if (announcement) {
+            ariaLiveAnnounce(announcement.text, {level: "assertive"})
+        }
+    }, [announcement])
 
     return (
         <>
