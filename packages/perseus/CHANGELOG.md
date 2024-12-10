@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 46.0.1
+
+### Patch Changes
+
+-   [#1966](https://github.com/Khan/perseus/pull/1966) [`e22a931d9`](https://github.com/Khan/perseus/commit/e22a931d987291258b66f2c80db3536970a4555d) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Numeric Input] - BUGFIX - Adjust color contrast of tooltip text
+
 ## 46.0.0
 
 ### Major Changes
