@@ -1054,13 +1054,24 @@ export type PerseusLabelImageWidgetOptions = {
     // The width of the image
     imageWidth: number;
     // A list of markers to display on the image
-    markers: ReadonlyArray<LabelImageMarker & LabelImageMarkerScoringData>;
+    markers: ReadonlyArray<PerseusLabelImageMarker>;
     // Do not display answer choices in instructions
     hideChoicesFromInstructions: boolean;
     // Allow multiple answers per marker
     multipleAnswers: boolean;
     // Always false.  Not used for this widget
     static: boolean;
+};
+
+export type PerseusLabelImageMarker = {
+    // A list of correct answers for this marker.  Often only one but can have multiple
+    answers: ReadonlyArray<string>;
+    // Translatable Text; The text to show for the marker. Not displayed directly to the user
+    label: string;
+    // X Coordiate location of the marker on the image
+    x: number;
+    // Y Coordinate location of the marker on the image
+    y: number;
 };
 
 export type PerseusMatcherWidgetOptions = {
