@@ -25,6 +25,8 @@ export function renderPointGraph(
     state: PointGraphState,
     dispatch: Dispatch,
 ): InteractiveGraphElementSuite {
+    // this is also needed here otherwise announcement is undefined
+    state.announcement = {text: ""};
     return {
         graph: <PointGraph graphState={state} dispatch={dispatch} />,
         interactiveElementsDescription: <PointGraphDescription state={state} />,
@@ -47,6 +49,7 @@ function LimitedPointGraph(props: PointGraphProps) {
     const {announcement} = graphState;
 
     // Announcement would get updated here
+    graphState.announcement = {text: "I'm an announcement"};
 
     React.useEffect(() => {
         if (announcement && announcement.text) {
