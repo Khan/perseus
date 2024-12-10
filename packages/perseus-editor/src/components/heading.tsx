@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
         marginInline: -10,
         backgroundColor: color.offBlack8,
         padding: spacing.xSmall_8,
+        width: "calc(100% + 20px)",
     },
     heading: {
         flexDirection: "row",
