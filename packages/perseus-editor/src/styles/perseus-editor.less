@@ -575,23 +575,62 @@
     }
 
     .input-answer-editor-value-container {
-        border: @widgetBorder;
-        border-radius: @widgetBorderRadius;
-        float: left;
-        .size(100px, 53px);
-        overflow: hidden;
-        position: relative;
+        display: block;
+        font-family: Lato, "Noto Sans", sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
 
-        .numeric-input-value {
-            border: 0;
-            font-size: 13px;
-            outline-offset: -3px;
-            width: 100%;
+        input {
+            background: #ffffff;
+            border: 1px solid rgba(33, 36, 44, 0.50);
+            border-radius: 4px;
+            color: #21242c;
+            font-family: Lato, "Noto Sans", sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 20px;
+            outline-offset: -2px;
         }
 
-        &.with-max-error {
+        .numeric-input-value {
+            margin-left: 8px;
+            width: 6em;
+        }
+
+        .max-error-input-value {
+            display: none;
+            width: 3em;
+        }
+
+        .max-error-plusmn {
+            cursor: default;
+            display: none;
+            height: 32px;
+            padding-top: 4px;
+            text-align: center;
+            vertical-align: top;
+            width: 1em;
+        }
+
+        &.with-max-error, &:focus-within {
             .numeric-input-value {
-                width: 60%;
+                border-right: none;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            .max-error-input-value {
+                border-left: none;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                display: inline-block;
+            }
+
+            .max-error-plusmn {
+                border-top: 1px solid rgba(33, 36, 44, 0.50);
+                border-bottom: 1px solid rgba(33, 36, 44, 0.50);
+                display: inline-block;
             }
         }
 

@@ -9,6 +9,7 @@ import {
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
+import Pill from "@khanacademy/wonder-blocks-pill";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
@@ -150,7 +151,7 @@ class NumericInputEditor extends React.Component<Props, State> {
         return () => {
             const toggleName = `show${accordionName}`;
             const newState = {...this.state};
-            newState[toggleName] === !newState[toggleName];
+            newState[toggleName] = !newState[toggleName];
             this.setState(newState);
         };
     };
@@ -353,15 +354,36 @@ class NumericInputEditor extends React.Component<Props, State> {
         const inputSize = (
             <div className="perseus-widget-row">
                 <label>Width: </label>
-                <ButtonGroup
-                    value={this.props.size}
-                    allowEmpty={false}
-                    buttons={[
-                        {value: "normal", content: "Normal (80px)"},
-                        {value: "small", content: "Small (40px)"},
-                    ]}
-                    onChange={this.change("size")}
-                />
+                <Pill
+                    kind={
+                        this.props.size === "normal" ? "accent" : "transparent"
+                    }
+                    size="medium"
+                    role="radio"
+                    style={{
+                        marginRight: "8px",
+                    }}
+                    onClick={() => {
+                        this.change("size")("normal");
+                    }}
+                >
+                    Normal (80px)
+                </Pill>
+                <Pill
+                    kind={
+                        this.props.size === "small" ? "accent" : "transparent"
+                    }
+                    size="medium"
+                    role="radio"
+                    style={{
+                        marginRight: "8px",
+                    }}
+                    onClick={() => {
+                        this.change("size")("small");
+                    }}
+                >
+                    Small (40px)
+                </Pill>
                 <InfoTip>
                     <p>
                         Use size &quot;Normal&quot; for all text boxes, unless
@@ -374,51 +396,88 @@ class NumericInputEditor extends React.Component<Props, State> {
 
         const rightAlign = (
             <div className="perseus-widget-row">
-                <Checkbox
-                    label="Right alignment"
-                    checked={this.props.rightAlign}
-                    onChange={(value) => {
-                        this.props.onChange({rightAlign: value});
+                <label>Alignment: </label>
+                <Pill
+                    kind={this.props.rightAlign ? "transparent" : "accent"}
+                    size="medium"
+                    role="radio"
+                    style={{
+                        marginRight: "8px",
                     }}
-                />
+                    onClick={() => {
+                        this.props.onChange({rightAlign: false});
+                    }}
+                >
+                    Left
+                </Pill>
+                <Pill
+                    kind={this.props.rightAlign ? "accent" : "transparent"}
+                    size="medium"
+                    role="radio"
+                    style={{
+                        marginRight: "8px",
+                    }}
+                    onClick={() => {
+                        this.props.onChange({rightAlign: true});
+                    }}
+                >
+                    Right
+                </Pill>
             </div>
         );
 
         const labelText = (
             <div className="perseus-widget-row">
-                <label>
-                    Aria label
-                    <TextInput
-                        value={this.props.labelText}
-                        onChange={this.change("labelText")}
-                    />
-                </label>
+                <label>Aria label</label>
                 <InfoTip>
                     <p>
                         Text to describe this input. This will be shown to users
                         using screenreaders.
                     </p>
                 </InfoTip>
+                <TextInput
+                    labelText="aria label"
+                    value={this.props.labelText}
+                    onChange={this.change("labelText")}
+                />
             </div>
         );
 
         const coefficientCheck = (
-            <div>
-                <div className="perseus-widget-row">
-                    <Checkbox
-                        label="Coefficient"
-                        checked={this.props.coefficient}
-                        onChange={(value) => {
-                            this.props.onChange({coefficient: value});
-                        }}
-                    />
-                    <InfoTip>
-                        <p>
-                            A coefficient style number allows the student to use
-                            - for -1 and an empty string to mean 1.
-                        </p>
-                    </InfoTip>
-                </div>
+            <div className="perseus-widget-row">
+                <label>Number style: </label>
+                <Pill
+                    kind={this.props.coefficient ? "transparent" : "accent"}
+                    size="medium"
+                    role="radio"
+                    style={{
+                        marginRight: "8px",
+                    }}
+                    onClick={() => {
+                        this.props.onChange({coefficient: false});
+                    }}
+                >
+                    Standard
+                </Pill>
+                <Pill
+                    kind={this.props.coefficient ? "accent" : "transparent"}
+                    size="medium"
+                    role="radio"
+                    style={{
+                        marginRight: "8px",
+                    }}
+                    onClick={() => {
+                        this.props.onChange({coefficient: true});
+                    }}
+                >
+                    Coefficient
+                </Pill>
+                <InfoTip>
+                    <p>
+                        A coefficient style number allows the student to use -
+                        for -1 and an empty string to mean 1.
+                    </p>
+                </InfoTip>
             </div>
         );
 
@@ -475,13 +534,13 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 </div>
                             }
                         >
-                            <div className="ui-title">User input</div>
                             <div
                                 className={
                                     "input-answer-editor-value-container" +
                                     (answer.maxError ? " with-max-error" : "")
                                 }
                             >
+                                <label>User input:</label>
                                 <NumberInput
                                     value={answer.value}
                                     className="numeric-input-value"
@@ -529,61 +588,33 @@ class NumericInputEditor extends React.Component<Props, State> {
                                         });
                                     }}
                                 />
-                                {answer.strict && (
-                                    <div
-                                        className="is-strict-indicator"
-                                        title="strictly equivalent to"
-                                    >
-                                        &equiv;
-                                    </div>
-                                )}
-                                {answer.simplify !== "required" &&
-                                    answer.status === "correct" && (
-                                        <div
-                                            className={
-                                                "simplify-indicator " +
-                                                answer.simplify
-                                            }
-                                            title="accepts unsimplified answers"
-                                        >
-                                            &permil;
-                                        </div>
-                                    )}
-                                {answer.maxError ? (
-                                    <div className="max-error-container">
-                                        <div className="max-error-plusmn">
-                                            &plusmn;
-                                        </div>
-                                        <NumberInput
-                                            placeholder={0}
-                                            value={answers[i]["maxError"]}
-                                            format={_.last(
-                                                answer.answerForms || [],
-                                            )}
-                                            onChange={this.updateAnswer(
-                                                i,
-                                                "maxError",
-                                            )}
-                                        />
-                                    </div>
-                                ) : null}
-                                <div className="value-divider" />
-                                <a
-                                    href="#"
-                                    className={"answer-status " + answer.status}
-                                    onClick={(e) => {
-                                        // preventDefault ensures that href="#"
-                                        // doesn't scroll to the top of the page
-                                        e.preventDefault();
-                                        this.onStatusChange(i);
-                                    }}
-                                    onKeyDown={(e) =>
-                                        this.onSpace(e, this.onStatusChange)
-                                    }
-                                >
-                                    {answer.status}
-                                </a>
+                                <span className="max-error-plusmn">
+                                    &plusmn;
+                                </span>
+                                <NumberInput
+                                    className="max-error-input-value"
+                                    placeholder={0}
+                                    value={answers[i]["maxError"]}
+                                    format={_.last(answer.answerForms || [])}
+                                    onChange={this.updateAnswer(i, "maxError")}
+                                />
                             </div>
+                            <div className="value-divider" />
+                            <a
+                                href="#"
+                                className={"answer-status " + answer.status}
+                                onClick={(e) => {
+                                    // preventDefault ensures that href="#"
+                                    // doesn't scroll to the top of the page
+                                    e.preventDefault();
+                                    this.onStatusChange(i);
+                                }}
+                                onKeyDown={(e) =>
+                                    this.onSpace(e, this.onStatusChange)
+                                }
+                            >
+                                {answer.status}
+                            </a>
                             <div className="input-answer-editor-message">
                                 <div className="msg-title">
                                     Message shown to user on attempt
