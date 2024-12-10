@@ -79,7 +79,7 @@ const LockedEllipseSettings = (props: Props) => {
             str += `Ellipse${visiblelabel} with x radius ${radius[0]} and y radius ${radius[1]}`;
         }
 
-        str += `, centered at (${center[0]}, ${center[1]})`;
+        str += `, centered at ${center[0]} comma ${center[1]}`;
 
         if (!isCircle && angle !== 0) {
             str += `, rotated by ${radianToDegree(angle)} degrees`;
