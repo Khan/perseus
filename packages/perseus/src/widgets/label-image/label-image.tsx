@@ -325,7 +325,7 @@ export class LabelImage
         const {onChange} = this.props;
 
         const updatedMarkers = markers.map((marker) => {
-            const score = scoreMarker(marker);
+            const score = scoreMarker(marker.selected, marker.answers);
 
             return {
                 ...marker,
@@ -480,7 +480,7 @@ export class LabelImage
                 }[markerPosition];
             }
 
-            const score = scoreMarker(marker);
+            const score = scoreMarker(marker.selected, marker.answers);
             // Once the question is answered, show markers
             // with correct answers, otherwise passthrough
             // the correctness state.

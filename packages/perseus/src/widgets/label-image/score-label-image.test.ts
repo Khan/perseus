@@ -24,9 +24,7 @@ const emptyScoringData = {
 
 describe("scoreMarker", function () {
     it("should score correct for empty marker with no user answers", function () {
-        const score = scoreMarker({
-            ...emptyMarker,
-        });
+        const score = scoreMarker([], []);
 
         expect(score).toEqual({
             hasAnswers: false,
@@ -35,10 +33,7 @@ describe("scoreMarker", function () {
     });
 
     it("should score incorrect for empty marker with user answer", function () {
-        const score = scoreMarker({
-            ...emptyMarker,
-            selected: ["Fiat"],
-        });
+        const score = scoreMarker(["Fiat"], []);
 
         expect(score).toEqual({
             hasAnswers: true,
@@ -47,10 +42,7 @@ describe("scoreMarker", function () {
     });
 
     it("should score incorrect for no user answers", function () {
-        const score = scoreMarker({
-            ...emptyMarker,
-            answers: ["Lamborghini", "Fiat", "Ferrari"],
-        });
+        const score = scoreMarker([], ["Lamborghini", "Fiat", "Ferrari"]);
 
         expect(score).toEqual({
             hasAnswers: false,
@@ -59,11 +51,10 @@ describe("scoreMarker", function () {
     });
 
     it("should score incorrect for wrong user answers", function () {
-        const score = scoreMarker({
-            ...emptyMarker,
-            answers: ["Lamborghini", "Fiat", "Ferrari"],
-            selected: ["Fiat", "Ferrari"],
-        });
+        const score = scoreMarker(
+            ["Fiat", "Ferrari"],
+            ["Lamborghini", "Fiat", "Ferrari"],
+        );
 
         expect(score).toEqual({
             hasAnswers: true,
@@ -72,11 +63,10 @@ describe("scoreMarker", function () {
     });
 
     it("should score correct for user answers", function () {
-        const score = scoreMarker({
-            ...emptyMarker,
-            answers: ["Lamborghini", "Fiat", "Ferrari"],
-            selected: ["Lamborghini", "Fiat", "Ferrari"],
-        });
+        const score = scoreMarker(
+            ["Lamborghini", "Fiat", "Ferrari"],
+            ["Lamborghini", "Fiat", "Ferrari"],
+        );
 
         expect(score).toEqual({
             hasAnswers: true,

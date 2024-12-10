@@ -1,4 +1,7 @@
-import type {LabelImageFullMarker} from "./types";
+import type {
+    LabelImageMarkerScoringData,
+    LabelImageMarkerUserInput,
+} from "./types";
 import type {PerseusScore} from "../../types";
 import type {
     PerseusLabelImageScoringData,
@@ -14,28 +17,26 @@ type InteractiveMarkerScore = {
 };
 
 export function scoreMarker(
-    marker: LabelImageFullMarker,
+    userInput: LabelImageMarkerUserInput["selected"],
+    scoringData: LabelImageMarkerScoringData["answers"],
 ): InteractiveMarkerScore {
     const score = {
         hasAnswers: false,
         isCorrect: false,
     };
 
-    if (marker.selected && marker.selected.length > 0) {
+    if (userInput && userInput.length > 0) {
         score.hasAnswers = true;
     }
 
-    if (marker.answers.length > 0) {
-        if (
-            marker.selected &&
-            marker.selected.length === marker.answers.length
-        ) {
+    if (scoringData.length > 0) {
+        if (userInput && userInput.length === scoringData.length) {
             // All correct answers are selected by the user.
-            score.isCorrect = marker.selected.every((choice) =>
-                marker.answers.includes(choice),
+            score.isCorrect = userInput.every((choice) =>
+                scoringData.includes(choice),
             );
         }
-    } else if (!marker.selected || marker.selected.length === 0) {
+    } else if (!userInput || userInput.length === 0) {
         // Correct as no answers should be selected by the user.
         score.isCorrect = true;
     }
@@ -49,16 +50,12 @@ function scoreLabelImage(
 ): PerseusScore {
     let numAnswered = 0;
     let numCorrect = 0;
-    const combinedData = userInput.markers.map((marker, index) => {
-        return {
-            ...marker,
-            answers: scoringData.markers[index].answers,
-        };
-    });
-    const allMarkerData = {markers: combinedData};
 
-    for (const marker of allMarkerData.markers) {
-        const score = scoreMarker(marker);
+    for (let i = 0; i < userInput.markers.length; i++) {
+        const score = scoreMarker(
+            userInput.markers[i].selected,
+            scoringData.markers[i].answers,
+        );
 
         if (score.hasAnswers) {
             numAnswered++;
