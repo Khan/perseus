@@ -6,6 +6,7 @@ import {
     dropdownWithVisibleLabel,
     inlineDropdownWithVisibleLabel,
     question1,
+    question2,
 } from "./dropdown.testdata";
 
 export default {
@@ -16,6 +17,10 @@ type StoryArgs = Record<any, any>;
 
 export const Question1 = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={question1} />;
+};
+
+export const Question2 = (args: StoryArgs): React.ReactElement => {
+    return <RendererWithDebugUI question={question2} />;
 };
 
 export const DropdownWithVisibleLabel = (
