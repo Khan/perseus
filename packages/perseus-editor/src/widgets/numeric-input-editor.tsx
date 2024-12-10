@@ -150,7 +150,7 @@ class NumericInputEditor extends React.Component<Props, State> {
         return () => {
             const toggleName = `show${accordionName}`;
             const newState = {...this.state};
-            newState[toggleName] === !newState[toggleName];
+            newState[toggleName] = !newState[toggleName];
             this.setState(newState);
         };
     };
