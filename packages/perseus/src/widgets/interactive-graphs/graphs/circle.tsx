@@ -136,6 +136,9 @@ function MovableCircle(props: {
 
     return (
         <g
+            aria-label={ariaLabel}
+            aria-describedby={ariaDescribedBy}
+            aria-live="polite"
             ref={draggableRef}
             role="button"
             tabIndex={disableKeyboardInteraction ? -1 : 0}
@@ -150,9 +153,6 @@ function MovableCircle(props: {
             />
             <ellipse
                 id={id}
-                aria-label={ariaLabel}
-                aria-describedby={ariaDescribedBy}
-                aria-live="polite"
                 className="circle"
                 cx={centerPx[X]}
                 cy={centerPx[Y]}
