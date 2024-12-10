@@ -27,11 +27,7 @@ import {HideAnswersToggle} from "./hide-answers-toggle";
 import Marker from "./marker";
 import scoreLabelImage, {scoreMarker} from "./score-label-image";
 
-import type {
-    LabelImageFullMarker,
-    LabelImageMarker,
-    LabelImageMarkerUserInput,
-} from "./types";
+import type {LabelImageFullMarker} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusLabelImageWidgetOptions} from "../../perseus-types";
