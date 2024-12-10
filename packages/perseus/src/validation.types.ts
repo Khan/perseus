@@ -44,8 +44,9 @@ import type {
     PerseusGraphCorrectType,
 } from "./perseus-types";
 import type {
-    InteractiveMarkerType,
-    MarkerAnswers,
+    LabelImageMarker,
+    LabelImageMarkerScoringData,
+    LabelImageMarkerUserInput,
 } from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
 
@@ -142,11 +143,11 @@ export type PerseusInteractiveGraphRubric = {
 export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
 export type PerseusLabelImageScoringData = {
-    markers: ReadonlyArray<MarkerAnswers>;
+    markers: ReadonlyArray<LabelImageMarker & LabelImageMarkerScoringData>;
 };
 
 export type PerseusLabelImageUserInput = {
-    markers: ReadonlyArray<Omit<InteractiveMarkerType, "answers">>;
+    markers: ReadonlyArray<LabelImageMarker & LabelImageMarkerUserInput>;
 };
 
 export type PerseusMatcherRubric = PerseusMatcherWidgetOptions;

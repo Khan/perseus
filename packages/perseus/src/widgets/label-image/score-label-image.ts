@@ -1,4 +1,4 @@
-import type {InteractiveMarkerType} from "./types";
+import type {LabelImageFullMarker} from "./types";
 import type {PerseusScore} from "../../types";
 import type {
     PerseusLabelImageScoringData,
@@ -14,7 +14,7 @@ type InteractiveMarkerScore = {
 };
 
 export function scoreMarker(
-    marker: InteractiveMarkerType,
+    marker: LabelImageFullMarker,
 ): InteractiveMarkerScore {
     const score = {
         hasAnswers: false,

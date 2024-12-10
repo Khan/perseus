@@ -3,7 +3,10 @@ import * as React from "react";
 
 import QuestionMarkers from "../question-markers";
 
-import type {MarkerAnswers} from "@khanacademy/perseus";
+import type {
+    LabelImageMarker,
+    LabelImageMarkerScoringData,
+} from "@khanacademy/perseus";
 
 type StoryArgs = Record<any, any>;
 
@@ -31,7 +34,7 @@ const Wrapper = (props) => (
 class WithState extends React.Component<
     Record<any, any>,
     {
-        markers: ReadonlyArray<MarkerAnswers>;
+        markers: ReadonlyArray<LabelImageMarker & LabelImageMarkerScoringData>;
     }
 > {
     state = {

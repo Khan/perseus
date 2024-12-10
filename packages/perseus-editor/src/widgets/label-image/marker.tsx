@@ -14,16 +14,22 @@ import Option, {OptionGroup} from "../../components/dropdown-option";
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
 import {gray17, gray85, gray98} from "../../styles/global-colors";
 
-import type {MarkerAnswers} from "@khanacademy/perseus";
+import type {
+    LabelImageMarker,
+    LabelImageMarkerScoringData,
+} from "@khanacademy/perseus";
 
-type Props = MarkerAnswers & {
-    // The list of possible answer choices.
-    choices: ReadonlyArray<string>;
-    // Callback for when any of the marker props are changed.
-    onChange: (marker: MarkerAnswers) => void;
-    // Callback to remove marker from the question image.
-    onRemove: () => void;
-};
+type Props = LabelImageMarker &
+    LabelImageMarkerScoringData & {
+        // The list of possible answer choices.
+        choices: ReadonlyArray<string>;
+        // Callback for when any of the marker props are changed.
+        onChange: (
+            marker: LabelImageMarker & LabelImageMarkerScoringData,
+        ) => void;
+        // Callback to remove marker from the question image.
+        onRemove: () => void;
+    };
 
 type State = {
     // Whether answer choices dropdown is shown, controlled by the user clicking
