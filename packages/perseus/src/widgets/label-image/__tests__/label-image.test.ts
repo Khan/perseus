@@ -709,4 +709,40 @@ describe("LabelImage", function () {
             });
         });
     });
+
+    describe("getUserInput", () => {
+        it("doesn't include answer in getUserInput", async () => {
+            // render component
+            const {renderer} = renderQuestion(textQuestion);
+
+            const userInput = renderer.getUserInputMap();
+
+            expect(userInput).toEqual({
+                "label-image 1": {
+                    markers: [
+                        {
+                            label: "The fourth unlabeled bar line.",
+                            x: 25,
+                            y: 17.7,
+                        },
+                        {
+                            label: "The third unlabeled bar line.",
+                            x: 25,
+                            y: 35.3,
+                        },
+                        {
+                            label: "The second unlabeled bar line.",
+                            x: 25,
+                            y: 53,
+                        },
+                        {
+                            label: "The first unlabeled bar line.",
+                            x: 25,
+                            y: 70.3,
+                        },
+                    ],
+                },
+            });
+        });
+    });
 });
