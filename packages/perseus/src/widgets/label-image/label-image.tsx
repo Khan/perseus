@@ -27,7 +27,11 @@ import {HideAnswersToggle} from "./hide-answers-toggle";
 import Marker from "./marker";
 import scoreLabelImage, {scoreMarker} from "./score-label-image";
 
-import type {LabelImageFullMarker} from "./types";
+import type {
+    LabelImageFullMarker,
+    LabelImageMarker,
+    LabelImageMarkerUserInput,
+} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusLabelImageWidgetOptions} from "../../perseus-types";
@@ -309,7 +313,17 @@ export class LabelImage
 
     getUserInput(): PerseusLabelImageUserInput {
         const {markers} = this.props;
-        return {markers};
+        const copyMarkers = [...markers];
+        const markersWithoutAnswers = copyMarkers.map((marker) => {
+            const tempMarker = {};
+            for (const key in marker) {
+                if (key !== "answers") {
+                    tempMarker[key] = marker[key];
+                }
+            }
+            return tempMarker as PerseusLabelImageUserInput["markers"][number];
+        });
+        return {markers: markersWithoutAnswers};
     }
 
     getPromptJSON(): LabelImagePromptJSON {
