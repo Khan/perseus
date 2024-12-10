@@ -3,6 +3,7 @@ import * as React from "react";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 
 import {
+    dropdownWithEmptyPlaceholder,
     dropdownWithVisibleLabel,
     inlineDropdownWithVisibleLabel,
     question1,
@@ -28,4 +29,10 @@ export const InlineDropdownWithVisibleLabel = (
     args: StoryArgs,
 ): React.ReactElement => {
     return <RendererWithDebugUI question={inlineDropdownWithVisibleLabel} />;
+};
+
+export const DropdownWithEmptyPlaceholder = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return <RendererWithDebugUI question={dropdownWithEmptyPlaceholder} />;
 };
