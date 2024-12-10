@@ -608,7 +608,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
+                    "Polygon with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -644,7 +644,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon spoken A with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
+                    "Polygon spoken A with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -684,7 +684,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon spoken A, spoken B with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
+                    "Polygon spoken A, spoken B with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
             });
         });
     });

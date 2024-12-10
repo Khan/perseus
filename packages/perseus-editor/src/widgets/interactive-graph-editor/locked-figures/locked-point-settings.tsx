@@ -119,7 +119,7 @@ const LockedPointSettings = (props: Props) => {
     async function getPrepopulatedAriaLabel() {
         const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
-        let str = `Point${visiblelabel} at (${coord[0]}, ${coord[1]})`;
+        let str = `Point${visiblelabel} at ${coord[0]} comma ${coord[1]}`;
 
         const pointAppearance =
             generateLockedFigureAppearanceDescription(pointColor);
