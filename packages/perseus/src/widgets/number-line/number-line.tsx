@@ -15,6 +15,7 @@ import KhanMath from "../../util/math";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
 import scoreNumberLine from "./score-number-line";
+import validateNumberLine from "./validate-number-line";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
@@ -808,4 +809,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumberLineUserInput'.
     scorer: scoreNumberLine,
+    validator: validateNumberLine,
 } satisfies WidgetExports<typeof NumberLine>;
