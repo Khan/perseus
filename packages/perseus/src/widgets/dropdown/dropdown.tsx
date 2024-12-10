@@ -82,6 +82,7 @@ class Dropdown extends React.Component<Props> implements Widget {
                         inline
                     />
                 }
+                labelAsText={this.props.placeholder}
             />,
             ...this.props.choices.map((choice, i) => (
                 <OptionItem
@@ -94,6 +95,7 @@ class Dropdown extends React.Component<Props> implements Widget {
                             inline
                         />
                     }
+                    labelAsText={choice}
                 />
             )),
         ];
