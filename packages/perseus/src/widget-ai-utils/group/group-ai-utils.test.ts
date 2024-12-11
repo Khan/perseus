@@ -6,6 +6,16 @@ import {question1} from "./group-ai-utils.testdata";
 import type {RendererPromptJSON} from "../prompt-types";
 
 describe("Group AI utils", () => {
+    beforeEach(() => {
+        // Mocked for loading graphie in svg-image
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                text: () => "",
+                ok: true,
+            }),
+        ) as jest.Mock;
+    });
+
     it("should return a GroupPromptJSON with default values when rendererJSON is undefined", () => {
         const result = getPromptJSON(undefined);
 
