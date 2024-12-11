@@ -7,6 +7,8 @@ export const typicalCase = {
         range: null,
         labels: [],
     },
+    expectedLocalizedUrl:
+        "https://ka-perseus-graphie.s3.amazonaws.com/es/ccefe63aa1bd05f1d11123f72790a49378d2e42b-data.json",
     url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/ccefe63aa1bd05f1d11123f72790a49378d2e42b",
 };
 // These test cases were taken from a graphies-that-cant-unmarshal.txt report commented on LEMS-2524

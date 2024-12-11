@@ -1,4 +1,7 @@
-import {parseDataFromJSONP} from "./graphie-utils";
+import {Dependencies} from "..";
+import {testDependencies} from "../../../../testing/test-dependencies";
+
+import {parseDataFromJSONP, getLocalizedDataUrl} from "./graphie-utils";
 import {typicalCase, edgeCases} from "./graphie-utils.testdata";
 
 describe("graphie utils", () => {
@@ -39,5 +42,18 @@ describe("graphie utils", () => {
             // Assert
             expect(data).toEqual(edgeCase.expectedData);
         });
+    });
+
+    it("should craft localized urls", () => {
+        // Arrange
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            kaLocale: "es",
+        });
+
+        // Act
+        const url = getLocalizedDataUrl(typicalCase.url);
+        // Assert
+        expect(url).toEqual(typicalCase.expectedLocalizedUrl);
     });
 });
