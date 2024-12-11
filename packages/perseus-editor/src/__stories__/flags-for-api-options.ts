@@ -13,6 +13,8 @@ export const flags = {
         ray: true,
         point: true,
         none: true,
+        "unlimited-point": true,
+        "unlimited-polygon": true,
 
         // Locked figures flags
         "interactive-graph-locked-features-labels": true,

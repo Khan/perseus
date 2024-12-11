@@ -493,6 +493,23 @@ function doMovePoint(
                 return state;
             }
 
+            // If the last point is being moved to the same position as
+            // the first point, close the polygon.
+            if (
+                !state.closedPolygon && // not already close
+                action.index === newCoords.length - 1 && // last point
+                state.coords[0][0] === newValue[0] && // same x as first point
+                state.coords[0][1] === newValue[1] // same y as first point
+            ) {
+                // Remove the last point so it isn't a duplicate of the
+                // first point int he polygon representation. This is
+                // consistent with the cases in which the "Close shape"
+                // button is clicked or the first point is clicked to
+                // close the polygon.
+                newCoords.pop();
+                state.closedPolygon = true;
+            }
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
