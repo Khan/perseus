@@ -72,7 +72,7 @@ const LockedVectorSettings = (props: Props) => {
     async function getPrepopulatedAriaLabel() {
         const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
-        let str = `Vector${visiblelabel} from (${tail[0]}, ${tail[1]}) to (${tip[0]}, ${tip[1]})`;
+        let str = `Vector${visiblelabel} from ${tail[0]} comma ${tail[1]} to ${tip[0]} comma ${tip[1]}`;
 
         const vectorAppearance =
             generateLockedFigureAppearanceDescription(lineColor);

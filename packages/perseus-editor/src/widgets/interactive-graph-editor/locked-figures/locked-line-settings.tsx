@@ -83,7 +83,7 @@ const LockedLineSettings = (props: Props) => {
         const point1VisibleLabel = await joinLabelsAsSpokenMath(point1.labels);
         const point2VisibleLabel = await joinLabelsAsSpokenMath(point2.labels);
 
-        let str = `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at (${point1.coord[0]}, ${point1.coord[1]}) to point${point2VisibleLabel} at (${point2.coord[0]}, ${point2.coord[1]})`;
+        let str = `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at ${point1.coord[0]} comma ${point1.coord[1]} to point${point2VisibleLabel} at ${point2.coord[0]} comma ${point2.coord[1]}`;
 
         const lineAppearance = generateLockedFigureAppearanceDescription(
             lineColor,
