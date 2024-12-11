@@ -1,5 +1,25 @@
 # @khanacademy/perseus-editor
 
+## 16.0.0
+
+### Major Changes
+
+-   [#1955](https://github.com/Khan/perseus/pull/1955) [`e7b4db0bf`](https://github.com/Khan/perseus/commit/e7b4db0bf193241a36508804dd6e58c729f0a3db) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove support for MultiRenderer
+
+### Patch Changes
+
+-   Updated dependencies [[`e7b4db0bf`](https://github.com/Khan/perseus/commit/e7b4db0bf193241a36508804dd6e58c729f0a3db)]:
+    -   @khanacademy/perseus@47.0.0
+
+## 15.1.4
+
+### Patch Changes
+
+-   [#1976](https://github.com/Khan/perseus/pull/1976) [`2ad163b5e`](https://github.com/Khan/perseus/commit/2ad163b5ea20d40fb9f0edf30e03cd54ecf9bf31) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figures Aria] Update the auto-generated text to spell out commas
+
+-   Updated dependencies [[`e22a931d9`](https://github.com/Khan/perseus/commit/e22a931d987291258b66f2c80db3536970a4555d)]:
+    -   @khanacademy/perseus@46.0.1
+
 ## 15.1.3
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 47.0.0
+
+### Major Changes
+
+-   [#1955](https://github.com/Khan/perseus/pull/1955) [`e7b4db0bf`](https://github.com/Khan/perseus/commit/e7b4db0bf193241a36508804dd6e58c729f0a3db) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove support for MultiRenderer
+
+## 46.0.1
+
+### Patch Changes
+
+-   [#1966](https://github.com/Khan/perseus/pull/1966) [`e22a931d9`](https://github.com/Khan/perseus/commit/e22a931d987291258b66f2c80db3536970a4555d) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Numeric Input] - BUGFIX - Adjust color contrast of tooltip text
+
 ## 46.0.0
 
 ### Major Changes

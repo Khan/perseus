@@ -229,39 +229,11 @@ export type {
     PerseusWidget,
     PerseusWidgetsMap,
     PerseusWidgetTypes,
-    MultiItem,
     WidgetOptions,
 } from "./perseus-types";
 export type {UserInputMap} from "./validation.types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";
-
-/**
- * Multi-items
- */
-export {default as MultiItems} from "./multi-items";
-export {buildEmptyItemTreeForShape, itemToTree} from "./multi-items/items";
-export {default as shapes} from "./multi-items/shapes";
-export {buildMapper} from "./multi-items/trees";
-
-export type {
-    ContentNode,
-    HintNode,
-    Item,
-    ItemTree,
-    ItemObjectNode,
-    ItemArrayNode,
-    TagsNode,
-} from "./multi-items/item-types";
-export type {
-    Shape,
-    ArrayShape,
-    ObjectShape,
-    ContentShape,
-    HintShape,
-    TagsShape,
-} from "./multi-items/shape-types";
-export type {Path} from "./multi-items/trees";
 export type {
     RendererPromptJSON,
     WidgetPromptJSON,
