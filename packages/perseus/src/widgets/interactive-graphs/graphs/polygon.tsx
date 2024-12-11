@@ -58,7 +58,7 @@ const PolygonGraph = (props: Props) => {
     const polygonRef = React.useRef<SVGPolygonElement>(null);
     // Ref to manage dynamic focus for the points in Unlimited Polygon
     const pointsRef = React.useRef<Array<SVGElement | null>>([]);
-    // Ref to manage the last move tim for a Limited Polygon.
+    // Ref to manage the last move time for a Limited Polygon.
     const lastMoveTimeRef = React.useRef<number>(0);
 
     // Dimensions to build the graph overlay for Unlimited Polgyon.
