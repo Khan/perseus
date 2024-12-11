@@ -156,6 +156,14 @@ export {getClockwiseAngle} from "./widgets/interactive-graphs/math";
 
 export {makeSafeUrl} from "./widgets/phet-simulation";
 
+// These exports are to support shared functionality between Perseus and Graphie2000
+export {parseDataFromJSONP} from "./util/graphie-utils";
+export type {
+    GraphieData,
+    GraphieLabel,
+    GraphieRange,
+} from "./util/graphie-utils";
+
 /**
  * Mixins
  */
