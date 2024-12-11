@@ -186,9 +186,16 @@ export class GradedGroup
 
     _checkAnswer: () => void = () => {
         this.rendererRef.current?.showRationalesForCurrentlySelectedChoices();
-        const score: PerseusScore = this.rendererRef.current?.score() || {
-            type: "invalid",
-        };
+        // const score: PerseusScore = this.rendererRef.current?.score() || {
+        //     type: "invalid",
+        // };
+
+        const userInput = this.rendererRef.current?.getUserInputMap();
+        const score: PerseusScore = this.props.gradingCallback(
+            this.props.widgetId,
+            userInput,
+        );
+
         const {
             INVALID_MESSAGE_PREFIX,
             DEFAULT_INVALID_MESSAGE_1,
