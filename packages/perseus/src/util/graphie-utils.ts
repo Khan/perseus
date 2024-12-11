@@ -1,12 +1,11 @@
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
-import $ from "jquery";
-import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
 import {Log} from "../logging/log";
 import Util from "../util";
 
 import type {Coord} from "../interactive2/types";
+import type {CSSProperties} from "aphrodite";
 
 // For offline exercises in the mobile app, we download the graphie data
 // (svgs and localized data files) and serve them from the local file
@@ -15,6 +14,52 @@ import type {Coord} from "../interactive2/types";
 // they should have the `file://` protocol instead of `https://`.
 const svgLocalLabelsRegex = /^file\+graphie:/;
 const hashRegex = /\/([^/]+)$/;
+
+/**
+ * A Graphie axis range.
+ */
+export type GraphieRange = [number, number];
+
+/**
+ * A Graphie label.
+ */
+export type GraphieLabel = {
+    // The text of the label.
+    content: string;
+
+    // The direction of the label. A number indicates rotation angle.
+    alignment:
+        | number
+        | "center"
+        | "above"
+        | "above right"
+        | "right"
+        | "below right"
+        | "below"
+        | "below left"
+        | "left"
+        | "above left";
+
+    // The label position in the x, y Graphie axis range.
+    coordinates: GraphieRange;
+
+    // Additional label styling.
+    style: CSSProperties;
+
+    // Whether content is TeX.
+    typesetAsMath: boolean;
+};
+
+/**
+ * The Graphie data (labels, etc.)
+ */
+export type GraphieData = {
+    // The x, y axis range of the Graphie.
+    range: [GraphieRange, GraphieRange];
+
+    // The labels in the Graphie.
+    labels: Array<GraphieLabel>;
+};
 
 function getLocale() {
     const {JIPT, kaLocale} = getDependencies();
@@ -47,43 +92,32 @@ function getUrlHash(url: string) {
     return match && match[1];
 }
 
-// Write our own JSONP handler because all the other ones don't do things we
-// need.
-export const doJSONP = function (url: string, options) {
-    options = {
-        callbackName: "callback",
-        success: $.noop,
-        error: $.noop,
-        ...options,
-    };
+/**
+ * Parse JSONP for a web+graphie://... hash to extract Graphie data, or throw
+ * an error if invalid JSONP.
+ */
+export function parseDataFromJSONP(
+    graphieHash: string,
+    graphieJSONP: string,
+    errorCallback: (error?: any) => void,
+): GraphieData | null {
+    // The JSONP is expected to be in the form of `svgDataHASH(...)` or `svgOtherDataHASH(...)`
+    const match = graphieJSONP.match(
+        new RegExp(`^(?:svgData|svgOtherData)${graphieHash}\\((.+)\\);$`),
+    );
 
-    // Create the script
-    const script = document.createElement("script");
-    script.setAttribute("async", "");
-    script.setAttribute("src", url);
+    // It is also possible that the JSONP is simply a JSON object,
+    //  in which case we can parse it directly.
+    const jsonToParse = match ? match[1] : graphieJSONP;
 
-    // A cleanup function to run when we're done.
-    function cleanup() {
-        document.head && document.head.removeChild(script);
-        delete window[options.callbackName];
+    // Try to parse the JSONP, and if it fails, call the error callback
+    try {
+        return JSON.parse(jsonToParse);
+    } catch (error) {
+        errorCallback(error);
+        return null;
     }
-
-    // Add the global callback.
-    // @ts-expect-error - TS2740 - Type '() => void' is missing the following properties from type 'Window': clientInformation, closed, customElements, devicePixelRatio, and 206 more.
-    window[options.callbackName] = function (...args) {
-        cleanup();
-        options.success.apply(null, args);
-    };
-
-    // Add the error handler.
-    script.addEventListener("error", function (...args) {
-        cleanup();
-        options.error.apply(null, args);
-    });
-
-    // Insert the script to start the download.
-    document.head && document.head.appendChild(script);
-};
+}
 
 type CacheEntry = {
     labels: ReadonlyArray<any>;
@@ -141,24 +175,46 @@ export function loadGraphie(
 
         labelDataCache[hash] = cacheData;
 
-        const retrieveData = (
+        const retrieveData = async (
             url: string,
             errorCallback: (x?: any, status?: any, error?: any) => void,
         ) => {
-            doJSONP(url, {
-                callbackName: "svgData" + hash,
-                success: (data) => {
-                    const newCacheEntry = (labelDataCache[hash] = {
-                        ...labelDataCache[hash],
-                        loaded: true as const,
-                        data,
-                    });
+            const response = await fetch(url);
 
-                    _.each(newCacheEntry.dataCallbacks, (callback) => {
-                        callback(newCacheEntry.data, cacheData.localized);
-                    });
-                },
-                error: errorCallback,
+            if (!response.ok) {
+                errorCallback();
+                return;
+            }
+
+            const jsonp = await response.text();
+
+            const data = parseDataFromJSONP(hash, jsonp, (error) => {
+                Log.error(
+                    "Failed to parse JSONP for svg-image",
+                    Errors.Service,
+                    {
+                        cause: error,
+                        loggedMetadata: {
+                            dataUrl: Util.getDataUrl(url),
+                            jsonp,
+                        },
+                    },
+                );
+            });
+
+            // If the data is null, then we failed to parse the JSONP
+            if (!data) {
+                return;
+            }
+
+            const newCacheEntry = (labelDataCache[hash] = {
+                ...labelDataCache[hash],
+                loaded: true as const,
+                data,
+            });
+
+            newCacheEntry.dataCallbacks.forEach((callback) => {
+                callback(newCacheEntry.data, cacheData.localized);
             });
         };
 
