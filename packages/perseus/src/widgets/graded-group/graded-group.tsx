@@ -107,7 +107,7 @@ type State = {
     PerseusGradedGroupRubric
 > satisfies PropsFor<typeof GradedGroupWithDependencies>;
 
-const GradedGroupWithDependencies = React.forwardRef<
+export const GradedGroupWithDependencies = React.forwardRef<
     GradedGroup,
     Omit<PropsFor<typeof GradedGroup>, keyof ReturnType<typeof useDependencies>>
 >((props, ref) => {
@@ -125,10 +125,7 @@ const GradedGroupWithDependencies = React.forwardRef<
 // answer button below the rendered content. When clicked, the widget grades
 // the stuff inside and displays feedback about whether the inputted answer was
 // correct or not.
-export class GradedGroup
-    extends React.Component<Props, State>
-    implements Widget
-{
+class GradedGroup extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -186,11 +183,9 @@ export class GradedGroup
 
     _checkAnswer: () => void = () => {
         this.rendererRef.current?.showRationalesForCurrentlySelectedChoices();
-        // const score: PerseusScore = this.rendererRef.current?.score() || {
-        //     type: "invalid",
-        // };
 
         const userInput = this.rendererRef.current?.getUserInputMap();
+        console.log(this.props);
         const score: PerseusScore = this.props.gradingCallback(
             this.props.widgetId,
             userInput,

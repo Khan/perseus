@@ -18,7 +18,7 @@ import {
 } from "../../styles/constants";
 import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
-import {GradedGroup} from "../graded-group/graded-group";
+import {GradedGroupWithDependencies} from "../graded-group/graded-group";
 
 import type {
     PerseusGradedGroupSetWidgetOptions,
@@ -110,7 +110,7 @@ type State = {
 // are currently a little confusing.
 class GradedGroupSet extends React.Component<Props, State> implements Widget {
     // @ts-expect-error - TS2564 - Property '_childGroup' has no initializer and is not definitely assigned in the constructor.
-    _childGroup: GradedGroup;
+    _childGroup: GradedGroupWithDependencies;
 
     static defaultProps: DefaultProps = {
         gradedGroups: [],
@@ -186,7 +186,7 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                             // TODO(jeremy): Don't spread this.props, instead
                             // pass in all props GradedGroup needs explicilty
                             // @ts-expect-error - TS2769 - No overload matches this call.
-                            <GradedGroup
+                            <GradedGroupWithDependencies
                                 key={i}
                                 {...this.props}
                                 {...gradedGroup}
@@ -229,7 +229,7 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                 {/* TODO(jeremy): Don't spread this.props, instead
                     pass in all props GradedGroup needs explicitly */}
                 {/* @ts-expect-error - TS2769 - No overload matches this call. */}
-                <GradedGroup
+                <GradedGroupWithDependencies
                     key={this.state.currentGroup}
                     // @ts-expect-error - TS2322 - Type 'GradedGroup | null' is not assignable to type 'GradedGroup'.
                     //  Type 'null' is not assignable to type 'GradedGroup'.

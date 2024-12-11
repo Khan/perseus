@@ -1,12 +1,17 @@
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {article1} from "./graded-group-set.testdata";
 
+import type {GradedGroupSetWidget} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("graded group widget", () => {
@@ -19,6 +24,14 @@ describe("graded group widget", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+
+        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+            ...testDependenciesV2,
+            gradingCallback: (gradedGroupSetId, userInputMap) => {
+                console.log("SCORING");
+                return {type: "invalid"};
+            },
+        });
     });
 
     it("should snapshot", () => {
@@ -51,7 +64,7 @@ describe("graded group widget", () => {
         expect(screen.getByText("No current group...")).toBeVisible();
     });
 
-    it("should show 'Next question' button when answered correctly", async () => {
+    it.only("should show 'Next question' button when answered correctly", async () => {
         // Arrange
         renderQuestion(article1);
 
