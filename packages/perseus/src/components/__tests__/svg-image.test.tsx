@@ -11,9 +11,7 @@ describe("SvgImage", () => {
     let originalImage;
 
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
+        jest.clearAllMocks();
         originalImage = window.Image;
         // Mock HTML Image so we can trigger onLoad callbacks and see full
         // image rendering.
@@ -23,6 +21,13 @@ describe("SvgImage", () => {
             images.push(img);
             return img;
         });
+
+        global.fetch = jest.fn((url) => {
+            return Promise.resolve({
+                text: () => Promise.resolve(typicalCase.jsonpString),
+                ok: true,
+            });
+        }) as jest.Mock;
     });
 
     afterEach(() => {
@@ -45,6 +50,11 @@ describe("SvgImage", () => {
         }
     };
     it("should render a spinner initially", () => {
+        // Arrange
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+
         // Act
         const {container} = render(
             <SvgImage src="http://localhost/sample.png" alt="png image" />,
@@ -59,6 +69,11 @@ describe("SvgImage", () => {
     });
 
     it("should load and render a png", () => {
+        // Arrange
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+
         // Act
         const {container} = render(
             <SvgImage src="http://localhost/sample.png" alt="png image" />,
@@ -72,12 +87,27 @@ describe("SvgImage", () => {
 
     it("should load and render a normal graphie svg", async () => {
         // Arrange
-        global.fetch = jest.fn((url) => {
-            return Promise.resolve({
-                text: () => Promise.resolve(typicalCase.jsonpString),
-                ok: true,
-            });
-        }) as jest.Mock;
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+
+        // Act
+        const {container} = render(
+            <SvgImage src={typicalCase.url} alt="svg image" />,
+        );
+
+        markImagesAsLoaded(); // Tell the ImageLoader that our images are loaded
+
+        // Assert
+        expect(container).toMatchSnapshot();
+    });
+
+    it("should load and render a localized graphie svg", async () => {
+        // Arrange
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            kaLocale: "es",
+        });
 
         // Act
         const {container} = render(

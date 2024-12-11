@@ -74,7 +74,7 @@ function shouldUseLocalizedData() {
 // hash. This is used to create the localized label data URLs.
 const splitHashRegex = /\/(?=[^/]+$)/;
 
-function getLocalizedDataUrl(url: string) {
+export function getLocalizedDataUrl(url: string) {
     // For local (cached) graphie images, they are already localized.
     if (svgLocalLabelsRegex.test(url)) {
         return Util.getDataUrl(url);
@@ -181,7 +181,7 @@ export function loadGraphie(
         ) => {
             const response = await fetch(url);
 
-            if (!response.ok) {
+            if (!response?.ok) {
                 errorCallback();
                 return;
             }
@@ -218,36 +218,23 @@ export function loadGraphie(
             });
         };
 
-        if (shouldUseLocalizedData()) {
-            retrieveData(getLocalizedDataUrl(url), (x, status, error) => {
-                cacheData.localized = false;
+        const dataLoadErrorHandler = (x, status, error) => {
+            Log.error("Data load failed for svg-image", Errors.Service, {
+                cause: error,
+                loggedMetadata: {
+                    dataUrl: Util.getDataUrl(url),
+                    status,
+                },
+            });
+        };
 
-                // If there is isn't any localized data, fall back to
-                // the original, unlocalized data
-                retrieveData(Util.getDataUrl(url), (x, status, error) => {
-                    Log.error(
-                        "Data load failed for svg-image",
-                        Errors.Service,
-                        {
-                            cause: error,
-                            loggedMetadata: {
-                                dataUrl: Util.getDataUrl(url),
-                                status,
-                            },
-                        },
-                    );
-                });
-            });
+        if (shouldUseLocalizedData()) {
+            cacheData.localized = false;
+            // If there is isn't any localized data, fall back to
+            // the original, unlocalized data
+            retrieveData(getLocalizedDataUrl(url), dataLoadErrorHandler);
         } else {
-            retrieveData(Util.getDataUrl(url), (x, status, error) => {
-                Log.error("Data load failed for svg-image", Errors.Service, {
-                    cause: error,
-                    loggedMetadata: {
-                        dataUrl: Util.getDataUrl(url),
-                        status,
-                    },
-                });
-            });
+            retrieveData(Util.getDataUrl(url), dataLoadErrorHandler);
         }
     }
 }
