@@ -4,6 +4,7 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {wait} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {question1} from "../__testdata__/sorter.testdata";
 
@@ -82,8 +83,13 @@ describe("sorter widget", () => {
             act(() => sorter.moveOptionToIndex(option, 3));
         });
 
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
+
         // Assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
     it("can be answered incorrectly", () => {
         // Arrange
@@ -101,7 +107,12 @@ describe("sorter widget", () => {
             },
         );
 
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
+
         // Assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 });
