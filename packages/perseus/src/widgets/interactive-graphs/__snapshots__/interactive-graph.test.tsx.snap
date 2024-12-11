@@ -24,6 +24,7 @@ exports[`interactive-graph widget A none-type graph renders predictably: first r
               style="width: 400px; height: 400px;"
             >
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 400px; height: 400px;"
               >
@@ -1164,6 +1165,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
               style="width: 400px; height: 400px;"
             >
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 400px; height: 400px;"
               >
@@ -1558,6 +1560,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 </span>
               </div>
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 400px; height: 400px;"
               >
@@ -1968,6 +1971,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 </span>
               </div>
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 400px; height: 400px;"
               >
@@ -2371,6 +2375,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 </span>
               </div>
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 400px; height: 400px;"
               >
@@ -2856,6 +2861,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
               style="width: 400px; height: 400px;"
             >
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 400px; height: 400px;"
               >
@@ -3250,6 +3256,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 </span>
               </div>
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 400px; height: 400px;"
               >
@@ -3660,6 +3667,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 </span>
               </div>
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 400px; height: 400px;"
               >
@@ -3875,6 +3883,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 </span>
               </div>
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 400px; height: 400px;"
               >
