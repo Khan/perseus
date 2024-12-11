@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 15.1.4
+
+### Patch Changes
+
+-   [#1976](https://github.com/Khan/perseus/pull/1976) [`2ad163b5e`](https://github.com/Khan/perseus/commit/2ad163b5ea20d40fb9f0edf30e03cd54ecf9bf31) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figures Aria] Update the auto-generated text to spell out commas
+
+-   Updated dependencies [[`e22a931d9`](https://github.com/Khan/perseus/commit/e22a931d987291258b66f2c80db3536970a4555d)]:
+    -   @khanacademy/perseus@46.0.1
+
 ## 15.1.3
 
 ### Patch Changes
