@@ -6,7 +6,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {question1} from "./graded-group.testdata";
+import {multipleGradedGroups, question1} from "./graded-group.testdata";
 
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -286,6 +286,45 @@ describe("graded-group", () => {
             expect(
                 screen.queryByText(/Some bacteria synthesize their own fuel./),
             ).not.toBeInTheDocument();
+        });
+    });
+
+    describe("multiple graded groups", () => {
+        it("should render multiple graded groups", () => {
+            // Arrange / Act
+            renderQuestion(multipleGradedGroups);
+
+            // Assert
+            expect(screen.getByRole("radio", {name: /G1 Incorrect Choice 1$/}));
+            expect(screen.getByRole("radio", {name: /G2 Incorrect Choice 1$/}));
+        });
+
+        it("should be possible to answer graded groups individually", async () => {
+            // Arrange
+            renderQuestion(multipleGradedGroups);
+
+            // Act / Assert
+
+            // answer the first graded group
+            await userEvent.click(
+                screen.getByRole("radio", {name: /G1 Correct Choice$/}),
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "Check"})[0],
+            );
+            let correctMarkers =
+                await screen.findAllByText("Correct (selected)");
+            expect(correctMarkers.length).toBe(1);
+
+            // answer the second graded group
+            await userEvent.click(
+                screen.getByRole("radio", {name: /G2 Correct Choice$/}),
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "Check"})[1],
+            );
+            correctMarkers = await screen.findAllByText("Correct (selected)");
+            expect(correctMarkers.length).toBe(2);
         });
     });
 });

@@ -114,6 +114,7 @@ export const testDependenciesV2: PerseusDependenciesV2 = {
     analytics: {
         onAnalyticsEvent: async () => {},
     },
+    gradingCallback: () => ({type: "invalid"}),
     useVideo: () => {
         return {
             status: "success",

@@ -9,6 +9,7 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
+import {useDependencies} from "../../dependencies";
 import {iconOk, iconRemove} from "../../icon-paths";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
@@ -73,6 +74,7 @@ type Props = WidgetProps<
     PerseusGradedGroupRubric,
     TrackingGradedGroupExtraArguments
 > & {
+    gradingCallback: (gradedGroupId, userInputMap) => PerseusScore;
     inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
     onNextQuestion?: () => unknown; // Set by graded-group-set.jsx
 };
@@ -103,7 +105,21 @@ type State = {
 0 as any as WidgetProps<
     PerseusGradedGroupWidgetOptions,
     PerseusGradedGroupRubric
-> satisfies PropsFor<typeof GradedGroup>;
+> satisfies PropsFor<typeof GradedGroupWithDependencies>;
+
+const GradedGroupWithDependencies = React.forwardRef<
+    GradedGroup,
+    Omit<PropsFor<typeof GradedGroup>, keyof ReturnType<typeof useDependencies>>
+>((props, ref) => {
+    const deps = useDependencies();
+    return (
+        <GradedGroup
+            ref={ref}
+            gradingCallback={deps.gradingCallback}
+            {...props}
+        />
+    );
+});
 
 // A Graded Group is more or less a Group widget that displays a check
 // answer button below the rendered content. When clicked, the widget grades
@@ -484,10 +500,10 @@ const styles = StyleSheet.create({
 export default {
     name: "graded-group",
     displayName: "Graded group (articles only)",
-    widget: GradedGroup,
+    widget: GradedGroupWithDependencies,
     traverseChildWidgets: traverseChildWidgets,
     // TODO(aasmund): This widget should be available for articles only
     hidden: false,
     tracking: "all",
     isLintable: true,
-} satisfies WidgetExports<typeof GradedGroup>;
+} satisfies WidgetExports<typeof GradedGroupWithDependencies>;

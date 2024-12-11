@@ -28,6 +28,7 @@ export type DependencyProps = Partial<
 
 export const DependenciesContext = React.createContext<PerseusDependenciesV2>({
     analytics: {onAnalyticsEvent: async () => {}},
+    gradingCallback: () => ({type: "invalid"}),
     useVideo: () => {
         throw new Error(
             "useVideo dependency not provided in Perseus dependencies",
