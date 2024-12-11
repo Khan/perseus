@@ -271,6 +271,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
             }
         }
 
+        // Add save warning for content creators.
+
         return issues;
     };
 
