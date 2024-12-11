@@ -548,25 +548,22 @@
 // Input Number / Text Input
 //
 .perseus-input-number-editor {
-    font-size: 14px;
+    font-family: Lato, "Noto Sans", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
 
-    .ui-title,
-    .msg-title {
-        display: inline-block;
-        text-align: center;
+    .answer-option {
+        .unsimplified-options {
+            min-height: 48px;
+        }
     }
 
-    .ui-title {
-        width: 100px;
-    }
-
-    .msg-title {
-        margin-left: 5px;
-        width: 230px;
-    }
-
-    .options-container {
-        padding-left: 30px;
+    .perseus-textarea-pair {
+        font-size: 16px;
+        .perseus-textarea-underlay {
+            margin-bottom: 26px;
+        }
     }
 
     .input-answer-editor-value,
@@ -576,10 +573,6 @@
 
     .input-answer-editor-value-container {
         display: block;
-        font-family: Lato, "Noto Sans", sans-serif;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 20px;
 
         input {
             background: #ffffff;
@@ -631,21 +624,6 @@
                 border-top: 1px solid rgba(33, 36, 44, 0.50);
                 border-bottom: 1px solid rgba(33, 36, 44, 0.50);
                 display: inline-block;
-            }
-        }
-
-        .max-error-container {
-            display: inline-block;
-            width: 40%;
-            .max-error-plusmn {
-                cursor: default;
-                display: inline-block;
-                width: 20%;
-            }
-            .number-input {
-                border: 0;
-                font-size: 13px;
-                width: 80%;
             }
         }
     }

@@ -8,9 +8,7 @@ import {
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Pill from "@khanacademy/wonder-blocks-pill";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
@@ -183,6 +181,13 @@ class NumericInputEditor extends React.Component<Props, State> {
         });
     };
 
+    onEvaluationChange = (choiceIndex, newStatus) => {
+        this.updateAnswer(choiceIndex, {
+            status: newStatus,
+            simplify: newStatus === "correct" ? "required" : "accepted",
+        });
+    };
+
     updateAnswer = (choiceIndex, update) => {
         if (!_.isObject(update)) {
             return _.partial(
@@ -253,50 +258,95 @@ class NumericInputEditor extends React.Component<Props, State> {
         const answers = this.props.answers;
 
         const unsimplifiedAnswers = (i: any) => (
-            <div className="perseus-widget-row">
+            <div className="perseus-widget-row unsimplified-options">
                 <label>Unsimplified answers are</label>
-                <ButtonGroup
-                    value={answers[i]["simplify"]}
-                    allowEmpty={false}
-                    buttons={[
-                        {value: "required", content: "ungraded"},
-                        {value: "optional", content: "accepted"},
-                        {value: "enforced", content: "wrong"},
-                    ]}
-                    onChange={this.updateAnswer(i, "simplify") || (() => {})}
-                />
-                <InfoTip>
-                    <p>
-                        Normally select &quot;ungraded&quot;. This will give the
-                        user a message saying the answer is correct but not
-                        simplified. The user will then have to simplify it and
-                        re-enter, but will not be penalized. (5th grade and
-                        after)
-                    </p>
-                    <p>
-                        Select &quot;accepted&quot; only if the user is not
-                        expected to know how to simplify fractions yet.
-                        (Anything prior to 5th grade)
-                    </p>
-                    <p>
-                        Select &quot;wrong&quot; <em>only</em> if we are
-                        specifically assessing the ability to simplify.
-                    </p>
-                </InfoTip>
+                {answers[i]["status"] !== "correct" && (
+                    <span> irrelevant for this status</span>
+                )}
+                {answers[i]["status"] === "correct" && (
+                    <>
+                        <InfoTip>
+                            <p>
+                                Normally select &quot;ungraded&quot;. This will
+                                user a message saying the answer is correct but
+                                simplified. The user will then have to simplify
+                                re-enter, but will not be penalized. (5th grade
+                                after)
+                            </p>
+                            <p>
+                                Select &quot;accepted&quot; only if the user is
+                                expected to know how to simplify fractions yet.
+                                (Anything prior to 5th grade)
+                            </p>
+                            <p>
+                                Select &quot;wrong&quot; <em>only</em> if we are
+                                specifically assessing the ability to simplify.
+                            </p>
+                        </InfoTip>
+                        <br />
+                        <Pill
+                            kind={
+                                answers[i]["simplify"] === "required"
+                                    ? "accent"
+                                    : "transparent"
+                            }
+                            size="medium"
+                            role="radio"
+                            style={{
+                                marginRight: "8px",
+                                marginTop: "4px",
+                            }}
+                            onClick={() => {
+                                this.updateAnswer(i, {simplify: "required"});
+                            }}
+                        >
+                            Ungraded
+                        </Pill>
+                        <Pill
+                            kind={
+                                answers[i]["simplify"] === "optional"
+                                    ? "accent"
+                                    : "transparent"
+                            }
+                            size="medium"
+                            role="radio"
+                            style={{
+                                marginRight: "8px",
+                                marginTop: "4px",
+                            }}
+                            onClick={() => {
+                                this.updateAnswer(i, {simplify: "optional"});
+                            }}
+                        >
+                            Accepted
+                        </Pill>
+                        <Pill
+                            kind={
+                                answers[i]["simplify"] === "enforced"
+                                    ? "accent"
+                                    : "transparent"
+                            }
+                            size="medium"
+                            role="radio"
+                            style={{
+                                marginRight: "8px",
+                                marginTop: "4px",
+                            }}
+                            onClick={() => {
+                                this.updateAnswer(i, {simplify: "enforced"});
+                            }}
+                        >
+                            Wrong
+                        </Pill>
+                    </>
+                )}
             </div>
         );
 
         const suggestedAnswerTypes = (i: any) => (
-            <div>
+            <>
                 <div className="perseus-widget-row">
-                    <label>Choose the suggested answer formats</label>
-                    <MultiButtonGroup
-                        buttons={answerFormButtons}
-                        values={answers[i]["answerForms"]}
-                        onChange={
-                            this.updateAnswer(i, "answerForms") || (() => {})
-                        }
-                    />
+                    <label>Possible answer formats</label>
                     <InfoTip>
                         <p>
                             Formats will be autoselected for you based on the
@@ -324,6 +374,13 @@ class NumericInputEditor extends React.Component<Props, State> {
                             do not restrict the answer format.
                         </p>
                     </InfoTip>
+                    <MultiButtonGroup
+                        buttons={answerFormButtons}
+                        values={answers[i]["answerForms"]}
+                        onChange={
+                            this.updateAnswer(i, "answerForms") || (() => {})
+                        }
+                    />
                 </div>
                 <div className="perseus-widget-row">
                     <Checkbox
@@ -334,21 +391,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                         }}
                     />
                 </div>
-            </div>
-        );
-
-        const maxError = (i: any) => (
-            <div className="perseus-widget-row">
-                <label>
-                    Max error{" "}
-                    <NumberInput
-                        className="max-error"
-                        value={answers[i]["maxError"]}
-                        onChange={this.updateAnswer(i, "maxError")}
-                        placeholder="0"
-                    />
-                </label>
-            </div>
+            </>
         );
 
         const inputSize = (
@@ -427,20 +470,22 @@ class NumericInputEditor extends React.Component<Props, State> {
         );
 
         const labelText = (
-            <div className="perseus-widget-row">
-                <label>Aria label</label>
-                <InfoTip>
-                    <p>
-                        Text to describe this input. This will be shown to users
-                        using screenreaders.
-                    </p>
-                </InfoTip>
+            <>
+                <div className="perseus-widget-row">
+                    <label>Aria label</label>
+                    <InfoTip>
+                        <p>
+                            Text to describe this input. This will be shown to
+                            users using screenreaders.
+                        </p>
+                    </InfoTip>
+                </div>
                 <TextInput
                     labelText="aria label"
                     value={this.props.labelText}
                     onChange={this.change("labelText")}
                 />
-            </div>
+            </>
         );
 
         const coefficientCheck = (
@@ -521,18 +566,13 @@ class NumericInputEditor extends React.Component<Props, State> {
                         : `${statusProper} answer: ${answer.value} ${answerRangeText}`;
 
                 return (
-                    <div className="perseus-widget-row" key={i}>
+                    <div className="perseus-widget-row answer-option" key={i}>
                         <PerseusEditorAccordion
                             expanded={this.state.showAnswerDetails[i]}
                             onToggle={() => {
                                 this.onToggleAnswers(i);
                             }}
-                            header={
-                                <div className="section-accordion">
-                                    <LabelLarge>{answerHeading}</LabelLarge>
-                                    <Strut size={spacing.xSmall_8} />
-                                </div>
-                            }
+                            header={<LabelLarge>{answerHeading}</LabelLarge>}
                         >
                             <div
                                 className={
@@ -599,34 +639,66 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     onChange={this.updateAnswer(i, "maxError")}
                                 />
                             </div>
-                            <div className="value-divider" />
-                            <a
-                                href="#"
-                                className={"answer-status " + answer.status}
-                                onClick={(e) => {
-                                    // preventDefault ensures that href="#"
-                                    // doesn't scroll to the top of the page
-                                    e.preventDefault();
-                                    this.onStatusChange(i);
-                                }}
-                                onKeyDown={(e) =>
-                                    this.onSpace(e, this.onStatusChange)
-                                }
-                            >
-                                {answer.status}
-                            </a>
-                            <div className="input-answer-editor-message">
-                                <div className="msg-title">
-                                    Message shown to user on attempt
-                                </div>
-                                {editor}
+                            <div className="perseus-widget-row">
+                                <label>Status: </label>
+                                <Pill
+                                    kind={
+                                        answer.status === "correct"
+                                            ? "accent"
+                                            : "transparent"
+                                    }
+                                    size="medium"
+                                    role="radio"
+                                    style={{
+                                        marginRight: "8px",
+                                    }}
+                                    onClick={() => {
+                                        this.onEvaluationChange(i, "correct");
+                                    }}
+                                >
+                                    Correct
+                                </Pill>
+                                <Pill
+                                    kind={
+                                        answer.status === "wrong"
+                                            ? "accent"
+                                            : "transparent"
+                                    }
+                                    size="medium"
+                                    role="radio"
+                                    style={{
+                                        marginRight: "8px",
+                                    }}
+                                    onClick={() => {
+                                        this.onEvaluationChange(i, "wrong");
+                                    }}
+                                >
+                                    Wrong
+                                </Pill>
+                                <Pill
+                                    kind={
+                                        answer.status === "ungraded"
+                                            ? "accent"
+                                            : "transparent"
+                                    }
+                                    size="medium"
+                                    role="radio"
+                                    style={{
+                                        marginRight: "8px",
+                                    }}
+                                    onClick={() => {
+                                        this.onEvaluationChange(i, "ungraded");
+                                    }}
+                                >
+                                    Ungraded
+                                </Pill>
                             </div>
-                            <div className="options-container">
-                                {maxError(i)}
-                                {answer.status === "correct" &&
-                                    unsimplifiedAnswers(i)}
-                                {suggestedAnswerTypes(i)}
+                            {unsimplifiedAnswers(i)}
+                            <div className="perseus-widget-row">
+                                Message shown to user in article:
                             </div>
+                            {editor}
+                            {suggestedAnswerTypes(i)}
                             <Button
                                 startIcon={trashIcon}
                                 aria-label={`Delete ${answerHeading}`}
