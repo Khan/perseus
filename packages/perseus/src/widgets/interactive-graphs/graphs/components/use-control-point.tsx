@@ -10,7 +10,7 @@ import {useDraggable} from "../use-draggable";
 import {MovablePointView} from "./movable-point-view";
 
 import type {CSSCursor} from "./css-cursor";
-import type {AriaLive} from "../../types";
+import type {AriaLivePolitenessLevel} from "../../types";
 import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
 
@@ -18,7 +18,7 @@ type Params = {
     point: vec.Vector2;
     ariaDescribedBy?: string;
     ariaLabel?: string;
-    ariaLive?: AriaLive;
+    ariaLive?: AriaLivePolitenessLevel;
     color?: string | undefined;
     constrain?: KeyboardMovementConstraint;
     cursor?: CSSCursor | undefined;
