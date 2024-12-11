@@ -498,6 +498,7 @@ export type PerseusDependencies = {
  */
 export interface PerseusDependenciesV2 {
     analytics: {onAnalyticsEvent: AnalyticsEventHandlerFn};
+    gradingCallback: (gradedGroupId, userInputMap) => PerseusScore;
 
     // video widget
     // This is used as a hook to fetch data about a video which is used to

@@ -1,4 +1,4 @@
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer, RadioWidget} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {
     content: "---\n\n##Check your understanding!\n\n[[☃ graded-group 1]]\n\n",
@@ -60,6 +60,116 @@ export const question1: PerseusRenderer = {
                             version: {major: 0, minor: 0},
                         },
                     },
+                },
+            },
+            version: {major: 0, minor: 0},
+        },
+    },
+};
+
+export const multipleGradedGroups: PerseusRenderer = {
+    content: "[[☃ graded-group 1]]\n\n[[☃ graded-group 2]]",
+    images: {},
+    widgets: {
+        "graded-group 1": {
+            type: "graded-group",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                title: "Metabolic strategies of bacteria",
+                content: "[[☃ radio 1]]",
+                images: {},
+                widgets: {
+                    "radio 1": {
+                        graded: true,
+                        version: {
+                            major: 1,
+                            minor: 0,
+                        },
+                        static: false,
+                        type: "radio",
+                        options: {
+                            displayCount: null,
+                            onePerLine: false,
+                            choices: [
+                                {
+                                    content: "G1 Incorrect Choice 1",
+                                    correct: false,
+                                },
+                                {
+                                    content: "G1 Incorrect Choice 2",
+                                    correct: false,
+                                },
+                                {
+                                    content: "G1 Correct Choice",
+                                    correct: true,
+                                },
+                                {
+                                    content: "G1 Incorrect Choice 3",
+                                    correct: false,
+                                },
+                            ],
+                            countChoices: false,
+                            hasNoneOfTheAbove: false,
+                            multipleSelect: false,
+                            randomize: true,
+                            deselectEnabled: false,
+                        },
+                        alignment: "default",
+                    } as RadioWidget,
+                },
+            },
+            version: {major: 0, minor: 0},
+        },
+
+        "graded-group 2": {
+            type: "graded-group",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                title: "Metabolic strategies of bacteria",
+                content: "[[☃ radio 1]]",
+                images: {},
+                widgets: {
+                    "radio 1": {
+                        graded: true,
+                        version: {
+                            major: 1,
+                            minor: 0,
+                        },
+                        static: false,
+                        type: "radio",
+                        options: {
+                            displayCount: null,
+                            onePerLine: false,
+                            choices: [
+                                {
+                                    content: "G2 Incorrect Choice 1",
+                                    correct: false,
+                                },
+                                {
+                                    content: "G2 Incorrect Choice 2",
+                                    correct: false,
+                                },
+                                {
+                                    content: "G2 Correct Choice",
+                                    correct: true,
+                                },
+                                {
+                                    content: "G2 Incorrect Choice 3",
+                                    correct: false,
+                                },
+                            ],
+                            countChoices: false,
+                            hasNoneOfTheAbove: false,
+                            multipleSelect: false,
+                            randomize: true,
+                            deselectEnabled: false,
+                        },
+                        alignment: "default",
+                    } as RadioWidget,
                 },
             },
             version: {major: 0, minor: 0},

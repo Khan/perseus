@@ -2,12 +2,17 @@ import {describe, beforeEach, it} from "@jest/globals";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {question1} from "./graded-group.testdata";
+import {multipleGradedGroups, question1} from "./graded-group.testdata";
 
+import type {GradedGroupWidget} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -52,6 +57,22 @@ describe("graded-group", () => {
     });
 
     describe("on desktop", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+                ...testDependenciesV2,
+                gradingCallback: (gradedGroupId, userInputMap) => {
+                    const groupData = (
+                        question1.widgets[gradedGroupId] as GradedGroupWidget
+                    ).options;
+                    const score = scorePerseusItemTesting(
+                        groupData,
+                        userInputMap,
+                    );
+                    return score;
+                },
+            });
+        });
+
         it("should be able to be answered correctly", async () => {
             // Arrange
             renderQuestion(question1);
@@ -171,6 +192,22 @@ describe("graded-group", () => {
             isMobile: true,
         };
 
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+                ...testDependenciesV2,
+                gradingCallback: (gradedGroupId, userInputMap) => {
+                    const groupData = (
+                        question1.widgets[gradedGroupId] as GradedGroupWidget
+                    ).options;
+                    const score = scorePerseusItemTesting(
+                        groupData,
+                        userInputMap,
+                    );
+                    return score;
+                },
+            });
+        });
+
         it("should be able to be answered correctly", async () => {
             // Arrange
             renderQuestion(question1, apiOptions);
@@ -286,6 +323,75 @@ describe("graded-group", () => {
             expect(
                 screen.queryByText(/Some bacteria synthesize their own fuel./),
             ).not.toBeInTheDocument();
+        });
+    });
+
+    describe("multiple graded groups", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+                ...testDependenciesV2,
+                gradingCallback: (gradedGroupId, userInputMap) => {
+                    const groupData = (
+                        multipleGradedGroups.widgets[
+                            gradedGroupId
+                        ] as GradedGroupWidget
+                    ).options;
+                    const score = scorePerseusItemTesting(
+                        groupData,
+                        userInputMap,
+                    );
+                    return score;
+                },
+            });
+        });
+
+        it("should render multiple graded groups", () => {
+            // Arrange / Act
+            renderQuestion(multipleGradedGroups);
+
+            // Assert
+            expect(screen.getByRole("radio", {name: /G1 Incorrect Choice 1$/}));
+            expect(screen.getByRole("radio", {name: /G2 Incorrect Choice 1$/}));
+        });
+
+        it("should be possible to answer graded groups individually", async () => {
+            // Arrange
+            renderQuestion(multipleGradedGroups);
+
+            // Act / Assert
+
+            // answer the first graded group
+            await userEvent.click(
+                screen.getByRole("radio", {name: /G1 Correct Choice$/}),
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "Check"})[0],
+            );
+            let correctMarkers =
+                await screen.findAllByText("Correct (selected)");
+            expect(correctMarkers.length).toBe(1);
+            expect(
+                screen.queryAllByRole("alert", {name: "Correct"}).length,
+            ).toBe(1);
+            expect(
+                screen.queryAllByRole("alert", {name: "Incorrect"}).length,
+            ).toBe(0);
+
+            // answer the second graded group
+            await userEvent.click(
+                screen.getByRole("radio", {name: /G2 Correct Choice$/}),
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "Check"})[1],
+            );
+            correctMarkers = await screen.findAllByText("Correct (selected)");
+            expect(correctMarkers.length).toBe(2);
+            expect(
+                screen.queryAllByRole("alert", {name: "Correct"}).length,
+            ).toBe(2);
+            expect(
+                screen.queryAllByRole("alert", {name: "Incorrect"}).length,
+            ).toBe(0);
         });
     });
 });
