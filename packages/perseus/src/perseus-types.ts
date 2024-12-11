@@ -140,19 +140,6 @@ export type PerseusItem = {
  */
 export type PerseusArticle = PerseusRenderer | ReadonlyArray<PerseusRenderer>;
 
-/**
- * A "MultiItem" is an advanced Perseus item. It is rendered by the
- * `MultiRenderer` and you can control the layout of individual parts of the
- * item.
- *
- * @deprecated MultiItem support is slated for removal in a future Perseus
- * release.
- */
-export type MultiItem = {
-    // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
-    _multi: any;
-};
-
 export type Version = {
     // The major part of the version
     major: number;
