@@ -19,5 +19,13 @@ function createAriaLiveRegion(politenessLevel: AriaLivePolitenessLevel): HTMLDiv
     const newRegion = document.createElement("div")
     newRegion.setAttribute("aria-live", politenessLevel)
     newRegion.classList.add("perseus-aria-live-region")
+    // taken from a11y.srOnly
+    newRegion.style.border = "0"
+    newRegion.style.height = "1"
+    newRegion.style.margin = "-1"
+    newRegion.style.overflow = "hidden"
+    newRegion.style.padding = "0"
+    newRegion.style.position = "absolute"
+    newRegion.style.width = "1"
     return document.body.appendChild(newRegion)
 }
