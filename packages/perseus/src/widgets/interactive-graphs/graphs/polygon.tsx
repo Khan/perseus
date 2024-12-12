@@ -101,6 +101,17 @@ const PolygonGraph = (props: Props) => {
         }
     }, [props.graphState.focusedPointIndex, pointsRef]);
 
+    // If when the unlimited polygon is render it has coordinates?
+    // Close the polygon, but only on first render.
+    // This is to fix the case where the editor shows content creators
+    // The completed shape.
+    React.useEffect(() => {
+        if (numSides === "unlimited" && props.graphState.coords.length > 0) {
+            dispatch(actions.polygon.closePolygon());
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const statefulProps: StatefulProps = {
         ...props,
         graphConfig,
