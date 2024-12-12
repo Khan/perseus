@@ -365,7 +365,7 @@ export const strings: {
         context:
             "Screenreader-accessible description of a vertex on an angle graph with an angle measure",
         message:
-            "Point 2, vertex at %(x)s comma %(y)s. Angle %(angle)s degrees",
+            "Point 2, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees",
     },
 };
 
