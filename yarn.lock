@@ -2873,10 +2873,10 @@
     "@babel/runtime" "^7.18.6"
     "@khanacademy/wonder-blocks-core" "^7.0.0"
 
-"@khanacademy/wonder-stuff-core@1.5.2":
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-stuff-core/-/wonder-stuff-core-1.5.2.tgz#d3c6583ddb101181421d61b7cbd36a6bd74f3a71"
-  integrity sha512-GHuBdNvuDkDbXuJ5FZy58p5z+dosQ0YBnDrSS9uHppzAYXqSsTnBghpBFmr5CDYWt48pXbNYO5U+wHMsytLipQ==
+"@khanacademy/wonder-stuff-core@1.5.4":
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-stuff-core/-/wonder-stuff-core-1.5.4.tgz#84b5b79d1f2bf2fa775e01e7f28dd43f38461560"
+  integrity sha512-Z1DOHdSNrXyIKCgYsq6XKT6ZTRq5bb7Daof8mN31O30twStrwBynP5fS0lARS9qgxycaueThEcmeCF8AXyU21g==
 
 "@manypkg/find-root@^1.1.0":
   version "1.1.0"
