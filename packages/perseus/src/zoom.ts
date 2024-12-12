@@ -377,7 +377,6 @@ Zoom.prototype.zoomImage = function () {
 Zoom.prototype._zoomOriginal = function () {
     this.$zoomedImage.addClass("zoom-img").attr("data-action", "zoom-out");
 
-    this.$zoomedImage.attr("data-test-id", "zoomed-image");
     $(this._targetImage).css("visibility", "hidden");
 
     this._backdrop = document.createElement("div");
