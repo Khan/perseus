@@ -1,5 +1,4 @@
-import {validateFunctional} from "../../renderer-util";
-import {flattenScores} from "../../util/scoring";
+import {emptyWidgetsFunctional} from "../../renderer-util";
 
 import type {PerseusStrings} from "../../strings";
 import type {ValidationResult} from "../../types";
@@ -14,14 +13,19 @@ function validateGroup(
     strings: PerseusStrings,
     locale: string,
 ): ValidationResult {
-    const result = validateFunctional(
-        userInput,
+    const emptyWidgets = emptyWidgetsFunctional(
         validationData.widgets,
+        Object.keys(validationData.widgets),
+        userInput,
         strings,
         locale,
     );
 
-    return flattenScores(result);
+    if (emptyWidgets.length === 0) {
+        return null;
+    }
+
+    return {type: "invalid", message: null};
 }
 
 export default validateGroup;
