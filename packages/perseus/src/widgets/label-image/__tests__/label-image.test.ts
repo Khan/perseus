@@ -716,7 +716,7 @@ describe("LabelImage", function () {
     });
 
     describe("getUserInput", () => {
-        it("doesn't include answer in getUserInput from getUserInputMap", async () => {
+        it("doesn't include answer in getUserInput from getUserInputMap", () => {
             // render component
             const {renderer} = renderQuestion(textQuestion);
 
@@ -748,7 +748,7 @@ describe("LabelImage", function () {
     });
 
     describe("scorePerseusItem", () => {
-        it("should be invalid on first render", async () => {
+        it("should be invalid on first render", () => {
             // Arrange
             const {renderer} = renderQuestion(textQuestion);
 
@@ -761,50 +761,50 @@ describe("LabelImage", function () {
             // Assert
             expect(score).toHaveInvalidInput();
         });
-    });
 
-    it("can be answered correctly when correct option is picked for the marker", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(shortTextQuestion);
+        it("can be answered correctly when correct option is picked for the marker", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(shortTextQuestion);
 
-        // Act
-        const markerButton = screen.getByRole("button", {
-            name: "The fourth unlabeled bar line.",
+            // Act
+            const markerButton = screen.getByRole("button", {
+                name: "The fourth unlabeled bar line.",
+            });
+            await userEvent.click(markerButton);
+
+            const choice = screen.getByRole("option", {name: "SUVs"});
+            await userEvent.click(choice);
+
+            const score = scorePerseusItemTesting(
+                textQuestion,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
         });
-        await userEvent.click(markerButton);
 
-        const choice = screen.getByRole("option", {name: "SUVs"});
-        await userEvent.click(choice);
+        it("can be answered incorrectly when incorrect option picked for the marker", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(shortTextQuestion);
 
-        const score = scorePerseusItemTesting(
-            textQuestion,
-            renderer.getUserInputMap(),
-        );
+            // Act
+            const markerButton = screen.getByRole("button", {
+                name: "The fourth unlabeled bar line.",
+            });
+            await userEvent.click(markerButton);
 
-        // Assert
-        expect(score).toHaveBeenAnsweredCorrectly();
-    });
+            const choice = screen.getByRole("option", {name: "Trucks"});
+            await userEvent.click(choice);
 
-    it("can be answered incorrectly when incorrect option picked for the marker", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(shortTextQuestion);
+            const score = scorePerseusItemTesting(
+                textQuestion,
+                renderer.getUserInputMap(),
+            );
 
-        // Act
-        const markerButton = screen.getByRole("button", {
-            name: "The fourth unlabeled bar line.",
+            // Assert
+            expect(score).toHaveBeenAnsweredIncorrectly();
         });
-        await userEvent.click(markerButton);
-
-        const choice = screen.getByRole("option", {name: "Trucks"});
-        await userEvent.click(choice);
-
-        const score = scorePerseusItemTesting(
-            textQuestion,
-            renderer.getUserInputMap(),
-        );
-
-        // Assert
-        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 });
 
