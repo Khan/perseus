@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 47.0.1
+
+### Patch Changes
+
+-   [#1975](https://github.com/Khan/perseus/pull/1975) [`335615bab`](https://github.com/Khan/perseus/commit/335615bab18685aa6331c7628c1225bdecc54aab) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Make all types in `perseus-types.ts` originate from it (no longer import Mafs types)
+
+*   [#1953](https://github.com/Khan/perseus/pull/1953) [`acd8bd566`](https://github.com/Khan/perseus/commit/acd8bd56664c6a0849bf3d532be8978115a97dfd) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - [Dropdown] Change logic for aria-label
+
+## 47.0.0
+
+### Major Changes
+
+-   [#1955](https://github.com/Khan/perseus/pull/1955) [`e7b4db0bf`](https://github.com/Khan/perseus/commit/e7b4db0bf193241a36508804dd6e58c729f0a3db) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove support for MultiRenderer
+
 ## 46.0.1
 
 ### Patch Changes

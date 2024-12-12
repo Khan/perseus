@@ -8,10 +8,12 @@ export const flags = {
         quadratic: true,
         sinusoid: true,
         polygon: true,
+        "unlimited-polygon": true,
         linear: true,
         "linear-system": true,
         ray: true,
         point: true,
+        "unlimited-point": true,
         none: true,
 
         // Locked figures flags

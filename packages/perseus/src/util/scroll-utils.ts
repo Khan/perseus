@@ -73,7 +73,7 @@ const scrollElementToOffset = (
             // TODO(jeff, WEB-1378): Use Wonder Blocks Timing API
             // eslint-disable-next-line no-restricted-syntax
             clearInterval(scrollInterval);
-            callback && callback();
+            callback?.();
         }
     }, tickLength);
 };
