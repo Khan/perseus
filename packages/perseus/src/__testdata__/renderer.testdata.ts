@@ -1,7 +1,6 @@
 import type {
     DropdownWidget,
     ImageWidget,
-    InputNumberWidget,
     NumericInputWidget,
     PerseusRenderer,
 } from "../perseus-types";
