@@ -147,6 +147,26 @@ export type PerseusStrings = {
     srInteractiveElements: ({elements}: {elements: string}) => string;
     srNoInteractiveElements: string;
     selectAnAnswer: string;
+    srAngleSideAtCoordinates: ({
+        point,
+        side,
+        x,
+        y,
+    }: {
+        point: number;
+        side: string;
+        x: string;
+        y: string;
+    }) => string;
+    srAngleVertexAtCoordinatesWithAngleMeasure: ({
+        x,
+        y,
+        angleMeasure,
+    }: {
+        x: string;
+        y: string;
+        angleMeasure: number;
+    }) => string;
 };
 
 /**
@@ -336,6 +356,17 @@ export const strings: {
         message: "Point %(num)s at %(x)s comma %(y)s",
     },
     selectAnAnswer: "Select an answer",
+    srAngleSideAtCoordinates: {
+        context:
+            "Screenreader-accessible description of the side / vertex of an angle graph",
+        message: "Point %(point)s, %(side)s at %(x)s comma %(y)s",
+    },
+    srAngleVertexAtCoordinatesWithAngleMeasure: {
+        context:
+            "Screenreader-accessible description of a vertex on an angle graph with an angle measure",
+        message:
+            "Point 2, vertex at %(x)s comma %(y)s. Angle %(angle)s degrees",
+    },
 };
 
 /**
@@ -501,4 +532,8 @@ export const mockStrings: PerseusStrings = {
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
     selectAnAnswer: "Select an answer",
+    srAngleSideAtCoordinates: ({point, side, x, y}) =>
+        `Point ${point}, ${side} at ${x} comma ${y}`,
+    srAngleVertexAtCoordinatesWithAngleMeasure: ({x, y, angleMeasure}) =>
+        `Point 2, vertex at ${x} comma ${y}. Angle ${angleMeasure} degrees`,
 };
