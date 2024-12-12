@@ -159,8 +159,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-        // Make sure that state updates when switching
-        // between different items in a multi-item editor.
         if (
             !_.isEqual(this.props.labels, nextProps.labels) ||
             !_.isEqual(this.props.gridStep, nextProps.gridStep) ||

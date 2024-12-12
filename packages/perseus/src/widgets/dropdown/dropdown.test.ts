@@ -3,6 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./dropdown.testdata";
@@ -62,10 +63,14 @@ describe("Dropdown widget", () => {
         const dropdown = screen.getByRole("combobox");
         await userEvent.click(dropdown);
         await userEvent.click(screen.getByText("less than or equal to"));
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
         expect(dropdown).toHaveTextContent("less than or equal to");
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("should be answerable incorrectly", async () => {
@@ -76,18 +81,28 @@ describe("Dropdown widget", () => {
         const dropdown = screen.getByRole("combobox");
         await userEvent.click(dropdown);
         await userEvent.click(screen.getByText("greater than or equal to"));
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
         expect(dropdown).toHaveTextContent("greater than or equal to");
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("should be invalid on first render", async () => {
-        // Arrange and Act
+        // Arrange
         const {renderer} = renderQuestion(question1);
 
+        // Act
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
+
         // Assert
-        expect(renderer).toHaveInvalidInput();
+        expect(score).toHaveInvalidInput();
     });
 
     it("should be return true when focus() called", async () => {

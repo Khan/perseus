@@ -116,8 +116,6 @@ export function getWidgetFromWidgetMap(
 
 /**
  * Get select widgets from a widget map.
- * Useful for multi-items that needs to split
- * one PerseusItem into several
  *
  * @param {ReadonlyArray<string>} widgetIds to extract
  * @param {PerseusWidgetsMap} widgetMap to extract from

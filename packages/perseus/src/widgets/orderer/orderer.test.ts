@@ -2,6 +2,7 @@ import {act} from "@testing-library/react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question2} from "./orderer.testdata";
@@ -51,9 +52,13 @@ describe("orderer widget", () => {
 
         // Act
         act(() => orderer.setListValues(["1", "2", "3"]));
+        const score = scorePerseusItemTesting(
+            question2,
+            renderer.getUserInputMap(),
+        );
 
         // assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("can be answered incorrectly", () => {
@@ -66,9 +71,13 @@ describe("orderer widget", () => {
 
         // Act
         act(() => orderer.setListValues(["3", "2", "1"]));
+        const score = scorePerseusItemTesting(
+            question2,
+            renderer.getUserInputMap(),
+        );
 
         // assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("is invalid when no options are selected", () => {
@@ -81,8 +90,12 @@ describe("orderer widget", () => {
 
         // Act
         act(() => orderer.setListValues([]));
+        const score = scorePerseusItemTesting(
+            question2,
+            renderer.getUserInputMap(),
+        );
 
         // assert
-        expect(renderer).toHaveInvalidInput();
+        expect(score).toHaveInvalidInput();
     });
 });

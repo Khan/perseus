@@ -393,7 +393,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
+                    "Circle with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -421,7 +421,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
+                    "Circle with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -448,7 +448,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Ellipse with x radius 2 and y radius 3, centered at (0, 0). Appearance solid gray border, with no fill.",
+                    "Ellipse with x radius 2 and y radius 3, centered at 0 comma 0. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -476,7 +476,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Ellipse with x radius 2 and y radius 3, centered at (0, 0), rotated by 90 degrees. Appearance solid gray border, with no fill.",
+                    "Ellipse with x radius 2 and y radius 3, centered at 0 comma 0, rotated by 90 degrees. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -508,7 +508,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle spoken A with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
+                    "Circle spoken A with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -544,7 +544,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle spoken A, spoken B with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
+                    "Circle spoken A, spoken B with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
             });
         });
     });

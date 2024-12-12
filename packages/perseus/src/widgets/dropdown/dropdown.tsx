@@ -116,7 +116,7 @@ class Dropdown extends React.Component<Props> implements Widget {
                         {this.props.visibleLabel && (
                             <LabelLarge
                                 tag="label"
-                                id={ids.get("dropdown-label")}
+                                htmlFor={ids.get("dropdown")}
                             >
                                 {this.props.visibleLabel}
                             </LabelLarge>
@@ -131,9 +131,9 @@ class Dropdown extends React.Component<Props> implements Widget {
                             disabled={this.props.apiOptions.readOnly}
                             aria-label={
                                 this.props.ariaLabel ||
+                                this.props.visibleLabel ||
                                 this.context.strings.selectAnAnswer
                             }
-                            aria-labelledby={ids.get("dropdown-label")}
                             // This is currently necessary for SRs to read the labels properly.
                             // However, WB is working on a change to add the "combobox" role to
                             // all dropdowns.
