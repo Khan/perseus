@@ -3,6 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -123,11 +124,17 @@ describe("Definition widget", () => {
     });
 
     it("should not affect answerable", () => {
-        // Arrange / Act
+        // Arrange
         const {renderer} = renderQuestion(question);
 
+        // Act
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
+
         // Assert
-        expect(renderer).toHaveBeenAnsweredCorrectly({
+        expect(score).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: false,
         });
     });

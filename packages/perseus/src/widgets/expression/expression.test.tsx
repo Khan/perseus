@@ -9,6 +9,7 @@ import {
 import * as Dependencies from "../../dependencies";
 import {scorePerseusItem} from "../../renderer-util";
 import {mockStrings} from "../../strings";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import ExpressionWidgetExport from "./expression";
@@ -50,7 +51,11 @@ const assertCorrect = async (
         input,
         true,
     );
-    expect(renderer).toHaveBeenAnsweredCorrectly();
+    const score = scorePerseusItemTesting(
+        itemData.question,
+        renderer.getUserInputMap(),
+    );
+    expect(score).toHaveBeenAnsweredCorrectly();
 };
 
 const assertIncorrect = async (
@@ -64,7 +69,11 @@ const assertIncorrect = async (
         input,
         false,
     );
-    expect(renderer).toHaveBeenAnsweredIncorrectly();
+    const score = scorePerseusItemTesting(
+        itemData.question,
+        renderer.getUserInputMap(),
+    );
+    expect(score).toHaveBeenAnsweredIncorrectly();
 };
 
 // TODO: actually Assert that message is being set on the score object.
@@ -80,7 +89,11 @@ const assertInvalid = async (
         await userEvent.type(screen.getByRole("textbox"), input);
     }
     act(() => jest.runOnlyPendingTimers());
-    expect(renderer).toHaveInvalidInput();
+    const score = scorePerseusItemTesting(
+        itemData.question,
+        renderer.getUserInputMap(),
+    );
+    expect(score).toHaveInvalidInput();
 };
 
 describe("Expression Widget", function () {

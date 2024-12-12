@@ -9,6 +9,7 @@ import _ from "underscore";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {mockStrings} from "../../strings";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import InputNumber from "./input-number";
@@ -50,9 +51,13 @@ describe("input-number", function () {
             const textbox = screen.getByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "1/2");
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
 
             // Assert
-            expect(renderer).toHaveBeenAnsweredCorrectly();
+            expect(score).toHaveBeenAnsweredCorrectly();
         });
 
         it("should reject an incorrect answer", async () => {
@@ -63,9 +68,13 @@ describe("input-number", function () {
             const textbox = screen.getByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0.7");
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
 
             // Assert
-            expect(renderer).toHaveBeenAnsweredIncorrectly();
+            expect(score).toHaveBeenAnsweredIncorrectly();
         });
 
         it("should refuse to score an incoherent answer", async () => {
@@ -76,9 +85,13 @@ describe("input-number", function () {
             const textbox = screen.getByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0..7");
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
 
             // Assert
-            expect(renderer).toHaveInvalidInput();
+            expect(score).toHaveInvalidInput();
         });
     });
 
@@ -206,9 +219,13 @@ describe("input-number", function () {
             const textbox = screen.getByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, correct);
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
 
             // Assert
-            expect(renderer).toHaveBeenAnsweredCorrectly();
+            expect(score).toHaveBeenAnsweredCorrectly();
         });
 
         it("should reject an incorrect answer", async () => {
@@ -219,9 +236,13 @@ describe("input-number", function () {
             const textbox = screen.getByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, incorrect);
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
 
             // Assert
-            expect(renderer).toHaveBeenAnsweredIncorrectly();
+            expect(score).toHaveBeenAnsweredIncorrectly();
         });
     });
 

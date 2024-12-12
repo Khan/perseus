@@ -6,6 +6,7 @@ import {clone} from "../../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {mockStrings} from "../../../strings";
+import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import PassageWidget from "../../passage";
 import RadioWidgetExport from "../radio";
@@ -99,9 +100,13 @@ describe("single-choice question", () => {
 
                 // Act
                 await selectOption(userEvent, correct);
+                const score = scorePerseusItemTesting(
+                    question,
+                    renderer.getUserInputMap(),
+                );
 
                 // Assert
-                expect(renderer).toHaveBeenAnsweredCorrectly();
+                expect(score).toHaveBeenAnsweredCorrectly();
             });
 
             it("should accept the right answer (touch)", async () => {
@@ -117,9 +122,13 @@ describe("single-choice question", () => {
                 // does not support touch events so we have to do this ourselves.
                 // eslint-disable-next-line testing-library/prefer-user-event
                 fireEvent.click(correctRadio);
+                const score = scorePerseusItemTesting(
+                    question,
+                    renderer.getUserInputMap(),
+                );
 
                 // Assert
-                expect(renderer).toHaveBeenAnsweredCorrectly();
+                expect(score).toHaveBeenAnsweredCorrectly();
             });
 
             it.each(incorrect)(
@@ -130,9 +139,13 @@ describe("single-choice question", () => {
 
                     // Act
                     await selectOption(userEvent, incorrect);
+                    const score = scorePerseusItemTesting(
+                        question,
+                        renderer.getUserInputMap(),
+                    );
 
                     // Assert
-                    expect(renderer).toHaveBeenAnsweredIncorrectly();
+                    expect(score).toHaveBeenAnsweredIncorrectly();
                 },
             );
 
@@ -281,12 +294,13 @@ describe("single-choice question", () => {
         // item in the original choices. But because of enforced ordering,
         // it is now at the top of the list (and thus our correct answer).
         await userEvent.click(screen.getAllByRole("radio")[0]);
+        const score = scorePerseusItemTesting(q, renderer.getUserInputMap());
 
         // Assert
         const items = screen.getAllByRole("listitem");
         expect(items[0]).toHaveTextContent(answers[1]);
         expect(items[1]).toHaveTextContent(answers[0]);
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("should not change ordering of non-common answers", async () => {
@@ -568,9 +582,13 @@ describe("single-choice question", () => {
 
         // Act
         const {renderer} = renderQuestion(question, apiOptions);
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveInvalidInput();
+        expect(score).toHaveInvalidInput();
     });
 
     it("Should render correct option select statuses (rationales) when review mode enabled", async () => {
@@ -649,9 +667,10 @@ describe("single-choice question", () => {
             name: "(Choice D) None of the above",
         });
         await userEvent.click(noneOption);
+        const score = scorePerseusItemTesting(q, renderer.getUserInputMap());
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 });
 
@@ -681,9 +700,13 @@ describe("multi-choice question", () => {
         for (const i of correct) {
             await userEvent.click(options[i]);
         }
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("should select multiple options when clicked", async () => {
@@ -796,9 +819,13 @@ describe("multi-choice question", () => {
 
         // Act
         const {renderer} = renderQuestion(question, apiOptions);
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveInvalidInput();
+        expect(score).toHaveInvalidInput();
     });
 
     it("should be invalid when incorrect number of choices selected", async () => {
@@ -842,9 +869,13 @@ describe("multi-choice question", () => {
         await userEvent.click(option[0]); // correct
         await userEvent.click(option[1]); // correct
         await userEvent.click(option[2]); // incorrect
+        const score = scorePerseusItemTesting(
+            multipleCorrectChoicesQuestion,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveInvalidInput(
+        expect(score).toHaveInvalidInput(
             "Please choose the correct number of answers",
         );
     });
@@ -860,9 +891,13 @@ describe("multi-choice question", () => {
             for (let i = 0; i < choices.length; i++) {
                 await userEvent.click(option[i]);
             }
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
 
             // Assert
-            expect(renderer).toHaveBeenAnsweredIncorrectly();
+            expect(score).toHaveBeenAnsweredIncorrectly();
         },
     );
 
@@ -877,9 +912,13 @@ describe("multi-choice question", () => {
             for (const i of choices) {
                 await userEvent.click(option[i]);
             }
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
 
             // Assert
-            expect(renderer).toHaveInvalidInput();
+            expect(score).toHaveInvalidInput();
         },
     );
 });
@@ -912,11 +951,15 @@ describe("scoring", () => {
 
         const userInput = renderer.getUserInput()[0] as PerseusRadioUserInput;
         const rubric = shuffledQuestion.widgets["radio 1"].options;
-        const score = scoreRadio(userInput, rubric, mockStrings);
+        const widgetScore = scoreRadio(userInput, rubric, mockStrings);
+        const rendererScore = scorePerseusItemTesting(
+            shuffledQuestion,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(score).toHaveBeenAnsweredCorrectly();
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(widgetScore).toHaveBeenAnsweredCorrectly();
+        expect(rendererScore).toHaveBeenAnsweredCorrectly();
     });
 
     /**
@@ -935,11 +978,15 @@ describe("scoring", () => {
 
         const userInput = renderer.getUserInput()[0] as PerseusRadioUserInput;
         const rubric = shuffledQuestion.widgets["radio 1"].options;
-        const score = scoreRadio(userInput, rubric, mockStrings);
+        const widgetScore = scoreRadio(userInput, rubric, mockStrings);
+        const rendererScore = scorePerseusItemTesting(
+            shuffledQuestion,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(score).toHaveBeenAnsweredIncorrectly();
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(widgetScore).toHaveBeenAnsweredIncorrectly();
+        expect(rendererScore).toHaveBeenAnsweredIncorrectly();
     });
 
     /**
@@ -958,11 +1005,15 @@ describe("scoring", () => {
 
         const userInput = renderer.getUserInput()[0] as PerseusRadioUserInput;
         const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
-        const score = scoreRadio(userInput, rubric, mockStrings);
+        const widgetScore = scoreRadio(userInput, rubric, mockStrings);
+        const rendererScore = scorePerseusItemTesting(
+            shuffledNoneQuestion,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(score).toHaveBeenAnsweredCorrectly();
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(widgetScore).toHaveBeenAnsweredCorrectly();
+        expect(rendererScore).toHaveBeenAnsweredCorrectly();
     });
 
     /**
@@ -981,11 +1032,15 @@ describe("scoring", () => {
 
         const userInput = renderer.getUserInput()[0] as PerseusRadioUserInput;
         const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
-        const score = scoreRadio(userInput, rubric, mockStrings);
+        const widgetScore = scoreRadio(userInput, rubric, mockStrings);
+        const rendererScore = scorePerseusItemTesting(
+            shuffledQuestion,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(score).toHaveBeenAnsweredIncorrectly();
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(widgetScore).toHaveBeenAnsweredIncorrectly();
+        expect(rendererScore).toHaveBeenAnsweredIncorrectly();
     });
 });
 

@@ -12,6 +12,7 @@ import {ClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import {mockStrings} from "../strings";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
+import {scorePerseusItemTesting} from "../util/test-utils";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 
 import imageItem from "./test-items/image-item";
@@ -46,8 +47,13 @@ describe("Perseus API", function () {
             // Act
             act(() => renderer.setInputValue(["input-number 1"], "5"));
 
+            const score = scorePerseusItemTesting(
+                inputNumber1Item.question,
+                renderer.getUserInputMap(),
+            );
+
             // Assert
-            expect(renderer).toHaveBeenAnsweredCorrectly();
+            expect(score).toHaveBeenAnsweredCorrectly();
         });
 
         it("should be able to produce a wrong value", function () {
@@ -57,8 +63,13 @@ describe("Perseus API", function () {
             // Act
             act(() => renderer.setInputValue(["input-number 1"], "3"));
 
+            const score = scorePerseusItemTesting(
+                inputNumber1Item.question,
+                renderer.getUserInputMap(),
+            );
+
             // Assert
-            expect(renderer).toHaveBeenAnsweredIncorrectly();
+            expect(score).toHaveBeenAnsweredIncorrectly();
         });
 
         it("should be able to produce an empty score", function () {
@@ -66,10 +77,22 @@ describe("Perseus API", function () {
             const {renderer} = renderQuestion(inputNumber1Item.question);
 
             act(() => renderer.setInputValue(["input-number 1"], "3"));
-            expect(renderer).toHaveBeenAnsweredIncorrectly();
+
+            let score = scorePerseusItemTesting(
+                inputNumber1Item.question,
+                renderer.getUserInputMap(),
+            );
+
+            expect(score).toHaveBeenAnsweredIncorrectly();
 
             act(() => renderer.setInputValue(["input-number 1"], ""));
-            expect(renderer).toHaveInvalidInput();
+
+            score = scorePerseusItemTesting(
+                inputNumber1Item.question,
+                renderer.getUserInputMap(),
+            );
+
+            expect(score).toHaveInvalidInput();
         });
 
         it("should be able to accept a callback", function (done) {

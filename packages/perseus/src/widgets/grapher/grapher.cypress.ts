@@ -1,6 +1,7 @@
 import renderQuestionWithCypress from "../../../../../testing/render-question-with-cypress";
 import {cypressTestDependencies} from "../../../../../testing/test-dependencies";
 import * as Perseus from "../../index";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 
 import {
     absoluteValueQuestion,
@@ -55,8 +56,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    absoluteValueQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 1,
                     total: 1,
@@ -90,8 +95,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    absoluteValueQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 0,
                     total: 1,
@@ -132,8 +141,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    exponentialQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 1,
                     total: 1,
@@ -170,8 +183,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    exponentialQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 0,
                     total: 1,
@@ -205,8 +222,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    linearQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 1,
                     total: 1,
@@ -238,8 +259,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    linearQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 0,
                     total: 1,
@@ -290,8 +315,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    logarithmQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 1,
                     total: 1,
@@ -340,8 +369,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    logarithmQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 0,
                     total: 1,
@@ -377,8 +410,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    quadraticQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 1,
                     total: 1,
@@ -412,8 +449,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    quadraticQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 0,
                     total: 1,
@@ -448,8 +489,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    sinusoidQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 1,
                     total: 1,
@@ -482,8 +527,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    sinusoidQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 0,
                     total: 1,
@@ -524,8 +573,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    multipleAvailableTypesQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 1,
                     total: 1,
@@ -564,8 +617,12 @@ describe("Grapher widget", () => {
 
             // Assert
             cy.then(() => {
-                const state = getRenderer().guessAndScore();
-                expect(state[1]).toStrictEqual({
+                const userInput = getRenderer().getUserInputMap();
+                const score = scorePerseusItemTesting(
+                    multipleAvailableTypesQuestion,
+                    userInput,
+                );
+                expect(score).toStrictEqual({
                     type: "points",
                     earned: 0,
                     total: 1,

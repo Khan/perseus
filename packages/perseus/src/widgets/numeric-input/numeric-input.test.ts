@@ -3,6 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import NumericInputWidgetExport, {unionAnswerForms} from "./numeric-input";
@@ -42,9 +43,13 @@ describe("numeric-input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             correct,
         );
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("should reject an incorrect answer", async () => {
@@ -56,9 +61,13 @@ describe("numeric-input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             incorrect,
         );
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("Should render predictably", async () => {
@@ -233,9 +242,13 @@ describe("Numeric input widget", () => {
 
         // Act
         await userEvent.type(screen.getByRole("textbox", {hidden: true}), "1");
+        const score = scorePerseusItemTesting(
+            multipleAnswers,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("can handle multiple correct answers (Part two)", async () => {
@@ -244,9 +257,13 @@ describe("Numeric input widget", () => {
 
         // Act
         await userEvent.type(screen.getByRole("textbox", {hidden: true}), "2");
+        const score = scorePerseusItemTesting(
+            multipleAnswers,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("can handle duplicated answers", async () => {
@@ -258,9 +275,13 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "2.4",
         );
+        const score = scorePerseusItemTesting(
+            duplicatedAnswers,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("can handle coefficients", async () => {
@@ -272,9 +293,13 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "1.0",
         );
+        const score = scorePerseusItemTesting(
+            withCoefficient,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("handles answers that are percentages", async () => {
@@ -286,9 +311,13 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "33%",
         );
+        const score = scorePerseusItemTesting(
+            percentageProblem,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("handles answers that are decimals", async () => {
@@ -300,9 +329,13 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
             "12.2",
         );
+        const score = scorePerseusItemTesting(
+            multipleAnswersWithDecimals,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("styles differently on mobile", () => {

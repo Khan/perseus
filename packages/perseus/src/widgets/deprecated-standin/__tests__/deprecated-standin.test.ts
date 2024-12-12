@@ -1,5 +1,6 @@
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
+import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 
 const question = {
@@ -41,10 +42,16 @@ describe("Deprecated Standin widget", () => {
     });
 
     it("should be scorable and always give points", () => {
-        // Arrange / Act
+        // Arrange
         const {renderer} = renderQuestion(question);
 
+        // Act
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
+
         // Assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 });
