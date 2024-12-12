@@ -57,6 +57,7 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
+import {removeDuplicateCoordsFromArray} from "./graphs/utils";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -422,7 +423,8 @@ const renderPolygonGraphControls = (props: {
 
     // We want to disable the closePolygon button when
     // there are not enough coords to make a polygon
-    const disableCloseButton = coords.length < 3;
+    const disableCloseButton =
+        removeDuplicateCoordsFromArray(coords).length < 3;
 
     // If polygon is closed, show open button.
     // If polygon is open, show close button.
