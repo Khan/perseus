@@ -37,6 +37,14 @@ export type Size = [width: number, height: number];
 export type CollinearTuple = [Vector2, Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
 
+// A utility type that constructs a widget map from a "registry interface".
+// The keys of the registry should be the widget type (aka, "categorizer" or
+// "radio", etc) and the value should be the option type stored in the value
+// of the map.
+export type MakeWidgetMap<TRegistry> = {
+    [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];
+};
+
 /**
  * Our core set of Perseus widgets.
  *
@@ -131,9 +139,7 @@ export interface PerseusWidgetTypes {
  * @see {@link PerseusWidgetTypes} additional widgets can be added to this map type
  * by augmenting the PerseusWidgetTypes with new widget types!
  */
-export type PerseusWidgetsMap = {
-    [Property in keyof PerseusWidgetTypes as `${Property} ${number}`]: PerseusWidgetTypes[Property];
-};
+export type PerseusWidgetsMap = MakeWidgetMap<PerseusWidgetTypes>;
 
 /**
  * A "PerseusItem" is a classic Perseus item. It is rendered by the
