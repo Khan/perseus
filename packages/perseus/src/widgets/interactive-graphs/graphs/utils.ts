@@ -51,6 +51,7 @@ export function getArrayWithoutDuplicates(array: Array<Coord>): Array<Coord> {
 
     for (const coordPair of array) {
         if (
+            // Check if the coordPair is not already in the returnArray
             !returnArray.some(
                 ([x, y]) => x === coordPair[0] && y === coordPair[1],
             )

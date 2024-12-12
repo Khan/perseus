@@ -1,7 +1,4 @@
-import {
-    getIntersectionOfRayWithBox,
-    getArrayWithoutDuplicates,
-} from "./utils";
+import {getIntersectionOfRayWithBox, getArrayWithoutDuplicates} from "./utils";
 
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
@@ -146,16 +143,60 @@ describe("getIntersectionOfRayWithBox", () => {
 
 describe("removeDuplicateCoordsFromArray", () => {
     test("removes duplicate coordinates", () => {
+        // Arrange
         const arr: Coord[] = [
             [0, 0],
             [0, 0],
             [1, 1],
         ];
 
+        // Act
         const result = getArrayWithoutDuplicates(arr);
+
+        // Assert
         expect(result).toEqual([
             [0, 0],
             [1, 1],
+        ]);
+    });
+
+    test("removes many duplicate coordinates", () => {
+        // Arrange
+        const arr: Coord[] = [
+            [0, 0],
+            [1, 1],
+            [0, 0],
+            [1, 1],
+            [0, 0],
+            [1, 1],
+        ];
+
+        // Act
+        const result = getArrayWithoutDuplicates(arr);
+
+        // Assert
+        expect(result).toEqual([
+            [0, 0],
+            [1, 1],
+        ]);
+    });
+
+    test("does not remove unique coordinates", () => {
+        // Arrange
+        const arr: Coord[] = [
+            [0, 1],
+            [1, 2],
+            [2, 3],
+        ];
+
+        // Act
+        const result = getArrayWithoutDuplicates(arr);
+
+        // Assert
+        expect(result).toEqual([
+            [0, 1],
+            [1, 2],
+            [2, 3],
         ]);
     });
 });

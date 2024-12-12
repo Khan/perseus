@@ -201,6 +201,10 @@ function doClickPoint(
 
 function doClosePolygon(state: InteractiveGraphState): InteractiveGraphState {
     if (isUnlimitedGraphState(state) && state.type === "polygon") {
+        // We want to remove any duplicate points when closing the polygon to
+        // (1) prevent the polygon from sides with length zero, and
+        // (2) make sure the question is can be marked correct if the polygon
+        //     LOOKS correct, even if two of the points are at the same coords.
         const noDupedPoints = getArrayWithoutDuplicates(state.coords);
 
         return {
