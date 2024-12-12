@@ -27,7 +27,7 @@ import {HideAnswersToggle} from "./hide-answers-toggle";
 import Marker from "./marker";
 import scoreLabelImage, {scoreMarker} from "./score-label-image";
 
-import type {LabelImageFullMarker} from "./types";
+import type {InteractiveMarkerType} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusLabelImageWidgetOptions} from "../../perseus-types";
@@ -75,7 +75,7 @@ type LabelImageProps = ChangeableProps &
     Omit<PerseusLabelImageWidgetOptions, "markers"> & {
         apiOptions: APIOptions;
         // The list of label markers on the question image.
-        markers: ReadonlyArray<LabelImageFullMarker>;
+        markers: ReadonlyArray<InteractiveMarkerType>;
         // Whether the question has been answered by the user.
         questionCompleted: boolean;
         // preferred placement for popover (preference, not MUST)
