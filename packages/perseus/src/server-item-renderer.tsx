@@ -19,9 +19,7 @@ import HintsRenderer from "./hints-renderer";
 import LoadingContext from "./loading-context";
 import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
-import {scorePerseusItem} from "./renderer-util";
 import Util from "./util";
-import {keScoreFromPerseusScore} from "./util/scoring";
 
 import type {PerseusItem, ShowSolutions} from "./perseus-types";
 import type {
@@ -346,41 +344,6 @@ export class ServerItemRenderer
      */
     getUserInput(): UserInputMap {
         return this.questionRenderer.getUserInputMap();
-    }
-
-    /**
-     * Grades the item.
-     *
-     * @deprecated use scorePerseusItem
-     */
-    scoreInput(): KEScore {
-        const guess = this.getUserInput();
-        const score = scorePerseusItem(
-            this.props.item.question,
-            guess,
-            this.context.strings,
-            this.context.locale,
-        );
-
-        // Continue to include an empty guess for the now defunct answer area.
-        // TODO(alex): Check whether we rely on the format here for
-        //             analyzing ProblemLogs. If not, remove this layer.
-        const maxCompatGuess = [this.questionRenderer.getUserInput(), []];
-
-        const keScore = keScoreFromPerseusScore(
-            score,
-            maxCompatGuess,
-            this.questionRenderer.getSerializedState(),
-        );
-
-        const emptyQuestionAreaWidgets = this.questionRenderer.emptyWidgets();
-
-        this.setState({
-            questionCompleted: keScore.correct,
-            questionHighlightedWidgets: emptyQuestionAreaWidgets,
-        });
-
-        return keScore;
     }
 
     /**

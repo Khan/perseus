@@ -441,7 +441,7 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Vector from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Vector from 0 comma 0 to 2 comma 2. Appearance solid gray.",
             });
         });
 
@@ -472,7 +472,7 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Vector spoken A from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Vector spoken A from 0 comma 0 to 2 comma 2. Appearance solid gray.",
             });
         });
 
@@ -507,7 +507,7 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Vector spoken A, spoken B from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Vector spoken A, spoken B from 0 comma 0 to 2 comma 2. Appearance solid gray.",
             });
         });
     });

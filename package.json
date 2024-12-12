@@ -28,7 +28,7 @@
         "@cypress/react": "^8.0.0",
         "@jest/globals": "^29.7.0",
         "@khanacademy/eslint-config": "^4.0.0",
-        "@khanacademy/eslint-plugin": "^3.0.0",
+        "@khanacademy/eslint-plugin": "^3.0.1",
         "@khanacademy/mathjax-renderer": "^2.1.0",
         "@khanacademy/wonder-blocks-button": "6.3.8",
         "@khanacademy/wonder-blocks-layout": "2.1.3",
@@ -61,8 +61,8 @@
         "@types/react": "~18.2.64",
         "@types/react-dom": "~18.2.19",
         "@types/underscore": "^1.11.4",
-        "@typescript-eslint/eslint-plugin": "^7.3.1",
-        "@typescript-eslint/parser": "^7.3.1",
+        "@typescript-eslint/eslint-plugin": "^8.18.0",
+        "@typescript-eslint/parser": "^8.18.0",
         "ancesdir": "^3.1.0",
         "babel-jest": "^29.7.0",
         "babel-loader": "^9.1.3",
@@ -73,7 +73,7 @@
         "cypress-jest-adapter": "^0.1.1",
         "cypress-real-events": "^1.12.0",
         "cypress-wait-until": "^3.0.1",
-        "eslint": "^8.57.0",
+        "eslint": "^8.57.1",
         "eslint-config-prettier": "^9.1.0",
         "eslint-import-resolver-alias": "^1.1.2",
         "eslint-import-resolver-typescript": "^3.5.5",
@@ -81,7 +81,7 @@
         "eslint-plugin-disable": "^2.0.3",
         "eslint-plugin-eslint-comments": "^3.2.0",
         "eslint-plugin-import": "^2.29.1",
-        "eslint-plugin-jest": "27.9.0",
+        "eslint-plugin-jest": "28.9.0",
         "eslint-plugin-jsdoc": "^48.2.1",
         "eslint-plugin-jsx-a11y": "^6.7.1",
         "eslint-plugin-monorepo": "^0.3.2",
@@ -151,5 +151,6 @@
     },
     "nyc": {
         "report-dir": "coverage/cypress/"
-    }
+    },
+    "dependencies": {}
 }
