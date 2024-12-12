@@ -1,10 +1,28 @@
 import type {
     DropdownWidget,
+    ExpressionWidget,
     ImageWidget,
     NumericInputWidget,
     PerseusRenderer,
 } from "../perseus-types";
 import type {RenderProps} from "../widgets/radio";
+
+export const expressionWidget: ExpressionWidget = {
+    type: "expression",
+    options: {
+        answerForms: [
+            {
+                considered: "correct",
+                form: true,
+                simplify: true,
+                value: "1.0",
+            },
+        ],
+        buttonSets: ["basic"],
+        functions: [],
+        times: true,
+    },
+};
 
 export const dropdownWidget: DropdownWidget = {
     type: "dropdown",
@@ -94,6 +112,12 @@ export const question2: PerseusRenderer = {
             },
     },
     widgets: {"numeric-input 1": numericInputWidget},
+};
+
+export const question3: PerseusRenderer = {
+    content: "Enter $1.0$ in the input field: [[\u2603 expression 1]]\n\n\n\n",
+    images: {},
+    widgets: {"expression 1": expressionWidget},
 };
 
 export const definitionItem: PerseusRenderer = {

@@ -115,6 +115,7 @@ export class Expression
     _isMounted = false;
 
     static getUserInputFromProps(props: Props): PerseusExpressionUserInput {
+        props; //?
         return normalizeTex(props.value);
     }
 
