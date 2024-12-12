@@ -112,7 +112,7 @@ describe("scoreLabelImage", function () {
                     answers: ["Lamborghini", "Fiat", "Ferrari"],
                 },
             ],
-        };
+        } as const;
 
         const score = scoreLabelImage(userInput, scoringData);
 
