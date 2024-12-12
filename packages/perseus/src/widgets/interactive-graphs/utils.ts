@@ -3,6 +3,7 @@ import SimpleMarkdown from "@khanacademy/simple-markdown";
 
 import {clampToBox, inset, MIN, size} from "./math";
 
+import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
@@ -133,4 +134,30 @@ function escapeIfUnescaped(character: string) {
     } else {
         return character;
     }
+}
+
+export function getBaseMafsGraphPropsForTests(): MafsGraphProps {
+    return {
+        box: [400, 400],
+        step: [1, 1],
+        gridStep: [1, 1],
+        markings: "graph",
+        containerSizeClass: "small",
+        showTooltips: false,
+        showProtractor: false,
+        readOnly: false,
+        labels: ["x", "y"],
+        static: false,
+        dispatch: () => {},
+        state: {
+            type: "segment",
+            hasBeenInteractedWith: false,
+            coords: [],
+            snapStep: [1, 1],
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+        },
+    };
 }
