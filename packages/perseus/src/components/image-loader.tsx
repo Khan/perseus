@@ -144,6 +144,7 @@ class ImageLoader extends React.Component<Props, State> {
 
         return (
             <img
+                tabIndex={0}
                 src={staticUrl(src)}
                 onKeyUp={onKeyUp}
                 onKeyDown={onKeyDown}
