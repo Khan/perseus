@@ -102,9 +102,6 @@ export type PerseusGrapherRubric = {
 
 export type PerseusGrapherUserInput = PerseusGrapherRubric["correct"];
 
-// TODO(LEMS-2440): Can possibly be removed during 2440; only userInput used
-export type PerseusIFrameRubric = Empty;
-
 export type PerseusIFrameUserInput = {
     status: UserInputStatus;
     message: string | null;
@@ -244,7 +241,6 @@ export type Rubric =
     | PerseusGradedGroupRubric
     | PerseusGradedGroupSetRubric
     | PerseusGrapherRubric
-    | PerseusIFrameRubric
     | PerseusInputNumberRubric
     | PerseusInteractiveGraphRubric
     | PerseusLabelImageRubric
