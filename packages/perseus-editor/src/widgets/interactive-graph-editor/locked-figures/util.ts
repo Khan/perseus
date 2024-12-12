@@ -95,7 +95,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
             return {
                 type: "label",
                 coord: [0, 0],
-                text: "",
+                text: "label",
                 color: DEFAULT_COLOR,
                 size: "medium",
             };
