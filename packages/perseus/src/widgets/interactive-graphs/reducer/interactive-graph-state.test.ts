@@ -22,6 +22,26 @@ const defaultAngleState: InteractiveGraphState = {
     allowReflexAngles: false,
 };
 
+const defaultUnlimitedPolygonState: InteractiveGraphState = {
+    type: "polygon",
+    closedPolygon: false,
+    focusedPointIndex: 0,
+    coords: [[5, 0]],
+    numSides: "unlimited",
+    hasBeenInteractedWith: true,
+    showRemovePointButton: false,
+    showKeyboardInteractionInvitation: false,
+    interactionMode: "mouse",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    snapTo: "grid",
+    showSides: true,
+    showAngles: true,
+};
+
 describe("getGradableGraph", () => {
     /**
      * Originally `getGradableGraph` was returning a PerseusGraphType with just a
@@ -116,5 +136,18 @@ describe("getGradableGraph", () => {
             [0, 0],
             [-5, -5],
         ]);
+    });
+
+    it("returns null coordinates if the unlimited polygon graph is open", () => {
+        const state: InteractiveGraphState = {
+            ...defaultUnlimitedPolygonState,
+            closedPolygon: false,
+        };
+        const initialGraph: PerseusGraphType = {
+            type: "polygon",
+        };
+        const result = getGradableGraph(state, initialGraph);
+        invariant(result.type === "polygon");
+        expect(result.coords).toEqual(null);
     });
 });

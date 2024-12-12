@@ -44,7 +44,7 @@ export function getGradableGraph(
     }
 
     if (state.type === "polygon" && initialGraph.type === "polygon") {
-        // Unless the polygon is closed it is not considered scorable.
+        // Unless the polygon is closed it is not considered score-able.
         if (state.numSides === "unlimited" && !state.closedPolygon) {
             return {
                 ...initialGraph,
