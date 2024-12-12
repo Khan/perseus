@@ -151,10 +151,10 @@ export async function generateSpokenMathDetails(mathString: string) {
             case "specialCharacter":
                 // We don't want the backslash from special character
                 // to show up in the generated aria label.
-                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                piece.content.length > 1
-                    ? (convertedSpeech += piece.content.slice(1))
-                    : (convertedSpeech += piece.content);
+                convertedSpeech +=
+                    piece.content.length > 1
+                        ? piece.content.slice(1)
+                        : piece.content;
                 break;
             default:
                 convertedSpeech += piece.content;
