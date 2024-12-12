@@ -29,6 +29,20 @@ describe("graded group widget", () => {
             ...testDependenciesV2,
             gradingCallback: (gradedGroupSetId, userInputMap) => {
                 console.log("SCORING");
+
+                // const groupData = (
+                //     question1.widgets[gradedGroupId] as GradedGroupWidget
+                // ).options;
+                // const score = scorePerseusItemTesting(
+                //     groupData,
+                //     userInputMap,
+                // );
+                // return score;
+                console.log(
+                    article1.widgets["graded-group-set 1"].options.gradedGroups,
+                );
+                console.log(userInputMap);
+
                 return {type: "invalid"};
             },
         });

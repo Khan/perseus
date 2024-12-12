@@ -185,7 +185,6 @@ class GradedGroup extends React.Component<Props, State> implements Widget {
         this.rendererRef.current?.showRationalesForCurrentlySelectedChoices();
 
         const userInput = this.rendererRef.current?.getUserInputMap();
-        console.log(this.props);
         const score: PerseusScore = this.props.gradingCallback(
             this.props.widgetId,
             userInput,
