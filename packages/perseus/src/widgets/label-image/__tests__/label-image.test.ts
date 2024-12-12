@@ -722,23 +722,19 @@ describe("LabelImage", function () {
                     markers: [
                         {
                             label: "The fourth unlabeled bar line.",
-                            x: 25,
-                            y: 17.7,
+                            selected: undefined,
                         },
                         {
                             label: "The third unlabeled bar line.",
-                            x: 25,
-                            y: 35.3,
+                            selected: undefined,
                         },
                         {
                             label: "The second unlabeled bar line.",
-                            x: 25,
-                            y: 53,
+                            selected: undefined,
                         },
                         {
                             label: "The first unlabeled bar line.",
-                            x: 25,
-                            y: 70.3,
+                            selected: undefined,
                         },
                     ],
                 },
