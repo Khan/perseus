@@ -305,18 +305,12 @@ export class LabelImage
     }
 
     getUserInput(): PerseusLabelImageUserInput {
-        const {markers} = this.props;
-        const copyMarkers = [...markers];
-        const markersWithoutAnswers = copyMarkers.map((marker) => {
-            const tempMarker = {};
-            for (const key in marker) {
-                if (key !== "answers") {
-                    tempMarker[key] = marker[key];
-                }
-            }
-            return tempMarker as PerseusLabelImageUserInput["markers"][number];
-        });
-        return {markers: markersWithoutAnswers};
+        return {
+            markers: this.props.markers.map((marker) => ({
+                selected: marker.selected,
+                label: marker.label,
+            })),
+        };
     }
 
     getPromptJSON(): LabelImagePromptJSON {
