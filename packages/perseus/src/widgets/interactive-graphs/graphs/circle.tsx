@@ -16,6 +16,7 @@ import {
 } from "./use-transform";
 
 import type {
+    AriaLive,
     CircleGraphState,
     Dispatch,
     InteractiveGraphElementSuite,
@@ -39,9 +40,8 @@ function CircleGraph(props: CircleGraphProps) {
     const {center, radiusPoint} = graphState;
 
     const {strings} = usePerseusI18n();
-    const [radiusPointAriaLive, setRadiusPointAriaLive] = React.useState<
-        "off" | "polite"
-    >("off");
+    const [radiusPointAriaLive, setRadiusPointAriaLive] =
+        React.useState<AriaLive>("off");
 
     const radius = getRadius(graphState);
     const id = React.useId();
