@@ -1,5 +1,18 @@
 # @khanacademy/perseus-dev-ui
 
+## 4.0.4
+
+### Patch Changes
+
+-   Updated dependencies [[`f9906728c`](https://github.com/Khan/perseus/commit/f9906728c1a8f09c91c11d824718b8a06d6a7609), [`341d316aa`](https://github.com/Khan/perseus/commit/341d316aa8727ebb9e7fde28fc4e2d8779aa3e82)]:
+    -   @khanacademy/perseus-core@2.0.0
+    -   @khanacademy/kas@0.4.3
+    -   @khanacademy/kmath@0.1.17
+    -   @khanacademy/math-input@21.1.7
+    -   @khanacademy/perseus-linter@1.2.5
+    -   @khanacademy/pure-markdown@0.3.14
+    -   @khanacademy/simple-markdown@0.13.7
+
 ## 4.0.3
 
 ### Patch Changes
