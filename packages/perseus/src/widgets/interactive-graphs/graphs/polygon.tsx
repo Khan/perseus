@@ -11,6 +11,7 @@ import {MovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
 import {useDraggable} from "./use-draggable";
 import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
+import {removeDuplicateCoordsFromArray} from "./utils";
 
 import type {CollinearTuple} from "../../../perseus-types";
 import type {
@@ -254,11 +255,14 @@ const UnlimitedPolygonGraph = (props: Props) => {
                         }}
                         onClick={() => {
                             // If the point being clicked is the first point and
-                            // there's enough points to form a polygon (3 or more)
-                            // Close the shape before setting focus.
+                            // there's enough non-duplicated points to form
+                            // a polygon (3 or more), close the shape before
+                            // setting focus.
                             if (
                                 i === 0 &&
-                                props.graphState.coords.length >= 3
+                                removeDuplicateCoordsFromArray(
+                                    props.graphState.coords,
+                                ).length >= 3
                             ) {
                                 dispatch(actions.polygon.closePolygon());
                             }

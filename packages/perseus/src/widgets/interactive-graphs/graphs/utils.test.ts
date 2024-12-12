@@ -1,5 +1,9 @@
-import {getIntersectionOfRayWithBox} from "./utils";
+import {
+    getIntersectionOfRayWithBox,
+    removeDuplicateCoordsFromArray,
+} from "./utils";
 
+import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
 
 describe("getIntersectionOfRayWithBox", () => {
@@ -137,5 +141,21 @@ describe("getIntersectionOfRayWithBox", () => {
             box,
         );
         expect(intersection).toEqual([-1.11, -1.11]);
+    });
+});
+
+describe("removeDuplicateCoordsFromArray", () => {
+    test("removes duplicate coordinates", () => {
+        const arr: Coord[] = [
+            [0, 0],
+            [0, 0],
+            [1, 1],
+        ];
+
+        const result = removeDuplicateCoordsFromArray(arr);
+        expect(result).toEqual([
+            [0, 0],
+            [1, 1],
+        ]);
     });
 });

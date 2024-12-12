@@ -15,6 +15,7 @@ import {
     vector,
 } from "../../../util/geometry";
 import {getQuadraticCoefficients} from "../graphs/quadratic";
+import {removeDuplicateCoordsFromArray} from "../graphs/utils";
 import {
     clamp,
     clampToBox,
@@ -200,24 +201,11 @@ function doClickPoint(
 
 function doClosePolygon(state: InteractiveGraphState): InteractiveGraphState {
     if (isUnlimitedGraphState(state) && state.type === "polygon") {
-        // If the last point is the same as the first point when the
-        // "Close shape" button is clicked, we should remove the
-        // last point before closing the polygon. Otherwise, it would
-        // be counted as an extra vertex and the question would be
-        // marked wrong. (Making this consistent with the behavior if
-        // the user had clicked on the first point to close the shape.)
-        const lastPoint = state.coords[state.coords.length - 1];
-        const firstPoint = state.coords[0];
-        if (_.isEqual(lastPoint, firstPoint)) {
-            return {
-                ...state,
-                coords: state.coords.slice(0, -1),
-                closedPolygon: true,
-            };
-        }
+        const nonDupePoints = removeDuplicateCoordsFromArray(state.coords);
 
         return {
             ...state,
+            coords: nonDupePoints,
             closedPolygon: true,
         };
     }
