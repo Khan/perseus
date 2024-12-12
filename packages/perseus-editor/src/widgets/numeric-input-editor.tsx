@@ -139,10 +139,22 @@ class NumericInputEditor extends React.Component<Props, State> {
         this.setState({showOptions: showOptions});
     };
 
-    onToggleAnswers = (answerIndex) => {
+    onToggleAnswers = (answerIndex: number) => {
         const showAnswerDetails = this.state.showAnswerDetails.slice();
         showAnswerDetails[answerIndex] = !showAnswerDetails[answerIndex];
         this.setState({showAnswerDetails: showAnswerDetails});
+    };
+
+    onToggleAnswerForm = (answerIndex: number, answerForm) => {
+        let answerForms: string[] =
+            this.props.answers[answerIndex]["answerForms"] ?? [];
+        const formSelected = answerForms.includes(answerForm);
+        if (!formSelected) {
+            answerForms.push(answerForm);
+        } else {
+            answerForms = answerForms.filter((form) => form !== answerForm);
+        }
+        this.updateAnswer(answerIndex, {answerForms});
     };
 
     onToggleHeading = (accordionName: string) => {
@@ -257,6 +269,76 @@ class NumericInputEditor extends React.Component<Props, State> {
     render() {
         const answers = this.props.answers;
 
+        const SettingOption = (props: {
+            kind: "accent" | "transparent";
+            role?: "radio" | "checkbox";
+            onClick: () => void;
+            children: any;
+        }): React.ReactElement => {
+            const {kind, onClick, children} = props;
+            const style = {
+                marginRight: "8px",
+                marginTop: "4px",
+            };
+            const role = props.role ?? "radio";
+            return (
+                <Pill
+                    kind={kind}
+                    size="medium"
+                    role={role}
+                    style={style}
+                    onClick={onClick}
+                >
+                    {children}
+                </Pill>
+            );
+        };
+
+        const RadioOption = (props: {
+            answerIndex: number;
+            answerProperty: string;
+            value: string;
+            onClick?: () => void;
+            children: any;
+        }): React.ReactElement => {
+            const {answerIndex, answerProperty, value, children} = props;
+            const isSelected = answers[answerIndex][answerProperty] === value;
+            const kind = isSelected ? "accent" : "transparent";
+            const newState = {};
+            newState[answerProperty] = value;
+            const onClick =
+                props.onClick ??
+                (() => {
+                    this.updateAnswer(answerIndex, newState);
+                });
+
+            return (
+                <SettingOption kind={kind} onClick={onClick}>
+                    {children}
+                </SettingOption>
+            );
+        };
+
+        const FormatOption = (props: {
+            answerIndex: number;
+            format: MathFormat;
+            children: any;
+        }): React.ReactElement => {
+            const {answerIndex, format, children} = props;
+            const isSelected =
+                answers[answerIndex]["answerForms"]?.includes(format);
+            const kind = isSelected ? "accent" : "transparent";
+            const onClick = () => {
+                this.onToggleAnswerForm(answerIndex, format);
+            };
+
+            return (
+                <SettingOption kind={kind} role="checkbox" onClick={onClick}>
+                    {children}
+                </SettingOption>
+            );
+        };
+
         const unsimplifiedAnswers = (i: any) => (
             <div className="perseus-widget-row unsimplified-options">
                 <label>Unsimplified answers are</label>
@@ -284,60 +366,27 @@ class NumericInputEditor extends React.Component<Props, State> {
                             </p>
                         </InfoTip>
                         <br />
-                        <Pill
-                            kind={
-                                answers[i]["simplify"] === "required"
-                                    ? "accent"
-                                    : "transparent"
-                            }
-                            size="medium"
-                            role="radio"
-                            style={{
-                                marginRight: "8px",
-                                marginTop: "4px",
-                            }}
-                            onClick={() => {
-                                this.updateAnswer(i, {simplify: "required"});
-                            }}
+                        <RadioOption
+                            answerIndex={i}
+                            answerProperty="simplify"
+                            value="required"
                         >
                             Ungraded
-                        </Pill>
-                        <Pill
-                            kind={
-                                answers[i]["simplify"] === "optional"
-                                    ? "accent"
-                                    : "transparent"
-                            }
-                            size="medium"
-                            role="radio"
-                            style={{
-                                marginRight: "8px",
-                                marginTop: "4px",
-                            }}
-                            onClick={() => {
-                                this.updateAnswer(i, {simplify: "optional"});
-                            }}
+                        </RadioOption>
+                        <RadioOption
+                            answerIndex={i}
+                            answerProperty="simplify"
+                            value="optional"
                         >
                             Accepted
-                        </Pill>
-                        <Pill
-                            kind={
-                                answers[i]["simplify"] === "enforced"
-                                    ? "accent"
-                                    : "transparent"
-                            }
-                            size="medium"
-                            role="radio"
-                            style={{
-                                marginRight: "8px",
-                                marginTop: "4px",
-                            }}
-                            onClick={() => {
-                                this.updateAnswer(i, {simplify: "enforced"});
-                            }}
+                        </RadioOption>
+                        <RadioOption
+                            answerIndex={i}
+                            answerProperty="simplify"
+                            value="enforced"
                         >
                             Wrong
-                        </Pill>
+                        </RadioOption>
                     </>
                 )}
             </div>
@@ -374,13 +423,25 @@ class NumericInputEditor extends React.Component<Props, State> {
                             do not restrict the answer format.
                         </p>
                     </InfoTip>
-                    <MultiButtonGroup
-                        buttons={answerFormButtons}
-                        values={answers[i]["answerForms"]}
-                        onChange={
-                            this.updateAnswer(i, "answerForms") || (() => {})
-                        }
-                    />
+                    <br />
+                    <FormatOption format="integer" answerIndex={i}>
+                        6
+                    </FormatOption>
+                    <FormatOption format="decimal" answerIndex={i}>
+                        0.75
+                    </FormatOption>
+                    <FormatOption format="proper" answerIndex={i}>
+                        ⅗
+                    </FormatOption>
+                    <FormatOption format="improper" answerIndex={i}>
+                        ⁷⁄₄
+                    </FormatOption>
+                    <FormatOption format="mixed" answerIndex={i}>
+                        1¾
+                    </FormatOption>
+                    <FormatOption format="pi" answerIndex={i}>
+                        π
+                    </FormatOption>
                 </div>
                 <div className="perseus-widget-row">
                     <Checkbox
@@ -641,57 +702,36 @@ class NumericInputEditor extends React.Component<Props, State> {
                             </div>
                             <div className="perseus-widget-row">
                                 <label>Status: </label>
-                                <Pill
-                                    kind={
-                                        answer.status === "correct"
-                                            ? "accent"
-                                            : "transparent"
-                                    }
-                                    size="medium"
-                                    role="radio"
-                                    style={{
-                                        marginRight: "8px",
-                                    }}
+                                <RadioOption
+                                    answerIndex={i}
+                                    answerProperty="status"
+                                    value="correct"
                                     onClick={() => {
                                         this.onEvaluationChange(i, "correct");
                                     }}
                                 >
                                     Correct
-                                </Pill>
-                                <Pill
-                                    kind={
-                                        answer.status === "wrong"
-                                            ? "accent"
-                                            : "transparent"
-                                    }
-                                    size="medium"
-                                    role="radio"
-                                    style={{
-                                        marginRight: "8px",
-                                    }}
+                                </RadioOption>
+                                <RadioOption
+                                    answerIndex={i}
+                                    answerProperty="status"
+                                    value="wrong"
                                     onClick={() => {
                                         this.onEvaluationChange(i, "wrong");
                                     }}
                                 >
                                     Wrong
-                                </Pill>
-                                <Pill
-                                    kind={
-                                        answer.status === "ungraded"
-                                            ? "accent"
-                                            : "transparent"
-                                    }
-                                    size="medium"
-                                    role="radio"
-                                    style={{
-                                        marginRight: "8px",
-                                    }}
+                                </RadioOption>
+                                <RadioOption
+                                    answerIndex={i}
+                                    answerProperty="status"
+                                    value="ungraded"
                                     onClick={() => {
                                         this.onEvaluationChange(i, "ungraded");
                                     }}
                                 >
                                     Ungraded
-                                </Pill>
+                                </RadioOption>
                             </div>
                             {unsimplifiedAnswers(i)}
                             <div className="perseus-widget-row">
