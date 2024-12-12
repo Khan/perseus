@@ -1,7 +1,7 @@
 /**
  * This file contains types used for validation and scoring. The types abide by
  * a naming convention so that they're easy to follow and that we remain
- * consistent across all of the widgets.
+ * consistency across all of the widgets.
  *
  * These types are:
  *
@@ -281,6 +281,11 @@ export type ScoringDataMap = {
 
 export type ScoringData = ScoringDataRegistry[keyof ScoringDataRegistry];
 
+export type ScoringRenderer = {
+    content: string;
+    widgets: ScoringDataMap;
+};
+
 /**
  * This is an interface so that it can be extended if a widget is created
  * outside of this Perseus package. See `PerseusWidgetTypes` for a full
@@ -320,7 +325,7 @@ export type UserInput = UserInputRegistry[keyof UserInputRegistry];
 export type UserInputMap = MakeWidgetMap<UserInputRegistry>;
 
 /**
- * deprecated prefer using UserInputMap
+ * @deprecated prefer using UserInputMap
  */
 export type UserInputArray = ReadonlyArray<
     UserInputArray | UserInput | null | undefined
