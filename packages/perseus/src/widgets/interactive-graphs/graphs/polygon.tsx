@@ -11,7 +11,7 @@ import {MovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
 import {useDraggable} from "./use-draggable";
 import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
-import {removeDuplicateCoordsFromArray} from "./utils";
+import {getArrayWithoutDuplicates} from "./utils";
 
 import type {Coord} from "../../../interactive2/types";
 import type {CollinearTuple} from "../../../perseus-types";
@@ -319,7 +319,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         // setting focus.
                         if (
                             i === 0 &&
-                            removeDuplicateCoordsFromArray(coords).length >= 3
+                            getArrayWithoutDuplicates(coords).length >= 3
                         ) {
                             dispatch(actions.polygon.closePolygon());
                         }

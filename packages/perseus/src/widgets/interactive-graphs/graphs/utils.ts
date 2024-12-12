@@ -46,9 +46,7 @@ function isBetween(x: number, low: number, high: number) {
     return x >= low && x <= high;
 }
 
-export function removeDuplicateCoordsFromArray(
-    array: Array<Coord>,
-): Array<Coord> {
+export function getArrayWithoutDuplicates(array: Array<Coord>): Array<Coord> {
     const returnArray: Array<Coord> = [];
 
     for (const coordPair of array) {

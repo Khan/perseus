@@ -15,7 +15,7 @@ import {
     vector,
 } from "../../../util/geometry";
 import {getQuadraticCoefficients} from "../graphs/quadratic";
-import {removeDuplicateCoordsFromArray} from "../graphs/utils";
+import {getArrayWithoutDuplicates} from "../graphs/utils";
 import {
     clamp,
     clampToBox,
@@ -201,11 +201,11 @@ function doClickPoint(
 
 function doClosePolygon(state: InteractiveGraphState): InteractiveGraphState {
     if (isUnlimitedGraphState(state) && state.type === "polygon") {
-        const nonDupePoints = removeDuplicateCoordsFromArray(state.coords);
+        const noDupedPoints = getArrayWithoutDuplicates(state.coords);
 
         return {
             ...state,
-            coords: nonDupePoints,
+            coords: noDupedPoints,
             closedPolygon: true,
         };
     }

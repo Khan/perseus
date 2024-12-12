@@ -1,6 +1,6 @@
 import {
     getIntersectionOfRayWithBox,
-    removeDuplicateCoordsFromArray,
+    getArrayWithoutDuplicates,
 } from "./utils";
 
 import type {Coord} from "@khanacademy/perseus";
@@ -152,7 +152,7 @@ describe("removeDuplicateCoordsFromArray", () => {
             [1, 1],
         ];
 
-        const result = removeDuplicateCoordsFromArray(arr);
+        const result = getArrayWithoutDuplicates(arr);
         expect(result).toEqual([
             [0, 0],
             [1, 1],
