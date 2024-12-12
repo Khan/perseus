@@ -589,7 +589,7 @@ var sanitizeUrl = function (url?: string | null) {
         ) {
             return null;
         }
-    } catch (e: any) {
+    } catch {
         // invalid URLs should throw a TypeError
         // see for instance: `new URL("");`
         return null;

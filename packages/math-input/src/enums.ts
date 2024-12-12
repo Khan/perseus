@@ -7,6 +7,7 @@ export enum KeypadType {
     EXPRESSION = "EXPRESSION",
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const KeyTypes = [
     "EMPTY",
     // For numerals, variables, and any other characters that themselves
