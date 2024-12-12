@@ -37,6 +37,7 @@ import {renderQuadraticGraph} from "./graphs/quadratic";
 import {renderRayGraph} from "./graphs/ray";
 import {renderSegmentGraph} from "./graphs/segment";
 import {renderSinusoidGraph} from "./graphs/sinusoid";
+import {removeDuplicateCoordsFromArray} from "./graphs/utils";
 import {MIN, X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {actions} from "./reducer/interactive-graph-action";
@@ -57,7 +58,6 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
-import {removeDuplicateCoordsFromArray} from "./graphs/utils";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
