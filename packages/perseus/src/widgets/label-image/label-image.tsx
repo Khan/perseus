@@ -435,7 +435,7 @@ export class LabelImage
             selected: selected.length ? selected : undefined,
         });
     }
-
+    // TODO(LEMS-2723): Investigate if possible to change this to not require answers
     renderMarkers(): ReadonlyArray<React.ReactNode> {
         const {markers, questionCompleted, preferredPopoverDirection} =
             this.props;
