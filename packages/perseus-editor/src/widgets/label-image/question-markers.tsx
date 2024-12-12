@@ -3,19 +3,15 @@
  * label image with answers from list of choices.
  */
 
-import {
-    Util,
-    Dependencies,
-    bodyXsmallBold,
-    type LabelImageMarker,
-    type LabelImageMarkerScoringData,
-} from "@khanacademy/perseus";
+import {Util, Dependencies, bodyXsmallBold} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import {gray17, gray68} from "../../styles/global-colors";
 
 import Marker from "./marker";
+
+import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus";
 
 type Props = {
     // The list of possible answers in a specific order.
@@ -25,11 +21,9 @@ type Props = {
     imageWidth: number;
     imageHeight: number;
     // The list of markers placed on the question image.
-    markers: ReadonlyArray<LabelImageMarker & LabelImageMarkerScoringData>;
+    markers: PerseusLabelImageWidgetOptions["markers"];
     // Callback for when any of markers change.
-    onChange: (
-        markers: ReadonlyArray<LabelImageMarker & LabelImageMarkerScoringData>,
-    ) => void;
+    onChange: (markers: PerseusLabelImageWidgetOptions["markers"]) => void;
 };
 
 export default class QuestionMarkers extends React.Component<Props> {

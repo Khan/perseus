@@ -221,6 +221,7 @@ export type {
     PerseusInputNumberWidgetOptions,
     PerseusInteractiveGraphWidgetOptions,
     PerseusItem,
+    PerseusLabelImageWidgetOptions,
     PerseusPhetSimulationWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusPythonProgramWidgetOptions,
@@ -234,10 +235,6 @@ export type {
 } from "./perseus-types";
 export type {UserInputMap} from "./validation.types";
 export type {Coord} from "./interactive2/types";
-export type {
-    LabelImageMarker,
-    LabelImageMarkerScoringData,
-} from "./widgets/label-image/types";
 
 /**
  * Multi-items
