@@ -192,7 +192,7 @@ export class LabelImage
      */
     static navigateToMarkerIndex(
         navigateDirection: Direction,
-        markers: PerseusLabelImageUserInput["markers"],
+        markers: LabelImageProps["markers"],
         thisIndex: number,
     ): number {
         const thisMarker = markers[thisIndex];
@@ -355,7 +355,7 @@ export class LabelImage
 
     handleMarkerChange(
         index: number,
-        marker: PerseusLabelImageUserInput["markers"][number],
+        marker: LabelImageProps["markers"][number],
     ) {
         const {markers, onChange} = this.props;
 
