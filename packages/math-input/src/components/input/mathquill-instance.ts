@@ -132,6 +132,7 @@ export function createMathField(
     //   HTTP request to fetch non-english speech rules, and cannot be easily
     //   mocked in consuming packages now that we do not bundle source code.
     //   When it eventually times out, it will cause arbitrary test failures.
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     !inJest &&
         SpeechRuleEngine.setup(locale).then((SRE) =>
             mathField.setMathspeakOverride(SRE.texToSpeech),

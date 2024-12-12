@@ -1,5 +1,23 @@
 # @khanacademy/perseus-editor
 
+## 16.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`335615bab`](https://github.com/Khan/perseus/commit/335615bab18685aa6331c7628c1225bdecc54aab), [`acd8bd566`](https://github.com/Khan/perseus/commit/acd8bd56664c6a0849bf3d532be8978115a97dfd)]:
+    -   @khanacademy/perseus@47.0.1
+
+## 16.0.0
+
+### Major Changes
+
+-   [#1955](https://github.com/Khan/perseus/pull/1955) [`e7b4db0bf`](https://github.com/Khan/perseus/commit/e7b4db0bf193241a36508804dd6e58c729f0a3db) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove support for MultiRenderer
+
+### Patch Changes
+
+-   Updated dependencies [[`e7b4db0bf`](https://github.com/Khan/perseus/commit/e7b4db0bf193241a36508804dd6e58c729f0a3db)]:
+    -   @khanacademy/perseus@47.0.0
+
 ## 15.1.4
 
 ### Patch Changes
