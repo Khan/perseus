@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 48.1.0
+
+### Minor Changes
+
+-   [#1988](https://github.com/Khan/perseus/pull/1988) [`cc9d3a4bc`](https://github.com/Khan/perseus/commit/cc9d3a4bc8866bbdaa09e2bf3fdb321fb9a125c1) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Hiding graphie labels from screen readers.
+
+*   [#1983](https://github.com/Khan/perseus/pull/1983) [`2748a1ff8`](https://github.com/Khan/perseus/commit/2748a1ff82b5e04b12f6b740b29b5e01a0561882) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating how svg-image loads data
+
 ## 48.0.0
 
 ### Major Changes
