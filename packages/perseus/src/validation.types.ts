@@ -43,11 +43,6 @@ import type {
     PerseusRadioChoice,
     PerseusGraphCorrectType,
 } from "./perseus-types";
-import type {
-    LabelImageMarker,
-    LabelImageMarkerScoringData,
-    LabelImageMarkerUserInput,
-} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
@@ -143,11 +138,17 @@ export type PerseusInteractiveGraphRubric = {
 export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
 export type PerseusLabelImageScoringData = {
-    markers: ReadonlyArray<LabelImageMarker & LabelImageMarkerScoringData>;
+    markers: ReadonlyArray<{
+        answers: ReadonlyArray<string>;
+        label: string;
+    }>;
 };
 
 export type PerseusLabelImageUserInput = {
-    markers: ReadonlyArray<LabelImageMarker & LabelImageMarkerUserInput>;
+    markers: ReadonlyArray<{
+        selected?: ReadonlyArray<string>;
+        label: string;
+    }>;
 };
 
 export type PerseusMatcherRubric = PerseusMatcherWidgetOptions;
