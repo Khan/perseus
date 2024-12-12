@@ -6,10 +6,15 @@ import {
     testDependenciesV2,
 } from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
+import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import {LabelImage} from "../label-image";
 
-import {textQuestion} from "./label-image.testdata";
+import {
+    shortTextQuestion,
+    textQuestion,
+    textWithoutAnswersQuestion,
+} from "./label-image.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -711,7 +716,7 @@ describe("LabelImage", function () {
     });
 
     describe("getUserInput", () => {
-        it("doesn't include answer in getUserInput", async () => {
+        it("doesn't include answer in getUserInput from getUserInputMap", async () => {
             // render component
             const {renderer} = renderQuestion(textQuestion);
 
@@ -740,5 +745,79 @@ describe("LabelImage", function () {
                 },
             });
         });
+    });
+
+    describe("scorePerseusItem", () => {
+        it("should be invalid on first render", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(textQuestion);
+
+            // Act
+            const score = scorePerseusItemTesting(
+                textQuestion,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveInvalidInput();
+        });
+    });
+
+    it("can be answered correctly when correct option is picked for the marker", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(shortTextQuestion);
+
+        // Act
+        const markerButton = screen.getByRole("button", {
+            name: "The fourth unlabeled bar line.",
+        });
+        await userEvent.click(markerButton);
+
+        const choice = screen.getByRole("option", {name: "SUVs"});
+        await userEvent.click(choice);
+
+        const score = scorePerseusItemTesting(
+            textQuestion,
+            renderer.getUserInputMap(),
+        );
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("can be answered incorrectly when incorrect option picked for the marker", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(shortTextQuestion);
+
+        // Act
+        const markerButton = screen.getByRole("button", {
+            name: "The fourth unlabeled bar line.",
+        });
+        await userEvent.click(markerButton);
+
+        const choice = screen.getByRole("option", {name: "Trucks"});
+        await userEvent.click(choice);
+
+        const score = scorePerseusItemTesting(
+            textQuestion,
+            renderer.getUserInputMap(),
+        );
+
+        // Assert
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+});
+
+describe("textWithoutAnswersQuestion", () => {
+    it("should render a text question without answers", () => {
+        // @ts-expect-error - Type not assignable to PerseusRenderer (answers removed)
+        const {container} = renderQuestion(textWithoutAnswersQuestion);
+
+        const text = screen.getByText(
+            "Carol created a chart and a bar graph to show how many of each type of vehicle were in her supermarket parking lot.",
+        );
+
+        expect(container).toMatchSnapshot();
+        expect(text).toBeTruthy();
     });
 });
