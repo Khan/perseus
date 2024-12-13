@@ -11,7 +11,7 @@ import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
-    PerseusSorterRubric,
+    PerseusSorterScoringData,
     PerseusSorterUserInput,
 } from "../../validation.types";
 import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
@@ -20,7 +20,7 @@ const {shuffle} = Util;
 
 type RenderProps = PerseusSorterWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusSorterRubric>;
+type Props = WidgetProps<RenderProps, PerseusSorterScoringData>;
 
 type DefaultProps = {
     correct: Props["correct"];

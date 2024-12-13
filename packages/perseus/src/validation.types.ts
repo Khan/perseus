@@ -219,7 +219,7 @@ export type PerseusRadioUserInput = {
     choicesSelected: ReadonlyArray<boolean>;
 };
 
-export type PerseusSorterRubric = {
+export type PerseusSorterScoringData = {
     // Translatable Text; The correct answer (in the correct order). The user will see the cards in a randomized order.
     correct: ReadonlyArray<string>;
 };
@@ -256,7 +256,7 @@ export type Rubric =
     | PerseusOrdererScoringData
     | PerseusPlotterScoringData
     | PerseusRadioScoringData
-    | PerseusSorterRubric
+    | PerseusSorterScoringData
     | PerseusTableRubric;
 
 export type UserInput =
