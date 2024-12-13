@@ -458,6 +458,11 @@ describe("MafsGraph", () => {
     });
 
     it("renders ARIA labels for each point (angle)", () => {
+        /*
+            terminal side coords[0] => [-1, 1]
+            vertex coords[1] => [0, 0]
+            initial side coords[2] => [1, 1]
+         */
         const state: InteractiveGraphState = {
             type: "angle",
             hasBeenInteractedWith: true,
