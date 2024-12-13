@@ -1,6 +1,0 @@
-import{P as e}from"./phet-simulation-_7qOO4_B.js";import"./jsx-runtime-63Ea5SlK.js";import"./index-6oxdNXpR.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./index-awljIyHI.js";import"./index-f-3iKkZU.js";import"./index-0DbkllkJ.js";import"./react-router-dom-VIBHfbW6.js";import"./index-i1pBWAmI.js";import"./index-deFLJwr4.js";import"./index-vITVWi7a.js";import"./index-469F30Ub.js";import"./arrow-square-out-bold-090vdhrx.js";import"./index-18qWGOW7.js";import"./index-Dfd6auV6.js";import"./i18n-context-fsWEgybQ.js";import"./dependencies-CP7Uh8Kq.js";import"./constants-iPV6vHZm.js";const y={component:e,title:"Perseus/Widgets/PhET Simulation"},t={args:{url:"https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",description:"Projectile Data Lab"}};var r,o,a;t.parameters={...t.parameters,docs:{...(r=t.parameters)==null?void 0:r.docs,source:{originalSource:`{
-  args: {
-    url: "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",
-    description: "Projectile Data Lab"
-  }
-}`,...(a=(o=t.parameters)==null?void 0:o.docs)==null?void 0:a.source}}};const D=["Primary"];export{t as Primary,D as __namedExportsOrder,y as default};
