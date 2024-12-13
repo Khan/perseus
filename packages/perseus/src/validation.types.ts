@@ -154,7 +154,7 @@ export type PerseusMatcherUserInput = {
     right: ReadonlyArray<string>;
 };
 
-export type PerseusMatrixRubric = {
+export type PerseusMatrixScoringData = {
     // A data matrix representing the "correct" answers to be entered into the matrix
     answers: PerseusMatrixWidgetAnswers;
 } & PerseusMatrixValidationData;
@@ -162,7 +162,7 @@ export type PerseusMatrixRubric = {
 export type PerseusMatrixValidationData = Empty;
 
 export type PerseusMatrixUserInput = {
-    answers: PerseusMatrixRubric["answers"];
+    answers: PerseusMatrixScoringData["answers"];
 };
 
 export type PerseusNumberLineScoringData = {
@@ -250,7 +250,7 @@ export type Rubric =
     | PerseusInteractiveGraphScoringData
     | PerseusLabelImageRubric
     | PerseusMatcherScoringData
-    | PerseusMatrixRubric
+    | PerseusMatrixScoringData
     | PerseusNumberLineScoringData
     | PerseusNumericInputRubric
     | PerseusOrdererRubric

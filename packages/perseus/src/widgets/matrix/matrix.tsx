@@ -23,7 +23,7 @@ import type {
 } from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
 import type {
-    PerseusMatrixRubric,
+    PerseusMatrixScoringData,
     PerseusMatrixUserInput,
 } from "../../validation.types";
 import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
@@ -118,7 +118,7 @@ type ExternalProps = WidgetProps<
         // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
         static?: boolean | undefined;
     },
-    PerseusMatrixRubric
+    PerseusMatrixScoringData
 >;
 
 // Assert that the PerseusMatrixWidgetOptions parsed from JSON can be passed
@@ -129,7 +129,7 @@ type ExternalProps = WidgetProps<
 // defaultProps.
 0 as any as WidgetProps<
     PerseusMatrixWidgetOptions,
-    PerseusMatrixRubric
+    PerseusMatrixScoringData
 > satisfies PropsFor<typeof Matrix>;
 
 type Props = ExternalProps & {
