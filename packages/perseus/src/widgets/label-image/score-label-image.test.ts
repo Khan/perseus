@@ -1,26 +1,9 @@
 import scoreLabelImage, {scoreMarker} from "./score-label-image";
 
-const emptyMarker = {
-    label: "",
-    answers: [],
-    selected: [],
-    x: 0,
-    y: 0,
-} as const;
-
-const emptyUserInput = {
-    label: "",
-    selected: [],
-    x: 0,
-    y: 0,
-} as const;
-
-const emptyScoringData = {
-    label: "",
-    answers: [],
-    x: 0,
-    y: 0,
-} as const;
+import type {
+    PerseusLabelImageScoringData,
+    PerseusLabelImageUserInput,
+} from "../../validation.types";
 
 describe("scoreMarker", function () {
     it("should score correct for empty marker with no user answers", function () {
@@ -77,37 +60,21 @@ describe("scoreMarker", function () {
 
 describe("scoreLabelImage", function () {
     it("should not grade non-interacted widget", function () {
-        const userInput = {
-            markers: [
-                {
-                    ...emptyUserInput,
-                    label: "England",
-                },
-                {
-                    ...emptyUserInput,
-                    label: "Germany",
-                },
-                {
-                    ...emptyUserInput,
-                    label: "Italy",
-                },
-            ],
+        const userInput: PerseusLabelImageUserInput = {
+            markers: [{label: "England"}, {label: "Germany"}, {label: "Italy"}],
         } as const;
 
-        const scoringData = {
+        const scoringData: PerseusLabelImageScoringData = {
             markers: [
                 {
-                    ...emptyScoringData,
                     label: "England",
                     answers: ["Mini", "Morris Minor", "Reliant Robin"],
                 },
                 {
-                    ...emptyScoringData,
                     label: "Germany",
                     answers: ["BMW", "Volkswagen", "Porsche"],
                 },
                 {
-                    ...emptyScoringData,
                     label: "Italy",
                     answers: ["Lamborghini", "Fiat", "Ferrari"],
                 },
@@ -122,37 +89,23 @@ describe("scoreLabelImage", function () {
     it("should not grade widget with not all markers answered", function () {
         const userInput = {
             markers: [
-                {
-                    ...emptyUserInput,
-                    label: "England",
-                    selected: ["Fiat"],
-                },
-                {
-                    ...emptyUserInput,
-                    label: "Germany",
-                    answers: ["BMW", "Volkswagen", "Porsche"],
-                    selected: ["Lamborghini"],
-                },
-                {
-                    ...emptyMarker,
-                    label: "Italy",
-                },
+                {label: "England", selected: ["Fiat"]},
+                {label: "Germany", selected: ["Lamborghini"]},
+                {label: "Italy"},
             ],
         } as const;
 
         const scoringData = {
             markers: [
                 {
-                    ...emptyScoringData,
                     label: "England",
+                    answers: [],
                 },
                 {
-                    ...emptyScoringData,
                     label: "Germany",
                     answers: ["BMW", "Volkswagen", "Porsche"],
                 },
                 {
-                    ...emptyScoringData,
                     label: "Italy",
                     answers: ["Lamborghini", "Fiat", "Ferrari"],
                 },
@@ -168,17 +121,14 @@ describe("scoreLabelImage", function () {
         const userInput = {
             markers: [
                 {
-                    ...emptyUserInput,
                     label: "England",
                     selected: ["Fiat"],
                 },
                 {
-                    ...emptyUserInput,
                     label: "Germany",
                     selected: ["Lamborghini"],
                 },
                 {
-                    ...emptyUserInput,
                     label: "Italy",
                     selected: ["Ferrari"],
                 },
@@ -188,16 +138,16 @@ describe("scoreLabelImage", function () {
         const scoringData = {
             markers: [
                 {
-                    ...emptyScoringData,
                     label: "England",
+                    answers: [],
                 },
                 {
-                    ...emptyScoringData,
                     label: "Germany",
+                    answers: [],
                 },
                 {
-                    ...emptyScoringData,
                     label: "Italy",
+                    answers: [],
                 },
             ],
         } as const;
@@ -211,17 +161,14 @@ describe("scoreLabelImage", function () {
         const userInput = {
             markers: [
                 {
-                    ...emptyMarker,
                     label: "England",
                     selected: ["Mini"],
                 },
                 {
-                    ...emptyMarker,
                     label: "Germany",
                     selected: ["BMW", "Volkswagen", "Porsche"],
                 },
                 {
-                    ...emptyMarker,
                     label: "Italy",
                     selected: ["Ferrari"],
                 },
@@ -231,17 +178,14 @@ describe("scoreLabelImage", function () {
         const scoringData = {
             markers: [
                 {
-                    ...emptyMarker,
                     label: "England",
                     answers: ["Mini", "Morris Minor", "Reliant Robin"],
                 },
                 {
-                    ...emptyMarker,
                     label: "Germany",
                     answers: ["BMW", "Volkswagen", "Porsche"],
                 },
                 {
-                    ...emptyMarker,
                     label: "Italy",
                     answers: ["Lamborghini", "Fiat", "Ferrari"],
                 },
@@ -257,17 +201,14 @@ describe("scoreLabelImage", function () {
         const userInput = {
             markers: [
                 {
-                    ...emptyMarker,
                     label: "England",
                     selected: ["Mini", "Morris Minor", "Reliant Robin"],
                 },
                 {
-                    ...emptyMarker,
                     label: "Germany",
                     selected: ["BMW", "Volkswagen", "Porsche"],
                 },
                 {
-                    ...emptyMarker,
                     label: "Italy",
                     selected: ["Lamborghini", "Fiat", "Ferrari"],
                 },
@@ -277,17 +218,14 @@ describe("scoreLabelImage", function () {
         const scoringData = {
             markers: [
                 {
-                    ...emptyMarker,
                     label: "England",
                     answers: ["Mini", "Morris Minor", "Reliant Robin"],
                 },
                 {
-                    ...emptyMarker,
                     label: "Germany",
                     answers: ["BMW", "Volkswagen", "Porsche"],
                 },
                 {
-                    ...emptyMarker,
                     label: "Italy",
                     answers: ["Lamborghini", "Fiat", "Ferrari"],
                 },
