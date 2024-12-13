@@ -13,12 +13,12 @@ import scoreDropdown from "./score-dropdown";
 import type {PerseusDropdownWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
-    PerseusDropdownRubric,
+    PerseusDropdownScoringData,
     PerseusDropdownUserInput,
 } from "../../validation.types";
 import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
-type Props = WidgetProps<RenderProps, PerseusDropdownRubric> & {
+type Props = WidgetProps<RenderProps, PerseusDropdownScoringData> & {
     selected: number;
 };
 

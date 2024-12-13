@@ -74,7 +74,7 @@ export type PerseusCSProgramUserInput = {
     message: string | null;
 };
 
-export type PerseusDropdownRubric = {
+export type PerseusDropdownScoringData = {
     choices: ReadonlyArray<PerseusDropdownChoice>;
 };
 
@@ -238,8 +238,8 @@ export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 export type Rubric =
     | PerseusCategorizerScoringData
     | PerseusCSProgramRubric
-    | PerseusDropdownRubric
     | PerseusExpressionRubric
+    | PerseusDropdownScoringData
     | PerseusGroupRubric
     | PerseusGradedGroupRubric
     | PerseusGradedGroupSetRubric

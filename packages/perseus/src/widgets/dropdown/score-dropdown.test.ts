@@ -2,7 +2,7 @@ import {question1} from "./dropdown.testdata";
 import scoreDropdown from "./score-dropdown";
 
 import type {
-    PerseusDropdownRubric,
+    PerseusDropdownScoringData,
     PerseusDropdownUserInput,
 } from "../../validation.types";
 
@@ -12,12 +12,12 @@ describe("scoreDropdown", () => {
         const userInput: PerseusDropdownUserInput = {
             value: 1,
         };
-        const rubric: PerseusDropdownRubric = {
+        const scoringData: PerseusDropdownScoringData = {
             choices: question1.widgets["dropdown 1"].options.choices,
         };
 
         // Act
-        const score = scoreDropdown(userInput, rubric);
+        const score = scoreDropdown(userInput, scoringData);
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();
@@ -28,12 +28,12 @@ describe("scoreDropdown", () => {
         const userInput: PerseusDropdownUserInput = {
             value: 2,
         };
-        const rubric: PerseusDropdownRubric = {
+        const scoringData: PerseusDropdownScoringData = {
             choices: question1.widgets["dropdown 1"].options.choices,
         };
 
         // Act
-        const score = scoreDropdown(userInput, rubric);
+        const score = scoreDropdown(userInput, scoringData);
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
