@@ -129,7 +129,7 @@ class ImageLoader extends React.Component<Props, State> {
             onKeyUp = (e: React.KeyboardEvent) => {
                 // 13 is enter key, 32 is space key
                 if (e.keyCode === 13 || e.keyCode === 32) {
-                    imgProps.onClick && imgProps.onClick(e);
+                    imgProps.onClick?.(e);
                 }
             };
             onKeyDown = (e: React.KeyboardEvent) => {

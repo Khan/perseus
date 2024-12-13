@@ -146,6 +146,7 @@ describe("Locked Label Settings", () => {
             render(
                 <LockedLabelSettings
                     {...defaultProps}
+                    text=""
                     onChangeProps={onChangeProps}
                 />,
                 {

@@ -1,4 +1,4 @@
-import type {PerseusScore} from "../../types";
+import type {ValidationResult} from "../../types";
 import type {PerseusOrdererUserInput} from "../../validation.types";
 
 /**
@@ -7,9 +7,7 @@ import type {PerseusOrdererUserInput} from "../../validation.types";
  * @param userInput
  * @see `scoreOrderer` for more details.
  */
-function validateOrderer(
-    userInput: PerseusOrdererUserInput,
-): Extract<PerseusScore, {type: "invalid"}> | null {
+function validateOrderer(userInput: PerseusOrdererUserInput): ValidationResult {
     if (userInput.current.length === 0) {
         return {
             type: "invalid",

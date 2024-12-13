@@ -29,6 +29,7 @@ exports[`interaction widget should render 1`] = `
             class="graphie-container"
           >
             <div
+              aria-hidden="true"
               class="graphie"
               style="position: relative; width: 479.99999999999994px; height: 120.00000000000001px;"
             >

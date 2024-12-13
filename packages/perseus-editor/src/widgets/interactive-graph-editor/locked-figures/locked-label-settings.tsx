@@ -125,7 +125,7 @@ export default function LockedLabelSettings(props: Props) {
                     <Strut size={spacing.xSmall_8} />
                     <TextField
                         value={text}
-                        placeholder="ex. x^2 or \frac{1}{2}"
+                        placeholder="ex. $x^2$ or $\frac{1}{2}$"
                         onChange={(newValue) =>
                             onChangeProps({
                                 text: newValue,

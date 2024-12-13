@@ -577,6 +577,8 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
+export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
+
 export type WidgetScorerFunction = (
     // The user data needed to score
     userInput: UserInput,
