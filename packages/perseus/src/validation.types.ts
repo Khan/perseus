@@ -147,7 +147,7 @@ export type PerseusLabelImageUserInput = {
     markers: ReadonlyArray<InteractiveMarkerType>;
 };
 
-export type PerseusMatcherRubric = PerseusMatcherWidgetOptions;
+export type PerseusMatcherScoringData = PerseusMatcherWidgetOptions;
 
 export type PerseusMatcherUserInput = {
     left: ReadonlyArray<string>;
@@ -249,7 +249,7 @@ export type Rubric =
     | PerseusInputNumberScoringData
     | PerseusInteractiveGraphScoringData
     | PerseusLabelImageRubric
-    | PerseusMatcherRubric
+    | PerseusMatcherScoringData
     | PerseusMatrixRubric
     | PerseusNumberLineScoringData
     | PerseusNumericInputRubric
