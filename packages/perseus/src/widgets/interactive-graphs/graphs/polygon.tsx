@@ -101,7 +101,7 @@ const PolygonGraph = (props: Props) => {
         }
     }, [props.graphState.focusedPointIndex, pointsRef]);
 
-    // If the unlimited polygon is render with 3 or more coordinates
+    // If the unlimited polygon is rendered with 3 or more coordinates
     // Close the polygon, but only on first render.
     React.useEffect(() => {
         if (numSides === "unlimited" && props.graphState.coords.length > 2) {
