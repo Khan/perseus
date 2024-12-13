@@ -25,7 +25,7 @@ import type {
     PerseusGradedGroupWidgetOptions,
 } from "../../perseus-types";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {PerseusGradedGroupSetRubric} from "../../validation.types";
+import type {PerseusGradedGroupSetScoringData} from "../../validation.types";
 import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 
 type IndicatorsProps = {
@@ -93,7 +93,7 @@ class Indicators extends React.Component<IndicatorsProps> {
 type RenderProps = PerseusGradedGroupSetWidgetOptions; // no transform
 
 type Props = Changeable.ChangeableProps &
-    WidgetProps<RenderProps, PerseusGradedGroupSetRubric> & {
+    WidgetProps<RenderProps, PerseusGradedGroupSetScoringData> & {
         trackInteraction: () => void;
     };
 
