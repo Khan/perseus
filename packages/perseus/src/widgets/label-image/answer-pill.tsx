@@ -34,6 +34,8 @@ export const AnswerPill = (props: {
         hovered,
     } = props;
 
+    // TODO(WB-1812, somewhatabstract): Migrate to Id or useId
+    // eslint-disable-next-line no-restricted-syntax
     const idFactory = useUniqueIdWithMock();
     const {strings} = usePerseusI18n();
 

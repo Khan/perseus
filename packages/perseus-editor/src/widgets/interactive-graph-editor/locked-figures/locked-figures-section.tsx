@@ -43,6 +43,8 @@ const LockedFiguresSection = (props: Props) => {
 
     const [isExpanded, setIsExpanded] = React.useState(true);
 
+    // TODO(WB-1812, somewhatabstract): Migrate to Id or useId
+    // eslint-disable-next-line no-restricted-syntax
     const uniqueId = useUniqueIdWithMock().get("locked-figures-section");
     const {figures, onChange} = props;
 

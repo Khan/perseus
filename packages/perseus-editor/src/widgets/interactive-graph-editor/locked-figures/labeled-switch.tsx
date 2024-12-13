@@ -18,6 +18,8 @@ type Props = {
 const LabeledSwitch = (props: Props) => {
     const {checked, label, style, onChange} = props;
 
+    // TODO(WB-1812, somewhatabstract): Migrate to Id or useId
+    // eslint-disable-next-line no-restricted-syntax
     const ids = useUniqueIdWithMock();
     const switchId = ids.get("switch");
 
