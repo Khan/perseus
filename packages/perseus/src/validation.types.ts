@@ -317,7 +317,7 @@ export type UserInput = UserInputRegisry[keyof UserInputRegisry];
 export type UserInputMap = MakeWidgetMap<UserInputRegisry>;
 
 /**
- * @deprecated prefer using UserInputMap
+ * deprecated prefer using UserInputMap
  */
 export type UserInputArray = ReadonlyArray<
     UserInputArray | UserInput | null | undefined
