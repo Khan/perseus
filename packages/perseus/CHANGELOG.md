@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 48.2.0
+
+### Minor Changes
+
+-   [#2001](https://github.com/Khan/perseus/pull/2001) [`ac07da03c`](https://github.com/Khan/perseus/commit/ac07da03cb332f9dd9ebf82820e409b9fb0844be) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Undoing changes to svg-image
+
+*   [#2004](https://github.com/Khan/perseus/pull/2004) [`2135e0dc3`](https://github.com/Khan/perseus/commit/2135e0dc3eddde1b3c842223e10e1ee94823c7e7) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fix for svg-image loading issues.
+
+### Patch Changes
+
+-   [#1928](https://github.com/Khan/perseus/pull/1928) [`09d906cd2`](https://github.com/Khan/perseus/commit/09d906cd289a886bdc92b8a5df65ccbc8ad3f29e) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Add screenreader support for circle graph
+
+*   [#1993](https://github.com/Khan/perseus/pull/1993) [`99e55b623`](https://github.com/Khan/perseus/commit/99e55b623deef244f99b554d8aa7ef0fb45a4bbb) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Internal: introduce `ValidationResult` for use in validation functions
+
 ## 48.1.0
 
 ### Minor Changes

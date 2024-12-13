@@ -1,6 +1,6 @@
 import Util from "../../util";
 
-import type {PerseusScore} from "../../types";
+import type {ValidationResult} from "../../types";
 import type {
     PerseusPlotterUserInput,
     PerseusPlotterValidationData,
@@ -17,7 +17,7 @@ const {deepEq} = Util;
 function validatePlotter(
     userInput: PerseusPlotterUserInput,
     validationData: PerseusPlotterValidationData,
-): Extract<PerseusScore, {type: "invalid"}> | null {
+): ValidationResult {
     if (deepEq(userInput, validationData.starting)) {
         return {
             type: "invalid",

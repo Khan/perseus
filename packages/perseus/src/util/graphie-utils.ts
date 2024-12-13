@@ -230,9 +230,11 @@ export function loadGraphie(
 
         if (shouldUseLocalizedData()) {
             cacheData.localized = false;
-            // If there is isn't any localized data, fall back to
-            // the original, unlocalized data
-            retrieveData(getLocalizedDataUrl(url), dataLoadErrorHandler);
+            // If there is isn't any localized data, use the error callback to try to
+            // load the non-localized data. If that fails too, then we will throw an error.
+            retrieveData(getLocalizedDataUrl(url), () =>
+                retrieveData(Util.getDataUrl(url), dataLoadErrorHandler),
+            );
         } else {
             retrieveData(Util.getDataUrl(url), dataLoadErrorHandler);
         }

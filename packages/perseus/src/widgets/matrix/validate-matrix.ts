@@ -3,7 +3,7 @@ import _ from "underscore";
 import {getMatrixSize} from "./matrix";
 
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "../../types";
+import type {ValidationResult} from "../../types";
 import type {
     PerseusMatrixUserInput,
     PerseusMatrixValidationData,
@@ -21,7 +21,7 @@ function validateMatrix(
     userInput: PerseusMatrixUserInput,
     validationData: PerseusMatrixValidationData,
     strings: PerseusStrings,
-): Extract<PerseusScore, {type: "invalid"}> | null {
+): ValidationResult {
     const supplied = userInput.answers;
     const suppliedSize = getMatrixSize(supplied);
 
