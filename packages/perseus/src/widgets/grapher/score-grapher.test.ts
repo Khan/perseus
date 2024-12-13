@@ -2,12 +2,12 @@ import scoreGrapher from "./score-grapher";
 
 import type {Coord} from "../../interactive2/types";
 import type {
-    PerseusGrapherRubric,
+    PerseusGrapherScoringData,
     PerseusGrapherUserInput,
 } from "../../validation.types";
 
 describe("scoreGrapher", () => {
-    it("is incorrect when user input type doesn't match rubric type", () => {
+    it("is incorrect when user input type doesn't match scoring data type", () => {
         const asymptote: [Coord, Coord] = [
             [-10, -10],
             [10, 10],
@@ -24,7 +24,7 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const scoringData: PerseusGrapherScoringData = {
             correct: {
                 type: "logarithm",
                 asymptote,
@@ -33,7 +33,7 @@ describe("scoreGrapher", () => {
         };
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, scoringData);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -59,7 +59,7 @@ describe("scoreGrapher", () => {
             coords: null,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const scoringData: PerseusGrapherScoringData = {
             correct: {
                 type: "exponential",
                 asymptote,
@@ -68,7 +68,7 @@ describe("scoreGrapher", () => {
         };
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, scoringData);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -89,7 +89,7 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const scoringData: PerseusGrapherScoringData = {
             correct: {
                 type: "linear",
                 coords,
@@ -97,7 +97,7 @@ describe("scoreGrapher", () => {
         };
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, scoringData);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -115,7 +115,7 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const scoringData: PerseusGrapherScoringData = {
             correct: {
                 type: "linear",
                 coords,
@@ -123,13 +123,13 @@ describe("scoreGrapher", () => {
         };
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, scoringData);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 
-    it("can be answered incorrectly when user input and rubric coords don't match", () => {
+    it("can be answered incorrectly when user input and scoring data coords don't match", () => {
         // Arrange
         const userInput: PerseusGrapherUserInput = {
             type: "linear",
@@ -139,7 +139,7 @@ describe("scoreGrapher", () => {
             ],
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const scoringData: PerseusGrapherScoringData = {
             correct: {
                 type: "linear",
                 coords: [
@@ -150,7 +150,7 @@ describe("scoreGrapher", () => {
         };
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, scoringData);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();

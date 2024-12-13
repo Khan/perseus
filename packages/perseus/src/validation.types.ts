@@ -97,11 +97,11 @@ export type PerseusGradedGroupScoringData = PerseusGradedGroupWidgetOptions;
 export type PerseusGradedGroupSetScoringData =
     PerseusGradedGroupSetWidgetOptions;
 
-export type PerseusGrapherRubric = {
+export type PerseusGrapherScoringData = {
     correct: GrapherAnswerTypes;
 };
 
-export type PerseusGrapherUserInput = PerseusGrapherRubric["correct"];
+export type PerseusGrapherUserInput = PerseusGrapherScoringData["correct"];
 
 // TODO(LEMS-2440): Can possibly be removed during 2440; only userInput used
 export type PerseusIFrameRubric = Empty;
@@ -244,7 +244,7 @@ export type Rubric =
     | PerseusGroupScoringData
     | PerseusGradedGroupScoringData
     | PerseusGradedGroupSetScoringData
-    | PerseusGrapherRubric
+    | PerseusGrapherScoringData
     | PerseusIFrameRubric
     | PerseusInputNumberRubric
     | PerseusInteractiveGraphRubric

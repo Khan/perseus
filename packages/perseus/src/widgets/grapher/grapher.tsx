@@ -37,7 +37,7 @@ import type {PerseusGrapherWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
 import type {
-    PerseusGrapherRubric,
+    PerseusGrapherScoringData,
     PerseusGrapherUserInput,
 } from "../../validation.types";
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
@@ -349,7 +349,7 @@ type RenderProps = {
     plot?: any;
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusGrapherRubric>;
+type ExternalProps = WidgetProps<RenderProps, PerseusGrapherScoringData>;
 
 type Props = ExternalProps & {
     // plot is always provided by default props
