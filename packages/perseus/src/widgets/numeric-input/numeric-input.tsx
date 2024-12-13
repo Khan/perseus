@@ -383,7 +383,7 @@ export default {
 
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusNumericInputRubric'
-    getOneCorrectAnswerFromRubric(
+    getOneCorrectAnswerFromScoringData(
         scoringData: PerseusNumericInputScoringData,
     ): string | null | undefined {
         const correctAnswers = scoringData.answers.filter(

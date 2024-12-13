@@ -561,7 +561,7 @@ export default {
 
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'ScoringData' is not assignable to type 'PerseusExpressionScoringData'.
-    getOneCorrectAnswerFromRubric(
+    getOneCorrectAnswerFromScoringData(
         scoringData: PerseusExpressionScoringData,
     ): string | null | undefined {
         const correctAnswers = (scoringData.answerForms || []).filter(

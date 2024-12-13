@@ -288,7 +288,7 @@ export default {
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusInputNumberUserInput'.
     scorer: scoreInputNumber,
 
-    getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {
+    getOneCorrectAnswerFromScoringData(rubric: any): string | null | undefined {
         if (rubric.value == null) {
             return;
         }

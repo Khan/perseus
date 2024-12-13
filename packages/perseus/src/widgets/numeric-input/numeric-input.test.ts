@@ -159,7 +159,7 @@ describe("numeric-input widget", () => {
     });
 });
 
-describe("static function getOneCorrectAnswerFromRubric", () => {
+describe("static function getOneCorrectAnswerFromScoringData", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
@@ -173,7 +173,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
             (widgetOptions && widgetOptions.answers) || [];
 
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
+            NumericInputWidgetExport.getOneCorrectAnswerFromScoringData?.({
                 answers,
                 coefficient: false,
             });
@@ -186,7 +186,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
         const answers: ReadonlyArray<any> =
             (widgetOptions && widgetOptions.answers) || [];
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
+            NumericInputWidgetExport.getOneCorrectAnswerFromScoringData?.({
                 answers,
                 coefficient: false,
             });
@@ -196,7 +196,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
     it("can not get a correct answer from a rubric with no answer", () => {
         const answers: Array<never> = [];
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
+            NumericInputWidgetExport.getOneCorrectAnswerFromScoringData?.({
                 answers,
                 coefficient: false,
             });
@@ -219,7 +219,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
             coefficient: true,
         };
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(
+            NumericInputWidgetExport.getOneCorrectAnswerFromScoringData?.(
                 scoringData,
             );
         expect(singleAnswer).toBe("1 ± 0.2");

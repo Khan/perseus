@@ -637,7 +637,7 @@ export type WidgetExports<
      */
     scorer?: WidgetScorerFunction;
 
-    getOneCorrectAnswerFromRubric?: (
+    getOneCorrectAnswerFromScoringData?: (
         scoringData: ScoringData,
     ) => string | null | undefined;
 
