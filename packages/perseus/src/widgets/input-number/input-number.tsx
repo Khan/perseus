@@ -16,7 +16,7 @@ import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
-    PerseusInputNumberRubric,
+    PerseusInputNumberScoringData,
     PerseusInputNumberUserInput,
 } from "../../validation.types";
 import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
@@ -58,7 +58,7 @@ type RenderProps = {
     rightAlign: PerseusInputNumberWidgetOptions["rightAlign"];
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberRubric>;
+type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberScoringData>;
 type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
@@ -67,7 +67,7 @@ type Props = ExternalProps & {
     currentValue: string;
     // NOTE(kevinb): This was the only default prop that is listed as
     // not-required in PerseusInputNumberWidgetOptions.
-    answerType: NonNullable<PerseusInputNumberRubric["answerType"]>;
+    answerType: NonNullable<PerseusInputNumberScoringData["answerType"]>;
 };
 
 type DefaultProps = {

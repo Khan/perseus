@@ -3,7 +3,7 @@ import KhanAnswerTypes from "../../util/answer-types";
 
 import type {PerseusStrings} from "../../strings";
 import type {
-    PerseusInputNumberRubric,
+    PerseusInputNumberScoringData,
     PerseusInputNumberUserInput,
 } from "../../validation.types";
 import type {PerseusScore} from "@khanacademy/perseus";
@@ -47,7 +47,7 @@ export const answerTypes = {
 
 function scoreInputNumber(
     userInput: PerseusInputNumberUserInput,
-    rubric: PerseusInputNumberRubric,
+    rubric: PerseusInputNumberScoringData,
     strings: PerseusStrings,
 ): PerseusScore {
     if (rubric.answerType == null) {

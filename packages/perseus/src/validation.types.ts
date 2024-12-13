@@ -111,7 +111,7 @@ export type PerseusIFrameUserInput = {
     message: string | null;
 };
 
-export type PerseusInputNumberRubric = {
+export type PerseusInputNumberScoringData = {
     answerType?:
         | "number"
         | "decimal"
@@ -246,7 +246,7 @@ export type Rubric =
     | PerseusGradedGroupSetScoringData
     | PerseusGrapherScoringData
     | PerseusIFrameRubric
-    | PerseusInputNumberRubric
+    | PerseusInputNumberScoringData
     | PerseusInteractiveGraphRubric
     | PerseusLabelImageRubric
     | PerseusMatcherRubric
