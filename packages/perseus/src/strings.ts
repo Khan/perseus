@@ -165,7 +165,7 @@ export type PerseusStrings = {
     }: {
         x: string;
         y: string;
-        angleMeasure: number;
+        angleMeasure: string;
     }) => string;
 };
 
