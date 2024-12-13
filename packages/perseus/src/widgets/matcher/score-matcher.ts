@@ -7,12 +7,12 @@ import type {
 } from "../../validation.types";
 
 function scoreMatcher(
-    state: PerseusMatcherUserInput,
+    userInput: PerseusMatcherUserInput,
     scoringData: PerseusMatcherScoringData,
 ): PerseusScore {
     const correct =
-        _.isEqual(state.left, scoringData.left) &&
-        _.isEqual(state.right, scoringData.right);
+        _.isEqual(userInput.left, scoringData.left) &&
+        _.isEqual(userInput.right, scoringData.right);
 
     return {
         type: "points",
