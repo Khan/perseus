@@ -716,7 +716,7 @@ describe("LabelImage", function () {
     });
 
     describe("getUserInput", () => {
-        it("doesn't include answer in getUserInput from getUserInputMap", () => {
+        it("should return the current user input on initial render", () => {
             // render component
             const {renderer} = renderQuestion(textQuestion);
 
