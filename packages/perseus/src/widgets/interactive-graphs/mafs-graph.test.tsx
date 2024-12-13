@@ -526,7 +526,6 @@ describe("MafsGraph", () => {
         expectLabelInDoc("Point 3, initial side at 0 comma 6");
     });
 
-
     it("renders a screenreader description summarizing the interactive elements on the graph", () => {
         const state: InteractiveGraphState = {
             type: "point",

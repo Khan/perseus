@@ -99,10 +99,13 @@ function AngleGraph(props: AngleGraphProps) {
 
     const {strings, locale} = usePerseusI18n();
 
-    const angleMeasure = srFormatNumber(getClockwiseAngle(
-        [endPoints[0], centerPoint, endPoints[1]],
-        allowReflexAngles,
-    ), locale);
+    const angleMeasure = srFormatNumber(
+        getClockwiseAngle(
+            [endPoints[0], centerPoint, endPoints[1]],
+            allowReflexAngles,
+        ),
+        locale,
+    );
 
     const formatCoordinates = (x: number, y: number) => ({
         x: srFormatNumber(x, locale),
