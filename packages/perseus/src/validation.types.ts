@@ -82,7 +82,7 @@ export type PerseusDropdownUserInput = {
     value: number;
 };
 
-export type PerseusExpressionRubric = {
+export type PerseusExpressionScoringData = {
     answerForms: ReadonlyArray<PerseusExpressionAnswerForm>;
     functions: ReadonlyArray<string>;
 };
@@ -238,8 +238,8 @@ export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 export type Rubric =
     | PerseusCategorizerScoringData
     | PerseusCSProgramRubric
-    | PerseusExpressionRubric
     | PerseusDropdownScoringData
+    | PerseusExpressionScoringData
     | PerseusGroupRubric
     | PerseusGradedGroupRubric
     | PerseusGradedGroupSetRubric
