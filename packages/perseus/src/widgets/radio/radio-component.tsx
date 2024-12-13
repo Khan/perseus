@@ -18,7 +18,7 @@ import type {
 } from "../../perseus-types";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {
-    PerseusRadioRubric,
+    PerseusRadioScoringData,
     PerseusRadioUserInput,
 } from "../../validation.types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
@@ -39,7 +39,7 @@ export type RenderProps = {
     values?: ReadonlyArray<boolean>;
 };
 
-type Props = WidgetProps<RenderProps, PerseusRadioRubric>;
+type Props = WidgetProps<RenderProps, PerseusRadioScoringData>;
 
 type DefaultProps = Required<
     Pick<

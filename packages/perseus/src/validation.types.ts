@@ -210,7 +210,7 @@ export type PerseusPlotterValidationData = {
 
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
 
-export type PerseusRadioRubric = {
+export type PerseusRadioScoringData = {
     // The choices provided to the user.
     choices: ReadonlyArray<PerseusRadioChoice>;
 };
@@ -255,7 +255,7 @@ export type Rubric =
     | PerseusNumericInputScoringData
     | PerseusOrdererScoringData
     | PerseusPlotterScoringData
-    | PerseusRadioRubric
+    | PerseusRadioScoringData
     | PerseusSorterRubric
     | PerseusTableRubric;
 
