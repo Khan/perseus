@@ -89,7 +89,7 @@ export type PerseusExpressionScoringData = {
 
 export type PerseusExpressionUserInput = string;
 
-export type PerseusGroupRubric = PerseusGroupWidgetOptions;
+export type PerseusGroupScoringData = PerseusGroupWidgetOptions;
 export type PerseusGroupUserInput = UserInputMap;
 
 export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
@@ -240,7 +240,7 @@ export type Rubric =
     | PerseusCSProgramRubric
     | PerseusDropdownScoringData
     | PerseusExpressionScoringData
-    | PerseusGroupRubric
+    | PerseusGroupScoringData
     | PerseusGradedGroupRubric
     | PerseusGradedGroupSetRubric
     | PerseusGrapherRubric
