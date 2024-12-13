@@ -131,7 +131,7 @@ export type PerseusInputNumberUserInput = {
     currentValue: string;
 };
 
-export type PerseusInteractiveGraphRubric = {
+export type PerseusInteractiveGraphScoringData = {
     // TODO(LEMS-2344): make the type of `correct` more specific
     correct: PerseusGraphCorrectType;
     graph: PerseusGraphType;
@@ -247,7 +247,7 @@ export type Rubric =
     | PerseusGrapherScoringData
     | PerseusIFrameRubric
     | PerseusInputNumberScoringData
-    | PerseusInteractiveGraphRubric
+    | PerseusInteractiveGraphScoringData
     | PerseusLabelImageRubric
     | PerseusMatcherRubric
     | PerseusMatrixRubric
