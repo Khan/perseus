@@ -809,5 +809,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumberLineUserInput'.
     scorer: scoreNumberLine,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumberLineUserInput'.
     validator: validateNumberLine,
 } satisfies WidgetExports<typeof NumberLine>;

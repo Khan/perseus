@@ -601,5 +601,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatrixUserInput'.
     scorer: scoreMatrix,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatrixUserInput'.
     validator: validateMatrix,
 } satisfies WidgetExports<typeof Matrix>;

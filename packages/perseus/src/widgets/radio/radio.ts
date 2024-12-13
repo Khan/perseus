@@ -156,5 +156,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusRadioUserInput
     scorer: scoreRadio,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusRadioUserInput
     validator: validateRadio,
 } satisfies WidgetExports<typeof Radio>;

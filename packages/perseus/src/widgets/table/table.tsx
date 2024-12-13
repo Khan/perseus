@@ -328,5 +328,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusTableUserInput
     scorer: scoreTable,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusTableUserInput
     validator: validateTable,
 } satisfies WidgetExports<typeof Table>;

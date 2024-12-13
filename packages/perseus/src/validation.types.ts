@@ -265,6 +265,7 @@ export type UserInput =
     | PerseusDropdownUserInput
     | PerseusExpressionUserInput
     | PerseusGrapherUserInput
+    | PerseusGroupUserInput
     | PerseusIFrameUserInput
     | PerseusInputNumberUserInput
     | PerseusInteractiveGraphUserInput
@@ -279,7 +280,7 @@ export type UserInput =
     | PerseusSorterUserInput
     | PerseusTableUserInput;
 
-export type UserInputMap = {[widgetId: string]: UserInput | UserInputMap};
+export type UserInputMap = {[widgetId: string]: UserInput};
 
 /**
  * deprecated prefer using UserInputMap
@@ -344,3 +345,8 @@ export type ValidationDataMap = {
         options: ValidationDataTypes[Property];
     };
 };
+
+/**
+ * A union type of all the different widget validation data types that exist.
+ */
+export type ValidationData = ValidationDataTypes[keyof ValidationDataTypes];

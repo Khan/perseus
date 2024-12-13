@@ -115,7 +115,6 @@ export class Expression
     _isMounted = false;
 
     static getUserInputFromProps(props: Props): PerseusExpressionUserInput {
-        props; //?
         return normalizeTex(props.value);
     }
 
@@ -560,6 +559,8 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
     scorer: scoreExpression,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
     validator: validateExpression,
 
     // TODO(LEMS-2656): remove TS suppression

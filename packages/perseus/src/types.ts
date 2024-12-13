@@ -13,6 +13,7 @@ import type {
     UserInput,
     UserInputArray,
     UserInputMap,
+    ValidationData,
 } from "./validation.types";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
@@ -579,8 +580,8 @@ export type WidgetTransform = (
 export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
 
 export type WidgetValidatorFunction = (
-    userInput: any, // STOPSHIP
-    validationData: any, // STOPHIP
+    userInput: UserInput,
+    validationData: ValidationData,
     strings: PerseusStrings,
     locale: string,
 ) => ValidationResult;

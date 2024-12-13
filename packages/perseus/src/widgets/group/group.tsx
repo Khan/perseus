@@ -206,8 +206,10 @@ export default {
     widget: Group,
     traverseChildWidgets: traverseChildWidgets,
     // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusGroupUserInput'.
     scorer: scoreGroup,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusGroupUserInput'.
     validator: validateGroup,
     hidden: true,
     isLintable: true,
