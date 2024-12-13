@@ -1,6 +1,6 @@
 import type {PerseusRenderer} from "../../perseus-types";
 
-export const question1: PerseusRenderer = {
+export const basicDropdown: PerseusRenderer = {
     content:
         "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
     images: {},
@@ -32,7 +32,7 @@ export const question1: PerseusRenderer = {
     },
 };
 
-export const question2: PerseusRenderer = {
+export const dropdownWithMath: PerseusRenderer = {
     content: "If x equals 4, then [[☃ dropdown 1]] equals $10$.",
     images: {},
     widgets: {
