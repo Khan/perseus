@@ -236,7 +236,7 @@ export type PerseusTableScoringData = {
 
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 
-export type Rubric =
+export type ScoringData =
     | PerseusCategorizerScoringData
     | PerseusCSProgramRubric
     | PerseusDropdownScoringData
