@@ -192,7 +192,7 @@ export type PerseusNumericInputUserInput = {
     currentValue: string;
 };
 
-export type PerseusOrdererRubric = PerseusOrdererWidgetOptions;
+export type PerseusOrdererScoringData = PerseusOrdererWidgetOptions;
 
 export type PerseusOrdererUserInput = {
     current: ReadonlyArray<string>;
@@ -253,7 +253,7 @@ export type Rubric =
     | PerseusMatrixScoringData
     | PerseusNumberLineScoringData
     | PerseusNumericInputScoringData
-    | PerseusOrdererRubric
+    | PerseusOrdererScoringData
     | PerseusPlotterScoringData
     | PerseusRadioRubric
     | PerseusSorterRubric
