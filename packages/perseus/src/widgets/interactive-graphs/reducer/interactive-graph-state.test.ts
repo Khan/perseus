@@ -150,4 +150,17 @@ describe("getGradableGraph", () => {
         invariant(result.type === "polygon");
         expect(result.coords).toEqual(null);
     });
+
+    it("returns coordinates if the unlimited polygon graph is closed", () => {
+        const state: InteractiveGraphState = {
+            ...defaultUnlimitedPolygonState,
+            closedPolygon: true,
+        };
+        const initialGraph: PerseusGraphType = {
+            type: "polygon",
+        };
+        const result = getGradableGraph(state, initialGraph);
+        invariant(result.type === "polygon");
+        expect(result.coords).toEqual([[5, 0]]);
+    });
 });
