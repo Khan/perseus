@@ -491,6 +491,42 @@ describe("MafsGraph", () => {
         expectLabelInDoc("Point 3, initial side at 1 comma 1");
     });
 
+    it("renders ARIA labels for each point (angle with angle measure)", () => {
+        /*
+            terminal side coords[0] => [7, 0]
+            vertex coords[1] => [0, 0]
+            initial side coords[2] => [0, 6]
+         */
+        const state: InteractiveGraphState = {
+            type: "angle",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [7, 0],
+                [0, 0],
+                [0, 6],
+            ],
+            showAngles: true,
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphProps()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        expectLabelInDoc("Point 1, terminal side at 7 comma 0");
+        expectLabelInDoc("Point 2, vertex at 0 comma 0. Angle 90 degrees");
+        expectLabelInDoc("Point 3, initial side at 0 comma 6");
+    });
+
+
     it("renders a screenreader description summarizing the interactive elements on the graph", () => {
         const state: InteractiveGraphState = {
             type: "point",
