@@ -181,7 +181,7 @@ export type PerseusNumberLineUserInput = {
     divisionRange: ReadonlyArray<number>;
 };
 
-export type PerseusNumericInputRubric = {
+export type PerseusNumericInputScoringData = {
     // A list of all the possible correct and incorrect answers
     answers: ReadonlyArray<PerseusNumericInputAnswer>;
     // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
@@ -252,7 +252,7 @@ export type Rubric =
     | PerseusMatcherScoringData
     | PerseusMatrixScoringData
     | PerseusNumberLineScoringData
-    | PerseusNumericInputRubric
+    | PerseusNumericInputScoringData
     | PerseusOrdererRubric
     | PerseusPlotterScoringData
     | PerseusRadioRubric

@@ -17,7 +17,7 @@ import {
     withCoefficient,
 } from "./numeric-input.testdata";
 
-import type {PerseusNumericInputRubric} from "../../validation.types";
+import type {PerseusNumericInputScoringData} from "../../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
@@ -204,7 +204,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
     });
 
     it("supports error bars", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     status: "correct",
@@ -219,7 +219,9 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
             coefficient: true,
         };
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(
+                scoringData,
+            );
         expect(singleAnswer).toBe("1 ± 0.2");
     });
 });
