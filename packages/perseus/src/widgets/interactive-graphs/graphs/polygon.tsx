@@ -263,6 +263,14 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
 
     return (
         <>
+            <Polyline
+                points={[...points]}
+                color="var(--movable-line-stroke-color)"
+                svgPolylineProps={{
+                    strokeWidth: "var(--movable-line-stroke-weight)",
+                    style: {fill: "transparent"},
+                }}
+            />
             {/* This rect is here to grab clicks so that new points can be added */}
             {/* It's important because it stops mouse events from propogating
                 when dragging a points around */}
@@ -287,14 +295,6 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         graphConfig,
                     );
                     dispatch(actions.polygon.addPoint(graphCoordinates[0]));
-                }}
-            />
-            <Polyline
-                points={[...points]}
-                color="var(--movable-line-stroke-color)"
-                svgPolylineProps={{
-                    strokeWidth: "var(--movable-line-stroke-weight)",
-                    style: {fill: "transparent"},
                 }}
             />
             {coords.map((point, i) => (
