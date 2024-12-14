@@ -242,6 +242,31 @@
     margin-right: 10px;
 }
 
+.perseus-editor-accordion-container {
+    display: inline-grid;
+    width: 100%;
+
+    &.collapsed {
+        grid-template-rows: 0fr;
+        min-height: 0;
+        visibility: hidden;
+        transition:
+            all 0.25s step-end,
+            grid-template-rows 0.25s;
+    }
+
+    &.expanded {
+        grid-template-rows: 1fr;
+        min-height: 100%;
+        visibility: visible;
+        transition: grid-template-rows 0.5s;
+    }
+
+    .perseus-editor-accordion-content {
+        overflow: hidden;
+    }
+}
+
 .perseus-editor-widgets-selectors {
     background-color: @grayExtraLight;
     border: 1px solid @grayLighter;
@@ -581,7 +606,7 @@
 
         input {
             background: #ffffff;
-            border: 1px solid rgba(33, 36, 44, 0.50);
+            border: 1px solid rgba(33, 36, 44, 0.5);
             border-radius: 4px;
             color: #21242c;
             font-family: Lato, "Noto Sans", sans-serif;
@@ -611,7 +636,8 @@
             width: 1em;
         }
 
-        &.with-max-error, &:focus-within {
+        &.with-max-error,
+        &:focus-within {
             .numeric-input-value {
                 border-right: none;
                 border-top-right-radius: 0;
@@ -626,8 +652,8 @@
             }
 
             .max-error-plusmn {
-                border-top: 1px solid rgba(33, 36, 44, 0.50);
-                border-bottom: 1px solid rgba(33, 36, 44, 0.50);
+                border-top: 1px solid rgba(33, 36, 44, 0.5);
+                border-bottom: 1px solid rgba(33, 36, 44, 0.5);
                 display: inline-block;
             }
         }

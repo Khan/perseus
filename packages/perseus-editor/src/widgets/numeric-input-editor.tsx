@@ -137,7 +137,7 @@ class NumericInputEditor extends React.Component<Props, State> {
 
     onToggleAnswerForm = (answerIndex: number, answerForm) => {
         let answerForms: string[] =
-            [...this.props.answers[answerIndex]["answerForms"]] ?? [];
+            [...(this.props.answers[answerIndex]["answerForms"] ?? [])];
         const formSelected = answerForms.includes(answerForm);
         if (!formSelected) {
             answerForms.push(answerForm);
@@ -613,6 +613,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                 return (
                     <div className="perseus-widget-row answer-option" key={i}>
                         <PerseusEditorAccordion
+                            animated={true}
                             expanded={this.state.showAnswerDetails[i]}
                             onToggle={() => {
                                 this.onToggleAnswers(i);
@@ -747,24 +748,28 @@ class NumericInputEditor extends React.Component<Props, State> {
                     isOpen={this.state.showSettings}
                     onToggle={this.onToggleHeading("Settings")}
                 />
-                {this.state.showSettings && inputSize}
-                {this.state.showSettings && rightAlign}
-                {this.state.showSettings && coefficientCheck}
-                {this.state.showSettings && labelText}
+                <div className={`perseus-editor-accordion-container ${this.state.showSettings ? "expanded" : "collapsed"}`}>
+                    <div className="perseus-editor-accordion-content">
+                        {inputSize}
+                        {rightAlign}
+                        {coefficientCheck}
+                        {labelText}
+                    </div>
+                </div>
                 <Heading
                     title="Answers"
                     isCollapsible={true}
                     isOpen={this.state.showAnswers}
                     onToggle={this.onToggleHeading("Answers")}
                 />
-                {this.state.showAnswers && (
-                    <>
+                <div className={`perseus-editor-accordion-container ${this.state.showAnswers ? "expanded" : "collapsed"}`}>
+                    <div className="perseus-editor-accordion-content">
                         {generateInputAnswerEditors()}
                         <Button kind="tertiary" onClick={this.addAnswer}>
                             Add new answer
                         </Button>
-                    </>
-                )}
+                    </div>
+                </div>
             </div>
         );
     }
