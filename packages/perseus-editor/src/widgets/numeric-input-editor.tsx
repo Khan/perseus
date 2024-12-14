@@ -137,17 +137,14 @@ class NumericInputEditor extends React.Component<Props, State> {
 
     onToggleAnswerForm = (answerIndex: number, answerForm) => {
         let answerForms: string[] =
-            this.props.answers[answerIndex]["answerForms"] ?? [];
+            [...this.props.answers[answerIndex]["answerForms"]] ?? [];
         const formSelected = answerForms.includes(answerForm);
-        console.log(`Answer Forms: `, answerForms);
-        console.log(`Form to toggle: `, answerForm);
-        console.log(`Is Selected: `, formSelected);
         if (!formSelected) {
             answerForms.push(answerForm);
         } else {
             answerForms = answerForms.filter((form) => form !== answerForm);
         }
-        this.updateAnswer(answerIndex, {answerForms: [...answerForms]});
+        this.updateAnswer(answerIndex, "answerForms")(answerForms);
     };
 
     onToggleHeading = (accordionName: string) => {
@@ -194,9 +191,7 @@ class NumericInputEditor extends React.Component<Props, State> {
     };
 
     updateAnswer = (choiceIndex, update) => {
-        console.log(`updateAnswer - choiceIndex, update`, choiceIndex, update);
         if (!_.isObject(update)) {
-            console.log(`updateAnswer - !_.isObject(update)`);
             return _.partial(
                 (choiceIndex, key, value) => {
                     const update: Record<string, any> = {};
@@ -222,7 +217,6 @@ class NumericInputEditor extends React.Component<Props, State> {
         }
 
         answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
-        console.log(`Calling 'props.onChange' with: `, answers);
         this.props.onChange({answers: answers});
     };
 
@@ -264,7 +258,6 @@ class NumericInputEditor extends React.Component<Props, State> {
 
     render() {
         const answers = this.props.answers;
-        console.log(`Top-Level Answers: `, this.props.answers.map(a=> a.answerForms?.join(":")).join("|"));
 
         const SettingOption = (props: {
             kind: "accent" | "transparent";
@@ -316,13 +309,16 @@ class NumericInputEditor extends React.Component<Props, State> {
         };
 
         const unsimplifiedAnswers = (i: any) => (
-            <div className="perseus-widget-row unsimplified-options">
-                <label>Unsimplified answers are</label>
+            <fieldset className="perseus-widget-row unsimplified-options">
                 {answers[i]["status"] !== "correct" && (
-                    <span> irrelevant for this status</span>
+                    <>
+                        <legend>Unsimplified answers are</legend>
+                        <span> irrelevant for this status</span>
+                    </>
                 )}
                 {answers[i]["status"] === "correct" && (
-                    <>
+                    <legend>
+                        Unsimplified answers are
                         <InfoTip>
                             <p>
                                 Normally select &quot;ungraded&quot;. This will
@@ -363,9 +359,9 @@ class NumericInputEditor extends React.Component<Props, State> {
                         >
                             Wrong
                         </RadioOption>
-                    </>
+                    </legend>
                 )}
-            </div>
+            </fieldset>
         );
 
         const suggestedAnswerTypes = (i: any) => (

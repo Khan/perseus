@@ -145,7 +145,7 @@ export class NumericInput
         // Ensure no duplicate tooltip text from simplified and unsimplified
         // versions of the same format
         examples = _.uniq(examples);
-console.log(`Examples: `, examples);
+
         return [this.context.strings.yourAnswer].concat(examples);
     }
 
@@ -227,7 +227,6 @@ console.log(`Examples: `, examples);
     };
 
     render(): React.ReactNode {
-        console.log(`Widget Top-Level Render: `, this.props.answerForms);
         let labelText = this.props.labelText;
         if (labelText == null || labelText === "") {
             labelText = this.context.strings.yourAnswerLabel;

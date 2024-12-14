@@ -281,7 +281,6 @@ class Editor extends React.Component<Props, State> {
     ) => {
         const widgets = Object.assign({}, this.props.widgets);
         widgets[id] = Object.assign({}, widgets[id], newWidgetInfo);
-        console.log(`Editor - Widgets[id]: `, widgets[id]);
         this.props.onChange({widgets}, cb, silent);
     };
 

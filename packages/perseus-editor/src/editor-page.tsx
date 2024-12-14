@@ -208,7 +208,6 @@ class EditorPage extends React.Component<Props, State> {
     handleChange: ChangeHandler = (toChange, cb, silent) => {
         const newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);
-        console.log(`Editor Page - newProps: `, newProps);
         this.props.onChange(newProps, cb, silent);
     };
 

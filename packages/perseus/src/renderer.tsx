@@ -576,7 +576,7 @@ class Renderer
                     Widgets.getTracking(widgetInfo && widgetInfo.type),
                 );
         }
-console.log(`Renderer - Widget Props: `, widgetProps);
+
         return {
             ...widgetProps,
             widgetId: widgetId,

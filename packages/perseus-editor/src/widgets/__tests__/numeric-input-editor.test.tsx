@@ -1,6 +1,6 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen, waitFor} from "@testing-library/react";
+import {render, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -131,7 +131,7 @@ describe("numeric-input-editor", () => {
         });
 
         const input = screen.getByRole("textbox", {
-            name: "Aria label",
+            name: "aria label",
         });
 
         await userEvent.type(input, "a");
@@ -149,7 +149,11 @@ describe("numeric-input-editor", () => {
             wrapper: RenderStateRoot,
         });
 
-        await userEvent.click(screen.getByRole("button", {name: "ungraded"}));
+        await userEvent.click(
+            within(
+                screen.getByRole("group", {name: /^Unsimplified answers are/}),
+            ).getByRole("radio", {name: "Ungraded"}),
+        );
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
@@ -167,7 +171,11 @@ describe("numeric-input-editor", () => {
             wrapper: RenderStateRoot,
         });
 
-        await userEvent.click(screen.getByRole("button", {name: "accepted"}));
+        await userEvent.click(
+            within(
+                screen.getByRole("group", {name: /^Unsimplified answers are/}),
+            ).getByRole("radio", {name: "Accepted"}),
+        );
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
@@ -185,7 +193,11 @@ describe("numeric-input-editor", () => {
             wrapper: RenderStateRoot,
         });
 
-        await userEvent.click(screen.getByRole("button", {name: "wrong"}));
+        await userEvent.click(
+            within(
+                screen.getByRole("group", {name: /^Unsimplified answers are/}),
+            ).getByRole("radio", {name: "Wrong"}),
+        );
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
@@ -213,7 +225,7 @@ describe("numeric-input-editor", () => {
                 wrapper: RenderStateRoot,
             });
 
-            await userEvent.click(screen.getByTitle(name));
+            await userEvent.click(screen.getByRole("checkbox", {name: name}));
 
             expect(onChangeMock).toBeCalledWith(
                 expect.objectContaining({
