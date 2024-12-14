@@ -15,6 +15,7 @@ import {
     definitionItem,
     mockedRandomItem,
     mockedShuffledRadioProps,
+    question3,
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
 import {registerWidget} from "../widgets";
@@ -1605,35 +1606,36 @@ describe("renderer", () => {
         it("should return all empty widgets", async () => {
             // Arrange
             const {renderer} = renderQuestion({
-                ...question2,
+                ...question3,
                 content:
-                    "Input 1: [[☃ numeric-input 1]]\n\n" +
-                    "Input 2: [[☃ numeric-input 2]]",
+                    "Input 1: [[☃ expression 1]]\n\n" +
+                    "Input 2: [[☃ expression 2]]",
                 widgets: {
-                    ...question2.widgets,
-                    "numeric-input 2": question2.widgets["numeric-input 1"],
+                    ...question3.widgets,
+                    "expression 2": question3.widgets["expression 1"],
                 },
             });
             await userEvent.type(screen.getAllByRole("textbox")[0], "150");
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             const emptyWidgets = renderer.emptyWidgets();
 
             // Assert
-            expect(emptyWidgets).toStrictEqual(["numeric-input 2"]);
+            expect(emptyWidgets).toStrictEqual(["expression 2"]);
         });
 
         it("should not return static widgets even if empty", () => {
             // Arrange
             const {renderer} = renderQuestion({
-                ...question2,
+                ...question3,
                 content:
-                    "Input 1: [[☃ numeric-input 1]]\n\n" +
-                    "Input 2: [[☃ numeric-input 2]]",
+                    "Input 1: [[☃ expression 1]]\n\n" +
+                    "Input 2: [[☃ expression 2]]",
                 widgets: {
-                    ...question2.widgets,
-                    "numeric-input 2": {
-                        ...question2.widgets["numeric-input 1"],
+                    ...question3.widgets,
+                    "expression 2": {
+                        ...question3.widgets["expression 1"],
                         static: true,
                     },
                 },
@@ -1643,7 +1645,7 @@ describe("renderer", () => {
             const emptyWidgets = renderer.emptyWidgets();
 
             // Assert
-            expect(emptyWidgets).toStrictEqual(["numeric-input 1"]);
+            expect(emptyWidgets).toStrictEqual(["expression 1"]);
         });
 
         it("should return widget ID for group with empty widget", () => {
@@ -1663,7 +1665,7 @@ describe("renderer", () => {
                 JSON.stringify(simpleGroupQuestion),
             );
             simpleGroupQuestionCopy.widgets["group 1"].options.widgets[
-                "numeric-input 1"
+                "expression 1"
             ].static = true;
             const {renderer} = renderQuestion(simpleGroupQuestionCopy);
 
@@ -1678,6 +1680,7 @@ describe("renderer", () => {
             // Arrange
             const {renderer} = renderQuestion(simpleGroupQuestion);
             await userEvent.type(screen.getByRole("textbox"), "99");
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             const emptyWidgets = renderer.emptyWidgets();
