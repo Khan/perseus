@@ -7,7 +7,6 @@ import {
     PerseusI18nContext,
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
-import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
@@ -22,8 +21,7 @@ import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 
 type ChangeFn = typeof Changeable.change;
 
-const {ButtonGroup, InfoTip, MultiButtonGroup, NumberInput, TextInput} =
-    components;
+const {InfoTip, NumberInput, TextInput} = components;
 const {firstNumericalParse} = Util;
 
 // NOTE(john): Copied from perseus-types.d.ts in the Perseus package.
@@ -97,7 +95,6 @@ type Props = PerseusNumericInputWidgetOptions & {
 
 type State = {
     lastStatus: string;
-    showOptions: boolean[];
     showAnswerDetails: boolean[];
     showSettings: boolean;
     showAnswers: boolean;
@@ -122,7 +119,6 @@ class NumericInputEditor extends React.Component<Props, State> {
         super(props);
         this.state = {
             lastStatus: "wrong",
-            showOptions: _.map(this.props.answers, () => false),
             showAnswerDetails: _.map(this.props.answers, () => true),
             showSettings: true,
             showAnswers: true,
@@ -131,12 +127,6 @@ class NumericInputEditor extends React.Component<Props, State> {
 
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
-    };
-
-    onToggleOptions = (choiceIndex) => {
-        const showOptions = this.state.showOptions.slice();
-        showOptions[choiceIndex] = !showOptions[choiceIndex];
-        this.setState({showOptions: showOptions});
     };
 
     onToggleAnswers = (answerIndex: number) => {
@@ -149,12 +139,15 @@ class NumericInputEditor extends React.Component<Props, State> {
         let answerForms: string[] =
             this.props.answers[answerIndex]["answerForms"] ?? [];
         const formSelected = answerForms.includes(answerForm);
+        console.log(`Answer Forms: `, answerForms);
+        console.log(`Form to toggle: `, answerForm);
+        console.log(`Is Selected: `, formSelected);
         if (!formSelected) {
             answerForms.push(answerForm);
         } else {
             answerForms = answerForms.filter((form) => form !== answerForm);
         }
-        this.updateAnswer(answerIndex, {answerForms});
+        this.updateAnswer(answerIndex, {answerForms: [...answerForms]});
     };
 
     onToggleHeading = (accordionName: string) => {
@@ -201,7 +194,9 @@ class NumericInputEditor extends React.Component<Props, State> {
     };
 
     updateAnswer = (choiceIndex, update) => {
+        console.log(`updateAnswer - choiceIndex, update`, choiceIndex, update);
         if (!_.isObject(update)) {
+            console.log(`updateAnswer - !_.isObject(update)`);
             return _.partial(
                 (choiceIndex, key, value) => {
                     const update: Record<string, any> = {};
@@ -227,6 +222,7 @@ class NumericInputEditor extends React.Component<Props, State> {
         }
 
         answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
+        console.log(`Calling 'props.onChange' with: `, answers);
         this.props.onChange({answers: answers});
     };
 
@@ -268,36 +264,36 @@ class NumericInputEditor extends React.Component<Props, State> {
 
     render() {
         const answers = this.props.answers;
+        console.log(`Top-Level Answers: `, this.props.answers.map(a=> a.answerForms?.join(":")).join("|"));
 
         const SettingOption = (props: {
             kind: "accent" | "transparent";
             role?: "radio" | "checkbox";
+            ariaLabel?: string;
             onClick: () => void;
             children: any;
         }): React.ReactElement => {
-            const {kind, onClick, children} = props;
+            const {kind, onClick, ariaLabel, children} = props;
             const style = {
                 marginRight: "8px",
                 marginTop: "4px",
             };
             const role = props.role ?? "radio";
-            return (
-                <Pill
-                    kind={kind}
-                    size="medium"
-                    role={role}
-                    style={style}
-                    onClick={onClick}
-                >
-                    {children}
-                </Pill>
-            );
+            const pillProps = {
+                "aria-label": ariaLabel,
+                kind: kind,
+                size: "medium",
+                role: role,
+                style: style,
+                onClick: onClick,
+            };
+            return <Pill {...pillProps}>{children}</Pill>;
         };
 
         const RadioOption = (props: {
             answerIndex: number;
             answerProperty: string;
-            value: string;
+            value: string | boolean;
             onClick?: () => void;
             children: any;
         }): React.ReactElement => {
@@ -314,26 +310,6 @@ class NumericInputEditor extends React.Component<Props, State> {
 
             return (
                 <SettingOption kind={kind} onClick={onClick}>
-                    {children}
-                </SettingOption>
-            );
-        };
-
-        const FormatOption = (props: {
-            answerIndex: number;
-            format: MathFormat;
-            children: any;
-        }): React.ReactElement => {
-            const {answerIndex, format, children} = props;
-            const isSelected =
-                answers[answerIndex]["answerForms"]?.includes(format);
-            const kind = isSelected ? "accent" : "transparent";
-            const onClick = () => {
-                this.onToggleAnswerForm(answerIndex, format);
-            };
-
-            return (
-                <SettingOption kind={kind} role="checkbox" onClick={onClick}>
                     {children}
                 </SettingOption>
             );
@@ -424,33 +400,45 @@ class NumericInputEditor extends React.Component<Props, State> {
                         </p>
                     </InfoTip>
                     <br />
-                    <FormatOption format="integer" answerIndex={i}>
-                        6
-                    </FormatOption>
-                    <FormatOption format="decimal" answerIndex={i}>
-                        0.75
-                    </FormatOption>
-                    <FormatOption format="proper" answerIndex={i}>
-                        ⅗
-                    </FormatOption>
-                    <FormatOption format="improper" answerIndex={i}>
-                        ⁷⁄₄
-                    </FormatOption>
-                    <FormatOption format="mixed" answerIndex={i}>
-                        1¾
-                    </FormatOption>
-                    <FormatOption format="pi" answerIndex={i}>
-                        π
-                    </FormatOption>
+                    {answerFormButtons.map((format) => {
+                        const isSelected = answers[i]["answerForms"]?.includes(
+                            format.value,
+                        );
+                        const kind = isSelected ? "accent" : "transparent";
+                        const onClick = () => {
+                            this.onToggleAnswerForm(i, format.value);
+                        };
+
+                        return (
+                            <SettingOption
+                                key={format.value}
+                                ariaLabel={format.title}
+                                kind={kind}
+                                role="checkbox"
+                                onClick={onClick}
+                            >
+                                {format.content}
+                            </SettingOption>
+                        );
+                    })}
                 </div>
                 <div className="perseus-widget-row">
-                    <Checkbox
-                        label="Strictly match only these formats"
-                        checked={answers[i]["strict"]}
-                        onChange={(value) => {
-                            this.updateAnswer.bind(this, i)({strict: value});
-                        }}
-                    />
+                    <label>Answer formats are: </label>
+                    <br />
+                    <RadioOption
+                        answerIndex={i}
+                        answerProperty="strict"
+                        value={false}
+                    >
+                        Suggested
+                    </RadioOption>
+                    <RadioOption
+                        answerIndex={i}
+                        answerProperty="strict"
+                        value={true}
+                    >
+                        Required
+                    </RadioOption>
                 </div>
             </>
         );
