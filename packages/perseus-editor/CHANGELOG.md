@@ -1,5 +1,38 @@
 # @khanacademy/perseus-editor
 
+## 16.0.4
+
+### Patch Changes
+
+-   Updated dependencies [[`09d906cd2`](https://github.com/Khan/perseus/commit/09d906cd289a886bdc92b8a5df65ccbc8ad3f29e), [`99e55b623`](https://github.com/Khan/perseus/commit/99e55b623deef244f99b554d8aa7ef0fb45a4bbb), [`ac07da03c`](https://github.com/Khan/perseus/commit/ac07da03cb332f9dd9ebf82820e409b9fb0844be), [`2135e0dc3`](https://github.com/Khan/perseus/commit/2135e0dc3eddde1b3c842223e10e1ee94823c7e7)]:
+    -   @khanacademy/perseus@48.2.0
+
+## 16.0.3
+
+### Patch Changes
+
+-   Updated dependencies [[`cc9d3a4bc`](https://github.com/Khan/perseus/commit/cc9d3a4bc8866bbdaa09e2bf3fdb321fb9a125c1), [`2748a1ff8`](https://github.com/Khan/perseus/commit/2748a1ff82b5e04b12f6b740b29b5e01a0561882)]:
+    -   @khanacademy/perseus@48.1.0
+
+## 16.0.2
+
+### Patch Changes
+
+-   [#1985](https://github.com/Khan/perseus/pull/1985) [`701895c01`](https://github.com/Khan/perseus/commit/701895c01bd2792a4dccc6ce0d5edc23f7483db3) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Update placeholder to include TeX \$s. Start new visible labels with text "label".
+
+*   [#1971](https://github.com/Khan/perseus/pull/1971) [`341d316aa`](https://github.com/Khan/perseus/commit/341d316aa8727ebb9e7fde28fc4e2d8779aa3e82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Move to using optional chaining in a few places to resolve new lint rule violations.
+
+-   [#1984](https://github.com/Khan/perseus/pull/1984) [`990a3170c`](https://github.com/Khan/perseus/commit/990a3170c2111ddc2c6e6f8f6420a4908cc71c82) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixed crashing behavior that occurs in when selecting "unlimited" in polygon option of interactive graph editor.
+
+-   Updated dependencies [[`f9906728c`](https://github.com/Khan/perseus/commit/f9906728c1a8f09c91c11d824718b8a06d6a7609), [`f9906728c`](https://github.com/Khan/perseus/commit/f9906728c1a8f09c91c11d824718b8a06d6a7609), [`341d316aa`](https://github.com/Khan/perseus/commit/341d316aa8727ebb9e7fde28fc4e2d8779aa3e82), [`990a3170c`](https://github.com/Khan/perseus/commit/990a3170c2111ddc2c6e6f8f6420a4908cc71c82)]:
+    -   @khanacademy/perseus@48.0.0
+    -   @khanacademy/perseus-core@2.0.0
+    -   @khanacademy/kas@0.4.3
+    -   @khanacademy/keypad-context@1.0.5
+    -   @khanacademy/kmath@0.1.17
+    -   @khanacademy/math-input@21.1.7
+    -   @khanacademy/pure-markdown@0.3.14
+
 ## 16.0.1
 
 ### Patch Changes

@@ -2,6 +2,7 @@ import {act} from "@testing-library/react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./number-line.testdata";
@@ -192,9 +193,13 @@ describe("number-line widget", () => {
         // Act
         const [numberLine] = renderer.findWidgets("number-line 1");
         act(() => numberLine.movePosition(-2.5));
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("can be answered incorrectly", () => {
@@ -207,8 +212,12 @@ describe("number-line widget", () => {
         // Act
         const [numberLine] = renderer.findWidgets("number-line 1");
         act(() => numberLine.movePosition(3.5));
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 });
