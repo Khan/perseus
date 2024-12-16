@@ -22,6 +22,7 @@ import {
     segmentWithStartingCoordsQuestion,
     segmentsWithStartingCoordsQuestion,
     sinusoidWithStartingCoordsQuestion,
+    unlimitedPolygonWithCorrectAnswerQuestion,
 } from "../../../perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
@@ -121,6 +122,14 @@ export const InteractiveGraphPolygon = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview
             question={polygonWithStartingCoordsQuestion}
+        />
+    );
+};
+
+export const InteractiveGraphUnlimitedPolygon = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={unlimitedPolygonWithCorrectAnswerQuestion}
         />
     );
 };

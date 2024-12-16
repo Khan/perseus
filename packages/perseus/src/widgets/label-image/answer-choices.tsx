@@ -1,7 +1,6 @@
 /**
  * Enables single or multiple answers selection using WonderBlocks dropdowns.
  */
-
 import {
     MultiSelect,
     SingleSelect,

@@ -1,5 +1,37 @@
 # @khanacademy/perseus
 
+## 49.0.0
+
+### Major Changes
+
+-   [#2007](https://github.com/Khan/perseus/pull/2007) [`ea1bf0c2c`](https://github.com/Khan/perseus/commit/ea1bf0c2cfc7ae552d039549950d1973b56f5ca9) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Update to latest webapp dependencies and prepare for deprecation of custom WB ID generators
+
+### Patch Changes
+
+-   Updated dependencies [[`ea1bf0c2c`](https://github.com/Khan/perseus/commit/ea1bf0c2cfc7ae552d039549950d1973b56f5ca9)]:
+    -   @khanacademy/math-input@22.0.0
+    -   @khanacademy/perseus-core@3.0.0
+    -   @khanacademy/kas@0.4.4
+    -   @khanacademy/keypad-context@1.0.6
+    -   @khanacademy/kmath@0.1.18
+    -   @khanacademy/perseus-linter@1.2.6
+    -   @khanacademy/pure-markdown@0.3.15
+    -   @khanacademy/simple-markdown@0.13.8
+
+## 48.2.0
+
+### Minor Changes
+
+-   [#2001](https://github.com/Khan/perseus/pull/2001) [`ac07da03c`](https://github.com/Khan/perseus/commit/ac07da03cb332f9dd9ebf82820e409b9fb0844be) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Undoing changes to svg-image
+
+*   [#2004](https://github.com/Khan/perseus/pull/2004) [`2135e0dc3`](https://github.com/Khan/perseus/commit/2135e0dc3eddde1b3c842223e10e1ee94823c7e7) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fix for svg-image loading issues.
+
+### Patch Changes
+
+-   [#1928](https://github.com/Khan/perseus/pull/1928) [`09d906cd2`](https://github.com/Khan/perseus/commit/09d906cd289a886bdc92b8a5df65ccbc8ad3f29e) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Add screenreader support for circle graph
+
+*   [#1993](https://github.com/Khan/perseus/pull/1993) [`99e55b623`](https://github.com/Khan/perseus/commit/99e55b623deef244f99b554d8aa7ef0fb45a4bbb) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Internal: introduce `ValidationResult` for use in validation functions
+
 ## 48.1.0
 
 ### Minor Changes

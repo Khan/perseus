@@ -1,4 +1,4 @@
-import {UniqueIDProvider, View} from "@khanacademy/wonder-blocks-core";
+import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
@@ -101,8 +101,8 @@ class Dropdown extends React.Component<Props> implements Widget {
         ];
 
         return (
-            <UniqueIDProvider scope="dropdown-widget" mockOnFirstRender={true}>
-                {(ids) => (
+            <Id>
+                {(dropdownId) => (
                     <View
                         // NOTE(jared): These are required to prevent weird behavior
                         // When there's a dropdown in a zoomable table.
@@ -114,15 +114,12 @@ class Dropdown extends React.Component<Props> implements Widget {
                         }}
                     >
                         {this.props.visibleLabel && (
-                            <LabelLarge
-                                tag="label"
-                                htmlFor={ids.get("dropdown")}
-                            >
+                            <LabelLarge tag="label" htmlFor={dropdownId}>
                                 {this.props.visibleLabel}
                             </LabelLarge>
                         )}
                         <SingleSelect
-                            id={ids.get("dropdown")}
+                            id={dropdownId}
                             placeholder=""
                             onChange={(value) =>
                                 this._handleChange(parseInt(value))
@@ -145,7 +142,7 @@ class Dropdown extends React.Component<Props> implements Widget {
                         </SingleSelect>
                     </View>
                 )}
-            </UniqueIDProvider>
+            </Id>
         );
     }
 }
