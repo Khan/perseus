@@ -86,6 +86,8 @@ class Dropdown extends React.Component<Props> implements Widget {
         ];
 
         return (
+            // TODO(WB-1812, somewhatabstract): Migrate to Id or useId
+            // eslint-disable-next-line no-restricted-syntax
             <UniqueIDProvider scope="dropdown-widget" mockOnFirstRender={true}>
                 {(ids) => (
                     <View

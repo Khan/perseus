@@ -10,6 +10,8 @@ export const HideAnswersToggle = (props: {
     areAnswersHidden: boolean;
     onChange: React.ComponentPropsWithoutRef<typeof Switch>["onChange"];
 }) => {
+    // TODO(WB-1812, somewhatabstract): Migrate to Id or useId
+    // eslint-disable-next-line no-restricted-syntax
     const idFactory = useUniqueIdWithMock();
     const switchId = idFactory.get("hide-answers-toggle");
     const labelId = idFactory.get("hide-answers-label");
