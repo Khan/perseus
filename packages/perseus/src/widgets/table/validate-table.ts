@@ -1,11 +1,9 @@
 import {filterNonEmpty} from "./utils";
 
-import type {PerseusScore} from "../../types";
+import type {ValidationResult} from "../../types";
 import type {PerseusTableUserInput} from "../../validation.types";
 
-function validateTable(
-    userInput: PerseusTableUserInput,
-): Extract<PerseusScore, {type: "invalid"}> | null {
+function validateTable(userInput: PerseusTableUserInput): ValidationResult {
     const supplied = filterNonEmpty(userInput);
 
     const hasEmptyCell = supplied.some(function (row) {

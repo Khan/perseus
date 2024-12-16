@@ -10,6 +10,7 @@ import * as Dependencies from "../../dependencies";
 import {calculateNestedSVGCoords, MafsGraph} from "./mafs-graph";
 import {actions, REMOVE_POINT} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
+import {getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
@@ -18,32 +19,6 @@ import type {UserEvent} from "@testing-library/user-event";
 
 function expectLabelInDoc(label: string) {
     expect(screen.getByLabelText(label)).toBeInTheDocument();
-}
-
-function getBaseMafsGraphProps(): MafsGraphProps {
-    return {
-        box: [400, 400],
-        step: [1, 1],
-        gridStep: [1, 1],
-        markings: "graph",
-        containerSizeClass: "small",
-        showTooltips: false,
-        showProtractor: false,
-        readOnly: false,
-        labels: ["x", "y"],
-        static: false,
-        dispatch: () => {},
-        state: {
-            type: "segment",
-            hasBeenInteractedWith: false,
-            coords: [],
-            snapStep: [1, 1],
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-        },
-    };
 }
 
 function createFakeStore<S, A>(reducer: (state: S, action: A) => S, state: S) {
@@ -109,7 +84,7 @@ describe("MafsGraph", () => {
             ],
         };
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 
         render(
             <MafsGraph
@@ -134,7 +109,7 @@ describe("MafsGraph", () => {
 
     it("renders TeX in axis Labels", () => {
         const basePropsWithTexLabels = {
-            ...getBaseMafsGraphProps(),
+            ...getBaseMafsGraphPropsForTests(),
             labels: ["$1/2$", "$3/4$"],
         };
 
@@ -145,7 +120,7 @@ describe("MafsGraph", () => {
 
     it("renders plain text in axis Labels", () => {
         const basePropsWithTexLabels = {
-            ...getBaseMafsGraphProps(),
+            ...getBaseMafsGraphPropsForTests(),
             labels: ["4/5", "5/6"],
         };
 
@@ -173,7 +148,7 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseMafsGraphPropsForTests()}
                 state={state}
                 dispatch={() => {}}
             />,
@@ -206,7 +181,7 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseMafsGraphPropsForTests()}
                 state={state}
                 dispatch={() => {}}
             />,
@@ -235,7 +210,7 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseMafsGraphPropsForTests()}
                 state={state}
                 dispatch={() => {}}
             />,
@@ -268,7 +243,7 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseMafsGraphPropsForTests()}
                 state={state}
                 dispatch={() => {}}
             />,
@@ -297,7 +272,7 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseMafsGraphPropsForTests()}
                 state={state}
                 dispatch={() => {}}
             />,
@@ -322,14 +297,14 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseMafsGraphPropsForTests()}
                 state={state}
                 dispatch={() => {}}
             />,
         );
 
-        // Radius point is the only point in a circle graph
-        expectLabelInDoc("Point 1 at 2 comma 0");
+        // Circle's radius point has a special label
+        expectLabelInDoc("Radius point at 2 comma 0. Circle radius is 2.");
     });
 
     it("renders ARIA labels for each point (quadratic)", () => {
@@ -350,7 +325,7 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseMafsGraphPropsForTests()}
                 state={state}
                 dispatch={() => {}}
             />,
@@ -378,7 +353,7 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseMafsGraphPropsForTests()}
                 state={state}
                 dispatch={() => {}}
             />,
@@ -410,7 +385,7 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseMafsGraphPropsForTests()}
                 state={state}
                 dispatch={() => {}}
             />,
@@ -446,7 +421,7 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseMafsGraphPropsForTests()}
                 state={state}
                 dispatch={() => {}}
             />,
@@ -475,7 +450,7 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseMafsGraphPropsForTests()}
                 state={state}
                 dispatch={() => {}}
             />,
@@ -506,7 +481,7 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseMafsGraphPropsForTests()}
                 state={state}
                 dispatch={() => {}}
             />,
@@ -541,7 +516,7 @@ describe("MafsGraph", () => {
             coords: [[2, 2]],
         };
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 
         const {rerender} = render(
             <MafsGraph
@@ -604,7 +579,7 @@ describe("MafsGraph", () => {
             initialState,
         );
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 
         render(
             <MafsGraph
@@ -655,7 +630,7 @@ describe("MafsGraph", () => {
             initialState,
         );
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 
         render(
             <MafsGraph
@@ -706,7 +681,7 @@ describe("MafsGraph", () => {
             initialState,
         );
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 
         render(
             <MafsGraph
@@ -757,7 +732,7 @@ describe("MafsGraph", () => {
             initialState,
         );
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 
         render(
             <MafsGraph
@@ -801,7 +776,7 @@ describe("MafsGraph", () => {
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
-                ...getBaseMafsGraphProps(),
+                ...getBaseMafsGraphPropsForTests(),
                 markings: "none",
             };
 
@@ -843,7 +818,7 @@ describe("MafsGraph", () => {
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
-                ...getBaseMafsGraphProps(),
+                ...getBaseMafsGraphPropsForTests(),
                 markings: "none",
             };
 
@@ -881,7 +856,7 @@ describe("MafsGraph", () => {
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
-                ...getBaseMafsGraphProps(),
+                ...getBaseMafsGraphPropsForTests(),
                 markings: "none",
             };
 
@@ -927,7 +902,7 @@ describe("MafsGraph", () => {
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
-                ...getBaseMafsGraphProps(),
+                ...getBaseMafsGraphPropsForTests(),
                 markings: "none",
             };
 
@@ -946,6 +921,107 @@ describe("MafsGraph", () => {
             expect(mockDispatch.mock.calls).toContainEqual([
                 {type: REMOVE_POINT, index: 0},
             ]);
+        });
+
+        it("polygon - enables the 'Close shape' button when the polygon has 3 or more unique points", () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "polygon",
+                numSides: "unlimited",
+                focusedPointIndex: null,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                showAngles: false,
+                showSides: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                snapTo: "grid",
+                coords: [
+                    [4, 5],
+                    [5, 6],
+                    [6, 7],
+                ],
+                closedPolygon: false,
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...getBaseMafsGraphPropsForTests(),
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Assert
+            // Find the button
+            const closeShapeButton = screen.getByRole("button", {
+                name: "Close shape",
+            });
+            // Make sure the button is enabled
+            expect(closeShapeButton).toHaveAttribute("aria-disabled", "false");
+        });
+
+        it("polygon - disables the 'Close shape' button when the polygon has fewer than 3 unique points", () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "polygon",
+                numSides: "unlimited",
+                focusedPointIndex: null,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                showAngles: false,
+                showSides: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                snapTo: "grid",
+                coords: [
+                    [4, 5],
+                    [5, 6],
+                    // not unique
+                    [5, 6],
+                ],
+                closedPolygon: false,
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...getBaseMafsGraphPropsForTests(),
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Assert
+            // Find the button
+            const closeShapeButton = screen.getByRole("button", {
+                name: "Close shape",
+            });
+            // Make sure the button is disabled
+            expect(closeShapeButton).toHaveAttribute("aria-disabled", "true");
         });
     });
 });

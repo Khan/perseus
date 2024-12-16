@@ -106,7 +106,7 @@ describe("getDefaultFigureForType", () => {
         expect(figure).toEqual({
             type: "label",
             coord: [0, 0],
-            text: "",
+            text: "label",
             color: "grayH",
             size: "medium",
         });

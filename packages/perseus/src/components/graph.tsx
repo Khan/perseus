@@ -294,15 +294,13 @@ class Graph extends React.Component<Props> {
 
         const onMouseOver = $instructionsWrapper
             ? function () {
-                  $instructionsWrapper &&
-                      $instructionsWrapper.css("opacity", invisible);
+                  $instructionsWrapper?.css("opacity", invisible);
               }
             : undefined;
 
         const onMouseOut = $instructionsWrapper
             ? function () {
-                  $instructionsWrapper &&
-                      $instructionsWrapper.css("opacity", visible);
+                  $instructionsWrapper?.css("opacity", visible);
               }
             : undefined;
         /* eslint-enable indent */

@@ -1,3 +1,4 @@
+import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
 
 /**
@@ -43,4 +44,21 @@ export const getIntersectionOfRayWithBox = (
 
 function isBetween(x: number, low: number, high: number) {
     return x >= low && x <= high;
+}
+
+export function getArrayWithoutDuplicates(array: Array<Coord>): Array<Coord> {
+    const returnArray: Array<Coord> = [];
+
+    for (const coordPair of array) {
+        if (
+            // Check if the coordPair is not already in the returnArray
+            !returnArray.some(
+                ([x, y]) => x === coordPair[0] && y === coordPair[1],
+            )
+        ) {
+            returnArray.push(coordPair);
+        }
+    }
+
+    return returnArray;
 }

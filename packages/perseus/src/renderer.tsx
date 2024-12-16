@@ -1742,16 +1742,6 @@ class Renderer
         return combinedScore;
     }
 
-    /**
-     * @deprecated use scorePerseusItem
-     */
-    guessAndScore: () => [UserInputArray, PerseusScore] = () => {
-        const totalGuess = this.getUserInput();
-        const totalScore = this.score();
-
-        return [totalGuess, totalScore];
-    };
-
     // TranslationLinter callback
     handletranslationLintErrors: (lintErrors: ReadonlyArray<string>) => void = (
         lintErrors: ReadonlyArray<string>,

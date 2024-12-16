@@ -4,6 +4,7 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {wait} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./matcher.testdata";
@@ -119,9 +120,13 @@ describe("matcher widget", () => {
         ].forEach((option, index) => {
             act(() => matcher.moveRightOptionToIndex(option, 4));
         });
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("can be answered incorrectly", async () => {
@@ -145,9 +150,13 @@ describe("matcher widget", () => {
         ].forEach((option, index) => {
             matcher.moveLeftOptionToIndex(option, 0);
         });
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("is scored incorrect if the math renderer hasn't loaded yet", () => {
@@ -165,8 +174,12 @@ describe("matcher widget", () => {
             isMobile: false,
         };
         const {renderer} = renderQuestion(question1, apiOptions);
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 });

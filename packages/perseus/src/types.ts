@@ -1,5 +1,4 @@
 import type {ILogger} from "./logging/log";
-import type {Item} from "./multi-items/item-types";
 import type {
     Hint,
     PerseusAnswerArea,
@@ -138,8 +137,6 @@ export type ChangeHandler = (
         question?: any;
         answerArea?: PerseusAnswerArea | null;
         itemDataVersion?: Version;
-        // used in MutirenderEditor
-        item?: Item;
         editorMode?: EditorMode;
         jsonMode?: boolean;
         // perseus-all-package/widgets/unit.jsx
@@ -578,6 +575,8 @@ export type WidgetTransform = (
     strings: PerseusStrings,
     problemNumber?: number,
 ) => any;
+
+export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
 
 export type WidgetScorerFunction = (
     // The user data needed to score

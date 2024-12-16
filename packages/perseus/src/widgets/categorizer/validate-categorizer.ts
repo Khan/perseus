@@ -1,5 +1,5 @@
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "../../types";
+import type {ValidationResult} from "../../types";
 import type {
     PerseusCategorizerUserInput,
     PerseusCategorizerValidationData,
@@ -17,7 +17,7 @@ function validateCategorizer(
     userInput: PerseusCategorizerUserInput,
     validationData: PerseusCategorizerValidationData,
     strings: PerseusStrings,
-): Extract<PerseusScore, {type: "invalid"}> | null {
+): ValidationResult {
     const incomplete = validationData.items.some(
         (_, i) => userInput.values[i] == null,
     );
