@@ -1,6 +1,6 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
-import {UniqueIDProvider, View} from "@khanacademy/wonder-blocks-core";
+import {Id, View} from "@khanacademy/wonder-blocks-core";
 import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
 import {StyleSheet} from "aphrodite";
@@ -128,17 +128,12 @@ class Explanation extends React.Component<Props, State> implements Widget {
         ];
 
         return (
-            // TODO(WB-1812, somewhatabstract): Migrate to Id or useId
-            // eslint-disable-next-line no-restricted-syntax
-            <UniqueIDProvider
-                mockOnFirstRender={true}
-                scope="explanation-widget"
-            >
-                {(ids) => (
+            <Id>
+                {(contentId) => (
                     <>
                         <Button
                             aria-expanded={this.state.expanded}
-                            aria-controls={ids.get("content")}
+                            aria-controls={contentId}
                             endIcon={caretIcon}
                             kind="tertiary"
                             labelStyle={labelStyle}
@@ -150,7 +145,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
                         </Button>
 
                         <View
-                            id={ids.get("content")}
+                            id={contentId}
                             style={contentStyling}
                             aria-hidden={!this.state.expanded}
                             testId="content-container"
@@ -167,7 +162,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
                         </View>
                     </>
                 )}
-            </UniqueIDProvider>
+            </Id>
         );
     }
 }
