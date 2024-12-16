@@ -2,6 +2,7 @@ import {describe, beforeEach, it} from "@jest/globals";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {isAccessible} from "../../widgets";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -16,6 +17,14 @@ describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+
+        // Mocked for loading graphie in svg-image
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                text: () => "",
+                ok: true,
+            }),
+        ) as jest.Mock;
     });
 
     it("should snapshot", () => {
@@ -33,9 +42,13 @@ describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
 
         // Act
         const {renderer} = renderQuestion(question, apiOptions);
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("should be accessible if background has 'alt' prop", () => {

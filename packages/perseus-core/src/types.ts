@@ -14,7 +14,6 @@ type State = any;
 export interface RendererInterface {
     getSerializedState(): State;
     restoreSerializedState(state: State, callback?: () => void): void;
-    scoreInput(): KEScore;
     blur(): void;
     focus(): boolean | null | undefined;
     props: any;

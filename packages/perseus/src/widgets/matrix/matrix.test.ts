@@ -3,6 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./matrix.testdata";
@@ -61,9 +62,13 @@ describe("matrix widget", () => {
         for (let i = 0; i < textboxes.length; i++) {
             await userEvent.type(textboxes[i], correctAnswers[i].toString());
         }
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("can be answered incorrectly", async () => {
@@ -78,8 +83,12 @@ describe("matrix widget", () => {
         for (let i = 0; i < textboxes.length; i++) {
             await userEvent.type(textboxes[i], "1");
         }
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 });
