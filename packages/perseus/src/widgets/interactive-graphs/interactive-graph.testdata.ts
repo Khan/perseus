@@ -193,7 +193,7 @@ export const polygonWithStartingCoordsQuestion: PerseusRenderer =
         })
         .build();
 
-export const unlimitedPolygonWithStartingCoordsQuestion: PerseusRenderer =
+export const unlimitedPolygonWithCorrectAnswerQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withPolygon("grid", {
             numSides: "unlimited",
