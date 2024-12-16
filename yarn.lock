@@ -2450,10 +2450,10 @@
   resolved "https://registry.yarnpkg.com/@khanacademy/eslint-config/-/eslint-config-4.0.0.tgz#13ad9f53c7c1503e13818045653bbd53bf5b7f3a"
   integrity sha512-4FHz/TyU+HIwlVUJ/MHyQ4poob2wnyA4x6XHzvMHj5zMvHcIaDPDDzbnbeAX4dtNQY5suHIFStBPwxhJZQghZg==
 
-"@khanacademy/eslint-plugin@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@khanacademy/eslint-plugin/-/eslint-plugin-3.0.1.tgz#ebbdd252a5f13aa886a3c94c97ee6bd74fc373d0"
-  integrity sha512-DsfvjILr3zrE2t0akG35Fle8hGdH5jipPlO2hgjelQAdD6MW15wubxNrgXFCgnelk+nikkbigKAEZk1lG/vfMA==
+"@khanacademy/eslint-plugin@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@khanacademy/eslint-plugin/-/eslint-plugin-3.1.1.tgz#86cf706c28fbaa11083dc175202056665ab44124"
+  integrity sha512-1tOJRN1MWc7tOiSwxBT9KfOmo46d0/eB3P3On4PCZKkrrdC+wDNTxQ3FWX+xZBCjl6bSdh/ab5HZkOatDD7efA==
   dependencies:
     "@babel/types" "^7.23.0"
     "@typescript-eslint/utils" "8.17.0"
