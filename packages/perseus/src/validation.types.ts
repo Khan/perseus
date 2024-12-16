@@ -1,7 +1,7 @@
 /**
  * This file contains types used for validation and scoring. The types abide by
  * a naming convention so that they're easy to follow and that we remain
- * consistency across all of the widgets.
+ * consistent across all of the widgets.
  *
  * These types are:
  *
