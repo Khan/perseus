@@ -102,6 +102,15 @@ const PolygonGraph = (props: Props) => {
         }
     }, [props.graphState.focusedPointIndex, pointsRef]);
 
+    // If the unlimited polygon is rendered with 3 or more coordinates
+    // Close the polygon, but only on first render.
+    React.useEffect(() => {
+        if (numSides === "unlimited" && props.graphState.coords.length > 2) {
+            dispatch(actions.polygon.closePolygon());
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const statefulProps: StatefulProps = {
         ...props,
         graphConfig,
@@ -264,6 +273,14 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
 
     return (
         <>
+            <Polyline
+                points={[...points]}
+                color="var(--movable-line-stroke-color)"
+                svgPolylineProps={{
+                    strokeWidth: "var(--movable-line-stroke-weight)",
+                    style: {fill: "transparent"},
+                }}
+            />
             {/* This rect is here to grab clicks so that new points can be added */}
             {/* It's important because it stops mouse events from propogating
                 when dragging a points around */}
@@ -288,14 +305,6 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         graphConfig,
                     );
                     dispatch(actions.polygon.addPoint(graphCoordinates[0]));
-                }}
-            />
-            <Polyline
-                points={[...points]}
-                color="var(--movable-line-stroke-color)"
-                svgPolylineProps={{
-                    strokeWidth: "var(--movable-line-stroke-weight)",
-                    style: {fill: "transparent"},
                 }}
             />
             {coords.map((point, i) => (

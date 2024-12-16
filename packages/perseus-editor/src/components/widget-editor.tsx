@@ -236,6 +236,8 @@ function LabeledSwitch(props: {
     onChange: (value: boolean) => unknown;
 }) {
     const {label, ...switchProps} = props;
+    // TODO(WB-1812, somewhatabstract): Migrate to Id or useId
+    // eslint-disable-next-line no-restricted-syntax
     const ids = useUniqueIdWithMock();
     const id = ids.get("switch");
     return (

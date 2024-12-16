@@ -1,5 +1,22 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.0.0
+
+### Major Changes
+
+-   [#2007](https://github.com/Khan/perseus/pull/2007) [`ea1bf0c2c`](https://github.com/Khan/perseus/commit/ea1bf0c2cfc7ae552d039549950d1973b56f5ca9) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Update to latest webapp dependencies and prepare for deprecation of custom WB ID generators
+
+### Patch Changes
+
+-   Updated dependencies [[`ea1bf0c2c`](https://github.com/Khan/perseus/commit/ea1bf0c2cfc7ae552d039549950d1973b56f5ca9)]:
+    -   @khanacademy/math-input@22.0.0
+    -   @khanacademy/perseus-core@3.0.0
+    -   @khanacademy/kas@0.4.4
+    -   @khanacademy/kmath@0.1.18
+    -   @khanacademy/perseus-linter@1.2.6
+    -   @khanacademy/pure-markdown@0.3.15
+    -   @khanacademy/simple-markdown@0.13.8
+
 ## 4.0.4
 
 ### Patch Changes

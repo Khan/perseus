@@ -98,6 +98,8 @@ function capitalize(key: string): string {
 }
 
 export function Gallery() {
+    // TODO(WB-1812, somewhatabstract): Migrate to Id or useId
+    // eslint-disable-next-line no-restricted-syntax
     const ids = useUniqueIdWithMock();
     const params = useMemo(
         () => new URLSearchParams(window.location.search),
