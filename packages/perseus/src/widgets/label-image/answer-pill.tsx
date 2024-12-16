@@ -1,8 +1,8 @@
-import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, type CSSProperties} from "aphrodite";
 import * as React from "react";
+import {useId} from "react";
 import {Popper} from "react-popper";
 
 import {usePerseusI18n} from "../../components/i18n-context";
@@ -34,9 +34,7 @@ export const AnswerPill = (props: {
         hovered,
     } = props;
 
-    // TODO(WB-1812, somewhatabstract): Migrate to Id or useId
-    // eslint-disable-next-line no-restricted-syntax
-    const idFactory = useUniqueIdWithMock();
+    const pillId = useId();
     const {strings} = usePerseusI18n();
 
     const answerString =
@@ -66,7 +64,7 @@ export const AnswerPill = (props: {
                 <Pill
                     size="large"
                     kind="accent"
-                    id={idFactory.get("perseus-label-image-widget-answer-pill")}
+                    id={pillId}
                     onClick={correct ? undefined : onClick}
                     ref={ref}
                     style={[

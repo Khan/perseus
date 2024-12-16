@@ -18,7 +18,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
           class="perseus-widget-container widget-nohighlight widget-inline"
         >
           <button
-            aria-controls="uid-explanation-widget-1-content"
+            aria-controls=":r1:"
             aria-disabled="false"
             aria-expanded="true"
             class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8-o_O-small_14crccx-o_O-inlineStyles_1s8anjv"
@@ -43,7 +43,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             aria-hidden="false"
             class="default_xu2jcg-o_O-content_1pprw9s-o_O-contentExpanded_1ojyq0m"
             data-testid="content-container"
-            id="uid-explanation-widget-1-content"
+            id=":r1:"
           >
             <div
               class="default_xu2jcg-o_O-contentWrapper_y9ev9r"
@@ -91,7 +91,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-inline"
         >
           <button
-            aria-controls="uid-explanation-widget-0-content"
+            aria-controls=":r0:"
             aria-disabled="false"
             aria-expanded="false"
             class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8-o_O-small_14crccx-o_O-inlineStyles_1s8anjv"
@@ -116,7 +116,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
             aria-hidden="true"
             class="default_xu2jcg-o_O-content_1pprw9s-o_O-contentCollapsed_j2403j"
             data-testid="content-container"
-            id="uid-explanation-widget-0-content"
+            id=":r0:"
           >
             <div
               class="default_xu2jcg-o_O-contentWrapper_y9ev9r"
