@@ -3,6 +3,7 @@ import {
     components,
     Changeable,
     EditorJsonify,
+    KhanMath,
     Util,
     PerseusI18nContext,
 } from "@khanacademy/perseus";
@@ -612,13 +613,18 @@ class NumericInputEditor extends React.Component<Props, State> {
                 const statusProper =
                     answer.status.charAt(0).toUpperCase() +
                     answer.status.slice(1);
+                const answerFormat = (answer.answerForms || []).at(-1);
+                const answerString = KhanMath.toNumericString(
+                    answer.value,
+                    answerFormat,
+                );
                 const answerRangeText = answer.maxError
-                    ? `± ${answer.maxError}`
+                    ? `± ${KhanMath.toNumericString(answer.maxError, answerFormat)}`
                     : "";
                 const answerHeading =
                     answer.value === null
                         ? "New Answer"
-                        : `${statusProper} answer: ${answer.value} ${answerRangeText}`;
+                        : `${statusProper} answer: ${answerString} ${answerRangeText}`;
 
                 return (
                     <div className="perseus-widget-row answer-option" key={i}>
