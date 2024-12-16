@@ -136,8 +136,9 @@ class NumericInputEditor extends React.Component<Props, State> {
     };
 
     onToggleAnswerForm = (answerIndex: number, answerForm) => {
-        let answerForms: string[] =
-            [...(this.props.answers[answerIndex]["answerForms"] ?? [])];
+        let answerForms: string[] = [
+            ...(this.props.answers[answerIndex]["answerForms"] ?? []),
+        ];
         const formSelected = answerForms.includes(answerForm);
         if (!formSelected) {
             answerForms.push(answerForm);
@@ -269,7 +270,6 @@ class NumericInputEditor extends React.Component<Props, State> {
             const {kind, onClick, ariaLabel, children} = props;
             const style = {
                 marginRight: "8px",
-                marginTop: "4px",
             };
             const role = props.role ?? "radio";
             const pillProps = {
@@ -312,31 +312,38 @@ class NumericInputEditor extends React.Component<Props, State> {
             <fieldset className="perseus-widget-row unsimplified-options">
                 {answers[i]["status"] !== "correct" && (
                     <>
-                        <legend>Unsimplified answers are</legend>
-                        <span> irrelevant for this status</span>
+                        <legend className="inline-options">
+                            Unsimplified answers are irrelevant for this status
+                        </legend>
                     </>
                 )}
                 {answers[i]["status"] === "correct" && (
-                    <legend>
-                        Unsimplified answers are
-                        <InfoTip>
-                            <p>
-                                Normally select &quot;ungraded&quot;. This will
-                                user a message saying the answer is correct but
-                                simplified. The user will then have to simplify
-                                re-enter, but will not be penalized. (5th grade
-                                after)
-                            </p>
-                            <p>
-                                Select &quot;accepted&quot; only if the user is
-                                expected to know how to simplify fractions yet.
-                                (Anything prior to 5th grade)
-                            </p>
-                            <p>
-                                Select &quot;wrong&quot; <em>only</em> if we are
-                                specifically assessing the ability to simplify.
-                            </p>
-                        </InfoTip>
+                    <>
+                        <legend className="inline-options">
+                            Unsimplified answers are
+                        </legend>
+                        <span className="tooltip-for-legend">
+                            <InfoTip>
+                                <p>
+                                    Normally select &quot;ungraded&quot;. This
+                                    will give the user a message saying the
+                                    answer is correct but not simplified. The
+                                    user will then have to simplify it and
+                                    re-enter, but will not be penalized. (5th
+                                    grade and after)
+                                </p>
+                                <p>
+                                    Select &quot;accepted&quot; only if the user
+                                    is not expected to know how to simplify
+                                    fractions yet. (Anything prior to 5th grade)
+                                </p>
+                                <p>
+                                    Select &quot;wrong&quot; <em>only</em> if we
+                                    are specifically assessing the ability to
+                                    simplify.
+                                </p>
+                            </InfoTip>
+                        </span>
                         <br />
                         <RadioOption
                             answerIndex={i}
@@ -357,9 +364,9 @@ class NumericInputEditor extends React.Component<Props, State> {
                             answerProperty="simplify"
                             value="enforced"
                         >
-                            Wrong
+                        Wrong
                         </RadioOption>
-                    </legend>
+                    </>
                 )}
             </fieldset>
         );
@@ -418,9 +425,8 @@ class NumericInputEditor extends React.Component<Props, State> {
                         );
                     })}
                 </div>
-                <div className="perseus-widget-row">
-                    <label>Answer formats are: </label>
-                    <br />
+                <fieldset className="perseus-widget-row">
+                    <legend>Answer formats are: </legend>
                     <RadioOption
                         answerIndex={i}
                         answerProperty="strict"
@@ -435,13 +441,13 @@ class NumericInputEditor extends React.Component<Props, State> {
                     >
                         Required
                     </RadioOption>
-                </div>
+                </fieldset>
             </>
         );
 
         const inputSize = (
-            <div className="perseus-widget-row">
-                <label>Width: </label>
+            <fieldset className="perseus-widget-row">
+                <legend className="inline-options">Width: </legend>
                 <Pill
                     kind={
                         this.props.size === "normal" ? "accent" : "transparent"
@@ -479,12 +485,12 @@ class NumericInputEditor extends React.Component<Props, State> {
                         area is too narrow to fit them.
                     </p>
                 </InfoTip>
-            </div>
+            </fieldset>
         );
 
         const rightAlign = (
-            <div className="perseus-widget-row">
-                <label>Alignment: </label>
+            <fieldset className="perseus-widget-row">
+                <legend className="inline-options">Alignment: </legend>
                 <Pill
                     kind={this.props.rightAlign ? "transparent" : "accent"}
                     size="medium"
@@ -511,7 +517,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                 >
                     Right
                 </Pill>
-            </div>
+            </fieldset>
         );
 
         const labelText = (
@@ -534,8 +540,8 @@ class NumericInputEditor extends React.Component<Props, State> {
         );
 
         const coefficientCheck = (
-            <div className="perseus-widget-row">
-                <label>Number style: </label>
+            <fieldset className="perseus-widget-row">
+                <legend className="inline-options">Number style: </legend>
                 <Pill
                     kind={this.props.coefficient ? "transparent" : "accent"}
                     size="medium"
@@ -568,7 +574,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                         for -1 and an empty string to mean 1.
                     </p>
                 </InfoTip>
-            </div>
+            </fieldset>
         );
 
         const instructions = {
@@ -685,8 +691,10 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     onChange={this.updateAnswer(i, "maxError")}
                                 />
                             </div>
-                            <div className="perseus-widget-row">
-                                <label>Status: </label>
+                            <fieldset className="perseus-widget-row">
+                                <legend className="inline-options">
+                                    Status:
+                                </legend>
                                 <RadioOption
                                     answerIndex={i}
                                     answerProperty="status"
@@ -717,7 +725,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 >
                                     Ungraded
                                 </RadioOption>
-                            </div>
+                            </fieldset>
                             {unsimplifiedAnswers(i)}
                             <div className="perseus-widget-row">
                                 Message shown to user in article:
@@ -748,7 +756,9 @@ class NumericInputEditor extends React.Component<Props, State> {
                     isOpen={this.state.showSettings}
                     onToggle={this.onToggleHeading("Settings")}
                 />
-                <div className={`perseus-editor-accordion-container ${this.state.showSettings ? "expanded" : "collapsed"}`}>
+                <div
+                    className={`perseus-editor-accordion-container ${this.state.showSettings ? "expanded" : "collapsed"}`}
+                >
                     <div className="perseus-editor-accordion-content">
                         {inputSize}
                         {rightAlign}
@@ -762,7 +772,9 @@ class NumericInputEditor extends React.Component<Props, State> {
                     isOpen={this.state.showAnswers}
                     onToggle={this.onToggleHeading("Answers")}
                 />
-                <div className={`perseus-editor-accordion-container ${this.state.showAnswers ? "expanded" : "collapsed"}`}>
+                <div
+                    className={`perseus-editor-accordion-container ${this.state.showAnswers ? "expanded" : "collapsed"}`}
+                >
                     <div className="perseus-editor-accordion-content">
                         {generateInputAnswerEditors()}
                         <Button kind="tertiary" onClick={this.addAnswer}>

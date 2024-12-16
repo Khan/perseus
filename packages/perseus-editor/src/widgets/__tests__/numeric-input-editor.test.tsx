@@ -41,7 +41,10 @@ describe("numeric-input-editor", () => {
         });
 
         await userEvent.click(
-            screen.getByRole("button", {name: "Normal (80px)"}),
+            within(screen.getByRole("group", {name: /^Width/})).getByRole(
+                "radio",
+                {name: "Normal (80px)"},
+            ),
         );
 
         expect(onChangeMock).toBeCalledWith(
@@ -58,7 +61,10 @@ describe("numeric-input-editor", () => {
         });
 
         await userEvent.click(
-            screen.getByRole("button", {name: "Small (40px)"}),
+            within(screen.getByRole("group", {name: /^Width/})).getByRole(
+                "radio",
+                {name: "Small (40px)"},
+            ),
         );
 
         expect(onChangeMock).toBeCalledWith(
@@ -75,7 +81,10 @@ describe("numeric-input-editor", () => {
         });
 
         await userEvent.click(
-            screen.getByRole("checkbox", {name: "Right alignment"}),
+            within(screen.getByRole("group", {name: /^Alignment/})).getByRole(
+                "radio",
+                {name: "Right"},
+            ),
         );
 
         expect(onChangeMock).toBeCalledWith({rightAlign: true});
@@ -89,7 +98,9 @@ describe("numeric-input-editor", () => {
         });
 
         await userEvent.click(
-            screen.getByRole("checkbox", {name: "Coefficient"}),
+            within(
+                screen.getByRole("group", {name: /^Number style/}),
+            ).getByRole("radio", {name: "Coefficient"}),
         );
 
         expect(onChangeMock).toBeCalledWith({coefficient: true});
@@ -103,9 +114,9 @@ describe("numeric-input-editor", () => {
         });
 
         await userEvent.click(
-            screen.getByRole("checkbox", {
-                name: "Strictly match only these formats",
-            }),
+            within(
+                screen.getByRole("group", {name: /^Answer formats are/}),
+            ).getByRole("radio", {name: "Required"}),
         );
 
         expect(onChangeMock).toBeCalledWith({

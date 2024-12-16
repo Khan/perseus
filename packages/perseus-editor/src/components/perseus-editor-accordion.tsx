@@ -17,8 +17,15 @@ type Props = {
 };
 
 const PerseusEditorAccordion = (props: Props) => {
-    const {animated, children, header, expanded, containerStyle, panelStyle, onToggle} =
-        props;
+    const {
+        animated,
+        children,
+        header,
+        expanded,
+        containerStyle,
+        panelStyle,
+        onToggle,
+    } = props;
 
     return (
         <View
