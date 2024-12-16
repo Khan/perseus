@@ -8,9 +8,9 @@ describe("scoreLabelImage", function () {
             markers: [{label: "England"}, {label: "Germany"}, {label: "Italy"}],
         } as const;
 
-        const score = validateLabelImage(userInput);
+        const validationError = validateLabelImage(userInput);
 
-        expect(score).toHaveInvalidInput();
+        expect(validationError).toHaveInvalidInput();
     });
 
     it("should not grade widget with not all markers answered", function () {
@@ -22,8 +22,8 @@ describe("scoreLabelImage", function () {
             ],
         } as const;
 
-        const score = validateLabelImage(userInput);
+        const validationError = validateLabelImage(userInput);
 
-        expect(score).toHaveInvalidInput();
+        expect(validationError).toHaveInvalidInput();
     });
 });
