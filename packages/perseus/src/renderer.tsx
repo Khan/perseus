@@ -48,7 +48,6 @@ import type {
     Widget,
     WidgetProps,
 } from "./types";
-// eslint-disable-next-line import/no-deprecated
 import type {UserInputArray, UserInputMap} from "./validation.types";
 import type {
     GetPromptJSONInterface,
