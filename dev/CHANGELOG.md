@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.0.1
+
+### Patch Changes
+
+-   [#2014](https://github.com/Khan/perseus/pull/2014) [`763d2d0f1`](https://github.com/Khan/perseus/commit/763d2d0f14e3aade030b1ef0aa28c3895c17b685) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Migrate off deprecated ID generation APIs
+
 ## 5.0.0
 
 ### Major Changes

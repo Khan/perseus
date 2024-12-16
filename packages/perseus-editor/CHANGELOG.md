@@ -1,5 +1,18 @@
 # @khanacademy/perseus-editor
 
+## 17.0.1
+
+### Patch Changes
+
+-   [#2014](https://github.com/Khan/perseus/pull/2014) [`763d2d0f1`](https://github.com/Khan/perseus/commit/763d2d0f14e3aade030b1ef0aa28c3895c17b685) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Migrate off deprecated ID generation APIs
+
+*   [#1978](https://github.com/Khan/perseus/pull/1978) [`81632c326`](https://github.com/Khan/perseus/commit/81632c3262737c1219663fbdd54000ba1fdcf4eb) Thanks [@nishasy](https://github.com/nishasy)! - [Polygon] Remove duplicate points when determining if a polygon can be closed
+
+-   [#1999](https://github.com/Khan/perseus/pull/1999) [`278527b08`](https://github.com/Khan/perseus/commit/278527b08701cd8424728c6b5915408cc16a07a0) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing open polygon scoring issues within exercises and editors.
+
+-   Updated dependencies [[`763d2d0f1`](https://github.com/Khan/perseus/commit/763d2d0f14e3aade030b1ef0aa28c3895c17b685), [`b09d19b7b`](https://github.com/Khan/perseus/commit/b09d19b7b1723f79e4fad63ef2efcef3cc702792), [`81632c326`](https://github.com/Khan/perseus/commit/81632c3262737c1219663fbdd54000ba1fdcf4eb), [`278527b08`](https://github.com/Khan/perseus/commit/278527b08701cd8424728c6b5915408cc16a07a0)]:
+    -   @khanacademy/perseus@49.0.1
+
 ## 17.0.0
 
 ### Major Changes
