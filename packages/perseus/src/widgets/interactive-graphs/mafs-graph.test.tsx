@@ -952,7 +952,7 @@ describe("MafsGraph", () => {
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
-                ...getBaseMafsGraphProps(),
+                ...getBaseMafsGraphPropsForTests(),
                 markings: "none",
             };
 
@@ -1003,7 +1003,7 @@ describe("MafsGraph", () => {
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
-                ...getBaseMafsGraphProps(),
+                ...getBaseMafsGraphPropsForTests(),
                 markings: "none",
             };
 
