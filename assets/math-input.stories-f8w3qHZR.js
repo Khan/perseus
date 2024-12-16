@@ -1,0 +1,13 @@
+import{a as y}from"./chunk-D5ZWXAHU-vR62DWf0.js";import{M as h}from"./math-input-fGjaWFvC.js";import"./v4-yQnnJER4.js";import"./jsx-runtime-63Ea5SlK.js";import"./index-6oxdNXpR.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./prop-types-TWkK28mp.js";import"./version-akiLXZts.js";import"./mobile-keypad-3j_jDObR.js";import"./index-awljIyHI.js";import"./index-9gkyvru-.js";import"./index-7-BESUpx.js";import"./index-J2t_5nK1.js";import"./index-YSsViXVq.js";import"./index-45GODDwG.js";import"./index-dmcq622U.js";import"./assertThisInitialized-4q6YPdh3.js";import"./tabbar-ppG_I3QY.js";import"./item-iGCpbtfH.js";import"./button-assets-ozecF1qE.js";import"./keypad-button-SoYuvIyM.js";import"./operators-page-xozuM2Ug.js";import"./navigation-pad-Sl0Gk1Rv.js";import"./key-translator-Q9R1HFoU.js";import"./invariant-bu5zBsRS.js";import"./index-NO-eDzXE.js";import"./index-hEE6rY0q.js";import"./index-vJavIKvF.js";import"./index-MIAtMmGo.js";import"./index-_qTNMX3t.js";import"./index-HGk1BWh5.js";import"./index-bkG41yOS.js";import"./Popper-Y5KDXl-P.js";import"./index-dnMhQZ-1.js";import"./jquery-yG1GhClm.js";import"./i18n-context-8x3SvuMF.js";const rr={title:"Perseus/Components/Math Input",component:h,args:{keypadButtonSets:{advancedRelations:!0,basicRelations:!0,divisionKey:!0,logarithms:!0,preAlgebra:!0,trigonometry:!0},convertDotToTimes:!1,value:"",onChange:y("onChange"),analytics:{onAnalyticsEvent:()=>Promise.resolve()},labelText:"Math input"},parameters:{controls:{exclude:["onChange","analytics"]}}},r={},e={args:{ariaLabel:"Sample label"}},t={args:{buttonsVisible:"always"}},a={args:{buttonsVisible:"never"}};var o,s,i;r.parameters={...r.parameters,docs:{...(o=r.parameters)==null?void 0:o.docs,source:{originalSource:"{}",...(i=(s=r.parameters)==null?void 0:s.docs)==null?void 0:i.source}}};var p,m,n;e.parameters={...e.parameters,docs:{...(p=e.parameters)==null?void 0:p.docs,source:{originalSource:`{
+  args: {
+    ariaLabel: "Sample label"
+  }
+}`,...(n=(m=e.parameters)==null?void 0:m.docs)==null?void 0:n.source}}};var l,c,u;t.parameters={...t.parameters,docs:{...(l=t.parameters)==null?void 0:l.docs,source:{originalSource:`{
+  args: {
+    buttonsVisible: "always"
+  }
+}`,...(u=(c=t.parameters)==null?void 0:c.docs)==null?void 0:u.source}}};var d,b,g;a.parameters={...a.parameters,docs:{...(d=a.parameters)==null?void 0:d.docs,source:{originalSource:`{
+  args: {
+    buttonsVisible: "never"
+  }
+}`,...(g=(b=a.parameters)==null?void 0:b.docs)==null?void 0:g.source}}};const er=["DefaultWithBasicButtonSet","DefaultWithAriaLabel","KeypadOpenByDefault","KeypadNeverVisible"];export{e as DefaultWithAriaLabel,r as DefaultWithBasicButtonSet,a as KeypadNeverVisible,t as KeypadOpenByDefault,er as __namedExportsOrder,rr as default};
