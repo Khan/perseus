@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Type fixes
+Fixing open polygon scoring issues within exercises and editors.

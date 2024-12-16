@@ -92,8 +92,6 @@ const GraphSettings = createReactClass({
     },
 
     UNSAFE_componentWillReceiveProps: function (nextProps) {
-        // Make sure that state updates when switching
-        // between different items in a multi-item editor.
         if (
             !_.isEqual(this.props.labels, nextProps.labels) ||
             !_.isEqual(this.props.gridStep, nextProps.gridStep) ||
@@ -160,7 +158,6 @@ const GraphSettings = createReactClass({
 
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value; // eslint-disable-line react/no-string-refs
-        url; //  ?
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 if (this._isMounted) {

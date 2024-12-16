@@ -1608,34 +1608,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-wi
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/item-missing-answerArea.json 1`] = `
-{
-  "_multi": {
-    "blurb": {
-      "__type": "content",
-      "content": "",
-      "images": {},
-      "widgets": {},
-    },
-    "hints": [],
-    "question": {
-      "__type": "content",
-      "content": "",
-      "widgets": {},
-    },
-  },
-  "answer": undefined,
-  "answerArea": {},
-  "hints": [],
-  "itemDataVersion": undefined,
-  "question": {
-    "content": "",
-    "images": {},
-    "widgets": {},
-  },
-}
-`;
-
 exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-version.json 1`] = `
 {
   "answer": undefined,

@@ -37,6 +37,7 @@ import {renderQuadraticGraph} from "./graphs/quadratic";
 import {renderRayGraph} from "./graphs/ray";
 import {renderSegmentGraph} from "./graphs/segment";
 import {renderSinusoidGraph} from "./graphs/sinusoid";
+import {getArrayWithoutDuplicates} from "./graphs/utils";
 import {MIN, X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {actions} from "./reducer/interactive-graph-action";
@@ -520,7 +521,7 @@ const renderPolygonGraphControls = (props: {
 
     // We want to disable the closePolygon button when
     // there are not enough coords to make a polygon
-    const disableCloseButton = coords.length < 3;
+    const disableCloseButton = getArrayWithoutDuplicates(coords).length < 3;
 
     // If polygon is closed, show open button.
     // If polygon is open, show close button.

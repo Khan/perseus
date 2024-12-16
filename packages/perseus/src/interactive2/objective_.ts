@@ -25,7 +25,7 @@ import _ from "underscore";
  *     rotation: false
  * }
  */
-const pluck = function (table: any, subKey: string): any {
+export const pluck = function (table: any, subKey: string): any {
     return _.object(
         _.map(table, function (value, key) {
             return [key, value[subKey]];
@@ -41,7 +41,7 @@ const pluck = function (table: any, subKey: string): any {
  *   });
  * {a: 2, b: 3}
  */
-const mapObject = function <K extends string, V, U>(
+export const mapObject = function <K extends string, V, U>(
     obj: Record<K, V>,
     lambda: (arg1: V, arg2: K) => U,
 ): Record<K, U> {
@@ -51,29 +51,4 @@ const mapObject = function <K extends string, V, U>(
         result[key] = lambda(obj[key], key);
     });
     return result;
-};
-
-/**
- * Maps an array to an object
- *
- * > mapObjectFromArray(['a', 'b'], function(elem) {
- *       return elem + elem;
- *   });
- * {a: 'aa', b: 'bb'}
- */
-const mapObjectFromArray = function <K extends string, V>(
-    arr: ReadonlyArray<K>,
-    lambda: (arg1: K) => V,
-): Record<K, V> {
-    const result: Record<string, any> = {};
-    arr.forEach((elem) => {
-        result[elem] = lambda(elem);
-    });
-    return result;
-};
-
-export default {
-    pluck: pluck,
-    mapObject: mapObject,
-    mapObjectFromArray: mapObjectFromArray,
 };

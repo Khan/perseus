@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable import/no-commonjs */
 const fs = require("fs");
 const path = require("path");
@@ -139,7 +139,7 @@ module.exports = {
         {
             files: ["config/**", "utils/**", "testing/*"],
             rules: {
-                "@typescript-eslint/no-var-requires": "off",
+                "@typescript-eslint/no-require-imports": "off",
                 "import/no-commonjs": "off",
                 "import/no-extraneous-dependencies": "off",
                 "import/no-relative-packages": "off",
@@ -164,6 +164,18 @@ module.exports = {
                             "React is not available and should not be imported in scoring functions.",
                     },
                 ],
+            },
+        },
+        {
+            /**
+             * .typetest.ts files are used to do "type testing" :mindblown:
+             * It is common practice in these files to declare variables and
+             * expressions that are never used.
+             */
+            files: ["*.typetest.ts"],
+            rules: {
+                "@typescript-eslint/no-unused-vars": "off",
+                "@typescript-eslint/no-unused-expressions": "off",
             },
         },
     ],
@@ -276,6 +288,26 @@ module.exports = {
                 selector: "TSQualifiedName[left.name='React'][right.name='FC']",
                 message:
                     "Use of React.FC<Props> is disallowed, use the following alternative: https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/2201682693/TypeScript+for+Flow+Developers#Functional-Components",
+            },
+            {
+                selector:
+                    "JSXElement[openingElement.name.name='UniqueIDProvider']",
+                message:
+                    "DEPRECATED: Use the `Id` Wonder Blocks Core component instead, or migrate to the `useId` React hook.",
+            },
+            {
+                selector: "JSXElement[openingElement.name.name='IDProvider']",
+                message:
+                    "DEPRECATED: Use the `Id` Wonder Blocks Core component instead, or migrate to the `useId` React hook.",
+            },
+            {
+                selector: "CallExpression[callee.name='useUniqueIdWithMock']",
+                message: "DEPRECATED: Use the `useId` React hook instead.",
+            },
+            {
+                selector:
+                    "CallExpression[callee.name='useUniqueIdWithoutMock']",
+                message: "DEPRECATED: Use the `useId` React hook instead.",
             },
         ],
 

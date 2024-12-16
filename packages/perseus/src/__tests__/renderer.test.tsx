@@ -63,6 +63,14 @@ describe("renderer", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+
+        // Mocked for loading graphie in svg-image
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                text: () => "",
+                ok: true,
+            }),
+        ) as jest.Mock;
     });
 
     afterEach(() => {
@@ -1791,74 +1799,6 @@ describe("renderer", () => {
             const widgetKeys = Object.keys(mockedRandomItem.widgets);
 
             expect(Object.keys(json.widgets)).toEqual(widgetKeys);
-        });
-    });
-
-    describe("examples", () => {
-        it("should return examples if all widgets return the same examples (or null)", () => {
-            // Arrange
-            const {renderer} = renderQuestion({
-                content:
-                    "Input widget: [[\u2603 input-number 1]]\n\n" +
-                    "Dropdown widget: [[\u2603 dropdown 1]]\n\n" +
-                    "Image widget (won't have user input): [[\u2603 image 1]]\n\n" +
-                    "Another input widget: [[\u2603 input-number 2]]",
-                widgets: {
-                    "image 1": imageWidget,
-                    "input-number 1": inputNumberWidget,
-                    "input-number 2": inputNumberWidget,
-                    "dropdown 1": dropdownWidget,
-                },
-                images: {},
-            });
-
-            // Act
-            const examples = renderer.examples();
-
-            // Assert
-            expect(examples).toMatchInlineSnapshot(`
-                [
-                  "**Your answer should be** ",
-                  "an integer, like $6$",
-                  "a *proper* fraction, like $1/2$ or $6/10$",
-                  "an *improper* fraction, like $10/7$ or $14/8$",
-                  "a mixed number, like $1\\ 3/4$",
-                ]
-            `);
-        });
-
-        it("should return nothing if widgets return the different examples", () => {
-            // NOTE(jeremy): I'm unsure why we don't return examples if the
-            // examples aren't the same, but this is current functionality so
-            // I'm adding this test to verify the current behaviour.
-
-            // Arrange
-            const {renderer} = renderQuestion({
-                content:
-                    "Input widget: [[\u2603 input-number 1]]\n\n" +
-                    "Dropdown widget: [[\u2603 dropdown 1]]\n\n" +
-                    "Image widget (won't have user input): [[\u2603 image 1]]\n\n" +
-                    "Another input widget: [[\u2603 input-number 2]]",
-                widgets: {
-                    "image 1": imageWidget,
-                    "input-number 1": inputNumberWidget,
-                    "input-number 2": {
-                        ...inputNumberWidget,
-                        options: {
-                            ...inputNumberWidget.options,
-                            answerType: "percent",
-                        },
-                    },
-                    "dropdown 1": dropdownWidget,
-                },
-                images: {},
-            });
-
-            // Act
-            const examples = renderer.examples();
-
-            // Assert
-            expect(examples).toBeNull();
         });
     });
 });

@@ -3,6 +3,7 @@ import SimpleMarkdown from "@khanacademy/simple-markdown";
 
 import {clampToBox, inset, MIN, size} from "./math";
 
+import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
@@ -116,6 +117,7 @@ export function replaceOutsideTeX(mathString: string) {
     let result = "";
 
     for (const piece of parsed) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         piece.type === "math"
             ? (result += "$" + piece.content + "$")
             : piece.type === "specialCharacter"
@@ -153,4 +155,30 @@ export function findFocusableNodes(
  */
 export function isFocusable(element: HTMLElement): boolean {
     return element.matches(FOCUSABLE_ELEMENTS);
+}
+
+export function getBaseMafsGraphPropsForTests(): MafsGraphProps {
+    return {
+        box: [400, 400],
+        step: [1, 1],
+        gridStep: [1, 1],
+        markings: "graph",
+        containerSizeClass: "small",
+        showTooltips: false,
+        showProtractor: false,
+        readOnly: false,
+        labels: ["x", "y"],
+        static: false,
+        dispatch: () => {},
+        state: {
+            type: "segment",
+            hasBeenInteractedWith: false,
+            coords: [],
+            snapStep: [1, 1],
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+        },
+    };
 }

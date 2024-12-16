@@ -19,7 +19,7 @@ import {DefinitionProvider} from "./definition-context";
 import {getDependencies} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
 import InteractionTracker from "./interaction-tracker";
-import Objective from "./interactive2/objective_";
+import {mapObject} from "./interactive2/objective_";
 import JiptParagraphs from "./jipt-paragraphs";
 import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
@@ -32,6 +32,7 @@ import {
 } from "./renderer-util";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
+import {flattenScores} from "./util/scoring";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
@@ -64,8 +65,6 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.less";
-
-const {mapObject} = Objective;
 
 const rContainsNonWhitespace = /\S/;
 const rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
@@ -1739,48 +1738,9 @@ class Renderer
             this.props.strings,
             this.context.locale,
         );
-        const combinedScore = Util.flattenScores(scores);
+        const combinedScore = flattenScores(scores);
         return combinedScore;
     }
-
-    /**
-     * @deprecated use scorePerseusItem
-     */
-    guessAndScore: () => [UserInputArray, PerseusScore] = () => {
-        const totalGuess = this.getUserInput();
-        const totalScore = this.score();
-
-        return [totalGuess, totalScore];
-    };
-
-    examples: () => ReadonlyArray<string> | null | undefined = () => {
-        const widgetIds = this.widgetIds;
-        const examples = widgetIds
-            .map((widgetId) => {
-                const widget = this.getWidgetInstance(widgetId);
-                return widget != null && widget.examples
-                    ? widget.examples()
-                    : null;
-            })
-            .filter(Boolean);
-
-        // no widgets with examples
-        if (!examples.length) {
-            return null;
-        }
-
-        const allEqual = _.all(examples, function (example) {
-            return _.isEqual(examples[0], example);
-        });
-
-        // some widgets have different examples
-        // TODO(alex): handle this better
-        if (!allEqual) {
-            return null;
-        }
-
-        return examples[0];
-    };
 
     // TranslationLinter callback
     handletranslationLintErrors: (lintErrors: ReadonlyArray<string>) => void = (

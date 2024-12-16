@@ -625,7 +625,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Segment from point at (0, 0) to point at (2, 2). Appearance solid gray.",
+                    "Segment from point at 0 comma 0 to point at 2 comma 2. Appearance solid gray.",
             });
         });
 
@@ -651,7 +651,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line from point at (0, 0) to point at (2, 2). Appearance solid gray.",
+                    "Line from point at 0 comma 0 to point at 2 comma 2. Appearance solid gray.",
             });
         });
 
@@ -682,7 +682,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line spoken A from point at (0, 0) to point at (2, 2). Appearance solid gray.",
+                    "Line spoken A from point at 0 comma 0 to point at 2 comma 2. Appearance solid gray.",
             });
         });
 
@@ -717,7 +717,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line spoken A, spoken B from point at (0, 0) to point at (2, 2). Appearance solid gray.",
+                    "Line spoken A, spoken B from point at 0 comma 0 to point at 2 comma 2. Appearance solid gray.",
             });
         });
 
@@ -758,7 +758,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line spoken A from point spoken C at (0, 0) to point spoken D at (2, 2). Appearance solid gray.",
+                    "Line spoken A from point spoken C at 0 comma 0 to point spoken D at 2 comma 2. Appearance solid gray.",
             });
         });
 
@@ -809,7 +809,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line spoken A, spoken B from point spoken C, spoken C2 at (0, 0) to point spoken D, spoken D2 at (2, 2). Appearance solid gray.",
+                    "Line spoken A, spoken B from point spoken C, spoken C2 at 0 comma 0 to point spoken D, spoken D2 at 2 comma 2. Appearance solid gray.",
             });
         });
     });

@@ -181,7 +181,7 @@ abstract class Expr {
             // @ts-expect-error: TypeScript doesn't want to unify
             // `Function` with the `compile`'s return type.
             return new Function("vars", "return " + code + ";");
-        } catch (e) {
+        } catch {
             throw new Error("Function did not compile: " + code);
         }
     }

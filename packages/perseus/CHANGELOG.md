@@ -1,5 +1,133 @@
 # @khanacademy/perseus
 
+## 49.0.0
+
+### Major Changes
+
+-   [#2007](https://github.com/Khan/perseus/pull/2007) [`ea1bf0c2c`](https://github.com/Khan/perseus/commit/ea1bf0c2cfc7ae552d039549950d1973b56f5ca9) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Update to latest webapp dependencies and prepare for deprecation of custom WB ID generators
+
+### Patch Changes
+
+-   Updated dependencies [[`ea1bf0c2c`](https://github.com/Khan/perseus/commit/ea1bf0c2cfc7ae552d039549950d1973b56f5ca9)]:
+    -   @khanacademy/math-input@22.0.0
+    -   @khanacademy/perseus-core@3.0.0
+    -   @khanacademy/kas@0.4.4
+    -   @khanacademy/keypad-context@1.0.6
+    -   @khanacademy/kmath@0.1.18
+    -   @khanacademy/perseus-linter@1.2.6
+    -   @khanacademy/pure-markdown@0.3.15
+    -   @khanacademy/simple-markdown@0.13.8
+
+## 48.2.0
+
+### Minor Changes
+
+-   [#2001](https://github.com/Khan/perseus/pull/2001) [`ac07da03c`](https://github.com/Khan/perseus/commit/ac07da03cb332f9dd9ebf82820e409b9fb0844be) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Undoing changes to svg-image
+
+*   [#2004](https://github.com/Khan/perseus/pull/2004) [`2135e0dc3`](https://github.com/Khan/perseus/commit/2135e0dc3eddde1b3c842223e10e1ee94823c7e7) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fix for svg-image loading issues.
+
+### Patch Changes
+
+-   [#1928](https://github.com/Khan/perseus/pull/1928) [`09d906cd2`](https://github.com/Khan/perseus/commit/09d906cd289a886bdc92b8a5df65ccbc8ad3f29e) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Add screenreader support for circle graph
+
+*   [#1993](https://github.com/Khan/perseus/pull/1993) [`99e55b623`](https://github.com/Khan/perseus/commit/99e55b623deef244f99b554d8aa7ef0fb45a4bbb) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Internal: introduce `ValidationResult` for use in validation functions
+
+## 48.1.0
+
+### Minor Changes
+
+-   [#1988](https://github.com/Khan/perseus/pull/1988) [`cc9d3a4bc`](https://github.com/Khan/perseus/commit/cc9d3a4bc8866bbdaa09e2bf3fdb321fb9a125c1) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Hiding graphie labels from screen readers.
+
+*   [#1983](https://github.com/Khan/perseus/pull/1983) [`2748a1ff8`](https://github.com/Khan/perseus/commit/2748a1ff82b5e04b12f6b740b29b5e01a0561882) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating how svg-image loads data
+
+## 48.0.0
+
+### Major Changes
+
+-   [#1973](https://github.com/Khan/perseus/pull/1973) [`f9906728c`](https://github.com/Khan/perseus/commit/f9906728c1a8f09c91c11d824718b8a06d6a7609) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove `scoreInput` from ServerItemRenderer
+
+*   [#1973](https://github.com/Khan/perseus/pull/1973) [`f9906728c`](https://github.com/Khan/perseus/commit/f9906728c1a8f09c91c11d824718b8a06d6a7609) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove `guessAndScore` from Renderer
+
+### Patch Changes
+
+-   [#1971](https://github.com/Khan/perseus/pull/1971) [`341d316aa`](https://github.com/Khan/perseus/commit/341d316aa8727ebb9e7fde28fc4e2d8779aa3e82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Move to using optional chaining in a few places to resolve new lint rule violations.
+
+*   [#1984](https://github.com/Khan/perseus/pull/1984) [`990a3170c`](https://github.com/Khan/perseus/commit/990a3170c2111ddc2c6e6f8f6420a4908cc71c82) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixed crashing behavior that occurs in when selecting "unlimited" in polygon option of interactive graph editor.
+
+*   Updated dependencies [[`f9906728c`](https://github.com/Khan/perseus/commit/f9906728c1a8f09c91c11d824718b8a06d6a7609), [`341d316aa`](https://github.com/Khan/perseus/commit/341d316aa8727ebb9e7fde28fc4e2d8779aa3e82)]:
+    -   @khanacademy/perseus-core@2.0.0
+    -   @khanacademy/kas@0.4.3
+    -   @khanacademy/keypad-context@1.0.5
+    -   @khanacademy/kmath@0.1.17
+    -   @khanacademy/math-input@21.1.7
+    -   @khanacademy/perseus-linter@1.2.5
+    -   @khanacademy/pure-markdown@0.3.14
+    -   @khanacademy/simple-markdown@0.13.7
+
+## 47.0.1
+
+### Patch Changes
+
+-   [#1975](https://github.com/Khan/perseus/pull/1975) [`335615bab`](https://github.com/Khan/perseus/commit/335615bab18685aa6331c7628c1225bdecc54aab) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Make all types in `perseus-types.ts` originate from it (no longer import Mafs types)
+
+*   [#1953](https://github.com/Khan/perseus/pull/1953) [`acd8bd566`](https://github.com/Khan/perseus/commit/acd8bd56664c6a0849bf3d532be8978115a97dfd) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - [Dropdown] Change logic for aria-label
+
+## 47.0.0
+
+### Major Changes
+
+-   [#1955](https://github.com/Khan/perseus/pull/1955) [`e7b4db0bf`](https://github.com/Khan/perseus/commit/e7b4db0bf193241a36508804dd6e58c729f0a3db) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove support for MultiRenderer
+
+## 46.0.1
+
+### Patch Changes
+
+-   [#1966](https://github.com/Khan/perseus/pull/1966) [`e22a931d9`](https://github.com/Khan/perseus/commit/e22a931d987291258b66f2c80db3536970a4555d) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Numeric Input] - BUGFIX - Adjust color contrast of tooltip text
+
+## 46.0.0
+
+### Major Changes
+
+-   [#1962](https://github.com/Khan/perseus/pull/1962) [`435280ac4`](https://github.com/Khan/perseus/commit/435280ac4cf33ee98ddb1166631f87f81cafa0fc) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Move scoring utility functions out of `Util` object into their own file and only export externally used function (`keScoreFromPerseusScore`)
+
+*   [#1961](https://github.com/Khan/perseus/pull/1961) [`d93e3ecde`](https://github.com/Khan/perseus/commit/d93e3ecdeb6bd714a35dcd9f886299fa80ba71ec) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove deprecated/unused `examples()` function from `Renderer`
+
+## 45.1.0
+
+### Minor Changes
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Introduces a validation function for the number line widget (extracted from the scoring function).
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Changes the PerseusWidgetsMap to be extensible so that widgets can be registered outside of Perseus and still have full type safety.
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - [Numeric Input] - Update the UI to match Expression widget
+
+### Patch Changes
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - TypeScript fixes
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Refactor internally used object mapping utilities to use ES6 exports
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Type fixes
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Ensure that zoomed-in images retain alt text
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - [Numeric Input] - Show format options as a list
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor refactoring of ServerItemRenderer's componentDidUpdate to reduce duplication
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Refactor scoring for `group` widget to follow the same pattern as all other widgets
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - [Numeric Input] - Associate format options tooltip content with input field for assistive technologies
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add global styles to reflect prod styling
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Internal: convert backgroundImage dimensions to numbers during parsing.
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Improve comments on some Perseus types
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Internal: add and pass regression tests for PerseusItem parser's handling of legacy data
+
 ## 45.0.0
 
 ### Major Changes

@@ -422,7 +422,7 @@ describe("LockedPointSettings", () => {
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point at (0, 0). Appearance solid gray.",
+            ariaLabel: "Point at 0 comma 0. Appearance solid gray.",
         });
     });
 
@@ -454,7 +454,7 @@ describe("LockedPointSettings", () => {
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point spoken A at (0, 0). Appearance solid gray.",
+            ariaLabel: "Point spoken A at 0 comma 0. Appearance solid gray.",
         });
     });
 
@@ -491,7 +491,7 @@ describe("LockedPointSettings", () => {
         // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
             ariaLabel:
-                "Point spoken A, spoken B at (0, 0). Appearance solid gray.",
+                "Point spoken A, spoken B at 0 comma 0. Appearance solid gray.",
         });
     });
 });

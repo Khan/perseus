@@ -271,6 +271,15 @@ class InteractiveGraphEditor extends React.Component<Props> {
             }
         }
 
+        // Do not save a unlimited polygon that is open (coords is null).
+        if (
+            this.props.graph?.type === "polygon" &&
+            this.props.graph.numSides === "unlimited" &&
+            this.props.graph.coords === null
+        ) {
+            issues.push("Polygon must be closed.");
+        }
+
         return issues;
     };
 
