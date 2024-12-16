@@ -819,50 +819,5 @@ describe("LabelImage", function () {
             // Confirms the widget renders and that marker buttons are present
             await userEvent.click(markerButton);
         });
-
-        // WIP tests
-        //     it("can be answered correctly when correct option is picked for the marker without answers", async () => {
-        //         // Arrange
-        //         const {renderer} = renderQuestion(textWithoutAnswersQuestion);
-        //
-        //         // Act
-        //         const markerButton = screen.getByRole("button", {
-        //             name: "The fourth unlabeled bar line.",
-        //         });
-        //         await userEvent.click(markerButton);
-        //
-        //         const choice = screen.getByRole("option", {name: "SUVs"});
-        //         await userEvent.click(choice);
-        //
-        //         const score = scorePerseusItemTesting(
-        //             textWithoutAnswersQuestion,
-        //             renderer.getUserInputMap(),
-        //         );
-        //
-        //         // Assert
-        //         expect(score).toHaveBeenAnsweredCorrectly();
-        //     });
-        //
-        //     it("can be answered incorrectly when incorrect option picked for the marker", async () => {
-        //         // Arrange
-        //         const {renderer} = renderQuestion(shortTextQuestion);
-        //
-        //         // Act
-        //         const markerButton = screen.getByRole("button", {
-        //             name: "The fourth unlabeled bar line.",
-        //         });
-        //         await userEvent.click(markerButton);
-        //
-        //         const choice = screen.getByRole("option", {name: "Trucks"});
-        //         await userEvent.click(choice);
-        //
-        //         const score = scorePerseusItemTesting(
-        //             textQuestion,
-        //             renderer.getUserInputMap(),
-        //         );
-        //
-        //         // Assert
-        //         expect(score).toHaveBeenAnsweredIncorrectly();
-        //     });
     });
 });
