@@ -1,3 +1,5 @@
+import validateLabelImage from "./validate-label-image";
+
 import type {PerseusScore} from "../../types";
 import type {
     PerseusLabelImageScoringData,
@@ -44,7 +46,6 @@ function scoreLabelImage(
     userInput: PerseusLabelImageUserInput,
     scoringData: PerseusLabelImageScoringData,
 ): PerseusScore {
-    let numAnswered = 0;
     let numCorrect = 0;
 
     for (let i = 0; i < userInput.markers.length; i++) {
@@ -53,21 +54,14 @@ function scoreLabelImage(
             scoringData.markers[i].answers,
         );
 
-        if (score.hasAnswers) {
-            numAnswered++;
-        }
-
         if (score.isCorrect) {
             numCorrect++;
         }
     }
 
-    // We expect all question markers to be answered before grading.
-    if (numAnswered !== userInput.markers.length) {
-        return {
-            type: "invalid",
-            message: null,
-        };
+    const validationError = validateLabelImage(userInput);
+    if (validationError) {
+        return validationError;
     }
 
     return {
