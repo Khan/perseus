@@ -18,6 +18,7 @@ import PerseusEditorAccordion from "../components/perseus-editor-accordion";
 import Editor from "../editor";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {PillSize} from "@khanacademy/wonder-blocks-pill/dist/components/pill";
 
 type ChangeFn = typeof Changeable.change;
 
@@ -145,7 +146,10 @@ class NumericInputEditor extends React.Component<Props, State> {
         } else {
             answerForms = answerForms.filter((form) => form !== answerForm);
         }
-        this.updateAnswer(answerIndex, "answerForms")(answerForms);
+        const updateFn = this.updateAnswer(answerIndex, "answerForms");
+        if (updateFn) {
+            updateFn(answerForms);
+        }
     };
 
     onToggleHeading = (accordionName: string) => {
@@ -275,7 +279,7 @@ class NumericInputEditor extends React.Component<Props, State> {
             const pillProps = {
                 "aria-label": ariaLabel,
                 kind: kind,
-                size: "medium",
+                size: "medium" as PillSize,
                 role: role,
                 style: style,
                 onClick: onClick,
@@ -405,7 +409,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                     <br />
                     {answerFormButtons.map((format) => {
                         const isSelected = answers[i]["answerForms"]?.includes(
-                            format.value,
+                            format.value as MathFormat,
                         );
                         const kind = isSelected ? "accent" : "transparent";
                         const onClick = () => {
