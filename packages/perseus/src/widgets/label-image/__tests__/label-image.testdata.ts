@@ -106,7 +106,7 @@ export const shortTextQuestion: PerseusRenderer = {
     },
 };
 
-export const textWithoutAnswersQuestion = {
+export const textWithoutAnswersQuestion: PerseusRenderer = {
     content:
         "Carol created a chart and a bar graph to show how many of each type of vehicle were in her supermarket parking lot.\n\nVehicle Type | Number in the parking lot\n:- | :-: \nTrucks| $25$ \nVans | $5$ \nCars| $40$ \nSUVs | $10$ \n\n**Label each bar on the bar graph.**\n\n[[☃ label-image 1]]\n\n",
     images: {
@@ -133,23 +133,25 @@ export const textWithoutAnswersQuestion = {
                 imageHeight: 314,
                 markers: [
                     {
+                        answers: [],
                         label: "The fourth unlabeled bar line.",
                         x: 25,
                         y: 17.7,
                     },
                     {
+                        answers: [],
                         label: "The third unlabeled bar line.",
                         x: 25,
                         y: 35.3,
                     },
                     {
-                        answers: ["Cars"],
+                        answers: [],
                         label: "The second unlabeled bar line.",
                         x: 25,
                         y: 53,
                     },
                     {
-                        answers: ["Vans"],
+                        answers: [],
                         label: "The first unlabeled bar line.",
                         x: 25,
                         y: 70.3,

@@ -776,7 +776,7 @@ describe("LabelImage", function () {
             await userEvent.click(choice);
 
             const score = scorePerseusItemTesting(
-                textQuestion,
+                shortTextQuestion,
                 renderer.getUserInputMap(),
             );
 
@@ -798,7 +798,7 @@ describe("LabelImage", function () {
             await userEvent.click(choice);
 
             const score = scorePerseusItemTesting(
-                textQuestion,
+                shortTextQuestion,
                 renderer.getUserInputMap(),
             );
 
@@ -806,18 +806,63 @@ describe("LabelImage", function () {
             expect(score).toHaveBeenAnsweredIncorrectly();
         });
     });
-});
 
-describe("textWithoutAnswersQuestion", () => {
-    it("should render a text question without answers", () => {
-        // @ts-expect-error - Type not assignable to PerseusRenderer (answers removed)
-        renderQuestion(textWithoutAnswersQuestion);
+    describe("textWithoutAnswersQuestion", () => {
+        it("should render the widget without answers", async () => {
+            // Arrange
+            renderQuestion(textWithoutAnswersQuestion);
 
-        const text = screen.getByText(
-            "Carol created a chart and a bar graph to show how many of each type of vehicle were in her supermarket parking lot.",
-        );
+            // Act and Assert
+            const markerButton = screen.getByRole("button", {
+                name: "The fourth unlabeled bar line.",
+            });
+            // Confirms the widget renders and that marker buttons are present
+            await userEvent.click(markerButton);
+        });
 
-        // expect(container).toMatchSnapshot();
-        expect(text).toBeInTheDocument();
+        // WIP tests
+        //     it("can be answered correctly when correct option is picked for the marker without answers", async () => {
+        //         // Arrange
+        //         const {renderer} = renderQuestion(textWithoutAnswersQuestion);
+        //
+        //         // Act
+        //         const markerButton = screen.getByRole("button", {
+        //             name: "The fourth unlabeled bar line.",
+        //         });
+        //         await userEvent.click(markerButton);
+        //
+        //         const choice = screen.getByRole("option", {name: "SUVs"});
+        //         await userEvent.click(choice);
+        //
+        //         const score = scorePerseusItemTesting(
+        //             textWithoutAnswersQuestion,
+        //             renderer.getUserInputMap(),
+        //         );
+        //
+        //         // Assert
+        //         expect(score).toHaveBeenAnsweredCorrectly();
+        //     });
+        //
+        //     it("can be answered incorrectly when incorrect option picked for the marker", async () => {
+        //         // Arrange
+        //         const {renderer} = renderQuestion(shortTextQuestion);
+        //
+        //         // Act
+        //         const markerButton = screen.getByRole("button", {
+        //             name: "The fourth unlabeled bar line.",
+        //         });
+        //         await userEvent.click(markerButton);
+        //
+        //         const choice = screen.getByRole("option", {name: "Trucks"});
+        //         await userEvent.click(choice);
+        //
+        //         const score = scorePerseusItemTesting(
+        //             textQuestion,
+        //             renderer.getUserInputMap(),
+        //         );
+        //
+        //         // Assert
+        //         expect(score).toHaveBeenAnsweredIncorrectly();
+        //     });
     });
 });
