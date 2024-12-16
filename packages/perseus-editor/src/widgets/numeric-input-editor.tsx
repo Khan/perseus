@@ -364,7 +364,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                             answerProperty="simplify"
                             value="enforced"
                         >
-                        Wrong
+                            Wrong
                         </RadioOption>
                     </>
                 )}
