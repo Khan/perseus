@@ -1,9 +1,6 @@
-import scoreLabelImage from "./score-label-image";
+import validateLabelImage from "./validate-label-image";
 
-import type {
-    PerseusLabelImageScoringData,
-    PerseusLabelImageUserInput,
-} from "../../validation.types";
+import type {PerseusLabelImageUserInput} from "../../validation.types";
 
 describe("scoreLabelImage", function () {
     it("should not grade non-interacted widget", function () {
@@ -11,24 +8,7 @@ describe("scoreLabelImage", function () {
             markers: [{label: "England"}, {label: "Germany"}, {label: "Italy"}],
         } as const;
 
-        const scoringData: PerseusLabelImageScoringData = {
-            markers: [
-                {
-                    label: "England",
-                    answers: ["Mini", "Morris Minor", "Reliant Robin"],
-                },
-                {
-                    label: "Germany",
-                    answers: ["BMW", "Volkswagen", "Porsche"],
-                },
-                {
-                    label: "Italy",
-                    answers: ["Lamborghini", "Fiat", "Ferrari"],
-                },
-            ],
-        } as const;
-
-        const score = scoreLabelImage(userInput, scoringData);
+        const score = validateLabelImage(userInput);
 
         expect(score).toHaveInvalidInput();
     });
@@ -42,24 +22,7 @@ describe("scoreLabelImage", function () {
             ],
         } as const;
 
-        const scoringData = {
-            markers: [
-                {
-                    label: "England",
-                    answers: [],
-                },
-                {
-                    label: "Germany",
-                    answers: ["BMW", "Volkswagen", "Porsche"],
-                },
-                {
-                    label: "Italy",
-                    answers: ["Lamborghini", "Fiat", "Ferrari"],
-                },
-            ],
-        } as const;
-
-        const score = scoreLabelImage(userInput, scoringData);
+        const score = validateLabelImage(userInput);
 
         expect(score).toHaveInvalidInput();
     });
