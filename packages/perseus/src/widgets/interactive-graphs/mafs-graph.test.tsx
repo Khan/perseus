@@ -490,7 +490,7 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseMafsGraphPropsForTests()}
                 state={state}
                 dispatch={() => {}}
             />,

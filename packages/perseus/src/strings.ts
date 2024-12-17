@@ -420,6 +420,17 @@ export const strings: {
         message:
             "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
     },
+    srAngleSideAtCoordinates: {
+        context:
+            "Screenreader-accessible description of the side / vertex of an angle graph",
+        message: "Point %(point)s, %(side)s at %(x)s comma %(y)s",
+    },
+    srAngleVertexAtCoordinatesWithAngleMeasure: {
+        context:
+            "Screenreader-accessible description of a vertex on an angle graph with an angle measure",
+        message:
+            "Point 2, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees",
+    },
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -605,5 +616,9 @@ export const mockStrings: PerseusStrings = {
         point4Y,
     }) =>
         `Points on the circle at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, ${point3X} comma ${point3Y}, ${point4X} comma ${point4Y}.`,
+    srAngleSideAtCoordinates: ({point, side, x, y}) =>
+        `Point ${point}, ${side} at ${x} comma ${y}`,
+    srAngleVertexAtCoordinatesWithAngleMeasure: ({x, y, angleMeasure}) =>
+        `Point 2, vertex at ${x} comma ${y}. Angle ${angleMeasure} degrees`,
     // The above strings are used for interactive graph SR descriptions.
 };
