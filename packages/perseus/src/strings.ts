@@ -183,6 +183,24 @@ export type PerseusStrings = {
         point4X: number;
         point4Y: number;
     }) => string;
+    srAngleGraphAriaLabel: string;
+    srAngleGraphAriaDescription: ({
+        angleMeasure,
+        vertexX,
+        vertexY,
+        isX,
+        isY,
+        tsX,
+        tsY,
+    }: {
+        angleMeasure: string;
+        vertexX: number;
+        vertexY: number;
+        isX: number;
+        isY: number;
+        tsX: number;
+        tsY: number;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -399,6 +417,9 @@ export const strings: {
         message:
             "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
     },
+    srAngleGraphAriaLabel: "An angle on a coordinate plane",
+    srAngleGraphAriaDescription:
+        "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the initial side at %(isX)s comma %(isY)s and a point on the terminal side at %(tsX)s comma %(tsY)s",
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -584,5 +605,16 @@ export const mockStrings: PerseusStrings = {
         point4Y,
     }) =>
         `Points on the circle at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, ${point3X} comma ${point3Y}, ${point4X} comma ${point4Y}.`,
+    srAngleGraphAriaLabel: "An angle on a coordinate plane.",
+    srAngleGraphAriaDescription: ({
+        angleMeasure,
+        vertexX,
+        vertexY,
+        isX,
+        isY,
+        tsX,
+        tsY,
+    }) =>
+        `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the initial side at ${isX} comma ${isY} and a point on the terminal side at ${tsX} comma ${tsY}.`,
     // The above strings are used for interactive graph SR descriptions.
 };

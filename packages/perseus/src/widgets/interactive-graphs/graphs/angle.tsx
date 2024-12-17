@@ -1,7 +1,8 @@
 import {vec} from "mafs";
 import * as React from "react";
 
-import {calculateAngleInDegrees, polar} from "../math";
+import {usePerseusI18n} from "../../../components/i18n-context";
+import {X, Y, calculateAngleInDegrees, getClockwiseAngle, polar} from "../math";
 import {findIntersectionOfRays} from "../math/geometry";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
@@ -11,6 +12,7 @@ import {trimRange} from "./components/movable-line";
 import {MovablePoint} from "./components/movable-point";
 import {SVGLine} from "./components/svg-line";
 import {Vector} from "./components/vector";
+import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {getIntersectionOfRayWithBox} from "./utils";
 
@@ -95,9 +97,33 @@ function AngleGraph(props: AngleGraphProps) {
         showAngles: showAngles || false, // Whether to show the angle or not
     };
 
+    const {strings, locale} = usePerseusI18n();
+
+    const angleMeasure = srFormatNumber(
+        getClockwiseAngle(
+            [endPoints[0], centerPoint, endPoints[1]],
+            allowReflexAngles,
+        ),
+        locale,
+    );
+
+    const wholeAngleAriaLabel = strings.srAngleGraphAriaLabel;
+    const wholeAngleDescription = strings.srAngleGraphAriaDescription({
+        angleMeasure,
+        vertexX: coords[1][X],
+        vertexY: coords[1][Y],
+        isX: coords[2][X],
+        isY: coords[2][Y],
+        tsX: coords[0][X],
+        tsY: coords[0][Y],
+    });
+
     // Render the lines, angle, and then movable points
     return (
-        <>
+        <g
+            aria-label={wholeAngleAriaLabel}
+            aria-describedby="angle-description"
+        >
             {svgLines}
             <Angle {...angleParams} />
             {/* vertex */}
@@ -135,7 +161,10 @@ function AngleGraph(props: AngleGraphProps) {
                     dispatch(actions.angle.movePoint(2, destination))
                 }
             />
-        </>
+            <g id="angle-description" style={{display: "hidden"}}>
+                {wholeAngleDescription}
+            </g>
+        </g>
     );
 }
 

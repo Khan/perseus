@@ -463,6 +463,78 @@ describe("MafsGraph", () => {
         expectLabelInDoc("Point 3 at 1 comma 1");
     });
 
+    it("renders ARIA label for whole angle graph", () => {
+        const state: InteractiveGraphState = {
+            type: "angle",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+            allowReflexAngles: true,
+            showAngles: true,
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphPropsForTests()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+        const angleGraph = screen.getByLabelText(
+            "An angle on a coordinate plane.",
+        );
+        expect(angleGraph).toHaveAttribute(
+            "aria-label",
+            "An angle on a coordinate plane.",
+        );
+    });
+
+    it("render ARIA description for whole angle graph", () => {
+        const state: InteractiveGraphState = {
+            type: "angle",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+            allowReflexAngles: true,
+            showAngles: true,
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphPropsForTests()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        const angleGraph = screen.getByLabelText(
+            "An angle on a coordinate plane.",
+        );
+        expect(angleGraph).toHaveAttribute(
+            "aria-describedby",
+            "angle-description",
+        );
+        expect(angleGraph).toHaveTextContent(
+            "The angle measure is 270 degrees with a vertex at 0 comma 0, a point on the initial side at 1 comma 1 and a point on the terminal side at -1 comma 1.",
+        );
+    });
+
     it("renders a screenreader description summarizing the interactive elements on the graph", () => {
         const state: InteractiveGraphState = {
             type: "point",
