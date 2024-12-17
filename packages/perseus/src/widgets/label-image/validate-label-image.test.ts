@@ -2,7 +2,7 @@ import validateLabelImage from "./validate-label-image";
 
 import type {PerseusLabelImageUserInput} from "../../validation.types";
 
-describe("scoreLabelImage", function () {
+describe("scoreLabelImage", () => {
     it("should not grade non-interacted widget", function () {
         const userInput: PerseusLabelImageUserInput = {
             markers: [{label: "England"}, {label: "Germany"}, {label: "Italy"}],

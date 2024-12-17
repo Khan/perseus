@@ -46,6 +46,11 @@ function scoreLabelImage(
     userInput: PerseusLabelImageUserInput,
     scoringData: PerseusLabelImageScoringData,
 ): PerseusScore {
+    const validationError = validateLabelImage(userInput);
+    if (validationError) {
+        return validationError;
+    }
+
     let numCorrect = 0;
 
     for (let i = 0; i < userInput.markers.length; i++) {
@@ -57,11 +62,6 @@ function scoreLabelImage(
         if (score.isCorrect) {
             numCorrect++;
         }
-    }
-
-    const validationError = validateLabelImage(userInput);
-    if (validationError) {
-        return validationError;
     }
 
     return {
