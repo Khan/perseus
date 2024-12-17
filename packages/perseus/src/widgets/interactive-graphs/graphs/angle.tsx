@@ -110,12 +110,12 @@ function AngleGraph(props: AngleGraphProps) {
     const wholeAngleAriaLabel = strings.srAngleGraphAriaLabel;
     const wholeAngleDescription = strings.srAngleGraphAriaDescription({
         angleMeasure,
-        vertexX: coords[1][X],
-        vertexY: coords[1][Y],
-        isX: coords[2][X],
-        isY: coords[2][Y],
-        tsX: coords[0][X],
-        tsY: coords[0][Y],
+        vertexX: srFormatNumber(coords[1][X], locale),
+        vertexY: srFormatNumber(coords[1][Y], locale),
+        isX: srFormatNumber(coords[2][X], locale),
+        isY: srFormatNumber(coords[2][Y], locale),
+        tsX: srFormatNumber(coords[0][X], locale),
+        tsY: srFormatNumber(coords[0][Y], locale),
     });
 
     // Render the lines, angle, and then movable points

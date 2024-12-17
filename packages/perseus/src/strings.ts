@@ -194,12 +194,12 @@ export type PerseusStrings = {
         tsY,
     }: {
         angleMeasure: string;
-        vertexX: number;
-        vertexY: number;
-        isX: number;
-        isY: number;
-        tsX: number;
-        tsY: number;
+        vertexX: string;
+        vertexY: string;
+        isX: string;
+        isY: string;
+        tsX: string;
+        tsY: string;
     }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
