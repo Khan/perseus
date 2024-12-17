@@ -39,6 +39,7 @@ const enableMafs: APIOptions = {
             segment: true,
             polygon: true,
             "unlimited-polygon": true,
+            "unlimited-point": true,
             angle: true,
             "interactive-graph-locked-features-labels": true,
         },
@@ -69,6 +70,13 @@ export const LinearSystem = (args: StoryArgs): React.ReactElement => (
 
 export const Point = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={pointQuestion} />
+);
+
+export const PointWithMafs = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI
+        apiOptions={{...enableMafs}}
+        question={pointQuestion}
+    />
 );
 
 export const Polygon = (args: StoryArgs): React.ReactElement => (
