@@ -1,4 +1,4 @@
-import type {PerseusScore} from "../../types";
+import type {ValidationResult} from "../../types";
 import type {PerseusSorterUserInput} from "../../validation.types";
 
 /**
@@ -8,9 +8,7 @@ import type {PerseusSorterUserInput} from "../../validation.types";
  * @see 'scoreSorter' in 'packages/perseus/src/widgets/sorter/score-sorter.ts'
  * for more details on how the sorter widget is scored.
  */
-function validateSorter(
-    userInput: PerseusSorterUserInput,
-): Extract<PerseusScore, {type: "invalid"}> | null {
+function validateSorter(userInput: PerseusSorterUserInput): ValidationResult {
     // If the sorter widget hasn't been changed yet, we treat it as "empty" which
     // prevents the "Check" button from becoming active. We want the user
     // to make a change before trying to move forward. This makes an

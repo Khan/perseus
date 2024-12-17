@@ -11,6 +11,7 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 
 import scoreTable from "./score-table";
+import validateTable from "./validate-table";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusTableWidgetOptions} from "../../perseus-types";
@@ -327,4 +328,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusTableUserInput
     scorer: scoreTable,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusTableUserInput
+    validator: validateTable,
 } satisfies WidgetExports<typeof Table>;
