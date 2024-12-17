@@ -8,6 +8,7 @@ exports[`SvgImage should load and render a localized graphie svg 1`] = `
     <img
       alt="svg image"
       src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/ccefe63aa1bd05f1d11123f72790a49378d2e42b.svg)"
+      tabindex="0"
     />
   </div>
 </div>
@@ -21,6 +22,7 @@ exports[`SvgImage should load and render a normal graphie svg 1`] = `
     <img
       alt="svg image"
       src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/ccefe63aa1bd05f1d11123f72790a49378d2e42b.svg)"
+      tabindex="0"
     />
   </div>
 </div>
@@ -31,6 +33,7 @@ exports[`SvgImage should load and render a png 1`] = `
   <img
     alt="png image"
     src="mockStaticUrl(http://localhost/sample.png)"
+    tabindex="0"
   />
 </div>
 `;
