@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interactive-graph widget A none-type graph renders predictably: first render 1`] = `
+exports[`Interactive Graph interactive-graph widget A none-type graph renders predictably: first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1100,7 +1100,7 @@ exports[`interactive-graph widget A none-type graph renders predictably: first r
 </div>
 `;
 
-exports[`interactive-graph widget question Should render predictably: after interaction 1`] = `
+exports[`Interactive Graph interactive-graph widget question Should render predictably: after interaction 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1475,7 +1475,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
 </div>
 `;
 
-exports[`interactive-graph widget question Should render predictably: after interaction 2`] = `
+exports[`Interactive Graph interactive-graph widget question Should render predictably: after interaction 2`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1869,7 +1869,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
 </div>
 `;
 
-exports[`interactive-graph widget question Should render predictably: after interaction 3`] = `
+exports[`Interactive Graph interactive-graph widget question Should render predictably: after interaction 3`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -2243,7 +2243,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
 </div>
 `;
 
-exports[`interactive-graph widget question Should render predictably: after interaction 4`] = `
+exports[`Interactive Graph interactive-graph widget question Should render predictably: after interaction 4`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -2796,7 +2796,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
 </div>
 `;
 
-exports[`interactive-graph widget question Should render predictably: first render 1`] = `
+exports[`Interactive Graph interactive-graph widget question Should render predictably: first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -3171,7 +3171,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
 </div>
 `;
 
-exports[`interactive-graph widget question Should render predictably: first render 2`] = `
+exports[`Interactive Graph interactive-graph widget question Should render predictably: first render 2`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -3565,7 +3565,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
 </div>
 `;
 
-exports[`interactive-graph widget question Should render predictably: first render 3`] = `
+exports[`Interactive Graph interactive-graph widget question Should render predictably: first render 3`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -3751,7 +3751,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
 </div>
 `;
 
-exports[`interactive-graph widget question Should render predictably: first render 4`] = `
+exports[`Interactive Graph interactive-graph widget question Should render predictably: first render 4`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
