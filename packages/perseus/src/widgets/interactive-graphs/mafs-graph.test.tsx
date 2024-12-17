@@ -960,6 +960,107 @@ describe("MafsGraph", () => {
                 {type: REMOVE_POINT, index: 0},
             ]);
         });
+
+        it("polygon - enables the 'Close shape' button when the polygon has 3 or more unique points", () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "polygon",
+                numSides: "unlimited",
+                focusedPointIndex: null,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                showAngles: false,
+                showSides: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                snapTo: "grid",
+                coords: [
+                    [4, 5],
+                    [5, 6],
+                    [6, 7],
+                ],
+                closedPolygon: false,
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...getBaseMafsGraphPropsForTests(),
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Assert
+            // Find the button
+            const closeShapeButton = screen.getByRole("button", {
+                name: "Close shape",
+            });
+            // Make sure the button is enabled
+            expect(closeShapeButton).toHaveAttribute("aria-disabled", "false");
+        });
+
+        it("polygon - disables the 'Close shape' button when the polygon has fewer than 3 unique points", () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "polygon",
+                numSides: "unlimited",
+                focusedPointIndex: null,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                showAngles: false,
+                showSides: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                snapTo: "grid",
+                coords: [
+                    [4, 5],
+                    [5, 6],
+                    // not unique
+                    [5, 6],
+                ],
+                closedPolygon: false,
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...getBaseMafsGraphPropsForTests(),
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Assert
+            // Find the button
+            const closeShapeButton = screen.getByRole("button", {
+                name: "Close shape",
+            });
+            // Make sure the button is disabled
+            expect(closeShapeButton).toHaveAttribute("aria-disabled", "true");
+        });
     });
 });
 

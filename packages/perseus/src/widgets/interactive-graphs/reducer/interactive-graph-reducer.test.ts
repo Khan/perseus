@@ -1548,7 +1548,7 @@ describe("doClosePolygon", () => {
         expect(updated.closedPolygon).toBeTruthy();
     });
 
-    it("does not change `closedPolygon` property when it's already false", () => {
+    it("does not change `closedPolygon` property when it's already true", () => {
         const state: InteractiveGraphState = {
             ...baseUnlimitedPolygonGraphState,
             closedPolygon: true,
@@ -1561,6 +1561,32 @@ describe("doClosePolygon", () => {
 
         invariant(updated.type === "polygon");
         expect(updated.closedPolygon).toBeTruthy();
+    });
+
+    it("removes duplicated points from the new state when closed", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 1],
+                [1, 1],
+                [0, 0], // last point same as first point
+            ],
+            closedPolygon: false,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.closePolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeTruthy();
+        expect(updated.coords).toEqual([
+            [0, 0],
+            [0, 1],
+            [1, 1],
+        ]);
     });
 });
 
