@@ -9,6 +9,7 @@ import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import {MovablePoint} from "./components/movable-point";
+import {srFormatNumber} from "./screenreader-text";
 import {useDraggable} from "./use-draggable";
 import {
     useTransformDimensionsToPixels,
@@ -39,7 +40,7 @@ function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
     const {center, radiusPoint} = graphState;
 
-    const {strings} = usePerseusI18n();
+    const {strings, locale} = usePerseusI18n();
     const [radiusPointAriaLive, setRadiusPointAriaLive] =
         React.useState<AriaLive>("off");
 
@@ -50,27 +51,27 @@ function CircleGraph(props: CircleGraphProps) {
     const outerPointsId = id + "-outer-points";
 
     // Aria label strings
-    const circleGraphAriaLabel = strings.circleGraphAriaLabel;
-    const circleShapeAriaLabel = strings.circleShapeAriaLabel({
-        centerX: center[0],
-        centerY: center[1],
+    const circleGraphAriaLabel = strings.srCircleGraph;
+    const circleShapeAriaLabel = strings.srCircleShape({
+        centerX: srFormatNumber(center[0], locale),
+        centerY: srFormatNumber(center[1], locale),
     });
-    const circleRadiusPointAriaLabel = strings.circleRadiusPointAriaLabel({
-        radiusPointX: radiusPoint[0],
-        radiusPointY: radiusPoint[1],
+    const circleRadiusPointAriaLabel = strings.srCircleRadiusPoint({
+        radiusPointX: srFormatNumber(radiusPoint[0], locale),
+        radiusPointY: srFormatNumber(radiusPoint[1], locale),
     });
-    const circleRadiusDescription = strings.circleRadiusDescription({
+    const circleRadiusDescription = strings.srCircleRadius({
         radius,
     });
-    const circleOuterPointsDescription = strings.circleOuterPointsDescription({
-        point1X: center[0] + radius,
-        point1Y: center[1],
-        point2X: center[0],
-        point2Y: center[1] + radius,
-        point3X: center[0] - radius,
-        point3Y: center[1],
-        point4X: center[0],
-        point4Y: center[1] - radius,
+    const circleOuterPointsDescription = strings.srCircleOuterPoints({
+        point1X: srFormatNumber(center[0] + radius, locale),
+        point1Y: srFormatNumber(center[1], locale),
+        point2X: srFormatNumber(center[0], locale),
+        point2Y: srFormatNumber(center[1] + radius, locale),
+        point3X: srFormatNumber(center[0] - radius, locale),
+        point3Y: srFormatNumber(center[1], locale),
+        point4X: srFormatNumber(center[0], locale),
+        point4Y: srFormatNumber(center[1] - radius, locale),
     });
 
     return (
