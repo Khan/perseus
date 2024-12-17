@@ -2445,10 +2445,10 @@
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.4.0.tgz#08d6c5e20cf7e4cc02fd181c4b0c225cd31dbb60"
   integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
 
-"@khanacademy/eslint-config@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@khanacademy/eslint-config/-/eslint-config-4.0.0.tgz#13ad9f53c7c1503e13818045653bbd53bf5b7f3a"
-  integrity sha512-4FHz/TyU+HIwlVUJ/MHyQ4poob2wnyA4x6XHzvMHj5zMvHcIaDPDDzbnbeAX4dtNQY5suHIFStBPwxhJZQghZg==
+"@khanacademy/eslint-config@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@khanacademy/eslint-config/-/eslint-config-5.0.1.tgz#430d4151d8d145b05ae8e55e838ea6acbfaadf27"
+  integrity sha512-2cOthcTwYxXGSfdrXEz98pg297L12kJ5DpCGy5AtaVqY1gGYDh0B9W8farPPmTzwi4tGM4p5aE+ESFxJvaWT/Q==
 
 "@khanacademy/eslint-plugin@^3.1.1":
   version "3.1.1"
