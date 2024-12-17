@@ -19,17 +19,14 @@ import scoreCSProgram from "./score-cs-program";
 
 import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusCSProgramRubric,
-    PerseusCSProgramUserInput,
-} from "../../validation.types";
+import type {PerseusCSProgramUserInput} from "../../validation.types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 const {updateQueryString} = Util;
 
 type RenderProps = PerseusCSProgramWidgetOptions & PerseusCSProgramUserInput;
 
-type Props = WidgetProps<RenderProps, PerseusCSProgramRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     showEditor: Props["showEditor"];
