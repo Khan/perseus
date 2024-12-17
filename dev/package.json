@@ -3,7 +3,7 @@
     "description": "Perseus dev UI",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "5.0.1",
+    "version": "5.0.2",
     "private": true,
     "repository": {
         "type": "git",
@@ -16,7 +16,7 @@
     "dependencies": {
         "@khanacademy/kas": "^0.4.4",
         "@khanacademy/kmath": "^0.1.18",
-        "@khanacademy/math-input": "^22.0.0",
+        "@khanacademy/math-input": "^22.0.1",
         "@khanacademy/perseus-core": "3.0.0",
         "@khanacademy/perseus-linter": "^1.2.6",
         "@khanacademy/pure-markdown": "^0.3.15",
