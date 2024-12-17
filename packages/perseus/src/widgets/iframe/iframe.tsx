@@ -21,7 +21,6 @@ import {scoreIframe} from "./score-iframe";
 import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
-    PerseusIFrameRubric,
     PerseusIFrameUserInput,
     UserInputStatus,
 } from "../../validation.types";
@@ -36,7 +35,7 @@ type RenderProps = PerseusIFrameWidgetOptions & {
     height: string;
 };
 
-type Props = WidgetProps<RenderProps, PerseusIFrameRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     status: Props["status"];
