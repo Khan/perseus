@@ -6,6 +6,7 @@ import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 import scoreSorter from "./score-sorter";
+import validateSorter from "./validate-sorter";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
@@ -136,4 +137,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusSorterUserInput
     scorer: scoreSorter,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusSorterUserInput
+    validator: validateSorter,
 } satisfies WidgetExports<typeof Sorter>;

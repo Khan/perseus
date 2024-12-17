@@ -65,6 +65,7 @@ exports[`number-line widget snapshots all tick labels show when "Style" is "deci
               class="graphie-container"
             >
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 460px; height: 80px;"
               >
@@ -629,6 +630,7 @@ exports[`number-line widget snapshots can handle fractions: show fractions 1`] =
               class="graphie-container"
             >
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 459.99999999999994px; height: 100px;"
               >
@@ -985,6 +987,7 @@ exports[`number-line widget snapshots default: first render 1`] = `
               class="graphie-container"
             >
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 459.99999999999994px; height: 80px;"
               >
@@ -1357,6 +1360,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
               class="graphie-container"
             >
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 460px; height: 80px;"
               >
@@ -1921,6 +1925,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
               class="graphie-container"
             >
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 460px; height: 80px;"
               >
@@ -2485,6 +2490,7 @@ exports[`number-line widget snapshots labels are highlighted when part of the ti
               class="graphie-container"
             >
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 460px; height: 80px;"
               >
@@ -2889,6 +2895,7 @@ exports[`number-line widget snapshots labels are inserted when NOT part of the t
               class="graphie-container"
             >
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 460px; height: 80px;"
               >
@@ -3330,6 +3337,7 @@ exports[`number-line widget snapshots mobile: first mobile render 1`] = `
               class="graphie-container"
             >
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 288px; height: 80px;"
               >
@@ -3702,6 +3710,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
               class="graphie-container"
             >
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 460px; height: 80px;"
               >
@@ -4095,6 +4104,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
               class="graphie-container"
             >
               <div
+                aria-hidden="true"
                 class="graphie"
                 style="position: relative; width: 460px; height: 80px;"
               >

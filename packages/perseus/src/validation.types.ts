@@ -62,12 +62,6 @@ export type PerseusCategorizerValidationData = {
     items: ReadonlyArray<string>;
 };
 
-// TODO(LEMS-2440): Can possibly be removed during 2440?
-// This is not used for grading at all. The only place it is used is to define
-// Props type in cs-program.tsx, but RenderProps already contains WidgetOptions
-// and is already included in the Props type.
-export type PerseusCSProgramRubric = Empty;
-
 export type PerseusCSProgramUserInput = {
     status: UserInputStatus;
     message: string | null;
@@ -89,6 +83,7 @@ export type PerseusExpressionRubric = {
 export type PerseusExpressionUserInput = string;
 
 export type PerseusGroupRubric = PerseusGroupWidgetOptions;
+export type PerseusGroupValidationData = {widgets: ValidationDataMap};
 export type PerseusGroupUserInput = UserInputMap;
 
 export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
@@ -100,9 +95,6 @@ export type PerseusGrapherRubric = {
 };
 
 export type PerseusGrapherUserInput = PerseusGrapherRubric["correct"];
-
-// TODO(LEMS-2440): Can possibly be removed during 2440; only userInput used
-export type PerseusIFrameRubric = Empty;
 
 export type PerseusIFrameUserInput = {
     status: UserInputStatus;
@@ -242,14 +234,12 @@ export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 
 export type Rubric =
     | PerseusCategorizerScoringData
-    | PerseusCSProgramRubric
     | PerseusDropdownRubric
     | PerseusExpressionRubric
     | PerseusGroupRubric
     | PerseusGradedGroupRubric
     | PerseusGradedGroupSetRubric
     | PerseusGrapherRubric
-    | PerseusIFrameRubric
     | PerseusInputNumberRubric
     | PerseusInteractiveGraphRubric
     | PerseusLabelImageScoringData
@@ -269,6 +259,7 @@ export type UserInput =
     | PerseusDropdownUserInput
     | PerseusExpressionUserInput
     | PerseusGrapherUserInput
+    | PerseusGroupUserInput
     | PerseusIFrameUserInput
     | PerseusInputNumberUserInput
     | PerseusInteractiveGraphUserInput
@@ -283,7 +274,7 @@ export type UserInput =
     | PerseusSorterUserInput
     | PerseusTableUserInput;
 
-export type UserInputMap = {[widgetId: string]: UserInput | UserInputMap};
+export type UserInputMap = {[widgetId: string]: UserInput};
 
 /**
  * deprecated prefer using UserInputMap
@@ -291,3 +282,65 @@ export type UserInputMap = {[widgetId: string]: UserInput | UserInputMap};
 export type UserInputArray = ReadonlyArray<
     UserInputArray | UserInput | null | undefined
 >;
+export interface ValidationDataTypes {
+    categorizer: PerseusCategorizerValidationData;
+    // "cs-program": PerseusCSProgramValidationData;
+    // definition: PerseusDefinitionValidationData;
+    // dropdown: PerseusDropdownRubric;
+    // explanation: PerseusExplanationValidationData;
+    // expression: PerseusExpressionValidationData;
+    // grapher: PerseusGrapherValidationData;
+    // "graded-group-set": PerseusGradedGroupSetValidationData;
+    // "graded-group": PerseusGradedGroupValidationData;
+    group: PerseusGroupValidationData;
+    // iframe: PerseusIFrameValidationData;
+    // image: PerseusImageValidationData;
+    // "input-number": PerseusInputNumberValidationData;
+    // interaction: PerseusInteractionValidationData;
+    // "interactive-graph": PerseusInteractiveGraphValidationData;
+    // "label-image": PerseusLabelImageValidationData;
+    // matcher: PerseusMatcherValidationData;
+    // matrix: PerseusMatrixValidationData;
+    // measurer: PerseusMeasurerValidationData;
+    // "molecule-renderer": PerseusMoleculeRendererValidationData;
+    // "number-line": PerseusNumberLineValidationData;
+    // "numeric-input": PerseusNumericInputValidationData;
+    // orderer: PerseusOrdererValidationData;
+    // "passage-ref-target": PerseusRefTargetValidationData;
+    // "passage-ref": PerseusPassageRefValidationData;
+    // passage: PerseusPassageValidationData;
+    // "phet-simulation": PerseusPhetSimulationValidationData;
+    // "python-program": PerseusPythonProgramValidationData;
+    plotter: PerseusPlotterValidationData;
+    // radio: PerseusRadioValidationData;
+    // sorter: PerseusSorterValidationData;
+    // table: PerseusTableValidationData;
+    // video: PerseusVideoValidationData;
+
+    // Deprecated widgets
+    // sequence: PerseusAutoCorrectValidationData;
+}
+
+/**
+ * A map of validation data, keyed by `widgetId`. This data is used to check if
+ * a question is answerable. This data represents the minimal intersection of
+ * data that's available in the client (widget options) and server (scoring
+ * data) and is represented by a group of types known as "validation data".
+ *
+ * NOTE:  The value in this map is intentionally a subset of WidgetOptions<T>.
+ * By using the same shape (minus any unneeded data), we are able to pass a
+ * `PerseusWidgetsMap` or ` into any function that accepts a
+ * `ValidationDataMap` without any mutation of data.
+ */
+export type ValidationDataMap = {
+    [Property in keyof ValidationDataTypes as `${Property} ${number}`]: {
+        type: Property;
+        static?: boolean;
+        options: ValidationDataTypes[Property];
+    };
+};
+
+/**
+ * A union type of all the different widget validation data types that exist.
+ */
+export type ValidationData = ValidationDataTypes[keyof ValidationDataTypes];
