@@ -24,6 +24,8 @@ const baseLinearState: InteractiveGraphState = {
     snapStep: [1, 1],
 };
 
+const overallGraphLabel = "A line on a coordinate plane.";
+
 describe("Linear graph screen reader", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -36,18 +38,13 @@ describe("Linear graph screen reader", () => {
         render(<MafsGraph {...baseMafsGraphProps} state={baseLinearState} />);
 
         // Act
-        // eslint-disable-next-line testing-library/no-node-access
-        const linearGraphContainer = document.querySelector(
-            ".linear-graph-container",
+        const linearGraph = screen.getByLabelText(
+            "A line on a coordinate plane.",
         );
 
         // Assert
-        // Check aria-label for the overall linear graph.
-        expect(linearGraphContainer).toHaveAttribute(
-            "aria-label",
-            "A line on a coordinate plane.",
-        );
-        expect(linearGraphContainer).toHaveAttribute(
+        expect(linearGraph).toBeInTheDocument();
+        expect(linearGraph).toHaveAttribute(
             "aria-describedby",
             ":r1:-points :r1:-intercept :r1:-slope",
         );
@@ -75,15 +72,12 @@ describe("Linear graph screen reader", () => {
         render(<MafsGraph {...baseMafsGraphProps} state={baseLinearState} />);
 
         // Act
-        const pointsDescription = screen.getByText(
-            "The line has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5.",
-        );
+        const linearGraph = screen.getByLabelText(overallGraphLabel);
 
         // Assert
-        expect(pointsDescription).toBeInTheDocument();
-        // Check the text was found in the hidden points description.
-        // Check only the ID suffix after the variable unique ID prefix.
-        expect(pointsDescription.getAttribute("id")).toContain("-points");
+        expect(linearGraph).toHaveTextContent(
+            "The line has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5.",
+        );
     });
 
     test.each`
@@ -107,16 +101,10 @@ describe("Linear graph screen reader", () => {
             );
 
             // Act
-            const interceptDescriptionElement =
-                screen.getByText(interceptDescription);
+            const linearGraph = screen.getByLabelText(overallGraphLabel);
 
             // Assert
-            expect(interceptDescriptionElement).toBeInTheDocument();
-            // Check the text was found in the hidden intercept description.
-            // Check only the ID suffix after the variable unique ID prefix.
-            expect(interceptDescriptionElement.getAttribute("id")).toContain(
-                "-intercept",
-            );
+            expect(linearGraph).toHaveTextContent(interceptDescription);
         },
     );
 
@@ -141,15 +129,10 @@ describe("Linear graph screen reader", () => {
             );
 
             // Act
-            const slopeDescriptionElement = screen.getByText(slopeDescription);
+            const linearGraph = screen.getByLabelText(overallGraphLabel);
 
             // Assert
-            expect(slopeDescriptionElement).toBeInTheDocument();
-            // Check the text was found in the hidden slope description.
-            // Check only the ID suffix after the variable unique ID prefix.
-            expect(slopeDescriptionElement.getAttribute("id")).toContain(
-                "-slope",
-            );
+            expect(linearGraph).toHaveTextContent(slopeDescription);
         },
     );
 });
