@@ -43,7 +43,6 @@ import type {
     PerseusRadioChoice,
     PerseusGraphCorrectType,
 } from "./perseus-types";
-import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
@@ -62,12 +61,6 @@ export type PerseusCategorizerValidationData = {
     // Translatable text; a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
     items: ReadonlyArray<string>;
 };
-
-// TODO(LEMS-2440): Can possibly be removed during 2440?
-// This is not used for grading at all. The only place it is used is to define
-// Props type in cs-program.tsx, but RenderProps already contains WidgetOptions
-// and is already included in the Props type.
-export type PerseusCSProgramRubric = Empty;
 
 export type PerseusCSProgramUserInput = {
     status: UserInputStatus;
@@ -104,9 +97,6 @@ export type PerseusGrapherScoringData = {
 
 export type PerseusGrapherUserInput = PerseusGrapherScoringData["correct"];
 
-// TODO(LEMS-2440): Can possibly be removed during 2440; only userInput used
-export type PerseusIFrameRubric = Empty;
-
 export type PerseusIFrameUserInput = {
     status: UserInputStatus;
     message: string | null;
@@ -140,12 +130,18 @@ export type PerseusInteractiveGraphScoringData = {
 
 export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
-/* TODO(LEMS-2440): Should be removed or refactored. Grading info may need
-    to be moved to the rubric from userInput. */
-export type PerseusLabelImageRubric = Empty;
+export type PerseusLabelImageScoringData = {
+    markers: ReadonlyArray<{
+        answers: ReadonlyArray<string>;
+        label: string;
+    }>;
+};
 
 export type PerseusLabelImageUserInput = {
-    markers: ReadonlyArray<InteractiveMarkerType>;
+    markers: ReadonlyArray<{
+        selected?: ReadonlyArray<string>;
+        label: string;
+    }>;
 };
 
 export type PerseusMatcherScoringData = PerseusMatcherWidgetOptions;
@@ -239,17 +235,15 @@ export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 
 export type ScoringData =
     | PerseusCategorizerScoringData
-    | PerseusCSProgramRubric
     | PerseusDropdownScoringData
     | PerseusExpressionScoringData
     | PerseusGroupScoringData
     | PerseusGradedGroupScoringData
     | PerseusGradedGroupSetScoringData
     | PerseusGrapherScoringData
-    | PerseusIFrameRubric
     | PerseusInputNumberScoringData
     | PerseusInteractiveGraphScoringData
-    | PerseusLabelImageRubric
+    | PerseusLabelImageScoringData
     | PerseusMatcherScoringData
     | PerseusMatrixScoringData
     | PerseusNumberLineScoringData
