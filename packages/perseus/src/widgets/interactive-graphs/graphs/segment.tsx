@@ -34,7 +34,7 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     const lengthOfSegment =
         segments[0] && kpoint.distanceToPoint(...segments[0]);
 
-    const wholeSegmentAriaLabel = strings.srAngleGraphAriaLabel;
+    const wholeSegmentAriaLabel = strings.srSegmentGraphAriaLabel;
     const wholeSegmentAriaDescription =
         segments[0] &&
         strings.srSegmentGraphAriaDescription({
