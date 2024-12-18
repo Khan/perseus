@@ -173,7 +173,7 @@ describe("GraphSettings", () => {
         );
     });
     // Broken
-    xtest("calls onChange when ruler label is changed", async () => {
+    test("calls onChange when ruler label is changed", async () => {
         // Arrange
         const onChange = jest.fn();
 

@@ -30,7 +30,6 @@ function numSteps(range: any, step: any) {
 }
 type Props = {
     editableSettings: any[];
-    onChange: (arg1: any) => any;
     box: readonly number[];
     labels: readonly string[];
     range: Coords;
@@ -45,7 +44,7 @@ type Props = {
     showTooltips?: boolean;
     rulerLabel: string;
     rulerTicks: number;
-};
+} & Changeable.ChangeableProps;
 
 type DefaultProps = {
     editableSettings: Props["editableSettings"];
@@ -98,7 +97,9 @@ class GraphSettings extends React.Component<Props, State> {
     _isMounted: any;
 
     constructor(props) {
+        console.log("graph settings");
         super(props);
+        console.log(props.editableSettings);
         this.state = this.getInitialState();
     }
 
@@ -155,6 +156,7 @@ class GraphSettings extends React.Component<Props, State> {
     // TODO(aria): Make either a wrapper for standard events to work
     // with this.change, or make these use some TextInput/NumberInput box
     changeRulerLabel(e) {
+        console.log("ruler label changed.");
         this.change({rulerLabel: e.target.value});
     }
 
@@ -195,6 +197,7 @@ class GraphSettings extends React.Component<Props, State> {
     }
 
     renderLabelChoices(choices) {
+        console.log("render settings");
         return _.map(choices, function ([name, value]) {
             return (
                 <option key={value} value={value}>
