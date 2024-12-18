@@ -20,7 +20,7 @@ import validateOrderer from "./validate-orderer";
 import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
-    PerseusOrdererRubric,
+    PerseusOrdererScoringData,
     PerseusOrdererUserInput,
 } from "../../validation.types";
 import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
@@ -300,7 +300,7 @@ type RenderProps = PerseusOrdererWidgetOptions & {
     current: any;
 };
 
-type OrdererProps = WidgetProps<RenderProps, PerseusOrdererRubric>;
+type OrdererProps = WidgetProps<RenderProps, PerseusOrdererScoringData>;
 
 type OrdererDefaultProps = {
     current: OrdererProps["current"];

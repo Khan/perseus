@@ -17,7 +17,7 @@ import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusTableWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
-    PerseusTableRubric,
+    PerseusTableScoringData,
     PerseusTableUserInput,
 } from "../../validation.types";
 
@@ -28,7 +28,8 @@ type RenderProps = PerseusTableWidgetOptions & {
     Editor: any;
 };
 
-type Props = ChangeableProps & WidgetProps<RenderProps, PerseusTableRubric>;
+type Props = ChangeableProps &
+    WidgetProps<RenderProps, PerseusTableScoringData>;
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];

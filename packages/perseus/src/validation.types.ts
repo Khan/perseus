@@ -67,7 +67,7 @@ export type PerseusCSProgramUserInput = {
     message: string | null;
 };
 
-export type PerseusDropdownRubric = {
+export type PerseusDropdownScoringData = {
     choices: ReadonlyArray<PerseusDropdownChoice>;
 };
 
@@ -75,33 +75,34 @@ export type PerseusDropdownUserInput = {
     value: number;
 };
 
-export type PerseusExpressionRubric = {
+export type PerseusExpressionScoringData = {
     answerForms: ReadonlyArray<PerseusExpressionAnswerForm>;
     functions: ReadonlyArray<string>;
 };
 
 export type PerseusExpressionUserInput = string;
 
-export type PerseusGroupRubric = PerseusGroupWidgetOptions;
+export type PerseusGroupScoringData = PerseusGroupWidgetOptions;
 export type PerseusGroupValidationData = {widgets: ValidationDataMap};
 export type PerseusGroupUserInput = UserInputMap;
 
-export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
+export type PerseusGradedGroupScoringData = PerseusGradedGroupWidgetOptions;
 
-export type PerseusGradedGroupSetRubric = PerseusGradedGroupSetWidgetOptions;
+export type PerseusGradedGroupSetScoringData =
+    PerseusGradedGroupSetWidgetOptions;
 
-export type PerseusGrapherRubric = {
+export type PerseusGrapherScoringData = {
     correct: GrapherAnswerTypes;
 };
 
-export type PerseusGrapherUserInput = PerseusGrapherRubric["correct"];
+export type PerseusGrapherUserInput = PerseusGrapherScoringData["correct"];
 
 export type PerseusIFrameUserInput = {
     status: UserInputStatus;
     message: string | null;
 };
 
-export type PerseusInputNumberRubric = {
+export type PerseusInputNumberScoringData = {
     answerType?:
         | "number"
         | "decimal"
@@ -121,7 +122,7 @@ export type PerseusInputNumberUserInput = {
     currentValue: string;
 };
 
-export type PerseusInteractiveGraphRubric = {
+export type PerseusInteractiveGraphScoringData = {
     // TODO(LEMS-2344): make the type of `correct` more specific
     correct: PerseusGraphCorrectType;
     graph: PerseusGraphType;
@@ -143,14 +144,14 @@ export type PerseusLabelImageUserInput = {
     }>;
 };
 
-export type PerseusMatcherRubric = PerseusMatcherWidgetOptions;
+export type PerseusMatcherScoringData = PerseusMatcherWidgetOptions;
 
 export type PerseusMatcherUserInput = {
     left: ReadonlyArray<string>;
     right: ReadonlyArray<string>;
 };
 
-export type PerseusMatrixRubric = {
+export type PerseusMatrixScoringData = {
     // A data matrix representing the "correct" answers to be entered into the matrix
     answers: PerseusMatrixWidgetAnswers;
 } & PerseusMatrixValidationData;
@@ -158,7 +159,7 @@ export type PerseusMatrixRubric = {
 export type PerseusMatrixValidationData = Empty;
 
 export type PerseusMatrixUserInput = {
-    answers: PerseusMatrixRubric["answers"];
+    answers: PerseusMatrixScoringData["answers"];
 };
 
 export type PerseusNumberLineScoringData = {
@@ -177,7 +178,7 @@ export type PerseusNumberLineUserInput = {
     divisionRange: ReadonlyArray<number>;
 };
 
-export type PerseusNumericInputRubric = {
+export type PerseusNumericInputScoringData = {
     // A list of all the possible correct and incorrect answers
     answers: ReadonlyArray<PerseusNumericInputAnswer>;
     // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
@@ -188,7 +189,7 @@ export type PerseusNumericInputUserInput = {
     currentValue: string;
 };
 
-export type PerseusOrdererRubric = PerseusOrdererWidgetOptions;
+export type PerseusOrdererScoringData = PerseusOrdererWidgetOptions;
 
 export type PerseusOrdererUserInput = {
     current: ReadonlyArray<string>;
@@ -206,7 +207,7 @@ export type PerseusPlotterValidationData = {
 
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
 
-export type PerseusRadioRubric = {
+export type PerseusRadioScoringData = {
     // The choices provided to the user.
     choices: ReadonlyArray<PerseusRadioChoice>;
 };
@@ -215,7 +216,7 @@ export type PerseusRadioUserInput = {
     choicesSelected: ReadonlyArray<boolean>;
 };
 
-export type PerseusSorterRubric = {
+export type PerseusSorterScoringData = {
     // Translatable Text; The correct answer (in the correct order). The user will see the cards in a randomized order.
     correct: ReadonlyArray<string>;
 };
@@ -225,33 +226,33 @@ export type PerseusSorterUserInput = {
     changed: boolean;
 };
 
-export type PerseusTableRubric = {
+export type PerseusTableScoringData = {
     // Translatable Text; A 2-dimensional array of text to populate the table with
     answers: ReadonlyArray<ReadonlyArray<string>>;
 };
 
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 
-export type Rubric =
+export type ScoringData =
     | PerseusCategorizerScoringData
-    | PerseusDropdownRubric
-    | PerseusExpressionRubric
-    | PerseusGroupRubric
-    | PerseusGradedGroupRubric
-    | PerseusGradedGroupSetRubric
-    | PerseusGrapherRubric
-    | PerseusInputNumberRubric
-    | PerseusInteractiveGraphRubric
+    | PerseusDropdownScoringData
+    | PerseusExpressionScoringData
+    | PerseusGroupScoringData
+    | PerseusGradedGroupScoringData
+    | PerseusGradedGroupSetScoringData
+    | PerseusGrapherScoringData
+    | PerseusInputNumberScoringData
+    | PerseusInteractiveGraphScoringData
     | PerseusLabelImageScoringData
-    | PerseusMatcherRubric
-    | PerseusMatrixRubric
+    | PerseusMatcherScoringData
+    | PerseusMatrixScoringData
     | PerseusNumberLineScoringData
-    | PerseusNumericInputRubric
-    | PerseusOrdererRubric
+    | PerseusNumericInputScoringData
+    | PerseusOrdererScoringData
     | PerseusPlotterScoringData
-    | PerseusRadioRubric
-    | PerseusSorterRubric
-    | PerseusTableRubric;
+    | PerseusRadioScoringData
+    | PerseusSorterScoringData
+    | PerseusTableScoringData;
 
 export type UserInput =
     | PerseusCategorizerUserInput
@@ -286,7 +287,7 @@ export interface ValidationDataTypes {
     categorizer: PerseusCategorizerValidationData;
     // "cs-program": PerseusCSProgramValidationData;
     // definition: PerseusDefinitionValidationData;
-    // dropdown: PerseusDropdownRubric;
+    // dropdown: PerseusDropdownValidationData;
     // explanation: PerseusExplanationValidationData;
     // expression: PerseusExpressionValidationData;
     // grapher: PerseusGrapherValidationData;

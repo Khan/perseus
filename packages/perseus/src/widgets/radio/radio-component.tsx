@@ -18,7 +18,7 @@ import type {
 } from "../../perseus-types";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {
-    PerseusRadioRubric,
+    PerseusRadioScoringData,
     PerseusRadioUserInput,
 } from "../../validation.types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
@@ -39,7 +39,7 @@ export type RenderProps = {
     values?: ReadonlyArray<boolean>;
 };
 
-type Props = WidgetProps<RenderProps, PerseusRadioRubric>;
+type Props = WidgetProps<RenderProps, PerseusRadioScoringData>;
 
 type DefaultProps = Required<
     Pick<
@@ -268,12 +268,12 @@ class Radio extends React.Component<Props> implements Widget {
      */
     showRationalesForCurrentlySelectedChoices: (
         arg1: PerseusRadioWidgetOptions,
-    ) => void = (rubric) => {
+    ) => void = (scoringData) => {
         const {choiceStates} = this.props;
         if (choiceStates) {
             const score = scoreRadio(
                 this.getUserInput(),
-                rubric,
+                scoringData,
                 this.context.strings,
             );
             const widgetCorrect =
@@ -417,7 +417,7 @@ class Radio extends React.Component<Props> implements Widget {
                     // Current versions of the radio widget always pass in the
                     // "correct" value through the choices. Old serialized state
                     // for radio widgets doesn't have this though, so we have to
-                    // pull the correctness out of the review mode rubric. This
+                    // pull the correctness out of the review mode scoring data. This
                     // only works because all of the places we use
                     // `restoreSerializedState()` also turn on reviewMode, but is
                     // fine for now.

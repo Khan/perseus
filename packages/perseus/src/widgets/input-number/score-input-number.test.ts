@@ -2,11 +2,11 @@ import {mockStrings} from "../../strings";
 
 import scoreInputNumber from "./score-input-number";
 
-import type {PerseusInputNumberRubric} from "../../validation.types";
+import type {PerseusInputNumberScoringData} from "../../validation.types";
 
 describe("scoreInputNumber", () => {
     it("scores correct answer correctly", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const scoringData: PerseusInputNumberScoringData = {
             maxError: 0.1,
             inexact: false,
             value: 1,
@@ -18,13 +18,13 @@ describe("scoreInputNumber", () => {
             currentValue: "1",
         } as const;
 
-        const score = scoreInputNumber(useInput, rubric, mockStrings);
+        const score = scoreInputNumber(useInput, scoringData, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("scores incorrect answer correctly", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const scoringData: PerseusInputNumberScoringData = {
             maxError: 0.1,
             inexact: false,
             value: 1,
@@ -36,13 +36,13 @@ describe("scoreInputNumber", () => {
             currentValue: "2",
         } as const;
 
-        const score = scoreInputNumber(useInput, rubric, mockStrings);
+        const score = scoreInputNumber(useInput, scoringData, mockStrings);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("shows as invalid with a nonsense answer", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const scoringData: PerseusInputNumberScoringData = {
             maxError: 0.1,
             inexact: false,
             value: 1,
@@ -54,7 +54,7 @@ describe("scoreInputNumber", () => {
             currentValue: "sadasdfas",
         } as const;
 
-        const score = scoreInputNumber(useInput, rubric, mockStrings);
+        const score = scoreInputNumber(useInput, scoringData, mockStrings);
 
         expect(score).toHaveInvalidInput(
             "We could not understand your answer. Please check your answer for extra text or symbols.",
@@ -68,7 +68,7 @@ describe("scoreInputNumber", () => {
     // important to the test.
     // https://khanacademy.atlassian.net/browse/LC-691
     it("doesn't default to validating pi", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const scoringData: PerseusInputNumberScoringData = {
             maxError: 0.1,
             inexact: false,
             value: 241.90263432641407,
@@ -82,7 +82,7 @@ describe("scoreInputNumber", () => {
             currentValue: "241.91",
         } as const;
 
-        const score = scoreInputNumber(userInput, rubric, mockStrings);
+        const score = scoreInputNumber(userInput, scoringData, mockStrings);
 
         expect(score.message).not.toBe(
             "Your answer is close, but yyou may " +
@@ -95,7 +95,7 @@ describe("scoreInputNumber", () => {
     });
 
     it("validates against pi if provided in answerType", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const scoringData: PerseusInputNumberScoringData = {
             maxError: 0.1,
             inexact: false,
             value: 241.90263432641407,
@@ -107,7 +107,7 @@ describe("scoreInputNumber", () => {
             currentValue: "77 pi",
         } as const;
 
-        const score = scoreInputNumber(userInput, rubric, mockStrings);
+        const score = scoreInputNumber(userInput, scoringData, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });

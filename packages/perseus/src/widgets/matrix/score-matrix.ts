@@ -8,21 +8,21 @@ import validateMatrix from "./validate-matrix";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {
-    PerseusMatrixRubric,
+    PerseusMatrixScoringData,
     PerseusMatrixUserInput,
 } from "../../validation.types";
 
 function scoreMatrix(
     userInput: PerseusMatrixUserInput,
-    rubric: PerseusMatrixRubric,
+    scoringData: PerseusMatrixScoringData,
     strings: PerseusStrings,
 ): PerseusScore {
-    const validationResult = validateMatrix(userInput, rubric, strings);
+    const validationResult = validateMatrix(userInput, scoringData, strings);
     if (validationResult != null) {
         return validationResult;
     }
 
-    const solution = rubric.answers;
+    const solution = scoringData.answers;
     const supplied = userInput.answers;
     const solutionSize = getMatrixSize(solution);
     const suppliedSize = getMatrixSize(supplied);

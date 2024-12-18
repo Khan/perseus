@@ -20,11 +20,14 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
-import type {PerseusGroupRubric, UserInputArray} from "../../validation.types";
+import type {
+    PerseusGroupScoringData,
+    UserInputArray,
+} from "../../validation.types";
 import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
-type Props = WidgetProps<RenderProps, PerseusGroupRubric>;
+type Props = WidgetProps<RenderProps, PerseusGroupScoringData>;
 type DefaultProps = {
     content: Props["content"];
     widgets: Props["widgets"];

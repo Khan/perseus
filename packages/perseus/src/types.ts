@@ -9,7 +9,7 @@ import type {
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {
-    Rubric,
+    ScoringData,
     UserInput,
     UserInputArray,
     UserInputMap,
@@ -590,7 +590,7 @@ export type WidgetScorerFunction = (
     // The user data needed to score
     userInput: UserInput,
     // The scoring criteria to score against
-    rubric: Rubric,
+    scoringData: ScoringData,
     // Strings, for error messages in invalid widgets
     string?: PerseusStrings,
     // Locale, for math evaluation
@@ -653,8 +653,8 @@ export type WidgetExports<
      */
     scorer?: WidgetScorerFunction;
 
-    getOneCorrectAnswerFromRubric?: (
-        rubric: Rubric,
+    getOneCorrectAnswerFromScoringData?: (
+        scoringData: ScoringData,
     ) => string | null | undefined;
 
     /**
