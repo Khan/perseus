@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 17.0.5
+
+### Patch Changes
+
+-   [#2028](https://github.com/Khan/perseus/pull/2028) [`762b295ec`](https://github.com/Khan/perseus/commit/762b295eccd7d0dbc344edd271d3300b506adb93) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Forcing release
+
+-   Updated dependencies [[`762b295ec`](https://github.com/Khan/perseus/commit/762b295eccd7d0dbc344edd271d3300b506adb93)]:
+    -   @khanacademy/kas@0.4.7
+    -   @khanacademy/keypad-context@1.0.9
+    -   @khanacademy/kmath@0.1.21
+    -   @khanacademy/math-input@22.0.4
+    -   @khanacademy/perseus@49.1.1
+    -   @khanacademy/perseus-core@3.0.3
+    -   @khanacademy/pure-markdown@0.3.18
+
 ## 17.0.4
 
 ### Patch Changes

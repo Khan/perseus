@@ -1,5 +1,14 @@
 # @khanacademy/perseus-linter
 
+## 1.2.9
+
+### Patch Changes
+
+-   [#2028](https://github.com/Khan/perseus/pull/2028) [`762b295ec`](https://github.com/Khan/perseus/commit/762b295eccd7d0dbc344edd271d3300b506adb93) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Forcing release
+
+-   Updated dependencies [[`762b295ec`](https://github.com/Khan/perseus/commit/762b295eccd7d0dbc344edd271d3300b506adb93)]:
+    -   @khanacademy/perseus-core@3.0.3
+
 ## 1.2.8
 
 ### Patch Changes
