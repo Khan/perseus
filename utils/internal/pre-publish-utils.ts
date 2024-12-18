@@ -2,7 +2,12 @@
  * Pre-publish utilities to verify that our publish will go smoothly.
  */
 
-const checkPublishConfig = ({name, publishConfig, private: isPrivate}) => {
+const checkPublishConfig = ({
+    name,
+    publishConfig,
+    private: isPrivate,
+    scripts,
+}) => {
     // first check if is marked as public and there's access to publish the current package
     if (!publishConfig || (!isPrivate && publishConfig.access !== "public")) {
         const requiredAccessType = isPrivate ? "restricted" : "public";
@@ -17,6 +22,17 @@ const checkPublishConfig = ({name, publishConfig, private: isPrivate}) => {
     if (isPrivate && publishConfig.access !== "restricted") {
         console.error(
             `ERROR: ${name} is marked as private but there is a "publishConfig": {"access": "public"} section already defined. Please change it to "access": "restricted" or remove "private": true to make the package public.`,
+        );
+        process.exit(1);
+    }
+
+    // check that we are running our pre-publish check for this package
+    if (
+        !scripts.prepublishOnly ||
+        !scripts.prepublishOnly.includes("utils/package-pre-publish-check.sh")
+    ) {
+        console.error(
+            `ERROR: ${name} must have a "prepublishOnly" script that runs "utils/package-pre-publish-check.sh".`,
         );
         process.exit(1);
     }

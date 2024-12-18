@@ -36,7 +36,9 @@
     "files": [
         "dist"
     ],
-    "scripts": {},
+    "scripts": {
+        "prepublishOnly": "../../utils/package-pre-publish-check.sh"
+    },
     "dependencies": {
         "@khanacademy/keypad-context": "^1.0.9",
         "@khanacademy/perseus-core": "3.0.3",
