@@ -59,6 +59,9 @@ type DefaultProps = {
     markings: Props["markings"];
     rulerLabel: Props["rulerLabel"];
     rulerTicks: Props["rulerTicks"];
+    showProtractor?: Props["showProtractor"];
+    showRuler?: Props["showRuler"];
+    showTooltips?: Props["showTooltips"];
 };
 
 type State = {
@@ -92,6 +95,9 @@ class GraphSettings extends React.Component<Props, State> {
         markings: "graph",
         rulerLabel: "",
         rulerTicks: 10,
+        showProtractor: false,
+        showRuler: false,
+        showTooltips: false,
     };
 
     _isMounted: any;
