@@ -296,6 +296,31 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
+    srRayGraph: string;
+    srRayPoints: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srRayEndpoint: ({x, y}: {x: string; y: string}) => string;
+    srRayTerminalPoint: ({x, y}: {x: string; y: string}) => string;
+    srRayGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -607,6 +632,29 @@ export const strings: {
         message:
             "Line %(lineSequence)s from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
     },
+    srRayGraph: "A ray on a coordinate plane.",
+    srRayPoints: {
+        context:
+            "Additional information about the points for the ray graph as a whole.",
+        message:
+            "The endpoint is at %(point1X)s comma %(point1Y)s and the terminal point is at %(point2X)s comma %(point2Y)s.",
+    },
+    srRayGrabHandle: {
+        context:
+            "Screenreader-only label on the grab handle for the ray on a ray graph.",
+        message:
+            "Ray from endpoint %(point1X)s comma %(point1Y)s to terminal point %(point2X)s comma %(point2Y)s.",
+    },
+    srRayEndpoint: {
+        context:
+            "Screenreader-only label on the endpoint for the ray on a ray graph.",
+        message: "Endpoint at %(point1X)s comma %(point1Y)s.",
+    },
+    srRayTerminalPoint: {
+        context:
+            "Screenreader-only label on the terminal point for the ray on a ray graph.",
+        message: "Terminal point at %(point2X)s comma %(point2Y)s.",
+    },
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -843,5 +891,12 @@ export const mockStrings: PerseusStrings = {
         point2Y,
     }) =>
         `Line ${lineSequence} from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
+    srRayGraph: "A ray on a coordinate plane.",
+    srRayPoints: ({point1X, point1Y, point2X, point2Y}) =>
+        `The endpoint is at ${point1X} comma ${point1Y} and the terminal point is at ${point2X} comma ${point2Y}.`,
+    srRayGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Ray from endpoint ${point1X} comma ${point1Y} to terminal point ${point2X} comma ${point2Y}.`,
+    srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
+    srRayTerminalPoint: ({x, y}) => `Terminal point at ${x} comma ${y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
