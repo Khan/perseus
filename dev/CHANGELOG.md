@@ -1,5 +1,20 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.0.3
+
+### Patch Changes
+
+-   [#1810](https://github.com/Khan/perseus/pull/1810) [`e21ead80e`](https://github.com/Khan/perseus/commit/e21ead80e7cf467a2003fc145bfa1f65973eb270) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Update Dropdown widget to support displaying TeX
+
+-   Updated dependencies [[`e21ead80e`](https://github.com/Khan/perseus/commit/e21ead80e7cf467a2003fc145bfa1f65973eb270)]:
+    -   @khanacademy/math-input@22.0.2
+    -   @khanacademy/perseus-core@3.0.1
+    -   @khanacademy/kas@0.4.5
+    -   @khanacademy/kmath@0.1.19
+    -   @khanacademy/perseus-linter@1.2.7
+    -   @khanacademy/pure-markdown@0.3.16
+    -   @khanacademy/simple-markdown@0.13.9
+
 ## 5.0.2
 
 ### Patch Changes
