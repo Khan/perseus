@@ -45,7 +45,7 @@ type Graph = {
     range: ReadonlyArray<ReadonlyArray<number>>;
     tickStep: ReadonlyArray<number>;
     gridStep: ReadonlyArray<number>;
-    markings: string;
+    markings: "graph" | "grid" | "none";
     valid?: boolean;
 };
 

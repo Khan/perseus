@@ -15,6 +15,8 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import type {Coords} from "@khanacademy/perseus/src/widgets/grapher/grapher-types";
+
 const {ButtonGroup, InfoTip, RangeInput} = components;
 
 const defaultBackgroundImage = {
@@ -28,19 +30,19 @@ function numSteps(range: any, step: any) {
 }
 type Props = {
     editableSettings: any[];
-    onChange: () => void;
-    box: any[];
-    labels: string[];
-    range: any[];
-    step: number[];
-    gridStep: number[];
+    onChange: (arg1: any) => any;
+    box: readonly number[];
+    labels: readonly string[];
+    range: readonly Coords[];
+    step: readonly number[];
+    gridStep: readonly number[];
     snapStep: number[];
-    valid: any;
+    valid: boolean;
     backgroundImage: any;
-    markings: any;
-    showProtractor: boolean;
-    showRuler: boolean;
-    showTooltips: boolean;
+    markings: "graph" | "grid" | "none";
+    showProtractor?: boolean;
+    showRuler?: boolean;
+    showTooltips?: boolean;
     rulerLabel: string;
     rulerTicks: number;
 };
@@ -56,9 +58,6 @@ type DefaultProps = {
     valid: Props["valid"];
     backgroundImage: Props["backgroundImage"];
     markings: Props["markings"];
-    showProtractor: Props["showProtractor"];
-    showRuler: Props["showRuler"];
-    showTooltips: Props["showTooltips"];
     rulerLabel: Props["rulerLabel"];
     rulerTicks: Props["rulerTicks"];
 };
@@ -92,9 +91,6 @@ class GraphSettings extends React.Component<Props, State> {
         valid: true,
         backgroundImage: defaultBackgroundImage,
         markings: "graph",
-        showProtractor: false,
-        showRuler: false,
-        showTooltips: false,
         rulerLabel: "",
         rulerTicks: 10,
     };
