@@ -15,7 +15,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import type {Coords} from "@khanacademy/perseus/src/widgets/grapher/grapher-types";
+import type {Coords} from "@khanacademy/perseus";
 
 const {ButtonGroup, InfoTip, RangeInput} = components;
 
@@ -33,7 +33,7 @@ type Props = {
     onChange: (arg1: any) => any;
     box: readonly number[];
     labels: readonly string[];
-    range: readonly Coords[];
+    range: Coords;
     step: readonly number[];
     gridStep: readonly number[];
     snapStep: number[];
