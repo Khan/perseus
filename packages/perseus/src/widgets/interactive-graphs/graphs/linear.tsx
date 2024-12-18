@@ -43,6 +43,12 @@ const LinearGraph = (props: LinearGraphProps, key: number) => {
         point2X: srFormatNumber(line[1][0], locale),
         point2Y: srFormatNumber(line[1][1], locale),
     });
+    const grabHandleAriaLabel = strings.srLinearGrabHandle({
+        point1X: srFormatNumber(line[0][0], locale),
+        point1Y: srFormatNumber(line[0][1], locale),
+        point2X: srFormatNumber(line[1][0], locale),
+        point2Y: srFormatNumber(line[1][1], locale),
+    });
 
     // Slope description
     const slope = (line[1][1] - line[0][1]) / (line[1][0] - line[0][0]);
@@ -96,6 +102,7 @@ const LinearGraph = (props: LinearGraphProps, key: number) => {
         >
             <MovableLine
                 key={0}
+                ariaLabels={{grabHandleAriaLabel: grabHandleAriaLabel}}
                 ariaDescribedBy={`${interceptDescriptionId} ${slopeDescriptionId}`}
                 points={line}
                 onMoveLine={(delta: vec.Vector2) => {
