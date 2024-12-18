@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 3.0.2
+
+### Patch Changes
+
+-   [#2027](https://github.com/Khan/perseus/pull/2027) [`368e222a6`](https://github.com/Khan/perseus/commit/368e222a6577dff38143d1584d6773129e8abbd7) Thanks [@handeyeco](https://github.com/handeyeco)! - Bump all packages to reset releases
+
 ## 3.0.1
 
 ### Patch Changes
