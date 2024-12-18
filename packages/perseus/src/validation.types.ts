@@ -287,7 +287,7 @@ export interface ValidationDataTypes {
     categorizer: PerseusCategorizerValidationData;
     // "cs-program": PerseusCSProgramValidationData;
     // definition: PerseusDefinitionValidationData;
-    // dropdown: PerseusDropdownRubric;
+    // dropdown: PerseusDropdownValidationData;
     // explanation: PerseusExplanationValidationData;
     // expression: PerseusExpressionValidationData;
     // grapher: PerseusGrapherValidationData;
