@@ -1,5 +1,15 @@
 # @khanacademy/perseus-editor
 
+## 17.0.2
+
+### Patch Changes
+
+-   [#2022](https://github.com/Khan/perseus/pull/2022) [`266d240ed`](https://github.com/Khan/perseus/commit/266d240ed01f9b32242d150414e18fcfa8bd5230) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Update to Wonder Blocks without custom ID generation API
+
+-   Updated dependencies [[`4508e7bea`](https://github.com/Khan/perseus/commit/4508e7bea859957eea296a3fc25180c66098dbb4), [`266d240ed`](https://github.com/Khan/perseus/commit/266d240ed01f9b32242d150414e18fcfa8bd5230), [`1fe437079`](https://github.com/Khan/perseus/commit/1fe43707954ba7e35a42747dc1392fb2972fc7b1)]:
+    -   @khanacademy/perseus@49.0.2
+    -   @khanacademy/math-input@22.0.1
+
 ## 17.0.1
 
 ### Patch Changes

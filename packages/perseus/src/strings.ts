@@ -183,6 +183,32 @@ export type PerseusStrings = {
         point4X: string;
         point4Y: string;
     }) => string;
+    srLinearGraph: string;
+    srLinearGraphPoints: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srLinearGraphSlopeIncreasing: string;
+    srLinearGraphSlopeDecreasing: string;
+    srLinearGraphSlopeHorizontal: string;
+    srLinearGraphSlopeVertical: string;
+    srLinearGraphXOnlyIntercept: ({xIntercept}: {xIntercept: string}) => string;
+    srLinearGraphYOnlyIntercept: ({yIntercept}: {yIntercept: string}) => string;
+    srLinearGraphBothIntercepts: ({
+        xIntercept,
+        yIntercept,
+    }: {
+        xIntercept: string;
+        yIntercept: string;
+    }) => string;
+    srLinearGraphOriginIntercept: string;
     srAngleSideAtCoordinates: ({
         point,
         side,
@@ -420,6 +446,57 @@ export const strings: {
         message:
             "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
     },
+    srLinearGraph: {
+        context: "Aria label for the linear graph as a whole.",
+        message: "A line on a coordinate plane.",
+    },
+    srLinearGraphPoints: {
+        context:
+            "Additional information about the points for the linear graph as a whole.",
+        message:
+            "The line has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+    },
+    srLinearGraphSlopeIncreasing: {
+        context:
+            "Screenreader-only description of a line's decreasing slope on a linear graph.",
+        message: "Its slope increases from left to right.",
+    },
+    srLinearGraphSlopeDecreasing: {
+        context:
+            "Screenreader-only description of a line's increasing slope on a linear graph.",
+        message: "Its slope decreases from left to right.",
+    },
+    srLinearGraphSlopeHorizontal: {
+        context:
+            "Screenreader-only description of a line's horizontal slope on a linear graph.",
+        message: "Its slope is zero.",
+    },
+    srLinearGraphSlopeVertical: {
+        context:
+            "Screenreader-only description of a line's vertical slope on a linear graph.",
+        message: "Its slope is undefined.",
+    },
+    srLinearGraphXOnlyIntercept: {
+        context:
+            "Screenreader-only description of a line's x-intercept on a linear graph when it only has an x intercept.",
+        message: "The line crosses the X-axis at %(xIntercept)s comma 0.",
+    },
+    srLinearGraphYOnlyIntercept: {
+        context:
+            "Screenreader-only description of a line's y-intercept on a linear graph when it only has a y intercept.",
+        message: "The line crosses the Y-axis at 0 comma %(yIntercept)s.",
+    },
+    srLinearGraphBothIntercepts: {
+        context:
+            "Screenreader-only description of a line's x and y intercepts on a linear graph when both intercepts are present.",
+        message:
+            "The line crosses the X-axis at %(xIntercept)s comma 0 and the Y-axis at 0 comma %(yIntercept)s.",
+    },
+    srLinearGraphOriginIntercept: {
+        context:
+            "Screenreader-only description of the line's intercept when the intercept is the graph's origin.",
+        message: "The line crosses the x and y axes at the graph's origin.",
+    },
     srAngleSideAtCoordinates: {
         context:
             "Screenreader-accessible description of the side / vertex of an angle graph",
@@ -616,6 +693,21 @@ export const mockStrings: PerseusStrings = {
         point4Y,
     }) =>
         `Points on the circle at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, ${point3X} comma ${point3Y}, ${point4X} comma ${point4Y}.`,
+    srLinearGraph: "A line on a coordinate plane.",
+    srLinearGraphPoints: ({point1X, point1Y, point2X, point2Y}) =>
+        `The line has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
+    srLinearGraphSlopeIncreasing: "Its slope increases from left to right.",
+    srLinearGraphSlopeDecreasing: "Its slope decreases from left to right.",
+    srLinearGraphSlopeHorizontal: "Its slope is zero.",
+    srLinearGraphSlopeVertical: "Its slope is undefined.",
+    srLinearGraphXOnlyIntercept: ({xIntercept}) =>
+        `The line crosses the X-axis at ${xIntercept} comma 0.`,
+    srLinearGraphYOnlyIntercept: ({yIntercept}) =>
+        `The line crosses the Y-axis at 0 comma ${yIntercept}.`,
+    srLinearGraphBothIntercepts: ({xIntercept, yIntercept}) =>
+        `The line crosses the X-axis at ${xIntercept} comma 0 and the Y-axis at 0 comma ${yIntercept}.`,
+    srLinearGraphOriginIntercept:
+        "The line crosses the x and y axes at the graph's origin.",
     srAngleSideAtCoordinates: ({point, side, x, y}) =>
         `Point ${point}, ${side} at ${x} comma ${y}`,
     srAngleVertexAtCoordinatesWithAngleMeasure: ({x, y, angleMeasure}) =>
