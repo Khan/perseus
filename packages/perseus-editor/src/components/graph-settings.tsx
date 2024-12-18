@@ -103,10 +103,19 @@ class GraphSettings extends React.Component<Props, State> {
     _isMounted: any;
 
     constructor(props) {
-        console.log("graph settings");
         super(props);
-        console.log(props.editableSettings);
         this.state = this.getInitialState();
+
+        this.change = this.change.bind(this);
+        this.changeBackgroundUrl = this.changeBackgroundUrl.bind(this);
+        this.changeGraph = this.changeGraph.bind(this);
+        this.changeGridStep = this.changeGridStep.bind(this);
+        this.changeLabel = this.changeLabel.bind(this);
+        this.changeRange = this.changeRange.bind(this);
+        this.changeRulerLabel = this.changeRulerLabel.bind(this);
+        this.changeRulerTicks = this.changeRulerTicks.bind(this);
+        this.changeSnapStep = this.changeSnapStep.bind(this);
+        this.changeStep = this.changeStep.bind(this);
     }
 
     getInitialState() {
@@ -162,7 +171,6 @@ class GraphSettings extends React.Component<Props, State> {
     // TODO(aria): Make either a wrapper for standard events to work
     // with this.change, or make these use some TextInput/NumberInput box
     changeRulerLabel(e) {
-        console.log("ruler label changed.");
         this.change({rulerLabel: e.target.value});
     }
 
@@ -203,7 +211,6 @@ class GraphSettings extends React.Component<Props, State> {
     }
 
     renderLabelChoices(choices) {
-        console.log("render settings");
         return _.map(choices, function ([name, value]) {
             return (
                 <option key={value} value={value}>
