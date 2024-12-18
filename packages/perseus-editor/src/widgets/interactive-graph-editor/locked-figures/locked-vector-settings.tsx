@@ -25,8 +25,8 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
-    generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -70,14 +70,9 @@ const LockedVectorSettings = (props: Props) => {
      * with the math details converted into spoken words.
      */
     async function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
-        let str = await generateSpokenMathDetails(
-            `Vector${visiblelabel} from (${tail[0]}, ${tail[1]}) to (${tip[0]}, ${tip[1]})`,
-        );
+        let str = `Vector${visiblelabel} from ${tail[0]} comma ${tail[1]} to ${tip[0]} comma ${tip[1]}`;
 
         const vectorAppearance =
             generateLockedFigureAppearanceDescription(lineColor);
@@ -122,7 +117,7 @@ const LockedVectorSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -240,8 +235,9 @@ const LockedVectorSettings = (props: Props) => {
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
+                            key={labelIndex}
                             expanded={true}
-                            onChangeProps={(newLabel: LockedLabelType) => {
+                            onChangeProps={(newLabel) => {
                                 handleLabelChange(newLabel, labelIndex);
                             }}
                             onRemove={() => {

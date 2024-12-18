@@ -78,7 +78,7 @@ export class JsonEditor extends React.Component<Props> {
                     this.props.onChange(json);
                 },
             );
-        } catch (ex: any) {
+        } catch {
             this.setState({
                 currentValue: nextString,
                 valid: false,
@@ -109,7 +109,7 @@ export class JsonEditor extends React.Component<Props> {
                     this.props.onChange(json);
                 },
             );
-        } catch (ex: any) {
+        } catch {
             this.setState({
                 currentValue: JSON.stringify(this.props.value, null, 4),
                 valid: true,

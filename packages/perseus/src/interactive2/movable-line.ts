@@ -8,7 +8,7 @@ import KhanColors from "../util/colors";
 
 import InteractiveUtil from "./interactive-util";
 import MovableLineOptions from "./movable-line-options";
-import objective_ from "./objective_";
+import {pluck} from "./objective_";
 import WrappedLine from "./wrapped-line";
 
 const assert = InteractiveUtil.assert;
@@ -83,7 +83,7 @@ _.extend(MovableLine.prototype, {
                 //    - are objects, not primitives (and need a deeper copy)
                 //    - they don't need getters created for them
                 // TODO(jack): Consider "default" once we es3ify perseus
-                objective_.pluck(MovableLineOptions, "standard"),
+                pluck(MovableLineOptions, "standard"),
             ),
             DEFAULT_PROPS,
         );

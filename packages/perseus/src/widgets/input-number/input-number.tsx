@@ -125,12 +125,16 @@ class InputNumber extends React.Component<Props> implements Widget {
         return true;
     };
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     focusInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     };
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     blurInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
@@ -148,6 +152,8 @@ class InputNumber extends React.Component<Props> implements Widget {
         return [[]];
     };
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     setInputValue: (arg1: Path, arg2: string, arg3: () => void) => void = (
         path,
         newValue,
@@ -169,7 +175,7 @@ class InputNumber extends React.Component<Props> implements Widget {
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
-    examples: () => ReadonlyArray<string> = () => {
+    examples(): ReadonlyArray<string> {
         const {strings} = this.context;
         const type = this.props.answerType;
         const forms = answerTypes[type].forms.split(/\s*,\s*/);
@@ -179,7 +185,7 @@ class InputNumber extends React.Component<Props> implements Widget {
         );
 
         return [strings.yourAnswer].concat(examples);
-    };
+    }
 
     render(): React.ReactNode {
         if (this.props.apiOptions.customKeypad) {
@@ -278,6 +284,8 @@ export default {
     widget: InputNumber,
     transform: propTransform,
     isLintable: true,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusInputNumberUserInput'.
     scorer: scoreInputNumber,
 
     getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {

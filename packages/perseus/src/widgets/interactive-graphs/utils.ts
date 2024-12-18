@@ -1,8 +1,9 @@
-import {parse, pureMarkdownRules} from "@khanacademy/pure-markdown";
+import {pureMarkdownRules} from "@khanacademy/pure-markdown";
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 
 import {clampToBox, inset, MIN, size} from "./math";
 
+import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
@@ -75,75 +76,6 @@ export function isUnlimitedGraphState(
 }
 
 /**
- * Replace all text outside of the $ TeX blocks with `\\text{...}`
- * This way, the entire resulting string can be rendered within <TeX>
- * and the text outside of the $ blocks will be non-TeX text.
- */
-export function replaceOutsideTeX(mathString: string) {
-    // All the information we need is in the first section,
-    // whether it's typed as "blockmath" or "paragraph"
-    const firstSection = parse(mathString)[0];
-
-    // If it's blockMath, the outer level has the full math content.
-    if (firstSection.type === "blockMath") {
-        return firstSection.content;
-    }
-
-    // If it's a paragraph, we need to iterate through the sections
-    // to look for individual math blocks.
-    const condensedNodes = condenseTextNodes(firstSection.content);
-    let result = "";
-
-    for (const piece of condensedNodes) {
-        piece.type === "math"
-            ? (result += piece.content)
-            : (result += `\\text{${escapeSpecialChars(piece.content)}}`);
-    }
-
-    return result;
-}
-
-type ParsedNode = {
-    type: "math" | "text";
-    content: string;
-};
-
-// Helper function for replaceOutsideTeX()
-// Condense adjacent text nodes into a single text node
-function condenseTextNodes(nodes: ParsedNode[] | undefined): Array<ParsedNode> {
-    const result: ParsedNode[] = [];
-
-    if (!nodes) {
-        return result;
-    }
-
-    let currentText = "";
-    for (const node of nodes) {
-        if (node.type === "math") {
-            if (currentText) {
-                result.push({type: "text", content: currentText});
-                currentText = "";
-            }
-            result.push(node);
-        } else {
-            currentText += node.content;
-        }
-    }
-
-    if (currentText) {
-        result.push({type: "text", content: currentText});
-    }
-
-    return result;
-}
-
-// Helper function for replaceOutsideTeX()
-function escapeSpecialChars(str) {
-    // Escape $, \, {, and } characters
-    return str.replace(/([$\\{}])/g, "\\$1");
-}
-
-/**
  * Parse a string of text and math into a list of objects with type and content
  *
  * Example: "Pi is about $\frac{22}{7}$" ==>
@@ -171,3 +103,61 @@ export const mathOnlyParser = SimpleMarkdown.parserFor(
     },
     {inline: true},
 );
+
+/**
+ * Replace all text outside of the $ TeX blocks with `\\text{...}`
+ * This way, the entire resulting string can be rendered within <TeX>
+ * and the text outside of the $ blocks will be non-TeX text.
+ */
+export function replaceOutsideTeX(mathString: string) {
+    // All the information we need is in the first section,
+    // whether it's typed as "blockmath" or "paragraph"
+    const parsed = mathOnlyParser(mathString);
+
+    let result = "";
+
+    for (const piece of parsed) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        piece.type === "math"
+            ? (result += "$" + piece.content + "$")
+            : piece.type === "specialCharacter"
+              ? (result += escapeIfUnescaped(piece.content))
+              : (result += piece.content);
+    }
+
+    return `\\text{${result}}`;
+}
+
+function escapeIfUnescaped(character: string) {
+    if (character.length === 1) {
+        return "\\" + character;
+    } else {
+        return character;
+    }
+}
+
+export function getBaseMafsGraphPropsForTests(): MafsGraphProps {
+    return {
+        box: [400, 400],
+        step: [1, 1],
+        gridStep: [1, 1],
+        markings: "graph",
+        containerSizeClass: "small",
+        showTooltips: false,
+        showProtractor: false,
+        readOnly: false,
+        labels: ["x", "y"],
+        static: false,
+        dispatch: () => {},
+        state: {
+            type: "segment",
+            hasBeenInteractedWith: false,
+            coords: [],
+            snapStep: [1, 1],
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+        },
+    };
+}

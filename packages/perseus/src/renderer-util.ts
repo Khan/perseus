@@ -1,15 +1,37 @@
-import Util from "./util";
-import {
-    conversionRequired,
-    convertDeprecatedWidgetsForScoring,
-} from "./util/deprecated-widgets/modernize-widgets-utils";
+import {mapObject} from "./interactive2/objective_";
+import {scoreIsEmpty, flattenScores} from "./util/scoring";
 import {getWidgetIdsFromContent} from "./widget-type-utils";
-import {getWidgetScorer} from "./widgets";
+import {getWidgetScorer, upgradeWidgetInfoToLatestVersion} from "./widgets";
 
 import type {PerseusRenderer, PerseusWidgetsMap} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {PerseusScore} from "./types";
 import type {UserInput, UserInputMap} from "./validation.types";
+
+export function getUpgradedWidgetOptions(
+    oldWidgetOptions: PerseusWidgetsMap,
+): PerseusWidgetsMap {
+    // @ts-expect-error - TS2322 - Type '(props: Props) => Partial<Record<string, CategorizerWidget | CSProgramWidget | DefinitionWidget | DropdownWidget | ... 35 more ... | VideoWidget>>' is not assignable to type '(props: Props) => { [key: string]: PerseusWidget; }'.
+    return mapObject(oldWidgetOptions, (widgetInfo, widgetId) => {
+        if (!widgetInfo.type || !widgetInfo.alignment) {
+            const newValues: Record<string, any> = {};
+
+            if (!widgetInfo.type) {
+                // TODO: why does widget have no type?
+                // We don't want to derive type from widget ID
+                // see: LEMS-1845
+                newValues.type = widgetId.split(" ")[0];
+            }
+
+            if (!widgetInfo.alignment) {
+                newValues.alignment = "default";
+            }
+
+            widgetInfo = {...widgetInfo, ...newValues};
+        }
+        return upgradeWidgetInfoToLatestVersion(widgetInfo);
+    });
+}
 
 export function emptyWidgetsFunctional(
     widgets: PerseusWidgetsMap,
@@ -20,37 +42,25 @@ export function emptyWidgetsFunctional(
     strings: PerseusStrings,
     locale: string,
 ): ReadonlyArray<string> {
+    const upgradedWidgets = getUpgradedWidgetOptions(widgets);
+
     return widgetIds.filter((id) => {
-        const widget = widgets[id];
+        const widget = upgradedWidgets[id];
         if (!widget || widget.static) {
             // Static widgets shouldn't count as empty
             return false;
         }
 
-        let score: PerseusScore | null = null;
-        const userInput = userInputMap[id];
         const scorer = getWidgetScorer(widget.type);
-
-        if (widget.type === "group") {
-            const scores = scoreWidgetsFunctional(
-                widget.options.widgets,
-                Object.keys(widget.options.widgets),
-                userInputMap[id] as UserInputMap,
-                strings,
-                locale,
-            );
-            score = Util.flattenScores(scores);
-        } else if (scorer) {
-            score = scorer(
-                userInput as UserInput,
-                widget.options,
-                strings,
-                locale,
-            );
-        }
+        const score = scorer?.(
+            userInputMap[id] as UserInput,
+            widget.options,
+            strings,
+            locale,
+        );
 
         if (score) {
-            return Util.scoreIsEmpty(score);
+            return scoreIsEmpty(score);
         }
     });
 }
@@ -65,30 +75,18 @@ export function scorePerseusItem(
     strings: PerseusStrings,
     locale: string,
 ): PerseusScore {
-    let convertedRenderData = perseusRenderData;
-    let convertedUserInputMap = userInputMap;
-
-    // Check if the PerseusRenderer object contains any deprecated widgets that need to be converted
-    const mustConvertData = conversionRequired(perseusRenderData);
-    if (mustConvertData) {
-        const {convertedRubric, convertedUserData} =
-            convertDeprecatedWidgetsForScoring(perseusRenderData, userInputMap);
-        convertedRenderData = convertedRubric;
-        convertedUserInputMap = convertedUserData;
-    }
-
     // There seems to be a chance that PerseusRenderer.widgets might include
     // widget data for widgets that are not in PerseusRenderer.content,
     // so this checks that the widgets are being used before scoring them
-    const usedWidgetIds = getWidgetIdsFromContent(convertedRenderData.content);
+    const usedWidgetIds = getWidgetIdsFromContent(perseusRenderData.content);
     const scores = scoreWidgetsFunctional(
-        convertedRenderData.widgets,
+        perseusRenderData.widgets,
         usedWidgetIds,
-        convertedUserInputMap,
+        userInputMap,
         strings,
         locale,
     );
-    return Util.flattenScores(scores);
+    return flattenScores(scores);
 }
 
 export function scoreWidgetsFunctional(
@@ -100,8 +98,10 @@ export function scoreWidgetsFunctional(
     strings: PerseusStrings,
     locale: string,
 ): {[widgetId: string]: PerseusScore} {
+    const upgradedWidgets = getUpgradedWidgetOptions(widgets);
+
     const gradedWidgetIds = widgetIds.filter((id) => {
-        const props = widgets[id];
+        const props = upgradedWidgets[id];
         const widgetIsGraded: boolean = props?.graded == null || props.graded;
         const widgetIsStatic = !!props?.static;
         // Ungraded widgets or widgets set to static shouldn't be graded.
@@ -110,29 +110,21 @@ export function scoreWidgetsFunctional(
 
     const widgetScores: Record<string, PerseusScore> = {};
     gradedWidgetIds.forEach((id) => {
-        const widget = widgets[id];
+        const widget = upgradedWidgets[id];
         if (!widget) {
             return;
         }
 
         const userInput = userInputMap[id];
         const scorer = getWidgetScorer(widget.type);
-        if (widget.type === "group") {
-            const scores = scoreWidgetsFunctional(
-                widget.options.widgets,
-                getWidgetIdsFromContent(widget.options.content),
-                userInputMap[id] as UserInputMap,
-                strings,
-                locale,
-            );
-            widgetScores[id] = Util.flattenScores(scores);
-        } else if (scorer) {
-            widgetScores[id] = scorer(
-                userInput as UserInput,
-                widget.options,
-                strings,
-                locale,
-            );
+        const score = scorer?.(
+            userInput as UserInput,
+            widget.options,
+            strings,
+            locale,
+        );
+        if (score != null) {
+            widgetScores[id] = score;
         }
     });
 

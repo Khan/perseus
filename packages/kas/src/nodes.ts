@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable import/order */
-/* TODO(charlie): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-undef, no-var, one-var, no-dupe-keys, no-new-func, no-redeclare, @typescript-eslint/no-unused-vars, comma-dangle, max-len, prefer-spread, space-infix-ops, space-unary-ops */
+/* TODO: fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable indent, no-undef, no-var, no-dupe-keys, no-new-func, no-redeclare, comma-dangle, max-len, prefer-spread, space-infix-ops, space-unary-ops */
 import _ from "underscore";
 
 import {unitParser} from "./__genfiles__/unitparser";
@@ -181,7 +181,7 @@ abstract class Expr {
             // @ts-expect-error: TypeScript doesn't want to unify
             // `Function` with the `compile`'s return type.
             return new Function("vars", "return " + code + ";");
-        } catch (e) {
+        } catch {
             throw new Error("Function did not compile: " + code);
         }
     }
@@ -313,6 +313,7 @@ abstract class Expr {
 
     // return the child nodes of this node
     exprArgs(): Expr[] {
+        // @ts-expect-error: Type 'string | number | Expr | undefined' is not assignable to type 'string | Expr'.
         return this.args().filter(isExpr);
     }
 
@@ -817,6 +818,7 @@ export class Add extends Seq {
     reduce(options?: Options): Expr {
         return _.reduce(
             this.terms,
+            // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
             (memo, term) => {
                 return memo.add(term, options);
             },
@@ -1300,6 +1302,7 @@ export class Mul extends Seq {
     reduce(options?: {preciseFloats: boolean}) {
         return _.reduce(
             this.terms,
+            // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
             (memo, term) => {
                 return memo.mul(term, options);
             },
@@ -1411,7 +1414,6 @@ export class Mul extends Seq {
                 rational = rational.addHint("fraction");
             }
 
-            var result;
             if (num.n < 0 && right.n < 0) {
                 rational.d = -rational.d;
                 return left.replace(num, [NumNeg, rational]);
@@ -1557,12 +1559,15 @@ export class Mul extends Seq {
                 return pos(num) || neg(num);
             };
 
+            // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
             const posNum = numbers.find(pos);
+            // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
             const negNum = numbers.find(neg);
             if (
                 numbers.length > 1 &&
                 negNum &&
                 posNum &&
+                // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
                 _.every(numbers, posOrNeg)
             ) {
                 var firstNeg = _.indexOf(expr.terms, negNum);

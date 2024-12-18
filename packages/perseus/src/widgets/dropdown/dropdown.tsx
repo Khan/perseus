@@ -1,8 +1,12 @@
+import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
+import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import {PerseusI18nContext} from "../../components/i18n-context";
 import {ApiOptions} from "../../perseus-api";
+import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
 import scoreDropdown from "./score-dropdown";
@@ -27,6 +31,9 @@ type DefaultProps = {
 };
 
 class Dropdown extends React.Component<Props> implements Widget {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         choices: [],
         selected: 0,
@@ -68,43 +75,82 @@ class Dropdown extends React.Component<Props> implements Widget {
                 key="placeholder"
                 value="0"
                 disabled
-                label={this.props.placeholder}
+                label={
+                    <Renderer
+                        content={this.props.placeholder}
+                        strings={this.context.strings}
+                        inline
+                    />
+                }
+                labelAsText={this.props.placeholder}
             />,
             ...this.props.choices.map((choice, i) => (
                 <OptionItem
                     key={String(i + 1)}
                     value={String(i + 1)}
-                    label={choice}
+                    label={
+                        <Renderer
+                            content={choice}
+                            strings={this.context.strings}
+                            inline
+                        />
+                    }
+                    labelAsText={choice}
                 />
             )),
         ];
 
         return (
-            <div
-                // NOTE(jared): These are required to prevent weird behavior
-                // When there's a dropdown in a zoomable table.
-                onClick={(e) => {
-                    e.stopPropagation();
-                }}
-                onTouchStart={(e) => {
-                    e.stopPropagation();
-                }}
-            >
-                <SingleSelect
-                    placeholder=""
-                    onChange={(value) => this._handleChange(parseInt(value))}
-                    selectedValue={String(this.props.selected)}
-                    disabled={this.props.apiOptions.readOnly}
-                >
-                    {children}
-                </SingleSelect>
-            </div>
+            <Id>
+                {(dropdownId) => (
+                    <View
+                        // NOTE(jared): These are required to prevent weird behavior
+                        // When there's a dropdown in a zoomable table.
+                        onClick={(e) => {
+                            e.stopPropagation();
+                        }}
+                        onTouchStart={(e) => {
+                            e.stopPropagation();
+                        }}
+                    >
+                        {this.props.visibleLabel && (
+                            <LabelLarge tag="label" htmlFor={dropdownId}>
+                                {this.props.visibleLabel}
+                            </LabelLarge>
+                        )}
+                        <SingleSelect
+                            id={dropdownId}
+                            placeholder=""
+                            onChange={(value) =>
+                                this._handleChange(parseInt(value))
+                            }
+                            selectedValue={String(this.props.selected)}
+                            disabled={this.props.apiOptions.readOnly}
+                            aria-label={
+                                this.props.ariaLabel ||
+                                this.props.visibleLabel ||
+                                this.context.strings.selectAnAnswer
+                            }
+                            // This is currently necessary for SRs to read the labels properly.
+                            // However, WB is working on a change to add the "combobox" role to
+                            // all dropdowns.
+                            // See https://khanacademy.atlassian.net/browse/WB-1671
+                            role="combobox"
+                            showOpenerLabelAsText={false}
+                        >
+                            {children}
+                        </SingleSelect>
+                    </View>
+                )}
+            </Id>
         );
     }
 }
 
 type RenderProps = {
-    placeholder: string;
+    placeholder: PerseusDropdownWidgetOptions["placeholder"];
+    visibleLabel: PerseusDropdownWidgetOptions["visibleLabel"];
+    ariaLabel: PerseusDropdownWidgetOptions["ariaLabel"];
     choices: ReadonlyArray<string>;
 };
 
@@ -113,6 +159,8 @@ const optionsTransform: (arg1: PerseusDropdownWidgetOptions) => RenderProps = (
 ) => {
     return {
         placeholder: widgetOptions.placeholder,
+        visibleLabel: widgetOptions.visibleLabel,
+        ariaLabel: widgetOptions.ariaLabel,
         choices: widgetOptions.choices.map((choice) => choice.content),
     };
 };
@@ -124,5 +172,7 @@ export default {
     accessible: true,
     widget: Dropdown,
     transform: optionsTransform,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusDropdownUserInput'.
     scorer: scoreDropdown,
 } satisfies WidgetExports<typeof Dropdown>;

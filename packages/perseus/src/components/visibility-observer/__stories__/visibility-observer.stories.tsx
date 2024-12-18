@@ -121,8 +121,9 @@ class VisibilityTest extends React.Component<Props, State> {
                         cats. Furrier and even more furrier hairball cat is
                         love, cat is life so ooh, are those your $250 dollar
                         sandals? lemme use that as my litter box. Lick arm hair
-                        love to play with owner's hair tie hunt anything that
-                        moves. Destroy couch as revenge when in doubt, wash.
+                        love to play with owner&apos;s hair tie hunt anything
+                        that moves. Destroy couch as revenge when in doubt,
+                        wash.
                     </p>
                 </div>
 

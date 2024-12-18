@@ -1,3 +1,5 @@
+import validateRadio from "./validate-radio";
+
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {
@@ -10,16 +12,14 @@ function scoreRadio(
     rubric: PerseusRadioRubric,
     strings: PerseusStrings,
 ): PerseusScore {
+    const validationError = validateRadio(userInput);
+    if (validationError) {
+        return validationError;
+    }
+
     const numSelected = userInput.choicesSelected.reduce((sum, selected) => {
         return sum + (selected ? 1 : 0);
     }, 0);
-
-    if (numSelected === 0) {
-        return {
-            type: "invalid",
-            message: null,
-        };
-    }
 
     const numCorrect: number = rubric.choices.reduce((sum, currentChoice) => {
         return currentChoice.correct ? sum + 1 : sum;

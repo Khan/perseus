@@ -14,9 +14,7 @@ import type {UserEvent} from "@testing-library/user-event";
 const checkAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
 ) => {
-    // NOTE(jeremy): The graded-group widget does not participate in
-    // Renderer grading. So we can't call `renderer.score()` and see that
-    // the widget is answered correctly. The only route to check the answer
+    // NOTE(jeremy): The only route to check the answer
     // is to use the "Check" button that is embedded _inside_ the widget.
     await userEvent.click(screen.getByRole("button", {name: "Check"}));
 };

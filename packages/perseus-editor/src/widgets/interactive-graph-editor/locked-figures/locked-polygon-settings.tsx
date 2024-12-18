@@ -34,8 +34,8 @@ import LockedLabelSettings from "./locked-label-settings";
 import PolygonSwatch from "./polygon-swatch";
 import {
     generateLockedFigureAppearanceDescription,
-    generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -70,17 +70,12 @@ const LockedPolygonSettings = (props: Props) => {
      * with the math details converted into spoken words.
      */
     async function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
-        let str = await generateSpokenMathDetails(
-            `Polygon${visiblelabel} with ${points.length} sides, vertices at `,
-        );
+        let str = `Polygon${visiblelabel} with ${points.length} sides, vertices at `;
 
         // Add the coordinates of each point to the aria label
-        str += points.map(([x, y]) => `(${x}, ${y})`).join(", ");
+        str += points.map(([x, y]) => `${x} comma ${y}`).join(", ");
 
         const polygonAppearance = generateLockedFigureAppearanceDescription(
             color,
@@ -147,7 +142,7 @@ const LockedPolygonSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -207,8 +202,10 @@ const LockedPolygonSettings = (props: Props) => {
                     <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
                         selectedValue={fillStyle}
-                        onChange={(value: LockedFigureFillType) =>
-                            onChangeProps({fillStyle: value})
+                        // TODO(LEMS-2656): remove TS suppression
+                        onChange={
+                            ((value: LockedFigureFillType) =>
+                                onChangeProps({fillStyle: value})) as any
                         }
                         // Placeholder is required, but never gets used.
                         placeholder=""
@@ -227,9 +224,7 @@ const LockedPolygonSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
-                onChange={(value: "solid" | "dashed") =>
-                    onChangeProps({strokeStyle: value})
-                }
+                onChange={(value) => onChangeProps({strokeStyle: value})}
             />
 
             {/* Show vertices switch */}
@@ -370,8 +365,9 @@ const LockedPolygonSettings = (props: Props) => {
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
+                            key={labelIndex}
                             expanded={true}
-                            onChangeProps={(newLabel: LockedLabelType) => {
+                            onChangeProps={(newLabel) => {
                                 handleLabelChange(newLabel, labelIndex);
                             }}
                             onRemove={() => {

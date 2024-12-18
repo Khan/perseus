@@ -1,4 +1,4 @@
-import {question1} from "./dropdown.testdata";
+import {basicDropdown} from "./dropdown.testdata";
 import scoreDropdown from "./score-dropdown";
 
 import type {
@@ -7,36 +7,20 @@ import type {
 } from "../../validation.types";
 
 describe("scoreDropdown", () => {
-    it("returns invalid for user input of 0", () => {
-        // Arrange
-        const userInput: PerseusDropdownUserInput = {
-            value: 0,
-        };
-        const rubric: PerseusDropdownRubric = {
-            choices: question1.widgets["dropdown 1"].options.choices,
-        };
-
-        // Act
-        const result = scoreDropdown(userInput, rubric);
-
-        // Assert
-        expect(result).toHaveInvalidInput();
-    });
-
     it("returns 0 points for incorrect answer", () => {
         // Arrange
         const userInput: PerseusDropdownUserInput = {
             value: 1,
         };
         const rubric: PerseusDropdownRubric = {
-            choices: question1.widgets["dropdown 1"].options.choices,
+            choices: basicDropdown.widgets["dropdown 1"].options.choices,
         };
 
         // Act
-        const result = scoreDropdown(userInput, rubric);
+        const score = scoreDropdown(userInput, rubric);
 
         // Assert
-        expect(result).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("returns 1 point for correct answer", () => {
@@ -45,13 +29,13 @@ describe("scoreDropdown", () => {
             value: 2,
         };
         const rubric: PerseusDropdownRubric = {
-            choices: question1.widgets["dropdown 1"].options.choices,
+            choices: basicDropdown.widgets["dropdown 1"].options.choices,
         };
 
         // Act
-        const result = scoreDropdown(userInput, rubric);
+        const score = scoreDropdown(userInput, rubric);
 
         // Assert
-        expect(result).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 });

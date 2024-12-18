@@ -173,6 +173,8 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                 this.__mathFieldWrapperRef,
                 locale,
                 this.props.mathInputStrings,
+                // TODO(LEMS-2656): remove TS suppression
+                // @ts-expect-error: Type 'EditableMathQuill' is not assignable to type 'MathFieldInterface'.
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {

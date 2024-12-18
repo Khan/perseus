@@ -37,6 +37,7 @@ import type {
 } from "../../types";
 import type {PerseusGradedGroupRubric} from "../../validation.types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const GRADING_STATUSES = {
     ungraded: "ungraded" as const,
@@ -92,6 +93,17 @@ type State = {
     message: string;
     answerBarState: ANSWER_BAR_STATES;
 };
+
+// Assert that the PerseusGradedGroupWidgetOptions parsed from JSON can be
+// passed as props to this component. This ensures that the
+// PerseusGradedGroupWidgetOptions stays in sync with the prop types. The
+// PropsFor<Component> type takes defaultProps into account, which is important
+// because PerseusGradedGroupWidgetOptions has optional fields which receive defaults
+// via defaultProps.
+0 as any as WidgetProps<
+    PerseusGradedGroupWidgetOptions,
+    PerseusGradedGroupRubric
+> satisfies PropsFor<typeof GradedGroup>;
 
 // A Graded Group is more or less a Group widget that displays a check
 // answer button below the rendered content. When clicked, the widget grades

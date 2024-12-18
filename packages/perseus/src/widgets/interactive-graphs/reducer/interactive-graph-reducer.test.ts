@@ -643,6 +643,29 @@ describe("movePoint on a polygon graph", () => {
         expect(updated.coords[0]).toEqual([0, 0]);
     });
 
+    it("does not reject intersecting sides if the polygon is unlimited and it's open", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            numSides: "unlimited",
+            closedPolygon: false,
+            snapTo: "grid",
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [1, 3]),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([1, 3]);
+    });
+
     it("does not snap to grid when snapTo is angles using moveAll", () => {
         const state: InteractiveGraphState = {
             ...basePolygonGraphState,
@@ -1525,7 +1548,7 @@ describe("doClosePolygon", () => {
         expect(updated.closedPolygon).toBeTruthy();
     });
 
-    it("does not change `closedPolygon` property when it's already false", () => {
+    it("does not change `closedPolygon` property when it's already true", () => {
         const state: InteractiveGraphState = {
             ...baseUnlimitedPolygonGraphState,
             closedPolygon: true,
@@ -1538,6 +1561,32 @@ describe("doClosePolygon", () => {
 
         invariant(updated.type === "polygon");
         expect(updated.closedPolygon).toBeTruthy();
+    });
+
+    it("removes duplicated points from the new state when closed", () => {
+        const state: InteractiveGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 1],
+                [1, 1],
+                [0, 0], // last point same as first point
+            ],
+            closedPolygon: false,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.closePolygon(),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.closedPolygon).toBeTruthy();
+        expect(updated.coords).toEqual([
+            [0, 0],
+            [0, 1],
+            [1, 1],
+        ]);
     });
 });
 

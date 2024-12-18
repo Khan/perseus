@@ -27,8 +27,8 @@ import LockedLabelSettings from "./locked-label-settings";
 import LockedPointSettings from "./locked-point-settings";
 import {
     generateLockedFigureAppearanceDescription,
-    generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -79,29 +79,12 @@ const LockedLineSettings = (props: Props) => {
      * details converted into spoken words.
      */
     async function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        let point1VisibleLabel = "";
-        let point2VisibleLabel = "";
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
+        const point1VisibleLabel = await joinLabelsAsSpokenMath(point1.labels);
+        const point2VisibleLabel = await joinLabelsAsSpokenMath(point2.labels);
 
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+        let str = `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at ${point1.coord[0]} comma ${point1.coord[1]} to point${point2VisibleLabel} at ${point2.coord[0]} comma ${point2.coord[1]}`;
 
-        if (point1.labels && point1.labels.length > 0) {
-            point1VisibleLabel += ` ${point1.labels
-                .map((l) => l.text)
-                .join(", ")}`;
-        }
-
-        if (point2.labels && point2.labels.length > 0) {
-            point2VisibleLabel += ` ${point2.labels
-                .map((l) => l.text)
-                .join(", ")}`;
-        }
-
-        let str = await generateSpokenMathDetails(
-            `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at (${point1.coord[0]}, ${point1.coord[1]}) to point${point2VisibleLabel} at (${point2.coord[0]}, ${point2.coord[1]})`,
-        );
         const lineAppearance = generateLockedFigureAppearanceDescription(
             lineColor,
             lineStyle,
@@ -179,7 +162,7 @@ const LockedLineSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -223,8 +206,10 @@ const LockedLineSettings = (props: Props) => {
                 <Strut size={spacing.xxxSmall_4} />
                 <SingleSelect
                     selectedValue={kind}
-                    onChange={(value: "line" | "segment" | "ray") =>
-                        onChangeProps({kind: value})
+                    // TODO(LEMS-2656): remove TS suppression
+                    onChange={
+                        ((value: "line" | "segment" | "ray") =>
+                            onChangeProps({kind: value})) as any
                     }
                     // Placeholder is required, but never gets used.
                     placeholder=""
@@ -246,8 +231,9 @@ const LockedLineSettings = (props: Props) => {
                 {/* Line style settings */}
                 <LineStrokeSelect
                     selectedValue={lineStyle}
-                    onChange={(value: "solid" | "dashed") =>
-                        onChangeProps({lineStyle: value})
+                    onChange={
+                        ((value: "solid" | "dashed") =>
+                            onChangeProps({lineStyle: value})) as any
                     }
                 />
             </View>
@@ -311,8 +297,9 @@ const LockedLineSettings = (props: Props) => {
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
+                            key={labelIndex}
                             expanded={true}
-                            onChangeProps={(newLabel: LockedLabelType) => {
+                            onChangeProps={(newLabel) => {
                                 handleLabelChange(newLabel, labelIndex);
                             }}
                             onRemove={() => {

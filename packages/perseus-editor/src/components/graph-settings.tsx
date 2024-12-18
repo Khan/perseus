@@ -142,7 +142,11 @@ export class GraphSettings extends React.Component<Props> {
         };
     }
 
+    // TODO(benchristel): Refactor this component to be an ES6 class, so we can
+    // type change as ChangeFn.
     change(...args) {
+        // TODO(LEMS-2656): remove TS suppression
+        // @ts-expect-error: Argument of type 'any[]' is not assignable to parameter of type '[newPropsOrSinglePropName: string | { [key: string]: any; }, propValue?: any, callback?: (() => unknown) | undefined]'. Target requires 1 element(s) but source may have fewer.
         return Changeable.change.apply(this, args);
     }
 
@@ -177,7 +181,6 @@ export class GraphSettings extends React.Component<Props> {
 
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value; // eslint-disable-line react/no-string-refs
-        url; //  ?
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 if (this._isMounted) {
@@ -578,8 +581,9 @@ export class GraphSettings extends React.Component<Props> {
                             />
                             <InfoTip>
                                 <p>
-                                    Create an image in graphie, or use the "Add
-                                    image" function to create a background.
+                                    Create an image in graphie, or use the
+                                    &quot;Add image&quot; function to create a
+                                    background.
                                 </p>
                             </InfoTip>
                         </div>

@@ -10,7 +10,7 @@ import {
 import {
     itemWithInput,
     itemWithLintingError,
-    itemWithMultipleNumericInputs,
+    itemWithNumericAndNumberInputs,
     itemWithRadioAndExpressionWidgets,
     definitionItem,
 } from "../__testdata__/server-item-renderer.testdata";
@@ -19,7 +19,7 @@ import WrappedServerItemRenderer, {
     ServerItemRenderer,
 } from "../server-item-renderer";
 import {registerWidget} from "../widgets";
-import NumericInputExport from "../widgets/numeric-input";
+import InputNumberExport from "../widgets/input-number/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
 import MockAssetLoadingWidgetExport, {
@@ -68,7 +68,11 @@ const renderQuestion = (
 
 describe("server item renderer", () => {
     beforeAll(() => {
-        registerWidget("numeric-input", NumericInputExport);
+        // TODO(LEMS-2656): remove TS suppression
+        // @ts-expect-error: InputNumberExport is not assignable to type WidgetExports
+        registerWidget("input-number", InputNumberExport);
+        // TODO(LEMS-2656): remove TS suppression
+        // @ts-expect-error: RadioWidgetExport is not assignable to type WidgetExports
         registerWidget("radio", RadioWidgetExport);
     });
 
@@ -114,31 +118,6 @@ describe("server item renderer", () => {
         expect(screen.getByRole("textbox")).toBeVisible();
     });
 
-    it("should be invalid if no input provided", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(itemWithInput);
-
-        // Act
-        const score = await act(() => renderer.scoreInput());
-
-        // Assert
-        expect(score.correct).toBe(false);
-        expect(score.empty).toBe(true);
-    });
-
-    it("should be answerable", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(itemWithInput);
-        await userEvent.type(screen.getByRole("textbox"), "-42");
-
-        // Act
-        const score = await act(() => renderer.scoreInput());
-
-        // Assert
-        expect(score.correct).toBe(true);
-        expect(score.empty).toBe(false);
-    });
-
     it("should pass showSolutions to the widgets", () => {
         // Arrange
         renderQuestion(itemWithRadioAndExpressionWidgets, Object.freeze({}), {
@@ -154,7 +133,7 @@ describe("server item renderer", () => {
     it("calls onInteraction callback with the current user data", async () => {
         // Arrange
         const interactionCallback = jest.fn();
-        renderQuestion(itemWithMultipleNumericInputs, {
+        renderQuestion(itemWithNumericAndNumberInputs, {
             interactionCallback,
         });
 
@@ -166,8 +145,8 @@ describe("server item renderer", () => {
 
         // Assert
         expect(interactionCallback).toHaveBeenCalledWith({
-            "numeric-input 1": {currentValue: "1"},
-            "numeric-input 2": {currentValue: "2"},
+            "input-number 1": {currentValue: "1"},
+            "numeric-input 1": {currentValue: "2"},
         });
     });
 
@@ -176,7 +155,7 @@ describe("server item renderer", () => {
         const {renderer} = renderQuestion(itemWithInput);
 
         // Act
-        const node = renderer.getDOMNodeForPath(["numeric-input 1"]);
+        const node = renderer.getDOMNodeForPath(["input-number 1"]);
 
         // Assert
         // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
@@ -348,7 +327,7 @@ describe("server item renderer", () => {
             // Assert
             expect(gotFocus).toBe(true);
             expect(onFocusChange).toHaveBeenCalledWith(
-                ["numeric-input 1"],
+                ["input-number 1"],
                 null,
                 0,
                 expect.any(Object),
@@ -393,7 +372,7 @@ describe("server item renderer", () => {
             expect(keypadElement.activate).toHaveBeenCalled();
             expect(gotFocus).toBe(true);
             expect(onFocusChange).toHaveBeenCalledWith(
-                ["numeric-input 1"],
+                ["input-number 1"],
                 null,
                 250,
                 expect.any(Object),
@@ -418,7 +397,7 @@ describe("server item renderer", () => {
             expect(onFocusChange).toHaveBeenCalledTimes(2);
             expect(onFocusChange).toHaveBeenLastCalledWith(
                 null,
-                ["numeric-input 1"],
+                ["input-number 1"],
                 0,
                 null,
             );
@@ -464,7 +443,7 @@ describe("server item renderer", () => {
             expect(onFocusChange).toHaveBeenCalledTimes(2);
             expect(onFocusChange).toHaveBeenLastCalledWith(
                 null,
-                ["numeric-input 1"],
+                ["input-number 1"],
                 0,
                 null,
             );
@@ -478,14 +457,14 @@ describe("server item renderer", () => {
             });
 
             // Act
-            act(() => renderer.focusPath(["numeric-input 1"]));
+            act(() => renderer.focusPath(["input-number 1"]));
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
-                ["numeric-input 1"],
+                ["input-number 1"],
                 null,
                 0,
                 expect.any(Object),
@@ -518,14 +497,12 @@ describe("server item renderer", () => {
                     {},
                   ],
                   "question": {
-                    "numeric-input 1": {
-                      "answerForms": [],
-                      "coefficient": false,
+                    "input-number 1": {
+                      "answerType": "number",
                       "currentValue": "-42",
-                      "labelText": "",
-                      "rightAlign": false,
+                      "rightAlign": undefined,
+                      "simplify": "required",
                       "size": "normal",
-                      "static": false,
                     },
                   },
                 }
@@ -543,7 +520,7 @@ describe("server item renderer", () => {
                     {
                         hints: [{}, {}, {}],
                         question: {
-                            "numeric-input 1": {
+                            "input-number 1": {
                                 answerType: "number",
                                 currentValue: "-42",
                                 rightAlign: undefined,

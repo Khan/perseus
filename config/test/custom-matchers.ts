@@ -19,56 +19,17 @@ declare global {
     }
 }
 
-type PerseusRenderer = {
-    guessAndScore: () => [Array<any>, PerseusScore];
-};
-
-type Answerable = PerseusRenderer | PerseusScore;
-
-function isRenderer(obj: Answerable): obj is PerseusRenderer {
-    // @ts-expect-error - TS(2339) - TS is annoying
-    return obj?.guessAndScore !== undefined;
-}
-
-function check(answerable: Answerable) {
-    let widgetState: string = "";
-    let score: PerseusScore;
-
-    if (isRenderer(answerable)) {
-        const result = answerable.guessAndScore();
-        widgetState = JSON.stringify(result[0]);
-        score = result[1];
-    } else {
-        score = answerable;
-    }
-
-    return {widgetState, score};
-}
-
-function maybeAddState(message: string, widgetState: string): string {
-    if (!widgetState) {
-        return message;
-    }
-
-    return message + `; widget state: ${widgetState}`;
-}
-
 expect.extend({
     toHaveBeenAnsweredCorrectly(
-        answerable: Answerable,
+        score: PerseusScore,
         options: {
             shouldHavePoints: boolean;
         },
     ) {
         const shouldHavePoints = options?.shouldHavePoints ?? true;
-        const {widgetState, score} = check(answerable);
 
         if (score.type === "invalid") {
-            const errMessage = maybeAddState(
-                `Invalid answer: ${score.message || "(no message)"}`,
-                widgetState,
-            );
-
+            const errMessage = `Invalid answer: ${score.message || "(no message)"}`;
             return {
                 pass: false,
                 message: () => errMessage,
@@ -83,10 +44,7 @@ expect.extend({
         }
 
         if (score.earned !== score.total) {
-            const errMessage = maybeAddState(
-                "Problem was answered incorrectly",
-                widgetState,
-            );
+            const errMessage = "Problem was answered incorrectly";
 
             return {
                 pass: false,
@@ -95,20 +53,14 @@ expect.extend({
         }
 
         if (shouldHavePoints && score.total < 1) {
-            const errMessage = maybeAddState(
-                "Score did not have any points",
-                widgetState,
-            );
+            const errMessage = "Score did not have any points";
 
             return {
                 pass: false,
                 message: () => errMessage,
             };
         } else if (!shouldHavePoints && score.total > 0) {
-            const errMessage = maybeAddState(
-                "Score had points when it shouldn't have",
-                widgetState,
-            );
+            const errMessage = "Score had points when it shouldn't have";
 
             return {
                 pass: false,
@@ -119,14 +71,9 @@ expect.extend({
         return {pass: true, message: () => ""};
     },
 
-    toHaveInvalidInput(answerable: Answerable, message: string | null) {
-        const {widgetState, score} = check(answerable);
-
+    toHaveInvalidInput(score: PerseusScore, message: string | null) {
         if (score.type !== "invalid") {
-            const errMessage = maybeAddState(
-                `Answer state is not invalid. Score: ${JSON.stringify(score)}`,
-                widgetState,
-            );
+            const errMessage = `Answer state is not invalid. Score: ${JSON.stringify(score)}`;
 
             return {
                 pass: false,
@@ -135,12 +82,9 @@ expect.extend({
         }
 
         if (message && (!score.message || !score.message.includes(message))) {
-            const errMessage = maybeAddState(
-                `Message shown for invalid input did not include "${message}": ${
-                    score.message || "(no message)"
-                }. Score: ${JSON.stringify(score)}`,
-                widgetState,
-            );
+            const errMessage = `Message shown for invalid input did not include "${message}": ${
+                score.message || "(no message)"
+            }. Score: ${JSON.stringify(score)}`;
 
             return {
                 pass: false,
@@ -151,14 +95,9 @@ expect.extend({
         return {pass: true, message: () => ""};
     },
 
-    toHaveBeenAnsweredIncorrectly(answerable: Answerable) {
-        const {widgetState, score} = check(answerable);
-
+    toHaveBeenAnsweredIncorrectly(score: PerseusScore) {
         if (score.type === "invalid") {
-            const errMessage = maybeAddState(
-                `Invalid answer: ${score.message || "(no message)"}`,
-                widgetState,
-            );
+            const errMessage = `Invalid answer: ${score.message || "(no message)"}`;
 
             return {
                 pass: false,
@@ -179,10 +118,7 @@ expect.extend({
         if (score.earned !== 0) {
             return {
                 pass: false,
-                message: () =>
-                    `Problem was answered correctly. Widget state: ${JSON.stringify(
-                        widgetState,
-                    )}`,
+                message: () => `Problem was answered correctly.`,
             };
         }
 

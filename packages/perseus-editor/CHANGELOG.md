@@ -1,5 +1,205 @@
 # @khanacademy/perseus-editor
 
+## 17.0.3
+
+### Patch Changes
+
+-   [#1810](https://github.com/Khan/perseus/pull/1810) [`e21ead80e`](https://github.com/Khan/perseus/commit/e21ead80e7cf467a2003fc145bfa1f65973eb270) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Update Dropdown widget to support displaying TeX
+
+-   Updated dependencies [[`e21ead80e`](https://github.com/Khan/perseus/commit/e21ead80e7cf467a2003fc145bfa1f65973eb270), [`51386d6e0`](https://github.com/Khan/perseus/commit/51386d6e0b454942cb550036072669fc01e769c2)]:
+    -   @khanacademy/math-input@22.0.2
+    -   @khanacademy/perseus@49.0.3
+    -   @khanacademy/perseus-core@3.0.1
+    -   @khanacademy/kas@0.4.5
+    -   @khanacademy/keypad-context@1.0.7
+    -   @khanacademy/kmath@0.1.19
+    -   @khanacademy/pure-markdown@0.3.16
+
+## 17.0.2
+
+### Patch Changes
+
+-   [#2022](https://github.com/Khan/perseus/pull/2022) [`266d240ed`](https://github.com/Khan/perseus/commit/266d240ed01f9b32242d150414e18fcfa8bd5230) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Update to Wonder Blocks without custom ID generation API
+
+-   Updated dependencies [[`4508e7bea`](https://github.com/Khan/perseus/commit/4508e7bea859957eea296a3fc25180c66098dbb4), [`266d240ed`](https://github.com/Khan/perseus/commit/266d240ed01f9b32242d150414e18fcfa8bd5230), [`1fe437079`](https://github.com/Khan/perseus/commit/1fe43707954ba7e35a42747dc1392fb2972fc7b1)]:
+    -   @khanacademy/perseus@49.0.2
+    -   @khanacademy/math-input@22.0.1
+
+## 17.0.1
+
+### Patch Changes
+
+-   [#2014](https://github.com/Khan/perseus/pull/2014) [`763d2d0f1`](https://github.com/Khan/perseus/commit/763d2d0f14e3aade030b1ef0aa28c3895c17b685) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Migrate off deprecated ID generation APIs
+
+*   [#1978](https://github.com/Khan/perseus/pull/1978) [`81632c326`](https://github.com/Khan/perseus/commit/81632c3262737c1219663fbdd54000ba1fdcf4eb) Thanks [@nishasy](https://github.com/nishasy)! - [Polygon] Remove duplicate points when determining if a polygon can be closed
+
+-   [#1999](https://github.com/Khan/perseus/pull/1999) [`278527b08`](https://github.com/Khan/perseus/commit/278527b08701cd8424728c6b5915408cc16a07a0) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing open polygon scoring issues within exercises and editors.
+
+-   Updated dependencies [[`763d2d0f1`](https://github.com/Khan/perseus/commit/763d2d0f14e3aade030b1ef0aa28c3895c17b685), [`b09d19b7b`](https://github.com/Khan/perseus/commit/b09d19b7b1723f79e4fad63ef2efcef3cc702792), [`81632c326`](https://github.com/Khan/perseus/commit/81632c3262737c1219663fbdd54000ba1fdcf4eb), [`278527b08`](https://github.com/Khan/perseus/commit/278527b08701cd8424728c6b5915408cc16a07a0)]:
+    -   @khanacademy/perseus@49.0.1
+
+## 17.0.0
+
+### Major Changes
+
+-   [#2007](https://github.com/Khan/perseus/pull/2007) [`ea1bf0c2c`](https://github.com/Khan/perseus/commit/ea1bf0c2cfc7ae552d039549950d1973b56f5ca9) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Update to latest webapp dependencies and prepare for deprecation of custom WB ID generators
+
+### Patch Changes
+
+-   Updated dependencies [[`ea1bf0c2c`](https://github.com/Khan/perseus/commit/ea1bf0c2cfc7ae552d039549950d1973b56f5ca9)]:
+    -   @khanacademy/math-input@22.0.0
+    -   @khanacademy/perseus@49.0.0
+    -   @khanacademy/perseus-core@3.0.0
+    -   @khanacademy/kas@0.4.4
+    -   @khanacademy/keypad-context@1.0.6
+    -   @khanacademy/kmath@0.1.18
+    -   @khanacademy/pure-markdown@0.3.15
+
+## 16.0.4
+
+### Patch Changes
+
+-   Updated dependencies [[`09d906cd2`](https://github.com/Khan/perseus/commit/09d906cd289a886bdc92b8a5df65ccbc8ad3f29e), [`99e55b623`](https://github.com/Khan/perseus/commit/99e55b623deef244f99b554d8aa7ef0fb45a4bbb), [`ac07da03c`](https://github.com/Khan/perseus/commit/ac07da03cb332f9dd9ebf82820e409b9fb0844be), [`2135e0dc3`](https://github.com/Khan/perseus/commit/2135e0dc3eddde1b3c842223e10e1ee94823c7e7)]:
+    -   @khanacademy/perseus@48.2.0
+
+## 16.0.3
+
+### Patch Changes
+
+-   Updated dependencies [[`cc9d3a4bc`](https://github.com/Khan/perseus/commit/cc9d3a4bc8866bbdaa09e2bf3fdb321fb9a125c1), [`2748a1ff8`](https://github.com/Khan/perseus/commit/2748a1ff82b5e04b12f6b740b29b5e01a0561882)]:
+    -   @khanacademy/perseus@48.1.0
+
+## 16.0.2
+
+### Patch Changes
+
+-   [#1985](https://github.com/Khan/perseus/pull/1985) [`701895c01`](https://github.com/Khan/perseus/commit/701895c01bd2792a4dccc6ce0d5edc23f7483db3) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Update placeholder to include TeX \$s. Start new visible labels with text "label".
+
+*   [#1971](https://github.com/Khan/perseus/pull/1971) [`341d316aa`](https://github.com/Khan/perseus/commit/341d316aa8727ebb9e7fde28fc4e2d8779aa3e82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Move to using optional chaining in a few places to resolve new lint rule violations.
+
+-   [#1984](https://github.com/Khan/perseus/pull/1984) [`990a3170c`](https://github.com/Khan/perseus/commit/990a3170c2111ddc2c6e6f8f6420a4908cc71c82) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixed crashing behavior that occurs in when selecting "unlimited" in polygon option of interactive graph editor.
+
+-   Updated dependencies [[`f9906728c`](https://github.com/Khan/perseus/commit/f9906728c1a8f09c91c11d824718b8a06d6a7609), [`f9906728c`](https://github.com/Khan/perseus/commit/f9906728c1a8f09c91c11d824718b8a06d6a7609), [`341d316aa`](https://github.com/Khan/perseus/commit/341d316aa8727ebb9e7fde28fc4e2d8779aa3e82), [`990a3170c`](https://github.com/Khan/perseus/commit/990a3170c2111ddc2c6e6f8f6420a4908cc71c82)]:
+    -   @khanacademy/perseus@48.0.0
+    -   @khanacademy/perseus-core@2.0.0
+    -   @khanacademy/kas@0.4.3
+    -   @khanacademy/keypad-context@1.0.5
+    -   @khanacademy/kmath@0.1.17
+    -   @khanacademy/math-input@21.1.7
+    -   @khanacademy/pure-markdown@0.3.14
+
+## 16.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`335615bab`](https://github.com/Khan/perseus/commit/335615bab18685aa6331c7628c1225bdecc54aab), [`acd8bd566`](https://github.com/Khan/perseus/commit/acd8bd56664c6a0849bf3d532be8978115a97dfd)]:
+    -   @khanacademy/perseus@47.0.1
+
+## 16.0.0
+
+### Major Changes
+
+-   [#1955](https://github.com/Khan/perseus/pull/1955) [`e7b4db0bf`](https://github.com/Khan/perseus/commit/e7b4db0bf193241a36508804dd6e58c729f0a3db) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove support for MultiRenderer
+
+### Patch Changes
+
+-   Updated dependencies [[`e7b4db0bf`](https://github.com/Khan/perseus/commit/e7b4db0bf193241a36508804dd6e58c729f0a3db)]:
+    -   @khanacademy/perseus@47.0.0
+
+## 15.1.4
+
+### Patch Changes
+
+-   [#1976](https://github.com/Khan/perseus/pull/1976) [`2ad163b5e`](https://github.com/Khan/perseus/commit/2ad163b5ea20d40fb9f0edf30e03cd54ecf9bf31) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figures Aria] Update the auto-generated text to spell out commas
+
+-   Updated dependencies [[`e22a931d9`](https://github.com/Khan/perseus/commit/e22a931d987291258b66f2c80db3536970a4555d)]:
+    -   @khanacademy/perseus@46.0.1
+
+## 15.1.3
+
+### Patch Changes
+
+-   Updated dependencies [[`435280ac4`](https://github.com/Khan/perseus/commit/435280ac4cf33ee98ddb1166631f87f81cafa0fc), [`d93e3ecde`](https://github.com/Khan/perseus/commit/d93e3ecdeb6bd714a35dcd9f886299fa80ba71ec)]:
+    -   @khanacademy/perseus@46.0.0
+
+## 15.1.2
+
+### Patch Changes
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Type fixes
+
+*   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Ensure links opening to style guide (Google Docs) set `rel="noreferrer"`
+
+-   [#1958](https://github.com/Khan/perseus/pull/1958) [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove debugging call in GraphSettings component
+
+-   Updated dependencies [[`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82), [`051ba6392`](https://github.com/Khan/perseus/commit/051ba639242fc501e3196a63e3ab984b9338fa82)]:
+    -   @khanacademy/perseus@45.1.0
+
+## 15.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`0a44d468d`](https://github.com/Khan/perseus/commit/0a44d468dd127bf15dc32e720b9b0301af41a572)]:
+    -   @khanacademy/perseus@45.0.0
+
+## 15.1.0
+
+### Minor Changes
+
+-   [#1845](https://github.com/Khan/perseus/pull/1845) [`066daab0e`](https://github.com/Khan/perseus/commit/066daab0ea8463e8b2a5381e90ed8392ea20a5bf) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Add labels to Dropdown widget
+
+### Patch Changes
+
+-   [#1904](https://github.com/Khan/perseus/pull/1904) [`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Upgrade Storybook to v8.x
+
+*   [#1893](https://github.com/Khan/perseus/pull/1893) [`3d777d1c1`](https://github.com/Khan/perseus/commit/3d777d1c13eefedee250d8a494e08b513ddec937) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removing usage of createReactClass from several component files.
+
+*   Updated dependencies [[`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71), [`066daab0e`](https://github.com/Khan/perseus/commit/066daab0ea8463e8b2a5381e90ed8392ea20a5bf), [`834bd8bfb`](https://github.com/Khan/perseus/commit/834bd8bfbc063d0a1935ae9a697e5505c5ee606d), [`89244ccc0`](https://github.com/Khan/perseus/commit/89244ccc0d7384d7f76678204cd49dd7e8301185)]:
+    -   @khanacademy/math-input@21.1.6
+    -   @khanacademy/perseus@44.0.0
+
+## 15.0.2
+
+### Patch Changes
+
+-   [#1920](https://github.com/Khan/perseus/pull/1920) [`88ba71bef`](https://github.com/Khan/perseus/commit/88ba71bef0cdd75fa0c8b467dcea2cccc637d034) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix some file-wide error suppressions
+
+*   [#1863](https://github.com/Khan/perseus/pull/1863) [`584153588`](https://github.com/Khan/perseus/commit/584153588be04c6deb7b5d76ed2b258d0f75a3e1) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Switch two corner usages of deprecated @khanacademy/wonder-blocks-spacing to @khanacademy/wonder-blocks-tokens
+
+*   Updated dependencies [[`3dbca965a`](https://github.com/Khan/perseus/commit/3dbca965a2bbaa2d980c1cc4c439469157e0bd33), [`ee09e9fc0`](https://github.com/Khan/perseus/commit/ee09e9fc0ad5eb65340d0f1cbe240741ebfcd3c3), [`3a9b5921b`](https://github.com/Khan/perseus/commit/3a9b5921bff7ae038f59ecb6817babd2b21df0bb), [`88ba71bef`](https://github.com/Khan/perseus/commit/88ba71bef0cdd75fa0c8b467dcea2cccc637d034), [`64ea2ee86`](https://github.com/Khan/perseus/commit/64ea2ee86264a20f1d0e34968831945fea8ed36b), [`451de899f`](https://github.com/Khan/perseus/commit/451de899fd3d40bf415cb2318048e90fb1e6670f), [`40d2ebb75`](https://github.com/Khan/perseus/commit/40d2ebb75fdadfb361330236e0fb9e54a32d0fc2), [`799ffe4a5`](https://github.com/Khan/perseus/commit/799ffe4a50e3e3bc435d0ef96388c1e8fae2167d), [`2437ce61b`](https://github.com/Khan/perseus/commit/2437ce61bae1aef2db28e89956aa73463ada16cc), [`841551a65`](https://github.com/Khan/perseus/commit/841551a65732a276266690ddaaa51a3810398d03), [`8ec06f444`](https://github.com/Khan/perseus/commit/8ec06f444d8f4559eda5c3dbf189e5183b1c5b42), [`f43edd42c`](https://github.com/Khan/perseus/commit/f43edd42ccfacd1500d2f73ccb0d3f8dce777173), [`0cec7628c`](https://github.com/Khan/perseus/commit/0cec7628c4a061f14b126fd1e3dab6df45fc0178), [`0bd4270ad`](https://github.com/Khan/perseus/commit/0bd4270ade576bec1ac0c86b251f972a2c354056), [`3e98b7cd3`](https://github.com/Khan/perseus/commit/3e98b7cd300052eeacbe9fcdbd312091c678107b), [`7f2866cf4`](https://github.com/Khan/perseus/commit/7f2866cf401aa4fc7a3b2b15d8cdc247a953e9f8)]:
+    -   @khanacademy/perseus@43.1.0
+    -   @khanacademy/kas@0.4.2
+    -   @khanacademy/pure-markdown@0.3.13
+
+## 15.0.1
+
+### Patch Changes
+
+-   [#1874](https://github.com/Khan/perseus/pull/1874) [`42d25c2d2`](https://github.com/Khan/perseus/commit/42d25c2d2d844d6408d76b07794f171d962b91a7) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Fix \$ edge cases for spoken math aria labels
+
+*   [#1912](https://github.com/Khan/perseus/pull/1912) [`44e78a95d`](https://github.com/Khan/perseus/commit/44e78a95dc1f0d2d4a16794feb590d05df0f2e0a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Stop cursor jumps in number input fields
+
+-   [#1875](https://github.com/Khan/perseus/pull/1875) [`28cae9d2a`](https://github.com/Khan/perseus/commit/28cae9d2afe65e1345906de8106d349c93ddb97c) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Labels] Count lone unescaped \$ as regular dollar signs in TeX
+
+-   Updated dependencies [[`56fd44806`](https://github.com/Khan/perseus/commit/56fd448063b2e13c5e9cb9e1874c12494c6f0e34), [`01edfb8be`](https://github.com/Khan/perseus/commit/01edfb8be849f869c26ada923e275648780d36f3), [`28cae9d2a`](https://github.com/Khan/perseus/commit/28cae9d2afe65e1345906de8106d349c93ddb97c)]:
+    -   @khanacademy/perseus@43.0.1
+
+## 15.0.0
+
+### Major Changes
+
+-   [#1905](https://github.com/Khan/perseus/pull/1905) [`9c225f936`](https://github.com/Khan/perseus/commit/9c225f9365cbb2e92bba3bd67b1abde724809367) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - We're reverting work done for the Server Side Scoring and Input Number Conversion projects.
+
+### Patch Changes
+
+-   [#1889](https://github.com/Khan/perseus/pull/1889) [`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: enable strict typechecking of function parameters
+
+-   Updated dependencies [[`adad642ab`](https://github.com/Khan/perseus/commit/adad642ab0ae95de6600e7018f0aff836acc5911), [`0afb1a4f7`](https://github.com/Khan/perseus/commit/0afb1a4f70e35de7e2b04ee1af835a0ebe84bbe5), [`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9), [`9c225f936`](https://github.com/Khan/perseus/commit/9c225f9365cbb2e92bba3bd67b1abde724809367), [`4b8836b84`](https://github.com/Khan/perseus/commit/4b8836b846c4f6adc6f4bb9c204deedb019c9f51), [`a27f23bb4`](https://github.com/Khan/perseus/commit/a27f23bb48e585aa2229975b1779161b921cbd9d)]:
+    -   @khanacademy/perseus@43.0.0
+    -   @khanacademy/kas@0.4.1
+    -   @khanacademy/math-input@21.1.5
+    -   @khanacademy/pure-markdown@0.3.12
+
 ## 14.12.4
 
 ### Patch Changes

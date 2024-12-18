@@ -23,6 +23,7 @@ import type {
     PerseusNumericInputUserInput,
 } from "../../validation.types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const formExamples: {
     [key: string]: (
@@ -55,7 +56,7 @@ type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     coefficient: NonNullable<ExternalProps["coefficient"]>;
     answerForms: NonNullable<ExternalProps["answerForms"]>;
-    labelText: NonNullable<ExternalProps["labelText"]>;
+    labelText: string;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
     currentValue: string;
 };
@@ -71,10 +72,22 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
+// Assert that the PerseusNumericInputWidgetOptions parsed from JSON can be passed
+// as props to this component. This ensures that the PerseusMatrixWidgetOptions
+// stays in sync with the prop types. The PropsFor<Component> type takes
+// defaultProps into account, which is important because
+// PerseusNumericInputWidgetOptions has optional fields which receive defaults
+// via defaultProps.
+0 as any as WidgetProps<
+    PerseusNumericInputWidgetOptions,
+    PerseusNumericInputRubric
+> satisfies PropsFor<typeof NumericInput>;
+
 type State = {
     // keeps track of the other set of values when switching
     // between 0 and finite solutions
     previousValues: ReadonlyArray<string>;
+    isFocused: boolean;
 };
 
 export class NumericInput
@@ -107,10 +120,14 @@ export class NumericInput
         // keeps track of the other set of values when switching
         // between 0 and finite solutions
         previousValues: [""],
+        isFocused: false,
     };
 
-    // TODO(Nicole, Jeremy): This is maybe never used and should be removed
-    examples: () => ReadonlyArray<string> = () => {
+    /**
+     * Generates a string that demonstrates how to input the various supported
+     * answer forms.
+     */
+    examples(): ReadonlyArray<string> {
         // if the set of specified forms are empty, allow all forms
         const forms =
             this.props.answerForms?.length !== 0
@@ -130,7 +147,7 @@ export class NumericInput
         examples = _.uniq(examples);
 
         return [this.context.strings.yourAnswer].concat(examples);
-    };
+    }
 
     shouldShowExamples: () => boolean = () => {
         const noFormsAccepted = this.props.answerForms?.length === 0;
@@ -197,10 +214,16 @@ export class NumericInput
 
     _handleFocus: () => void = () => {
         this.props.onFocus([]);
+        this.setState((currentState) => {
+            return {...currentState, isFocused: true};
+        });
     };
 
     _handleBlur: () => void = () => {
         this.props.onBlur([]);
+        this.setState((currentState) => {
+            return {...currentState, isFocused: false};
+        });
     };
 
     render(): React.ReactNode {
@@ -241,10 +264,16 @@ export class NumericInput
         // component.
         const styles = StyleSheet.create({
             input: {
+                borderRadius: "3px",
+                borderWidth: this.state.isFocused ? "2px" : "1px",
+                display: "inline-block",
+                fontFamily: `Symbola, "Times New Roman", serif`,
+                fontSize: "18px",
+                height: "32px",
+                lineHeight: "18px",
+                padding: this.state.isFocused ? "4px" : "4px 5px", // account for added focus border thickness
                 textAlign: this.props.rightAlign ? "right" : "left",
                 width: this.props.size === "small" ? 40 : 80,
-                padding: 0,
-                height: "auto",
             },
         });
 
@@ -340,70 +369,20 @@ const propsTransform = function (
     return rendererProps;
 };
 
-// This function is being used to replace the input-number widget
-// with the numeric-input widget
-const propUpgrades = {
-    /* c8 ignore next */
-    "1": (initialProps: any): PerseusNumericInputWidgetOptions => {
-        // If the initialProps has simplify, it means we're upgrading from
-        // input-number to numeric-input. In this case, we need to upgrade
-        // the widget options accordingly.
-        if (initialProps.simplify !== undefined) {
-            // If the answerType is not number or percent, we need to provide
-            // the answer form for the numeric-input widget
-            const provideAnswerForm =
-                initialProps.answerType !== "number" &&
-                initialProps.answerType !== "percent";
-
-            // We need to determine the mathFormat for the numeric-input widget
-            const mathFormat =
-                initialProps.answerType === "rational"
-                    ? "proper" // input-number uses "rational" for proper fractions
-                    : initialProps.answerType; // Otherwise, we can use the answerType directly
-
-            // If adjusting this logic, also adjust the logic in the convertInputNumberWidgetOptions
-            // function in input-number.ts in the Perseus Editor package's util folder
-            const answers = [
-                {
-                    value: initialProps.value,
-                    simplify: initialProps.simplify,
-                    answerForms: provideAnswerForm ? [mathFormat] : undefined,
-                    strict: initialProps.inexact,
-                    // We only want to set maxError if the inexact prop is true
-                    maxError: initialProps.inexact ? initialProps.maxError : 0,
-                    status: "correct", // Input-number only allows correct answers
-                    message: "",
-                },
-            ];
-
-            return {
-                answers,
-                size: initialProps.size,
-                coefficient: false, // input-number doesn't have a coefficient prop
-                labelText: "", // input-number doesn't have a labelText prop
-                static: false, // static is always false for numeric-input
-                rightAlign: initialProps.rightAlign || false,
-            };
-        } else {
-            // Otherwise simply return the initialProps as there's no differences
-            // between v0 and v1 for numeric-input
-            return initialProps;
-        }
-    },
-} as const;
-
 export default {
     name: "numeric-input",
     displayName: "Numeric input",
     defaultAlignment: "inline-block",
     accessible: true,
     widget: NumericInput,
-    version: {major: 1, minor: 0},
     transform: propsTransform,
-    propUpgrades: propUpgrades,
     isLintable: true,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumericInputUserInput'.
     scorer: scoreNumericInput,
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusNumericInputRubric'
     getOneCorrectAnswerFromRubric(
         rubric: PerseusNumericInputRubric,
     ): string | null | undefined {

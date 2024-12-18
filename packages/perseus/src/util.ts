@@ -1,5 +1,3 @@
-/* eslint-disable @babel/no-invalid-this, getter-return, one-var */
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import KhanAnswerTypes from "./util/answer-types";
@@ -7,9 +5,6 @@ import * as GraphieUtil from "./util.graphie";
 
 import type {Range} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
-import type {PerseusScore} from "./types";
-import type {UserInputArray} from "./validation.types";
-import type {KEScore} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
 type WordPosition = {
@@ -66,6 +61,8 @@ const nestedMap = function <T, M>(
             return nestedMap(child, func);
         });
     }
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: T | ReadonlyArray<T> is not assignable to T
     return func.call(context, children);
 };
 
@@ -94,12 +91,6 @@ const rTypeFromWidgetId = /^([a-z-]+) ([0-9]+)$/;
 
 const rWidgetParts = new RegExp(rWidgetRule.source + "$");
 const snowman = "\u2603";
-const noScore: PerseusScore = {
-    type: "points",
-    earned: 0,
-    total: 0,
-    message: null,
-};
 
 const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
     let randomSeed = seed;
@@ -148,8 +139,8 @@ function shuffle<T>(
     do {
         // Fischer-Yates shuffle
         for (let top = shuffled.length; top > 0; top--) {
-            const newEnd = Math.floor(random() * top),
-                temp = shuffled[newEnd];
+            const newEnd = Math.floor(random() * top);
+            const temp = shuffled[newEnd];
 
             // @ts-expect-error - TS2542 - Index signature in type 'readonly T[]' only permits reading.
             shuffled[newEnd] = shuffled[top - 1];
@@ -192,126 +183,6 @@ const split: (str: string, r: RegExp) => ReadonlyArray<string> = "x".split(
           output.push(str.slice(lastIndex));
           return output;
       };
-
-/**
- * Combine two score objects.
- *
- * Given two score objects for two different widgets, combine them so that
- * if one is wrong, the total score is wrong, etc.
- */
-function combineScores(
-    scoreA: PerseusScore,
-    scoreB: PerseusScore,
-): PerseusScore {
-    let message;
-
-    if (scoreA.type === "points" && scoreB.type === "points") {
-        if (
-            scoreA.message &&
-            scoreB.message &&
-            scoreA.message !== scoreB.message
-        ) {
-            // TODO(alpert): Figure out how to combine messages usefully
-            message = null;
-        } else {
-            message = scoreA.message || scoreB.message;
-        }
-
-        return {
-            type: "points",
-            earned: scoreA.earned + scoreB.earned,
-            total: scoreA.total + scoreB.total,
-            message: message,
-        };
-    }
-    if (scoreA.type === "points" && scoreB.type === "invalid") {
-        return scoreB;
-    }
-    if (scoreA.type === "invalid" && scoreB.type === "points") {
-        return scoreA;
-    }
-    if (scoreA.type === "invalid" && scoreB.type === "invalid") {
-        if (
-            scoreA.message &&
-            scoreB.message &&
-            scoreA.message !== scoreB.message
-        ) {
-            // TODO(alpert): Figure out how to combine messages usefully
-            message = null;
-        } else {
-            message = scoreA.message || scoreB.message;
-        }
-
-        return {
-            type: "invalid",
-            message: message,
-        };
-    }
-
-    /**
-     * The above checks cover all combinations of score type, so if we get here
-     * then something is amiss with our inputs.
-     */
-    throw new PerseusError(
-        "PerseusScore with unknown type encountered",
-        Errors.InvalidInput,
-        {
-            metadata: {
-                scoreA: JSON.stringify(scoreA),
-                scoreB: JSON.stringify(scoreB),
-            },
-        },
-    );
-}
-
-function flattenScores(widgetScoreMap: {
-    [widgetId: string]: PerseusScore;
-}): PerseusScore {
-    return Object.values(widgetScoreMap).reduce(combineScores, noScore);
-}
-
-export function isCorrect(score: PerseusScore): boolean {
-    return score.type === "points" && score.earned >= score.total;
-}
-
-function keScoreFromPerseusScore(
-    score: PerseusScore,
-    // It's weird, but this is what we're passing it
-    guess: UserInputArray | [UserInputArray, []],
-    state: any,
-): KEScore {
-    if (score.type === "points") {
-        return {
-            empty: false,
-            correct: isCorrect(score),
-            message: score.message,
-            guess: guess,
-            state: state,
-        };
-    }
-    if (score.type === "invalid") {
-        return {
-            empty: true,
-            correct: false,
-            message: score.message,
-            suppressAlmostThere: score.suppressAlmostThere,
-            guess: guess,
-            state: state,
-        };
-    }
-    throw new PerseusError(
-        // @ts-expect-error - TS2339 - Property 'type' does not exist on type 'never'.
-        "Invalid score type: " + score.type,
-        Errors.InvalidInput,
-        {
-            metadata: {
-                score: JSON.stringify(score),
-                guess: JSON.stringify(guess),
-                state: JSON.stringify(state),
-            },
-        },
-    );
-}
 
 /**
  * Return the first valid interpretation of 'text' as a number, in the form
@@ -654,31 +525,6 @@ function strongEncodeURIComponent(str: string): string {
     );
 }
 
-/**
- * If a widget says that it is empty once it is graded.
- * Trying to encapsulate references to the score format.
- */
-function scoreIsEmpty(score: PerseusScore): boolean {
-    // HACK(benkomalo): ugh. this isn't great; the Perseus score objects
-    // overload the type "invalid" for what should probably be three
-    // distinct cases:
-    //  - truly empty or not fully filled out
-    //  - invalid or malformed inputs
-    //  - "almost correct" like inputs where the widget wants to give
-    //  feedback (e.g. a fraction needs to be reduced, or `pi` should
-    //  be used instead of 3.14)
-    //
-    //  Unfortunately the coercion happens all over the place, as these
-    //  Perseus style score objects are created *everywhere* (basically
-    //  in every widget), so it's hard to change now. We assume that
-    //  anything with a "message" is not truly empty, and one of the
-    //  latter two cases for now.
-    return (
-        score.type === "invalid" &&
-        (!score.message || score.message.length === 0)
-    );
-}
-
 /*
  * The touchHandlers are used to track the current state of the touch
  * event, such as whether or not the user is currently pressed down (either
@@ -761,7 +607,7 @@ const supportsPassiveEvents: () => boolean = () => {
         window.addEventListener("testPassive", null, opts);
         // @ts-expect-error - TS2769 - No overload matches this call.
         window.removeEventListener("testPassive", null, opts);
-    } catch (e: any) {
+    } catch {
         // Intentionally left empty!
     }
 
@@ -883,13 +729,9 @@ const Util = {
     rTypeFromWidgetId,
     rWidgetParts,
     snowman,
-    noScore,
     seededRNG,
     shuffle,
     split,
-    combineScores,
-    flattenScores,
-    keScoreFromPerseusScore,
     firstNumericalParse,
     stringArrayOfSize,
     gridDimensionConfig,
@@ -905,7 +747,6 @@ const Util = {
     parseQueryString,
     updateQueryString,
     strongEncodeURIComponent,
-    scoreIsEmpty,
     touchHandlers,
     resetTouchHandlers,
     extractPointerLocation,

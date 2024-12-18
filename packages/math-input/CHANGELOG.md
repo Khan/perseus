@@ -1,5 +1,55 @@
 # @khanacademy/math-input
 
+## 22.0.2
+
+### Patch Changes
+
+-   [#1810](https://github.com/Khan/perseus/pull/1810) [`e21ead80e`](https://github.com/Khan/perseus/commit/e21ead80e7cf467a2003fc145bfa1f65973eb270) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Update Dropdown widget to support displaying TeX
+
+-   Updated dependencies [[`e21ead80e`](https://github.com/Khan/perseus/commit/e21ead80e7cf467a2003fc145bfa1f65973eb270)]:
+    -   @khanacademy/perseus-core@3.0.1
+    -   @khanacademy/keypad-context@1.0.7
+
+## 22.0.1
+
+### Patch Changes
+
+-   [#2022](https://github.com/Khan/perseus/pull/2022) [`266d240ed`](https://github.com/Khan/perseus/commit/266d240ed01f9b32242d150414e18fcfa8bd5230) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Update to Wonder Blocks without custom ID generation API
+
+## 22.0.0
+
+### Major Changes
+
+-   [#2007](https://github.com/Khan/perseus/pull/2007) [`ea1bf0c2c`](https://github.com/Khan/perseus/commit/ea1bf0c2cfc7ae552d039549950d1973b56f5ca9) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Update to latest webapp dependencies and prepare for deprecation of custom WB ID generators
+
+### Patch Changes
+
+-   Updated dependencies [[`ea1bf0c2c`](https://github.com/Khan/perseus/commit/ea1bf0c2cfc7ae552d039549950d1973b56f5ca9)]:
+    -   @khanacademy/perseus-core@3.0.0
+    -   @khanacademy/keypad-context@1.0.6
+
+## 21.1.7
+
+### Patch Changes
+
+-   [#1971](https://github.com/Khan/perseus/pull/1971) [`341d316aa`](https://github.com/Khan/perseus/commit/341d316aa8727ebb9e7fde28fc4e2d8779aa3e82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Move to using optional chaining in a few places to resolve new lint rule violations.
+
+-   Updated dependencies [[`f9906728c`](https://github.com/Khan/perseus/commit/f9906728c1a8f09c91c11d824718b8a06d6a7609), [`341d316aa`](https://github.com/Khan/perseus/commit/341d316aa8727ebb9e7fde28fc4e2d8779aa3e82)]:
+    -   @khanacademy/perseus-core@2.0.0
+    -   @khanacademy/keypad-context@1.0.5
+
+## 21.1.6
+
+### Patch Changes
+
+-   [#1904](https://github.com/Khan/perseus/pull/1904) [`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Upgrade Storybook to v8.x
+
+## 21.1.5
+
+### Patch Changes
+
+-   [#1889](https://github.com/Khan/perseus/pull/1889) [`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: enable strict typechecking of function parameters
+
 ## 21.1.4
 
 ### Patch Changes

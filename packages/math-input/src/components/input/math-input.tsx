@@ -108,8 +108,7 @@ class MathInput extends React.Component<Props, State> {
                     // this `MathInput` component in an intermediary component
                     // that translates accesses on the keypad into vanilla props,
                     // to make this input keypad-agnostic.
-                    this.props.keypadElement &&
-                        this.props.keypadElement.setCursor(cursor);
+                    this.props.keypadElement?.setCursor(cursor);
                 },
             },
         );
@@ -228,7 +227,7 @@ class MathInput extends React.Component<Props, State> {
                         // in which case we don't want to dismiss the keypad on check.
                         if (!isWithinKeypadBounds(x, y)) {
                             this.blur();
-                            this.props.onBlur && this.props.onBlur();
+                            this.props.onBlur?.();
                         }
                     }
                 }
@@ -613,10 +612,9 @@ class MathInput extends React.Component<Props, State> {
             cursor.insAtLeftEnd(this.mathField.mathField.controller().root);
         }
         // In that event, we need to update the cursor context ourselves.
-        this.props.keypadElement &&
-            this.props.keypadElement.setCursor({
-                context: this.mathField.contextForCursor(),
-            });
+        this.props.keypadElement?.setCursor({
+            context: this.mathField.contextForCursor(),
+        });
     };
 
     handleTouchStart = (
@@ -984,6 +982,8 @@ class MathInput extends React.Component<Props, State> {
                         }}
                         onTouchMove={this.handleTouchMove}
                         onTouchEnd={this.handleTouchEnd}
+                        // TODO(LEMS-2656): remove TS suppression
+                        // @ts-expect-error: Type '(e: React.MouseEvent<HTMLDivElement>) => void' is not assignable to type '(arg1: SyntheticEvent<HTMLDivElement, Event>) => void'.
                         onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                             this.handleClick(e, keypadActive, setKeypadActive);
                         }}

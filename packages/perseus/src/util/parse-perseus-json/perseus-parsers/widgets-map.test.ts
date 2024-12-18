@@ -5,6 +5,8 @@ import {failure, success} from "../result";
 
 import {parseWidgetsMap} from "./widgets-map";
 
+import type {PerseusWidgetsMap} from "@khanacademy/perseus";
+
 describe("parseWidgetsMap", () => {
     it("rejects null", () => {
         const result = parse(null, parseWidgetsMap);
@@ -134,7 +136,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "expression 1": {
                 type: "expression",
-                version: {major: 0, minor: 0},
+                version: {major: 1, minor: 0},
                 options: {
                     answerForms: [],
                     buttonSets: [],
@@ -512,8 +514,8 @@ describe("parseWidgetsMap", () => {
                     options: [],
                     correctOptions: [],
                     otherOptions: [],
-                    height: "",
-                    layout: "",
+                    height: "normal",
+                    layout: "horizontal",
                 },
             },
         };
@@ -687,6 +689,46 @@ describe("parseWidgetsMap", () => {
         const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
+    });
+
+    it("converts a sequence widget to the deprecated-standin widget", () => {
+        const widgetsMap: unknown = {
+            "sequence 1": {
+                type: "sequence",
+                version: {major: 0, minor: 0},
+                graded: true,
+                options: {
+                    json: [
+                        {
+                            content: "",
+                            images: {},
+                            widgets: {},
+                        },
+                    ],
+                },
+            },
+        };
+
+        const expected: PerseusWidgetsMap = {
+            "sequence 1": {
+                type: "deprecated-standin",
+                version: {major: 0, minor: 0},
+                graded: true,
+                options: {
+                    json: [
+                        {
+                            content: "",
+                            images: {},
+                            widgets: {},
+                        },
+                    ],
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(expected));
     });
 
     it("rejects an unknown widget type", () => {

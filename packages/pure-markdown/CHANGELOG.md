@@ -1,5 +1,45 @@
 # @khanacademy/pure-markdown
 
+## 0.3.16
+
+### Patch Changes
+
+-   Updated dependencies [[`e21ead80e`](https://github.com/Khan/perseus/commit/e21ead80e7cf467a2003fc145bfa1f65973eb270)]:
+    -   @khanacademy/perseus-core@3.0.1
+    -   @khanacademy/simple-markdown@0.13.9
+
+## 0.3.15
+
+### Patch Changes
+
+-   Updated dependencies [[`ea1bf0c2c`](https://github.com/Khan/perseus/commit/ea1bf0c2cfc7ae552d039549950d1973b56f5ca9)]:
+    -   @khanacademy/perseus-core@3.0.0
+    -   @khanacademy/simple-markdown@0.13.8
+
+## 0.3.14
+
+### Patch Changes
+
+-   [#1971](https://github.com/Khan/perseus/pull/1971) [`341d316aa`](https://github.com/Khan/perseus/commit/341d316aa8727ebb9e7fde28fc4e2d8779aa3e82) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Move to using optional chaining in a few places to resolve new lint rule violations.
+
+-   Updated dependencies [[`f9906728c`](https://github.com/Khan/perseus/commit/f9906728c1a8f09c91c11d824718b8a06d6a7609), [`341d316aa`](https://github.com/Khan/perseus/commit/341d316aa8727ebb9e7fde28fc4e2d8779aa3e82)]:
+    -   @khanacademy/perseus-core@2.0.0
+    -   @khanacademy/simple-markdown@0.13.7
+
+## 0.3.13
+
+### Patch Changes
+
+-   Updated dependencies [[`88ba71bef`](https://github.com/Khan/perseus/commit/88ba71bef0cdd75fa0c8b467dcea2cccc637d034)]:
+    -   @khanacademy/simple-markdown@0.13.6
+
+## 0.3.12
+
+### Patch Changes
+
+-   Updated dependencies [[`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9)]:
+    -   @khanacademy/simple-markdown@0.13.5
+
 ## 0.3.11
 
 ### Patch Changes

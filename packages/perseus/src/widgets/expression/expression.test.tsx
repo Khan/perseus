@@ -9,6 +9,7 @@ import {
 import * as Dependencies from "../../dependencies";
 import {scorePerseusItem} from "../../renderer-util";
 import {mockStrings} from "../../strings";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import ExpressionWidgetExport from "./expression";
@@ -19,7 +20,10 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
-import type {PerseusItem} from "../../perseus-types";
+import type {
+    PerseusExpressionWidgetOptions,
+    PerseusItem,
+} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
@@ -47,7 +51,11 @@ const assertCorrect = async (
         input,
         true,
     );
-    expect(renderer).toHaveBeenAnsweredCorrectly();
+    const score = scorePerseusItemTesting(
+        itemData.question,
+        renderer.getUserInputMap(),
+    );
+    expect(score).toHaveBeenAnsweredCorrectly();
 };
 
 const assertIncorrect = async (
@@ -61,7 +69,11 @@ const assertIncorrect = async (
         input,
         false,
     );
-    expect(renderer).toHaveBeenAnsweredIncorrectly();
+    const score = scorePerseusItemTesting(
+        itemData.question,
+        renderer.getUserInputMap(),
+    );
+    expect(score).toHaveBeenAnsweredIncorrectly();
 };
 
 // TODO: actually Assert that message is being set on the score object.
@@ -77,7 +89,11 @@ const assertInvalid = async (
         await userEvent.type(screen.getByRole("textbox"), input);
     }
     act(() => jest.runOnlyPendingTimers());
-    expect(renderer).toHaveInvalidInput();
+    const score = scorePerseusItemTesting(
+        itemData.question,
+        renderer.getUserInputMap(),
+    );
+    expect(score).toHaveInvalidInput();
 };
 
 describe("Expression Widget", function () {
@@ -531,6 +547,38 @@ describe("Expression Widget", function () {
             expect(
                 screen.queryByText("Sorry, I don't understand that!"),
             ).toBeNull();
+        });
+    });
+
+    describe("propUpgrades", () => {
+        it("can upgrade from v0 to v1", () => {
+            const v0props = {
+                times: false,
+                buttonSets: ["basic"],
+                functions: [],
+                form: false,
+                simplify: false,
+                value: "42",
+            };
+
+            const expected: PerseusExpressionWidgetOptions = {
+                times: false,
+                buttonSets: ["basic"],
+                functions: [],
+                answerForms: [
+                    {
+                        considered: "correct",
+                        form: false,
+                        simplify: false,
+                        value: "42",
+                    },
+                ],
+            };
+
+            const result: PerseusExpressionWidgetOptions =
+                ExpressionWidgetExport.propUpgrades["1"](v0props);
+
+            expect(result).toEqual(expected);
         });
     });
 });

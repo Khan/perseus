@@ -22,8 +22,8 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
-    generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -68,25 +68,18 @@ const LockedEllipseSettings = (props: Props) => {
      * with the math details converted into spoken words.
      */
     async function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
         const isCircle = radius[0] === radius[1];
         let str = "";
 
         if (isCircle) {
-            str += await generateSpokenMathDetails(
-                `Circle${visiblelabel} with radius ${radius[0]}`,
-            );
+            str += `Circle${visiblelabel} with radius ${radius[0]}`;
         } else {
-            str += await generateSpokenMathDetails(
-                `Ellipse${visiblelabel} with x radius ${radius[0]} and y radius ${radius[1]}`,
-            );
+            str += `Ellipse${visiblelabel} with x radius ${radius[0]} and y radius ${radius[1]}`;
         }
 
-        str += `, centered at (${center[0]}, ${center[1]})`;
+        str += `, centered at ${center[0]} comma ${center[1]}`;
 
         if (!isCircle && angle !== 0) {
             str += `, rotated by ${radianToDegree(angle)} degrees`;
@@ -133,7 +126,7 @@ const LockedEllipseSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -226,8 +219,10 @@ const LockedEllipseSettings = (props: Props) => {
                     <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
                         selectedValue={fillStyle}
-                        onChange={(value: LockedFigureFillType) =>
-                            onChangeProps({fillStyle: value})
+                        // TODO(LEMS-2656): remove TS suppression
+                        onChange={
+                            ((value: LockedFigureFillType) =>
+                                onChangeProps({fillStyle: value})) as any
                         }
                         // Placeholder is required, but never gets used.
                         placeholder=""
@@ -246,9 +241,7 @@ const LockedEllipseSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
-                onChange={(value: "solid" | "dashed") =>
-                    onChangeProps({strokeStyle: value})
-                }
+                onChange={(value) => onChangeProps({strokeStyle: value})}
             />
 
             {/* Aria label */}
@@ -279,8 +272,9 @@ const LockedEllipseSettings = (props: Props) => {
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
+                            key={labelIndex}
                             expanded={true}
-                            onChangeProps={(newLabel: LockedLabelType) => {
+                            onChangeProps={(newLabel) => {
                                 handleLabelChange(newLabel, labelIndex);
                             }}
                             onRemove={() => {

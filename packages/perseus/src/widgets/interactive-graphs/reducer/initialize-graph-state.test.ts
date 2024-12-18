@@ -6,8 +6,8 @@ import type {InteractiveGraphProps} from "../types";
 
 type BaseGraphData = {
     range: InteractiveGraphProps["range"];
-    step: InteractiveGraphProps["step"];
-    snapStep: InteractiveGraphProps["snapStep"];
+    step: [x: number, y: number];
+    snapStep: [x: number, y: number];
 };
 
 const baseGraphData: BaseGraphData = {

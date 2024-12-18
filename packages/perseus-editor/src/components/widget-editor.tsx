@@ -6,11 +6,11 @@ import {
     iconChevronDown,
     iconTrash,
 } from "@khanacademy/perseus";
-import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
 import Switch from "@khanacademy/wonder-blocks-switch";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
+import {useId} from "react";
 import _ from "underscore";
 
 import {iconChevronRight} from "../styles/icon-paths";
@@ -236,12 +236,11 @@ function LabeledSwitch(props: {
     onChange: (value: boolean) => unknown;
 }) {
     const {label, ...switchProps} = props;
-    const ids = useUniqueIdWithMock();
-    const id = ids.get("switch");
+    const id = useId();
     return (
         <>
             <label htmlFor={id}>{label}</label>
-            <Strut size={Spacing.xxSmall_6} />
+            <Strut size={spacing.xxSmall_6} />
             <Switch id={id} {...switchProps} />
         </>
     );

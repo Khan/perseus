@@ -6,6 +6,7 @@ import {Log} from "../../logging/log";
 import KhanAnswerTypes from "../../util/answer-types";
 
 import getDecimalSeparator from "./get-decimal-separator";
+import validateExpression from "./validate-expression";
 
 import type {PerseusExpressionAnswerForm} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
@@ -40,6 +41,11 @@ function scoreExpression(
     strings: PerseusStrings,
     locale: string,
 ): PerseusScore {
+    const validationError = validateExpression(userInput);
+    if (validationError) {
+        return validationError;
+    }
+
     const options = _.clone(rubric);
     _.extend(options, {
         decimal_separator: getDecimalSeparator(locale),
@@ -159,9 +165,6 @@ function scoreExpression(
     // We matched a graded answer form, so we can now tell the user
     // whether their input was correct or incorrect, and hand out
     // points accordingly
-    // TODO(eater): Seems silly to translate result to this
-    // invalid/points thing and immediately translate it back in
-    // ItemRenderer.scoreInput()
     return {
         type: "points",
         earned: matchingAnswerForm.considered === "correct" ? 1 : 0,

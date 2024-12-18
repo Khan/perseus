@@ -64,6 +64,7 @@ export default {
             // that name is already taken.
             // eslint-disable-next-line import/no-deprecated
             reactRender(
+                // eslint-disable-next-line react/no-children-prop
                 React.createElement(TeX, {
                     children: text,
                     onRender: callback,

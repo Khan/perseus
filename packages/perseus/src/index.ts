@@ -37,8 +37,9 @@ export {default as TableWidget} from "./widgets/table";
 export {default as PlotterWidget} from "./widgets/plotter";
 export {default as GrapherWidget} from "./widgets/grapher";
 
-// Some utils in grapher/utils don't need to be used outside of `perseus`,
-// so only export the stuff that does need to be exposed
+// Some utils in grapher/utils and scoring don't need to be used outside of
+// `perseus`, so only export the stuff that does need to be exposed
+import {keScoreFromPerseusScore} from "./util/scoring";
 import {
     allTypes,
     DEFAULT_GRAPHER_PROPS,
@@ -55,6 +56,10 @@ export const GrapherUtil = {
     defaultPlotProps,
     getEquationString,
     typeToButton,
+};
+
+export const ScoringUtil = {
+    keScoreFromPerseusScore,
 };
 
 /**
@@ -82,10 +87,6 @@ export {isItemRenderableByVersion} from "./renderability";
 export {violatingWidgets} from "./a11y";
 export {interactiveSizes} from "./styles/constants";
 export {displaySigFigs} from "./sigfigs";
-export {
-    conversionRequired,
-    convertDeprecatedWidgets,
-} from "./util/deprecated-widgets/modernize-widgets-utils";
 
 // Context for managing i18n
 export {
@@ -155,6 +156,14 @@ export {getClockwiseAngle} from "./widgets/interactive-graphs/math";
 
 export {makeSafeUrl} from "./widgets/phet-simulation";
 
+// These exports are to support shared functionality between Perseus and Graphie2000
+export {parseDataFromJSONP} from "./util/graphie-utils";
+export type {
+    GraphieData,
+    GraphieLabel,
+    GraphieRange,
+} from "./util/graphie-utils";
+
 /**
  * Mixins
  */
@@ -213,9 +222,8 @@ export type {
     Size,
     CollinearTuple,
     MathFormat,
+    InputNumberWidget, // TODO(jeremy): remove?
     PerseusArticle,
-    InputNumberWidget, // Used for usurpation of InputNumberWidget in perseus-editor
-    NumericInputWidget, // Used for usurpation of InputNumberWidget in perseus-editor
     // Widget configuration types
     PerseusImageBackground,
     PerseusInputNumberWidgetOptions,
@@ -225,43 +233,15 @@ export type {
     PerseusPlotterWidgetOptions,
     PerseusPythonProgramWidgetOptions,
     PerseusRadioWidgetOptions,
-    PerseusExampleWidgetOptions,
-    PerseusSimpleMarkdownTesterWidgetOptions,
     PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
-    MultiItem,
+    PerseusWidgetTypes,
+    WidgetOptions,
 } from "./perseus-types";
 export type {UserInputMap} from "./validation.types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";
-
-/**
- * Multi-items
- */
-export {default as MultiItems} from "./multi-items";
-export {buildEmptyItemTreeForShape, itemToTree} from "./multi-items/items";
-export {default as shapes} from "./multi-items/shapes";
-export {buildMapper} from "./multi-items/trees";
-
-export type {
-    ContentNode,
-    HintNode,
-    Item,
-    ItemTree,
-    ItemObjectNode,
-    ItemArrayNode,
-    TagsNode,
-} from "./multi-items/item-types";
-export type {
-    Shape,
-    ArrayShape,
-    ObjectShape,
-    ContentShape,
-    HintShape,
-    TagsShape,
-} from "./multi-items/shape-types";
-export type {Path} from "./multi-items/trees";
 export type {
     RendererPromptJSON,
     WidgetPromptJSON,

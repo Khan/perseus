@@ -1,4 +1,3 @@
-/* eslint-disable @babel/no-invalid-this */
 import {
     point as kpoint,
     vector as kvector,
@@ -128,6 +127,9 @@ export class Graphie {
         this.el = el;
         $(el).css("position", "relative");
         this.raphael = Raphael(el);
+
+        // Hide the Raphael canvas from screen readers
+        $(el).attr("aria-hidden", "true");
 
         // For a sometimes-reproducible IE8 bug; doesn't affect SVG browsers at all
         $(el).children("div").css("position", "absolute");

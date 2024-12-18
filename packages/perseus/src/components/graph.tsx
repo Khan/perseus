@@ -3,7 +3,6 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import AssetContext from "../asset-context";
@@ -83,6 +82,8 @@ type DefaultProps = {
 };
 
 class Graph extends React.Component<Props> {
+    graphieDivRef = React.createRef<HTMLDivElement>();
+
     protractor: any;
     ruler: any;
     _graphie: any;
@@ -187,8 +188,7 @@ class Graph extends React.Component<Props> {
             return;
         }
 
-        // eslint-disable-next-line react/no-string-refs
-        const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+        const graphieDiv = this.graphieDivRef.current;
         // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
         $(graphieDiv).empty();
 
@@ -294,15 +294,13 @@ class Graph extends React.Component<Props> {
 
         const onMouseOver = $instructionsWrapper
             ? function () {
-                  $instructionsWrapper &&
-                      $instructionsWrapper.css("opacity", invisible);
+                  $instructionsWrapper?.css("opacity", invisible);
               }
             : undefined;
 
         const onMouseOut = $instructionsWrapper
             ? function () {
-                  $instructionsWrapper &&
-                      $instructionsWrapper.css("opacity", visible);
+                  $instructionsWrapper?.css("opacity", visible);
               }
             : undefined;
         /* eslint-enable indent */
@@ -431,8 +429,7 @@ class Graph extends React.Component<Props> {
                 onClick={this.onClick}
             >
                 {image}
-                {/* eslint-disable-next-line react/no-string-refs */}
-                <div className="graphie" ref="graphieDiv" />
+                <div className="graphie" ref={this.graphieDivRef} />
             </div>
         );
     }

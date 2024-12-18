@@ -21,6 +21,8 @@ import LabeledRow from "../locked-figures/labeled-row";
 
 import type {PerseusImageBackground} from "@khanacademy/perseus";
 
+type ChangeFn = typeof Changeable.change;
+
 const {ButtonGroup, InfoTip, RangeInput} = components;
 
 const defaultBackgroundImage = {
@@ -157,8 +159,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-        // Make sure that state updates when switching
-        // between different items in a multi-item editor.
         if (
             !_.isEqual(this.props.labels, nextProps.labels) ||
             !_.isEqual(this.props.gridStep, nextProps.gridStep) ||
@@ -175,7 +175,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         this._isMounted = false;
     }
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -580,8 +580,9 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                             />
                             <InfoTip>
                                 <p>
-                                    Create an image in graphie, or use the "Add
-                                    image" function to create a background.
+                                    Create an image in graphie, or use the
+                                    &quot;Add image&quot; function to create a
+                                    background.
                                 </p>
                             </InfoTip>
                         </LabeledRow>

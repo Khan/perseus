@@ -81,7 +81,7 @@ class CSProgram extends React.Component<Props> implements Widget {
         let data: Record<string, any> = {};
         try {
             data = JSON.parse(e.originalEvent.data);
-        } catch (err: any) {
+        } catch {
             return;
         }
 
@@ -205,5 +205,7 @@ export default {
     supportedAlignments: ["block", "full-width"],
     widget: CSProgram,
     hidden: true,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
     scorer: scoreCSProgram,
 } satisfies WidgetExports<typeof CSProgram>;

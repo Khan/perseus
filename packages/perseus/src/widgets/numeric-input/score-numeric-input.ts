@@ -61,7 +61,7 @@ export function maybeParsePercentInput(
         return value / 100;
     }
 
-    // Otherwise, we return input valuåe (number) stripped of the "%".
+    // Otherwise, we return input value (number) stripped of the "%".
     return value;
 }
 
@@ -111,7 +111,10 @@ function scoreNumericInput(
 
     const normalizedAnswerExpected = rubric.answers
         .filter((answer) => answer.status === "correct")
-        .every((answer) => Math.abs(answer.value) <= 1);
+        .every(
+            (answer) =>
+                answer.value !== undefined && Math.abs(answer.value) <= 1,
+        );
 
     // The coefficient is an attribute of the widget
     let localValue: string | number = currentValue;
@@ -151,9 +154,6 @@ function scoreNumericInput(
                   guess: localValue,
               };
 
-    // TODO(eater): Seems silly to translate result to this
-    // invalid/points thing and immediately translate it
-    // back in ItemRenderer.scoreInput()
     if (result.empty) {
         return {
             type: "invalid",
