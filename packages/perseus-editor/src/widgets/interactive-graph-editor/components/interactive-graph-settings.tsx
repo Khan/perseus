@@ -135,7 +135,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             interactiveSizes.defaultBoxSizeSmall,
             interactiveSizes.defaultBoxSizeSmall,
         ],
-        labels: ["x", "y"],
+        labels: ["$x$", "$y$"],
         range: [
             [-10, 10],
             [-10, 10],

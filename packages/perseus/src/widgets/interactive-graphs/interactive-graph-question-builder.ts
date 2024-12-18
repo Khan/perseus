@@ -53,7 +53,7 @@ class InteractiveGraphQuestionBuilder {
         top?: number;
     };
     private gridStep: vec.Vector2 = [1, 1];
-    private labels: [string, string] = ["x", "y"];
+    private labels: [string, string] = ["$x$", "$y$"];
     private markings: "graph" | "grid" | "none" = "graph";
     private xRange: Interval = [-10, 10];
     private yRange: Interval = [-10, 10];

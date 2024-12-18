@@ -548,7 +548,7 @@ describe("InteractiveGraphSettings", () => {
         await waitFor(() =>
             expect(onChange).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    labels: ["time", "y"],
+                    labels: ["time", "$y$"],
                 }),
                 undefined,
             ),
@@ -572,7 +572,7 @@ describe("InteractiveGraphSettings", () => {
         await waitFor(() =>
             expect(onChange).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    labels: ["x", "count"],
+                    labels: ["$x$", "count"],
                 }),
                 undefined,
             ),
