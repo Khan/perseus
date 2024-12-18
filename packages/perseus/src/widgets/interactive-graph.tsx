@@ -149,6 +149,7 @@ type RenderProps = {
     backgroundImage?: PerseusImageBackground;
     /**
      * The type of markings to display on the graph.
+     * - axes: shows the axes without the gride lines
      * - graph: shows the axes and the grid lines
      * - grid: shows only the grid lines
      * - none: shows no markings
