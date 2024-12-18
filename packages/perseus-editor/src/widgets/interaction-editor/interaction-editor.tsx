@@ -222,12 +222,7 @@ class InteractionEditor extends React.Component<Props, State> {
             <div className="perseus-widget-interaction-editor">
                 <ElementContainer title="Grid settings">
                     <GraphSettings
-                        editableSettings={[
-                            "canvas",
-                            "graph",
-                            "measure",
-                            "image",
-                        ]}
+                        editableSettings={["canvas", "graph"]}
                         box={this.props.graph.box}
                         labels={this.props.graph.labels}
                         range={this.props.graph.range}
