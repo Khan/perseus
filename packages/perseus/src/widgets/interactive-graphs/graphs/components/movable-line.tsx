@@ -16,21 +16,21 @@ import {Vector} from "./vector";
 import type {Interval} from "mafs";
 
 type Props = {
+    points: Readonly<[vec.Vector2, vec.Vector2]>;
     ariaLabels?: {
         point1AriaLabel?: string;
         point2AriaLabel?: string;
     };
     // Extra graph information to be read by screen readers
     ariaDescribedBy?: string;
-    points: Readonly<[vec.Vector2, vec.Vector2]>;
-    onMovePoint?: (endpointIndex: number, destination: vec.Vector2) => unknown;
-    onMoveLine?: (delta: vec.Vector2) => unknown;
     color?: string;
     /* Extends the line to the edge of the graph with an arrow */
     extend?: {
         start: boolean;
         end: boolean;
     };
+    onMovePoint?: (endpointIndex: number, destination: vec.Vector2) => unknown;
+    onMoveLine?: (delta: vec.Vector2) => unknown;
 };
 
 export const MovableLine = (props: Props) => {
