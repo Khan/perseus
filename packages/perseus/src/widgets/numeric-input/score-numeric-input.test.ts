@@ -14,7 +14,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("is correct when input is empty but answer is 1 and coefficient: true", () => {
-        const rubric: PerseusNumericInputScoringData = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     value: 1,
@@ -34,7 +34,7 @@ describe("scoreNumericInput", () => {
             currentValue: "",
         };
 
-        const score = scoreNumericInput(userInput, rubric, mockStrings);
+        const score = scoreNumericInput(userInput, scoringData, mockStrings);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });

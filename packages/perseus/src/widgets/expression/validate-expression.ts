@@ -4,7 +4,7 @@ import type {PerseusExpressionUserInput} from "../../validation.types";
 /**
  * Checks user input from the expression widget to see if it is scorable.
  *
- * Note: Most of the expression widget's validation requires the Rubric because
+ * Note: Most of the expression widget's validation requires the ScoringData because
  * of its use of KhanAnswerTypes as a core part of scoring.
  *
  * @see `scoreExpression()` for more details.

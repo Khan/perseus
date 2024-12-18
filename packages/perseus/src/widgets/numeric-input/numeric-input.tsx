@@ -382,7 +382,7 @@ export default {
     scorer: scoreNumericInput,
 
     // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusNumericInputRubric'
+    // @ts-expect-error: Type 'ScoringData' is not assignable to type 'PerseusNumericInputScoringData'
     getOneCorrectAnswerFromScoringData(
         scoringData: PerseusNumericInputScoringData,
     ): string | null | undefined {

@@ -65,7 +65,7 @@ function scoreExpression(
             Log.error(
                 "Unable to parse solution answer for expression",
                 Errors.InvalidInput,
-                {loggedMetadata: {rubric: JSON.stringify(scoringData)}},
+                {loggedMetadata: {scoringData: JSON.stringify(scoringData)}},
             );
             return null;
         }
