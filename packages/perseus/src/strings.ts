@@ -258,6 +258,44 @@ export type PerseusStrings = {
         tsX: string;
         tsY: string;
     }) => string;
+    srLinearSystemGraph: string;
+    srLinearSystemPoints: ({
+        lineSequence,
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        lineSequence: number;
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srLinearSystemPoint({
+        lineSequence,
+        pointSequence,
+        x,
+        y,
+    }: {
+        lineSequence: number;
+        pointSequence: number;
+        x: string;
+        y: string;
+    }): string;
+    srLinearSystemGrabHandle: ({
+        lineSequence,
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        lineSequence: number;
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -550,6 +588,25 @@ export const strings: {
         message:
             "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the initial side at %(isX)s comma %(isY)s and a point on the terminal side at %(tsX)s comma %(tsY)s",
     },
+    srLinearSystemGraph: "Two lines on a coordinate plane.",
+    srLinearSystemPoints: {
+        context:
+            "Additional information about the points for a specific line within the linear system graph.",
+        message:
+            "Line %(lineSequence)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+    },
+    srLinearSystemPoint: {
+        context:
+            "Screenreader-accessible description of a point on a line within a linear system graph.",
+        message:
+            "Point %(pointSequence)s on line %(lineSequence)s at %(x)s comma %(y)s.",
+    },
+    srLinearSystemGrabHandle: {
+        context:
+            "Screenreader-only label on the grab handle for a line within a linear system graph.",
+        message:
+            "Line %(lineSequence)s from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
+    },
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -767,5 +824,24 @@ export const mockStrings: PerseusStrings = {
         tsY,
     }) =>
         `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the initial side at ${isX} comma ${isY} and a point on the terminal side at ${tsX} comma ${tsY}.`,
+    srLinearSystemGraph: "Two lines on a coordinate plane.",
+    srLinearSystemPoints: ({
+        lineSequence,
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }) =>
+        `Line ${lineSequence} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
+    srLinearSystemPoint: ({lineSequence, pointSequence, x, y}) =>
+        `Point ${pointSequence} on line ${lineSequence} at ${x} comma ${y}.`,
+    srLinearSystemGrabHandle: ({
+        lineSequence,
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }) =>
+        `Line ${lineSequence} from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
