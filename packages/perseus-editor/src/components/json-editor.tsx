@@ -11,14 +11,22 @@ type DefaultProps = {
     value: Props["value"];
 };
 
-export class JsonEditor extends React.Component<Props> {
-    static displayName: "JsonEditor";
+type State = {
     currentValue: string | undefined;
     valid: boolean | undefined;
+};
+
+class JsonEditor extends React.Component<Props, State> {
+    static displayName: "JsonEditor";
 
     static defaultProps: DefaultProps = {
         value: 0,
     };
+
+    constructor(props) {
+        super(props);
+        this.state = this.getInitialState();
+    }
 
     getInitialState() {
         return {
@@ -29,10 +37,12 @@ export class JsonEditor extends React.Component<Props> {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         const shouldReplaceContent =
-            !this.valid ||
+            !this.state.valid ||
             !_.isEqual(
                 nextProps.value,
-                JSON.parse(this.currentValue ? this.currentValue : ""),
+                JSON.parse(
+                    this.state.currentValue ? this.state.currentValue : "",
+                ),
             );
 
         if (shouldReplaceContent) {
@@ -119,12 +129,12 @@ export class JsonEditor extends React.Component<Props> {
 
     render() {
         const classes =
-            "perseus-json-editor " + (this.valid ? "valid" : "invalid");
+            "perseus-json-editor " + (this.state.valid ? "valid" : "invalid");
 
         return (
             <textarea
                 className={classes}
-                value={this.currentValue}
+                value={this.state.currentValue}
                 onChange={this.handleChange}
                 onKeyDown={this.handleKeyDown}
                 onBlur={this.handleBlur}

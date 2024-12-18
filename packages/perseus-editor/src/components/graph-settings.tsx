@@ -63,7 +63,16 @@ type DefaultProps = {
     rulerTicks: Props["rulerTicks"];
 };
 
-export class GraphSettings extends React.Component<Props> {
+type State = {
+    labelsTextbox: string[];
+    gridStepTextbox: number[];
+    snapStepTextbox: number[];
+    stepTextbox: number[];
+    rangeTextbox: any[];
+    backgroundImage: any;
+};
+
+class GraphSettings extends React.Component<Props, State> {
     static displayName: "GraphSettings";
 
     static defaultProps: DefaultProps = {
@@ -91,14 +100,11 @@ export class GraphSettings extends React.Component<Props> {
     };
 
     _isMounted: any;
-    state: any = {
-        labelsTextbox: [],
-        rangeTextbox: [],
-        stepTextbox: [],
-        gridStepTextbox: [],
-        snapStepTextbox: [],
-        backgroundImage: {},
-    };
+
+    constructor(props) {
+        super(props);
+        this.state = this.getInitialState();
+    }
 
     getInitialState() {
         return this.stateFromProps(this.props);
@@ -340,7 +346,8 @@ export class GraphSettings extends React.Component<Props> {
         const scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
         if (this.validRange(ranges[i]) === true) {
             step[i] = Util.tickStepFromExtent(ranges[i], this.props.box[i]);
-            gridStep[i] = Util.gridStepFromTickStep(step[i], scale);
+            // don't like this use of as. :(
+            gridStep[i] = Util.gridStepFromTickStep(step[i], scale) as number;
             snapStep[i] = gridStep[i] / 2;
         }
         this.setState(
