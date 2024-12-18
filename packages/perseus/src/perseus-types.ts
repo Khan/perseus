@@ -669,6 +669,8 @@ export type PerseusImageLabel = {
     coordinates: ReadonlyArray<number>;
 };
 
+export type MarkingsType = "axis" | "graph" | "grid" | "none";
+
 export type PerseusInteractiveGraphWidgetOptions = {
     // Where the little black axis lines & labels (ticks) should render.
     // Also known as the tick step. default [1, 1]
@@ -688,7 +690,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      * - grid: shows only the grid lines
      * - none: shows no markings
      */
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     // How to label the X and Y axis.  default: ["x", "y"]
     labels?: ReadonlyArray<string>;
     // Whether to show the Protractor tool overlayed on top of the graph

@@ -216,7 +216,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             left: 0,
                         }}
                     >
-                        {props.markings === "graph" && (
+                        {(props.markings === "graph" ||
+                            props.markings === "axis") && (
                             <>
                                 <AxisLabels />
                             </>
@@ -251,7 +252,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             {/* Axis Ticks, Labels, and Arrows */}
                             {
                                 // Only render the axis ticks and arrows if the markings are set to a full "graph"
-                                props.markings === "graph" && (
+                                (props.markings === "graph" ||
+                                    props.markings === "axis") && (
                                     <>
                                         <AxisTicks />
                                         <AxisArrows />

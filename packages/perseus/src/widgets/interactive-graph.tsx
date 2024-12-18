@@ -47,6 +47,7 @@ import type {
     GraphRange,
     LockedFigure,
     PerseusImageBackground,
+    MarkingsType,
 } from "../perseus-types";
 import type {ChangeHandler, WidgetExports, WidgetProps} from "../types";
 import type {
@@ -152,7 +153,7 @@ type RenderProps = {
      * - grid: shows only the grid lines
      * - none: shows no markings
      */
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     /**
      * How to label the X and Y axis.  default: ["x", "y"]
      */

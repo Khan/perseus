@@ -222,6 +222,7 @@ export type {
     Size,
     CollinearTuple,
     MathFormat,
+    MarkingsType,
     InputNumberWidget, // TODO(jeremy): remove?
     PerseusArticle,
     // Widget configuration types
