@@ -288,13 +288,15 @@ export default {
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusInputNumberUserInput'.
     scorer: scoreInputNumber,
 
-    getOneCorrectAnswerFromScoringData(rubric: any): string | null | undefined {
-        if (rubric.value == null) {
+    getOneCorrectAnswerFromScoringData(
+        scoringData: any,
+    ): string | null | undefined {
+        if (scoringData.value == null) {
             return;
         }
-        let answerString = String(rubric.value);
-        if (rubric.inexact && rubric.maxError) {
-            answerString += " \u00B1 " + rubric.maxError;
+        let answerString = String(scoringData.value);
+        if (scoringData.inexact && scoringData.maxError) {
+            answerString += " \u00B1 " + scoringData.maxError;
         }
         return answerString;
     },
