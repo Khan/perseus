@@ -229,6 +229,24 @@ export type PerseusStrings = {
         y: string;
         angleMeasure: string;
     }) => string;
+    srAngleGraphAriaLabel: string;
+    srAngleGraphAriaDescription: ({
+        angleMeasure,
+        vertexX,
+        vertexY,
+        isX,
+        isY,
+        tsX,
+        tsY,
+    }: {
+        angleMeasure: string;
+        vertexX: string;
+        vertexY: string;
+        isX: string;
+        isY: string;
+        tsX: string;
+        tsY: string;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -508,6 +526,13 @@ export const strings: {
         message:
             "Point 2, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees",
     },
+    srAngleGraphAriaLabel: "An angle on a coordinate plane.",
+    srAngleGraphAriaDescription: {
+        context:
+            "Screenreader-only description of an angle on a coordinate plane.",
+        message:
+            "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the initial side at %(isX)s comma %(isY)s and a point on the terminal side at %(tsX)s comma %(tsY)s",
+    },
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -712,5 +737,16 @@ export const mockStrings: PerseusStrings = {
         `Point ${point}, ${side} at ${x} comma ${y}`,
     srAngleVertexAtCoordinatesWithAngleMeasure: ({x, y, angleMeasure}) =>
         `Point 2, vertex at ${x} comma ${y}. Angle ${angleMeasure} degrees`,
+    srAngleGraphAriaLabel: "An angle on a coordinate plane.",
+    srAngleGraphAriaDescription: ({
+        angleMeasure,
+        vertexX,
+        vertexY,
+        isX,
+        isY,
+        tsX,
+        tsY,
+    }) =>
+        `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the initial side at ${isX} comma ${isY} and a point on the terminal side at ${tsX} comma ${tsY}.`,
     // The above strings are used for interactive graph SR descriptions.
 };

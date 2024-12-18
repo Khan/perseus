@@ -107,6 +107,17 @@ function AngleGraph(props: AngleGraphProps) {
         locale,
     );
 
+    const wholeAngleAriaLabel = strings.srAngleGraphAriaLabel;
+    const wholeAngleDescription = strings.srAngleGraphAriaDescription({
+        angleMeasure,
+        vertexX: srFormatNumber(coords[1][X], locale),
+        vertexY: srFormatNumber(coords[1][Y], locale),
+        isX: srFormatNumber(coords[2][X], locale),
+        isY: srFormatNumber(coords[2][Y], locale),
+        tsX: srFormatNumber(coords[0][X], locale),
+        tsY: srFormatNumber(coords[0][Y], locale),
+    });
+
     const formatCoordinates = (x: number, y: number) => ({
         x: srFormatNumber(x, locale),
         y: srFormatNumber(y, locale),
@@ -160,7 +171,10 @@ function AngleGraph(props: AngleGraphProps) {
 
     // Render the lines, angle, and then movable points
     return (
-        <>
+        <g
+            aria-label={wholeAngleAriaLabel}
+            aria-describedby="angle-description"
+        >
             {svgLines}
             <Angle {...angleParams} />
             {/* vertex */}
@@ -201,7 +215,10 @@ function AngleGraph(props: AngleGraphProps) {
                 }
                 ariaLabel={initialSideAriaLabel}
             />
-        </>
+            <g id="angle-description" style={{display: "hidden"}}>
+                {wholeAngleDescription}
+            </g>
+        </g>
     );
 }
 
