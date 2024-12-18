@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "17.0.3",
+    "version": "17.0.4",
     "publishConfig": {
         "access": "public"
     },
@@ -34,17 +34,17 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/kas": "^0.4.5",
-        "@khanacademy/keypad-context": "^1.0.7",
-        "@khanacademy/kmath": "^0.1.19",
-        "@khanacademy/math-input": "^22.0.2",
-        "@khanacademy/perseus": "^49.0.3",
-        "@khanacademy/perseus-core": "3.0.1",
-        "@khanacademy/pure-markdown": "^0.3.16",
+        "@khanacademy/kas": "^0.4.6",
+        "@khanacademy/keypad-context": "^1.0.8",
+        "@khanacademy/kmath": "^0.1.20",
+        "@khanacademy/math-input": "^22.0.3",
+        "@khanacademy/perseus": "^49.1.0",
+        "@khanacademy/perseus-core": "3.0.2",
+        "@khanacademy/pure-markdown": "^0.3.17",
         "mafs": "^0.19.0"
     },
     "devDependencies": {
-        "@khanacademy/perseus-linter": "^1.2.7",
+        "@khanacademy/perseus-linter": "^1.2.8",
         "@khanacademy/wonder-blocks-accordion": "3.0.1",
         "@khanacademy/wonder-blocks-banner": "4.0.3",
         "@khanacademy/wonder-blocks-button": "7.0.3",
@@ -66,7 +66,7 @@
         "create-react-class": "15.6.3",
         "jquery": "^2.1.1",
         "katex": "0.11.1",
-        "perseus-build-settings": "^0.4.1",
+        "perseus-build-settings": "^0.4.2",
         "prop-types": "15.6.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
