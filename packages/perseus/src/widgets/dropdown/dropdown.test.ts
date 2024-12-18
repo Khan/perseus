@@ -6,7 +6,7 @@ import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {question1} from "./dropdown.testdata";
+import {basicDropdown} from "./dropdown.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -24,7 +24,7 @@ describe("Dropdown widget", () => {
 
     it("should snapshot", async () => {
         // Arrange and Act
-        const {container} = renderQuestion(question1);
+        const {container} = renderQuestion(basicDropdown);
 
         // Assert
         expect(container).toMatchSnapshot("initial render");
@@ -32,7 +32,7 @@ describe("Dropdown widget", () => {
 
     it("should snapshot when opened", async () => {
         // Arrange
-        const {container} = renderQuestion(question1);
+        const {container} = renderQuestion(basicDropdown);
 
         // Act
         const dropdown = screen.getByRole("combobox");
@@ -45,7 +45,7 @@ describe("Dropdown widget", () => {
 
     it("should show placeholder text", async () => {
         // Arrange
-        renderQuestion(question1);
+        renderQuestion(basicDropdown);
 
         // Act
         const dropdown = screen.getByRole("combobox");
@@ -57,14 +57,14 @@ describe("Dropdown widget", () => {
 
     it("should be answerable correctly", async () => {
         // Arrange
-        const {renderer} = renderQuestion(question1);
+        const {renderer} = renderQuestion(basicDropdown);
 
         // Act
         const dropdown = screen.getByRole("combobox");
         await userEvent.click(dropdown);
         await userEvent.click(screen.getByText("less than or equal to"));
         const score = scorePerseusItemTesting(
-            question1,
+            basicDropdown,
             renderer.getUserInputMap(),
         );
 
@@ -75,14 +75,14 @@ describe("Dropdown widget", () => {
 
     it("should be answerable incorrectly", async () => {
         // Arrange
-        const {renderer} = renderQuestion(question1);
+        const {renderer} = renderQuestion(basicDropdown);
 
         // Act
         const dropdown = screen.getByRole("combobox");
         await userEvent.click(dropdown);
         await userEvent.click(screen.getByText("greater than or equal to"));
         const score = scorePerseusItemTesting(
-            question1,
+            basicDropdown,
             renderer.getUserInputMap(),
         );
 
@@ -93,11 +93,11 @@ describe("Dropdown widget", () => {
 
     it("should be invalid on first render", async () => {
         // Arrange
-        const {renderer} = renderQuestion(question1);
+        const {renderer} = renderQuestion(basicDropdown);
 
         // Act
         const score = scorePerseusItemTesting(
-            question1,
+            basicDropdown,
             renderer.getUserInputMap(),
         );
 
@@ -107,7 +107,7 @@ describe("Dropdown widget", () => {
 
     it("should be return true when focus() called", async () => {
         // Arrange
-        const {renderer} = renderQuestion(question1);
+        const {renderer} = renderQuestion(basicDropdown);
 
         // Act
         const focused = renderer.focus();
@@ -122,7 +122,7 @@ describe("Dropdown widget", () => {
 
     it("has an ARIA label", async () => {
         // Arrange and Act
-        renderQuestion(question1);
+        renderQuestion(basicDropdown);
 
         // Assert
         expect(screen.getByLabelText("Select an answer")).toBeInTheDocument();
