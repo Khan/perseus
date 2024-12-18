@@ -4,7 +4,9 @@ import * as React from "react";
 import _ from "underscore";
 
 type Props = {
+    multiLine: boolean;
     value: any;
+    onChange: (newJson: any) => void;
 };
 
 type DefaultProps = {
@@ -26,6 +28,10 @@ class JsonEditor extends React.Component<Props, State> {
     constructor(props) {
         super(props);
         this.state = this.getInitialState();
+
+        this.handleBlur = this.handleBlur.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
     }
 
     getInitialState() {
