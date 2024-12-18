@@ -31,9 +31,9 @@ const axisOptions = (
     axisIndex: number,
 ) => {
     const lines: number | false =
-        props.markings === "axis" ? false : props.gridStep[axisIndex];
+        props.markings === "axes" ? false : props.gridStep[axisIndex];
     return {
-        axis: props.markings === "graph" || props.markings === "axis",
+        axis: props.markings === "graph" || props.markings === "axes",
         lines: lines,
         labels: false as const,
     };

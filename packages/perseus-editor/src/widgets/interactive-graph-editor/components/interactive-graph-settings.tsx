@@ -539,7 +539,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         value={this.props.markings}
                                         allowEmpty={false}
                                         buttons={[
-                                            {value: "axis", content: "Axis"},
+                                            {value: "axes", content: "Axes"},
                                             {value: "graph", content: "Graph"},
                                             {value: "grid", content: "Grid"},
                                             {value: "none", content: "None"},

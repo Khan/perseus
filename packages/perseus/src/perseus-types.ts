@@ -397,6 +397,8 @@ export type PerseusImageBackground = {
     bottom?: number;
 };
 
+export type MarkingsType = "axes" | "graph" | "grid" | "none";
+
 export type PerseusCategorizerWidgetOptions = {
     // Translatable text; a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
     items: ReadonlyArray<string>;
@@ -619,7 +621,7 @@ export type PerseusGrapherWidgetOptions = {
         >;
         gridStep?: [number, number];
         labels: [string, string];
-        markings: "graph" | "none" | "grid";
+        markings: MarkingsType;
         range: GraphRange;
         rulerLabel: "";
         rulerTicks: number;
@@ -669,8 +671,6 @@ export type PerseusImageLabel = {
     coordinates: ReadonlyArray<number>;
 };
 
-export type MarkingsType = "axis" | "graph" | "grid" | "none";
-
 export type PerseusInteractiveGraphWidgetOptions = {
     // Where the little black axis lines & labels (ticks) should render.
     // Also known as the tick step. default [1, 1]
@@ -686,6 +686,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     backgroundImage?: PerseusImageBackground;
     /**
      * The type of markings to display on the graph.
+     * - axes: shows the axes without the gride lines
      * - graph: shows the axes and the grid lines
      * - grid: shows only the grid lines
      * - none: shows no markings
@@ -1390,7 +1391,7 @@ export type PerseusInteractionGraph = {
      * - grid: shows only the grid lines
      * - none: shows no markings
      */
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     // The snap steps. default [0.5, 0.5]
     snapStep?: [number, number];
     // Whether the grid is valid or not.  Do the numbers all make sense?
