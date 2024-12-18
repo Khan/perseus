@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 49.0.2
+
+### Patch Changes
+
+-   [#2017](https://github.com/Khan/perseus/pull/2017) [`4508e7bea`](https://github.com/Khan/perseus/commit/4508e7bea859957eea296a3fc25180c66098dbb4) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Minor improvements to Circle graph SR strings
+
+*   [#2022](https://github.com/Khan/perseus/pull/2022) [`266d240ed`](https://github.com/Khan/perseus/commit/266d240ed01f9b32242d150414e18fcfa8bd5230) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Update to Wonder Blocks without custom ID generation API
+
+-   [#2018](https://github.com/Khan/perseus/pull/2018) [`1fe437079`](https://github.com/Khan/perseus/commit/1fe43707954ba7e35a42747dc1392fb2972fc7b1) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing scoring for unlimited point to ensure there 1 or more points for it to be considered scorable.
+
+-   Updated dependencies [[`266d240ed`](https://github.com/Khan/perseus/commit/266d240ed01f9b32242d150414e18fcfa8bd5230)]:
+    -   @khanacademy/math-input@22.0.1
+
 ## 49.0.1
 
 ### Patch Changes
