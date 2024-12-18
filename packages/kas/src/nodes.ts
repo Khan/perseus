@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable import/order */
-/* TODO(charlie): fix these lint errors (http://eslint.org/docs/rules): */
+/* TODO: fix these lint errors (http://eslint.org/docs/rules): */
 /* eslint-disable indent, no-undef, no-var, no-dupe-keys, no-new-func, no-redeclare, comma-dangle, max-len, prefer-spread, space-infix-ops, space-unary-ops */
 import _ from "underscore";
 
