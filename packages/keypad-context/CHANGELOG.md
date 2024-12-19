@@ -1,5 +1,11 @@
 # @khanacademy/keypad-context
 
+## 1.0.12
+
+### Patch Changes
+
+-   [#2047](https://github.com/Khan/perseus/pull/2047) [`4345801bf`](https://github.com/Khan/perseus/commit/4345801bfc09942e0d6dc0459d1e4d53c4f57561) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Bump version for testing release protections.
+
 ## 1.0.11
 
 ### Patch Changes
