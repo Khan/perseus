@@ -16,6 +16,7 @@ import {
 // eslint-disable-next-line promise/catch-or-return
 fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
     (pkgPaths) => {
+        let allPassed = true;
         // eslint-disable-next-line promise/always-return
         for (const pkgPath of pkgPaths) {
             // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -27,8 +28,13 @@ fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
                 !checkEntrypoints(pkgJson) &&
                 !checkSource(pkgJson)
             ) {
-                process.exit(1);
+                allPassed = false;
             }
+        }
+
+        // Exit only after we've processed all the packages.
+        if (!allPassed) {
+            process.exit(1);
         }
     },
 );
