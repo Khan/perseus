@@ -24,7 +24,8 @@ ROOT="$MYPATH/.."
 # while a snapshot release is requested, avoiding us publishing packages
 # that we shouldn't be.
 # See https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/3571646568/Race+condition+breaks+Perseus+release
-SNAPSHOT_RELEASE=1
+# Need to export this so that the invoked commands see it.
+export SNAPSHOT_RELEASE=1
 
 pushd "$ROOT"
 
