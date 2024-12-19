@@ -214,8 +214,18 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [20.x]
         steps:
+            # First, we need to see if any releases are in progress.
+            # We do not want to try and publish anything if a publish is
+            # pending.
+            - name: Check for release
+              id: check-release
+              run: |
+                  echo "release-count=$(gh run list --workflow release.yml --json status --jq '[.[] | select(.status == "in_progress")] | length')" >> $GITHUB_OUTPUT
+
             # We need to checkout all history, so that the changeseat tool can diff it
             - name: Checkout current commit
+              # Only bother if there are no releases in progress
+              if: steps.check-release.outputs.release-count == '0'
               uses: actions/checkout@v4
               with:
                   fetch-depth: "0"
@@ -226,11 +236,15 @@ jobs:
                   git checkout $REF
 
             - name: Install & cache node_modules
+              # Only bother if there are no releases in progress
+              if: steps.check-release.outputs.release-count == '0'
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
 
             - name: Publish Snapshot Release to npm
+              # Only bother if there are no releases in progress
+              if: steps.check-release.outputs.release-count == '0'
               id: publish-snapshot
               run: ./utils/publish-snapshot.sh # All config is via Github env vars
               env:
@@ -282,8 +296,8 @@ jobs:
                       ./dev/tools/bump_perseus_version.sh -t PR${{ github.event.pull_request.number }}
                       ```
 
-            - name: Create or update npm snapshot comment - failure
-              if: steps.publish-snapshot.outputs.npm_snapshot_tag == ''
+            - name: Create or update npm snapshot comment - failure, snapshot publish failed
+              if: steps.publish-snapshot.outputs.npm_snapshot_tag == '' && steps.check-release.outputs.release-count == '0'
               uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
@@ -295,3 +309,17 @@ jobs:
                       Oh noes!! We couldn't find any changesets in this PR (${{
                       steps.short-sha.outputs.short_sha }}). As a result, we did not
                       publish an npm snapshot for you.
+
+            - name: Create or update npm snapshot comment - failure, concurrent with release
+              if: steps.publish-snapshot.outputs.npm_snapshot_tag == '' && steps.check-release.outputs.release-count != '0'
+              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
+                  edit-mode: replace
+                  body: |
+                      # npm Snapshot: **NOT** Published
+
+                      Oh noes!! We couldn't publish an npm snapshot for you because
+                      there is a release in progress. Please wait for the release to
+                      finish, then retry this workflow.
