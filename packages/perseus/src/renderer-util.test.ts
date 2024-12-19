@@ -1,4 +1,4 @@
-import {screen} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {
@@ -6,6 +6,7 @@ import {
     testDependenciesV2,
 } from "../../../testing/test-dependencies";
 
+import {question1} from "./__testdata__/renderer.testdata";
 import * as Dependencies from "./dependencies";
 import {
     emptyWidgetsFunctional,
@@ -15,7 +16,7 @@ import {
 import {mockStrings} from "./strings";
 import {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 import {renderQuestion} from "./widgets/__testutils__/renderQuestion";
-import {question1} from "./widgets/group/group.testdata";
+import DropdownWidgetExport from "./widgets/dropdown";
 
 import type {UserInputMap} from "./validation.types";
 import type {
@@ -78,6 +79,7 @@ function getLegacyExpressionWidget() {
         },
     };
 }
+
 describe("renderer utils", () => {
     beforeAll(() => {
         registerAllWidgetsForTesting();
@@ -743,23 +745,148 @@ describe("renderer utils", () => {
             });
         });
 
+        it("should return empty if any validator returns empty", () => {
+            // Act
+            const validatorSpy = jest
+                .spyOn(DropdownWidgetExport, "validator")
+                // Empty
+                .mockReturnValueOnce({
+                    type: "invalid",
+                    message: null,
+                })
+                // Not empty
+                .mockReturnValueOnce(null);
+            const scoringSpy = jest.spyOn(DropdownWidgetExport, "scorer");
+
+            // Act
+            const score = scorePerseusItem(
+                {
+                    content:
+                        question1.content +
+                        question1.content.replace("dropdown 1", "dropdown 2"),
+                    widgets: {
+                        "dropdown 1": question1.widgets["dropdown 1"],
+                        "dropdown 2": question1.widgets["dropdown 1"],
+                    },
+                    images: {},
+                },
+                {},
+                mockStrings,
+                "en",
+            );
+
+            // Assert
+            expect(validatorSpy).toHaveBeenCalledTimes(2);
+            expect(scoringSpy).not.toHaveBeenCalled();
+            expect(score).toEqual({type: "invalid", message: null});
+        });
+
+        it("should score item if all validators return null", () => {
+            // Arrange
+            const validatorSpy = jest
+                .spyOn(DropdownWidgetExport, "validator")
+                .mockReturnValue(null);
+            const scoreSpy = jest
+                .spyOn(DropdownWidgetExport, "scorer")
+                .mockReturnValue({
+                    type: "points",
+                    total: 1,
+                    earned: 1,
+                    message: null,
+                });
+
+            // Act
+            const score = scorePerseusItem(
+                {
+                    content:
+                        question1.content +
+                        question1.content.replace("dropdown 1", "dropdown 2"),
+                    widgets: {
+                        "dropdown 1": question1.widgets["dropdown 1"],
+                        "dropdown 2": question1.widgets["dropdown 1"],
+                    },
+                    images: {},
+                },
+                {"dropdown 1": {value: 0}},
+                mockStrings,
+                "en",
+            );
+
+            // Assert
+            expect(validatorSpy).toHaveBeenCalledTimes(2);
+            expect(scoreSpy).toHaveBeenCalled();
+            expect(score).toEqual({
+                type: "points",
+                total: 2,
+                earned: 2,
+                message: null,
+            });
+        });
+
+        it("should return correct, with no points earned, if widget is static", () => {
+            const validatorSpy = jest.spyOn(DropdownWidgetExport, "validator");
+
+            const score = scorePerseusItem(
+                {
+                    ...question1,
+                    widgets: {
+                        "dropdown 1": {
+                            ...question1.widgets["dropdown 1"],
+                            static: true,
+                        },
+                    },
+                },
+                {"dropdown 1": {value: 1}},
+                mockStrings,
+                "en",
+            );
+
+            expect(validatorSpy).not.toHaveBeenCalled();
+            expect(score).toHaveBeenAnsweredCorrectly({
+                shouldHavePoints: false,
+            });
+        });
+
+        it("should ignore widgets that aren't referenced in content", () => {
+            const validatorSpy = jest.spyOn(DropdownWidgetExport, "validator");
+            const score = scorePerseusItem(
+                {
+                    content:
+                        "This content references [[☃ dropdown 1]] but not dropdown 2!",
+                    widgets: {
+                        ...question1.widgets,
+                        "dropdown 2": {
+                            ...question1.widgets["dropdown 1"],
+                        },
+                    },
+                    images: {},
+                },
+                {"dropdown 1": {value: 2}},
+                mockStrings,
+                "en",
+            );
+
+            expect(validatorSpy).toHaveBeenCalledTimes(1);
+            expect(score).toHaveBeenAnsweredCorrectly({
+                shouldHavePoints: true,
+            });
+        });
+
         it("should return score from contained Renderer", async () => {
             // Arrange
             const {renderer} = renderQuestion(question1);
-            // Answer all widgets correctly
-            await userEvent.click(screen.getAllByRole("radio")[4]);
-            // Note(jeremy): If we don't tab away from the radio button in this
-            // test, it seems like the userEvent typing doesn't land in the first
-            // text field.
-            await userEvent.tab();
-            await userEvent.type(
-                screen.getByRole("textbox", {name: /nearest ten/}),
-                "230",
+
+            // Answer correctly
+            await userEvent.click(screen.getByRole("combobox"));
+            await act(() => jest.runOnlyPendingTimers());
+
+            await userEvent.click(
+                screen.getByRole("option", {
+                    name: "less than or equal to",
+                }),
             );
-            await userEvent.type(
-                screen.getByRole("textbox", {name: /nearest hundred/}),
-                "200",
-            );
+
+            // Act
             const userInput = renderer.getUserInputMap();
             const score = scorePerseusItem(
                 question1,
@@ -770,12 +897,6 @@ describe("renderer utils", () => {
 
             // Assert
             expect(score).toHaveBeenAnsweredCorrectly();
-            expect(score).toEqual({
-                earned: 3,
-                message: null,
-                total: 3,
-                type: "points",
-            });
         });
     });
 });

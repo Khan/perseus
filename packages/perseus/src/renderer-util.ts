@@ -20,6 +20,16 @@ import type {
     PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
 
+function mapWidgetIdsToEmptyScore(widgetIds: ReadonlyArray<string>): {
+    [widgetId: string]: PerseusScore;
+} {
+    const emptyResult: {[widgetId: string]: PerseusScore} = {};
+    widgetIds.forEach((widgetId) => {
+        emptyResult[widgetId] = {type: "invalid", message: null};
+    });
+    return emptyResult;
+}
+
 export function getUpgradedWidgetOptions(
     oldWidgetOptions: PerseusWidgetsMap,
 ): PerseusWidgetsMap {
@@ -54,7 +64,7 @@ export function emptyWidgetsFunctional(
     widgets: ValidationDataMap,
     // This is a port of old code, I'm not sure why
     // we need widgetIds vs the keys of the widgets object
-    widgetIds: Array<string>,
+    widgetIds: ReadonlyArray<string>,
     userInputMap: UserInputMap,
     strings: PerseusStrings,
     locale: string,
@@ -111,6 +121,18 @@ export function scoreWidgetsFunctional(
     locale: string,
 ): {[widgetId: string]: PerseusScore} {
     const upgradedWidgets = getUpgradedWidgetOptions(widgets);
+
+    // Do empty check first
+    const emptyWidgets = emptyWidgetsFunctional(
+        widgets,
+        widgetIds,
+        userInputMap,
+        strings,
+        locale,
+    );
+    if (emptyWidgets.length > 0) {
+        return mapWidgetIdsToEmptyScore(emptyWidgets);
+    }
 
     const gradedWidgetIds = widgetIds.filter((id) => {
         const props = upgradedWidgets[id];
