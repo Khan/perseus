@@ -280,7 +280,7 @@ export type ScoringData = ScoringDataRegistry[keyof ScoringDataRegistry];
 // This is an interface so that it can be extended if a widget is created
 // outside of this Perseus package. See `PerseusWidgetTypes` for a full
 // explanation.
-interface UserInputRegisry {
+interface UserInputRegistry {
     categorizer: PerseusCategorizerUserInput;
     "cs-program": PerseusCSProgramUserInput;
     dropdown: PerseusDropdownUserInput;
