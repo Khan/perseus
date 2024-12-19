@@ -9,8 +9,15 @@
 import type {PerseusRenderer} from "../perseus-types";
 import type {ScoringDataMap, ValidationDataMap} from "../validation.types";
 
+/**
+ * An utility type that verifies that the given type `E` extends the type `T`.
+ * This is useful for asserting that one type remains a compatible subset of
+ * the other.
+ */
+type Extends<T, E extends T> = (T) => E;
+
 // We can use a 'widgets' map from a PerseusRenderer as a ValidationDataMap
-0 as any as PerseusRenderer["widgets"] satisfies ValidationDataMap;
+type _ = Extends<ValidationDataMap, PerseusRenderer["widgets"]>;
 
 // We can use a ScoringDataMap as a ValidationDataMap
-0 as any as ScoringDataMap satisfies ValidationDataMap;
+type __ = Extends<ValidationDataMap, ScoringDataMap>;
