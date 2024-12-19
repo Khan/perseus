@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 3.0.5
+
+### Patch Changes
+
+-   [#2040](https://github.com/Khan/perseus/pull/2040) [`1496a7a93`](https://github.com/Khan/perseus/commit/1496a7a93ef691c8e34da309c10cb77d35627bf3) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Bump versions to fix release
+
 ## 3.0.4
 
 ### Patch Changes
