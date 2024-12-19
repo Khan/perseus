@@ -46,26 +46,24 @@ type DefaultProps = {
     graph: Props["graph"];
 };
 
-const defaultInteractionProps: DefaultProps = {
-    graph: {
-        box: [400, 400],
-        labels: ["x", "y"],
-        range: [
-            [-10, 10],
-            [-10, 10],
-        ],
-        tickStep: [1, 1],
-        gridStep: [1, 1],
-        markings: "graph",
-    },
-    elements: [],
-};
-
 type State = any;
 
 class InteractionEditor extends React.Component<Props, State> {
     static widgetName = "interaction" as const;
-    static defaultProps: DefaultProps = defaultInteractionProps;
+    static defaultProps: DefaultProps = {
+        graph: {
+            box: [400, 400],
+            labels: ["x", "y"],
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            tickStep: [1, 1],
+            gridStep: [1, 1],
+            markings: "graph",
+        },
+        elements: [],
+    };
 
     state: State = {
         usedVarSubscripts: this._getAllVarSubscripts(this.props.elements),

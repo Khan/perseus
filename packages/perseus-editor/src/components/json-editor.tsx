@@ -22,7 +22,7 @@ class JsonEditor extends React.Component<Props, State> {
     static displayName: "JsonEditor";
 
     static defaultProps: DefaultProps = {
-        value: 0,
+        value: {},
     };
 
     constructor(props) {

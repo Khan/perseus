@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Removing final usage of createReactApp.
+Removing final usage of createReactClass.
