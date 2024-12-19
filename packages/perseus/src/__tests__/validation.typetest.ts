@@ -7,10 +7,10 @@
  * scoring or validation.
  */
 import type {PerseusRenderer} from "../perseus-types";
-import type {RubricMap, ValidationDataMap} from "../validation.types";
+import type {ScoringDataMap, ValidationDataMap} from "../validation.types";
 
 // We can use a 'widgets' map from a PerseusRenderer as a ValidationDataMap
 0 as any as PerseusRenderer["widgets"] satisfies ValidationDataMap;
 
-// We can use a RubricMap as a ValidationDataMap
-0 as any as RubricMap satisfies ValidationDataMap;
+// We can use a ScoringDataMap as a ValidationDataMap
+0 as any as ScoringDataMap satisfies ValidationDataMap;

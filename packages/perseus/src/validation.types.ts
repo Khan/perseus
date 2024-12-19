@@ -235,64 +235,27 @@ export type PerseusTableScoringData = {
 
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 
-export type ScoringData =
-    | PerseusCategorizerScoringData
-    | PerseusDropdownScoringData
-    | PerseusExpressionScoringData
-    | PerseusGroupScoringData
-    | PerseusGradedGroupScoringData
-    | PerseusGradedGroupSetScoringData
-    | PerseusGrapherScoringData
-    | PerseusInputNumberScoringData
-    | PerseusInteractiveGraphScoringData
-    | PerseusLabelImageScoringData
-    | PerseusMatcherScoringData
-    | PerseusMatrixScoringData
-    | PerseusNumberLineScoringData
-    | PerseusNumericInputScoringData
-    | PerseusOrdererScoringData
-    | PerseusPlotterScoringData
-    | PerseusRadioScoringData
-    | PerseusSorterScoringData
-    | PerseusTableScoringData;
-
-export interface RubricRegistry {
+export interface ScoringDataRegistry {
     categorizer: PerseusCategorizerScoringData;
-    // "cs-program": PerseusCSProgramScoringData;
-    // definition: PerseusDefinitionScoringData;
     dropdown: PerseusDropdownScoringData;
-    // explanation: PerseusExplanationScoringData;
     expression: PerseusExpressionScoringData;
     grapher: PerseusGrapherScoringData;
     "graded-group-set": PerseusGradedGroupSetScoringData;
     "graded-group": PerseusGradedGroupScoringData;
     group: PerseusGroupScoringData;
-    // iframe: PerseusIFrameScoringData;
     image: PerseusLabelImageScoringData;
     "input-number": PerseusInputNumberScoringData;
-    // interaction: PerseusInteractionScoringData;
     "interactive-graph": PerseusInteractiveGraphScoringData;
     "label-image": PerseusLabelImageScoringData;
     matcher: PerseusMatcherScoringData;
     matrix: PerseusMatrixScoringData;
-    // measurer: PerseusMeasurerScoringData;
-    // "molecule-renderer": PerseusMoleculeRendererScoringData;
     "number-line": PerseusNumberLineScoringData;
     "numeric-input": PerseusNumericInputScoringData;
     orderer: PerseusOrdererScoringData;
-    // "passage-ref-target": PerseusRefTargetScoringData;
-    // "passage-ref": PerseusPassageRefScoringData;
-    // passage: PerseusPassageScoringData;
-    // "phet-simulation": PerseusPhetSimulationScoringData;
-    // "python-program": PerseusPythonProgramScoringData;
     plotter: PerseusPlotterScoringData;
     radio: PerseusRadioScoringData;
     sorter: PerseusSorterScoringData;
     table: PerseusTableScoringData;
-    // video: PerseusVideoScoringData;
-
-    // Deprecated widgets
-    // sequence: PerseusAutoCorrectScoringData;
 }
 
 /**
@@ -304,15 +267,15 @@ export interface RubricRegistry {
  * share functionality that understands how to traverse maps of `widget id` to
  * `options`.
  */
-export type RubricMap = {
-    [Property in keyof RubricRegistry as `${Property} ${number}`]: {
+export type ScoringDataMap = {
+    [Property in keyof ScoringDataRegistry as `${Property} ${number}`]: {
         type: Property;
         static?: boolean;
-        options: RubricRegistry[Property];
+        options: ScoringDataRegistry[Property];
     };
 };
 
-export type Rubric = RubricRegistry[keyof RubricRegistry];
+export type ScoringData = ScoringDataRegistry[keyof ScoringDataRegistry];
 
 // This is an interface so that it can be extended if a widget is created
 // outside of this Perseus package. See `PerseusWidgetTypes` for a full
