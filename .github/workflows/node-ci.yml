@@ -214,10 +214,21 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [20.x]
         steps:
-            # First, we need to see if any releases are in progress.
+            # We need to checkout all history, so that the changeseat tool can diff it
+            - name: Checkout current commit
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: "0"
+            - name: Ensure main branch is available
+              run: |
+                  REF=$(git rev-parse HEAD)
+                  git checkout main
+                  git checkout $REF
+
+            # We need to see if any releases are in progress.
             # We do not want to try and publish anything if a publish is
             # pending. We fail here, but we make sure to update the
-            # PR comment later.
+            # PR comment later. This has to come after the checkout.
             - name: Check for release
               id: check-release
               env:
@@ -229,19 +240,6 @@ jobs:
                     echo "Error: There are $release_count releases in progress."
                     exit 1
                   fi
-
-            # We need to checkout all history, so that the changeseat tool can diff it
-            - name: Checkout current commit
-              # Only bother if there are no releases in progress
-              if: steps.check-release.outputs.release-count == '0'
-              uses: actions/checkout@v4
-              with:
-                  fetch-depth: "0"
-            - name: Ensure main branch is available
-              run: |
-                  REF=$(git rev-parse HEAD)
-                  git checkout main
-                  git checkout $REF
 
             - name: Install & cache node_modules
               # Only bother if there are no releases in progress
