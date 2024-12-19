@@ -277,9 +277,11 @@ export type ScoringDataMap = {
 
 export type ScoringData = ScoringDataRegistry[keyof ScoringDataRegistry];
 
-// This is an interface so that it can be extended if a widget is created
-// outside of this Perseus package. See `PerseusWidgetTypes` for a full
-// explanation.
+/**
+ * This is an interface so that it can be extended if a widget is created
+ * outside of this Perseus package. See `PerseusWidgetTypes` for a full
+ * explanation.
+ */
 interface UserInputRegistry {
     categorizer: PerseusCategorizerUserInput;
     "cs-program": PerseusCSProgramUserInput;
@@ -302,14 +304,14 @@ interface UserInputRegistry {
     table: PerseusTableUserInput;
 }
 
-// A union type of all the widget user input types
-export type UserInput = UserInputRegisry[keyof UserInputRegisry];
+/** A union type of all the widget user input types */
+export type UserInput = UserInputRegistry[keyof UserInputRegistry];
 
 /**
  * A map of widget IDs to user input types (strongly typed based on the format
  * of the widget ID).
  */
-export type UserInputMap = MakeWidgetMap<UserInputRegisry>;
+export type UserInputMap = MakeWidgetMap<UserInputRegistry>;
 
 /**
  * deprecated prefer using UserInputMap
@@ -320,41 +322,8 @@ export type UserInputArray = ReadonlyArray<
 
 export interface ValidationDataTypes {
     categorizer: PerseusCategorizerValidationData;
-    // "cs-program": PerseusCSProgramValidationData;
-    // definition: PerseusDefinitionValidationData;
-    // dropdown: PerseusDropdownValidationData;
-    // explanation: PerseusExplanationValidationData;
-    // expression: PerseusExpressionValidationData;
-    // grapher: PerseusGrapherValidationData;
-    // "graded-group-set": PerseusGradedGroupSetValidationData;
-    // "graded-group": PerseusGradedGroupValidationData;
     group: PerseusGroupValidationData;
-    // iframe: PerseusIFrameValidationData;
-    // image: PerseusImageValidationData;
-    // "input-number": PerseusInputNumberValidationData;
-    // interaction: PerseusInteractionValidationData;
-    // "interactive-graph": PerseusInteractiveGraphValidationData;
-    // "label-image": PerseusLabelImageValidationData;
-    // matcher: PerseusMatcherValidationData;
-    // matrix: PerseusMatrixValidationData;
-    // measurer: PerseusMeasurerValidationData;
-    // "molecule-renderer": PerseusMoleculeRendererValidationData;
-    // "number-line": PerseusNumberLineValidationData;
-    // "numeric-input": PerseusNumericInputValidationData;
-    // orderer: PerseusOrdererValidationData;
-    // "passage-ref-target": PerseusRefTargetValidationData;
-    // "passage-ref": PerseusPassageRefValidationData;
-    // passage: PerseusPassageValidationData;
-    // "phet-simulation": PerseusPhetSimulationValidationData;
-    // "python-program": PerseusPythonProgramValidationData;
     plotter: PerseusPlotterValidationData;
-    // radio: PerseusRadioValidationData;
-    // sorter: PerseusSorterValidationData;
-    // table: PerseusTableValidationData;
-    // video: PerseusVideoValidationData;
-
-    // Deprecated widgets
-    // sequence: PerseusAutoCorrectValidationData;
 }
 
 /**
