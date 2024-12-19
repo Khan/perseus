@@ -1,5 +1,12 @@
 # @khanacademy/math-input
 
+## 22.0.7
+
+### Patch Changes
+
+-   Updated dependencies [[`4345801bf`](https://github.com/Khan/perseus/commit/4345801bfc09942e0d6dc0459d1e4d53c4f57561)]:
+    -   @khanacademy/keypad-context@1.0.12
+
 ## 22.0.6
 
 ### Patch Changes
