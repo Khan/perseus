@@ -211,7 +211,13 @@ class ExpressionEditor extends React.Component<Props, State> {
     handleRemoveForm: (answerKey: number) => void = (i) => {
         const answerForms = this.props.answerForms.slice();
         answerForms.splice(i, 1);
-        this.change({answerForms});
+
+        const updatedAnswerForms = answerForms.map((form, index) => ({
+            ...form,
+            key: index,
+        }));
+
+        this.change({answerForms: updatedAnswerForms});
     };
 
     // This function is designed to update the answerForm property
