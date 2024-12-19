@@ -239,6 +239,8 @@ jobs:
                   if [ "$release_count" -ne 0 ]; then
                     echo "Error: There are $release_count releases in progress."
                     exit 1
+                  else
+                    echo "No releases in progress."
                   fi
 
             - name: Install & cache node_modules
