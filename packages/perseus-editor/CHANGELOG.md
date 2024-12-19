@@ -1,5 +1,24 @@
 # @khanacademy/perseus-editor
 
+## 17.0.6
+
+### Patch Changes
+
+-   [#2034](https://github.com/Khan/perseus/pull/2034) [`8e9b2395d`](https://github.com/Khan/perseus/commit/8e9b2395d733b9831b3eefc064e9077341c145f5) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removing final usage of createReactClass.
+
+*   [#2037](https://github.com/Khan/perseus/pull/2037) [`b80e7882b`](https://github.com/Khan/perseus/commit/b80e7882bf58f8e71cbf9482585577032c317428) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Nothing has changed, but our action requires a changeset per package and I don't know how to do an infrastructure update like this and pass that check
+
+-   [#2033](https://github.com/Khan/perseus/pull/2033) [`881c0aac3`](https://github.com/Khan/perseus/commit/881c0aac33b5425efffc4d191f6c0c031f3a9127) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][axis labels] Make default x & y axis labels TeX on load
+
+-   Updated dependencies [[`8e9b2395d`](https://github.com/Khan/perseus/commit/8e9b2395d733b9831b3eefc064e9077341c145f5), [`b52310d1b`](https://github.com/Khan/perseus/commit/b52310d1bacd5c4e9844bb9094edc02307106af3), [`b80e7882b`](https://github.com/Khan/perseus/commit/b80e7882bf58f8e71cbf9482585577032c317428), [`881c0aac3`](https://github.com/Khan/perseus/commit/881c0aac33b5425efffc4d191f6c0c031f3a9127)]:
+    -   @khanacademy/perseus@49.1.2
+    -   @khanacademy/kas@0.4.8
+    -   @khanacademy/keypad-context@1.0.10
+    -   @khanacademy/kmath@0.1.22
+    -   @khanacademy/math-input@22.0.5
+    -   @khanacademy/perseus-core@3.0.4
+    -   @khanacademy/pure-markdown@0.3.19
+
 ## 17.0.5
 
 ### Patch Changes
