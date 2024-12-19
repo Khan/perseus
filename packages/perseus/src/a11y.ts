@@ -1,6 +1,10 @@
 /**
  * Identifies whether or not a given perseus item requires the use of a mouse
  * or screen, based on the widgets it contains.
+ *
+ * TODO(somewhatabstract): Don't land me. We're not landing this change.
+ * It's just a test to see how our snapshot release should fail if competing
+ * with a real release.
  */
 
 import _ from "underscore";
