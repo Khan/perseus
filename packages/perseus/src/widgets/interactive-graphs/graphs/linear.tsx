@@ -61,7 +61,6 @@ const LinearGraph = (props: LinearGraphProps, key: number) => {
             // Outer line minimal description
             aria-label={strings.srLinearGraph}
             aria-describedby={`${pointsDescriptionId} ${interceptDescriptionId} ${slopeDescriptionId}`}
-            role="figure"
         >
             <MovableLine
                 key={0}

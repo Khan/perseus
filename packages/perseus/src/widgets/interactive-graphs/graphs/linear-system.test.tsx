@@ -64,112 +64,6 @@ describe("Linear System graph screen reader", () => {
         );
     });
 
-    test("should have aria labels and describedbys for both points and grab handle on the line", () => {
-        // Arrange
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseLinearSystemState} />,
-        );
-
-        // Act
-        // Moveable elements: point 1, grab handle, point 2
-        const movableElements = screen.getAllByRole("button");
-        const [
-            line1Point1,
-            line1Grab,
-            line1Point2,
-            line2Point1,
-            line2Grab,
-            line2Point2,
-        ] = movableElements;
-
-        // Assert
-        // Check aria-label and describedby on interactive elements.
-        // (The actual description text is tested separately below.)
-        expect(line1Point1).toHaveAttribute(
-            "aria-label",
-            "Point 1 on line 1 at -5 comma 5.",
-        );
-        // We don't know the exact ID because of React.useID(), but we can
-        // check the suffix.
-        expect(line1Point1.getAttribute("aria-describedby")).toContain(
-            "-intercept",
-        );
-        expect(line1Point1.getAttribute("aria-describedby")).toContain(
-            "-slope",
-        );
-
-        expect(line1Grab).toHaveAttribute(
-            "aria-label",
-            "Line 1 from -5 comma 5 to 5 comma 5.",
-        );
-        expect(line1Grab.getAttribute("aria-describedby")).toContain(
-            "-intercept",
-        );
-        expect(line1Grab.getAttribute("aria-describedby")).toContain("-slope");
-
-        expect(line1Point2).toHaveAttribute(
-            "aria-label",
-            "Point 2 on line 1 at 5 comma 5.",
-        );
-        expect(line1Point2.getAttribute("aria-describedby")).toContain(
-            "-intercept",
-        );
-        expect(line1Point2.getAttribute("aria-describedby")).toContain(
-            "-slope",
-        );
-
-        expect(line2Point1).toHaveAttribute(
-            "aria-label",
-            "Point 1 on line 2 at -5 comma -5.",
-        );
-        // We don't know the exact ID because of React.useID(), but we can
-        // check the suffix.
-        expect(line2Point1.getAttribute("aria-describedby")).toContain(
-            "-intercept",
-        );
-        expect(line2Point1.getAttribute("aria-describedby")).toContain(
-            "-slope",
-        );
-
-        expect(line2Grab).toHaveAttribute(
-            "aria-label",
-            "Line 2 from -5 comma -5 to 5 comma -5.",
-        );
-        expect(line2Grab.getAttribute("aria-describedby")).toContain(
-            "-intercept",
-        );
-        expect(line2Grab.getAttribute("aria-describedby")).toContain("-slope");
-
-        expect(line2Point2).toHaveAttribute(
-            "aria-label",
-            "Point 2 on line 2 at 5 comma -5.",
-        );
-        expect(line2Point2.getAttribute("aria-describedby")).toContain(
-            "-intercept",
-        );
-        expect(line2Point2.getAttribute("aria-describedby")).toContain(
-            "-slope",
-        );
-    });
-
-    test("points description should include points info", () => {
-        // Arrange
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseLinearSystemState} />,
-        );
-
-        // Act
-        const linearSystemGraph = screen.getByLabelText(overallGraphLabel);
-
-        // Assert
-        expect(linearSystemGraph).toHaveTextContent(
-            "Line 1 has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5.",
-        );
-        expect(linearSystemGraph).toHaveTextContent(
-            "Line 2 has two points, point 1 at -5 comma -5 and point 2 at 5 comma -5.",
-        );
-    });
-
     // Test each line in the linear system graph separately.
     describe.each`
         lineSequence
@@ -282,6 +176,33 @@ describe("Linear System graph screen reader", () => {
             expect(point2).toHaveAttribute(
                 "aria-label",
                 `Point 2 on line ${lineSequence} at 3 comma 3.`,
+            );
+        });
+
+        test.each`
+            element         | index
+            ${"point1"}     | ${0}
+            ${"grabHandle"} | ${1}
+            ${"point2"}     | ${2}
+        `("should have describedby on all interactive elements", ({index}) => {
+            // Arrange
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={baseLinearSystemState}
+                />,
+            );
+
+            // Act
+            const interactiveElements = screen.getAllByRole("button");
+            const element = interactiveElements[index + (lineSequence - 1) * 3];
+
+            // Assert
+            expect(element.getAttribute("aria-describedby")).toContain(
+                "-slope",
+            );
+            expect(element.getAttribute("aria-describedby")).toContain(
+                "-intercept",
             );
         });
 
