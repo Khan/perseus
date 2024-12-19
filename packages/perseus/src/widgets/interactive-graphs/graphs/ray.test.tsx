@@ -53,30 +53,28 @@ describe("Linear graph screen reader", () => {
         expect(linearGraph).toHaveAttribute("aria-describedby", ":r1:-points");
     });
 
-    test("should have aria labels and describedbys for both points and grab handle on the line", () => {
-        // Arrange
-        render(<MafsGraph {...baseMafsGraphProps} state={baseLinearState} />);
+    test.each`
+        element         | index | expectedValue
+        ${"point1"}     | ${0}  | ${"Endpoint at -5 comma 5."}
+        ${"grabHandle"} | ${1}  | ${"Ray from endpoint -5 comma 5 to terminal point 5 comma 5."}
+        ${"point2"}     | ${2}  | ${"Terminal point at 5 comma 5."}
+    `(
+        "should have aria label for $element on the line",
+        ({index, expectedValue}) => {
+            // Arrange
+            render(
+                <MafsGraph {...baseMafsGraphProps} state={baseLinearState} />,
+            );
 
-        // Act
-        // Moveable elements: point 1, grab handle, point 2
-        const movableElements = screen.getAllByRole("button");
-        const [point1, grabHandle, point2] = movableElements;
+            // Act
+            // Moveable elements: point 1, grab handle, point 2
+            const movableElements = screen.getAllByRole("button");
+            const element = movableElements[index];
 
-        // Assert
-        // Check aria-label and describedby on interactive elements.
-        // (The actual description text is tested separately below.)
-        expect(point1).toHaveAttribute("aria-label", "Endpoint at -5 comma 5.");
-
-        expect(grabHandle).toHaveAttribute(
-            "aria-label",
-            "Ray from endpoint -5 comma 5 to terminal point 5 comma 5.",
-        );
-
-        expect(point2).toHaveAttribute(
-            "aria-label",
-            "Terminal point at 5 comma 5.",
-        );
-    });
+            // Assert
+            expect(element).toHaveAttribute("aria-label", expectedValue);
+        },
+    );
 
     test("points description should include points info", () => {
         // Arrange
