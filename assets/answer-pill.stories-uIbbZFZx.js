@@ -1,0 +1,35 @@
+import{j as C}from"./jsx-runtime-63Ea5SlK.js";import{A as t}from"./answer-pill-wxXzcw56.js";import"./index-6oxdNXpR.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./index-hgFKmD12.js";import"./index-awljIyHI.js";import"./index-NVT999Ia.js";import"./index-CgfdZoMj.js";import"./index-dmcq622U.js";import"./index-6ID5EQ9c.js";import"./Popper-Y5KDXl-P.js";import"./index-9gkyvru-.js";import"./i18n-context-BsFRgdNa.js";import"./renderer-bdvagGDy.js";import"./version-akiLXZts.js";import"./perseus-error-l3K_anoI.js";import"./index-J2t_5nK1.js";import"./index-dnMhQZ-1.js";import"./jquery-yG1GhClm.js";import"./asset-context-H6Iqp7Gi.js";import"./svg-image--maxZNcn.js";import"./index-JG9NzwvL.js";import"./dependencies-CP7Uh8Kq.js";import"./util-_iDv4tVD.js";import"./fixed-to-responsive-for_tVF1.js";import"./constants-iPV6vHZm.js";import"./client-Rb4DelHy.js";import"./inline-icon-6fh0Wu1y.js";import"./icon-paths-5JCXzGsq.js";import"./image-loader-17De8yEj.js";import"./tex-MX5FPdQh.js";import"./zoomable-_uYFBX1Q.js";import"./zoomable-tex-Jjwex-Ep.js";import"./perseus-api-ooj0_ZRv.js";import"./index-o42urCig.js";import"./stub-tag-editor-zsURaARz.js";import"./text-list-editor-K49FGdd7.js";import"./lint-CRWxUAIQ.js";const or={title:"Perseus/Widgets/Label Image/Answer Pill",component:t,render:k=>C.jsx(t,{...k}),argTypes:{showCorrectness:{options:["not answered","correct","incorrect"],control:{type:"radio"}}}},r={args:{id:"1",selectedAnswers:["Answer Pill"],markerRef:null,side:"top",onClick:()=>{}}},e={args:{id:"1",selectedAnswers:["Answer 1","Answer 2"],markerRef:null,side:"top",onClick:()=>{}}},s={args:{id:"1",selectedAnswers:["Right Answer"],showCorrectness:"correct",markerRef:null,side:"top",onClick:()=>{}}},o={args:{id:"1",selectedAnswers:["Wrong Answer"],showCorrectness:"incorrect",markerRef:null,side:"top",onClick:()=>{}}};var n,i,c;r.parameters={...r.parameters,docs:{...(n=r.parameters)==null?void 0:n.docs,source:{originalSource:`{
+  args: {
+    id: "1",
+    selectedAnswers: ["Answer Pill"],
+    markerRef: null,
+    side: "top",
+    onClick: () => {}
+  }
+}`,...(c=(i=r.parameters)==null?void 0:i.docs)==null?void 0:c.source}}};var p,m,a;e.parameters={...e.parameters,docs:{...(p=e.parameters)==null?void 0:p.docs,source:{originalSource:`{
+  args: {
+    id: "1",
+    selectedAnswers: ["Answer 1", "Answer 2"],
+    markerRef: null,
+    side: "top",
+    onClick: () => {}
+  }
+}`,...(a=(m=e.parameters)==null?void 0:m.docs)==null?void 0:a.source}}};var l,d,w;s.parameters={...s.parameters,docs:{...(l=s.parameters)==null?void 0:l.docs,source:{originalSource:`{
+  args: {
+    id: "1",
+    selectedAnswers: ["Right Answer"],
+    showCorrectness: "correct",
+    markerRef: null,
+    side: "top",
+    onClick: () => {}
+  }
+}`,...(w=(d=s.parameters)==null?void 0:d.docs)==null?void 0:w.source}}};var u,A,g;o.parameters={...o.parameters,docs:{...(u=o.parameters)==null?void 0:u.docs,source:{originalSource:`{
+  args: {
+    id: "1",
+    selectedAnswers: ["Wrong Answer"],
+    showCorrectness: "incorrect",
+    markerRef: null,
+    side: "top",
+    onClick: () => {}
+  }
+}`,...(g=(A=o.parameters)==null?void 0:A.docs)==null?void 0:g.source}}};const tr=["SingleAnswer","MultipleAnswers","Correct","Incorrect"];export{s as Correct,o as Incorrect,e as MultipleAnswers,r as SingleAnswer,tr as __namedExportsOrder,or as default};
