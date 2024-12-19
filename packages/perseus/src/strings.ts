@@ -209,6 +209,17 @@ export type PerseusStrings = {
         yIntercept: string;
     }) => string;
     srLinearGraphOriginIntercept: string;
+    srLinearGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
     srAngleSideAtCoordinates: ({
         point,
         side,
@@ -538,6 +549,12 @@ export const strings: {
             "Screenreader-only description of the line's intercept when the intercept is the graph's origin.",
         message: "The line crosses the x and y axes at the graph's origin.",
     },
+    srLinearGrabHandle: {
+        context:
+            "Screenreader-only label on the grab handle for the line on a linear graph.",
+        message:
+            "Line from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
+    },
     srAngleSideAtCoordinates: {
         context:
             "Screenreader-accessible description of the side / vertex of an angle graph",
@@ -776,6 +793,8 @@ export const mockStrings: PerseusStrings = {
         `The line crosses the X-axis at ${xIntercept} comma 0 and the Y-axis at 0 comma ${yIntercept}.`,
     srLinearGraphOriginIntercept:
         "The line crosses the x and y axes at the graph's origin.",
+    srLinearGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Line from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
     srAngleSideAtCoordinates: ({point, side, x, y}) =>
         `Point ${point}, ${side} at ${x} comma ${y}`,
     srAngleVertexAtCoordinatesWithAngleMeasure: ({x, y, angleMeasure}) =>
