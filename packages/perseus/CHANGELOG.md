@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 49.1.4
+
+### Patch Changes
+
+-   [#2045](https://github.com/Khan/perseus/pull/2045) [`57f9056f8`](https://github.com/Khan/perseus/commit/57f9056f82775e80a15d9097a8d85df4bc37343a) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Version bump to verify release protections
+
 ## 49.1.3
 
 ### Patch Changes
