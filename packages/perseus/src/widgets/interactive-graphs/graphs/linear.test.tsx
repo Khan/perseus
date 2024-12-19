@@ -56,36 +56,54 @@ describe("Linear graph screen reader", () => {
         );
     });
 
-    test("should have aria labels and describedbys for both points and grab handle on the line", () => {
+    test.each`
+        element         | index | expectedValue
+        ${"point1"}     | ${0}  | ${"Point 1 at -5 comma 5"}
+        ${"grabHandle"} | ${1}  | ${"Line from -5 comma 5 to 5 comma 5."}
+        ${"point2"}     | ${2}  | ${"Point 2 at 5 comma 5"}
+    `(
+        "should have aria label for $element on the line",
+        ({index, expectedValue}) => {
+            // Arrange
+            render(
+                <MafsGraph {...baseMafsGraphProps} state={baseLinearState} />,
+            );
+
+            // Act
+            // Moveable elements: point 1, grab handle, point 2
+            const movableElements = screen.getAllByRole("button");
+            const element = movableElements[index];
+
+            // Assert
+            // Check aria-label and describedby on interactive elements.
+            // (The actual description text is tested separately below.)
+            expect(element).toHaveAttribute("aria-label", expectedValue);
+        },
+    );
+
+    test.each`
+        element         | index
+        ${"point1"}     | ${0}
+        ${"grabHandle"} | ${1}
+        ${"point2"}     | ${2}
+    `("should have aria describedby for $element on the line", ({index}) => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseLinearState} />);
 
         // Act
         // Moveable elements: point 1, grab handle, point 2
         const movableElements = screen.getAllByRole("button");
-        const [point1, grabHandle, point2] = movableElements;
+        const element = movableElements[index];
 
         // Assert
-        // Check aria-label and describedby on interactive elements.
+        // Check aria-describedby on interactive elements.
         // (The actual description text is tested separately below.)
-        expect(point1).toHaveAttribute("aria-label", "Point 1 at -5 comma 5");
         // We don't know the exact ID because of React.useID(), but we can
         // check the suffix.
-        expect(point1.getAttribute("aria-describedby")).toContain("-intercept");
-        expect(point1.getAttribute("aria-describedby")).toContain("-slope");
-
-        expect(grabHandle).toHaveAttribute(
-            "aria-label",
-            "Line from -5 comma 5 to 5 comma 5.",
-        );
-        expect(grabHandle.getAttribute("aria-describedby")).toContain(
+        expect(element.getAttribute("aria-describedby")).toContain(
             "-intercept",
         );
-        expect(grabHandle.getAttribute("aria-describedby")).toContain("-slope");
-
-        expect(point2).toHaveAttribute("aria-label", "Point 2 at 5 comma 5");
-        expect(point2.getAttribute("aria-describedby")).toContain("-intercept");
-        expect(point2.getAttribute("aria-describedby")).toContain("-slope");
+        expect(element.getAttribute("aria-describedby")).toContain("-slope");
     });
 
     test("points description should include points info", () => {
