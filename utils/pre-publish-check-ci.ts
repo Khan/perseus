@@ -21,10 +21,13 @@ fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
             // eslint-disable-next-line @typescript-eslint/no-require-imports
             const pkgJson = require(path.relative(__dirname, pkgPath));
 
-            if (!checkPrivate(pkgJson)) {
-                checkPublishConfig(pkgJson);
-                checkEntrypoints(pkgJson);
-                checkSource(pkgJson);
+            if (
+                !checkPrivate(pkgJson) &&
+                !checkPublishConfig(pkgJson) &&
+                !checkEntrypoints(pkgJson) &&
+                !checkSource(pkgJson)
+            ) {
+                process.exit(1);
             }
         }
     },

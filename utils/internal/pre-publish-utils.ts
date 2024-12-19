@@ -7,7 +7,9 @@ const checkPublishConfig = ({
     publishConfig,
     private: isPrivate,
     scripts,
-}) => {
+}): boolean => {
+    let returnCode = true;
+
     // first check if is marked as public and there's access to publish the current package
     if (!publishConfig || (!isPrivate && publishConfig.access !== "public")) {
         const requiredAccessType = isPrivate ? "restricted" : "public";
@@ -15,7 +17,7 @@ const checkPublishConfig = ({
         console.error(
             `ERROR: ${name} is missing a "publishConfig": {"access": "${requiredAccessType}"} section.`,
         );
-        process.exit(1);
+        returnCode = false;
     }
 
     // also check if is marked as private and there's restricted access defined
@@ -23,7 +25,7 @@ const checkPublishConfig = ({
         console.error(
             `ERROR: ${name} is marked as private but there is a "publishConfig": {"access": "public"} section already defined. Please change it to "access": "restricted" or remove "private": true to make the package public.`,
         );
-        process.exit(1);
+        returnCode = false;
     }
 
     // check that we are running our pre-publish check for this package
@@ -34,11 +36,13 @@ const checkPublishConfig = ({
         console.error(
             `ERROR: ${name} must have a "prepublishOnly" script that runs "utils/package-pre-publish-check.sh".`,
         );
-        process.exit(1);
+        returnCode = false;
     }
+    return returnCode;
 };
 
-const checkField = (pkgJson, field, value) => {
+const checkField = (pkgJson, field, value): boolean => {
+    let returnCode = true;
     if (Array.isArray(value)) {
         if (!value.includes(pkgJson[field])) {
             console.error(
@@ -48,29 +52,29 @@ const checkField = (pkgJson, field, value) => {
                     .map((value) => JSON.stringify(value))
                     .join(", ")}.`,
             );
-            process.exit(1);
+            returnCode = false;
         }
-    } else {
-        if (pkgJson[field] !== value) {
-            console.error(
-                `ERROR: ${
-                    pkgJson.name
-                } must have a "${field}" set to ${JSON.stringify(value)}.`,
-            );
-            process.exit(1);
-        }
+    } else if (pkgJson[field] !== value) {
+        console.error(
+            `ERROR: ${
+                pkgJson.name
+            } must have a "${field}" set to ${JSON.stringify(value)}.`,
+        );
+        returnCode = false;
     }
+    return returnCode;
 };
 
-const checkMain = (pkgJson) => checkField(pkgJson, "main", "dist/index.js");
+const checkMain = (pkgJson): boolean =>
+    checkField(pkgJson, "main", "dist/index.js");
 
-const checkModule = (pkgJson) =>
+const checkModule = (pkgJson): boolean =>
     checkField(pkgJson, "module", "dist/es/index.js");
 
-const checkSource = (pkgJson) =>
+const checkSource = (pkgJson): boolean =>
     checkField(pkgJson, "source", ["src/index.js", "src/index.ts"]);
 
-const checkPrivate = (pkgJson) => {
+const checkPrivate = (pkgJson): boolean => {
     if (pkgJson.private) {
         console.warn(
             `${pkgJson.name} is private and won't be published to NPM.`,
@@ -80,9 +84,7 @@ const checkPrivate = (pkgJson) => {
     return false;
 };
 
-const checkEntrypoints = (pkgJson) => {
-    checkModule(pkgJson);
-    checkMain(pkgJson);
-};
+const checkEntrypoints = (pkgJson): boolean =>
+    checkModule(pkgJson) && checkMain(pkgJson);
 
 export {checkPublishConfig, checkEntrypoints, checkSource, checkPrivate};
