@@ -14,11 +14,8 @@ describe("scoreMatcher", () => {
         };
 
         const scoringData: PerseusMatcherScoringData = {
-            labels: ["One", "Two"],
             left: ["1", "0+1"],
             right: ["2", "0+2"],
-            orderMatters: false,
-            padding: false,
         };
 
         // Act
@@ -31,11 +28,8 @@ describe("scoreMatcher", () => {
     it("can be answered correctly", () => {
         // Arrange
         const scoringData: PerseusMatcherScoringData = {
-            labels: ["One", "Two"],
             left: ["1", "0+1"],
             right: ["2", "0+2"],
-            orderMatters: false,
-            padding: false,
         };
 
         const userInput: PerseusMatcherUserInput = {

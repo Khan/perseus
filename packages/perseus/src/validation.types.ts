@@ -36,7 +36,6 @@ import type {
     PerseusGradedGroupWidgetOptions,
     PerseusGraphType,
     PerseusGroupWidgetOptions,
-    PerseusMatcherWidgetOptions,
     PerseusMatrixWidgetAnswers,
     PerseusNumericInputAnswer,
     PerseusOrdererWidgetOptions,
@@ -144,7 +143,12 @@ export type PerseusLabelImageUserInput = {
     }>;
 };
 
-export type PerseusMatcherScoringData = PerseusMatcherWidgetOptions;
+export type PerseusMatcherScoringData = {
+    // Translatable Text; Static concepts to show in the left column. e.g. ["Fruit", "Color", "Clothes"]
+    left: ReadonlyArray<string>;
+    // Translatable Markup; Values that represent the concepts to be correlated with the concepts.  e.g. ["Red", "Shirt", "Banana"]
+    right: ReadonlyArray<string>;
+};
 
 export type PerseusMatcherUserInput = {
     left: ReadonlyArray<string>;

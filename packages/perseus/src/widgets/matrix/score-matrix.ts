@@ -17,9 +17,9 @@ function scoreMatrix(
     scoringData: PerseusMatrixScoringData,
     strings: PerseusStrings,
 ): PerseusScore {
-    const validationResult = validateMatrix(userInput, scoringData, strings);
-    if (validationResult != null) {
-        return validationResult;
+    const validationError = validateMatrix(userInput, scoringData, strings);
+    if (validationError != null) {
+        return validationError;
     }
 
     const solution = scoringData.answers;
