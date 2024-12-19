@@ -57,7 +57,6 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
         <g
             aria-label={wholeSegmentAriaLabel}
             aria-describedby="segment-description"
-            role="figure"
         >
             {segments?.map((segment, i) => (
                 <MovableLine
