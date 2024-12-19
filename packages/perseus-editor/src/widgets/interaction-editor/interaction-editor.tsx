@@ -21,10 +21,32 @@ import ParametricEditor from "./parametric-editor";
 import PointEditor from "./point-editor";
 import RectangleEditor from "./rectangle-editor";
 
+import type {Coords} from "@khanacademy/perseus";
+
 const {getDependencies} = Dependencies;
 const {unescapeMathMode} = Util;
 
-const defaultInteractionProps = {
+type Graph = {
+    box: ReadonlyArray<number>;
+    labels: ReadonlyArray<string>;
+    range: Coords;
+    tickStep: ReadonlyArray<number>;
+    gridStep: ReadonlyArray<number>;
+    markings: "graph" | "grid" | "none";
+    valid?: boolean;
+};
+
+type Props = Changeable.ChangeableProps & {
+    elements: ReadonlyArray<any>;
+    graph: Graph;
+};
+
+type DefaultProps = {
+    elements: Props["elements"];
+    graph: Props["graph"];
+};
+
+const defaultInteractionProps: DefaultProps = {
     graph: {
         box: [400, 400],
         labels: ["x", "y"],
@@ -37,26 +59,6 @@ const defaultInteractionProps = {
         markings: "graph",
     },
     elements: [],
-} as const;
-
-type Graph = {
-    box: ReadonlyArray<number>;
-    labels: ReadonlyArray<string>;
-    range: ReadonlyArray<ReadonlyArray<number>>;
-    tickStep: ReadonlyArray<number>;
-    gridStep: ReadonlyArray<number>;
-    markings: string;
-    valid?: boolean;
-};
-
-type Props = Changeable.ChangeableProps & {
-    elements: ReadonlyArray<any>;
-    graph: Graph;
-};
-
-type DefaultProps = {
-    elements: Props["elements"];
-    graph: Props["graph"];
 };
 
 type State = any;
