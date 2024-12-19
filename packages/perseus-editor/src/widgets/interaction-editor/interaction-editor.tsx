@@ -30,8 +30,8 @@ type Graph = {
     box: ReadonlyArray<number>;
     labels: ReadonlyArray<string>;
     range: Coords;
-    tickStep: ReadonlyArray<number>;
-    gridStep: ReadonlyArray<number>;
+    tickStep: [number, number];
+    gridStep: [number, number];
     markings: "graph" | "grid" | "none";
     valid?: boolean;
 };

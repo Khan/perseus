@@ -29,13 +29,15 @@ function numSteps(range: any, step: any) {
     return Math.floor((range[1] - range[0]) / step);
 }
 type Props = {
-    editableSettings: any[];
+    editableSettings: ReadonlyArray<
+        "canvas" | "graph" | "snap" | "image" | "measure"
+    >;
     box: readonly number[];
     labels: readonly string[];
     range: Coords;
-    step: readonly number[];
-    gridStep: readonly number[];
-    snapStep: number[];
+    step: [number, number];
+    gridStep: [number, number];
+    snapStep: [number, number];
     valid: boolean;
     backgroundImage: any;
     markings: "graph" | "grid" | "none";
@@ -100,7 +102,7 @@ class GraphSettings extends React.Component<Props, State> {
         showTooltips: false,
     };
 
-    _isMounted: any;
+    _isMounted = false;
 
     constructor(props) {
         super(props);
@@ -131,8 +133,6 @@ class GraphSettings extends React.Component<Props, State> {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-        // Make sure that state updates when switching
-        // between different items in a multi-item editor.
         if (
             !_.isEqual(this.props.labels, nextProps.labels) ||
             !_.isEqual(this.props.gridStep, nextProps.gridStep) ||
@@ -358,7 +358,9 @@ class GraphSettings extends React.Component<Props, State> {
         const scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
         if (this.validRange(ranges[i]) === true) {
             step[i] = Util.tickStepFromExtent(ranges[i], this.props.box[i]);
-            // don't like this use of as. :(
+            // Need to use the cast to number since gridStepFromTickStep
+            // can return null or undefined. Ideally in the future let's adjust
+            // the code to take this into account.
             gridStep[i] = Util.gridStepFromTickStep(step[i], scale) as number;
             snapStep[i] = gridStep[i] / 2;
         }
