@@ -216,11 +216,17 @@ jobs:
         steps:
             # First, we need to see if any releases are in progress.
             # We do not want to try and publish anything if a publish is
-            # pending.
+            # pending. We fail here, but we make sure to update the
+            # PR comment later.
             - name: Check for release
               id: check-release
               run: |
-                  echo "release-count=$(gh run list --workflow release.yml --json status --jq '[.[] | select(.status == "in_progress")] | length')" >> $GITHUB_OUTPUT
+                  release_count=$(gh run list --workflow release.yml --json status --jq '[.[] | select(.status == "in_progress")] | length')
+                  echo "release_count=$release_count" >> $GITHUB_OUTPUT
+                  if [ "$release_count" -ne 0 ]; then
+                    echo "Error: There are $release_count releases in progress."
+                    exit 1
+                  fi
 
             # We need to checkout all history, so that the changeseat tool can diff it
             - name: Checkout current commit
@@ -263,6 +269,8 @@ jobs:
             # Note: these two actions are locked to the latest version that were
             # published when I created this yml file (just for security).
             - name: Find existing comment
+              # Even if we're failing, we want to update the comments.
+              if: always()
               uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
               id: find-comment
               with:
@@ -311,7 +319,7 @@ jobs:
                       publish an npm snapshot for you.
 
             - name: Create or update npm snapshot comment - failure, concurrent with release
-              if: steps.publish-snapshot.outputs.npm_snapshot_tag == '' && steps.check-release.outputs.release-count != '0'
+              if: always() && steps.publish-snapshot.outputs.npm_snapshot_tag == '' && steps.check-release.outputs.release-count != '0'
               uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
