@@ -303,7 +303,7 @@ jobs:
                       ```
 
             - name: Create or update npm snapshot comment - failure, snapshot publish failed
-              if: steps.publish-snapshot.outputs.npm_snapshot_tag == '' && steps.check-release.outputs.release-count == '0'
+              if: steps.publish-snapshot.outputs.npm_snapshot_tag == ''
               uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
@@ -317,7 +317,7 @@ jobs:
                       publish an npm snapshot for you.
 
             - name: Create or update npm snapshot comment - failure, concurrent with release
-              if: failure() && steps.check-release.outputs.release-count != '0'
+              if: failure() && steps.check-release.outputs.release_count != '0'
               uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
