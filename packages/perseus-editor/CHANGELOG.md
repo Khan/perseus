@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 17.0.9
+
+### Patch Changes
+
+-   Updated dependencies [[`4345801bf`](https://github.com/Khan/perseus/commit/4345801bfc09942e0d6dc0459d1e4d53c4f57561)]:
+    -   @khanacademy/keypad-context@1.0.12
+    -   @khanacademy/math-input@22.0.7
+    -   @khanacademy/perseus@49.1.5
+
 ## 17.0.8
 
 ### Patch Changes
