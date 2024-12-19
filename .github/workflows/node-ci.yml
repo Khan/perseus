@@ -220,6 +220,8 @@ jobs:
             # PR comment later.
             - name: Check for release
               id: check-release
+              env:
+                  GH_TOKEN: ${{ github.token }}
               run: |
                   release_count=$(gh run list --workflow release.yml --json status --jq '[.[] | select(.status == "in_progress")] | length')
                   echo "release_count=$release_count" >> $GITHUB_OUTPUT
