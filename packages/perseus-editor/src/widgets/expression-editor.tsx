@@ -189,13 +189,14 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     _newEmptyAnswerForm: () => any = () => {
+        const newKey = _makeNewKey(this.props.answerForms)
         return {
             considered: "correct",
             form: false,
 
             // note: the key means "n-th form created" - not "form in
             // position n" and will stay the same for the life of this form
-            key: _makeNewKey(this.props.answerForms),
+            key: `${newKey}`,
 
             simplify: false,
             value: "",
@@ -206,20 +207,13 @@ class ExpressionEditor extends React.Component<Props, State> {
         const answerForms = this.props.answerForms.slice();
         answerForms.push(this._newEmptyAnswerForm());
         this.change({answerForms});
-        console.log("newAnswer", answerForms)
     };
 
     handleRemoveForm: (answerKey: number) => void = (i) => {
         const answerForms = this.props.answerForms.slice();
         answerForms.splice(i, 1);
 
-        const updatedAnswerForms = answerForms.map((form, index) => ({
-            ...form,
-            key: `${index}`,
-        }));
-
-        this.change({answerForms: updatedAnswerForms});
-        console.log(answerForms)
+        this.change({answerForms});
     };
 
     // This function is designed to update the answerForm property
