@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 17.0.11
+
+### Patch Changes
+
+-   [#2042](https://github.com/Khan/perseus/pull/2042) [`705d74b69`](https://github.com/Khan/perseus/commit/705d74b69351a6239cd7fe21a0dfc7d4133dfd9f) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - fix for editor
+
 ## 17.0.10
 
 ### Patch Changes
