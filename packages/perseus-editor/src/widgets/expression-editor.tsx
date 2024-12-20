@@ -189,13 +189,14 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     _newEmptyAnswerForm: () => any = () => {
+        const newKey = _makeNewKey(this.props.answerForms);
         return {
             considered: "correct",
             form: false,
 
             // note: the key means "n-th form created" - not "form in
             // position n" and will stay the same for the life of this form
-            key: _makeNewKey(this.props.answerForms),
+            key: `${newKey}`,
 
             simplify: false,
             value: "",
@@ -211,7 +212,11 @@ class ExpressionEditor extends React.Component<Props, State> {
     handleRemoveForm: (answerKey: number) => void = (i) => {
         const answerForms = this.props.answerForms.slice();
         answerForms.splice(i, 1);
-        this.change({answerForms});
+        const updatedAnswerForms = answerForms.map((form, index) => ({
+            ...form,
+            key: `${index}`,
+        }));
+        this.change({answerForms: updatedAnswerForms});
     };
 
     // This function is designed to update the answerForm property
@@ -344,7 +349,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         const answerOptions: React.JSX.Element[] = this.props.answerForms.map(
-            (ans: AnswerForm) => {
+            (ans: AnswerForm, index: number) => {
                 const key = parseAnswerKey(ans);
 
                 const expressionProps: Partial<
@@ -376,7 +381,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                         expressionProps={expressionProps}
                         form={ans.form}
                         simplify={ans.simplify}
-                        onDelete={() => this.handleRemoveForm(key)}
+                        onDelete={() => this.handleRemoveForm(index)}
                         onChangeSimplify={(simplify) =>
                             this.changeSimplify(key, simplify)
                         }
@@ -565,6 +570,7 @@ class AnswerOption extends React.Component<
 
     handleImSure = () => {
         this.props.onDelete();
+        this.handleCancelDelete();
     };
 
     handleCancelDelete = () => {
