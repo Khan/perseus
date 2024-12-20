@@ -1,5 +1,11 @@
 # @khanacademy/kmath
 
+## 0.1.24
+
+### Patch Changes
+
+-   [#2049](https://github.com/Khan/perseus/pull/2049) [`9c17ab518`](https://github.com/Khan/perseus/commit/9c17ab5188052bb0f42de615e48af1a7439f2770) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Bump version for one last test of the release protections.
+
 ## 0.1.23
 
 ### Patch Changes
