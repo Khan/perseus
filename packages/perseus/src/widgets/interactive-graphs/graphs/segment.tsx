@@ -12,6 +12,7 @@ import type {
     Dispatch,
     InteractiveGraphElementSuite,
     MafsGraphProps,
+    PairOfPoints,
     SegmentGraphState,
 } from "../types";
 import type {vec} from "mafs";
@@ -31,19 +32,23 @@ type SegmentProps = MafsGraphProps<SegmentGraphState>;
 const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     const {coords: segments} = graphState;
     const {strings, locale} = usePerseusI18n();
-    const lengthOfSegment =
-        segments[0] && kpoint.distanceToPoint(...segments[0]);
-
     const wholeSegmentAriaLabel = strings.srSegmentGraphAriaLabel;
-    const wholeSegmentAriaDescription =
-        segments[0] &&
-        strings.srSegmentGraphAriaDescription({
-            point1X: srFormatNumber(segments[0][0][X], locale),
-            point1Y: srFormatNumber(segments[0][0][Y], locale),
-            point2X: srFormatNumber(segments[0][1][X], locale),
-            point2Y: srFormatNumber(segments[0][1][Y], locale),
-            length: srFormatNumber(lengthOfSegment, locale),
+
+    function getLengthOfSegment(segment: PairOfPoints) {
+        return kpoint.distanceToPoint(...segment);
+    }
+
+    function getWholeSegmentAriaDescription(segment: PairOfPoints, index: number) {
+        const indexOfSegment = index + 1;
+        return strings.srSegmentGraphAriaDescription({
+            point1X: srFormatNumber(segment[0][X], locale),
+            point1Y: srFormatNumber(segment[0][Y], locale),
+            point2X: srFormatNumber(segment[1][X], locale),
+            point2Y: srFormatNumber(segment[1][Y], locale),
+            length: srFormatNumber(getLengthOfSegment(segment), locale),
+            indexOfSegment: indexOfSegment,
         });
+    }
 
     function formatSegment(endpointNumber: number, x: number, y: number) {
         return strings.srSegmentGraphEndpointAriaLabel({
@@ -54,46 +59,52 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     }
 
     return (
-        <g
-            aria-label={wholeSegmentAriaLabel}
-            aria-describedby="segment-description"
-        >
+        <>
             {segments?.map((segment, i) => (
-                <MovableLine
+                <g
+                    aria-label={wholeSegmentAriaLabel}
+                    aria-describedby={`segment-description-${i}`}
                     key={i}
-                    points={segment}
-                    onMoveLine={(delta: vec.Vector2) => {
-                        dispatch(actions.segment.moveLine(i, delta));
-                    }}
-                    onMovePoint={(
-                        endpointIndex: number,
-                        destination: vec.Vector2,
-                    ) => {
-                        dispatch(
-                            actions.segment.movePointInFigure(
-                                i,
-                                endpointIndex,
-                                destination,
+                >
+                    <MovableLine
+                        key={i}
+                        points={segment}
+                        onMoveLine={(delta: vec.Vector2) => {
+                            dispatch(actions.segment.moveLine(i, delta));
+                        }}
+                        onMovePoint={(
+                            endpointIndex: number,
+                            destination: vec.Vector2,
+                        ) => {
+                            dispatch(
+                                actions.segment.movePointInFigure(
+                                    i,
+                                    endpointIndex,
+                                    destination,
+                                ),
+                            );
+                        }}
+                        ariaLabels={{
+                            point1AriaLabel: formatSegment(
+                                1,
+                                segment[0][X],
+                                segment[0][Y],
                             ),
-                        );
-                    }}
-                    ariaLabels={{
-                        point1AriaLabel: formatSegment(
-                            1,
-                            segment[0][X],
-                            segment[0][Y],
-                        ),
-                        point2AriaLabel: formatSegment(
-                            2,
-                            segment[1][X],
-                            segment[1][Y],
-                        ),
-                    }}
-                />
+                            point2AriaLabel: formatSegment(
+                                2,
+                                segment[1][X],
+                                segment[1][Y],
+                            ),
+                        }}
+                    />
+                    <g
+                        id={`segment-description-${i}`}
+                        style={{display: "hidden"}}
+                    >
+                        {getWholeSegmentAriaDescription(segment, i)}
+                    </g>
+                </g>
             ))}
-            <g id="segment-description" style={{display: "hidden"}}>
-                {wholeSegmentAriaDescription}
-            </g>
-        </g>
+        </>
     );
 };
