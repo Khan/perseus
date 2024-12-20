@@ -225,6 +225,11 @@ jobs:
                   git checkout main
                   git checkout $REF
 
+            # Helper to get the URL of the current run, if we need it.
+            - name: Get workflow run URL
+              id: get-run-url
+              run: echo "run_url=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+
             # We need to see if any releases are in progress.
             # We do not want to try and publish anything if a publish is
             # pending. We fail here, but we make sure to update the
