@@ -79,7 +79,6 @@ class Dropdown extends React.Component<Props> implements Widget {
                     <Renderer
                         content={this.props.placeholder}
                         strings={this.context.strings}
-                        inline
                     />
                 }
                 labelAsText={this.props.placeholder}
@@ -92,7 +91,6 @@ class Dropdown extends React.Component<Props> implements Widget {
                         <Renderer
                             content={choice}
                             strings={this.context.strings}
-                            inline
                         />
                     }
                     labelAsText={choice}
