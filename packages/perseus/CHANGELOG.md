@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 49.1.7
+
+### Patch Changes
+
+-   [#2054](https://github.com/Khan/perseus/pull/2054) [`f23b383e7`](https://github.com/Khan/perseus/commit/f23b383e797a522ddee064c79e582467dfc08f94) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Dropdown] Bugfix - Render options and placeholder inline
+
 ## 49.1.6
 
 ### Patch Changes
