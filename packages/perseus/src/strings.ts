@@ -588,7 +588,7 @@ export const strings: {
         context:
             "Screenreader-only description of a line segment on a coordinate plane.",
         message:
-            "Segment %(indexOfSegment)s. Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s. Segment length %(length)s",
+            "Segment %(indexOfSegment)s. Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s. Segment length %(length)s units.",
     },
     srSegmentGraphEndpointAriaLabel: {
         context:
@@ -821,7 +821,7 @@ export const mockStrings: PerseusStrings = {
         length,
         indexOfSegment
     }) =>
-        `Segment ${indexOfSegment}. Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}. Segment length ${length}`,
+        `Segment ${indexOfSegment}. Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}. Segment length ${length} units.`,
     srSegmentGraphEndpointAriaLabel: ({endpointNumber, x, y}) =>
         `Endpoint ${endpointNumber} at ${x} comma ${y}`,
     // The above strings are used for interactive graph SR descriptions.
