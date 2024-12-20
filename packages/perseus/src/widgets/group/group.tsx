@@ -23,6 +23,7 @@ import type {
 import type {
     PerseusGroupScoringData,
     UserInputArray,
+    UserInputMap,
 } from "../../validation.types";
 import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 
@@ -59,7 +60,7 @@ class Group extends React.Component<Props> implements Widget {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInputMap() {
+    getUserInputMap(): UserInputMap | undefined {
         return this.rendererRef?.getUserInputMap();
     }
 

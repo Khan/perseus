@@ -5,19 +5,20 @@
  *
  * These types are:
  *
- * `Perseus<Widget>UserInput`: the data returned by the widget that the user
- * entered. This is referred to as the 'guess' in some older parts of Perseus.
+ *   * `Perseus<Widget>UserInput`: the data from the widget that represents the
+ *     data the user entered. This is referred to as the 'guess' in some older
+ *     parts of Perseus.
  *
- * `Perseus<Widget>ValidationData`: the data needed to do validation of the
- * user input. Validation refers to the different checks that we can do both on
- * the client-side (before submitting user input for scoring) and on the
- * server-side (when we score it). As such, it cannot contain any of the
- * sensitive scoring data that would reveal the answer.
+ *   * `Perseus<Widget>ValidationData`: the data needed to do validation of the
+ *     user input. Validation refers to the different checks that we can do
+ *     both on the client-side (before submitting user input for scoring) and
+ *     on the server-side (when we score it). As such, it cannot contain any of
+ *     the sensitive scoring data that would reveal the answer.
  *
- * `Perseus<Widget>ScoringData` (nee `Perseus<Widget>Rubric`): the data needed
- * to score the user input. By convention, this type is defined as the set of
- * sensitive answer data and then intersected with
- * `Perseus<Widget>ValidationData`.
+ *   * `Perseus<Widget>ScoringData` (nee `Perseus<Widget>Rubric`): the data
+ *     needed to score the user input. By convention, this type is defined as
+ *     the set of sensitive answer data and then intersected with
+ *     `Perseus<Widget>ValidationData`.
  *
  * For example:
  * ```
@@ -41,6 +42,7 @@ import type {
     PerseusOrdererWidgetOptions,
     PerseusRadioChoice,
     PerseusGraphCorrectType,
+    MakeWidgetMap,
 } from "./perseus-types";
 import type {Relationship} from "./widgets/number-line/number-line";
 
@@ -237,49 +239,83 @@ export type PerseusTableScoringData = {
 
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 
-export type ScoringData =
-    | PerseusCategorizerScoringData
-    | PerseusDropdownScoringData
-    | PerseusExpressionScoringData
-    | PerseusGroupScoringData
-    | PerseusGradedGroupScoringData
-    | PerseusGradedGroupSetScoringData
-    | PerseusGrapherScoringData
-    | PerseusInputNumberScoringData
-    | PerseusInteractiveGraphScoringData
-    | PerseusLabelImageScoringData
-    | PerseusMatcherScoringData
-    | PerseusMatrixScoringData
-    | PerseusNumberLineScoringData
-    | PerseusNumericInputScoringData
-    | PerseusOrdererScoringData
-    | PerseusPlotterScoringData
-    | PerseusRadioScoringData
-    | PerseusSorterScoringData
-    | PerseusTableScoringData;
+export interface ScoringDataRegistry {
+    categorizer: PerseusCategorizerScoringData;
+    dropdown: PerseusDropdownScoringData;
+    expression: PerseusExpressionScoringData;
+    grapher: PerseusGrapherScoringData;
+    "graded-group-set": PerseusGradedGroupSetScoringData;
+    "graded-group": PerseusGradedGroupScoringData;
+    group: PerseusGroupScoringData;
+    image: PerseusLabelImageScoringData;
+    "input-number": PerseusInputNumberScoringData;
+    "interactive-graph": PerseusInteractiveGraphScoringData;
+    "label-image": PerseusLabelImageScoringData;
+    matcher: PerseusMatcherScoringData;
+    matrix: PerseusMatrixScoringData;
+    "number-line": PerseusNumberLineScoringData;
+    "numeric-input": PerseusNumericInputScoringData;
+    orderer: PerseusOrdererScoringData;
+    plotter: PerseusPlotterScoringData;
+    radio: PerseusRadioScoringData;
+    sorter: PerseusSorterScoringData;
+    table: PerseusTableScoringData;
+}
 
-export type UserInput =
-    | PerseusCategorizerUserInput
-    | PerseusCSProgramUserInput
-    | PerseusDropdownUserInput
-    | PerseusExpressionUserInput
-    | PerseusGrapherUserInput
-    | PerseusGroupUserInput
-    | PerseusIFrameUserInput
-    | PerseusInputNumberUserInput
-    | PerseusInteractiveGraphUserInput
-    | PerseusLabelImageUserInput
-    | PerseusMatcherUserInput
-    | PerseusMatrixUserInput
-    | PerseusNumberLineUserInput
-    | PerseusNumericInputUserInput
-    | PerseusOrdererUserInput
-    | PerseusPlotterUserInput
-    | PerseusRadioUserInput
-    | PerseusSorterUserInput
-    | PerseusTableUserInput;
+/**
+ * A map of scoring data (previously referred to as "rubric"), keyed by
+ * `widgetId`. This data is used to score a learner's guess for a PerseusItem.
+ *
+ * NOTE:  The value in this map is intentionally a subset of WidgetOptions<T>.
+ * By using the same shape (minus any unneeded render data), we are able to
+ * share functionality that understands how to traverse maps of `widget id` to
+ * `options`.
+ */
+export type ScoringDataMap = {
+    [Property in keyof ScoringDataRegistry as `${Property} ${number}`]: {
+        type: Property;
+        static?: boolean;
+        options: ScoringDataRegistry[Property];
+    };
+};
 
-export type UserInputMap = {[widgetId: string]: UserInput};
+export type ScoringData = ScoringDataRegistry[keyof ScoringDataRegistry];
+
+/**
+ * This is an interface so that it can be extended if a widget is created
+ * outside of this Perseus package. See `PerseusWidgetTypes` for a full
+ * explanation.
+ */
+interface UserInputRegistry {
+    categorizer: PerseusCategorizerUserInput;
+    "cs-program": PerseusCSProgramUserInput;
+    dropdown: PerseusDropdownUserInput;
+    expression: PerseusExpressionUserInput;
+    grapher: PerseusGrapherUserInput;
+    group: PerseusGroupUserInput;
+    iframe: PerseusIFrameUserInput;
+    "input-number": PerseusInputNumberUserInput;
+    "interactive-graph": PerseusInteractiveGraphUserInput;
+    "label-image": PerseusLabelImageUserInput;
+    matcher: PerseusMatcherUserInput;
+    matrix: PerseusMatrixUserInput;
+    "number-line": PerseusNumberLineUserInput;
+    "numeric-input": PerseusNumericInputUserInput;
+    orderer: PerseusOrdererUserInput;
+    plotter: PerseusPlotterUserInput;
+    radio: PerseusRadioUserInput;
+    sorter: PerseusSorterUserInput;
+    table: PerseusTableUserInput;
+}
+
+/** A union type of all the widget user input types */
+export type UserInput = UserInputRegistry[keyof UserInputRegistry];
+
+/**
+ * A map of widget IDs to user input types (strongly typed based on the format
+ * of the widget ID).
+ */
+export type UserInputMap = MakeWidgetMap<UserInputRegistry>;
 
 /**
  * deprecated prefer using UserInputMap
@@ -287,43 +323,11 @@ export type UserInputMap = {[widgetId: string]: UserInput};
 export type UserInputArray = ReadonlyArray<
     UserInputArray | UserInput | null | undefined
 >;
+
 export interface ValidationDataTypes {
     categorizer: PerseusCategorizerValidationData;
-    // "cs-program": PerseusCSProgramValidationData;
-    // definition: PerseusDefinitionValidationData;
-    // dropdown: PerseusDropdownValidationData;
-    // explanation: PerseusExplanationValidationData;
-    // expression: PerseusExpressionValidationData;
-    // grapher: PerseusGrapherValidationData;
-    // "graded-group-set": PerseusGradedGroupSetValidationData;
-    // "graded-group": PerseusGradedGroupValidationData;
     group: PerseusGroupValidationData;
-    // iframe: PerseusIFrameValidationData;
-    // image: PerseusImageValidationData;
-    // "input-number": PerseusInputNumberValidationData;
-    // interaction: PerseusInteractionValidationData;
-    // "interactive-graph": PerseusInteractiveGraphValidationData;
-    // "label-image": PerseusLabelImageValidationData;
-    // matcher: PerseusMatcherValidationData;
-    // matrix: PerseusMatrixValidationData;
-    // measurer: PerseusMeasurerValidationData;
-    // "molecule-renderer": PerseusMoleculeRendererValidationData;
-    // "number-line": PerseusNumberLineValidationData;
-    // "numeric-input": PerseusNumericInputValidationData;
-    // orderer: PerseusOrdererValidationData;
-    // "passage-ref-target": PerseusRefTargetValidationData;
-    // "passage-ref": PerseusPassageRefValidationData;
-    // passage: PerseusPassageValidationData;
-    // "phet-simulation": PerseusPhetSimulationValidationData;
-    // "python-program": PerseusPythonProgramValidationData;
     plotter: PerseusPlotterValidationData;
-    // radio: PerseusRadioValidationData;
-    // sorter: PerseusSorterValidationData;
-    // table: PerseusTableValidationData;
-    // video: PerseusVideoValidationData;
-
-    // Deprecated widgets
-    // sequence: PerseusAutoCorrectValidationData;
 }
 
 /**
@@ -332,7 +336,7 @@ export interface ValidationDataTypes {
  * data that's available in the client (widget options) and server (scoring
  * data) and is represented by a group of types known as "validation data".
  *
- * NOTE:  The value in this map is intentionally a subset of WidgetOptions<T>.
+ * NOTE: The value in this map is intentionally a subset of WidgetOptions<T>.
  * By using the same shape (minus any unneeded data), we are able to pass a
  * `PerseusWidgetsMap` or ` into any function that accepts a
  * `ValidationDataMap` without any mutation of data.
