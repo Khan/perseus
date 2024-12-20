@@ -15,7 +15,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import type {Coords} from "@khanacademy/perseus";
+import type {Coords, MarkingsType} from "@khanacademy/perseus";
 
 const {ButtonGroup, InfoTip, RangeInput} = components;
 
@@ -40,7 +40,7 @@ type Props = {
     snapStep: [number, number];
     valid: boolean;
     backgroundImage: any;
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     showProtractor?: boolean;
     showRuler?: boolean;
     showTooltips?: boolean;
