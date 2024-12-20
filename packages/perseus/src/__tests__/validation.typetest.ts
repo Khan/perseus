@@ -2,9 +2,11 @@
  * This file contains TypeScript type "tests" which ensure that types needed
  * for scoring and validation stay in sync with other types in the system.
  *
- * If you make a change and one of these "satisfies" assertions fails, that
- * will usually mean you've made a change that will cause runtime breakages in
- * scoring or validation.
+ * If you make a change and `Extends<>` starts to complain, that will usually
+ * mean you've made a change that will cause runtime breakages in scoring or
+ * validation. ie. The types that should be compatible are no longer
+ * compatible. Read the TypeScript error message closely and it should point
+ * you in the right direction.
  */
 import type {PerseusRenderer} from "../perseus-types";
 import type {ScoringDataMap, ValidationDataMap} from "../validation.types";
