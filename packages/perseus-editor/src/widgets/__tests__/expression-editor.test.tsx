@@ -235,7 +235,7 @@ describe("expression-editor", () => {
                     {
                         considered: "correct",
                         form: false,
-                        key: 0,
+                        key: "0",
                         simplify: false,
                         value: "",
                     },

@@ -209,7 +209,55 @@ export type PerseusStrings = {
         yIntercept: string;
     }) => string;
     srLinearGraphOriginIntercept: string;
-
+    srLinearGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srAngleSideAtCoordinates: ({
+        point,
+        side,
+        x,
+        y,
+    }: {
+        point: number;
+        side: string;
+        x: string;
+        y: string;
+    }) => string;
+    srAngleVertexAtCoordinatesWithAngleMeasure: ({
+        x,
+        y,
+        angleMeasure,
+    }: {
+        x: string;
+        y: string;
+        angleMeasure: string;
+    }) => string;
+    srAngleGraphAriaLabel: string;
+    srAngleGraphAriaDescription: ({
+        angleMeasure,
+        vertexX,
+        vertexY,
+        isX,
+        isY,
+        tsX,
+        tsY,
+    }: {
+        angleMeasure: string;
+        vertexX: string;
+        vertexY: string;
+        isX: string;
+        isY: string;
+        tsX: string;
+        tsY: string;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -478,6 +526,30 @@ export const strings: {
             "Screenreader-only description of the line's intercept when the intercept is the graph's origin.",
         message: "The line crosses the x and y axes at the graph's origin.",
     },
+    srLinearGrabHandle: {
+        context:
+            "Screenreader-only label on the grab handle for the line on a linear graph.",
+        message:
+            "Line from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
+    },
+    srAngleSideAtCoordinates: {
+        context:
+            "Screenreader-accessible description of the side / vertex of an angle graph",
+        message: "Point %(point)s, %(side)s at %(x)s comma %(y)s",
+    },
+    srAngleVertexAtCoordinatesWithAngleMeasure: {
+        context:
+            "Screenreader-accessible description of a vertex on an angle graph with an angle measure",
+        message:
+            "Point 2, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees",
+    },
+    srAngleGraphAriaLabel: "An angle on a coordinate plane.",
+    srAngleGraphAriaDescription: {
+        context:
+            "Screenreader-only description of an angle on a coordinate plane.",
+        message:
+            "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the initial side at %(isX)s comma %(isY)s and a point on the terminal side at %(tsX)s comma %(tsY)s",
+    },
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -678,5 +750,22 @@ export const mockStrings: PerseusStrings = {
         `The line crosses the X-axis at ${xIntercept} comma 0 and the Y-axis at 0 comma ${yIntercept}.`,
     srLinearGraphOriginIntercept:
         "The line crosses the x and y axes at the graph's origin.",
+    srLinearGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Line from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
+    srAngleSideAtCoordinates: ({point, side, x, y}) =>
+        `Point ${point}, ${side} at ${x} comma ${y}`,
+    srAngleVertexAtCoordinatesWithAngleMeasure: ({x, y, angleMeasure}) =>
+        `Point 2, vertex at ${x} comma ${y}. Angle ${angleMeasure} degrees`,
+    srAngleGraphAriaLabel: "An angle on a coordinate plane.",
+    srAngleGraphAriaDescription: ({
+        angleMeasure,
+        vertexX,
+        vertexY,
+        isX,
+        isY,
+        tsX,
+        tsY,
+    }) =>
+        `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the initial side at ${isX} comma ${isY} and a point on the terminal side at ${tsX} comma ${tsY}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
