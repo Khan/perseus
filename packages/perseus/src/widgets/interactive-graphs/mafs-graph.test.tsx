@@ -433,6 +433,11 @@ describe("MafsGraph", () => {
     });
 
     it("renders ARIA labels for each point (angle)", () => {
+        /*
+            terminal side coords[0] => [-1, 1]
+            vertex coords[1] => [0, 0]
+            initial side coords[2] => [1, 1]
+         */
         const state: InteractiveGraphState = {
             type: "angle",
             hasBeenInteractedWith: true,
@@ -456,11 +461,116 @@ describe("MafsGraph", () => {
             />,
         );
 
-        // The middle coords are actually the first point because we want
-        // the vertex to show up first in the point tab order.
-        expectLabelInDoc("Point 1 at 0 comma 0");
-        expectLabelInDoc("Point 2 at -1 comma 1");
-        expectLabelInDoc("Point 3 at 1 comma 1");
+        expectLabelInDoc("Point 1, terminal side at -1 comma 1");
+        expectLabelInDoc("Point 2, vertex at 0 comma 0");
+        expectLabelInDoc("Point 3, initial side at 1 comma 1");
+    });
+
+    it("renders ARIA labels for each point (angle with angle measure)", () => {
+        /*
+            terminal side coords[0] => [7, 0]
+            vertex coords[1] => [0, 0]
+            initial side coords[2] => [0, 6]
+         */
+        const state: InteractiveGraphState = {
+            type: "angle",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [7, 0],
+                [0, 0],
+                [0, 6],
+            ],
+            showAngles: true,
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphPropsForTests()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        expectLabelInDoc("Point 1, terminal side at 7 comma 0");
+        expectLabelInDoc("Point 2, vertex at 0 comma 0. Angle 90 degrees");
+        expectLabelInDoc("Point 3, initial side at 0 comma 6");
+    });
+
+    it("renders ARIA label for whole angle graph", () => {
+        const state: InteractiveGraphState = {
+            type: "angle",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+            allowReflexAngles: true,
+            showAngles: true,
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphPropsForTests()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+        const angleGraph = screen.getByLabelText(
+            "An angle on a coordinate plane.",
+        );
+        expect(angleGraph).toHaveAttribute(
+            "aria-label",
+            "An angle on a coordinate plane.",
+        );
+    });
+
+    it("render ARIA description for whole angle graph", () => {
+        const state: InteractiveGraphState = {
+            type: "angle",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+            allowReflexAngles: true,
+            showAngles: true,
+        };
+
+        render(
+            <MafsGraph
+                {...getBaseMafsGraphPropsForTests()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        const angleGraph = screen.getByLabelText(
+            "An angle on a coordinate plane.",
+        );
+        expect(angleGraph).toHaveAttribute(
+            "aria-describedby",
+            "angle-description",
+        );
+        expect(angleGraph).toHaveTextContent(
+            "The angle measure is 270 degrees with a vertex at 0 comma 0, a point on the initial side at 1 comma 1 and a point on the terminal side at -1 comma 1.",
+        );
     });
 
     it("renders a screenreader description summarizing the interactive elements on the graph", () => {
@@ -921,6 +1031,107 @@ describe("MafsGraph", () => {
             expect(mockDispatch.mock.calls).toContainEqual([
                 {type: REMOVE_POINT, index: 0},
             ]);
+        });
+
+        it("polygon - enables the 'Close shape' button when the polygon has 3 or more unique points", () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "polygon",
+                numSides: "unlimited",
+                focusedPointIndex: null,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                showAngles: false,
+                showSides: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                snapTo: "grid",
+                coords: [
+                    [4, 5],
+                    [5, 6],
+                    [6, 7],
+                ],
+                closedPolygon: false,
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...getBaseMafsGraphPropsForTests(),
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Assert
+            // Find the button
+            const closeShapeButton = screen.getByRole("button", {
+                name: "Close shape",
+            });
+            // Make sure the button is enabled
+            expect(closeShapeButton).toHaveAttribute("aria-disabled", "false");
+        });
+
+        it("polygon - disables the 'Close shape' button when the polygon has fewer than 3 unique points", () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "polygon",
+                numSides: "unlimited",
+                focusedPointIndex: null,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                showAngles: false,
+                showSides: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                snapTo: "grid",
+                coords: [
+                    [4, 5],
+                    [5, 6],
+                    // not unique
+                    [5, 6],
+                ],
+                closedPolygon: false,
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...getBaseMafsGraphPropsForTests(),
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Assert
+            // Find the button
+            const closeShapeButton = screen.getByRole("button", {
+                name: "Close shape",
+            });
+            // Make sure the button is disabled
+            expect(closeShapeButton).toHaveAttribute("aria-disabled", "true");
         });
     });
 });

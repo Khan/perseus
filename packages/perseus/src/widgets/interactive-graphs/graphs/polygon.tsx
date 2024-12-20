@@ -11,6 +11,7 @@ import {MovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
 import {useDraggable} from "./use-draggable";
 import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
+import {getArrayWithoutDuplicates} from "./utils";
 
 import type {Coord} from "../../../interactive2/types";
 import type {CollinearTuple} from "../../../perseus-types";
@@ -100,6 +101,15 @@ const PolygonGraph = (props: Props) => {
             pointsRef.current[focusedIndex]?.focus();
         }
     }, [props.graphState.focusedPointIndex, pointsRef]);
+
+    // If the unlimited polygon is rendered with 3 or more coordinates
+    // Close the polygon, but only on first render.
+    React.useEffect(() => {
+        if (numSides === "unlimited" && props.graphState.coords.length > 2) {
+            dispatch(actions.polygon.closePolygon());
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const statefulProps: StatefulProps = {
         ...props,
@@ -263,6 +273,14 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
 
     return (
         <>
+            <Polyline
+                points={[...points]}
+                color="var(--movable-line-stroke-color)"
+                svgPolylineProps={{
+                    strokeWidth: "var(--movable-line-stroke-weight)",
+                    style: {fill: "transparent"},
+                }}
+            />
             {/* This rect is here to grab clicks so that new points can be added */}
             {/* It's important because it stops mouse events from propogating
                 when dragging a points around */}
@@ -289,14 +307,6 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     dispatch(actions.polygon.addPoint(graphCoordinates[0]));
                 }}
             />
-            <Polyline
-                points={[...points]}
-                color="var(--movable-line-stroke-color)"
-                svgPolylineProps={{
-                    strokeWidth: "var(--movable-line-stroke-weight)",
-                    style: {fill: "transparent"},
-                }}
-            />
             {coords.map((point, i) => (
                 <MovablePoint
                     key={i}
@@ -313,9 +323,13 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     }}
                     onClick={() => {
                         // If the point being clicked is the first point and
-                        // there's enough points to form a polygon (3 or more)
-                        // Close the shape before setting focus.
-                        if (i === 0 && coords.length >= 3) {
+                        // there's enough non-duplicated points to form
+                        // a polygon (3 or more), close the shape before
+                        // setting focus.
+                        if (
+                            i === 0 &&
+                            getArrayWithoutDuplicates(coords).length >= 3
+                        ) {
                             dispatch(actions.polygon.closePolygon());
                         }
                         dispatch(actions.polygon.clickPoint(i));

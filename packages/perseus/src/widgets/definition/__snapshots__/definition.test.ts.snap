@@ -27,11 +27,11 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
           class="perseus-widget-container widget-nohighlight perseus-widget__definition widget-inline"
         >
           <button
-            aria-controls="uid-popover-0-wb-id"
+            aria-controls=":r0:"
             aria-disabled="false"
             aria-expanded="false"
             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
-            id="uid-popover-0-wb-id-anchor"
+            id=":r0:-anchor"
             type="button"
           >
             <span
@@ -75,11 +75,11 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
           class="perseus-widget-container widget-nohighlight perseus-widget__definition widget-inline"
         >
           <button
-            aria-controls="uid-popover-1-wb-id"
+            aria-controls=":r1:"
             aria-disabled="false"
             aria-expanded="true"
             class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
-            id="uid-popover-1-wb-id-anchor"
+            id=":r1:-anchor"
             type="button"
           >
             <span

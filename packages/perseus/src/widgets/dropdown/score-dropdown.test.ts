@@ -1,4 +1,4 @@
-import {question1} from "./dropdown.testdata";
+import {basicDropdown} from "./dropdown.testdata";
 import scoreDropdown from "./score-dropdown";
 
 import type {
@@ -13,7 +13,7 @@ describe("scoreDropdown", () => {
             value: 1,
         };
         const scoringData: PerseusDropdownScoringData = {
-            choices: question1.widgets["dropdown 1"].options.choices,
+            choices: basicDropdown.widgets["dropdown 1"].options.choices,
         };
 
         // Act
@@ -29,7 +29,7 @@ describe("scoreDropdown", () => {
             value: 2,
         };
         const scoringData: PerseusDropdownScoringData = {
-            choices: question1.widgets["dropdown 1"].options.choices,
+            choices: basicDropdown.widgets["dropdown 1"].options.choices,
         };
 
         // Act

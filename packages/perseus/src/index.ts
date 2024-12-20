@@ -242,6 +242,7 @@ export type {
 } from "./perseus-types";
 export type {UserInputMap} from "./validation.types";
 export type {Coord} from "./interactive2/types";
+export type {Coords} from "./widgets/grapher/grapher-types";
 export type {
     RendererPromptJSON,
     WidgetPromptJSON,

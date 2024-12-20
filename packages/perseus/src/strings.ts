@@ -130,11 +130,11 @@ export type PerseusStrings = {
     tan: string;
     simulationLoadFail: string;
     simulationLocaleWarning: string;
+    selectAnAnswer: string;
+    // The following strings are used for interactive graph SR descriptions.
     addPoint: string;
     removePoint: string;
     graphKeyboardPrompt: string;
-    selectAnAnswer: string;
-    // The following strings are used for interactive graph SR descriptions.
     closePolygon: string;
     openPolygon: string;
     srPointAtCoordinates: ({
@@ -148,23 +148,23 @@ export type PerseusStrings = {
     }) => string;
     srInteractiveElements: ({elements}: {elements: string}) => string;
     srNoInteractiveElements: string;
-    circleGraphAriaLabel: string;
-    circleShapeAriaLabel: ({
+    srCircleGraph: string;
+    srCircleShape: ({
         centerX,
         centerY,
     }: {
-        centerX: number;
-        centerY: number;
+        centerX: string;
+        centerY: string;
     }) => string;
-    circleRadiusPointAriaLabel: ({
+    srCircleRadiusPoint: ({
         radiusPointX,
         radiusPointY,
     }: {
-        radiusPointX: number;
-        radiusPointY: number;
+        radiusPointX: string;
+        radiusPointY: string;
     }) => string;
-    circleRadiusDescription: ({radius}: {radius: number}) => string;
-    circleOuterPointsDescription: ({
+    srCircleRadius: ({radius}: {radius: number}) => string;
+    srCircleOuterPoints: ({
         point1X,
         point1Y,
         point2X,
@@ -174,14 +174,89 @@ export type PerseusStrings = {
         point4X,
         point4Y,
     }: {
-        point1X: number;
-        point1Y: number;
-        point2X: number;
-        point2Y: number;
-        point3X: number;
-        point3Y: number;
-        point4X: number;
-        point4Y: number;
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        point3X: string;
+        point3Y: string;
+        point4X: string;
+        point4Y: string;
+    }) => string;
+    srLinearGraph: string;
+    srLinearGraphPoints: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srLinearGraphSlopeIncreasing: string;
+    srLinearGraphSlopeDecreasing: string;
+    srLinearGraphSlopeHorizontal: string;
+    srLinearGraphSlopeVertical: string;
+    srLinearGraphXOnlyIntercept: ({xIntercept}: {xIntercept: string}) => string;
+    srLinearGraphYOnlyIntercept: ({yIntercept}: {yIntercept: string}) => string;
+    srLinearGraphBothIntercepts: ({
+        xIntercept,
+        yIntercept,
+    }: {
+        xIntercept: string;
+        yIntercept: string;
+    }) => string;
+    srLinearGraphOriginIntercept: string;
+    srLinearGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srAngleSideAtCoordinates: ({
+        point,
+        side,
+        x,
+        y,
+    }: {
+        point: number;
+        side: string;
+        x: string;
+        y: string;
+    }) => string;
+    srAngleVertexAtCoordinatesWithAngleMeasure: ({
+        x,
+        y,
+        angleMeasure,
+    }: {
+        x: string;
+        y: string;
+        angleMeasure: string;
+    }) => string;
+    srAngleGraphAriaLabel: string;
+    srAngleGraphAriaDescription: ({
+        angleMeasure,
+        vertexX,
+        vertexY,
+        isX,
+        isY,
+        tsX,
+        tsY,
+    }: {
+        angleMeasure: string;
+        vertexX: string;
+        vertexY: string;
+        isX: string;
+        isY: string;
+        tsX: string;
+        tsY: string;
     }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
@@ -356,6 +431,9 @@ export const strings: {
     simulationLoadFail: "Sorry, this simulation cannot load.",
     simulationLocaleWarning:
         "Sorry, this simulation isn't available in your language.",
+    selectAnAnswer: "Select an answer",
+
+    // The following strings are used for interactive graph SR descriptions.
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
@@ -363,8 +441,6 @@ export const strings: {
     openPolygon: "Re-open shape",
     srInteractiveElements: "Interactive elements: %(elements)s",
     srNoInteractiveElements: "No interactive elements",
-    selectAnAnswer: "Select an answer",
-
     // TODO(LEMS-2660): The following strings are ones that will need
     // translation tickets after all interactive graph SR strings have
     // been finalized. Remove this comment after the tickets have been
@@ -373,31 +449,106 @@ export const strings: {
         context: "Screenreader-accessible description of a point on a graph",
         message: "Point %(num)s at %(x)s comma %(y)s",
     },
-    circleGraphAriaLabel: {
+    srCircleGraph: {
         context: "Aria label for the circle graph as a whole.",
         message: "A circle on a coordinate plane.",
     },
-    circleShapeAriaLabel: {
+    srCircleShape: {
         context:
             "Aria label for the interactive circle shape in a circle graph.",
         message:
             "Circle. The center point is at %(centerX)s comma %(centerY)s.",
     },
-    circleRadiusPointAriaLabel: {
+    srCircleRadiusPoint: {
         context:
             "Aria label for the interactive point that sits on the edge of the circle in a circle graph. Moving this point updates the radius of the circle",
         message: "Radius point at %(radiusPointX)s comma %(radiusPointY)s.",
     },
-    circleRadiusDescription: {
+    srCircleRadius: {
         context:
             "Screenreader-only description of the radius of a circle in a circle graph.",
         message: "Circle radius is %(radius)s.",
     },
-    circleOuterPointsDescription: {
+    srCircleOuterPoints: {
         context:
             "Screenreader-only description of key points on a circle in a circle graph.",
         message:
             "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
+    },
+    srLinearGraph: {
+        context: "Aria label for the linear graph as a whole.",
+        message: "A line on a coordinate plane.",
+    },
+    srLinearGraphPoints: {
+        context:
+            "Additional information about the points for the linear graph as a whole.",
+        message:
+            "The line has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+    },
+    srLinearGraphSlopeIncreasing: {
+        context:
+            "Screenreader-only description of a line's decreasing slope on a linear graph.",
+        message: "Its slope increases from left to right.",
+    },
+    srLinearGraphSlopeDecreasing: {
+        context:
+            "Screenreader-only description of a line's increasing slope on a linear graph.",
+        message: "Its slope decreases from left to right.",
+    },
+    srLinearGraphSlopeHorizontal: {
+        context:
+            "Screenreader-only description of a line's horizontal slope on a linear graph.",
+        message: "Its slope is zero.",
+    },
+    srLinearGraphSlopeVertical: {
+        context:
+            "Screenreader-only description of a line's vertical slope on a linear graph.",
+        message: "Its slope is undefined.",
+    },
+    srLinearGraphXOnlyIntercept: {
+        context:
+            "Screenreader-only description of a line's x-intercept on a linear graph when it only has an x intercept.",
+        message: "The line crosses the X-axis at %(xIntercept)s comma 0.",
+    },
+    srLinearGraphYOnlyIntercept: {
+        context:
+            "Screenreader-only description of a line's y-intercept on a linear graph when it only has a y intercept.",
+        message: "The line crosses the Y-axis at 0 comma %(yIntercept)s.",
+    },
+    srLinearGraphBothIntercepts: {
+        context:
+            "Screenreader-only description of a line's x and y intercepts on a linear graph when both intercepts are present.",
+        message:
+            "The line crosses the X-axis at %(xIntercept)s comma 0 and the Y-axis at 0 comma %(yIntercept)s.",
+    },
+    srLinearGraphOriginIntercept: {
+        context:
+            "Screenreader-only description of the line's intercept when the intercept is the graph's origin.",
+        message: "The line crosses the x and y axes at the graph's origin.",
+    },
+    srLinearGrabHandle: {
+        context:
+            "Screenreader-only label on the grab handle for the line on a linear graph.",
+        message:
+            "Line from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
+    },
+    srAngleSideAtCoordinates: {
+        context:
+            "Screenreader-accessible description of the side / vertex of an angle graph",
+        message: "Point %(point)s, %(side)s at %(x)s comma %(y)s",
+    },
+    srAngleVertexAtCoordinatesWithAngleMeasure: {
+        context:
+            "Screenreader-accessible description of a vertex on an angle graph with an angle measure",
+        message:
+            "Point 2, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees",
+    },
+    srAngleGraphAriaLabel: "An angle on a coordinate plane.",
+    srAngleGraphAriaDescription: {
+        context:
+            "Screenreader-only description of an angle on a coordinate plane.",
+        message:
+            "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the initial side at %(isX)s comma %(isY)s and a point on the terminal side at %(tsX)s comma %(tsY)s",
     },
     // The above strings are used for interactive graph SR descriptions.
 };
@@ -556,24 +707,24 @@ export const mockStrings: PerseusStrings = {
     simulationLoadFail: "Sorry, this simulation cannot load.",
     simulationLocaleWarning:
         "Sorry, this simulation isn't available in your language.",
-    addPoint: "Add Point",
-    removePoint: "Remove Point",
-    graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     selectAnAnswer: "Select an answer",
 
     // The following strings are used for interactive graph SR descriptions.
+    graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
+    addPoint: "Add Point",
+    removePoint: "Remove Point",
     closePolygon: "Close shape",
     openPolygon: "Re-open shape",
     srPointAtCoordinates: ({num, x, y}) => `Point ${num} at ${x} comma ${y}`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
-    circleGraphAriaLabel: "A circle on a coordinate plane.",
-    circleShapeAriaLabel: ({centerX, centerY}) =>
+    srCircleGraph: "A circle on a coordinate plane.",
+    srCircleShape: ({centerX, centerY}) =>
         `Circle. The center point is at ${centerX} comma ${centerY}.`,
-    circleRadiusPointAriaLabel: ({radiusPointX, radiusPointY}) =>
+    srCircleRadiusPoint: ({radiusPointX, radiusPointY}) =>
         `Radius point at ${radiusPointX} comma ${radiusPointY}.`,
-    circleRadiusDescription: ({radius}) => `Circle radius is ${radius}.`,
-    circleOuterPointsDescription: ({
+    srCircleRadius: ({radius}) => `Circle radius is ${radius}.`,
+    srCircleOuterPoints: ({
         point1X,
         point1Y,
         point2X,
@@ -584,5 +735,37 @@ export const mockStrings: PerseusStrings = {
         point4Y,
     }) =>
         `Points on the circle at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, ${point3X} comma ${point3Y}, ${point4X} comma ${point4Y}.`,
+    srLinearGraph: "A line on a coordinate plane.",
+    srLinearGraphPoints: ({point1X, point1Y, point2X, point2Y}) =>
+        `The line has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
+    srLinearGraphSlopeIncreasing: "Its slope increases from left to right.",
+    srLinearGraphSlopeDecreasing: "Its slope decreases from left to right.",
+    srLinearGraphSlopeHorizontal: "Its slope is zero.",
+    srLinearGraphSlopeVertical: "Its slope is undefined.",
+    srLinearGraphXOnlyIntercept: ({xIntercept}) =>
+        `The line crosses the X-axis at ${xIntercept} comma 0.`,
+    srLinearGraphYOnlyIntercept: ({yIntercept}) =>
+        `The line crosses the Y-axis at 0 comma ${yIntercept}.`,
+    srLinearGraphBothIntercepts: ({xIntercept, yIntercept}) =>
+        `The line crosses the X-axis at ${xIntercept} comma 0 and the Y-axis at 0 comma ${yIntercept}.`,
+    srLinearGraphOriginIntercept:
+        "The line crosses the x and y axes at the graph's origin.",
+    srLinearGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Line from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
+    srAngleSideAtCoordinates: ({point, side, x, y}) =>
+        `Point ${point}, ${side} at ${x} comma ${y}`,
+    srAngleVertexAtCoordinatesWithAngleMeasure: ({x, y, angleMeasure}) =>
+        `Point 2, vertex at ${x} comma ${y}. Angle ${angleMeasure} degrees`,
+    srAngleGraphAriaLabel: "An angle on a coordinate plane.",
+    srAngleGraphAriaDescription: ({
+        angleMeasure,
+        vertexX,
+        vertexY,
+        isX,
+        isY,
+        tsX,
+        tsY,
+    }) =>
+        `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the initial side at ${isX} comma ${isY} and a point on the terminal side at ${tsX} comma ${tsY}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
