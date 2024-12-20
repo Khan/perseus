@@ -234,7 +234,10 @@ jobs:
               env:
                   GH_TOKEN: ${{ github.token }}
               run: |
-                  release_count=$(gh run list --workflow release.yml --json status --jq '[.[] | select(.status == "in_progress")] | length')
+                  # Releases are triggered by merging "Version Packages" PRs.
+                  # So we look for instances of the release.yml workflow, with
+                  # a title containing "Version Packages", that are in progress.
+                  release_count=$(gh run list --workflow release.yml --json status,displayTitle --jq '[.[] | select(.status == "in_progress" and (.displayTitle | contains("Version Packages")))] | length')
                   echo "release_count=$release_count" >> $GITHUB_OUTPUT
                   if [ "$release_count" -ne 0 ]; then
                     echo "Error: There are $release_count releases in progress."
