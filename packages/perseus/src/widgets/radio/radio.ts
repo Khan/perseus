@@ -4,6 +4,7 @@ import Util from "../../util";
 
 import Radio from "./radio-component";
 import scoreRadio from "./score-radio";
+import validateRadio from "./validate-radio";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusRadioWidgetOptions} from "../../perseus-types";
@@ -155,4 +156,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusRadioUserInput
     scorer: scoreRadio,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusRadioUserInput
+    validator: validateRadio,
 } satisfies WidgetExports<typeof Radio>;

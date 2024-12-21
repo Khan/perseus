@@ -229,6 +229,7 @@ export type {
     PerseusInputNumberWidgetOptions,
     PerseusInteractiveGraphWidgetOptions,
     PerseusItem,
+    PerseusLabelImageWidgetOptions,
     PerseusPhetSimulationWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusPythonProgramWidgetOptions,
@@ -242,7 +243,6 @@ export type {
 export type {UserInputMap} from "./validation.types";
 export type {Coord} from "./interactive2/types";
 export type {Coords} from "./widgets/grapher/grapher-types";
-export type {MarkerType} from "./widgets/label-image/types";
 export type {
     RendererPromptJSON,
     WidgetPromptJSON,

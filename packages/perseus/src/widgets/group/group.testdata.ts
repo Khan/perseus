@@ -159,32 +159,24 @@ export const simpleGroupQuestion: PerseusRenderer = {
         "group 1": {
             graded: true,
             options: {
-                content: "[[☃ numeric-input 1]]",
+                content: "[[☃ expression 1]]",
                 images: {},
                 widgets: {
-                    "numeric-input 1": {
-                        alignment: "default",
-                        graded: true,
+                    "expression 1": {
+                        type: "expression",
                         options: {
-                            answers: [
+                            answerForms: [
                                 {
-                                    maxError: null,
-                                    message: "",
-                                    simplify: "required",
-                                    status: "correct",
-                                    strict: false,
-                                    value: 230,
+                                    considered: "correct",
+                                    form: true,
+                                    simplify: true,
+                                    value: "1.0",
                                 },
                             ],
-                            coefficient: false,
-                            labelText: "value rounded to the nearest ten",
-                            rightAlign: false,
-                            size: "normal",
-                            static: false,
+                            buttonSets: ["basic"],
+                            functions: [],
+                            times: true,
                         },
-                        static: false,
-                        type: "numeric-input",
-                        version: {major: 0, minor: 0},
                     },
                 },
             },

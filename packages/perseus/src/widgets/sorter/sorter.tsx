@@ -6,12 +6,13 @@ import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 import scoreSorter from "./score-sorter";
+import validateSorter from "./validate-sorter";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
-    PerseusSorterRubric,
+    PerseusSorterScoringData,
     PerseusSorterUserInput,
 } from "../../validation.types";
 import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
@@ -20,7 +21,7 @@ const {shuffle} = Util;
 
 type RenderProps = PerseusSorterWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusSorterRubric>;
+type Props = WidgetProps<RenderProps, PerseusSorterScoringData>;
 
 type DefaultProps = {
     correct: Props["correct"];
@@ -136,4 +137,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusSorterUserInput
     scorer: scoreSorter,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusSorterUserInput
+    validator: validateSorter,
 } satisfies WidgetExports<typeof Sorter>;

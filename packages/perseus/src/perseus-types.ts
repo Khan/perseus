@@ -38,6 +38,50 @@ export type CollinearTuple = [Vector2, Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
 
 /**
+ * A utility type that constructs a widget map from a "registry interface".
+ * The keys of the registry should be the widget type (aka, "categorizer" or
+ * "radio", etc) and the value should be the option type stored in the value
+ * of the map.
+ *
+ * You can think of this as a type that generates another type. We use
+ * "registry interfaces" as a way to keep a set of widget types to their data
+ * type in several places in Perseus. This type then allows us to generate a
+ * map type that maps a widget id to its data type and keep strong typing by
+ * widget id.
+ *
+ * For example, given a fictitious registry such as this:
+ *
+ * ```
+ * interface DummyRegistry {
+ *     categorizer: { categories: ReadonlyArray<string> };
+ *     dropdown: { choices: ReadonlyArray<string> }:
+ * }
+ * ```
+ *
+ * If we create a DummyMap using this helper:
+ *
+ * ```
+ * type DummyMap = MakeWidgetMap<DummyRegistry>;
+ * ```
+ *
+ * We'll get a map that looks like this:
+ *
+ * ```
+ * type DummyMap = {
+ *     `categorizer ${number}`: { categories: ReadonlyArray<string> };
+ *     `dropdown ${number}`: { choices: ReadonlyArray<string> };
+ * }
+ * ```
+ *
+ * We use interfaces for the registries so that they can be extended in cases
+ * where the consuming app brings along their own widgets. Interfaces in
+ * TypeScript are always open (ie. you can extend them) whereas types aren't.
+ */
+export type MakeWidgetMap<TRegistry> = {
+    [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];
+};
+
+/**
  * Our core set of Perseus widgets.
  *
  * This interface is the basis for "registering" all Perseus widget types.
@@ -131,9 +175,7 @@ export interface PerseusWidgetTypes {
  * @see {@link PerseusWidgetTypes} additional widgets can be added to this map type
  * by augmenting the PerseusWidgetTypes with new widget types!
  */
-export type PerseusWidgetsMap = {
-    [Property in keyof PerseusWidgetTypes as `${Property} ${number}`]: PerseusWidgetTypes[Property];
-};
+export type PerseusWidgetsMap = MakeWidgetMap<PerseusWidgetTypes>;
 
 /**
  * A "PerseusItem" is a classic Perseus item. It is rendered by the

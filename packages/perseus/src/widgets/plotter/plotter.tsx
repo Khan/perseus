@@ -14,6 +14,7 @@ import KhanMath from "../../util/math";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
 
 import scorePlotter from "./score-plotter";
+import validatePlotter from "./validate-plotter";
 
 import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -1182,4 +1183,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
     scorer: scorePlotter,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
+    validator: validatePlotter,
 } satisfies WidgetExports<typeof Plotter>;

@@ -3,14 +3,14 @@ import {scoreOrderer} from "./score-orderer";
 import * as OrdererValidator from "./validate-orderer";
 
 import type {
-    PerseusOrdererRubric,
+    PerseusOrdererScoringData,
     PerseusOrdererUserInput,
 } from "../../validation.types";
 
 describe("scoreOrderer", () => {
-    it("is correct when the userInput is in the same order and is the same length as the rubric's correctOption content items", () => {
+    it("is correct when the userInput is in the same order and is the same length as the scoringData's correctOption content items", () => {
         // Arrange
-        const rubric: PerseusOrdererRubric =
+        const scoringData: PerseusOrdererScoringData =
             question1.widgets["orderer 1"].options;
 
         const userInput: PerseusOrdererUserInput = {
@@ -20,15 +20,15 @@ describe("scoreOrderer", () => {
         };
 
         // Act
-        const result = scoreOrderer(userInput, rubric);
+        const result = scoreOrderer(userInput, scoringData);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 
-    it("is incorrect when the userInput is not in the same order as the rubric's correctOption content items", () => {
+    it("is incorrect when the userInput is not in the same order as the scoringData's correctOption content items", () => {
         // Arrange
-        const rubric: PerseusOrdererRubric =
+        const scoringData: PerseusOrdererScoringData =
             question1.widgets["orderer 1"].options;
 
         const userInput: PerseusOrdererUserInput = {
@@ -36,15 +36,15 @@ describe("scoreOrderer", () => {
         };
 
         // Act
-        const result = scoreOrderer(userInput, rubric);
+        const result = scoreOrderer(userInput, scoringData);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
-    it("is incorrect when the userInput is not the same length as the rubric's correctOption content items", () => {
+    it("is incorrect when the userInput is not the same length as the scoringData's correctOption content items", () => {
         // Arrange
-        const rubric: PerseusOrdererRubric =
+        const scoringData: PerseusOrdererScoringData =
             question1.widgets["orderer 1"].options;
 
         const userInput: PerseusOrdererUserInput = {
@@ -52,7 +52,7 @@ describe("scoreOrderer", () => {
         };
 
         // Act
-        const result = scoreOrderer(userInput, rubric);
+        const result = scoreOrderer(userInput, scoringData);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -64,7 +64,7 @@ describe("scoreOrderer", () => {
             .spyOn(OrdererValidator, "default")
             .mockReturnValue(null);
 
-        const rubric: PerseusOrdererRubric =
+        const scoringData: PerseusOrdererScoringData =
             question1.widgets["orderer 1"].options;
 
         const userInput: PerseusOrdererUserInput = {
@@ -73,7 +73,7 @@ describe("scoreOrderer", () => {
             ),
         };
         // Act
-        const result = scoreOrderer(userInput, rubric);
+        const result = scoreOrderer(userInput, scoringData);
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith(userInput);
@@ -89,7 +89,7 @@ describe("scoreOrderer", () => {
                 message: null,
             });
 
-        const rubric: PerseusOrdererRubric =
+        const scoringData: PerseusOrdererScoringData =
             question1.widgets["orderer 1"].options;
 
         const userInput: PerseusOrdererUserInput = {
@@ -97,7 +97,7 @@ describe("scoreOrderer", () => {
         };
 
         // Act
-        const result = scoreOrderer(userInput, rubric);
+        const result = scoreOrderer(userInput, scoringData);
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith(userInput);

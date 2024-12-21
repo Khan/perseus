@@ -9,10 +9,11 @@ import type {
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {
-    Rubric,
+    ScoringData,
     UserInput,
     UserInputArray,
     UserInputMap,
+    ValidationData,
 } from "./validation.types";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
@@ -578,11 +579,18 @@ export type WidgetTransform = (
 
 export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
 
+export type WidgetValidatorFunction = (
+    userInput: UserInput,
+    validationData: ValidationData,
+    strings: PerseusStrings,
+    locale: string,
+) => ValidationResult;
+
 export type WidgetScorerFunction = (
     // The user data needed to score
     userInput: UserInput,
     // The scoring criteria to score against
-    rubric: Rubric,
+    scoringData: ScoringData,
     // Strings, for error messages in invalid widgets
     string?: PerseusStrings,
     // Locale, for math evaluation
@@ -633,12 +641,20 @@ export type WidgetExports<
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
     /**
+     * Validates the learner's guess to check if it's sufficient for scoring.
+     * Typically, this is basically an "emptiness" check, but for some widgets
+     * such as `interactive-graph` it is a check that the learner has made any
+     * edits (ie. the widget is not in it's origin state).
+     */
+    validator?: WidgetValidatorFunction;
+
+    /**
      * A function that scores user input (the guess) for the widget.
      */
     scorer?: WidgetScorerFunction;
 
-    getOneCorrectAnswerFromRubric?: (
-        rubric: Rubric,
+    getOneCorrectAnswerFromScoringData?: (
+        scoringData: ScoringData,
     ) => string | null | undefined;
 
     /**

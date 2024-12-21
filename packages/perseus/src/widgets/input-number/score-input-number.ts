@@ -3,7 +3,7 @@ import KhanAnswerTypes from "../../util/answer-types";
 
 import type {PerseusStrings} from "../../strings";
 import type {
-    PerseusInputNumberRubric,
+    PerseusInputNumberScoringData,
     PerseusInputNumberUserInput,
 } from "../../validation.types";
 import type {PerseusScore} from "@khanacademy/perseus";
@@ -47,24 +47,24 @@ export const answerTypes = {
 
 function scoreInputNumber(
     userInput: PerseusInputNumberUserInput,
-    rubric: PerseusInputNumberRubric,
+    scoringData: PerseusInputNumberScoringData,
     strings: PerseusStrings,
 ): PerseusScore {
-    if (rubric.answerType == null) {
-        rubric.answerType = "number";
+    if (scoringData.answerType == null) {
+        scoringData.answerType = "number";
     }
 
     // note(matthewc): this will get immediately parsed again by
     // `KhanAnswerTypes.number.convertToPredicate`, but a string is
     // expected here
-    const stringValue = `${rubric.value}`;
+    const stringValue = `${scoringData.value}`;
     const val = KhanAnswerTypes.number.createValidatorFunctional(
         stringValue,
         {
-            simplify: rubric.simplify,
-            inexact: rubric.inexact || undefined,
-            maxError: rubric.maxError,
-            forms: answerTypes[rubric.answerType].forms,
+            simplify: scoringData.simplify,
+            inexact: scoringData.inexact || undefined,
+            maxError: scoringData.maxError,
+            forms: answerTypes[scoringData.answerType].forms,
         },
         strings,
     );

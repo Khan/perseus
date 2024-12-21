@@ -8,13 +8,13 @@ import validateTable from "./validate-table";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {
-    PerseusTableRubric,
+    PerseusTableScoringData,
     PerseusTableUserInput,
 } from "../../validation.types";
 
 function scoreTable(
     userInput: PerseusTableUserInput,
-    rubric: PerseusTableRubric,
+    scoringData: PerseusTableScoringData,
     strings: PerseusStrings,
 ): PerseusScore {
     const validationResult = validateTable(userInput);
@@ -23,7 +23,7 @@ function scoreTable(
     }
 
     const supplied = filterNonEmpty(userInput);
-    const solution = filterNonEmpty(rubric.answers);
+    const solution = filterNonEmpty(scoringData.answers);
     if (supplied.length !== solution.length) {
         return {
             type: "points",

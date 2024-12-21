@@ -2,17 +2,17 @@ import _ from "underscore";
 
 import type {PerseusScore} from "../../types";
 import type {
-    PerseusMatcherRubric,
+    PerseusMatcherScoringData,
     PerseusMatcherUserInput,
 } from "../../validation.types";
 
 function scoreMatcher(
-    state: PerseusMatcherUserInput,
-    rubric: PerseusMatcherRubric,
+    userInput: PerseusMatcherUserInput,
+    scoringData: PerseusMatcherScoringData,
 ): PerseusScore {
     const correct =
-        _.isEqual(state.left, rubric.left) &&
-        _.isEqual(state.right, rubric.right);
+        _.isEqual(userInput.left, scoringData.left) &&
+        _.isEqual(userInput.right, scoringData.right);
 
     return {
         type: "points",

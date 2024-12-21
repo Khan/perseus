@@ -20,12 +20,13 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/
 
 import getDecimalSeparator from "./get-decimal-separator";
 import scoreExpression from "./score-expression";
+import validateExpression from "./validate-expression";
 
 import type {DependenciesContext} from "../../dependencies";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
-    PerseusExpressionRubric,
+    PerseusExpressionScoringData,
     PerseusExpressionUserInput,
 } from "../../validation.types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
@@ -69,7 +70,7 @@ type RenderProps = {
     keypadConfiguration: ReturnType<typeof keypadConfigurationForProps>;
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusExpressionRubric>;
+type ExternalProps = WidgetProps<RenderProps, PerseusExpressionScoringData>;
 
 export type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -558,13 +559,16 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
     scorer: scoreExpression,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
+    validator: validateExpression,
 
     // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.
-    getOneCorrectAnswerFromRubric(
-        rubric: PerseusExpressionRubric,
+    // @ts-expect-error: Type 'ScoringData' is not assignable to type 'PerseusExpressionScoringData'.
+    getOneCorrectAnswerFromScoringData(
+        scoringData: PerseusExpressionScoringData,
     ): string | null | undefined {
-        const correctAnswers = (rubric.answerForms || []).filter(
+        const correctAnswers = (scoringData.answerForms || []).filter(
             (answerForm) => answerForm.considered === "correct",
         );
         if (correctAnswers.length === 0) {

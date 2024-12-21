@@ -32,10 +32,7 @@ import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusLabelImageWidgetOptions} from "../../perseus-types";
 import type {APIOptions, Widget, WidgetExports} from "../../types";
-import type {
-    PerseusLabelImageRubric,
-    PerseusLabelImageUserInput,
-} from "../../validation.types";
+import type {PerseusLabelImageUserInput} from "../../validation.types";
 import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
@@ -72,8 +69,6 @@ type Point = {
 
 type LabelImageProps = ChangeableProps &
     DependencyProps &
-    // TODO: there's some weirdness in our types between
-    // PerseusLabelImageMarker and InteractiveMarkerType
     Omit<PerseusLabelImageWidgetOptions, "markers"> & {
         apiOptions: APIOptions;
         // The list of label markers on the question image.
@@ -194,7 +189,7 @@ export class LabelImage
      */
     static navigateToMarkerIndex(
         navigateDirection: Direction,
-        markers: ReadonlyArray<InteractiveMarkerType>,
+        markers: LabelImageProps["markers"],
         thisIndex: number,
     ): number {
         const thisMarker = markers[thisIndex];
@@ -310,21 +305,27 @@ export class LabelImage
     }
 
     getUserInput(): PerseusLabelImageUserInput {
-        const {markers} = this.props;
-        return {markers};
+        return {
+            markers: this.props.markers.map((marker) => ({
+                selected: marker.selected,
+                label: marker.label,
+            })),
+        };
     }
 
     getPromptJSON(): LabelImagePromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
-    // TODO(LEMS-2544): Investigate impact on scoring; possibly pull out &/or remove rubric parameter.
-    showRationalesForCurrentlySelectedChoices(rubric: PerseusLabelImageRubric) {
+    // TODO(LEMS-2544): Investigate impact on scoring
+    // Also consider how scoreMarker is being called as it seems to require the marker.answers property.
+    // Removed scoringData parameter, but it gets a full widget options object from the renderer
+    showRationalesForCurrentlySelectedChoices() {
         const {markers} = this.props;
         const {onChange} = this.props;
 
         const updatedMarkers = markers.map((marker) => {
-            const score = scoreMarker(marker);
+            const score = scoreMarker(marker.selected, marker.answers);
 
             return {
                 ...marker,
@@ -342,7 +343,10 @@ export class LabelImage
         onChange({markers: updatedMarkers}, null, true);
     }
 
-    handleMarkerChange(index: number, marker: InteractiveMarkerType) {
+    handleMarkerChange(
+        index: number,
+        marker: LabelImageProps["markers"][number],
+    ) {
         const {markers, onChange} = this.props;
 
         // Replace marker with a changed version at the specified index.
@@ -431,7 +435,7 @@ export class LabelImage
             selected: selected.length ? selected : undefined,
         });
     }
-
+    // TODO(LEMS-2723): Investigate if possible to change this to not require answers
     renderMarkers(): ReadonlyArray<React.ReactNode> {
         const {markers, questionCompleted, preferredPopoverDirection} =
             this.props;
@@ -476,7 +480,7 @@ export class LabelImage
                 }[markerPosition];
             }
 
-            const score = scoreMarker(marker);
+            const score = scoreMarker(marker.selected, marker.answers);
             // Once the question is answered, show markers
             // with correct answers, otherwise passthrough
             // the correctness state.

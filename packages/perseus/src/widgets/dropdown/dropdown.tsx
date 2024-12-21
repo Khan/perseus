@@ -10,16 +10,17 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
 import scoreDropdown from "./score-dropdown";
+import validateDropdown from "./validate-dropdown";
 
 import type {PerseusDropdownWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
-    PerseusDropdownRubric,
+    PerseusDropdownScoringData,
     PerseusDropdownUserInput,
 } from "../../validation.types";
 import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
-type Props = WidgetProps<RenderProps, PerseusDropdownRubric> & {
+type Props = WidgetProps<RenderProps, PerseusDropdownScoringData> & {
     selected: number;
 };
 
@@ -173,4 +174,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusDropdownUserInput'.
     scorer: scoreDropdown,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusDropdownUserInput'.
+    validator: validateDropdown,
 } satisfies WidgetExports<typeof Dropdown>;

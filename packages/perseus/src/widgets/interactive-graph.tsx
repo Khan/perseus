@@ -55,7 +55,7 @@ import type {
     SineCoefficient,
 } from "../util/geometry";
 import type {
-    PerseusInteractiveGraphRubric,
+    PerseusInteractiveGraphScoringData,
     PerseusInteractiveGraphUserInput,
 } from "../validation.types";
 import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
@@ -219,7 +219,7 @@ type RenderProps = {
      */
     fullGraphAriaDescription?: string;
 }; // There's no transform function in exports
-type Props = WidgetProps<RenderProps, PerseusInteractiveGraphRubric>;
+type Props = WidgetProps<RenderProps, PerseusInteractiveGraphScoringData>;
 type State = any;
 type DefaultProps = {
     labels: ReadonlyArray<string>;
@@ -240,7 +240,7 @@ type DefaultProps = {
 // which receive defaults via defaultProps.
 0 as any as WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
-    PerseusInteractiveGraphRubric
+    PerseusInteractiveGraphScoringData
 > satisfies PropsFor<typeof InteractiveGraph>;
 
 // TODO: there's another, very similar getSinusoidCoefficients function

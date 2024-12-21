@@ -1,10 +1,28 @@
 import type {
     DropdownWidget,
+    ExpressionWidget,
     ImageWidget,
-    InputNumberWidget,
+    NumericInputWidget,
     PerseusRenderer,
 } from "../perseus-types";
 import type {RenderProps} from "../widgets/radio";
+
+export const expressionWidget: ExpressionWidget = {
+    type: "expression",
+    options: {
+        answerForms: [
+            {
+                considered: "correct",
+                form: true,
+                simplify: true,
+                value: "1.0",
+            },
+        ],
+        buttonSets: ["basic"],
+        functions: [],
+        times: true,
+    },
+};
 
 export const dropdownWidget: DropdownWidget = {
     type: "dropdown",
@@ -49,22 +67,31 @@ export const imageWidget: ImageWidget = {
     version: {major: 0, minor: 0},
 };
 
-export const inputNumberWidget: InputNumberWidget = {
+export const numericInputWidget: NumericInputWidget = {
+    graded: true,
     version: {
         major: 0,
         minor: 0,
     },
-    type: "input-number",
-    graded: true,
-    alignment: "default",
+    static: false,
+    type: "numeric-input",
     options: {
-        maxError: 0.1,
-        inexact: false,
-        value: 0.3333333333333333,
-        simplify: "optional",
-        answerType: "rational",
+        coefficient: false,
+        static: false,
+        answers: [
+            {
+                status: "correct",
+                maxError: null,
+                strict: false,
+                value: 1252,
+                simplify: "required",
+                message: "",
+            },
+        ],
+        labelText: "",
         size: "normal",
     },
+    alignment: "default",
 };
 
 export const question1: PerseusRenderer = {
@@ -76,7 +103,7 @@ export const question1: PerseusRenderer = {
 
 export const question2: PerseusRenderer = {
     content:
-        "Denis baked a peach pie and cut it into $3$ equal-sized pieces.  Denis's dad eats $1$ section of the pie.  \n\n**What fraction of the pie did Denis's dad eat?**  \n![](https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png)    \n[[\u2603 input-number 1]]  \n\n\n\n",
+        "Denis baked a peach pie and cut it into $3$ equal-sized pieces.  Denis's dad eats $1$ section of the pie.  \n\n**What fraction of the pie did Denis's dad eat?**  \n![](https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png)    \n[[\u2603 numeric-input 1]]  \n\n\n\n",
     images: {
         "https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png":
             {
@@ -84,7 +111,13 @@ export const question2: PerseusRenderer = {
                 height: 200,
             },
     },
-    widgets: {"input-number 1": inputNumberWidget},
+    widgets: {"numeric-input 1": numericInputWidget},
+};
+
+export const question3: PerseusRenderer = {
+    content: "Enter $1.0$ in the input field: [[\u2603 expression 1]]\n\n\n\n",
+    images: {},
+    widgets: {"expression 1": expressionWidget},
 };
 
 export const definitionItem: PerseusRenderer = {

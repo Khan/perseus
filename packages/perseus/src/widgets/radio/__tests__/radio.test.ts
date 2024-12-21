@@ -953,7 +953,7 @@ describe("Radio Widget", () => {
         /**
          * (LEMS-2435) We want to be sure that we're able to score shuffled
          * Radio widgets outside of the component which means `getUserInput`
-         * should return the same order that the rubric provides
+         * should return the same order that the scoring data provides
          */
         it("can be scored correctly when shuffled", async () => {
             // Arrange
@@ -966,8 +966,8 @@ describe("Radio Widget", () => {
 
             const userInput =
                 renderer.getUserInput()[0] as PerseusRadioUserInput;
-            const rubric = shuffledQuestion.widgets["radio 1"].options;
-            const widgetScore = scoreRadio(userInput, rubric, mockStrings);
+            const scoringData = shuffledQuestion.widgets["radio 1"].options;
+            const widgetScore = scoreRadio(userInput, scoringData, mockStrings);
             const rendererScore = scorePerseusItemTesting(
                 shuffledQuestion,
                 renderer.getUserInputMap(),
@@ -981,7 +981,7 @@ describe("Radio Widget", () => {
         /**
          * (LEMS-2435) We want to be sure that we're able to score shuffled
          * Radio widgets outside of the component which means `getUserInput`
-         * should return the same order that the rubric provides
+         * should return the same order that the scoring data provides
          */
         it("can be scored incorrectly when shuffled", async () => {
             // Arrange
@@ -994,8 +994,8 @@ describe("Radio Widget", () => {
 
             const userInput =
                 renderer.getUserInput()[0] as PerseusRadioUserInput;
-            const rubric = shuffledQuestion.widgets["radio 1"].options;
-            const widgetScore = scoreRadio(userInput, rubric, mockStrings);
+            const scoringData = shuffledQuestion.widgets["radio 1"].options;
+            const widgetScore = scoreRadio(userInput, scoringData, mockStrings);
             const rendererScore = scorePerseusItemTesting(
                 shuffledQuestion,
                 renderer.getUserInputMap(),
@@ -1009,7 +1009,7 @@ describe("Radio Widget", () => {
         /**
          * (LEMS-2435) We want to be sure that we're able to score shuffled
          * Radio widgets outside of the component which means `getUserInput`
-         * should return the same order that the rubric provides
+         * should return the same order that the scoring data provides
          */
         it("can be scored correctly when shuffled with none of the above", async () => {
             // Arrange
@@ -1022,8 +1022,8 @@ describe("Radio Widget", () => {
 
             const userInput =
                 renderer.getUserInput()[0] as PerseusRadioUserInput;
-            const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
-            const widgetScore = scoreRadio(userInput, rubric, mockStrings);
+            const scoringData = shuffledNoneQuestion.widgets["radio 1"].options;
+            const widgetScore = scoreRadio(userInput, scoringData, mockStrings);
             const rendererScore = scorePerseusItemTesting(
                 shuffledNoneQuestion,
                 renderer.getUserInputMap(),
@@ -1037,7 +1037,7 @@ describe("Radio Widget", () => {
         /**
          * (LEMS-2435) We want to be sure that we're able to score shuffled
          * Radio widgets outside of the component which means `getUserInput`
-         * should return the same order that the rubric provides
+         * should return the same order that the scoring data provides
          */
         it("can be scored incorrectly when shuffled with none of the above", async () => {
             // Arrange
@@ -1050,8 +1050,8 @@ describe("Radio Widget", () => {
 
             const userInput =
                 renderer.getUserInput()[0] as PerseusRadioUserInput;
-            const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
-            const widgetScore = scoreRadio(userInput, rubric, mockStrings);
+            const scoringData = shuffledNoneQuestion.widgets["radio 1"].options;
+            const widgetScore = scoreRadio(userInput, scoringData, mockStrings);
             const rendererScore = scorePerseusItemTesting(
                 shuffledQuestion,
                 renderer.getUserInputMap(),
