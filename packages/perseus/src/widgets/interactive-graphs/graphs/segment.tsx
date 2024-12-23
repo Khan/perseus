@@ -32,40 +32,73 @@ type SegmentProps = MafsGraphProps<SegmentGraphState>;
 const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     const {coords: segments} = graphState;
     const {strings, locale} = usePerseusI18n();
-    const wholeSegmentAriaLabel = strings.srSegmentGraphAriaLabel;
 
     function getLengthOfSegment(segment: PairOfPoints) {
         return kpoint.distanceToPoint(...segment);
     }
 
-    function getWholeSegmentAriaDescription(segment: PairOfPoints, index: number) {
-        const indexOfSegment = index + 1;
-        return strings.srSegmentGraphAriaDescription({
+    function getWholeSegmentGraphAriaLabel(): string {
+        return segments?.length > 1
+            ? strings.srMultipleSegmentGraphAriaLabel({
+                  countOfSegments: segments.length,
+              })
+            : strings.srSingleSegmentGraphAriaLabel;
+    }
+
+    const wholeSegmentGraphAriaLabel = getWholeSegmentGraphAriaLabel();
+
+    function getIndividualSegmentAriaDescription(
+        segment: PairOfPoints,
+        index: number,
+    ) {
+        return strings.srIndividualSegmentAriaDescription({
             point1X: srFormatNumber(segment[0][X], locale),
             point1Y: srFormatNumber(segment[0][Y], locale),
             point2X: srFormatNumber(segment[1][X], locale),
             point2Y: srFormatNumber(segment[1][Y], locale),
             length: srFormatNumber(getLengthOfSegment(segment), locale),
-            indexOfSegment: indexOfSegment,
+            indexOfSegment: index + 1,
         });
     }
 
-    function formatSegment(endpointNumber: number, x: number, y: number) {
-        return strings.srSegmentGraphEndpointAriaLabel({
+    function getWholeSegmentGraphAriaDescription() {
+        let description = `${wholeSegmentGraphAriaLabel} `;
+
+        segments.forEach((segment, index) => {
+            description +=
+                getIndividualSegmentAriaDescription(segment, index) + " ";
+        });
+
+        return description;
+    }
+
+    function formatSegment(
+        endpointNumber: number,
+        x: number,
+        y: number,
+        index: number,
+    ) {
+        const segObj = {
             endpointNumber: endpointNumber,
             x: srFormatNumber(x, locale),
             y: srFormatNumber(y, locale),
-        });
+        };
+
+        return segments.length > 1
+            ? strings.srMultipleSegmentGraphEndpointAriaLabel({
+                  ...segObj,
+                  indexOfSegment: index,
+              })
+            : strings.srSingleSegmentGraphEndpointAriaLabel(segObj);
     }
 
     return (
-        <>
+        <g
+            aria-label={wholeSegmentGraphAriaLabel}
+            aria-describedby="wholeSegmentGraphAriaDescription"
+        >
             {segments?.map((segment, i) => (
-                <g
-                    aria-label={wholeSegmentAriaLabel}
-                    aria-describedby={`segment-description-${i}`}
-                    key={i}
-                >
+                <g aria-describedby={`segment-description-${i}`} key={i}>
                     <MovableLine
                         key={i}
                         points={segment}
@@ -89,11 +122,13 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
                                 1,
                                 segment[0][X],
                                 segment[0][Y],
+                                i + 1,
                             ),
                             point2AriaLabel: formatSegment(
                                 2,
                                 segment[1][X],
                                 segment[1][Y],
+                                i + 1,
                             ),
                         }}
                     />
@@ -101,10 +136,16 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
                         id={`segment-description-${i}`}
                         style={{display: "hidden"}}
                     >
-                        {getWholeSegmentAriaDescription(segment, i)}
+                        {getIndividualSegmentAriaDescription(segment, i)}
                     </g>
                 </g>
             ))}
-        </>
+            <g
+                style={{display: "hidden"}}
+                id="wholeSegmentGraphAriaDescription"
+            >
+                {getWholeSegmentGraphAriaDescription()}
+            </g>
+        </g>
     );
 };

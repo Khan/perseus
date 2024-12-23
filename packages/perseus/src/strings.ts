@@ -258,14 +258,19 @@ export type PerseusStrings = {
         tsX: string;
         tsY: string;
     }) => string;
-    srSegmentGraphAriaLabel: string;
-    srSegmentGraphAriaDescription: ({
+    srSingleSegmentGraphAriaLabel: string;
+    srMultipleSegmentGraphAriaLabel: ({
+        countOfSegments,
+    }: {
+        countOfSegments: number;
+    }) => string;
+    srIndividualSegmentAriaDescription: ({
         point1X,
         point1Y,
         point2X,
         point2Y,
         length,
-        indexOfSegment
+        indexOfSegment,
     }: {
         point1X: string;
         point1Y: string;
@@ -274,7 +279,7 @@ export type PerseusStrings = {
         length: string;
         indexOfSegment: number;
     }) => string;
-    srSegmentGraphEndpointAriaLabel: ({
+    srSingleSegmentGraphEndpointAriaLabel: ({
         endpointNumber,
         x,
         y,
@@ -282,6 +287,17 @@ export type PerseusStrings = {
         endpointNumber: number;
         x: string;
         y: string;
+    }) => string;
+    srMultipleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+        indexOfSegment,
+    }: {
+        endpointNumber: number;
+        x: string;
+        y: string;
+        indexOfSegment: number;
     }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
@@ -579,21 +595,32 @@ export const strings: {
         message:
             "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the initial side at %(isX)s comma %(isY)s and a point on the terminal side at %(tsX)s comma %(tsY)s",
     },
-    srSegmentGraphAriaLabel: {
+    srSingleSegmentGraphAriaLabel: {
         context:
             "Screenreader-accessible description of a line segment on a coordinate plane.",
-        message: "A line segment on a coordinate plane",
+        message: "A line segment on a coordinate plane.",
     },
-    srSegmentGraphAriaDescription: {
+    srMultipleSegmentGraphAriaLabel: {
+        context:
+            "Screenreader accessible description of multiple line segments on a coordinate plane.",
+        message: "%(countOfSegments)s segments on a coordinate plane.",
+    },
+    srIndividualSegmentAriaDescription: {
         context:
             "Screenreader-only description of a line segment on a coordinate plane.",
         message:
-            "Segment %(indexOfSegment)s. Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s. Segment length %(length)s units.",
+            "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s. Segment length %(length)s units.",
     },
-    srSegmentGraphEndpointAriaLabel: {
+    srSingleSegmentGraphEndpointAriaLabel: {
         context:
             "Screenreader-accessible label for an endpoint of a line segment on a coordinate plane.",
-        message: "Endpoint $(endpointNumber)s at $(x)s comma $(y)s.",
+        message: "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
+    },
+    srMultipleSegmentGraphEndpointAriaLabel: {
+        context:
+            "Screenreader-accessible label for an endpoint of a line segment on a coordinate plane.",
+        message:
+            "Endpoint %(endpointNumber)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
     },
     // The above strings are used for interactive graph SR descriptions.
 };
@@ -812,17 +839,26 @@ export const mockStrings: PerseusStrings = {
         tsY,
     }) =>
         `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the initial side at ${isX} comma ${isY} and a point on the terminal side at ${tsX} comma ${tsY}.`,
-    srSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
-    srSegmentGraphAriaDescription: ({
+    srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
+    srMultipleSegmentGraphAriaLabel: ({countOfSegments}) =>
+        `${countOfSegments} segments on a coordinate plane.`,
+    srIndividualSegmentAriaDescription: ({
         point1X,
         point1Y,
         point2X,
         point2Y,
         length,
-        indexOfSegment
+        indexOfSegment,
     }) =>
-        `Segment ${indexOfSegment}. Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}. Segment length ${length} units.`,
-    srSegmentGraphEndpointAriaLabel: ({endpointNumber, x, y}) =>
+        `Segment ${indexOfSegment}: Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}. Segment length ${length} units.`,
+    srSingleSegmentGraphEndpointAriaLabel: ({endpointNumber, x, y}) =>
         `Endpoint ${endpointNumber} at ${x} comma ${y}.`,
+    srMultipleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+        indexOfSegment,
+    }) =>
+        `Endpoint ${endpointNumber} on segment ${indexOfSegment} at ${x} comma ${y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
