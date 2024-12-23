@@ -154,8 +154,8 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expectLabelInDoc("Endpoint 1 at 0 comma 0");
-        expectLabelInDoc("Endpoint 2 at -7 comma 0.5");
+        expectLabelInDoc("Endpoint 1 at 0 comma 0.");
+        expectLabelInDoc("Endpoint 2 at -7 comma 0.5.");
     });
 
     it("renders ARIA labels for each point (multiple segments)", () => {
@@ -187,10 +187,10 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expectLabelInDoc("Endpoint 1 at 0 comma 0");
-        expectLabelInDoc("Endpoint 2 at -7 comma 0.5");
-        expectLabelInDoc("Endpoint 1 at 1 comma 1");
-        expectLabelInDoc("Endpoint 2 at 7 comma 0.5");
+        expectLabelInDoc("Endpoint 1 at 0 comma 0.");
+        expectLabelInDoc("Endpoint 2 at -7 comma 0.5.");
+        expectLabelInDoc("Endpoint 1 at 1 comma 1.");
+        expectLabelInDoc("Endpoint 2 at 7 comma 0.5.");
     });
 
     it("renders ARIA labels for each point (linear)", () => {

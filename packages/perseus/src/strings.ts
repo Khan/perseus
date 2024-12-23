@@ -593,7 +593,7 @@ export const strings: {
     srSegmentGraphEndpointAriaLabel: {
         context:
             "Screenreader-accessible label for an endpoint of a line segment on a coordinate plane.",
-        message: "Endpoint $(endpointNumber)s at $(x)s comma $(y)s",
+        message: "Endpoint $(endpointNumber)s at $(x)s comma $(y)s.",
     },
     // The above strings are used for interactive graph SR descriptions.
 };
@@ -823,6 +823,6 @@ export const mockStrings: PerseusStrings = {
     }) =>
         `Segment ${indexOfSegment}. Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}. Segment length ${length} units.`,
     srSegmentGraphEndpointAriaLabel: ({endpointNumber, x, y}) =>
-        `Endpoint ${endpointNumber} at ${x} comma ${y}`,
+        `Endpoint ${endpointNumber} at ${x} comma ${y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
