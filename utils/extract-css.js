@@ -15,7 +15,7 @@ const parsedCode = parse(code, {
     plugins: ["jsx", "typescript"],
 });
 
-const literalVariables = {}
+const literalVariables = {};
 parsedCode.program.body
     .filter((node) => node.type === "VariableDeclaration")
     .flatMap((node) => node.declarations)
@@ -37,12 +37,16 @@ const getClassName = (node) => {
 };
 
 const getCssProperty = (property) => {
-    if (property.value.type !== "StringLiteral") {
-        // TODO: Need to handle "special" cases
-        // console.log(`${property.key.name}: `, property);
-
+    let propertyValue = property.value.value;
+    switch (property.value.type) {
+        case "Identifier":
+            propertyValue = `${literalVariables[property.value.name]}px`;
+            break;
+        case "UnaryExpression":
+            propertyValue = `${property.value.operator}${literalVariables[property.value.argument.name]}px`;
+            break;
     }
-    return `    ${camelToKabob(property.key.name)}: ${property.value.value};`;
+    return `    ${camelToKabob(property.key.name)}: ${propertyValue};`;
 };
 
 const camelToKabob = (camel) => {
