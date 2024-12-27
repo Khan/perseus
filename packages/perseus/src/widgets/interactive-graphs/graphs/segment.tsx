@@ -129,7 +129,7 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
                         }}
                     />
                     <g
-                        id={`segment-description-${i}`}
+                        id={`segment-description-${segmentUniqueId}-${i}`}
                         style={{display: "hidden"}}
                     >
                         {getIndividualSegmentAriaDescription(segment, i)}
