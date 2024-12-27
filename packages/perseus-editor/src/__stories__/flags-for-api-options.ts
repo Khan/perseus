@@ -17,7 +17,6 @@ export const flags = {
         none: true,
 
         // Locked figures flags
-        "locked-figures-aria": true,
         "locked-point-labels": true,
         "locked-line-labels": true,
         "locked-vector-labels": true,

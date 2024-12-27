@@ -326,20 +326,15 @@ const LockedFunctionSettings = (props: Props) => {
             </PerseusEditorAccordion>
 
             {/* Aria label */}
-            {flags?.["mafs"]?.["locked-figures-aria"] && (
-                <>
-                    <Strut size={spacing.small_12} />
-                    <View style={styles.horizontalRule} />
-
-                    <LockedFigureAria
-                        ariaLabel={ariaLabel}
-                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
-                        onChangeProps={(newProps) => {
-                            onChangeProps(newProps);
-                        }}
-                    />
-                </>
-            )}
+            <Strut size={spacing.small_12} />
+            <View style={styles.horizontalRule} />
+            <LockedFigureAria
+                ariaLabel={ariaLabel}
+                getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                onChangeProps={(newProps) => {
+                    onChangeProps(newProps);
+                }}
+            />
 
             {/* Visible Labels */}
             {flags?.["mafs"]?.["locked-function-labels"] && (

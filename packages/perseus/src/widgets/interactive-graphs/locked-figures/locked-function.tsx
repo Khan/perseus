@@ -28,8 +28,7 @@ const LockedFunction = (props: Props) => {
         domain,
     };
 
-    const hasAria =
-        props.ariaLabel && props.flags?.["mafs"]?.["locked-figures-aria"];
+    const hasAria = !!props.ariaLabel;
 
     useEffect(() => {
         // Parsing the equation in a "useEffect" hook saves about 2ms each frame

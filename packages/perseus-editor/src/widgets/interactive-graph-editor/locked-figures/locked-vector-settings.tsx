@@ -209,20 +209,16 @@ const LockedVectorSettings = (props: Props) => {
                 />
             </PerseusEditorAccordion>
 
-            {flags?.["mafs"]?.["locked-figures-aria"] && (
-                <>
-                    <Strut size={spacing.small_12} />
-                    <View style={styles.horizontalRule} />
-
-                    <LockedFigureAria
-                        ariaLabel={ariaLabel}
-                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
-                        onChangeProps={(newProps) => {
-                            onChangeProps(newProps);
-                        }}
-                    />
-                </>
-            )}
+            {/* Aria label */}
+            <Strut size={spacing.small_12} />
+            <View style={styles.horizontalRule} />
+            <LockedFigureAria
+                ariaLabel={ariaLabel}
+                getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                onChangeProps={(newProps) => {
+                    onChangeProps(newProps);
+                }}
+            />
 
             {flags?.["mafs"]?.["locked-vector-labels"] && (
                 <>

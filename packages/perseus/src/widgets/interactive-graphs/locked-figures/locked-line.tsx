@@ -27,12 +27,11 @@ const LockedLine = (props: Props) => {
         showPoint1,
         showPoint2,
         ariaLabel,
-        flags,
         range,
     } = props;
     const [point1, point2] = points;
 
-    const hasAria = ariaLabel && flags?.["mafs"]?.["locked-figures-aria"];
+    const hasAria = !!ariaLabel;
 
     let line;
 

@@ -18,8 +18,7 @@ type Props = LockedPolygonType & {
 const LockedPolygon = (props: Props) => {
     const {points, color, showVertices, fillStyle, strokeStyle} = props;
 
-    const hasAria =
-        props.ariaLabel && props.flags?.["mafs"]?.["locked-figures-aria"];
+    const hasAria = !!props.ariaLabel;
 
     return (
         <g

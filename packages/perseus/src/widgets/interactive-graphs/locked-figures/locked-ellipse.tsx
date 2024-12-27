@@ -15,18 +15,10 @@ type Props = LockedEllipseType & {
 };
 
 const LockedEllipse = (props: Props) => {
-    const {
-        center,
-        radius,
-        angle,
-        color,
-        fillStyle,
-        strokeStyle,
-        ariaLabel,
-        flags,
-    } = props;
+    const {center, radius, angle, color, fillStyle, strokeStyle, ariaLabel} =
+        props;
 
-    const hasAria = ariaLabel && flags?.["mafs"]?.["locked-figures-aria"];
+    const hasAria = !!ariaLabel;
 
     return (
         <g

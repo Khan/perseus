@@ -11,10 +11,10 @@ type Props = LockedVectorType & {
 };
 
 const LockedVector = (props: Props) => {
-    const {color, points, ariaLabel, flags} = props;
+    const {color, points, ariaLabel} = props;
     const [tail, tip] = points;
 
-    const hasAria = ariaLabel && flags?.["mafs"]?.["locked-figures-aria"];
+    const hasAria = !!ariaLabel;
 
     return (
         <g

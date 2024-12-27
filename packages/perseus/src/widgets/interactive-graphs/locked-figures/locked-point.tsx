@@ -11,10 +11,10 @@ type Props = LockedPointType & {
 };
 
 const LockedPoint = (props: Props) => {
-    const {flags, color, coord, filled, ariaLabel} = props;
+    const {color, coord, filled, ariaLabel} = props;
     const [x, y] = coord;
 
-    const hasAria = ariaLabel && flags?.["mafs"]?.["locked-figures-aria"];
+    const hasAria = !!ariaLabel;
 
     return (
         <g
