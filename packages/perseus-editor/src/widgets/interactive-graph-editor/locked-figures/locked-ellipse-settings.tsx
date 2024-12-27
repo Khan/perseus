@@ -47,7 +47,6 @@ export type Props = LockedFigureSettingsCommonProps &
 
 const LockedEllipseSettings = (props: Props) => {
     const {
-        flags,
         center,
         radius,
         angle,
@@ -256,55 +255,48 @@ const LockedEllipseSettings = (props: Props) => {
             />
 
             {/* Visible Labels */}
-            {flags?.["mafs"]?.["locked-ellipse-labels"] && (
-                <>
-                    <Strut size={spacing.xxxSmall_4} />
-                    <View style={styles.horizontalRule} />
-                    <Strut size={spacing.small_12} />
+            <Strut size={spacing.xxxSmall_4} />
+            <View style={styles.horizontalRule} />
+            <Strut size={spacing.small_12} />
+            <LabelMedium>Visible labels</LabelMedium>
+            {labels?.map((label, labelIndex) => (
+                <LockedLabelSettings
+                    {...label}
+                    key={labelIndex}
+                    expanded={true}
+                    onChangeProps={(newLabel) => {
+                        handleLabelChange(newLabel, labelIndex);
+                    }}
+                    onRemove={() => {
+                        handleLabelRemove(labelIndex);
+                    }}
+                    containerStyle={styles.labelContainer}
+                />
+            ))}
+            <Button
+                kind="tertiary"
+                startIcon={plusCircle}
+                onClick={() => {
+                    const newLabel = {
+                        ...getDefaultFigureForType("label"),
+                        coord: [
+                            center[0],
+                            // Additional vertical offset for each
+                            // label so they don't overlap.
+                            center[1] - (labels?.length ?? 0),
+                        ],
+                        // Default to the same color as the ellipse
+                        color: color,
+                    } satisfies LockedLabelType;
 
-                    <LabelMedium>Visible labels</LabelMedium>
-
-                    {labels?.map((label, labelIndex) => (
-                        <LockedLabelSettings
-                            {...label}
-                            key={labelIndex}
-                            expanded={true}
-                            onChangeProps={(newLabel) => {
-                                handleLabelChange(newLabel, labelIndex);
-                            }}
-                            onRemove={() => {
-                                handleLabelRemove(labelIndex);
-                            }}
-                            containerStyle={styles.labelContainer}
-                        />
-                    ))}
-
-                    <Button
-                        kind="tertiary"
-                        startIcon={plusCircle}
-                        onClick={() => {
-                            const newLabel = {
-                                ...getDefaultFigureForType("label"),
-                                coord: [
-                                    center[0],
-                                    // Additional vertical offset for each
-                                    // label so they don't overlap.
-                                    center[1] - (labels?.length ?? 0),
-                                ],
-                                // Default to the same color as the ellipse
-                                color: color,
-                            } satisfies LockedLabelType;
-
-                            onChangeProps({
-                                labels: [...(labels ?? []), newLabel],
-                            });
-                        }}
-                        style={styles.addButton}
-                    >
-                        Add visible label
-                    </Button>
-                </>
-            )}
+                    onChangeProps({
+                        labels: [...(labels ?? []), newLabel],
+                    });
+                }}
+                style={styles.addButton}
+            >
+                Add visible label
+            </Button>
 
             {/* Actions */}
             <LockedFigureSettingsActions
