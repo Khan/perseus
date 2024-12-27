@@ -10,11 +10,9 @@ import {getIntersectionOfRayWithBox} from "../graphs/utils";
 import {X, Y, calculateAngleInDegrees} from "../math";
 
 import type {LockedLineType} from "../../../perseus-types";
-import type {APIOptions} from "../../../types";
 import type {Interval} from "mafs";
 
 type Props = LockedLineType & {
-    flags?: APIOptions["flags"];
     range: [Interval, Interval];
 };
 

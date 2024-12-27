@@ -4,13 +4,7 @@ import * as React from "react";
 
 import {lockedFigureColors, type LockedPointType} from "../../../perseus-types";
 
-import type {APIOptions} from "../../../types";
-
-type Props = LockedPointType & {
-    flags?: APIOptions["flags"];
-};
-
-const LockedPoint = (props: Props) => {
+const LockedPoint = (props: LockedPointType) => {
     const {color, coord, filled, ariaLabel} = props;
     const [x, y] = coord;
 

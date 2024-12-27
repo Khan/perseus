@@ -6,13 +6,8 @@ import {useState, useEffect} from "react";
 import {lockedFigureColors} from "../../../perseus-types";
 
 import type {LockedFunctionType} from "../../../perseus-types";
-import type {APIOptions} from "../../../types";
 
-type Props = LockedFunctionType & {
-    flags?: APIOptions["flags"];
-};
-
-const LockedFunction = (props: Props) => {
+const LockedFunction = (props: LockedFunctionType) => {
     type Equation = {
         [k: string]: any;
         eval: (number) => number;

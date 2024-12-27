@@ -9,13 +9,8 @@ import {
 import {X, Y} from "../math";
 
 import type {LockedPolygonType} from "../../../perseus-types";
-import type {APIOptions} from "../../../types";
 
-type Props = LockedPolygonType & {
-    flags?: APIOptions["flags"];
-};
-
-const LockedPolygon = (props: Props) => {
+const LockedPolygon = (props: LockedPolygonType) => {
     const {points, color, showVertices, fillStyle, strokeStyle} = props;
 
     const hasAria = !!props.ariaLabel;

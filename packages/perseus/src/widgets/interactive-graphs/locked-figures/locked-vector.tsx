@@ -4,13 +4,8 @@ import {lockedFigureColors} from "../../../perseus-types";
 import {Vector} from "../graphs/components/vector";
 
 import type {LockedVectorType} from "../../../perseus-types";
-import type {APIOptions} from "../../../types";
 
-type Props = LockedVectorType & {
-    flags?: APIOptions["flags"];
-};
-
-const LockedVector = (props: Props) => {
+const LockedVector = (props: LockedVectorType) => {
     const {color, points, ariaLabel} = props;
     const [tail, tip] = points;
 
