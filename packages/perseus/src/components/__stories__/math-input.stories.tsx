@@ -15,6 +15,7 @@ const meta: Meta = {
             logarithms: true,
             preAlgebra: true,
             trigonometry: true,
+            scientific: true,
         },
         convertDotToTimes: false,
         value: "",
