@@ -41,7 +41,6 @@ const enableMafs: APIOptions = {
             "unlimited-polygon": true,
             "unlimited-point": true,
             angle: true,
-            "interactive-graph-locked-features-labels": true,
         },
     },
 };

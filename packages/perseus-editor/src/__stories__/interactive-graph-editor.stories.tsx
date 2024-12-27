@@ -161,7 +161,6 @@ export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
                 flags: {
                     mafs: {
                         ...flags.mafs,
-                        "interactive-graph-locked-features-labels": false,
                         "locked-figures-aria": false,
                         "locked-point-labels": false,
                         "locked-line-labels": false,
@@ -185,28 +184,6 @@ MafsWithLockedFiguresCurrent.parameters = {
     },
 };
 
-export const MafsWithLockedLabelsFlag = (): React.ReactElement => {
-    return (
-        <EditorPageWithStorybookPreview
-            apiOptions={{
-                flags: {
-                    mafs: {
-                        ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
-                        "locked-point-labels": false,
-                        "locked-line-labels": false,
-                        "locked-vector-labels": false,
-                        "locked-ellipse-labels": false,
-                        "locked-polygon-labels": false,
-                        "locked-function-labels": false,
-                    },
-                },
-            }}
-            question={segmentWithLockedFigures}
-        />
-    );
-};
-
 export const MafsWithLockedPointLabelsFlag = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview
@@ -214,7 +191,6 @@ export const MafsWithLockedPointLabelsFlag = (): React.ReactElement => {
                 flags: {
                     mafs: {
                         ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
                         "locked-point-labels": true,
                         "locked-line-labels": false,
                         "locked-vector-labels": false,
@@ -236,7 +212,6 @@ export const MafsWithLockedLineLabelsFlag = (): React.ReactElement => {
                 flags: {
                     mafs: {
                         ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
                         "locked-point-labels": false,
                         "locked-line-labels": true,
                         "locked-vector-labels": false,
@@ -258,7 +233,6 @@ export const MafsWithLockedVectorLabelsFlag = (): React.ReactElement => {
                 flags: {
                     mafs: {
                         ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
                         "locked-point-labels": false,
                         "locked-line-labels": false,
                         "locked-vector-labels": true,
@@ -280,7 +254,6 @@ export const MafsWithLockedEllipseLabelsFlag = (): React.ReactElement => {
                 flags: {
                     mafs: {
                         ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
                         "locked-point-labels": false,
                         "locked-line-labels": false,
                         "locked-vector-labels": false,
@@ -302,7 +275,6 @@ export const MafsWithLockedPolygonLabelsFlag = (): React.ReactElement => {
                 flags: {
                     mafs: {
                         ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
                         "locked-point-labels": false,
                         "locked-line-labels": false,
                         "locked-vector-labels": false,
@@ -324,7 +296,6 @@ export const MafsWithLockedFunctionLabelsFlag = (): React.ReactElement => {
                 flags: {
                     mafs: {
                         ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
                         "locked-point-labels": false,
                         "locked-line-labels": false,
                         "locked-vector-labels": false,
