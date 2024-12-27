@@ -10,7 +10,7 @@ type Attribute = {
 
 type AttributeMap = {
     role: string;
-    values: Array<Attribute>;
+    attributes: Array<Attribute>;
 };
 
 // Exported for testing
@@ -21,12 +21,17 @@ export function fetchAriaLabels(container?: Element): AttributeMap[] {
         return elementArias;
     }
 
+    // Traverse through all the children of the container and
+    // collect the aria-labels and aria-descriptions.
     container.querySelectorAll("*").forEach((element) => {
+        // List to return with all the aria-labels and aria-descriptions.
         const elementAttributes: Array<Attribute> = [];
-        const attributes = element.attributes;
 
+        const attributes = element.attributes;
         for (const attribute of attributes) {
             if (attribute.name === "aria-label") {
+                // Add the aria-label to the front of the array so
+                // it shows up first for this element in the tree.
                 elementAttributes.unshift({
                     name: "label",
                     value: attribute.value,
@@ -50,12 +55,14 @@ export function fetchAriaLabels(container?: Element): AttributeMap[] {
             }
         }
 
+        // Only push the element to the list if it has aria-labels
+        // or aria-descriptions.
         if (elementAttributes.length > 0) {
             elementArias.push({
                 role:
                     element.getAttribute("role") ||
                     element.tagName.toLowerCase(),
-                values: elementAttributes,
+                attributes: elementAttributes,
             });
         }
     });
@@ -78,7 +85,7 @@ function SRTree(props: Props) {
                 <li key={index}>
                     {ariaString.role}
                     <ul style={{listStyle: "revert", marginLeft: 8}}>
-                        {ariaString.values.map((value, index) => (
+                        {ariaString.attributes.map((value, index) => (
                             <li key={index}>
                                 <Pill
                                     size="small"
