@@ -13,7 +13,8 @@ type AttributeMap = {
     values: Array<Attribute>;
 };
 
-function fetchAriaLabels(container: Element): AttributeMap[] {
+// Exported for testing
+export function fetchAriaLabels(container?: Element): AttributeMap[] {
     const elementArias: Array<AttributeMap> = [];
 
     if (!container) {
@@ -108,6 +109,8 @@ function InteractiveGraphSRTree({
     const [isExpanded, setIsExpanded] = React.useState(true);
     const [elementArias, setElementArias] = React.useState<AttributeMap[]>([]);
 
+    // TODO(nisha): Change this to use ref after the graph has a non-string
+    // ref and the InteractiveGraph component forwards refs.
     const mafsGraphContainer = document.getElementsByClassName(
         "mafs-graph-container",
     )?.[0];
@@ -116,6 +119,7 @@ function InteractiveGraphSRTree({
     React.useEffect(() => {
         setElementArias(fetchAriaLabels(mafsGraphContainer));
     }, [
+        // Update the tree when the "correct preview" graph is updated.
         correct,
         fullGraphAriaLabel,
         fullGraphAriaDescription,
