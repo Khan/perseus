@@ -546,7 +546,7 @@ export const strings: {
     srAngleGraphAriaLabel: {
         context:
             "Screenreader-accessible label of an angle graph on a coordinate plane",
-        message: "An angle on a coordinate plane",
+        message: "An angle on a coordinate plane.",
     },
     srAngleGraphAriaDescription: {
         context:
