@@ -16,7 +16,6 @@ type Props = {
     cursorContext?: (typeof CursorContext)[keyof typeof CursorContext];
     convertDotToTimes?: boolean;
     divisionKey?: boolean;
-    scientific?: boolean;
 };
 
 export default function SharedKeys(props: Props) {
@@ -26,7 +25,6 @@ export default function SharedKeys(props: Props) {
         divisionKey,
         convertDotToTimes,
         selectedPage,
-        scientific,
     } = props;
     const {strings, locale} = useMathInputI18n();
     const cursorKeyConfig = getCursorContextConfig(strings, cursorContext);
@@ -58,14 +56,6 @@ export default function SharedKeys(props: Props) {
                 coord={[5, 0]}
                 secondary
             />
-            {scientific && (
-                <KeypadButton
-                    keyConfig={Keys.EXP}
-                    onClickKey={onClickKey}
-                    coord={[3, 2]}
-                    secondary
-                />
-            )}
             {/* Row 2 */}
             <KeypadButton
                 keyConfig={

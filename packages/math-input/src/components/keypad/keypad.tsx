@@ -157,7 +157,10 @@ export default function Keypad({extraKeys = [], ...props}: Props) {
                             />
                         )}
                         {selectedPage === "Numbers" && (
-                            <NumbersPage onClickKey={onClickKey} />
+                            <NumbersPage
+                                onClickKey={onClickKey}
+                                scientific={scientific}
+                            />
                         )}
                         {selectedPage === "Extras" && (
                             <ExtrasPage
@@ -184,7 +187,6 @@ export default function Keypad({extraKeys = [], ...props}: Props) {
                                 convertDotToTimes={convertDotToTimes}
                                 divisionKey={divisionKey}
                                 selectedPage={selectedPage}
-                                scientific={scientific}
                             />
                         )}
                     </View>
