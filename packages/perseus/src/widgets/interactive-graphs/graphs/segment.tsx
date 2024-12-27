@@ -94,7 +94,10 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
             aria-describedby={`wholeSegmentGraphAriaDescription-${segmentUniqueId}`}
         >
             {segments?.map((segment, i) => (
-                <g aria-describedby={`segment-description-${segmentUniqueId}-${i}`}>
+                <g
+                    aria-describedby={`segment-description-${segmentUniqueId}-${i}`}
+                    key={`${segmentUniqueId}-${i}`}
+                >
                     <MovableLine
                         key={i}
                         points={segment}
