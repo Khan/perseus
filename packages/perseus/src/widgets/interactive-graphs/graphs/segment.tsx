@@ -32,7 +32,7 @@ type SegmentProps = MafsGraphProps<SegmentGraphState>;
 const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     const {coords: segments} = graphState;
     const {strings, locale} = usePerseusI18n();
-
+    const segmentUniqueId = React.useId();
     function getWholeSegmentGraphAriaLabel(): string {
         return segments?.length > 1
             ? strings.srMultipleSegmentGraphAriaLabel({
@@ -91,10 +91,10 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     return (
         <g
             aria-label={wholeSegmentGraphAriaLabel}
-            aria-describedby="wholeSegmentGraphAriaDescription"
+            aria-describedby={`wholeSegmentGraphAriaDescription-${segmentUniqueId}`}
         >
             {segments?.map((segment, i) => (
-                <g aria-describedby={`segment-description-${i}`} key={i}>
+                <g aria-describedby={`segment-description-${segmentUniqueId}-${i}`} key={i + `${segmentUniqueId}`}>
                     <MovableLine
                         key={i}
                         points={segment}
@@ -138,7 +138,7 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
             ))}
             <g
                 style={{display: "hidden"}}
-                id="wholeSegmentGraphAriaDescription"
+                id={`wholeSegmentGraphAriaDescription-${segmentUniqueId}`}
             >
                 {getWholeSegmentGraphAriaDescription()}
             </g>
