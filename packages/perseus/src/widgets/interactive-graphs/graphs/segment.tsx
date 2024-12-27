@@ -33,10 +33,6 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     const {coords: segments} = graphState;
     const {strings, locale} = usePerseusI18n();
 
-    function getLengthOfSegment(segment: PairOfPoints) {
-        return kpoint.distanceToPoint(...segment);
-    }
-
     function getWholeSegmentGraphAriaLabel(): string {
         return segments?.length > 1
             ? strings.srMultipleSegmentGraphAriaLabel({
@@ -149,3 +145,7 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
         </g>
     );
 };
+
+function getLengthOfSegment(segment: PairOfPoints) {
+    return kpoint.distanceToPoint(...segment);
+}
