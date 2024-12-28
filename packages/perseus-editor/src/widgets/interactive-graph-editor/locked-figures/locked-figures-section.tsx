@@ -19,14 +19,9 @@ import {getDefaultFigureForType} from "./util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {Props as InteractiveGraphEditorProps} from "../interactive-graph-editor";
-import type {
-    APIOptions,
-    LockedFigure,
-    LockedFigureType,
-} from "@khanacademy/perseus";
+import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus";
 
 type Props = {
-    flags?: APIOptions["flags"];
     figures?: Array<LockedFigure>;
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
 };
@@ -165,7 +160,6 @@ const LockedFiguresSection = (props: Props) => {
                         return (
                             <LockedFigureSettings
                                 key={`${uniqueId}-locked-${figure}-${index}`}
-                                flags={props.flags}
                                 expanded={expandedStates[index]}
                                 onToggle={(newValue) => {
                                     const newExpanded = [...expandedStates];

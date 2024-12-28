@@ -991,14 +991,10 @@ describe("Interactive Graph", function () {
 
         it("should render a locked label within a locked polygon", async () => {
             // Arrange
-            const {container} = renderQuestion(graphWithLabeledPolygon, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                        "locked-polygon-labels": true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                graphWithLabeledPolygon,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1212,14 +1208,10 @@ describe("Interactive Graph", function () {
 
         it("should render a locked label within a locked point", async () => {
             // Arrange
-            const {container} = renderQuestion(graphWithLabeledPoint, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                        "locked-point-labels": true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                graphWithLabeledPoint,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1238,14 +1230,10 @@ describe("Interactive Graph", function () {
         });
 
         it("should render a locked label within a locked line", async () => {
-            const {container} = renderQuestion(graphWithLabeledLine, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                        "locked-line-labels": true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                graphWithLabeledLine,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1285,15 +1273,10 @@ describe("Interactive Graph", function () {
                     ],
                 },
             ];
-            const {container} = renderQuestion(graphWithLabeledLine, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                        "locked-line-labels": true,
-                        "locked-point-labels": true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                graphWithLabeledLine,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1311,14 +1294,10 @@ describe("Interactive Graph", function () {
 
         it("should render a locked label within a locked vector", async () => {
             // Arrange
-            const {container} = renderQuestion(graphWithLabeledVector, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                        "locked-vector-labels": true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                graphWithLabeledVector,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1338,14 +1317,10 @@ describe("Interactive Graph", function () {
 
         it("should render a locked label within a locked ellipse", async () => {
             // Arrange
-            const {container} = renderQuestion(graphWithLabeledEllipse, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                        "locked-ellipse-labels": true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                graphWithLabeledEllipse,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1365,14 +1340,10 @@ describe("Interactive Graph", function () {
 
         it("should render a locked label within a locked function", async () => {
             // Arrange
-            const {container} = renderQuestion(graphWithLabeledFunction, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                        "locked-function-labels": true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                graphWithLabeledFunction,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access

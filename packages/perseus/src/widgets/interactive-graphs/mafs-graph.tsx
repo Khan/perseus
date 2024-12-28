@@ -271,7 +271,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         </Mafs>
                         {props.lockedFigures && (
                             <GraphLockedLabelsLayer
-                                flags={props.flags}
                                 lockedFigures={props.lockedFigures}
                             />
                         )}

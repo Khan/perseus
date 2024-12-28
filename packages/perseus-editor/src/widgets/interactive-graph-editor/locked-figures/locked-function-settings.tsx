@@ -52,7 +52,6 @@ export type Props = LockedFunctionType &
 
 const LockedFunctionSettings = (props: Props) => {
     const {
-        flags,
         color: lineColor,
         strokeStyle,
         equation,
@@ -337,52 +336,45 @@ const LockedFunctionSettings = (props: Props) => {
             />
 
             {/* Visible Labels */}
-            {flags?.["mafs"]?.["locked-function-labels"] && (
-                <>
-                    <Strut size={spacing.xxxSmall_4} />
-                    <View style={styles.horizontalRule} />
-                    <Strut size={spacing.small_12} />
+            <Strut size={spacing.xxxSmall_4} />
+            <View style={styles.horizontalRule} />
+            <Strut size={spacing.small_12} />
+            <LabelMedium>Visible labels</LabelMedium>
+            {labels?.map((label, labelIndex) => (
+                <LockedLabelSettings
+                    key={labelIndex}
+                    {...label}
+                    expanded={true}
+                    onChangeProps={(newLabel) => {
+                        handleLabelChange(newLabel, labelIndex);
+                    }}
+                    onRemove={() => {
+                        handleLabelRemove(labelIndex);
+                    }}
+                    containerStyle={styles.labelContainer}
+                />
+            ))}
+            <Button
+                kind="tertiary"
+                startIcon={plusCircle}
+                onClick={() => {
+                    const newLabel = {
+                        ...getDefaultFigureForType("label"),
+                        // Vertical offset for each label so they
+                        // don't overlap.
+                        coord: [0, -(labels?.length ?? 0)],
+                        // Default to the same color as the function
+                        color: lineColor,
+                    } satisfies LockedLabelType;
 
-                    <LabelMedium>Visible labels</LabelMedium>
-
-                    {labels?.map((label, labelIndex) => (
-                        <LockedLabelSettings
-                            key={labelIndex}
-                            {...label}
-                            expanded={true}
-                            onChangeProps={(newLabel) => {
-                                handleLabelChange(newLabel, labelIndex);
-                            }}
-                            onRemove={() => {
-                                handleLabelRemove(labelIndex);
-                            }}
-                            containerStyle={styles.labelContainer}
-                        />
-                    ))}
-
-                    <Button
-                        kind="tertiary"
-                        startIcon={plusCircle}
-                        onClick={() => {
-                            const newLabel = {
-                                ...getDefaultFigureForType("label"),
-                                // Vertical offset for each label so they
-                                // don't overlap.
-                                coord: [0, -(labels?.length ?? 0)],
-                                // Default to the same color as the function
-                                color: lineColor,
-                            } satisfies LockedLabelType;
-
-                            onChangeProps({
-                                labels: [...(labels ?? []), newLabel],
-                            });
-                        }}
-                        style={styles.addButton}
-                    >
-                        Add visible label
-                    </Button>
-                </>
-            )}
+                    onChangeProps({
+                        labels: [...(labels ?? []), newLabel],
+                    });
+                }}
+                style={styles.addButton}
+            >
+                Add visible label
+            </Button>
 
             {/* Actions */}
             <LockedFigureSettingsActions

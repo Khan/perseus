@@ -24,11 +24,8 @@ import type {Props as LockedLineProps} from "./locked-line-settings";
 import type {Props as LockedPointProps} from "./locked-point-settings";
 import type {Props as LockedPolygonProps} from "./locked-polygon-settings";
 import type {Props as LockedVectorProps} from "./locked-vector-settings";
-import type {APIOptions} from "@khanacademy/perseus";
 
 export type LockedFigureSettingsCommonProps = {
-    flags?: APIOptions["flags"];
-
     // Movement props
     /**
      * Called when a movement button (top, up, down, bottom) is pressed.

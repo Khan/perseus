@@ -852,7 +852,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             this.props.graph.type
                         ] && (
                             <LockedFiguresSection
-                                flags={this.props.apiOptions.flags}
                                 figures={this.props.lockedFigures}
                                 onChange={this.props.onChange}
                             />
