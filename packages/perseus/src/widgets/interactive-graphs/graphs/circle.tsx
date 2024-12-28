@@ -16,7 +16,7 @@ import {
     useTransformVectorsToPixels,
 } from "./use-transform";
 
-import type {PerseusStrings} from "../../../strings";
+import type {I18nContextType} from "../../../components/i18n-context";
 import type {
     AriaLive,
     CircleGraphState,
@@ -209,8 +209,9 @@ function crossProduct<A, B>(as: A[], bs: B[]): [A, B][] {
 }
 
 function CircleGraphDescription({state}: {state: CircleGraphState}) {
-    // CircleGraphDescription needs to the `usePerseusI18n`, hook so it has]
-    // to be a component rather than a function that simply returns a string.
+    // The reason that CircleGraphDescription is a component (rather than a
+    // function that returns a string) is because it needs to use a
+    // hook: `usePerseusI18n`.
     const i18n = usePerseusI18n();
     const strings = describeCircleGraph(state, i18n);
 
@@ -220,7 +221,7 @@ function CircleGraphDescription({state}: {state: CircleGraphState}) {
 // Exported for testing
 export function describeCircleGraph(
     state: CircleGraphState,
-    i18n: {strings: PerseusStrings; locale: string},
+    i18n: I18nContextType,
 ): Record<string, string> {
     const {strings, locale} = i18n;
     const {center, radiusPoint} = state;
