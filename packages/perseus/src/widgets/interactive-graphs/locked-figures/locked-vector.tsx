@@ -4,17 +4,12 @@ import {lockedFigureColors} from "../../../perseus-types";
 import {Vector} from "../graphs/components/vector";
 
 import type {LockedVectorType} from "../../../perseus-types";
-import type {APIOptions} from "../../../types";
 
-type Props = LockedVectorType & {
-    flags?: APIOptions["flags"];
-};
-
-const LockedVector = (props: Props) => {
-    const {color, points, ariaLabel, flags} = props;
+const LockedVector = (props: LockedVectorType) => {
+    const {color, points, ariaLabel} = props;
     const [tail, tip] = points;
 
-    const hasAria = ariaLabel && flags?.["mafs"]?.["locked-figures-aria"];
+    const hasAria = !!ariaLabel;
 
     return (
         <g

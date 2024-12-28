@@ -242,7 +242,7 @@ const LockedPointSettings = (props: Props) => {
                 </>
             )}
 
-            {!isDefiningPoint && flags?.["mafs"]?.["locked-figures-aria"] && (
+            {!isDefiningPoint && (
                 <>
                     <Strut size={spacing.small_12} />
                     <View style={styles.horizontalRule} />

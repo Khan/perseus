@@ -10,11 +10,9 @@ import {getIntersectionOfRayWithBox} from "../graphs/utils";
 import {X, Y, calculateAngleInDegrees} from "../math";
 
 import type {LockedLineType} from "../../../perseus-types";
-import type {APIOptions} from "../../../types";
 import type {Interval} from "mafs";
 
 type Props = LockedLineType & {
-    flags?: APIOptions["flags"];
     range: [Interval, Interval];
 };
 
@@ -27,12 +25,11 @@ const LockedLine = (props: Props) => {
         showPoint1,
         showPoint2,
         ariaLabel,
-        flags,
         range,
     } = props;
     const [point1, point2] = points;
 
-    const hasAria = ariaLabel && flags?.["mafs"]?.["locked-figures-aria"];
+    const hasAria = !!ariaLabel;
 
     let line;
 
