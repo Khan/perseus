@@ -32,11 +32,11 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "div",
-                values: [{name: "label", value: "label1"}],
+                attributes: [{name: "label", value: "label1"}],
             },
             {
                 role: "div",
-                values: [{name: "label", value: "label2"}],
+                attributes: [{name: "label", value: "label2"}],
             },
         ]);
     });
@@ -57,11 +57,11 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "button",
-                values: [{name: "label", value: "aria-label1"}],
+                attributes: [{name: "label", value: "aria-label1"}],
             },
             {
                 role: "button",
-                values: [{name: "label", value: "aria-label2"}],
+                attributes: [{name: "label", value: "aria-label2"}],
             },
         ]);
     });
@@ -84,11 +84,15 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "div",
-                values: [{name: "description", value: "description1 content"}],
+                attributes: [
+                    {name: "description", value: "description1 content"},
+                ],
             },
             {
                 role: "div",
-                values: [{name: "description", value: "description2 content"}],
+                attributes: [
+                    {name: "description", value: "description2 content"},
+                ],
             },
         ]);
     });
@@ -110,7 +114,7 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "div",
-                values: [
+                attributes: [
                     {name: "description", value: "description1 content"},
                     {name: "description", value: "description2 content"},
                 ],
@@ -134,7 +138,9 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "div",
-                values: [{name: "description", value: "description1 content"}],
+                attributes: [
+                    {name: "description", value: "description1 content"},
+                ],
             },
         ]);
     });
@@ -169,28 +175,28 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "div",
-                values: [{name: "label", value: "label-only"}],
+                attributes: [{name: "label", value: "label-only"}],
             },
             {
                 role: "div",
-                values: [
+                attributes: [
                     {name: "description", value: "description-only content "},
                 ],
             },
             {
                 role: "img",
-                values: [{name: "label", value: "label with role"}],
+                attributes: [{name: "label", value: "label with role"}],
             },
             {
                 role: "button",
-                values: [
+                attributes: [
                     {name: "label", value: "aria-label1"},
                     {name: "description", value: "description1 content"},
                 ],
             },
             {
                 role: "button",
-                values: [
+                attributes: [
                     {name: "label", value: "aria-label2"},
                     {name: "description", value: "description2 content"},
                 ],
