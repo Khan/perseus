@@ -32,12 +32,14 @@ const parsedCode = parse(code, {
     plugins: ["jsx", "typescript"],
 });
 
+const isVariableDeclaration = (node) => node.type === "VariableDeclaration";
+
 // Find the variables that have literal values (like numbers).
 // Sometimes, the CSS settings reference these literal variables.
 // In those cases, we need to reference the actual value in the CSS.
 const literalVariables = {};
 parsedCode.program.body
-    .filter((node) => node.type === "VariableDeclaration")
+    .filter(isVariableDeclaration)
     .flatMap((node) => node.declarations)
     .filter((node) => node.init.type === "NumericLiteral")
     .forEach((node) => {
@@ -48,11 +50,17 @@ const variableNames = Object.keys(literalVariables);
 /**************************
  * CSS Parsing & Building *
  **************************/
+let aphroditeDeclaration = null;
+// const cssRules = {};
+
 const isStylesheetNode = (node) => {
-    return (
+    const isStyleSheet =
         node.init?.callee?.object?.name === "StyleSheet" &&
-        node.init?.callee?.property?.name === "create"
-    );
+        node.init?.callee?.property?.name === "create";
+    if (isStyleSheet && aphroditeDeclaration === null) {
+        aphroditeDeclaration = node;
+    }
+    return isStyleSheet;
 };
 
 const getClassName = (node) => {
@@ -75,16 +83,12 @@ const getCssProperty = (property) => {
 const camelToKabob = (camel) => {
     // Keeps consecutive capital letters together as a word
     // i.e. externalHREFLocation => external-href-location
-    return camel.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+    return camel.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
 };
 
 // Dive into the node tree of the parsed code to find the stylesheet declaration.
-const cssDeclaration = parsedCode.program.body
-    .filter((node) => node.type === "VariableDeclaration")
-    .flatMap((node) => node.declarations)
-    .filter(isStylesheetNode);
 const cssRules = parsedCode.program.body
-    .filter((node) => node.type === "VariableDeclaration")
+    .filter(isVariableDeclaration)
     .flatMap((node) => node.declarations)
     .filter(isStylesheetNode)
     .flatMap((node) => node.init.arguments)
@@ -107,16 +111,47 @@ fs.writeFileSync(cssFilePath, css);
 /*********************
  * Replace Aphrodite *
  *********************/
-const updatedCode = `${code.substring(0, cssDeclaration[0].start - 6).trim()}
+const aphroditeImport = parsedCode.program.body.filter(
+    (node) =>
+        node.type === "ImportDeclaration" && node.source.value === "aphrodite",
+)[0];
 
-${code.substring(cssDeclaration[0].end + 1).trim()}
+const updatedCode = `${code.substring(0, aphroditeImport.start - 1)}
+import ${aphroditeDeclaration.id.name} from "./${cssFileName}";
+${code.substring(aphroditeImport.end, aphroditeDeclaration.start - 6).trim()}
+
+${code.substring(aphroditeDeclaration.end + 1).trim()}
 `;
 fs.writeFileSync(filePath, updatedCode);
 
-// TODO: Need to find reference to Aphrodite import statement and remove that.
-//       Add import for CSS file, using same variable name used for Aphrodite styles.
-//       Add code to search for styling objects that aren't Aphrodite.
+// TODO: √ Need to find reference to Aphrodite import statement and remove that.
+//           Lines that are to be deleted should be tracked in an array and handled at the end.
+//           This ensures that line numbers are correct (by starting at the end and working towards the start of the file).
+//       √ Add import for CSS file, using same variable name used for Aphrodite styles.
+//       √ Add code to search for styling objects that aren't Aphrodite.
 //           Add those styles to the CSS file and remove them from code file.
+//           Watch for class names that already exist (append a number if already exists).
+//           Track all CSS rules in an array to add all together to make sure they are added alphabetically.
 //           Copy any comments over as CSS comments.
 //       Add comments to lines referencing the Aphrodite style object:
 //           TODO: Make sure the following line has been adapted to CSS Modules
+
+const variables = parsedCode.program.body
+    .filter(isVariableDeclaration)
+    .flatMap((node) => node.declarations)
+    .filter((node) => !isStylesheetNode(node))
+    .filter((node) => node.id.name.toLowerCase().includes("style"));
+const variablesInClass = parsedCode.program.body
+    .filter((node) => node.type === "ClassDeclaration")
+    .flatMap((node) => node.body.body)
+    .filter(
+        (node) =>
+            node.type === "ClassMethod" &&
+            node.key.name.toLowerCase().includes("render"),
+    )
+    .flatMap((node) => node.body.body)
+    .filter(isVariableDeclaration)
+    .flatMap((node) => node.declarations)
+    .filter((node) => node.id.name.toLowerCase().includes("style"));
+
+// const blockTypes = parsedCode.program.body.map(node => node.type);
