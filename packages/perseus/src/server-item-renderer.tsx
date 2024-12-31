@@ -231,6 +231,7 @@ export class ServerItemRenderer
             }, 0);
         }
 
+        debugger;
         if (keypadElement && isMobile) {
             if (didFocusInput) {
                 keypadElement.activate();
