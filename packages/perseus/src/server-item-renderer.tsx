@@ -231,6 +231,7 @@ export class ServerItemRenderer
             }, 0);
         }
 
+        // eslint-disable-next-line no-debugger
         debugger;
         if (keypadElement && isMobile) {
             if (didFocusInput) {
