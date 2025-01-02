@@ -29,11 +29,20 @@ type Versioned = {
 export function versionedWidgetOptions<Latest extends Versioned>(
     parseLatest: Parser<Latest>,
 ): VersionedWidgetOptionsParserBuilder<Latest, Latest> {
-    return new VersionedWidgetOptionsParserBuilder(parseLatest, (latest) => latest);
+    return new VersionedWidgetOptionsParserBuilder(
+        parseLatest,
+        (latest) => latest,
+    );
 }
 
-class VersionedWidgetOptionsParserBuilder<Latest extends Versioned, Migratable extends Versioned> {
-    constructor(public parser: Parser<Latest>, private migrate: (m: Migratable) => Latest) {}
+class VersionedWidgetOptionsParserBuilder<
+    Latest extends Versioned,
+    Migratable extends Versioned,
+> {
+    constructor(
+        public parser: Parser<Latest>,
+        private migrate: (m: Migratable) => Latest,
+    ) {}
 
     /**
      * Add a migration from an old version of the widget options.
@@ -54,7 +63,8 @@ class VersionedWidgetOptionsParserBuilder<Latest extends Versioned, Migratable e
     ): VersionedWidgetOptionsParserBuilder<Latest, Old> {
         const parseLatestVersion = this.parser;
 
-        const migrateToLatest = (old: Old) => this.migrate(migrateToNextVersion(old))
+        const migrateToLatest = (old: Old) =>
+            this.migrate(migrateToNextVersion(old));
 
         return new VersionedWidgetOptionsParserBuilder(
             (raw: unknown, ctx: ParseContext) => {
@@ -65,9 +75,7 @@ class VersionedWidgetOptionsParserBuilder<Latest extends Versioned, Migratable e
 
                 const resultOfParsingOld = parseOldVersion(raw, ctx);
                 if (isSuccess(resultOfParsingOld)) {
-                    return success(
-                        migrateToLatest(resultOfParsingOld.value),
-                    );
+                    return success(migrateToLatest(resultOfParsingOld.value));
                 }
 
                 // If we're here, neither parse succeeded. Return the failure.

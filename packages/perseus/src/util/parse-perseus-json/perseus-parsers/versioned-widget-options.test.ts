@@ -29,7 +29,7 @@ describe("versionedWidgetOptions parser", () => {
         type: "test-widget";
         version: {major: 2; minor: number};
         correctAnswers: string[];
-    }
+    };
 
     const parseOptionsV0: Parser<OptionsV0> = object({
         type: constant("test-widget"),
@@ -61,8 +61,8 @@ describe("versionedWidgetOptions parser", () => {
         return {
             type: "test-widget",
             version: {major: 2, minor: 0},
-            correctAnswers: v1.answers
-        }
+            correctAnswers: v1.answers,
+        };
     }
 
     it("parses the latest version of the data, when that is the only version", () => {
