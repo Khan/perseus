@@ -20,20 +20,19 @@ import {
     iconPlus,
 } from "./styles/icon-paths";
 
-import type {APIOptions, Changeable, ImageUploader} from "@khanacademy/perseus";
+import type {
+    APIOptions,
+    ArticleRenderer,
+    Changeable,
+    ImageUploader,
+    PerseusArticle,
+    PerseusRenderer,
+} from "@khanacademy/perseus";
 
 const {HUD, InlineIcon} = components;
 
-type RendererProps = {
-    content?: string;
-    widgets?: any;
-    images?: any;
-};
-
-type JsonType = RendererProps | ReadonlyArray<RendererProps>;
 type DefaultProps = {
     contentPaths?: ReadonlyArray<string>;
-    json: JsonType;
     mode: "diff" | "edit" | "json" | "preview";
     screen: "phone" | "tablet" | "desktop";
     sectionImageUploadGenerator: (
@@ -44,6 +43,7 @@ type DefaultProps = {
 type Props = DefaultProps & {
     apiOptions?: APIOptions;
     imageUploader?: ImageUploader;
+    json: PerseusArticle;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
 } & Changeable.ChangeableProps;
@@ -54,7 +54,6 @@ type State = {
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         contentPaths: [],
-        json: [{}],
         mode: "edit",
         screen: "desktop",
         sectionImageUploadGenerator: () => <span />,
@@ -95,7 +94,10 @@ export default class ArticleEditor extends React.Component<Props, State> {
         }
     }
 
-    _apiOptionsForSection(section: RendererProps, sectionIndex: number): any {
+    _apiOptionsForSection(
+        section: PerseusRenderer,
+        sectionIndex: number,
+    ): React.ComponentProps<typeof ArticleRenderer> {
         // eslint-disable-next-line react/no-string-refs
         const editor = this.refs[`editor${sectionIndex}`];
         return {
@@ -113,14 +115,23 @@ export default class ArticleEditor extends React.Component<Props, State> {
             linterContext: {
                 contentType: "article",
                 highlightLint: this.state.highlightLint,
-                paths: this.props.contentPaths,
+                paths: this.props.contentPaths ? this.props.contentPaths : [],
+                stack: [],
             },
             // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
             legacyPerseusLint: editor ? editor.getSaveWarnings() : [],
+            dependencies: {
+                analytics: {onAnalyticsEvent: async () => {}},
+                useVideo: () => {
+                    throw new Error(
+                        "useVideo dependency not provided in Perseus dependencies",
+                    );
+                },
+            },
         };
     }
 
-    _sections(): ReadonlyArray<RendererProps> {
+    _sections(): ReadonlyArray<PerseusRenderer> {
         return Array.isArray(this.props.json)
             ? this.props.json
             : [this.props.json];
@@ -208,6 +219,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                     {...section}
                                     apiOptions={apiOptions}
                                     imageUploader={imageUploader}
+                                    // Need to fix and update editor.tsx, and hopefully the type errors will go away.
                                     onChange={(newProps) =>
                                         this._handleEditorChange(i, newProps)
                                     }
@@ -249,7 +261,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         );
     }
 
-    _renderLinterHUD(): React.ReactElement<any> {
+    _renderLinterHUD(): React.JSX.Element {
         return (
             <HUD
                 message="Style warnings"
@@ -266,7 +278,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
     _renderIframePreview(
         i: number | string,
         nochrome: boolean,
-    ): React.ReactElement<any> {
+    ): React.JSX.Element {
         const isMobile =
             this.props.screen === "phone" || this.props.screen === "tablet";
 
@@ -292,11 +304,11 @@ export default class ArticleEditor extends React.Component<Props, State> {
         );
     }
 
-    _handleJsonChange: (newJson: JsonType) => void = (newJson) => {
+    _handleJsonChange: (newJson: PerseusArticle) => void = (newJson) => {
         this.props.onChange({json: newJson});
     };
 
-    _handleEditorChange: (i: number, newProps: RendererProps) => void = (
+    _handleEditorChange: (i: number, newProps: PerseusRenderer) => void = (
         i,
         newProps,
     ) => {
@@ -362,7 +374,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         });
     }
 
-    serialize(): JsonType {
+    serialize(): PerseusArticle {
         if (this.props.mode === "edit") {
             return this._sections().map((section, i) => {
                 // eslint-disable-next-line react/no-string-refs
@@ -385,7 +397,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
      *
      * This function can currently only be called in edit mode.
      */
-    getSaveWarnings(): ReadonlyArray<RendererProps> {
+    getSaveWarnings(): ReadonlyArray<PerseusRenderer> {
         if (this.props.mode !== "edit") {
             // TODO(joshuan): We should be able to get save warnings in
             // preview mode.
