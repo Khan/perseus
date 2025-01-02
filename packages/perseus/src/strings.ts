@@ -552,7 +552,7 @@ export const strings: {
         context:
             "Screenreader-only description of an angle on a coordinate plane.",
         message:
-            "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(isX)s comma %(isY)s and a point on the ending side at %(tsX)s comma %(tsY)s",
+            "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
     },
     // The above strings are used for interactive graph SR descriptions.
 };
