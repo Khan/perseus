@@ -25,6 +25,12 @@ describe("versionedWidgetOptions parser", () => {
         answers: string[];
     };
 
+    type OptionsV2 = {
+        type: "test-widget";
+        version: {major: 2; minor: number};
+        correctAnswers: string[];
+    }
+
     const parseOptionsV0: Parser<OptionsV0> = object({
         type: constant("test-widget"),
         version: object({major: constant(0), minor: number}),
@@ -37,12 +43,26 @@ describe("versionedWidgetOptions parser", () => {
         answers: array(string),
     });
 
+    const parseOptionsV2: Parser<OptionsV2> = object({
+        type: constant("test-widget"),
+        version: object({major: constant(2), minor: number}),
+        correctAnswers: array(string),
+    });
+
     function migrateV0ToV1(v0: OptionsV0): OptionsV1 {
         return {
             type: "test-widget",
             version: {major: 1, minor: 0},
             answers: [v0.answer],
         };
+    }
+
+    function migrateV1ToV2(v1: OptionsV1): OptionsV2 {
+        return {
+            type: "test-widget",
+            version: {major: 2, minor: 0},
+            correctAnswers: v1.answers
+        }
     }
 
     it("parses the latest version of the data, when that is the only version", () => {
@@ -72,7 +92,7 @@ describe("versionedWidgetOptions parser", () => {
         expect(parse(validData, parser)).toEqual(success(validData));
     });
 
-    it("migrates old versions of the data to the latest version", () => {
+    it("migrates an old version of the data to the latest version", () => {
         const parser = versionedWidgetOptions(parseOptionsV1).withMigrationFrom(
             parseOptionsV0,
             migrateV0ToV1,
@@ -89,6 +109,26 @@ describe("versionedWidgetOptions parser", () => {
                 type: "test-widget",
                 version: {major: 1, minor: 0},
                 answers: ["ok"],
+            }),
+        );
+    });
+
+    it("migrates through intermediate versions", () => {
+        const parser = versionedWidgetOptions(parseOptionsV2)
+            .withMigrationFrom(parseOptionsV1, migrateV1ToV2)
+            .withMigrationFrom(parseOptionsV0, migrateV0ToV1).parser;
+
+        const oldData = {
+            type: "test-widget",
+            version: {major: 0, minor: 0},
+            answer: "ok",
+        };
+
+        expect(parse(oldData, parser)).toEqual(
+            success({
+                type: "test-widget",
+                version: {major: 2, minor: 0},
+                correctAnswers: ["ok"],
             }),
         );
     });
