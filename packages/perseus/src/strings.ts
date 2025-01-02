@@ -245,18 +245,18 @@ export type PerseusStrings = {
         angleMeasure,
         vertexX,
         vertexY,
-        isX,
-        isY,
-        tsX,
-        tsY,
+        startingSideX,
+        startingSideY,
+        endingSideX,
+        endingSideY,
     }: {
         angleMeasure: string;
         vertexX: string;
         vertexY: string;
-        isX: string;
-        isY: string;
-        tsX: string;
-        tsY: string;
+        startingSideX: string;
+        startingSideY: string;
+        endingSideX: string;
+        endingSideY: string;
     }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
@@ -543,12 +543,16 @@ export const strings: {
         message:
             "Point 2, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees",
     },
-    srAngleGraphAriaLabel: "An angle on a coordinate plane.",
+    srAngleGraphAriaLabel: {
+        context:
+            "Screenreader-accessible label of an angle graph on a coordinate plane",
+        message: "An angle on a coordinate plane.",
+    },
     srAngleGraphAriaDescription: {
         context:
             "Screenreader-only description of an angle on a coordinate plane.",
         message:
-            "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the initial side at %(isX)s comma %(isY)s and a point on the terminal side at %(tsX)s comma %(tsY)s",
+            "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
     },
     // The above strings are used for interactive graph SR descriptions.
 };
@@ -761,11 +765,11 @@ export const mockStrings: PerseusStrings = {
         angleMeasure,
         vertexX,
         vertexY,
-        isX,
-        isY,
-        tsX,
-        tsY,
+        startingSideX,
+        startingSideY,
+        endingSideX,
+        endingSideY,
     }) =>
-        `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the initial side at ${isX} comma ${isY} and a point on the terminal side at ${tsX} comma ${tsY}.`,
+        `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the starting side at ${startingSideX} comma ${startingSideY} and a point on the ending side at ${endingSideX} comma ${endingSideY}.`,
     // The above strings are used for interactive graph SR descriptions.
 };

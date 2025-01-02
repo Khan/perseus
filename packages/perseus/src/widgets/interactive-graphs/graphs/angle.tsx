@@ -112,10 +112,10 @@ function AngleGraph(props: AngleGraphProps) {
         angleMeasure,
         vertexX: srFormatNumber(coords[1][X], locale),
         vertexY: srFormatNumber(coords[1][Y], locale),
-        isX: srFormatNumber(coords[2][X], locale),
-        isY: srFormatNumber(coords[2][Y], locale),
-        tsX: srFormatNumber(coords[0][X], locale),
-        tsY: srFormatNumber(coords[0][Y], locale),
+        startingSideX: srFormatNumber(coords[2][X], locale),
+        startingSideY: srFormatNumber(coords[2][Y], locale),
+        endingSideX: srFormatNumber(coords[0][X], locale),
+        endingSideY: srFormatNumber(coords[0][Y], locale),
     });
 
     const formatCoordinates = (x: number, y: number) => ({
