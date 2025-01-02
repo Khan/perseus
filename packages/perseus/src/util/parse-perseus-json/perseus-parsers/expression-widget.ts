@@ -12,20 +12,15 @@ import {
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-import {discriminatedUnion} from "../general-purpose-parsers/discriminated-union";
 
+import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 
 import type {
     ExpressionWidget,
     PerseusExpressionAnswerForm,
 } from "../../../perseus-types";
-import type {
-    ParseContext,
-    ParsedValue,
-    Parser,
-    ParseResult,
-} from "../parser-types";
+import type {ParsedValue, Parser} from "../parser-types";
 
 const parsePossiblyInvalidAnswerForm = object({
     // `value` is the possibly invalid part of this. It should always be a
@@ -111,10 +106,9 @@ const parseExpressionWidgetV0 = parseWidgetWithVersion(
 
 function migrateV0ToV1(
     widget: ParsedValue<typeof parseExpressionWidgetV0>,
-    ctx: ParseContext,
-): ParseResult<ExpressionWidget> {
+): ExpressionWidget {
     const {options} = widget;
-    return ctx.success({
+    return {
         ...widget,
         version: {major: 1, minor: 0},
         options: {
@@ -134,11 +128,11 @@ function migrateV0ToV1(
                 },
             ],
         },
-    });
+    };
 }
 
 export const parseExpressionWidget: Parser<ExpressionWidget> =
-    discriminatedUnion(object({version: version1}), parseExpressionWidgetV1).or(
-        object({version: version0}),
-        pipeParsers(parseExpressionWidgetV0).then(migrateV0ToV1).parser,
+    versionedWidgetOptions(parseExpressionWidgetV1).withMigrationFrom(
+        parseExpressionWidgetV0,
+        migrateV0ToV1,
     ).parser;

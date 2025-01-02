@@ -4,7 +4,7 @@ import type {Version} from "../../../perseus-types";
 import type {ParseContext, Parser} from "../parser-types";
 
 type Versioned = {
-    version: Version;
+    version?: Version;
 };
 
 export function versionedWidgetOptions<Latest extends Versioned>(
