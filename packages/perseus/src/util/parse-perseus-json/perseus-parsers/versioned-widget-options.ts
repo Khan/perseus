@@ -12,11 +12,19 @@ type Versioned = {
  * versions are migrated to the latest version. The parse fails if the input
  * data does not match any of the versions.
  *
+ * @example
+ * const parseOptions = versionedWidgetOptions(parseOptionsV3)
+ *     .withMigrationFrom(parseOptionsV2, migrateV2ToV3)
+ *     .withMigrationFrom(parseOptionsV1, migrateV1ToV2)
+ *     .withMigrationFrom(parseOptionsV0, migrateV0ToV1)
+ *     .parser;
+ *
  * @param parseLatest a {@link Parser} for the latest version of the widget
  * options. This should check version.major and fail if it's not the latest
  * version.
  * @returns a builder object, to which migrations from earlier versions can be
- * added.
+ * added. Migrations must be added in "reverse chronological" order as in the
+ * example above.
  */
 export function versionedWidgetOptions<Latest extends Versioned>(
     parseLatest: Parser<Latest>,
