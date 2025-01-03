@@ -8,7 +8,10 @@ import {
     enumeration,
     boolean,
     nullable,
+    union,
+    pipeParsers,
 } from "../general-purpose-parsers";
+import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
@@ -32,12 +35,25 @@ export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
         answers: array(
             object({
                 message: string,
-                value: optional(number),
+                // TODO(benchristel): value should never be null or undefined,
+                // but we have some content where it is anyway. If we backfill
+                // the data, simplify this.
+                value: optional(nullable(number)),
                 status: string,
                 answerForms: optional(array(parseMathFormat)),
                 strict: boolean,
                 maxError: optional(nullable(number)),
-                simplify: optional(nullable(string)),
+                // TODO(benchristel): simplify should never be `true`, but we
+                // have some content where it is anyway. If we ever backfill
+                // the data, we should simplify `simplify`.
+                simplify: optional(
+                    nullable(
+                        union(string).or(
+                            pipeParsers(constant(true)).then(convert(String))
+                                .parser,
+                        ).parser,
+                    ),
+                ),
             }),
         ),
         labelText: optional(string),
