@@ -56,7 +56,6 @@ const variableNames = Object.keys(literalVariables);
  * CSS Parsing & Building *
  **************************/
 let aphroditeDeclaration = null;
-// const cssRules = {};
 
 const isStylesheetNode = (node) => {
     const isStyleSheet =
@@ -72,7 +71,13 @@ const isStylesheetNode = (node) => {
 const getClassName = (node) => {
     const camelCaseName = node.key?.name ?? node.id?.name;
     const kabobCaseName = camelToKabob(camelCaseName);
-    return kabobCaseName;
+    let className = kabobCaseName;
+    let nameVersion = 0;
+    while (Object.keys(cssRules).includes(className)) {
+        nameVersion++;
+        className = `${kabobCaseName}-${nameVersion}`;
+    }
+    return className;
 };
 
 const getCssProperty = (property) => {
@@ -86,7 +91,24 @@ const getCssProperty = (property) => {
             propertyValue = `${property.value.operator}${literalVariables[property.value.argument.name]}px`;
             break;
     }
-    return `    ${camelToKabob(cssProperty)}: ${propertyValue};`;
+    // Include comments, if they exist
+    const indentation = "        ";
+    let comments = "";
+    if (property.leadingComments) {
+        const newLine =
+            property.leadingComments.length === 1
+                ? "\n"
+                : `${"\n"}${indentation}`;
+        comments = property.leadingComments
+            .map((comment) => comment.value.trim())
+            .join(`${newLine}  `);
+        comments =
+            property.leadingComments.length === 1
+                ? `${indentation}/* ${comments} */${newLine}`
+                : `${indentation}/*${newLine}  ${comments}${newLine}*/${"\n"}`;
+    }
+
+    return `${comments}${indentation}${camelToKabob(cssProperty)}: ${propertyValue};`;
 };
 
 const camelToKabob = (camel) => {
@@ -107,13 +129,6 @@ parsedCode.program.body
     .flatMap((node) => node.properties)
     .forEach((node) => (cssRules[getClassName(node)] = node.value.properties));
 
-// Objects passed to 'style' property
-const styleVariables = parsedCode.program.body
-    .filter(isVariableDeclaration)
-    .flatMap((node) => node.declarations)
-    .filter((node) => !isStylesheetNode(node))
-    .filter((node) => node.id.name.toLowerCase().includes("style"));
-
 // Objects within React class 'render' method that are passed to 'style' property
 parsedCode.program.body
     .filter((node) => node.type === "ClassDeclaration")
@@ -132,17 +147,42 @@ parsedCode.program.body
         codeBlocksToDelete.push(node);
     });
 
+// Objects passed to 'style' property (outside of React class 'render')
+parsedCode.program.body
+    .filter(isVariableDeclaration)
+    .flatMap((node) => node.declarations)
+    .filter((node) => !isStylesheetNode(node))
+    .filter((node) => node.id.name.toLowerCase().includes("style"))
+    .forEach((node) => {
+        cssRules[getClassName(node)] = node.init.properties;
+        codeBlocksToDelete.push(node);
+    });
+
 // Rebuild the CSS rules with regular CSS syntax (remove quotes, add semicolons, etc.).
-const css = Object.keys(cssRules)
+const cssStringified = Object.keys(cssRules)
     .sort()
     .flatMap((className) => {
+        if (className === "button-style-overrides") {
+            console.log(cssRules[className].map(property => {
+                const comments = property.leadingComments ?? [{loc:""}];
+                return comments[0].loc;
+            }));
+        }
         return [
-            `${className} {`,
+            `    ${className} {`,
             ...cssRules[className].map(getCssProperty),
-            "}\n",
+            "    }\n",
         ];
     })
     .join("\n");
+
+const css = `@layer reset, shared, legacy;
+
+@layer legacy {
+
+${cssStringified}
+}
+`;
 
 // Write the CSS to its own file.
 fs.writeFileSync(cssFilePath, css);
@@ -155,8 +195,6 @@ const cleanedCode = codeBlocksToDelete
     .reduce((revisedCode, nodeToRemove) => {
         const precedingCode = revisedCode.substring(0, nodeToRemove.start - 1);
         const precedingBreakIndex = precedingCode.lastIndexOf("\n");
-        // const subsequentCode = revisedCode.substring(nodeToRemove.end + 1);
-        // const subsequentBreakIndex =
         return `${revisedCode.substring(0, precedingBreakIndex).trim()}
 
 ${revisedCode.substring(nodeToRemove.end + 1)}`;
@@ -172,21 +210,9 @@ import ${aphroditeDeclaration.id.name} from "./${cssFileName}";
 ${cleanedCode.substring(aphroditeImport.end).trim()}
 `;
 
-fs.writeFileSync(filePath, updatedCode);
+// fs.writeFileSync(filePath, updatedCode);
 
-// TODO: √ Need to find reference to Aphrodite import statement and remove that.
-//           √ Lines that are to be deleted should be tracked in an array and handled at the end.
-//           √ This ensures that line numbers are correct (by starting at the end and working towards the start of the file).
-//       √ Add import for CSS file, using same variable name used for Aphrodite styles.
-//       √ Add code to search for styling objects that aren't Aphrodite.
-//           √ Add those styles to the CSS file and remove them from code file.
-//   =>      Watch for class names that already exist (append a number if already exists).
-//           √ Track all CSS rules in an array to add all together to make sure they are added alphabetically.
-//   =>      Copy any comments over as CSS comments.
-//   =>  Add comments to lines referencing the Aphrodite style object:
+// TODO: Trailing comments need to be copied
+//           Watch out for trailing comments that show up as leading comments on next line
+//       Add comments to lines referencing the Aphrodite style object:
 //           TODO: Make sure the following line has been adapted to CSS Modules
-
-// const blockTypes = parsedCode.program.body.map(node => node.type);
-
-// console.log(`Style Variables: `, styleVariables);
-// console.log(`Variables in Class: `, variablesInClass.flatMap(node => node.init.properties));
