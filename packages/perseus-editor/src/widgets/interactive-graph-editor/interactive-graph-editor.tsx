@@ -25,6 +25,7 @@ import GraphTypeSelector from "./components/graph-type-selector";
 import {InteractiveGraphCorrectAnswer} from "./components/interactive-graph-correct-answer";
 import InteractiveGraphDescription from "./components/interactive-graph-description";
 import InteractiveGraphSettings from "./components/interactive-graph-settings";
+import InteractiveGraphSRTree from "./components/interactive-graph-sr-tree";
 import SegmentCountSelector from "./components/segment-count-selector";
 import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
@@ -712,6 +713,14 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             onChange={this.changeStartCoords}
                         />
                     )}
+                <InteractiveGraphSRTree
+                    correct={this.props.correct}
+                    fullGraphAriaLabel={this.props.fullGraphAriaLabel}
+                    fullGraphAriaDescription={
+                        this.props.fullGraphAriaDescription
+                    }
+                    lockedFigures={this.props.lockedFigures}
+                />
                 <InteractiveGraphSettings
                     box={getInteractiveBoxFromSizeClass(sizeClass)}
                     range={this.props.range}
