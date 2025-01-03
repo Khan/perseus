@@ -19,7 +19,7 @@ export const parseCategorizerWidget: Parser<CategorizerWidget> = parseWidget(
     object({
         items: array(string),
         categories: array(string),
-        randomizeItems: boolean,
+        randomizeItems: defaulted(boolean, () => false),
         static: defaulted(boolean, () => false),
         values: array(number),
         highlightLint: optional(boolean),
