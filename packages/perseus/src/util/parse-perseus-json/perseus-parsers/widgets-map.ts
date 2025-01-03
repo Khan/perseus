@@ -37,7 +37,7 @@ import {parseVideoWidget} from "./video-widget";
 import {parseWidget} from "./widget";
 
 import type {
-    AutoCorrectWidget,
+    DeprecatedStandinWidget,
     PerseusWidgetsMap,
 } from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
@@ -199,7 +199,7 @@ const parseWidgetsMapEntry: (
     }
 };
 
-const parseDeprecatedWidget: Parser<AutoCorrectWidget> = parseWidget(
+const parseDeprecatedWidget: Parser<DeprecatedStandinWidget> = parseWidget(
     // Ignore the incoming widget type and hardcode "deprecated-standin"
     (_, ctx) => ctx.success("deprecated-standin" as const),
     // Allow any widget options

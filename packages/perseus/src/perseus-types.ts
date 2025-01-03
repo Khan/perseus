@@ -64,7 +64,7 @@ export type ShowSolutions = "all" | "selected" | "none";
  *         "new-awesomeness": MyAwesomeNewWidget;
  *
  *         // A deprecated widget
- *         "super-old-widget": AutoCorrectWidget;
+ *         "super-old-widget": DeprecatedStandinWidget;
  *     }
  * }
  *
@@ -116,10 +116,10 @@ export interface PerseusWidgetTypes {
     video: VideoWidget;
 
     // Deprecated widgets
-    "lights-puzzle": AutoCorrectWidget;
-    sequence: AutoCorrectWidget;
-    simulator: AutoCorrectWidget;
-    transformer: AutoCorrectWidget;
+    "lights-puzzle": DeprecatedStandinWidget;
+    sequence: DeprecatedStandinWidget;
+    simulator: DeprecatedStandinWidget;
+    transformer: DeprecatedStandinWidget;
 }
 
 /**
@@ -333,7 +333,7 @@ export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassage
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
-export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', object>;
+export type DeprecatedStandinWidget = WidgetOptions<'deprecated-standin', object>;
 
 export type PerseusWidget =
     | CategorizerWidget
@@ -369,7 +369,7 @@ export type PerseusWidget =
     | SorterWidget
     | TableWidget
     | VideoWidget
-    | AutoCorrectWidget;
+    | DeprecatedStandinWidget;
 
 /**
  * A background image applied to various widgets.
