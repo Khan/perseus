@@ -1,46 +1,76 @@
-import {isSuccess} from "../result";
+import {isObject} from "./is-object";
 
-import {pipeParsers} from "./pipe-parsers";
+import type {ParseContext, Parser} from "../parser-types";
 
-import type {Parser} from "../parser-types";
+type Primitive = number | string | boolean | null | undefined;
 
-// discriminatedUnion() should be preferred over union() when parsing a
-// discriminated union type, because discriminatedUnion() produces more
-// understandable failure messages. It takes the discriminant as the source of
-// truth for which variant is to be parsed, and expects the other data to match
-// that variant.
-export function discriminatedUnion<T>(
-    narrow: Parser<unknown>,
-    parseVariant: Parser<T>,
-): DiscriminatedUnionBuilder<T> {
-    return new DiscriminatedUnionBuilder(
-        pipeParsers(narrow).then(parseVariant).parser,
-    );
+/**
+ * discriminatedUnion() should be preferred over union() when parsing a
+ * discriminated union type, because discriminatedUnion() produces more
+ * understandable failure messages. It takes the discriminant as the source of
+ * truth for which variant is to be parsed, and expects the other data to match
+ * that variant.
+ */
+export function discriminatedUnionOn<DK extends string>(discriminantKey: DK) {
+    const noMoreBranches: Parser<never> = (raw: unknown, ctx: ParseContext) => {
+        if (!isObject(raw)) {
+            return ctx.failure("object", raw);
+        }
+        return ctx
+            .forSubtree(discriminantKey)
+            .failure("a valid value", raw[discriminantKey]);
+    };
+
+    return new DiscriminatedUnionBuilder(discriminantKey, noMoreBranches);
 }
 
-class DiscriminatedUnionBuilder<Variant> {
-    constructor(public parser: Parser<Variant>) {}
+class DiscriminatedUnionBuilder<
+    DK extends string,
+    Union extends {[k in DK]: Primitive},
+> {
+    constructor(
+        private discriminantKey: DK,
+        public parser: Parser<Union>,
+    ) {}
 
-    or<Variant2>(
-        narrow: Parser<unknown>,
-        parseVariant: Parser<Variant2>,
-    ): DiscriminatedUnionBuilder<Variant | Variant2> {
+    withBranch<Variant extends {[k in DK]: Primitive}>(
+        discriminantValue: Primitive,
+        parseNewVariant: Parser<Variant>,
+    ): DiscriminatedUnionBuilder<DK, Union | Variant> {
+        const parseNewBranch = discriminatedUnionBranch(
+            this.discriminantKey,
+            discriminantValue,
+            parseNewVariant,
+            this.parser,
+        );
+
         return new DiscriminatedUnionBuilder(
-            either(narrow, parseVariant, this.parser),
+            this.discriminantKey,
+            parseNewBranch,
         );
     }
 }
 
-function either<A, B>(
-    narrowToA: Parser<unknown>,
-    parseA: Parser<A>,
-    parseB: Parser<B>,
-): Parser<A | B> {
-    return (rawValue, ctx) => {
-        if (isSuccess(narrowToA(rawValue, ctx))) {
-            return parseA(rawValue, ctx);
+function discriminatedUnionBranch<
+    DK extends string,
+    DV extends Primitive,
+    Variant extends {[k in DK]: DV},
+    Rest extends {[k in DK]: DV},
+>(
+    discriminantKey: DK,
+    discriminantValue: DV,
+    parseVariant: Parser<Variant>,
+    parseOtherBranches: Parser<Rest>,
+): Parser<Variant | Rest> {
+    return (raw: unknown, ctx: ParseContext) => {
+        if (!isObject(raw)) {
+            return ctx.failure("object", raw);
         }
 
-        return parseB(rawValue, ctx);
+        if (raw[discriminantKey] === discriminantValue) {
+            return parseVariant(raw, ctx);
+        }
+
+        return parseOtherBranches(raw, ctx);
     };
 }
