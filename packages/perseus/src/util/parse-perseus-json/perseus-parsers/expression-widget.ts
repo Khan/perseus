@@ -49,6 +49,18 @@ function removeInvalidAnswerForms(
     return valid;
 }
 
+const parseButtonSets = defaulted(array(
+    enumeration(
+        "basic",
+        "basic+div",
+        "trig",
+        "prealgebra",
+        "logarithms",
+        "basic relations",
+        "advanced relations",
+    ),
+), () => ["basic", "trig", "prealgebra", "logarithms"] as const);
+
 const version1 = object({major: constant(1), minor: number});
 const parseExpressionWidgetV1: Parser<ExpressionWidget> =
     parseWidgetWithVersion(
@@ -62,17 +74,7 @@ const parseExpressionWidgetV1: Parser<ExpressionWidget> =
             times: boolean,
             visibleLabel: optional(string),
             ariaLabel: optional(string),
-            buttonSets: array(
-                enumeration(
-                    "basic",
-                    "basic+div",
-                    "trig",
-                    "prealgebra",
-                    "logarithms",
-                    "basic relations",
-                    "advanced relations",
-                ),
-            ),
+            buttonSets: parseButtonSets,
             buttonsVisible: optional(enumeration("always", "never", "focused")),
         }),
     );
@@ -89,17 +91,7 @@ const parseExpressionWidgetV0 = parseWidgetWithVersion(
         form: boolean,
         simplify: boolean,
         value: string,
-        buttonSets: array(
-            enumeration(
-                "basic",
-                "basic+div",
-                "trig",
-                "prealgebra",
-                "logarithms",
-                "basic relations",
-                "advanced relations",
-            ),
-        ),
+        buttonSets: parseButtonSets,
         buttonsVisible: optional(enumeration("always", "never", "focused")),
     }),
 );
