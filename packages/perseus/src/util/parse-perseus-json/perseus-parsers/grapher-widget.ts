@@ -17,6 +17,7 @@ import {parseWidget} from "./widget";
 
 import type {GrapherWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 const pairOfNumbers = pair(number, number);
 
@@ -56,7 +57,7 @@ export const parseGrapherWidget: Parser<GrapherWidget> = parseWidget(
                 "linear",
                 object({
                     type: constant("linear"),
-                    coords: pairOfPoints,
+                    coords: defaulted(pairOfPoints, () => [[-5, 5], [5, 5]] as [[number, number], [number, number]]),
                 }),
             )
             .withBranch(
