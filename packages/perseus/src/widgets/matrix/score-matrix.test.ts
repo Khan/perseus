@@ -171,6 +171,32 @@ describe("scoreMatrix", () => {
         expect(result).toHaveInvalidInput();
     });
 
+    it("treats nulls in the rubric as zeroes", () => {
+        // Arrange
+        const rubric: PerseusMatrixRubric = {
+            answers: [
+                // @ts-expect-error - Type 'null' is not assignable to type 'number'.
+                [null, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+            ],
+        };
+
+        const userInput: PerseusMatrixUserInput = {
+            answers: [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+            ],
+        };
+
+        // Act
+        const result = scoreMatrix(userInput, rubric, mockStrings);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
     it("is considered incorrect when the size is wrong", () => {
         // Arrange
         const rubric: PerseusMatrixRubric = {
