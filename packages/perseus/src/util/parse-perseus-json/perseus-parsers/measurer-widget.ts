@@ -6,13 +6,13 @@ import {
     pair,
     string,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
 import type {MeasurerWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
-import {defaulted} from "../general-purpose-parsers/defaulted";
 
 export const parseMeasurerWidget: Parser<MeasurerWidget> = parseWidget(
     constant("measurer"),

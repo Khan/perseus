@@ -11,13 +11,13 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 
 import {parseWidget} from "./widget";
 
 import type {GrapherWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
-import {defaulted} from "../general-purpose-parsers/defaulted";
 
 const pairOfNumbers = pair(number, number);
 
@@ -57,7 +57,14 @@ export const parseGrapherWidget: Parser<GrapherWidget> = parseWidget(
                 "linear",
                 object({
                     type: constant("linear"),
-                    coords: defaulted(pairOfPoints, () => [[-5, 5], [5, 5]] as [[number, number], [number, number]]),
+                    coords: defaulted(
+                        pairOfPoints,
+                        () =>
+                            [
+                                [-5, 5],
+                                [5, 5],
+                            ] as [[number, number], [number, number]],
+                    ),
                 }),
             )
             .withBranch(

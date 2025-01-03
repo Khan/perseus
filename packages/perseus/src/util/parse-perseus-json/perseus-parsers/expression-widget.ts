@@ -52,17 +52,20 @@ function removeInvalidAnswerForms(
 // NOTE(benchristel): I copied the default buttonSets from
 // expression.tsx. See the parse-perseus-json/README.md for
 // an explanation of why we want to duplicate the default here.
-const parseButtonSets = defaulted(array(
-    enumeration(
-        "basic",
-        "basic+div",
-        "trig",
-        "prealgebra",
-        "logarithms",
-        "basic relations",
-        "advanced relations",
+const parseButtonSets = defaulted(
+    array(
+        enumeration(
+            "basic",
+            "basic+div",
+            "trig",
+            "prealgebra",
+            "logarithms",
+            "basic relations",
+            "advanced relations",
+        ),
     ),
-), () => ["basic", "trig", "prealgebra", "logarithms"] as const);
+    () => ["basic", "trig", "prealgebra", "logarithms"] as const,
+);
 
 const version1 = object({major: constant(1), minor: number});
 const parseExpressionWidgetV1: Parser<ExpressionWidget> =

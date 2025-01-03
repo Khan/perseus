@@ -18,9 +18,9 @@ import type {MatrixWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
 
 const numberOrString = union(number).or(string).parser;
-const numeric = pipeParsers(defaulted(numberOrString, () => 0))
-    .then(stringToNumber)
-    .parser;
+const numeric = pipeParsers(defaulted(numberOrString, () => 0)).then(
+    stringToNumber,
+).parser;
 
 export const parseMatrixWidget: Parser<MatrixWidget> = parseWidget(
     defaulted(constant("matrix"), () => "matrix"),
