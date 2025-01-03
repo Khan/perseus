@@ -17,8 +17,6 @@ import type {
     InteractiveGraphElementSuite,
 } from "../types";
 
-import { srFormatNumber } from "./screenreader-text";
-
 export function renderSinusoidGraph(
     state: SinusoidGraphState,
     dispatch: Dispatch,
@@ -71,8 +69,8 @@ function SinusoidGraph(props: SinusoidGraphProps) {
     ): string {
         const coordsObj = {
             x: srFormatNumber(coordinate[0], locale),
-            y: srFormatNumber(coordinate[1], locale)
-        }
+            y: srFormatNumber(coordinate[1], locale),
+        };
 
         return index === 1
             ? strings.srSinusoidExtremumPoint(coordsObj)
@@ -80,9 +78,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
     }
 
     return (
-        <g
-            aria-label={strings.srSinusoidGraphAriaLabel}
-        >
+        <g aria-label={strings.srSinusoidGraphAriaLabel}>
             <Plot.OfX
                 y={(x) => computeSine(x, coeffRef.current)}
                 color={color.blue}
