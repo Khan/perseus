@@ -3,6 +3,7 @@ import type {
     Hint,
     PerseusAnswerArea,
     PerseusGraphType,
+    PerseusImageDetail,
     PerseusWidget,
     PerseusWidgetsMap,
 } from "./perseus-types";
@@ -93,7 +94,7 @@ export interface Widget {
 }
 
 export type ImageDict = {
-    [url: string]: Dimensions;
+    [imageUrl: string]: PerseusImageDetail;
 };
 
 export type PerseusScore =
@@ -132,7 +133,9 @@ export type ChangeHandler = (
         replace?: boolean;
         content?: string;
         widgets?: PerseusWidgetsMap;
-        images?: ImageDict;
+        images?: {
+            [imageUrl: string]: PerseusImageDetail;
+        };
         // used only in EditorPage
         question?: any;
         answerArea?: PerseusAnswerArea | null;

@@ -210,9 +210,9 @@ export type Hint = PerseusRenderer & {
 
 export type PerseusImageDetail = {
     // The width of the image
-    width: number;
+    width?: number;
     // the height of the image
-    height: number;
+    height?: number;
 };
 
 export const ItemExtras = [

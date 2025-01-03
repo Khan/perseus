@@ -221,7 +221,15 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                     imageUploader={imageUploader}
                                     // Need to fix and update editor.tsx, and hopefully the type errors will go away.
                                     onChange={(newProps) =>
-                                        this._handleEditorChange(i, newProps)
+                                        this._handleEditorChange(i, {
+                                            content: newProps.content
+                                                ? newProps.content
+                                                : "",
+                                            widgets: newProps.widgets
+                                                ? newProps.widgets
+                                                : {},
+                                            images: newProps.images,
+                                        })
                                     }
                                     placeholder="Type your section text here..."
                                     ref={"editor" + i}
@@ -308,10 +316,10 @@ export default class ArticleEditor extends React.Component<Props, State> {
         this.props.onChange({json: newJson});
     };
 
-    _handleEditorChange: (i: number, newProps: PerseusRenderer) => void = (
-        i,
-        newProps,
-    ) => {
+    _handleEditorChange: (
+        i: number,
+        newProps: Partial<PerseusRenderer>,
+    ) => void = (i, newProps) => {
         const sections = [...this._sections()];
         sections[i] = {...sections[i], ...newProps};
         this.props.onChange({json: sections});

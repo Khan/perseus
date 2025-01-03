@@ -25,11 +25,15 @@ import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
 
 import type {
+    APIOptions,
     ChangeHandler,
     ImageUploader,
+    PerseusArticle,
+    PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
 } from "@khanacademy/perseus";
+import type {PerseusImageDetail} from "@khanacademy/perseus/src/perseus-types";
 
 // like [[snowman input-number 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
@@ -111,38 +115,32 @@ const imageUrlsFromContent = function (content: string) {
     return allMatches(IMAGE_REGEX, content).map((capture) => capture[1]);
 };
 
-type Props = Readonly<{
-    apiOptions: any;
-    className?: string;
-    content: string;
-    replace?: any;
-    placeholder: string;
-    widgets: PerseusWidgetsMap;
-    images: any;
-    disabled: boolean;
-    widgetEnabled: boolean;
-    immutableWidgets: boolean;
-    showWordCount: boolean;
-    warnNoPrompt: boolean;
-    warnNoWidgets: boolean;
-    widgetIsOpen?: boolean;
-    imageUploader?: ImageUploader;
-    onChange: ChangeHandler;
-}>;
+type Props = PerseusRenderer &
+    Readonly<{
+        apiOptions: APIOptions;
+        className?: string;
+        replace?: boolean;
+        placeholder: string;
+        disabled: boolean;
+        widgetEnabled: boolean;
+        immutableWidgets: boolean;
+        showWordCount: boolean;
+        warnNoPrompt: boolean;
+        warnNoWidgets: boolean;
+        widgetIsOpen?: boolean;
+        imageUploader?: ImageUploader;
+        onChange: ChangeHandler;
+    }>;
 
 type DefaultProps = {
-    content: string;
-    disabled: boolean;
-    images: Record<any, any>;
-    immutableWidgets: boolean;
-    placeholder: string;
-    showWordCount: boolean;
-    warnNoPrompt: boolean;
-    warnNoWidgets: boolean;
-    widgetEnabled: boolean;
-    widgets: {
-        [name: string]: PerseusWidget;
-    };
+    content: Props["content"];
+    disabled: Props["disabled"];
+    immutableWidgets: Props["immutableWidgets"];
+    placeholder: Props["placeholder"];
+    showWordCount: Props["showWordCount"];
+    warnNoPrompt: Props["warnNoPrompt"];
+    warnNoWidgets: Props["warnNoWidgets"];
+    widgetEnabled: Props["widgetEnabled"];
 };
 
 type State = {
@@ -152,8 +150,8 @@ type State = {
 // eslint-disable-next-line react/no-unsafe
 class Editor extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;
-    deferredChange: any | null | undefined;
-    widgetIds: any | null | undefined;
+    deferredChange: number | undefined;
+    widgetIds: string[] | undefined;
 
     underlay = React.createRef<HTMLDivElement>();
     textarea = React.createRef<HTMLTextAreaElement>();
@@ -161,8 +159,6 @@ class Editor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         content: "",
         placeholder: "",
-        widgets: {},
-        images: {},
         disabled: false,
         widgetEnabled: true,
         immutableWidgets: false,
@@ -242,7 +238,7 @@ class Editor extends React.Component<Props, State> {
     componentWillUnmount() {
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        clearTimeout(this.deferredChange);
+        window.clearTimeout(this.deferredChange);
     }
 
     getWidgetEditor(
@@ -427,11 +423,11 @@ class Editor extends React.Component<Props, State> {
     ) => {
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        clearTimeout(this.deferredChange);
+        window.clearTimeout(this.deferredChange);
         this.setState({textAreaValue: e.currentTarget.value});
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        this.deferredChange = setTimeout(() => {
+        this.deferredChange = window.setTimeout(() => {
             if (this.state.textAreaValue !== this.props.content) {
                 this.props.onChange({content: this.state.textAreaValue});
             }
@@ -514,8 +510,8 @@ class Editor extends React.Component<Props, State> {
             // their type.
             // TODO(sam): Fix widget numbering in the widget editor titles
 
-            const widgetJSON = localStorage.perseusLastCopiedWidgets;
-            const lastCopiedText = localStorage.perseusLastCopiedText;
+            const widgetJSON: string = localStorage.perseusLastCopiedWidgets;
+            const lastCopiedText: string = localStorage.perseusLastCopiedText;
             const textToBePasted =
                 // @ts-expect-error - TS2339 - Property 'originalEvent' does not exist on type 'SyntheticEvent<HTMLTextAreaElement, Event>'.
                 e.originalEvent.clipboardData.getData("text");
@@ -529,7 +525,8 @@ class Editor extends React.Component<Props, State> {
             if (widgetJSON && lastCopiedText === textToBePasted) {
                 e.preventDefault();
 
-                const widgetData = JSON.parse(widgetJSON);
+                // What is the data type for generic json data that we use to render...
+                const widgetData: PerseusWidgetsMap = JSON.parse(widgetJSON);
                 const safeWidgetMapping =
                     this._safeWidgetNameMapping(widgetData);
 
@@ -537,11 +534,15 @@ class Editor extends React.Component<Props, State> {
                 // TODO(aria/alex): Don't use `rWidgetSplit` or other piecemeal
                 // regexes directly; abstract this out so that we don't have to
                 // worry about potential edge cases.
-                const safeWidgetData: Record<string, any> = {};
+                const safeWidgetData: PerseusArticle = [];
                 for (const [key, data] of Object.entries(widgetData)) {
+                    // Need to check on the widget data vs. the widgets properties.
                     safeWidgetData[safeWidgetMapping[key]] = data;
                 }
-                const newWidgets = _.extend(safeWidgetData, this.props.widgets);
+                const newWidgets: PerseusWidgetsMap = _.extend(
+                    safeWidgetData,
+                    this.props.widgets,
+                );
 
                 // Use safe widget name map to construct new text
                 const safeText = lastCopiedText.replace(
@@ -584,9 +585,9 @@ class Editor extends React.Component<Props, State> {
             }
         };
 
-    _safeWidgetNameMapping: (widgetData: {
-        [name: string]: any;
-    }) => Record<any, any> = (widgetData: {[name: string]: any}) => {
+    _safeWidgetNameMapping: (
+        widgetData: PerseusWidgetsMap,
+    ) => PerseusWidgetsMap = (widgetData: PerseusWidgetsMap) => {
         // Helper function for _maybePasteWidgets.
         // For each widget about to be pasted, construct a mapping from
         // old widget name to a new widget name that doesn't have conflicts
@@ -609,7 +610,7 @@ class Editor extends React.Component<Props, State> {
 
         // Mapping of widget type to a safe (non-conflicting) number
         // eg. { "image": 2, "dropdown": 1 }
-        const safeWidgetNums: Record<string, any> = {};
+        const safeWidgetNums: PerseusWidgetsMap = {};
         _.each(widgetTypes, (type) => {
             safeWidgetNums[type] = _.chain(existingWidgets)
                 .filter((existingWidget) => existingWidget[0] === type)
@@ -621,7 +622,7 @@ class Editor extends React.Component<Props, State> {
         });
 
         // Construct mapping, incrementing the vals in safeWidgetNums as we go
-        const safeWidgetMapping: Record<string, any> = {};
+        const safeWidgetMapping: PerseusWidgetsMap = {};
         _.each(widgets, (widget) => {
             const widgetName = widget.join(" ");
             const widgetType = widget[0];
@@ -687,7 +688,7 @@ class Editor extends React.Component<Props, State> {
 
         const newContent = newPrelude + widgetContent + newPostlude;
 
-        const newWidgets = {...this.props.widgets};
+        const newWidgets: PerseusWidgetsMap = {...this.props.widgets};
         newWidgets[id] = {
             options: Widgets.getEditor(widgetType)?.defaultProps,
             type: widgetType,
@@ -797,9 +798,12 @@ class Editor extends React.Component<Props, State> {
         this.props.onChange({content: newContent}, this.focusAndMoveToEnd);
     };
 
-    getSaveWarnings: () => any = () => {
+    getSaveWarnings: () => string[] = () => {
         // eslint-disable-next-line react/no-string-refs
-        const widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
+        const widgetIds = _.intersection(
+            this.widgetIds ? this.widgetIds : [],
+            _.keys(this.refs),
+        );
         const warnings = _(widgetIds)
             .chain()
             .map((id) => {
@@ -831,18 +835,25 @@ class Editor extends React.Component<Props, State> {
         }
     };
 
+    // No idea what this object type might be. Might just leave this alone as this code needs to be
+    // removed and it appears to be a JS carry over.
     serialize: (options?: any) => {
         content: string;
-        images: any;
-        replace: any | undefined;
-        widgets: Record<any, any>;
+        images: {
+            [imageUrl: string]: PerseusImageDetail;
+        };
+        replace: boolean | undefined;
+        widgets: PerseusWidgetsMap;
     } = (options: any) => {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
         // interactive-graph and plotter).
-        const widgets: Record<string, any> = {};
+        const widgets: PerseusWidgetsMap = {};
         // eslint-disable-next-line react/no-string-refs
-        const widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
+        const widgetIds = _.intersection(
+            this.widgetIds ? this.widgetIds : [],
+            _.keys(this.refs),
+        );
         _.each(widgetIds, (id) => {
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
@@ -927,7 +938,7 @@ class Editor extends React.Component<Props, State> {
                                 katex.renderToString(content, {
                                     colorIsTextColor: true,
                                 });
-                            } catch (e: any) {
+                            } catch (e) {
                                 katexErrorList.push({
                                     math: content,
                                     // @ts-expect-error - TS2322 - Type 'any' is not assignable to type 'never'.
