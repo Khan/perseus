@@ -118,6 +118,7 @@ export interface PerseusWidgetTypes {
     // Deprecated widgets
     "lights-puzzle": AutoCorrectWidget;
     sequence: AutoCorrectWidget;
+    simulator: AutoCorrectWidget;
 }
 
 /**
