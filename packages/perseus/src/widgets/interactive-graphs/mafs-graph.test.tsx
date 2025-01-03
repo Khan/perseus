@@ -359,8 +359,8 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expectLabelInDoc("Point 1 at -1 comma 1");
-        expectLabelInDoc("Point 2 at 0 comma 0");
+        expectLabelInDoc("Midline Intersection at -1 comma 1.");
+        expectLabelInDoc("Extremum Point at 0 comma 0.");
     });
 
     it("renders ARIA labels for each point (point)", () => {
