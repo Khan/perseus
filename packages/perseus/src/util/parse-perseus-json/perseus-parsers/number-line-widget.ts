@@ -31,7 +31,7 @@ export const parseNumberLineWidget: Parser<NumberLineWidget> = parseWidget(
         snapDivisions: defaulted(number, () => 2),
         tickStep: optional(nullable(number)),
         correctRel: optional(nullable(string)),
-        correctX: number,
+        correctX: nullable(number),
         initialX: optional(nullable(number)),
         showTooltip: optional(boolean),
         static: defaulted(boolean, () => false),

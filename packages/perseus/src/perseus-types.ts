@@ -1218,7 +1218,7 @@ export type PerseusNumberLineWidgetOptions = {
     // The correct relative value. default: "eq". options: "eq", "lt", "gt", "le", "ge"
     correctRel: string | null | undefined;
     // This is the correct answer. The answer is validated (as right or wrong) by using only the end position of the point and the relation (=, &lt;, &gt;, ≤, ≥).
-    correctX: number;
+    correctX: number | null;
     // This controls the initial position of the point along the number line
     initialX: number | null | undefined;
     // Show tooltips
