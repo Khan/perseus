@@ -14,6 +14,7 @@ import {
     union,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
+import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
@@ -45,9 +46,6 @@ import type {
     PerseusGraphTypeSinusoid,
 } from "../../../perseus-types";
 import type {Parser} from "../parser-types";
-import {
-    discriminatedUnionOn
-} from "../general-purpose-parsers/discriminated-union";
 
 // Used to represent 2-D points and ranges
 const pairOfNumbers = pair(number, number);
@@ -159,7 +157,9 @@ const parsePerseusGraphTypeSinusoid: Parser<PerseusGraphTypeSinusoid> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphType: Parser<PerseusGraphType> = discriminatedUnionOn("type")
+const parsePerseusGraphType: Parser<PerseusGraphType> = discriminatedUnionOn(
+    "type",
+)
     .withBranch("angle", parsePerseusGraphTypeAngle)
     .withBranch("circle", parsePerseusGraphTypeCircle)
     .withBranch("linear", parsePerseusGraphTypeLinear)
@@ -170,8 +170,7 @@ const parsePerseusGraphType: Parser<PerseusGraphType> = discriminatedUnionOn("ty
     .withBranch("quadratic", parsePerseusGraphTypeQuadratic)
     .withBranch("ray", parsePerseusGraphTypeRay)
     .withBranch("segment", parsePerseusGraphTypeSegment)
-    .withBranch("sinusoid", parsePerseusGraphTypeSinusoid)
-    .parser
+    .withBranch("sinusoid", parsePerseusGraphTypeSinusoid).parser;
 
 const parseLockedFigureColor: Parser<LockedFigureColor> = enumeration(
     ...lockedFigureColorNames,

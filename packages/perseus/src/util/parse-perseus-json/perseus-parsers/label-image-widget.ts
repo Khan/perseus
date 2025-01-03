@@ -6,12 +6,12 @@ import {
     object,
     string,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
 import type {LabelImageWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
-import {defaulted} from "../general-purpose-parsers/defaulted";
 
 export const parseLabelImageWidget: Parser<LabelImageWidget> = parseWidget(
     constant("label-image"),
