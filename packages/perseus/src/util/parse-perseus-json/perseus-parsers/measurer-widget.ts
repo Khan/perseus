@@ -12,6 +12,7 @@ import {parseWidget} from "./widget";
 
 import type {MeasurerWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 export const parseMeasurerWidget: Parser<MeasurerWidget> = parseWidget(
     constant("measurer"),
@@ -24,6 +25,6 @@ export const parseMeasurerWidget: Parser<MeasurerWidget> = parseWidget(
         rulerPixels: number,
         rulerLength: number,
         box: pair(number, number),
-        static: boolean,
+        static: defaulted(boolean, () => false),
     }),
 );
