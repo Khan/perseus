@@ -258,6 +258,9 @@ export type PerseusStrings = {
         tsX: string;
         tsY: string;
     }) => string;
+    srSinusoidGraphAriaLabel: string;
+    srSinusoidExtremumPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidMidlineIntersection: ({x, y}: {x: string; y: string}) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -550,6 +553,21 @@ export const strings: {
         message:
             "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the initial side at %(isX)s comma %(isY)s and a point on the terminal side at %(tsX)s comma %(tsY)s",
     },
+    srSinusoidGraphAriaLabel: {
+        context:
+            "Screenreader accessible label for a sinusoid on a coordinate plane",
+        message: "A sinusoid function on a coordinate plane.",
+    },
+    srSinusoidExtremumPoint: {
+        context:
+            "Screenreader accessible label for the extremum point (max point) on a sinusoid function.",
+        message: "Extremum Point at %(x)s comma %(y)s.",
+    },
+    srSinusoidMidlineIntersection: {
+        context:
+            "Screenreader accessible label for the midline intersection on a sinusoid function.",
+        message: "Midline Intersection at %(x)s comma %(y)s.",
+    },
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -767,5 +785,9 @@ export const mockStrings: PerseusStrings = {
         tsY,
     }) =>
         `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the initial side at ${isX} comma ${isY} and a point on the terminal side at ${tsX} comma ${tsY}.`,
+    srSinusoidGraphAriaLabel: "A sinusoid function on a coordinate plane.",
+    srSinusoidExtremumPoint: ({x, y}) => `Extremum Point at ${x} comma ${y}.`,
+    srSinusoidMidlineIntersection: ({x, y}) =>
+        `Midline Intersection at ${x} comma ${y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
