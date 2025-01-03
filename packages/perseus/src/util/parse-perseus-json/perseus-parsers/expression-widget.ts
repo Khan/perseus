@@ -22,6 +22,8 @@ import type {
 } from "../../../perseus-types";
 import type {ParsedValue, Parser} from "../parser-types";
 
+const stringOrNumberOrNullOrUndefined = union(string).or(number).or(constant(null)).or(constant(undefined)).parser;
+
 const parsePossiblyInvalidAnswerForm = object({
     // `value` is the possibly invalid part of this. It should always be a
     // string, but some answer forms don't have it. The Expression widget
@@ -30,7 +32,7 @@ const parsePossiblyInvalidAnswerForm = object({
     form: defaulted(boolean, () => false),
     simplify: defaulted(boolean, () => false),
     considered: enumeration("correct", "wrong", "ungraded"),
-    key: pipeParsers(optional(union(string).or(number).parser)).then(
+    key: pipeParsers(stringOrNumberOrNullOrUndefined).then(
         (key, ctx) => ctx.success(String(key)),
     ).parser,
 });
