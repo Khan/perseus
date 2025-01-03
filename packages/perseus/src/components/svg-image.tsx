@@ -18,8 +18,8 @@ import ImageLoader from "./image-loader";
 
 import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
-import type {Size} from "../perseus-types";
-import type {Alignment, Dimensions} from "../types";
+import type {PerseusImageDetail, Size} from "../perseus-types";
+import type {Alignment} from "../types";
 
 // Minimum image width to make an image appear as zoomable.
 const ZOOMABLE_THRESHOLD = 700;
@@ -30,7 +30,7 @@ function isImageProbablyPhotograph(imageUrl) {
     return /\.(jpg|jpeg)$/i.test(imageUrl);
 }
 
-function defaultPreloader(dimensions: Dimensions) {
+function defaultPreloader(dimensions: PerseusImageDetail) {
     return (
         <span
             style={{
@@ -70,7 +70,7 @@ type Props = {
      * is set.
      */
     overrideAriaHidden?: boolean;
-    preloader?: (dimensions: Dimensions) => React.ReactNode;
+    preloader?: (dimensions: PerseusImageDetail) => React.ReactNode;
     /**
      * By default, this component attempts to be responsive whenever
      * possible (specifically, when width and height are passed in).

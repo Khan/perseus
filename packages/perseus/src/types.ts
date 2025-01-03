@@ -24,11 +24,6 @@ import type * as React from "react";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
-export type Dimensions = {
-    width?: number;
-    height?: number;
-};
-
 export type DeviceType = "phone" | "tablet" | "desktop";
 
 /**
@@ -309,7 +304,7 @@ export type APIOptions = Readonly<{
      * Function that takes dimensions and returns a React component
      * to display while an image is loading.
      */
-    imagePreloader?: (dimensions: Dimensions) => React.ReactNode;
+    imagePreloader?: (dimensions: PerseusImageDetail) => React.ReactNode;
     /**
      * A function that is called when the user has interacted with a widget. It
      * also includes any extra parameters that the originating widget provided.

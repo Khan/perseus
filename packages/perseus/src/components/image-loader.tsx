@@ -6,7 +6,7 @@ import * as React from "react";
 
 import {getDependencies} from "../dependencies";
 
-import type {Dimensions} from "../types";
+import type {PerseusImageDetail} from "../perseus-types";
 
 const Status = {
     PENDING: "pending",
@@ -21,7 +21,7 @@ export type ImageProps = {
     ["aria-hidden"]?: boolean;
     tabIndex?: number;
     onClick?: (e: React.SyntheticEvent) => void;
-    style?: Dimensions;
+    style?: PerseusImageDetail;
 };
 
 type Props = {
