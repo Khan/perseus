@@ -57,7 +57,7 @@ export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
         ),
         labelText: optional(string),
         size: string,
-        coefficient: boolean,
+        coefficient: defaulted(boolean, () => false),
         rightAlign: optional(boolean),
         static: defaulted(boolean, () => false),
         answerForms: optional(
