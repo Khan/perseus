@@ -25,6 +25,7 @@ export const parseMeasurerWidget: Parser<MeasurerWidget> = parseWidget(
         rulerPixels: number,
         rulerLength: number,
         box: pair(number, number),
+        // TODO(benchristel): static is not used. Remove it?
         static: defaulted(boolean, () => false),
     }),
 );
