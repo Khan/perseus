@@ -12,6 +12,7 @@ import {parseWidget} from "./widget";
 
 import type {CSProgramWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 export const parseCSProgramWidget: Parser<CSProgramWidget> = parseWidget(
     constant("cs-program"),
@@ -23,6 +24,6 @@ export const parseCSProgramWidget: Parser<CSProgramWidget> = parseWidget(
         showButtons: boolean,
         width: number,
         height: number,
-        static: boolean,
+        static: defaulted(boolean, () => false),
     }),
 );
