@@ -2,83 +2,118 @@ import {parse} from "../parse";
 import {failure, success} from "../result";
 
 import {constant} from "./constant";
-import {discriminatedUnion} from "./discriminated-union";
+import {discriminatedUnionOn} from "./discriminated-union";
 import {number} from "./number";
 import {object} from "./object";
 
-describe("a discriminatedUnion with one variant", () => {
-    const unionParser = discriminatedUnion(
-        object({type: constant("ok")}),
-        object({type: constant("ok"), value: number}),
-    ).parser;
+describe("a discriminatedUnion with no variants", () => {
+    const parseUnion = discriminatedUnionOn("shape").parser;
 
-    it("parses a valid value", () => {
-        const input = {type: "ok", value: 3};
-
-        expect(parse(input, unionParser)).toEqual(success(input));
-    });
-
-    it("rejects a value with the wrong `type`", () => {
-        const input = {type: "bad", value: 3};
-
-        expect(parse(input, unionParser)).toEqual(
-            failure(`At (root).type -- expected "ok", but got "bad"`),
+    it("fails appropriately given a non-object", () => {
+        expect(parse(true, parseUnion)).toEqual(
+            failure("At (root) -- expected object, but got true"),
         );
     });
 
-    it("rejects a value with a valid type but wrong fields", () => {
-        const input = {type: "ok", value: "foobar"};
+    it("fails appropriately given an object without the discriminant key", () => {
+        expect(parse({}, parseUnion)).toEqual(
+            failure(
+                "At (root).shape -- expected a valid value, but got undefined",
+            ),
+        );
+    });
 
-        expect(parse(input, unionParser)).toEqual(
-            failure(`At (root).value -- expected number, but got "foobar"`),
+    it("fails appropriately given an object with the discriminant key", () => {
+        expect(parse({shape: "squarle"}, parseUnion)).toEqual(
+            failure(
+                `At (root).shape -- expected a valid value, but got "squarle"`,
+            ),
         );
     });
 });
 
-describe("a discriminatedUnion with two variants", () => {
-    const unionParser = discriminatedUnion(
-        object({type: constant("rectangle")}),
-        object({type: constant("rectangle"), width: number}),
-    ).or(
-        object({type: constant("circle")}),
-        object({type: constant("circle"), radius: number}),
+describe("a discriminatedUnion with one variant", () => {
+    const parseCircle = object({shape: constant("circle"), radius: number});
+    const parseUnion = discriminatedUnionOn("shape").withBranch(
+        "circle",
+        parseCircle,
     ).parser;
 
-    it("parses a valid rectangle", () => {
-        const input = {type: "rectangle", width: 42};
-
-        expect(parse(input, unionParser)).toEqual(success(input));
-    });
-
-    it("rejects a rectangle with no width", () => {
-        const input = {type: "rectangle", radius: 99};
-
-        expect(parse(input, unionParser)).toEqual(
-            failure(`At (root).width -- expected number, but got undefined`),
+    it("fails appropriately given a non-object", () => {
+        expect(parse(true, parseUnion)).toEqual(
+            failure("At (root) -- expected object, but got true"),
         );
     });
 
-    it("parses a valid circle", () => {
-        const input = {type: "circle", radius: 7};
-
-        expect(parse(input, unionParser)).toEqual(success(input));
-    });
-
-    it("rejects a circle with no radius", () => {
-        const input = {type: "circle", width: 99};
-
-        expect(parse(input, unionParser)).toEqual(
-            failure(`At (root).radius -- expected number, but got undefined`),
-        );
-    });
-
-    it("rejects a value with an unrecognized `type`", () => {
-        const input = {type: "triangle", width: -1, radius: 99};
-
-        expect(parse(input, unionParser)).toEqual(
+    it("fails appropriately given an object without the discriminant key", () => {
+        expect(parse({}, parseUnion)).toEqual(
             failure(
-                `At (root).type -- expected "rectangle", but got "triangle"`,
+                "At (root).shape -- expected a valid value, but got undefined",
             ),
+        );
+    });
+
+    it("fails appropriately given an object with an invalid discriminant", () => {
+        expect(parse({shape: "squarle"}, parseUnion)).toEqual(
+            failure(
+                `At (root).shape -- expected a valid value, but got "squarle"`,
+            ),
+        );
+    });
+
+    it("succeeds given a valid object", () => {
+        const input = {shape: "circle", radius: 3};
+        expect(parse(input, parseUnion)).toEqual(success(input));
+    });
+});
+
+describe("a discriminatedUnion with two variants", () => {
+    const parseCircle = object({shape: constant("circle"), radius: number});
+    const parseRectangle = object({
+        shape: constant("rectangle"),
+        width: number,
+        height: number,
+    });
+    const parseUnion = discriminatedUnionOn("shape")
+        .withBranch("circle", parseCircle)
+        .withBranch("rectangle", parseRectangle).parser;
+
+    it("fails appropriately given a non-object", () => {
+        expect(parse(true, parseUnion)).toEqual(
+            failure("At (root) -- expected object, but got true"),
+        );
+    });
+
+    it("fails appropriately given an object without the discriminant key", () => {
+        expect(parse({}, parseUnion)).toEqual(
+            failure(
+                "At (root).shape -- expected a valid value, but got undefined",
+            ),
+        );
+    });
+
+    it("fails appropriately given an object with an invalid discriminant", () => {
+        expect(parse({shape: "squarle"}, parseUnion)).toEqual(
+            failure(
+                `At (root).shape -- expected a valid value, but got "squarle"`,
+            ),
+        );
+    });
+
+    it("successfully parses the first branch", () => {
+        const input = {shape: "circle", radius: 3};
+        expect(parse(input, parseUnion)).toEqual(success(input));
+    });
+
+    it("successfully parses the second branch", () => {
+        const input = {shape: "rectangle", width: 2, height: 4};
+        expect(parse(input, parseUnion)).toEqual(success(input));
+    });
+
+    it("doesn't try other branches after finding one that matches the discriminant key", () => {
+        const input = {shape: "circle", width: 2, height: 4};
+        expect(parse(input, parseUnion)).toEqual(
+            failure(`At (root).radius -- expected number, but got undefined`),
         );
     });
 });

@@ -11,7 +11,7 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
-import {discriminatedUnion} from "../general-purpose-parsers/discriminated-union";
+import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 
 import {parseWidget} from "./widget";
 
@@ -36,52 +36,53 @@ export const parseGrapherWidget: Parser<GrapherWidget> = parseWidget(
                 "tangent",
             ),
         ),
-        correct: discriminatedUnion(
-            object({type: constant("absolute_value")}),
-            object({
-                type: constant("absolute_value"),
-                coords: pairOfPoints,
-            }),
-        )
-            .or(
-                object({type: constant("exponential")}),
+        correct: discriminatedUnionOn("type")
+            .withBranch(
+                "absolute_value",
+                object({
+                    type: constant("absolute_value"),
+                    coords: pairOfPoints,
+                }),
+            )
+            .withBranch(
+                "exponential",
                 object({
                     type: constant("exponential"),
                     asymptote: pairOfPoints,
                     coords: pairOfPoints,
                 }),
             )
-            .or(
-                object({type: constant("linear")}),
+            .withBranch(
+                "linear",
                 object({
                     type: constant("linear"),
                     coords: pairOfPoints,
                 }),
             )
-            .or(
-                object({type: constant("logarithm")}),
+            .withBranch(
+                "logarithm",
                 object({
                     type: constant("logarithm"),
                     asymptote: pairOfPoints,
                     coords: pairOfPoints,
                 }),
             )
-            .or(
-                object({type: constant("quadratic")}),
+            .withBranch(
+                "quadratic",
                 object({
                     type: constant("quadratic"),
                     coords: pairOfPoints,
                 }),
             )
-            .or(
-                object({type: constant("sinusoid")}),
+            .withBranch(
+                "sinusoid",
                 object({
                     type: constant("sinusoid"),
                     coords: pairOfPoints,
                 }),
             )
-            .or(
-                object({type: constant("tangent")}),
+            .withBranch(
+                "tangent",
                 object({
                     type: constant("tangent"),
                     coords: pairOfPoints,
