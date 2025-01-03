@@ -16,13 +16,15 @@ import type {
     ImageUploader,
     Version,
     PerseusItem,
+    PerseusAnswerArea,
+    PerseusRenderer,
 } from "@khanacademy/perseus";
 
 const {HUD} = components;
 
 type Props = {
     apiOptions?: APIOptions;
-    answerArea?: any; // related to the question,
+    answerArea?: PerseusAnswerArea; // related to the question,
     // TODO(CP-4838): Should this be a required prop?
     contentPaths?: ReadonlyArray<string>;
     // "Power user" mode. Shows the raw JSON of the question.
@@ -50,7 +52,7 @@ type Props = {
     // A global control to expand/collapse all widget editors on a page.
     widgetsAreOpen?: boolean;
     // Initial value of the question being edited
-    question?: any;
+    question?: PerseusRenderer;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
 };

@@ -13,19 +13,20 @@ import type {
     ChangeHandler,
     DeviceType,
     PerseusRenderer,
+    PerseusAnswerArea,
 } from "@khanacademy/perseus";
 
 const ITEM_DATA_VERSION = itemDataVersion;
 
 type Props = {
-    apiOptions?: APIOptions;
+    apiOptions: APIOptions;
     deviceType?: DeviceType;
     widgetIsOpen?: boolean;
     gradeMessage?: string;
     imageUploader?: ImageUploader;
     wasAnswered?: boolean;
     question?: PerseusRenderer;
-    answerArea?: any;
+    answerArea?: PerseusAnswerArea;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
     onChange: ChangeHandler;
@@ -35,16 +36,6 @@ type Props = {
 };
 
 class ItemEditor extends React.Component<Props> {
-    static defaultProps: {
-        answerArea: Record<any, any>;
-        onChange: () => void;
-        question: Record<any, any>;
-    } = {
-        onChange: () => {},
-        question: {},
-        answerArea: {},
-    };
-
     frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
@@ -75,12 +66,12 @@ class ItemEditor extends React.Component<Props> {
     };
 
     serialize: (options?: any) => {
-        answerArea: any;
+        answerArea: PerseusAnswerArea;
         itemDataVersion: {
             major: number;
             minor: number;
         };
-        question: any;
+        question: PerseusRenderer;
     } = (options: any) => {
         return {
             question: this.questionEditor.current?.serialize(options),

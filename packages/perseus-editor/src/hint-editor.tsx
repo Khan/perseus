@@ -37,10 +37,10 @@ type HintEditorProps = {
     showMoveButtons?: boolean;
     showRemoveButton?: boolean;
     showTitle?: boolean;
-    content?: string | null | undefined;
-    replace?: boolean | null | undefined;
-    widgets?: PerseusWidgetsMap | null | undefined;
-    images?: PerseusImagesMap | null | undefined;
+    content?: string | undefined;
+    replace?: boolean | undefined;
+    widgets?: PerseusWidgetsMap | undefined;
+    images?: PerseusImagesMap | undefined;
     isLast: boolean;
     isFirst: boolean;
     onMove: (direction: number) => unknown;
@@ -86,10 +86,13 @@ export class HintEditor extends React.Component<HintEditorProps> {
         this.editor.current?.focus();
     };
 
-    getSaveWarnings: () => any = () => {
-        return this.editor.current?.getSaveWarnings();
+    getSaveWarnings: () => string[] = () => {
+        return this.editor.current?.getSaveWarnings()
+            ? this.editor.current?.getSaveWarnings()
+            : [];
     };
 
+    // These might be the only anys we should keep.
     serialize: (options?: any) => any = (options: any) => {
         return this.editor.current?.serialize(options);
     };
@@ -142,7 +145,6 @@ export class HintEditor extends React.Component<HintEditorProps> {
                     )}
                     <input
                         type="checkbox"
-                        // @ts-expect-error - TS2322 - Type 'boolean | null | undefined' is not assignable to type 'boolean | undefined'.
                         checked={this.props.replace}
                         onChange={this.handleChange}
                     />
@@ -302,7 +304,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
 
     static defaultProps: {
         highlightLint: boolean;
-        hints: ReadonlyArray<any>;
+        hints: ReadonlyArray<Hint>;
         onChange: () => void;
     } = {
         onChange: () => {},
@@ -369,7 +371,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         });
     };
 
-    getSaveWarnings: () => any = () => {
+    getSaveWarnings: () => string[] = () => {
         return _.chain(this.props.hints)
             .map((hint, i) => {
                 return _.map(
