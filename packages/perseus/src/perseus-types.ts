@@ -944,7 +944,7 @@ export type PerseusGraphTypePolygon = {
     // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
     snapTo?: "grid" | "angles" | "sides";
     // How to match the answer. If missing, defaults to exact matching.
-    match?: "similar" | "congruent" | "approx";
+    match?: "similar" | "congruent" | "approx" | "exact";
     coords?: ReadonlyArray<Coord> | null;
     // The initial coordinates the graph renders with.
     startCoords?: ReadonlyArray<Coord>;

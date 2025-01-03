@@ -45,6 +45,9 @@ import type {
     PerseusGraphTypeSinusoid,
 } from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import {
+    discriminatedUnionOn
+} from "../general-purpose-parsers/discriminated-union";
 
 // Used to represent 2-D points and ranges
 const pairOfNumbers = pair(number, number);
@@ -111,7 +114,7 @@ const parsePerseusGraphTypePolygon: Parser<PerseusGraphTypePolygon> = object({
     showAngles: optional(boolean),
     showSides: optional(boolean),
     snapTo: optional(enumeration("grid", "angles", "sides")),
-    match: optional(enumeration("similar", "congruent", "approx")),
+    match: optional(enumeration("similar", "congruent", "approx", "exact")),
     startCoords: optional(array(pairOfNumbers)),
     // TODO: remove coord? it's legacy.
     coord: optional(pairOfNumbers),
@@ -156,20 +159,19 @@ const parsePerseusGraphTypeSinusoid: Parser<PerseusGraphTypeSinusoid> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphType: Parser<PerseusGraphType> = union(
-    parsePerseusGraphTypeAngle,
-)
-    .or(parsePerseusGraphTypeAngle)
-    .or(parsePerseusGraphTypeCircle)
-    .or(parsePerseusGraphTypeLinear)
-    .or(parsePerseusGraphTypeLinearSystem)
-    .or(parsePerseusGraphTypeNone)
-    .or(parsePerseusGraphTypePoint)
-    .or(parsePerseusGraphTypePolygon)
-    .or(parsePerseusGraphTypeQuadratic)
-    .or(parsePerseusGraphTypeRay)
-    .or(parsePerseusGraphTypeSegment)
-    .or(parsePerseusGraphTypeSinusoid).parser;
+const parsePerseusGraphType: Parser<PerseusGraphType> = discriminatedUnionOn("type")
+    .withBranch("angle", parsePerseusGraphTypeAngle)
+    .withBranch("circle", parsePerseusGraphTypeCircle)
+    .withBranch("linear", parsePerseusGraphTypeLinear)
+    .withBranch("linear-system", parsePerseusGraphTypeLinearSystem)
+    .withBranch("none", parsePerseusGraphTypeNone)
+    .withBranch("point", parsePerseusGraphTypePoint)
+    .withBranch("polygon", parsePerseusGraphTypePolygon)
+    .withBranch("quadratic", parsePerseusGraphTypeQuadratic)
+    .withBranch("ray", parsePerseusGraphTypeRay)
+    .withBranch("segment", parsePerseusGraphTypeSegment)
+    .withBranch("sinusoid", parsePerseusGraphTypeSinusoid)
+    .parser
 
 const parseLockedFigureColor: Parser<LockedFigureColor> = enumeration(
     ...lockedFigureColorNames,
