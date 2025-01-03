@@ -119,6 +119,7 @@ export interface PerseusWidgetTypes {
     "lights-puzzle": AutoCorrectWidget;
     sequence: AutoCorrectWidget;
     simulator: AutoCorrectWidget;
+    transformer: AutoCorrectWidget;
 }
 
 /**

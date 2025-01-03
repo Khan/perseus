@@ -187,6 +187,8 @@ const parseWidgetsMapEntry: (
             return parseAndAssign(`lights-puzzle ${id}`, parseDeprecatedWidget);
         case "simulator":
             return parseAndAssign(`simulator ${id}`, parseDeprecatedWidget);
+        case "transformer":
+            return parseAndAssign(`transformer ${id}`, parseDeprecatedWidget);
 
         default:
             if (getWidget(type)) {
