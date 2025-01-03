@@ -1,3 +1,6 @@
+import {srFormatNumber} from "./screenreader-text";
+
+import type {PairOfPoints} from "../types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
 
@@ -61,4 +64,50 @@ export function getArrayWithoutDuplicates(array: Array<Coord>): Array<Coord> {
     }
 
     return returnArray;
+}
+
+export function getSlopeStringForLine(line: PairOfPoints, strings): string {
+    const slope = (line[1][1] - line[0][1]) / (line[1][0] - line[0][0]);
+    if (slope === Infinity || slope === -Infinity) {
+        return strings.srLinearGraphSlopeVertical;
+    }
+
+    if (slope === 0) {
+        return strings.srLinearGraphSlopeHorizontal;
+    }
+
+    return slope > 0
+        ? strings.srLinearGraphSlopeIncreasing
+        : strings.srLinearGraphSlopeDecreasing;
+}
+
+export function getInterceptStringForLine(
+    line: PairOfPoints,
+    strings,
+    locale,
+): string {
+    const slope = (line[1][1] - line[0][1]) / (line[1][0] - line[0][0]);
+    const xIntercept = (0 - line[0][1]) / slope + line[0][0];
+    const yIntercept = line[0][1] - slope * line[0][0];
+    const hasXIntercept = xIntercept !== Infinity && xIntercept !== -Infinity;
+    const hasYIntercept = yIntercept !== Infinity && yIntercept !== -Infinity;
+
+    if (hasXIntercept && hasYIntercept) {
+        // Describe both intercepts in the same sentence.
+        return xIntercept === 0 && yIntercept === 0
+            ? strings.srLinearGraphOriginIntercept
+            : strings.srLinearGraphBothIntercepts({
+                  xIntercept: srFormatNumber(xIntercept, locale),
+                  yIntercept: srFormatNumber(yIntercept, locale),
+              });
+    }
+
+    // Describe only one intercept.
+    return hasXIntercept
+        ? strings.srLinearGraphXOnlyIntercept({
+              xIntercept: srFormatNumber(xIntercept, locale),
+          })
+        : strings.srLinearGraphYOnlyIntercept({
+              yIntercept: srFormatNumber(yIntercept, locale),
+          });
 }
