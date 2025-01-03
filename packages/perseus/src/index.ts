@@ -185,7 +185,6 @@ export type {
     DomInsertCheckFn,
     EditorMode,
     FocusPath,
-    ImageDict,
     ImageUploader,
     JiptLabelStore,
     JiptRenderer,
@@ -226,6 +225,7 @@ export type {
     PerseusArticle,
     // Widget configuration types
     PerseusImageBackground,
+    PerseusImagesMap,
     PerseusInputNumberWidgetOptions,
     PerseusInteractiveGraphWidgetOptions,
     PerseusItem,

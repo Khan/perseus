@@ -136,6 +136,13 @@ export type PerseusWidgetsMap = {
 };
 
 /**
+ * A dictionary of {[imageUrl]: PerseusImageDetail}.
+ */
+export type PerseusImagesMap = {
+    [imageUrl: string]: PerseusImageDetail;
+};
+
+/**
  * A "PerseusItem" is a classic Perseus item. It is rendered by the
  * `ServerItemRenderer` and the layout is pre-set.
  *
@@ -194,9 +201,7 @@ export type PerseusRenderer = {
     /**
      * A dictionary of {[imageUrl]: PerseusImageDetail}.
      */
-    images: {
-        [imageUrl: string]: PerseusImageDetail;
-    };
+    images: PerseusImagesMap;
 };
 
 export type Hint = PerseusRenderer & {
@@ -527,9 +532,7 @@ export type PerseusGradedGroupWidgetOptions = {
     // Not used in Perseus
     immutableWidgets?: boolean | null | undefined;
     // See PerseusRenderer.images
-    images: {
-        [key: string]: PerseusImageDetail;
-    };
+    images: PerseusImagesMap;
 };
 
 export type PerseusGradedGroupSetWidgetOptions = {

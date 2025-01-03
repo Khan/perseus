@@ -93,10 +93,6 @@ export interface Widget {
     getPromptJSON?: () => WidgetPromptJSON;
 }
 
-export type ImageDict = {
-    [imageUrl: string]: PerseusImageDetail;
-};
-
 export type PerseusScore =
     | {
           type: "invalid";

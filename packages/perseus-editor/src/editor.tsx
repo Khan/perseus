@@ -29,11 +29,11 @@ import type {
     ChangeHandler,
     ImageUploader,
     PerseusArticle,
+    PerseusImagesMap,
     PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
 } from "@khanacademy/perseus";
-import type {PerseusImageDetail} from "@khanacademy/perseus/src/perseus-types";
 
 // like [[snowman input-number 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
@@ -839,9 +839,7 @@ class Editor extends React.Component<Props, State> {
     // removed and it appears to be a JS carry over.
     serialize: (options?: any) => {
         content: string;
-        images: {
-            [imageUrl: string]: PerseusImageDetail;
-        };
+        images: PerseusImagesMap;
         replace: boolean | undefined;
         widgets: PerseusWidgetsMap;
     } = (options: any) => {

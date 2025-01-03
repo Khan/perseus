@@ -19,12 +19,12 @@ import {
 
 import type {
     APIOptions,
-    ImageDict,
     Hint,
     ChangeHandler,
     DeviceType,
     ImageUploader,
     PerseusWidgetsMap,
+    PerseusImagesMap,
 } from "@khanacademy/perseus";
 
 const {InfoTip, InlineIcon} = components;
@@ -40,7 +40,7 @@ type HintEditorProps = {
     content?: string | null | undefined;
     replace?: boolean | null | undefined;
     widgets?: PerseusWidgetsMap | null | undefined;
-    images?: ImageDict | null | undefined;
+    images?: PerseusImagesMap | null | undefined;
     isLast: boolean;
     isFirst: boolean;
     onMove: (direction: number) => unknown;
