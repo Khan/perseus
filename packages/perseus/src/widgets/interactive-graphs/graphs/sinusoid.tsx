@@ -1,7 +1,8 @@
 import {color} from "@khanacademy/wonder-blocks-tokens";
-import {Plot} from "mafs";
+import {Plot, type vec} from "mafs";
 import * as React from "react";
 
+import {usePerseusI18n} from "../../../components/i18n-context";
 import {X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 
@@ -14,6 +15,8 @@ import type {
     Dispatch,
     InteractiveGraphElementSuite,
 } from "../types";
+
+import { srFormatNumber } from "./screenreader-text";
 
 export function renderSinusoidGraph(
     state: SinusoidGraphState,
@@ -59,8 +62,26 @@ function SinusoidGraph(props: SinusoidGraphProps) {
         coeffRef.current = coeffs;
     }
 
+    const {strings, locale} = usePerseusI18n();
+
+    function getMoveablePointAriaLabel(
+        index: number,
+        coordinate: vec.Vector2,
+    ): string {
+        const coordsObj = {
+            x: srFormatNumber(coordinate[0], locale),
+            y: srFormatNumber(coordinate[1], locale)
+        }
+
+        return index === 1
+            ? strings.srSinusoidExtremumPoint(coordsObj)
+            : strings.srSinusoidMidlineIntersection(coordsObj);
+    }
+
     return (
-        <>
+        <g
+            aria-label={strings.srSinusoidGraphAriaLabel}
+        >
             <Plot.OfX
                 y={(x) => computeSine(x, coeffRef.current)}
                 color={color.blue}
@@ -68,6 +89,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
             {coords.map((coord, i) => (
                 <MovablePoint
                     key={"point-" + i}
+                    ariaLabel={getMoveablePointAriaLabel(i, coord)}
                     point={coord}
                     sequenceNumber={i + 1}
                     onMove={(destination) =>
@@ -75,7 +97,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
                     }
                 />
             ))}
-        </>
+        </g>
     );
 }
 
