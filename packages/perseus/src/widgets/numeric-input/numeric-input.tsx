@@ -227,6 +227,7 @@ export class NumericInput
     };
 
     render(): React.ReactNode {
+        console.log("formExamples before everything", formExamples);
         let labelText = this.props.labelText;
         if (labelText == null || labelText === "") {
             labelText = this.context.strings.yourAnswerLabel;
