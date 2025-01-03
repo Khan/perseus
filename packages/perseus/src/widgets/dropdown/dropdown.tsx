@@ -119,6 +119,7 @@ class Dropdown extends React.Component<Props> implements Widget {
                         <SingleSelect
                             id={dropdownId}
                             placeholder=""
+                            className="perseus-dropdown"
                             onChange={(value) =>
                                 this._handleChange(parseInt(value))
                             }
