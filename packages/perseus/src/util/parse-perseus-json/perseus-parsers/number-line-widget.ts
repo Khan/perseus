@@ -34,6 +34,6 @@ export const parseNumberLineWidget: Parser<NumberLineWidget> = parseWidget(
         correctX: number,
         initialX: optional(nullable(number)),
         showTooltip: optional(boolean),
-        static: boolean,
+        static: defaulted(boolean, () => false),
     }),
 );
