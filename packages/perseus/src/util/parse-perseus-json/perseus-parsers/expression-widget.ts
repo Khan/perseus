@@ -49,6 +49,9 @@ function removeInvalidAnswerForms(
     return valid;
 }
 
+// NOTE(benchristel): I copied the default buttonSets from
+// expression.tsx. See the parse-perseus-json/README.md for
+// an explanation of why we want to duplicate the default here.
 const parseButtonSets = defaulted(array(
     enumeration(
         "basic",
