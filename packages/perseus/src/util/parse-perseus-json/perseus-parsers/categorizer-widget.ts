@@ -21,7 +21,7 @@ export const parseCategorizerWidget: Parser<CategorizerWidget> = parseWidget(
         categories: array(string),
         randomizeItems: defaulted(boolean, () => false),
         static: defaulted(boolean, () => false),
-        values: array(number),
+        values: array(defaulted(number, () => 0)),
         highlightLint: optional(boolean),
         linterContext: optional(
             object({
