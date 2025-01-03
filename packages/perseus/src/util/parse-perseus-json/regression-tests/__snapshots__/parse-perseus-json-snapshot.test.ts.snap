@@ -764,6 +764,223 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-mi
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/graded-group-with-false-hint.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "###The Strategy 
+
+When multiplying matrices, we should find each entry of the resulting product matrix separately.
+
+To find entry $(i,j)$ of the resulting product matrix, we calculate the vector *dot product* of row $i$ of the first matrix and column $j$ of the second matrix. [[☃ explanation 1]] 
+
+",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {
+        "explanation 1": {
+          "alignment": "default",
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "explanation": "In general, vector dot product is an operation that takes two vectors of equal dimensions and returns a single real number.
+
+For any two $n$-dimensional vectors, $\\vec{v}=(v_1, v_2, ..., v_n)$ and $\\vec{u}=(u_1, u_2, ..., u_n)$, their dot product $\\vec{v}\\cdot\\vec{u}$ is defined as follows.
+
+>$\\vec{v}\\cdot\\vec{u}=v_1\\cdot u_1+v_2\\cdot u_2 +...+v_n\\cdot u_n$
+
+For example, for $\\vec{v}=(a,b)$ and $\\vec{u}=(c,d)$, we have $\\vec{v}\\cdot\\vec{u}=a\\cdot c+b\\cdot d$.
+
+",
+            "hidePrompt": "Got it, thanks!",
+            "showPrompt": "I don't know what "vector dot product" is!",
+            "static": false,
+            "widgets": {},
+          },
+          "static": false,
+          "type": "explanation",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "###Finding $\\text {H}_{1,1}$ 
+
+$\\text{H}_{1,1}$ is the dot product of the first row of $\\text{B}$ and the first column of $\\text{D}$.
+
+$ \\text {H}=\\left[\\begin{array}{rr}\\maroonC{1} & \\maroonC{4} \\\\ 1 & 3\\end{array}\\right]\\left[\\begin{array}{rr} \\maroonC{4} & 3 \\\\ \\maroonC{0} &  -1\\end{array}\\right]$
+
+Therefore, this is the appropriate calculation of $\\text{H}_{1,1}$.
+
+$\\begin{align}\\text{H}_{1,1}&=(1,4)\\cdot(4,0)\\\\\\\\
+&=1 \\cdot 4 + 4\\cdot 0\\\\\\\\
+&=4
+\\end{align}$
+
+The other entries of $\\text{H}$ can be found similarly.
+
+### Try it yourself for $\\text{H}_{2,1}$
+
+[[☃ graded-group 1]]
+",
+      "images": {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/bf8bd5bdea1a5aa51b012c0ee041bc4c57edc4d4": {
+          "height": 80,
+          "width": 160,
+        },
+      },
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {
+        "graded-group 1": {
+          "alignment": "default",
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "content": "**What is the appropriate calculation of $\\textbf{H}_{2,1}$?**
+
+[[☃ radio 1]]
+
+",
+            "hasHint": false,
+            "hint": null,
+            "images": {},
+            "immutableWidgets": undefined,
+            "title": "",
+            "widgetEnabled": undefined,
+            "widgets": {
+              "radio 1": {
+                "alignment": "default",
+                "graded": true,
+                "key": undefined,
+                "options": {
+                  "choices": [
+                    {
+                      "clue": undefined,
+                      "content": "$1 \\cdot 4 + 3\\cdot 0 = 4$",
+                      "correct": true,
+                      "isNoneOfTheAbove": undefined,
+                      "widgets": undefined,
+                    },
+                    {
+                      "clue": undefined,
+                      "content": "$4 \\cdot 4 + 3\\cdot 3= 25$",
+                      "correct": false,
+                      "isNoneOfTheAbove": undefined,
+                      "widgets": undefined,
+                    },
+                    {
+                      "clue": undefined,
+                      "content": "$1 \\cdot 3 + 4\\cdot -1 = -1$",
+                      "correct": undefined,
+                      "isNoneOfTheAbove": false,
+                      "widgets": undefined,
+                    },
+                  ],
+                  "countChoices": undefined,
+                  "deselectEnabled": false,
+                  "displayCount": null,
+                  "hasNoneOfTheAbove": false,
+                  "multipleSelect": false,
+                  "noneOfTheAbove": undefined,
+                  "onePerLine": true,
+                  "randomize": true,
+                },
+                "static": false,
+                "type": "radio",
+                "version": {
+                  "major": 1,
+                  "minor": 0,
+                },
+              },
+            },
+          },
+          "static": false,
+          "type": "graded-group",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "###Summary 
+
+After calculating all the remaining entries of $\\text{H}$, we get the following answer.
+
+$ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "$\\text B = \\left[\\begin{array}{rr}1 & 4 \\\\ 1 & 3\\end{array}\\right]$ and $\\text D = \\left[\\begin{array}{rr}4 & 3 \\\\ 0 & -1\\end{array}\\right]$. 
+
+** Let $\\text {H = BD}$. Find $\\text H$. **
+
+[[☃ matrix 1]]
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "matrix 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answers": [
+            [
+              4,
+              -1,
+            ],
+            [
+              4,
+              0,
+            ],
+          ],
+          "cursorPosition": [
+            0,
+            0,
+          ],
+          "matrixBoardSize": [
+            3,
+            3,
+          ],
+          "prefix": "$\\textbf {H = }$",
+          "static": false,
+          "suffix": "",
+        },
+        "static": false,
+        "type": "matrix",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-coords.json 1`] = `
 {
   "answer": undefined,
@@ -2499,6 +2716,174 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-polygon-with-exact-match.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "Let's start by plotting $(0,3)$ and $(3,7)$ and connecting the points.
+
+![](https://ka-perseus-graphie.s3.amazonaws.com/2ec9d27633dc52440d8e82fcf99c314f3fad19ff.png)",
+      "images": {
+        "https://ka-perseus-graphie.s3.amazonaws.com/2ec9d27633dc52440d8e82fcf99c314f3fad19ff.png": {
+          "height": 425,
+          "width": 425,
+        },
+      },
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "We know two sides are parallel to the $x$-axis, so those two sides must extend $5$ units horizontally from the two vertices we just drew. Since the rhombus is in the first quadrant, we extend the lines to the *right*.
+
+Plotting the remaining vertices at $(8,7)$ and $(5,3)$ gives the rhombus sides of length $5$ units, two of which are parallel to the $x$-axis.  
+
+![](https://ka-perseus-graphie.s3.amazonaws.com/c0be5c686e6d43155376ac6f4c5037ffd44e16de.png)",
+      "images": {
+        "https://ka-perseus-graphie.s3.amazonaws.com/c0be5c686e6d43155376ac6f4c5037ffd44e16de.png": {
+          "height": 425,
+          "width": 425,
+        },
+      },
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": " 
+We end up with a rhombus that looks like this:  
+
+![](https://ka-perseus-graphie.s3.amazonaws.com/2d6395b8d7d4ad3b0772e0ac5420106ea7e114f2.png)",
+      "images": {
+        "https://ka-perseus-graphie.s3.amazonaws.com/2d6395b8d7d4ad3b0772e0ac5420106ea7e114f2.png": {
+          "height": 425,
+          "width": 425,
+        },
+      },
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "**Click on the graph to draw a rhombus with an acute angle at $(0, 3)$, another vertex at $(3,7)$, side length of $5$ units, and two sides parallel to the $x$-axis.**  
+
+Draw the rhombus in the first quadrant.
+
+
+
+[[☃ interactive-graph 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": 0,
+            "height": undefined,
+            "left": 0,
+            "scale": 1,
+            "top": undefined,
+            "url": null,
+            "width": undefined,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": [
+              [
+                3,
+                7,
+              ],
+              [
+                0,
+                3,
+              ],
+              [
+                5,
+                3,
+              ],
+              [
+                8,
+                7,
+              ],
+            ],
+            "match": "exact",
+            "numSides": "unlimited",
+            "showAngles": undefined,
+            "showSides": true,
+            "snapTo": "grid",
+            "startCoords": undefined,
+            "type": "polygon",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "match": undefined,
+            "numSides": "unlimited",
+            "showAngles": undefined,
+            "showSides": true,
+            "snapTo": "grid",
+            "startCoords": undefined,
+            "type": "polygon",
+          },
+          "gridStep": [
+            1,
+            1,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": undefined,
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "rulerLabel": "",
+          "rulerTicks": 10,
+          "showProtractor": false,
+          "showRuler": false,
+          "showTooltips": undefined,
+          "snapStep": [
+            1,
+            1,
+          ],
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": undefined,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-with-string-backgroundImage-left.json 1`] = `
 {
   "answer": undefined,
@@ -2651,6 +3036,187 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-wi
         "type": "radio",
         "version": {
           "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/label-image-missing-static.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "Renewable sources of energy cannot be exhuasted even after using it continously
+
+Non-renewable source can be exhausted with continuous use",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "Wind and solar energy are renewable, while oil and coal are non-renewable fossil fuels.",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "**Classify the resource under its category**
+
+[[☃ categorizer 1]]
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "categorizer 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "categories": [
+            "Renewable",
+            "Non-renewable",
+          ],
+          "highlightLint": undefined,
+          "items": [
+            "Wind",
+            "Oil",
+            "Solar energy",
+            "Coal",
+          ],
+          "linterContext": {
+            "contentType": "",
+            "highlightLint": false,
+            "paths": [],
+            "stack": [],
+          },
+          "randomizeItems": true,
+          "static": false,
+          "values": [
+            0,
+            1,
+            0,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "categorizer",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "dropdown 1": {
+        "alignment": undefined,
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "ariaLabel": undefined,
+          "choices": [
+            {
+              "content": "",
+              "correct": false,
+            },
+          ],
+          "placeholder": "",
+          "static": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "dropdown",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "label-image 1": {
+        "alignment": undefined,
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "choices": [],
+          "hideChoicesFromInstructions": false,
+          "imageAlt": "",
+          "imageHeight": 0,
+          "imageUrl": "",
+          "imageWidth": 0,
+          "markers": [],
+          "multipleAnswers": false,
+          "static": false,
+        },
+        "static": undefined,
+        "type": "label-image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "matcher 1": {
+        "alignment": undefined,
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "labels": [
+            "test",
+            "label",
+          ],
+          "left": [
+            "$x$",
+            "$y$",
+            "$z$",
+          ],
+          "orderMatters": false,
+          "padding": true,
+          "right": [
+            "$1$",
+            "$2$",
+            "$3$",
+          ],
+        },
+        "static": undefined,
+        "type": "matcher",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "sorter 1": {
+        "alignment": undefined,
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "correct": [
+            "$x$",
+            "$y$",
+            "$z$",
+          ],
+          "layout": "horizontal",
+          "padding": true,
+        },
+        "static": undefined,
+        "type": "sorter",
+        "version": {
+          "major": 0,
           "minor": 0,
         },
       },
