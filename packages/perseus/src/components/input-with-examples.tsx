@@ -165,6 +165,10 @@ class InputWithExamples extends React.Component<Props, State> {
     render(): React.ReactNode {
         const input = this._renderInput();
 
+        console.log(
+            "this.props.examples input-with-examples",
+            this.props.examples,
+        );
         const examplesContent =
             this.props.examples.length <= 2
                 ? this.props.examples.join(" ") // A single item (with or without leading text) is not a "list"
@@ -180,6 +184,8 @@ class InputWithExamples extends React.Component<Props, State> {
 
         const showExamples =
             this.props.shouldShowExamples && this.state.showExamples;
+
+        console.log("examplesContent input-with-examples", examplesContent);
 
         return (
             <Tooltip

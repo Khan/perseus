@@ -277,6 +277,8 @@ export class NumericInput
             },
         });
 
+        console.log("this.examples in numeric-input.tsx", this.examples());
+
         return (
             <InputWithExamples
                 ref={(ref) => (this.inputRef = ref)}
