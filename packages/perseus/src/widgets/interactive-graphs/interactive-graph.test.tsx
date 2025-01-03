@@ -1068,7 +1068,6 @@ describe("Interactive Graph", function () {
                 flags: {
                     mafs: {
                         segment: true,
-                        "interactive-graph-locked-features-labels": true,
                         "locked-polygon-labels": true,
                     },
                 },
@@ -1276,7 +1275,6 @@ describe("Interactive Graph", function () {
                 flags: {
                     mafs: {
                         segment: true,
-                        "interactive-graph-locked-features-labels": true,
                     },
                 },
             });
@@ -1320,7 +1318,6 @@ describe("Interactive Graph", function () {
                 flags: {
                     mafs: {
                         segment: true,
-                        "interactive-graph-locked-features-labels": true,
                         "locked-point-labels": true,
                     },
                 },
@@ -1347,7 +1344,6 @@ describe("Interactive Graph", function () {
                 flags: {
                     mafs: {
                         segment: true,
-                        "interactive-graph-locked-features-labels": true,
                         "locked-line-labels": true,
                     },
                 },
@@ -1395,7 +1391,6 @@ describe("Interactive Graph", function () {
                 flags: {
                     mafs: {
                         segment: true,
-                        "interactive-graph-locked-features-labels": true,
                         "locked-line-labels": true,
                         "locked-point-labels": true,
                     },
@@ -1422,7 +1417,6 @@ describe("Interactive Graph", function () {
                 flags: {
                     mafs: {
                         segment: true,
-                        "interactive-graph-locked-features-labels": true,
                         "locked-vector-labels": true,
                     },
                 },
@@ -1450,7 +1444,6 @@ describe("Interactive Graph", function () {
                 flags: {
                     mafs: {
                         segment: true,
-                        "interactive-graph-locked-features-labels": true,
                         "locked-ellipse-labels": true,
                     },
                 },
@@ -1478,7 +1471,6 @@ describe("Interactive Graph", function () {
                 flags: {
                     mafs: {
                         segment: true,
-                        "interactive-graph-locked-features-labels": true,
                         "locked-function-labels": true,
                     },
                 },
@@ -1506,7 +1498,6 @@ describe("Interactive Graph", function () {
                 flags: {
                     mafs: {
                         segment: true,
-                        "interactive-graph-locked-features-labels": true,
                     },
                 },
             });
@@ -1529,7 +1520,6 @@ describe("Interactive Graph", function () {
                 flags: {
                     mafs: {
                         segment: true,
-                        "interactive-graph-locked-features-labels": true,
                     },
                 },
             });

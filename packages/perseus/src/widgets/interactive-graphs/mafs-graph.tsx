@@ -270,15 +270,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 )}
                             </svg>
                         </Mafs>
-                        {props.flags?.["mafs"]?.[
-                            "interactive-graph-locked-features-labels"
-                        ] &&
-                            props.lockedFigures && (
-                                <GraphLockedLabelsLayer
-                                    flags={props.flags}
-                                    lockedFigures={props.lockedFigures}
-                                />
-                            )}
+                        {props.lockedFigures && (
+                            <GraphLockedLabelsLayer
+                                flags={props.flags}
+                                lockedFigures={props.lockedFigures}
+                            />
+                        )}
                         <View style={{position: "absolute"}}>
                             <Mafs
                                 preserveAspectRatio={false}

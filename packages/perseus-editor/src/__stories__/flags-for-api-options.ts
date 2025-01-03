@@ -17,7 +17,6 @@ export const flags = {
         none: true,
 
         // Locked figures flags
-        "interactive-graph-locked-features-labels": true,
         "locked-figures-aria": true,
         "locked-point-labels": true,
         "locked-line-labels": true,
