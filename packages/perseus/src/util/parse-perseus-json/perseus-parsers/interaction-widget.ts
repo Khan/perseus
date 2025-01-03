@@ -10,6 +10,8 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
+import {discriminatedUnion} from "../general-purpose-parsers/discriminated-union";
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
@@ -21,10 +23,12 @@ import type {
 import type {Parser} from "../parser-types";
 
 const pairOfNumbers = pair(number, number);
+const stringOrEmpty = defaulted(string, () => "");
 
 type FunctionElement = Extract<PerseusInteractionElement, {type: "function"}>;
+const parseFunctionType = constant("function");
 const parseFunctionElement: Parser<FunctionElement> = object({
-    type: constant("function"),
+    type: parseFunctionType,
     key: string,
     options: object({
         value: string,
@@ -38,8 +42,9 @@ const parseFunctionElement: Parser<FunctionElement> = object({
 });
 
 type LabelElement = Extract<PerseusInteractionElement, {type: "label"}>;
+const parseLabelType = constant("label");
 const parseLabelElement: Parser<LabelElement> = object({
-    type: constant("label"),
+    type: parseLabelType,
     key: string,
     options: object({
         label: string,
@@ -50,8 +55,9 @@ const parseLabelElement: Parser<LabelElement> = object({
 });
 
 type LineElement = Extract<PerseusInteractionElement, {type: "line"}>;
+const parseLineType = constant("line");
 const parseLineElement: Parser<LineElement> = object({
-    type: constant("line"),
+    type: parseLineType,
     key: string,
     options: object({
         color: string,
@@ -69,8 +75,9 @@ type MovableLineElement = Extract<
     PerseusInteractionElement,
     {type: "movable-line"}
 >;
+const parseMovableLineType = constant("movable-line");
 const parseMovableLineElement: Parser<MovableLineElement> = object({
-    type: constant("movable-line"),
+    type: parseMovableLineType,
     key: string,
     options: object({
         startX: string,
@@ -93,8 +100,9 @@ type MovablePointElement = Extract<
     PerseusInteractionElement,
     {type: "movable-point"}
 >;
+const parseMovablePointType = constant("movable-point");
 const parseMovablePointElement: Parser<MovablePointElement> = object({
-    type: constant("movable-point"),
+    type: parseMovablePointType,
     key: string,
     options: object({
         startX: string,
@@ -103,10 +111,10 @@ const parseMovablePointElement: Parser<MovablePointElement> = object({
         constraint: string,
         snap: number,
         constraintFn: string,
-        constraintXMin: string,
-        constraintXMax: string,
-        constraintYMin: string,
-        constraintYMax: string,
+        constraintXMin: stringOrEmpty,
+        constraintXMax: stringOrEmpty,
+        constraintYMin: stringOrEmpty,
+        constraintYMax: stringOrEmpty,
     }),
 });
 
@@ -114,8 +122,9 @@ type ParametricElement = Extract<
     PerseusInteractionElement,
     {type: "parametric"}
 >;
+const parseParametricType = constant("parametric");
 const parseParametricElement: Parser<ParametricElement> = object({
-    type: constant("parametric"),
+    type: parseParametricType,
     key: string,
     options: object({
         x: string,
@@ -129,8 +138,9 @@ const parseParametricElement: Parser<ParametricElement> = object({
 });
 
 type PointElement = Extract<PerseusInteractionElement, {type: "point"}>;
+const parsePointType = constant("point");
 const parsePointElement: Parser<PointElement> = object({
-    type: constant("point"),
+    type: parsePointType,
     key: string,
     options: object({
         color: string,
@@ -140,8 +150,9 @@ const parsePointElement: Parser<PointElement> = object({
 });
 
 type RectangleElement = Extract<PerseusInteractionElement, {type: "rectangle"}>;
+const parseRectangleType = constant("rectangle");
 const parseRectangleElement: Parser<RectangleElement> = object({
-    type: constant("rectangle"),
+    type: parseRectangleType,
     key: string,
     options: object({
         color: string,
@@ -155,7 +166,7 @@ const parseRectangleElement: Parser<RectangleElement> = object({
 export const parseInteractionWidget: Parser<InteractionWidget> = parseWidget(
     constant("interaction"),
     object({
-        static: boolean,
+        static: defaulted(boolean, () => false),
         graph: object({
             editableSettings: optional(array(enumeration("canvas", "graph"))),
             box: pairOfNumbers,
@@ -173,14 +184,24 @@ export const parseInteractionWidget: Parser<InteractionWidget> = parseWidget(
             tickStep: pairOfNumbers,
         }),
         elements: array(
-            union(parseFunctionElement)
-                .or(parseLabelElement)
-                .or(parseLineElement)
-                .or(parseMovableLineElement)
-                .or(parseMovablePointElement)
-                .or(parseParametricElement)
-                .or(parsePointElement)
-                .or(parseRectangleElement).parser,
+            discriminatedUnion(
+                object({type: parseFunctionType}),
+                parseFunctionElement,
+            )
+                .or(object({type: parseLabelType}), parseLabelElement)
+                .or(object({type: parseLineType}), parseLineElement)
+                .or(
+                    object({type: parseMovableLineType}),
+                    parseMovableLineElement,
+                )
+                .or(
+                    object({type: parseMovablePointType}),
+                    parseMovablePointElement,
+                )
+                .or(object({type: parseParametricType}), parseParametricElement)
+                .or(object({type: parsePointType}), parsePointElement)
+                .or(object({type: parseRectangleType}), parseRectangleElement)
+                .parser,
         ),
     }),
 );

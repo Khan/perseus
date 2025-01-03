@@ -10,36 +10,54 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
+import {convert} from "../general-purpose-parsers/convert";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
+import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 
 import type {
     ExpressionWidget,
     PerseusExpressionAnswerForm,
 } from "../../../perseus-types";
-import type {
-    ParseContext,
-    ParsedValue,
-    Parser,
-    ParseResult,
-} from "../parser-types";
+import type {ParsedValue, Parser} from "../parser-types";
 
-const parseAnswerForm: Parser<PerseusExpressionAnswerForm> = object({
-    value: string,
-    form: boolean,
-    simplify: boolean,
+const parsePossiblyInvalidAnswerForm = object({
+    // `value` is the possibly invalid part of this. It should always be a
+    // string, but some answer forms don't have it. The Expression widget
+    // ignores invalid values, so we can safely filter them out during parsing.
+    value: optional(string),
+    form: defaulted(boolean, () => false),
+    simplify: defaulted(boolean, () => false),
     considered: enumeration("correct", "wrong", "ungraded"),
     key: pipeParsers(optional(union(string).or(number).parser)).then(
         (key, ctx) => ctx.success(String(key)),
     ).parser,
 });
 
+function removeInvalidAnswerForms(
+    possiblyInvalid: Array<ParsedValue<typeof parsePossiblyInvalidAnswerForm>>,
+): PerseusExpressionAnswerForm[] {
+    const valid: PerseusExpressionAnswerForm[] = [];
+    for (const answerForm of possiblyInvalid) {
+        const {value} = answerForm;
+        if (value != null) {
+            // Copying the object seems to be needed to make TypeScript happy
+            valid.push({...answerForm, value});
+        }
+    }
+    return valid;
+}
+
+const version1 = object({major: constant(1), minor: number});
 const parseExpressionWidgetV1: Parser<ExpressionWidget> =
     parseWidgetWithVersion(
-        object({major: constant(1), minor: number}),
+        version1,
         constant("expression"),
         object({
-            answerForms: array(parseAnswerForm),
+            answerForms: pipeParsers(
+                array(parsePossiblyInvalidAnswerForm),
+            ).then(convert(removeInvalidAnswerForms)).parser,
             functions: array(string),
             times: boolean,
             visibleLabel: optional(string),
@@ -59,8 +77,9 @@ const parseExpressionWidgetV1: Parser<ExpressionWidget> =
         }),
     );
 
+const version0 = optional(object({major: constant(0), minor: number}));
 const parseExpressionWidgetV0 = parseWidgetWithVersion(
-    optional(object({major: constant(0), minor: number})),
+    version0,
     constant("expression"),
     object({
         functions: array(string),
@@ -87,10 +106,9 @@ const parseExpressionWidgetV0 = parseWidgetWithVersion(
 
 function migrateV0ToV1(
     widget: ParsedValue<typeof parseExpressionWidgetV0>,
-    ctx: ParseContext,
-): ParseResult<ExpressionWidget> {
+): ExpressionWidget {
     const {options} = widget;
-    return ctx.success({
+    return {
         ...widget,
         version: {major: 1, minor: 0},
         options: {
@@ -110,9 +128,11 @@ function migrateV0ToV1(
                 },
             ],
         },
-    });
+    };
 }
 
-export const parseExpressionWidget: Parser<ExpressionWidget> = union(
-    parseExpressionWidgetV1,
-).or(pipeParsers(parseExpressionWidgetV0).then(migrateV0ToV1).parser).parser;
+export const parseExpressionWidget: Parser<ExpressionWidget> =
+    versionedWidgetOptions(parseExpressionWidgetV1).withMigrationFrom(
+        parseExpressionWidgetV0,
+        migrateV0ToV1,
+    ).parser;

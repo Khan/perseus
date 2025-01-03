@@ -116,6 +116,7 @@ export interface PerseusWidgetTypes {
     video: VideoWidget;
 
     // Deprecated widgets
+    "lights-puzzle": AutoCorrectWidget;
     sequence: AutoCorrectWidget;
 }
 
@@ -1176,7 +1177,7 @@ export type PerseusNumericInputAnswer = {
     // Translatable Display; A description for why this answer is correct, wrong, or ungraded
     message: string;
     // The expected answer
-    value?: number;
+    value?: number | null;
     // Whether this answer is "correct", "wrong", or "ungraded"
     status: string;
     // The forms available for this answer.  Options: "integer, ""decimal", "proper", "improper", "mixed", or "pi"
@@ -1255,7 +1256,7 @@ export type PerseusPassageRefWidgetOptions = {
     // The reference number
     referenceNumber: number;
     // Short summary of the referenced section. This will be included in parentheses and quotes automatically.
-    summaryText: string;
+    summaryText?: string;
 };
 
 export const plotterPlotTypes = [
