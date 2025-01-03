@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 49.1.8
+
+### Patch Changes
+
+-   [#1952](https://github.com/Khan/perseus/pull/1952) [`617377147`](https://github.com/Khan/perseus/commit/61737714796dfb8434fc139471d1add3c18853b3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add and pass more regression tests for PerseusItem parser
+
 ## 49.1.7
 
 ### Patch Changes
