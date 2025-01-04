@@ -152,7 +152,8 @@
         "cypress:ci": "cross-env cypress run --component",
         "format": "prettier --write .",
         "typecheck": "tsc",
-        "knip": "knip --config knip.config.ts"
+        "knip": "knip --config knip.config.ts",
+        "extract-css": "node ./utils/extract-css.js"
     },
     "nyc": {
         "report-dir": "coverage/cypress/"
