@@ -7,7 +7,7 @@ import type {
 } from "../../validation.types";
 import type {PerseusScore} from "@khanacademy/perseus";
 
-function mockWidgetValidator(
+function scoreMockWidget(
     userInput: PerseusMockWidgetUserInput,
     rubric: PerseusMockWidgetRubric,
     strings: PerseusStrings,
@@ -35,4 +35,4 @@ function mockWidgetValidator(
     };
 }
 
-export default mockWidgetValidator;
+export default scoreMockWidget;

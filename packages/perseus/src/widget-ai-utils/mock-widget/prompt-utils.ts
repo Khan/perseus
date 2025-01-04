@@ -2,7 +2,7 @@ import type {PerseusMockWidgetUserInput} from "../../validation.types";
 import type mockWidget from "../../widgets/mock-widgets/mock-widget";
 import type React from "react";
 
-export type mockWidgetPromptJSON = {
+export type MockWidgetPromptJSON = {
     type: "mock-widget";
     options: {
         value: string;
@@ -15,7 +15,7 @@ export type mockWidgetPromptJSON = {
 export const getPromptJSON = (
     renderProps: React.ComponentProps<typeof mockWidget.widget>,
     userInput: PerseusMockWidgetUserInput,
-): mockWidgetPromptJSON => {
+): MockWidgetPromptJSON => {
     return {
         type: "mock-widget",
         options: {

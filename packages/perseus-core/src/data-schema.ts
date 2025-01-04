@@ -358,6 +358,7 @@ export type PerseusWidget =
     | MatcherWidget
     | MatrixWidget
     | MeasurerWidget
+    | MockWidget
     | MoleculeRendererWidget
     | NumberLineWidget
     | NumericInputWidget

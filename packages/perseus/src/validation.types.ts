@@ -258,14 +258,14 @@ export type Rubric =
     | PerseusLabelImageRubric
     | PerseusMatcherRubric
     | PerseusMatrixRubric
+    | PerseusMockWidgetRubric
     | PerseusNumberLineScoringData
     | PerseusNumericInputRubric
     | PerseusOrdererRubric
     | PerseusPlotterScoringData
     | PerseusRadioRubric
     | PerseusSorterRubric
-    | PerseusTableRubric
-    | PerseusMockWidgetUserInput;
+    | PerseusTableRubric;
 export type UserInput =
     | PerseusCategorizerUserInput
     | PerseusCSProgramUserInput
@@ -278,6 +278,7 @@ export type UserInput =
     | PerseusLabelImageUserInput
     | PerseusMatcherUserInput
     | PerseusMatrixUserInput
+    | PerseusMockWidgetUserInput
     | PerseusNumberLineUserInput
     | PerseusNumericInputUserInput
     | PerseusOrdererUserInput

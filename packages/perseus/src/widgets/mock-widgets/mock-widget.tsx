@@ -3,21 +3,19 @@ import {TextField} from "@khanacademy/wonder-blocks-form";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/phet-simulation/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 
-import mockWidgetValidator from "./mock-widget-validator";
+import scoreMockWidget from "./score-mock-widget";
 
 import type {MockWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps, Widget, Path} from "../../types";
+import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
 import type {
     PerseusMockWidgetRubric,
     PerseusMockWidgetUserInput,
 } from "../../validation.types";
-import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 
-type ExternalProps = WidgetProps<RenderProps, PerseusMockWidgetRubric>;
-
-type RenderProps = MockWidgetOptions;
+type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetRubric>;
 
 type DefaultProps = {
     currentValue: Props["currentValue"];
@@ -48,15 +46,16 @@ export class MockWidget extends React.Component<Props> implements Widget {
         };
     }
 
-    getPromptJSON(): UnsupportedWidgetPromptJSON {
-        return _getPromptJSON();
+    getPromptJSON(): MockWidgetPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
-    setInputValue: (arg1: Path, arg2: string, arg3: () => void) => void = (
-        path,
-        newValue,
-        cb,
-    ) => {
+    setInputValue: (
+        arg1: FocusPath,
+        arg2: string,
+        arg3?: () => unknown | null | undefined,
+    ) => void = (path, newValue, cb) => {
+        /* c8 ignore next */
         this.props.onChange(
             {
                 currentValue: newValue,
@@ -103,5 +102,7 @@ export default {
     displayName: "Mock Widget",
     widget: MockWidget,
     isLintable: true,
-    validator: mockWidgetValidator,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumericInputUserInput'.
+    scorer: scoreMockWidget,
 } satisfies WidgetExports<typeof MockWidget>;
