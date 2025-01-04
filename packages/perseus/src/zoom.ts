@@ -265,7 +265,9 @@ ZoomServiceClass.prototype._scrollHandler = function (e: any) {
 };
 
 ZoomServiceClass.prototype._keyHandler = function (e: any) {
-    if (e.keyCode === 27) {
+    // 27: Esc, 13: Enter, 32: Space
+    const keyCodes = [27, 13, 32];
+    if (keyCodes.includes(e.keyCode)) {
         this._activeZoomClose();
     }
 };
@@ -367,12 +369,14 @@ Zoom.prototype.zoomImage = function () {
 
     img.src = this._targetImage.src;
     img.alt = this._targetImage.alt;
+    img.tabIndex = 0;
 
     this.$zoomedImage = $zoomedImage;
 };
 
 Zoom.prototype._zoomOriginal = function () {
     this.$zoomedImage.addClass("zoom-img").attr("data-action", "zoom-out");
+
     $(this._targetImage).css("visibility", "hidden");
 
     this._backdrop = document.createElement("div");
