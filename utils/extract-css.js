@@ -14,11 +14,23 @@ const archivedFileName = `${fileNameParts[0]}.OLD.${fileNameParts[1]}`;
 const archivedFilePath = path.join(fileDirectory, archivedFileName);
 const cssFileName = `${fileNameParts[0]}.module.css`;
 const cssFilePath = path.join(fileDirectory, cssFileName);
+const indentation = "    ";
 
 /*****************
  * WIP Variables *
  *****************/
 const codeBlocksToDelete = [];
+
+/********************
+ * Helper Functions *
+ ********************/
+const isVariableDeclaration = (node) => node.type === "VariableDeclaration";
+
+const camelToKabob = (camel) => {
+    // Keeps consecutive capital letters together as a word
+    // i.e. externalHREFLocation => external-href-location
+    return camel.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
+};
 
 /****************
  * Code Parsing *
@@ -26,7 +38,10 @@ const codeBlocksToDelete = [];
 // Archive the original file in case something doesn't quite go right.
 fs.copyFile(filePath, archivedFilePath, (error) => {
     if (error) {
-        console.error(`Error while archiving ${fileNameParts.join(".")}: `,error);
+        console.error(
+            `Error while archiving ${fileNameParts.join(".")}: `,
+            error,
+        );
     }
 });
 
@@ -37,11 +52,9 @@ const parsedCode = parse(code, {
     plugins: ["jsx", "typescript"],
 });
 
-const isVariableDeclaration = (node) => node.type === "VariableDeclaration";
-
 // Find the variables that have literal values (like numbers).
 // Sometimes, the CSS settings reference these literal variables.
-// In those cases, we need to reference the actual value in the CSS.
+// In those cases, we need to reference the actual value of the variable in the CSS.
 const literalVariables = {};
 parsedCode.program.body
     .filter(isVariableDeclaration)
@@ -50,22 +63,38 @@ parsedCode.program.body
     .forEach((node) => {
         literalVariables[node.id.name] = node.init.value;
     });
-const variableNames = Object.keys(literalVariables);
 
 /**************************
  * CSS Parsing & Building *
  **************************/
 let aphroditeDeclaration = null;
 
-const isStylesheetNode = (node) => {
-    const isStyleSheet =
-        node.init?.callee?.object?.name === "StyleSheet" &&
-        node.init?.callee?.property?.name === "create";
-    if (isStyleSheet && aphroditeDeclaration === null) {
-        aphroditeDeclaration = node;
-        codeBlocksToDelete.push(node);
-    }
-    return isStyleSheet;
+const associateCommentsToCssProperty = (property, index, allProperties) => {
+    property.trailingComments = allProperties
+        // Trailing Comments - comments at the end of a given line
+        .flatMap((candidate) => candidate.trailingComments ?? [])
+        .filter((comment) => {
+            return comment.loc.start.line === property.line;
+        })
+        .concat(
+            allProperties
+                // Some trailing comments show up as "leading" comments
+                .flatMap((candidate) => candidate.leadingComments ?? [])
+                .filter((comment) => {
+                    return comment.loc.start.line === property.line;
+                }),
+        );
+    // Leading Comments - comments on their own line
+    property.leadingComments = property.leadingComments.filter(
+        (comment) =>
+            !cssPropertyIsOnLine(allProperties, comment.loc.start.line),
+    );
+};
+
+const cssPropertyIsOnLine = (allProperties, lineToCheck) => {
+    return allProperties.some(
+        (property) => property.key.loc.start.line === lineToCheck,
+    );
 };
 
 const getClassName = (node) => {
@@ -80,7 +109,7 @@ const getClassName = (node) => {
     return className;
 };
 
-const getCssProperty = (property) => {
+const getCssPropertyInfo = (property) => {
     const cssProperty = property.key.name ?? property.key.value;
     let propertyValue = property.value.value;
     switch (property.value.type) {
@@ -91,30 +120,49 @@ const getCssProperty = (property) => {
             propertyValue = `${property.value.operator}${literalVariables[property.value.argument.name]}px`;
             break;
     }
-    // Include comments, if they exist
-    const indentation = "        ";
-    let comments = "";
-    if (property.leadingComments) {
-        const newLine =
-            property.leadingComments.length === 1
-                ? "\n"
-                : `${"\n"}${indentation}`;
-        comments = property.leadingComments
-            .map((comment) => comment.value.trim())
-            .join(`${newLine}  `);
-        comments =
-            property.leadingComments.length === 1
-                ? `${indentation}/* ${comments} */${newLine}`
-                : `${indentation}/*${newLine}  ${comments}${newLine}*/${"\n"}`;
-    }
 
-    return `${comments}${indentation}${camelToKabob(cssProperty)}: ${propertyValue};`;
+    return {
+        property: camelToKabob(cssProperty),
+        value: propertyValue,
+        line: property.key.loc.start.line,
+        leadingComments: property.leadingComments ?? [],
+        trailingComments: [],
+    };
 };
 
-const camelToKabob = (camel) => {
-    // Keeps consecutive capital letters together as a word
-    // i.e. externalHREFLocation => external-href-location
-    return camel.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
+const isStylesheetNode = (node) => {
+    const isStyleSheet =
+        node.init?.callee?.object?.name === "StyleSheet" &&
+        node.init?.callee?.property?.name === "create";
+    if (isStyleSheet && aphroditeDeclaration === null) {
+        aphroditeDeclaration = node;
+        codeBlocksToDelete.push(node);
+    }
+    return isStyleSheet;
+};
+
+const stringifyComments = (commentLines, indentationCount) => {
+    const indent = indentation.repeat(indentationCount);
+    const comments = commentLines.map((line) => line.value.trim());
+    return comments.length === 0
+        ? ""
+        : comments.length === 1
+          ? `${indent}/* ${comments[0]} */${"\n"}`
+          : `${indent}/*${"\n"}${indent}  ${comments.join("\n" + indent + "  ")}${"\n"}${indent}*/${"\n"}`;
+};
+
+const stringifyCssProperty = (cssProperty) => {
+    const property = `${indentation.repeat(2)}${cssProperty.property}: ${cssProperty.value};`;
+    const trailingComments =
+        cssProperty.trailingComments.length === 0
+            ? ""
+            : ` /* ${cssProperty.trailingComments.map((comment) => comment.value.trim()).join(" ")} */`;
+    const leadingComments = stringifyComments(cssProperty.leadingComments, 2);
+    return `${leadingComments}${property}${trailingComments}${"\n"}`;
+};
+
+const stringifyCssRuleset = (selector, ruleset) => {
+    return `${indentation}${selector} {${"\n"}${ruleset.map(stringifyCssProperty).join("")}${indentation}}${"\n"}`;
 };
 
 // Dive into the node tree of the parsed code to find the stylesheet declaration.
@@ -127,7 +175,12 @@ parsedCode.program.body
     .filter(isStylesheetNode) // Aphrodite declaration
     .flatMap((node) => node.init.arguments)
     .flatMap((node) => node.properties)
-    .forEach((node) => (cssRules[getClassName(node)] = node.value.properties));
+    .forEach((node) => {
+        cssRules[getClassName(node)] = {
+            comments: [],
+            properties: node.value.properties,
+        };
+    });
 
 // Objects within React class 'render' method that are passed to 'style' property
 parsedCode.program.body
@@ -140,39 +193,61 @@ parsedCode.program.body
     )
     .flatMap((node) => node.body.body)
     .filter(isVariableDeclaration)
-    .flatMap((node) => node.declarations)
-    .filter((node) => node.id.name.toLowerCase().includes("style"))
+    .flatMap((node) => {
+        return node.declarations.map((declaration) => {
+            return {
+                declaration,
+                comments: node.leadingComments ?? [],
+            };
+        });
+    })
+    .filter((node) => node.declaration.id.name.toLowerCase().includes("style"))
     .forEach((node) => {
-        cssRules[getClassName(node)] = node.init.properties;
-        codeBlocksToDelete.push(node);
+        cssRules[getClassName(node.declaration)] = {
+            comments: node.comments,
+            properties: node.declaration.init.properties,
+        };
+        codeBlocksToDelete.push(node.declaration);
     });
 
 // Objects passed to 'style' property (outside of React class 'render')
 parsedCode.program.body
     .filter(isVariableDeclaration)
-    .flatMap((node) => node.declarations)
-    .filter((node) => !isStylesheetNode(node))
-    .filter((node) => node.id.name.toLowerCase().includes("style"))
+    .flatMap((node) => {
+        return node.declarations.map((declaration) => {
+            return {
+                declaration,
+                comments: node.leadingComments ?? [],
+            };
+        });
+    })
+    .filter((node) => !isStylesheetNode(node.declaration))
+    .filter((node) => node.declaration.id.name.toLowerCase().includes("style"))
     .forEach((node) => {
-        cssRules[getClassName(node)] = node.init.properties;
-        codeBlocksToDelete.push(node);
+        cssRules[getClassName(node.declaration)] = {
+            comments: node.comments,
+            properties: node.declaration.init.properties,
+        };
+        codeBlocksToDelete.push(node.declaration);
     });
 
 // Rebuild the CSS rules with regular CSS syntax (remove quotes, add semicolons, etc.).
 const cssStringified = Object.keys(cssRules)
     .sort()
-    .flatMap((className) => {
-        if (className === "button-style-overrides") {
-            console.log(cssRules[className].map(property => {
-                const comments = property.leadingComments ?? [{loc:""}];
-                return comments[0].loc;
-            }));
-        }
-        return [
-            `    ${className} {`,
-            ...cssRules[className].map(getCssProperty),
-            "    }\n",
-        ];
+    .map((className) => {
+        const comments = stringifyComments(cssRules[className].comments, 1);
+        const ruleSet = cssRules[className].properties.map(
+            (property, index, allPropertiesForClass) => {
+                const cssProperty = getCssPropertyInfo(property);
+                associateCommentsToCssProperty(
+                    cssProperty,
+                    index,
+                    allPropertiesForClass,
+                );
+                return cssProperty;
+            },
+        );
+        return `${comments}${stringifyCssRuleset(className, ruleSet)}`;
     })
     .join("\n");
 
@@ -190,14 +265,22 @@ fs.writeFileSync(cssFilePath, css);
 /*********************
  * Replace Aphrodite *
  *********************/
+// Include any leading comments
+Object.keys(cssRules).forEach((className) => {
+    cssRules[className].comments.forEach((comment) => {
+        codeBlocksToDelete.push(comment);
+    });
+});
+
 const cleanedCode = codeBlocksToDelete
     .sort((a, b) => b.start - a.start)
     .reduce((revisedCode, nodeToRemove) => {
-        const precedingCode = revisedCode.substring(0, nodeToRemove.start - 1);
-        const precedingBreakIndex = precedingCode.lastIndexOf("\n");
-        return `${revisedCode.substring(0, precedingBreakIndex).trim()}
-
-${revisedCode.substring(nodeToRemove.end + 1)}`;
+        const precedingCode = revisedCode.substring(0, nodeToRemove.start);
+        const precedingBreakIndex = precedingCode.lastIndexOf("\n"); // Helps to keep existing line indents
+        const remainingCode = revisedCode
+            .substring(nodeToRemove.end + 1)
+            .replace(/^\n+/, ""); // remove leading lines
+        return `${revisedCode.substring(0, precedingBreakIndex).trim()}${"\n\n"}${remainingCode}`;
     }, code);
 
 const aphroditeImport = parsedCode.program.body.filter(
@@ -210,9 +293,4 @@ import ${aphroditeDeclaration.id.name} from "./${cssFileName}";
 ${cleanedCode.substring(aphroditeImport.end).trim()}
 `;
 
-// fs.writeFileSync(filePath, updatedCode);
-
-// TODO: Trailing comments need to be copied
-//           Watch out for trailing comments that show up as leading comments on next line
-//       Add comments to lines referencing the Aphrodite style object:
-//           TODO: Make sure the following line has been adapted to CSS Modules
+fs.writeFileSync(filePath, updatedCode);
