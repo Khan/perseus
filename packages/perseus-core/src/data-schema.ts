@@ -304,6 +304,8 @@ export type MatrixWidget = WidgetOptions<'matrix', PerseusMatrixWidgetOptions>;
 // prettier-ignore
 export type MeasurerWidget = WidgetOptions<'measurer', PerseusMeasurerWidgetOptions>;
 // prettier-ignore
+export type MockWidget = WidgetOptions<'mock-widget', MockWidgetOptions>;
+// prettier-ignore
 export type NumberLineWidget = WidgetOptions<'number-line', PerseusNumberLineWidgetOptions>;
 // prettier-ignore
 export type NumericInputWidget = WidgetOptions<'numeric-input', PerseusNumericInputWidgetOptions>;
@@ -333,8 +335,6 @@ export type MoleculeRendererWidget = WidgetOptions<'molecule-renderer', PerseusM
 export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
-// prettier-ignore
-export type MockWidget = WidgetOptions<'mock-widget', MockWidgetOptions>;
 //prettier-ignore
 export type DeprecatedStandinWidget = WidgetOptions<'deprecated-standin', object>;
 

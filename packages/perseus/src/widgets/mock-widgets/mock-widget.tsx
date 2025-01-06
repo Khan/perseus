@@ -30,10 +30,10 @@ type Props = ExternalProps & {
  * across both Perseus and Webapp. It is a simple widget that renders an interactable
  * input field, and allows the user to input a string value.
  *
- * Please use this widget for all tests that require a widget to be rendered,
- * so that we can ensure that our tests are consistent across both platforms,
- * and so that we can more easily update our widget schemas without needing to
- * update irrelevant tests across our codebases.
+ * Please use this widget for all tests that are not specifically testing the
+ * functionality of a particular widget, such as testing the rendering components.
+ * This allows us to more easily update our widget schemas without needing to
+ * update many different irrelevant tests across our codebases.
  */
 export class MockWidget extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {

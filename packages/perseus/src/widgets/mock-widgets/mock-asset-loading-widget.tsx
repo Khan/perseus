@@ -30,6 +30,10 @@ export const mockedAssetItem: PerseusItem = {
     answer: null,
 } as const;
 
+/**
+ * This is a Mock Asset Loading Perseus widget, which is used specifically for
+ * our server-item-renderer tests to test the asset loading callbacks.
+ */
 export class MockAssetLoadingWidget extends React.Component<Record<any, any>> {
     setAssetStatus: ((assetKey: string, loaded: boolean) => void) | null = null;
 
