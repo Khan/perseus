@@ -40,6 +40,8 @@ export class MockWidget extends React.Component<Props> implements Widget {
         currentValue: "",
     };
 
+    inputRef: HTMLElement | null = null;
+
     static getUserInputFromProps(props: Props): PerseusMockWidgetUserInput {
         return {
             currentValue: props.currentValue,
@@ -64,6 +66,23 @@ export class MockWidget extends React.Component<Props> implements Widget {
         );
     };
 
+    focusInputPath: () => void = () => {
+        this.props.onFocus([]);
+        this.inputRef?.focus();
+    };
+
+    blurInputPath: () => void = () => {
+        this.props.onBlur([]);
+        this.inputRef?.blur();
+    };
+
+    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
+        // The widget itself is an input, so we return a single empty list to
+        // indicate this.
+        /* c8 ignore next */
+        return [[]];
+    };
+
     getUserInput(): PerseusMockWidgetUserInput {
         return MockWidget.getUserInputFromProps(this.props);
     }
@@ -80,11 +99,14 @@ export class MockWidget extends React.Component<Props> implements Widget {
         return (
             <View style={styles.widgetContainer}>
                 <TextField
+                    ref={(ref) => (this.inputRef = ref)}
                     aria-label="Mock Widget"
                     value={this.props.currentValue}
                     onChange={this.handleChange}
                     id={this.props.widgetId}
                     role="textbox"
+                    onFocus={this.focusInputPath}
+                    onBlur={this.blurInputPath}
                 />
             </View>
         );
