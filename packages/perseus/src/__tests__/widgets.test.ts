@@ -89,8 +89,8 @@ describe("Widget API support", () => {
         }
     });
 
-    it("input-number widget getUserInputFromProps should return the correct user input", () => {
-        const Widget = Widgets.getWidget("input-number");
+    it("numeric-input widget getUserInputFromProps should return the correct user input", () => {
+        const Widget = Widgets.getWidget("numeric-input");
 
         if (Widget && "getUserInputFromProps" in Widget) {
             const props = {

@@ -20,7 +20,7 @@ import mockWidget1Item from "./test-items/mock-widget-1-item";
 import mockWidget2Item from "./test-items/mock-widget-2-item";
 import tableItem from "./test-items/table-item";
 
-import type {PerseusInputNumberUserInput} from "../validation.types";
+import type {PerseusMockWidgetUserInput} from "../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const itemWidget = mockWidget1Item;
@@ -100,7 +100,7 @@ describe("Perseus API", function () {
             act(() =>
                 renderer.setInputValue(["mock-widget 1"], "3", function () {
                     const guess =
-                        renderer.getUserInput()[0] as PerseusInputNumberUserInput;
+                        renderer.getUserInput()[0] as PerseusMockWidgetUserInput;
                     expect(guess?.currentValue).toBe("3");
                     done();
                 }),

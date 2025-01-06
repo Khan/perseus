@@ -5,7 +5,7 @@ import * as React from "react";
 
 import {Editor} from "..";
 import SideBySide from "../../../../testing/side-by-side";
-import {question1} from "../__testdata__/input-number.testdata";
+import {question1} from "../__testdata__/numeric-input.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import {apiOptionsWithDefaults} from "./flags-for-api-options";
