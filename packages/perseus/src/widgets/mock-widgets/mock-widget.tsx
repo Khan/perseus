@@ -66,6 +66,11 @@ export class MockWidget extends React.Component<Props> implements Widget {
         );
     };
 
+    focus: () => boolean = () => {
+        this.inputRef?.focus();
+        return true;
+    };
+
     focusInputPath: () => void = () => {
         this.props.onFocus([]);
         this.inputRef?.focus();
