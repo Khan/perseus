@@ -11,9 +11,10 @@ import * as Dependencies from "../dependencies";
 import {ClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import {mockStrings} from "../strings";
-import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../util/test-utils";
+import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
+import {MockWidget} from "../widgets/mock-widgets";
 
 import imageItem from "./test-items/image-item";
 import mockWidget1Item from "./test-items/mock-widget-1-item";
@@ -36,7 +37,9 @@ describe("Perseus API", function () {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        registerAllWidgetsForTesting();
+        // TODO(LEMS-2656): remove TS suppression
+        // @ts-expect-error: MockWidget is not assignable to type WidgetExports
+        registerWidget("mock-widget", MockWidget);
     });
 
     describe("setInputValue", function () {
