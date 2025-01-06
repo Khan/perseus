@@ -3708,17 +3708,17 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-nulls-in
             [
               -4,
               5,
-              0,
+              NaN,
             ],
             [
               1,
               6,
-              0,
+              NaN,
             ],
             [
-              0,
-              0,
-              0,
+              NaN,
+              NaN,
+              NaN,
             ],
           ],
           "cursorPosition": [
