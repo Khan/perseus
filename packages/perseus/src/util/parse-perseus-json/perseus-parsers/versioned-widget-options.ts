@@ -1,4 +1,12 @@
-import {isSuccess, success} from "../result";
+import {
+    isObject,
+    number,
+    object,
+    pipeParsers,
+} from "../general-purpose-parsers";
+import {convert} from "../general-purpose-parsers/convert";
+import {defaulted} from "../general-purpose-parsers/defaulted";
+import {isFailure} from "../result";
 
 import type {Version} from "../../../perseus-types";
 import type {ParseContext, Parser} from "../parser-types";
@@ -13,75 +21,93 @@ type Versioned = {
  * data does not match any of the versions.
  *
  * @example
- * const parseOptions = versionedWidgetOptions(parseOptionsV3)
- *     .withMigrationFrom(parseOptionsV2, migrateV2ToV3)
- *     .withMigrationFrom(parseOptionsV1, migrateV1ToV2)
- *     .withMigrationFrom(parseOptionsV0, migrateV0ToV1)
+ * const parseOptions = versionedWidgetOptions(3, parseOptionsV3)
+ *     .withMigrationFrom(2, parseOptionsV2, migrateV2ToV3)
+ *     .withMigrationFrom(1, parseOptionsV1, migrateV1ToV2)
+ *     .withMigrationFrom(0, parseOptionsV0, migrateV0ToV1)
  *     .parser;
  *
+ * @param latestMajorVersion the latest major version of the widget options.
  * @param parseLatest a {@link Parser} for the latest version of the widget
- * options. This should check version.major and fail if it's not the latest
- * version.
+ * options.
  * @returns a builder object, to which migrations from earlier versions can be
  * added. Migrations must be added in "reverse chronological" order as in the
  * example above.
  */
 export function versionedWidgetOptions<Latest extends Versioned>(
+    latestMajorVersion: number,
     parseLatest: Parser<Latest>,
 ): VersionedWidgetOptionsParserBuilder<Latest, Latest> {
     return new VersionedWidgetOptionsParserBuilder(
+        latestMajorVersion,
         parseLatest,
         (latest) => latest,
+        (raw, ctx) =>
+            ctx.failure("widget options with a known version number", raw),
     );
 }
 
 class VersionedWidgetOptionsParserBuilder<
+    // The latest version of the widget options
     Latest extends Versioned,
-    Migratable extends Versioned,
+    // A version of the widget options which we want to migrate to Latest.
+    MigratableWidgetOptions extends Versioned,
 > {
+    public parser: Parser<Latest>;
+
     constructor(
-        public parser: Parser<Latest>,
-        private migrate: (m: Migratable) => Latest,
-    ) {}
+        majorVersion: number,
+        parseThisVersion: Parser<MigratableWidgetOptions>,
+        private migrateToLatest: (m: MigratableWidgetOptions) => Latest,
+        private parseOtherVersions: Parser<Latest>,
+    ) {
+        const parseThisVersionAndMigrateToLatest = pipeParsers(
+            parseThisVersion,
+        ).then(convert(this.migrateToLatest)).parser;
+
+        this.parser = (raw: unknown, ctx: ParseContext) => {
+            if (!isObject(raw)) {
+                return ctx.failure("object", raw);
+            }
+
+            const versionParseResult = parseVersionedObject(raw, ctx);
+            if (isFailure(versionParseResult)) {
+                return versionParseResult;
+            }
+
+            if (versionParseResult.value.version.major !== majorVersion) {
+                return this.parseOtherVersions(raw, ctx);
+            }
+
+            return parseThisVersionAndMigrateToLatest(raw, ctx);
+        };
+    }
 
     /**
      * Add a migration from an old version of the widget options.
-     *
-     * @returns a VersionedWidgetOptionsParserBuilder whose `parser` function
-     * is capable of migrating the old version to the latest version. The parser
-     * will always return the latest version of the widget options on a
-     * successful parse.
-     * @param parseOldVersion should be a {@link Parser} for the old options
-     * type. It should fail if version.major isn't correct.
-     * @param migrateToNextVersion should migrate the `Old` data to the
-     * `Migratable` version of the current VersionedWidgetOptionsParserBuilder.
-     * Usually, this means migrating to the next major version.
      */
     withMigrationFrom<Old extends Versioned>(
+        majorVersion: number,
         parseOldVersion: Parser<Old>,
-        migrateToNextVersion: (old: Old) => Migratable,
+        migrateToNextVersion: (old: Old) => MigratableWidgetOptions,
     ): VersionedWidgetOptionsParserBuilder<Latest, Old> {
-        const parseLatestVersion = this.parser;
+        const parseOtherVersions = this.parser;
 
         const migrateToLatest = (old: Old) =>
-            this.migrate(migrateToNextVersion(old));
+            this.migrateToLatest(migrateToNextVersion(old));
 
         return new VersionedWidgetOptionsParserBuilder(
-            (raw: unknown, ctx: ParseContext) => {
-                const resultOfParsingLatest = parseLatestVersion(raw, ctx);
-                if (isSuccess(resultOfParsingLatest)) {
-                    return resultOfParsingLatest;
-                }
-
-                const resultOfParsingOld = parseOldVersion(raw, ctx);
-                if (isSuccess(resultOfParsingOld)) {
-                    return success(migrateToLatest(resultOfParsingOld.value));
-                }
-
-                // If we're here, neither parse succeeded. Return the failure.
-                return resultOfParsingOld;
-            },
+            majorVersion,
+            parseOldVersion,
             migrateToLatest,
+            parseOtherVersions,
         );
     }
 }
+
+const parseVersionedObject = object({
+    version: defaulted(object({major: number, minor: number}), () => ({
+        major: 0,
+        minor: 0,
+    })),
+});

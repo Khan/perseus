@@ -134,7 +134,8 @@ function migrateV0ToV1(
 }
 
 export const parseExpressionWidget: Parser<ExpressionWidget> =
-    versionedWidgetOptions(parseExpressionWidgetV1).withMigrationFrom(
+    versionedWidgetOptions(1, parseExpressionWidgetV1).withMigrationFrom(
+        0,
         parseExpressionWidgetV0,
         migrateV0ToV1,
     ).parser;
