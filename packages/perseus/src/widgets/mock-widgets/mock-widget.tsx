@@ -125,6 +125,6 @@ export default {
     widget: MockWidget,
     isLintable: true,
     // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumericInputUserInput'.
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'MockWidget'.
     scorer: scoreMockWidget,
 } satisfies WidgetExports<typeof MockWidget>;
