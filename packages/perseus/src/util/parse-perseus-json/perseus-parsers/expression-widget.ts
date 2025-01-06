@@ -22,7 +22,10 @@ import type {
 } from "../../../perseus-types";
 import type {ParsedValue, Parser} from "../parser-types";
 
-const stringOrNumberOrNullOrUndefined = union(string).or(number).or(constant(null)).or(constant(undefined)).parser;
+const stringOrNumberOrNullOrUndefined = union(string)
+    .or(number)
+    .or(constant(null))
+    .or(constant(undefined)).parser;
 
 const parsePossiblyInvalidAnswerForm = object({
     // `value` is the possibly invalid part of this. It should always be a
@@ -32,9 +35,8 @@ const parsePossiblyInvalidAnswerForm = object({
     form: defaulted(boolean, () => false),
     simplify: defaulted(boolean, () => false),
     considered: enumeration("correct", "wrong", "ungraded"),
-    key: pipeParsers(stringOrNumberOrNullOrUndefined).then(
-        (key, ctx) => ctx.success(String(key)),
-    ).parser,
+    key: pipeParsers(stringOrNumberOrNullOrUndefined).then(convert(String))
+        .parser,
 });
 
 function removeInvalidAnswerForms(
