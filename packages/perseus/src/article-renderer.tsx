@@ -173,7 +173,8 @@ class ArticleRenderer
         // translatable strings found on Crowdin when rendering articles in
         // the WYSIWYG mode for translation. This is needed for the jipt.js
         // integration in order to attribute the rendered strings on Crowdin.
-        if (getDependencies().JIPT.useJIPT) {
+        const {JIPT} = getDependencies();
+        if (JIPT.useJIPT) {
             const paragraphs: Array<PerseusRenderer> = [];
 
             for (const section of sections) {
