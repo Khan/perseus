@@ -764,6 +764,283 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-mi
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/expression-with-null-answer-key.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "First, since this triangle is equilateral, the triangles on the right and left are congruent, so we can label some other measures with variables:
+
+![](https://ka-perseus-graphie.s3.amazonaws.com/6b0c27f7b0e3b583f30e8fbc0dfa4e685a3c583c.png)",
+      "images": {
+        "https://ka-perseus-graphie.s3.amazonaws.com/6b0c27f7b0e3b583f30e8fbc0dfa4e685a3c583c.png": {
+          "height": 288,
+          "width": 288,
+        },
+      },
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "Since the bisected side is $6$ and it's being cut in half, we have: 
+
+$2 \\purple{b} = 6$
+
+$\\purple{b} = 3$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "Since the angles of a triangle add up to $\\pi$ radians, we can see that:
+
+$3\\pink{\\varphi} = \\pi$
+
+$\\pink{\\varphi} = \\dfrac{\\pi}{3}$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "And since $\\pink{\\varphi} = 2\\blue{\\theta}$,
+
+$\\blue\\theta = \\dfrac{\\pi}{6}$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "Finally, let's find $\\red{a}$. We can use the right triangle:
+
+$\\begin{align} \\red{a}^2+ \\purple{b}^2 &= 6^2 \\\\
+\\red{a}^2 + \\purple{\\left(3\\right)}^2 &= 36 \\\\
+\\red{a}^2 &=27 \\\\
+\\red{a} &= \\pm \\sqrt{27} \\\\
+&= 3\\sqrt{3}
+\\end{align}$
+
+($\\red{a}$ is positive because it's a length.)",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "The sine of an angle in a right triangle is the ratio of the opposite leg to the hypotenuse. In the left right triangle, the side opposite $\\theta$ is $3$ and the hypotenuse is $6$, so:
+
+$\\begin{align}\\sin (\\blue{\\theta})&=\\dfrac{3}{6}\\\\ &= \\frac{1}{2}\\end{align}$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "To sum up:
+
+- $\\purple{b} = 3$
+
+
+- $\\red{a} = 3 \\sqrt 3$
+
+
+- $\\blue{\\theta} = \\dfrac{\\pi}{6}$
+
+
+- $\\sin (\\blue{\\theta}) =\\dfrac{1}{2}$
+",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "The following drawing contains an equilateral triangle whose side is $6$ units.  
+$a$ is perpendicular to one of the sides of the triangle.
+
+**Find the values of the following expressions. Don't round. Angle measures should be given in *radians*.**
+
+$\\qquad\\purple{b} = $ [[☃ expression 2]]
+
+$\\qquad\\red{a} = $ [[☃ expression 1]]
+
+$\\qquad\\blue{\\theta} =$ [[☃ expression 3]]
+
+$\\qquad\\sin(\\blue{\\theta}) = $ [[☃ expression 4]]
+
+$\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9c5ca0fe67bc991312.png)
+",
+    "images": {
+      "https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9c5ca0fe67bc991312.png": {
+        "height": 288,
+        "width": 288,
+      },
+    },
+    "metadata": undefined,
+    "widgets": {
+      "expression 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": [
+            {
+              "considered": "correct",
+              "form": false,
+              "key": "undefined",
+              "simplify": false,
+              "value": "sqrt(3)*3",
+            },
+          ],
+          "ariaLabel": undefined,
+          "buttonSets": [
+            "basic",
+            "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "functions": [
+            "f",
+            "g",
+            "h",
+          ],
+          "times": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "expression",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+      "expression 2": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": [
+            {
+              "considered": "correct",
+              "form": false,
+              "key": "undefined",
+              "simplify": false,
+              "value": "3",
+            },
+          ],
+          "ariaLabel": undefined,
+          "buttonSets": [
+            "basic",
+            "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "functions": [
+            "f",
+            "g",
+            "h",
+          ],
+          "times": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "expression",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+      "expression 3": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": [
+            {
+              "considered": "correct",
+              "form": false,
+              "key": "undefined",
+              "simplify": false,
+              "value": "pi/6",
+            },
+          ],
+          "ariaLabel": undefined,
+          "buttonSets": [
+            "basic",
+            "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "functions": [
+            "f",
+            "g",
+            "h",
+          ],
+          "times": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "expression",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+      "expression 4": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": [
+            {
+              "considered": "wrong",
+              "form": true,
+              "key": "1",
+              "simplify": false,
+              "value": "\\sin\\left(\\frac{\\pi}{6}\\right)",
+            },
+            {
+              "considered": "correct",
+              "form": false,
+              "key": "null",
+              "simplify": false,
+              "value": "1/2",
+            },
+          ],
+          "ariaLabel": undefined,
+          "buttonSets": [
+            "basic",
+            "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "functions": [
+            "f",
+            "g",
+            "h",
+          ],
+          "times": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "expression",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/graded-group-with-false-hint.json 1`] = `
 {
   "answer": undefined,
