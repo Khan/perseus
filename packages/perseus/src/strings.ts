@@ -264,6 +264,7 @@ export type PerseusStrings = {
 /**
  * Untranslated strings used in Perseus. To be used by an external
  * translator to produce translated strings, passed in as `PerseusStrings`.
+ * !! Note: Ensure that all escape sequences are double-escaped. (e.g. `\\text` -> `\\\\text`)
  */
 export const strings: {
     [key in keyof PerseusStrings]:
@@ -282,8 +283,8 @@ export const strings: {
         "Your answer is close, but you may " +
         "have approximated pi. Enter your " +
         "answer as a multiple of pi, like " +
-        "<code>12\\ \\text{pi}</code> or " +
-        "<code>2/3\\ \\text{pi}</code>",
+        "<code>12\\\\ \\\\text{pi}</code> or " +
+        "<code>2/3\\\\ \\\\text{pi}</code>",
     EXTRA_SYMBOLS_ERROR:
         "We could not understand your " +
         "answer. Please check your answer for extra " +
@@ -293,7 +294,7 @@ export const strings: {
     MISSING_PERCENT_ERROR:
         "Your answer is almost correct, " +
         "but it is missing a " +
-        "<code>\\%</code> at the end.",
+        "<code>\\\\%</code> at the end.",
     MULTIPLICATION_SIGN_ERROR:
         "I'm a computer. I only understand " +
         "multiplication if you use an asterisk " +
@@ -330,10 +331,11 @@ export const strings: {
     simplifiedProperExample: "a *simplified proper* fraction, like $3/5$",
     improperExample: "an *improper* fraction, like $10/7$ or $14/8$",
     simplifiedImproperExample: "a *simplified improper* fraction, like $7/4$",
-    mixedExample: "a mixed number, like $1\\ 3/4$",
+    mixedExample: "a mixed number, like $1\\\\ 3/4$",
     decimalExample: "an *exact* decimal, like $0.75$",
-    percentExample: "a percent, like $12.34\\%$",
-    piExample: "a multiple of pi, like $12\\ \\text{pi}$ or $2/3\\ \\text{pi}$",
+    percentExample: "a percent, like $12.34\\\\%$",
+    piExample:
+        "a multiple of pi, like $12\\\\ \\\\text{pi}$ or $2/3\\\\ \\\\text{pi}$",
     yourAnswer: "**Your answer should be** ",
     yourAnswerLabel: "Your answer:",
     addPoints: "Click to add points",
