@@ -1817,6 +1817,39 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-allow
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-settings.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {},
+  "hints": [],
+  "itemDataVersion": undefined,
+  "question": {
+    "content": "[[☃ iframe 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "iframe 1": {
+        "alignment": "block",
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "allowFullScreen": false,
+          "allowTopNavigation": undefined,
+          "height": "550px",
+          "settings": undefined,
+          "static": false,
+          "url": "https://learnstorm.typeform.com/to/fnQ2tw?",
+          "width": "100%",
+        },
+        "static": undefined,
+        "type": "iframe",
+        "version": undefined,
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-static.json 1`] = `
 {
   "answer": undefined,

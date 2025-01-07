@@ -1646,7 +1646,7 @@ export type PerseusIFrameWidgetOptions = {
     // A URL to display OR a CS Program ID
     url: string;
     // Settings that you add here are available to the program as an object returned by Program.settings()
-    settings: ReadonlyArray<PerseusCSProgramSetting>;
+    settings?: ReadonlyArray<PerseusCSProgramSetting>;
     // The width of the widget
     width: number | string;
     // The height of the widget
