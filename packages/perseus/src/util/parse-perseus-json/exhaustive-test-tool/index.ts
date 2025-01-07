@@ -97,11 +97,17 @@ async function testFile(path: string, outputDir: string) {
 }
 
 function getAssessmentItemData(raw: unknown): unknown {
-    if (raw && typeof raw === "object" && "item_data" in raw) {
-        return raw.item_data;
-    } else {
-        return raw;
+    if (raw && typeof raw === "object") {
+        if ("item_data" in raw) {
+            // We're looking at an exercise.
+            return raw.item_data;
+        }
+        if ("content" in raw) {
+            // We're looking at an article. Wrap it in a synthetic PerseusItem.
+            return {question: raw};
+        }
     }
+    return raw;
 }
 
 function getMismatches(rawItem: unknown): Mismatch[] {
