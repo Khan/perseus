@@ -11,6 +11,7 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 
 import {parseWidget} from "./widget";
@@ -56,7 +57,14 @@ export const parseGrapherWidget: Parser<GrapherWidget> = parseWidget(
                 "linear",
                 object({
                     type: constant("linear"),
-                    coords: pairOfPoints,
+                    coords: defaulted(
+                        pairOfPoints,
+                        () =>
+                            [
+                                [-5, 5],
+                                [5, 5],
+                            ] as [[number, number], [number, number]],
+                    ),
                 }),
             )
             .withBranch(

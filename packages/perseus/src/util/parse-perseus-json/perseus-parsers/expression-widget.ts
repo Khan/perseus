@@ -22,6 +22,11 @@ import type {
 } from "../../../perseus-types";
 import type {ParsedValue, Parser} from "../parser-types";
 
+const stringOrNumberOrNullOrUndefined = union(string)
+    .or(number)
+    .or(constant(null))
+    .or(constant(undefined)).parser;
+
 const parsePossiblyInvalidAnswerForm = object({
     // `value` is the possibly invalid part of this. It should always be a
     // string, but some answer forms don't have it. The Expression widget
@@ -30,9 +35,8 @@ const parsePossiblyInvalidAnswerForm = object({
     form: defaulted(boolean, () => false),
     simplify: defaulted(boolean, () => false),
     considered: enumeration("correct", "wrong", "ungraded"),
-    key: pipeParsers(optional(union(string).or(number).parser)).then(
-        (key, ctx) => ctx.success(String(key)),
-    ).parser,
+    key: pipeParsers(stringOrNumberOrNullOrUndefined).then(convert(String))
+        .parser,
 });
 
 function removeInvalidAnswerForms(
@@ -49,6 +53,24 @@ function removeInvalidAnswerForms(
     return valid;
 }
 
+// NOTE(benchristel): I copied the default buttonSets from
+// expression.tsx. See the parse-perseus-json/README.md for
+// an explanation of why we want to duplicate the default here.
+const parseButtonSets = defaulted(
+    array(
+        enumeration(
+            "basic",
+            "basic+div",
+            "trig",
+            "prealgebra",
+            "logarithms",
+            "basic relations",
+            "advanced relations",
+        ),
+    ),
+    () => ["basic", "trig", "prealgebra", "logarithms"] as const,
+);
+
 const version1 = object({major: constant(1), minor: number});
 const parseExpressionWidgetV1: Parser<ExpressionWidget> =
     parseWidgetWithVersion(
@@ -62,17 +84,7 @@ const parseExpressionWidgetV1: Parser<ExpressionWidget> =
             times: boolean,
             visibleLabel: optional(string),
             ariaLabel: optional(string),
-            buttonSets: array(
-                enumeration(
-                    "basic",
-                    "basic+div",
-                    "trig",
-                    "prealgebra",
-                    "logarithms",
-                    "basic relations",
-                    "advanced relations",
-                ),
-            ),
+            buttonSets: parseButtonSets,
             buttonsVisible: optional(enumeration("always", "never", "focused")),
         }),
     );
@@ -89,17 +101,7 @@ const parseExpressionWidgetV0 = parseWidgetWithVersion(
         form: boolean,
         simplify: boolean,
         value: string,
-        buttonSets: array(
-            enumeration(
-                "basic",
-                "basic+div",
-                "trig",
-                "prealgebra",
-                "logarithms",
-                "basic relations",
-                "advanced relations",
-            ),
-        ),
+        buttonSets: parseButtonSets,
         buttonsVisible: optional(enumeration("always", "never", "focused")),
     }),
 );
@@ -132,7 +134,8 @@ function migrateV0ToV1(
 }
 
 export const parseExpressionWidget: Parser<ExpressionWidget> =
-    versionedWidgetOptions(parseExpressionWidgetV1).withMigrationFrom(
+    versionedWidgetOptions(1, parseExpressionWidgetV1).withMigrationFrom(
+        0,
         parseExpressionWidgetV0,
         migrateV0ToV1,
     ).parser;

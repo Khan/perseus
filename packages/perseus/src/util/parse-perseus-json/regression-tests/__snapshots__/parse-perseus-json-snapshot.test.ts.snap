@@ -1,5 +1,67 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-randomizeItems.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "
+
+[[☃ categorizer 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "categorizer 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "categories": [
+            "Non-renewable Energy Sources",
+            "Renewable Energy Sources",
+          ],
+          "highlightLint": undefined,
+          "items": [
+            "Coal",
+            "Wind",
+            "Oil",
+            "Natural Gas",
+            "Biofuels",
+            "Petroleum",
+            "Solar",
+          ],
+          "linterContext": undefined,
+          "randomizeItems": false,
+          "static": false,
+          "values": [
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+          ],
+        },
+        "static": undefined,
+        "type": "categorizer",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-static.json 1`] = `
 {
   "answer": undefined,
@@ -41,6 +103,165 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
         },
         "static": undefined,
         "type": "categorizer",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-with-null-value.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "**Categorise the following into transparent, translucent and opaque objects.**
+
+[[☃ categorizer 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "categorizer 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "categories": [
+            "Transparent",
+            "Translucent",
+            "Opaque",
+          ],
+          "highlightLint": undefined,
+          "items": [
+            "Water",
+            "Clean glass",
+            "Tracing paper",
+            "Butter paper",
+            "A sheet of aluminium",
+            "Mirror",
+          ],
+          "linterContext": {
+            "contentType": "",
+            "highlightLint": false,
+            "paths": [],
+            "stack": [],
+          },
+          "randomizeItems": true,
+          "static": false,
+          "values": [
+            0,
+            0,
+            1,
+            0,
+            2,
+            2,
+          ],
+        },
+        "static": false,
+        "type": "categorizer",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-static.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "periodicTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "When you run a trial the simulator below, it produces a sequence of four random digits. If at least one of these digits is a zero, the trial is counted as a success.
+
+**Run the simulation to estimate the probability of it generating a successful trial.**  (Your answer will be marked correct if it is within $0.05$ of the true probability.)
+
+ [[☃ numeric-input 1]]
+
+[[☃ cs-program 1]]",
+    "images": {
+      "web+graphie://ka-perseus-graphie.s3.amazonaws.com/4559c8e0bd022d37bc3291ef5e600ae917046ab2": {
+        "height": 240,
+        "width": 300,
+      },
+    },
+    "metadata": undefined,
+    "widgets": {
+      "cs-program 1": {
+        "alignment": "block",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "height": 400,
+          "programID": "5900231381221376",
+          "programType": undefined,
+          "settings": [
+            {
+              "name": "",
+              "value": "",
+            },
+          ],
+          "showButtons": false,
+          "showEditor": false,
+          "static": false,
+          "width": 400,
+        },
+        "static": undefined,
+        "type": "cs-program",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": undefined,
+          "answers": [
+            {
+              "answerForms": undefined,
+              "maxError": 0.05,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 0.3333,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "rightAlign": undefined,
+          "size": "normal",
+          "static": false,
+        },
+        "static": undefined,
+        "type": "numeric-input",
         "version": {
           "major": 0,
           "minor": 0,
@@ -127,6 +348,78 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/definition-missing-s
           "major": 0,
           "minor": 0,
         },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-placeholder.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "Whenever  we subtract a number from itself, we get $0$.
+
+This is true whether the number is positive, negative, or $0$.",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "$(x-x)=0$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": undefined,
+  "question": {
+    "content": "**Compare the two values using the number line below.**  
+
+$\\qquad(x-x)$ [[☃ dropdown 1]] $0$  
+
+![](https://ka-perseus-graphie.s3.amazonaws.com/50cd6aeb1b50fe0f12c2fb5697eea1b00a4bc7b6.png)",
+    "images": {
+      "https://ka-perseus-graphie.s3.amazonaws.com/50cd6aeb1b50fe0f12c2fb5697eea1b00a4bc7b6.png": {
+        "height": 80,
+        "width": 460,
+      },
+    },
+    "metadata": undefined,
+    "widgets": {
+      "dropdown 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "ariaLabel": undefined,
+          "choices": [
+            {
+              "content": ">",
+              "correct": false,
+            },
+            {
+              "content": "<",
+              "correct": false,
+            },
+            {
+              "content": "=",
+              "correct": true,
+            },
+          ],
+          "placeholder": "",
+          "static": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "dropdown",
+        "version": undefined,
       },
     },
   },
@@ -356,6 +649,69 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-answerFor
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/expression-missing-buttonSets.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [],
+  "itemDataVersion": undefined,
+  "question": {
+    "content": " $ax + by = c$
+
+**Solve for $y$.**
+
+$y=$ [[☃ expression 1]]",
+    "images": {
+      "http://s3.amazonaws.com/illustrativemathematics/images/000/000/818/medium/seven_circles_ba4a5fd8b0a4a751dc704e843912f6ef.jpg?1336174598": {
+        "height": 300,
+        "width": 291,
+      },
+    },
+    "metadata": undefined,
+    "widgets": {
+      "expression 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": [
+            {
+              "considered": "correct",
+              "form": false,
+              "simplify": false,
+              "value": "\\frac{ax}{b}+\\frac{c}{b}",
+            },
+          ],
+          "ariaLabel": undefined,
+          "buttonSets": [
+            "basic",
+            "trig",
+            "prealgebra",
+            "logarithms",
+          ],
+          "buttonsVisible": undefined,
+          "functions": [
+            "f",
+            "g",
+            "h",
+          ],
+          "times": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "expression",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-missing-value.json 1`] = `
 {
   "answer": undefined,
@@ -400,6 +756,611 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-mi
         "type": "expression",
         "version": {
           "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/expression-with-null-answer-key.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "First, since this triangle is equilateral, the triangles on the right and left are congruent, so we can label some other measures with variables:
+
+![](https://ka-perseus-graphie.s3.amazonaws.com/6b0c27f7b0e3b583f30e8fbc0dfa4e685a3c583c.png)",
+      "images": {
+        "https://ka-perseus-graphie.s3.amazonaws.com/6b0c27f7b0e3b583f30e8fbc0dfa4e685a3c583c.png": {
+          "height": 288,
+          "width": 288,
+        },
+      },
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "Since the bisected side is $6$ and it's being cut in half, we have: 
+
+$2 \\purple{b} = 6$
+
+$\\purple{b} = 3$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "Since the angles of a triangle add up to $\\pi$ radians, we can see that:
+
+$3\\pink{\\varphi} = \\pi$
+
+$\\pink{\\varphi} = \\dfrac{\\pi}{3}$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "And since $\\pink{\\varphi} = 2\\blue{\\theta}$,
+
+$\\blue\\theta = \\dfrac{\\pi}{6}$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "Finally, let's find $\\red{a}$. We can use the right triangle:
+
+$\\begin{align} \\red{a}^2+ \\purple{b}^2 &= 6^2 \\\\
+\\red{a}^2 + \\purple{\\left(3\\right)}^2 &= 36 \\\\
+\\red{a}^2 &=27 \\\\
+\\red{a} &= \\pm \\sqrt{27} \\\\
+&= 3\\sqrt{3}
+\\end{align}$
+
+($\\red{a}$ is positive because it's a length.)",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "The sine of an angle in a right triangle is the ratio of the opposite leg to the hypotenuse. In the left right triangle, the side opposite $\\theta$ is $3$ and the hypotenuse is $6$, so:
+
+$\\begin{align}\\sin (\\blue{\\theta})&=\\dfrac{3}{6}\\\\ &= \\frac{1}{2}\\end{align}$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "To sum up:
+
+- $\\purple{b} = 3$
+
+
+- $\\red{a} = 3 \\sqrt 3$
+
+
+- $\\blue{\\theta} = \\dfrac{\\pi}{6}$
+
+
+- $\\sin (\\blue{\\theta}) =\\dfrac{1}{2}$
+",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "The following drawing contains an equilateral triangle whose side is $6$ units.  
+$a$ is perpendicular to one of the sides of the triangle.
+
+**Find the values of the following expressions. Don't round. Angle measures should be given in *radians*.**
+
+$\\qquad\\purple{b} = $ [[☃ expression 2]]
+
+$\\qquad\\red{a} = $ [[☃ expression 1]]
+
+$\\qquad\\blue{\\theta} =$ [[☃ expression 3]]
+
+$\\qquad\\sin(\\blue{\\theta}) = $ [[☃ expression 4]]
+
+$\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9c5ca0fe67bc991312.png)
+",
+    "images": {
+      "https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9c5ca0fe67bc991312.png": {
+        "height": 288,
+        "width": 288,
+      },
+    },
+    "metadata": undefined,
+    "widgets": {
+      "expression 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": [
+            {
+              "considered": "correct",
+              "form": false,
+              "key": "undefined",
+              "simplify": false,
+              "value": "sqrt(3)*3",
+            },
+          ],
+          "ariaLabel": undefined,
+          "buttonSets": [
+            "basic",
+            "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "functions": [
+            "f",
+            "g",
+            "h",
+          ],
+          "times": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "expression",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+      "expression 2": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": [
+            {
+              "considered": "correct",
+              "form": false,
+              "key": "undefined",
+              "simplify": false,
+              "value": "3",
+            },
+          ],
+          "ariaLabel": undefined,
+          "buttonSets": [
+            "basic",
+            "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "functions": [
+            "f",
+            "g",
+            "h",
+          ],
+          "times": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "expression",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+      "expression 3": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": [
+            {
+              "considered": "correct",
+              "form": false,
+              "key": "undefined",
+              "simplify": false,
+              "value": "pi/6",
+            },
+          ],
+          "ariaLabel": undefined,
+          "buttonSets": [
+            "basic",
+            "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "functions": [
+            "f",
+            "g",
+            "h",
+          ],
+          "times": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "expression",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+      "expression 4": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": [
+            {
+              "considered": "wrong",
+              "form": true,
+              "key": "1",
+              "simplify": false,
+              "value": "\\sin\\left(\\frac{\\pi}{6}\\right)",
+            },
+            {
+              "considered": "correct",
+              "form": false,
+              "key": "null",
+              "simplify": false,
+              "value": "1/2",
+            },
+          ],
+          "ariaLabel": undefined,
+          "buttonSets": [
+            "basic",
+            "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "functions": [
+            "f",
+            "g",
+            "h",
+          ],
+          "times": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "expression",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/graded-group-with-false-hint.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "###The Strategy 
+
+When multiplying matrices, we should find each entry of the resulting product matrix separately.
+
+To find entry $(i,j)$ of the resulting product matrix, we calculate the vector *dot product* of row $i$ of the first matrix and column $j$ of the second matrix. [[☃ explanation 1]] 
+
+",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {
+        "explanation 1": {
+          "alignment": "default",
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "explanation": "In general, vector dot product is an operation that takes two vectors of equal dimensions and returns a single real number.
+
+For any two $n$-dimensional vectors, $\\vec{v}=(v_1, v_2, ..., v_n)$ and $\\vec{u}=(u_1, u_2, ..., u_n)$, their dot product $\\vec{v}\\cdot\\vec{u}$ is defined as follows.
+
+>$\\vec{v}\\cdot\\vec{u}=v_1\\cdot u_1+v_2\\cdot u_2 +...+v_n\\cdot u_n$
+
+For example, for $\\vec{v}=(a,b)$ and $\\vec{u}=(c,d)$, we have $\\vec{v}\\cdot\\vec{u}=a\\cdot c+b\\cdot d$.
+
+",
+            "hidePrompt": "Got it, thanks!",
+            "showPrompt": "I don't know what "vector dot product" is!",
+            "static": false,
+            "widgets": {},
+          },
+          "static": false,
+          "type": "explanation",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "###Finding $\\text {H}_{1,1}$ 
+
+$\\text{H}_{1,1}$ is the dot product of the first row of $\\text{B}$ and the first column of $\\text{D}$.
+
+$ \\text {H}=\\left[\\begin{array}{rr}\\maroonC{1} & \\maroonC{4} \\\\ 1 & 3\\end{array}\\right]\\left[\\begin{array}{rr} \\maroonC{4} & 3 \\\\ \\maroonC{0} &  -1\\end{array}\\right]$
+
+Therefore, this is the appropriate calculation of $\\text{H}_{1,1}$.
+
+$\\begin{align}\\text{H}_{1,1}&=(1,4)\\cdot(4,0)\\\\\\\\
+&=1 \\cdot 4 + 4\\cdot 0\\\\\\\\
+&=4
+\\end{align}$
+
+The other entries of $\\text{H}$ can be found similarly.
+
+### Try it yourself for $\\text{H}_{2,1}$
+
+[[☃ graded-group 1]]
+",
+      "images": {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/bf8bd5bdea1a5aa51b012c0ee041bc4c57edc4d4": {
+          "height": 80,
+          "width": 160,
+        },
+      },
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {
+        "graded-group 1": {
+          "alignment": "default",
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "content": "**What is the appropriate calculation of $\\textbf{H}_{2,1}$?**
+
+[[☃ radio 1]]
+
+",
+            "hasHint": false,
+            "hint": null,
+            "images": {},
+            "immutableWidgets": undefined,
+            "title": "",
+            "widgetEnabled": undefined,
+            "widgets": {
+              "radio 1": {
+                "alignment": "default",
+                "graded": true,
+                "key": undefined,
+                "options": {
+                  "choices": [
+                    {
+                      "clue": undefined,
+                      "content": "$1 \\cdot 4 + 3\\cdot 0 = 4$",
+                      "correct": true,
+                      "isNoneOfTheAbove": undefined,
+                      "widgets": undefined,
+                    },
+                    {
+                      "clue": undefined,
+                      "content": "$4 \\cdot 4 + 3\\cdot 3= 25$",
+                      "correct": false,
+                      "isNoneOfTheAbove": undefined,
+                      "widgets": undefined,
+                    },
+                    {
+                      "clue": undefined,
+                      "content": "$1 \\cdot 3 + 4\\cdot -1 = -1$",
+                      "correct": undefined,
+                      "isNoneOfTheAbove": false,
+                      "widgets": undefined,
+                    },
+                  ],
+                  "countChoices": undefined,
+                  "deselectEnabled": false,
+                  "displayCount": null,
+                  "hasNoneOfTheAbove": false,
+                  "multipleSelect": false,
+                  "noneOfTheAbove": undefined,
+                  "onePerLine": true,
+                  "randomize": true,
+                },
+                "static": false,
+                "type": "radio",
+                "version": {
+                  "major": 1,
+                  "minor": 0,
+                },
+              },
+            },
+          },
+          "static": false,
+          "type": "graded-group",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "###Summary 
+
+After calculating all the remaining entries of $\\text{H}$, we get the following answer.
+
+$ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "$\\text B = \\left[\\begin{array}{rr}1 & 4 \\\\ 1 & 3\\end{array}\\right]$ and $\\text D = \\left[\\begin{array}{rr}4 & 3 \\\\ 0 & -1\\end{array}\\right]$. 
+
+** Let $\\text {H = BD}$. Find $\\text H$. **
+
+[[☃ matrix 1]]
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "matrix 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answers": [
+            [
+              4,
+              -1,
+            ],
+            [
+              4,
+              0,
+            ],
+          ],
+          "cursorPosition": [
+            0,
+            0,
+          ],
+          "matrixBoardSize": [
+            3,
+            3,
+          ],
+          "prefix": "$\\textbf {H = }$",
+          "static": false,
+          "suffix": "",
+        },
+        "static": false,
+        "type": "matrix",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-coords.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "[[☃ grapher 1]]
+
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "grapher 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "availableTypes": [
+            "linear",
+            "quadratic",
+            "sinusoid",
+            "tangent",
+            "absolute_value",
+            "logarithm",
+            "exponential",
+          ],
+          "correct": {
+            "asymptote": null,
+            "coords": [
+              [
+                -5,
+                5,
+              ],
+              [
+                5,
+                5,
+              ],
+            ],
+            "type": "linear",
+          },
+          "graph": {
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 0,
+              "left": undefined,
+              "scale": undefined,
+              "url": null,
+              "width": 0,
+            },
+            "box": [
+              340,
+              340,
+            ],
+            "editableSettings": [
+              "graph",
+              "snap",
+              "image",
+            ],
+            "gridStep": [
+              1,
+              1,
+            ],
+            "labels": [
+              "x",
+              "y",
+            ],
+            "markings": "graph",
+            "range": [
+              [
+                -10,
+                10,
+              ],
+              [
+                -10,
+                10,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "showProtractor": false,
+            "showRuler": false,
+            "showTooltips": undefined,
+            "snapStep": [
+              1,
+              1,
+            ],
+            "step": [
+              1,
+              1,
+            ],
+            "valid": true,
+          },
+        },
+        "static": undefined,
+        "type": "grapher",
+        "version": {
+          "major": 0,
           "minor": 0,
         },
       },
@@ -2032,6 +2993,174 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-polygon-with-exact-match.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "Let's start by plotting $(0,3)$ and $(3,7)$ and connecting the points.
+
+![](https://ka-perseus-graphie.s3.amazonaws.com/2ec9d27633dc52440d8e82fcf99c314f3fad19ff.png)",
+      "images": {
+        "https://ka-perseus-graphie.s3.amazonaws.com/2ec9d27633dc52440d8e82fcf99c314f3fad19ff.png": {
+          "height": 425,
+          "width": 425,
+        },
+      },
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "We know two sides are parallel to the $x$-axis, so those two sides must extend $5$ units horizontally from the two vertices we just drew. Since the rhombus is in the first quadrant, we extend the lines to the *right*.
+
+Plotting the remaining vertices at $(8,7)$ and $(5,3)$ gives the rhombus sides of length $5$ units, two of which are parallel to the $x$-axis.  
+
+![](https://ka-perseus-graphie.s3.amazonaws.com/c0be5c686e6d43155376ac6f4c5037ffd44e16de.png)",
+      "images": {
+        "https://ka-perseus-graphie.s3.amazonaws.com/c0be5c686e6d43155376ac6f4c5037ffd44e16de.png": {
+          "height": 425,
+          "width": 425,
+        },
+      },
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": " 
+We end up with a rhombus that looks like this:  
+
+![](https://ka-perseus-graphie.s3.amazonaws.com/2d6395b8d7d4ad3b0772e0ac5420106ea7e114f2.png)",
+      "images": {
+        "https://ka-perseus-graphie.s3.amazonaws.com/2d6395b8d7d4ad3b0772e0ac5420106ea7e114f2.png": {
+          "height": 425,
+          "width": 425,
+        },
+      },
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "**Click on the graph to draw a rhombus with an acute angle at $(0, 3)$, another vertex at $(3,7)$, side length of $5$ units, and two sides parallel to the $x$-axis.**  
+
+Draw the rhombus in the first quadrant.
+
+
+
+[[☃ interactive-graph 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": 0,
+            "height": undefined,
+            "left": 0,
+            "scale": 1,
+            "top": undefined,
+            "url": null,
+            "width": undefined,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": [
+              [
+                3,
+                7,
+              ],
+              [
+                0,
+                3,
+              ],
+              [
+                5,
+                3,
+              ],
+              [
+                8,
+                7,
+              ],
+            ],
+            "match": "exact",
+            "numSides": "unlimited",
+            "showAngles": undefined,
+            "showSides": true,
+            "snapTo": "grid",
+            "startCoords": undefined,
+            "type": "polygon",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "match": undefined,
+            "numSides": "unlimited",
+            "showAngles": undefined,
+            "showSides": true,
+            "snapTo": "grid",
+            "startCoords": undefined,
+            "type": "polygon",
+          },
+          "gridStep": [
+            1,
+            1,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": undefined,
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "rulerLabel": "",
+          "rulerTicks": 10,
+          "showProtractor": false,
+          "showRuler": false,
+          "showTooltips": undefined,
+          "snapStep": [
+            1,
+            1,
+          ],
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": undefined,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-with-string-backgroundImage-left.json 1`] = `
 {
   "answer": undefined,
@@ -2184,6 +3313,187 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-wi
         "type": "radio",
         "version": {
           "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/label-image-missing-static.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "Renewable sources of energy cannot be exhuasted even after using it continously
+
+Non-renewable source can be exhausted with continuous use",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "Wind and solar energy are renewable, while oil and coal are non-renewable fossil fuels.",
+      "images": {},
+      "metadata": undefined,
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "**Classify the resource under its category**
+
+[[☃ categorizer 1]]
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "categorizer 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "categories": [
+            "Renewable",
+            "Non-renewable",
+          ],
+          "highlightLint": undefined,
+          "items": [
+            "Wind",
+            "Oil",
+            "Solar energy",
+            "Coal",
+          ],
+          "linterContext": {
+            "contentType": "",
+            "highlightLint": false,
+            "paths": [],
+            "stack": [],
+          },
+          "randomizeItems": true,
+          "static": false,
+          "values": [
+            0,
+            1,
+            0,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "categorizer",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "dropdown 1": {
+        "alignment": undefined,
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "ariaLabel": undefined,
+          "choices": [
+            {
+              "content": "",
+              "correct": false,
+            },
+          ],
+          "placeholder": "",
+          "static": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "dropdown",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "label-image 1": {
+        "alignment": undefined,
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "choices": [],
+          "hideChoicesFromInstructions": false,
+          "imageAlt": "",
+          "imageHeight": 0,
+          "imageUrl": "",
+          "imageWidth": 0,
+          "markers": [],
+          "multipleAnswers": false,
+          "static": false,
+        },
+        "static": undefined,
+        "type": "label-image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "matcher 1": {
+        "alignment": undefined,
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "labels": [
+            "test",
+            "label",
+          ],
+          "left": [
+            "$x$",
+            "$y$",
+            "$z$",
+          ],
+          "orderMatters": false,
+          "padding": true,
+          "right": [
+            "$1$",
+            "$2$",
+            "$3$",
+          ],
+        },
+        "static": undefined,
+        "type": "matcher",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "sorter 1": {
+        "alignment": undefined,
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "correct": [
+            "$x$",
+            "$y$",
+            "$z$",
+          ],
+          "layout": "horizontal",
+          "padding": true,
+        },
+        "static": undefined,
+        "type": "sorter",
+        "version": {
+          "major": 0,
           "minor": 0,
         },
       },
@@ -2361,6 +3671,74 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
         "static": undefined,
         "type": "matrix",
         "version": undefined,
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-nulls-in-answer.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "If  $\\text{A} = \\left[\\begin{array}{rr}  -2 & 3\\\\ 1 & 2   \\end{array}\\right]$ and $\\text{B} = \\left[\\begin{array}{rr} -1 & 0 \\\\ 1 & 2   \\end{array}\\right]$, then find $(A + 2B)'$.
+
+[[☃ matrix 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "matrix 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answers": [
+            [
+              -4,
+              5,
+              NaN,
+            ],
+            [
+              1,
+              6,
+              NaN,
+            ],
+            [
+              NaN,
+              NaN,
+              NaN,
+            ],
+          ],
+          "cursorPosition": [
+            0,
+            0,
+          ],
+          "matrixBoardSize": [
+            3,
+            3,
+          ],
+          "prefix": "",
+          "static": false,
+          "suffix": "",
+        },
+        "static": false,
+        "type": "matrix",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
       },
     },
   },
@@ -2639,6 +4017,62 @@ $\\left[\\begin{array}{c}
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-static.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "[[☃ measurer 1]]
+
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "measurer 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "box": [
+            480,
+            480,
+          ],
+          "image": {
+            "bottom": undefined,
+            "height": undefined,
+            "left": undefined,
+            "scale": undefined,
+            "top": undefined,
+            "url": undefined,
+            "width": undefined,
+          },
+          "rulerLabel": "",
+          "rulerLength": 10,
+          "rulerPixels": 40,
+          "rulerTicks": 10,
+          "showProtractor": true,
+          "showRuler": true,
+          "static": false,
+        },
+        "static": undefined,
+        "type": "measurer",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-snapDivisions.json 1`] = `
 {
   "answer": undefined,
@@ -2863,6 +4297,325 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
         },
         "static": false,
         "type": "number-line",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-static.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "[[☃ number-line 1]]
+
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "number-line 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "correctRel": "eq",
+          "correctX": 0.5,
+          "divisionRange": [
+            1,
+            12,
+          ],
+          "initialX": 0,
+          "isInequality": false,
+          "isTickCtrl": false,
+          "labelRange": [
+            null,
+            null,
+          ],
+          "labelStyle": "improper",
+          "labelTicks": true,
+          "numDivisions": 8,
+          "range": [
+            0,
+            1,
+          ],
+          "showTooltip": undefined,
+          "snapDivisions": 1,
+          "static": false,
+          "tickStep": null,
+        },
+        "static": undefined,
+        "type": "number-line",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-empty-strings-in-label-range.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "Let's locate $\\blue{-10}$ ,  $\\pink{-1}$ , $\\green{1}$ , and $\\purple{10}$ on the number line.
+
+
+
+
+![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/4b88e4a5b0c1cdbbf946c65129b05712429aef5b)",
+      "images": {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/4b88e4a5b0c1cdbbf946c65129b05712429aef5b": {
+          "height": 80,
+          "width": 460,
+        },
+      },
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "On the number line, numbers to the left are less than numbers to the right.",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "The following inequality is correct: 
+
+*   $\\blue{-10}\\,\\,\\,<\\,\\,\\,\\green1$",
+      "images": {
+        "https://ka-perseus-graphie.s3.amazonaws.com/63a5858779841415a4ae8978975790b8f8eef811.png": {
+          "height": 80,
+          "width": 460,
+        },
+      },
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "**Which of the following inequalities are correct?**
+
+[[☃ radio 2]]
+
+
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "number-line 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "correctRel": "eq",
+          "correctX": -0.375,
+          "divisionRange": [
+            1,
+            10,
+          ],
+          "initialX": null,
+          "isTickCtrl": false,
+          "labelRange": [
+            null,
+            null,
+          ],
+          "labelStyle": "improper",
+          "labelTicks": true,
+          "numDivisions": 8,
+          "range": [
+            -1,
+            1,
+          ],
+          "showTooltip": undefined,
+          "snapDivisions": 2,
+          "static": false,
+          "tickStep": null,
+        },
+        "static": undefined,
+        "type": "number-line",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "radio 2": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "choices": [
+            {
+              "clue": undefined,
+              "content": " $\\,-1\\,\\,\\,<\\,-10$",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": " $-10\\,\\,\\,<\\,\\,\\,1$",
+              "correct": true,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+            {
+              "clue": undefined,
+              "content": "  $\\,\\,\\,\\,\\,10\\,\\,\\,< \\,-1$",
+              "correct": false,
+              "isNoneOfTheAbove": undefined,
+              "widgets": undefined,
+            },
+          ],
+          "countChoices": undefined,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": undefined,
+          "multipleSelect": true,
+          "noneOfTheAbove": false,
+          "onePerLine": true,
+          "randomize": true,
+        },
+        "static": undefined,
+        "type": "radio",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-null-correctX.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "$\\phantom{=}-31-8+31$
+
+
+$=(31-31) -8$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "$ =0-8$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "$=-8$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "**Evaluate** $-31-8+31$.
+
+ [[☃ numeric-input 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "number-line 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "correctRel": "eq",
+          "correctX": null,
+          "divisionRange": [
+            1,
+            12,
+          ],
+          "initialX": null,
+          "isTickCtrl": undefined,
+          "labelRange": [
+            null,
+            null,
+          ],
+          "labelStyle": "decimal",
+          "labelTicks": true,
+          "numDivisions": 5,
+          "range": [
+            0,
+            10,
+          ],
+          "showTooltip": undefined,
+          "snapDivisions": 2,
+          "static": false,
+          "tickStep": null,
+        },
+        "static": undefined,
+        "type": "number-line",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "numeric-input 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": undefined,
+          "answers": [
+            {
+              "answerForms": undefined,
+              "maxError": null,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": -8,
+            },
+          ],
+          "coefficient": false,
+          "labelText": undefined,
+          "rightAlign": undefined,
+          "size": "normal",
+          "static": false,
+        },
+        "static": undefined,
+        "type": "numeric-input",
         "version": {
           "major": 0,
           "minor": 0,
@@ -3116,6 +4869,63 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
           "static": false,
         },
         "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missing-coefficient.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "For shipping purposes, foam mattresses are rolled tightly into cylinders. The volume of the cylinder is significantly less than the volume of the mattress when it is laid out as rectangular prism. For the sake of this problem, let's say that the volume of the rolled up mattress is exactly half of the laid out mattress.
+
+The dimensions of the mattress when it is laid out are...
+
+What is the radius of the mattress when it is rolled up into a cylinder.
+
+[[☃ numeric-input 1]] ",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "numeric-input 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": undefined,
+          "answers": [
+            {
+              "answerForms": [],
+              "maxError": null,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": null,
+            },
+          ],
+          "coefficient": false,
+          "labelText": undefined,
+          "rightAlign": undefined,
+          "size": "normal",
+          "static": false,
+        },
+        "static": undefined,
         "type": "numeric-input",
         "version": {
           "major": 0,
@@ -3443,6 +5253,72 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
         },
         "static": undefined,
         "type": "deprecated-standin",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-with-simplify-false.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "periodicTable": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "**What is $\\text{sec}(\\angle A)?$**  
+*Reduce fractional answers to lowest terms.*
+
+[[☃ numeric-input 1]]
+
+ ![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/b886f0f83c43c5f13fb41bed1e6c067500ec31d9)",
+    "images": {
+      "web+graphie://ka-perseus-graphie.s3.amazonaws.com/b886f0f83c43c5f13fb41bed1e6c067500ec31d9": {
+        "height": 157,
+        "width": 285,
+      },
+    },
+    "metadata": undefined,
+    "widgets": {
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerForms": undefined,
+          "answers": [
+            {
+              "answerForms": undefined,
+              "maxError": 0,
+              "message": "",
+              "simplify": "false",
+              "status": "correct",
+              "strict": false,
+              "value": 2.6,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "multipleNumberInput": false,
+          "rightAlign": false,
+          "size": "normal",
+          "static": false,
+        },
+        "static": false,
+        "type": "numeric-input",
         "version": {
           "major": 0,
           "minor": 0,
@@ -4774,6 +6650,65 @@ A free body diagram of the **box** is shown below.
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/passage-missing-footnotes-and-title.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "
+
+[[☃ passage 1]]
+
+[[☃ passage-ref 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "passage 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "footnotes": "",
+          "passageText": "a",
+          "passageTitle": "",
+          "showLineNumbers": true,
+          "static": false,
+        },
+        "static": undefined,
+        "type": "passage",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "passage-ref 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "passageNumber": 1,
+          "referenceNumber": 1,
+          "summaryText": undefined,
+        },
+        "static": undefined,
+        "type": "passage-ref",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/passage-ref-missing-summaryText.json 1`] = `
 {
   "answer": undefined,
@@ -5588,6 +7523,235 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
         "type": "radio",
         "version": {
           "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/simulator-widget.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "[[☃ sorter 1]]
+
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "simulator 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "numTrials": 100,
+          "proportionLabel": "Underlying proportion",
+          "proportionOrPercentage": "proportion",
+          "xAxisLabel": "Proportion (%)",
+          "yAxisLabel": "Number of times seen",
+        },
+        "static": undefined,
+        "type": "deprecated-standin",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "sorter 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "correct": [
+            "$x$",
+            "$y$",
+            "$z$",
+          ],
+          "layout": "horizontal",
+          "padding": true,
+        },
+        "static": undefined,
+        "type": "sorter",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/transformer-widget.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "[[☃ transformer 1]]
+
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "transformer 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "correct": {
+            "shape": {
+              "coords": [
+                [
+                  2,
+                  2,
+                ],
+                [
+                  2,
+                  6,
+                ],
+                [
+                  7,
+                  2,
+                ],
+              ],
+              "options": [
+                {},
+              ],
+              "type": [
+                "polygon-3",
+              ],
+            },
+            "transformations": [],
+          },
+          "drawSolutionShape": true,
+          "gradeEmpty": false,
+          "graph": {
+            "backgroundImage": {
+              "url": null,
+            },
+            "gridStep": [
+              1,
+              1,
+            ],
+            "labels": [
+              "x",
+              "y",
+            ],
+            "markings": "grid",
+            "range": [
+              [
+                -10,
+                10,
+              ],
+              [
+                -10,
+                10,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "showProtractor": false,
+            "showRuler": false,
+            "snapStep": [
+              0.5,
+              0.5,
+            ],
+            "step": [
+              1,
+              1,
+            ],
+          },
+          "graphMode": "static",
+          "listMode": "interactive",
+          "starting": {
+            "shape": {
+              "coords": [
+                [
+                  2,
+                  2,
+                ],
+                [
+                  2,
+                  6,
+                ],
+                [
+                  7,
+                  2,
+                ],
+              ],
+              "type": "polygon-3",
+            },
+            "transformations": [],
+          },
+          "tools": {
+            "dilation": {
+              "constraints": {
+                "fixed": false,
+              },
+              "coord": [
+                6,
+                6,
+              ],
+              "enabled": true,
+              "required": false,
+            },
+            "reflection": {
+              "constraints": {
+                "fixed": false,
+              },
+              "coords": [
+                [
+                  2,
+                  -4,
+                ],
+                [
+                  2,
+                  2,
+                ],
+              ],
+              "enabled": true,
+              "required": false,
+            },
+            "rotation": {
+              "constraints": {
+                "fixed": false,
+              },
+              "coord": [
+                1,
+                6,
+              ],
+              "enabled": true,
+              "required": false,
+            },
+            "translation": {
+              "constraints": {},
+              "enabled": true,
+              "required": false,
+            },
+          },
+          "version": 1.2,
+        },
+        "static": undefined,
+        "type": "deprecated-standin",
+        "version": {
+          "major": 0,
           "minor": 0,
         },
       },
