@@ -72,7 +72,7 @@ const parseWidgetsMapEntry: (
 ) => ParseResult<unknown> = ([key, widget], widgetMap, ctx) => {
     const keyComponentsResult = parseWidgetMapKeyComponents(
         key.split(" "),
-        ctx,
+        ctx.forSubtree("(widget key)"),
     );
     if (isFailure(keyComponentsResult)) {
         return keyComponentsResult;
@@ -208,7 +208,7 @@ const parseDeprecatedWidget: Parser<DeprecatedStandinWidget> = parseWidget(
 
 const parseStringToPositiveInt: Parser<number> = (rawValue, ctx) => {
     if (typeof rawValue !== "string" || !/^[1-9][0-9]*$/.test(rawValue)) {
-        return ctx.failure("numeric string", rawValue);
+        return ctx.failure("a string representing a positive integer", rawValue);
     }
     return ctx.success(+rawValue);
 };

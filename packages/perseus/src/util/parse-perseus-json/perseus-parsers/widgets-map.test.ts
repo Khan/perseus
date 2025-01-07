@@ -34,6 +34,25 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(anyFailure);
     });
 
+    it("rejects a key with ID 0", () => {
+        // Widget keys with ID = 0 currently cause a full-page crash when the
+        // exercise is rendered in webapp!
+
+        const widgetsMap: unknown = {
+            "radio 0": {
+                type: "radio",
+                version: {major: 0, minor: 0},
+                options: {
+                    choices: [],
+                    noneOfTheAbove: false,
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+        expect(result).toEqual(failure(`At (root)["radio 0"]["(widget key)"][1] -- expected a string representing a positive integer, but got "0"`))
+    })
+
     it("accepts a categorizer widget", () => {
         const widgetsMap: unknown = {
             "categorizer 1": {
