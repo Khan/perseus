@@ -16,7 +16,7 @@ import type {Parser} from "../parser-types";
 export const parseDropdownWidget: Parser<DropdownWidget> = parseWidget(
     constant("dropdown"),
     object({
-        placeholder: string,
+        placeholder: defaulted(string, () => ""),
         ariaLabel: optional(string),
         visibleLabel: optional(string),
         static: defaulted(boolean, () => false),
