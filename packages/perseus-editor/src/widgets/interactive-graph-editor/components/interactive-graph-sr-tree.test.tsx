@@ -1,7 +1,7 @@
 import {render} from "@testing-library/react";
 import * as React from "react";
 
-import {fetchAriaLabels} from "./interactive-graph-sr-tree";
+import {getAccessibilityAttributes} from "./interactive-graph-sr-tree";
 
 describe("fetchAriaLabels", () => {
     test("should return an empty array if the container is null", () => {
@@ -10,7 +10,7 @@ describe("fetchAriaLabels", () => {
         const expected = [];
 
         // Act
-        const result = fetchAriaLabels(container);
+        const result = getAccessibilityAttributes(container);
 
         // Assert
         expect(result).toEqual(expected);
@@ -26,7 +26,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container);
+        const result = getAccessibilityAttributes(container);
 
         // Assert
         expect(result).toEqual([
@@ -51,7 +51,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container);
+        const result = getAccessibilityAttributes(container);
 
         // Assert
         expect(result).toEqual([
@@ -78,7 +78,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container);
+        const result = getAccessibilityAttributes(container);
 
         // Assert
         expect(result).toEqual([
@@ -108,7 +108,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container);
+        const result = getAccessibilityAttributes(container);
 
         // Assert
         expect(result).toEqual([
@@ -132,7 +132,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container);
+        const result = getAccessibilityAttributes(container);
 
         // Assert
         expect(result).toEqual([
@@ -169,7 +169,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container);
+        const result = getAccessibilityAttributes(container);
 
         // Assert
         expect(result).toEqual([
@@ -213,7 +213,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container);
+        const result = getAccessibilityAttributes(container);
 
         // Assert
         expect(result).toEqual([]);
@@ -228,7 +228,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container);
+        const result = getAccessibilityAttributes(container);
 
         // Assert
         expect(result).toEqual([]);

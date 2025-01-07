@@ -14,7 +14,9 @@ type AttributeMap = {
 };
 
 // Exported for testing
-export function fetchAriaLabels(container?: Element): AttributeMap[] {
+export function getAccessibilityAttributes(
+    container?: Element,
+): AttributeMap[] {
     const elementArias: Array<AttributeMap> = [];
 
     if (!container) {
@@ -124,7 +126,7 @@ function InteractiveGraphSRTree({
 
     // Update the tree when the graph is updated.
     React.useEffect(() => {
-        setElementArias(fetchAriaLabels(mafsGraphContainer));
+        setElementArias(getAccessibilityAttributes(mafsGraphContainer));
     }, [
         // Update the tree when the "correct preview" graph is updated.
         correct,
