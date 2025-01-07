@@ -266,13 +266,14 @@ const parseLockedFunctionType: Parser<LockedFunctionType> = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedFigure: Parser<LockedFigure> = union(parseLockedPointType)
-    .or(parseLockedLineType)
-    .or(parseLockedVectorType)
-    .or(parseLockedEllipseType)
-    .or(parseLockedPolygonType)
-    .or(parseLockedFunctionType)
-    .or(parseLockedLabelType).parser;
+const parseLockedFigure: Parser<LockedFigure> = discriminatedUnionOn("type")
+    .withBranch("point", parseLockedPointType)
+    .withBranch("line", parseLockedLineType)
+    .withBranch("vector", parseLockedVectorType)
+    .withBranch("ellipse", parseLockedEllipseType)
+    .withBranch("polygon", parseLockedPolygonType)
+    .withBranch("function", parseLockedFunctionType)
+    .withBranch("label", parseLockedLabelType).parser;
 
 export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
     parseWidget(
