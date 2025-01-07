@@ -15,7 +15,6 @@ export const question1: PerseusRenderer = {
                     {name: "", value: ""},
                 ],
                 height: 540,
-                width: 640,
                 programID: "6293105639817216",
                 static: false,
                 showButtons: false,
