@@ -29,9 +29,8 @@ const stringOrEmpty = defaulted(string, () => "");
 const parseKey = pipeParsers(optional(string)).then(convert(String)).parser
 
 type FunctionElement = Extract<PerseusInteractionElement, {type: "function"}>;
-const parseFunctionType = constant("function");
 const parseFunctionElement: Parser<FunctionElement> = object({
-    type: parseFunctionType,
+    type: constant("function"),
     key: parseKey,
     options: object({
         value: string,
@@ -45,9 +44,8 @@ const parseFunctionElement: Parser<FunctionElement> = object({
 });
 
 type LabelElement = Extract<PerseusInteractionElement, {type: "label"}>;
-const parseLabelType = constant("label");
 const parseLabelElement: Parser<LabelElement> = object({
-    type: parseLabelType,
+    type: constant("label"),
     key: parseKey,
     options: object({
         label: string,
@@ -58,9 +56,8 @@ const parseLabelElement: Parser<LabelElement> = object({
 });
 
 type LineElement = Extract<PerseusInteractionElement, {type: "line"}>;
-const parseLineType = constant("line");
 const parseLineElement: Parser<LineElement> = object({
-    type: parseLineType,
+    type: constant("line"),
     key: parseKey,
     options: object({
         color: string,
@@ -78,9 +75,8 @@ type MovableLineElement = Extract<
     PerseusInteractionElement,
     {type: "movable-line"}
 >;
-const parseMovableLineType = constant("movable-line");
 const parseMovableLineElement: Parser<MovableLineElement> = object({
-    type: parseMovableLineType,
+    type: constant("movable-line"),
     key: parseKey,
     options: object({
         startX: string,
@@ -103,9 +99,8 @@ type MovablePointElement = Extract<
     PerseusInteractionElement,
     {type: "movable-point"}
 >;
-const parseMovablePointType = constant("movable-point");
 const parseMovablePointElement: Parser<MovablePointElement> = object({
-    type: parseMovablePointType,
+    type: constant("movable-point"),
     key: parseKey,
     options: object({
         startX: string,
@@ -125,9 +120,8 @@ type ParametricElement = Extract<
     PerseusInteractionElement,
     {type: "parametric"}
 >;
-const parseParametricType = constant("parametric");
 const parseParametricElement: Parser<ParametricElement> = object({
-    type: parseParametricType,
+    type: constant("parametric"),
     key: parseKey,
     options: object({
         x: string,
@@ -141,9 +135,8 @@ const parseParametricElement: Parser<ParametricElement> = object({
 });
 
 type PointElement = Extract<PerseusInteractionElement, {type: "point"}>;
-const parsePointType = constant("point");
 const parsePointElement: Parser<PointElement> = object({
-    type: parsePointType,
+    type: constant("point"),
     key: parseKey,
     options: object({
         color: string,
@@ -153,9 +146,8 @@ const parsePointElement: Parser<PointElement> = object({
 });
 
 type RectangleElement = Extract<PerseusInteractionElement, {type: "rectangle"}>;
-const parseRectangleType = constant("rectangle");
 const parseRectangleElement: Parser<RectangleElement> = object({
-    type: parseRectangleType,
+    type: constant("rectangle"),
     key: parseKey,
     options: object({
         color: string,
