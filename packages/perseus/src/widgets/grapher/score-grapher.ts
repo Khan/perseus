@@ -50,6 +50,15 @@ function scoreGrapher(
         };
     }
 
+    // If the correct coords are null, treat the input as invalid.
+    // This handles legacy data that contains null coords.
+    if (rubric.correct.coords == null) {
+        return {
+            type: "invalid",
+            message: null,
+        }
+    }
+
     // Get new function handler for grading
     const grader = functionForType(userInput.type);
     const guessCoeffs = getCoefficientsByType(userInput);

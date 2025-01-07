@@ -103,6 +103,37 @@ describe("scoreGrapher", () => {
         expect(result).toHaveInvalidInput();
     });
 
+    it("is invalid when rubric has null coords", () => {
+        // The rubric.correct.coords are null in some cases in legacy data.
+        // Before this test was added and made to pass, the scoring code would
+        // throw an exception if the coords were null. From a learner's
+        // perspective, they'd click the "check answer" button and nothing
+        // would visibly happen. Returning "invalid" is slightly nicer, and has
+        // a similar effect (blocking learner progress).
+
+        // Arrange
+        const userInput: PerseusGrapherUserInput = {
+            type: "linear",
+            coords: [
+                [-10, -10],
+                [10, 10],
+            ],
+        };
+
+        const rubric: PerseusGrapherRubric = {
+            correct: {
+                type: "linear",
+                coords: null,
+            },
+        };
+
+        // Act
+        const result = scoreGrapher(userInput, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    })
+
     it("can be answered correctly", () => {
         const coords: [Coord, Coord] = [
             [-10, -10],
