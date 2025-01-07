@@ -27,10 +27,6 @@ import type {
 
 type Props = {
     flags?: APIOptions["flags"];
-    // Whether to show the locked labels in the locked figure settings.
-    // TODO(LEMS-2274): Remove this prop once the label flag is
-    // sfully rolled out.
-    showLabelsFlag?: boolean;
     figures?: Array<LockedFigure>;
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
 };
@@ -170,7 +166,6 @@ const LockedFiguresSection = (props: Props) => {
                             <LockedFigureSettings
                                 key={`${uniqueId}-locked-${figure}-${index}`}
                                 flags={props.flags}
-                                showLabelsFlag={props.showLabelsFlag}
                                 expanded={expandedStates[index]}
                                 onToggle={(newValue) => {
                                     const newExpanded = [...expandedStates];
@@ -190,7 +185,6 @@ const LockedFiguresSection = (props: Props) => {
                     })}
                     <View style={styles.buttonContainer}>
                         <LockedFigureSelect
-                            showLabelsFlag={props.showLabelsFlag}
                             id={`${uniqueId}-select`}
                             onChange={addLockedFigure}
                         />
