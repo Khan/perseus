@@ -1,10 +1,10 @@
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {registerWidget} from "../../widgets";
-
+import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import MockWidgetExport from "../../widgets/mock-widgets/mock-widget";
+
 import type {MockWidget, PerseusRenderer} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
