@@ -545,13 +545,7 @@ describe("Interactive Graph", function () {
             // Arrange
             const {container} = renderQuestion(
                 segmentWithLockedPointsWithColorQuestion,
-                {
-                    flags: {
-                        mafs: {
-                            segment: true,
-                        },
-                    },
-                },
+                apiOptions,
             );
 
             // Act
@@ -581,14 +575,7 @@ describe("Interactive Graph", function () {
                     .build();
             const {container} = renderQuestion(
                 lockedPointWithAriaLabelQuestion,
-                {
-                    flags: {
-                        mafs: {
-                            segment: true,
-                            "locked-figures-aria": true,
-                        },
-                    },
-                },
+                apiOptions,
             );
 
             // Act
@@ -604,13 +591,10 @@ describe("Interactive Graph", function () {
             const simpleLockedPointQuestion = interactiveGraphQuestionBuilder()
                 .addLockedPointAt(0, 0)
                 .build();
-            const {container} = renderQuestion(simpleLockedPointQuestion, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                simpleLockedPointQuestion,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -622,13 +606,10 @@ describe("Interactive Graph", function () {
 
         it("should render locked lines", () => {
             // Arrange
-            const {container} = renderQuestion(segmentWithLockedLineQuestion, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                segmentWithLockedLineQuestion,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -643,13 +624,10 @@ describe("Interactive Graph", function () {
 
         it("should render locked lines with styles", () => {
             // Arrange
-            const {container} = renderQuestion(segmentWithLockedLineQuestion, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                segmentWithLockedLineQuestion,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -666,13 +644,10 @@ describe("Interactive Graph", function () {
 
         it("should render locked lines with shown points", async () => {
             // Arrange
-            const {container} = renderQuestion(segmentWithLockedLineQuestion, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                segmentWithLockedLineQuestion,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -717,14 +692,7 @@ describe("Interactive Graph", function () {
                     .build();
             const {container} = renderQuestion(
                 lockedLineWithAriaLabelQuestion,
-                {
-                    flags: {
-                        mafs: {
-                            segment: true,
-                            "locked-figures-aria": true,
-                        },
-                    },
-                },
+                apiOptions,
             );
 
             // Act
@@ -740,13 +708,10 @@ describe("Interactive Graph", function () {
             const simpleLockedLinequestion = interactiveGraphQuestionBuilder()
                 .addLockedLine([0, 0], [2, 2])
                 .build();
-            const {container} = renderQuestion(simpleLockedLinequestion, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                simpleLockedLinequestion,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -758,13 +723,10 @@ describe("Interactive Graph", function () {
 
         it("should render locked vectors", async () => {
             // Arrange
-            const {container} = renderQuestion(segmentWithLockedVectors, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                segmentWithLockedVectors,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -816,14 +778,7 @@ describe("Interactive Graph", function () {
                     .build();
             const {container} = renderQuestion(
                 lockedVectorWithAriaLabelQuestion,
-                {
-                    flags: {
-                        mafs: {
-                            segment: true,
-                            "locked-figures-aria": true,
-                        },
-                    },
-                },
+                apiOptions,
             );
 
             // Act
@@ -839,13 +794,10 @@ describe("Interactive Graph", function () {
             const simpleLockedVectorquestion = interactiveGraphQuestionBuilder()
                 .addLockedVector([0, 0], [2, 2])
                 .build();
-            const {container} = renderQuestion(simpleLockedVectorquestion, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                simpleLockedVectorquestion,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -857,13 +809,10 @@ describe("Interactive Graph", function () {
 
         it("should render locked ellipses", async () => {
             // Arrange
-            const {container} = renderQuestion(segmentWithLockedEllipses, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                segmentWithLockedEllipses,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -887,13 +836,10 @@ describe("Interactive Graph", function () {
 
         it("should render locked ellipses with white fill", async () => {
             // Arrange
-            const {container} = renderQuestion(segmentWithLockedEllipseWhite, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                segmentWithLockedEllipseWhite,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -924,14 +870,7 @@ describe("Interactive Graph", function () {
                     .build();
             const {container} = renderQuestion(
                 lockedEllipseWithAriaLabelQuestion,
-                {
-                    flags: {
-                        mafs: {
-                            segment: true,
-                            "locked-figures-aria": true,
-                        },
-                    },
-                },
+                apiOptions,
             );
 
             // Act
@@ -948,13 +887,10 @@ describe("Interactive Graph", function () {
                 interactiveGraphQuestionBuilder()
                     .addLockedEllipse([0, 0], [2, 2])
                     .build();
-            const {container} = renderQuestion(simpleLockedEllipsequestion, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                simpleLockedEllipsequestion,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -966,13 +902,10 @@ describe("Interactive Graph", function () {
 
         it("should render locked polygons with style", async () => {
             // Arrange
-            const {container} = renderQuestion(segmentWithLockedPolygons, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                segmentWithLockedPolygons,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -998,13 +931,10 @@ describe("Interactive Graph", function () {
 
         it("should render locked polygons with white fill", async () => {
             // Arrange
-            const {container} = renderQuestion(segmentWithLockedPolygonWhite, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                segmentWithLockedPolygonWhite,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1029,13 +959,10 @@ describe("Interactive Graph", function () {
 
         it("should render vertices of locked polygons with showVertices", async () => {
             // Arrange
-            const {container} = renderQuestion(segmentWithLockedPolygons, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                segmentWithLockedPolygons,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1106,14 +1033,7 @@ describe("Interactive Graph", function () {
                     .build();
             const {container} = renderQuestion(
                 lockedPolygonWithAriaLabelQuestion,
-                {
-                    flags: {
-                        mafs: {
-                            segment: true,
-                            "locked-figures-aria": true,
-                        },
-                    },
-                },
+                apiOptions,
             );
 
             // Act
@@ -1134,13 +1054,10 @@ describe("Interactive Graph", function () {
                         [1, 1],
                     ])
                     .build();
-            const {container} = renderQuestion(simpleLockedPolygonQuestion, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                simpleLockedPolygonQuestion,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1157,13 +1074,7 @@ describe("Interactive Graph", function () {
                     color: "green",
                     strokeStyle: "dashed",
                 }),
-                {
-                    flags: {
-                        mafs: {
-                            segment: true,
-                        },
-                    },
-                },
+                apiOptions,
             );
 
             // Act
@@ -1229,14 +1140,7 @@ describe("Interactive Graph", function () {
                     .build();
             const {container} = renderQuestion(
                 lockedFunctionWithAriaLabelQuestion,
-                {
-                    flags: {
-                        mafs: {
-                            segment: true,
-                            "locked-figures-aria": true,
-                        },
-                    },
-                },
+                apiOptions,
             );
 
             // Act
@@ -1253,13 +1157,10 @@ describe("Interactive Graph", function () {
                 interactiveGraphQuestionBuilder()
                     .addLockedFunction("x^2")
                     .build();
-            const {container} = renderQuestion(simpleLockedFunctionquestion, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                simpleLockedFunctionquestion,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1271,13 +1172,10 @@ describe("Interactive Graph", function () {
 
         it("should render locked labels", async () => {
             // Arrange
-            const {container} = renderQuestion(segmentWithLockedLabels, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                segmentWithLockedLabels,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1494,13 +1392,10 @@ describe("Interactive Graph", function () {
 
         it("should have an aria-label and description if they are provided", async () => {
             // Arrange
-            const {container} = renderQuestion(interactiveGraphWithAriaLabel, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(
+                interactiveGraphWithAriaLabel,
+                apiOptions,
+            );
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1516,13 +1411,7 @@ describe("Interactive Graph", function () {
 
         it("should not have an aria-label or description if they are not provided", async () => {
             // Arrange
-            const {container} = renderQuestion(segmentQuestion, {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            });
+            const {container} = renderQuestion(segmentQuestion, apiOptions);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access

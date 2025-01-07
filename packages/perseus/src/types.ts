@@ -210,12 +210,6 @@ export const MafsGraphTypeFlags = [
 
 export const InteractiveGraphLockedFeaturesFlags = [
     /**
-     * Enables/disables the aria labels associated with specific locked
-     * figures in the updated Interactive Graph widget.
-     */
-    "locked-figures-aria",
-
-    /**
      * Enables/disables the labels associated with locked points in the
      * updated Interactive Graph widget.
      */
