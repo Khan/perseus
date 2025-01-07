@@ -181,6 +181,9 @@ class InputWithExamples extends React.Component<Props, State> {
         const showExamples =
             this.props.shouldShowExamples && this.state.showExamples;
 
+        console.log("example strings: ", this.context.strings);
+        console.log("example content: ", examplesContent);
+
         return (
             <Tooltip
                 className="perseus-formats-tooltip preview-measure"
