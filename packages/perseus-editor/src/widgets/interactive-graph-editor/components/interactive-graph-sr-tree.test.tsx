@@ -18,7 +18,7 @@ describe("fetchAriaLabels", () => {
 
     test("should return an array of labels", () => {
         // Arrange
-        const container = render(
+        const {container} = render(
             <div>
                 <div aria-label="label1" />
                 <div aria-label="label2" />
@@ -26,7 +26,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container.container);
+        const result = fetchAriaLabels(container);
 
         // Assert
         expect(result).toEqual([
@@ -43,7 +43,7 @@ describe("fetchAriaLabels", () => {
 
     test("should return an array with given roles", () => {
         // Arrange
-        const container = render(
+        const {container} = render(
             <div>
                 <div role="button" aria-label="aria-label1" />
                 <div role="button" aria-label="aria-label2" />
@@ -51,7 +51,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container.container);
+        const result = fetchAriaLabels(container);
 
         // Assert
         expect(result).toEqual([
@@ -68,7 +68,7 @@ describe("fetchAriaLabels", () => {
 
     test("should return an array with descriptions", () => {
         // Arrange
-        const container = render(
+        const {container} = render(
             <div>
                 <div aria-describedby="description1">label1</div>
                 <div aria-describedby="description2">label2</div>
@@ -78,7 +78,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container.container);
+        const result = fetchAriaLabels(container);
 
         // Assert
         expect(result).toEqual([
@@ -99,7 +99,7 @@ describe("fetchAriaLabels", () => {
 
     test("should return an array for element with multiple descriptions", () => {
         // Arrange
-        const container = render(
+        const {container} = render(
             <div>
                 <div aria-describedby="description1 description2">label1</div>
                 <div id="description1">description1 content</div>
@@ -108,7 +108,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container.container);
+        const result = fetchAriaLabels(container);
 
         // Assert
         expect(result).toEqual([
@@ -124,7 +124,7 @@ describe("fetchAriaLabels", () => {
 
     test("should not include descriptions that are not found", () => {
         // Arrange
-        const container = render(
+        const {container} = render(
             <div>
                 <div aria-describedby="description1 description2">label1</div>
                 <div id="description1">description1 content</div>
@@ -132,7 +132,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container.container);
+        const result = fetchAriaLabels(container);
 
         // Assert
         expect(result).toEqual([
@@ -147,7 +147,7 @@ describe("fetchAriaLabels", () => {
 
     test("should build attributes array with a variety of attributes", () => {
         // Arrange
-        const container = render(
+        const {container} = render(
             <div>
                 <div aria-label="label-only" />
                 <div aria-describedby="description-only" />
@@ -169,7 +169,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = fetchAriaLabels(container.container);
+        const result = fetchAriaLabels(container);
 
         // Assert
         expect(result).toEqual([
@@ -206,14 +206,14 @@ describe("fetchAriaLabels", () => {
 
     test("should not add element if descriptions are not found", () => {
         // Arrange
-        const container = render(
+        const {container} = render(
             <div>
                 <div aria-describedby="description1 description2">label1</div>
             </div>,
         );
 
         // Act
-        const result = fetchAriaLabels(container.container);
+        const result = fetchAriaLabels(container);
 
         // Assert
         expect(result).toEqual([]);
@@ -221,14 +221,14 @@ describe("fetchAriaLabels", () => {
 
     test("should not add element if aria attributes are not found", () => {
         // Arrange
-        const container = render(
+        const {container} = render(
             <div>
                 <div />
             </div>,
         );
 
         // Act
-        const result = fetchAriaLabels(container.container);
+        const result = fetchAriaLabels(container);
 
         // Assert
         expect(result).toEqual([]);
