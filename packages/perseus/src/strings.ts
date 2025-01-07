@@ -283,8 +283,8 @@ export const strings: {
         "Your answer is close, but you may " +
         "have approximated pi. Enter your " +
         "answer as a multiple of pi, like " +
-        "<code>12\\\\ \\\\text{pi}</code> or " +
-        "<code>2/3\\\\ \\\\text{pi}</code>",
+        "12 pi or " +
+        "2/3 pi",
     EXTRA_SYMBOLS_ERROR:
         "We could not understand your " +
         "answer. Please check your answer for extra " +
@@ -334,8 +334,7 @@ export const strings: {
     mixedExample: "a mixed number, like $1\\\\ 3/4$",
     decimalExample: "an *exact* decimal, like $0.75$",
     percentExample: "a percent, like $12.34\\\\%$",
-    piExample:
-        "a multiple of pi, like $12\\\\ \\\\text{pi}$ or $2/3\\\\ \\\\text{pi}$",
+    piExample: "a multiple of pi, like $12$ pi or $2/3$ pi",
     yourAnswer: "**Your answer should be** ",
     yourAnswerLabel: "Your answer:",
     addPoints: "Click to add points",
