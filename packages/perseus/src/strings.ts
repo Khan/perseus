@@ -598,11 +598,14 @@ export const strings: {
             "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
     },
     srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
-    srMultipleSegmentGraphAriaLabel: "%(countOfSegments)s segments on a coordinate plane.",
+    srMultipleSegmentGraphAriaLabel:
+        "%(countOfSegments)s segments on a coordinate plane.",
     srIndividualSegmentAriaDescription:
         "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s. Segment length %(length)s units.",
-    srSingleSegmentGraphEndpointAriaLabel: "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
-    srMultipleSegmentGraphEndpointAriaLabel: "Endpoint %(endpointNumber)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
+    srSingleSegmentGraphEndpointAriaLabel:
+        "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
+    srMultipleSegmentGraphEndpointAriaLabel:
+        "Endpoint %(endpointNumber)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
     // The above strings are used for interactive graph SR descriptions.
 };
 
