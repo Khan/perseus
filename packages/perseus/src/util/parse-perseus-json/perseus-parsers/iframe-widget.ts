@@ -22,7 +22,7 @@ export const parseIframeWidget: Parser<IFrameWidget> = parseWidget(
         settings: array(object({name: string, value: string})),
         width: union(number).or(string).parser,
         height: union(number).or(string).parser,
-        allowFullScreen: boolean,
+        allowFullScreen: defaulted(boolean, () => false),
         allowTopNavigation: optional(boolean),
         static: defaulted(boolean, () => false),
     }),
