@@ -334,7 +334,7 @@ export const strings: {
     mixedExample: "a mixed number, like $1\\\\ 3/4$",
     decimalExample: "an *exact* decimal, like $0.75$",
     percentExample: "a percent, like $12.34\\\\%$",
-    piExample: "a multiple of pi, like $12$ pi or $2/3$ pi$",
+    piExample: "a multiple of pi, like $12$ pi or $2/3$ pi",
     yourAnswer: "**Your answer should be** ",
     yourAnswerLabel: "Your answer:",
     addPoints: "Click to add points",
