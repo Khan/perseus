@@ -483,21 +483,9 @@ export const strings: {
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
     srAngleGraphAriaDescription:
         "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
-    srSinusoidGraphAriaLabel: {
-        context:
-            "Screenreader accessible label for a sinusoid on a coordinate plane",
-        message: "A sinusoid function on a coordinate plane.",
-    },
-    srSinusoidExtremumPoint: {
-        context:
-            "Screenreader accessible label for the extremum point (max point) on a sinusoid function.",
-        message: "Extremum Point at %(x)s comma %(y)s.",
-    },
-    srSinusoidMidlineIntersection: {
-        context:
-            "Screenreader accessible label for the midline intersection on a sinusoid function.",
-        message: "Midline Intersection at %(x)s comma %(y)s.",
-    },
+    srSinusoidGraphAriaLabel: "A sinusoid function on a coordinate plane.",
+    srSinusoidExtremumPoint: "Extremum Point at %(x)s comma %(y)s.",
+    srSinusoidMidlineIntersection: "Midline Intersection at %(x)s comma %(y)s.",
     // The above strings are used for interactive graph SR descriptions.
 };
 
