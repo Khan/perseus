@@ -29,30 +29,30 @@ export function getAccessibilityAttributes(
         // List to return with all the aria-labels and aria-descriptions.
         const elementAttributes: Array<Attribute> = [];
 
-        const attributes = element.attributes;
-        for (const attribute of attributes) {
-            if (attribute.name === "aria-label") {
-                // Add the aria-label to the front of the array so
-                // it shows up first for this element in the tree.
-                elementAttributes.unshift({
-                    name: "label",
-                    value: attribute.value,
-                });
-            }
-            if (attribute.name === "aria-describedby") {
-                // Aria-description is a space-separated list of ids.
-                // Use the ids to get the actual description strings.
-                const descriptions = attribute.value.split(" ");
-                for (const description of descriptions) {
-                    const descriptionString =
-                        document.getElementById(description)?.textContent;
+        const ariaLabel = element.getAttribute("aria-label");
+        const ariaDescribedby = element.getAttribute("aria-describedby");
 
-                    if (descriptionString) {
-                        elementAttributes.push({
-                            name: "description",
-                            value: descriptionString,
-                        });
-                    }
+        if (ariaLabel) {
+            // Add the aria-label to the front of the array so
+            // it shows up first for this element in the tree.
+            elementAttributes.unshift({
+                name: "label",
+                value: ariaLabel,
+            });
+        }
+        if (ariaDescribedby) {
+            // Aria-description is a space-separated list of ids.
+            // Use the ids to get the actual description strings.
+            const descriptions = ariaDescribedby.split(" ");
+            for (const description of descriptions) {
+                const descriptionString =
+                    document.getElementById(description)?.textContent;
+
+                if (descriptionString) {
+                    elementAttributes.push({
+                        name: "description",
+                        value: descriptionString,
+                    });
                 }
             }
         }
