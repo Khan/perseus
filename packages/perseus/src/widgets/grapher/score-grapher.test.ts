@@ -53,9 +53,6 @@ describe("scoreGrapher", () => {
         const userInput: PerseusGrapherUserInput = {
             type: "exponential",
             asymptote,
-            // TODO: either the types or logic is wrong,
-            // but the existing scoring function checks for null coords
-            // @ts-expect-error - TS(2322) - Type 'null' is not assignable to type 'readonly Coord[]'.
             coords: null,
         };
 

@@ -12,6 +12,9 @@ import type {GrapherAnswerTypes} from "@khanacademy/perseus-core";
 function getCoefficientsByType(
     data: GrapherAnswerTypes,
 ): ReadonlyArray<number> | undefined {
+    if (data.coords == null) {
+        return undefined;
+    }
     if (data.type === "exponential" || data.type === "logarithm") {
         const grader = functionForType(data.type);
         return grader.getCoefficients(data.coords, data.asymptote);
@@ -48,15 +51,6 @@ function scoreGrapher(
             type: "invalid",
             message: null,
         };
-    }
-
-    // If the correct coords are null, treat the input as invalid.
-    // This handles legacy data that contains null coords.
-    if (rubric.correct.coords == null) {
-        return {
-            type: "invalid",
-            message: null,
-        }
     }
 
     // Get new function handler for grading
