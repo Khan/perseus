@@ -129,7 +129,7 @@ describe("scoreGrapher", () => {
 
         // Assert
         expect(result).toHaveInvalidInput();
-    })
+    });
 
     it("can be answered correctly", () => {
         const coords: [Coord, Coord] = [

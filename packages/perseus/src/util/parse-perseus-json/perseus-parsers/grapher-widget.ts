@@ -11,7 +11,6 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
-import {defaulted} from "../general-purpose-parsers/defaulted";
 import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 
 import {parseWidget} from "./widget";

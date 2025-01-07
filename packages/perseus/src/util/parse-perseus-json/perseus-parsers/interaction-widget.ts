@@ -6,27 +6,28 @@ import {
     number,
     object,
     optional,
-    pair, pipeParsers,
+    pair,
+    pipeParsers,
     string,
     union,
 } from "../general-purpose-parsers";
+import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
-import type {Parser} from "../parser-types";
 import type {
     InteractionWidget,
     PerseusInteractionElement,
 } from "@khanacademy/perseus-core";
-import {convert} from "../general-purpose-parsers/convert";
+import type {Parser} from "../parser-types";
 
 const pairOfNumbers = pair(number, number);
 const stringOrEmpty = defaulted(string, () => "");
 
-const parseKey = pipeParsers(optional(string)).then(convert(String)).parser
+const parseKey = pipeParsers(optional(string)).then(convert(String)).parser;
 
 type FunctionElement = Extract<PerseusInteractionElement, {type: "function"}>;
 const parseFunctionElement: Parser<FunctionElement> = object({

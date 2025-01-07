@@ -50,8 +50,12 @@ describe("parseWidgetsMap", () => {
         };
 
         const result = parse(widgetsMap, parseWidgetsMap);
-        expect(result).toEqual(failure(`At (root)["radio 0"]["(widget key)"][1] -- expected a string representing a positive integer, but got "0"`))
-    })
+        expect(result).toEqual(
+            failure(
+                `At (root)["radio 0"]["(widget key)"][1] -- expected a string representing a positive integer, but got "0"`,
+            ),
+        );
+    });
 
     it("accepts a categorizer widget", () => {
         const widgetsMap: unknown = {
