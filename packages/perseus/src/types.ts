@@ -209,50 +209,6 @@ export const MafsGraphTypeFlags = [
     "none",
 ] as const;
 
-export const InteractiveGraphLockedFeaturesFlags = [
-    /**
-     * Enables/Disables locked features in the new Mafs interactive-graph
-     * widget (locked labels).
-     */
-    "interactive-graph-locked-features-labels",
-    /**
-     * Enables/disables the aria labels associated with specific locked
-     * figures in the updated Interactive Graph widget.
-     */
-    "locked-figures-aria",
-
-    /**
-     * Enables/disables the labels associated with locked points in the
-     * updated Interactive Graph widget.
-     */
-    "locked-point-labels",
-    /**
-     * Enables/disables the labels associated with locked lines in the
-     * updated Interactive Graph widget.
-     */
-    "locked-line-labels",
-    /**
-     * enables/disables the labels associated with locked vectors in the
-     * updated Interactive Graph widget.
-     */
-    "locked-vector-labels",
-    /**
-     * Enables/disables the labels associated with locked ellipses in the
-     * updated Interactive Graph widget.
-     */
-    "locked-ellipse-labels",
-    /**
-     * Enables/disables the labels associated with locked polygons in the
-     * updated Interactive Graph widget.
-     */
-    "locked-polygon-labels",
-    /**
-     * Enables/disables the labels associated with locked functions in the
-     * updated Interactive Graph widget.
-     */
-    "locked-function-labels",
-] as const;
-
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
@@ -382,11 +338,7 @@ export type APIOptions = Readonly<{
          *
          * Add values to the relevant array to create new flags.
          */
-        mafs?:
-            | false
-            | ({[Key in (typeof MafsGraphTypeFlags)[number]]?: boolean} & {
-                  [Key in (typeof InteractiveGraphLockedFeaturesFlags)[number]]?: boolean;
-              });
+        mafs?: false | {[Key in (typeof MafsGraphTypeFlags)[number]]?: boolean};
     };
     /**
      * This is a callback function that returns all of the Widget props
