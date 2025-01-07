@@ -1615,10 +1615,12 @@ export type PerseusCSProgramWidgetOptions = {
     showEditor: boolean;
     // Whether to show the execute buttons
     showButtons: boolean;
+    // TODO(benchristel): width is not used. Delete it?
     // The width of the widget
     width: number;
     // The height of the widget
     height: number;
+    // TODO(benchristel): static is not used. Delete it?
     // Always false
     static: boolean;
 };
