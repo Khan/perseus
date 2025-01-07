@@ -53,7 +53,6 @@ export type Props = LockedLineType &
 
 const LockedLineSettings = (props: Props) => {
     const {
-        flags,
         kind,
         points,
         color: lineColor,
@@ -247,7 +246,6 @@ const LockedLineSettings = (props: Props) => {
 
             {/* Defining points settings */}
             <LockedPointSettings
-                flags={flags}
                 headerLabel="Point 1"
                 expanded={true}
                 showPoint={showPoint1}
@@ -259,7 +257,6 @@ const LockedLineSettings = (props: Props) => {
                 onChangeProps={(newProps) => handleChangePoint(newProps, 0)}
             />
             <LockedPointSettings
-                flags={flags}
                 headerLabel="Point 2"
                 expanded={true}
                 showPoint={showPoint2}
@@ -271,73 +268,64 @@ const LockedLineSettings = (props: Props) => {
                 onChangeProps={(newProps) => handleChangePoint(newProps, 1)}
             />
 
-            {flags?.["mafs"]?.["locked-figures-aria"] && (
-                <>
-                    <Strut size={spacing.small_12} />
-                    <View style={styles.horizontalRule} />
+            {/* Aria label */}
+            <Strut size={spacing.small_12} />
+            <View style={styles.horizontalRule} />
+            <LockedFigureAria
+                ariaLabel={ariaLabel}
+                getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                onChangeProps={(newProps) => {
+                    onChangeProps(newProps);
+                }}
+            />
 
-                    <LockedFigureAria
-                        ariaLabel={ariaLabel}
-                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
-                        onChangeProps={(newProps) => {
-                            onChangeProps(newProps);
-                        }}
-                    />
-                </>
-            )}
+            {/* Visible labels */}
+            <Strut size={spacing.xxxSmall_4} />
+            <View style={styles.horizontalRule} />
+            <Strut size={spacing.small_12} />
+            <LabelMedium>Visible labels</LabelMedium>
 
-            {flags?.["mafs"]?.["locked-line-labels"] && (
-                <>
-                    <Strut size={spacing.xxxSmall_4} />
-                    <View style={styles.horizontalRule} />
-                    <Strut size={spacing.small_12} />
+            {labels?.map((label, labelIndex) => (
+                <LockedLabelSettings
+                    {...label}
+                    key={labelIndex}
+                    expanded={true}
+                    onChangeProps={(newLabel) => {
+                        handleLabelChange(newLabel, labelIndex);
+                    }}
+                    onRemove={() => {
+                        handleLabelRemove(labelIndex);
+                    }}
+                    containerStyle={styles.labelContainer}
+                />
+            ))}
+            <Button
+                kind="tertiary"
+                startIcon={plusCircle}
+                onClick={() => {
+                    // Additional vertical offset for each label so
+                    // they don't overlap.
+                    const offsetPerLabel: vec.Vector2 = [0, -1];
+                    const labelLocation = vec.add(
+                        vec.scale(offsetPerLabel, labels?.length ?? 0),
+                        vec.midpoint(points[0].coord, points[1].coord),
+                    );
 
-                    <LabelMedium>Visible labels</LabelMedium>
+                    const newLabel = {
+                        ...getDefaultFigureForType("label"),
+                        coord: labelLocation,
+                        // Default to the same color as the line
+                        color: lineColor,
+                    } satisfies LockedLabelType;
 
-                    {labels?.map((label, labelIndex) => (
-                        <LockedLabelSettings
-                            {...label}
-                            key={labelIndex}
-                            expanded={true}
-                            onChangeProps={(newLabel) => {
-                                handleLabelChange(newLabel, labelIndex);
-                            }}
-                            onRemove={() => {
-                                handleLabelRemove(labelIndex);
-                            }}
-                            containerStyle={styles.labelContainer}
-                        />
-                    ))}
-
-                    <Button
-                        kind="tertiary"
-                        startIcon={plusCircle}
-                        onClick={() => {
-                            // Additional vertical offset for each label so
-                            // they don't overlap.
-                            const offsetPerLabel: vec.Vector2 = [0, -1];
-                            const labelLocation = vec.add(
-                                vec.scale(offsetPerLabel, labels?.length ?? 0),
-                                vec.midpoint(points[0].coord, points[1].coord),
-                            );
-
-                            const newLabel = {
-                                ...getDefaultFigureForType("label"),
-                                coord: labelLocation,
-                                // Default to the same color as the line
-                                color: lineColor,
-                            } satisfies LockedLabelType;
-
-                            onChangeProps({
-                                labels: [...(labels ?? []), newLabel],
-                            });
-                        }}
-                        style={styles.addButton}
-                    >
-                        Add visible label
-                    </Button>
-                </>
-            )}
+                    onChangeProps({
+                        labels: [...(labels ?? []), newLabel],
+                    });
+                }}
+                style={styles.addButton}
+            >
+                Add visible label
+            </Button>
 
             {/* Actions */}
             <LockedFigureSettingsActions

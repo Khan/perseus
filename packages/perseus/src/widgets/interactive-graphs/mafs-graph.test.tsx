@@ -569,7 +569,7 @@ describe("MafsGraph", () => {
             "angle-description",
         );
         expect(angleGraph).toHaveTextContent(
-            "The angle measure is 270 degrees with a vertex at 0 comma 0, a point on the initial side at 1 comma 1 and a point on the terminal side at -1 comma 1.",
+            "The angle measure is 270 degrees with a vertex at 0 comma 0, a point on the starting side at 1 comma 1 and a point on the ending side at -1 comma 1.",
         );
     });
 
