@@ -595,33 +595,12 @@ export const strings: {
         message:
             "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the initial side at %(isX)s comma %(isY)s and a point on the terminal side at %(tsX)s comma %(tsY)s",
     },
-    srSingleSegmentGraphAriaLabel: {
-        context:
-            "Screenreader-accessible description of a line segment on a coordinate plane.",
-        message: "A line segment on a coordinate plane.",
-    },
-    srMultipleSegmentGraphAriaLabel: {
-        context:
-            "Screenreader accessible description of multiple line segments on a coordinate plane.",
-        message: "%(countOfSegments)s segments on a coordinate plane.",
-    },
-    srIndividualSegmentAriaDescription: {
-        context:
-            "Screenreader-only description of a line segment on a coordinate plane.",
-        message:
-            "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s. Segment length %(length)s units.",
-    },
-    srSingleSegmentGraphEndpointAriaLabel: {
-        context:
-            "Screenreader-accessible label for an endpoint of a line segment on a coordinate plane.",
-        message: "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
-    },
-    srMultipleSegmentGraphEndpointAriaLabel: {
-        context:
-            "Screenreader-accessible label for an endpoint of a line segment on a coordinate plane.",
-        message:
-            "Endpoint %(endpointNumber)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
-    },
+    srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
+    srMultipleSegmentGraphAriaLabel: "%(countOfSegments)s segments on a coordinate plane.",
+    srIndividualSegmentAriaDescription:
+        "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s. Segment length %(length)s units.",
+    srSingleSegmentGraphEndpointAriaLabel: "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
+    srMultipleSegmentGraphEndpointAriaLabel: "Endpoint %(endpointNumber)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
     // The above strings are used for interactive graph SR descriptions.
 };
 
