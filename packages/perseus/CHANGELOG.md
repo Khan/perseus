@@ -1,5 +1,91 @@
 # @khanacademy/perseus
 
+## 49.2.0
+
+### Minor Changes
+
+-   [#1990](https://github.com/Khan/perseus/pull/1990) [`37c642f24`](https://github.com/Khan/perseus/commit/37c642f24e645db954895510ba40bede94e09889) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Allow keyboards to navigate and interact with images
+
+*   [#1738](https://github.com/Khan/perseus/pull/1738) [`dbbc82f2d`](https://github.com/Khan/perseus/commit/dbbc82f2dd33545b12c6073174b05ebcf8d551ba) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - add scientific notation button / toggle to basic keypad
+
+### Patch Changes
+
+-   [#2061](https://github.com/Khan/perseus/pull/2061) [`d8b2f7eaf`](https://github.com/Khan/perseus/commit/d8b2f7eaff83062516ad1e273c17fd6579716265) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - update terminology for angle sides
+
+*   [#2071](https://github.com/Khan/perseus/pull/2071) [`bac10129b`](https://github.com/Khan/perseus/commit/bac10129b523d61904a88ef3c7dbfcad2bd18750) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - This patch fixes our Perseus strings to ensure that they are double escaped for Lingui.
+
+-   [#1952](https://github.com/Khan/perseus/pull/1952) [`617377147`](https://github.com/Khan/perseus/commit/61737714796dfb8434fc139471d1add3c18853b3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add and pass more regression tests for PerseusItem parser
+
+*   [#2059](https://github.com/Khan/perseus/pull/2059) [`53ba9f5d1`](https://github.com/Khan/perseus/commit/53ba9f5d136f817257188ccf2696a8b91896ba72) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Dropdown] Bugfix - Text in dropdown was shifted up after adding TeX support via Renderer
+
+*   Updated dependencies [[`dbbc82f2d`](https://github.com/Khan/perseus/commit/dbbc82f2dd33545b12c6073174b05ebcf8d551ba)]:
+    -   @khanacademy/math-input@22.1.0
+
+## 49.1.7
+
+### Patch Changes
+
+-   [#2054](https://github.com/Khan/perseus/pull/2054) [`f23b383e7`](https://github.com/Khan/perseus/commit/f23b383e797a522ddee064c79e582467dfc08f94) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Dropdown] Bugfix - Render options and placeholder inline
+
+## 49.1.6
+
+### Patch Changes
+
+-   Updated dependencies [[`9c17ab518`](https://github.com/Khan/perseus/commit/9c17ab5188052bb0f42de615e48af1a7439f2770)]:
+    -   @khanacademy/kmath@0.1.24
+
+## 49.1.5
+
+### Patch Changes
+
+-   Updated dependencies [[`4345801bf`](https://github.com/Khan/perseus/commit/4345801bfc09942e0d6dc0459d1e4d53c4f57561)]:
+    -   @khanacademy/keypad-context@1.0.12
+    -   @khanacademy/math-input@22.0.7
+
+## 49.1.4
+
+### Patch Changes
+
+-   [#2045](https://github.com/Khan/perseus/pull/2045) [`57f9056f8`](https://github.com/Khan/perseus/commit/57f9056f82775e80a15d9097a8d85df4bc37343a) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Version bump to verify release protections
+
+## 49.1.3
+
+### Patch Changes
+
+-   [#2040](https://github.com/Khan/perseus/pull/2040) [`1496a7a93`](https://github.com/Khan/perseus/commit/1496a7a93ef691c8e34da309c10cb77d35627bf3) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Bump versions to fix release
+
+-   Updated dependencies [[`1496a7a93`](https://github.com/Khan/perseus/commit/1496a7a93ef691c8e34da309c10cb77d35627bf3)]:
+    -   @khanacademy/kas@0.4.9
+    -   @khanacademy/keypad-context@1.0.11
+    -   @khanacademy/kmath@0.1.23
+    -   @khanacademy/math-input@22.0.6
+    -   @khanacademy/perseus-core@3.0.5
+    -   @khanacademy/perseus-linter@1.2.11
+    -   @khanacademy/pure-markdown@0.3.20
+    -   @khanacademy/simple-markdown@0.13.13
+
+## 49.1.2
+
+### Patch Changes
+
+-   [#2034](https://github.com/Khan/perseus/pull/2034) [`8e9b2395d`](https://github.com/Khan/perseus/commit/8e9b2395d733b9831b3eefc064e9077341c145f5) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removing final usage of createReactClass.
+
+*   [#2025](https://github.com/Khan/perseus/pull/2025) [`b52310d1b`](https://github.com/Khan/perseus/commit/b52310d1bacd5c4e9844bb9094edc02307106af3) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Linear graph - add grab handle description and aria lives
+
+-   [#2037](https://github.com/Khan/perseus/pull/2037) [`b80e7882b`](https://github.com/Khan/perseus/commit/b80e7882bf58f8e71cbf9482585577032c317428) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Nothing has changed, but our action requires a changeset per package and I don't know how to do an infrastructure update like this and pass that check
+
+*   [#2033](https://github.com/Khan/perseus/pull/2033) [`881c0aac3`](https://github.com/Khan/perseus/commit/881c0aac33b5425efffc4d191f6c0c031f3a9127) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][axis labels] Make default x & y axis labels TeX on load
+
+*   Updated dependencies [[`b80e7882b`](https://github.com/Khan/perseus/commit/b80e7882bf58f8e71cbf9482585577032c317428)]:
+    -   @khanacademy/kas@0.4.8
+    -   @khanacademy/keypad-context@1.0.10
+    -   @khanacademy/kmath@0.1.22
+    -   @khanacademy/math-input@22.0.5
+    -   @khanacademy/perseus-core@3.0.4
+    -   @khanacademy/perseus-linter@1.2.10
+    -   @khanacademy/pure-markdown@0.3.19
+    -   @khanacademy/simple-markdown@0.13.12
+
 ## 49.1.1
 
 ### Patch Changes

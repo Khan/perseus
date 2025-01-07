@@ -217,6 +217,23 @@ describe("expression-editor", () => {
         });
     });
 
+    it("should toggle scientific checkbox", async () => {
+        const onChangeMock = jest.fn();
+
+        render(<ExpressionEditor onChange={onChangeMock} />);
+        act(() => jest.runOnlyPendingTimers());
+
+        await userEvent.click(
+            screen.getByRole("checkbox", {
+                name: "scientific",
+            }),
+        );
+
+        expect(onChangeMock).toBeCalledWith({
+            buttonSets: ["basic", "scientific"],
+        });
+    });
+
     it("should be possible to add an answer", async () => {
         const onChangeMock = jest.fn();
 
@@ -235,7 +252,7 @@ describe("expression-editor", () => {
                     {
                         considered: "correct",
                         form: false,
-                        key: 0,
+                        key: "0",
                         simplify: false,
                         value: "",
                     },

@@ -245,18 +245,18 @@ export type PerseusStrings = {
         angleMeasure,
         vertexX,
         vertexY,
-        isX,
-        isY,
-        tsX,
-        tsY,
+        startingSideX,
+        startingSideY,
+        endingSideX,
+        endingSideY,
     }: {
         angleMeasure: string;
         vertexX: string;
         vertexY: string;
-        isX: string;
-        isY: string;
-        tsX: string;
-        tsY: string;
+        startingSideX: string;
+        startingSideY: string;
+        endingSideX: string;
+        endingSideY: string;
     }) => string;
     srSingleSegmentGraphAriaLabel: string;
     srMultipleSegmentGraphAriaLabel: ({
@@ -305,6 +305,7 @@ export type PerseusStrings = {
 /**
  * Untranslated strings used in Perseus. To be used by an external
  * translator to produce translated strings, passed in as `PerseusStrings`.
+ * !! Note: Ensure that all escape sequences are double-escaped. (e.g. `\\text` -> `\\\\text`)
  */
 export const strings: {
     [key in keyof PerseusStrings]:
@@ -323,8 +324,8 @@ export const strings: {
         "Your answer is close, but you may " +
         "have approximated pi. Enter your " +
         "answer as a multiple of pi, like " +
-        "<code>12\\ \\text{pi}</code> or " +
-        "<code>2/3\\ \\text{pi}</code>",
+        "<code>12\\\\ \\\\text{pi}</code> or " +
+        "<code>2/3\\\\ \\\\text{pi}</code>",
     EXTRA_SYMBOLS_ERROR:
         "We could not understand your " +
         "answer. Please check your answer for extra " +
@@ -334,7 +335,7 @@ export const strings: {
     MISSING_PERCENT_ERROR:
         "Your answer is almost correct, " +
         "but it is missing a " +
-        "<code>\\%</code> at the end.",
+        "<code>\\\\%</code> at the end.",
     MULTIPLICATION_SIGN_ERROR:
         "I'm a computer. I only understand " +
         "multiplication if you use an asterisk " +
@@ -371,10 +372,11 @@ export const strings: {
     simplifiedProperExample: "a *simplified proper* fraction, like $3/5$",
     improperExample: "an *improper* fraction, like $10/7$ or $14/8$",
     simplifiedImproperExample: "a *simplified improper* fraction, like $7/4$",
-    mixedExample: "a mixed number, like $1\\ 3/4$",
+    mixedExample: "a mixed number, like $1\\\\ 3/4$",
     decimalExample: "an *exact* decimal, like $0.75$",
-    percentExample: "a percent, like $12.34\\%$",
-    piExample: "a multiple of pi, like $12\\ \\text{pi}$ or $2/3\\ \\text{pi}$",
+    percentExample: "a percent, like $12.34\\\\%$",
+    piExample:
+        "a multiple of pi, like $12\\\\ \\\\text{pi}$ or $2/3\\\\ \\\\text{pi}$",
     yourAnswer: "**Your answer should be** ",
     yourAnswerLabel: "Your answer:",
     addPoints: "Click to add points",
@@ -586,14 +588,14 @@ export const strings: {
     },
     srAngleGraphAriaLabel: {
         context:
-            "Screenreader-accessible label for an angle on a coordinate plane.",
+            "Screenreader-accessible label of an angle graph on a coordinate plane",
         message: "An angle on a coordinate plane.",
     },
     srAngleGraphAriaDescription: {
         context:
             "Screenreader-only description of an angle on a coordinate plane.",
         message:
-            "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the initial side at %(isX)s comma %(isY)s and a point on the terminal side at %(tsX)s comma %(tsY)s",
+            "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
     },
     srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
     srMultipleSegmentGraphAriaLabel: "%(countOfSegments)s segments on a coordinate plane.",
@@ -812,12 +814,12 @@ export const mockStrings: PerseusStrings = {
         angleMeasure,
         vertexX,
         vertexY,
-        isX,
-        isY,
-        tsX,
-        tsY,
+        startingSideX,
+        startingSideY,
+        endingSideX,
+        endingSideY,
     }) =>
-        `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the initial side at ${isX} comma ${isY} and a point on the terminal side at ${tsX} comma ${tsY}.`,
+        `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the starting side at ${startingSideX} comma ${startingSideY} and a point on the ending side at ${endingSideX} comma ${endingSideY}.`,
     srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
     srMultipleSegmentGraphAriaLabel: ({countOfSegments}) =>
         `${countOfSegments} segments on a coordinate plane.`,

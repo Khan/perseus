@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-[Interactive Graph][axis labels] Make default x & y axis labels TeX on load
+Remove the locked-[figureName]-labels flags
