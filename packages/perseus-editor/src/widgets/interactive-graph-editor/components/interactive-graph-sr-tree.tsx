@@ -83,11 +83,11 @@ function SRTree(props: Props) {
     // followed by an unordered list of its aria attributes.
     return (
         <ol style={{listStyle: "revert", marginLeft: 8}}>
-            {elementArias.map((ariaString, index) => (
+            {elementArias.map((aria, index) => (
                 <li key={index}>
-                    {ariaString.role}
+                    {aria.role}
                     <ul style={{listStyle: "revert", marginLeft: 8}}>
-                        {ariaString.attributes.map((value, index) => (
+                        {aria.attributes.map((value, index) => (
                             <li key={index}>
                                 <Pill
                                     size="small"
