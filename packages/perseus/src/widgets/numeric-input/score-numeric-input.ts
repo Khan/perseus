@@ -111,10 +111,7 @@ function scoreNumericInput(
 
     const normalizedAnswerExpected = scoringData.answers
         .filter((answer) => answer.status === "correct")
-        .every(
-            (answer) =>
-                answer.value !== undefined && Math.abs(answer.value) <= 1,
-        );
+        .every((answer) => answer.value != null && Math.abs(answer.value) <= 1);
 
     // The coefficient is an attribute of the widget
     let localValue: string | number = currentValue;

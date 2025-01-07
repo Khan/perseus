@@ -315,6 +315,10 @@ describe("scoreNumericInput", () => {
     });
 
     it("rejects responses formatted as a percentage when any answer has no value field", () => {
+        // NOTE(benchristel): this is a characterization test for existing
+        // behavior. Ideally, answers should always have a value field, but
+        // some don't, so this test documents how we handle that.
+        // TODO(benchristel): Fix the data so we can remove this test.
         const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
@@ -341,6 +345,43 @@ describe("scoreNumericInput", () => {
         const score = scoreNumericInput(
             {currentValue: "50%"},
             scoringData,
+            mockStrings,
+        );
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("rejects responses formatted as a percentage when any answer has a null value", () => {
+        // NOTE(benchristel): this is a characterization test for existing
+        // behavior. Ideally, answers should always have a value field, but
+        // some don't, so this test documents how we handle that.
+        // TODO(benchristel): Fix the data so we can remove this test.
+        const rubric: PerseusNumericInputScoringData = {
+            answers: [
+                {
+                    value: null,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+                {
+                    // This is the actual correct answer
+                    value: 0.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const score = scoreNumericInput(
+            {currentValue: "50%"},
+            rubric,
             mockStrings,
         );
 

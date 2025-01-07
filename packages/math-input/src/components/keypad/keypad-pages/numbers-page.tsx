@@ -8,10 +8,10 @@ import type {ClickKeyCallback} from "../../../types";
 
 type Props = {
     onClickKey: ClickKeyCallback;
+    scientific?: boolean;
 };
 
-export default function NumbersPage(props: Props) {
-    const {onClickKey} = props;
+export default function NumbersPage({onClickKey, scientific}: Props) {
     const {strings} = useMathInputI18n();
     const Keys = KeyConfigs(strings);
     // These keys are arranged sequentially so that tabbing follows numerical order. This
@@ -92,6 +92,14 @@ export default function NumbersPage(props: Props) {
                 coord={[3, 0]}
                 secondary
             />
+            {scientific && (
+                <KeypadButton
+                    keyConfig={Keys.EXP}
+                    onClickKey={onClickKey}
+                    coord={[3, 2]}
+                    secondary
+                />
+            )}
         </>
     );
 }

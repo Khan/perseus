@@ -183,6 +183,8 @@ const parseWidgetsMapEntry: (
             // sequence is a deprecated widget type, and the corresponding
             // widget component no longer exists.
             return parseAndAssign(`sequence ${id}`, parseDeprecatedWidget);
+        case "lights-puzzle":
+            return parseAndAssign(`lights-puzzle ${id}`, parseDeprecatedWidget);
 
         default:
             if (getWidget(type)) {
