@@ -283,8 +283,8 @@ export const strings: {
         "Your answer is close, but you may " +
         "have approximated pi. Enter your " +
         "answer as a multiple of pi, like " +
-        "$12$ pi or " +
-        "$2/3$ pi",
+        "12 pi or " +
+        "2/3 pi",
     EXTRA_SYMBOLS_ERROR:
         "We could not understand your " +
         "answer. Please check your answer for extra " +
