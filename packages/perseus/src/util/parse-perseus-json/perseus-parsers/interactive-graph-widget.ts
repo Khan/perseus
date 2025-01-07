@@ -213,8 +213,8 @@ const parseLockedLineType: Parser<LockedLineType> = object({
     points: pair(parseLockedPointType, parseLockedPointType),
     color: parseLockedFigureColor,
     lineStyle: parseLockedLineStyle,
-    showPoint1: boolean,
-    showPoint2: boolean,
+    showPoint1: defaulted(boolean, () => false),
+    showPoint2: defaulted(boolean, () => false),
     // TODO(benchristel): default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),
