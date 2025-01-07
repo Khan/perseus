@@ -43,7 +43,7 @@ export function getAccessibilityAttributes(
         if (ariaDescribedby) {
             // Aria-description is a space-separated list of ids.
             // Use the ids to get the actual description strings.
-            const descriptions = ariaDescribedby.split(" ");
+            const descriptions = ariaDescribedby.split(/ +/);
             for (const description of descriptions) {
                 const descriptionString =
                     document.getElementById(description)?.textContent;

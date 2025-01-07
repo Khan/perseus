@@ -122,6 +122,33 @@ describe("fetchAriaLabels", () => {
         ]);
     });
 
+    test("should return an array for element with multiple descriptions with multiple spaces", () => {
+        // Arrange
+        const {container} = render(
+            <div>
+                <div aria-describedby="description1     description2">
+                    label1
+                </div>
+                <div id="description1">description1 content</div>
+                <div id="description2">description2 content</div>
+            </div>,
+        );
+
+        // Act
+        const result = getAccessibilityAttributes(container);
+
+        // Assert
+        expect(result).toEqual([
+            {
+                role: "div",
+                attributes: [
+                    {name: "description", value: "description1 content"},
+                    {name: "description", value: "description2 content"},
+                ],
+            },
+        ]);
+    });
+
     test("should not include descriptions that are not found", () => {
         // Arrange
         const {container} = render(
