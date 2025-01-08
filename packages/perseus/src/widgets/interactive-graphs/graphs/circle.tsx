@@ -31,7 +31,9 @@ export function renderCircleGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <CircleGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: CircleGraphDescription({state}),
+        interactiveElementsDescription: (
+            <CircleGraphDescription state={state} />
+        ),
     };
 }
 
