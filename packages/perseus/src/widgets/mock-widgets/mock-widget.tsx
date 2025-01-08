@@ -34,6 +34,8 @@ type Props = ExternalProps & {
  * functionality of a particular widget, such as testing the rendering components.
  * This allows us to more easily update our widget schemas without needing to
  * update many different irrelevant tests across our codebases.
+ *
+ * You can register this widget for your tests by calling `registerWidget("mock-widget", MockWidget);`
  */
 export class MockWidget extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
