@@ -22,6 +22,7 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
@@ -67,7 +68,13 @@ const LockedEllipseSettings = (props: Props) => {
      * with the math details converted into spoken words.
      */
     async function getPrepopulatedAriaLabel() {
+        // Ensure negative values are read correctly within aria labels.
         const visiblelabel = await joinLabelsAsSpokenMath(labels);
+        const spokenCenterX = await generateSpokenMathDetails(`$${center[0]}$`);
+        const spokenCenterY = await generateSpokenMathDetails(`$${center[1]}$`);
+        const spokenRotation = await generateSpokenMathDetails(
+            `$${radianToDegree(angle)}$`,
+        );
 
         const isCircle = radius[0] === radius[1];
         let str = "";
@@ -78,10 +85,10 @@ const LockedEllipseSettings = (props: Props) => {
             str += `Ellipse${visiblelabel} with x radius ${radius[0]} and y radius ${radius[1]}`;
         }
 
-        str += `, centered at ${center[0]} comma ${center[1]}`;
+        str += `, centered at ${spokenCenterX} comma ${spokenCenterY}`;
 
         if (!isCircle && angle !== 0) {
-            str += `, rotated by ${radianToDegree(angle)} degrees`;
+            str += `, rotated by ${spokenRotation} degrees`;
         }
 
         const ellipseAppearance = generateLockedFigureAppearanceDescription(
