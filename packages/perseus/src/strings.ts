@@ -517,24 +517,12 @@ export const strings: {
     srAngleGraphAriaDescription:
         "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
     srLinearSystemGraph: "Two lines on a coordinate plane.",
-    srLinearSystemPoints: {
-        context:
-            "Additional information about the points for a specific line within the linear system graph.",
-        message:
-            "Line %(lineSequence)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
-    },
-    srLinearSystemPoint: {
-        context:
-            "Screenreader-accessible description of a point on a line within a linear system graph.",
-        message:
-            "Point %(pointSequence)s on line %(lineSequence)s at %(x)s comma %(y)s.",
-    },
-    srLinearSystemGrabHandle: {
-        context:
-            "Screenreader-only label on the grab handle for a line within a linear system graph.",
-        message:
-            "Line %(lineSequence)s from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
-    },
+    srLinearSystemPoints:
+        "Line %(lineSequence)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+    srLinearSystemPoint:
+        "Point %(pointSequence)s on line %(lineSequence)s at %(x)s comma %(y)s.",
+    srLinearSystemGrabHandle:
+        "Line %(lineSequence)s from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
     // The above strings are used for interactive graph SR descriptions.
 };
 
