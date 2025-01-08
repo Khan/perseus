@@ -1,5 +1,18 @@
 # @khanacademy/perseus-editor
 
+## 17.1.1
+
+### Patch Changes
+
+-   [#2064](https://github.com/Khan/perseus/pull/2064) [`55b4615d3`](https://github.com/Khan/perseus/commit/55b4615d3297884d90e6ef4640f7202066334b0d) Thanks [@nishasy](https://github.com/nishasy)! - Remove the locked-figures-aria flag
+
+*   [#2063](https://github.com/Khan/perseus/pull/2063) [`85a5b5e44`](https://github.com/Khan/perseus/commit/85a5b5e4408b19a598107468d7cb0bd10e33b6be) Thanks [@nishasy](https://github.com/nishasy)! - Remove the interactive-graph-locked-features-labels flag
+
+-   [#2065](https://github.com/Khan/perseus/pull/2065) [`eefcf5c5c`](https://github.com/Khan/perseus/commit/eefcf5c5c434455295e17bf4cb411d029f24fe49) Thanks [@nishasy](https://github.com/nishasy)! - Remove the locked-[figureName]-labels flags
+
+-   Updated dependencies [[`55b4615d3`](https://github.com/Khan/perseus/commit/55b4615d3297884d90e6ef4640f7202066334b0d), [`85a5b5e44`](https://github.com/Khan/perseus/commit/85a5b5e4408b19a598107468d7cb0bd10e33b6be), [`781cc7df6`](https://github.com/Khan/perseus/commit/781cc7df65a80e03d3cb809ccf585cb6cf25556e), [`eefcf5c5c`](https://github.com/Khan/perseus/commit/eefcf5c5c434455295e17bf4cb411d029f24fe49), [`265a93104`](https://github.com/Khan/perseus/commit/265a9310486e5c1524af9b502619db9de2f7c01d), [`4bf4960d4`](https://github.com/Khan/perseus/commit/4bf4960d4d88abf9fe07803f1364678a29a20f6e), [`c9a28b34c`](https://github.com/Khan/perseus/commit/c9a28b34c66fdf25d2b0ef8fa1111a5fb97854da), [`4bf4960d4`](https://github.com/Khan/perseus/commit/4bf4960d4d88abf9fe07803f1364678a29a20f6e)]:
+    -   @khanacademy/perseus@49.2.1
+
 ## 17.1.0
 
 ### Minor Changes
