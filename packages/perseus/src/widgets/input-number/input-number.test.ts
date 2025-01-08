@@ -276,12 +276,10 @@ describe("invalid", function () {
             options,
             mockStrings,
         );
-        expect(err).toMatchInlineSnapshot(`
-            {
-              "message": "We could not understand your answer. Please check your answer for extra text or symbols.",
-              "type": "invalid",
-            }
-        `);
+        expect(err).toEqual({
+            message: "☃ EXTRA_SYMBOLS_ERROR ☃",
+            type: "invalid",
+        });
     });
 });
 

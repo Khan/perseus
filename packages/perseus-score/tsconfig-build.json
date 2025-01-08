@@ -15,6 +15,5 @@
         {"path": "../kas/tsconfig-build.json"},
         {"path": "../kmath/tsconfig-build.json"},
         {"path": "../perseus-core/tsconfig-build.json"},
-        {"path": "../perseus/tsconfig-build.json"}
     ]
 }

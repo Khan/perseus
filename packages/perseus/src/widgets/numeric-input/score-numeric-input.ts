@@ -95,18 +95,14 @@ function scoreNumericInput(
             validatorForms.push(...defaultAnswerForms);
         }
 
-        return KhanAnswerTypes.number.createValidatorFunctional(
-            stringAnswer,
-            {
-                message: answer.message,
-                simplify:
-                    answer.status === "correct" ? answer.simplify : "optional",
-                inexact: true, // TODO(merlob) backfill / delete
-                maxError: answer.maxError,
-                forms: validatorForms,
-            },
-            strings,
-        );
+        return KhanAnswerTypes.number.createValidatorFunctional(stringAnswer, {
+            message: answer.message,
+            simplify:
+                answer.status === "correct" ? answer.simplify : "optional",
+            inexact: true, // TODO(merlob) backfill / delete
+            maxError: answer.maxError,
+            forms: validatorForms,
+        });
     };
 
     // We may have received TeX; try to parse it before grading.

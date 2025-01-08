@@ -1,3 +1,13 @@
+import {
+    APPROXIMATED_PI_ERROR,
+    EXTRA_SYMBOLS_ERROR,
+    MISSING_PERCENT_ERROR,
+    NEEDS_TO_BE_SIMPLIFIED_ERROR,
+    WRONG_CASE_ERROR,
+    WRONG_LETTER_ERROR,
+    MULTIPLICATION_SIGN_ERROR,
+} from "@khanacademy/perseus-score";
+
 /**
  * The translated strings that are used to render Perseus.
  */
@@ -697,3 +707,19 @@ export const mockStrings: PerseusStrings = {
         `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the starting side at ${startingSideX} comma ${startingSideY} and a point on the ending side at ${endingSideX} comma ${endingSideY}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
+
+const errorToString = {
+    [MISSING_PERCENT_ERROR]: strings.MISSING_PERCENT_ERROR,
+    [NEEDS_TO_BE_SIMPLIFIED_ERROR]: strings.NEEDS_TO_BE_SIMPLFIED_ERROR,
+    [APPROXIMATED_PI_ERROR]: strings.APPROXIMATED_PI_ERROR,
+    [EXTRA_SYMBOLS_ERROR]: strings.EXTRA_SYMBOLS_ERROR,
+    [WRONG_CASE_ERROR]: strings.WRONG_CASE_ERROR,
+    [WRONG_LETTER_ERROR]: strings.WRONG_LETTER_ERROR,
+    [MULTIPLICATION_SIGN_ERROR]: strings.MULTIPLICATION_SIGN_ERROR,
+};
+export function mapErrorToString(err: string | null | undefined) {
+    if (!err) {
+        return err;
+    }
+    return errorToString[err] || err;
+}

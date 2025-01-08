@@ -42,7 +42,6 @@ function scoreMatrix(
                     {
                         simplify: true,
                     },
-                    strings,
                 );
                 const result = validator(supplied[row][col]);
                 if (result.message) {

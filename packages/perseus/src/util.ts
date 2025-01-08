@@ -204,7 +204,6 @@ function firstNumericalParse(
             inexact: true,
             forms: "integer, proper, improper, pi, log, mixed, decimal",
         },
-        strings,
     );
 
     val(text);

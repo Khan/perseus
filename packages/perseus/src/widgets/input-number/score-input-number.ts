@@ -59,16 +59,12 @@ function scoreInputNumber(
     // `KhanAnswerTypes.number.convertToPredicate`, but a string is
     // expected here
     const stringValue = `${rubric.value}`;
-    const val = KhanAnswerTypes.number.createValidatorFunctional(
-        stringValue,
-        {
-            simplify: rubric.simplify,
-            inexact: rubric.inexact || undefined,
-            maxError: rubric.maxError,
-            forms: answerTypes[rubric.answerType].forms,
-        },
-        strings,
-    );
+    const val = KhanAnswerTypes.number.createValidatorFunctional(stringValue, {
+        simplify: rubric.simplify,
+        inexact: rubric.inexact || undefined,
+        maxError: rubric.maxError,
+        forms: answerTypes[rubric.answerType].forms,
+    });
 
     // We may have received TeX; try to parse it before grading.
     // If `currentValue` is not TeX, this should be a no-op.

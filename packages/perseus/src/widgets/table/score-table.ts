@@ -39,13 +39,9 @@ function scoreTable(
             const rowSupplied = supplied[i];
             const correct = rowSupplied.every(function (cellSupplied, i) {
                 const cellSolution = rowSolution[i];
-                const validator = createValidator(
-                    cellSolution,
-                    {
-                        simplify: true,
-                    },
-                    strings,
-                );
+                const validator = createValidator(cellSolution, {
+                    simplify: true,
+                });
                 const result = validator(cellSupplied);
                 if (result.message) {
                     message = result.message;

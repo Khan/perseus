@@ -76,7 +76,6 @@ function scoreExpression(
                 simplify: answer.simplify,
                 form: answer.form,
             }),
-            strings,
         );
     };
 

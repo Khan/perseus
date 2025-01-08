@@ -5,7 +5,15 @@ import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import _ from "underscore";
 
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
+import {
+    APPROXIMATED_PI_ERROR,
+    EXTRA_SYMBOLS_ERROR,
+    MISSING_PERCENT_ERROR,
+    NEEDS_TO_BE_SIMPLIFIED_ERROR,
+    WRONG_CASE_ERROR,
+    WRONG_LETTER_ERROR,
+    MULTIPLICATION_SIGN_ERROR,
+} from "../error-identifiers";
 
 const MAXERROR_EPSILON = Math.pow(2, -42);
 
@@ -99,7 +107,6 @@ const KhanAnswerTypes = {
         createValidatorFunctional: function (
             predicate: Predicate,
             options: any,
-            strings: PerseusStrings,
         ): (arg1: Guess) => Score {
             // Extract the options from the given solution object
             options = _.extend(
@@ -570,13 +577,12 @@ const KhanAnswerTypes = {
                             } else if (form === "percent") {
                                 // Otherwise, an error was returned
                                 score.empty = true;
-                                score.message = strings.MISSING_PERCENT_ERROR;
+                                score.message = MISSING_PERCENT_ERROR;
                             } else {
                                 if (options.simplify !== "enforced") {
                                     score.empty = true;
                                 }
-                                score.message =
-                                    strings.NEEDS_TO_BE_SIMPLFIED_ERROR;
+                                score.message = NEEDS_TO_BE_SIMPLIFIED_ERROR;
                             }
                             // The return false below stops the looping of the
                             // callback since predicate check  succeeded.
@@ -585,7 +591,7 @@ const KhanAnswerTypes = {
                         }
                         if (piApprox && predicate(val, Math.abs(val * 0.001))) {
                             score.empty = true;
-                            score.message = strings.APPROXIMATED_PI_ERROR;
+                            score.message = APPROXIMATED_PI_ERROR;
                         }
                     }
                 });
@@ -603,7 +609,7 @@ const KhanAnswerTypes = {
                     });
                     if (!interpretedGuess) {
                         score.empty = true;
-                        score.message = strings.EXTRA_SYMBOLS_ERROR;
+                        score.message = EXTRA_SYMBOLS_ERROR;
                         return score;
                     }
                 }
@@ -636,14 +642,12 @@ const KhanAnswerTypes = {
         createValidatorFunctional: function (
             correctAnswer: string,
             options: any,
-            strings: PerseusStrings,
         ): (arg1: Guess) => Score {
             return KhanAnswerTypes.predicate.createValidatorFunctional(
                 ...KhanAnswerTypes.number.convertToPredicate(
                     correctAnswer,
                     options,
                 ),
-                strings,
             );
         },
     },
@@ -724,7 +728,6 @@ const KhanAnswerTypes = {
         createValidatorFunctional: function (
             solution: any,
             options: any,
-            strings: PerseusStrings,
         ): (arg1: Guess) => Score {
             return function (guess: Guess): Score {
                 const score = {
@@ -786,8 +789,8 @@ const KhanAnswerTypes = {
                     score.ungraded = true;
                     // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
                     score.message = result.wrongVariableCase
-                        ? strings.WRONG_CASE_ERROR
-                        : strings.WRONG_LETTER_ERROR;
+                        ? WRONG_CASE_ERROR
+                        : WRONG_LETTER_ERROR;
                     // Don't tell the use they're "almost there" in this case, that may not be true and isn't helpful.
                     // @ts-expect-error - TS2339 - Property 'suppressAlmostThere' does not exist on type '{ readonly empty: false; readonly correct: false; readonly message: string | null | undefined; readonly guess: any; readonly ungraded: false; }'.
                     score.suppressAlmostThere = true;
@@ -820,7 +823,7 @@ const KhanAnswerTypes = {
                             // @ts-expect-error - TS2540 - Cannot assign to 'ungraded' because it is a read-only property.
                             score.ungraded = true;
                             // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
-                            score.message = strings.MULTIPLICATION_SIGN_ERROR;
+                            score.message = MULTIPLICATION_SIGN_ERROR;
                         } else if (resultX.message) {
                             // TODO(aasmund): I18nize `score.message`
                             // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
