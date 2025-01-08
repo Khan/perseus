@@ -281,11 +281,6 @@ export type ScoringDataMap = {
 
 export type ScoringData = ScoringDataRegistry[keyof ScoringDataRegistry];
 
-export type ScoringRenderer = {
-    content: string;
-    widgets: ScoringDataMap;
-};
-
 /**
  * This is an interface so that it can be extended if a widget is created
  * outside of this Perseus package. See `PerseusWidgetTypes` for a full
