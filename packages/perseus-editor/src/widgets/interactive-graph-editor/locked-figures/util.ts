@@ -202,3 +202,7 @@ export function mockedJoinLabelsAsSpokenMathForTests(
     const jointMock = labels.map((input) => ` spoken ${input.text}`).join(",");
     return Promise.resolve(jointMock);
 }
+
+export function mockedGenerateSpokenMathDetailsForTests(mathString: string) {
+    return Promise.resolve(`spoken ${mathString}`);
+}
