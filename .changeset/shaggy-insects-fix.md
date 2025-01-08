@@ -1,8 +1,8 @@
 ---
-"@khanacademy/perseus-dev-ui": minor
-"@khanacademy/math-input": minor
-"@khanacademy/perseus": minor
-"@khanacademy/perseus-editor": minor
+"@khanacademy/perseus-dev-ui": patch
+"@khanacademy/math-input": patch
+"@khanacademy/perseus": patch
+"@khanacademy/perseus-editor": patch
 ---
 
 update wonderblocks dependencies
