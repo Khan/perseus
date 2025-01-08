@@ -23,7 +23,6 @@ export const expressionWidget: ExpressionWidget = {
         functions: [],
         times: true,
     },
-    version: {major: 1, minor: 0},
 };
 
 export const dropdownWidget: DropdownWidget = {
