@@ -5,6 +5,7 @@ import {
     object,
     string,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 import {parse} from "../parse";
 import {failure, success} from "../result";
 
@@ -33,7 +34,10 @@ describe("versionedWidgetOptions parser", () => {
 
     const parseOptionsV0: Parser<OptionsV0> = object({
         type: constant("test-widget"),
-        version: object({major: constant(0), minor: number}),
+        version: defaulted(
+            object({major: constant(0), minor: number}),
+            () => ({major: 0, minor: 0}) as const,
+        ),
         answer: string,
     });
 
@@ -66,7 +70,7 @@ describe("versionedWidgetOptions parser", () => {
     }
 
     it("parses the latest version of the data, when that is the only version", () => {
-        const parser = versionedWidgetOptions(parseOptionsV1).parser;
+        const parser = versionedWidgetOptions(1, parseOptionsV1).parser;
 
         const validData = {
             type: "test-widget",
@@ -78,10 +82,10 @@ describe("versionedWidgetOptions parser", () => {
     });
 
     it("parses the latest version of the data, when there is an earlier version", () => {
-        const parser = versionedWidgetOptions(parseOptionsV1).withMigrationFrom(
-            parseOptionsV0,
-            migrateV0ToV1,
-        ).parser;
+        const parser = versionedWidgetOptions(
+            1,
+            parseOptionsV1,
+        ).withMigrationFrom(0, parseOptionsV0, migrateV0ToV1).parser;
 
         const validData = {
             type: "test-widget",
@@ -93,10 +97,10 @@ describe("versionedWidgetOptions parser", () => {
     });
 
     it("migrates an old version of the data to the latest version", () => {
-        const parser = versionedWidgetOptions(parseOptionsV1).withMigrationFrom(
-            parseOptionsV0,
-            migrateV0ToV1,
-        ).parser;
+        const parser = versionedWidgetOptions(
+            1,
+            parseOptionsV1,
+        ).withMigrationFrom(0, parseOptionsV0, migrateV0ToV1).parser;
 
         const oldData = {
             type: "test-widget",
@@ -114,9 +118,9 @@ describe("versionedWidgetOptions parser", () => {
     });
 
     it("migrates through intermediate versions", () => {
-        const parser = versionedWidgetOptions(parseOptionsV2)
-            .withMigrationFrom(parseOptionsV1, migrateV1ToV2)
-            .withMigrationFrom(parseOptionsV0, migrateV0ToV1).parser;
+        const parser = versionedWidgetOptions(2, parseOptionsV2)
+            .withMigrationFrom(1, parseOptionsV1, migrateV1ToV2)
+            .withMigrationFrom(0, parseOptionsV0, migrateV0ToV1).parser;
 
         const oldData = {
             type: "test-widget",
@@ -133,11 +137,31 @@ describe("versionedWidgetOptions parser", () => {
         );
     });
 
+    it("migrates an intermediate version to the latest", () => {
+        const parser = versionedWidgetOptions(2, parseOptionsV2)
+            .withMigrationFrom(1, parseOptionsV1, migrateV1ToV2)
+            .withMigrationFrom(0, parseOptionsV0, migrateV0ToV1).parser;
+
+        const oldData = {
+            type: "test-widget",
+            version: {major: 1, minor: 0},
+            answers: ["ok"],
+        };
+
+        expect(parse(oldData, parser)).toEqual(
+            success({
+                type: "test-widget",
+                version: {major: 2, minor: 0},
+                correctAnswers: ["ok"],
+            }),
+        );
+    });
+
     it("fails to parse invalid data", () => {
-        const parser = versionedWidgetOptions(parseOptionsV1).withMigrationFrom(
-            parseOptionsV0,
-            migrateV0ToV1,
-        ).parser;
+        const parser = versionedWidgetOptions(
+            1,
+            parseOptionsV1,
+        ).withMigrationFrom(0, parseOptionsV0, migrateV0ToV1).parser;
 
         const invalidData = {
             type: "test-widget",
@@ -147,7 +171,55 @@ describe("versionedWidgetOptions parser", () => {
         };
 
         expect(parse(invalidData, parser)).toEqual(
-            failure("At (root).version.major -- expected 0, but got 99"),
+            failure(
+                expect.stringContaining(
+                    "At (root) -- expected widget options with a known version number",
+                ),
+            ),
+        );
+    });
+
+    it("fails with an error message appropriate to the data version", () => {
+        // This test ensures that we treat the version number in the data as the
+        // source of truth when choosing a schema to use for parsing.
+        //
+        // Previously, we'd try all parsing with all the versions of the schema
+        // and report the failure message for the oldest one, which was
+        // confusing.
+
+        const parser = versionedWidgetOptions(
+            1,
+            parseOptionsV1,
+        ).withMigrationFrom(0, parseOptionsV0, migrateV0ToV1).parser;
+
+        const invalidV1Data = {
+            type: "test-widget",
+            version: {major: 1, minor: 0},
+            answer: "ok",
+        };
+
+        expect(parse(invalidV1Data, parser)).toEqual(
+            failure("At (root).answers -- expected array, but got undefined"),
+        );
+    });
+
+    it("treats a missing version as major: 0", () => {
+        const parser = versionedWidgetOptions(
+            1,
+            parseOptionsV1,
+        ).withMigrationFrom(0, parseOptionsV0, migrateV0ToV1).parser;
+
+        const v0Data = {
+            type: "test-widget",
+            answer: "ok",
+        };
+
+        expect(parse(v0Data, parser)).toEqual(
+            success({
+                type: "test-widget",
+                answers: ["ok"],
+                version: {major: 1, minor: 0},
+            }),
         );
     });
 });

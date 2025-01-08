@@ -9,9 +9,9 @@ import type {Parser} from "../parser-types";
 export const parsePassageWidget: Parser<PassageWidget> = parseWidget(
     constant("passage"),
     object({
-        footnotes: string,
+        footnotes: defaulted(string, () => ""),
         passageText: string,
-        passageTitle: string,
+        passageTitle: defaulted(string, () => ""),
         showLineNumbers: boolean,
         static: defaulted(boolean, () => false),
     }),

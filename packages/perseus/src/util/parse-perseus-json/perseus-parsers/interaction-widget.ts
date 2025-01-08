@@ -11,7 +11,7 @@ import {
     union,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-import {discriminatedUnion} from "../general-purpose-parsers/discriminated-union";
+import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
@@ -184,24 +184,15 @@ export const parseInteractionWidget: Parser<InteractionWidget> = parseWidget(
             tickStep: pairOfNumbers,
         }),
         elements: array(
-            discriminatedUnion(
-                object({type: parseFunctionType}),
-                parseFunctionElement,
-            )
-                .or(object({type: parseLabelType}), parseLabelElement)
-                .or(object({type: parseLineType}), parseLineElement)
-                .or(
-                    object({type: parseMovableLineType}),
-                    parseMovableLineElement,
-                )
-                .or(
-                    object({type: parseMovablePointType}),
-                    parseMovablePointElement,
-                )
-                .or(object({type: parseParametricType}), parseParametricElement)
-                .or(object({type: parsePointType}), parsePointElement)
-                .or(object({type: parseRectangleType}), parseRectangleElement)
-                .parser,
+            discriminatedUnionOn("type")
+                .withBranch("function", parseFunctionElement)
+                .withBranch("label", parseLabelElement)
+                .withBranch("line", parseLineElement)
+                .withBranch("movable-line", parseMovableLineElement)
+                .withBranch("movable-point", parseMovablePointElement)
+                .withBranch("parametric", parseParametricElement)
+                .withBranch("point", parsePointElement)
+                .withBranch("rectangle", parseRectangleElement).parser,
         ),
     }),
 );

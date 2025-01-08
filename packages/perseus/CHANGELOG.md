@@ -1,5 +1,46 @@
 # @khanacademy/perseus
 
+## 49.2.1
+
+### Patch Changes
+
+-   [#2064](https://github.com/Khan/perseus/pull/2064) [`55b4615d3`](https://github.com/Khan/perseus/commit/55b4615d3297884d90e6ef4640f7202066334b0d) Thanks [@nishasy](https://github.com/nishasy)! - Remove the locked-figures-aria flag
+
+*   [#2063](https://github.com/Khan/perseus/pull/2063) [`85a5b5e44`](https://github.com/Khan/perseus/commit/85a5b5e4408b19a598107468d7cb0bd10e33b6be) Thanks [@nishasy](https://github.com/nishasy)! - Remove the interactive-graph-locked-features-labels flag
+
+-   [#2078](https://github.com/Khan/perseus/pull/2078) [`781cc7df6`](https://github.com/Khan/perseus/commit/781cc7df65a80e03d3cb809ccf585cb6cf25556e) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Temporarily fixing pi-based strings for Numeric Input
+
+*   [#2065](https://github.com/Khan/perseus/pull/2065) [`eefcf5c5c`](https://github.com/Khan/perseus/commit/eefcf5c5c434455295e17bf4cb411d029f24fe49) Thanks [@nishasy](https://github.com/nishasy)! - Remove the locked-[figureName]-labels flags
+
+-   [#2068](https://github.com/Khan/perseus/pull/2068) [`265a93104`](https://github.com/Khan/perseus/commit/265a9310486e5c1524af9b502619db9de2f7c01d) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Redesign discriminated union type parser to have a simpler and more intuitive interface.
+
+*   [#2073](https://github.com/Khan/perseus/pull/2073) [`4bf4960d4`](https://github.com/Khan/perseus/commit/4bf4960d4d88abf9fe07803f1364678a29a20f6e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: improve Perseus JSON parsers so they can handle all English-language exercises
+
+-   [#2080](https://github.com/Khan/perseus/pull/2080) [`c9a28b34c`](https://github.com/Khan/perseus/commit/c9a28b34c66fdf25d2b0ef8fa1111a5fb97854da) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Dropdown] Bugfix - Text in dropdown not in correct vertical position
+
+*   [#2073](https://github.com/Khan/perseus/pull/2073) [`4bf4960d4`](https://github.com/Khan/perseus/commit/4bf4960d4d88abf9fe07803f1364678a29a20f6e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: improve the error messages produced by the versionedWidgetOptions parser
+
+## 49.2.0
+
+### Minor Changes
+
+-   [#1990](https://github.com/Khan/perseus/pull/1990) [`37c642f24`](https://github.com/Khan/perseus/commit/37c642f24e645db954895510ba40bede94e09889) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Allow keyboards to navigate and interact with images
+
+*   [#1738](https://github.com/Khan/perseus/pull/1738) [`dbbc82f2d`](https://github.com/Khan/perseus/commit/dbbc82f2dd33545b12c6073174b05ebcf8d551ba) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - add scientific notation button / toggle to basic keypad
+
+### Patch Changes
+
+-   [#2061](https://github.com/Khan/perseus/pull/2061) [`d8b2f7eaf`](https://github.com/Khan/perseus/commit/d8b2f7eaff83062516ad1e273c17fd6579716265) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - update terminology for angle sides
+
+*   [#2071](https://github.com/Khan/perseus/pull/2071) [`bac10129b`](https://github.com/Khan/perseus/commit/bac10129b523d61904a88ef3c7dbfcad2bd18750) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - This patch fixes our Perseus strings to ensure that they are double escaped for Lingui.
+
+-   [#1952](https://github.com/Khan/perseus/pull/1952) [`617377147`](https://github.com/Khan/perseus/commit/61737714796dfb8434fc139471d1add3c18853b3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add and pass more regression tests for PerseusItem parser
+
+*   [#2059](https://github.com/Khan/perseus/pull/2059) [`53ba9f5d1`](https://github.com/Khan/perseus/commit/53ba9f5d136f817257188ccf2696a8b91896ba72) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Dropdown] Bugfix - Text in dropdown was shifted up after adding TeX support via Renderer
+
+*   Updated dependencies [[`dbbc82f2d`](https://github.com/Khan/perseus/commit/dbbc82f2dd33545b12c6073174b05ebcf8d551ba)]:
+    -   @khanacademy/math-input@22.1.0
+
 ## 49.1.7
 
 ### Patch Changes

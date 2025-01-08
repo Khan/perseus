@@ -14,13 +14,7 @@ import {
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
-    flags: {
-        ...flags,
-        mafs: {
-            ...flags.mafs,
-            "locked-ellipse-settings": true,
-        },
-    },
+    flags: flags,
     ...getDefaultFigureForType("ellipse"),
     onChangeProps: () => {},
     onMove: () => {},

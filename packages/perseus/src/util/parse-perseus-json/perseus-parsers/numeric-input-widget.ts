@@ -43,14 +43,13 @@ export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
                 answerForms: optional(array(parseMathFormat)),
                 strict: boolean,
                 maxError: optional(nullable(number)),
-                // TODO(benchristel): simplify should never be `true`, but we
+                // TODO(benchristel): simplify should never be a boolean, but we
                 // have some content where it is anyway. If we ever backfill
                 // the data, we should simplify `simplify`.
                 simplify: optional(
                     nullable(
                         union(string).or(
-                            pipeParsers(constant(true)).then(convert(String))
-                                .parser,
+                            pipeParsers(boolean).then(convert(String)).parser,
                         ).parser,
                     ),
                 ),
@@ -58,7 +57,7 @@ export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
         ),
         labelText: optional(string),
         size: string,
-        coefficient: boolean,
+        coefficient: defaulted(boolean, () => false),
         rightAlign: optional(boolean),
         static: defaulted(boolean, () => false),
         answerForms: optional(
