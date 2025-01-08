@@ -164,6 +164,14 @@ export type PerseusMatrixUserInput = {
     answers: PerseusMatrixRubric["answers"];
 };
 
+export type PerseusMockWidgetRubric = {
+    value: string;
+};
+
+export type PerseusMockWidgetUserInput = {
+    currentValue: string;
+};
+
 export type PerseusNumberLineScoringData = {
     correctRel: string | null | undefined;
     correctX: number;
@@ -234,14 +242,6 @@ export type PerseusTableRubric = {
 };
 
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
-
-export type PerseusMockWidgetRubric = {
-    value: string;
-};
-
-export type PerseusMockWidgetUserInput = {
-    currentValue: string;
-};
 
 export type Rubric =
     | PerseusCategorizerScoringData
