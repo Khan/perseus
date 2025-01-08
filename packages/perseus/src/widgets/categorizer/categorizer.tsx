@@ -18,13 +18,13 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer
 
 import scoreCategorizer from "./score-categorizer";
 
-import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusCategorizerScoringData,
     PerseusCategorizerUserInput,
 } from "../../validation.types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
+import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = WidgetProps<RenderProps, PerseusCategorizerScoringData> & {
     values: ReadonlyArray<string>;

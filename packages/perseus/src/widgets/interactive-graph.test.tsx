@@ -5,7 +5,7 @@ import type {
     PerseusGraphTypePoint,
     PerseusGraphTypePolygon,
     PerseusGraphTypeNone,
-} from "../perseus-types";
+} from "@khanacademy/perseus-core";
 
 describe("shouldUseMafs", () => {
     it("is false given no mafs flags", () => {

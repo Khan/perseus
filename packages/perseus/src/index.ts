@@ -71,7 +71,6 @@ export {bodyXsmallBold} from "./styles/global-styles";
 export * as Dependencies from "./dependencies";
 export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
-export {default as KhanMath} from "./util/math";
 export {default as LoadingContext} from "./loading-context";
 export {default as mediaQueries} from "./styles/media-queries";
 export {default as PerseusMarkdown} from "./perseus-markdown";
@@ -81,7 +80,7 @@ export {
     ItemExtras,
     lockedFigureColors,
     lockedFigureFillStyles,
-} from "./perseus-types";
+} from "@khanacademy/perseus-core";
 export {traverse} from "./traversal";
 export {isItemRenderableByVersion} from "./renderability";
 export {violatingWidgets} from "./a11y";
@@ -238,7 +237,7 @@ export type {
     PerseusWidgetsMap,
     PerseusWidgetTypes,
     WidgetOptions,
-} from "./perseus-types";
+} from "@khanacademy/perseus-core";
 export type {UserInputMap} from "./validation.types";
 export type {Coord} from "./interactive2/types";
 export type {Coords} from "./widgets/grapher/grapher-types";

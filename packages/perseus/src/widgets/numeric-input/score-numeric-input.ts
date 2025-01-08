@@ -1,14 +1,18 @@
-import TexWrangler from "../../tex-wrangler";
-import KhanAnswerTypes from "../../util/answer-types";
+import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 
-import type {MathFormat, PerseusNumericInputAnswer} from "../../perseus-types";
+import TexWrangler from "../../tex-wrangler";
+
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
-import type {Score} from "../../util/answer-types";
 import type {
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
 } from "../../validation.types";
+import type {
+    MathFormat,
+    PerseusNumericInputAnswer,
+} from "@khanacademy/perseus-core";
+import type {Score} from "@khanacademy/perseus-score";
 
 const ParseTex = TexWrangler.parseTex;
 

@@ -9,8 +9,8 @@ import {
     mixedContentQuestion,
 } from "../__tests__/label-image.testdata";
 
-import type {PerseusRenderer} from "../../../perseus-types";
 import type {APIOptions} from "../../../types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 const applyStoryArgs = (
     question: PerseusRenderer,

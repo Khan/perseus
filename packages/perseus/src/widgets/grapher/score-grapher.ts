@@ -2,12 +2,12 @@ import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
 import {functionForType} from "./util";
 
-import type {GrapherAnswerTypes} from "../../perseus-types";
 import type {PerseusScore} from "../../types";
 import type {
     PerseusGrapherRubric,
     PerseusGrapherUserInput,
 } from "../../validation.types";
+import type {GrapherAnswerTypes} from "@khanacademy/perseus-core";
 
 function getCoefficientsByType(
     data: GrapherAnswerTypes,

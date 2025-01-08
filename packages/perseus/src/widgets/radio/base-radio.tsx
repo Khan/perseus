@@ -17,9 +17,9 @@ import {scrollElementIntoView} from "../../util/scroll-utils";
 import Choice from "./choice";
 import ChoiceNoneAbove from "./choice-none-above";
 
-import type {PerseusRadioWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
+import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
 import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;

@@ -36,11 +36,11 @@ import {parseTableWidget} from "./table-widget";
 import {parseVideoWidget} from "./video-widget";
 import {parseWidget} from "./widget";
 
+import type {ParseContext, Parser, ParseResult} from "../parser-types";
 import type {
     DeprecatedStandinWidget,
     PerseusWidgetsMap,
-} from "../../../perseus-types";
-import type {ParseContext, Parser, ParseResult} from "../parser-types";
+} from "@khanacademy/perseus-core";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {

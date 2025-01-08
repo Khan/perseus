@@ -11,8 +11,8 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
-import type {MeasurerWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {MeasurerWidget} from "@khanacademy/perseus-core";
 
 export const parseMeasurerWidget: Parser<MeasurerWidget> = parseWidget(
     constant("measurer"),

@@ -1,4 +1,4 @@
-import type {PerseusItem} from "../perseus-types";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 
 export const basicObject: PerseusItem = {
     question: {

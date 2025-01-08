@@ -19,7 +19,7 @@ import scoreInputNumber from "./score-input-number";
 import type {
     PerseusInputNumberWidgetOptions,
     PerseusRenderer,
-} from "../../perseus-types";
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const {transform} = InputNumber;

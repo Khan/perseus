@@ -2,12 +2,12 @@
 /**
  * Used in the editors for the Grapher and Interaction widgets.
  */
+import {KhanMath} from "@khanacademy/kmath";
 import {
     components,
     interactiveSizes,
     Changeable,
     Dependencies,
-    KhanMath,
     Util,
 } from "@khanacademy/perseus";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";

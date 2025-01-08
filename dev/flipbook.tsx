@@ -45,7 +45,7 @@ import type {
     PerseusScore,
     PerseusWidget,
 } from "../packages/perseus/src";
-import type {InteractiveGraphWidget} from "../packages/perseus/src/perseus-types";
+import type {InteractiveGraphWidget} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";

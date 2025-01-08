@@ -5,8 +5,8 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./dropdown-ai-utils";
 
-import type {PerseusRenderer} from "../../perseus-types";
 import type {PerseusDropdownUserInput} from "../../validation.types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const question1: PerseusRenderer = {

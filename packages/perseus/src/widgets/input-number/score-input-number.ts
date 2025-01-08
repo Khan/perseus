@@ -1,5 +1,6 @@
+import {KhanAnswerTypes} from "@khanacademy/perseus-score";
+
 import TexWrangler from "../../tex-wrangler";
-import KhanAnswerTypes from "../../util/answer-types";
 
 import type {PerseusStrings} from "../../strings";
 import type {

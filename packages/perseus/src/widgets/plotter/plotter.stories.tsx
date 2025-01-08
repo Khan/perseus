@@ -5,7 +5,7 @@ import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui
 
 import {question1} from "./plotter.testdata";
 
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export default {
     title: "Perseus/Widgets/Plotter",

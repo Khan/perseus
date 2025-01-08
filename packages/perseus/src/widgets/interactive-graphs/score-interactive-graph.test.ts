@@ -4,8 +4,8 @@ import {clone} from "../../../../../testing/object-utils";
 
 import scoreInteractiveGraph from "./score-interactive-graph";
 
-import type {PerseusGraphType} from "../../perseus-types";
 import type {PerseusInteractiveGraphRubric} from "../../validation.types";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
 describe("InteractiveGraph scoring on a segment question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {

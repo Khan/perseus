@@ -1,4 +1,5 @@
-import {lockedFigureColorNames} from "../../../perseus-types";
+import {lockedFigureColorNames} from "@khanacademy/perseus-core";
+
 import {
     array,
     boolean,
@@ -19,6 +20,7 @@ import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-uni
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
+import type {Parser} from "../parser-types";
 import type {
     InteractiveGraphWidget,
     LockedEllipseType,
@@ -44,8 +46,7 @@ import type {
     PerseusGraphTypeRay,
     PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
-} from "../../../perseus-types";
-import type {Parser} from "../parser-types";
+} from "@khanacademy/perseus-core";
 
 // Used to represent 2-D points and ranges
 const pairOfNumbers = pair(number, number);

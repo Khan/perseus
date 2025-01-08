@@ -2,7 +2,7 @@ import {
     ItemExtras,
     type PerseusAnswerArea,
     type PerseusItem,
-} from "../perseus-types";
+} from "@khanacademy/perseus-core";
 
 export const itemWithPieChart: PerseusItem = {
     answerArea: Object.fromEntries(

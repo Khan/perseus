@@ -47,6 +47,7 @@
         "@khanacademy/math-input": "^22.1.0",
         "@khanacademy/perseus-core": "3.0.5",
         "@khanacademy/perseus-linter": "^1.2.11",
+        "@khanacademy/perseus-score": "^0.0.0",
         "@khanacademy/pure-markdown": "^0.3.20",
         "@khanacademy/simple-markdown": "^0.13.13",
         "@types/classnames": "2.2.0",

@@ -28,6 +28,8 @@
  * ```
  */
 
+import type {InteractiveMarkerType} from "./widgets/label-image/types";
+import type {Relationship} from "./widgets/number-line/number-line";
 import type {
     GrapherAnswerTypes,
     PerseusDropdownChoice,
@@ -42,9 +44,7 @@ import type {
     PerseusOrdererWidgetOptions,
     PerseusRadioChoice,
     PerseusGraphCorrectType,
-} from "./perseus-types";
-import type {InteractiveMarkerType} from "./widgets/label-image/types";
-import type {Relationship} from "./widgets/number-line/number-line";
+} from "@khanacademy/perseus-core";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 

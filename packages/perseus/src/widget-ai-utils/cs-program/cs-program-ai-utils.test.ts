@@ -2,7 +2,7 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./cs-program-ai-utils";
 
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 const question1: PerseusRenderer = {
     content: "[[\u2603 cs-program 1]]\n\n",
