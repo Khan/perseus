@@ -5,8 +5,11 @@ import * as React from "react";
 import {Dependencies} from "@khanacademy/perseus";
 
 import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
+
+import {describeLinearSystemGraph} from "./linear-system";
 
 import type {InteractiveGraphState} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -246,6 +249,50 @@ describe("Linear System graph screen reader", () => {
                     expectedAriaLive[2],
                 );
             },
+        );
+    });
+});
+
+describe(describeLinearSystemGraph, () => {
+    test("describes a default linear system graph", () => {
+        // Arrange
+
+        // Act
+        const linearSystemGraphDescription = describeLinearSystemGraph(
+            baseLinearSystemState,
+            mockPerseusI18nContext,
+        );
+
+        // Assert
+        expect(linearSystemGraphDescription).toEqual(
+            "Interactive elements: Two lines on a coordinate plane. Line 1 has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5. Line 2 has two points, point 1 at -5 comma -5 and point 2 at 5 comma -5.",
+        );
+    });
+
+    test("describes a linear system graph with updated points", () => {
+        // Arrange
+
+        // Act
+        const linearSystemGraphDescription = describeLinearSystemGraph(
+            {
+                ...baseLinearSystemState,
+                coords: [
+                    [
+                        [-2, 3],
+                        [3, 3],
+                    ],
+                    [
+                        [-2, -3],
+                        [3, -3],
+                    ],
+                ],
+            },
+            mockPerseusI18nContext,
+        );
+
+        // Assert
+        expect(linearSystemGraphDescription).toEqual(
+            "Interactive elements: Two lines on a coordinate plane. Line 1 has two points, point 1 at -2 comma 3 and point 2 at 3 comma 3. Line 2 has two points, point 1 at -2 comma -3 and point 2 at 3 comma -3.",
         );
     });
 });
