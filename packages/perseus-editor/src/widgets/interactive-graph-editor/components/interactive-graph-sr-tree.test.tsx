@@ -1,7 +1,139 @@
-import {render} from "@testing-library/react";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {screen, render} from "@testing-library/react";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {getAccessibilityAttributes} from "./interactive-graph-sr-tree";
+import InteractiveGraphSRTree, {
+    getAccessibilityAttributes,
+} from "./interactive-graph-sr-tree";
+
+import type {UserEvent} from "@testing-library/user-event";
+
+describe("InteractiveGraphSRTree", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+    test("should show the heading and the switch even if empty", () => {
+        // Arrange
+        const defaultProps = {
+            correct: {},
+            fullGraphAriaLabel: "full graph aria label",
+            fullGraphAriaDescription: "full graph description",
+            lockedFigures: [],
+        };
+
+        // Act
+        render(<InteractiveGraphSRTree {...defaultProps} />);
+        const heading = screen.getByText("Screen reader tree");
+        const switchElement = screen.getByRole("switch", {
+            name: "Show HTML roles/tags",
+        });
+
+        // Assert
+        expect(heading).toBeInTheDocument();
+        expect(switchElement).toBeInTheDocument();
+    });
+
+    test("should have an empty list if mafs graph is not found", () => {
+        // Arrange
+        const defaultProps = {
+            correct: {},
+            fullGraphAriaLabel: "full graph aria label",
+            fullGraphAriaDescription: "full graph description",
+            lockedFigures: [],
+        };
+
+        // Act
+        render(<InteractiveGraphSRTree {...defaultProps} />);
+        const list = screen.getByRole("list");
+
+        // Assert
+        expect(list).toBeEmptyDOMElement();
+    });
+
+    test("should show the tree with the correct aria attributes", () => {
+        // Arrange
+        const defaultProps = {
+            correct: {},
+            fullGraphAriaLabel: "full graph aria label",
+            fullGraphAriaDescription: "full graph description",
+            lockedFigures: [],
+        };
+
+        // Act
+        render(
+            <View>
+                <View className="mafs-graph-container">
+                    <View
+                        className="mafs-graph-inner"
+                        aria-label="this is the inner graph"
+                    />
+                </View>
+                <InteractiveGraphSRTree {...defaultProps} />
+            </View>,
+        );
+
+        const shownClassName = screen.getByText("mafs-graph-inner");
+        const labelPill = screen.getByText("label");
+        const shownInnerLabel = screen.getByText("this is the inner graph");
+
+        // Assert
+        expect(shownClassName).toBeInTheDocument();
+        expect(labelPill).toBeInTheDocument();
+        expect(shownInnerLabel).toBeInTheDocument();
+    });
+
+    test("should show the tree with the roles/tags when toggled", async () => {
+        // Arrange
+        const defaultProps = {
+            correct: {},
+            fullGraphAriaLabel: "full graph aria label",
+            fullGraphAriaDescription: "full graph description",
+            lockedFigures: [],
+        };
+        render(
+            <View>
+                <View className="mafs-graph-container">
+                    <View
+                        className="inner-div-1"
+                        aria-label="aria 1"
+                        role="img"
+                    />
+                    <View className="inner-div-2" aria-label="aria 2" />
+                </View>
+                <InteractiveGraphSRTree {...defaultProps} />
+            </View>,
+        );
+
+        // Act
+        const switchElement = screen.getByRole("switch", {
+            name: "Show HTML roles/tags",
+        });
+        await userEvent.click(switchElement);
+
+        const shownClassName1 = screen.getByText("inner-div-1");
+        const shownClassName2 = screen.getByText("inner-div-2");
+        const labelPills = screen.getAllByText("label");
+        const aria1 = screen.getByText("aria 1");
+        const aria2 = screen.getByText("aria 2");
+
+        // should show the roles/tags
+        const role = screen.getByText("img");
+        const tag = screen.getByText("div");
+
+        // Assert
+        expect(shownClassName1).toBeInTheDocument();
+        expect(shownClassName2).toBeInTheDocument();
+        expect(labelPills).toHaveLength(2);
+        expect(aria1).toBeInTheDocument();
+        expect(aria2).toBeInTheDocument();
+        expect(role).toBeInTheDocument();
+        expect(tag).toBeInTheDocument();
+    });
+});
 
 describe("fetchAriaLabels", () => {
     test("should return an empty array if the container is null", () => {
