@@ -61,9 +61,22 @@ describe("Linear System graph screen reader", () => {
 
         // Assert
         expect(linearSystemGraph).toBeInTheDocument();
-        expect(linearSystemGraph).toHaveAttribute(
-            "aria-describedby",
-            ":r1:-line1-points :r1:-line1-intercept :r1:-line1-slope :r1:-line2-points :r1:-line2-intercept :r1:-line2-slope",
+        expect(linearSystemGraph).toHaveAriaDescription(
+            "Line 1 has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5.",
+        );
+        expect(linearSystemGraph).toHaveAriaDescription(
+            "The line crosses the Y-axis at 0 comma 5.",
+        );
+        expect(linearSystemGraph).toHaveAriaDescription("Its slope is zero.", {
+            // The slope is zero for both lines, so it shows up twice in the
+            // aria descriptions.
+            repetitionNumber: 2,
+        });
+        expect(linearSystemGraph).toHaveAriaDescription(
+            "Line 2 has two points, point 1 at -5 comma -5 and point 2 at 5 comma -5.",
+        );
+        expect(linearSystemGraph).toHaveAriaDescription(
+            "The line crosses the Y-axis at 0 comma -5.",
         );
     });
 

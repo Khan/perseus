@@ -15,6 +15,10 @@ declare global {
             toHaveInvalidInput(message?: string | null): R;
             toHaveBeenAnsweredIncorrectly(): R;
             toBeHighlighted(): R;
+            toHaveAriaDescription(
+                expected: string,
+                options?: {repetitionNumber?: number},
+            ): R;
         }
     }
 }
@@ -149,6 +153,48 @@ expect.extend({
         return {
             pass: false,
             message: () => `Element does not appear to be a part of a widget`,
+        };
+    },
+
+    toHaveAriaDescription(
+        el: HTMLElement,
+        expected: string,
+        options?: {repetitionNumber?: number},
+    ) {
+        // Get the IDs from the element's aria-describedby attribute
+        const describedByIds =
+            el.getAttribute("aria-describedby")?.split(" ") ?? [];
+
+        // Get the elements with the IDs
+        const describedByElements = describedByIds.map((id) =>
+            document.getElementById(id),
+        );
+
+        // Get the text content of the elements
+        const describedByContents = describedByElements.map((el) =>
+            el?.textContent?.trim(),
+        );
+
+        if (options?.repetitionNumber) {
+            // Check if the expected description shows up the same
+            // amount of times as the repetition number.
+            const count = describedByContents.filter(
+                (desc) => desc === expected,
+            ).length;
+            if (count === options.repetitionNumber) {
+                return {pass: true, message: () => ""};
+            }
+        }
+
+        // Check if the expected description is in the list of descriptions
+        if (describedByContents.includes(expected)) {
+            return {pass: true, message: () => ""};
+        }
+
+        return {
+            pass: false,
+            message: () =>
+                `Element does not have the expected aria description. Expected: "${expected}". Found: "${describedByContents.join('",\n"')}"`,
         };
     },
 });

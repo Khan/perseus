@@ -3,6 +3,7 @@ import * as React from "react";
 import {useRef} from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
+import a11y from "../../../util/a11y";
 import {snap, X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
@@ -16,6 +17,7 @@ import {
     useTransformVectorsToPixels,
 } from "./use-transform";
 
+import type {I18nContextType} from "../../../components/i18n-context";
 import type {
     AriaLive,
     CircleGraphState,
@@ -30,7 +32,9 @@ export function renderCircleGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <CircleGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: null,
+        interactiveElementsDescription: (
+            <CircleGraphDescription state={state} />
+        ),
     };
 }
 
@@ -51,40 +55,25 @@ function CircleGraph(props: CircleGraphProps) {
     const outerPointsId = id + "-outer-points";
 
     // Aria label strings
-    const circleGraphAriaLabel = strings.srCircleGraph;
-    const circleShapeAriaLabel = strings.srCircleShape({
-        centerX: srFormatNumber(center[0], locale),
-        centerY: srFormatNumber(center[1], locale),
-    });
-    const circleRadiusPointAriaLabel = strings.srCircleRadiusPoint({
-        radiusPointX: srFormatNumber(radiusPoint[0], locale),
-        radiusPointY: srFormatNumber(radiusPoint[1], locale),
-    });
-    const circleRadiusDescription = strings.srCircleRadius({
-        radius,
-    });
-    const circleOuterPointsDescription = strings.srCircleOuterPoints({
-        point1X: srFormatNumber(center[0] + radius, locale),
-        point1Y: srFormatNumber(center[1], locale),
-        point2X: srFormatNumber(center[0], locale),
-        point2Y: srFormatNumber(center[1] + radius, locale),
-        point3X: srFormatNumber(center[0] - radius, locale),
-        point3Y: srFormatNumber(center[1], locale),
-        point4X: srFormatNumber(center[0], locale),
-        point4Y: srFormatNumber(center[1] - radius, locale),
-    });
+    const {
+        srCircleGraph,
+        srCircleShape,
+        srCircleRadiusPoint,
+        srCircleRadius,
+        srCircleOuterPoints,
+    } = describeCircleGraph(graphState, {strings, locale});
 
     return (
         <g
             // Outer circle minimal description
-            aria-label={circleGraphAriaLabel}
+            aria-label={srCircleGraph}
             aria-describedby={`${circleId} ${radiusId} ${outerPointsId}`}
         >
             <MovableCircle
                 id={circleId}
                 // Focusable circle aria label reads with every update
                 // because of the aria-live property in the circle <g>.
-                ariaLabel={circleShapeAriaLabel}
+                ariaLabel={srCircleShape}
                 // Aria-describedby describes additional info on focus.
                 ariaDescribedBy={`${radiusId} ${outerPointsId}`}
                 center={center}
@@ -96,7 +85,7 @@ function CircleGraph(props: CircleGraphProps) {
             />
             <MovablePoint
                 // Radius point aria label reads with every update.
-                ariaLabel={`${circleRadiusPointAriaLabel} ${circleRadiusDescription}`}
+                ariaLabel={`${srCircleRadiusPoint} ${srCircleRadius}`}
                 // Aria-describedby describes additional info on focus.
                 ariaDescribedBy={`${outerPointsId}`}
                 // The radius point's aria-live property is set to "off" when
@@ -115,11 +104,11 @@ function CircleGraph(props: CircleGraphProps) {
             />
             {/* Hidden elements to provide the descriptions for the
                 circle and radius point's `aria-describedby` properties. */}
-            <g id={radiusId} style={{display: "hidden"}}>
-                {circleRadiusDescription}
+            <g id={radiusId} style={a11y.srOnly}>
+                {srCircleRadius}
             </g>
-            <g id={outerPointsId} style={{display: "hidden"}}>
-                {circleOuterPointsDescription}
+            <g id={outerPointsId} style={a11y.srOnly}>
+                {srCircleOuterPoints}
             </g>
         </g>
     );
@@ -220,4 +209,61 @@ function crossProduct<A, B>(as: A[], bs: B[]): [A, B][] {
         }
     }
     return result;
+}
+
+function CircleGraphDescription({state}: {state: CircleGraphState}) {
+    // The reason that CircleGraphDescription is a component (rather than a
+    // function that returns a string) is because it needs to use a
+    // hook: `usePerseusI18n`.
+    const i18n = usePerseusI18n();
+    const strings = describeCircleGraph(state, i18n);
+
+    return strings.srCircleInteractiveElement;
+}
+
+// Exported for testing
+export function describeCircleGraph(
+    state: CircleGraphState,
+    i18n: I18nContextType,
+): Record<string, string> {
+    const {strings, locale} = i18n;
+    const {center, radiusPoint} = state;
+    const radius = getRadius(state);
+
+    // Aria label strings
+    const srCircleGraph = strings.srCircleGraph;
+    const srCircleShape = strings.srCircleShape({
+        centerX: srFormatNumber(center[0], locale),
+        centerY: srFormatNumber(center[1], locale),
+    });
+    const srCircleRadiusPoint = strings.srCircleRadiusPoint({
+        radiusPointX: srFormatNumber(radiusPoint[0], locale),
+        radiusPointY: srFormatNumber(radiusPoint[1], locale),
+    });
+    const srCircleRadius = strings.srCircleRadius({
+        radius,
+    });
+    const srCircleOuterPoints = strings.srCircleOuterPoints({
+        point1X: srFormatNumber(center[0] + radius, locale),
+        point1Y: srFormatNumber(center[1], locale),
+        point2X: srFormatNumber(center[0], locale),
+        point2Y: srFormatNumber(center[1] + radius, locale),
+        point3X: srFormatNumber(center[0] - radius, locale),
+        point3Y: srFormatNumber(center[1], locale),
+        point4X: srFormatNumber(center[0], locale),
+        point4Y: srFormatNumber(center[1] - radius, locale),
+    });
+
+    const srCircleInteractiveElement = strings.srInteractiveElements({
+        elements: [srCircleShape, srCircleRadius].join(" "),
+    });
+
+    return {
+        srCircleGraph,
+        srCircleShape,
+        srCircleRadiusPoint,
+        srCircleRadius,
+        srCircleOuterPoints,
+        srCircleInteractiveElement,
+    };
 }
