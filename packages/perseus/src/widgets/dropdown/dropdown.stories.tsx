@@ -3,10 +3,11 @@ import * as React from "react";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 
 import {
+    basicDropdown,
     dropdownWithEmptyPlaceholder,
+    dropdownWithMath,
     dropdownWithVisibleLabel,
     inlineDropdownWithVisibleLabel,
-    question1,
 } from "./dropdown.testdata";
 
 export default {
@@ -15,8 +16,12 @@ export default {
 
 type StoryArgs = Record<any, any>;
 
-export const Question1 = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question1} />;
+export const BasicDropdown = (args: StoryArgs): React.ReactElement => {
+    return <RendererWithDebugUI question={basicDropdown} />;
+};
+
+export const DropdownWithMath = (args: StoryArgs): React.ReactElement => {
+    return <RendererWithDebugUI question={dropdownWithMath} />;
 };
 
 export const DropdownWithVisibleLabel = (

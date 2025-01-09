@@ -13,28 +13,48 @@ import {SVGLine} from "./svg-line";
 import {useControlPoint} from "./use-control-point";
 import {Vector} from "./vector";
 
+import type {AriaLive} from "../../types";
 import type {Interval} from "mafs";
 
 type Props = {
     points: Readonly<[vec.Vector2, vec.Vector2]>;
-    onMovePoint?: (endpointIndex: number, destination: vec.Vector2) => unknown;
-    onMoveLine?: (delta: vec.Vector2) => unknown;
+    ariaLabels?: {
+        point1AriaLabel?: string;
+        point2AriaLabel?: string;
+        grabHandleAriaLabel?: string;
+    };
+    // Extra graph information to be read by screen readers
+    ariaDescribedBy?: string;
     color?: string;
     /* Extends the line to the edge of the graph with an arrow */
     extend?: {
         start: boolean;
         end: boolean;
     };
+    onMovePoint?: (endpointIndex: number, destination: vec.Vector2) => unknown;
+    onMoveLine?: (delta: vec.Vector2) => unknown;
 };
 
 export const MovableLine = (props: Props) => {
     const {
+        points: [start, end],
+        ariaLabels,
+        ariaDescribedBy,
+        color,
+        extend,
         onMoveLine = () => {},
         onMovePoint = () => {},
-        color,
-        points: [start, end],
-        extend,
     } = props;
+
+    // Aria live states for (0) point 1, (1) point 2, and (2) grab handle.
+    // When moving an element, set its aria live to "polite" and the others
+    // to "off". Otherwise, other connected elements that move at the same
+    // time might override the currently focused element's aria live.
+    const [ariaLives, setAriaLives] = React.useState<Array<AriaLive>>([
+        "off",
+        "off",
+        "off",
+    ]);
 
     // We use separate focusableHandle elements, instead of letting the movable
     // points themselves be focusable, to allow the tab order of the points to
@@ -49,26 +69,44 @@ export const MovableLine = (props: Props) => {
     //   tab order for the entire page, which is not what we want.
     const {visiblePoint: visiblePoint1, focusableHandle: focusableHandle1} =
         useControlPoint({
+            ariaLabel: ariaLabels?.point1AriaLabel,
+            ariaDescribedBy: ariaDescribedBy,
+            ariaLive: ariaLives[0],
             point: start,
             sequenceNumber: 1,
             color,
-            onMove: (p) => onMovePoint(0, p),
+            onMove: (p) => {
+                setAriaLives(["polite", "off", "off"]);
+                onMovePoint(0, p);
+            },
         });
     const {visiblePoint: visiblePoint2, focusableHandle: focusableHandle2} =
         useControlPoint({
+            ariaLabel: ariaLabels?.point2AriaLabel,
+            ariaDescribedBy: ariaDescribedBy,
+            ariaLive: ariaLives[1],
             point: end,
             sequenceNumber: 2,
             color,
-            onMove: (p) => onMovePoint(1, p),
+            onMove: (p) => {
+                setAriaLives(["off", "polite", "off"]);
+                onMovePoint(1, p);
+            },
         });
 
     const line = (
         <Line
+            ariaLabel={ariaLabels?.grabHandleAriaLabel}
+            ariaDescribedBy={ariaDescribedBy}
+            ariaLive={ariaLives[2]}
             start={start}
             end={end}
             stroke={color}
             extend={extend}
-            onMove={onMoveLine}
+            onMove={(delta) => {
+                setAriaLives(["off", "off", "polite"]);
+                onMoveLine(delta);
+            }}
         />
     );
 
@@ -88,8 +126,9 @@ const defaultStroke = "var(--movable-line-stroke-color)";
 type LineProps = {
     start: vec.Vector2;
     end: vec.Vector2;
-    onMove: (delta: vec.Vector2) => unknown;
-    stroke?: string | undefined;
+    ariaLabel?: string;
+    ariaDescribedBy?: string;
+    ariaLive?: AriaLive;
     /* Extends the line to the edge of the graph with an arrow */
     extend?:
         | undefined
@@ -97,10 +136,21 @@ type LineProps = {
               start: boolean;
               end: boolean;
           };
+    stroke?: string | undefined;
+    onMove: (delta: vec.Vector2) => unknown;
 };
 
 const Line = (props: LineProps) => {
-    const {start, end, onMove, extend, stroke = defaultStroke} = props;
+    const {
+        start,
+        end,
+        ariaLabel,
+        ariaDescribedBy,
+        ariaLive,
+        extend,
+        stroke = defaultStroke,
+        onMove,
+    } = props;
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
     const {
@@ -138,9 +188,16 @@ const Line = (props: LineProps) => {
             <g
                 ref={line}
                 tabIndex={disableKeyboardInteraction ? -1 : 0}
+                aria-label={ariaLabel}
+                aria-describedby={ariaDescribedBy}
+                aria-live={ariaLive}
                 className="movable-line"
                 data-testid="movable-line"
                 style={{cursor: dragging ? "grabbing" : "grab"}}
+                // Indicate that this element is interactive.
+                // As a bonus, giving this group a non-group role makes
+                // the screen reader skip over its empty children.
+                role="button"
             >
                 {/**
                  * This transparent line creates a nice big click/touch target.

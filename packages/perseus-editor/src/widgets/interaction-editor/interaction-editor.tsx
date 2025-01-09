@@ -21,31 +21,18 @@ import ParametricEditor from "./parametric-editor";
 import PointEditor from "./point-editor";
 import RectangleEditor from "./rectangle-editor";
 
+import type {Coords} from "@khanacademy/perseus";
+
 const {getDependencies} = Dependencies;
 const {unescapeMathMode} = Util;
-
-const defaultInteractionProps = {
-    graph: {
-        box: [400, 400],
-        labels: ["x", "y"],
-        range: [
-            [-10, 10],
-            [-10, 10],
-        ],
-        tickStep: [1, 1],
-        gridStep: [1, 1],
-        markings: "graph",
-    },
-    elements: [],
-} as const;
 
 type Graph = {
     box: ReadonlyArray<number>;
     labels: ReadonlyArray<string>;
-    range: ReadonlyArray<ReadonlyArray<number>>;
-    tickStep: ReadonlyArray<number>;
-    gridStep: ReadonlyArray<number>;
-    markings: string;
+    range: Coords;
+    tickStep: [number, number];
+    gridStep: [number, number];
+    markings: "graph" | "grid" | "none";
     valid?: boolean;
 };
 
@@ -63,7 +50,20 @@ type State = any;
 
 class InteractionEditor extends React.Component<Props, State> {
     static widgetName = "interaction" as const;
-    static defaultProps: DefaultProps = defaultInteractionProps;
+    static defaultProps: DefaultProps = {
+        graph: {
+            box: [400, 400],
+            labels: ["x", "y"],
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            tickStep: [1, 1],
+            gridStep: [1, 1],
+            markings: "graph",
+        },
+        elements: [],
+    };
 
     state: State = {
         usedVarSubscripts: this._getAllVarSubscripts(this.props.elements),

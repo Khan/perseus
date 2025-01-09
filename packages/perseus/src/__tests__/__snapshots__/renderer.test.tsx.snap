@@ -355,7 +355,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
               <span
                 aria-atomic="true"
@@ -379,7 +379,20 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 <span
                   class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
-                  less than or equal to
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        less than or equal to
+                      </div>
+                    </div>
+                  </div>
                 </span>
                 <span
                   aria-hidden="true"
@@ -434,7 +447,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
               <span
                 aria-atomic="true"
@@ -458,7 +471,20 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 <span
                   class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
-                  greater than or equal to
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        greater than or equal to
+                      </div>
+                    </div>
+                  </div>
                 </span>
                 <span
                   aria-hidden="true"
@@ -513,7 +539,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
               <span
                 aria-atomic="true"
@@ -537,7 +563,20 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 <span
                   class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
-                  greater/less than or equal to
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        greater/less than or equal to
+                      </div>
+                    </div>
+                  </div>
                 </span>
                 <span
                   aria-hidden="true"

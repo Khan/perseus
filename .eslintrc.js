@@ -289,26 +289,6 @@ module.exports = {
                 message:
                     "Use of React.FC<Props> is disallowed, use the following alternative: https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/2201682693/TypeScript+for+Flow+Developers#Functional-Components",
             },
-            {
-                selector:
-                    "JSXElement[openingElement.name.name='UniqueIDProvider']",
-                message:
-                    "DEPRECATED: Use the `Id` Wonder Blocks Core component instead, or migrate to the `useId` React hook.",
-            },
-            {
-                selector: "JSXElement[openingElement.name.name='IDProvider']",
-                message:
-                    "DEPRECATED: Use the `Id` Wonder Blocks Core component instead, or migrate to the `useId` React hook.",
-            },
-            {
-                selector: "CallExpression[callee.name='useUniqueIdWithMock']",
-                message: "DEPRECATED: Use the `useId` React hook instead.",
-            },
-            {
-                selector:
-                    "CallExpression[callee.name='useUniqueIdWithoutMock']",
-                message: "DEPRECATED: Use the `useId` React hook instead.",
-            },
         ],
 
         /**
