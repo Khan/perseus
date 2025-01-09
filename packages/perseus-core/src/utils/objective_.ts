@@ -1,9 +1,7 @@
 /**
- * A work-in-progress of _ methods for objects.
+ * _ methods for objects.
  * That is, they take an object as a parameter,
  * and return an object instead of an array.
- *
- * TODO(aria): Move this out of interactive2
  */
 
 import _ from "underscore";
