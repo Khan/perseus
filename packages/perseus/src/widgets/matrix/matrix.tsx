@@ -1,3 +1,4 @@
+import {Util} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
@@ -12,7 +13,6 @@ import TextInput from "../../components/text-input";
 import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
-import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
 import scoreMatrix from "./score-matrix";

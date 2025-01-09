@@ -8,8 +8,9 @@ import {
     interactiveSizes,
     Changeable,
     Dependencies,
-    Util,
+    Util as PerseusUtil,
 } from "@khanacademy/perseus";
+import {Util} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -200,7 +201,7 @@ class GraphSettings extends React.Component<Props, State> {
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value; // eslint-disable-line react/no-string-refs
         if (url) {
-            Util.getImageSize(url, (width, height) => {
+            PerseusUtil.getImageSize(url, (width, height) => {
                 if (this._isMounted) {
                     setUrl(url, width, height);
                 }

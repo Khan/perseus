@@ -1,4 +1,5 @@
-import {components, TableWidget, Util} from "@khanacademy/perseus";
+import {components, TableWidget} from "@khanacademy/perseus";
+import {Util} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";

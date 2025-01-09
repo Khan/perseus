@@ -1,7 +1,7 @@
 import {number as knumber} from "@khanacademy/kmath";
+import {Util} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import Util from "../../util";
 import {
     canonicalSineCoefficients,
     collinear,

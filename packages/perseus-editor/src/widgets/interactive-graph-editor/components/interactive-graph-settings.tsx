@@ -6,8 +6,9 @@ import {
     components,
     interactiveSizes,
     Changeable,
-    Util,
+    Util as PerseusUtil,
 } from "@khanacademy/perseus";
+import {Util} from "@khanacademy/perseus-core";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -201,7 +202,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
         const url = this.bgUrlRef.current?.value;
         if (url) {
-            Util.getImageSize(url, (width, height) => {
+            PerseusUtil.getImageSize(url, (width, height) => {
                 if (this._isMounted) {
                     setUrl(url, width, height);
                 }

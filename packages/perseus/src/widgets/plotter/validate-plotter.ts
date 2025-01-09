@@ -1,4 +1,4 @@
-import Util from "../../util";
+import {Util} from "@khanacademy/perseus-core";
 
 import type {ValidationResult} from "../../types";
 import type {

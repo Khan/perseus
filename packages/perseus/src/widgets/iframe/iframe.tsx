@@ -7,13 +7,13 @@
  *  but could also be used for embedding viz's hosted elsewhere.
  */
 
+import {Util} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
-import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
 
 import {scoreIframe} from "./score-iframe";

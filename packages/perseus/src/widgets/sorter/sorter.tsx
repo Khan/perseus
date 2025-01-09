@@ -1,8 +1,8 @@
+import {Util} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
 import Sortable from "../../components/sortable";
-import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 import scoreSorter from "./score-sorter";

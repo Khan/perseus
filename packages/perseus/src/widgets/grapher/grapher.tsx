@@ -3,6 +3,7 @@ import {
     vector as kvector,
     point as kpoint,
 } from "@khanacademy/kmath";
+import {Util} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -13,7 +14,6 @@ import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
 import * as Changeable from "../../mixins/changeable";
 import {interactiveSizes} from "../../styles/constants";
-import Util from "../../util";
 import KhanColors from "../../util/colors";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 /* Graphie and relevant components. */
@@ -34,13 +34,15 @@ import {
 import type {Coord, Line} from "../../interactive2/types";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {GridDimensions} from "../../util";
 import type {
     PerseusGrapherRubric,
     PerseusGrapherUserInput,
 } from "../../validation.types";
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
-import type {PerseusGrapherWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    GridDimensions,
+    PerseusGrapherWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.

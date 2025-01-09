@@ -1,4 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+import {Util} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
@@ -13,7 +14,6 @@ import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
-import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
 import scoreCategorizer from "./score-categorizer";

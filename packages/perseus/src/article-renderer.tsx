@@ -3,6 +3,7 @@
  * composed of multiple (Renderer) sections concatenated together.
  */
 
+import {Util} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
@@ -12,7 +13,6 @@ import {DependenciesContext, getDependencies} from "./dependencies";
 import JiptParagraphs from "./jipt-paragraphs";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
-import Util from "./util";
 
 import type {PerseusDependenciesV2, SharedRendererProps} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";

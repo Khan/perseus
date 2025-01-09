@@ -1,3 +1,4 @@
+import {Util} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -8,7 +9,6 @@ import SimpleKeypadInput from "../../components/simple-keypad-input";
 import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
-import Util from "../../util";
 
 import scoreTable from "./score-table";
 

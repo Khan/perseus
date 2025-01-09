@@ -1,20 +1,22 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
 import {vector as kvector} from "@khanacademy/kmath";
+import {Util} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
 import AssetContext from "../asset-context";
 import {interactiveSizes} from "../styles/constants";
-import Util from "../util";
 import GraphUtils from "../util/graph-utils";
 
 import SvgImage from "./svg-image";
 
 import type {Coord} from "../interactive2/types";
-import type {GridDimensions} from "../util";
-import type {PerseusImageBackground} from "@khanacademy/perseus-core";
+import type {
+    GridDimensions,
+    PerseusImageBackground,
+} from "@khanacademy/perseus-core";
 
 const defaultBackgroundImage = {
     url: null,

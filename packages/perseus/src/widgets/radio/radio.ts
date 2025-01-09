@@ -1,6 +1,5 @@
+import {Util} from "@khanacademy/perseus-core";
 import _ from "underscore";
-
-import Util from "../../util";
 
 import Radio from "./radio-component";
 import scoreRadio from "./score-radio";

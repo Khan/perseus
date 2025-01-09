@@ -1,4 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+import {Util} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 /**
@@ -19,7 +20,6 @@ import HintsRenderer from "./hints-renderer";
 import LoadingContext from "./loading-context";
 import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
-import Util from "./util";
 
 import type {
     FocusPath,

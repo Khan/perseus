@@ -1,6 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe */
-import {Errors} from "@khanacademy/perseus-core";
+import {Errors, Util} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import $ from "jquery";
 import * as React from "react";
@@ -11,7 +11,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import {Log} from "../../logging/log";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
-import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 
 import {scoreOrderer} from "./score-orderer";

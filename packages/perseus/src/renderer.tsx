@@ -1,6 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
-import {Errors, PerseusError, mapObject} from "@khanacademy/perseus-core";
+import {Errors, PerseusError, mapObject, Util} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import classNames from "classnames";
@@ -30,7 +30,6 @@ import {
     scoreWidgetsFunctional,
 } from "./renderer-util";
 import TranslationLinter from "./translation-linter";
-import Util from "./util";
 import {flattenScores} from "./util/scoring";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";

@@ -1,11 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe */
-import {
-    Changeable,
-    Dependencies,
-    EditorJsonify,
-    Util,
-} from "@khanacademy/perseus";
+import {Changeable, Dependencies, EditorJsonify} from "@khanacademy/perseus";
+import {Util} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 

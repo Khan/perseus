@@ -3,10 +3,10 @@ import {
     preprocessTex,
     Log,
     PerseusMarkdown,
-    Util,
     Widgets,
+    Util as PerseusUtil,
 } from "@khanacademy/perseus";
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {Util, Errors, PerseusError} from "@khanacademy/perseus-core";
 import $ from "jquery";
 // eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import katex from "katex";
@@ -316,7 +316,7 @@ class Editor extends React.Component<Props, State> {
         // TODO(jack): Q promises would make this nicer and only
         // fire once.
         _.each(newImageUrls, (url) => {
-            Util.getImageSize(url, (width, height) => {
+            PerseusUtil.getImageSize(url, (width, height) => {
                 // We keep modifying the same image object rather than a new
                 // copy from this.props because all changes here are additive.
                 // Maintaining old changes isn't strictly necessary if

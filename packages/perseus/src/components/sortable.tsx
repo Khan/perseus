@@ -1,5 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe */
+import {Util} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
@@ -11,11 +12,10 @@ import _ from "underscore";
 import {getDependencies} from "../dependencies";
 import {ClassNames as ApiClassNames} from "../perseus-api";
 import Renderer from "../renderer";
-import Util from "../util";
 
 import {PerseusI18nContext} from "./i18n-context";
 
-import type {Position} from "../util";
+import type {Position} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Layout = "horizontal" | "vertical";

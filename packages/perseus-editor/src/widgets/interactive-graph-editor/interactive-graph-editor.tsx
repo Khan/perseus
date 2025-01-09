@@ -5,8 +5,8 @@ import {
     getInteractiveBoxFromSizeClass,
     InteractiveGraphWidget,
     interactiveSizes,
-    Util,
 } from "@khanacademy/perseus";
+import {Util} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";

@@ -1,9 +1,9 @@
 import {vector as kvector} from "@khanacademy/kmath";
+import {Util} from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
-import Util from "../../../util";
 import {
     angleMeasures,
     ccw,

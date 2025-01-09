@@ -1,10 +1,10 @@
 import {point as kpoint} from "@khanacademy/kmath";
+import {Util} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
 import Graphie from "../../components/graphie";
 import {getDependencies} from "../../dependencies";
-import Util from "../../util";
 
 import type {
     Coords,

@@ -3,9 +3,8 @@
  */
 
 import {number as knumber, point as kpoint, sum} from "@khanacademy/kmath";
+import {Util} from "@khanacademy/perseus-core";
 import _ from "underscore";
-
-import Util from "../util";
 
 import type {Coord, Line} from "../interactive2/types";
 
