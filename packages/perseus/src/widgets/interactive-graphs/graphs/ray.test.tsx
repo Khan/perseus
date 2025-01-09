@@ -5,14 +5,17 @@ import * as React from "react";
 import {Dependencies} from "@khanacademy/perseus";
 
 import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
+
+import {describeRayGraph} from "./ray";
 
 import type {InteractiveGraphState} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
-const baseLinearState: InteractiveGraphState = {
+const baseRayState: InteractiveGraphState = {
     type: "ray",
     coords: [
         [-5, 5],
@@ -41,7 +44,7 @@ describe("Linear graph screen reader", () => {
 
     test("should have aria label and describedby for overall linear graph", () => {
         // Arrange
-        render(<MafsGraph {...baseMafsGraphProps} state={baseLinearState} />);
+        render(<MafsGraph {...baseMafsGraphProps} state={baseRayState} />);
 
         // Act
         const linearGraph = screen.getByLabelText(
@@ -62,9 +65,7 @@ describe("Linear graph screen reader", () => {
         "should have aria label for $element on the line",
         ({index, expectedValue}) => {
             // Arrange
-            render(
-                <MafsGraph {...baseMafsGraphProps} state={baseLinearState} />,
-            );
+            render(<MafsGraph {...baseMafsGraphProps} state={baseRayState} />);
 
             // Act
             // Moveable elements: point 1, grab handle, point 2
@@ -78,7 +79,7 @@ describe("Linear graph screen reader", () => {
 
     test("points description should include points info", () => {
         // Arrange
-        render(<MafsGraph {...baseMafsGraphProps} state={baseLinearState} />);
+        render(<MafsGraph {...baseMafsGraphProps} state={baseRayState} />);
 
         // Act
         const linearGraph = screen.getByLabelText(overallGraphLabel);
@@ -97,7 +98,7 @@ describe("Linear graph screen reader", () => {
             <MafsGraph
                 {...baseMafsGraphProps}
                 state={{
-                    ...baseLinearState,
+                    ...baseRayState,
                     // Different points than default (-5, 5) and (5, 5)
                     coords: [
                         [-2, 3],
@@ -132,9 +133,7 @@ describe("Linear graph screen reader", () => {
         "Should update the aria-live when $elementName is moved",
         async ({index}) => {
             // Arrange
-            render(
-                <MafsGraph {...baseMafsGraphProps} state={baseLinearState} />,
-            );
+            render(<MafsGraph {...baseMafsGraphProps} state={baseRayState} />);
             const interactiveElements = screen.getAllByRole("button");
             const [point1, grabHandle, point2] = interactiveElements;
             const movingElement = interactiveElements[index];
@@ -155,4 +154,57 @@ describe("Linear graph screen reader", () => {
             expect(point2).toHaveAttribute("aria-live", expectedAriaLive[2]);
         },
     );
+});
+
+describe("describeRayGraph", () => {
+    test("describes a default ray", () => {
+        // Arrange
+
+        // Act
+        const strings = describeRayGraph(baseRayState, mockPerseusI18nContext);
+
+        // Assert
+        expect(strings.srRayGraph).toBe("A ray on a coordinate plane.");
+        expect(strings.srRayPoints).toBe(
+            "The endpoint is at -5 comma 5 and the terminal point is at 5 comma 5.",
+        );
+        expect(strings.srRayEndpoint).toBe("Endpoint at -5 comma 5.");
+        expect(strings.srRayTerminalPoint).toBe("Terminal point at 5 comma 5.");
+        expect(strings.srRayGrabHandle).toBe(
+            "Ray from endpoint -5 comma 5 to terminal point 5 comma 5.",
+        );
+        expect(strings.srRayInteractiveElement).toBe(
+            "Interactive elements: A ray on a coordinate plane. The endpoint is at -5 comma 5 and the terminal point is at 5 comma 5.",
+        );
+    });
+
+    test("describes a ray with updated points", () => {
+        // Arrange
+
+        // Act
+        const strings = describeRayGraph(
+            {
+                ...baseRayState,
+                coords: [
+                    [-1, 2],
+                    [3, 4],
+                ],
+            },
+            mockPerseusI18nContext,
+        );
+
+        // Assert
+        expect(strings.srRayGraph).toBe("A ray on a coordinate plane.");
+        expect(strings.srRayPoints).toBe(
+            "The endpoint is at -1 comma 2 and the terminal point is at 3 comma 4.",
+        );
+        expect(strings.srRayEndpoint).toBe("Endpoint at -1 comma 2.");
+        expect(strings.srRayTerminalPoint).toBe("Terminal point at 3 comma 4.");
+        expect(strings.srRayGrabHandle).toBe(
+            "Ray from endpoint -1 comma 2 to terminal point 3 comma 4.",
+        );
+        expect(strings.srRayInteractiveElement).toBe(
+            "Interactive elements: A ray on a coordinate plane. The endpoint is at -1 comma 2 and the terminal point is at 3 comma 4.",
+        );
+    });
 });
