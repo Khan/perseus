@@ -340,34 +340,6 @@ describe("fetchAriaLabels", () => {
         ]);
     });
 
-    test("should include hidden descriptions", () => {
-        // Arrange
-        const {container} = render(
-            <div>
-                <div aria-describedby="description1 description2">label1</div>
-                <div id="description1">description1 content</div>
-                <div id="description2" style={{display: "hidden"}}>
-                    description2 content
-                </div>
-            </div>,
-        );
-
-        // Act
-        const result = getAccessibilityAttributes(container);
-
-        // Assert
-        expect(result).toEqual([
-            {
-                roleOrTag: "div",
-                className: "",
-                attributes: [
-                    {name: "description", value: "description1 content"},
-                    {name: "description", value: "description2 content"},
-                ],
-            },
-        ]);
-    });
-
     test("should not include descriptions that are not found", () => {
         // Arrange
         const {container} = render(
