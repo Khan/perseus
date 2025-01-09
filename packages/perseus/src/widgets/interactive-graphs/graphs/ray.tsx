@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
+import a11y from "../../../util/a11y";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
@@ -72,7 +73,7 @@ const RayGraph = (props: Props) => {
             />
             {/* Hidden elements to provide the descriptions for the
                 circle and radius point's `aria-describedby` properties. */}
-            <g id={pointsDescriptionId} style={{display: "hidden"}}>
+            <g id={pointsDescriptionId} style={a11y.srOnly}>
                 {srRayPoints}
             </g>
         </g>
