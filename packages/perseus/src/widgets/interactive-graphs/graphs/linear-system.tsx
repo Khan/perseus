@@ -43,7 +43,7 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
             interceptDescriptionId: id + `-line${i + 1}-intercept`,
             slopeDescriptionId: id + `-line${i + 1}-slope`,
             pointsDescription: strings.srLinearSystemPoints({
-                lineSequence: i + 1,
+                lineNumber: i + 1,
                 point1X: srFormatNumber(line[0][0], locale),
                 point1Y: srFormatNumber(line[0][1], locale),
                 point2X: srFormatNumber(line[1][0], locale),
@@ -78,19 +78,19 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                     points={line}
                     ariaLabels={{
                         point1AriaLabel: strings.srLinearSystemPoint({
-                            lineSequence: i + 1,
+                            lineNumber: i + 1,
                             pointSequence: 1,
                             x: srFormatNumber(line[0][0], locale),
                             y: srFormatNumber(line[0][1], locale),
                         }),
                         point2AriaLabel: strings.srLinearSystemPoint({
-                            lineSequence: i + 1,
+                            lineNumber: i + 1,
                             pointSequence: 2,
                             x: srFormatNumber(line[1][0], locale),
                             y: srFormatNumber(line[1][1], locale),
                         }),
                         grabHandleAriaLabel: strings.srLinearSystemGrabHandle({
-                            lineSequence: i + 1,
+                            lineNumber: i + 1,
                             point1X: srFormatNumber(line[0][0], locale),
                             point1Y: srFormatNumber(line[0][1], locale),
                             point2X: srFormatNumber(line[1][0], locale),
@@ -185,7 +185,7 @@ export function describeLinearSystemGraph(
         const point1 = line[0];
         const point2 = line[1];
         return strings.srLinearSystemPoints({
-            lineSequence: i + 1,
+            lineNumber: i + 1,
             point1X: srFormatNumber(point1[0], locale),
             point1Y: srFormatNumber(point1[1], locale),
             point2X: srFormatNumber(point2[0], locale),
