@@ -3,10 +3,10 @@ import {isRealJSONParse} from "../is-real-json-parse";
 import {parse} from "./parse";
 import {parsePerseusArticle as migrateAndTypecheckPerseusArticle} from "./perseus-parsers/perseus-article";
 import {parsePerseusItem as migrateAndTypecheckPerseusItem} from "./perseus-parsers/perseus-item";
+import {failure, isFailure} from "./result";
 
 import type {Result} from "./result";
 import type {PerseusItem, PerseusArticle} from "@khanacademy/perseus-core";
-import {failure, isFailure} from "./result";
 
 /**
  * Helper to parse PerseusItem JSON
@@ -31,13 +31,13 @@ export type ParseFailureDetail = {
      * A human-readable error message describing where in the object tree
      * parsing failed.
      */
-    message: string,
+    message: string;
     /**
      * The raw result of parsing the input JSON, with no migrations applied.
      * Use at your own risk.
      */
-    invalidObject: unknown,
-}
+    invalidObject: unknown;
+};
 
 /**
  * Parses a PerseusItem from a JSON string, migrates old formats to the latest
@@ -56,9 +56,9 @@ export function parseAndMigratePerseusItem(
     const object: unknown = JSON.parse(json);
     const result = parse(object, migrateAndTypecheckPerseusItem);
     if (isFailure(result)) {
-        return failure({message: result.detail, invalidObject: object})
+        return failure({message: result.detail, invalidObject: object});
     }
-    return result
+    return result;
 }
 
 /**
@@ -77,9 +77,9 @@ export function parseAndMigratePerseusArticle(
     const object: unknown = JSON.parse(json);
     const result = parse(object, migrateAndTypecheckPerseusArticle);
     if (isFailure(result)) {
-        return failure({message: result.detail, invalidObject: object})
+        return failure({message: result.detail, invalidObject: object});
     }
-    return result
+    return result;
 }
 
 /**

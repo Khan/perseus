@@ -1,6 +1,6 @@
 import {jest} from "@jest/globals";
 
-import {assertFailure, assertSuccess, failure, success} from "./result";
+import {assertFailure, assertSuccess, success} from "./result";
 
 import {parseAndMigratePerseusItem, parseAndMigratePerseusArticle} from ".";
 
@@ -86,7 +86,7 @@ describe("parseAndMigratePerseusArticle", () => {
     it("fails given invalid data", () => {
         const result = parseAndMigratePerseusArticle("[9]");
 
-        assertFailure(result)
+        assertFailure(result);
         expect(result.detail.message).toEqual(
             "At (root)[0] -- expected object, but got 9",
         );
@@ -96,8 +96,8 @@ describe("parseAndMigratePerseusArticle", () => {
         const result = parseAndMigratePerseusArticle("[9]");
 
         assertFailure(result);
-        expect(result.detail.invalidObject).toEqual([9])
-    })
+        expect(result.detail.invalidObject).toEqual([9]);
+    });
 
     it("throws an error given malformed JSON", () => {
         expect(() => parseAndMigratePerseusArticle("")).toThrowError(
