@@ -29,9 +29,16 @@ describe("parseAndMigratePerseusItem", () => {
         const result = parseAndMigratePerseusItem(`{"question": "bad value"}`);
 
         assertFailure(result);
-        expect(result.detail).toContain(
+        expect(result.detail.message).toContain(
             `At (root).question -- expected object, but got "bad value"`,
         );
+    });
+
+    it("returns the invalid object along with the error", () => {
+        const result = parseAndMigratePerseusItem(`{"question": "bad value"}`);
+
+        assertFailure(result);
+        expect(result.detail.invalidObject).toEqual({question: "bad value"});
     });
 
     it("throws an error given malformed JSON", () => {
@@ -78,10 +85,19 @@ describe("parseAndMigratePerseusArticle", () => {
 
     it("fails given invalid data", () => {
         const result = parseAndMigratePerseusArticle("[9]");
-        expect(result).toEqual(
-            failure("At (root)[0] -- expected object, but got 9"),
+
+        assertFailure(result)
+        expect(result.detail.message).toEqual(
+            "At (root)[0] -- expected object, but got 9",
         );
     });
+
+    it("returns the invalid object along with the error", () => {
+        const result = parseAndMigratePerseusArticle("[9]");
+
+        assertFailure(result);
+        expect(result.detail.invalidObject).toEqual([9])
+    })
 
     it("throws an error given malformed JSON", () => {
         expect(() => parseAndMigratePerseusArticle("")).toThrowError(
