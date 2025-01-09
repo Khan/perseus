@@ -1,7 +1,5 @@
 /**
- * _ methods for objects.
- * That is, they take an object as a parameter,
- * and return an object instead of an array.
+ * Utilities for objects
  */
 
 import _ from "underscore";
@@ -49,4 +47,14 @@ export const mapObject = function <K extends string, V, U>(
         result[key] = lambda(obj[key], key);
     });
     return result;
+};
+
+// Performs a deep copy of the given object. If there are cycles in the object
+// tree, an error is thrown.
+export const clone = <T>(obj: T): T => {
+    const json = JSON.stringify(obj);
+    if (!json) {
+        throw new Error("Oops, couldn't clone given object!");
+    }
+    return JSON.parse(json);
 };

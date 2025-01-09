@@ -1,8 +1,8 @@
 import {describe, beforeEach, it} from "@jest/globals";
+import {clone} from "@khanacademy/perseus-core";
 import {act, screen, fireEvent, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {clone} from "../../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {mockStrings} from "../../../strings";

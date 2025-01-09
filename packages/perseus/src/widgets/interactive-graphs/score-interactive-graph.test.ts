@@ -1,6 +1,5 @@
+import {clone} from "@khanacademy/perseus-core";
 import invariant from "tiny-invariant";
-
-import {clone} from "../../../../../testing/object-utils";
 
 import scoreInteractiveGraph from "./score-interactive-graph";
 
