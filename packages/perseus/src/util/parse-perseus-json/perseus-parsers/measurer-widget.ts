@@ -6,6 +6,7 @@ import {
     pair,
     string,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
@@ -24,6 +25,7 @@ export const parseMeasurerWidget: Parser<MeasurerWidget> = parseWidget(
         rulerPixels: number,
         rulerLength: number,
         box: pair(number, number),
-        static: boolean,
+        // TODO(benchristel): static is not used. Remove it?
+        static: defaulted(boolean, () => false),
     }),
 );

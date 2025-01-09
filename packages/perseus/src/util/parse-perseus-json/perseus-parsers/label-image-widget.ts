@@ -6,6 +6,7 @@ import {
     object,
     string,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
@@ -30,6 +31,6 @@ export const parseLabelImageWidget: Parser<LabelImageWidget> = parseWidget(
         ),
         hideChoicesFromInstructions: boolean,
         multipleAnswers: boolean,
-        static: boolean,
+        static: defaulted(boolean, () => false),
     }),
 );

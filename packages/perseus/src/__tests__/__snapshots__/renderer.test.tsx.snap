@@ -355,7 +355,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
               <span
                 aria-atomic="true"
@@ -383,10 +383,14 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class=""
+                      class="paragraph"
                       data-perseus-paragraph-index="0"
                     >
-                      less than or equal to
+                      <div
+                        class="paragraph"
+                      >
+                        less than or equal to
+                      </div>
                     </div>
                   </div>
                 </span>
@@ -443,7 +447,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
               <span
                 aria-atomic="true"
@@ -471,10 +475,14 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class=""
+                      class="paragraph"
                       data-perseus-paragraph-index="0"
                     >
-                      greater than or equal to
+                      <div
+                        class="paragraph"
+                      >
+                        greater than or equal to
+                      </div>
                     </div>
                   </div>
                 </span>
@@ -531,7 +539,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
               <span
                 aria-atomic="true"
@@ -559,16 +567,14 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class=""
+                      class="paragraph"
                       data-perseus-paragraph-index="0"
                     >
-                      greater
-                    </div>
-                    <div
-                      class=""
-                      data-perseus-paragraph-index="1"
-                    >
-                      /less than or equal to
+                      <div
+                        class="paragraph"
+                      >
+                        greater/less than or equal to
+                      </div>
                     </div>
                   </div>
                 </span>

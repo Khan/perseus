@@ -7,6 +7,7 @@ import {
     object,
     string,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
@@ -23,6 +24,6 @@ export const parseCSProgramWidget: Parser<CSProgramWidget> = parseWidget(
         showButtons: boolean,
         width: number,
         height: number,
-        static: boolean,
+        static: defaulted(boolean, () => false),
     }),
 );

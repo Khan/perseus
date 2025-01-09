@@ -5,6 +5,7 @@
  * Used in the interactive graph editor's locked figures section.
  */
 
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
 import LockedEllipseSettings from "./locked-ellipse-settings";
@@ -23,15 +24,8 @@ import type {Props as LockedLineProps} from "./locked-line-settings";
 import type {Props as LockedPointProps} from "./locked-point-settings";
 import type {Props as LockedPolygonProps} from "./locked-polygon-settings";
 import type {Props as LockedVectorProps} from "./locked-vector-settings";
-import type {APIOptions} from "@khanacademy/perseus";
 
 export type LockedFigureSettingsCommonProps = {
-    flags?: APIOptions["flags"];
-    // Whether to show the locked labels in the locked figure settings.
-    // TODO(LEMS-2274): Remove this prop once the label flag is
-    // sfully rolled out.
-    showLabelsFlag?: boolean;
-
     // Movement props
     /**
      * Called when a movement button (top, up, down, bottom) is pressed.
@@ -80,13 +74,10 @@ const LockedFigureSettings = (props: Props) => {
         case "function":
             return <LockedFunctionSettings {...props} />;
         case "label":
-            if (props.showLabelsFlag) {
-                return <LockedLabelSettings {...props} />;
-            }
-            break;
+            return <LockedLabelSettings {...props} />;
+        default:
+            throw new UnreachableCaseError(props);
     }
-
-    return null;
 };
 
 export default LockedFigureSettings;
