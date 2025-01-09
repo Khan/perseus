@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
+import a11y from "../../../util/a11y";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
@@ -133,21 +134,21 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                         <g
                             key={pointsDescriptionId}
                             id={pointsDescriptionId}
-                            style={{display: "hidden"}}
+                            style={a11y.srOnly}
                         >
                             {pointsDescription}
                         </g>
                         <g
                             key={interceptDescriptionId}
                             id={interceptDescriptionId}
-                            style={{display: "hidden"}}
+                            style={a11y.srOnly}
                         >
                             {interceptDescription}
                         </g>
                         <g
                             key={slopeDescriptionId}
                             id={slopeDescriptionId}
-                            style={{display: "hidden"}}
+                            style={a11y.srOnly}
                         >
                             {slopeDescription}
                         </g>

@@ -2,6 +2,7 @@ import {vec} from "mafs";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
+import a11y from "../../../util/a11y";
 import {X, Y, calculateAngleInDegrees, getClockwiseAngle, polar} from "../math";
 import {findIntersectionOfRays} from "../math/geometry";
 import {actions} from "../reducer/interactive-graph-action";
@@ -215,7 +216,7 @@ function AngleGraph(props: AngleGraphProps) {
                 }
                 ariaLabel={initialSideAriaLabel}
             />
-            <g id="angle-description" style={{display: "hidden"}}>
+            <g id="angle-description" style={a11y.srOnly}>
                 {wholeAngleDescription}
             </g>
         </g>

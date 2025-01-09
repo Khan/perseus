@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
+import a11y from "../../../util/a11y";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
@@ -86,13 +87,13 @@ const LinearGraph = (props: LinearGraphProps, key: number) => {
             />
             {/* Hidden elements to provide the descriptions for the
                 circle and radius point's `aria-describedby` properties. */}
-            <g id={pointsDescriptionId} style={{display: "hidden"}}>
+            <g id={pointsDescriptionId} style={a11y.srOnly}>
                 {linearGraphPointsDescription}
             </g>
-            <g id={interceptDescriptionId} style={{display: "hidden"}}>
+            <g id={interceptDescriptionId} style={a11y.srOnly}>
                 {interceptString}
             </g>
-            <g id={slopeDescriptionId} style={{display: "hidden"}}>
+            <g id={slopeDescriptionId} style={a11y.srOnly}>
                 {slopeString}
             </g>
         </g>
