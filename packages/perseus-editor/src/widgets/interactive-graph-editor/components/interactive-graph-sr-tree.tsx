@@ -1,7 +1,15 @@
+import {addStyle, View} from "@khanacademy/wonder-blocks-core";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Pill from "@khanacademy/wonder-blocks-pill";
+import Switch from "@khanacademy/wonder-blocks-switch";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Heading from "../../../components/heading";
+
+const StyledUL = addStyle("ul");
 
 type Attribute = {
     name: string;
@@ -10,6 +18,7 @@ type Attribute = {
 
 type AttributeMap = {
     role: string;
+    className: string;
     attributes: Array<Attribute>;
 };
 
@@ -66,6 +75,11 @@ export function getAccessibilityAttributes(
                 role:
                     element.getAttribute("role") ||
                     element.tagName.toLowerCase(),
+                // Use the last class in the list of classes to avoid the
+                // prepend classes that are not relevant, such as the
+                // obscured inline styles.
+                className:
+                    element.classList[element.classList.length - 1] || "",
                 attributes: elementAttributes,
             });
         }
@@ -76,10 +90,11 @@ export function getAccessibilityAttributes(
 
 type Props = {
     elementArias: Array<AttributeMap>;
+    showTags: boolean;
 };
 
 function SRTree(props: Props) {
-    const {elementArias} = props;
+    const {elementArias, showTags} = props;
 
     // Each list item of this ordered list is the role/rag of the element
     // followed by an unordered list of its aria attributes.
@@ -87,8 +102,17 @@ function SRTree(props: Props) {
         <ol style={{listStyle: "revert", marginLeft: 8}}>
             {elementArias.map((aria, index) => (
                 <li key={index}>
-                    {aria.role}
-                    <ul style={{listStyle: "revert", marginLeft: 8}}>
+                    {showTags && (
+                        <Pill
+                            size="small"
+                            kind="success"
+                            style={styles.smallSpaceRight}
+                        >
+                            {aria.role}
+                        </Pill>
+                    )}
+                    {aria.className}
+                    <StyledUL style={styles.indentListLeft}>
                         {aria.attributes.map((value, index) => (
                             <li key={index}>
                                 <Pill
@@ -98,13 +122,14 @@ function SRTree(props: Props) {
                                             ? "info"
                                             : "neutral"
                                     }
+                                    style={styles.smallSpaceRight}
                                 >
                                     {value.name}
-                                </Pill>{" "}
+                                </Pill>
                                 {value.value}
                             </li>
                         ))}
-                    </ul>
+                    </StyledUL>
                 </li>
             ))}
         </ol>
@@ -118,7 +143,9 @@ function InteractiveGraphSRTree({
     lockedFigures,
 }) {
     const [isExpanded, setIsExpanded] = React.useState(true);
+    const [showTags, setShowTags] = React.useState(false);
     const [elementArias, setElementArias] = React.useState<AttributeMap[]>([]);
+    const switchId = React.useId();
 
     // TODO(nisha): Change this to use ref after the graph has a non-string
     // ref and the InteractiveGraph component forwards refs.
@@ -146,9 +173,42 @@ function InteractiveGraphSRTree({
                 onToggle={setIsExpanded}
                 isCollapsible={true}
             />
-            {isExpanded && <SRTree elementArias={elementArias} />}
+            {isExpanded && (
+                <>
+                    <View style={[styles.row, styles.tagSwitch]}>
+                        <Switch
+                            id={switchId}
+                            checked={showTags}
+                            onChange={setShowTags}
+                        />
+                        <Strut size={spacing.xSmall_8} />
+                        <LabelSmall tag="label" htmlFor={switchId}>
+                            Show HTML roles/tags
+                        </LabelSmall>
+                    </View>
+                    <SRTree elementArias={elementArias} showTags={showTags} />
+                </>
+            )}
         </>
     );
 }
+
+const styles = StyleSheet.create({
+    smallSpaceRight: {
+        marginRight: spacing.xxSmall_6,
+    },
+    indentListLeft: {
+        listStyle: "revert",
+        marginLeft: spacing.small_12,
+    },
+    tagSwitch: {
+        marginTop: spacing.xSmall_8,
+        marginBottom: spacing.xSmall_8,
+    },
+    row: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+});
 
 export default InteractiveGraphSRTree;

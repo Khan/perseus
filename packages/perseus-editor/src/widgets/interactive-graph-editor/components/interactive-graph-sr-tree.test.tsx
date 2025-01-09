@@ -32,10 +32,12 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "div",
+                className: "",
                 attributes: [{name: "label", value: "label1"}],
             },
             {
                 role: "div",
+                className: "",
                 attributes: [{name: "label", value: "label2"}],
             },
         ]);
@@ -57,11 +59,64 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "button",
+                className: "",
                 attributes: [{name: "label", value: "aria-label1"}],
             },
             {
                 role: "button",
+                className: "",
                 attributes: [{name: "label", value: "aria-label2"}],
+            },
+        ]);
+    });
+
+    test("should include provided class", () => {
+        // Arrange
+        const {container} = render(
+            <div>
+                <div className="class1" aria-label="label1" />
+                <div className="class2" aria-label="label2" />
+            </div>,
+        );
+
+        // Act
+        const result = getAccessibilityAttributes(container);
+
+        // Assert
+        expect(result).toEqual([
+            {
+                role: "div",
+                className: "class1",
+                attributes: [{name: "label", value: "label1"}],
+            },
+            {
+                role: "div",
+                className: "class2",
+                attributes: [{name: "label", value: "label2"}],
+            },
+        ]);
+    });
+
+    test("should return last class if multiple classes are provided", () => {
+        // Arrange
+        const {container} = render(
+            <div>
+                <div
+                    className="class1 class2 class3 class4"
+                    aria-label="label1"
+                />
+            </div>,
+        );
+
+        // Act
+        const result = getAccessibilityAttributes(container);
+
+        // Assert
+        expect(result).toEqual([
+            {
+                role: "div",
+                className: "class4",
+                attributes: [{name: "label", value: "label1"}],
             },
         ]);
     });
@@ -84,12 +139,14 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "div",
+                className: "",
                 attributes: [
                     {name: "description", value: "description1 content"},
                 ],
             },
             {
                 role: "div",
+                className: "",
                 attributes: [
                     {name: "description", value: "description2 content"},
                 ],
@@ -114,6 +171,7 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "div",
+                className: "",
                 attributes: [
                     {name: "description", value: "description1 content"},
                     {name: "description", value: "description2 content"},
@@ -141,6 +199,7 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "div",
+                className: "",
                 attributes: [
                     {name: "description", value: "description1 content"},
                     {name: "description", value: "description2 content"},
@@ -168,6 +227,7 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "div",
+                className: "",
                 attributes: [
                     {name: "description", value: "description1 content"},
                     {name: "description", value: "description2 content"},
@@ -192,6 +252,7 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "div",
+                className: "",
                 attributes: [
                     {name: "description", value: "description1 content"},
                 ],
@@ -229,20 +290,24 @@ describe("fetchAriaLabels", () => {
         expect(result).toEqual([
             {
                 role: "div",
+                className: "",
                 attributes: [{name: "label", value: "label-only"}],
             },
             {
                 role: "div",
+                className: "",
                 attributes: [
                     {name: "description", value: "description-only content "},
                 ],
             },
             {
                 role: "img",
+                className: "",
                 attributes: [{name: "label", value: "label with role"}],
             },
             {
                 role: "button",
+                className: "",
                 attributes: [
                     {name: "label", value: "aria-label1"},
                     {name: "description", value: "description1 content"},
@@ -250,6 +315,7 @@ describe("fetchAriaLabels", () => {
             },
             {
                 role: "button",
+                className: "",
                 attributes: [
                     {name: "label", value: "aria-label2"},
                     {name: "description", value: "description2 content"},
