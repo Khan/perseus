@@ -53,7 +53,9 @@ describe("Linear graph screen reader", () => {
 
         // Assert
         expect(linearGraph).toBeInTheDocument();
-        expect(linearGraph).toHaveAttribute("aria-describedby", ":r1:-points");
+        expect(linearGraph).toHaveAccessibleDescription(
+            "The endpoint is at -5 comma 5 and the terminal point is at 5 comma 5.",
+        );
     });
 
     test.each`
