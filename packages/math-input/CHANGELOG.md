@@ -1,5 +1,17 @@
 # @khanacademy/math-input
 
+## 22.1.1
+
+### Patch Changes
+
+-   [#2057](https://github.com/Khan/perseus/pull/2057) [`2dc22def4`](https://github.com/Khan/perseus/commit/2dc22def44b7616ad739d2c5a575b83bd6362949) Thanks [@dependabot](https://github.com/apps/dependabot)! - update wonderblocks dependencies
+
+## 22.1.0
+
+### Minor Changes
+
+-   [#1738](https://github.com/Khan/perseus/pull/1738) [`dbbc82f2d`](https://github.com/Khan/perseus/commit/dbbc82f2dd33545b12c6073174b05ebcf8d551ba) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - add scientific notation button / toggle to basic keypad
+
 ## 22.0.7
 
 ### Patch Changes

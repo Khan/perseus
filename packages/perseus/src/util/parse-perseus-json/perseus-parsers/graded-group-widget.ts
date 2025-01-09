@@ -5,9 +5,12 @@ import {
     number,
     object,
     optional,
+    pipeParsers,
     record,
     string,
+    union,
 } from "../general-purpose-parsers";
+import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parsePerseusRenderer} from "./perseus-renderer";
@@ -17,15 +20,19 @@ import {parseWidgetsMap} from "./widgets-map";
 import type {GradedGroupWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
 
+const falseToNull = pipeParsers(constant(false)).then(
+    convert(() => null),
+).parser;
 export const parseGradedGroupWidgetOptions = object({
     title: defaulted(string, () => ""),
     hasHint: optional(nullable(boolean)),
     // This module has an import cycle with parsePerseusRenderer.
     // The anonymous function below ensures that we don't try to access
     // parsePerseusRenderer before it's defined.
-    hint: optional(
-        nullable((rawVal, ctx) => parsePerseusRenderer(rawVal, ctx)),
-    ),
+    hint: union(falseToNull)
+        .or(constant(null))
+        .or(constant(undefined))
+        .or((rawVal, ctx) => parsePerseusRenderer(rawVal, ctx)).parser,
     content: string,
     // This module has an import cycle with parseWidgetsMap.
     // The anonymous function below ensures that we don't try to access

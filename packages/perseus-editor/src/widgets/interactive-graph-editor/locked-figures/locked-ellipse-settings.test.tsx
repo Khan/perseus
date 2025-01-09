@@ -8,19 +8,14 @@ import {flags} from "../../../__stories__/flags-for-api-options";
 import LockedEllipseSettings from "./locked-ellipse-settings";
 import {
     getDefaultFigureForType,
+    mockedGenerateSpokenMathDetailsForTests,
     mockedJoinLabelsAsSpokenMathForTests,
 } from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
-    flags: {
-        ...flags,
-        mafs: {
-            ...flags.mafs,
-            "locked-ellipse-settings": true,
-        },
-    },
+    flags: flags,
     ...getDefaultFigureForType("ellipse"),
     onChangeProps: () => {},
     onMove: () => {},
@@ -29,9 +24,11 @@ const defaultProps = {
 
 const defaultLabel = getDefaultFigureForType("label");
 
-// Mock the async function generateSpokenMathDetails
+// Mock the async functions
 jest.mock("./util", () => ({
     ...jest.requireActual("./util"),
+    generateSpokenMathDetails: (input) =>
+        mockedGenerateSpokenMathDetailsForTests(input),
     joinLabelsAsSpokenMath: (input) =>
         mockedJoinLabelsAsSpokenMathForTests(input),
 }));
@@ -393,7 +390,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                    "Circle with radius 2, centered at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -421,7 +418,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                    "Circle with radius 2, centered at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -448,7 +445,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Ellipse with x radius 2 and y radius 3, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                    "Ellipse with x radius 2 and y radius 3, centered at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -476,7 +473,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Ellipse with x radius 2 and y radius 3, centered at 0 comma 0, rotated by 90 degrees. Appearance solid gray border, with no fill.",
+                    "Ellipse with x radius 2 and y radius 3, centered at spoken $0$ comma spoken $0$, rotated by spoken $90$ degrees. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -508,7 +505,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle spoken A with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                    "Circle spoken A with radius 2, centered at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -544,7 +541,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle spoken A, spoken B with radius 2, centered at 0 comma 0. Appearance solid gray border, with no fill.",
+                    "Circle spoken A, spoken B with radius 2, centered at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
             });
         });
     });

@@ -14,10 +14,6 @@ import * as React from "react";
 import type {LockedFigureType} from "@khanacademy/perseus";
 
 type Props = {
-    // Whether to show the locked labels in the locked figure settings.
-    // TODO(LEMS-2274): Remove this prop once the label flag is
-    // sfully rolled out.
-    showLabelsFlag?: boolean;
     id: string;
     onChange: (value: LockedFigureType) => void;
 };
@@ -32,7 +28,7 @@ const LockedFigureSelect = (props: Props) => {
         "ellipse",
         "polygon",
         "function",
-        ...(props.showLabelsFlag ? ["label" as const] : []),
+        "label",
     ];
 
     return (

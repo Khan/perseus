@@ -68,7 +68,7 @@ describe("parseExpressionWidget", () => {
         expect(parse(widget, parseExpressionWidget)).toEqual(
             failure(
                 expect.stringContaining(
-                    "At (root).version.major -- expected 0, but got -1",
+                    "At (root) -- expected widget options with a known version number",
                 ),
             ),
         );
