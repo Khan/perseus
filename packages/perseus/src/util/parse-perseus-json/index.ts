@@ -6,6 +6,7 @@ import {parsePerseusItem as migrateAndTypecheckPerseusItem} from "./perseus-pars
 
 import type {Result} from "./result";
 import type {PerseusItem, PerseusArticle} from "@khanacademy/perseus-core";
+import {failure, isFailure} from "./result";
 
 /**
  * Helper to parse PerseusItem JSON
@@ -25,6 +26,19 @@ export function parsePerseusItem(json: string): PerseusItem {
     throw new Error("Something went wrong.");
 }
 
+export type ParseFailureDetail = {
+    /**
+     * A human-readable error message describing where in the object tree
+     * parsing failed.
+     */
+    message: string,
+    /**
+     * The raw result of parsing the input JSON, with no migrations applied.
+     * Use at your own risk.
+     */
+    invalidObject: unknown,
+}
+
 /**
  * Parses a PerseusItem from a JSON string, migrates old formats to the latest
  * schema, and runtime-typechecks the result. Use this to parse assessmentItem
@@ -37,10 +51,14 @@ export function parsePerseusItem(json: string): PerseusItem {
  */
 export function parseAndMigratePerseusItem(
     json: string,
-): Result<PerseusItem, string> {
+): Result<PerseusItem, ParseFailureDetail> {
     throwErrorIfCheatingDetected();
     const object: unknown = JSON.parse(json);
-    return parse(object, migrateAndTypecheckPerseusItem);
+    const result = parse(object, migrateAndTypecheckPerseusItem);
+    if (isFailure(result)) {
+        return failure({message: result.detail, invalidObject: object})
+    }
+    return result
 }
 
 /**
@@ -54,10 +72,14 @@ export function parseAndMigratePerseusItem(
  */
 export function parseAndMigratePerseusArticle(
     json: string,
-): Result<PerseusArticle, string> {
+): Result<PerseusArticle, ParseFailureDetail> {
     throwErrorIfCheatingDetected();
     const object: unknown = JSON.parse(json);
-    return parse(object, migrateAndTypecheckPerseusArticle);
+    const result = parse(object, migrateAndTypecheckPerseusArticle);
+    if (isFailure(result)) {
+        return failure({message: result.detail, invalidObject: object})
+    }
+    return result
 }
 
 /**
