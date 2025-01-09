@@ -39,9 +39,9 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
 
     const linesAriaInfo = lines.map((line, i) => {
         return {
-            pointsDescriptionId: id + `-line${i + 1}-points`,
-            interceptDescriptionId: id + `-line${i + 1}-intercept`,
-            slopeDescriptionId: id + `-line${i + 1}-slope`,
+            pointsDescriptionId: `${id}-line${i + 1}-points`,
+            interceptDescriptionId: `${id}-line${i + 1}-intercept`,
+            slopeDescriptionId: `${id}-line${i + 1}-slope`,
             pointsDescription: strings.srLinearSystemPoints({
                 lineNumber: i + 1,
                 point1X: srFormatNumber(line[0][0], locale),
