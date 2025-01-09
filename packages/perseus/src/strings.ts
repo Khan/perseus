@@ -549,28 +549,12 @@ export const strings: {
     srLinearSystemGrabHandle:
         "Line %(lineSequence)s from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
     srRayGraph: "A ray on a coordinate plane.",
-    srRayPoints: {
-        context:
-            "Additional information about the points for the ray graph as a whole.",
-        message:
-            "The endpoint is at %(point1X)s comma %(point1Y)s and the terminal point is at %(point2X)s comma %(point2Y)s.",
-    },
-    srRayGrabHandle: {
-        context:
-            "Screenreader-only label on the grab handle for the ray on a ray graph.",
-        message:
-            "Ray from endpoint %(point1X)s comma %(point1Y)s to terminal point %(point2X)s comma %(point2Y)s.",
-    },
-    srRayEndpoint: {
-        context:
-            "Screenreader-only label on the endpoint for the ray on a ray graph.",
-        message: "Endpoint at %(point1X)s comma %(point1Y)s.",
-    },
-    srRayTerminalPoint: {
-        context:
-            "Screenreader-only label on the terminal point for the ray on a ray graph.",
-        message: "Terminal point at %(point2X)s comma %(point2Y)s.",
-    },
+    srRayPoints:
+        "The endpoint is at %(point1X)s comma %(point1Y)s and the terminal point is at %(point2X)s comma %(point2Y)s.",
+    srRayGrabHandle:
+        "Ray from endpoint %(point1X)s comma %(point1Y)s to terminal point %(point2X)s comma %(point2Y)s.",
+    srRayEndpoint: "Endpoint at %(point1X)s comma %(point1Y)s.",
+    srRayTerminalPoint: "Terminal point at %(point2X)s comma %(point2Y)s.",
     // The above strings are used for interactive graph SR descriptions.
 };
 
