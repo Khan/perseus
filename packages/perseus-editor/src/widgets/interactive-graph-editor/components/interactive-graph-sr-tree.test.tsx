@@ -31,12 +31,12 @@ describe("fetchAriaLabels", () => {
         // Assert
         expect(result).toEqual([
             {
-                role: "div",
+                roleOrTag: "div",
                 className: "",
                 attributes: [{name: "label", value: "label1"}],
             },
             {
-                role: "div",
+                roleOrTag: "div",
                 className: "",
                 attributes: [{name: "label", value: "label2"}],
             },
@@ -58,12 +58,12 @@ describe("fetchAriaLabels", () => {
         // Assert
         expect(result).toEqual([
             {
-                role: "button",
+                roleOrTag: "button",
                 className: "",
                 attributes: [{name: "label", value: "aria-label1"}],
             },
             {
-                role: "button",
+                roleOrTag: "button",
                 className: "",
                 attributes: [{name: "label", value: "aria-label2"}],
             },
@@ -85,12 +85,12 @@ describe("fetchAriaLabels", () => {
         // Assert
         expect(result).toEqual([
             {
-                role: "div",
+                roleOrTag: "div",
                 className: "class1",
                 attributes: [{name: "label", value: "label1"}],
             },
             {
-                role: "div",
+                roleOrTag: "div",
                 className: "class2",
                 attributes: [{name: "label", value: "label2"}],
             },
@@ -114,7 +114,7 @@ describe("fetchAriaLabels", () => {
         // Assert
         expect(result).toEqual([
             {
-                role: "div",
+                roleOrTag: "div",
                 className: "class4",
                 attributes: [{name: "label", value: "label1"}],
             },
@@ -138,14 +138,14 @@ describe("fetchAriaLabels", () => {
         // Assert
         expect(result).toEqual([
             {
-                role: "div",
+                roleOrTag: "div",
                 className: "",
                 attributes: [
                     {name: "description", value: "description1 content"},
                 ],
             },
             {
-                role: "div",
+                roleOrTag: "div",
                 className: "",
                 attributes: [
                     {name: "description", value: "description2 content"},
@@ -170,7 +170,7 @@ describe("fetchAriaLabels", () => {
         // Assert
         expect(result).toEqual([
             {
-                role: "div",
+                roleOrTag: "div",
                 className: "",
                 attributes: [
                     {name: "description", value: "description1 content"},
@@ -198,7 +198,7 @@ describe("fetchAriaLabels", () => {
         // Assert
         expect(result).toEqual([
             {
-                role: "div",
+                roleOrTag: "div",
                 className: "",
                 attributes: [
                     {name: "description", value: "description1 content"},
@@ -226,7 +226,7 @@ describe("fetchAriaLabels", () => {
         // Assert
         expect(result).toEqual([
             {
-                role: "div",
+                roleOrTag: "div",
                 className: "",
                 attributes: [
                     {name: "description", value: "description1 content"},
@@ -251,7 +251,7 @@ describe("fetchAriaLabels", () => {
         // Assert
         expect(result).toEqual([
             {
-                role: "div",
+                roleOrTag: "div",
                 className: "",
                 attributes: [
                     {name: "description", value: "description1 content"},
@@ -289,24 +289,24 @@ describe("fetchAriaLabels", () => {
         // Assert
         expect(result).toEqual([
             {
-                role: "div",
+                roleOrTag: "div",
                 className: "",
                 attributes: [{name: "label", value: "label-only"}],
             },
             {
-                role: "div",
+                roleOrTag: "div",
                 className: "",
                 attributes: [
                     {name: "description", value: "description-only content "},
                 ],
             },
             {
-                role: "img",
+                roleOrTag: "img",
                 className: "",
                 attributes: [{name: "label", value: "label with role"}],
             },
             {
-                role: "button",
+                roleOrTag: "button",
                 className: "",
                 attributes: [
                     {name: "label", value: "aria-label1"},
@@ -314,7 +314,7 @@ describe("fetchAriaLabels", () => {
                 ],
             },
             {
-                role: "button",
+                roleOrTag: "button",
                 className: "",
                 attributes: [
                     {name: "label", value: "aria-label2"},

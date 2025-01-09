@@ -17,7 +17,7 @@ type Attribute = {
 };
 
 type AttributeMap = {
-    role: string;
+    roleOrTag: string;
     className: string;
     attributes: Array<Attribute>;
 };
@@ -72,7 +72,7 @@ export function getAccessibilityAttributes(
         // or aria-descriptions.
         if (elementAttributes.length > 0) {
             elementArias.push({
-                role:
+                roleOrTag:
                     element.getAttribute("role") ||
                     element.tagName.toLowerCase(),
                 // Use the last class in the list of classes to avoid the
@@ -108,7 +108,7 @@ function SRTree(props: Props) {
                             kind="success"
                             style={styles.smallSpaceRight}
                         >
-                            {aria.role}
+                            {aria.roleOrTag}
                         </Pill>
                     )}
                     {aria.className}
