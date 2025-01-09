@@ -68,7 +68,7 @@ export function getArrayWithoutDuplicates(array: Array<Coord>): Array<Coord> {
 
 export function getSlopeStringForLine(line: PairOfPoints, strings): string {
     const slope = (line[1][1] - line[0][1]) / (line[1][0] - line[0][0]);
-    if (slope === Infinity || slope === -Infinity) {
+    if (!Number.isFinite(slope)) {
         return strings.srLinearGraphSlopeVertical;
     }
 
@@ -89,8 +89,8 @@ export function getInterceptStringForLine(
     const slope = (line[1][1] - line[0][1]) / (line[1][0] - line[0][0]);
     const xIntercept = (0 - line[0][1]) / slope + line[0][0];
     const yIntercept = line[0][1] - slope * line[0][0];
-    const hasXIntercept = xIntercept !== Infinity && xIntercept !== -Infinity;
-    const hasYIntercept = yIntercept !== Infinity && yIntercept !== -Infinity;
+    const hasXIntercept = Number.isFinite(xIntercept);
+    const hasYIntercept = Number.isFinite(yIntercept);
 
     if (hasXIntercept && hasYIntercept) {
         // Describe both intercepts in the same sentence.
