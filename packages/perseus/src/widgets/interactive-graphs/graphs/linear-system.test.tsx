@@ -69,10 +69,10 @@ describe("Linear System graph screen reader", () => {
 
     // Test each line in the linear system graph separately.
     describe.each`
-        lineSequence
+        lineNumber
         ${1}
         ${2}
-    `(`Line $lineSequence`, ({lineSequence}) => {
+    `(`Line $lineNumber`, ({lineNumber}) => {
         test.each`
             case                         | coords              | interceptDescription
             ${"origin intercept"}        | ${[[1, 1], [2, 2]]} | ${"The line crosses the x and y axes at the graph's origin."}
@@ -84,7 +84,7 @@ describe("Linear System graph screen reader", () => {
             ({coords, interceptDescription}) => {
                 // Arrange
                 const newCoords = [...baseLinearSystemState.coords];
-                newCoords[lineSequence - 1] = coords;
+                newCoords[lineNumber - 1] = coords;
 
                 render(
                     <MafsGraph
@@ -118,7 +118,7 @@ describe("Linear System graph screen reader", () => {
             ({coords, slopeDescription}) => {
                 // Arrange
                 const newCoords = [...baseLinearSystemState.coords];
-                newCoords[lineSequence - 1] = coords;
+                newCoords[lineNumber - 1] = coords;
 
                 render(
                     <MafsGraph
@@ -142,7 +142,7 @@ describe("Linear System graph screen reader", () => {
         test("aria label reflects updated values", async () => {
             // Arrange
             const newCoords = [...baseLinearSystemState.coords];
-            newCoords[lineSequence - 1] = [
+            newCoords[lineNumber - 1] = [
                 [-2, 3],
                 [3, 3],
             ];
@@ -162,23 +162,23 @@ describe("Linear System graph screen reader", () => {
             const interactiveElements = screen.getAllByRole("button");
 
             // Get interactive elements for this line.
-            const point1 = interactiveElements[0 + (lineSequence - 1) * 3];
-            const grabHandle = interactiveElements[1 + (lineSequence - 1) * 3];
-            const point2 = interactiveElements[2 + (lineSequence - 1) * 3];
+            const point1 = interactiveElements[0 + (lineNumber - 1) * 3];
+            const grabHandle = interactiveElements[1 + (lineNumber - 1) * 3];
+            const point2 = interactiveElements[2 + (lineNumber - 1) * 3];
 
             // Assert
             // Check updated aria-label for the linear graph.
             expect(point1).toHaveAttribute(
                 "aria-label",
-                `Point 1 on line ${lineSequence} at -2 comma 3.`,
+                `Point 1 on line ${lineNumber} at -2 comma 3.`,
             );
             expect(grabHandle).toHaveAttribute(
                 "aria-label",
-                `Line ${lineSequence} from -2 comma 3 to 3 comma 3.`,
+                `Line ${lineNumber} from -2 comma 3 to 3 comma 3.`,
             );
             expect(point2).toHaveAttribute(
                 "aria-label",
-                `Point 2 on line ${lineSequence} at 3 comma 3.`,
+                `Point 2 on line ${lineNumber} at 3 comma 3.`,
             );
         });
 
@@ -198,7 +198,7 @@ describe("Linear System graph screen reader", () => {
 
             // Act
             const interactiveElements = screen.getAllByRole("button");
-            const element = interactiveElements[index + (lineSequence - 1) * 3];
+            const element = interactiveElements[index + (lineNumber - 1) * 3];
 
             // Assert
             expect(element.getAttribute("aria-describedby")).toContain(

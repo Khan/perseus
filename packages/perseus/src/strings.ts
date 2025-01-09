@@ -260,37 +260,37 @@ export type PerseusStrings = {
     }) => string;
     srLinearSystemGraph: string;
     srLinearSystemPoints: ({
-        lineSequence,
+        lineNumber,
         point1X,
         point1Y,
         point2X,
         point2Y,
     }: {
-        lineSequence: number;
+        lineNumber: number;
         point1X: string;
         point1Y: string;
         point2X: string;
         point2Y: string;
     }) => string;
     srLinearSystemPoint({
-        lineSequence,
+        lineNumber,
         pointSequence,
         x,
         y,
     }: {
-        lineSequence: number;
+        lineNumber: number;
         pointSequence: number;
         x: string;
         y: string;
     }): string;
     srLinearSystemGrabHandle: ({
-        lineSequence,
+        lineNumber,
         point1X,
         point1Y,
         point2X,
         point2Y,
     }: {
-        lineSequence: number;
+        lineNumber: number;
         point1X: string;
         point1Y: string;
         point2X: string;
@@ -518,11 +518,11 @@ export const strings: {
         "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
     srLinearSystemGraph: "Two lines on a coordinate plane.",
     srLinearSystemPoints:
-        "Line %(lineSequence)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+        "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
     srLinearSystemPoint:
-        "Point %(pointSequence)s on line %(lineSequence)s at %(x)s comma %(y)s.",
+        "Point %(pointSequence)s on line %(lineNumber)s at %(x)s comma %(y)s.",
     srLinearSystemGrabHandle:
-        "Line %(lineSequence)s from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
+        "Line %(lineNumber)s from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -741,23 +741,17 @@ export const mockStrings: PerseusStrings = {
     }) =>
         `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the starting side at ${startingSideX} comma ${startingSideY} and a point on the ending side at ${endingSideX} comma ${endingSideY}.`,
     srLinearSystemGraph: "Two lines on a coordinate plane.",
-    srLinearSystemPoints: ({
-        lineSequence,
-        point1X,
-        point1Y,
-        point2X,
-        point2Y,
-    }) =>
-        `Line ${lineSequence} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
-    srLinearSystemPoint: ({lineSequence, pointSequence, x, y}) =>
-        `Point ${pointSequence} on line ${lineSequence} at ${x} comma ${y}.`,
+    srLinearSystemPoints: ({lineNumber, point1X, point1Y, point2X, point2Y}) =>
+        `Line ${lineNumber} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
+    srLinearSystemPoint: ({lineNumber, pointSequence, x, y}) =>
+        `Point ${pointSequence} on line ${lineNumber} at ${x} comma ${y}.`,
     srLinearSystemGrabHandle: ({
-        lineSequence,
+        lineNumber,
         point1X,
         point1Y,
         point2X,
         point2Y,
     }) =>
-        `Line ${lineSequence} from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
+        `Line ${lineNumber} from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
