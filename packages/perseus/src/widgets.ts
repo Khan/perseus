@@ -12,6 +12,7 @@ import type {
     WidgetExports,
     WidgetTransform,
     WidgetScorerFunction,
+    PublicWidgetOptionsFunctions,
 } from "./types";
 import type * as React from "react";
 
@@ -139,6 +140,12 @@ export const getWidgetExport = (name: string): WidgetExports | null => {
 
 export const getWidgetScorer = (name: string): WidgetScorerFunction | null => {
     return widgets[name]?.scorer ?? null;
+};
+
+export const getWidgetPublicOptions = (
+    name: string,
+): PublicWidgetOptionsFunctions | null => {
+    return widgets[name]?.getPublicOptions ?? null;
 };
 
 export const getEditor = (name: string): Editor | null | undefined => {
