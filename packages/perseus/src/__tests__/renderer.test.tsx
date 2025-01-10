@@ -23,8 +23,8 @@ import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import InputNumberExport from "../widgets/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
-import type {PerseusRenderer, DropdownWidget} from "../perseus-types";
 import type {APIOptions} from "../types";
+import type {PerseusRenderer, DropdownWidget} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 // NOTE(jeremy): We can't use an automatic mock for the translation linter,

@@ -2,12 +2,10 @@
  * A collection of geomtry-related utility functions
  */
 
-import {number as knumber, point as kpoint} from "@khanacademy/kmath";
+import {number as knumber, point as kpoint, sum} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import Util from "../util";
-
-import {sum} from "./math";
 
 import type {Coord, Line} from "../interactive2/types";
 

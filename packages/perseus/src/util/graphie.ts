@@ -2,6 +2,7 @@ import {
     point as kpoint,
     vector as kvector,
     number as knumber,
+    KhanMath,
 } from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {entries} from "@khanacademy/wonder-stuff-core";
@@ -18,7 +19,6 @@ import {Log} from "../logging/log";
 import KhanColors from "./colors";
 import {DrawingTransform} from "./drawing-transform";
 import {GraphBounds} from "./graph-bounds";
-import KhanMath from "./math";
 import Tex from "./tex";
 
 import type {MouseHandler} from "./interactive";

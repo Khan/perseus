@@ -13,3 +13,5 @@ export {libVersion} from "./version";
 
 export {Errors} from "./error/errors";
 export {PerseusError} from "./error/perseus-error";
+
+export * from "./data-schema";

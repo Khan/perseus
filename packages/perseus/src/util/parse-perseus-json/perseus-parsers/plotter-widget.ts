@@ -1,4 +1,5 @@
-import {plotterPlotTypes} from "../../../perseus-types";
+import {plotterPlotTypes} from "@khanacademy/perseus-core";
+
 import {
     constant,
     object,
@@ -13,8 +14,8 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {PlotterWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {PlotterWidget} from "@khanacademy/perseus-core";
 
 export const parsePlotterWidget: Parser<PlotterWidget> = parseWidget(
     constant("plotter"),

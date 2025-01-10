@@ -4,7 +4,7 @@ import {parse} from "./parse";
 import {parsePerseusItem as typecheckPerseusItem} from "./perseus-parsers/perseus-item";
 
 import type {Result} from "./result";
-import type {PerseusItem} from "../../perseus-types";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 
 /**
  * Helper to parse PerseusItem JSON

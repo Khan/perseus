@@ -8,7 +8,7 @@ import {
     type ExpressionWidget,
     type RadioWidget,
     type NumericInputWidget,
-} from "../perseus-types";
+} from "@khanacademy/perseus-core";
 
 export const itemWithInput: PerseusItem = {
     question: {

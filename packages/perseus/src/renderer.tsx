@@ -38,13 +38,6 @@ import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";
-import type {
-    PerseusRenderer,
-    PerseusWidget,
-    PerseusWidgetOptions,
-    PerseusWidgetsMap,
-    ShowSolutions,
-} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {
     APIOptions,
@@ -62,6 +55,13 @@ import type {
     RendererPromptJSON,
 } from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
+import type {
+    PerseusRenderer,
+    PerseusWidget,
+    PerseusWidgetOptions,
+    PerseusWidgetsMap,
+    ShowSolutions,
+} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.less";

@@ -58,9 +58,7 @@ describe("static function validate", () => {
 
         const score = scoreNumericInput(userInput, rubric, mockStrings);
 
-        expect(score).toHaveInvalidInput(
-            "We could not understand your answer. Please check your answer for extra text or symbols.",
-        );
+        expect(score).toHaveInvalidInput("EXTRA_SYMBOLS_ERROR");
     });
 
     // Don't default to validating the answer as a pi answer

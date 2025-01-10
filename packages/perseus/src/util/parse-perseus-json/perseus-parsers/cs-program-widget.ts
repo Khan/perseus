@@ -11,8 +11,8 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {CSProgramWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {CSProgramWidget} from "@khanacademy/perseus-core";
 
 export const parseCSProgramWidget: Parser<CSProgramWidget> = parseWidget(
     constant("cs-program"),

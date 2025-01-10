@@ -16,8 +16,8 @@ import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-uni
 
 import {parseWidget} from "./widget";
 
-import type {GrapherWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {GrapherWidget} from "@khanacademy/perseus-core";
 
 const pairOfNumbers = pair(number, number);
 

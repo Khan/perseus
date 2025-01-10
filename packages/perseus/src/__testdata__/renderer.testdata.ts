@@ -1,10 +1,10 @@
+import type {RenderProps} from "../widgets/radio";
 import type {
     DropdownWidget,
     ImageWidget,
     InputNumberWidget,
     PerseusRenderer,
-} from "../perseus-types";
-import type {RenderProps} from "../widgets/radio";
+} from "@khanacademy/perseus-core";
 
 export const dropdownWidget: DropdownWidget = {
     type: "dropdown",

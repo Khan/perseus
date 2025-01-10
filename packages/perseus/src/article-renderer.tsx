@@ -14,10 +14,13 @@ import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import Util from "./util";
 
-import type {PerseusArticle, PerseusRenderer} from "./perseus-types";
 import type {PerseusDependenciesV2, SharedRendererProps} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
-import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
+import type {
+    PerseusArticle,
+    PerseusRenderer,
+    KeypadContextRendererInterface,
+} from "@khanacademy/perseus-core";
 
 type Props = Partial<React.ContextType<typeof DependenciesContext>> &
     SharedRendererProps & {

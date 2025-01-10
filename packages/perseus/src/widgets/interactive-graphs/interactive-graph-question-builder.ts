@@ -16,7 +16,7 @@ import type {
     LockedVectorType,
     PerseusGraphType,
     PerseusRenderer,
-} from "../../perseus-types";
+} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 export type LockedFunctionOptions = {

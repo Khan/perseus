@@ -16,11 +16,11 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 
+import type {ParsedValue, Parser} from "../parser-types";
 import type {
     ExpressionWidget,
     PerseusExpressionAnswerForm,
-} from "../../../perseus-types";
-import type {ParsedValue, Parser} from "../parser-types";
+} from "@khanacademy/perseus-core";
 
 const stringOrNumberOrNullOrUndefined = union(string)
     .or(number)

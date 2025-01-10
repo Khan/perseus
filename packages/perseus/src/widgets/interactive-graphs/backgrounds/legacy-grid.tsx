@@ -6,7 +6,7 @@ import {SvgImage} from "../../../components";
 import {interactiveSizes} from "../../../styles/constants";
 import {X} from "../math";
 
-import type {PerseusImageBackground} from "../../../perseus-types";
+import type {PerseusImageBackground} from "@khanacademy/perseus-core";
 
 interface Props {
     box: [number, number];

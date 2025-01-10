@@ -5,3 +5,5 @@ export * as vector from "./vector";
 export * as point from "./point";
 export * as line from "./line";
 export * as ray from "./ray";
+
+export {default as KhanMath, sum} from "./math";
