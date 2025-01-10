@@ -247,7 +247,7 @@ const cssStringified = Object.keys(cssRules)
                 return cssProperty;
             },
         );
-        return `${comments}${stringifyCssRuleset(className, ruleSet)}`;
+        return `${comments}${stringifyCssRuleset(`.${className}`, ruleSet)}`;
     })
     .join("\n");
 
