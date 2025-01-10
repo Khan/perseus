@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Remove the locked-[figureName]-labels flags
+[SR][sr tree] Add screen reader tree to interactive graph editor

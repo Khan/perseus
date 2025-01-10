@@ -283,8 +283,8 @@ export const strings: {
         "Your answer is close, but you may " +
         "have approximated pi. Enter your " +
         "answer as a multiple of pi, like " +
-        "<code>12\\\\ \\\\text{pi}</code> or " +
-        "<code>2/3\\\\ \\\\text{pi}</code>",
+        "12 pi or " +
+        "2/3 pi",
     EXTRA_SYMBOLS_ERROR:
         "We could not understand your " +
         "answer. Please check your answer for extra " +
@@ -334,8 +334,7 @@ export const strings: {
     mixedExample: "a mixed number, like $1\\\\ 3/4$",
     decimalExample: "an *exact* decimal, like $0.75$",
     percentExample: "a percent, like $12.34\\\\%$",
-    piExample:
-        "a multiple of pi, like $12\\\\ \\\\text{pi}$ or $2/3\\\\ \\\\text{pi}$",
+    piExample: "a multiple of pi, like $12$ pi or $2/3$ pi",
     yourAnswer: "**Your answer should be** ",
     yourAnswerLabel: "Your answer:",
     addPoints: "Click to add points",
@@ -447,115 +446,38 @@ export const strings: {
     // translation tickets after all interactive graph SR strings have
     // been finalized. Remove this comment after the tickets have been
     // created.
-    srPointAtCoordinates: {
-        context: "Screenreader-accessible description of a point on a graph",
-        message: "Point %(num)s at %(x)s comma %(y)s",
-    },
-    srCircleGraph: {
-        context: "Aria label for the circle graph as a whole.",
-        message: "A circle on a coordinate plane.",
-    },
-    srCircleShape: {
-        context:
-            "Aria label for the interactive circle shape in a circle graph.",
-        message:
-            "Circle. The center point is at %(centerX)s comma %(centerY)s.",
-    },
-    srCircleRadiusPoint: {
-        context:
-            "Aria label for the interactive point that sits on the edge of the circle in a circle graph. Moving this point updates the radius of the circle",
-        message: "Radius point at %(radiusPointX)s comma %(radiusPointY)s.",
-    },
-    srCircleRadius: {
-        context:
-            "Screenreader-only description of the radius of a circle in a circle graph.",
-        message: "Circle radius is %(radius)s.",
-    },
-    srCircleOuterPoints: {
-        context:
-            "Screenreader-only description of key points on a circle in a circle graph.",
-        message:
-            "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
-    },
-    srLinearGraph: {
-        context: "Aria label for the linear graph as a whole.",
-        message: "A line on a coordinate plane.",
-    },
-    srLinearGraphPoints: {
-        context:
-            "Additional information about the points for the linear graph as a whole.",
-        message:
-            "The line has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
-    },
-    srLinearGraphSlopeIncreasing: {
-        context:
-            "Screenreader-only description of a line's decreasing slope on a linear graph.",
-        message: "Its slope increases from left to right.",
-    },
-    srLinearGraphSlopeDecreasing: {
-        context:
-            "Screenreader-only description of a line's increasing slope on a linear graph.",
-        message: "Its slope decreases from left to right.",
-    },
-    srLinearGraphSlopeHorizontal: {
-        context:
-            "Screenreader-only description of a line's horizontal slope on a linear graph.",
-        message: "Its slope is zero.",
-    },
-    srLinearGraphSlopeVertical: {
-        context:
-            "Screenreader-only description of a line's vertical slope on a linear graph.",
-        message: "Its slope is undefined.",
-    },
-    srLinearGraphXOnlyIntercept: {
-        context:
-            "Screenreader-only description of a line's x-intercept on a linear graph when it only has an x intercept.",
-        message: "The line crosses the X-axis at %(xIntercept)s comma 0.",
-    },
-    srLinearGraphYOnlyIntercept: {
-        context:
-            "Screenreader-only description of a line's y-intercept on a linear graph when it only has a y intercept.",
-        message: "The line crosses the Y-axis at 0 comma %(yIntercept)s.",
-    },
-    srLinearGraphBothIntercepts: {
-        context:
-            "Screenreader-only description of a line's x and y intercepts on a linear graph when both intercepts are present.",
-        message:
-            "The line crosses the X-axis at %(xIntercept)s comma 0 and the Y-axis at 0 comma %(yIntercept)s.",
-    },
-    srLinearGraphOriginIntercept: {
-        context:
-            "Screenreader-only description of the line's intercept when the intercept is the graph's origin.",
-        message: "The line crosses the x and y axes at the graph's origin.",
-    },
-    srLinearGrabHandle: {
-        context:
-            "Screenreader-only label on the grab handle for the line on a linear graph.",
-        message:
-            "Line from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
-    },
-    srAngleSideAtCoordinates: {
-        context:
-            "Screenreader-accessible description of the side / vertex of an angle graph",
-        message: "Point %(point)s, %(side)s at %(x)s comma %(y)s",
-    },
-    srAngleVertexAtCoordinatesWithAngleMeasure: {
-        context:
-            "Screenreader-accessible description of a vertex on an angle graph with an angle measure",
-        message:
-            "Point 2, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees",
-    },
-    srAngleGraphAriaLabel: {
-        context:
-            "Screenreader-accessible label of an angle graph on a coordinate plane",
-        message: "An angle on a coordinate plane.",
-    },
-    srAngleGraphAriaDescription: {
-        context:
-            "Screenreader-only description of an angle on a coordinate plane.",
-        message:
-            "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
-    },
+    srPointAtCoordinates: "Point %(num)s at %(x)s comma %(y)s",
+    srCircleGraph: "A circle on a coordinate plane.",
+    srCircleShape:
+        "Circle. The center point is at %(centerX)s comma %(centerY)s.",
+    srCircleRadiusPoint:
+        "Radius point at %(radiusPointX)s comma %(radiusPointY)s.",
+    srCircleRadius: "Circle radius is %(radius)s.",
+    srCircleOuterPoints:
+        "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
+    srLinearGraph: "A line on a coordinate plane.",
+    srLinearGraphPoints:
+        "The line has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+    srLinearGraphSlopeIncreasing: "Its slope increases from left to right.",
+    srLinearGraphSlopeDecreasing: "Its slope decreases from left to right.",
+    srLinearGraphSlopeHorizontal: "Its slope is zero.",
+    srLinearGraphSlopeVertical: "Its slope is undefined.",
+    srLinearGraphXOnlyIntercept:
+        "The line crosses the X-axis at %(xIntercept)s comma 0.",
+    srLinearGraphYOnlyIntercept:
+        "The line crosses the Y-axis at 0 comma %(yIntercept)s.",
+    srLinearGraphBothIntercepts:
+        "The line crosses the X-axis at %(xIntercept)s comma 0 and the Y-axis at 0 comma %(yIntercept)s.",
+    srLinearGraphOriginIntercept:
+        "The line crosses the x and y axes at the graph's origin.",
+    srLinearGrabHandle:
+        "Line from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
+    srAngleSideAtCoordinates: "Point %(point)s, %(side)s at %(x)s comma %(y)s",
+    srAngleVertexAtCoordinatesWithAngleMeasure:
+        "Point 2, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees",
+    srAngleGraphAriaLabel: "An angle on a coordinate plane.",
+    srAngleGraphAriaDescription:
+        "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
     // The above strings are used for interactive graph SR descriptions.
 };
 

@@ -10,7 +10,7 @@ import {mockStrings} from "../strings";
 
 import type {PerseusStrings} from "../strings";
 
-type I18nContextType = {
+export type I18nContextType = {
     strings: PerseusStrings;
     locale: string;
 };

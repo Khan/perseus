@@ -8,6 +8,7 @@ import {flags} from "../../../__stories__/flags-for-api-options";
 import LockedPolygonSettings from "./locked-polygon-settings";
 import {
     getDefaultFigureForType,
+    mockedGenerateSpokenMathDetailsForTests,
     mockedJoinLabelsAsSpokenMathForTests,
 } from "./util";
 
@@ -30,9 +31,11 @@ const defaultProps = {
 
 const defaultLabel = getDefaultFigureForType("label");
 
-// Mock the async function generateSpokenMathDetails
+// Mock the async functions
 jest.mock("./util", () => ({
     ...jest.requireActual("./util"),
+    generateSpokenMathDetails: (input) =>
+        mockedGenerateSpokenMathDetailsForTests(input),
     joinLabelsAsSpokenMath: (input) =>
         mockedJoinLabelsAsSpokenMathForTests(input),
 }));
@@ -608,7 +611,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
+                    "Polygon with 3 sides, vertices at spoken $0$ comma spoken $0$, spoken $0$ comma spoken $1$, spoken $1$ comma spoken $1$. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -644,7 +647,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon spoken A with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
+                    "Polygon spoken A with 3 sides, vertices at spoken $0$ comma spoken $0$, spoken $0$ comma spoken $1$, spoken $1$ comma spoken $1$. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -684,7 +687,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon spoken A, spoken B with 3 sides, vertices at 0 comma 0, 0 comma 1, 1 comma 1. Appearance solid gray border, with no fill.",
+                    "Polygon spoken A, spoken B with 3 sides, vertices at spoken $0$ comma spoken $0$, spoken $0$ comma spoken $1$, spoken $1$ comma spoken $1$. Appearance solid gray border, with no fill.",
             });
         });
     });
