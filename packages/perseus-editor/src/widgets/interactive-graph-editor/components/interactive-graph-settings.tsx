@@ -19,7 +19,7 @@ import _ from "underscore";
 import Heading from "../../../components/heading";
 import LabeledRow from "../locked-figures/labeled-row";
 
-import type {PerseusImageBackground} from "@khanacademy/perseus";
+import type {PerseusImageBackground} from "@khanacademy/perseus-core";
 
 type ChangeFn = typeof Changeable.change;
 

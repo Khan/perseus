@@ -24,12 +24,8 @@ import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
 
-import type {
-    ChangeHandler,
-    ImageUploader,
-    PerseusWidget,
-    PerseusWidgetsMap,
-} from "@khanacademy/perseus";
+import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
+import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 // like [[snowman input-number 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";

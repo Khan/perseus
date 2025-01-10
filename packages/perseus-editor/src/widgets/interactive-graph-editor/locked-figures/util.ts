@@ -1,4 +1,5 @@
 import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
+import {mathOnlyParser} from "@khanacademy/perseus";
 import {
     type LockedEllipseType,
     type LockedFigure,
@@ -12,8 +13,7 @@ import {
     type LockedPolygonType,
     type LockedVectorType,
     type LockedLineStyle,
-    mathOnlyParser,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 const DEFAULT_COLOR = "grayH";

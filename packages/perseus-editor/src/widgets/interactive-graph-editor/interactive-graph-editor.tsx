@@ -32,13 +32,13 @@ import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
 
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
-    APIOptionsWithDefaults,
     LockedFigure,
     PerseusImageBackground,
     PerseusInteractiveGraphWidgetOptions,
     PerseusGraphType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;

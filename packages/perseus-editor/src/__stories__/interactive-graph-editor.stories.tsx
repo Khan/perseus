@@ -29,12 +29,12 @@ import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widge
 import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
 import {flags} from "./flags-for-api-options";
 
+import type {DeviceType} from "@khanacademy/perseus";
 import type {
-    DeviceType,
     Hint,
     PerseusAnswerArea,
     PerseusRenderer,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
