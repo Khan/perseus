@@ -1,4 +1,4 @@
-import type {PerseusRenderer, NumericInputWidget} from "@khanacademy/perseus";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
     content:
@@ -29,6 +29,6 @@ export const question1: PerseusRenderer = {
                 labelText: "What's the answer?",
                 size: "normal",
             },
-        } as NumericInputWidget,
+        },
     },
 };

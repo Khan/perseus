@@ -48,7 +48,6 @@ describe("mock-widget", () => {
         // Act
         const input = "40";
         const textbox = screen.getByRole("textbox");
-        await userEvent.click(textbox);
         await userEvent.type(textbox, input);
         const json = renderer.getPromptJSON();
 
