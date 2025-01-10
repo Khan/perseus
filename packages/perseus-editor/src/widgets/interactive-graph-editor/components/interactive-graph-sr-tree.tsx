@@ -55,9 +55,7 @@ export function getAccessibilityAttributes(
             const descriptions = ariaDescribedby.split(/ +/);
             for (const description of descriptions) {
                 const descriptionString =
-                    // Use textContent instead of innerText to get the text
-                    // even if it is hidden.
-                    document.getElementById(description)?.textContent;
+                    document.getElementById(description)?.innerText;
 
                 if (descriptionString) {
                     elementAttributes.push({
