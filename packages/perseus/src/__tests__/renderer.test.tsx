@@ -1,9 +1,10 @@
 import {describe, beforeAll, beforeEach, it} from "@jest/globals";
-import {Errors, clone} from "@khanacademy/perseus-core";
+import {Errors} from "@khanacademy/perseus-core";
 import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {clone} from "../../../../testing/object-utils";
 import {testDependencies} from "../../../../testing/test-dependencies";
 import {
     dropdownWidget,
