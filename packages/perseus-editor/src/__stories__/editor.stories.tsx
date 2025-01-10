@@ -10,7 +10,7 @@ import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widge
 
 import {apiOptionsWithDefaults} from "./flags-for-api-options";
 
-import type {PerseusRenderer} from "@khanacademy/perseus";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 

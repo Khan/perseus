@@ -5,7 +5,7 @@ import {failure, success} from "../result";
 
 import {parseWidgetsMap} from "./widgets-map";
 
-import type {PerseusWidgetsMap} from "@khanacademy/perseus";
+import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 describe("parseWidgetsMap", () => {
     it("rejects null", () => {

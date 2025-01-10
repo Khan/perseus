@@ -18,7 +18,8 @@ import {iconChevronRight} from "../styles/icon-paths";
 import SectionControlButton from "./section-control-button";
 
 import type Editor from "../editor";
-import type {APIOptions, Alignment, PerseusWidget} from "@khanacademy/perseus";
+import type {APIOptions, Alignment} from "@khanacademy/perseus";
+import type {PerseusWidget} from "@khanacademy/perseus-core";
 
 const {InlineIcon} = components;
 

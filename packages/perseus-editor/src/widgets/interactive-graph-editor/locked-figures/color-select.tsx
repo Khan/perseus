@@ -1,4 +1,4 @@
-import {lockedFigureColors} from "@khanacademy/perseus";
+import {lockedFigureColors} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -9,7 +9,7 @@ import * as React from "react";
 
 import ColorSwatch from "./color-swatch";
 
-import type {LockedFigureColor} from "@khanacademy/perseus";
+import type {LockedFigureColor} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const possibleColors = Object.keys(lockedFigureColors) as LockedFigureColor[];

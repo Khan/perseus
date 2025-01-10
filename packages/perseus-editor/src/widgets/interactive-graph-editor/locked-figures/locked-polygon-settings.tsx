@@ -5,7 +5,7 @@ import {
     type LockedPolygonType,
     type LockedFigureColor,
     type LockedLabelType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";

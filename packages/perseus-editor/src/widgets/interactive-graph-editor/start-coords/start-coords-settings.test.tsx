@@ -9,7 +9,7 @@ import {clone} from "../../../util/object-utils";
 
 import StartCoordsSettings from "./start-coords-settings";
 
-import type {CollinearTuple, Coord, Range} from "@khanacademy/perseus";
+import type {CollinearTuple, Coord, Range} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
