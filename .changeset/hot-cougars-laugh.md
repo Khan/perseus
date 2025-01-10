@@ -1,5 +1,6 @@
 ---
-"@khanacademy/perseus": patch
+"@khanacademy/perseus": minor
+"@khanacademy/perseus-core": minor
 ---
 
-Internal: Enable parsePerseusItem to parse all published content, upgrading old formats to the current one.
+Enable parsePerseusItem to parse all published content, upgrading old formats to the current one.
