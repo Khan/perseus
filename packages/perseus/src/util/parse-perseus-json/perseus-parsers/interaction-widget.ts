@@ -18,11 +18,11 @@ import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-uni
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
+import type {Parser} from "../parser-types";
 import type {
     InteractionWidget,
     PerseusInteractionElement,
 } from "@khanacademy/perseus-core";
-import type {Parser} from "../parser-types";
 
 const pairOfNumbers = pair(number, number);
 const stringOrEmpty = defaulted(string, () => "");
