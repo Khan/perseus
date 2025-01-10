@@ -263,6 +263,19 @@ export type PerseusStrings = {
     srSinusoidGraphAriaLabel: string;
     srSinusoidExtremumPoint: ({x, y}: {x: string; y: string}) => string;
     srSinusoidMidlineIntersection: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidDescription: ({
+        minValue,
+        maxValue,
+        cycleType,
+        xMinCoord,
+        xMaxCoord,
+    }: {
+        minValue: string;
+        maxValue: string;
+        cycleType: string;
+        xMinCoord: string;
+        xMaxCoord: string;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -486,6 +499,8 @@ export const strings: {
     srSinusoidGraphAriaLabel: "A sinusoid function on a coordinate plane.",
     srSinusoidExtremumPoint: "Extremum Point at %(x)s comma %(y)s.",
     srSinusoidMidlineIntersection: "Midline Intersection at %(x)s comma %(y)s.",
+    srSinusoidDescription:
+        "The graph shows a wave with a minimum value of %(minValue)s and a maximum value of %(maxValue)s. The wave completes a %(cycleType)s cycle from %(xMinCoord)s to %(xMaxCoord)s.",
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -707,6 +722,14 @@ export const mockStrings: PerseusStrings = {
     srSinusoidExtremumPoint: ({x, y}) => `Extremum Point at ${x} comma ${y}.`,
     srSinusoidMidlineIntersection: ({x, y}) =>
         `Midline Intersection at ${x} comma ${y}.`,
+    srSinusoidDescription: ({
+        minValue,
+        maxValue,
+        cycleType,
+        xMinCoord,
+        xMaxCoord,
+    }) =>
+        `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a ${cycleType} cycle from ${xMinCoord} to ${xMaxCoord}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
 

@@ -62,6 +62,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
     }
 
     const {strings, locale} = usePerseusI18n();
+    const uniqueId = React.useId();
 
     function getMoveablePointAriaLabel(
         index: number,
@@ -77,8 +78,38 @@ function SinusoidGraph(props: SinusoidGraphProps) {
             : strings.srSinusoidMidlineIntersection(coordsObj);
     }
 
+    function getWholeGraphDescription(): string {
+        const minMaxVals = calculateMinAndMaxValues(
+            coeffRef.current.amplitude,
+            coeffRef.current.verticalOffset,
+        );
+        const minMaxCoords = calculateStartAndEndPoints(
+            coeffRef.current.amplitude,
+            coeffRef.current.phase,
+        );
+        const minCoordStringWithPi = formatAsMultipleOfPi(
+            minMaxCoords[0],
+            locale,
+        );
+        const maxCoordStringWithPi = formatAsMultipleOfPi(
+            minMaxCoords[1],
+            locale,
+        );
+        const descriptionObj = {
+            minValue: srFormatNumber(minMaxVals[0], locale),
+            maxValue: srFormatNumber(minMaxVals[1], locale),
+            cycleType: "full",
+            xMinCoord: minCoordStringWithPi,
+            xMaxCoord: maxCoordStringWithPi,
+        };
+        return strings.srSinusoidDescription(descriptionObj);
+    }
+
     return (
-        <g aria-label={strings.srSinusoidGraphAriaLabel}>
+        <g
+            aria-label={strings.srSinusoidGraphAriaLabel}
+            aria-describedby={`sinusoid-description-${uniqueId}`}
+        >
             <Plot.OfX
                 y={(x) => computeSine(x, coeffRef.current)}
                 color={color.blue}
@@ -94,6 +125,9 @@ function SinusoidGraph(props: SinusoidGraphProps) {
                     }
                 />
             ))}
+            <g id={`sinusoid-description-${uniqueId}`}>
+                {getWholeGraphDescription()}
+            </g>
         </g>
     );
 }
@@ -134,3 +168,80 @@ export const getSinusoidCoefficients = (
 
     return {amplitude, angularFrequency, phase, verticalOffset};
 };
+
+/**
+ * Sine and cosine oscillate between [-1, 1], which is scaled by the graph's amplitude [-A, A] and shifted by the vertical offset [-A+D, A+D]
+ * @param amplitude Distance from the center to either extreme
+ * @param verticalOffset aka vertical shift - moves the range up or down
+ * @returns array of min and max values
+ */
+export function calculateMinAndMaxValues(
+    amplitude: number,
+    verticalOffset: number,
+) {
+    const absAmp = Math.abs(amplitude);
+    return [-absAmp + verticalOffset, absAmp + verticalOffset];
+}
+
+/**
+ * @param angularFrequency Determines how stretched or compressed the graph is
+ * @returns Period of a sinusoid graph as a number
+ */
+export function calculatePeriod(angularFrequency: number) {
+    return (2 * Math.PI) / Math.abs(angularFrequency);
+}
+
+/**
+ * Formats integer or fractional multiples of PI.
+ * @param input - number
+ * @param locale - i18n locale
+ * @returns integer or fractional multiples of PI. if input is not a multiple of PI, returns input formatted as a sr string
+ */
+
+export function formatAsMultipleOfPi(input: number, locale: string): string {
+    const multiple = input / Math.PI;
+    const faultTolerance = 1e-15; // Math.PI goes to 15 decimal places
+
+    if (input === 0 || multiple === 0) {
+        return `0`;
+    }
+
+    // check for integer multiple of PI
+    if (Math.abs(multiple - Math.round(multiple)) < faultTolerance) {
+        const roundedMultiple = Math.round(multiple);
+        if (roundedMultiple === 1) {
+            return `pi`;
+        } else if (roundedMultiple === -1) {
+            return `negative pi`;
+        }
+
+        return `${Math.round(multiple)} pi`;
+    }
+
+    // Check for fractional multiple of PI
+    const maxDenominator = 1000;
+
+    for (let denominator = 1; denominator < maxDenominator; denominator++) {
+        const numerator = Math.round(multiple * denominator);
+        if (Math.abs(multiple - numerator / denominator) < faultTolerance) {
+            return `${numerator}/${denominator} pi`;
+        }
+    }
+
+    return `${srFormatNumber(input, locale)}`;
+}
+
+/**
+ * Calculates the start and end points for a full cycle of a sinusoid wave
+ * @param angularFrequency Determines how stretched or compressed the graph is
+ * @param phase Determines how to wave is shifted horizontally
+ * @returns array of start and end points for the full cycle
+ */
+export function calculateStartAndEndPoints(
+    angularFrequency: number,
+    phase: number,
+) {
+    const phaseShift = -phase / angularFrequency;
+    const period = calculatePeriod(angularFrequency);
+    return [phaseShift, phaseShift + period];
+}
