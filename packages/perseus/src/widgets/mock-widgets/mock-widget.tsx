@@ -27,12 +27,12 @@ type Props = ExternalProps & {
 
 /**
  * This is a Mock Perseus widget, which is used for our various rendering tests
- * across both Perseus and Webapp. It is a simple widget that renders an interactable
- * input field, and allows the user to input a string value.
+ * both internally and in consuming projects. It is a simple widget that renders
+ * an interactable input field, and allows the user to input a string value.
  *
  * Please use this widget for all tests that are not specifically testing the
  * functionality of a particular widget, such as testing the rendering components.
- * This allows us to more easily update our widget schemas without needing to
+ * This allows us to more easily update our widget schemas and behaviour without needing to
  * update many different irrelevant tests across our codebases.
  *
  * You can register this widget for your tests by calling `registerWidget("mock-widget", MockWidget);`
@@ -59,7 +59,6 @@ export class MockWidget extends React.Component<Props> implements Widget {
         arg2: string,
         arg3?: () => unknown | null | undefined,
     ) => void = (path, newValue, cb) => {
-        /* c8 ignore next */
         this.props.onChange(
             {
                 currentValue: newValue,
@@ -86,7 +85,6 @@ export class MockWidget extends React.Component<Props> implements Widget {
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
         // The widget itself is an input, so we return a single empty list to
         // indicate this.
-        /* c8 ignore next */
         return [[]];
     };
 

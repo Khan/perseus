@@ -1,4 +1,4 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 
 export default {
     question: {
@@ -20,9 +20,12 @@ export default {
                 },
             },
         },
-    } as PerseusRenderer,
-    answerArea: {
-        calculator: false,
     },
+    answerArea: null,
     hints: [] as ReadonlyArray<any>,
-};
+    itemDataVersion: {
+        major: 1,
+        minor: 0,
+    },
+    answer: null,
+} satisfies PerseusItem;

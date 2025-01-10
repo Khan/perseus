@@ -69,14 +69,6 @@ describe("renderer", () => {
         ) as jest.Mock;
     });
 
-    afterEach(() => {
-        // The Renderer uses a timer to wait for widgets to complete rendering.
-        // If we don't spin the timers here, then the timer fires in the test
-        // _after_ and breaks it because we do setState() in the callback,
-        // and by that point the component has been unmounted.
-        act(() => jest.runOnlyPendingTimers());
-    });
-
     describe("snapshots", () => {
         it("initial render", () => {
             // Arrange and Act
@@ -93,7 +85,6 @@ describe("renderer", () => {
             // Act
             await userEvent.click(screen.getByRole("combobox"));
             await userEvent.click(screen.getAllByRole("option")[2]);
-            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot("correct answer");
@@ -106,7 +97,6 @@ describe("renderer", () => {
             // Act
             await userEvent.click(screen.getByRole("combobox"));
             await userEvent.click(screen.getAllByRole("option")[1]);
-            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot("incorrect answer");
@@ -812,7 +802,6 @@ describe("renderer", () => {
 
             // Poke the renderer so it's not in it's initial-render state
             await userEvent.click(screen.getByRole("combobox"));
-            act(() => jest.runOnlyPendingTimers()); // There's a setTimeout to open the dropdown
             await userEvent.click(screen.getAllByRole("option")[1]);
         });
 
@@ -1237,9 +1226,6 @@ describe("renderer", () => {
             widgets.forEach((w) => {
                 w.serialize = jest.fn(() => `State: ${w.props.widgetId}`);
             });
-            // It takes a clock tick after rendering for widgetInfo to be
-            // populated (which renderer uses during serialize()).
-            act(() => jest.runOnlyPendingTimers());
 
             // Act
             const state = renderer.serialize();
@@ -1758,9 +1744,7 @@ describe("renderer", () => {
 
             // Open the dropdown and select the second (idx: 1) item
             await userEvent.click(screen.getByRole("combobox"));
-            act(() => jest.runOnlyPendingTimers());
             await userEvent.click(screen.getAllByRole("option")[1]);
-            act(() => jest.runOnlyPendingTimers());
 
             // Act
             const userInput = renderer.getUserInputMap();

@@ -1,4 +1,4 @@
-import KhanAnswerTypes from "../../util/answer-types";
+import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 
 import type {PerseusStrings} from "../../strings";
 import type {

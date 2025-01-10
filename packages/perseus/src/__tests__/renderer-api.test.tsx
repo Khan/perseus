@@ -156,7 +156,7 @@ describe("Perseus API", function () {
 
     describe("CSS ClassNames", function () {
         describe("perseus-focused", function () {
-            it("should be on an mock-widget exactly when focused", async function () {
+            it("should be on a mock-widget exactly when focused", async function () {
                 // Feel free to change this if you change the class name,
                 // but if you do, you must up the perseus api [major]
                 // version
