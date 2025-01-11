@@ -1,5 +1,63 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.0.11
+
+### Patch Changes
+
+-   [#2057](https://github.com/Khan/perseus/pull/2057) [`2dc22def4`](https://github.com/Khan/perseus/commit/2dc22def44b7616ad739d2c5a575b83bd6362949) Thanks [@dependabot](https://github.com/apps/dependabot)! - update wonderblocks dependencies
+
+-   Updated dependencies [[`2dc22def4`](https://github.com/Khan/perseus/commit/2dc22def44b7616ad739d2c5a575b83bd6362949)]:
+    -   @khanacademy/math-input@22.1.1
+
+## 5.0.10
+
+### Patch Changes
+
+-   Updated dependencies [[`dbbc82f2d`](https://github.com/Khan/perseus/commit/dbbc82f2dd33545b12c6073174b05ebcf8d551ba)]:
+    -   @khanacademy/math-input@22.1.0
+
+## 5.0.9
+
+### Patch Changes
+
+-   Updated dependencies [[`9c17ab518`](https://github.com/Khan/perseus/commit/9c17ab5188052bb0f42de615e48af1a7439f2770)]:
+    -   @khanacademy/kmath@0.1.24
+
+## 5.0.8
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/math-input@22.0.7
+
+## 5.0.7
+
+### Patch Changes
+
+-   [#2040](https://github.com/Khan/perseus/pull/2040) [`1496a7a93`](https://github.com/Khan/perseus/commit/1496a7a93ef691c8e34da309c10cb77d35627bf3) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Bump versions to fix release
+
+-   Updated dependencies [[`1496a7a93`](https://github.com/Khan/perseus/commit/1496a7a93ef691c8e34da309c10cb77d35627bf3)]:
+    -   @khanacademy/kas@0.4.9
+    -   @khanacademy/kmath@0.1.23
+    -   @khanacademy/math-input@22.0.6
+    -   @khanacademy/perseus-core@3.0.5
+    -   @khanacademy/perseus-linter@1.2.11
+    -   @khanacademy/pure-markdown@0.3.20
+    -   @khanacademy/simple-markdown@0.13.13
+
+## 5.0.6
+
+### Patch Changes
+
+-   Updated dependencies [[`b80e7882b`](https://github.com/Khan/perseus/commit/b80e7882bf58f8e71cbf9482585577032c317428)]:
+    -   @khanacademy/kas@0.4.8
+    -   @khanacademy/kmath@0.1.22
+    -   @khanacademy/math-input@22.0.5
+    -   @khanacademy/perseus-core@3.0.4
+    -   @khanacademy/perseus-linter@1.2.10
+    -   @khanacademy/pure-markdown@0.3.19
+    -   @khanacademy/simple-markdown@0.13.12
+
 ## 5.0.5
 
 ### Patch Changes

@@ -1,5 +1,29 @@
 # @khanacademy/keypad-context
 
+## 1.0.12
+
+### Patch Changes
+
+-   [#2047](https://github.com/Khan/perseus/pull/2047) [`4345801bf`](https://github.com/Khan/perseus/commit/4345801bfc09942e0d6dc0459d1e4d53c4f57561) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Bump version for testing release protections.
+
+## 1.0.11
+
+### Patch Changes
+
+-   [#2040](https://github.com/Khan/perseus/pull/2040) [`1496a7a93`](https://github.com/Khan/perseus/commit/1496a7a93ef691c8e34da309c10cb77d35627bf3) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Bump versions to fix release
+
+-   Updated dependencies [[`1496a7a93`](https://github.com/Khan/perseus/commit/1496a7a93ef691c8e34da309c10cb77d35627bf3)]:
+    -   @khanacademy/perseus-core@3.0.5
+
+## 1.0.10
+
+### Patch Changes
+
+-   [#2037](https://github.com/Khan/perseus/pull/2037) [`b80e7882b`](https://github.com/Khan/perseus/commit/b80e7882bf58f8e71cbf9482585577032c317428) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Nothing has changed, but our action requires a changeset per package and I don't know how to do an infrastructure update like this and pass that check
+
+-   Updated dependencies [[`b80e7882b`](https://github.com/Khan/perseus/commit/b80e7882bf58f8e71cbf9482585577032c317428)]:
+    -   @khanacademy/perseus-core@3.0.4
+
 ## 1.0.9
 
 ### Patch Changes

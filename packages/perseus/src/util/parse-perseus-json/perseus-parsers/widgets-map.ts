@@ -37,7 +37,7 @@ import {parseVideoWidget} from "./video-widget";
 import {parseWidget} from "./widget";
 
 import type {
-    AutoCorrectWidget,
+    DeprecatedStandinWidget,
     PerseusWidgetsMap,
 } from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
@@ -183,6 +183,12 @@ const parseWidgetsMapEntry: (
             // sequence is a deprecated widget type, and the corresponding
             // widget component no longer exists.
             return parseAndAssign(`sequence ${id}`, parseDeprecatedWidget);
+        case "lights-puzzle":
+            return parseAndAssign(`lights-puzzle ${id}`, parseDeprecatedWidget);
+        case "simulator":
+            return parseAndAssign(`simulator ${id}`, parseDeprecatedWidget);
+        case "transformer":
+            return parseAndAssign(`transformer ${id}`, parseDeprecatedWidget);
 
         default:
             if (getWidget(type)) {
@@ -193,7 +199,7 @@ const parseWidgetsMapEntry: (
     }
 };
 
-const parseDeprecatedWidget: Parser<AutoCorrectWidget> = parseWidget(
+const parseDeprecatedWidget: Parser<DeprecatedStandinWidget> = parseWidget(
     // Ignore the incoming widget type and hardcode "deprecated-standin"
     (_, ctx) => ctx.success("deprecated-standin" as const),
     // Allow any widget options
