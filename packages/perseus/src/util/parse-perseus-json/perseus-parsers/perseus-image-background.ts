@@ -10,8 +10,8 @@ import {
 import {convert} from "../general-purpose-parsers/convert";
 import {stringToNumber} from "../general-purpose-parsers/string-to-number";
 
-import type {PerseusImageBackground} from "@khanacademy/perseus-core";
 import type {Parser} from "../parser-types";
+import type {PerseusImageBackground} from "@khanacademy/perseus-core";
 
 function emptyToZero(x: string | number): string | number {
     return x === "" ? 0 : x;
