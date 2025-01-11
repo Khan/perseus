@@ -5,7 +5,7 @@ import {registerWidget} from "../../widgets";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import MockWidgetExport from "../../widgets/mock-widgets/mock-widget";
 
-import type {MockWidget, PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer, MockWidget} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const question: PerseusRenderer = {
