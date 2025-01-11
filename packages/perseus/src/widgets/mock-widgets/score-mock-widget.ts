@@ -15,7 +15,6 @@ function scoreMockWidget(
     const stringValue = `${rubric.value}`;
     const val = KhanAnswerTypes.number.createValidatorFunctional(
         stringValue,
-        {},
         strings,
     );
 
