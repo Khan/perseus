@@ -110,7 +110,12 @@ export {
     getAnswerFromUserInput,
     getImagesWithoutAltData,
 } from "./util/extract-perseus-data";
-export {parsePerseusItem} from "./util/parse-perseus-json";
+export {
+    parsePerseusItem,
+    parseAndMigratePerseusItem,
+    parseAndMigratePerseusArticle,
+} from "./util/parse-perseus-json";
+export {isSuccess, isFailure} from "./util/parse-perseus-json/result";
 export {
     generateTestPerseusItem,
     genericPerseusItemData,
@@ -191,6 +196,7 @@ export type {
     SharedRendererProps,
 } from "./types";
 export type {ParsedValue} from "./util";
+export type {Result, Success, Failure} from "./util/parse-perseus-json/result";
 export type {UserInputMap} from "./validation.types";
 export type {Coord} from "./interactive2/types";
 export type {Coords} from "./widgets/grapher/grapher-types";
