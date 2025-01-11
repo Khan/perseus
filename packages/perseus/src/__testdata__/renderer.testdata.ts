@@ -2,7 +2,7 @@ import type {RenderProps} from "../widgets/radio";
 import type {
     DropdownWidget,
     ImageWidget,
-    InputNumberWidget,
+    MockWidget,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
@@ -49,21 +49,16 @@ export const imageWidget: ImageWidget = {
     version: {major: 0, minor: 0},
 };
 
-export const inputNumberWidget: InputNumberWidget = {
+export const mockWidget: MockWidget = {
     version: {
         major: 0,
         minor: 0,
     },
-    type: "input-number",
+    type: "mock-widget",
     graded: true,
     alignment: "default",
     options: {
-        maxError: 0.1,
-        inexact: false,
-        value: 0.3333333333333333,
-        simplify: "optional",
-        answerType: "rational",
-        size: "normal",
+        value: "0.3333333333333333",
     },
 };
 
@@ -76,7 +71,7 @@ export const question1: PerseusRenderer = {
 
 export const question2: PerseusRenderer = {
     content:
-        "Denis baked a peach pie and cut it into $3$ equal-sized pieces.  Denis's dad eats $1$ section of the pie.  \n\n**What fraction of the pie did Denis's dad eat?**  \n![](https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png)    \n[[\u2603 input-number 1]]  \n\n\n\n",
+        "Denis baked a peach pie and cut it into $3$ equal-sized pieces.  Denis's dad eats $1$ section of the pie.  \n\n**What fraction of the pie did Denis's dad eat?**  \n![](https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png)    \n[[\u2603 mock-widget 1]]  \n\n\n\n",
     images: {
         "https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png":
             {
@@ -84,7 +79,7 @@ export const question2: PerseusRenderer = {
                 height: 200,
             },
     },
-    widgets: {"input-number 1": inputNumberWidget},
+    widgets: {"mock-widget 1": mockWidget},
 };
 
 export const definitionItem: PerseusRenderer = {

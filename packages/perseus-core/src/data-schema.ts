@@ -100,6 +100,7 @@ export interface PerseusWidgetTypes {
     matcher: MatcherWidget;
     matrix: MatrixWidget;
     measurer: MeasurerWidget;
+    "mock-widget": MockWidget;
     "molecule-renderer": MoleculeRendererWidget;
     "number-line": NumberLineWidget;
     "numeric-input": NumericInputWidget;
@@ -303,6 +304,8 @@ export type MatrixWidget = WidgetOptions<'matrix', PerseusMatrixWidgetOptions>;
 // prettier-ignore
 export type MeasurerWidget = WidgetOptions<'measurer', PerseusMeasurerWidgetOptions>;
 // prettier-ignore
+export type MockWidget = WidgetOptions<'mock-widget', MockWidgetOptions>;
+// prettier-ignore
 export type NumberLineWidget = WidgetOptions<'number-line', PerseusNumberLineWidgetOptions>;
 // prettier-ignore
 export type NumericInputWidget = WidgetOptions<'numeric-input', PerseusNumericInputWidgetOptions>;
@@ -355,6 +358,7 @@ export type PerseusWidget =
     | MatcherWidget
     | MatrixWidget
     | MeasurerWidget
+    | MockWidget
     | MoleculeRendererWidget
     | NumberLineWidget
     | NumericInputWidget
@@ -1669,6 +1673,11 @@ export type PerseusPhetSimulationWidgetOptions = {
 export type PerseusVideoWidgetOptions = {
     location: string;
     static?: boolean;
+};
+
+export type MockWidgetOptions = {
+    static?: boolean;
+    value: string;
 };
 
 export type PerseusInputNumberWidgetOptions = {
