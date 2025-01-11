@@ -6,8 +6,8 @@ import {
     string,
 } from "../general-purpose-parsers";
 
-import type {WidgetOptions} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {WidgetOptions} from "@khanacademy/perseus-core";
 
 export function parseWidget<Type extends string, Options>(
     parseType: Parser<Type>,

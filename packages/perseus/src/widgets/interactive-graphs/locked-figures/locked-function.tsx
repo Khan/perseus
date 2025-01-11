@@ -1,18 +1,12 @@
 import * as KAS from "@khanacademy/kas";
+import {lockedFigureColors} from "@khanacademy/perseus-core";
 import {Plot} from "mafs";
 import * as React from "react";
 import {useState, useEffect} from "react";
 
-import {lockedFigureColors} from "../../../perseus-types";
+import type {LockedFunctionType} from "@khanacademy/perseus-core";
 
-import type {LockedFunctionType} from "../../../perseus-types";
-import type {APIOptions} from "../../../types";
-
-type Props = LockedFunctionType & {
-    flags?: APIOptions["flags"];
-};
-
-const LockedFunction = (props: Props) => {
+const LockedFunction = (props: LockedFunctionType) => {
     type Equation = {
         [k: string]: any;
         eval: (number) => number;
@@ -28,8 +22,7 @@ const LockedFunction = (props: Props) => {
         domain,
     };
 
-    const hasAria =
-        props.ariaLabel && props.flags?.["mafs"]?.["locked-figures-aria"];
+    const hasAria = !!props.ariaLabel;
 
     useEffect(() => {
         // Parsing the equation in a "useEffect" hook saves about 2ms each frame

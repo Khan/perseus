@@ -1,10 +1,6 @@
 import * as KAS from "@khanacademy/kas";
-import {
-    components,
-    Changeable,
-    Expression,
-    PerseusExpressionAnswerFormConsidered,
-} from "@khanacademy/perseus";
+import {components, Changeable, Expression} from "@khanacademy/perseus";
+import {PerseusExpressionAnswerFormConsidered} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -25,7 +21,7 @@ import SortableArea from "../components/sortable";
 import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 type ChangeFn = typeof Changeable.change;
 
@@ -53,6 +49,7 @@ const buttonSetsList: LegacyButtonSets = [
     "trig",
     "prealgebra",
     "logarithms",
+    "scientific",
     "basic relations",
     "advanced relations",
 ];

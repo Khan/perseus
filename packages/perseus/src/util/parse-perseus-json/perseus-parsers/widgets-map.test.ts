@@ -5,7 +5,7 @@ import {failure, success} from "../result";
 
 import {parseWidgetsMap} from "./widgets-map";
 
-import type {PerseusWidgetsMap} from "@khanacademy/perseus";
+import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 describe("parseWidgetsMap", () => {
     it("rejects null", () => {
@@ -31,7 +31,62 @@ describe("parseWidgetsMap", () => {
 
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(anyFailure);
+        expect(result).toEqual(
+            failure(
+                `At (root).asdf["(widget ID)"] -- expected array of length 2, but got ["asdf"]`,
+            ),
+        );
+    });
+
+    it("rejects a widget ID numbered 0", () => {
+        // Widget IDs with 0 currently cause a full-page crash when the
+        // exercise is rendered in webapp!
+
+        const widgetsMap: unknown = {
+            "radio 0": {
+                type: "radio",
+                version: {major: 0, minor: 0},
+                options: {
+                    choices: [],
+                    noneOfTheAbove: false,
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+        expect(result).toEqual(
+            failure(
+                `At (root)["radio 0"]["(widget ID)"][1] -- expected a string representing a positive integer, but got "0"`,
+            ),
+        );
+    });
+
+    it("rejects a widget ID with no number", () => {
+        const widgetsMap: unknown = {
+            categorizer: {type: "categorizer"},
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(
+            failure(
+                `At (root).categorizer["(widget ID)"] -- expected array of length 2, but got ["categorizer"]`,
+            ),
+        );
+    });
+
+    it("rejects an unknown widget type", () => {
+        const widgetsMap: unknown = {
+            "transmogrifier 1": {type: "transmogrifier"},
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(
+            failure(
+                `At (root)["transmogrifier 1"] -- expected a valid widget type, but got "transmogrifier"`,
+            ),
+        );
     });
 
     it("accepts a categorizer widget", () => {
@@ -731,20 +786,6 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(expected));
     });
 
-    it("rejects an unknown widget type", () => {
-        const widgetsMap: unknown = {
-            "transmogrifier 1": {type: "transmogrifier"},
-        };
-
-        const result = parse(widgetsMap, parseWidgetsMap);
-
-        expect(result).toEqual(
-            failure(
-                `At (root)["transmogrifier 1"] -- expected a valid widget type, but got "transmogrifier"`,
-            ),
-        );
-    });
-
     it("accepts a dynamically-registered widget type without checking its options", () => {
         registerWidget("fake-widget-for-widgets-map-parser-test", {
             name: "fake-widget-for-widgets-map-parser-test",
@@ -762,15 +803,5 @@ describe("parseWidgetsMap", () => {
         const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
-    });
-
-    it("rejects a key with no ID", () => {
-        const widgetsMap: unknown = {
-            categorizer: {type: "categorizer"},
-        };
-
-        const result = parse(widgetsMap, parseWidgetsMap);
-
-        expect(result).toEqual(anyFailure);
     });
 });

@@ -1,4 +1,5 @@
-import {lockedFigureColorNames} from "../../../perseus-types";
+import {lockedFigureColorNames} from "@khanacademy/perseus-core";
+
 import {
     array,
     boolean,
@@ -14,10 +15,12 @@ import {
     union,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
+import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
+import type {Parser} from "../parser-types";
 import type {
     InteractiveGraphWidget,
     LockedEllipseType,
@@ -43,8 +46,7 @@ import type {
     PerseusGraphTypeRay,
     PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
-} from "../../../perseus-types";
-import type {Parser} from "../parser-types";
+} from "@khanacademy/perseus-core";
 
 // Used to represent 2-D points and ranges
 const pairOfNumbers = pair(number, number);
@@ -111,7 +113,7 @@ const parsePerseusGraphTypePolygon: Parser<PerseusGraphTypePolygon> = object({
     showAngles: optional(boolean),
     showSides: optional(boolean),
     snapTo: optional(enumeration("grid", "angles", "sides")),
-    match: optional(enumeration("similar", "congruent", "approx")),
+    match: optional(enumeration("similar", "congruent", "approx", "exact")),
     startCoords: optional(array(pairOfNumbers)),
     // TODO: remove coord? it's legacy.
     coord: optional(pairOfNumbers),
@@ -156,20 +158,20 @@ const parsePerseusGraphTypeSinusoid: Parser<PerseusGraphTypeSinusoid> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphType: Parser<PerseusGraphType> = union(
-    parsePerseusGraphTypeAngle,
+const parsePerseusGraphType: Parser<PerseusGraphType> = discriminatedUnionOn(
+    "type",
 )
-    .or(parsePerseusGraphTypeAngle)
-    .or(parsePerseusGraphTypeCircle)
-    .or(parsePerseusGraphTypeLinear)
-    .or(parsePerseusGraphTypeLinearSystem)
-    .or(parsePerseusGraphTypeNone)
-    .or(parsePerseusGraphTypePoint)
-    .or(parsePerseusGraphTypePolygon)
-    .or(parsePerseusGraphTypeQuadratic)
-    .or(parsePerseusGraphTypeRay)
-    .or(parsePerseusGraphTypeSegment)
-    .or(parsePerseusGraphTypeSinusoid).parser;
+    .withBranch("angle", parsePerseusGraphTypeAngle)
+    .withBranch("circle", parsePerseusGraphTypeCircle)
+    .withBranch("linear", parsePerseusGraphTypeLinear)
+    .withBranch("linear-system", parsePerseusGraphTypeLinearSystem)
+    .withBranch("none", parsePerseusGraphTypeNone)
+    .withBranch("point", parsePerseusGraphTypePoint)
+    .withBranch("polygon", parsePerseusGraphTypePolygon)
+    .withBranch("quadratic", parsePerseusGraphTypeQuadratic)
+    .withBranch("ray", parsePerseusGraphTypeRay)
+    .withBranch("segment", parsePerseusGraphTypeSegment)
+    .withBranch("sinusoid", parsePerseusGraphTypeSinusoid).parser;
 
 const parseLockedFigureColor: Parser<LockedFigureColor> = enumeration(
     ...lockedFigureColorNames,
@@ -211,8 +213,8 @@ const parseLockedLineType: Parser<LockedLineType> = object({
     points: pair(parseLockedPointType, parseLockedPointType),
     color: parseLockedFigureColor,
     lineStyle: parseLockedLineStyle,
-    showPoint1: boolean,
-    showPoint2: boolean,
+    showPoint1: defaulted(boolean, () => false),
+    showPoint2: defaulted(boolean, () => false),
     // TODO(benchristel): default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),
@@ -264,13 +266,14 @@ const parseLockedFunctionType: Parser<LockedFunctionType> = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedFigure: Parser<LockedFigure> = union(parseLockedPointType)
-    .or(parseLockedLineType)
-    .or(parseLockedVectorType)
-    .or(parseLockedEllipseType)
-    .or(parseLockedPolygonType)
-    .or(parseLockedFunctionType)
-    .or(parseLockedLabelType).parser;
+const parseLockedFigure: Parser<LockedFigure> = discriminatedUnionOn("type")
+    .withBranch("point", parseLockedPointType)
+    .withBranch("line", parseLockedLineType)
+    .withBranch("vector", parseLockedVectorType)
+    .withBranch("ellipse", parseLockedEllipseType)
+    .withBranch("polygon", parseLockedPolygonType)
+    .withBranch("function", parseLockedFunctionType)
+    .withBranch("label", parseLockedLabelType).parser;
 
 export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
     parseWidget(

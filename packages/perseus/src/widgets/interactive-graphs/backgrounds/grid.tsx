@@ -3,8 +3,8 @@ import * as React from "react";
 
 import {X, Y} from "../math";
 
-import type {GraphRange, MarkingsType} from "../../../perseus-types";
 import type {SizeClass} from "../../../util/sizing-utils";
+import type {GraphRange, MarkingsType} from "@khanacademy/perseus-core";
 import type {vec} from "mafs";
 
 interface GridProps {

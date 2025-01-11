@@ -26,19 +26,22 @@ import {debounce} from "../util/debounce";
 
 import {PerseusI18nContext} from "./i18n-context";
 
-import type {LegacyButtonSets} from "../perseus-types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
-import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+import type {
+    AnalyticsEventHandlerFn,
+    LegacyButtonSets,
+} from "@khanacademy/perseus-core";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
-type KeypadButtonSets = {
+export type KeypadButtonSets = {
     advancedRelations?: boolean;
     basicRelations?: boolean;
     divisionKey?: boolean;
     logarithms?: boolean;
     preAlgebra?: boolean;
     trigonometry?: boolean;
+    scientific?: boolean;
 };
 
 type Props = {
@@ -495,6 +498,9 @@ const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
                 break;
             case "trig":
                 keypadButtonSets.trigonometry = true;
+                break;
+            case "scientific":
+                keypadButtonSets.scientific = true;
                 break;
             case "basic":
             default:

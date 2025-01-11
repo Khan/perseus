@@ -14,7 +14,7 @@ import {getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
-import type {GraphRange} from "../../perseus-types";
+import type {GraphRange} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 function expectLabelInDoc(label: string) {
@@ -569,7 +569,7 @@ describe("MafsGraph", () => {
             "angle-description",
         );
         expect(angleGraph).toHaveTextContent(
-            "The angle measure is 270 degrees with a vertex at 0 comma 0, a point on the initial side at 1 comma 1 and a point on the terminal side at -1 comma 1.",
+            "The angle measure is 270 degrees with a vertex at 0 comma 0, a point on the starting side at 1 comma 1 and a point on the ending side at -1 comma 1.",
         );
     });
 

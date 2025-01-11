@@ -1,4 +1,4 @@
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
     content: "[[\u2603 cs-program 1]]\n\n",
@@ -15,7 +15,6 @@ export const question1: PerseusRenderer = {
                     {name: "", value: ""},
                 ],
                 height: 540,
-                width: 640,
                 programID: "6293105639817216",
                 static: false,
                 showButtons: false,

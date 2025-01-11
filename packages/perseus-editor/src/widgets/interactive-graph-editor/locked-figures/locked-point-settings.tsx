@@ -23,23 +23,16 @@ import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
+    generateSpokenMathDetails,
     generateLockedFigureAppearanceDescription,
     getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
-import type {
-    APIOptions,
-    LockedLabelType,
-    LockedPointType,
-} from "@khanacademy/perseus";
+import type {LockedLabelType, LockedPointType} from "@khanacademy/perseus-core";
 
 export type Props = LockedPointType & {
-    /**
-     * Optional flags to determine which features are enabled.
-     */
-    flags?: APIOptions["flags"];
     /**
      * Optional label for the point to display in the header summary.
      * Defaults to "Point".
@@ -86,7 +79,6 @@ export type Props = LockedPointType & {
 
 const LockedPointSettings = (props: Props) => {
     const {
-        flags,
         headerLabel,
         coord,
         color: pointColor,
@@ -118,8 +110,11 @@ const LockedPointSettings = (props: Props) => {
      */
     async function getPrepopulatedAriaLabel() {
         const visiblelabel = await joinLabelsAsSpokenMath(labels);
+        // Ensure negative values are read correctly within aria labels.
+        const spokenX = await generateSpokenMathDetails(`$${coord[0]}$`);
+        const spokenY = await generateSpokenMathDetails(`$${coord[1]}$`);
 
-        let str = `Point${visiblelabel} at ${coord[0]} comma ${coord[1]}`;
+        let str = `Point${visiblelabel} at ${spokenX} comma ${spokenY}`;
 
         const pointAppearance =
             generateLockedFigureAppearanceDescription(pointColor);
@@ -242,7 +237,7 @@ const LockedPointSettings = (props: Props) => {
                 </>
             )}
 
-            {!isDefiningPoint && flags?.["mafs"]?.["locked-figures-aria"] && (
+            {!isDefiningPoint && (
                 <>
                     <Strut size={spacing.small_12} />
                     <View style={styles.horizontalRule} />
@@ -257,62 +252,54 @@ const LockedPointSettings = (props: Props) => {
                 </>
             )}
 
-            {((!isDefiningPoint && flags?.["mafs"]?.["locked-point-labels"]) ||
-                (isDefiningPoint &&
-                    flags?.["mafs"]?.["locked-line-labels"])) && (
-                <>
-                    <Strut size={spacing.xxxSmall_4} />
-                    <View style={styles.horizontalRule} />
-                    <Strut size={spacing.small_12} />
+            {/* Visible labels */}
+            <Strut size={spacing.xxxSmall_4} />
+            <View style={styles.horizontalRule} />
+            <Strut size={spacing.small_12} />
+            <LabelMedium>Visible labels</LabelMedium>
+            {labels?.map((label, labelIndex) => (
+                <LockedLabelSettings
+                    {...label}
+                    key={labelIndex}
+                    containerStyle={
+                        !isDefiningPoint && styles.lockedPointLabelContainer
+                    }
+                    expanded={true}
+                    onChangeProps={(newLabel) => {
+                        handleLabelChange(newLabel, labelIndex);
+                    }}
+                    onRemove={() => {
+                        handleLabelRemove(labelIndex);
+                    }}
+                />
+            ))}
+            <Button
+                kind="tertiary"
+                startIcon={plusCircle}
+                onClick={() => {
+                    const newLabel = {
+                        ...getDefaultFigureForType("label"),
+                        // Place the label at the same position
+                        // as the point. Add a small offset to
+                        // avoid crowding.
+                        coord: [
+                            coord[0] + 0.5,
+                            // Additional offset for each label so
+                            // they don't overlap.
+                            coord[1] - 1 * (labels?.length ?? 0),
+                        ],
+                        // Default to the same color as the point
+                        color: pointColor,
+                    } satisfies LockedLabelType;
 
-                    <LabelMedium>Visible labels</LabelMedium>
-
-                    {labels?.map((label, labelIndex) => (
-                        <LockedLabelSettings
-                            {...label}
-                            key={labelIndex}
-                            containerStyle={
-                                !isDefiningPoint &&
-                                styles.lockedPointLabelContainer
-                            }
-                            expanded={true}
-                            onChangeProps={(newLabel) => {
-                                handleLabelChange(newLabel, labelIndex);
-                            }}
-                            onRemove={() => {
-                                handleLabelRemove(labelIndex);
-                            }}
-                        />
-                    ))}
-                    <Button
-                        kind="tertiary"
-                        startIcon={plusCircle}
-                        onClick={() => {
-                            const newLabel = {
-                                ...getDefaultFigureForType("label"),
-                                // Place the label at the same position
-                                // as the point. Add a small offset to
-                                // avoid crowding.
-                                coord: [
-                                    coord[0] + 0.5,
-                                    // Additional offset for each label so
-                                    // they don't overlap.
-                                    coord[1] - 1 * (labels?.length ?? 0),
-                                ],
-                                // Default to the same color as the point
-                                color: pointColor,
-                            } satisfies LockedLabelType;
-
-                            onChangeProps({
-                                labels: [...(labels ?? []), newLabel],
-                            });
-                        }}
-                        style={styles.addButton}
-                    >
-                        Add visible label
-                    </Button>
-                </>
-            )}
+                    onChangeProps({
+                        labels: [...(labels ?? []), newLabel],
+                    });
+                }}
+                style={styles.addButton}
+            >
+                Add visible label
+            </Button>
 
             {onRemove && (
                 <LockedFigureSettingsActions

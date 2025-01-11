@@ -22,7 +22,6 @@ import getDecimalSeparator from "./get-decimal-separator";
 import scoreExpression from "./score-expression";
 
 import type {DependenciesContext} from "../../dependencies";
-import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusExpressionRubric,
@@ -30,6 +29,7 @@ import type {
 } from "../../validation.types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
+import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type InputPath = ReadonlyArray<string>;
@@ -424,7 +424,7 @@ const styles = StyleSheet.create({
  *       to be included as keys on the keypad. These are scraped from the answer
  *       forms.
  */
-const keypadConfigurationForProps = (
+export const keypadConfigurationForProps = (
     widgetOptions: PerseusExpressionWidgetOptions,
 ): KeypadConfiguration => {
     // Always use the Expression keypad, regardless of the button sets that have

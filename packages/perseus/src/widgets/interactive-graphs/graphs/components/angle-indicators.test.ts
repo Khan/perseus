@@ -2,8 +2,8 @@ import {getClockwiseAngle} from "../../math";
 
 import {shouldDrawArcOutside} from "./angle-indicators";
 
-import type {CollinearTuple} from "../../../../perseus-types";
 import type {Coord} from "@khanacademy/perseus";
+import type {CollinearTuple} from "@khanacademy/perseus-core";
 import type {vec, Interval} from "mafs";
 
 describe("shouldDrawArcOutside", () => {

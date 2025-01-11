@@ -29,7 +29,7 @@ import StartCoordsSinusoid from "./start-coords-sinusoid";
 import {getDefaultGraphStartCoords} from "./util";
 
 import type {StartCoords} from "./types";
-import type {PerseusGraphType, Range} from "@khanacademy/perseus";
+import type {PerseusGraphType, Range} from "@khanacademy/perseus-core";
 
 type Props = PerseusGraphType & {
     range: [x: Range, y: Range];

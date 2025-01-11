@@ -6,11 +6,12 @@ import {
     object,
     string,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {LabelImageWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {LabelImageWidget} from "@khanacademy/perseus-core";
 
 export const parseLabelImageWidget: Parser<LabelImageWidget> = parseWidget(
     constant("label-image"),
@@ -30,6 +31,6 @@ export const parseLabelImageWidget: Parser<LabelImageWidget> = parseWidget(
         ),
         hideChoicesFromInstructions: boolean,
         multipleAnswers: boolean,
-        static: boolean,
+        static: defaulted(boolean, () => false),
     }),
 );

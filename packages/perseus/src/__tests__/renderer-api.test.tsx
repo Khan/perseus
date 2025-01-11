@@ -11,19 +11,20 @@ import * as Dependencies from "../dependencies";
 import {ClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import {mockStrings} from "../strings";
-import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../util/test-utils";
+import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
+import {MockWidget} from "../widgets/mock-widgets";
 
 import imageItem from "./test-items/image-item";
-import inputNumber1Item from "./test-items/input-number-1-item";
-import inputNumber2Item from "./test-items/input-number-2-item";
+import mockWidget1Item from "./test-items/mock-widget-1-item";
+import mockWidget2Item from "./test-items/mock-widget-2-item";
 import tableItem from "./test-items/table-item";
 
-import type {PerseusInputNumberUserInput} from "../validation.types";
+import type {PerseusMockWidgetUserInput} from "../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
-const itemWidget = inputNumber1Item;
+const itemWidget = mockWidget1Item;
 
 describe("Perseus API", function () {
     let userEvent: UserEvent;
@@ -36,19 +37,21 @@ describe("Perseus API", function () {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        registerAllWidgetsForTesting();
+        // TODO(LEMS-2656): remove TS suppression
+        // @ts-expect-error: MockWidget is not assignable to type WidgetExports
+        registerWidget("mock-widget", MockWidget);
     });
 
     describe("setInputValue", function () {
         it("should be able to produce a correctly graded value", function () {
             // Arrange
-            const {renderer} = renderQuestion(inputNumber1Item.question);
+            const {renderer} = renderQuestion(mockWidget1Item.question);
 
             // Act
-            act(() => renderer.setInputValue(["input-number 1"], "5"));
+            act(() => renderer.setInputValue(["mock-widget 1"], "5"));
 
             const score = scorePerseusItemTesting(
-                inputNumber1Item.question,
+                mockWidget1Item.question,
                 renderer.getUserInputMap(),
             );
 
@@ -58,13 +61,13 @@ describe("Perseus API", function () {
 
         it("should be able to produce a wrong value", function () {
             // Arrange
-            const {renderer} = renderQuestion(inputNumber1Item.question);
+            const {renderer} = renderQuestion(mockWidget1Item.question);
 
             // Act
-            act(() => renderer.setInputValue(["input-number 1"], "3"));
+            act(() => renderer.setInputValue(["mock-widget 1"], "3"));
 
             const score = scorePerseusItemTesting(
-                inputNumber1Item.question,
+                mockWidget1Item.question,
                 renderer.getUserInputMap(),
             );
 
@@ -74,21 +77,21 @@ describe("Perseus API", function () {
 
         it("should be able to produce an empty score", function () {
             // Arrange
-            const {renderer} = renderQuestion(inputNumber1Item.question);
+            const {renderer} = renderQuestion(mockWidget1Item.question);
 
-            act(() => renderer.setInputValue(["input-number 1"], "3"));
+            act(() => renderer.setInputValue(["mock-widget 1"], "3"));
 
             let score = scorePerseusItemTesting(
-                inputNumber1Item.question,
+                mockWidget1Item.question,
                 renderer.getUserInputMap(),
             );
 
             expect(score).toHaveBeenAnsweredIncorrectly();
 
-            act(() => renderer.setInputValue(["input-number 1"], ""));
+            act(() => renderer.setInputValue(["mock-widget 1"], ""));
 
             score = scorePerseusItemTesting(
-                inputNumber1Item.question,
+                mockWidget1Item.question,
                 renderer.getUserInputMap(),
             );
 
@@ -96,11 +99,11 @@ describe("Perseus API", function () {
         });
 
         it("should be able to accept a callback", function (done) {
-            const {renderer} = renderQuestion(inputNumber1Item.question);
+            const {renderer} = renderQuestion(mockWidget1Item.question);
             act(() =>
-                renderer.setInputValue(["input-number 1"], "3", function () {
+                renderer.setInputValue(["mock-widget 1"], "3", function () {
                     const guess =
-                        renderer.getUserInput()[0] as PerseusInputNumberUserInput;
+                        renderer.getUserInput()[0] as PerseusMockWidgetUserInput;
                     expect(guess?.currentValue).toBe("3");
                     done();
                 }),
@@ -111,7 +114,7 @@ describe("Perseus API", function () {
 
     describe("getInputPaths", function () {
         it("should be able to find all the input widgets", function () {
-            const {renderer} = renderQuestion(inputNumber2Item.question);
+            const {renderer} = renderQuestion(mockWidget2Item.question);
             const numPaths = renderer.getInputPaths().length;
             expect(numPaths).toBe(2);
         });
@@ -125,7 +128,7 @@ describe("Perseus API", function () {
 
     describe("getDOMNodeForPath", function () {
         it("should find one DOM node per <input>", function () {
-            const {renderer} = renderQuestion(inputNumber2Item.question);
+            const {renderer} = renderQuestion(mockWidget2Item.question);
             const inputPaths = renderer.getInputPaths();
 
             const allInputs = screen.queryAllByRole("textbox");
@@ -134,7 +137,7 @@ describe("Perseus API", function () {
         });
 
         it("should find the right DOM nodes for the <input>s", function () {
-            const {renderer} = renderQuestion(inputNumber2Item.question);
+            const {renderer} = renderQuestion(mockWidget2Item.question);
             const inputPaths = renderer.getInputPaths();
 
             const allInputs = screen.queryAllByRole("textbox");
@@ -153,13 +156,13 @@ describe("Perseus API", function () {
 
     describe("CSS ClassNames", function () {
         describe("perseus-focused", function () {
-            it("should be on an input-number exactly when focused", async function () {
+            it("should be on a mock-widget exactly when focused", async function () {
                 // Feel free to change this if you change the class name,
                 // but if you do, you must up the perseus api [major]
                 // version
                 expect(ClassNames.FOCUSED).toBe("perseus-focused");
 
-                renderQuestion(inputNumber1Item.question);
+                renderQuestion(mockWidget1Item.question);
 
                 const input = screen.getByRole("textbox");
                 expect(input).not.toHaveFocus();
@@ -176,7 +179,7 @@ describe("Perseus API", function () {
     describe("onFocusChange", function () {
         it("should be called from focused to blurred to back on one input", async function () {
             const onFocusChange = jest.fn();
-            renderQuestion(inputNumber1Item.question, {onFocusChange});
+            renderQuestion(mockWidget1Item.question, {onFocusChange});
 
             const input = screen.getByRole("textbox");
 
@@ -186,10 +189,7 @@ describe("Perseus API", function () {
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledTimes(1);
-            expect(onFocusChange).toHaveBeenCalledWith(
-                ["input-number 1"],
-                null,
-            );
+            expect(onFocusChange).toHaveBeenCalledWith(["mock-widget 1"], null);
 
             // Act - blur
             onFocusChange.mockReset();
@@ -198,14 +198,12 @@ describe("Perseus API", function () {
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledTimes(1);
-            expect(onFocusChange).toHaveBeenCalledWith(null, [
-                "input-number 1",
-            ]);
+            expect(onFocusChange).toHaveBeenCalledWith(null, ["mock-widget 1"]);
         });
 
         it("should be called focusing between two inputs", async function () {
             const onFocusChange = jest.fn();
-            renderQuestion(inputNumber2Item.question, {onFocusChange});
+            renderQuestion(mockWidget2Item.question, {onFocusChange});
 
             const inputs = screen.getAllByRole("textbox");
             const input1 = inputs[0];
@@ -220,8 +218,8 @@ describe("Perseus API", function () {
 
             expect(onFocusChange).toHaveBeenCalledTimes(1);
             expect(onFocusChange).toHaveBeenCalledWith(
-                ["input-number 2"],
-                ["input-number 1"],
+                ["mock-widget 2"],
+                ["mock-widget 1"],
             );
         });
     });

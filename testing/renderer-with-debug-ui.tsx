@@ -16,7 +16,7 @@ import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/registe
 
 import SideBySide from "./side-by-side";
 
-import type {PerseusRenderer} from "../packages/perseus/src/perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {ComponentProps} from "react";
 
 type Props = {

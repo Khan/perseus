@@ -37,18 +37,6 @@ import scoreInteractiveGraph from "./interactive-graphs/score-interactive-graph"
 import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
 import type {QuadraticGraphState} from "./interactive-graphs/types";
 import type {Coord} from "../interactive2/types";
-import type {
-    PerseusGraphType,
-    PerseusGraphTypeAngle,
-    PerseusGraphTypePoint,
-    PerseusGraphTypePolygon,
-    PerseusGraphTypeSegment,
-    PerseusInteractiveGraphWidgetOptions,
-    GraphRange,
-    LockedFigure,
-    PerseusImageBackground,
-    MarkingsType,
-} from "../perseus-types";
 import type {ChangeHandler, WidgetExports, WidgetProps} from "../types";
 import type {
     QuadraticCoefficient,
@@ -61,6 +49,18 @@ import type {
 } from "../validation.types";
 import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
+import type {
+    PerseusGraphType,
+    PerseusGraphTypeAngle,
+    PerseusGraphTypePoint,
+    PerseusGraphTypePolygon,
+    PerseusGraphTypeSegment,
+    PerseusInteractiveGraphWidgetOptions,
+    GraphRange,
+    LockedFigure,
+    PerseusImageBackground,
+    MarkingsType,
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const TRASH_ICON_URI =

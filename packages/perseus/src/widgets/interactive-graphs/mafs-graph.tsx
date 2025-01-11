@@ -153,7 +153,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 disableKeyboardInteraction: readOnly || !!props.static,
             }}
         >
-            <View>
+            <View className="mafs-graph-container">
                 <View
                     className="mafs-graph"
                     style={{
@@ -265,22 +265,17 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 {/* Locked figures layer */}
                                 {props.lockedFigures && (
                                     <GraphLockedLayer
-                                        flags={props.flags}
                                         lockedFigures={props.lockedFigures}
                                         range={state.range}
                                     />
                                 )}
                             </svg>
                         </Mafs>
-                        {props.flags?.["mafs"]?.[
-                            "interactive-graph-locked-features-labels"
-                        ] &&
-                            props.lockedFigures && (
-                                <GraphLockedLabelsLayer
-                                    flags={props.flags}
-                                    lockedFigures={props.lockedFigures}
-                                />
-                            )}
+                        {props.lockedFigures && (
+                            <GraphLockedLabelsLayer
+                                lockedFigures={props.lockedFigures}
+                            />
+                        )}
                         <View style={{position: "absolute"}}>
                             <Mafs
                                 preserveAspectRatio={false}

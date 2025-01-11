@@ -8,8 +8,8 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {TableWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {TableWidget} from "@khanacademy/perseus-core";
 
 export const parseTableWidget: Parser<TableWidget> = parseWidget(
     constant("table"),

@@ -1,4 +1,4 @@
-import {number as knumber} from "@khanacademy/kmath";
+import {number as knumber, KhanMath} from "@khanacademy/kmath";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -11,7 +11,6 @@ import InteractiveUtil from "../../interactive2/interactive-util";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
-import KhanMath from "../../util/math";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
 import scoreNumberLine from "./score-number-line";

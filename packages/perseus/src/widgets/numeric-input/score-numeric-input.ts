@@ -1,14 +1,18 @@
-import TexWrangler from "../../tex-wrangler";
-import KhanAnswerTypes from "../../util/answer-types";
+import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 
-import type {MathFormat, PerseusNumericInputAnswer} from "../../perseus-types";
+import TexWrangler from "../../tex-wrangler";
+
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
-import type {Score} from "../../util/answer-types";
 import type {
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
 } from "../../validation.types";
+import type {
+    MathFormat,
+    PerseusNumericInputAnswer,
+} from "@khanacademy/perseus-core";
+import type {Score} from "@khanacademy/perseus-score";
 
 const ParseTex = TexWrangler.parseTex;
 
@@ -91,18 +95,14 @@ function scoreNumericInput(
             validatorForms.push(...defaultAnswerForms);
         }
 
-        return KhanAnswerTypes.number.createValidatorFunctional(
-            stringAnswer,
-            {
-                message: answer.message,
-                simplify:
-                    answer.status === "correct" ? answer.simplify : "optional",
-                inexact: true, // TODO(merlob) backfill / delete
-                maxError: answer.maxError,
-                forms: validatorForms,
-            },
-            strings,
-        );
+        return KhanAnswerTypes.number.createValidatorFunctional(stringAnswer, {
+            message: answer.message,
+            simplify:
+                answer.status === "correct" ? answer.simplify : "optional",
+            inexact: true, // TODO(merlob) backfill / delete
+            maxError: answer.maxError,
+            forms: validatorForms,
+        });
     };
 
     // We may have received TeX; try to parse it before grading.
@@ -111,10 +111,7 @@ function scoreNumericInput(
 
     const normalizedAnswerExpected = rubric.answers
         .filter((answer) => answer.status === "correct")
-        .every(
-            (answer) =>
-                answer.value !== undefined && Math.abs(answer.value) <= 1,
-        );
+        .every((answer) => answer.value != null && Math.abs(answer.value) <= 1);
 
     // The coefficient is an attribute of the widget
     let localValue: string | number = currentValue;

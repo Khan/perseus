@@ -6,7 +6,7 @@ import * as React from "react";
 
 const {NumberInput, TextInput} = components;
 
-import type {PerseusPythonProgramWidgetOptions} from "@khanacademy/perseus";
+import type {PerseusPythonProgramWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = Changeable.ChangeableProps & {
     programID: string;

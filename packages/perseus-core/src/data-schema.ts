@@ -64,7 +64,7 @@ export type ShowSolutions = "all" | "selected" | "none";
  *         "new-awesomeness": MyAwesomeNewWidget;
  *
  *         // A deprecated widget
- *         "super-old-widget": AutoCorrectWidget;
+ *         "super-old-widget": DeprecatedStandinWidget;
  *     }
  * }
  *
@@ -100,6 +100,7 @@ export interface PerseusWidgetTypes {
     matcher: MatcherWidget;
     matrix: MatrixWidget;
     measurer: MeasurerWidget;
+    "mock-widget": MockWidget;
     "molecule-renderer": MoleculeRendererWidget;
     "number-line": NumberLineWidget;
     "numeric-input": NumericInputWidget;
@@ -116,7 +117,10 @@ export interface PerseusWidgetTypes {
     video: VideoWidget;
 
     // Deprecated widgets
-    sequence: AutoCorrectWidget;
+    "lights-puzzle": DeprecatedStandinWidget;
+    sequence: DeprecatedStandinWidget;
+    simulator: DeprecatedStandinWidget;
+    transformer: DeprecatedStandinWidget;
 }
 
 /**
@@ -300,6 +304,8 @@ export type MatrixWidget = WidgetOptions<'matrix', PerseusMatrixWidgetOptions>;
 // prettier-ignore
 export type MeasurerWidget = WidgetOptions<'measurer', PerseusMeasurerWidgetOptions>;
 // prettier-ignore
+export type MockWidget = WidgetOptions<'mock-widget', MockWidgetOptions>;
+// prettier-ignore
 export type NumberLineWidget = WidgetOptions<'number-line', PerseusNumberLineWidgetOptions>;
 // prettier-ignore
 export type NumericInputWidget = WidgetOptions<'numeric-input', PerseusNumericInputWidgetOptions>;
@@ -330,7 +336,7 @@ export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassage
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
-export type AutoCorrectWidget = WidgetOptions<'deprecated-standin', object>;
+export type DeprecatedStandinWidget = WidgetOptions<'deprecated-standin', object>;
 
 export type PerseusWidget =
     | CategorizerWidget
@@ -352,6 +358,7 @@ export type PerseusWidget =
     | MatcherWidget
     | MatrixWidget
     | MeasurerWidget
+    | MockWidget
     | MoleculeRendererWidget
     | NumberLineWidget
     | NumericInputWidget
@@ -366,7 +373,7 @@ export type PerseusWidget =
     | SorterWidget
     | TableWidget
     | VideoWidget
-    | AutoCorrectWidget;
+    | DeprecatedStandinWidget;
 
 /**
  * A background image applied to various widgets.
@@ -472,6 +479,7 @@ export type LegacyButtonSets = ReadonlyArray<
     | "logarithms"
     | "basic relations"
     | "advanced relations"
+    | "scientific"
 >;
 
 export type PerseusExpressionWidgetOptions = {
@@ -548,11 +556,9 @@ export type GraphRange = [
 export type GrapherAnswerTypes =
     | {
           type: "absolute_value";
-          coords: [
-              // The vertex
-              Coord, // A point along one line of the absolute value "V" lines
-              Coord,
-          ];
+          // If `coords` is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [vertex: Coord, secondPoint: Coord];
       }
     | {
           type: "exponential";
@@ -561,12 +567,16 @@ export type GrapherAnswerTypes =
           asymptote: [Coord, Coord];
           // Two points along the exponential curve. One end of the curve
           // trends towards the asymptote.
-          coords: [Coord, Coord];
+          // If `coords` is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       }
     | {
           type: "linear";
           // Two points along the straight line
-          coords: [Coord, Coord];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       }
     | {
           type: "logarithm";
@@ -574,25 +584,29 @@ export type GrapherAnswerTypes =
           asymptote: [Coord, Coord];
           // Two points along the logarithmic curve. One end of the curve
           // trends towards the asymptote.
-          coords: [Coord, Coord];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       }
     | {
           type: "quadratic";
-          coords: [
-              // The vertex of the parabola
-              Coord, // A point along the parabola
-              Coord,
-          ];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [vertex: Coord, secondPoint: Coord];
       }
     | {
           type: "sinusoid";
           // Two points on the same slope in the sinusoid wave line.
-          coords: [Coord, Coord];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       }
     | {
           type: "tangent";
           // Two points on the same slope in the tangent wave line.
-          coords: [Coord, Coord];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       };
 
 export type PerseusGrapherWidgetOptions = {
@@ -943,7 +957,7 @@ export type PerseusGraphTypePolygon = {
     // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
     snapTo?: "grid" | "angles" | "sides";
     // How to match the answer. If missing, defaults to exact matching.
-    match?: "similar" | "congruent" | "approx";
+    match?: "similar" | "congruent" | "approx" | "exact";
     coords?: ReadonlyArray<Coord> | null;
     // The initial coordinates the graph renders with.
     startCoords?: ReadonlyArray<Coord>;
@@ -1132,6 +1146,7 @@ export type PerseusMeasurerWidgetOptions = {
     rulerLength: number;
     // Containing area [width, height]
     box: [number, number];
+    // TODO(benchristel): static is not used. Remove it?
     // Always false.  Not used for this widget
     static: boolean;
 };
@@ -1179,7 +1194,7 @@ export type PerseusNumericInputAnswer = {
     // Translatable Display; A description for why this answer is correct, wrong, or ungraded
     message: string;
     // The expected answer
-    value?: number;
+    value?: number | null;
     // Whether this answer is "correct", "wrong", or "ungraded"
     status: string;
     // The forms available for this answer.  Options: "integer, ""decimal", "proper", "improper", "mixed", or "pi"
@@ -1217,7 +1232,7 @@ export type PerseusNumberLineWidgetOptions = {
     // The correct relative value. default: "eq". options: "eq", "lt", "gt", "le", "ge"
     correctRel: string | null | undefined;
     // This is the correct answer. The answer is validated (as right or wrong) by using only the end position of the point and the relation (=, &lt;, &gt;, ≤, ≥).
-    correctX: number;
+    correctX: number | null;
     // This controls the initial position of the point along the number line
     initialX: number | null | undefined;
     // Show tooltips
@@ -1258,7 +1273,7 @@ export type PerseusPassageRefWidgetOptions = {
     // The reference number
     referenceNumber: number;
     // Short summary of the referenced section. This will be included in parentheses and quotes automatically.
-    summaryText: string;
+    summaryText?: string;
 };
 
 export const plotterPlotTypes = [
@@ -1614,10 +1629,9 @@ export type PerseusCSProgramWidgetOptions = {
     showEditor: boolean;
     // Whether to show the execute buttons
     showButtons: boolean;
-    // The width of the widget
-    width: number;
     // The height of the widget
     height: number;
+    // TODO(benchristel): static is not used. Delete it?
     // Always false
     static: boolean;
 };
@@ -1640,7 +1654,7 @@ export type PerseusIFrameWidgetOptions = {
     // A URL to display OR a CS Program ID
     url: string;
     // Settings that you add here are available to the program as an object returned by Program.settings()
-    settings: ReadonlyArray<PerseusCSProgramSetting>;
+    settings?: ReadonlyArray<PerseusCSProgramSetting>;
     // The width of the widget
     width: number | string;
     // The height of the widget
@@ -1663,6 +1677,11 @@ export type PerseusPhetSimulationWidgetOptions = {
 export type PerseusVideoWidgetOptions = {
     location: string;
     static?: boolean;
+};
+
+export type MockWidgetOptions = {
+    static?: boolean;
+    value: string;
 };
 
 export type PerseusInputNumberWidgetOptions = {

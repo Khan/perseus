@@ -58,9 +58,7 @@ describe("static function validate", () => {
 
         const score = scoreNumericInput(userInput, rubric, mockStrings);
 
-        expect(score).toHaveInvalidInput(
-            "We could not understand your answer. Please check your answer for extra text or symbols.",
-        );
+        expect(score).toHaveInvalidInput("EXTRA_SYMBOLS_ERROR");
     });
 
     // Don't default to validating the answer as a pi answer
@@ -289,10 +287,51 @@ describe("static function validate", () => {
     });
 
     it("rejects responses formatted as a percentage when any answer has no value field", () => {
+        // NOTE(benchristel): this is a characterization test for existing
+        // behavior. Ideally, answers should always have a value field, but
+        // some don't, so this test documents how we handle that.
+        // TODO(benchristel): Fix the data so we can remove this test.
         const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     // This answer is missing its value field.
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+                {
+                    // This is the actual correct answer
+                    value: 0.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const score = scoreNumericInput(
+            {currentValue: "50%"},
+            rubric,
+            mockStrings,
+        );
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("rejects responses formatted as a percentage when any answer has a null value", () => {
+        // NOTE(benchristel): this is a characterization test for existing
+        // behavior. Ideally, answers should always have a value field, but
+        // some don't, so this test documents how we handle that.
+        // TODO(benchristel): Fix the data so we can remove this test.
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: null,
                     status: "correct",
                     maxError: 0,
                     simplify: "",

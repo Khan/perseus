@@ -1,6 +1,6 @@
 import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 describe("InteractiveGraphQuestionBuilder", () => {
     it("builds a default graph question", () => {

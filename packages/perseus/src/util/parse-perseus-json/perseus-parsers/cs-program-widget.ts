@@ -7,11 +7,12 @@ import {
     object,
     string,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {CSProgramWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {CSProgramWidget} from "@khanacademy/perseus-core";
 
 export const parseCSProgramWidget: Parser<CSProgramWidget> = parseWidget(
     constant("cs-program"),
@@ -21,8 +22,7 @@ export const parseCSProgramWidget: Parser<CSProgramWidget> = parseWidget(
         settings: array(object({name: string, value: string})),
         showEditor: boolean,
         showButtons: boolean,
-        width: number,
         height: number,
-        static: boolean,
+        static: defaulted(boolean, () => false),
     }),
 );

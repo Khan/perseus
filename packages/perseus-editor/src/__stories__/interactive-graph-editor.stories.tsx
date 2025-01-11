@@ -29,12 +29,12 @@ import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widge
 import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
 import {flags} from "./flags-for-api-options";
 
+import type {DeviceType} from "@khanacademy/perseus";
 import type {
-    DeviceType,
     Hint,
     PerseusAnswerArea,
     PerseusRenderer,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
@@ -153,193 +153,7 @@ export const InteractiveGraphNone = (): React.ReactElement => {
     );
 };
 
-export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
-    return (
-        <EditorPageWithStorybookPreview
-            apiOptions={{
-                isMobile: false,
-                flags: {
-                    mafs: {
-                        ...flags.mafs,
-                        "interactive-graph-locked-features-labels": false,
-                        "locked-figures-aria": false,
-                        "locked-point-labels": false,
-                        "locked-line-labels": false,
-                        "locked-vector-labels": false,
-                        "locked-ellipse-labels": false,
-                        "locked-polygon-labels": false,
-                        "locked-function-labels": false,
-                    },
-                },
-            }}
-            question={segmentWithLockedFigures}
-        />
-    );
-};
-
-MafsWithLockedFiguresCurrent.parameters = {
-    chromatic: {
-        // Disabling because this isn't visually testing anything on the
-        // initial load of the editor page.
-        disableSnapshot: true,
-    },
-};
-
-export const MafsWithLockedLabelsFlag = (): React.ReactElement => {
-    return (
-        <EditorPageWithStorybookPreview
-            apiOptions={{
-                flags: {
-                    mafs: {
-                        ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
-                        "locked-point-labels": false,
-                        "locked-line-labels": false,
-                        "locked-vector-labels": false,
-                        "locked-ellipse-labels": false,
-                        "locked-polygon-labels": false,
-                        "locked-function-labels": false,
-                    },
-                },
-            }}
-            question={segmentWithLockedFigures}
-        />
-    );
-};
-
-export const MafsWithLockedPointLabelsFlag = (): React.ReactElement => {
-    return (
-        <EditorPageWithStorybookPreview
-            apiOptions={{
-                flags: {
-                    mafs: {
-                        ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
-                        "locked-point-labels": true,
-                        "locked-line-labels": false,
-                        "locked-vector-labels": false,
-                        "locked-ellipse-labels": false,
-                        "locked-polygon-labels": false,
-                        "locked-function-labels": false,
-                    },
-                },
-            }}
-            question={segmentWithLockedFigures}
-        />
-    );
-};
-
-export const MafsWithLockedLineLabelsFlag = (): React.ReactElement => {
-    return (
-        <EditorPageWithStorybookPreview
-            apiOptions={{
-                flags: {
-                    mafs: {
-                        ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
-                        "locked-point-labels": false,
-                        "locked-line-labels": true,
-                        "locked-vector-labels": false,
-                        "locked-ellipse-labels": false,
-                        "locked-polygon-labels": false,
-                        "locked-function-labels": false,
-                    },
-                },
-            }}
-            question={segmentWithLockedFigures}
-        />
-    );
-};
-
-export const MafsWithLockedVectorLabelsFlag = (): React.ReactElement => {
-    return (
-        <EditorPageWithStorybookPreview
-            apiOptions={{
-                flags: {
-                    mafs: {
-                        ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
-                        "locked-point-labels": false,
-                        "locked-line-labels": false,
-                        "locked-vector-labels": true,
-                        "locked-ellipse-labels": false,
-                        "locked-polygon-labels": false,
-                        "locked-function-labels": false,
-                    },
-                },
-            }}
-            question={segmentWithLockedFigures}
-        />
-    );
-};
-
-export const MafsWithLockedEllipseLabelsFlag = (): React.ReactElement => {
-    return (
-        <EditorPageWithStorybookPreview
-            apiOptions={{
-                flags: {
-                    mafs: {
-                        ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
-                        "locked-point-labels": false,
-                        "locked-line-labels": false,
-                        "locked-vector-labels": false,
-                        "locked-ellipse-labels": true,
-                        "locked-polygon-labels": false,
-                        "locked-function-labels": false,
-                    },
-                },
-            }}
-            question={segmentWithLockedFigures}
-        />
-    );
-};
-
-export const MafsWithLockedPolygonLabelsFlag = (): React.ReactElement => {
-    return (
-        <EditorPageWithStorybookPreview
-            apiOptions={{
-                flags: {
-                    mafs: {
-                        ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
-                        "locked-point-labels": false,
-                        "locked-line-labels": false,
-                        "locked-vector-labels": false,
-                        "locked-ellipse-labels": false,
-                        "locked-polygon-labels": true,
-                        "locked-function-labels": false,
-                    },
-                },
-            }}
-            question={segmentWithLockedFigures}
-        />
-    );
-};
-
-export const MafsWithLockedFunctionLabelsFlag = (): React.ReactElement => {
-    return (
-        <EditorPageWithStorybookPreview
-            apiOptions={{
-                flags: {
-                    mafs: {
-                        ...flags.mafs,
-                        "interactive-graph-locked-features-labels": true,
-                        "locked-point-labels": false,
-                        "locked-line-labels": false,
-                        "locked-vector-labels": false,
-                        "locked-ellipse-labels": false,
-                        "locked-polygon-labels": false,
-                        "locked-function-labels": true,
-                    },
-                },
-            }}
-            question={segmentWithLockedFigures}
-        />
-    );
-};
-
-export const MafsWithLockedFigureLabelsAllFlags = (): React.ReactElement => {
+export const MafsWithLockedFigures = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview question={segmentWithLockedFigures} />
     );

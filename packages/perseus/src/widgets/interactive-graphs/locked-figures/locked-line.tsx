@@ -1,20 +1,18 @@
+import {lockedFigureColors} from "@khanacademy/perseus-core";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Point, Line, vec} from "mafs";
 import * as React from "react";
 
-import {lockedFigureColors} from "../../../perseus-types";
 import {Arrowhead} from "../graphs/components/arrowhead";
 import {Vector} from "../graphs/components/vector";
 import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {getIntersectionOfRayWithBox} from "../graphs/utils";
 import {X, Y, calculateAngleInDegrees} from "../math";
 
-import type {LockedLineType} from "../../../perseus-types";
-import type {APIOptions} from "../../../types";
+import type {LockedLineType} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 type Props = LockedLineType & {
-    flags?: APIOptions["flags"];
     range: [Interval, Interval];
 };
 
@@ -27,12 +25,11 @@ const LockedLine = (props: Props) => {
         showPoint1,
         showPoint2,
         ariaLabel,
-        flags,
         range,
     } = props;
     const [point1, point2] = points;
 
-    const hasAria = ariaLabel && flags?.["mafs"]?.["locked-figures-aria"];
+    const hasAria = !!ariaLabel;
 
     let line;
 

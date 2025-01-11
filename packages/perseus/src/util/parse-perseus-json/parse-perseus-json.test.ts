@@ -1,10 +1,12 @@
-import {assertFailure, assertSuccess} from "./result";
+import {jest} from "@jest/globals";
 
-import {parseAndTypecheckPerseusItem} from ".";
+import {assertFailure, assertSuccess, success} from "./result";
 
-describe("parseAndTypecheckPerseusItem", () => {
+import {parseAndMigratePerseusItem, parseAndMigratePerseusArticle} from ".";
+
+describe("parseAndMigratePerseusItem", () => {
     it("should parse JSON", () => {
-        const result = parseAndTypecheckPerseusItem(
+        const result = parseAndMigratePerseusItem(
             `{
                 "itemDataVersion": { "major": 0, "minor": 0 },
                 "answerArea": {},
@@ -24,13 +26,91 @@ describe("parseAndTypecheckPerseusItem", () => {
     });
 
     it("returns an error given an invalid PerseusItem", () => {
-        const result = parseAndTypecheckPerseusItem(
-            `{"question": "bad value"}`,
-        );
+        const result = parseAndMigratePerseusItem(`{"question": "bad value"}`);
 
         assertFailure(result);
-        expect(result.detail).toContain(
+        expect(result.detail.message).toContain(
             `At (root).question -- expected object, but got "bad value"`,
         );
+    });
+
+    it("returns the invalid object along with the error", () => {
+        const result = parseAndMigratePerseusItem(`{"question": "bad value"}`);
+
+        assertFailure(result);
+        expect(result.detail.invalidObject).toEqual({question: "bad value"});
+    });
+
+    it("throws an error given malformed JSON", () => {
+        expect(() => parseAndMigratePerseusItem("")).toThrowError(
+            new SyntaxError("Unexpected end of JSON input"),
+        );
+    });
+
+    it("throws an error if JSON.parse is monkey-patched", () => {
+        // This is an attempt to make cheating more difficult.
+        const validItem = `{"question": ""}`;
+        jest.spyOn(JSON, "parse").mockReturnValue({question: ""});
+        expect(() => parseAndMigratePerseusItem(validItem)).toThrowError();
+    });
+});
+
+describe("parseAndMigratePerseusArticle", () => {
+    it("parses a single renderer", () => {
+        const result = parseAndMigratePerseusArticle(
+            `{"content": "", "widgets": {}}`,
+        );
+
+        expect(result).toEqual(
+            success({
+                content: "",
+                widgets: {},
+                images: {},
+                metadata: undefined,
+            }),
+        );
+    });
+
+    it("parses an array of renderers", () => {
+        const result = parseAndMigratePerseusArticle(
+            `[{"content": "one"}, {"content": "two"}]`,
+        );
+        expect(result).toEqual(
+            success([
+                {content: "one", widgets: {}, images: {}, metadata: undefined},
+                {content: "two", widgets: {}, images: {}, metadata: undefined},
+            ]),
+        );
+    });
+
+    it("fails given invalid data", () => {
+        const result = parseAndMigratePerseusArticle("[9]");
+
+        assertFailure(result);
+        expect(result.detail.message).toEqual(
+            "At (root)[0] -- expected object, but got 9",
+        );
+    });
+
+    it("returns the invalid object along with the error", () => {
+        const result = parseAndMigratePerseusArticle("[9]");
+
+        assertFailure(result);
+        expect(result.detail.invalidObject).toEqual([9]);
+    });
+
+    it("throws an error given malformed JSON", () => {
+        expect(() => parseAndMigratePerseusArticle("")).toThrowError(
+            new SyntaxError("Unexpected end of JSON input"),
+        );
+    });
+
+    it("throws an error if JSON.parse is monkey-patched", () => {
+        // This is an attempt to make cheating more difficult.
+        const validArticle = `{"content": "", "widgets": {}}`;
+        jest.spyOn(JSON, "parse").mockReturnValue({content: "", widgets: {}});
+        expect(() =>
+            parseAndMigratePerseusArticle(validArticle),
+        ).toThrowError();
     });
 });

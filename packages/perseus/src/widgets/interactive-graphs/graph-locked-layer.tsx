@@ -8,29 +8,23 @@ import LockedPoint from "./locked-figures/locked-point";
 import LockedPolygon from "./locked-figures/locked-polygon";
 import LockedVector from "./locked-figures/locked-vector";
 
-import type {LockedFigure} from "../../perseus-types";
-import type {APIOptions} from "../../types";
+import type {LockedFigure} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 type Props = {
-    flags?: APIOptions["flags"];
     lockedFigures: ReadonlyArray<LockedFigure>;
     range: [x: Interval, y: Interval];
 };
 
 const GraphLockedLayer = (props: Props) => {
-    const {flags, lockedFigures} = props;
+    const {lockedFigures} = props;
     return (
         <>
             {lockedFigures.map((figure, index) => {
                 switch (figure.type) {
                     case "point":
                         return (
-                            <LockedPoint
-                                key={`point-${index}`}
-                                {...figure}
-                                flags={flags}
-                            />
+                            <LockedPoint key={`point-${index}`} {...figure} />
                         );
                     case "line":
                         return (
@@ -38,23 +32,17 @@ const GraphLockedLayer = (props: Props) => {
                                 key={`line-${index}`}
                                 range={props.range}
                                 {...figure}
-                                flags={flags}
                             />
                         );
                     case "vector":
                         return (
-                            <LockedVector
-                                key={`vector-${index}`}
-                                {...figure}
-                                flags={flags}
-                            />
+                            <LockedVector key={`vector-${index}`} {...figure} />
                         );
                     case "ellipse":
                         return (
                             <LockedEllipse
                                 key={`ellipse-${index}`}
                                 {...figure}
-                                flags={flags}
                             />
                         );
                     case "polygon":
@@ -62,7 +50,6 @@ const GraphLockedLayer = (props: Props) => {
                             <LockedPolygon
                                 key={`polygon-${index}`}
                                 {...figure}
-                                flags={flags}
                             />
                         );
                     case "function":
@@ -70,7 +57,6 @@ const GraphLockedLayer = (props: Props) => {
                             <LockedFunction
                                 key={`function-${index}`}
                                 {...figure}
-                                flags={flags}
                             />
                         );
                     case "label":

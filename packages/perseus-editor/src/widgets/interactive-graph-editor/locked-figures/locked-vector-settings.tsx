@@ -25,6 +25,7 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
@@ -36,7 +37,7 @@ import type {
     LockedFigureColor,
     LockedLabelType,
     LockedVectorType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 const lengthErrorMessage = "The vector cannot have length 0.";
 
@@ -50,7 +51,6 @@ export type Props = LockedVectorType &
 
 const LockedVectorSettings = (props: Props) => {
     const {
-        flags,
         points,
         color: lineColor,
         labels,
@@ -71,8 +71,13 @@ const LockedVectorSettings = (props: Props) => {
      */
     async function getPrepopulatedAriaLabel() {
         const visiblelabel = await joinLabelsAsSpokenMath(labels);
+        // Ensure negative values are read correctly within aria labels.
+        const spokenTailX = await generateSpokenMathDetails(`$${tail[0]}$`);
+        const spokenTailY = await generateSpokenMathDetails(`$${tail[1]}$`);
+        const spokenTipX = await generateSpokenMathDetails(`$${tip[0]}$`);
+        const spokenTipY = await generateSpokenMathDetails(`$${tip[1]}$`);
 
-        let str = `Vector${visiblelabel} from ${tail[0]} comma ${tail[1]} to ${tip[0]} comma ${tip[1]}`;
+        let str = `Vector${visiblelabel} from ${spokenTailX} comma ${spokenTailY} to ${spokenTipX} comma ${spokenTipY}`;
 
         const vectorAppearance =
             generateLockedFigureAppearanceDescription(lineColor);
@@ -209,73 +214,63 @@ const LockedVectorSettings = (props: Props) => {
                 />
             </PerseusEditorAccordion>
 
-            {flags?.["mafs"]?.["locked-figures-aria"] && (
-                <>
-                    <Strut size={spacing.small_12} />
-                    <View style={styles.horizontalRule} />
+            {/* Aria label */}
+            <Strut size={spacing.small_12} />
+            <View style={styles.horizontalRule} />
+            <LockedFigureAria
+                ariaLabel={ariaLabel}
+                getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                onChangeProps={(newProps) => {
+                    onChangeProps(newProps);
+                }}
+            />
 
-                    <LockedFigureAria
-                        ariaLabel={ariaLabel}
-                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
-                        onChangeProps={(newProps) => {
-                            onChangeProps(newProps);
-                        }}
-                    />
-                </>
-            )}
+            {/* Visible labels */}
+            <Strut size={spacing.xxxSmall_4} />
+            <View style={styles.horizontalRule} />
+            <Strut size={spacing.small_12} />
+            <LabelMedium>Visible labels</LabelMedium>
+            {labels?.map((label, labelIndex) => (
+                <LockedLabelSettings
+                    {...label}
+                    key={labelIndex}
+                    expanded={true}
+                    onChangeProps={(newLabel) => {
+                        handleLabelChange(newLabel, labelIndex);
+                    }}
+                    onRemove={() => {
+                        handleLabelRemove(labelIndex);
+                    }}
+                    containerStyle={styles.labelContainer}
+                />
+            ))}
+            <Button
+                kind="tertiary"
+                startIcon={plusCircle}
+                onClick={() => {
+                    // Additional vertical offset for each label so
+                    // they don't overlap.
+                    const offsetPerLabel: vec.Vector2 = [0, -1];
+                    const labelLocation = vec.add(
+                        vec.scale(offsetPerLabel, labels?.length ?? 0),
+                        vec.midpoint(tail, tip),
+                    );
 
-            {flags?.["mafs"]?.["locked-vector-labels"] && (
-                <>
-                    <Strut size={spacing.xxxSmall_4} />
-                    <View style={styles.horizontalRule} />
-                    <Strut size={spacing.small_12} />
+                    const newLabel = {
+                        ...getDefaultFigureForType("label"),
+                        coord: labelLocation,
+                        // Default to the same color as the vector
+                        color: lineColor,
+                    } satisfies LockedLabelType;
 
-                    <LabelMedium>Visible labels</LabelMedium>
-
-                    {labels?.map((label, labelIndex) => (
-                        <LockedLabelSettings
-                            {...label}
-                            key={labelIndex}
-                            expanded={true}
-                            onChangeProps={(newLabel) => {
-                                handleLabelChange(newLabel, labelIndex);
-                            }}
-                            onRemove={() => {
-                                handleLabelRemove(labelIndex);
-                            }}
-                            containerStyle={styles.labelContainer}
-                        />
-                    ))}
-
-                    <Button
-                        kind="tertiary"
-                        startIcon={plusCircle}
-                        onClick={() => {
-                            // Additional vertical offset for each label so
-                            // they don't overlap.
-                            const offsetPerLabel: vec.Vector2 = [0, -1];
-                            const labelLocation = vec.add(
-                                vec.scale(offsetPerLabel, labels?.length ?? 0),
-                                vec.midpoint(tail, tip),
-                            );
-
-                            const newLabel = {
-                                ...getDefaultFigureForType("label"),
-                                coord: labelLocation,
-                                // Default to the same color as the vector
-                                color: lineColor,
-                            } satisfies LockedLabelType;
-
-                            onChangeProps({
-                                labels: [...(labels ?? []), newLabel],
-                            });
-                        }}
-                        style={styles.addButton}
-                    >
-                        Add visible label
-                    </Button>
-                </>
-            )}
+                    onChangeProps({
+                        labels: [...(labels ?? []), newLabel],
+                    });
+                }}
+                style={styles.addButton}
+            >
+                Add visible label
+            </Button>
 
             {/* Actions */}
             <LockedFigureSettingsActions

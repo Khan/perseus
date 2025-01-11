@@ -28,7 +28,7 @@ beforeEach(() => {
     stub.mockClear();
 });
 
-import type {RadioWidget, PerseusWidgetsMap} from "../perseus-types";
+import type {RadioWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 describe("ExtractPerseusData", () => {
     describe("getAnswersFromWidgets", () => {

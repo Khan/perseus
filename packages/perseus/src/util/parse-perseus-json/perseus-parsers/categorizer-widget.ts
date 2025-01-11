@@ -11,17 +11,17 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {CategorizerWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {CategorizerWidget} from "@khanacademy/perseus-core";
 
 export const parseCategorizerWidget: Parser<CategorizerWidget> = parseWidget(
     constant("categorizer"),
     object({
         items: array(string),
         categories: array(string),
-        randomizeItems: boolean,
+        randomizeItems: defaulted(boolean, () => false),
         static: defaulted(boolean, () => false),
-        values: array(number),
+        values: array(defaulted(number, () => 0)),
         highlightLint: optional(boolean),
         linterContext: optional(
             object({
