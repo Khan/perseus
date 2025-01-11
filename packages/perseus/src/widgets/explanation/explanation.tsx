@@ -3,7 +3,6 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
-import styles from "./explanation.module.css";
 import * as React from "react";
 import _ from "underscore";
 
@@ -12,6 +11,8 @@ import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 import scoreNoop from "../__shared__/score-noop";
+
+import styles from "./explanation.module.css";
 
 import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -115,21 +116,21 @@ class Explanation extends React.Component<Props, State> implements Widget {
                             aria-controls={contentId}
                             endIcon={caretIcon}
                             kind="tertiary"
-                            labelStyle={labelStyle}
+                            // labelStyle={labelStyle}
                             onClick={this._onClick}
                             size="small"
-                            style={buttonStyleOverrides}
+                            className={styles.buttonStyleOverrides}
                         >
                             {promptText}
                         </Button>
 
                         <View
                             id={contentId}
-                            style={contentStyling}
+                            className={contentStyling.join(" ")}
                             aria-hidden={!this.state.expanded}
                             testId="content-container"
                         >
-                            <View style={styles.contentWrapper}>
+                            <View className={styles.contentWrapper}>
                                 <Renderer
                                     apiOptions={this.props.apiOptions}
                                     content={this.props.explanation}
