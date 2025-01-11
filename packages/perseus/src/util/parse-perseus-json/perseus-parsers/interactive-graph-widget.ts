@@ -213,8 +213,8 @@ const parseLockedLineType: Parser<LockedLineType> = object({
     points: pair(parseLockedPointType, parseLockedPointType),
     color: parseLockedFigureColor,
     lineStyle: parseLockedLineStyle,
-    showPoint1: boolean,
-    showPoint2: boolean,
+    showPoint1: defaulted(boolean, () => false),
+    showPoint2: defaulted(boolean, () => false),
     // TODO(benchristel): default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),
@@ -266,13 +266,14 @@ const parseLockedFunctionType: Parser<LockedFunctionType> = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedFigure: Parser<LockedFigure> = union(parseLockedPointType)
-    .or(parseLockedLineType)
-    .or(parseLockedVectorType)
-    .or(parseLockedEllipseType)
-    .or(parseLockedPolygonType)
-    .or(parseLockedFunctionType)
-    .or(parseLockedLabelType).parser;
+const parseLockedFigure: Parser<LockedFigure> = discriminatedUnionOn("type")
+    .withBranch("point", parseLockedPointType)
+    .withBranch("line", parseLockedLineType)
+    .withBranch("vector", parseLockedVectorType)
+    .withBranch("ellipse", parseLockedEllipseType)
+    .withBranch("polygon", parseLockedPolygonType)
+    .withBranch("function", parseLockedFunctionType)
+    .withBranch("label", parseLockedLabelType).parser;
 
 export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
     parseWidget(

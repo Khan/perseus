@@ -550,11 +550,9 @@ export type GraphRange = [
 export type GrapherAnswerTypes =
     | {
           type: "absolute_value";
-          coords: [
-              // The vertex
-              Coord, // A point along one line of the absolute value "V" lines
-              Coord,
-          ];
+          // If `coords` is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [vertex: Coord, secondPoint: Coord];
       }
     | {
           type: "exponential";
@@ -563,12 +561,16 @@ export type GrapherAnswerTypes =
           asymptote: [Coord, Coord];
           // Two points along the exponential curve. One end of the curve
           // trends towards the asymptote.
-          coords: [Coord, Coord];
+          // If `coords` is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       }
     | {
           type: "linear";
           // Two points along the straight line
-          coords: [Coord, Coord];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       }
     | {
           type: "logarithm";
@@ -576,25 +578,29 @@ export type GrapherAnswerTypes =
           asymptote: [Coord, Coord];
           // Two points along the logarithmic curve. One end of the curve
           // trends towards the asymptote.
-          coords: [Coord, Coord];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       }
     | {
           type: "quadratic";
-          coords: [
-              // The vertex of the parabola
-              Coord, // A point along the parabola
-              Coord,
-          ];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [vertex: Coord, secondPoint: Coord];
       }
     | {
           type: "sinusoid";
           // Two points on the same slope in the sinusoid wave line.
-          coords: [Coord, Coord];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       }
     | {
           type: "tangent";
           // Two points on the same slope in the tangent wave line.
-          coords: [Coord, Coord];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       };
 
 export type PerseusGrapherWidgetOptions = {
@@ -1615,9 +1621,6 @@ export type PerseusCSProgramWidgetOptions = {
     showEditor: boolean;
     // Whether to show the execute buttons
     showButtons: boolean;
-    // TODO(benchristel): width is not used. Delete it?
-    // The width of the widget
-    width: number;
     // The height of the widget
     height: number;
     // TODO(benchristel): static is not used. Delete it?
@@ -1643,7 +1646,7 @@ export type PerseusIFrameWidgetOptions = {
     // A URL to display OR a CS Program ID
     url: string;
     // Settings that you add here are available to the program as an object returned by Program.settings()
-    settings: ReadonlyArray<PerseusCSProgramSetting>;
+    settings?: ReadonlyArray<PerseusCSProgramSetting>;
     // The width of the widget
     width: number | string;
     // The height of the widget
