@@ -1,6 +1,6 @@
 import React, {createContext} from "react";
 
-import type {MarkingsType} from "../../../perseus-types";
+import type {MarkingsType} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 
 export type GraphConfig = {

@@ -404,6 +404,13 @@ export type PerseusImageBackground = {
     bottom?: number;
 };
 
+/**
+ * The type of markings to display on the graph.
+ * - axes: shows the axes without the gride lines
+ * - graph: shows the axes and the grid lines
+ * - grid: shows only the grid lines
+ * - none: shows no markings
+ */
 export type MarkingsType = "axes" | "graph" | "grid" | "none";
 
 export type PerseusCategorizerWidgetOptions = {
@@ -700,10 +707,6 @@ export type PerseusInteractiveGraphWidgetOptions = {
     backgroundImage?: PerseusImageBackground;
     /**
      * The type of markings to display on the graph.
-     * - axes: shows the axes without the gride lines
-     * - graph: shows the axes and the grid lines
-     * - grid: shows only the grid lines
-     * - none: shows no markings
      */
     markings: MarkingsType;
     // How to label the X and Y axis.  default: ["x", "y"]
@@ -1402,10 +1405,6 @@ export type PerseusInteractionGraph = {
     gridStep: [number, number];
     /**
      * The type of markings to display on the graph.
-     * - axes: shows the axes without the gride lines
-     * - graph: shows the axes and the grid lines
-     * - grid: shows only the grid lines
-     * - none: shows no markings
      */
     markings: MarkingsType;
     // The snap steps. default [0.5, 0.5]
