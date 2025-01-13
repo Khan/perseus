@@ -329,5 +329,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
     scorer: scoreCategorizer,
-    getPublicOptions: splitCategorizerWidgetOptions,
+    splitWidgetOptions: splitCategorizerWidgetOptions,
 } satisfies WidgetExports<typeof Categorizer>;
