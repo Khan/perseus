@@ -9,7 +9,7 @@ import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../util
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
 import {TextLabel} from "./text-label";
 
-import type {CollinearTuple} from "../../../../perseus-types";
+import type {CollinearTuple} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 interface PolygonAngleProps {

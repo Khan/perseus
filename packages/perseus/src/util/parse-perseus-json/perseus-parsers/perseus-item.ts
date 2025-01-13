@@ -1,4 +1,5 @@
-import {ItemExtras} from "../../../perseus-types";
+import {ItemExtras} from "@khanacademy/perseus-core";
+
 import {
     any,
     array,
@@ -15,8 +16,8 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 import {parseHint} from "./hint";
 import {parsePerseusRenderer} from "./perseus-renderer";
 
-import type {PerseusItem} from "../../../perseus-types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 
 export const parsePerseusItem: Parser<PerseusItem> = object({
     question: parsePerseusRenderer,

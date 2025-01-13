@@ -23,13 +23,14 @@ import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
+    generateSpokenMathDetails,
     generateLockedFigureAppearanceDescription,
     getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
-import type {LockedLabelType, LockedPointType} from "@khanacademy/perseus";
+import type {LockedLabelType, LockedPointType} from "@khanacademy/perseus-core";
 
 export type Props = LockedPointType & {
     /**
@@ -109,8 +110,11 @@ const LockedPointSettings = (props: Props) => {
      */
     async function getPrepopulatedAriaLabel() {
         const visiblelabel = await joinLabelsAsSpokenMath(labels);
+        // Ensure negative values are read correctly within aria labels.
+        const spokenX = await generateSpokenMathDetails(`$${coord[0]}$`);
+        const spokenY = await generateSpokenMathDetails(`$${coord[1]}$`);
 
-        let str = `Point${visiblelabel} at ${coord[0]} comma ${coord[1]}`;
+        let str = `Point${visiblelabel} at ${spokenX} comma ${spokenY}`;
 
         const pointAppearance =
             generateLockedFigureAppearanceDescription(pointColor);

@@ -11,13 +11,12 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
-import {defaulted} from "../general-purpose-parsers/defaulted";
 import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 
 import {parseWidget} from "./widget";
 
-import type {GrapherWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {GrapherWidget} from "@khanacademy/perseus-core";
 
 const pairOfNumbers = pair(number, number);
 
@@ -42,7 +41,7 @@ export const parseGrapherWidget: Parser<GrapherWidget> = parseWidget(
                 "absolute_value",
                 object({
                     type: constant("absolute_value"),
-                    coords: pairOfPoints,
+                    coords: nullable(pairOfPoints),
                 }),
             )
             .withBranch(
@@ -50,21 +49,14 @@ export const parseGrapherWidget: Parser<GrapherWidget> = parseWidget(
                 object({
                     type: constant("exponential"),
                     asymptote: pairOfPoints,
-                    coords: pairOfPoints,
+                    coords: nullable(pairOfPoints),
                 }),
             )
             .withBranch(
                 "linear",
                 object({
                     type: constant("linear"),
-                    coords: defaulted(
-                        pairOfPoints,
-                        () =>
-                            [
-                                [-5, 5],
-                                [5, 5],
-                            ] as [[number, number], [number, number]],
-                    ),
+                    coords: nullable(pairOfPoints),
                 }),
             )
             .withBranch(
@@ -72,28 +64,28 @@ export const parseGrapherWidget: Parser<GrapherWidget> = parseWidget(
                 object({
                     type: constant("logarithm"),
                     asymptote: pairOfPoints,
-                    coords: pairOfPoints,
+                    coords: nullable(pairOfPoints),
                 }),
             )
             .withBranch(
                 "quadratic",
                 object({
                     type: constant("quadratic"),
-                    coords: pairOfPoints,
+                    coords: nullable(pairOfPoints),
                 }),
             )
             .withBranch(
                 "sinusoid",
                 object({
                     type: constant("sinusoid"),
-                    coords: pairOfPoints,
+                    coords: nullable(pairOfPoints),
                 }),
             )
             .withBranch(
                 "tangent",
                 object({
                     type: constant("tangent"),
-                    coords: pairOfPoints,
+                    coords: nullable(pairOfPoints),
                 }),
             ).parser,
         graph: object({

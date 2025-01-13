@@ -14,7 +14,7 @@ import {getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
-import type {GraphRange} from "../../perseus-types";
+import type {GraphRange} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 function expectLabelInDoc(label: string) {

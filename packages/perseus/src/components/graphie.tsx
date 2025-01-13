@@ -13,7 +13,7 @@ import GraphieClasses from "./graphie-classes";
 import Movables from "./graphie-movables";
 
 import type {Coord} from "../interactive2/types";
-import type {Range, Size} from "../perseus-types";
+import type {Range, Size} from "@khanacademy/perseus-core";
 
 const GraphieMovable = GraphieClasses.GraphieMovable;
 

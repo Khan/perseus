@@ -12,7 +12,8 @@ import _ from "underscore";
 import BlurInput from "../components/blur-input";
 import Editor from "../editor";
 
-import type {APIOptions, Range, Size} from "@khanacademy/perseus";
+import type {APIOptions} from "@khanacademy/perseus";
+import type {Range, Size} from "@khanacademy/perseus-core";
 
 type ChangeFn = typeof Changeable.change;
 

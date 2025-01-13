@@ -8,6 +8,7 @@ import {flags} from "../../../__stories__/flags-for-api-options";
 import LockedPointSettings from "./locked-point-settings";
 import {
     getDefaultFigureForType,
+    mockedGenerateSpokenMathDetailsForTests,
     mockedJoinLabelsAsSpokenMathForTests,
 } from "./util";
 
@@ -29,9 +30,11 @@ const defaultProps = {
 
 const defaultLabel = getDefaultFigureForType("label");
 
-// Mock the async function generateSpokenMathDetails
+// Mock the async functions
 jest.mock("./util", () => ({
     ...jest.requireActual("./util"),
+    generateSpokenMathDetails: (input) =>
+        mockedGenerateSpokenMathDetailsForTests(input),
     joinLabelsAsSpokenMath: (input) =>
         mockedJoinLabelsAsSpokenMathForTests(input),
 }));
@@ -422,7 +425,8 @@ describe("LockedPointSettings", () => {
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point at 0 comma 0. Appearance solid gray.",
+            ariaLabel:
+                "Point at spoken $0$ comma spoken $0$. Appearance solid gray.",
         });
     });
 
@@ -451,10 +455,12 @@ describe("LockedPointSettings", () => {
         await userEvent.click(autoGenButton);
 
         // Assert
+        expect(onChangeProps).toHaveBeenCalled();
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point spoken A at 0 comma 0. Appearance solid gray.",
+            ariaLabel:
+                "Point spoken A at spoken $0$ comma spoken $0$. Appearance solid gray.",
         });
     });
 
@@ -491,7 +497,7 @@ describe("LockedPointSettings", () => {
         // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
             ariaLabel:
-                "Point spoken A, spoken B at 0 comma 0. Appearance solid gray.",
+                "Point spoken A, spoken B at spoken $0$ comma spoken $0$. Appearance solid gray.",
         });
     });
 });

@@ -4,7 +4,7 @@ import type {
     PerseusItem,
     PerseusWidget,
     PerseusWidgetsMap,
-} from "./perseus-types";
+} from "@khanacademy/perseus-core";
 
 /**
  * Get a widget type by a widget's ID

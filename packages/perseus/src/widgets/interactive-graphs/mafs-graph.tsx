@@ -153,7 +153,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 disableKeyboardInteraction: readOnly || !!props.static,
             }}
         >
-            <View>
+            <View className="mafs-graph-container">
                 <View
                     className="mafs-graph"
                     style={{
@@ -216,7 +216,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             left: 0,
                         }}
                     >
-                        {props.markings === "graph" && (
+                        {(props.markings === "graph" ||
+                            props.markings === "axes") && (
                             <>
                                 <AxisLabels />
                             </>
@@ -251,7 +252,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             {/* Axis Ticks, Labels, and Arrows */}
                             {
                                 // Only render the axis ticks and arrows if the markings are set to a full "graph"
-                                props.markings === "graph" && (
+                                (props.markings === "graph" ||
+                                    props.markings === "axes") && (
                                     <>
                                         <AxisTicks />
                                         <AxisArrows />

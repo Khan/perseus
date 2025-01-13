@@ -12,12 +12,12 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction
 import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusInteractionElement,
     PerseusInteractionWidgetOptions,
-} from "../../perseus-types";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+} from "@khanacademy/perseus-core";
 
 // @ts-expect-error - TS2339 - Property 'Label' does not exist on type 'typeof Graphie'.
 const Label = Graphie.Label;

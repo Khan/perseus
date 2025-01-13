@@ -4,17 +4,17 @@ import {number as knumber} from "@khanacademy/kmath";
 import {
     components,
     Dependencies,
-    plotterPlotTypes,
     PlotterWidget,
     Util,
 } from "@khanacademy/perseus";
+import {plotterPlotTypes} from "@khanacademy/perseus-core";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
-import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus";
+import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 
 const {InfoTip, NumberInput, RangeInput, TextListEditor} = components;
 const Plotter = PlotterWidget.widget;

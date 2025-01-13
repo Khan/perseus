@@ -6,7 +6,7 @@ import {
     shouldShowStartCoordsUI,
 } from "./util";
 
-import type {PerseusGraphType, Range} from "@khanacademy/perseus";
+import type {PerseusGraphType, Range} from "@khanacademy/perseus-core";
 
 describe("getDefaultGraphStartCoords", () => {
     test("should get default start coords for a linear graph", () => {

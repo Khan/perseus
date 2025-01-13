@@ -1,4 +1,7 @@
-import type {PerseusRenderer, InputNumberWidget} from "../../perseus-types";
+import type {
+    PerseusRenderer,
+    InputNumberWidget,
+} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
     content:

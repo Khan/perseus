@@ -8,8 +8,8 @@ import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 import {isFailure} from "../result";
 
-import type {Version} from "../../../perseus-types";
 import type {ParseContext, Parser} from "../parser-types";
+import type {Version} from "@khanacademy/perseus-core";
 
 type Versioned = {
     version?: Version;

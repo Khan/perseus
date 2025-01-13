@@ -39,15 +39,13 @@ import {
 } from "./flipbook-model";
 import {Header} from "./header";
 
+import type {APIOptions, PerseusScore} from "../packages/perseus/src";
 import type {
-    APIOptions,
+    InteractiveGraphWidget,
     PerseusRenderer,
-    PerseusScore,
     PerseusWidget,
-} from "../packages/perseus/src";
-import type {InteractiveGraphWidget} from "../packages/perseus/src/perseus-types";
+} from "../packages/perseus-core/src/data-schema";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-
 import "../packages/perseus/src/styles/perseus-renderer.less";
 
 const exampleCommands = `
