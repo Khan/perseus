@@ -1,5 +1,5 @@
 import {question1} from "./orderer.testdata";
-import getOrdererPublicOptions from "./orderer.util";
+import splitOrdererWidgetOptions from "./orderer.util";
 
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 
@@ -10,7 +10,7 @@ describe("getOrdererPublicOptions", () => {
             question1.widgets["orderer 1"].options;
 
         // Act
-        const result = getOrdererPublicOptions(options);
+        const result = splitOrdererWidgetOptions(options);
 
         // Assert
         expect(result).toEqual({

@@ -12,7 +12,7 @@ export type OrdererPublicWidgetOptions = {
     layout: "horizontal" | "vertical";
 };
 
-function getOrdererPublicOptions(
+function splitOrdererWidgetOptions(
     options: PerseusOrdererWidgetOptions,
 ): OrdererPublicWidgetOptions {
     return {
@@ -22,4 +22,4 @@ function getOrdererPublicOptions(
     };
 }
 
-export default getOrdererPublicOptions;
+export default splitOrdererWidgetOptions;

@@ -8,7 +8,7 @@ import type {
     UserInputMap,
 } from "./validation.types";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
-import type getOrdererPublicOptions from "./widgets/orderer/orderer.util";
+import type splitOrdererWidgetOptions from "./widgets/orderer/orderer.util";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     Hint,
@@ -546,7 +546,7 @@ export type WidgetScorerFunction = (
 /**
  * A union type of all the functions to get the public options for each widget.
  */
-export type PublicWidgetOptionsFunctions = typeof getOrdererPublicOptions;
+export type SplitWidgetOptionsFunctions = typeof splitOrdererWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
@@ -599,7 +599,7 @@ export type WidgetExports<
      * A function that provides a public version of the widget options that can
      * be shared with the client.
      */
-    getPublicOptions?: PublicWidgetOptionsFunctions;
+    splitWidgetOptions?: SplitWidgetOptionsFunctions;
 
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,
