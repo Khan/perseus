@@ -59,8 +59,10 @@ export default class SimpleKeypadInput extends React.Component<any> {
         return (
             // @ts-expect-error - TS2769 - No overload matches this call.
             <KeypadInput
-                // eslint-disable-next-line react/no-string-refs
-                ref="input"
+                ref={(input) => {
+                    // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+                    this.input = input;
+                }}
                 keypadElement={keypadElement}
                 onFocus={() => {
                     if (keypadElement) {

@@ -6,7 +6,9 @@ import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import NumericInputWidgetExport, {unionAnswerForms} from "./numeric-input";
+import NumericInputWidgetExport, {
+    unionAnswerForms,
+} from "./numeric-input.class";
 import {
     question1AndAnswer,
     multipleAnswers,
