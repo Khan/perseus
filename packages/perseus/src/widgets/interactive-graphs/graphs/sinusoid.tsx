@@ -209,7 +209,7 @@ export function formatAsMultipleOfPi(input: number, locale: string): string {
     if (Math.abs(multiple - Math.round(multiple)) < faultTolerance) {
         const roundedMultiple = Math.round(multiple);
         if (roundedMultiple === 1 || roundedMultiple === -1) {
-            return 'pi';
+            return "pi";
         }
 
         return `${Math.round(multiple)} pi`;
