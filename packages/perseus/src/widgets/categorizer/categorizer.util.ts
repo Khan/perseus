@@ -1,4 +1,4 @@
-import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
+import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 
 type CategorizerPublicWidgetOptions = {
     // a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
