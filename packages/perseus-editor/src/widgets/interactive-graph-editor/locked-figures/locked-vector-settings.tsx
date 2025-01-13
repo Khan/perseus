@@ -37,7 +37,7 @@ import type {
     LockedFigureColor,
     LockedLabelType,
     LockedVectorType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 const lengthErrorMessage = "The vector cannot have length 0.";
 

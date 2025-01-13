@@ -16,7 +16,7 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {LockedFigureType} from "@khanacademy/perseus";
+import type {LockedFigureType} from "@khanacademy/perseus-core";
 
 export type LockedFigureSettingsMovementType =
     | "back"

@@ -3,7 +3,7 @@
 
 import {cache} from "./cache";
 
-import type {PerseusRenderer} from "@khanacademy/perseus";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export type FlipbookModel = {
     questions: string;

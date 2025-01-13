@@ -13,9 +13,9 @@
  * more confident in the interface provided first.
  */
 
+import {mapObject} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import {mapObject} from "./interactive2/objective_";
 import * as Widgets from "./widgets";
 
 const noop = function () {};

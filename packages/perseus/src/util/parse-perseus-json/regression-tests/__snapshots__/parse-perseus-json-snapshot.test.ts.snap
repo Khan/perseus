@@ -272,6 +272,40 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-s
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-with-null-width.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {},
+  "hints": [],
+  "itemDataVersion": undefined,
+  "question": {
+    "content": "[[☃ cs-program 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "cs-program 1": {
+        "alignment": "block",
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "height": 250,
+          "programID": "4545417404481536",
+          "programType": undefined,
+          "settings": [],
+          "showButtons": true,
+          "showEditor": true,
+          "static": false,
+          "width": null,
+        },
+        "static": undefined,
+        "type": "cs-program",
+        "version": undefined,
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/definition-missing-static.json 1`] = `
 {
   "answer": undefined,
@@ -1292,16 +1326,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-co
           ],
           "correct": {
             "asymptote": null,
-            "coords": [
-              [
-                -5,
-                5,
-              ],
-              [
-                5,
-                5,
-              ],
-            ],
+            "coords": null,
             "type": "linear",
           },
           "graph": {
@@ -1676,6 +1701,151 @@ In case you would like a fuller experience, here is a taste of a skill you can l
     "images": {},
     "metadata": undefined,
     "widgets": {},
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-allowFullScreen.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "This is the easy step. Just drag disk 3 over to peg "B".
+
+[[☃ image 1]]",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {
+        "image 1": {
+          "alignment": undefined,
+          "graded": true,
+          "key": undefined,
+          "options": {
+            "alt": undefined,
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 215,
+              "left": undefined,
+              "scale": undefined,
+              "top": undefined,
+              "url": "https://s3.amazonaws.com/ka-cs-algorithms/hanoi_exercise_step2_1.png",
+              "width": 304,
+            },
+            "box": [
+              304,
+              215,
+            ],
+            "caption": undefined,
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": undefined,
+            "title": undefined,
+          },
+          "static": undefined,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "Congratulations, you have exposed disk 3, and since our goal is move 3 disks to peg "B", that's the disk we want on the bottom of peg "B". Move it to the target peg now.
+
+[[☃ iframe 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "iframe 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "allowFullScreen": false,
+          "allowTopNavigation": undefined,
+          "height": "400",
+          "settings": [
+            {
+              "name": "step",
+              "value": "2",
+            },
+            {
+              "name": "disk1",
+              "value": "2",
+            },
+            {
+              "name": "disk2",
+              "value": "2",
+            },
+            {
+              "name": "",
+              "value": "",
+            },
+          ],
+          "static": false,
+          "url": "4772835774169088",
+          "width": 400,
+        },
+        "static": undefined,
+        "type": "iframe",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-settings.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {},
+  "hints": [],
+  "itemDataVersion": undefined,
+  "question": {
+    "content": "[[☃ iframe 1]]",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "iframe 1": {
+        "alignment": "block",
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "allowFullScreen": false,
+          "allowTopNavigation": undefined,
+          "height": "550px",
+          "settings": undefined,
+          "static": false,
+          "url": "https://learnstorm.typeform.com/to/fnQ2tw?",
+          "width": "100%",
+        },
+        "static": undefined,
+        "type": "iframe",
+        "version": undefined,
+      },
+    },
   },
 }
 `;
@@ -2099,6 +2269,535 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-missing-key.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {},
+  "hints": [],
+  "itemDataVersion": undefined,
+  "question": {
+    "content": "# Functions introduction
+
+A function is something that maps one value to another.
+
+Here is a function that maps an $\\orange\\text{input dot}$ on the top to an $\\blue\\text{output dot}$ on the bottom. Try dragging the $\\orange\\text{input dot}$ on the left and see what $\\blue\\text{output}$ the function maps it to below:
+
+[[☃ interaction 1]]
+
+Not all functions are quite so simple! For example, there is no rule that the $\\blue\\text{output}$ has to increase when the $\\orange\\text{input}$ increases:
+
+[[☃ interaction 2]]
+
+There is also no rule that a function has to map to a different value for each different input value:
+
+[[☃ interaction 3]]
+
+Or that it even has to ever map to a different value at all!
+
+[[☃ interaction 4]]
+
+But that's sort of unsatisfying! so here's another function that demonstrates all of those concepts:
+
+[[☃ interaction 5]]
+
+Next, we'll look at some other representations of functions!",
+    "images": {
+      "https://ka-perseus-graphie.s3.amazonaws.com/b59fc02ca1aae800977b8793ed22f647a1aa75ee.png": {
+        "height": 150,
+        "width": 425,
+      },
+      "https://ka-perseus-graphie.s3.amazonaws.com/da8df81c78b22f5c69d477d8eabfb583968eaf84.png": {
+        "height": 70,
+        "width": 400,
+      },
+    },
+    "metadata": undefined,
+    "widgets": {
+      "interaction 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "elements": [
+            {
+              "key": "undefined",
+              "options": {
+                "constraint": "snap",
+                "constraintFn": "-3",
+                "constraintXMax": "8",
+                "constraintXMin": "1",
+                "constraintYMax": "3",
+                "constraintYMin": "3",
+                "snap": 1,
+                "startX": "5",
+                "startY": "3",
+                "varSubscript": 0,
+              },
+              "type": "movable-point",
+            },
+            {
+              "key": "undefined",
+              "options": {
+                "color": "#6495ED",
+                "coordX": "x_0+1",
+                "coordY": "-3",
+              },
+              "type": "point",
+            },
+          ],
+          "graph": {
+            "backgroundImage": {
+              "bottom": 0,
+              "height": undefined,
+              "left": 0,
+              "scale": 1,
+              "top": undefined,
+              "url": null,
+              "width": undefined,
+            },
+            "box": [
+              400,
+              200,
+            ],
+            "editableSettings": [
+              "canvas",
+              "graph",
+            ],
+            "gridStep": [
+              1,
+              3,
+            ],
+            "labels": [
+              "",
+              "",
+            ],
+            "markings": "graph",
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                -6,
+                6,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "scale": [
+              40,
+              16.666666666666668,
+            ],
+            "showProtractor": false,
+            "showRuler": false,
+            "snapStep": [
+              0.5,
+              1.5,
+            ],
+            "tickStep": [
+              1,
+              2,
+            ],
+            "valid": true,
+          },
+          "static": false,
+        },
+        "static": undefined,
+        "type": "interaction",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interaction 2": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "elements": [
+            {
+              "key": "undefined",
+              "options": {
+                "constraint": "snap",
+                "constraintFn": "-3",
+                "constraintXMax": "9",
+                "constraintXMin": "1",
+                "constraintYMax": "3",
+                "constraintYMin": "3",
+                "snap": 1,
+                "startX": "5",
+                "startY": "3",
+                "varSubscript": 0,
+              },
+              "type": "movable-point",
+            },
+            {
+              "key": "undefined",
+              "options": {
+                "color": "#6495ED",
+                "coordX": "10-x_0",
+                "coordY": "-3",
+              },
+              "type": "point",
+            },
+          ],
+          "graph": {
+            "backgroundImage": {
+              "bottom": 0,
+              "height": undefined,
+              "left": 0,
+              "scale": 1,
+              "top": undefined,
+              "url": null,
+              "width": undefined,
+            },
+            "box": [
+              400,
+              200,
+            ],
+            "editableSettings": [
+              "canvas",
+              "graph",
+            ],
+            "gridStep": [
+              1,
+              3,
+            ],
+            "labels": [
+              "",
+              "",
+            ],
+            "markings": "graph",
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                -6,
+                6,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "scale": [
+              40,
+              16.666666666666668,
+            ],
+            "showProtractor": false,
+            "showRuler": false,
+            "snapStep": [
+              0.5,
+              1.5,
+            ],
+            "tickStep": [
+              1,
+              2,
+            ],
+            "valid": true,
+          },
+          "static": false,
+        },
+        "static": undefined,
+        "type": "interaction",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interaction 3": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "elements": [
+            {
+              "key": "undefined",
+              "options": {
+                "constraint": "snap",
+                "constraintFn": "-3",
+                "constraintXMax": "9",
+                "constraintXMin": "1",
+                "constraintYMax": "3",
+                "constraintYMin": "3",
+                "snap": 1,
+                "startX": "5",
+                "startY": "3",
+                "varSubscript": 0,
+              },
+              "type": "movable-point",
+            },
+            {
+              "key": "undefined",
+              "options": {
+                "color": "#6495ED",
+                "coordX": "\\sin\\left(x_0\\cdot\\frac{\\pi}{2}\\right)+5",
+                "coordY": "-3",
+              },
+              "type": "point",
+            },
+          ],
+          "graph": {
+            "backgroundImage": {
+              "bottom": 0,
+              "height": undefined,
+              "left": 0,
+              "scale": 1,
+              "top": undefined,
+              "url": null,
+              "width": undefined,
+            },
+            "box": [
+              400,
+              200,
+            ],
+            "editableSettings": [
+              "canvas",
+              "graph",
+            ],
+            "gridStep": [
+              1,
+              3,
+            ],
+            "labels": [
+              "",
+              "",
+            ],
+            "markings": "graph",
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                -6,
+                6,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "scale": [
+              40,
+              16.666666666666668,
+            ],
+            "showProtractor": false,
+            "showRuler": false,
+            "snapStep": [
+              0.5,
+              1.5,
+            ],
+            "tickStep": [
+              1,
+              2,
+            ],
+            "valid": true,
+          },
+          "static": false,
+        },
+        "static": undefined,
+        "type": "interaction",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interaction 4": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "elements": [
+            {
+              "key": "undefined",
+              "options": {
+                "constraint": "snap",
+                "constraintFn": "-3",
+                "constraintXMax": "9",
+                "constraintXMin": "1",
+                "constraintYMax": "3",
+                "constraintYMin": "3",
+                "snap": 1,
+                "startX": "5",
+                "startY": "3",
+                "varSubscript": 0,
+              },
+              "type": "movable-point",
+            },
+            {
+              "key": "undefined",
+              "options": {
+                "color": "#6495ED",
+                "coordX": "4",
+                "coordY": "-3",
+              },
+              "type": "point",
+            },
+          ],
+          "graph": {
+            "backgroundImage": {
+              "bottom": 0,
+              "height": undefined,
+              "left": 0,
+              "scale": 1,
+              "top": undefined,
+              "url": null,
+              "width": undefined,
+            },
+            "box": [
+              400,
+              200,
+            ],
+            "editableSettings": [
+              "canvas",
+              "graph",
+            ],
+            "gridStep": [
+              1,
+              3,
+            ],
+            "labels": [
+              "",
+              "",
+            ],
+            "markings": "graph",
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                -6,
+                6,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "scale": [
+              40,
+              16.666666666666668,
+            ],
+            "showProtractor": false,
+            "showRuler": false,
+            "snapStep": [
+              0.5,
+              1.5,
+            ],
+            "tickStep": [
+              1,
+              2,
+            ],
+            "valid": true,
+          },
+          "static": false,
+        },
+        "static": undefined,
+        "type": "interaction",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interaction 5": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "elements": [
+            {
+              "key": "undefined",
+              "options": {
+                "constraint": "snap",
+                "constraintFn": "-3",
+                "constraintXMax": "9",
+                "constraintXMin": "1",
+                "constraintYMax": "3",
+                "constraintYMin": "3",
+                "snap": 1,
+                "startX": "5",
+                "startY": "3",
+                "varSubscript": 0,
+              },
+              "type": "movable-point",
+            },
+            {
+              "key": "undefined",
+              "options": {
+                "color": "#6495ED",
+                "coordX": "5-\\left|x_0-5\\right|",
+                "coordY": "-3",
+              },
+              "type": "point",
+            },
+          ],
+          "graph": {
+            "backgroundImage": {
+              "bottom": 0,
+              "height": undefined,
+              "left": 0,
+              "scale": 1,
+              "top": undefined,
+              "url": null,
+              "width": undefined,
+            },
+            "box": [
+              400,
+              200,
+            ],
+            "editableSettings": [
+              "canvas",
+              "graph",
+            ],
+            "gridStep": [
+              1,
+              3,
+            ],
+            "labels": [
+              "",
+              "",
+            ],
+            "markings": "graph",
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                -6,
+                6,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "scale": [
+              40,
+              16.666666666666668,
+            ],
+            "showProtractor": false,
+            "showRuler": false,
+            "snapStep": [
+              0.5,
+              1.5,
+            ],
+            "tickStep": [
+              1,
+              2,
+            ],
+            "valid": true,
+          },
+          "static": false,
+        },
+        "static": undefined,
+        "type": "interaction",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-backgroundImage-with-empty-string-coordinates.json 1`] = `
 {
   "answer": undefined,
@@ -2246,6 +2945,961 @@ $3$ | $8$
           ],
         },
         "static": undefined,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-locked-line-missing-showPoint1.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {},
+  "hints": [],
+  "itemDataVersion": undefined,
+  "question": {
+    "content": "Custom Axis Labels:
+[[☃ interactive-graph 1]]
+
+Large $y$-range, origin near bottom left:
+[[☃ interactive-graph 2]]
+
+Large $x$-range, origin near left side:
+[[☃ interactive-graph 3]]
+
+Fractional axis labels:
+[[☃ interactive-graph 4]]
+
+Gridlines every two ticks:
+[[☃ interactive-graph 5]]
+
+Gridlines every half tick:
+[[☃ interactive-graph 6]]
+
+Nonsquare grid:
+[[☃ interactive-graph 7]]
+
+Locked figures:
+[[☃ interactive-graph 8]]
+",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": undefined,
+            "left": undefined,
+            "scale": undefined,
+            "top": undefined,
+            "url": null,
+            "width": undefined,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": [
+              [
+                [
+                  -5,
+                  5,
+                ],
+                [
+                  5,
+                  5,
+                ],
+              ],
+              [
+                [
+                  -5,
+                  3,
+                ],
+                [
+                  5,
+                  3,
+                ],
+              ],
+              [
+                [
+                  -5,
+                  1,
+                ],
+                [
+                  5,
+                  1,
+                ],
+              ],
+              [
+                [
+                  -5,
+                  -1,
+                ],
+                [
+                  5,
+                  -1,
+                ],
+              ],
+              [
+                [
+                  -5,
+                  -3,
+                ],
+                [
+                  5,
+                  -3,
+                ],
+              ],
+              [
+                [
+                  -5,
+                  -5,
+                ],
+                [
+                  5,
+                  -5,
+                ],
+              ],
+            ],
+            "numSegments": 6,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "coords": undefined,
+            "numSegments": 6,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "gridStep": [
+            1,
+            1,
+          ],
+          "labels": [
+            "\\text{Re}",
+            "\\text{Im}",
+          ],
+          "lockedFigures": undefined,
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "rulerLabel": undefined,
+          "rulerTicks": undefined,
+          "showProtractor": false,
+          "showRuler": undefined,
+          "showTooltips": false,
+          "snapStep": [
+            0.5,
+            0.5,
+          ],
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 2": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": undefined,
+            "left": undefined,
+            "scale": undefined,
+            "top": undefined,
+            "url": null,
+            "width": undefined,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": [
+              [
+                [
+                  1.5,
+                  70,
+                ],
+                [
+                  5.5,
+                  70,
+                ],
+              ],
+            ],
+            "numSegments": undefined,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "coords": undefined,
+            "numSegments": undefined,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "gridStep": [
+            1,
+            10,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": undefined,
+          "markings": "graph",
+          "range": [
+            [
+              -0.7,
+              8,
+            ],
+            [
+              -10,
+              100,
+            ],
+          ],
+          "rulerLabel": undefined,
+          "rulerTicks": undefined,
+          "showProtractor": false,
+          "showRuler": undefined,
+          "showTooltips": false,
+          "snapStep": [
+            0.5,
+            5,
+          ],
+          "step": [
+            1,
+            10,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 3": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": 0,
+            "left": undefined,
+            "scale": undefined,
+            "top": undefined,
+            "url": null,
+            "width": 0,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": undefined,
+            "numSegments": undefined,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "coords": undefined,
+            "numSegments": undefined,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "gridStep": [
+            5,
+            1,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": undefined,
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              100,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "rulerLabel": undefined,
+          "rulerTicks": undefined,
+          "showProtractor": false,
+          "showRuler": undefined,
+          "showTooltips": false,
+          "snapStep": [
+            2.5,
+            0.5,
+          ],
+          "step": [
+            20,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 4": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": undefined,
+            "left": undefined,
+            "scale": undefined,
+            "top": undefined,
+            "url": null,
+            "width": undefined,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": undefined,
+            "numSegments": undefined,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "coords": undefined,
+            "numSegments": undefined,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "gridStep": [
+            0.5,
+            0.5,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": undefined,
+          "markings": "graph",
+          "range": [
+            [
+              -3,
+              3,
+            ],
+            [
+              -3,
+              3,
+            ],
+          ],
+          "rulerLabel": undefined,
+          "rulerTicks": undefined,
+          "showProtractor": false,
+          "showRuler": undefined,
+          "showTooltips": false,
+          "snapStep": [
+            0.25,
+            0.25,
+          ],
+          "step": [
+            0.5,
+            0.5,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 5": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": undefined,
+            "left": undefined,
+            "scale": undefined,
+            "top": undefined,
+            "url": null,
+            "width": undefined,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": undefined,
+            "numSegments": undefined,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "coords": undefined,
+            "numSegments": undefined,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "gridStep": [
+            2,
+            2,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": undefined,
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "rulerLabel": undefined,
+          "rulerTicks": undefined,
+          "showProtractor": false,
+          "showRuler": undefined,
+          "showTooltips": false,
+          "snapStep": [
+            1,
+            1,
+          ],
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 6": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": undefined,
+            "left": undefined,
+            "scale": undefined,
+            "top": undefined,
+            "url": null,
+            "width": undefined,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": undefined,
+            "numSegments": undefined,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "coords": undefined,
+            "numSegments": undefined,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "gridStep": [
+            0.5,
+            0.5,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": undefined,
+          "markings": "graph",
+          "range": [
+            [
+              -5,
+              5,
+            ],
+            [
+              -5,
+              5,
+            ],
+          ],
+          "rulerLabel": undefined,
+          "rulerTicks": undefined,
+          "showProtractor": false,
+          "showRuler": undefined,
+          "showTooltips": false,
+          "snapStep": [
+            0.25,
+            0.25,
+          ],
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 7": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": undefined,
+            "left": undefined,
+            "scale": undefined,
+            "top": undefined,
+            "url": null,
+            "width": undefined,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": undefined,
+            "numSegments": undefined,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "coords": undefined,
+            "numSegments": undefined,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "gridStep": [
+            2,
+            0.5,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": undefined,
+          "markings": "graph",
+          "range": [
+            [
+              -5,
+              5,
+            ],
+            [
+              -5,
+              5,
+            ],
+          ],
+          "rulerLabel": undefined,
+          "rulerTicks": undefined,
+          "showProtractor": false,
+          "showRuler": undefined,
+          "showTooltips": false,
+          "snapStep": [
+            1,
+            0.25,
+          ],
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 8": {
+        "alignment": "default",
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": undefined,
+            "left": undefined,
+            "scale": undefined,
+            "top": undefined,
+            "url": null,
+            "width": undefined,
+          },
+          "correct": {
+            "coord": undefined,
+            "coords": [
+              [
+                [
+                  -5,
+                  -5,
+                ],
+                [
+                  5,
+                  5,
+                ],
+              ],
+            ],
+            "hasBeenInteractedWith": true,
+            "markings": "graph",
+            "numSegments": undefined,
+            "range": [
+              [
+                -10,
+                10,
+              ],
+              [
+                -10,
+                10,
+              ],
+            ],
+            "snapStep": [
+              0.5,
+              0.5,
+            ],
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "fullGraphAriaDescription": undefined,
+          "fullGraphLabel": undefined,
+          "graph": {
+            "coord": undefined,
+            "coords": undefined,
+            "numSegments": undefined,
+            "startCoords": undefined,
+            "type": "segment",
+          },
+          "gridStep": [
+            1,
+            1,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [
+            {
+              "ariaLabel": undefined,
+              "color": "green",
+              "coord": [
+                -1,
+                5,
+              ],
+              "filled": true,
+              "labels": undefined,
+              "type": "point",
+            },
+            {
+              "ariaLabel": undefined,
+              "color": "grayH",
+              "coord": [
+                1,
+                5,
+              ],
+              "filled": false,
+              "labels": undefined,
+              "type": "point",
+            },
+            {
+              "ariaLabel": undefined,
+              "color": "grayH",
+              "kind": "line",
+              "labels": undefined,
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "ariaLabel": undefined,
+                  "color": "grayH",
+                  "coord": [
+                    0,
+                    1,
+                  ],
+                  "filled": true,
+                  "labels": undefined,
+                  "type": "point",
+                },
+                {
+                  "ariaLabel": undefined,
+                  "color": "grayH",
+                  "coord": [
+                    5,
+                    2,
+                  ],
+                  "filled": true,
+                  "labels": undefined,
+                  "type": "point",
+                },
+              ],
+              "showEndPoint": false,
+              "showPoint1": false,
+              "showPoint2": false,
+              "showStartPoint": false,
+              "type": "line",
+            },
+            {
+              "ariaLabel": undefined,
+              "color": "grayH",
+              "kind": "line",
+              "labels": undefined,
+              "lineStyle": "dashed",
+              "points": [
+                {
+                  "ariaLabel": undefined,
+                  "color": "grayH",
+                  "coord": [
+                    0,
+                    0,
+                  ],
+                  "filled": true,
+                  "labels": undefined,
+                  "type": "point",
+                },
+                {
+                  "ariaLabel": undefined,
+                  "color": "grayH",
+                  "coord": [
+                    5,
+                    1,
+                  ],
+                  "filled": false,
+                  "labels": undefined,
+                  "type": "point",
+                },
+              ],
+              "showEndPoint": true,
+              "showPoint1": false,
+              "showPoint2": false,
+              "showStartPoint": true,
+              "type": "line",
+            },
+            {
+              "ariaLabel": undefined,
+              "color": "pink",
+              "kind": "ray",
+              "labels": undefined,
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "ariaLabel": undefined,
+                  "color": "pink",
+                  "coord": [
+                    0,
+                    -1,
+                  ],
+                  "filled": true,
+                  "labels": undefined,
+                  "type": "point",
+                },
+                {
+                  "ariaLabel": undefined,
+                  "color": "pink",
+                  "coord": [
+                    5,
+                    0,
+                  ],
+                  "filled": true,
+                  "labels": undefined,
+                  "type": "point",
+                },
+              ],
+              "showEndPoint": false,
+              "showPoint1": false,
+              "showPoint2": false,
+              "showStartPoint": false,
+              "type": "line",
+            },
+            {
+              "ariaLabel": undefined,
+              "color": "pink",
+              "kind": "ray",
+              "labels": undefined,
+              "lineStyle": "dashed",
+              "points": [
+                {
+                  "ariaLabel": undefined,
+                  "color": "purple",
+                  "coord": [
+                    0,
+                    -2,
+                  ],
+                  "filled": true,
+                  "labels": undefined,
+                  "type": "point",
+                },
+                {
+                  "ariaLabel": undefined,
+                  "color": "pink",
+                  "coord": [
+                    5,
+                    -1,
+                  ],
+                  "filled": false,
+                  "labels": undefined,
+                  "type": "point",
+                },
+              ],
+              "showEndPoint": true,
+              "showPoint1": false,
+              "showPoint2": false,
+              "showStartPoint": true,
+              "type": "line",
+            },
+            {
+              "ariaLabel": undefined,
+              "color": "red",
+              "kind": "segment",
+              "labels": undefined,
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "ariaLabel": undefined,
+                  "color": "red",
+                  "coord": [
+                    0,
+                    -3,
+                  ],
+                  "filled": true,
+                  "labels": undefined,
+                  "type": "point",
+                },
+                {
+                  "ariaLabel": undefined,
+                  "color": "red",
+                  "coord": [
+                    5,
+                    -2,
+                  ],
+                  "filled": true,
+                  "labels": undefined,
+                  "type": "point",
+                },
+              ],
+              "showEndPoint": false,
+              "showPoint1": false,
+              "showPoint2": false,
+              "showStartPoint": false,
+              "type": "line",
+            },
+            {
+              "ariaLabel": undefined,
+              "color": "red",
+              "kind": "segment",
+              "labels": undefined,
+              "lineStyle": "dashed",
+              "points": [
+                {
+                  "ariaLabel": undefined,
+                  "color": "green",
+                  "coord": [
+                    0,
+                    -4,
+                  ],
+                  "filled": true,
+                  "labels": undefined,
+                  "type": "point",
+                },
+                {
+                  "ariaLabel": undefined,
+                  "color": "red",
+                  "coord": [
+                    5,
+                    -3,
+                  ],
+                  "filled": false,
+                  "labels": undefined,
+                  "type": "point",
+                },
+              ],
+              "showEndPoint": true,
+              "showPoint1": false,
+              "showPoint2": false,
+              "showStartPoint": true,
+              "type": "line",
+            },
+            {
+              "color": "blue",
+              "coord": [
+                -6,
+                0,
+              ],
+              "size": "medium",
+              "text": "\\frac{1}{4}?",
+              "type": "label",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "rulerLabel": undefined,
+          "rulerTicks": undefined,
+          "showProtractor": false,
+          "showRuler": undefined,
+          "showTooltips": false,
+          "snapStep": [
+            0.5,
+            0.5,
+          ],
+          "step": [
+            2,
+            2,
+          ],
+        },
+        "static": false,
         "type": "interactive-graph",
         "version": {
           "major": 0,
@@ -4011,6 +5665,119 @@ $\\left[\\begin{array}{c}
           "major": 0,
           "minor": 0,
         },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-image.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "crwdns2931741:0crwdne2931741:0",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns2931695:0crwdne2931695:0",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns2931679:0crwdne2931679:0",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": undefined,
+  "question": {
+    "content": "crwdns3125767:0crwdne3125767:0",
+    "images": {},
+    "metadata": undefined,
+    "widgets": {
+      "dropdown 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "ariaLabel": undefined,
+          "choices": [
+            {
+              "content": "crwdns2301760:0crwdne2301760:0",
+              "correct": false,
+            },
+            {
+              "content": "crwdns3766725:0crwdne3766725:0",
+              "correct": false,
+            },
+            {
+              "content": "crwdns3395333:0crwdne3395333:0",
+              "correct": true,
+            },
+            {
+              "content": "crwdns3395334:0crwdne3395334:0",
+              "correct": false,
+            },
+            {
+              "content": "crwdns3445395:0crwdne3445395:0",
+              "correct": false,
+            },
+            {
+              "content": "crwdns3395337:0crwdne3395337:0",
+              "correct": false,
+            },
+            {
+              "content": "crwdns3395340:0crwdne3395340:0",
+              "correct": false,
+            },
+          ],
+          "placeholder": "",
+          "static": false,
+          "visibleLabel": undefined,
+        },
+        "static": undefined,
+        "type": "dropdown",
+        "version": undefined,
+      },
+      "measurer 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "box": [
+            480,
+            480,
+          ],
+          "image": {
+            "left": 0,
+            "top": 0,
+            "url": null,
+          },
+          "imageLeft": 0,
+          "imageTop": 0,
+          "imageUrl": "crwdns6514084:0crwdne6514084:0",
+          "rulerLabel": "",
+          "rulerLength": 10,
+          "rulerPixels": 40,
+          "rulerTicks": 10,
+          "showProtractor": true,
+          "showRuler": false,
+          "static": false,
+        },
+        "static": undefined,
+        "type": "measurer",
+        "version": undefined,
       },
     },
   },
@@ -6990,6 +8757,132 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
           "major": 0,
           "minor": 0,
         },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-missing-scaleY-and-snapsPerLine.json 1`] = `
+{
+  "answer": undefined,
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "Barn | Antal mål
+- | :-: 
+Calista | $\\blue2$ 
+William |$\\red3$ 
+Michaela | $\\green5$ 
+James | $\\gray2$
+
+$$
+
+$\\green5 - \\red3= \\purple{2}$",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "Michaela gjorde $\\purple{2}$ korgar mer än William.  ",
+      "images": {},
+      "metadata": undefined,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "En familj spelar basket.  Pictogrammet visar hur många mål varje barn gjorde.  
+
+**Michaela gjorde [[☃ input-number 1]] fler mål än William.**
+
+![](https://ka-perseus-graphie.s3.amazonaws.com/01794c4768ba6b824954277b869aaaefd551a0e5.png)
+
+
+![](https://ka-perseus-images.s3.amazonaws.com/2875f6cdd7dea3db2fef714b1225366c7250c49d.png)",
+    "images": {
+      "https://ka-perseus-graphie.s3.amazonaws.com/01794c4768ba6b824954277b869aaaefd551a0e5.png": {
+        "height": 37,
+        "width": 120,
+      },
+      "https://ka-perseus-images.s3.amazonaws.com/2875f6cdd7dea3db2fef714b1225366c7250c49d.png": {
+        "height": 336,
+        "width": 474,
+      },
+    },
+    "metadata": undefined,
+    "widgets": {
+      "input-number 1": {
+        "alignment": undefined,
+        "graded": true,
+        "key": undefined,
+        "options": {
+          "answerType": "number",
+          "customKeypad": undefined,
+          "inexact": false,
+          "maxError": 0.1,
+          "rightAlign": undefined,
+          "simplify": "required",
+          "size": "normal",
+          "value": 2,
+        },
+        "static": undefined,
+        "type": "input-number",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "plotter 1": {
+        "alignment": undefined,
+        "graded": undefined,
+        "key": undefined,
+        "options": {
+          "categories": [
+            "Calista",
+            "WIlliam",
+            "Michaela",
+            "James",
+          ],
+          "correct": [
+            1,
+            1,
+            1,
+            1,
+          ],
+          "labelInterval": undefined,
+          "labels": [
+            "Child",
+            "Baskets",
+          ],
+          "maxY": 5,
+          "picBoxHeight": undefined,
+          "picSize": undefined,
+          "picUrl": "http://i.imgur.com/B8mGnxB.png",
+          "plotDimensions": [
+            380,
+            300,
+          ],
+          "scaleY": 1,
+          "snapsPerLine": 2,
+          "starting": [
+            1,
+            1,
+            1,
+            1,
+          ],
+          "type": "pic",
+        },
+        "static": undefined,
+        "type": "plotter",
+        "version": undefined,
       },
     },
   },

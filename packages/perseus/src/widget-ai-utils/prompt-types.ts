@@ -12,6 +12,7 @@ import type {InputNumberPromptJSON} from "./input-number/input-number-ai-utils";
 import type {LabelImagePromptJSON} from "./label-image/label-image-ai-utils";
 import type {MatcherPromptJSON} from "./matcher/matcher-ai-utils";
 import type {MatrixPromptJSON} from "./matrix/matrix-ai-utils";
+import type {MockWidgetPromptJSON} from "./mock-widget/prompt-utils";
 import type {NumberLinePromptJSON} from "./number-line/number-line-ai-utils";
 import type {NumericInputPromptJSON} from "./numeric-input/prompt-utils";
 import type {OrdererPromptJSON} from "./orderer/orderer-ai-utils";
@@ -47,6 +48,7 @@ export type WidgetPromptJSON =
     | LabelImagePromptJSON
     | MatcherPromptJSON
     | MatrixPromptJSON
+    | MockWidgetPromptJSON
     | NumberLinePromptJSON
     | NumericInputPromptJSON
     | OrdererPromptJSON

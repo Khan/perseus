@@ -17,7 +17,14 @@ import type {MeasurerWidget} from "@khanacademy/perseus-core";
 export const parseMeasurerWidget: Parser<MeasurerWidget> = parseWidget(
     constant("measurer"),
     object({
-        image: parsePerseusImageBackground,
+        // The default value for image comes from measurer.tsx.
+        // See parse-perseus-json/README.md for why we want to duplicate the
+        // defaults here.
+        image: defaulted(parsePerseusImageBackground, () => ({
+            url: null,
+            top: 0,
+            left: 0,
+        })),
         showProtractor: boolean,
         showRuler: boolean,
         rulerLabel: string,

@@ -1,4 +1,4 @@
-import type {PerseusGraphType} from "@khanacademy/perseus";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
 type GraphTypesThatHaveStartCoords =
     | {type: "angle"}
