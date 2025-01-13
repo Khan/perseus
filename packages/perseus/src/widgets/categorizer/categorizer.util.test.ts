@@ -1,6 +1,6 @@
 import getCategorizerPublicOptions from "./categorizer.util";
 
-import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
+import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 
 describe("getCategorizerPublicOptions", () => {
     it("returns an object without the answer data", () => {
