@@ -718,12 +718,7 @@ export const mockStrings: PerseusStrings = {
     srSinusoidExtremumPoint: ({x, y}) => `Extremum Point at ${x} comma ${y}.`,
     srSinusoidMidlineIntersection: ({x, y}) =>
         `Midline Intersection at ${x} comma ${y}.`,
-    srSinusoidDescription: ({
-        minValue,
-        maxValue,
-        xMinCoord,
-        xMaxCoord,
-    }) =>
+    srSinusoidDescription: ({minValue, maxValue, xMinCoord, xMaxCoord}) =>
         `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${xMinCoord} to ${xMaxCoord}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
