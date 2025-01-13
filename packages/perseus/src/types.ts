@@ -544,7 +544,7 @@ export type WidgetScorerFunction = (
 ) => PerseusScore;
 
 /**
- * A union type of all the functions to get the public options for each widget.
+ * A union type of all the functions that split widget options.
  */
 export type SplitWidgetOptionsFunctions = typeof splitCategorizerWidgetOptions;
 
