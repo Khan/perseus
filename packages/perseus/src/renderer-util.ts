@@ -1,4 +1,5 @@
-import {mapObject} from "./interactive2/objective_";
+import {mapObject} from "@khanacademy/perseus-core";
+
 import {scoreIsEmpty, flattenScores} from "./util/scoring";
 import {getWidgetIdsFromContent} from "./widget-type-utils";
 import {getWidgetScorer, upgradeWidgetInfoToLatestVersion} from "./widgets";

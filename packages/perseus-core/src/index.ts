@@ -15,3 +15,5 @@ export {Errors} from "./error/errors";
 export {PerseusError} from "./error/perseus-error";
 
 export * from "./data-schema";
+
+export {pluck, mapObject} from "./utils/objective_";
