@@ -11,7 +11,7 @@ type CategorizerPublicWidgetOptions = {
     static: PerseusCategorizerWidgetOptions["static"];
 };
 
-function getCategorizerPublicOptions(
+function splitCategorizerWidgetOptions(
     options: PerseusCategorizerWidgetOptions,
 ): CategorizerPublicWidgetOptions {
     return {
@@ -22,4 +22,4 @@ function getCategorizerPublicOptions(
     };
 }
 
-export default getCategorizerPublicOptions;
+export default splitCategorizerWidgetOptions;

@@ -16,7 +16,7 @@ import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
-import getCategorizerPublicOptions from "./categorizer.util";
+import splitCategorizerWidgetOptions from "./categorizer.util";
 import scoreCategorizer from "./score-categorizer";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -329,5 +329,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
     scorer: scoreCategorizer,
-    getPublicOptions: getCategorizerPublicOptions,
+    getPublicOptions: splitCategorizerWidgetOptions,
 } satisfies WidgetExports<typeof Categorizer>;
