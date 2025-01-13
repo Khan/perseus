@@ -26,8 +26,10 @@ import * as fs from "fs/promises";
 import {join} from "path";
 
 import {ErrorTrackingParseContext} from "../error-tracking-parse-context";
+import {isObject} from "../general-purpose-parsers";
 import {formatPath} from "../object-path";
 import {parsePerseusItem} from "../perseus-parsers/perseus-item";
+import {parsePerseusRenderer} from "../perseus-parsers/perseus-renderer";
 import {isSuccess} from "../result";
 
 import type {Mismatch} from "../parser-types";
@@ -61,20 +63,8 @@ async function testFile(path: string, outputDir: string) {
         return;
     }
     const json = await fs.readFile(path, "utf-8");
-    let assessmentItems: null | unknown[] = null;
-    try {
-        assessmentItems = JSON.parse(json);
-    } catch {
-        // eslint-disable-next-line no-console
-        console.warn("Failed to parse JSON file: " + path);
-        return;
-    }
-    if (!Array.isArray(assessmentItems)) {
-        return;
-    }
-
-    for (const rawItem of assessmentItems.map(getAssessmentItemData)) {
-        for (const mismatch of getMismatches(rawItem)) {
+    for (const tester of createContentItemTesters(json, path)) {
+        for (const mismatch of tester.getMismatches()) {
             const desc = describeMismatch(mismatch);
             const hash = sha256(desc);
             await fs.mkdir(join(outputDir, hash), {recursive: true});
@@ -89,33 +79,93 @@ async function testFile(path: string, outputDir: string) {
             // current item is shorter than the one already on disk.
             await writeFileIfShorterThanExisting(
                 join(outputDir, hash, "item.json"),
-                String(JSON.stringify(rawItem)),
+                String(JSON.stringify(tester.rawData)),
                 "utf-8",
             );
         }
     }
 }
 
-function getAssessmentItemData(raw: unknown): unknown {
-    if (raw && typeof raw === "object") {
-        if ("item_data" in raw) {
-            // We're looking at an exercise.
-            return raw.item_data;
-        }
-        if ("content" in raw) {
-            // We're looking at an article. Wrap it in a synthetic PerseusItem.
-            return {question: raw};
-        }
-    }
-    return raw;
+interface ContentItemTester {
+    readonly rawData: unknown;
+    getMismatches(): Mismatch[];
 }
 
-function getMismatches(rawItem: unknown): Mismatch[] {
-    const result = parsePerseusItem(rawItem, new ErrorTrackingParseContext([]));
-    if (isSuccess(result)) {
+function createContentItemTesters(
+    json: string,
+    path: string,
+): ContentItemTester[] {
+    let contentItems: unknown;
+    try {
+        contentItems = JSON.parse(json);
+    } catch {
+        // eslint-disable-next-line no-console
+        console.warn("Failed to parse JSON file: " + path);
         return [];
     }
-    return result.detail;
+    if (!Array.isArray(contentItems)) {
+        return [];
+    }
+
+    const testers: ContentItemTester[] = [];
+    for (const item of contentItems) {
+        const tester = createContentItemTester(item, path);
+        if (tester != null) {
+            testers.push(tester);
+        }
+    }
+
+    return testers;
+}
+
+function createContentItemTester(
+    item: unknown,
+    path: string,
+): ContentItemTester | undefined {
+    if (isObject(item)) {
+        if ("item_data" in item) {
+            // We're looking at an exercise.
+            return new AssessmentItemTester(item.item_data);
+        }
+
+        if ("content" in item) {
+            // We're looking at an article.
+            return new ArticleTester(item);
+        }
+    }
+
+    // eslint-disable-next-line no-console
+    console.warn("Cannot classify content as an article or exercise: ", path);
+}
+
+class AssessmentItemTester implements ContentItemTester {
+    constructor(readonly rawData: unknown) {}
+
+    getMismatches(): Mismatch[] {
+        const result = parsePerseusItem(
+            this.rawData,
+            new ErrorTrackingParseContext([]),
+        );
+        if (isSuccess(result)) {
+            return [];
+        }
+        return result.detail;
+    }
+}
+
+class ArticleTester implements ContentItemTester {
+    constructor(readonly rawData: unknown) {}
+
+    getMismatches(): Mismatch[] {
+        const result = parsePerseusRenderer(
+            this.rawData,
+            new ErrorTrackingParseContext([]),
+        );
+        if (isSuccess(result)) {
+            return [];
+        }
+        return result.detail;
+    }
 }
 
 function describeMismatch(mismatch: Mismatch): string {
