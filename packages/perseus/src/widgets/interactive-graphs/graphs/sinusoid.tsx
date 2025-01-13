@@ -98,7 +98,6 @@ function SinusoidGraph(props: SinusoidGraphProps) {
         const descriptionObj = {
             minValue: srFormatNumber(minMaxVals[0], locale),
             maxValue: srFormatNumber(minMaxVals[1], locale),
-            cycleType: "full",
             xMinCoord: minCoordStringWithPi,
             xMaxCoord: maxCoordStringWithPi,
         };
@@ -209,10 +208,8 @@ export function formatAsMultipleOfPi(input: number, locale: string): string {
     // check for integer multiple of PI
     if (Math.abs(multiple - Math.round(multiple)) < faultTolerance) {
         const roundedMultiple = Math.round(multiple);
-        if (roundedMultiple === 1) {
-            return `pi`;
-        } else if (roundedMultiple === -1) {
-            return `negative pi`;
+        if (roundedMultiple === 1 || roundedMultiple === -1) {
+            return 'pi';
         }
 
         return `${Math.round(multiple)} pi`;
