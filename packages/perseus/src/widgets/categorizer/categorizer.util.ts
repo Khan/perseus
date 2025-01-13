@@ -1,6 +1,6 @@
 import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 
-type CategorizerPublicWidgetOptions = {
+type CategorizerSplitWidgetOptions = {
     // a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
     items: PerseusCategorizerWidgetOptions["items"];
     // a list of categories. e.g. ["fruits", "colors", "clothing"]
@@ -13,7 +13,7 @@ type CategorizerPublicWidgetOptions = {
 
 function splitCategorizerWidgetOptions(
     options: PerseusCategorizerWidgetOptions,
-): CategorizerPublicWidgetOptions {
+): CategorizerSplitWidgetOptions {
     return {
         items: options.items,
         categories: options.categories,
