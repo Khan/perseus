@@ -1,4 +1,7 @@
-import type {PerseusRenderer, NumericInputWidget} from "../../perseus-types";
+import type {
+    PerseusRenderer,
+    NumericInputWidget,
+} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",

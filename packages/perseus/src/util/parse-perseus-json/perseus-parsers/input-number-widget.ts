@@ -11,8 +11,8 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {InputNumberWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {InputNumberWidget} from "@khanacademy/perseus-core";
 
 const booleanToString: Parser<string> = (rawValue, ctx) => {
     if (typeof rawValue === "boolean") {

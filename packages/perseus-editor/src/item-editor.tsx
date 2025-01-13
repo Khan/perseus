@@ -12,8 +12,8 @@ import type {
     ImageUploader,
     ChangeHandler,
     DeviceType,
-    PerseusRenderer,
 } from "@khanacademy/perseus";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 const ITEM_DATA_VERSION = itemDataVersion;
 

@@ -28,6 +28,8 @@
  * ```
  */
 
+import type {InteractiveMarkerType} from "./widgets/label-image/types";
+import type {Relationship} from "./widgets/number-line/number-line";
 import type {
     GrapherAnswerTypes,
     PerseusDropdownChoice,
@@ -42,9 +44,7 @@ import type {
     PerseusOrdererWidgetOptions,
     PerseusRadioChoice,
     PerseusGraphCorrectType,
-} from "./perseus-types";
-import type {InteractiveMarkerType} from "./widgets/label-image/types";
-import type {Relationship} from "./widgets/number-line/number-line";
+} from "@khanacademy/perseus-core";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
@@ -164,6 +164,14 @@ export type PerseusMatrixUserInput = {
     answers: PerseusMatrixRubric["answers"];
 };
 
+export type PerseusMockWidgetRubric = {
+    value: string;
+};
+
+export type PerseusMockWidgetUserInput = {
+    currentValue: string;
+};
+
 export type PerseusNumberLineScoringData = {
     correctRel: string | null | undefined;
     correctX: number;
@@ -250,6 +258,7 @@ export type Rubric =
     | PerseusLabelImageRubric
     | PerseusMatcherRubric
     | PerseusMatrixRubric
+    | PerseusMockWidgetRubric
     | PerseusNumberLineScoringData
     | PerseusNumericInputRubric
     | PerseusOrdererRubric
@@ -257,7 +266,6 @@ export type Rubric =
     | PerseusRadioRubric
     | PerseusSorterRubric
     | PerseusTableRubric;
-
 export type UserInput =
     | PerseusCategorizerUserInput
     | PerseusCSProgramUserInput
@@ -270,6 +278,7 @@ export type UserInput =
     | PerseusLabelImageUserInput
     | PerseusMatcherUserInput
     | PerseusMatrixUserInput
+    | PerseusMockWidgetUserInput
     | PerseusNumberLineUserInput
     | PerseusNumericInputUserInput
     | PerseusOrdererUserInput

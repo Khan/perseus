@@ -24,14 +24,10 @@ import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
 
-import type {
-    ChangeHandler,
-    ImageUploader,
-    PerseusWidget,
-    PerseusWidgetsMap,
-} from "@khanacademy/perseus";
+import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
+import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
-// like [[snowman input-number 1]]
+// like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
 const widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
 const rWidgetSplit = new RegExp(

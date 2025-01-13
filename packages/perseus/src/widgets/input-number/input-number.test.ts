@@ -19,7 +19,7 @@ import scoreInputNumber from "./score-input-number";
 import type {
     PerseusInputNumberWidgetOptions,
     PerseusRenderer,
-} from "../../perseus-types";
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const {transform} = InputNumber;
@@ -276,12 +276,10 @@ describe("invalid", function () {
             options,
             mockStrings,
         );
-        expect(err).toMatchInlineSnapshot(`
-            {
-              "message": "We could not understand your answer. Please check your answer for extra text or symbols.",
-              "type": "invalid",
-            }
-        `);
+        expect(err).toEqual({
+            message: "EXTRA_SYMBOLS_ERROR",
+            type: "invalid",
+        });
     });
 });
 

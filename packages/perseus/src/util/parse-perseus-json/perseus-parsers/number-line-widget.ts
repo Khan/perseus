@@ -15,8 +15,8 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {NumberLineWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {NumberLineWidget} from "@khanacademy/perseus-core";
 
 const emptyStringToNull = pipeParsers(constant("")).then(
     convert(() => null),

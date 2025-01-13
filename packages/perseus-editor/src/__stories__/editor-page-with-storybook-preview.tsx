@@ -1,11 +1,9 @@
+import {Renderer, type APIOptions, type DeviceType} from "@khanacademy/perseus";
 import {
-    Renderer,
-    type APIOptions,
-    type DeviceType,
     type Hint,
     type PerseusAnswerArea,
     type PerseusRenderer,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";

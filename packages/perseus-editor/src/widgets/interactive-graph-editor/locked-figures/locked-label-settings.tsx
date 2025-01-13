@@ -5,11 +5,11 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
+import {components} from "@khanacademy/perseus";
 import {
     lockedFigureColors,
     type LockedLabelType,
-    components,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";

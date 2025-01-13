@@ -2,13 +2,13 @@
  * MovableLine
  */
 import {vector as kvector} from "@khanacademy/kmath";
+import {pluck} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import KhanColors from "../util/colors";
 
 import InteractiveUtil from "./interactive-util";
 import MovableLineOptions from "./movable-line-options";
-import {pluck} from "./objective_";
 import WrappedLine from "./wrapped-line";
 
 const assert = InteractiveUtil.assert;

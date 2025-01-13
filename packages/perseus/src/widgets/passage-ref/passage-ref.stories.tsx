@@ -5,7 +5,7 @@ import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui
 
 import {question1, question2} from "./passage-ref.testdata";
 
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 type Story = {
     title: string;

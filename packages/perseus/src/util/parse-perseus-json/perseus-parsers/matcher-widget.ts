@@ -8,8 +8,8 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {MatcherWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {MatcherWidget} from "@khanacademy/perseus-core";
 
 export const parseMatcherWidget: Parser<MatcherWidget> = parseWidget(
     constant("matcher"),
