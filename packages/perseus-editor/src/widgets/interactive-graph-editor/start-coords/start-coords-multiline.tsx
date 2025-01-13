@@ -8,7 +8,7 @@ import * as React from "react";
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 
-import type {CollinearTuple} from "@khanacademy/perseus";
+import type {CollinearTuple} from "@khanacademy/perseus-core";
 
 type Props = {
     type: "linear-system" | "segment";

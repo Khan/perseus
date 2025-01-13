@@ -25,6 +25,7 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
@@ -36,7 +37,7 @@ import type {
     LockedFigureColor,
     LockedLabelType,
     LockedVectorType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 const lengthErrorMessage = "The vector cannot have length 0.";
 
@@ -70,8 +71,13 @@ const LockedVectorSettings = (props: Props) => {
      */
     async function getPrepopulatedAriaLabel() {
         const visiblelabel = await joinLabelsAsSpokenMath(labels);
+        // Ensure negative values are read correctly within aria labels.
+        const spokenTailX = await generateSpokenMathDetails(`$${tail[0]}$`);
+        const spokenTailY = await generateSpokenMathDetails(`$${tail[1]}$`);
+        const spokenTipX = await generateSpokenMathDetails(`$${tip[0]}$`);
+        const spokenTipY = await generateSpokenMathDetails(`$${tip[1]}$`);
 
-        let str = `Vector${visiblelabel} from ${tail[0]} comma ${tail[1]} to ${tip[0]} comma ${tip[1]}`;
+        let str = `Vector${visiblelabel} from ${spokenTailX} comma ${spokenTailY} to ${spokenTipX} comma ${spokenTipY}`;
 
         const vectorAppearance =
             generateLockedFigureAppearanceDescription(lineColor);

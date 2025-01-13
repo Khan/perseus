@@ -56,7 +56,7 @@ describe("scoreInputNumber", () => {
 
         const score = scoreInputNumber(useInput, rubric, mockStrings);
 
-        expect(score).toHaveInvalidInput("☃ EXTRA_SYMBOLS_ERROR ☃");
+        expect(score).toHaveInvalidInput("EXTRA_SYMBOLS_ERROR");
     });
 
     // Don't default to validating the answer as a pi answer

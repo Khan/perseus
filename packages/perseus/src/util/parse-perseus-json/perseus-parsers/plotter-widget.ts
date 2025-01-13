@@ -24,9 +24,15 @@ export const parsePlotterWidget: Parser<PlotterWidget> = parseWidget(
         categories: array(string),
         type: enumeration(...plotterPlotTypes),
         maxY: number,
-        scaleY: number,
+        // The default value for scaleY comes from plotter.tsx.
+        // See parse-perseus-json/README.md for why we want to duplicate the
+        // defaults here.
+        scaleY: defaulted(number, () => 1),
         labelInterval: optional(nullable(number)),
-        snapsPerLine: number,
+        // The default value for snapsPerLine comes from plotter.tsx.
+        // See parse-perseus-json/README.md for why we want to duplicate the
+        // defaults here.
+        snapsPerLine: defaulted(number, () => 2),
         starting: array(number),
         correct: array(number),
         picUrl: optional(nullable(string)),

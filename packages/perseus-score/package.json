@@ -21,7 +21,10 @@
     "files": [
         "dist"
     ],
-    "scripts": {},
+    "scripts": {
+        "prepublishOnly": "../../utils/package-pre-publish-check.sh",
+        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
+    },
     "dependencies": {
         "@khanacademy/kas": "^0.4.9",
         "@khanacademy/kmath": "^0.1.24",

@@ -20,12 +20,11 @@ import {
 import type {
     APIOptions,
     ImageDict,
-    Hint,
     ChangeHandler,
     DeviceType,
     ImageUploader,
-    PerseusWidgetsMap,
 } from "@khanacademy/perseus";
+import type {Hint, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 const {InfoTip, InlineIcon} = components;
 

@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 22.1.1
+
+### Patch Changes
+
+-   [#2057](https://github.com/Khan/perseus/pull/2057) [`2dc22def4`](https://github.com/Khan/perseus/commit/2dc22def44b7616ad739d2c5a575b83bd6362949) Thanks [@dependabot](https://github.com/apps/dependabot)! - update wonderblocks dependencies
+
 ## 22.1.0
 
 ### Minor Changes

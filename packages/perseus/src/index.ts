@@ -74,13 +74,6 @@ export {default as JiptParagraphs} from "./jipt-paragraphs";
 export {default as LoadingContext} from "./loading-context";
 export {default as mediaQueries} from "./styles/media-queries";
 export {default as PerseusMarkdown} from "./perseus-markdown";
-export {
-    PerseusExpressionAnswerFormConsidered,
-    plotterPlotTypes,
-    ItemExtras,
-    lockedFigureColors,
-    lockedFigureFillStyles,
-} from "@khanacademy/perseus-core";
 export {traverse} from "./traversal";
 export {isItemRenderableByVersion} from "./renderability";
 export {violatingWidgets} from "./a11y";
@@ -117,7 +110,12 @@ export {
     getAnswerFromUserInput,
     getImagesWithoutAltData,
 } from "./util/extract-perseus-data";
-export {parsePerseusItem} from "./util/parse-perseus-json";
+export {
+    parsePerseusItem,
+    parseAndMigratePerseusItem,
+    parseAndMigratePerseusArticle,
+} from "./util/parse-perseus-json";
+export {isSuccess, isFailure} from "./util/parse-perseus-json/result";
 export {
     generateTestPerseusItem,
     genericPerseusItemData,
@@ -198,46 +196,7 @@ export type {
     SharedRendererProps,
 } from "./types";
 export type {ParsedValue} from "./util";
-export type {
-    Hint,
-    LegacyButtonSets,
-    LockedFigure,
-    LockedFigureColor,
-    LockedFigureFillType,
-    LockedFigureType,
-    LockedPointType,
-    LockedLineType,
-    LockedVectorType,
-    LockedEllipseType,
-    LockedPolygonType,
-    LockedFunctionType,
-    LockedLabelType,
-    LockedLineStyle,
-    PerseusGraphType,
-    PerseusAnswerArea,
-    PerseusExpressionWidgetOptions,
-    // Utility types
-    Range,
-    Size,
-    CollinearTuple,
-    MathFormat,
-    InputNumberWidget, // TODO(jeremy): remove?
-    PerseusArticle,
-    // Widget configuration types
-    PerseusImageBackground,
-    PerseusInputNumberWidgetOptions,
-    PerseusInteractiveGraphWidgetOptions,
-    PerseusItem,
-    PerseusPhetSimulationWidgetOptions,
-    PerseusPlotterWidgetOptions,
-    PerseusPythonProgramWidgetOptions,
-    PerseusRadioWidgetOptions,
-    PerseusRenderer,
-    PerseusWidget,
-    PerseusWidgetsMap,
-    PerseusWidgetTypes,
-    WidgetOptions,
-} from "@khanacademy/perseus-core";
+export type {Result, Success, Failure} from "./util/parse-perseus-json/result";
 export type {UserInputMap} from "./validation.types";
 export type {Coord} from "./interactive2/types";
 export type {Coords} from "./widgets/grapher/grapher-types";
