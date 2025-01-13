@@ -3,8 +3,8 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {DefinitionWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {DefinitionWidget} from "@khanacademy/perseus-core";
 
 export const parseDefinitionWidget: Parser<DefinitionWidget> = parseWidget(
     constant("definition"),

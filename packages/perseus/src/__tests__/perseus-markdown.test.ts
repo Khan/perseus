@@ -298,7 +298,7 @@ describe("perseus markdown", () => {
                 ],
             },
             {
-                content: "[[☃ test 1]]+[[☃ input-number 2]]",
+                content: "[[☃ test 1]]+[[☃ mock-widget 2]]",
                 expected: [
                     {
                         type: "paragraph",
@@ -314,15 +314,15 @@ describe("perseus markdown", () => {
                             },
                             {
                                 type: "widget",
-                                widgetType: "input-number",
-                                id: "input-number 2",
+                                widgetType: "mock-widget",
+                                id: "mock-widget 2",
                             },
                         ],
                     },
                 ],
             },
             {
-                content: "*[[☃ test 2]]* [[☃ input-number 1]]",
+                content: "*[[☃ test 2]]* [[☃ mock-widget 1]]",
                 expected: [
                     {
                         type: "paragraph",
@@ -343,8 +343,8 @@ describe("perseus markdown", () => {
                             },
                             {
                                 type: "widget",
-                                widgetType: "input-number",
-                                id: "input-number 1",
+                                widgetType: "mock-widget",
+                                id: "mock-widget 1",
                             },
                         ],
                     },

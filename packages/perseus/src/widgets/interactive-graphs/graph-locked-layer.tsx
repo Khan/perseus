@@ -8,7 +8,7 @@ import LockedPoint from "./locked-figures/locked-point";
 import LockedPolygon from "./locked-figures/locked-polygon";
 import LockedVector from "./locked-figures/locked-vector";
 
-import type {LockedFigure} from "../../perseus-types";
+import type {LockedFigure} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 type Props = {

@@ -1,9 +1,9 @@
+import {lockedFigureColors} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {lockedFigureColors} from "../../../perseus-types";
 import {Vector} from "../graphs/components/vector";
 
-import type {LockedVectorType} from "../../../perseus-types";
+import type {LockedVectorType} from "@khanacademy/perseus-core";
 
 const LockedVector = (props: LockedVectorType) => {
     const {color, points, ariaLabel} = props;

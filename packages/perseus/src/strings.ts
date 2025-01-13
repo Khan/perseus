@@ -1,3 +1,5 @@
+import {ErrorCodes} from "@khanacademy/perseus-score";
+
 /**
  * The translated strings that are used to render Perseus.
  */
@@ -722,3 +724,20 @@ export const mockStrings: PerseusStrings = {
         `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${xMinCoord} to ${xMaxCoord}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
+
+const errorToString = {
+    [ErrorCodes.MISSING_PERCENT_ERROR]: strings.MISSING_PERCENT_ERROR,
+    [ErrorCodes.NEEDS_TO_BE_SIMPLIFIED_ERROR]:
+        strings.NEEDS_TO_BE_SIMPLFIED_ERROR,
+    [ErrorCodes.APPROXIMATED_PI_ERROR]: strings.APPROXIMATED_PI_ERROR,
+    [ErrorCodes.EXTRA_SYMBOLS_ERROR]: strings.EXTRA_SYMBOLS_ERROR,
+    [ErrorCodes.WRONG_CASE_ERROR]: strings.WRONG_CASE_ERROR,
+    [ErrorCodes.WRONG_LETTER_ERROR]: strings.WRONG_LETTER_ERROR,
+    [ErrorCodes.MULTIPLICATION_SIGN_ERROR]: strings.MULTIPLICATION_SIGN_ERROR,
+};
+export function mapErrorToString(err: string | null | undefined) {
+    if (!err) {
+        return err;
+    }
+    return errorToString[err] || err;
+}

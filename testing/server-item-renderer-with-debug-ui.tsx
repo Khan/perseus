@@ -11,10 +11,9 @@ import KEScoreUI from "./ke-score-ui";
 import SideBySide from "./side-by-side";
 import {storybookDependenciesV2} from "./test-dependencies";
 
-import type {PerseusItem} from "../packages/perseus/src/perseus-types";
 import type {APIOptions} from "../packages/perseus/src/types";
 import type {KeypadAPI} from "@khanacademy/math-input";
-import type {KEScore} from "@khanacademy/perseus-core";
+import type {PerseusItem, KEScore} from "@khanacademy/perseus-core";
 
 type Props = {
     item: PerseusItem;

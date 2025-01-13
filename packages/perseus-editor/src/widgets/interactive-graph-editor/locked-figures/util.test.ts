@@ -10,7 +10,7 @@ import type {
     LockedFigureFillType,
     LockedLabelType,
     LockedLineStyle,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 describe("getDefaultFigureForType", () => {
     test("should return a point with default values", () => {

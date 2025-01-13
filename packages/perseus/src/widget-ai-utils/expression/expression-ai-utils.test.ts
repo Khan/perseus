@@ -1,11 +1,14 @@
+import {ItemExtras} from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
-import {ItemExtras} from "../../perseus-types";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./expression-ai-utils";
 
-import type {PerseusAnswerArea, PerseusRenderer} from "../../perseus-types";
+import type {
+    PerseusAnswerArea,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 const expression = {
     question: {

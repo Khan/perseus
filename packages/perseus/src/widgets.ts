@@ -3,7 +3,6 @@ import _ from "underscore";
 
 import {Log} from "./logging/log";
 
-import type {PerseusWidget} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {
     Alignment,
@@ -13,6 +12,7 @@ import type {
     WidgetTransform,
     WidgetScorerFunction,
 } from "./types";
+import type {PerseusWidget} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
 const DEFAULT_ALIGNMENT = "block";

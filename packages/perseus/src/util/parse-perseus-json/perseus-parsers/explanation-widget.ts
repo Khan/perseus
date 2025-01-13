@@ -4,8 +4,8 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 import {parseWidget} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
 
-import type {ExplanationWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {ExplanationWidget} from "@khanacademy/perseus-core";
 
 export const parseExplanationWidget: Parser<ExplanationWidget> = parseWidget(
     constant("explanation"),

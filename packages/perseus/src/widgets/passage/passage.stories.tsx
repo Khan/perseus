@@ -5,7 +5,7 @@ import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui
 
 import {question1, question2, question3} from "./__tests__/passage.testdata";
 
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export default {
     title: "Perseus/Widgets/Passage",

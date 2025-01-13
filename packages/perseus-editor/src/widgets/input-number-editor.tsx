@@ -4,10 +4,8 @@ import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
-import type {
-    ParsedValue,
-    PerseusInputNumberWidgetOptions,
-} from "@khanacademy/perseus";
+import type {ParsedValue} from "@khanacademy/perseus";
+import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
 

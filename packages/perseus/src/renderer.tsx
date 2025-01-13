@@ -1,6 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {Errors, PerseusError, mapObject} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import classNames from "classnames";
@@ -19,7 +19,6 @@ import {DefinitionProvider} from "./definition-context";
 import {getDependencies} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
 import InteractionTracker from "./interaction-tracker";
-import {mapObject} from "./interactive2/objective_";
 import JiptParagraphs from "./jipt-paragraphs";
 import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
@@ -38,13 +37,6 @@ import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";
-import type {
-    PerseusRenderer,
-    PerseusWidget,
-    PerseusWidgetOptions,
-    PerseusWidgetsMap,
-    ShowSolutions,
-} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {
     APIOptions,
@@ -62,6 +54,13 @@ import type {
     RendererPromptJSON,
 } from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
+import type {
+    PerseusRenderer,
+    PerseusWidget,
+    PerseusWidgetOptions,
+    PerseusWidgetsMap,
+    ShowSolutions,
+} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.less";

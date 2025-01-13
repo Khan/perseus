@@ -27,19 +27,20 @@ import LockedLabelSettings from "./locked-label-settings";
 import LockedPointSettings from "./locked-point-settings";
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
+import type {Coord} from "@khanacademy/perseus";
 import type {
-    Coord,
     LockedFigure,
     LockedFigureColor,
     LockedLabelType,
     LockedLineType,
     LockedPointType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 const lengthZeroStr = "The line cannot have length 0.";
 
@@ -81,8 +82,21 @@ const LockedLineSettings = (props: Props) => {
         const visiblelabel = await joinLabelsAsSpokenMath(labels);
         const point1VisibleLabel = await joinLabelsAsSpokenMath(point1.labels);
         const point2VisibleLabel = await joinLabelsAsSpokenMath(point2.labels);
+        // Ensure negative values are read correctly within aria labels.
+        const spokenPoint1X = await generateSpokenMathDetails(
+            `$${point1.coord[0]}$`,
+        );
+        const spokenPoint1Y = await generateSpokenMathDetails(
+            `$${point1.coord[1]}$`,
+        );
+        const spokenPoint2X = await generateSpokenMathDetails(
+            `$${point2.coord[0]}$`,
+        );
+        const spokenPoint2Y = await generateSpokenMathDetails(
+            `$${point2.coord[1]}$`,
+        );
 
-        let str = `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at ${point1.coord[0]} comma ${point1.coord[1]} to point${point2VisibleLabel} at ${point2.coord[0]} comma ${point2.coord[1]}`;
+        let str = `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at ${spokenPoint1X} comma ${spokenPoint1Y} to point${point2VisibleLabel} at ${spokenPoint2X} comma ${spokenPoint2Y}`;
 
         const lineAppearance = generateLockedFigureAppearanceDescription(
             lineColor,

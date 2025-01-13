@@ -1,11 +1,4 @@
 import type {ILogger} from "./logging/log";
-import type {
-    Hint,
-    PerseusAnswerArea,
-    PerseusGraphType,
-    PerseusWidget,
-    PerseusWidgetsMap,
-} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {
@@ -16,7 +9,14 @@ import type {
 } from "./validation.types";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
-import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+import type {
+    Hint,
+    PerseusAnswerArea,
+    PerseusGraphType,
+    PerseusWidget,
+    PerseusWidgetsMap,
+    AnalyticsEventHandlerFn,
+} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";

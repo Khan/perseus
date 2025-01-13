@@ -4,7 +4,7 @@ import type {
     PerseusRadioChoice,
     PerseusRenderer,
     PerseusWidgetsMap,
-} from "../perseus-types";
+} from "@khanacademy/perseus-core";
 
 describe("injectWidgets", () => {
     describe("radio", () => {

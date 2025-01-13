@@ -1,10 +1,10 @@
+import {ItemExtras} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import AssetContext from "../asset-context";
-import {ItemExtras} from "../perseus-types";
+import AssetContext from "../../asset-context";
 
-import type {PerseusAnswerArea, PerseusItem} from "../perseus-types";
-import type {WidgetExports} from "../types";
+import type {WidgetExports} from "../../types";
+import type {PerseusAnswerArea, PerseusItem} from "@khanacademy/perseus-core";
 
 export const mockedAssetItem: PerseusItem = {
     question: {
@@ -30,6 +30,10 @@ export const mockedAssetItem: PerseusItem = {
     answer: null,
 } as const;
 
+/**
+ * This is a Mock Asset Loading Perseus widget, which is used specifically for
+ * our server-item-renderer tests to test the asset loading callbacks.
+ */
 export class MockAssetLoadingWidget extends React.Component<Record<any, any>> {
     setAssetStatus: ((assetKey: string, loaded: boolean) => void) | null = null;
 
