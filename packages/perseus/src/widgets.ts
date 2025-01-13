@@ -142,7 +142,7 @@ export const getWidgetScorer = (name: string): WidgetScorerFunction | null => {
     return widgets[name]?.scorer ?? null;
 };
 
-export const getWidgetPublicOptionsFunction = (
+export const getSplitWidgetOptionsFunction = (
     name: string,
 ): SplitWidgetOptionsFunctions | null => {
     return widgets[name]?.splitWidgetOptions ?? ((i) => i);
