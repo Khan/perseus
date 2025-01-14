@@ -1,5 +1,3 @@
-import {mockStrings} from "../../strings";
-
 import validateCategorizer from "./validate-categorizer";
 
 import type {PerseusCategorizerValidationData} from "@khanacademy/perseus-score";
@@ -13,15 +11,9 @@ describe("validateCategorizer", () => {
         const userInput = {
             values: [2],
         } as const;
-        const score = validateCategorizer(
-            userInput,
-            validationData,
-            mockStrings,
-        );
+        const score = validateCategorizer(userInput, validationData);
 
-        expect(score).toHaveInvalidInput(
-            "Make sure you select something for every row.",
-        );
+        expect(score).toHaveInvalidInput("INVALID_SELECTION");
     });
 
     it("returns null if the userInput is valid", () => {
@@ -32,11 +24,7 @@ describe("validateCategorizer", () => {
         const userInput = {
             values: [2, 4],
         } as const;
-        const score = validateCategorizer(
-            userInput,
-            validationData,
-            mockStrings,
-        );
+        const score = validateCategorizer(userInput, validationData);
 
         expect(score).toBeNull();
     });

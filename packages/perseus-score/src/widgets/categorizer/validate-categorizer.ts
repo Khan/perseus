@@ -1,6 +1,7 @@
-import type {PerseusStrings} from "../../strings";
-import type {ValidationResult} from "../../types";
+import {ErrorCodes} from "@khanacademy/perseus-score";
+
 import type {
+    ValidationResult,
     PerseusCategorizerUserInput,
     PerseusCategorizerValidationData,
 } from "@khanacademy/perseus-score";
@@ -16,7 +17,6 @@ import type {
 function validateCategorizer(
     userInput: PerseusCategorizerUserInput,
     validationData: PerseusCategorizerValidationData,
-    strings: PerseusStrings,
 ): ValidationResult {
     const incomplete = validationData.items.some(
         (_, i) => userInput.values[i] == null,
@@ -25,7 +25,7 @@ function validateCategorizer(
     if (incomplete) {
         return {
             type: "invalid",
-            message: strings.invalidSelection,
+            message: ErrorCodes.INVALID_SELECTION,
         };
     }
     return null;

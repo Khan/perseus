@@ -1,5 +1,7 @@
-import type {PerseusScore} from "../../types";
-import type {PerseusIFrameUserInput} from "@khanacademy/perseus-score";
+import type {
+    PerseusScore,
+    PerseusIFrameUserInput,
+} from "@khanacademy/perseus-score";
 
 export function scoreIframe(userInput: PerseusIFrameUserInput): PerseusScore {
     // The iframe can tell us whether it's correct or incorrect,

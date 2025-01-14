@@ -1,8 +1,6 @@
-import {mockStrings} from "../../strings";
-
 import scoreCategorizer from "./score-categorizer";
 
-import type {PerseusCategorizerScoringData} from "@khanacademy/perseus-score";
+import type {PerseusCategorizerScoringData} from "../../validation.types";
 
 describe("scoreCategorizer", () => {
     it("gives points when the answer is correct", () => {
@@ -14,7 +12,7 @@ describe("scoreCategorizer", () => {
         const userInput = {
             values: [1, 3],
         } as const;
-        const score = scoreCategorizer(userInput, scoringData, mockStrings);
+        const score = scoreCategorizer(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -28,7 +26,7 @@ describe("scoreCategorizer", () => {
         const userInput = {
             values: [2, 3],
         } as const;
-        const score = scoreCategorizer(userInput, scoringData, mockStrings);
+        const score = scoreCategorizer(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });

@@ -2,8 +2,8 @@ import {number as knumber} from "@khanacademy/kmath";
 
 import validateNumberLine from "./validate-number-line";
 
-import type {PerseusScore} from "../../types";
 import type {
+    PerseusScore,
     PerseusNumberLineScoringData,
     PerseusNumberLineUserInput,
 } from "@khanacademy/perseus-score";

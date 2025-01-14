@@ -188,7 +188,6 @@ export type {
     JiptRenderer,
     PerseusDependencies,
     PerseusDependenciesV2,
-    PerseusScore,
     Version,
     VideoData,
     VideoKind,

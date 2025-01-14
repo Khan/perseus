@@ -5,8 +5,8 @@ import {getMatrixSize} from "./matrix";
 import validateMatrix from "./validate-matrix";
 
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "../../types";
 import type {
+    PerseusScore,
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
 } from "@khanacademy/perseus-score";

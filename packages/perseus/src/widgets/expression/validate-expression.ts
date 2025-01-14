@@ -1,5 +1,7 @@
-import type {ValidationResult} from "../../types";
-import type {PerseusExpressionUserInput} from "@khanacademy/perseus-score";
+import type {
+    ValidationResult,
+    PerseusExpressionUserInput,
+} from "@khanacademy/perseus-score";
 
 /**
  * Checks user input from the expression widget to see if it is scorable.

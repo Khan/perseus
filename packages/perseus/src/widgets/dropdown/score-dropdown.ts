@@ -1,7 +1,7 @@
 import validateDropdown from "./validate-dropdown";
 
-import type {PerseusScore} from "../../types";
 import type {
+    PerseusScore,
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
 } from "@khanacademy/perseus-score";

@@ -1,22 +1,16 @@
 import validateCategorizer from "./validate-categorizer";
 
-import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "../../types";
 import type {
     PerseusCategorizerScoringData,
     PerseusCategorizerUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusScore,
+} from "../../validation.types";
 
 function scoreCategorizer(
     userInput: PerseusCategorizerUserInput,
     scoringData: PerseusCategorizerScoringData,
-    strings: PerseusStrings,
 ): PerseusScore {
-    const validationError = validateCategorizer(
-        userInput,
-        scoringData,
-        strings,
-    );
+    const validationError = validateCategorizer(userInput, scoringData);
     if (validationError) {
         return validationError;
     }

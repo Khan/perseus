@@ -2,9 +2,9 @@ import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
 import {functionForType} from "./util";
 
-import type {PerseusScore} from "../../types";
 import type {GrapherAnswerTypes} from "@khanacademy/perseus-core";
 import type {
+    PerseusScore,
     PerseusGrapherRubric,
     PerseusGrapherUserInput,
 } from "@khanacademy/perseus-score";

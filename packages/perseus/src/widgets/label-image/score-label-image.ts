@@ -1,6 +1,6 @@
-import type {PerseusScore} from "../../types";
 import type {InteractiveMarkerType} from "@khanacademy/perseus-core";
 import type {
+    PerseusScore,
     PerseusLabelImageRubric,
     PerseusLabelImageUserInput,
 } from "@khanacademy/perseus-score";

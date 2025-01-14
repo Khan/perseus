@@ -1,5 +1,7 @@
-import type {ValidationResult} from "../../types";
-import type {PerseusOrdererUserInput} from "@khanacademy/perseus-score";
+import type {
+    ValidationResult,
+    PerseusOrdererUserInput,
+} from "@khanacademy/perseus-score";
 
 /**
  * Checks user input from the orderer widget to see if the user has started

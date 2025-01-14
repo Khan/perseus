@@ -2,8 +2,8 @@ import _ from "underscore";
 
 import validateOrderer from "./validate-orderer";
 
-import type {PerseusScore} from "../../types";
 import type {
+    PerseusScore,
     PerseusOrdererRubric,
     PerseusOrdererUserInput,
 } from "@khanacademy/perseus-score";

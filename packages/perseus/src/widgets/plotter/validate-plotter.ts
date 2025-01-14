@@ -1,7 +1,7 @@
 import Util from "../../util";
 
-import type {ValidationResult} from "../../types";
 import type {
+    ValidationResult,
     PerseusPlotterUserInput,
     PerseusPlotterValidationData,
 } from "@khanacademy/perseus-score";

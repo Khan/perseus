@@ -5,8 +5,8 @@ import {filterNonEmpty} from "./utils";
 import validateTable from "./validate-table";
 
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "../../types";
 import type {
+    PerseusScore,
     PerseusTableRubric,
     PerseusTableUserInput,
 } from "@khanacademy/perseus-score";

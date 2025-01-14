@@ -1,7 +1,7 @@
 import _ from "underscore";
 
-import type {PerseusScore} from "../../types";
 import type {
+    PerseusScore,
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
 } from "@khanacademy/perseus-score";

@@ -1,8 +1,8 @@
 import validateRadio from "./validate-radio";
 
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "../../types";
 import type {
+    PerseusScore,
     PerseusRadioRubric,
     PerseusRadioUserInput,
 } from "@khanacademy/perseus-score";

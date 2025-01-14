@@ -9,9 +9,9 @@ import getDecimalSeparator from "./get-decimal-separator";
 import validateExpression from "./validate-expression";
 
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "../../types";
 import type {PerseusExpressionAnswerForm} from "@khanacademy/perseus-core";
 import type {
+    PerseusScore,
     Score,
     PerseusExpressionRubric,
     PerseusExpressionUserInput,

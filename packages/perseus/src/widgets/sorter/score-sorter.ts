@@ -2,8 +2,8 @@ import Util from "../../util";
 
 import validateSorter from "./validate-sorter";
 
-import type {PerseusScore} from "../../types";
 import type {
+    PerseusScore,
     PerseusSorterRubric,
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-score";

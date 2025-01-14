@@ -2,8 +2,8 @@ import Util from "../../util";
 
 import validatePlotter from "./validate-plotter";
 
-import type {PerseusScore} from "../../types";
 import type {
+    PerseusScore,
     PerseusPlotterScoringData,
     PerseusPlotterUserInput,
 } from "@khanacademy/perseus-score";

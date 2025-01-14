@@ -14,8 +14,8 @@ import {
 
 import {getClockwiseAngle} from "./math/angles";
 
-import type {PerseusScore} from "../../types";
 import type {
+    PerseusScore,
     PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
 } from "@khanacademy/perseus-score";

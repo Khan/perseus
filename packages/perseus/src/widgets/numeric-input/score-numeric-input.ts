@@ -3,12 +3,12 @@ import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import TexWrangler from "../../tex-wrangler";
 
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "../../types";
 import type {
     MathFormat,
     PerseusNumericInputAnswer,
 } from "@khanacademy/perseus-core";
 import type {
+    PerseusScore,
     Score,
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,

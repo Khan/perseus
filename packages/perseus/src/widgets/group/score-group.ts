@@ -2,8 +2,8 @@ import {scoreWidgetsFunctional} from "../../renderer-util";
 import {flattenScores} from "../../util/scoring";
 
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "../../types";
 import type {
+    PerseusScore,
     PerseusGroupRubric,
     PerseusGroupUserInput,
 } from "@khanacademy/perseus-score";

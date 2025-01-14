@@ -3,8 +3,8 @@ import _ from "underscore";
 import {getMatrixSize} from "./matrix";
 
 import type {PerseusStrings} from "../../strings";
-import type {ValidationResult} from "../../types";
 import type {
+    ValidationResult,
     PerseusMatrixUserInput,
     PerseusMatrixValidationData,
 } from "@khanacademy/perseus-score";
