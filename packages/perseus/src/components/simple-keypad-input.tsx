@@ -8,6 +8,7 @@
  * interface to `math-input`'s MathInput component.
  */
 
+import {KeypadContext} from "@khanacademy/keypad-context";
 import {
     KeypadInput,
     KeypadType,
@@ -17,7 +18,15 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 export default class SimpleKeypadInput extends React.Component<any> {
+    static contextType = KeypadContext;
+    declare context: React.ContextType<typeof KeypadContext>;
     _isMounted = false;
+    inputRef: React.RefObject<KeypadInput>;
+
+    constructor(props: any) {
+        super(props);
+        this.inputRef = React.createRef<KeypadInput>();
+    }
 
     componentDidMount() {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
@@ -30,17 +39,12 @@ export default class SimpleKeypadInput extends React.Component<any> {
     }
 
     focus() {
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus(); // eslint-disable-line react/no-string-refs
+        this.inputRef.current?.focus(this.context.setKeypadActive);
     }
 
     blur() {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        if (typeof this.refs.input?.blur === "function") {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-            this.refs.input?.blur();
+        if (typeof this.inputRef.current?.blur === "function") {
+            this.inputRef.current?.blur();
         }
     }
 
@@ -59,10 +63,7 @@ export default class SimpleKeypadInput extends React.Component<any> {
         return (
             // @ts-expect-error - TS2769 - No overload matches this call.
             <KeypadInput
-                ref={(input) => {
-                    // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-                    this.input = input;
-                }}
+                ref={this.inputRef}
                 keypadElement={keypadElement}
                 onFocus={() => {
                     if (keypadElement) {
