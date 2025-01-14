@@ -144,7 +144,7 @@ export const getWidgetScorer = (name: string): WidgetScorerFunction | null => {
 
 export const getSplitWidgetOptionsFunction = (
     name: string,
-): SplitWidgetOptionsFunctions | null => {
+): SplitWidgetOptionsFunctions => {
     return widgets[name]?.splitWidgetOptions ?? ((i) => i);
 };
 
