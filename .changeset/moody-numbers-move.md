@@ -2,4 +2,4 @@
 "@khanacademy/perseus": minor
 ---
 
-Create a function to filter out answer data from categorizer's widget options and add to its widget export
+Introduce a widget export function to filter out scoring data from widget options. Implement this function for the categorizer widget.
