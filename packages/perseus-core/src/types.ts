@@ -28,7 +28,6 @@ export type KEScore = {
     state: any;
 };
 
-// TODO: should these be part of data-schema?
 // Base marker, with the props that are set by the editor.
 export type MarkerType = {
     // The list of correct answers expected for the marker.
@@ -40,7 +39,6 @@ export type MarkerType = {
     y: number;
 };
 
-// TODO: should these be part of data-schema?
 // Additional props that are set when user interacts with the marker.
 export type InteractiveMarkerType = MarkerType & {
     // The user selected list of answers, used to grade the question.
@@ -50,6 +48,6 @@ export type InteractiveMarkerType = MarkerType & {
     focused?: boolean;
 };
 
-// TODO: should these be part of data-schema?
 // Used for NumberLine
+// TODO: can this be merged with PerseusNumberLineWidgetOptions.correctRel?
 export type Relationship = "lt" | "gt" | "le" | "ge";
