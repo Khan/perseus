@@ -356,8 +356,6 @@ class Tooltip extends React.Component<Props, State> {
                     {/* The contents of the tooltip */}
                     <div
                         className={this.props.className}
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="tooltipContent"
                         style={{
                             position: "relative",
                             top: settings["top"],
