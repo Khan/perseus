@@ -18,6 +18,7 @@ const LockedEllipse = (props: LockedEllipseType) => {
             className="locked-ellipse"
             aria-label={hasAria ? ariaLabel : undefined}
             aria-hidden={!hasAria}
+            role="img"
         >
             <Ellipse
                 center={center}
