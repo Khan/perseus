@@ -1,4 +1,4 @@
-import splitCategorizerWidgetOptions from "./categorizer.util";
+import getCategorizerPublicWidgetOptions from "./categorizer.util";
 
 import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 
@@ -18,7 +18,7 @@ describe("splitCategorizerWidgetOptions", () => {
             },
         };
 
-        const splitOptions = splitCategorizerWidgetOptions(
+        const splitOptions = getCategorizerPublicWidgetOptions(
             categorizerTestWidgetOptions,
         );
 
