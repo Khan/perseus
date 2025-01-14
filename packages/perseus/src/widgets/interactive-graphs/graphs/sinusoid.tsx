@@ -191,7 +191,7 @@ export function calculatePeriod(angularFrequency: number) {
 }
 
 /**
- * Formats integer or fractional multiples of PI.
+ * Formats integer or fractional multiples of PI
  * @param input - number
  * @param locale - i18n locale
  * @returns integer or fractional multiples of PI. if input is not a multiple of PI, returns input formatted as a sr string
