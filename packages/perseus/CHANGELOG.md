@@ -1,5 +1,22 @@
 # @khanacademy/perseus
 
+## 50.1.0
+
+### Minor Changes
+
+-   [#2092](https://github.com/Khan/perseus/pull/2092) [`600bf6acb`](https://github.com/Khan/perseus/commit/600bf6acbbf76817e3bf7893f8f85188a538bd6a) Thanks [@Myranae](https://github.com/Myranae)! - Introduce a widget export function to filter out scoring data from widget options. Implement this function for the categorizer widget.
+
+*   [#2103](https://github.com/Khan/perseus/pull/2103) [`01caf5f31`](https://github.com/Khan/perseus/commit/01caf5f3111d84cf37dffc45012f21860d1648b1) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - revert wb versions
+
+### Patch Changes
+
+-   [#2097](https://github.com/Khan/perseus/pull/2097) [`7ed21f49e`](https://github.com/Khan/perseus/commit/7ed21f49ee0cccbb40f200903a7fdfb9c2c0389b) Thanks [@nishasy](https://github.com/nishasy)! - [SR][locked figures] Give all locked figures "img" role
+
+*   [#2104](https://github.com/Khan/perseus/pull/2104) [`ce67b0f0a`](https://github.com/Khan/perseus/commit/ce67b0f0a823c09c1c942220d93eca20aa8a963f) Thanks [@handeyeco](https://github.com/handeyeco)! - Handle error codes better in Graded Group
+
+*   Updated dependencies [[`01caf5f31`](https://github.com/Khan/perseus/commit/01caf5f3111d84cf37dffc45012f21860d1648b1)]:
+    -   @khanacademy/math-input@22.2.0
+
 ## 50.0.0
 
 ### Major Changes
