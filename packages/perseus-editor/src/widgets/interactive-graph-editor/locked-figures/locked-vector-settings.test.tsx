@@ -8,6 +8,7 @@ import {flags} from "../../../__stories__/flags-for-api-options";
 import LockedVectorSettings from "./locked-vector-settings";
 import {
     getDefaultFigureForType,
+    mockedGenerateSpokenMathDetailsForTests,
     mockedJoinLabelsAsSpokenMathForTests,
 } from "./util";
 
@@ -30,9 +31,11 @@ const defaultProps = {
 
 const defaultLabel = getDefaultFigureForType("label");
 
-// Mock the async function generateSpokenMathDetails
+// Mock the async functions
 jest.mock("./util", () => ({
     ...jest.requireActual("./util"),
+    generateSpokenMathDetails: (input) =>
+        mockedGenerateSpokenMathDetailsForTests(input),
     joinLabelsAsSpokenMath: (input) =>
         mockedJoinLabelsAsSpokenMathForTests(input),
 }));
@@ -441,7 +444,7 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Vector from 0 comma 0 to 2 comma 2. Appearance solid gray.",
+                    "Vector from spoken $0$ comma spoken $0$ to spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
 
@@ -472,7 +475,7 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Vector spoken A from 0 comma 0 to 2 comma 2. Appearance solid gray.",
+                    "Vector spoken A from spoken $0$ comma spoken $0$ to spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
 
@@ -507,7 +510,7 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Vector spoken A, spoken B from 0 comma 0 to 2 comma 2. Appearance solid gray.",
+                    "Vector spoken A, spoken B from spoken $0$ comma spoken $0$ to spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
     });

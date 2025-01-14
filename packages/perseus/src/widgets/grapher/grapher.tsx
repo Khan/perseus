@@ -41,6 +41,7 @@ import type {
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
 import type {
     GridDimensions,
+    MarkingsType,
     PerseusGrapherWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -358,7 +359,7 @@ type Props = ExternalProps & {
     plot: NonNullable<RenderProps["plot"]>;
     // NOTE(jeremy): This prop exists in the `graph` prop value. Unsure what
     // passes it down as a top-level prop (I suspect the editor?)
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
 };
 
 type DefaultProps = {

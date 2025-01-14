@@ -22,7 +22,6 @@ export const parseCSProgramWidget: Parser<CSProgramWidget> = parseWidget(
         settings: array(object({name: string, value: string})),
         showEditor: boolean,
         showButtons: boolean,
-        width: number,
         height: number,
         static: defaulted(boolean, () => false),
     }),

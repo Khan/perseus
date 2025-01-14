@@ -277,7 +277,7 @@ describe("invalid", function () {
             mockStrings,
         );
         expect(err).toEqual({
-            message: "☃ EXTRA_SYMBOLS_ERROR ☃",
+            message: "EXTRA_SYMBOLS_ERROR",
             type: "invalid",
         });
     });

@@ -39,6 +39,7 @@ const LockedFunction = (props: LockedFunctionType) => {
             className="locked-function"
             aria-label={hasAria ? props.ariaLabel : undefined}
             aria-hidden={!hasAria}
+            role="img"
         >
             {directionalAxis === "x" && (
                 <Plot.OfX y={(x) => equation.eval({x})} {...plotProps} />

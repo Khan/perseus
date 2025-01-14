@@ -5,15 +5,7 @@ import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import _ from "underscore";
 
-import {
-    APPROXIMATED_PI_ERROR,
-    EXTRA_SYMBOLS_ERROR,
-    MISSING_PERCENT_ERROR,
-    NEEDS_TO_BE_SIMPLIFIED_ERROR,
-    WRONG_CASE_ERROR,
-    WRONG_LETTER_ERROR,
-    MULTIPLICATION_SIGN_ERROR,
-} from "../error-identifiers";
+import ErrorCodes from "../error-codes";
 
 const MAXERROR_EPSILON = Math.pow(2, -42);
 
@@ -577,12 +569,14 @@ const KhanAnswerTypes = {
                             } else if (form === "percent") {
                                 // Otherwise, an error was returned
                                 score.empty = true;
-                                score.message = MISSING_PERCENT_ERROR;
+                                score.message =
+                                    ErrorCodes.MISSING_PERCENT_ERROR;
                             } else {
                                 if (options.simplify !== "enforced") {
                                     score.empty = true;
                                 }
-                                score.message = NEEDS_TO_BE_SIMPLIFIED_ERROR;
+                                score.message =
+                                    ErrorCodes.NEEDS_TO_BE_SIMPLIFIED_ERROR;
                             }
                             // The return false below stops the looping of the
                             // callback since predicate check  succeeded.
@@ -591,7 +585,7 @@ const KhanAnswerTypes = {
                         }
                         if (piApprox && predicate(val, Math.abs(val * 0.001))) {
                             score.empty = true;
-                            score.message = APPROXIMATED_PI_ERROR;
+                            score.message = ErrorCodes.APPROXIMATED_PI_ERROR;
                         }
                     }
                 });
@@ -609,7 +603,7 @@ const KhanAnswerTypes = {
                     });
                     if (!interpretedGuess) {
                         score.empty = true;
-                        score.message = EXTRA_SYMBOLS_ERROR;
+                        score.message = ErrorCodes.EXTRA_SYMBOLS_ERROR;
                         return score;
                     }
                 }
@@ -789,8 +783,8 @@ const KhanAnswerTypes = {
                     score.ungraded = true;
                     // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
                     score.message = result.wrongVariableCase
-                        ? WRONG_CASE_ERROR
-                        : WRONG_LETTER_ERROR;
+                        ? ErrorCodes.WRONG_CASE_ERROR
+                        : ErrorCodes.WRONG_LETTER_ERROR;
                     // Don't tell the use they're "almost there" in this case, that may not be true and isn't helpful.
                     // @ts-expect-error - TS2339 - Property 'suppressAlmostThere' does not exist on type '{ readonly empty: false; readonly correct: false; readonly message: string | null | undefined; readonly guess: any; readonly ungraded: false; }'.
                     score.suppressAlmostThere = true;
@@ -823,7 +817,8 @@ const KhanAnswerTypes = {
                             // @ts-expect-error - TS2540 - Cannot assign to 'ungraded' because it is a read-only property.
                             score.ungraded = true;
                             // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
-                            score.message = MULTIPLICATION_SIGN_ERROR;
+                            score.message =
+                                ErrorCodes.MULTIPLICATION_SIGN_ERROR;
                         } else if (resultX.message) {
                             // TODO(aasmund): I18nize `score.message`
                             // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
