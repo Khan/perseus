@@ -115,6 +115,7 @@ const LockedLine = (props: Props) => {
             className={kind === "ray" ? "locked-ray" : "locked-line"}
             aria-label={hasAria ? ariaLabel : undefined}
             aria-hidden={!hasAria}
+            role="img"
         >
             {line}
             {showPoint1 && (

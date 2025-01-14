@@ -17,6 +17,7 @@ const LockedPoint = (props: LockedPointType) => {
             className="locked-point"
             aria-label={hasAria ? ariaLabel : undefined}
             aria-hidden={!hasAria}
+            role="img"
         >
             <Point
                 x={x}
