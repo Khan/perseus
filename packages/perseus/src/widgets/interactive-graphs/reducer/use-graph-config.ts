@@ -1,5 +1,6 @@
 import React, {createContext} from "react";
 
+import type {MarkingsType} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 
 export type GraphConfig = {
@@ -7,7 +8,7 @@ export type GraphConfig = {
     tickStep: vec.Vector2;
     gridStep: vec.Vector2;
     snapStep: vec.Vector2;
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     showTooltips: boolean;
     graphDimensionsInPixels: vec.Vector2;
     width: number; // in graph units
