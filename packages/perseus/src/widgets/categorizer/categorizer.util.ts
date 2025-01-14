@@ -1,16 +1,20 @@
 import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 
+/**
+ * For details on the individual options, see the
+ * PerseusCategorizerWidgetOptions type
+ */
 type CategorizerPublicWidgetOptions = {
-    // a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
     items: PerseusCategorizerWidgetOptions["items"];
-    // a list of categories. e.g. ["fruits", "colors", "clothing"]
     categories: PerseusCategorizerWidgetOptions["categories"];
-    // Whether the items should be randomized
     randomizeItems: PerseusCategorizerWidgetOptions["randomizeItems"];
-    // Whether this widget is displayed with the results and immutable
     static: PerseusCategorizerWidgetOptions["static"];
 };
 
+/**
+ * Given a PerseusCategorizerWidgetOptions object, return a new object with only
+ * the public options that should be exposed to the client.
+ */
 function getCategorizerPublicWidgetOptions(
     options: PerseusCategorizerWidgetOptions,
 ): CategorizerPublicWidgetOptions {
