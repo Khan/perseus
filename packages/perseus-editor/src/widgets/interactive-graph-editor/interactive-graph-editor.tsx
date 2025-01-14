@@ -38,6 +38,7 @@ import type {
     PerseusImageBackground,
     PerseusInteractiveGraphWidgetOptions,
     PerseusGraphType,
+    MarkingsType,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -108,7 +109,7 @@ export type Props = {
      * - grid: shows only the grid lines
      * - none: shows no markings
      */
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     /**
      * Whether to show the protractor on the graph.
      */

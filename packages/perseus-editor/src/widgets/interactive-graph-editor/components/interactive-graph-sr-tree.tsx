@@ -55,7 +55,7 @@ export function getAccessibilityAttributes(
             const descriptions = ariaDescribedby.split(/ +/);
             for (const description of descriptions) {
                 const descriptionString =
-                    document.getElementById(description)?.innerText;
+                    document.getElementById(description)?.textContent;
 
                 if (descriptionString) {
                     elementAttributes.push({

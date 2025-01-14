@@ -46,6 +46,14 @@ export const MafsWithFractionalAxisTicks = (
     />
 );
 
+export const MafsWithAxesMarkings = (args: StoryArgs): React.ReactElement => (
+    <MafsQuestionRenderer
+        question={interactiveGraphQuestionBuilder()
+            .withMarkings("axes")
+            .build()}
+    />
+);
+
 export const MafsWithGridMarkings = (args: StoryArgs): React.ReactElement => (
     <MafsQuestionRenderer
         question={interactiveGraphQuestionBuilder()
