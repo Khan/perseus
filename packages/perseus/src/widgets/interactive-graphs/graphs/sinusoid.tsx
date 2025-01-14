@@ -67,9 +67,21 @@ function SinusoidGraph(props: SinusoidGraphProps) {
         index: number,
         coordinate: vec.Vector2,
     ): string {
+        const x = coordinate[0];
+        const y = coordinate[1];
+
+        const convertedXCoordinate =
+            x === 0
+                ? `0`
+                : x % 2 === 0
+                  ? `${x / 2} pi`
+                  : x % 1 === 0
+                    ? `${x}/2 pi`
+                    : `${x * 2}/4 pi`;
+
         const coordsObj = {
-            x: srFormatNumber(coordinate[0], locale),
-            y: srFormatNumber(coordinate[1], locale),
+            x: convertedXCoordinate,
+            y: srFormatNumber(y, locale),
         };
 
         return index === 1
