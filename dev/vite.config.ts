@@ -4,7 +4,6 @@ import {resolve, dirname, join} from "node:path";
 import react from "@vitejs/plugin-react";
 import glob from "fast-glob";
 import {defineConfig} from "vite";
-import path from "path";
 
 // Create aliases for each package in the Perseus monorepo, so Vite knows
 // where to look when a file imports e.g. @khanacademy/perseus.
