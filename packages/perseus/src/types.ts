@@ -8,7 +8,7 @@ import type {
     UserInputMap,
 } from "./validation.types";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
-import type getPublicCategorizerWidgetOptions from "./widgets/categorizer/categorizer.util";
+import type getCategorizerPublicWidgetOptions from "./widgets/categorizer/categorizer.util";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     Hint,
@@ -547,7 +547,7 @@ export type WidgetScorerFunction = (
  * A union type of all the functions that provide public widget options.
  */
 export type PublicWidgetOptionsFunction =
-    typeof getPublicCategorizerWidgetOptions;
+    typeof getCategorizerPublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
