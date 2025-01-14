@@ -4,6 +4,7 @@ import {resolve, dirname, join} from "node:path";
 import react from "@vitejs/plugin-react";
 import glob from "fast-glob";
 import {defineConfig} from "vite";
+import path from "path";
 
 // Create aliases for each package in the Perseus monorepo, so Vite knows
 // where to look when a file imports e.g. @khanacademy/perseus.
@@ -27,6 +28,10 @@ export default defineConfig({
             hubble: resolve(__dirname, "../vendor/hubble/hubble.js"),
             raphael: resolve(__dirname, "../vendor/raphael/raphael.js"),
             jsdiff: resolve(__dirname, "../vendor/jsdiff/jsdiff.js"),
+            aphrodite: resolve(
+                __dirname,
+                "../node_modules/aphrodite/no-important",
+            ),
             ...packageAliases,
         },
     },
