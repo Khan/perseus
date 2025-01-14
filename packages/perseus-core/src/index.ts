@@ -16,6 +16,6 @@ export {PerseusError} from "./error/perseus-error";
 
 export * from "./data-schema";
 
-export {pluck, mapObject, clone} from "./utils/object-utils";
+export {pluck, mapObject} from "./utils/objective_";
 export {default as Util} from "./utils/util";
 export type {GridDimensions, Position} from "./utils/util";

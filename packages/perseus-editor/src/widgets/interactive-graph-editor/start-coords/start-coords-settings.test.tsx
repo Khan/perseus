@@ -1,10 +1,10 @@
 import {Dependencies} from "@khanacademy/perseus";
-import {clone} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {clone} from "../../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 
 import StartCoordsSettings from "./start-coords-settings";
