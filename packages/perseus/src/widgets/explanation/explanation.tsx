@@ -147,10 +147,6 @@ class Explanation extends React.Component<Props, State> implements Widget {
     }
 }
 
-const leftBorderSpacing = 23;
-const verticalContentPadding = 10;
-const arrowHeight = 14;
-
 export default {
     name: "explanation",
     displayName: "Explanation",
