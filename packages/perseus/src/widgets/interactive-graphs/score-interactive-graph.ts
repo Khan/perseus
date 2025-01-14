@@ -18,7 +18,7 @@ import type {PerseusScore} from "../../types";
 import type {
     PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 const eq = Util.eq;
 const deepEq = Util.deepEq;

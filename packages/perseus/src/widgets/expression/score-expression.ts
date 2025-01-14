@@ -10,12 +10,12 @@ import validateExpression from "./validate-expression";
 
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
+import type {PerseusExpressionAnswerForm} from "@khanacademy/perseus-core";
 import type {
+    Score,
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
-} from "../../validation.types";
-import type {PerseusExpressionAnswerForm} from "@khanacademy/perseus-core";
-import type {Score} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-score";
 
 /* Content creators input a list of answers which are matched from top to
  * bottom. The intent is that they can include spcific solutions which should

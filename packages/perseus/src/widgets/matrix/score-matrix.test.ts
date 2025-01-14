@@ -6,7 +6,7 @@ import * as MatrixValidator from "./validate-matrix";
 import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 describe("scoreMatrix", () => {
     it("should be correctly answerable if validation passes", function () {

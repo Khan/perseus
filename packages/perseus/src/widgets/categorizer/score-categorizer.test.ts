@@ -2,7 +2,7 @@ import {mockStrings} from "../../strings";
 
 import scoreCategorizer from "./score-categorizer";
 
-import type {PerseusCategorizerScoringData} from "../../validation.types";
+import type {PerseusCategorizerScoringData} from "@khanacademy/perseus-score";
 
 describe("scoreCategorizer", () => {
     it("gives points when the answer is correct", () => {

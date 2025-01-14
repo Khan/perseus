@@ -2,7 +2,7 @@ import {mockStrings} from "../../strings";
 
 import validateCategorizer from "./validate-categorizer";
 
-import type {PerseusCategorizerValidationData} from "../../validation.types";
+import type {PerseusCategorizerValidationData} from "@khanacademy/perseus-score";
 
 describe("validateCategorizer", () => {
     it("tells the learner its not complete if not selected", () => {

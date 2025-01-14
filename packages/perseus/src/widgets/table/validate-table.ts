@@ -1,7 +1,7 @@
 import {filterNonEmpty} from "./utils";
 
 import type {ValidationResult} from "../../types";
-import type {PerseusTableUserInput} from "../../validation.types";
+import type {PerseusTableUserInput} from "@khanacademy/perseus-score";
 
 function validateTable(userInput: PerseusTableUserInput): ValidationResult {
     const supplied = filterNonEmpty(userInput);

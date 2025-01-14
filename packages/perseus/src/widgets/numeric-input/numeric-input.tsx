@@ -14,15 +14,15 @@ import scoreNumericInput from "./score-numeric-input";
 
 import type {PerseusStrings} from "../../strings";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusNumericInputRubric,
-    PerseusNumericInputUserInput,
-} from "../../validation.types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 import type {
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
 } from "@khanacademy/perseus-core";
+import type {
+    PerseusNumericInputRubric,
+    PerseusNumericInputUserInput,
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const formExamples: {

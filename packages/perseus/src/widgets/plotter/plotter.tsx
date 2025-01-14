@@ -16,12 +16,12 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plo
 import scorePlotter from "./score-plotter";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusPlotterScoringData,
     PerseusPlotterUserInput,
-} from "../../validation.types";
-import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
-import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
+} from "@khanacademy/perseus-score";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 

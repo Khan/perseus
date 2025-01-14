@@ -12,16 +12,16 @@ import scoreRadio from "./score-radio";
 
 import type {FocusFunction, ChoiceType} from "./base-radio";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
-import type {
-    PerseusRadioRubric,
-    PerseusRadioUserInput,
-} from "../../validation.types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
     ShowSolutions,
 } from "@khanacademy/perseus-core";
+import type {
+    PerseusRadioRubric,
+    PerseusRadioUserInput,
+} from "@khanacademy/perseus-score";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {

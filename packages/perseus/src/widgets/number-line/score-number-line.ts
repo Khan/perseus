@@ -6,7 +6,7 @@ import type {PerseusScore} from "../../types";
 import type {
     PerseusNumberLineScoringData,
     PerseusNumberLineUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 function scoreNumberLine(
     userInput: PerseusNumberLineUserInput,

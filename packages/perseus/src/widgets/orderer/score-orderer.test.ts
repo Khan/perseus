@@ -5,7 +5,7 @@ import * as OrdererValidator from "./validate-orderer";
 import type {
     PerseusOrdererRubric,
     PerseusOrdererUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 describe("scoreOrderer", () => {
     it("is correct when the userInput is in the same order and is the same length as the rubric's correctOption content items", () => {

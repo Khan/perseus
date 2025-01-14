@@ -43,10 +43,6 @@ import type {
     Range,
     SineCoefficient,
 } from "../util/geometry";
-import type {
-    PerseusInteractiveGraphRubric,
-    PerseusInteractiveGraphUserInput,
-} from "../validation.types";
 import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
 import type {
@@ -61,6 +57,10 @@ import type {
     PerseusImageBackground,
     MarkingsType,
 } from "@khanacademy/perseus-core";
+import type {
+    PerseusInteractiveGraphRubric,
+    PerseusInteractiveGraphUserInput,
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const TRASH_ICON_URI =

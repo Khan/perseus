@@ -18,12 +18,12 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/
 import scoreCSProgram from "./score-cs-program";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {PerseusCSProgramWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusCSProgramRubric,
     PerseusCSProgramUserInput,
-} from "../../validation.types";
-import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
-import type {PerseusCSProgramWidgetOptions} from "@khanacademy/perseus-core";
+} from "@khanacademy/perseus-score";
 
 const {updateQueryString} = Util;
 

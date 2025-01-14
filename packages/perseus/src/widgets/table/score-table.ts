@@ -9,7 +9,7 @@ import type {PerseusScore} from "../../types";
 import type {
     PerseusTableRubric,
     PerseusTableUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 function scoreTable(
     userInput: PerseusTableUserInput,

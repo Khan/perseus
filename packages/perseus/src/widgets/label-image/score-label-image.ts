@@ -1,9 +1,9 @@
-import type {InteractiveMarkerType} from "./types";
 import type {PerseusScore} from "../../types";
+import type {InteractiveMarkerType} from "@khanacademy/perseus-core";
 import type {
     PerseusLabelImageRubric,
     PerseusLabelImageUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 // Question state for marker as result of user selected answers.
 type InteractiveMarkerScore = {

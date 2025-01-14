@@ -4,7 +4,7 @@ import type {PerseusScore} from "../../types";
 import type {
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 function scoreDropdown(
     userInput: PerseusDropdownUserInput,

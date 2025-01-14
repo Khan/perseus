@@ -7,7 +7,7 @@ import type {ValidationResult} from "../../types";
 import type {
     PerseusMatrixUserInput,
     PerseusMatrixValidationData,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 /**
  * Checks user input from the matrix widget to see if it is scorable.

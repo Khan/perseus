@@ -4,7 +4,7 @@ import type {Coord} from "../../interactive2/types";
 import type {
     PerseusGrapherRubric,
     PerseusGrapherUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 describe("scoreGrapher", () => {
     it("is incorrect when user input type doesn't match rubric type", () => {

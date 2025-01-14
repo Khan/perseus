@@ -20,11 +20,11 @@ import {
 } from "./radio.testdata";
 
 import type {APIOptions} from "../../../types";
-import type {PerseusRadioUserInput} from "../../../validation.types";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import type {PerseusRadioUserInput} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (

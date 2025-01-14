@@ -1,6 +1,6 @@
 import scoreCSProgram from "./score-cs-program";
 
-import type {PerseusCSProgramUserInput} from "../../validation.types";
+import type {PerseusCSProgramUserInput} from "@khanacademy/perseus-score";
 
 describe("scoreCSProgram", () => {
     it("is correct when the state from the iframe shows the status is correct", () => {

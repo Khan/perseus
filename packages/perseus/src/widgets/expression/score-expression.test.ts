@@ -4,7 +4,7 @@ import {expressionItem3Options} from "./expression.testdata";
 import scoreExpression from "./score-expression";
 import * as ExpressionValidator from "./validate-expression";
 
-import type {PerseusExpressionRubric} from "../../validation.types";
+import type {PerseusExpressionRubric} from "@khanacademy/perseus-score";
 
 describe("scoreExpression", () => {
     it("should be correctly answerable if validation passes", function () {

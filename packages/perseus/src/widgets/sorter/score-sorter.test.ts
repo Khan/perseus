@@ -4,7 +4,7 @@ import * as SorterValidator from "./validate-sorter";
 import type {
     PerseusSorterRubric,
     PerseusSorterUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 describe("scoreSorter", () => {
     it("is correct when the user input values are in the order defined in the rubric", () => {

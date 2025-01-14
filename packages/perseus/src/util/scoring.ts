@@ -1,8 +1,8 @@
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
 import type {PerseusScore} from "../types";
-import type {UserInputArray} from "../validation.types";
 import type {KEScore} from "@khanacademy/perseus-core";
+import type {UserInputArray} from "@khanacademy/perseus-score";
 
 const noScore: PerseusScore = {
     type: "points",

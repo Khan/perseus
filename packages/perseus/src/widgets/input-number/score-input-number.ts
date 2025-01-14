@@ -3,11 +3,11 @@ import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import TexWrangler from "../../tex-wrangler";
 
 import type {PerseusStrings} from "../../strings";
+import type {PerseusScore} from "@khanacademy/perseus";
 import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
-} from "../../validation.types";
-import type {PerseusScore} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-score";
 
 const ParseTex = TexWrangler.parseTex;
 

@@ -4,7 +4,7 @@ import type {ValidationResult} from "../../types";
 import type {
     PerseusPlotterUserInput,
     PerseusPlotterValidationData,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 const {deepEq} = Util;
 

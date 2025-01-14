@@ -17,8 +17,9 @@ import scoreNumberLine from "./score-number-line";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
-import type {PerseusNumberLineUserInput} from "../../validation.types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
+import type {Relationship} from "@khanacademy/perseus-core";
+import type {PerseusNumberLineUserInput} from "@khanacademy/perseus-score";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -187,8 +188,6 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
 
     return results;
 });
-
-export type Relationship = "lt" | "gt" | "le" | "ge";
 
 // TODO: most widgets use some like Widget<Something, PerseusNumberLineWidgetOptions>
 // should this one?

@@ -1,11 +1,11 @@
 import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 
 import type {PerseusStrings} from "../../strings";
+import type {PerseusScore} from "@khanacademy/perseus";
 import type {
     PerseusMockWidgetUserInput,
     PerseusMockWidgetRubric,
-} from "../../validation.types";
-import type {PerseusScore} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-score";
 
 function scoreMockWidget(
     userInput: PerseusMockWidgetUserInput,

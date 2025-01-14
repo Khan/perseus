@@ -1,12 +1,6 @@
 import type {ILogger} from "./logging/log";
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
-import type {
-    Rubric,
-    UserInput,
-    UserInputArray,
-    UserInputMap,
-} from "./validation.types";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
@@ -18,6 +12,12 @@ import type {
     AnalyticsEventHandlerFn,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {
+    Rubric,
+    UserInput,
+    UserInputArray,
+    UserInputMap,
+} from "@khanacademy/perseus-score";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
 

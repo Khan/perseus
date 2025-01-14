@@ -15,12 +15,12 @@ import scoreMatcher from "./score-matcher";
 
 import type {SortableOption} from "../../components/sortable";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
+import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
-} from "../../validation.types";
-import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
-import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
+} from "@khanacademy/perseus-score";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";

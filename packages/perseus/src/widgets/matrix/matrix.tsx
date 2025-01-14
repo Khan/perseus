@@ -18,15 +18,15 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matr
 import scoreMatrix from "./score-matrix";
 
 import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
-import type {
-    PerseusMatrixRubric,
-    PerseusMatrixUserInput,
-} from "../../validation.types";
 import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 import type {
     PerseusMatrixWidgetAnswers,
     PerseusMatrixWidgetOptions,
 } from "@khanacademy/perseus-core";
+import type {
+    PerseusMatrixRubric,
+    PerseusMatrixUserInput,
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {assert} = InteractiveUtil;

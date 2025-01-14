@@ -3,7 +3,7 @@ import type {ValidationResult} from "../../types";
 import type {
     PerseusCategorizerUserInput,
     PerseusCategorizerValidationData,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 /**
  * Checks userInput from the categorizer widget to see if the user has selected

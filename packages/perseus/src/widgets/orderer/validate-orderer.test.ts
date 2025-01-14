@@ -1,6 +1,6 @@
 import validateOrderer from "./validate-orderer";
 
-import type {PerseusOrdererUserInput} from "../../validation.types";
+import type {PerseusOrdererUserInput} from "@khanacademy/perseus-score";
 
 describe("validateOrderer", () => {
     it("is invalid when the user has not started ordering the options and current is empty", () => {

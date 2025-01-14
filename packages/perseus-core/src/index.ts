@@ -3,6 +3,9 @@ export type {
     KEScore,
     KeypadContextRendererInterface,
     RendererInterface,
+    MarkerType,
+    InteractiveMarkerType,
+    Relationship,
 } from "./types";
 export type {ErrorKind} from "./error/errors";
 

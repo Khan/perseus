@@ -14,12 +14,12 @@ import scoreInputNumber, {answerTypes} from "./score-input-number";
 
 import type {PerseusStrings} from "../../strings";
 import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
+import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
-} from "../../validation.types";
-import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
-import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
+} from "@khanacademy/perseus-score";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {

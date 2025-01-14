@@ -2,7 +2,7 @@ import {mockStrings} from "../../strings";
 
 import scoreInputNumber from "./score-input-number";
 
-import type {PerseusInputNumberRubric} from "../../validation.types";
+import type {PerseusInputNumberRubric} from "@khanacademy/perseus-score";
 
 describe("scoreInputNumber", () => {
     it("scores correct answer correctly", () => {

@@ -197,10 +197,8 @@ export type {
 } from "./types";
 export type {ParsedValue} from "./util";
 export type {Result, Success, Failure} from "./util/parse-perseus-json/result";
-export type {UserInputMap} from "./validation.types";
 export type {Coord} from "./interactive2/types";
 export type {Coords} from "./widgets/grapher/grapher-types";
-export type {MarkerType} from "./widgets/label-image/types";
 export type {
     RendererPromptJSON,
     WidgetPromptJSON,

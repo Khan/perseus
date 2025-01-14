@@ -35,15 +35,15 @@ import type {Coord, Line} from "../../interactive2/types";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
-import type {
-    PerseusGrapherRubric,
-    PerseusGrapherUserInput,
-} from "../../validation.types";
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
 import type {
     MarkingsType,
     PerseusGrapherWidgetOptions,
 } from "@khanacademy/perseus-core";
+import type {
+    PerseusGrapherRubric,
+    PerseusGrapherUserInput,
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.

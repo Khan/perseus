@@ -6,11 +6,11 @@ import {getWidgetScorer, upgradeWidgetInfoToLatestVersion} from "./widgets";
 
 import type {PerseusStrings} from "./strings";
 import type {PerseusScore} from "./types";
-import type {UserInput, UserInputMap} from "./validation.types";
 import type {
     PerseusRenderer,
     PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
+import type {UserInput, UserInputMap} from "@khanacademy/perseus-score";
 
 export function getUpgradedWidgetOptions(
     oldWidgetOptions: PerseusWidgetsMap,

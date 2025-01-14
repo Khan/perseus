@@ -4,7 +4,7 @@ import {mockStrings} from "../../strings";
 
 import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
 
-import type {PerseusNumericInputRubric} from "../../validation.types";
+import type {PerseusNumericInputRubric} from "@khanacademy/perseus-score";
 
 describe("static function validate", () => {
     beforeEach(() => {

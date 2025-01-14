@@ -34,9 +34,9 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
-import type {PerseusGradedGroupRubric} from "../../validation.types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 import type {PerseusGradedGroupWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusGradedGroupRubric} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const GRADING_STATUSES = {
