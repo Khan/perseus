@@ -8,10 +8,10 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-inp
 
 import {NumericInputComponent} from "./numeric-input";
 import scoreNumericInput from "./score-numeric-input";
+import {NumericExampleStrings} from "./utils";
 
 import type InputWithExamples from "../../components/input-with-examples";
 import type SimpleKeypadInput from "../../components/simple-keypad-input";
-import type {PerseusStrings} from "../../strings";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusNumericInputRubric,
@@ -21,29 +21,10 @@ import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/p
 import type {
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
+    MathFormat,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {RefObject} from "react";
-
-export const NumericExampleStrings: {
-    [key: string]: (
-        arg1: PerseusNumericInputAnswerForm,
-        strings: PerseusStrings,
-    ) => string;
-} = {
-    integer: (form, strings: PerseusStrings) => strings.integerExample,
-    proper: (form, strings: PerseusStrings) =>
-        form.simplify === "optional"
-            ? strings.properExample
-            : strings.simplifiedProperExample,
-    improper: (form, strings: PerseusStrings) =>
-        form.simplify === "optional"
-            ? strings.improperExample
-            : strings.simplifiedImproperExample,
-    mixed: (form, strings: PerseusStrings) => strings.mixedExample,
-    decimal: (form, strings: PerseusStrings) => strings.decimalExample,
-    pi: (form, strings: PerseusStrings) => strings.piExample,
-};
 
 type ExternalProps = WidgetProps<
     PerseusNumericInputWidgetOptions,
@@ -83,14 +64,8 @@ type DefaultProps = {
     PerseusNumericInputRubric
 > satisfies PropsFor<typeof NumericInput>;
 
-type State = {
-    // keeps track of the other set of values when switching
-    // between 0 and finite solutions
-    previousValues: ReadonlyArray<string>;
-};
-
-class NumericInput
-    extends React.Component<NumericInputProps, State>
+export class NumericInput
+    extends React.Component<NumericInputProps>
     implements Widget
 {
     inputRef: RefObject<SimpleKeypadInput | InputWithExamples>;
@@ -121,15 +96,6 @@ class NumericInput
         >();
     }
 
-    // STOPSHIP: THIRD I THINK WE CAN FULLY GET RID OF STATE?!?!?!
-    // Previous Values is never even set or called anywhere across Perseus
-    // and webapp. It's only set in the constructor and never used.
-    state: State = {
-        // keeps track of the other set of values when switching
-        // between 0 and finite solutions
-        previousValues: [""],
-    };
-
     focus: () => boolean = () => {
         this.inputRef.current?.focus();
         return true;
@@ -150,6 +116,9 @@ class NumericInput
         return [[]];
     };
 
+    /**
+     * Sets the value of the input at the given path.
+     */
     setInputValue: (
         arg1: FocusPath,
         arg2: string,
@@ -164,10 +133,17 @@ class NumericInput
         );
     };
 
+    /**
+     * Returns the value the user has currently input for this widget.
+     */
     getUserInput(): PerseusNumericInputUserInput {
         return NumericInput.getUserInputFromProps(this.props);
     }
 
+    /**
+     * Returns the JSON representation of the prompt for this widget.
+     * This is used by the AI to determine the prompt for the widget.
+     */
     getPromptJSON(): NumericInputPromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
     }
@@ -177,9 +153,6 @@ class NumericInput
     }
 }
 
-// STOPSHIP THIRD: I think we can remove this comment as we heard of a valid case
-// during the editor playtest where Content Creators wanted multiple accepted answer types,
-// and the ability to set specific answer types as incorrect.
 // TODO(thomas): Currently we receive a list of lists of acceptable answer types
 // and union them down into a single set. It's worth considering whether it
 // wouldn't make more sense to have a single set of acceptable answer types for
@@ -275,25 +248,16 @@ export default {
             (answer) => answer.status === "correct",
         );
         const answerStrings = correctAnswers.map((answer) => {
-            // Figure out how this answer is supposed to be
-            // displayed
-            let format = "decimal";
-            if (answer.answerForms && answer.answerForms[0]) {
-                // STOPSHIP THIRD: I think we should discuss this as it seems to have implications.
-                // NOTE(johnsullivan): This isn't exactly ideal, but
-                // it does behave well for all the currently known
-                // problems. See D14742 for some discussion on
-                // alternate strategies.
-                format = answer.answerForms[0];
-            }
+            // Either get the first answer form or default to decimal
+            const format: MathFormat =
+                answer.answerForms && answer.answerForms[0]
+                    ? answer.answerForms[0]
+                    : "decimal";
 
-            // STOPSHIP THIRD: Could we cast these instead of using ts-expect-error? Which method is worse?
-            // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
-            let answerString = KhanMath.toNumericString(answer.value, format);
+            let answerString = KhanMath.toNumericString(answer.value!, format);
             if (answer.maxError) {
                 answerString +=
                     " \u00B1 " +
-                    // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
                     KhanMath.toNumericString(answer.maxError, format);
             }
             return answerString;

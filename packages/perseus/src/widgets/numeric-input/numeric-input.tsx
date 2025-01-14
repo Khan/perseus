@@ -13,13 +13,8 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import InputWithExamples from "../../components/input-with-examples";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 
-import {
-    NumericExampleStrings,
-    type NumericInputProps,
-} from "./numeric-input.class";
-
-import type {PerseusStrings} from "../../strings";
-import type {PerseusNumericInputAnswerForm} from "@khanacademy/perseus-core";
+import {type NumericInputProps} from "./numeric-input.class";
+import {generateExamples, shouldShowExamples} from "./utils";
 
 type InputRefType = SimpleKeypadInput | InputWithExamples | null;
 
@@ -68,21 +63,6 @@ export const NumericInputComponent = forwardRef(
             setIsFocused(false);
         };
 
-        /**
-         * Add right alignment to the keypad input if necessary.
-         */
-        const maybeRightAlignKeypadInput = (
-            keypadInput: React.ReactElement<
-                React.ComponentProps<typeof SimpleKeypadInput>
-            >,
-        ) => {
-            return props.rightAlign ? (
-                <div className="perseus-input-right-align">{keypadInput}</div>
-            ) : (
-                keypadInput
-            );
-        };
-
         // If the labelText is not provided by the Content Creators, use the default label text
         let labelText = props.labelText;
         if (labelText == null || labelText === "") {
@@ -91,7 +71,7 @@ export const NumericInputComponent = forwardRef(
 
         // Styles for the InputWithExamples
         const styles = StyleSheet.create({
-            input: {
+            inputWithExamples: {
                 borderRadius: "3px",
                 borderWidth: isFocused ? "2px" : "1px",
                 display: "inline-block",
@@ -105,20 +85,25 @@ export const NumericInputComponent = forwardRef(
             },
         });
 
-        // (mobile) If the custom keypad is enabled, use the SimpleKeypadInput component
+        // (mobile-only) If the custom keypad is enabled, use the SimpleKeypadInput component
         if (props.apiOptions.customKeypad) {
-            return maybeRightAlignKeypadInput(
-                <SimpleKeypadInput
-                    ref={inputRef as React.RefObject<SimpleKeypadInput>}
-                    value={props.currentValue}
-                    keypadElement={props.keypadElement}
-                    onChange={handleChange}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                />,
+            const alignmentClass = props.rightAlign
+                ? "perseus-input-right-align"
+                : "";
+            return (
+                <div className={alignmentClass}>
+                    <SimpleKeypadInput
+                        ref={inputRef as React.RefObject<SimpleKeypadInput>}
+                        value={props.currentValue}
+                        keypadElement={props.keypadElement}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                    />
+                </div>
             );
         }
-        // (desktop) Otherwise, use the InputWithExamples component
+        // (desktop-only) Otherwise, use the InputWithExamples component
         return (
             <InputWithExamples
                 ref={inputRef as React.RefObject<InputWithExamples>}
@@ -131,50 +116,8 @@ export const NumericInputComponent = forwardRef(
                 onBlur={handleBlur}
                 id={props.widgetId}
                 disabled={props.apiOptions.readOnly}
-                style={styles.input}
+                style={styles.inputWithExamples}
             />
         );
     },
 );
-
-/**
- * Generates a string that demonstrates how to input the various supported
- * answer forms. These strings are shown as examples to the user in a tooltip.
- */
-const generateExamples = (
-    answerForms: readonly PerseusNumericInputAnswerForm[],
-    strings: PerseusStrings,
-): ReadonlyArray<string> => {
-    const forms =
-        answerForms?.length !== 0
-            ? answerForms
-            : Object.keys(NumericExampleStrings).map((name) => {
-                  return {
-                      name: name,
-                      simplify: "required",
-                  } as PerseusNumericInputAnswerForm;
-              });
-
-    let examples = _.map(forms, (form) => {
-        return NumericExampleStrings[form.name](form, strings);
-    });
-    examples = _.uniq(examples);
-
-    return [strings.yourAnswer].concat(examples);
-};
-
-/**
- * Determines whether to show examples of how to input
- * the various supported answer forms.
- */
-const shouldShowExamples = (
-    answerForms: readonly PerseusNumericInputAnswerForm[],
-): boolean => {
-    const noFormsAccepted = answerForms?.length === 0;
-    const answerFormNames: ReadonlyArray<string> = _.uniq(
-        answerForms?.map((form) => form.name),
-    );
-    const allFormsAccepted =
-        answerFormNames.length >= Object.keys(NumericExampleStrings).length;
-    return !noFormsAccepted && !allFormsAccepted;
-};
