@@ -4,6 +4,7 @@ export {default as ErrorCodes} from "./error-codes";
 export type * from "./validation.types";
 export {default as scoreCategorizer} from "./widgets/categorizer/score-categorizer";
 export {default as scoreNumericInput} from "./widgets/numeric-input/score-numeric-input";
+export {default as scoreRadio} from "./widgets/radio/score-radio";
 export {
     default as scoreInputNumber,
     inputNumberAnswerTypes,

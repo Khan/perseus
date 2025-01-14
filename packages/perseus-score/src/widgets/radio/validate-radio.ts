@@ -1,7 +1,7 @@
 import type {
     PerseusRadioUserInput,
     ValidationResult,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
 
 /**
  * Checks if the user has selected at least one option. Additional validation

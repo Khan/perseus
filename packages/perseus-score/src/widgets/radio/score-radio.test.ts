@@ -1,11 +1,9 @@
-import {mockStrings} from "../../strings";
-
 import scoreRadio from "./score-radio";
 
 import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
 
 describe("scoreRadio", () => {
     it("is invalid when number selected does not match number correct", () => {
@@ -22,7 +20,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric);
 
         expect(score).toHaveInvalidInput();
     });
@@ -46,7 +44,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric);
 
         expect(score).toHaveInvalidInput();
     });
@@ -65,7 +63,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -84,7 +82,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -103,7 +101,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -122,7 +120,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -142,7 +140,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -162,7 +160,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric, mockStrings);
+        const score = scoreRadio(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });

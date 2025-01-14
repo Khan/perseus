@@ -1,16 +1,16 @@
+import ErrorCodes from "../../error-codes";
+
 import validateRadio from "./validate-radio";
 
-import type {PerseusStrings} from "../../strings";
 import type {
-    PerseusScore,
     PerseusRadioRubric,
     PerseusRadioUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusScore,
+} from "../../validation.types";
 
 function scoreRadio(
     userInput: PerseusRadioUserInput,
     rubric: PerseusRadioRubric,
-    strings: PerseusStrings,
 ): PerseusScore {
     const validationError = validateRadio(userInput);
     if (validationError) {
@@ -28,7 +28,7 @@ function scoreRadio(
     if (numCorrect > 1 && numSelected !== numCorrect) {
         return {
             type: "invalid",
-            message: strings.chooseCorrectNum,
+            message: ErrorCodes.CHOOSE_CORRECT_NUM_ERROR,
         };
         // If NOTA and some other answer are checked, ...
     }
@@ -41,7 +41,7 @@ function scoreRadio(
     if (noneOfTheAboveSelected && numSelected > 1) {
         return {
             type: "invalid",
-            message: strings.notNoneOfTheAbove,
+            message: ErrorCodes.NOT_NONE_ABOVE_ERROR,
         };
     }
 

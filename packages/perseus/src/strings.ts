@@ -709,7 +709,9 @@ const errorToString = {
     [ErrorCodes.WRONG_CASE_ERROR]: strings.WRONG_CASE_ERROR,
     [ErrorCodes.WRONG_LETTER_ERROR]: strings.WRONG_LETTER_ERROR,
     [ErrorCodes.MULTIPLICATION_SIGN_ERROR]: strings.MULTIPLICATION_SIGN_ERROR,
-    [ErrorCodes.INVALID_SELECTION]: strings.invalidSelection,
+    [ErrorCodes.INVALID_SELECTION_ERROR]: strings.invalidSelection,
+    [ErrorCodes.CHOOSE_CORRECT_NUM_ERROR]: strings.chooseCorrectNum,
+    [ErrorCodes.NOT_NONE_ABOVE_ERROR]: strings.notNoneOfTheAbove,
 };
 export function mapErrorToString(err: string | null | undefined) {
     if (!err) {

@@ -25,7 +25,7 @@ function validateCategorizer(
     if (incomplete) {
         return {
             type: "invalid",
-            message: ErrorCodes.INVALID_SELECTION,
+            message: ErrorCodes.INVALID_SELECTION_ERROR,
         };
     }
     return null;
