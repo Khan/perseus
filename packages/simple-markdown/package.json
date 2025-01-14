@@ -3,7 +3,7 @@
     "description": "Javascript markdown parsing, made simple",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.13.13",
+    "version": "0.13.14",
     "publishConfig": {
         "access": "public"
     },
@@ -26,7 +26,7 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/perseus-core": "3.0.5"
+        "@khanacademy/perseus-core": "3.1.0"
     },
     "devDependencies": {
         "perseus-build-settings": "^0.4.3"

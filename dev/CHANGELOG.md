@@ -1,5 +1,22 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.0.12
+
+### Patch Changes
+
+-   [#2093](https://github.com/Khan/perseus/pull/2093) [`766d33577`](https://github.com/Khan/perseus/commit/766d33577a5ea83ef8f8c291534eb34833c54197) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove exports from Perseus that were moved to Perseus-Core
+
+*   [#2086](https://github.com/Khan/perseus/pull/2086) [`bc3d955b5`](https://github.com/Khan/perseus/commit/bc3d955b57e847a379328fcc7cf276f42e0874dd) Thanks [@handeyeco](https://github.com/handeyeco)! - Init perseus-score, move AnswerTypes from perseus to perseus-score, move perseus-types in perseus to data-schema in perseus-core
+
+*   Updated dependencies [[`bbf7f3b1b`](https://github.com/Khan/perseus/commit/bbf7f3b1be657c588270a3b47983c0aecbf84418), [`6cf647729`](https://github.com/Khan/perseus/commit/6cf6477291053d85faac48028b8f038fd0c28930), [`5173c2e43`](https://github.com/Khan/perseus/commit/5173c2e43bf939159f420dcd448b90691d52353b), [`bc3d955b5`](https://github.com/Khan/perseus/commit/bc3d955b57e847a379328fcc7cf276f42e0874dd), [`d2797bb2d`](https://github.com/Khan/perseus/commit/d2797bb2dc51bd80cb03f2c1eeb39286e4dfa45c)]:
+    -   @khanacademy/perseus-core@3.1.0
+    -   @khanacademy/pure-markdown@0.3.21
+    -   @khanacademy/kmath@0.2.0
+    -   @khanacademy/kas@0.4.10
+    -   @khanacademy/math-input@22.1.2
+    -   @khanacademy/perseus-linter@1.2.12
+    -   @khanacademy/simple-markdown@0.13.14
+
 ## 5.0.11
 
 ### Patch Changes
