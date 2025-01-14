@@ -91,6 +91,8 @@ export class NumericInput
 
     constructor(props: NumericInputProps) {
         super(props);
+        // Create a ref that we can pass down to the input component so that we
+        // can call focus on it when necessary.
         this.inputRef = React.createRef<
             SimpleKeypadInput | InputWithExamples
         >();
@@ -120,17 +122,11 @@ export class NumericInput
      * Sets the value of the input at the given path.
      */
     setInputValue: (
-        arg1: FocusPath,
-        arg2: string,
-        arg3?: () => unknown | null | undefined,
+        path: FocusPath,
+        newValue: string,
+        cb?: () => unknown | null | undefined,
     ) => void = (path, newValue, cb) => {
-        /* c8 ignore next */
-        this.props.onChange(
-            {
-                currentValue: newValue,
-            },
-            cb,
-        );
+        this.props.onChange({currentValue: newValue}, cb);
     };
 
     /**
@@ -160,7 +156,9 @@ export class NumericInput
 // When should two answers to a problem take different answer types?
 // See D27790 for more discussion.
 export const unionAnswerForms: (
-    arg1: ReadonlyArray<ReadonlyArray<PerseusNumericInputAnswerForm>>,
+    answerFormsList: ReadonlyArray<
+        ReadonlyArray<PerseusNumericInputAnswerForm>
+    >,
 ) => ReadonlyArray<PerseusNumericInputAnswerForm> = function (answerFormsList) {
     // Takes a list of lists of answer forms, and returns a list of the forms
     // in each of these lists in the same order that they're listed in the

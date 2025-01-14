@@ -9,7 +9,7 @@ import type {PerseusNumericInputAnswerForm} from "@khanacademy/perseus-core";
  */
 export const NumericExampleStrings: {
     [key: string]: (
-        arg1: PerseusNumericInputAnswerForm,
+        form: PerseusNumericInputAnswerForm,
         strings: PerseusStrings,
     ) => string;
 } = {
