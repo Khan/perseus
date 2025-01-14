@@ -1,17 +1,13 @@
-import {KhanAnswerTypes} from "@khanacademy/perseus-score";
+import KhanAnswerTypes from "../../util/answer-types";
+import {parseTex} from "../../util/tex-wrangler";
 
-import TexWrangler from "../../tex-wrangler";
-
-import type {PerseusStrings} from "../../strings";
 import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
     PerseusScore,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
 
-const ParseTex = TexWrangler.parseTex;
-
-export const answerTypes = {
+export const inputNumberAnswerTypes = {
     number: {
         name: "Numbers",
         forms: "integer, decimal, proper, improper, mixed",
@@ -49,7 +45,6 @@ export const answerTypes = {
 function scoreInputNumber(
     userInput: PerseusInputNumberUserInput,
     rubric: PerseusInputNumberRubric,
-    strings: PerseusStrings,
 ): PerseusScore {
     if (rubric.answerType == null) {
         rubric.answerType = "number";
@@ -63,12 +58,12 @@ function scoreInputNumber(
         simplify: rubric.simplify,
         inexact: rubric.inexact || undefined,
         maxError: rubric.maxError,
-        forms: answerTypes[rubric.answerType].forms,
+        forms: inputNumberAnswerTypes[rubric.answerType].forms,
     });
 
     // We may have received TeX; try to parse it before grading.
     // If `currentValue` is not TeX, this should be a no-op.
-    const currentValue = ParseTex(userInput.currentValue);
+    const currentValue = parseTex(userInput.currentValue);
 
     const result = val(currentValue);
 

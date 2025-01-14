@@ -2,19 +2,18 @@
  * Disclaimer: Definitely not thorough enough
  */
 import {describe, beforeEach, it} from "@jest/globals";
+import {scoreInputNumber} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {mockStrings} from "../../strings";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import InputNumber from "./input-number";
 import {question3 as question} from "./input-number.testdata";
-import scoreInputNumber from "./score-input-number";
 
 import type {
     PerseusInputNumberWidgetOptions,
@@ -271,11 +270,7 @@ describe("invalid", function () {
     });
 
     it("should handle invalid answers with no error callback", function () {
-        const err = scoreInputNumber(
-            {currentValue: "x+1"},
-            options,
-            mockStrings,
-        );
+        const err = scoreInputNumber({currentValue: "x+1"}, options);
         expect(err).toEqual({
             message: "EXTRA_SYMBOLS_ERROR",
             type: "invalid",

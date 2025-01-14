@@ -1,5 +1,3 @@
-import {mockStrings} from "../../strings";
-
 import scoreInputNumber from "./score-input-number";
 
 import type {PerseusInputNumberRubric} from "@khanacademy/perseus-score";
@@ -18,7 +16,7 @@ describe("scoreInputNumber", () => {
             currentValue: "1",
         } as const;
 
-        const score = scoreInputNumber(useInput, rubric, mockStrings);
+        const score = scoreInputNumber(useInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -36,7 +34,7 @@ describe("scoreInputNumber", () => {
             currentValue: "2",
         } as const;
 
-        const score = scoreInputNumber(useInput, rubric, mockStrings);
+        const score = scoreInputNumber(useInput, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -54,7 +52,7 @@ describe("scoreInputNumber", () => {
             currentValue: "sadasdfas",
         } as const;
 
-        const score = scoreInputNumber(useInput, rubric, mockStrings);
+        const score = scoreInputNumber(useInput, rubric);
 
         expect(score).toHaveInvalidInput("EXTRA_SYMBOLS_ERROR");
     });
@@ -80,7 +78,7 @@ describe("scoreInputNumber", () => {
             currentValue: "241.91",
         } as const;
 
-        const score = scoreInputNumber(userInput, rubric, mockStrings);
+        const score = scoreInputNumber(userInput, rubric);
 
         expect(score.message).not.toBe(
             "Your answer is close, but yyou may " +
@@ -105,7 +103,7 @@ describe("scoreInputNumber", () => {
             currentValue: "77 pi",
         } as const;
 
-        const score = scoreInputNumber(userInput, rubric, mockStrings);
+        const score = scoreInputNumber(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });

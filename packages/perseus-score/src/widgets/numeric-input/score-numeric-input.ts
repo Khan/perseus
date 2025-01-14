@@ -1,20 +1,16 @@
-import {KhanAnswerTypes} from "@khanacademy/perseus-score";
+import KhanAnswerTypes from "../../util/answer-types";
+import {parseTex} from "../../util/tex-wrangler";
 
-import TexWrangler from "../../tex-wrangler";
-
-import type {PerseusStrings} from "../../strings";
+import type {Score} from "../../util/answer-types";
+import type {
+    PerseusNumericInputRubric,
+    PerseusNumericInputUserInput,
+    PerseusScore,
+} from "../../validation.types";
 import type {
     MathFormat,
     PerseusNumericInputAnswer,
 } from "@khanacademy/perseus-core";
-import type {
-    PerseusScore,
-    Score,
-    PerseusNumericInputRubric,
-    PerseusNumericInputUserInput,
-} from "@khanacademy/perseus-score";
-
-const ParseTex = TexWrangler.parseTex;
 
 const answerFormButtons: ReadonlyArray<{
     title: string;
@@ -72,7 +68,6 @@ export function maybeParsePercentInput(
 function scoreNumericInput(
     userInput: PerseusNumericInputUserInput,
     rubric: PerseusNumericInputRubric,
-    strings: PerseusStrings,
 ): PerseusScore {
     const defaultAnswerForms = answerFormButtons
         .map((e) => e["value"])
@@ -107,7 +102,7 @@ function scoreNumericInput(
 
     // We may have received TeX; try to parse it before grading.
     // If `currentValue` is not TeX, this should be a no-op.
-    const currentValue = ParseTex(userInput.currentValue);
+    const currentValue = parseTex(userInput.currentValue);
 
     const normalizedAnswerExpected = rubric.answers
         .filter((answer) => answer.status === "correct")

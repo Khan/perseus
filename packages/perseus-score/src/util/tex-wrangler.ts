@@ -140,7 +140,7 @@ function walkTex(
  * expression will have its innermost fractions stubbed out with \fracs
  * (as opposed to \dfracs). All other content will remain untouched.
  */
-function modifyTex(tex: string): string {
+export function modifyTex(tex: string): string {
     function isNestedFraction(tex: string) {
         return tex.indexOf("\\frac") > -1 || tex.indexOf("\\dfrac") > -1;
     }
@@ -168,15 +168,10 @@ function modifyTex(tex: string): string {
  *
  * Backslash-escapes are removed with a simple search-and-replace.
  */
-function parseTex(tex: string): string {
+export function parseTex(tex: string): string {
     const handler = function (exp1: string, exp2: string) {
         return exp1 + "/" + exp2;
     };
     const texWithoutFracs = walkTex(tex, handler);
     return texWithoutFracs.replace("\\%", "%");
 }
-
-export default {
-    parseTex,
-    modifyTex,
-};
