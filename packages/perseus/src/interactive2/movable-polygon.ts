@@ -3,6 +3,7 @@
  * It allows constraints on its movement and draws when moves happen.
  */
 import {vector as kvector} from "@khanacademy/kmath";
+import {pluck} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import KhanColors from "../util/colors";
@@ -10,7 +11,6 @@ import GraphUtils from "../util/graph-utils";
 
 import InteractiveUtil from "./interactive-util";
 import MovablePolygonOptions from "./movable-polygon-options";
-import {pluck} from "./objective_";
 
 const assert = InteractiveUtil.assert;
 const normalizeOptions = InteractiveUtil.normalizeOptions;

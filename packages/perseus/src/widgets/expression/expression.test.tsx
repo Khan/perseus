@@ -23,11 +23,11 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
+import type {KeypadConfiguration} from "@khanacademy/math-input";
 import type {
     PerseusItem,
     PerseusExpressionWidgetOptions,
-} from "../../perseus-types";
-import type {KeypadConfiguration} from "@khanacademy/math-input";
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (

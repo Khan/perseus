@@ -8,8 +8,8 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {VideoWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {VideoWidget} from "@khanacademy/perseus-core";
 
 export const parseVideoWidget: Parser<VideoWidget> = parseWidget(
     constant("video"),

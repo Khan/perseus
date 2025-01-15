@@ -20,13 +20,13 @@ import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import {GradedGroup} from "../graded-group/graded-group";
 
-import type {
-    PerseusGradedGroupSetWidgetOptions,
-    PerseusGradedGroupWidgetOptions,
-} from "../../perseus-types";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PerseusGradedGroupSetRubric} from "../../validation.types";
 import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
+import type {
+    PerseusGradedGroupSetWidgetOptions,
+    PerseusGradedGroupWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 type IndicatorsProps = {
     currentGroup: number;

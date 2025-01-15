@@ -30,13 +30,13 @@ import scoreLabelImage, {scoreMarker} from "./score-label-image";
 import type {InteractiveMarkerType} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {PerseusLabelImageWidgetOptions} from "../../perseus-types";
 import type {APIOptions, Widget, WidgetExports} from "../../types";
 import type {
     PerseusLabelImageRubric,
     PerseusLabelImageUserInput,
 } from "../../validation.types";
 import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
+import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 

@@ -8,7 +8,6 @@ import {
     usePerseusI18n,
     type APIOptions,
     type DeviceType,
-    type PerseusRenderer,
 } from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -17,6 +16,7 @@ import * as React from "react";
 
 import {lintGutterWidth} from "./styles/constants";
 
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 /**

@@ -1,6 +1,6 @@
-import type {GrapherAnswerTypes} from "../../perseus-types";
 import type {PerseusGrapherUserInput} from "../../validation.types";
 import type grapher from "../../widgets/grapher/grapher";
+import type {GrapherAnswerTypes} from "@khanacademy/perseus-core";
 import type React from "react";
 
 export type GrapherPromptJSON = {

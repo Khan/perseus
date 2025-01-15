@@ -1,6 +1,6 @@
 import MeasurerWidgetExport from "./measurer";
 
-import type {PerseusMeasurerWidgetOptions} from "../../perseus-types";
+import type {PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
 
 describe("measurer", () => {
     describe("propUpgrades", () => {

@@ -4,7 +4,7 @@ import {
     type Version,
     type PerseusItem,
     type PerseusAnswerArea,
-} from "../../perseus-types";
+} from "@khanacademy/perseus-core";
 
 const createItemJson = (
     widgetOptions: PerseusExpressionWidgetOptions,

@@ -39,7 +39,7 @@ import type {
     LockedFigureColor,
     LockedFunctionType,
     LockedLabelType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 export type Props = LockedFunctionType &

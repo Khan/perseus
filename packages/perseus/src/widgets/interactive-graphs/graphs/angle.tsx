@@ -17,7 +17,6 @@ import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {getIntersectionOfRayWithBox} from "./utils";
 
-import type {CollinearTuple} from "../../../perseus-types";
 import type {Segment} from "../math/geometry";
 import type {
     AngleGraphState,
@@ -25,6 +24,7 @@ import type {
     InteractiveGraphElementSuite,
     MafsGraphProps,
 } from "../types";
+import type {CollinearTuple} from "@khanacademy/perseus-core";
 
 type AngleGraphProps = MafsGraphProps<AngleGraphState>;
 

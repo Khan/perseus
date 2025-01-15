@@ -4,8 +4,8 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 import {parseImages} from "./images-map";
 import {parseWidgetsMap} from "./widgets-map";
 
-import type {PerseusRenderer} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const parsePerseusRenderer: Parser<PerseusRenderer> = defaulted(
     object({

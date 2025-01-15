@@ -1,10 +1,10 @@
+import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import _ from "underscore";
 
-import KhanAnswerTypes from "./util/answer-types";
 import * as GraphieUtil from "./util.graphie";
 
-import type {Range} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
+import type {Range} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
 type WordPosition = {
@@ -204,7 +204,6 @@ function firstNumericalParse(
             inexact: true,
             forms: "integer, proper, improper, pi, log, mixed, decimal",
         },
-        strings,
     );
 
     val(text);

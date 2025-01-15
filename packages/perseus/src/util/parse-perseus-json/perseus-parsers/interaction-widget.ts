@@ -7,29 +7,32 @@ import {
     object,
     optional,
     pair,
+    pipeParsers,
     string,
     union,
 } from "../general-purpose-parsers";
+import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
+import type {Parser} from "../parser-types";
 import type {
     InteractionWidget,
     PerseusInteractionElement,
-} from "../../../perseus-types";
-import type {Parser} from "../parser-types";
+} from "@khanacademy/perseus-core";
 
 const pairOfNumbers = pair(number, number);
 const stringOrEmpty = defaulted(string, () => "");
 
+const parseKey = pipeParsers(optional(string)).then(convert(String)).parser;
+
 type FunctionElement = Extract<PerseusInteractionElement, {type: "function"}>;
-const parseFunctionType = constant("function");
 const parseFunctionElement: Parser<FunctionElement> = object({
-    type: parseFunctionType,
-    key: string,
+    type: constant("function"),
+    key: parseKey,
     options: object({
         value: string,
         funcName: string,
@@ -42,10 +45,9 @@ const parseFunctionElement: Parser<FunctionElement> = object({
 });
 
 type LabelElement = Extract<PerseusInteractionElement, {type: "label"}>;
-const parseLabelType = constant("label");
 const parseLabelElement: Parser<LabelElement> = object({
-    type: parseLabelType,
-    key: string,
+    type: constant("label"),
+    key: parseKey,
     options: object({
         label: string,
         color: string,
@@ -55,10 +57,9 @@ const parseLabelElement: Parser<LabelElement> = object({
 });
 
 type LineElement = Extract<PerseusInteractionElement, {type: "line"}>;
-const parseLineType = constant("line");
 const parseLineElement: Parser<LineElement> = object({
-    type: parseLineType,
-    key: string,
+    type: constant("line"),
+    key: parseKey,
     options: object({
         color: string,
         startX: string,
@@ -75,10 +76,9 @@ type MovableLineElement = Extract<
     PerseusInteractionElement,
     {type: "movable-line"}
 >;
-const parseMovableLineType = constant("movable-line");
 const parseMovableLineElement: Parser<MovableLineElement> = object({
-    type: parseMovableLineType,
-    key: string,
+    type: constant("movable-line"),
+    key: parseKey,
     options: object({
         startX: string,
         startY: string,
@@ -100,10 +100,9 @@ type MovablePointElement = Extract<
     PerseusInteractionElement,
     {type: "movable-point"}
 >;
-const parseMovablePointType = constant("movable-point");
 const parseMovablePointElement: Parser<MovablePointElement> = object({
-    type: parseMovablePointType,
-    key: string,
+    type: constant("movable-point"),
+    key: parseKey,
     options: object({
         startX: string,
         startY: string,
@@ -122,10 +121,9 @@ type ParametricElement = Extract<
     PerseusInteractionElement,
     {type: "parametric"}
 >;
-const parseParametricType = constant("parametric");
 const parseParametricElement: Parser<ParametricElement> = object({
-    type: parseParametricType,
-    key: string,
+    type: constant("parametric"),
+    key: parseKey,
     options: object({
         x: string,
         y: string,
@@ -138,10 +136,9 @@ const parseParametricElement: Parser<ParametricElement> = object({
 });
 
 type PointElement = Extract<PerseusInteractionElement, {type: "point"}>;
-const parsePointType = constant("point");
 const parsePointElement: Parser<PointElement> = object({
-    type: parsePointType,
-    key: string,
+    type: constant("point"),
+    key: parseKey,
     options: object({
         color: string,
         coordX: string,
@@ -150,10 +147,9 @@ const parsePointElement: Parser<PointElement> = object({
 });
 
 type RectangleElement = Extract<PerseusInteractionElement, {type: "rectangle"}>;
-const parseRectangleType = constant("rectangle");
 const parseRectangleElement: Parser<RectangleElement> = object({
-    type: parseRectangleType,
-    key: string,
+    type: constant("rectangle"),
+    key: parseKey,
     options: object({
         color: string,
         coordX: string,

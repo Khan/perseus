@@ -14,7 +14,7 @@ import {
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 import type {StartCoords} from "./types";
-import type {Range, PerseusGraphType, Coord} from "@khanacademy/perseus";
+import type {Range, PerseusGraphType, Coord} from "@khanacademy/perseus-core";
 
 export function getStartCoords(graph: PerseusGraphType): StartCoords {
     if ("startCoords" in graph) {

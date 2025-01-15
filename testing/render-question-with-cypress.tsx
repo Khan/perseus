@@ -11,8 +11,8 @@ import {mockStrings} from "../packages/perseus/src/strings";
 
 import {cypressDependenciesV2} from "./test-dependencies";
 
-import type {PerseusRenderer} from "../packages/perseus/src/perseus-types";
 import type {APIOptions} from "../packages/perseus/src/types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 /**
  * Renders the given question using Cypress. Waits until all assets have been

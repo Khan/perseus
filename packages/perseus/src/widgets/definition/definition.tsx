@@ -9,12 +9,12 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
 import scoreNoop from "../__shared__/score-noop";
 
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {DefinitionPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
 import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
-} from "../../perseus-types";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {DefinitionPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
+} from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 

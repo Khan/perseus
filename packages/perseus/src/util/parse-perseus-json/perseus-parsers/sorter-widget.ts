@@ -9,8 +9,8 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {SorterWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {SorterWidget} from "@khanacademy/perseus-core";
 
 export const parseSorterWidget: Parser<SorterWidget> = parseWidget(
     constant("sorter"),
