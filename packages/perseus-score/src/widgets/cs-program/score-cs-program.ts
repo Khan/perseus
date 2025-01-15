@@ -1,7 +1,7 @@
 import type {
-    PerseusScore,
     PerseusCSProgramUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusScore,
+} from "../../validation.types";
 
 function scoreCSProgram(state: PerseusCSProgramUserInput): PerseusScore {
     // The iframe can tell us whether it's correct or incorrect,
