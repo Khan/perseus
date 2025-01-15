@@ -2,6 +2,7 @@ import {srFormatNumber} from "./screenreader-text";
 
 import type {PairOfPoints} from "../types";
 import type {Coord} from "@khanacademy/perseus";
+import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {Interval, vec} from "mafs";
 
 /**
@@ -66,7 +67,10 @@ export function getArrayWithoutDuplicates(array: Array<Coord>): Array<Coord> {
     return returnArray;
 }
 
-export function getSlopeStringForLine(line: PairOfPoints, strings): string {
+export function getSlopeStringForLine(
+    line: PairOfPoints,
+    strings: PerseusStrings,
+): string {
     const slope = (line[1][1] - line[0][1]) / (line[1][0] - line[0][0]);
     if (!Number.isFinite(slope)) {
         return strings.srLinearGraphSlopeVertical;
@@ -83,8 +87,8 @@ export function getSlopeStringForLine(line: PairOfPoints, strings): string {
 
 export function getInterceptStringForLine(
     line: PairOfPoints,
-    strings,
-    locale,
+    strings: PerseusStrings,
+    locale: string,
 ): string {
     const slope = (line[1][1] - line[0][1]) / (line[1][0] - line[0][0]);
     const xIntercept = (0 - line[0][1]) / slope + line[0][0];
