@@ -62,7 +62,7 @@ describe("Linear System graph screen reader", () => {
         // Assert
         expect(linearSystemGraph).toBeInTheDocument();
         expect(linearSystemGraph).toHaveAccessibleDescription(
-            "Line 1 has two points, ponit 1 at -5 comma 5 and point 2 at 5 comma 5. The line crosses the Y-axis at 0 comma 5. Its slope is zero. Line 2 has two points, point 1 at -5 comma -5 and point 2 at 5 comma -5. The line crosses the Y-axis at 0 comma -5.",
+            "Line 1 has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5. The line crosses the Y-axis at 0 comma 5. Its slope is zero. Line 2 has two points, point 1 at -5 comma -5 and point 2 at 5 comma -5. The line crosses the Y-axis at 0 comma -5. Its slope is zero.",
         );
     });
 
