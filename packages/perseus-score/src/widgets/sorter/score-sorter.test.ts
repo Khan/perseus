@@ -2,9 +2,9 @@ import scoreSorter from "./score-sorter";
 import * as SorterValidator from "./validate-sorter";
 
 import type {
-    PerseusSorterRubric,
     PerseusSorterUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusSorterRubric,
+} from "../../validation.types";
 
 describe("scoreSorter", () => {
     it("is correct when the user input values are in the order defined in the rubric", () => {

@@ -1,12 +1,12 @@
-import Util from "../../util";
+import _ from "underscore";
 
 import validateSorter from "./validate-sorter";
 
 import type {
-    PerseusScore,
-    PerseusSorterRubric,
     PerseusSorterUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusSorterRubric,
+    PerseusScore,
+} from "../../validation.types";
 
 function scoreSorter(
     userInput: PerseusSorterUserInput,
@@ -17,7 +17,7 @@ function scoreSorter(
         return validationError;
     }
 
-    const correct = Util.deepEq(userInput.options, rubric.correct);
+    const correct = _.isEqual(userInput.options, rubric.correct);
     return {
         type: "points",
         earned: correct ? 1 : 0,

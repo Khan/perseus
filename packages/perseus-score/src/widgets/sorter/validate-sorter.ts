@@ -1,7 +1,7 @@
 import type {
-    ValidationResult,
     PerseusSorterUserInput,
-} from "@khanacademy/perseus-score";
+    ValidationResult,
+} from "../../validation.types";
 
 /**
  * Checks user input for the sorter widget to ensure that the user has made

@@ -11,6 +11,7 @@ export {default as scoreNumberLine} from "./widgets/number-line/score-number-lin
 export {default as scoreNumericInput} from "./widgets/numeric-input/score-numeric-input";
 export {default as scorePlotter} from "./widgets/plotter/score-plotter";
 export {default as scoreRadio} from "./widgets/radio/score-radio";
+export {default as scoreSorter} from "./widgets/sorter/score-sorter";
 export {default as scoreTable} from "./widgets/table/score-table";
 export {
     default as scoreInputNumber,
