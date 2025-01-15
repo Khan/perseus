@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 22.2.0
+
+### Minor Changes
+
+-   [#2103](https://github.com/Khan/perseus/pull/2103) [`01caf5f31`](https://github.com/Khan/perseus/commit/01caf5f3111d84cf37dffc45012f21860d1648b1) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - revert wb versions
+
 ## 22.1.2
 
 ### Patch Changes
