@@ -12,7 +12,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-numbe
 
 import scoreInputNumber, {answerTypes} from "./score-input-number";
 
-import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
@@ -20,6 +19,7 @@ import type {
     PerseusInputNumberUserInput,
 } from "../../validation.types";
 import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
+import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {

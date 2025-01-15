@@ -1,6 +1,5 @@
+import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import _ from "underscore";
-
-import KhanAnswerTypes from "../../util/answer-types";
 
 import {getMatrixSize} from "./matrix";
 import validateMatrix from "./validate-matrix";
@@ -43,7 +42,6 @@ function scoreMatrix(
                     {
                         simplify: true,
                     },
-                    strings,
                 );
                 const result = validator(supplied[row][col]);
                 if (result.message) {

@@ -16,16 +16,17 @@ import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
+import getCategorizerPublicWidgetOptions from "./categorizer.util";
 import scoreCategorizer from "./score-categorizer";
 import validateCategorizer from "./validate-categorizer";
 
-import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusCategorizerScoringData,
     PerseusCategorizerUserInput,
 } from "../../validation.types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
+import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = WidgetProps<RenderProps, PerseusCategorizerScoringData> & {
     values: ReadonlyArray<string>;
@@ -332,4 +333,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
     validator: validateCategorizer,
+    getPublicWidgetOptions: getCategorizerPublicWidgetOptions,
 } satisfies WidgetExports<typeof Categorizer>;

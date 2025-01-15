@@ -19,12 +19,12 @@ import {
     shuffledNoneQuestion,
 } from "./radio.testdata";
 
+import type {APIOptions} from "../../../types";
+import type {PerseusRadioUserInput} from "../../../validation.types";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRenderer,
-} from "../../../perseus-types";
-import type {APIOptions} from "../../../types";
-import type {PerseusRadioUserInput} from "../../../validation.types";
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (

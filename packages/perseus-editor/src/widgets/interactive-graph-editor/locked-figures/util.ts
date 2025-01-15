@@ -1,4 +1,5 @@
 import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
+import {mathOnlyParser} from "@khanacademy/perseus";
 import {
     type LockedEllipseType,
     type LockedFigure,
@@ -12,8 +13,7 @@ import {
     type LockedPolygonType,
     type LockedVectorType,
     type LockedLineStyle,
-    mathOnlyParser,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 const DEFAULT_COLOR = "grayH";
@@ -201,4 +201,8 @@ export function mockedJoinLabelsAsSpokenMathForTests(
     // Mock this so that each label's text says "spoken" before it.
     const jointMock = labels.map((input) => ` spoken ${input.text}`).join(",");
     return Promise.resolve(jointMock);
+}
+
+export function mockedGenerateSpokenMathDetailsForTests(mathString: string) {
+    return Promise.resolve(`spoken ${mathString}`);
 }

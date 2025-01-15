@@ -4,7 +4,7 @@ import * as React from "react";
 
 import LabelImageEditor from "../label-image-editor";
 
-import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus";
+import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 type StoryArgs = Record<any, any>;
 

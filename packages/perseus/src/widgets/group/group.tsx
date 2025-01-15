@@ -11,7 +11,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/group/group
 import scoreGroup from "./score-group";
 import validateGroup from "./validate-group";
 
-import type {PerseusGroupWidgetOptions} from "../../perseus-types";
 import type {
     APIOptions,
     ChangeFn,
@@ -26,6 +25,7 @@ import type {
     UserInputMap,
 } from "../../validation.types";
 import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
+import type {PerseusGroupWidgetOptions} from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
 type Props = WidgetProps<RenderProps, PerseusGroupScoringData>;

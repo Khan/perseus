@@ -14,12 +14,12 @@ import scoreTable from "./score-table";
 import validateTable from "./validate-table";
 
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {PerseusTableWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusTableScoringData,
     PerseusTableUserInput,
 } from "../../validation.types";
+import type {PerseusTableWidgetOptions} from "@khanacademy/perseus-core";
 
 const {assert} = InteractiveUtil;
 

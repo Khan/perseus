@@ -7,9 +7,9 @@ import scoreRadio from "./score-radio";
 import validateRadio from "./validate-radio";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
-import type {PerseusRadioWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports} from "../../types";
+import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
 
 const {shuffle, random} = Util;
 

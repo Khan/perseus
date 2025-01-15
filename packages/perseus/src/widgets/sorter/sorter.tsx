@@ -9,13 +9,13 @@ import scoreSorter from "./score-sorter";
 import validateSorter from "./validate-sorter";
 
 import type {SortableOption} from "../../components/sortable";
-import type {PerseusSorterWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusSorterScoringData,
     PerseusSorterUserInput,
 } from "../../validation.types";
 import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
+import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 
 const {shuffle} = Util;
 

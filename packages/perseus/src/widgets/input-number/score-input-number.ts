@@ -1,5 +1,6 @@
+import {KhanAnswerTypes} from "@khanacademy/perseus-score";
+
 import TexWrangler from "../../tex-wrangler";
-import KhanAnswerTypes from "../../util/answer-types";
 
 import type {PerseusStrings} from "../../strings";
 import type {
@@ -58,16 +59,12 @@ function scoreInputNumber(
     // `KhanAnswerTypes.number.convertToPredicate`, but a string is
     // expected here
     const stringValue = `${scoringData.value}`;
-    const val = KhanAnswerTypes.number.createValidatorFunctional(
-        stringValue,
-        {
-            simplify: scoringData.simplify,
-            inexact: scoringData.inexact || undefined,
-            maxError: scoringData.maxError,
-            forms: answerTypes[scoringData.answerType].forms,
-        },
-        strings,
-    );
+    const val = KhanAnswerTypes.number.createValidatorFunctional(stringValue, {
+        simplify: scoringData.simplify,
+        inexact: scoringData.inexact || undefined,
+        maxError: scoringData.maxError,
+        forms: answerTypes[scoringData.answerType].forms,
+    });
 
     // We may have received TeX; try to parse it before grading.
     // If `currentValue` is not TeX, this should be a no-op.

@@ -1,4 +1,4 @@
-import type {ImageWidget} from "../../perseus-types";
+import type {ImageWidget} from "@khanacademy/perseus-core";
 
 export const question = {
     content:

@@ -17,13 +17,13 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/ord
 import {scoreOrderer} from "./score-orderer";
 import validateOrderer from "./validate-orderer";
 
-import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
     PerseusOrdererScoringData,
     PerseusOrdererUserInput,
 } from "../../validation.types";
 import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
+import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type PlaceholderCardProps = {

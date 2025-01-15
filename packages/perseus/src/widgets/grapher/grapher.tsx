@@ -33,7 +33,6 @@ import {
 
 import type {Coord, Line} from "../../interactive2/types";
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {PerseusGrapherWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
 import type {
@@ -41,6 +40,10 @@ import type {
     PerseusGrapherUserInput,
 } from "../../validation.types";
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
+import type {
+    MarkingsType,
+    PerseusGrapherWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
@@ -356,7 +359,7 @@ type Props = ExternalProps & {
     plot: NonNullable<RenderProps["plot"]>;
     // NOTE(jeremy): This prop exists in the `graph` prop value. Unsure what
     // passes it down as a top-level prop (I suspect the editor?)
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
 };
 
 type DefaultProps = {

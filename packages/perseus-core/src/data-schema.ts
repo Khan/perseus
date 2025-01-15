@@ -144,6 +144,7 @@ export interface PerseusWidgetTypes {
     matcher: MatcherWidget;
     matrix: MatrixWidget;
     measurer: MeasurerWidget;
+    "mock-widget": MockWidget;
     "molecule-renderer": MoleculeRendererWidget;
     "number-line": NumberLineWidget;
     "numeric-input": NumericInputWidget;
@@ -345,6 +346,8 @@ export type MatrixWidget = WidgetOptions<'matrix', PerseusMatrixWidgetOptions>;
 // prettier-ignore
 export type MeasurerWidget = WidgetOptions<'measurer', PerseusMeasurerWidgetOptions>;
 // prettier-ignore
+export type MockWidget = WidgetOptions<'mock-widget', MockWidgetOptions>;
+// prettier-ignore
 export type NumberLineWidget = WidgetOptions<'number-line', PerseusNumberLineWidgetOptions>;
 // prettier-ignore
 export type NumericInputWidget = WidgetOptions<'numeric-input', PerseusNumericInputWidgetOptions>;
@@ -397,6 +400,7 @@ export type PerseusWidget =
     | MatcherWidget
     | MatrixWidget
     | MeasurerWidget
+    | MockWidget
     | MoleculeRendererWidget
     | NumberLineWidget
     | NumericInputWidget
@@ -441,6 +445,15 @@ export type PerseusImageBackground = {
     // it isn't necessary at all.
     bottom?: number;
 };
+
+/**
+ * The type of markings to display on the graph.
+ * - axes: shows the axes without the gride lines
+ * - graph: shows the axes and the grid lines
+ * - grid: shows only the grid lines
+ * - none: shows no markings
+ */
+export type MarkingsType = "axes" | "graph" | "grid" | "none";
 
 export type PerseusCategorizerWidgetOptions = {
     // Translatable text; a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
@@ -592,11 +605,9 @@ export type GraphRange = [
 export type GrapherAnswerTypes =
     | {
           type: "absolute_value";
-          coords: [
-              // The vertex
-              Coord, // A point along one line of the absolute value "V" lines
-              Coord,
-          ];
+          // If `coords` is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [vertex: Coord, secondPoint: Coord];
       }
     | {
           type: "exponential";
@@ -605,12 +616,16 @@ export type GrapherAnswerTypes =
           asymptote: [Coord, Coord];
           // Two points along the exponential curve. One end of the curve
           // trends towards the asymptote.
-          coords: [Coord, Coord];
+          // If `coords` is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       }
     | {
           type: "linear";
           // Two points along the straight line
-          coords: [Coord, Coord];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       }
     | {
           type: "logarithm";
@@ -618,25 +633,29 @@ export type GrapherAnswerTypes =
           asymptote: [Coord, Coord];
           // Two points along the logarithmic curve. One end of the curve
           // trends towards the asymptote.
-          coords: [Coord, Coord];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       }
     | {
           type: "quadratic";
-          coords: [
-              // The vertex of the parabola
-              Coord, // A point along the parabola
-              Coord,
-          ];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [vertex: Coord, secondPoint: Coord];
       }
     | {
           type: "sinusoid";
           // Two points on the same slope in the sinusoid wave line.
-          coords: [Coord, Coord];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       }
     | {
           type: "tangent";
           // Two points on the same slope in the tangent wave line.
-          coords: [Coord, Coord];
+          // If coords is null, the graph will not be gradable. All answers
+          // will be scored as invalid.
+          coords: null | [Coord, Coord];
       };
 
 export type PerseusGrapherWidgetOptions = {
@@ -665,7 +684,7 @@ export type PerseusGrapherWidgetOptions = {
         >;
         gridStep?: [number, number];
         labels: [string, string];
-        markings: "graph" | "none" | "grid";
+        markings: MarkingsType;
         range: GraphRange;
         rulerLabel: "";
         rulerTicks: number;
@@ -730,11 +749,8 @@ export type PerseusInteractiveGraphWidgetOptions = {
     backgroundImage?: PerseusImageBackground;
     /**
      * The type of markings to display on the graph.
-     * - graph: shows the axes and the grid lines
-     * - grid: shows only the grid lines
-     * - none: shows no markings
      */
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     // How to label the X and Y axis.  default: ["x", "y"]
     labels?: ReadonlyArray<string>;
     // Whether to show the Protractor tool overlayed on top of the graph
@@ -1431,11 +1447,8 @@ export type PerseusInteractionGraph = {
     gridStep: [number, number];
     /**
      * The type of markings to display on the graph.
-     * - graph: shows the axes and the grid lines
-     * - grid: shows only the grid lines
-     * - none: shows no markings
      */
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     // The snap steps. default [0.5, 0.5]
     snapStep?: [number, number];
     // Whether the grid is valid or not.  Do the numbers all make sense?
@@ -1657,9 +1670,6 @@ export type PerseusCSProgramWidgetOptions = {
     showEditor: boolean;
     // Whether to show the execute buttons
     showButtons: boolean;
-    // TODO(benchristel): width is not used. Delete it?
-    // The width of the widget
-    width: number;
     // The height of the widget
     height: number;
     // TODO(benchristel): static is not used. Delete it?
@@ -1685,7 +1695,7 @@ export type PerseusIFrameWidgetOptions = {
     // A URL to display OR a CS Program ID
     url: string;
     // Settings that you add here are available to the program as an object returned by Program.settings()
-    settings: ReadonlyArray<PerseusCSProgramSetting>;
+    settings?: ReadonlyArray<PerseusCSProgramSetting>;
     // The width of the widget
     width: number | string;
     // The height of the widget
@@ -1708,6 +1718,11 @@ export type PerseusPhetSimulationWidgetOptions = {
 export type PerseusVideoWidgetOptions = {
     location: string;
     static?: boolean;
+};
+
+export type MockWidgetOptions = {
+    static?: boolean;
+    value: string;
 };
 
 export type PerseusInputNumberWidgetOptions = {

@@ -11,7 +11,7 @@ import type {
     PerseusRadioWidgetOptions,
     PerseusWidgetsMap,
     PerseusRenderer,
-} from "../perseus-types";
+} from "@khanacademy/perseus-core";
 
 /**
  * This function extracts the answers from the widgets.

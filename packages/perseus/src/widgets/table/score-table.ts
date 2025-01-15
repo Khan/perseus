@@ -1,6 +1,5 @@
+import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import _ from "underscore";
-
-import KhanAnswerTypes from "../../util/answer-types";
 
 import {filterNonEmpty} from "./utils";
 import validateTable from "./validate-table";
@@ -40,13 +39,9 @@ function scoreTable(
             const rowSupplied = supplied[i];
             const correct = rowSupplied.every(function (cellSupplied, i) {
                 const cellSolution = rowSolution[i];
-                const validator = createValidator(
-                    cellSolution,
-                    {
-                        simplify: true,
-                    },
-                    strings,
-                );
+                const validator = createValidator(cellSolution, {
+                    simplify: true,
+                });
                 const result = validator(cellSupplied);
                 if (result.message) {
                     message = result.message;

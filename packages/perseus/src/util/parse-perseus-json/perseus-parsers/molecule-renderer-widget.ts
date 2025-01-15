@@ -8,8 +8,8 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {MoleculeRendererWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {MoleculeRendererWidget} from "@khanacademy/perseus-core";
 
 export const parseMoleculeRendererWidget: Parser<MoleculeRendererWidget> =
     parseWidget(

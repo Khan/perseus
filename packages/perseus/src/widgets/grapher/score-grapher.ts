@@ -2,16 +2,19 @@ import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
 import {functionForType} from "./util";
 
-import type {GrapherAnswerTypes} from "../../perseus-types";
 import type {PerseusScore} from "../../types";
 import type {
     PerseusGrapherScoringData,
     PerseusGrapherUserInput,
 } from "../../validation.types";
+import type {GrapherAnswerTypes} from "@khanacademy/perseus-core";
 
 function getCoefficientsByType(
     data: GrapherAnswerTypes,
 ): ReadonlyArray<number> | undefined {
+    if (data.coords == null) {
+        return undefined;
+    }
     if (data.type === "exponential" || data.type === "logarithm") {
         const grader = functionForType(data.type);
         return grader.getCoefficients(data.coords, data.asymptote);

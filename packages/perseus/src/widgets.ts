@@ -3,7 +3,6 @@ import _ from "underscore";
 
 import {Log} from "./logging/log";
 
-import type {PerseusWidget} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {
     Alignment,
@@ -13,7 +12,9 @@ import type {
     WidgetTransform,
     WidgetScorerFunction,
     WidgetValidatorFunction,
+    PublicWidgetOptionsFunction,
 } from "./types";
+import type {PerseusWidget} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
 const DEFAULT_ALIGNMENT = "block";
@@ -146,6 +147,12 @@ export const getWidgetValidator = (
 
 export const getWidgetScorer = (name: string): WidgetScorerFunction | null => {
     return widgets[name]?.scorer ?? null;
+};
+
+export const getPublicWidgetOptionsFunction = (
+    name: string,
+): PublicWidgetOptionsFunction => {
+    return widgets[name]?.getPublicWidgetOptions ?? ((i) => i);
 };
 
 export const getEditor = (name: string): Editor | null | undefined => {

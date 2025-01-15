@@ -14,7 +14,7 @@ import Option, {OptionGroup} from "../../components/dropdown-option";
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
 import {gray17, gray85, gray98} from "../../styles/global-colors";
 
-import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus";
+import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = PerseusLabelImageWidgetOptions["markers"][number] & {
     // The list of possible answer choices.

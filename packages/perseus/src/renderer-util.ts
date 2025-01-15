@@ -1,4 +1,5 @@
-import {mapObject} from "./interactive2/objective_";
+import {mapObject} from "@khanacademy/perseus-core";
+
 import {scoreIsEmpty, flattenScores} from "./util/scoring";
 import {getWidgetIdsFromContent} from "./widget-type-utils";
 import {
@@ -7,7 +8,6 @@ import {
     upgradeWidgetInfoToLatestVersion,
 } from "./widgets";
 
-import type {PerseusRenderer, PerseusWidgetsMap} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {PerseusScore} from "./types";
 import type {
@@ -15,6 +15,10 @@ import type {
     UserInputMap,
     ValidationDataMap,
 } from "./validation.types";
+import type {
+    PerseusRenderer,
+    PerseusWidgetsMap,
+} from "@khanacademy/perseus-core";
 
 export function getUpgradedWidgetOptions(
     oldWidgetOptions: PerseusWidgetsMap,

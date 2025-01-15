@@ -1,21 +1,21 @@
 import * as KAS from "@khanacademy/kas";
 import {Errors} from "@khanacademy/perseus-core";
+import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import _ from "underscore";
 
 import {Log} from "../../logging/log";
-import KhanAnswerTypes from "../../util/answer-types";
 
 import getDecimalSeparator from "./get-decimal-separator";
 import validateExpression from "./validate-expression";
 
-import type {PerseusExpressionAnswerForm} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
-import type {Score} from "../../util/answer-types";
 import type {
     PerseusExpressionScoringData,
     PerseusExpressionUserInput,
 } from "../../validation.types";
+import type {PerseusExpressionAnswerForm} from "@khanacademy/perseus-core";
+import type {Score} from "@khanacademy/perseus-score";
 
 /* Content creators input a list of answers which are matched from top to
  * bottom. The intent is that they can include spcific solutions which should
@@ -76,7 +76,6 @@ function scoreExpression(
                 simplify: answer.simplify,
                 form: answer.form,
             }),
-            strings,
         );
     };
 

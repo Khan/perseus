@@ -53,9 +53,6 @@ describe("scoreGrapher", () => {
         const userInput: PerseusGrapherUserInput = {
             type: "exponential",
             asymptote,
-            // TODO: either the types or logic is wrong,
-            // but the existing scoring function checks for null coords
-            // @ts-expect-error - TS(2322) - Type 'null' is not assignable to type 'readonly Coord[]'.
             coords: null,
         };
 
@@ -98,6 +95,37 @@ describe("scoreGrapher", () => {
 
         // Act
         const result = scoreGrapher(userInput, scoringData);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("is invalid when rubric has null coords", () => {
+        // The rubric.correct.coords are null in some cases in legacy data.
+        // Before this test was added and made to pass, the scoring code would
+        // throw an exception if the coords were null. From a learner's
+        // perspective, they'd click the "check answer" button and nothing
+        // would visibly happen. Returning "invalid" is slightly nicer, and has
+        // a similar effect (blocking learner progress).
+
+        // Arrange
+        const userInput: PerseusGrapherUserInput = {
+            type: "linear",
+            coords: [
+                [-10, -10],
+                [10, 10],
+            ],
+        };
+
+        const rubric: PerseusGrapherScoringData = {
+            correct: {
+                type: "linear",
+                coords: null,
+            },
+        };
+
+        // Act
+        const result = scoreGrapher(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput();

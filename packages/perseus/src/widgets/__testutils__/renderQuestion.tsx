@@ -16,8 +16,8 @@ import * as Perseus from "../../index";
 import {mockStrings} from "../../strings";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
-import type {PerseusRenderer} from "../../perseus-types";
 import type {APIOptions} from "../../types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type RenderResult = ReturnType<typeof render>;

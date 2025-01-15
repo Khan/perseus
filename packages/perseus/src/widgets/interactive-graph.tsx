@@ -37,17 +37,6 @@ import scoreInteractiveGraph from "./interactive-graphs/score-interactive-graph"
 import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
 import type {QuadraticGraphState} from "./interactive-graphs/types";
 import type {Coord} from "../interactive2/types";
-import type {
-    PerseusGraphType,
-    PerseusGraphTypeAngle,
-    PerseusGraphTypePoint,
-    PerseusGraphTypePolygon,
-    PerseusGraphTypeSegment,
-    PerseusInteractiveGraphWidgetOptions,
-    GraphRange,
-    LockedFigure,
-    PerseusImageBackground,
-} from "../perseus-types";
 import type {ChangeHandler, WidgetExports, WidgetProps} from "../types";
 import type {
     QuadraticCoefficient,
@@ -60,6 +49,18 @@ import type {
 } from "../validation.types";
 import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
+import type {
+    PerseusGraphType,
+    PerseusGraphTypeAngle,
+    PerseusGraphTypePoint,
+    PerseusGraphTypePolygon,
+    PerseusGraphTypeSegment,
+    PerseusInteractiveGraphWidgetOptions,
+    GraphRange,
+    LockedFigure,
+    PerseusImageBackground,
+    MarkingsType,
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const TRASH_ICON_URI =
@@ -148,11 +149,12 @@ type RenderProps = {
     backgroundImage?: PerseusImageBackground;
     /**
      * The type of markings to display on the graph.
+     * - axes: shows the axes without the gride lines
      * - graph: shows the axes and the grid lines
      * - grid: shows only the grid lines
      * - none: shows no markings
      */
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     /**
      * How to label the X and Y axis.  default: ["x", "y"]
      */

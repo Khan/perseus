@@ -12,17 +12,17 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {IFrameWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {IFrameWidget} from "@khanacademy/perseus-core";
 
 export const parseIframeWidget: Parser<IFrameWidget> = parseWidget(
     constant("iframe"),
     object({
         url: string,
-        settings: array(object({name: string, value: string})),
+        settings: optional(array(object({name: string, value: string}))),
         width: union(number).or(string).parser,
         height: union(number).or(string).parser,
-        allowFullScreen: boolean,
+        allowFullScreen: defaulted(boolean, () => false),
         allowTopNavigation: optional(boolean),
         static: defaulted(boolean, () => false),
     }),

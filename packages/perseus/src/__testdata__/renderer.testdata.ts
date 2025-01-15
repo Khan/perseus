@@ -1,11 +1,12 @@
+import type {RenderProps} from "../widgets/radio";
 import type {
     DropdownWidget,
     ExpressionWidget,
     ImageWidget,
     NumericInputWidget,
+    MockWidget,
     PerseusRenderer,
-} from "../perseus-types";
-import type {RenderProps} from "../widgets/radio";
+} from "@khanacademy/perseus-core";
 
 export const expressionWidget: ExpressionWidget = {
     type: "expression",
@@ -67,31 +68,17 @@ export const imageWidget: ImageWidget = {
     version: {major: 0, minor: 0},
 };
 
-export const numericInputWidget: NumericInputWidget = {
+export const mockWidget: MockWidget = {
+    type: "mock-widget",
     graded: true,
+    alignment: "default",
+    options: {
+        value: "0.3333333333333333",
+    },
     version: {
         major: 0,
         minor: 0,
     },
-    static: false,
-    type: "numeric-input",
-    options: {
-        coefficient: false,
-        static: false,
-        answers: [
-            {
-                status: "correct",
-                maxError: null,
-                strict: false,
-                value: 1252,
-                simplify: "required",
-                message: "",
-            },
-        ],
-        labelText: "",
-        size: "normal",
-    },
-    alignment: "default",
 };
 
 export const question1: PerseusRenderer = {
@@ -103,7 +90,7 @@ export const question1: PerseusRenderer = {
 
 export const question2: PerseusRenderer = {
     content:
-        "Denis baked a peach pie and cut it into $3$ equal-sized pieces.  Denis's dad eats $1$ section of the pie.  \n\n**What fraction of the pie did Denis's dad eat?**  \n![](https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png)    \n[[\u2603 numeric-input 1]]  \n\n\n\n",
+        "Denis baked a peach pie and cut it into $3$ equal-sized pieces.  Denis's dad eats $1$ section of the pie.  \n\n**What fraction of the pie did Denis's dad eat?**  \n![](https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png)    \n[[\u2603 mock-widget 1]]  \n\n\n\n",
     images: {
         "https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png":
             {
@@ -111,13 +98,7 @@ export const question2: PerseusRenderer = {
                 height: 200,
             },
     },
-    widgets: {"numeric-input 1": numericInputWidget},
-};
-
-export const question3: PerseusRenderer = {
-    content: "Enter $1.0$ in the input field: [[\u2603 expression 1]]\n\n\n\n",
-    images: {},
-    widgets: {"expression 1": expressionWidget},
+    widgets: {"mock-widget 1": mockWidget},
 };
 
 export const definitionItem: PerseusRenderer = {

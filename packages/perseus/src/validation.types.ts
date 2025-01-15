@@ -29,6 +29,7 @@
  * ```
  */
 
+import type {Relationship} from "./widgets/number-line/number-line";
 import type {
     GrapherAnswerTypes,
     PerseusDropdownChoice,
@@ -43,8 +44,7 @@ import type {
     PerseusRadioChoice,
     PerseusGraphCorrectType,
     MakeWidgetMap,
-} from "./perseus-types";
-import type {Relationship} from "./widgets/number-line/number-line";
+} from "@khanacademy/perseus-core";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
@@ -243,9 +243,9 @@ export interface ScoringDataRegistry {
     categorizer: PerseusCategorizerScoringData;
     dropdown: PerseusDropdownScoringData;
     expression: PerseusExpressionScoringData;
-    grapher: PerseusGrapherScoringData;
     "graded-group-set": PerseusGradedGroupSetScoringData;
     "graded-group": PerseusGradedGroupScoringData;
+    grapher: PerseusGrapherScoringData;
     group: PerseusGroupScoringData;
     image: PerseusLabelImageScoringData;
     "input-number": PerseusInputNumberScoringData;
@@ -307,6 +307,8 @@ interface UserInputRegistry {
     sorter: PerseusSorterUserInput;
     table: PerseusTableUserInput;
 }
+
+//    | PerseusMockWidgetUserInput
 
 /** A union type of all the widget user input types */
 export type UserInput = UserInputRegistry[keyof UserInputRegistry];

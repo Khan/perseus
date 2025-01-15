@@ -14,8 +14,8 @@ import {stringToNumber} from "../general-purpose-parsers/string-to-number";
 
 import {parseWidget} from "./widget";
 
-import type {MatrixWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {MatrixWidget} from "@khanacademy/perseus-core";
 
 const numberOrString = union(number).or(string).parser;
 const numeric = pipeParsers(defaulted(numberOrString, () => NaN)).then(

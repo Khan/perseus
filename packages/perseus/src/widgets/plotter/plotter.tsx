@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unsafe */
+import {KhanMath} from "@khanacademy/kmath";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -10,19 +11,18 @@ import WrappedLine from "../../interactive2/wrapped-line";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import GraphUtils from "../../util/graph-utils";
-import KhanMath from "../../util/math";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
 
 import scorePlotter from "./score-plotter";
 import validatePlotter from "./validate-plotter";
 
-import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusPlotterScoringData,
     PerseusPlotterUserInput,
 } from "../../validation.types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 

@@ -8,8 +8,8 @@
  * compatible. Read the TypeScript error message closely and it should point
  * you in the right direction.
  */
-import type {PerseusRenderer} from "../perseus-types";
 import type {ScoringDataMap, ValidationDataMap} from "../validation.types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 /**
  * An utility type that verifies that the given type `E` extends the type `T`.
