@@ -6,6 +6,7 @@ export {default as scoreCategorizer} from "./widgets/categorizer/score-categoriz
 export {default as scoreCSProgram} from "./widgets/cs-program/score-cs-program";
 export {default as scoreDropdown} from "./widgets/dropdown/score-dropdown";
 export {default as scoreIframe} from "./widgets/iframe/score-iframe";
+export {default as scoreNumberLine} from "./widgets/number-line/score-number-line";
 export {default as scoreNumericInput} from "./widgets/numeric-input/score-numeric-input";
 export {default as scoreRadio} from "./widgets/radio/score-radio";
 export {default as scoreTable} from "./widgets/table/score-table";

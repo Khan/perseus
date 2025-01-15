@@ -3,7 +3,7 @@ import scoreNumberLine from "./score-number-line";
 import type {
     PerseusNumberLineScoringData,
     PerseusNumberLineUserInput,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
 
 describe("scoreNumberLine", () => {
     it("is invalid when end state is the same as beginning state", () => {

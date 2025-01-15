@@ -1,7 +1,7 @@
 import type {
-    PerseusScore,
     PerseusNumberLineUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusScore,
+} from "../../validation.types";
 
 /**
  * Checks user input is within the allowed range and not the same as the initial

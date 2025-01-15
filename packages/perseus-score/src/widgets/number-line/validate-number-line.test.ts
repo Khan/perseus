@@ -1,6 +1,6 @@
 import validateNumberLine from "./validate-number-line";
 
-import type {PerseusNumberLineUserInput} from "@khanacademy/perseus-score";
+import type {PerseusNumberLineUserInput} from "../../validation.types";
 
 describe("validateNumberLine", () => {
     it("is invalid when outside allowed range", () => {

@@ -3,10 +3,10 @@ import {number as knumber} from "@khanacademy/kmath";
 import validateNumberLine from "./validate-number-line";
 
 import type {
-    PerseusScore,
     PerseusNumberLineScoringData,
     PerseusNumberLineUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusScore,
+} from "../../validation.types";
 
 function scoreNumberLine(
     userInput: PerseusNumberLineUserInput,
