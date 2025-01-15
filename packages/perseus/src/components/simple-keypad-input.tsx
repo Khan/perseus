@@ -45,9 +45,7 @@ export default class SimpleKeypadInput extends React.Component<any> {
     }
 
     blur() {
-        if (typeof this.inputRef.current?.blur === "function") {
-            this.inputRef.current?.blur();
-        }
+        this.inputRef.current?.blur();
     }
 
     getValue(): string | number {
