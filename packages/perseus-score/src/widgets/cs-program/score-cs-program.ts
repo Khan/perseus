@@ -3,9 +3,10 @@ import type {
     PerseusScore,
 } from "../../validation.types";
 
+// TODO: merge this with scoreIframe, it's the same code
 function scoreCSProgram(state: PerseusCSProgramUserInput): PerseusScore {
-    // The iframe can tell us whether it's correct or incorrect,
-    //  and pass an optional message
+    // The CS program can tell us whether it's correct or incorrect,
+    // and pass an optional message
     if (state.status === "correct") {
         return {
             type: "points",

@@ -1,11 +1,12 @@
 import type {
-    PerseusScore,
     PerseusIFrameUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusScore,
+} from "../../validation.types";
 
-export function scoreIframe(userInput: PerseusIFrameUserInput): PerseusScore {
+// TODO: merge this with scoreCSProgram, it's the same code
+function scoreIframe(userInput: PerseusIFrameUserInput): PerseusScore {
     // The iframe can tell us whether it's correct or incorrect,
-    //  and pass an optional message
+    // and pass an optional message
     if (userInput.status === "correct") {
         return {
             type: "points",
@@ -27,3 +28,5 @@ export function scoreIframe(userInput: PerseusIFrameUserInput): PerseusScore {
         message: "Keep going, you're not there yet!",
     };
 }
+
+export default scoreIframe;

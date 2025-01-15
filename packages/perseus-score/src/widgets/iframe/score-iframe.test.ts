@@ -1,6 +1,6 @@
-import {scoreIframe} from "./score-iframe";
+import scoreIframe from "./score-iframe";
 
-import type {PerseusIFrameUserInput} from "@khanacademy/perseus-score";
+import type {PerseusIFrameUserInput} from "../../validation.types";
 
 describe("scoreIframe", () => {
     it("is correct when the state from the iframe shows the status is correct", () => {
