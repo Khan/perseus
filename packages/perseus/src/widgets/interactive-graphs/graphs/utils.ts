@@ -89,8 +89,13 @@ export function getInterceptStringForLine(
     const slope = (line[1][1] - line[0][1]) / (line[1][0] - line[0][0]);
     const xIntercept = (0 - line[0][1]) / slope + line[0][0];
     const yIntercept = line[0][1] - slope * line[0][0];
-    const hasXIntercept = Number.isFinite(xIntercept);
-    const hasYIntercept = Number.isFinite(yIntercept);
+
+    // Check if the line fully overlaps with an axis.
+    const overlapsXAxis = line[0][1] === 0 && line[1][1] === 0;
+    const overlapsYAxis = line[0][0] === 0 && line[1][0] === 0;
+
+    const hasXIntercept = Number.isFinite(xIntercept) && !overlapsXAxis;
+    const hasYIntercept = Number.isFinite(yIntercept) && !overlapsYAxis;
 
     if (hasXIntercept && hasYIntercept) {
         // Describe both intercepts in the same sentence.

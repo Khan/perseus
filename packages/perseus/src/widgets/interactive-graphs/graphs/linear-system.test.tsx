@@ -92,6 +92,8 @@ describe("Linear System graph screen reader", () => {
             ${"both x and y intercepts"} | ${[[4, 4], [7, 1]]} | ${"The line crosses the X-axis at 8 comma 0 and the Y-axis at 0 comma 8."}
             ${"x intercept only"}        | ${[[5, 5], [5, 2]]} | ${"The line crosses the X-axis at 5 comma 0."}
             ${"y intercept only"}        | ${[[5, 5], [2, 5]]} | ${"The line crosses the Y-axis at 0 comma 5."}
+            ${"overlaps y-axis"}         | ${[[0, 5], [0, 2]]} | ${"The line crosses the X-axis at 0 comma 0."}
+            ${"overlaps x-axis"}         | ${[[5, 0], [2, 0]]} | ${"The line crosses the Y-axis at 0 comma 0."}
         `(
             "slope description should include slope info for $case",
             ({coords, interceptDescription}) => {
@@ -126,6 +128,8 @@ describe("Linear System graph screen reader", () => {
             ${"negative slope"}  | ${[[3, 3], [1, 6]]} | ${`Its slope decreases from left to right.`}
             ${"horizontal line"} | ${[[1, 1], [3, 1]]} | ${`Its slope is zero.`}
             ${"vertical line"}   | ${[[1, 1], [1, 3]]} | ${`Its slope is undefined.`}
+            ${"overlaps x-axis"} | ${[[1, 0], [3, 0]]} | ${`Its slope is zero.`}
+            ${"overlaps y-axis"} | ${[[0, 1], [0, 3]]} | ${`Its slope is undefined.`}
         `(
             "slope description should include slope info for $case",
             ({coords, slopeDescription}) => {
