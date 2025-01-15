@@ -3,7 +3,7 @@ import validatePlotter from "./validate-plotter";
 import type {
     PerseusPlotterUserInput,
     PerseusPlotterValidationData,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
 
 describe("validatePlotter", () => {
     it("is invalid if the start and end are the same", () => {

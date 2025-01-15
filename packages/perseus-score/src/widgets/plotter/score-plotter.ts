@@ -1,14 +1,12 @@
-import Util from "../../util";
+import _ from "underscore";
 
 import validatePlotter from "./validate-plotter";
 
 import type {
-    PerseusScore,
-    PerseusPlotterScoringData,
     PerseusPlotterUserInput,
-} from "@khanacademy/perseus-score";
-
-const {deepEq} = Util;
+    PerseusPlotterScoringData,
+    PerseusScore,
+} from "../../validation.types";
 
 function scorePlotter(
     userInput: PerseusPlotterUserInput,
@@ -20,7 +18,7 @@ function scorePlotter(
     }
     return {
         type: "points",
-        earned: deepEq(userInput, scoringData.correct) ? 1 : 0,
+        earned: _.isEqual(userInput, scoringData.correct) ? 1 : 0,
         total: 1,
         message: null,
     };

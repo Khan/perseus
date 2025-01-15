@@ -3,7 +3,7 @@ import scorePlotter from "./score-plotter";
 import type {
     PerseusPlotterScoringData,
     PerseusPlotterUserInput,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
 
 describe("scorePlotter", () => {
     it("can be answered correctly", () => {

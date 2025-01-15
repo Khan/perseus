@@ -1,12 +1,10 @@
-import Util from "../../util";
+import _ from "underscore";
 
 import type {
-    ValidationResult,
     PerseusPlotterUserInput,
     PerseusPlotterValidationData,
-} from "@khanacademy/perseus-score";
-
-const {deepEq} = Util;
+    ValidationResult,
+} from "../../validation.types";
 
 /**
  * Checks user input to confirm it is not the same as the starting values for the graph.
@@ -18,7 +16,7 @@ function validatePlotter(
     userInput: PerseusPlotterUserInput,
     validationData: PerseusPlotterValidationData,
 ): ValidationResult {
-    if (deepEq(userInput, validationData.starting)) {
+    if (_.isEqual(userInput, validationData.starting)) {
         return {
             type: "invalid",
             message: null,
