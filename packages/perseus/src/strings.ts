@@ -260,6 +260,31 @@ export type PerseusStrings = {
         endingSideX: string;
         endingSideY: string;
     }) => string;
+    srLinearSystemGraph: string;
+    srLinearSystemPoints: ({
+        lineNumber,
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        lineNumber: number;
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srLinearSystemPoint({
+        lineNumber,
+        pointSequence,
+        x,
+        y,
+    }: {
+        lineNumber: number;
+        pointSequence: number;
+        x: string;
+        y: string;
+    }): string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -480,6 +505,11 @@ export const strings: {
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
     srAngleGraphAriaDescription:
         "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
+    srLinearSystemGraph: "Two lines on a coordinate plane.",
+    srLinearSystemPoints:
+        "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+    srLinearSystemPoint:
+        "Point %(pointSequence)s on line %(lineNumber)s at %(x)s comma %(y)s.",
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -697,6 +727,11 @@ export const mockStrings: PerseusStrings = {
         endingSideY,
     }) =>
         `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the starting side at ${startingSideX} comma ${startingSideY} and a point on the ending side at ${endingSideX} comma ${endingSideY}.`,
+    srLinearSystemGraph: "Two lines on a coordinate plane.",
+    srLinearSystemPoints: ({lineNumber, point1X, point1Y, point2X, point2Y}) =>
+        `Line ${lineNumber} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
+    srLinearSystemPoint: ({lineNumber, pointSequence, x, y}) =>
+        `Point ${pointSequence} on line ${lineNumber} at ${x} comma ${y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
 

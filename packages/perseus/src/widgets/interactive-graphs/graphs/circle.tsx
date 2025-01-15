@@ -3,6 +3,7 @@ import * as React from "react";
 import {useRef} from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
+import a11y from "../../../util/a11y";
 import {snap, X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
@@ -103,10 +104,10 @@ function CircleGraph(props: CircleGraphProps) {
             />
             {/* Hidden elements to provide the descriptions for the
                 circle and radius point's `aria-describedby` properties. */}
-            <g id={radiusId} style={{display: "hidden"}}>
+            <g id={radiusId} style={a11y.srOnly}>
                 {srCircleRadius}
             </g>
-            <g id={outerPointsId} style={{display: "hidden"}}>
+            <g id={outerPointsId} style={a11y.srOnly}>
                 {srCircleOuterPoints}
             </g>
         </g>
