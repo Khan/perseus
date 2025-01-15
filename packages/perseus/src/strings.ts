@@ -1,4 +1,4 @@
-import {ErrorCodes} from "@khanacademy/perseus-score";
+import type {ErrorCodes} from "@khanacademy/perseus-score";
 
 /**
  * The translated strings that are used to render Perseus.
@@ -700,19 +700,23 @@ export const mockStrings: PerseusStrings = {
     // The above strings are used for interactive graph SR descriptions.
 };
 
-const errorToString = {
-    [ErrorCodes.MISSING_PERCENT_ERROR]: strings.MISSING_PERCENT_ERROR,
-    [ErrorCodes.NEEDS_TO_BE_SIMPLIFIED_ERROR]:
-        strings.NEEDS_TO_BE_SIMPLFIED_ERROR,
-    [ErrorCodes.APPROXIMATED_PI_ERROR]: strings.APPROXIMATED_PI_ERROR,
-    [ErrorCodes.EXTRA_SYMBOLS_ERROR]: strings.EXTRA_SYMBOLS_ERROR,
-    [ErrorCodes.WRONG_CASE_ERROR]: strings.WRONG_CASE_ERROR,
-    [ErrorCodes.WRONG_LETTER_ERROR]: strings.WRONG_LETTER_ERROR,
-    [ErrorCodes.MULTIPLICATION_SIGN_ERROR]: strings.MULTIPLICATION_SIGN_ERROR,
-    [ErrorCodes.INVALID_SELECTION_ERROR]: strings.invalidSelection,
-    [ErrorCodes.CHOOSE_CORRECT_NUM_ERROR]: strings.chooseCorrectNum,
-    [ErrorCodes.NOT_NONE_ABOVE_ERROR]: strings.notNoneOfTheAbove,
+type ErrorStringMap = {
+    [K in keyof typeof ErrorCodes]: string;
 };
+
+const errorToString: ErrorStringMap = {
+    MISSING_PERCENT_ERROR: strings.MISSING_PERCENT_ERROR as string,
+    NEEDS_TO_BE_SIMPLIFIED_ERROR: strings.NEEDS_TO_BE_SIMPLFIED_ERROR as string,
+    APPROXIMATED_PI_ERROR: strings.APPROXIMATED_PI_ERROR as string,
+    EXTRA_SYMBOLS_ERROR: strings.EXTRA_SYMBOLS_ERROR as string,
+    WRONG_CASE_ERROR: strings.WRONG_CASE_ERROR as string,
+    WRONG_LETTER_ERROR: strings.WRONG_LETTER_ERROR as string,
+    MULTIPLICATION_SIGN_ERROR: strings.MULTIPLICATION_SIGN_ERROR as string,
+    INVALID_SELECTION_ERROR: strings.invalidSelection as string,
+    CHOOSE_CORRECT_NUM_ERROR: strings.chooseCorrectNum as string,
+    NOT_NONE_ABOVE_ERROR: strings.notNoneOfTheAbove as string,
+};
+
 export function mapErrorToString(err: string | null | undefined) {
     if (!err) {
         return err;
