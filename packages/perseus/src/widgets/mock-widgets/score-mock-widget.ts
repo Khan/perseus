@@ -1,9 +1,7 @@
-import {KhanAnswerTypes} from "@khanacademy/perseus-score";
-
 import type {
     PerseusMockWidgetUserInput,
     PerseusMockWidgetRubric,
-} from "./mock-widget";
+} from "./mock-widget-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "@khanacademy/perseus";
 
@@ -12,25 +10,17 @@ function scoreMockWidget(
     rubric: PerseusMockWidgetRubric,
     strings: PerseusStrings,
 ): PerseusScore {
-    const stringValue = `${rubric.value}`;
-    const val = KhanAnswerTypes.number.createValidatorFunctional(
-        stringValue,
-        strings,
-    );
-
-    const result = val(userInput.currentValue);
-
-    if (result.empty) {
+    if (userInput.currentValue == null || userInput.currentValue === "") {
         return {
             type: "invalid",
-            message: result.message,
+            message: "No value provided",
         };
     }
     return {
         type: "points",
-        earned: result.correct ? 1 : 0,
+        earned: userInput.currentValue === rubric.value ? 1 : 0,
         total: 1,
-        message: result.message,
+        message: "",
     };
 }
 
