@@ -89,7 +89,7 @@ export const NumericInputComponent = forwardRef(
         if (props.apiOptions.customKeypad) {
             const alignmentClass = props.rightAlign
                 ? "perseus-input-right-align"
-                : "";
+                : undefined;
             return (
                 <div className={alignmentClass}>
                     <SimpleKeypadInput

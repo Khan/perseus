@@ -39,6 +39,8 @@ export default class SimpleKeypadInput extends React.Component<any> {
     }
 
     focus() {
+        // The inputRef is a ref to a MathInput, which
+        // also controls the keypad state during focus events.
         this.inputRef.current?.focus(this.context.setKeypadActive);
     }
 

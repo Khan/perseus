@@ -64,6 +64,14 @@ type DefaultProps = {
     PerseusNumericInputRubric
 > satisfies PropsFor<typeof NumericInput>;
 
+/**
+ * The NumericInput widget is a numeric input field that supports a variety of
+ * answer forms, including integers, decimals, fractions, and mixed numbers.
+ *
+ * [Jan 2025] We're currenly migrating from class-based components to functional
+ * components. While we cannot fully migrate this component yet, we can start
+ * by using the functional component for the rendering the UI of the widget.
+ */
 export class NumericInput
     extends React.Component<NumericInputProps>
     implements Widget
