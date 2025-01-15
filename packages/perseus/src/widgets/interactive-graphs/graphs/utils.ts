@@ -120,3 +120,104 @@ export function getInterceptStringForLine(
               yIntercept: srFormatNumber(yIntercept, locale),
           });
 }
+
+type GraphLocations = "origin" | "x-axis" | "y-axis" | 1 | 2 | 3 | 4;
+
+export function getCoordQuadrant(coord: Coord): GraphLocations {
+    const [x, y] = coord;
+
+    if (x === 0 && y === 0) {
+        return "origin";
+    }
+
+    if (y === 0) {
+        return "x-axis";
+    }
+
+    if (x === 0) {
+        return "y-axis";
+    }
+
+    if (x > 0 && y > 0) {
+        return 1;
+    }
+
+    if (x < 0 && y > 0) {
+        return 2;
+    }
+
+    if (x < 0 && y < 0) {
+        return 3;
+    }
+
+    return 4;
+}
+
+export function getQuadraticVertexString(vertex: Coord): string {
+    const location = getCoordQuadrant(vertex);
+
+    switch (location) {
+        case "origin":
+            return "Its vertex is at the origin.";
+        case "x-axis":
+            return "Its vertex is on the X-axis.";
+        case "y-axis":
+            return "Its vertex is on the Y-axis.";
+        default:
+            return `Its vertex is in quadrant ${location}.`;
+    }
+}
+
+export function getQuadraticPointString(
+    pointNumber,
+    coord: Coord,
+    locale: string,
+): string {
+    const location = getCoordQuadrant(coord);
+    const [x, y] = coord;
+
+    switch (location) {
+        case "origin":
+            return `Point ${pointNumber} on parabola at the origin.`;
+        case "x-axis":
+        case "y-axis":
+            return `Point ${pointNumber} on parabola at ${srFormatNumber(x, locale)} comma ${srFormatNumber(y, locale)}.`;
+        default:
+            return `Point ${pointNumber} on parabola in quadrant ${location} at ${srFormatNumber(x, locale)} comma ${srFormatNumber(y, locale)}.`;
+    }
+}
+
+export function getQuadraticXIntercepts(
+    // Coefficients of the quadratic equation
+    a: number,
+    b: number,
+    c: number,
+): number[] {
+    // If a is 0, the equation is a line and has maybe only one x-intercept.
+    if (a === 0) {
+        // If b is 0, the equation a horizontal line and has no x-intercepts.
+        if (b === 0) {
+            return [];
+        }
+
+        return [-c / b];
+    }
+
+    // Find the x-intercepts by plugging in y = 0 into the quadratic equation.
+    // 0 = ax^2 + bx + c
+    // x = (-b ± sqrt(b^2 - 4ac)) / 2a
+    const discriminant = b * b - 4 * a * c;
+
+    if (discriminant < 0) {
+        return [];
+    }
+
+    const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+    const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+
+    if (x1 === x2) {
+        return [x1];
+    }
+
+    return [x1, x2];
+}
