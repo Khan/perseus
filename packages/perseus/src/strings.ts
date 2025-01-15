@@ -264,6 +264,7 @@ export type PerseusStrings = {
     }: {
         countOfSegments: number;
     }) => string;
+    srIndividualSegmentAriaLabel: string;
     srIndividualSegmentAriaDescription: ({
         point1X,
         point1Y,
@@ -522,6 +523,7 @@ export const strings: {
     srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
     srMultipleSegmentGraphAriaLabel:
         "%(countOfSegments)s segments on a coordinate plane.",
+    srIndividualSegmentAriaLabel: "PLACEHOLDER: PLEASE UPDATE ME",
     srIndividualSegmentAriaDescription:
         "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s. Segment length %(length)s units.",
     srSingleSegmentGraphEndpointAriaLabel:
@@ -748,6 +750,7 @@ export const mockStrings: PerseusStrings = {
     srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
     srMultipleSegmentGraphAriaLabel: ({countOfSegments}) =>
         `${countOfSegments} segments on a coordinate plane.`,
+    srIndividualSegmentAriaLabel: "PLACEHOLDER: PLEASE UPDATE ME",
     srIndividualSegmentAriaDescription: ({
         point1X,
         point1Y,

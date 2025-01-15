@@ -42,6 +42,8 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     }
 
     const wholeSegmentGraphAriaLabel = getWholeSegmentGraphAriaLabel();
+    // STRING FOR THIS SHOULD BE UPDATED PRIOR TO BEING TRANSLATED
+    const individualSegmentAriaLabel = strings.srIndividualSegmentAriaLabel;
 
     function getIndividualSegmentAriaDescription(
         segment: PairOfPoints,
@@ -95,6 +97,7 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
         >
             {segments?.map((segment, i) => (
                 <g
+                    aria-label={individualSegmentAriaLabel}
                     aria-describedby={`segment-description-${segmentUniqueId}-${i}`}
                     key={`${segmentUniqueId}-${i}`}
                 >
