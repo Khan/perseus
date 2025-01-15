@@ -535,11 +535,11 @@ export const strings: {
         "Point %(pointSequence)s on line %(lineNumber)s at %(x)s comma %(y)s.",
     srRayGraph: "A ray on a coordinate plane.",
     srRayPoints:
-        "The endpoint is at %(point1X)s comma %(point1Y)s and the terminal point is at %(point2X)s comma %(point2Y)s.",
+        "The endpoint is at %(point1X)s comma %(point1Y)s and the ray goes through point %(point2X)s comma %(point2Y)s.",
     srRayGrabHandle:
-        "Ray from endpoint %(point1X)s comma %(point1Y)s to terminal point %(point2X)s comma %(point2Y)s.",
+        "Ray with endpoint %(point1X)s comma %(point1Y)s going through point %(point2X)s comma %(point2Y)s.",
     srRayEndpoint: "Endpoint at %(point1X)s comma %(point1Y)s.",
-    srRayTerminalPoint: "Terminal point at %(point2X)s comma %(point2Y)s.",
+    srRayTerminalPoint: "Through point at %(point2X)s comma %(point2Y)s.",
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -764,10 +764,10 @@ export const mockStrings: PerseusStrings = {
         `Point ${pointSequence} on line ${lineNumber} at ${x} comma ${y}.`,
     srRayGraph: "A ray on a coordinate plane.",
     srRayPoints: ({point1X, point1Y, point2X, point2Y}) =>
-        `The endpoint is at ${point1X} comma ${point1Y} and the terminal point is at ${point2X} comma ${point2Y}.`,
+        `The endpoint is at ${point1X} comma ${point1Y} and the ray goes through point ${point2X} comma ${point2Y}.`,
     srRayGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
-        `Ray from endpoint ${point1X} comma ${point1Y} to terminal point ${point2X} comma ${point2Y}.`,
+        `Ray with endpoint ${point1X} comma ${point1Y} going through point ${point2X} comma ${point2Y}.`,
     srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
-    srRayTerminalPoint: ({x, y}) => `Terminal point at ${x} comma ${y}.`,
+    srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };

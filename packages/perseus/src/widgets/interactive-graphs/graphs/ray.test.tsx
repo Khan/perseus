@@ -54,15 +54,15 @@ describe("Linear graph screen reader", () => {
         // Assert
         expect(linearGraph).toBeInTheDocument();
         expect(linearGraph).toHaveAccessibleDescription(
-            "The endpoint is at -5 comma 5 and the terminal point is at 5 comma 5.",
+            "The endpoint is at -5 comma 5 and the ray goes through point 5 comma 5.",
         );
     });
 
     test.each`
         element         | index | expectedValue
         ${"point1"}     | ${0}  | ${"Endpoint at -5 comma 5."}
-        ${"grabHandle"} | ${1}  | ${"Ray from endpoint -5 comma 5 to terminal point 5 comma 5."}
-        ${"point2"}     | ${2}  | ${"Terminal point at 5 comma 5."}
+        ${"grabHandle"} | ${1}  | ${"Ray with endpoint -5 comma 5 going through point 5 comma 5."}
+        ${"point2"}     | ${2}  | ${"Through point at 5 comma 5."}
     `(
         "should have aria label for $element on the line",
         ({index, expectedValue}) => {
@@ -88,7 +88,7 @@ describe("Linear graph screen reader", () => {
 
         // Assert
         expect(linearGraph).toHaveTextContent(
-            "The endpoint is at -5 comma 5 and the terminal point is at 5 comma 5.",
+            "The endpoint is at -5 comma 5 and the ray goes through point 5 comma 5.",
         );
     });
 
@@ -118,11 +118,11 @@ describe("Linear graph screen reader", () => {
         expect(point1).toHaveAttribute("aria-label", "Endpoint at -2 comma 3.");
         expect(grabHandle).toHaveAttribute(
             "aria-label",
-            "Ray from endpoint -2 comma 3 to terminal point 3 comma 3.",
+            "Ray with endpoint -2 comma 3 going through point 3 comma 3.",
         );
         expect(point2).toHaveAttribute(
             "aria-label",
-            "Terminal point at 3 comma 3.",
+            "Through point at 3 comma 3.",
         );
     });
 
@@ -168,15 +168,15 @@ describe("describeRayGraph", () => {
         // Assert
         expect(strings.srRayGraph).toBe("A ray on a coordinate plane.");
         expect(strings.srRayPoints).toBe(
-            "The endpoint is at -5 comma 5 and the terminal point is at 5 comma 5.",
+            "The endpoint is at -5 comma 5 and the ray goes through point 5 comma 5.",
         );
         expect(strings.srRayEndpoint).toBe("Endpoint at -5 comma 5.");
-        expect(strings.srRayTerminalPoint).toBe("Terminal point at 5 comma 5.");
+        expect(strings.srRayTerminalPoint).toBe("Through point at 5 comma 5.");
         expect(strings.srRayGrabHandle).toBe(
-            "Ray from endpoint -5 comma 5 to terminal point 5 comma 5.",
+            "Ray with endpoint -5 comma 5 going through point 5 comma 5.",
         );
         expect(strings.srRayInteractiveElement).toBe(
-            "Interactive elements: A ray on a coordinate plane. The endpoint is at -5 comma 5 and the terminal point is at 5 comma 5.",
+            "Interactive elements: A ray on a coordinate plane. The endpoint is at -5 comma 5 and the ray goes through point 5 comma 5.",
         );
     });
 
@@ -198,15 +198,15 @@ describe("describeRayGraph", () => {
         // Assert
         expect(strings.srRayGraph).toBe("A ray on a coordinate plane.");
         expect(strings.srRayPoints).toBe(
-            "The endpoint is at -1 comma 2 and the terminal point is at 3 comma 4.",
+            "The endpoint is at -1 comma 2 and the ray goes through point 3 comma 4.",
         );
         expect(strings.srRayEndpoint).toBe("Endpoint at -1 comma 2.");
-        expect(strings.srRayTerminalPoint).toBe("Terminal point at 3 comma 4.");
+        expect(strings.srRayTerminalPoint).toBe("Through point at 3 comma 4.");
         expect(strings.srRayGrabHandle).toBe(
-            "Ray from endpoint -1 comma 2 to terminal point 3 comma 4.",
+            "Ray with endpoint -1 comma 2 going through point 3 comma 4.",
         );
         expect(strings.srRayInteractiveElement).toBe(
-            "Interactive elements: A ray on a coordinate plane. The endpoint is at -1 comma 2 and the terminal point is at 3 comma 4.",
+            "Interactive elements: A ray on a coordinate plane. The endpoint is at -1 comma 2 and the ray goes through point 3 comma 4.",
         );
     });
 });
