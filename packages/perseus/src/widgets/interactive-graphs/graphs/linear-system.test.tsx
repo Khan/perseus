@@ -177,7 +177,7 @@ describe("Linear System graph screen reader", () => {
             );
             expect(grabHandle).toHaveAttribute(
                 "aria-label",
-                `Line ${lineNumber} from -2 comma 3 to 3 comma 3.`,
+                `The line crosses the Y-axis at 0 comma 3. Its slope is zero.`,
             );
             expect(point2).toHaveAttribute(
                 "aria-label",
