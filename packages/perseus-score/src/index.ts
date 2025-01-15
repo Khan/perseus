@@ -6,6 +6,10 @@ export {default as scoreCategorizer} from "./widgets/categorizer/score-categoriz
 export {default as scoreCSProgram} from "./widgets/cs-program/score-cs-program";
 export {default as scoreDropdown} from "./widgets/dropdown/score-dropdown";
 export {default as scoreIframe} from "./widgets/iframe/score-iframe";
+export {
+    default as scoreLabelImage,
+    labelImageScoreMarker,
+} from "./widgets/label-image/score-label-image";
 export {default as scoreMatcher} from "./widgets/matcher/score-matcher";
 export {default as scoreNumberLine} from "./widgets/number-line/score-number-line";
 export {default as scoreNumericInput} from "./widgets/numeric-input/score-numeric-input";

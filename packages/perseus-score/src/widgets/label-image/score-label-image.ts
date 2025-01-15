@@ -1,9 +1,9 @@
-import type {InteractiveMarkerType} from "@khanacademy/perseus-core";
 import type {
-    PerseusScore,
-    PerseusLabelImageRubric,
     PerseusLabelImageUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusLabelImageRubric,
+    PerseusScore,
+} from "../../validation.types";
+import type {InteractiveMarkerType} from "@khanacademy/perseus-core";
 
 // Question state for marker as result of user selected answers.
 type InteractiveMarkerScore = {
@@ -13,7 +13,7 @@ type InteractiveMarkerScore = {
     isCorrect: boolean;
 };
 
-export function scoreMarker(
+export function labelImageScoreMarker(
     marker: InteractiveMarkerType,
 ): InteractiveMarkerScore {
     const score = {
@@ -52,7 +52,7 @@ function scoreLabelImage(
     let numCorrect = 0;
 
     for (const marker of userInput.markers) {
-        const score = scoreMarker(marker);
+        const score = labelImageScoreMarker(marker);
 
         if (score.hasAnswers) {
             numAnswered++;
