@@ -700,6 +700,7 @@ export const mockStrings: PerseusStrings = {
     // The above strings are used for interactive graph SR descriptions.
 };
 
+// This type helps us make sure all error codes are mapped to strings
 type ErrorStringMap = {
     [K in keyof typeof ErrorCodes]: string;
 };
