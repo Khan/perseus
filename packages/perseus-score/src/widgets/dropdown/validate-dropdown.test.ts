@@ -1,6 +1,6 @@
 import validateDropdown from "./validate-dropdown";
 
-import type {PerseusDropdownUserInput} from "@khanacademy/perseus-score";
+import type {PerseusDropdownUserInput} from "../../validation.types";
 
 describe("validateDropdown", () => {
     it("returns invalid for invalid input (user input of 0)", () => {

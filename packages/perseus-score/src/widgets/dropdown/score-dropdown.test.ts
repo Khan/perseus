@@ -1,10 +1,9 @@
-import {basicDropdown} from "./dropdown.testdata";
 import scoreDropdown from "./score-dropdown";
 
 import type {
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
 
 describe("scoreDropdown", () => {
     it("returns 0 points for incorrect answer", () => {
@@ -13,7 +12,16 @@ describe("scoreDropdown", () => {
             value: 1,
         };
         const rubric: PerseusDropdownRubric = {
-            choices: basicDropdown.widgets["dropdown 1"].options.choices,
+            choices: [
+                {
+                    content: "greater than or equal to",
+                    correct: false,
+                },
+                {
+                    content: "less than or equal to",
+                    correct: true,
+                },
+            ],
         };
 
         // Act
@@ -29,7 +37,16 @@ describe("scoreDropdown", () => {
             value: 2,
         };
         const rubric: PerseusDropdownRubric = {
-            choices: basicDropdown.widgets["dropdown 1"].options.choices,
+            choices: [
+                {
+                    content: "greater than or equal to",
+                    correct: false,
+                },
+                {
+                    content: "less than or equal to",
+                    correct: true,
+                },
+            ],
         };
 
         // Act

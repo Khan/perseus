@@ -1,10 +1,10 @@
 import validateDropdown from "./validate-dropdown";
 
 import type {
-    PerseusScore,
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusScore,
+} from "../../validation.types";
 
 function scoreDropdown(
     userInput: PerseusDropdownUserInput,
