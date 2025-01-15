@@ -1,8 +1,6 @@
-import {mockStrings} from "../../strings";
-
 import validateMatrix from "./validate-matrix";
 
-import type {PerseusMatrixUserInput} from "@khanacademy/perseus-score";
+import type {PerseusMatrixUserInput} from "../../validation.types";
 
 describe("matrixValidator", () => {
     it("should return invalid when answers is completely empty", () => {
@@ -12,7 +10,7 @@ describe("matrixValidator", () => {
         };
 
         // Act
-        const result = validateMatrix(userInput, {}, mockStrings);
+        const result = validateMatrix(userInput, {});
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -25,7 +23,7 @@ describe("matrixValidator", () => {
         };
 
         // Act
-        const result = validateMatrix(userInput, {}, mockStrings);
+        const result = validateMatrix(userInput, {});
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -42,7 +40,7 @@ describe("matrixValidator", () => {
         };
 
         // Act
-        const result = validateMatrix(userInput, {}, mockStrings);
+        const result = validateMatrix(userInput, {});
 
         // Assert
         expect(result).toBeNull();

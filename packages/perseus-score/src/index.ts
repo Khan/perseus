@@ -11,6 +11,7 @@ export {
     labelImageScoreMarker,
 } from "./widgets/label-image/score-label-image";
 export {default as scoreMatcher} from "./widgets/matcher/score-matcher";
+export {default as scoreMatrix} from "./widgets/matrix/score-matrix";
 export {default as scoreNumberLine} from "./widgets/number-line/score-number-line";
 export {default as scoreNumericInput} from "./widgets/numeric-input/score-numeric-input";
 export {default as scoreOrderer} from "./widgets/orderer/score-orderer";

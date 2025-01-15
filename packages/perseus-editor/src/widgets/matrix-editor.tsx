@@ -4,6 +4,7 @@ import {
     EditorJsonify,
     MatrixWidget,
 } from "@khanacademy/perseus";
+import {getMatrixSize} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -16,30 +17,6 @@ const Matrix = MatrixWidget.widget;
 // Really large matrices will cause issues with question formatting, so we
 // have to cap it at some point.
 const MAX_BOARD_SIZE = 6;
-
-const getMatrixSize = function (matrix: any) {
-    const matrixSize = [1, 1];
-
-    // We need to find the widest row and tallest column to get the correct
-    // matrix size.
-    _(matrix).each((matrixRow, row) => {
-        let rowWidth = 0;
-        _(matrixRow).each((matrixCol, col) => {
-            if (matrixCol != null && matrixCol.toString().length) {
-                rowWidth = col + 1;
-            }
-        });
-
-        // Matrix width:
-        matrixSize[1] = Math.max(matrixSize[1], rowWidth);
-
-        // Matrix height:
-        if (rowWidth > 0) {
-            matrixSize[0] = Math.max(matrixSize[0], row + 1);
-        }
-    });
-    return matrixSize;
-};
 
 type Props = any;
 
