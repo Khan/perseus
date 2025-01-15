@@ -283,19 +283,6 @@ export type PerseusStrings = {
         x: string;
         y: string;
     }): string;
-    srLinearSystemGrabHandle: ({
-        lineNumber,
-        point1X,
-        point1Y,
-        point2X,
-        point2Y,
-    }: {
-        lineNumber: number;
-        point1X: string;
-        point1Y: string;
-        point2X: string;
-        point2Y: string;
-    }) => string;
     srRayGraph: string;
     srRayPoints: ({
         point1X,
@@ -546,8 +533,6 @@ export const strings: {
         "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
     srLinearSystemPoint:
         "Point %(pointSequence)s on line %(lineNumber)s at %(x)s comma %(y)s.",
-    srLinearSystemGrabHandle:
-        "Line %(lineNumber)s from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
     srRayGraph: "A ray on a coordinate plane.",
     srRayPoints:
         "The endpoint is at %(point1X)s comma %(point1Y)s and the terminal point is at %(point2X)s comma %(point2Y)s.",
@@ -777,14 +762,6 @@ export const mockStrings: PerseusStrings = {
         `Line ${lineNumber} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
     srLinearSystemPoint: ({lineNumber, pointSequence, x, y}) =>
         `Point ${pointSequence} on line ${lineNumber} at ${x} comma ${y}.`,
-    srLinearSystemGrabHandle: ({
-        lineNumber,
-        point1X,
-        point1Y,
-        point2X,
-        point2Y,
-    }) =>
-        `Line ${lineNumber} from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
     srRayGraph: "A ray on a coordinate plane.",
     srRayPoints: ({point1X, point1Y, point2X, point2Y}) =>
         `The endpoint is at ${point1X} comma ${point1Y} and the terminal point is at ${point2X} comma ${point2Y}.`,

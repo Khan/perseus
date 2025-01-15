@@ -1,8 +1,8 @@
 import {srFormatNumber} from "./screenreader-text";
 
+import type {PerseusStrings} from "../../../strings";
 import type {PairOfPoints} from "../types";
 import type {Coord} from "@khanacademy/perseus";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {Interval, vec} from "mafs";
 
 /**
