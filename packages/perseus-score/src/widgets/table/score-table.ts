@@ -1,20 +1,17 @@
-import {KhanAnswerTypes} from "@khanacademy/perseus-score";
-import _ from "underscore";
+import KhanAnswerTypes from "../../util/answer-types";
 
 import {filterNonEmpty} from "./utils";
 import validateTable from "./validate-table";
 
-import type {PerseusStrings} from "../../strings";
 import type {
     PerseusScore,
     PerseusTableRubric,
     PerseusTableUserInput,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
 
 function scoreTable(
     userInput: PerseusTableUserInput,
     rubric: PerseusTableRubric,
-    strings: PerseusStrings,
 ): PerseusScore {
     const validationResult = validateTable(userInput);
     if (validationResult != null) {

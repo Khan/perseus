@@ -8,6 +8,7 @@ export {default as scoreDropdown} from "./widgets/dropdown/score-dropdown";
 export {default as scoreIframe} from "./widgets/iframe/score-iframe";
 export {default as scoreNumericInput} from "./widgets/numeric-input/score-numeric-input";
 export {default as scoreRadio} from "./widgets/radio/score-radio";
+export {default as scoreTable} from "./widgets/table/score-table";
 export {
     default as scoreInputNumber,
     inputNumberAnswerTypes,

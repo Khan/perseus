@@ -1,12 +1,10 @@
-import {mockStrings} from "../../strings";
-
 import scoreTable from "./score-table";
 import * as TableValidator from "./validate-table";
 
 import type {
     PerseusTableRubric,
     PerseusTableUserInput,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
 
 describe("scoreTable", () => {
     it("should be correctly answerable if validation passes", function () {
@@ -28,7 +26,7 @@ describe("scoreTable", () => {
         };
 
         // Act
-        const score = scoreTable(userInput, rubric, mockStrings);
+        const score = scoreTable(userInput, rubric);
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith(userInput);
@@ -54,7 +52,7 @@ describe("scoreTable", () => {
         };
 
         // Act
-        const score = scoreTable(userInput, rubric, mockStrings);
+        const score = scoreTable(userInput, rubric);
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith(userInput);
@@ -76,7 +74,7 @@ describe("scoreTable", () => {
         };
 
         // Act
-        const result = scoreTable(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -98,7 +96,7 @@ describe("scoreTable", () => {
         };
 
         // Act
-        const result = scoreTable(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -119,7 +117,7 @@ describe("scoreTable", () => {
         };
 
         // Act
-        const result = scoreTable(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -140,7 +138,7 @@ describe("scoreTable", () => {
         };
 
         // Act
-        const result = scoreTable(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -161,7 +159,7 @@ describe("scoreTable", () => {
         };
 
         // Act
-        const result = scoreTable(userInput, rubric, mockStrings);
+        const result = scoreTable(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();

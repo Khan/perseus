@@ -1,9 +1,9 @@
 import {filterNonEmpty} from "./utils";
 
 import type {
-    ValidationResult,
     PerseusTableUserInput,
-} from "@khanacademy/perseus-score";
+    ValidationResult,
+} from "../../validation.types";
 
 function validateTable(userInput: PerseusTableUserInput): ValidationResult {
     const supplied = filterNonEmpty(userInput);
