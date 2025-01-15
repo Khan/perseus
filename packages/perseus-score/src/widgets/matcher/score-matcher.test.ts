@@ -3,7 +3,7 @@ import scoreMatcher from "./score-matcher";
 import type {
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
 
 describe("scoreMatcher", () => {
     it("can be answered incorrectly", () => {

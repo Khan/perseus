@@ -1,10 +1,10 @@
 import _ from "underscore";
 
 import type {
-    PerseusScore,
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusScore,
+} from "../../validation.types";
 
 function scoreMatcher(
     state: PerseusMatcherUserInput,
