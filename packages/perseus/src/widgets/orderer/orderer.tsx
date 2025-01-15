@@ -14,7 +14,7 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 
-import splitOrdererWidgetOptions from "./orderer.util";
+import getOrdererPublicWidgetOptions from "./orderer.util";
 import {scoreOrderer} from "./score-orderer";
 
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
@@ -786,5 +786,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusOrdererUserInput
     scorer: scoreOrderer,
-    getPublicOptions: splitOrdererWidgetOptions,
+    getPublicWidgetOptions: getOrdererPublicWidgetOptions,
 } satisfies WidgetExports<typeof Orderer>;

@@ -3,16 +3,21 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-export type OrdererPublicWidgetOptions = {
-    // All of the options available to the user. Place the cards in the correct order. The same card can be used more than once in the answer but will only be displayed once at the top of a stack of identical cards.
+/**
+ * For details on the individual options, see the
+ * PerseusOrdererWidgetOptions type
+ */
+type OrdererPublicWidgetOptions = {
     options: ReadonlyArray<PerseusRenderer>;
-    // "normal" for text options.  "auto" for image options.
     height: "normal" | "auto";
-    // Use the "horizontal" layout for short text and small images. The "vertical" layout is best for longer text (e.g. proofs).
     layout: "horizontal" | "vertical";
 };
 
-function splitOrdererWidgetOptions(
+/**
+ * Given a PerseusOrdererWidgetOptions object, return a new object with only
+ * the public options that should be exposed to the client.
+ */
+function getOrdererPublicWidgetOptions(
     options: PerseusOrdererWidgetOptions,
 ): OrdererPublicWidgetOptions {
     return {
@@ -22,4 +27,4 @@ function splitOrdererWidgetOptions(
     };
 }
 
-export default splitOrdererWidgetOptions;
+export default getOrdererPublicWidgetOptions;

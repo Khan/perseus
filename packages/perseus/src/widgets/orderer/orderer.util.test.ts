@@ -1,19 +1,19 @@
 import {question1} from "./orderer.testdata";
-import splitOrdererWidgetOptions from "./orderer.util";
+import getOrdererPublicWidgetOptions from "./orderer.util";
 
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 
-describe("getOrdererPublicOptions", () => {
+describe("getOrdererPublicWidgetOptions", () => {
     it("should return the correct public options without any answer data", () => {
         // Arrange
         const options: PerseusOrdererWidgetOptions =
             question1.widgets["orderer 1"].options;
 
         // Act
-        const result = splitOrdererWidgetOptions(options);
+        const publicWidgetOptions = getOrdererPublicWidgetOptions(options);
 
         // Assert
-        expect(result).toEqual({
+        expect(publicWidgetOptions).toEqual({
             layout: "horizontal",
             options: [
                 {content: "$10.9$", images: {}, widgets: {}},

@@ -9,7 +9,7 @@ import type {
 } from "./validation.types";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type getCategorizerPublicWidgetOptions from "./widgets/categorizer/categorizer.util";
-import type splitOrdererWidgetOptions from "./widgets/orderer/orderer.util";
+import type getOrdererPublicWidgetOptions from "./widgets/orderer/orderer.util";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     Hint,
@@ -549,7 +549,7 @@ export type WidgetScorerFunction = (
  */
 export type PublicWidgetOptionsFunction =
     | typeof getCategorizerPublicWidgetOptions
-    | typeof splitOrdererWidgetOptions;
+    | typeof getOrdererPublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
