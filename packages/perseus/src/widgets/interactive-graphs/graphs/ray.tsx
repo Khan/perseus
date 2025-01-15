@@ -72,7 +72,7 @@ const RayGraph = (props: Props) => {
                 }}
             />
             {/* Hidden elements to provide the descriptions for the
-                circle and radius point's `aria-describedby` properties. */}
+                `aria-describedby` properties. */}
             <g id={pointsDescriptionId} style={a11y.srOnly}>
                 {srRayPoints}
             </g>
@@ -81,7 +81,7 @@ const RayGraph = (props: Props) => {
 };
 
 function RayGraphDescription({state}: {state: RayGraphState}) {
-    // The reason that CircleGraphDescription is a component (rather than a
+    // The reason that RayGraphDescription is a component (rather than a
     // function that returns a string) is because it needs to use a
     // hook: `usePerseusI18n`.
     const i18n = usePerseusI18n();
