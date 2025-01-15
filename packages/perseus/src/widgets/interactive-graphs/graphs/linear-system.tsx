@@ -90,13 +90,7 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                             x: srFormatNumber(line[1][0], locale),
                             y: srFormatNumber(line[1][1], locale),
                         }),
-                        grabHandleAriaLabel: strings.srLinearSystemGrabHandle({
-                            lineNumber: i + 1,
-                            point1X: srFormatNumber(line[0][0], locale),
-                            point1Y: srFormatNumber(line[0][1], locale),
-                            point2X: srFormatNumber(line[1][0], locale),
-                            point2Y: srFormatNumber(line[1][1], locale),
-                        }),
+                        grabHandleAriaLabel: `${linesAriaInfo[i].interceptDescription} ${linesAriaInfo[i].slopeDescription}`,
                     }}
                     ariaDescribedBy={`${linesAriaInfo[i].interceptDescriptionId} ${linesAriaInfo[i].slopeDescriptionId}`}
                     onMoveLine={(delta: vec.Vector2) => {

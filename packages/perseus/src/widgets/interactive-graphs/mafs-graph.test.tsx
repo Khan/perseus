@@ -279,7 +279,7 @@ describe("MafsGraph", () => {
         );
 
         expectLabelInDoc("Endpoint at 0 comma 0.");
-        expectLabelInDoc("Terminal point at -7 comma 0.5.");
+        expectLabelInDoc("Through point at -7 comma 0.5.");
     });
 
     it("renders ARIA labels for each point (circle)", () => {
