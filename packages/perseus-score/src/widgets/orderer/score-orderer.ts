@@ -3,12 +3,12 @@ import _ from "underscore";
 import validateOrderer from "./validate-orderer";
 
 import type {
-    PerseusScore,
     PerseusOrdererRubric,
     PerseusOrdererUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusScore,
+} from "../../validation.types";
 
-export function scoreOrderer(
+function scoreOrderer(
     userInput: PerseusOrdererUserInput,
     rubric: PerseusOrdererRubric,
 ): PerseusScore {
@@ -29,3 +29,5 @@ export function scoreOrderer(
         message: null,
     };
 }
+
+export default scoreOrderer;

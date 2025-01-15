@@ -9,6 +9,7 @@ export {default as scoreIframe} from "./widgets/iframe/score-iframe";
 export {default as scoreMatcher} from "./widgets/matcher/score-matcher";
 export {default as scoreNumberLine} from "./widgets/number-line/score-number-line";
 export {default as scoreNumericInput} from "./widgets/numeric-input/score-numeric-input";
+export {default as scoreOrderer} from "./widgets/orderer/score-orderer";
 export {default as scorePlotter} from "./widgets/plotter/score-plotter";
 export {default as scoreRadio} from "./widgets/radio/score-radio";
 export {default as scoreSorter} from "./widgets/sorter/score-sorter";
