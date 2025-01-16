@@ -1,5 +1,10 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
-import {geometry, number as knumber, point as kpoint} from "@khanacademy/kmath";
+import {
+    angles,
+    geometry,
+    number as knumber,
+    point as kpoint,
+} from "@khanacademy/kmath";
 import {
     approximateEqual,
     Errors,
@@ -27,7 +32,6 @@ import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 import {getPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
-import {getClockwiseAngle} from "./interactive-graphs/math";
 
 import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
 import type {QuadraticGraphState} from "./interactive-graphs/types";
@@ -53,6 +57,8 @@ import type {
     MarkingsType,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
+const {getClockwiseAngle} = angles;
 
 const {
     angleMeasures,

@@ -1,21 +1,16 @@
-import {coefficients, geometry, vector as kvector} from "@khanacademy/kmath";
+import {
+    angles,
+    coefficients,
+    geometry,
+    vector as kvector,
+} from "@khanacademy/kmath";
 import {approximateEqual} from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
 import {getArrayWithoutDuplicates} from "../graphs/utils";
-import {
-    clamp,
-    clampToBox,
-    getAngleFromVertex,
-    getClockwiseAngle,
-    inset,
-    polar,
-    snap,
-    X,
-    Y,
-} from "../math";
+import {clamp, clampToBox, inset, snap, X, Y} from "../math";
 import {bound, isUnlimitedGraphState} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
@@ -68,6 +63,7 @@ import type {
 import type {QuadraticCoords} from "@khanacademy/kmath";
 import type {Interval} from "mafs";
 
+const {getAngleFromVertex, getClockwiseAngle, polar} = angles;
 const {
     angleMeasures,
     ccw,

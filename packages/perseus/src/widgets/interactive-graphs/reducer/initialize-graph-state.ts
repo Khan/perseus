@@ -1,4 +1,4 @@
-import {magnitude, vector} from "@khanacademy/kmath/src/geometry";
+import {geometry} from "@khanacademy/kmath";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 
@@ -20,6 +20,8 @@ import type {
     PerseusGraphTypeSinusoid,
 } from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
+
+const {magnitude, vector} = geometry;
 
 export type InitializeGraphStateParams = {
     range: [x: Interval, y: Interval];

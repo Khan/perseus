@@ -5,10 +5,3 @@ export {X, Y} from "./coordinates";
 export {MIN, MAX, size} from "./interval";
 export {lerp} from "./interpolation";
 export {segmentsIntersect} from "./geometry";
-export {
-    calculateAngleInDegrees,
-    convertDegreesToRadians,
-    getClockwiseAngle,
-    getAngleFromVertex,
-    polar,
-} from "@khanacademy/kmath/src/angles";
