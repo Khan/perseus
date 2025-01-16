@@ -204,10 +204,7 @@ export function calculateFullCycleStartAndEndCoords(
     locale: string,
 ) {
     const [x, y] = coords;
-    const formattedCoords = [
-        formatXCoordsToPi(x),
-        srFormatNumber(y, locale),
-    ];
+    const formattedCoords = [formatXCoordsToPi(x), srFormatNumber(y, locale)];
     const period = (2 * Math.PI) / Math.abs(angularFrequency);
     const isMinVal = y === minVal;
     const adjustedX = isMinVal ? x + period : x - period;
