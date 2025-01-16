@@ -285,6 +285,31 @@ export type PerseusStrings = {
         x: string;
         y: string;
     }): string;
+    srRayGraph: string;
+    srRayPoints: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srRayEndpoint: ({x, y}: {x: string; y: string}) => string;
+    srRayTerminalPoint: ({x, y}: {x: string; y: string}) => string;
+    srRayGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -510,6 +535,13 @@ export const strings: {
         "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
     srLinearSystemPoint:
         "Point %(pointSequence)s on line %(lineNumber)s at %(x)s comma %(y)s.",
+    srRayGraph: "A ray on a coordinate plane.",
+    srRayPoints:
+        "The endpoint is at %(point1X)s comma %(point1Y)s and the ray goes through point %(point2X)s comma %(point2Y)s.",
+    srRayGrabHandle:
+        "Ray with endpoint %(point1X)s comma %(point1Y)s going through point %(point2X)s comma %(point2Y)s.",
+    srRayEndpoint: "Endpoint at %(point1X)s comma %(point1Y)s.",
+    srRayTerminalPoint: "Through point at %(point2X)s comma %(point2Y)s.",
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -732,6 +764,13 @@ export const mockStrings: PerseusStrings = {
         `Line ${lineNumber} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
     srLinearSystemPoint: ({lineNumber, pointSequence, x, y}) =>
         `Point ${pointSequence} on line ${lineNumber} at ${x} comma ${y}.`,
+    srRayGraph: "A ray on a coordinate plane.",
+    srRayPoints: ({point1X, point1Y, point2X, point2Y}) =>
+        `The endpoint is at ${point1X} comma ${point1Y} and the ray goes through point ${point2X} comma ${point2Y}.`,
+    srRayGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Ray with endpoint ${point1X} comma ${point1Y} going through point ${point2X} comma ${point2Y}.`,
+    srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
+    srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
 
