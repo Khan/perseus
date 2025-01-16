@@ -1,3 +1,5 @@
+import validateMockWidget from "./validate-mock-widget";
+
 import type {
     PerseusMockWidgetUserInput,
     PerseusMockWidgetRubric,
@@ -10,12 +12,11 @@ function scoreMockWidget(
     rubric: PerseusMockWidgetRubric,
     strings: PerseusStrings,
 ): PerseusScore {
-    if (userInput.currentValue == null || userInput.currentValue === "") {
-        return {
-            type: "invalid",
-            message: "No value provided",
-        };
+    const validationResult = validateMockWidget(userInput);
+    if (validationResult != null) {
+        return validationResult;
     }
+
     return {
         type: "points",
         earned: userInput.currentValue === rubric.value ? 1 : 0,

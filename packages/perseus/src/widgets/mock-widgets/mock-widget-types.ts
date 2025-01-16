@@ -1,10 +1,5 @@
 import type {WidgetOptions} from "@khanacademy/perseus-core";
 
-// Extend the widget registries for testing
-export interface PerseusWidgetTypes {
-    "mock-widget": MockWidget;
-}
-
 export type MockWidget = WidgetOptions<"mock-widget", MockWidgetOptions>;
 
 export type MockWidgetOptions = {
@@ -19,3 +14,10 @@ export type PerseusMockWidgetRubric = {
 export type PerseusMockWidgetUserInput = {
     currentValue: string;
 };
+
+// Extend the widget registries for testing
+declare module "@khanacademy/perseus-core" {
+    export interface PerseusWidgetTypes {
+        "mock-widget": MockWidget;
+    }
+}

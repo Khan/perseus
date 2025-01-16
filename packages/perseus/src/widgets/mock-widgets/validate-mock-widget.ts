@@ -7,7 +7,7 @@ function validateMockWidget(
     if (userInput.currentValue == null || userInput.currentValue === "") {
         return {
             type: "invalid",
-            message: "No value provided",
+            message: "",
         };
     }
 

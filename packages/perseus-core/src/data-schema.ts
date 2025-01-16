@@ -102,7 +102,7 @@ export type MakeWidgetMap<TRegistry> = {
  * `PerseusWidgets` with the one defined below.
  *
  * ```typescript
- * declare module "@khanacademy/perseus" {
+ * declare module "@khanacademy/perseus-core" {
  *     interface PerseusWidgetTypes {
  *         // A new widget
  *         "new-awesomeness": MyAwesomeNewWidget;
@@ -377,41 +377,7 @@ export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
 export type DeprecatedStandinWidget = WidgetOptions<'deprecated-standin', object>;
 
-export type PerseusWidget =
-    | CategorizerWidget
-    | CSProgramWidget
-    | DefinitionWidget
-    | DropdownWidget
-    | ExplanationWidget
-    | ExpressionWidget
-    | GradedGroupSetWidget
-    | GradedGroupWidget
-    | GrapherWidget
-    | GroupWidget
-    | IFrameWidget
-    | ImageWidget
-    | InputNumberWidget
-    | InteractionWidget
-    | InteractiveGraphWidget
-    | LabelImageWidget
-    | MatcherWidget
-    | MatrixWidget
-    | MeasurerWidget
-    | MoleculeRendererWidget
-    | NumberLineWidget
-    | NumericInputWidget
-    | OrdererWidget
-    | PassageRefWidget
-    | PassageWidget
-    | PhetSimulationWidget
-    | PlotterWidget
-    | PythonProgramWidget
-    | RadioWidget
-    | RefTargetWidget
-    | SorterWidget
-    | TableWidget
-    | VideoWidget
-    | DeprecatedStandinWidget;
+export type PerseusWidget = PerseusWidgetTypes[keyof PerseusWidgetTypes];
 
 /**
  * A background image applied to various widgets.
