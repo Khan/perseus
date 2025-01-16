@@ -68,9 +68,21 @@ function SinusoidGraph(props: SinusoidGraphProps) {
         index: number,
         coordinate: vec.Vector2,
     ): string {
+        const x = coordinate[0];
+        const y = coordinate[1];
+
+        const convertedXCoordinate =
+            x === 0
+                ? `0`
+                : x % 2 === 0
+                  ? `${x / 2} pi`
+                  : x % 1 === 0
+                    ? `${x}/2 pi`
+                    : `${x * 2}/4 pi`;
+
         const coordsObj = {
-            x: srFormatNumber(coordinate[0], locale),
-            y: srFormatNumber(coordinate[1], locale),
+            x: convertedXCoordinate,
+            y: srFormatNumber(y, locale),
         };
 
         return index === 1
@@ -79,25 +91,28 @@ function SinusoidGraph(props: SinusoidGraphProps) {
     }
 
     function getWholeGraphDescription(): string {
-        const minMaxVals = calculateMinAndMaxValues(
+        const minMaxYVals = calculateMinAndMaxYValues(
             coeffRef.current.amplitude,
             coeffRef.current.verticalOffset,
         );
-        const minMaxCoords = calculateStartAndEndPoints(
+
+        // this needs X coordinate, but currently getting Y coordinate
+        const minMaxXCoords = calculateStartAndEndPoints(
+            minMaxYVals[0],
             coeffRef.current.amplitude,
-            coeffRef.current.phase,
         );
+
         const minCoordStringWithPi = formatAsMultipleOfPi(
-            minMaxCoords[0],
+            minMaxXCoords[0],
             locale,
         );
         const maxCoordStringWithPi = formatAsMultipleOfPi(
-            minMaxCoords[1],
+            minMaxXCoords[1],
             locale,
         );
         const descriptionObj = {
-            minValue: srFormatNumber(minMaxVals[0], locale),
-            maxValue: srFormatNumber(minMaxVals[1], locale),
+            minValue: srFormatNumber(minMaxYVals[0], locale),
+            maxValue: srFormatNumber(minMaxYVals[1], locale),
             xMinCoord: minCoordStringWithPi,
             xMaxCoord: maxCoordStringWithPi,
         };
@@ -174,7 +189,7 @@ export const getSinusoidCoefficients = (
  * @param verticalOffset aka vertical shift - moves the range up or down
  * @returns array of min and max values
  */
-export function calculateMinAndMaxValues(
+export function calculateMinAndMaxYValues(
     amplitude: number,
     verticalOffset: number,
 ) {
@@ -182,14 +197,8 @@ export function calculateMinAndMaxValues(
     return [-absAmp + verticalOffset, absAmp + verticalOffset];
 }
 
-/**
- * @param angularFrequency Determines how stretched or compressed the graph is
- * @returns Period of a sinusoid graph as a number
- */
-export function calculatePeriod(angularFrequency: number) {
-    return (2 * Math.PI) / Math.abs(angularFrequency);
-}
-
+ // AR NOTE: This might not be needed if we convert the x coordinates into multiples of PI
+ // using the logic that starts on line 74
 /**
  * Formats integer or fractional multiples of PI
  * @param input - number
@@ -231,14 +240,14 @@ export function formatAsMultipleOfPi(input: number, locale: string): string {
 /**
  * Calculates the start and end points for a full cycle of a sinusoid wave
  * @param angularFrequency Determines how stretched or compressed the graph is
- * @param phase Determines how to wave is shifted horizontally
+ * @param minVal X coordinate associated to the minimum value on the graph
  * @returns array of start and end points for the full cycle
  */
 export function calculateStartAndEndPoints(
+    minVal: number,
     angularFrequency: number,
-    phase: number,
 ) {
-    const phaseShift = -phase / angularFrequency;
-    const period = calculatePeriod(angularFrequency);
-    return [phaseShift, phaseShift + period];
+    const period = 1/(angularFrequency);
+    const lengthOfFullCycle = Math.round(2 * Math.PI * period);
+    return [minVal, minVal + lengthOfFullCycle];
 }
