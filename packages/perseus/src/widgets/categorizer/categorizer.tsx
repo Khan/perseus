@@ -28,13 +28,13 @@ import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/cate
 import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = WidgetProps<RenderProps, PerseusCategorizerScoringData> & {
-    values: ReadonlyArray<string>;
+    values: ReadonlyArray<number>;
 };
 
 type DefaultProps = {
     items: Props["items"];
     categories: Props["categories"];
-    values: Props["values"];
+    values: ReadonlyArray<number>;
     linterContext: Props["linterContext"];
 };
 
@@ -79,7 +79,6 @@ export class Categorizer
 
     onChange(itemNum, catNum) {
         const values = [...this.props.values];
-        // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'never'.
         values[itemNum] = catNum;
         this.change("values", values);
         this.props.trackInteraction();

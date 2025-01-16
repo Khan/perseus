@@ -423,7 +423,7 @@ export type PerseusCategorizerWidgetOptions = {
     // Whether this widget is displayed with the results and immutable
     static: boolean;
     // The correct answers where index relates to the items and value relates to the category.  e.g. [0, 1, 0, 1, 2]
-    values: ReadonlyArray<number>;
+    values?: ReadonlyArray<number>;
     // Whether we should highlight i18n linter errors found on this widget
     highlightLint?: boolean;
     // Internal editor configuration. Can be ignored by consumers.

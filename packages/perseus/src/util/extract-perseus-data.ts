@@ -59,9 +59,9 @@ function getAnswersFromWidgets(
                     categorizer.options?.items &&
                     categorizer.options?.values
                 ) {
-                    const categories = categorizer.options?.categories;
-                    const items = categorizer.options?.items;
-                    const values = categorizer.options?.values;
+                    const categories = categorizer.options.categories;
+                    const items = categorizer.options.items;
+                    const values = categorizer.options.values;
                     answers.push(
                         ...values.map(
                             (value, index) =>
