@@ -20,6 +20,7 @@ const LockedPolygon = (props: LockedPolygonType) => {
             className="locked-polygon"
             aria-label={hasAria ? props.ariaLabel : undefined}
             aria-hidden={!hasAria}
+            role="img"
         >
             <Polygon
                 points={[...points]}
