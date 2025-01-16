@@ -269,7 +269,7 @@ export type PerseusStrings = {
         xStartCoord,
         yStartCoord,
         xEndCoord,
-        yEndCoord
+        yEndCoord,
     }: {
         minValue: string;
         maxValue: string;
@@ -724,7 +724,14 @@ export const mockStrings: PerseusStrings = {
     srSinusoidExtremumPoint: ({x, y}) => `Extremum Point at ${x} comma ${y}.`,
     srSinusoidMidlineIntersection: ({x, y}) =>
         `Midline Intersection at ${x} comma ${y}.`,
-    srSinusoidDescription: ({minValue, maxValue, xStartCoord, yStartCoord, xEndCoord, yEndCoord}) =>
+    srSinusoidDescription: ({
+        minValue,
+        maxValue,
+        xStartCoord,
+        yStartCoord,
+        xEndCoord,
+        yEndCoord,
+    }) =>
         `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${xStartCoord} comma ${yStartCoord} to ${xEndCoord} comma ${yEndCoord}.`,
     // The above strings are used for interactive graph SR descriptions.
 };

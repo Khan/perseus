@@ -103,15 +103,16 @@ function SinusoidGraph(props: SinusoidGraphProps) {
             coeffRef.current.angularFrequency,
         );
 
-        const startCoords = startEndCoords[0], endCoords = startEndCoords[1];
+        const startCoords = startEndCoords[0];
+        const endCoords = startEndCoords[1];
 
         const descriptionObj = {
             minValue: srFormatNumber(minMaxYVals[0], locale),
             maxValue: srFormatNumber(minMaxYVals[1], locale),
-            xStartCoord : `${startCoords[0]}`,
+            xStartCoord: `${startCoords[0]}`,
             yStartCoord: srFormatNumber(startCoords[1], locale),
             xEndCoord: `${endCoords[0]}`,
-            yEndCoord: srFormatNumber(endCoords[1], locale)
+            yEndCoord: srFormatNumber(endCoords[1], locale),
         };
         return strings.srSinusoidDescription(descriptionObj);
     }
@@ -207,9 +208,10 @@ export function calculateFullCycleStartAndEndCoords(
     coords: vec.Vector2,
     angularFrequency: number,
 ) {
-    const x = coords[0], y = coords[1];
+    const x = coords[0];
+    const y = coords[1];
 
-    const period = (2*Math.PI)/Math.abs(angularFrequency);
+    const period = (2 * Math.PI) / Math.abs(angularFrequency);
     const isMinVal = y === minVal;
 
     const endValCoords = isMinVal ? [x + period, y] : coords;
