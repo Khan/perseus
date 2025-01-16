@@ -104,6 +104,9 @@ const InputWithExamples = forwardRef<
     const _renderInput = () => {
         const id = _getUniqueId();
         const ariaId = `aria-for-${id}`;
+
+        // Generate the provided examples in simple language for screen readers.
+        // If all examples are provided, do not provide them to the screen reader.
         const examplesAria =
             props.examples.length === 0
                 ? ""
@@ -114,6 +117,7 @@ const InputWithExamples = forwardRef<
                       .replaceAll("$", "")
                       .replaceAll("\\ \\text{pi}", " pi")
                       .replaceAll("\\ ", " and ");
+
         const inputProps = {
             id: id,
             "aria-describedby": ariaId,
@@ -158,6 +162,8 @@ const InputWithExamples = forwardRef<
         });
     };
 
+    // Display the examples as a string when there are less than or equal to 2 examples.
+    // Otherwise, display the examples as a list.
     const examplesContent =
         props.examples.length <= 2
             ? props.examples.join(" ")
@@ -169,6 +175,7 @@ const InputWithExamples = forwardRef<
                   })
                   .join("\n");
 
+    // Display the examples when they are enabled (shouldShowExamples) and the input is focused (showExamples).
     const showExamplesTooltip = shouldShowExamples && state.showExamples;
 
     return (
