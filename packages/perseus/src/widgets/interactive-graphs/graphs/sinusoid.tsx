@@ -205,7 +205,7 @@ export function calculateFullCycleStartAndEndCoords(
 ) {
     const [x, y] = coords;
     const formattedCoords = [
-        srFormatNumber(x, locale),
+        formatXCoordsToPi(x),
         srFormatNumber(y, locale),
     ];
     const period = (2 * Math.PI) / Math.abs(angularFrequency);
