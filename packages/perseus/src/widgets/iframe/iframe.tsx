@@ -18,7 +18,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/ifra
 
 import {scoreIframe} from "./score-iframe";
 
-import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
     PerseusIFrameRubric,
@@ -26,6 +25,7 @@ import type {
     UserInputStatus,
 } from "../../validation.types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {PerseusIFrameWidgetOptions} from "@khanacademy/perseus-core";
 
 const {updateQueryString} = Util;
 

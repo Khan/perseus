@@ -36,11 +36,11 @@ import {parseTableWidget} from "./table-widget";
 import {parseVideoWidget} from "./video-widget";
 import {parseWidget} from "./widget";
 
+import type {ParseContext, Parser, ParseResult} from "../parser-types";
 import type {
     DeprecatedStandinWidget,
     PerseusWidgetsMap,
-} from "../../../perseus-types";
-import type {ParseContext, Parser, ParseResult} from "../parser-types";
+} from "@khanacademy/perseus-core";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
     if (!isObject(rawValue)) {
@@ -69,15 +69,15 @@ const parseWidgetsMapEntry: (
     entry: [string, unknown],
     widgetMap: PerseusWidgetsMap,
     ctx: ParseContext,
-) => ParseResult<unknown> = ([key, widget], widgetMap, ctx) => {
-    const keyComponentsResult = parseWidgetMapKeyComponents(
-        key.split(" "),
-        ctx,
+) => ParseResult<unknown> = ([id, widget], widgetMap, ctx) => {
+    const idComponentsResult = parseWidgetIdComponents(
+        id.split(" "),
+        ctx.forSubtree("(widget ID)"),
     );
-    if (isFailure(keyComponentsResult)) {
-        return keyComponentsResult;
+    if (isFailure(idComponentsResult)) {
+        return idComponentsResult;
     }
-    const [type, id] = keyComponentsResult.value;
+    const [type, n] = idComponentsResult.value;
 
     function parseAndAssign<K extends keyof PerseusWidgetsMap>(
         key: K,
@@ -93,107 +93,107 @@ const parseWidgetsMapEntry: (
 
     switch (type) {
         case "categorizer":
-            return parseAndAssign(`categorizer ${id}`, parseCategorizerWidget);
+            return parseAndAssign(`categorizer ${n}`, parseCategorizerWidget);
         case "cs-program":
-            return parseAndAssign(`cs-program ${id}`, parseCSProgramWidget);
+            return parseAndAssign(`cs-program ${n}`, parseCSProgramWidget);
         case "definition":
-            return parseAndAssign(`definition ${id}`, parseDefinitionWidget);
+            return parseAndAssign(`definition ${n}`, parseDefinitionWidget);
         case "dropdown":
-            return parseAndAssign(`dropdown ${id}`, parseDropdownWidget);
+            return parseAndAssign(`dropdown ${n}`, parseDropdownWidget);
         case "explanation":
-            return parseAndAssign(`explanation ${id}`, parseExplanationWidget);
+            return parseAndAssign(`explanation ${n}`, parseExplanationWidget);
         case "expression":
-            return parseAndAssign(`expression ${id}`, parseExpressionWidget);
+            return parseAndAssign(`expression ${n}`, parseExpressionWidget);
         case "grapher":
-            return parseAndAssign(`grapher ${id}`, parseGrapherWidget);
+            return parseAndAssign(`grapher ${n}`, parseGrapherWidget);
         case "group":
-            return parseAndAssign(`group ${id}`, parseGroupWidget);
+            return parseAndAssign(`group ${n}`, parseGroupWidget);
         case "graded-group":
-            return parseAndAssign(`graded-group ${id}`, parseGradedGroupWidget);
+            return parseAndAssign(`graded-group ${n}`, parseGradedGroupWidget);
         case "graded-group-set":
             return parseAndAssign(
-                `graded-group-set ${id}`,
+                `graded-group-set ${n}`,
                 parseGradedGroupSetWidget,
             );
         case "iframe":
-            return parseAndAssign(`iframe ${id}`, parseIframeWidget);
+            return parseAndAssign(`iframe ${n}`, parseIframeWidget);
         case "image":
-            return parseAndAssign(`image ${id}`, parseImageWidget);
+            return parseAndAssign(`image ${n}`, parseImageWidget);
         case "input-number":
-            return parseAndAssign(`input-number ${id}`, parseInputNumberWidget);
+            return parseAndAssign(`input-number ${n}`, parseInputNumberWidget);
         case "interaction":
-            return parseAndAssign(`interaction ${id}`, parseInteractionWidget);
+            return parseAndAssign(`interaction ${n}`, parseInteractionWidget);
         case "interactive-graph":
             return parseAndAssign(
-                `interactive-graph ${id}`,
+                `interactive-graph ${n}`,
                 parseInteractiveGraphWidget,
             );
         case "label-image":
-            return parseAndAssign(`label-image ${id}`, parseLabelImageWidget);
+            return parseAndAssign(`label-image ${n}`, parseLabelImageWidget);
         case "matcher":
-            return parseAndAssign(`matcher ${id}`, parseMatcherWidget);
+            return parseAndAssign(`matcher ${n}`, parseMatcherWidget);
         case "matrix":
-            return parseAndAssign(`matrix ${id}`, parseMatrixWidget);
+            return parseAndAssign(`matrix ${n}`, parseMatrixWidget);
         case "measurer":
-            return parseAndAssign(`measurer ${id}`, parseMeasurerWidget);
+            return parseAndAssign(`measurer ${n}`, parseMeasurerWidget);
         case "molecule-renderer":
             return parseAndAssign(
-                `molecule-renderer ${id}`,
+                `molecule-renderer ${n}`,
                 parseMoleculeRendererWidget,
             );
         case "number-line":
-            return parseAndAssign(`number-line ${id}`, parseNumberLineWidget);
+            return parseAndAssign(`number-line ${n}`, parseNumberLineWidget);
         case "numeric-input":
             return parseAndAssign(
-                `numeric-input ${id}`,
+                `numeric-input ${n}`,
                 parseNumericInputWidget,
             );
         case "orderer":
-            return parseAndAssign(`orderer ${id}`, parseOrdererWidget);
+            return parseAndAssign(`orderer ${n}`, parseOrdererWidget);
         case "passage":
-            return parseAndAssign(`passage ${id}`, parsePassageWidget);
+            return parseAndAssign(`passage ${n}`, parsePassageWidget);
         case "passage-ref":
-            return parseAndAssign(`passage-ref ${id}`, parsePassageRefWidget);
+            return parseAndAssign(`passage-ref ${n}`, parsePassageRefWidget);
         case "passage-ref-target":
             // NOTE(benchristel): as of 2024-11-12, passage-ref-target is only
             // used in test content. See:
             // https://www.khanacademy.org/devadmin/content/search?query=widget:passage-ref-target
-            return parseAndAssign(`passage-ref-target ${id}`, any);
+            return parseAndAssign(`passage-ref-target ${n}`, any);
         case "phet-simulation":
             return parseAndAssign(
-                `phet-simulation ${id}`,
+                `phet-simulation ${n}`,
                 parsePhetSimulationWidget,
             );
         case "plotter":
-            return parseAndAssign(`plotter ${id}`, parsePlotterWidget);
+            return parseAndAssign(`plotter ${n}`, parsePlotterWidget);
         case "python-program":
             return parseAndAssign(
-                `python-program ${id}`,
+                `python-program ${n}`,
                 parsePythonProgramWidget,
             );
         case "radio":
-            return parseAndAssign(`radio ${id}`, parseRadioWidget);
+            return parseAndAssign(`radio ${n}`, parseRadioWidget);
         case "sorter":
-            return parseAndAssign(`sorter ${id}`, parseSorterWidget);
+            return parseAndAssign(`sorter ${n}`, parseSorterWidget);
         case "table":
-            return parseAndAssign(`table ${id}`, parseTableWidget);
+            return parseAndAssign(`table ${n}`, parseTableWidget);
         case "video":
-            return parseAndAssign(`video ${id}`, parseVideoWidget);
+            return parseAndAssign(`video ${n}`, parseVideoWidget);
         case "sequence":
             // sequence is a deprecated widget type, and the corresponding
             // widget component no longer exists.
-            return parseAndAssign(`sequence ${id}`, parseDeprecatedWidget);
+            return parseAndAssign(`sequence ${n}`, parseDeprecatedWidget);
         case "lights-puzzle":
-            return parseAndAssign(`lights-puzzle ${id}`, parseDeprecatedWidget);
+            return parseAndAssign(`lights-puzzle ${n}`, parseDeprecatedWidget);
         case "simulator":
-            return parseAndAssign(`simulator ${id}`, parseDeprecatedWidget);
+            return parseAndAssign(`simulator ${n}`, parseDeprecatedWidget);
         case "transformer":
-            return parseAndAssign(`transformer ${id}`, parseDeprecatedWidget);
+            return parseAndAssign(`transformer ${n}`, parseDeprecatedWidget);
 
         default:
             if (getWidget(type)) {
                 // @ts-expect-error - 'type' is not a valid widget type
-                return parseAndAssign(`${type} ${id}`, any);
+                return parseAndAssign(`${type} ${n}`, any);
             }
             return ctx.failure("a valid widget type", type);
     }
@@ -208,9 +208,12 @@ const parseDeprecatedWidget: Parser<DeprecatedStandinWidget> = parseWidget(
 
 const parseStringToPositiveInt: Parser<number> = (rawValue, ctx) => {
     if (typeof rawValue !== "string" || !/^[1-9][0-9]*$/.test(rawValue)) {
-        return ctx.failure("numeric string", rawValue);
+        return ctx.failure(
+            "a string representing a positive integer",
+            rawValue,
+        );
     }
     return ctx.success(+rawValue);
 };
 
-const parseWidgetMapKeyComponents = pair(string, parseStringToPositiveInt);
+const parseWidgetIdComponents = pair(string, parseStringToPositiveInt);

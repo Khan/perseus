@@ -9,10 +9,10 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/me
 import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";
-import type {PerseusMeasurerWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {Interval} from "../../util/interval";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
 
 const defaultImage = {
     url: null,

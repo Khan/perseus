@@ -9,8 +9,8 @@ import TestKeypadContextWrapper from "../__shared__/test-keypad-context-wrapper"
 import expressionExport from "./expression";
 import {expressionItem2, expressionItem3} from "./expression.testdata";
 
-import type {PerseusItem} from "../../perseus-types";
 import type {Keys as Key} from "@khanacademy/math-input";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 
 type StoryArgs = {
     customKeypad: boolean;

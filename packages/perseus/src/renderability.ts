@@ -14,7 +14,7 @@ import _ from "underscore";
 import {traverse} from "./traversal";
 import * as Widgets from "./widgets";
 
-import type {PerseusWidget} from "./perseus-types";
+import type {PerseusWidget} from "@khanacademy/perseus-core";
 
 const isUpgradedWidgetInfoRenderableBy = function (
     widgetInfo: PerseusWidget,

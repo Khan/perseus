@@ -5,7 +5,7 @@ import {mockStrings} from "../../strings";
 
 import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 type StoryArgs = Record<any, any>;
 
@@ -42,6 +42,14 @@ export const MafsWithFractionalAxisTicks = (
     <MafsQuestionRenderer
         question={interactiveGraphQuestionBuilder()
             .withTickStep(1.5, 1.5)
+            .build()}
+    />
+);
+
+export const MafsWithAxesMarkings = (args: StoryArgs): React.ReactElement => (
+    <MafsQuestionRenderer
+        question={interactiveGraphQuestionBuilder()
+            .withMarkings("axes")
             .build()}
     />
 );

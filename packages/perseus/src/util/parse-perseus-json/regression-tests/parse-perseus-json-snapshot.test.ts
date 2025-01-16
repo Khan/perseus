@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import {join} from "path";
 
-import {parseAndTypecheckPerseusItem} from "../index";
+import {parseAndMigratePerseusItem} from "../index";
 import {assertSuccess} from "../result";
 
 const dataFiles = fs.readdirSync(join(__dirname, "data"));
@@ -15,7 +15,7 @@ describe("parseAndTypecheckPerseusItem", () => {
             join(__dirname, "data", filename),
             "utf-8",
         );
-        const result = parseAndTypecheckPerseusItem(json);
+        const result = parseAndMigratePerseusItem(json);
         assertSuccess(result);
         expect(result.value).toMatchSnapshot();
     });

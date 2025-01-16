@@ -30,7 +30,7 @@ import {
 } from "./util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
-import type {LockedLabelType, LockedPointType} from "@khanacademy/perseus";
+import type {LockedLabelType, LockedPointType} from "@khanacademy/perseus-core";
 
 export type Props = LockedPointType & {
     /**

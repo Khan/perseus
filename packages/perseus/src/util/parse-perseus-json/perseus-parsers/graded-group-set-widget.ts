@@ -3,8 +3,8 @@ import {array, constant, object} from "../general-purpose-parsers";
 import {parseGradedGroupWidgetOptions} from "./graded-group-widget";
 import {parseWidget} from "./widget";
 
-import type {GradedGroupSetWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {GradedGroupSetWidget} from "@khanacademy/perseus-core";
 
 export const parseGradedGroupSetWidget: Parser<GradedGroupSetWidget> =
     parseWidget(

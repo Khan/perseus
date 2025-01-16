@@ -17,8 +17,8 @@ import {parsePerseusRenderer} from "./perseus-renderer";
 import {parseWidget} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
 
-import type {GradedGroupWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {GradedGroupWidget} from "@khanacademy/perseus-core";
 
 const falseToNull = pipeParsers(constant(false)).then(
     convert(() => null),

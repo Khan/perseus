@@ -5,7 +5,10 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import type {NumericInputWidget, PerseusRenderer} from "../../perseus-types";
+import type {
+    NumericInputWidget,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const question: PerseusRenderer = {

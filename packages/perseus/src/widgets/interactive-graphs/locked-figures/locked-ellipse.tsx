@@ -1,12 +1,11 @@
-import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
-import {Ellipse} from "mafs";
-import * as React from "react";
-
 import {
     lockedFigureFillStyles,
     lockedFigureColors,
     type LockedEllipseType,
-} from "../../../perseus-types";
+} from "@khanacademy/perseus-core";
+import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
+import {Ellipse} from "mafs";
+import * as React from "react";
 
 const LockedEllipse = (props: LockedEllipseType) => {
     const {center, radius, angle, color, fillStyle, strokeStyle, ariaLabel} =
@@ -19,6 +18,7 @@ const LockedEllipse = (props: LockedEllipseType) => {
             className="locked-ellipse"
             aria-label={hasAria ? ariaLabel : undefined}
             aria-hidden={!hasAria}
+            role="img"
         >
             <Ellipse
                 center={center}

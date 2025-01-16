@@ -1,15 +1,15 @@
+import {lockedFigureColors} from "@khanacademy/perseus-core";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Point, Line, vec} from "mafs";
 import * as React from "react";
 
-import {lockedFigureColors} from "../../../perseus-types";
 import {Arrowhead} from "../graphs/components/arrowhead";
 import {Vector} from "../graphs/components/vector";
 import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {getIntersectionOfRayWithBox} from "../graphs/utils";
 import {X, Y, calculateAngleInDegrees} from "../math";
 
-import type {LockedLineType} from "../../../perseus-types";
+import type {LockedLineType} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 type Props = LockedLineType & {
@@ -115,6 +115,7 @@ const LockedLine = (props: Props) => {
             className={kind === "ray" ? "locked-ray" : "locked-line"}
             aria-label={hasAria ? ariaLabel : undefined}
             aria-hidden={!hasAria}
+            role="img"
         >
             {line}
             {showPoint1 && (

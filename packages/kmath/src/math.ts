@@ -1,8 +1,9 @@
-import {number as knumber} from "@khanacademy/kmath";
 import $ from "jquery";
 import _ from "underscore";
 
-import type {MathFormat} from "../perseus-types";
+import {number as knumber} from "@khanacademy/kmath";
+
+import type {MathFormat} from "@khanacademy/perseus-core";
 
 const KhanMath = {
     // Simplify formulas before display

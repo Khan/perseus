@@ -1,4 +1,5 @@
-import {components, lockedFigureFillStyles} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
+import {lockedFigureFillStyles} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -34,7 +35,7 @@ import type {
     LockedEllipseType,
     LockedFigureColor,
     LockedLabelType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
 
