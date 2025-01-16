@@ -3,7 +3,7 @@ import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 
-import {NumericInput} from "./numeric-input";
+import {NumericInput} from "./numeric-input.class";
 import {question1} from "./numeric-input.testdata";
 
 type StoryArgs = {
