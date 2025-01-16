@@ -41,7 +41,6 @@ export {default as GrapherWidget} from "./widgets/grapher";
 // `perseus`, so only export the stuff that does need to be exposed
 import {keScoreFromPerseusScore} from "./util/scoring";
 import {
-    allTypes,
     DEFAULT_GRAPHER_PROPS,
     chooseType,
     defaultPlotProps,
@@ -50,7 +49,6 @@ import {
 } from "./widgets/grapher/util";
 
 export const GrapherUtil = {
-    allTypes,
     DEFAULT_GRAPHER_PROPS,
     chooseType,
     defaultPlotProps,
@@ -197,7 +195,6 @@ export type {
 export type {ParsedValue} from "./util";
 export type {Result, Success, Failure} from "./util/parse-perseus-json/result";
 export type {Coord} from "./interactive2/types";
-export type {Coords} from "./widgets/grapher/grapher-types";
 export type {
     RendererPromptJSON,
     WidgetPromptJSON,

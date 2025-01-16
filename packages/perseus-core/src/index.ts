@@ -8,11 +8,14 @@ export type {
     Relationship,
 } from "./types";
 export type {ErrorKind} from "./error/errors";
+export type {FunctionTypeMappingKeys} from "./utils/grapher-util";
+export type {Coords} from "./utils/grapher-types";
 
 // Careful, `version.ts` uses this function so it _must_ be imported above it
 export {addLibraryVersionToPerseusDebug} from "./utils/add-library-version-to-perseus-debug";
 export {default as getMatrixSize} from "./utils/get-matrix-size";
 export {default as getDecimalSeparator} from "./utils/get-decimal-separator";
+export * as GrapherUtil from "./utils/grapher-util";
 
 export {libVersion} from "./version";
 

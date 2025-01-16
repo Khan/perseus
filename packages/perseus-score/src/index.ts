@@ -6,6 +6,7 @@ export {default as scoreCategorizer} from "./widgets/categorizer/score-categoriz
 export {default as scoreCSProgram} from "./widgets/cs-program/score-cs-program";
 export {default as scoreDropdown} from "./widgets/dropdown/score-dropdown";
 export {default as scoreExpression} from "./widgets/expression/score-expression";
+export {default as scoreGrapher} from "./widgets/grapher/score-grapher";
 export {default as scoreIframe} from "./widgets/iframe/score-iframe";
 export {
     default as scoreLabelImage,
