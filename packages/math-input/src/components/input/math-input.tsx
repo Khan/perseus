@@ -353,6 +353,9 @@ class MathInput extends React.Component<Props, State> {
         });
     };
 
+    // [Jan 2025] Third: While testing, I've discovered that we likely don't
+    // need to be passing setKeypadActive here at all. Removing the parameter
+    // still results in the same behavior.
     focus: (setKeypadActive: KeypadContextType["setKeypadActive"]) => void = (
         setKeypadActive,
     ) => {

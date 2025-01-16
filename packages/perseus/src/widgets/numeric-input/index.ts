@@ -1,1 +1,1 @@
-export {default} from "./numeric-input";
+export {default} from "./numeric-input.class";

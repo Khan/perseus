@@ -1,5 +1,5 @@
 import type {PerseusNumericInputUserInput} from "../../validation.types";
-import type numericInput from "../../widgets/numeric-input/numeric-input";
+import type numericInput from "../../widgets/numeric-input/numeric-input.class";
 import type React from "react";
 
 export type NumericInputPromptJSON = {
