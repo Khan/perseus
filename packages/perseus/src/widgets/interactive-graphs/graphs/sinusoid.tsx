@@ -1,8 +1,8 @@
-import {coefficients} from "@khanacademy/kmath";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {Plot} from "mafs";
 import * as React from "react";
 
+import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {MovablePoint} from "./components/movable-point";
@@ -14,8 +14,7 @@ import type {
     InteractiveGraphElementSuite,
 } from "../types";
 import type {NamedSineCoefficient} from "@khanacademy/kmath";
-
-const {getSinusoidCoefficients} = coefficients;
+import type {Coord} from "@khanacademy/perseus-core";
 
 export function renderSinusoidGraph(
     state: SinusoidGraphState,
@@ -88,4 +87,25 @@ export const computeSine = function (
     } = sinusoidCoefficients;
 
     return a * Math.sin(b * x - c) + d;
+};
+
+export const getSinusoidCoefficients = (
+    coords: ReadonlyArray<Coord>,
+): NamedSineCoefficient | undefined => {
+    // It's assumed that p1 is the root and p2 is the first peak
+    const p1 = coords[0];
+    const p2 = coords[1];
+
+    // If the x-coordinates are the same, we are unable to calculate the coefficients
+    if (p2[X] === p1[X]) {
+        return;
+    }
+
+    // Resulting coefficients are canonical for this sine curve
+    const amplitude = p2[Y] - p1[Y];
+    const angularFrequency = Math.PI / (2 * (p2[X] - p1[X]));
+    const phase = p1[X] * angularFrequency;
+    const verticalOffset = p1[Y];
+
+    return {amplitude, angularFrequency, phase, verticalOffset};
 };

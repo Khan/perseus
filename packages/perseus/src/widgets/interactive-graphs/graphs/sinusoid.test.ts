@@ -1,10 +1,6 @@
-import {coefficients} from "@khanacademy/kmath";
-
-import {computeSine} from "./sinusoid";
+import {computeSine, getSinusoidCoefficients} from "./sinusoid";
 
 import type {SinusoidGraphState} from "../types";
-
-const {getSinusoidCoefficients} = coefficients;
 
 describe("SinusoidGraph", () => {
     it("should accurately calculate the sine coefficients", () => {
