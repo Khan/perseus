@@ -16,6 +16,7 @@ const LockedVector = (props: LockedVectorType) => {
             className="locked-vector"
             aria-label={hasAria ? ariaLabel : undefined}
             aria-hidden={!hasAria}
+            role="img"
         >
             <Vector tail={tail} tip={tip} color={lockedFigureColors[color]} />
         </g>

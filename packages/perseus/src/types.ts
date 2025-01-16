@@ -8,6 +8,7 @@ import type {
     UserInputMap,
 } from "./validation.types";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
+import type getCategorizerPublicWidgetOptions from "./widgets/categorizer/categorizer.util";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     Hint,
@@ -542,6 +543,12 @@ export type WidgetScorerFunction = (
     locale?: string,
 ) => PerseusScore;
 
+/**
+ * A union type of all the functions that provide public widget options.
+ */
+export type PublicWidgetOptionsFunction =
+    typeof getCategorizerPublicWidgetOptions;
+
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
 > = Readonly<{
@@ -588,6 +595,12 @@ export type WidgetExports<
      * A function that scores user input (the guess) for the widget.
      */
     scorer?: WidgetScorerFunction;
+
+    /**
+     * A function that provides a public version of the widget options that can
+     * be shared with the client.
+     */
+    getPublicWidgetOptions?: PublicWidgetOptionsFunction;
 
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,
