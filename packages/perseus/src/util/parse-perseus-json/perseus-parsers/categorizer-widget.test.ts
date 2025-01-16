@@ -1,10 +1,9 @@
-import {
-    CategorizerWidget,
-    PerseusLinterContext
-} from "@khanacademy/perseus-core";
-import {parseCategorizerWidget} from "./categorizer-widget";
-import {success} from "../result";
 import {parse} from "../parse";
+import {success} from "../result";
+
+import {parseCategorizerWidget} from "./categorizer-widget";
+
+import type {CategorizerWidget} from "@khanacademy/perseus-core";
 
 describe("parseCategorizerWidget", () => {
     const baseWidget: CategorizerWidget = {
@@ -16,8 +15,8 @@ describe("parseCategorizerWidget", () => {
             categories: [],
             randomizeItems: false,
             static: false,
-        }
-    }
+        },
+    };
 
     it("allows `values` to be undefined", () => {
         const widget = {
@@ -28,6 +27,6 @@ describe("parseCategorizerWidget", () => {
             },
         };
         const result = parse(widget, parseCategorizerWidget);
-        expect(result).toEqual(success(widget))
+        expect(result).toEqual(success(widget));
     });
-})
+});
