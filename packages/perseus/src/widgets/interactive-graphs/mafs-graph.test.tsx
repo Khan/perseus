@@ -359,7 +359,7 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expectLabelInDoc("Midline Intersection at -1 comma 1.");
+        expectLabelInDoc("Midline Intersection at -1/2 pi comma 1.");
         expectLabelInDoc("Extremum Point at 0 comma 0.");
     });
 

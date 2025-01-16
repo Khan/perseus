@@ -71,14 +71,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
         const x = coordinate[0];
         const y = coordinate[1];
 
-        const convertedXCoordinate =
-            x === 0
-                ? `0`
-                : x % 2 === 0
-                  ? `${x / 2} pi`
-                  : x % 1 === 0
-                    ? `${x}/2 pi`
-                    : `${x * 2}/4 pi`;
+        const convertedXCoordinate = formatXCoordsToPi(x);
 
         const coordsObj = {
             x: convertedXCoordinate,
@@ -101,6 +94,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
             minMaxYVals[0],
             coords[1],
             coeffRef.current.angularFrequency,
+            locale,
         );
 
         const startCoords = startEndCoords[0];
@@ -109,10 +103,10 @@ function SinusoidGraph(props: SinusoidGraphProps) {
         const descriptionObj = {
             minValue: srFormatNumber(minMaxYVals[0], locale),
             maxValue: srFormatNumber(minMaxYVals[1], locale),
-            xStartCoord: `${startCoords[0]}`,
-            yStartCoord: srFormatNumber(startCoords[1], locale),
-            xEndCoord: `${endCoords[0]}`,
-            yEndCoord: srFormatNumber(endCoords[1], locale),
+            xStartCoord: startCoords[0],
+            yStartCoord: startCoords[1],
+            xEndCoord: endCoords[0],
+            yEndCoord: endCoords[1],
         };
         return strings.srSinusoidDescription(descriptionObj);
     }
@@ -201,31 +195,43 @@ export function calculateMinAndMaxYValues(
  * @param minVal Y coordinate associated to the minimum value on the graph
  * @param coords Extremum coordinates for the graph
  * @param angularFrequency Determines how stretched or compressed the graph is
- * @returns matrix of start and end coordinates for the full cycle
+ * @returns string matrix of start and end coordinates for the full cycle
  */
 export function calculateFullCycleStartAndEndCoords(
     minVal: number,
     coords: vec.Vector2,
     angularFrequency: number,
+    locale: string,
 ) {
-    const x = coords[0];
-    const y = coords[1];
-
+    const [x, y] = coords;
+    const formattedCoords = [
+        srFormatNumber(x, locale),
+        srFormatNumber(y, locale),
+    ];
     const period = (2 * Math.PI) / Math.abs(angularFrequency);
     const isMinVal = y === minVal;
+    const adjustedX = isMinVal ? x + period : x - period;
+    const formattedXValue = formatXCoordsToPi(adjustedX);
 
-    const endValCoords = isMinVal ? [x + period, y] : coords;
-    const startValCoords = isMinVal ? coords : [x - period, y];
+    const startValCoords = isMinVal
+        ? formattedCoords
+        : [formattedXValue, srFormatNumber(y, locale)];
+    const endValCoords = isMinVal
+        ? [formattedXValue, srFormatNumber(y, locale)]
+        : formattedCoords;
 
     return [startValCoords, endValCoords];
 }
 
-export function formatXCoordsToPi(x: number){
-                x === 0
-                ? `0`
-                : x % 2 === 0
-                  ? `${x / 2} pi`
-                  : x % 1 === 0
-                    ? `${x}/2 pi`
-                    : `${x * 2}/4 pi`;
+export function formatXCoordsToPi(x: number) {
+    if (x === 0) {
+        return `0`;
+    }
+    if (x % 2 === 0) {
+        return `${x / 2} pi`;
+    }
+    if (x % 1 === 0) {
+        return `${x}/2 pi`;
+    }
+    return `${x * 2}/4 pi`;
 }
