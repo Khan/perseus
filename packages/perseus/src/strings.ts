@@ -266,13 +266,17 @@ export type PerseusStrings = {
     srSinusoidDescription: ({
         minValue,
         maxValue,
-        xMinCoord,
-        xMaxCoord,
+        xStartCoord,
+        yStartCoord,
+        xEndCoord,
+        yEndCoord
     }: {
         minValue: string;
         maxValue: string;
-        xMinCoord: string;
-        xMaxCoord: string;
+        xStartCoord: string;
+        yStartCoord: string;
+        xEndCoord: string;
+        yEndCoord: string;
     }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
@@ -498,7 +502,7 @@ export const strings: {
     srSinusoidExtremumPoint: "Extremum Point at %(x)s comma %(y)s.",
     srSinusoidMidlineIntersection: "Midline Intersection at %(x)s comma %(y)s.",
     srSinusoidDescription:
-        "The graph shows a wave with a minimum value of %(minValue)s and a maximum value of %(maxValue)s. The wave completes a full cycle from %(xMinCoord)s to %(xMaxCoord)s.",
+        "The graph shows a wave with a minimum value of %(minValue)s and a maximum value of %(maxValue)s. The wave completes a full cycle from %(xStartCoord)s comma %(yStartCoord)s to %(xEndCoord)s comma %(yEndCoord)s.",
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -720,8 +724,8 @@ export const mockStrings: PerseusStrings = {
     srSinusoidExtremumPoint: ({x, y}) => `Extremum Point at ${x} comma ${y}.`,
     srSinusoidMidlineIntersection: ({x, y}) =>
         `Midline Intersection at ${x} comma ${y}.`,
-    srSinusoidDescription: ({minValue, maxValue, xMinCoord, xMaxCoord}) =>
-        `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${xMinCoord} to ${xMaxCoord}.`,
+    srSinusoidDescription: ({minValue, maxValue, xStartCoord, yStartCoord, xEndCoord, yEndCoord}) =>
+        `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${xStartCoord} comma ${yStartCoord} to ${xEndCoord} comma ${yEndCoord}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
 

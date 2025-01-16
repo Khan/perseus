@@ -96,25 +96,22 @@ function SinusoidGraph(props: SinusoidGraphProps) {
             coeffRef.current.verticalOffset,
         );
 
-        // this needs X coordinate, but currently getting Y coordinate
-        const minMaxXCoords = calculateStartAndEndPoints(
+        // coords[1] is associated to the extremum point
+        const startEndCoords = calculateFullCycleStartAndEndCoords(
             minMaxYVals[0],
-            coeffRef.current.amplitude,
+            coords[1],
+            coeffRef.current.angularFrequency,
         );
 
-        const minCoordStringWithPi = formatAsMultipleOfPi(
-            minMaxXCoords[0],
-            locale,
-        );
-        const maxCoordStringWithPi = formatAsMultipleOfPi(
-            minMaxXCoords[1],
-            locale,
-        );
+        const startCoords = startEndCoords[0], endCoords = startEndCoords[1];
+
         const descriptionObj = {
             minValue: srFormatNumber(minMaxYVals[0], locale),
             maxValue: srFormatNumber(minMaxYVals[1], locale),
-            xMinCoord: minCoordStringWithPi,
-            xMaxCoord: maxCoordStringWithPi,
+            xStartCoord : `${startCoords[0]}`,
+            yStartCoord: srFormatNumber(startCoords[1], locale),
+            xEndCoord: `${endCoords[0]}`,
+            yEndCoord: srFormatNumber(endCoords[1], locale)
         };
         return strings.srSinusoidDescription(descriptionObj);
     }
@@ -187,7 +184,7 @@ export const getSinusoidCoefficients = (
  * Sine and cosine oscillate between [-1, 1], which is scaled by the graph's amplitude [-A, A] and shifted by the vertical offset [-A+D, A+D]
  * @param amplitude Distance from the center to either extreme
  * @param verticalOffset aka vertical shift - moves the range up or down
- * @returns array of min and max values
+ * @returns array [minYVal, maxYVal]
  */
 export function calculateMinAndMaxYValues(
     amplitude: number,
@@ -197,57 +194,26 @@ export function calculateMinAndMaxYValues(
     return [-absAmp + verticalOffset, absAmp + verticalOffset];
 }
 
- // AR NOTE: This might not be needed if we convert the x coordinates into multiples of PI
- // using the logic that starts on line 74
 /**
- * Formats integer or fractional multiples of PI
- * @param input - number
- * @param locale - i18n locale
- * @returns integer or fractional multiples of PI. if input is not a multiple of PI, returns input formatted as a sr string
- */
-
-export function formatAsMultipleOfPi(input: number, locale: string): string {
-    const multiple = input / Math.PI;
-    const faultTolerance = 1e-15; // Math.PI goes to 15 decimal places
-
-    if (input === 0 || multiple === 0) {
-        return `0`;
-    }
-
-    // check for integer multiple of PI
-    if (Math.abs(multiple - Math.round(multiple)) < faultTolerance) {
-        const roundedMultiple = Math.round(multiple);
-        if (roundedMultiple === 1 || roundedMultiple === -1) {
-            return "pi";
-        }
-
-        return `${Math.round(multiple)} pi`;
-    }
-
-    // Check for fractional multiple of PI
-    const maxDenominator = 1000;
-
-    for (let denominator = 1; denominator < maxDenominator; denominator++) {
-        const numerator = Math.round(multiple * denominator);
-        if (Math.abs(multiple - numerator / denominator) < faultTolerance) {
-            return `${numerator}/${denominator} pi`;
-        }
-    }
-
-    return `${srFormatNumber(input, locale)}`;
-}
-
-/**
- * Calculates the start and end points for a full cycle of a sinusoid wave
+ * Calculates the start and end coordinates for a full cycle of a sinusoid wave by adding or subtracting the period of the graph
+ * from the extremum point. If the extremum point provided is the max, subtract the period, if the extremum point is the min, add the period
+ * @param minVal Y coordinate associated to the minimum value on the graph
+ * @param coords Extremum coordinates for the graph
  * @param angularFrequency Determines how stretched or compressed the graph is
- * @param minVal X coordinate associated to the minimum value on the graph
- * @returns array of start and end points for the full cycle
+ * @returns matrix of start and end coordinates for the full cycle
  */
-export function calculateStartAndEndPoints(
+export function calculateFullCycleStartAndEndCoords(
     minVal: number,
+    coords: vec.Vector2,
     angularFrequency: number,
 ) {
-    const period = 1/(angularFrequency);
-    const lengthOfFullCycle = Math.round(2 * Math.PI * period);
-    return [minVal, minVal + lengthOfFullCycle];
+    const x = coords[0], y = coords[1];
+
+    const period = (2*Math.PI)/Math.abs(angularFrequency);
+    const isMinVal = y === minVal;
+
+    const endValCoords = isMinVal ? [x + period, y] : coords;
+    const startValCoords = isMinVal ? coords : [x - period, y];
+
+    return [startValCoords, endValCoords];
 }
