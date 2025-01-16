@@ -51,6 +51,8 @@ class InputWithExamples extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
+    inputRef: React.RefObject<TextInput>;
+
     static defaultProps: DefaultProps = {
         shouldShowExamples: true,
         onFocus: function () {},
@@ -64,6 +66,11 @@ class InputWithExamples extends React.Component<Props, State> {
         focused: false,
         showExamples: false,
     };
+
+    constructor(props: Props) {
+        super(props);
+        this.inputRef = React.createRef<TextInput>();
+    }
 
     _getUniqueId: () => string = () => {
         return `input-with-examples-${btoa(this.props.id).replace(/=/g, "")}`;
@@ -98,7 +105,7 @@ class InputWithExamples extends React.Component<Props, State> {
         const inputProps = {
             id: id,
             "aria-describedby": ariaId,
-            ref: "input",
+            ref: this.inputRef,
             className: this._getInputClassName(),
             labelText: this.props.labelText,
             value: this.props.value,
@@ -148,15 +155,11 @@ class InputWithExamples extends React.Component<Props, State> {
     };
 
     focus: () => void = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus();
+        this.inputRef.current?.focus();
     };
 
     blur: () => void = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        this.refs.input.blur();
+        this.inputRef.current?.blur();
     };
 
     handleChange: (arg1: any) => void = (e) => {
