@@ -11,7 +11,7 @@ import _ from "underscore";
 
 import {number as knumber, point as kpoint, sum} from "@khanacademy/kmath";
 
-import type {Line} from "./line";
+type Line = [Coord, Coord];
 
 // This should really be a readonly tuple of [number, number]
 export type Range = [number, number];
