@@ -36,10 +36,6 @@ type Props = {
     linterContext: LinterContextProps;
 };
 
-type State = {
-    focused: boolean;
-    showExamples: boolean;
-};
 // [LEMS-2411](Jan 2025) Third: This component has been moved to the NumericInput
 // folder as we are actively working towards removing the InputNumber widget.
 // This comment can be removed as part of LEMS-2411.
@@ -66,10 +62,7 @@ const InputWithExamples = forwardRef<
 
     const context = React.useContext(PerseusI18nContext);
     const inputRef = React.useRef<TextInput>(null);
-    const [state, setState] = React.useState<State>({
-        focused: false,
-        showExamples: false,
-    });
+    const [inputFocused, setInputFocused] = React.useState<boolean>(false);
 
     useImperativeHandle(ref, () => ({
         current: inputRef.current,
@@ -92,7 +85,7 @@ const InputWithExamples = forwardRef<
     const _getInputClassName = () => {
         let inputClassName =
             ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
-        if (state.focused) {
+        if (inputFocused) {
             inputClassName += " " + ApiClassNames.FOCUSED;
         }
         if (className) {
@@ -148,18 +141,12 @@ const InputWithExamples = forwardRef<
 
     const _handleFocus = () => {
         onFocus();
-        setState({
-            focused: true,
-            showExamples: true,
-        });
+        setInputFocused(true);
     };
 
     const _handleBlur = () => {
         onBlur();
-        setState({
-            focused: false,
-            showExamples: false,
-        });
+        setInputFocused(false);
     };
 
     // Display the examples as a string when there are less than or equal to 2 examples.
@@ -175,8 +162,8 @@ const InputWithExamples = forwardRef<
                   })
                   .join("\n");
 
-    // Display the examples when they are enabled (shouldShowExamples) and the input is focused (showExamples).
-    const showExamplesTooltip = shouldShowExamples && state.showExamples;
+    // Display the examples when they are enabled (shouldShowExamples) and the input is focused.
+    const showExamplesTooltip = shouldShowExamples && inputFocused;
 
     return (
         <Tooltip
