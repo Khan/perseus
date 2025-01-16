@@ -1,19 +1,21 @@
+import {coefficients} from "@khanacademy/kmath";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {Plot} from "mafs";
 import * as React from "react";
 
-import {X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {MovablePoint} from "./components/movable-point";
 
-import type {Coord} from "../../../interactive2/types";
 import type {
     SinusoidGraphState,
     MafsGraphProps,
     Dispatch,
     InteractiveGraphElementSuite,
 } from "../types";
+import type {NamedSineCoefficient} from "@khanacademy/kmath";
+
+const {getSinusoidCoefficients} = coefficients;
 
 export function renderSinusoidGraph(
     state: SinusoidGraphState,
@@ -27,13 +29,6 @@ export function renderSinusoidGraph(
 
 type SinusoidGraphProps = MafsGraphProps<SinusoidGraphState>;
 
-export type SineCoefficient = {
-    amplitude: number;
-    angularFrequency: number;
-    phase: number;
-    verticalOffset: number;
-};
-
 function SinusoidGraph(props: SinusoidGraphProps) {
     const {dispatch, graphState} = props;
 
@@ -46,7 +41,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
     // to content creators the currently selected "correct answer" in the Content Editor.
     // While we should technically never have invalid coordinates, we want to ensure that
     // we have a fallback so that the graph can still be plotted without crashing.
-    const coeffRef = React.useRef<SineCoefficient>({
+    const coeffRef = React.useRef<NamedSineCoefficient>({
         amplitude: 1,
         angularFrequency: 1,
         phase: 1,
@@ -82,7 +77,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
 // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
 export const computeSine = function (
     x: number, // x-coordinate
-    sinusoidCoefficients: SineCoefficient,
+    sinusoidCoefficients: NamedSineCoefficient,
 ) {
     // Break down the coefficients for the sine function to improve readability
     const {
@@ -93,25 +88,4 @@ export const computeSine = function (
     } = sinusoidCoefficients;
 
     return a * Math.sin(b * x - c) + d;
-};
-
-export const getSinusoidCoefficients = (
-    coords: ReadonlyArray<Coord>,
-): SineCoefficient | undefined => {
-    // It's assumed that p1 is the root and p2 is the first peak
-    const p1 = coords[0];
-    const p2 = coords[1];
-
-    // If the x-coordinates are the same, we are unable to calculate the coefficients
-    if (p2[X] === p1[X]) {
-        return;
-    }
-
-    // Resulting coefficients are canonical for this sine curve
-    const amplitude = p2[Y] - p1[Y];
-    const angularFrequency = Math.PI / (2 * (p2[X] - p1[X]));
-    const phase = p1[X] * angularFrequency;
-    const verticalOffset = p1[Y];
-
-    return {amplitude, angularFrequency, phase, verticalOffset};
 };

@@ -15,6 +15,8 @@ export type {Coords} from "./utils/grapher-types";
 export {addLibraryVersionToPerseusDebug} from "./utils/add-library-version-to-perseus-debug";
 export {default as getMatrixSize} from "./utils/get-matrix-size";
 export {default as getDecimalSeparator} from "./utils/get-decimal-separator";
+export {approximateEqual, approximateDeepEqual} from "./utils/equality";
+export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
 
 export {libVersion} from "./version";

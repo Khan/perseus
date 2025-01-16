@@ -29,7 +29,9 @@ import WrappedEllipse from "../interactive2/wrapped-ellipse";
 import WrappedLine from "../interactive2/wrapped-line";
 
 import KhanColors from "./colors";
-import {clockwise, reverseVector} from "./geometry";
+
+import {clockwise, reverseVector} from "@khanacademy/kmath/src/geometry";
+
 import GraphUtils, {polar} from "./graphie";
 
 import type {Coord} from "../interactive2/types";

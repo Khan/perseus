@@ -2,14 +2,16 @@
  * A collection of geomtry-related utility functions
  */
 
-import {number as knumber, point as kpoint, sum} from "@khanacademy/kmath";
+import {
+    approximateDeepEqual,
+    approximateEqual,
+    type Coord,
+} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import Util from "../util";
+import {number as knumber, point as kpoint, sum} from "@khanacademy/kmath";
 
-import type {Coord, Line} from "../interactive2/types";
-
-const {eq, deepEq} = Util;
+import type {Line} from "./line";
 
 // This should really be a readonly tuple of [number, number]
 export type Range = [number, number];
@@ -21,12 +23,9 @@ export type SineCoefficient = [
     number, // verticalOffset
 ];
 
-// a, b, c
-export type QuadraticCoefficient = [number, number, number];
-
 // Given a number, return whether it is positive (1), negative (-1), or zero (0)
 export function sign(val: number): 0 | 1 | -1 {
-    if (eq(val, 0)) {
+    if (approximateEqual(val, 0)) {
         return 0;
     }
     return val > 0 ? 1 : -1;
@@ -39,7 +38,7 @@ export function ccw(a: Coord, b: Coord, c: Coord): number {
 }
 
 export function collinear(a: Coord, b: Coord, c: Coord): boolean {
-    return eq(ccw(a, b, c), 0);
+    return approximateEqual(ccw(a, b, c), 0);
 }
 
 // Given rect bounding points A and B, whether point C is inside the rect
@@ -229,7 +228,7 @@ export function similar(
         // @ts-expect-error - TS4104 - The type 'readonly number[]' is 'readonly' and cannot be assigned to the mutable type 'number[]'.
         sides = rotate(sides, i);
 
-        if (deepEq(angles1, angles)) {
+        if (approximateDeepEqual(angles1, angles)) {
             const sidePairs = _.zip(sides1, sides);
 
             const factors = _.map(sidePairs, function (pair) {
@@ -237,7 +236,7 @@ export function similar(
             });
 
             const same = _.all(factors, function (factor) {
-                return eq(factors[0], factor);
+                return approximateEqual(factors[0], factor);
             });
 
             const congruentEnough = _.all(sidePairs, function (pair) {
@@ -304,7 +303,7 @@ export function rotate<T>(
 }
 
 export function getLineEquation(first: Coord, second: Coord): string {
-    if (eq(first[0], second[0])) {
+    if (approximateEqual(first[0], second[0])) {
         return "x = " + first[0].toFixed(3);
     }
     const m = (second[1] - first[1]) / (second[0] - first[0]);

@@ -1,8 +1,8 @@
+import {clockwise} from "@khanacademy/kmath/src/geometry";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {vec} from "mafs";
 import * as React from "react";
 
-import {clockwise} from "../../../../util/geometry";
 import {getAngleFromVertex, segmentsIntersect} from "../../math";
 import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
 

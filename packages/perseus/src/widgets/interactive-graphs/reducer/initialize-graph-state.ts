@@ -1,7 +1,7 @@
+import {magnitude, vector} from "@khanacademy/kmath/src/geometry";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 
-import {magnitude, vector} from "../../../util/geometry";
 import {normalizeCoords, normalizePoints} from "../utils";
 
 import type {Coord} from "../../../interactive2/types";

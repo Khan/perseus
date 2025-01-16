@@ -1,11 +1,10 @@
 import invariant from "tiny-invariant";
-
-import {clone} from "../../../../../testing/object-utils";
+import _ from "underscore";
 
 import scoreInteractiveGraph from "./score-interactive-graph";
 
+import type {PerseusInteractiveGraphRubric} from "../../validation.types";
 import type {PerseusGraphType} from "@khanacademy/perseus-core";
-import type {PerseusInteractiveGraphRubric} from "@khanacademy/perseus-score";
 
 describe("InteractiveGraph scoring on a segment question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
@@ -326,7 +325,7 @@ describe("InteractiveGraph scoring on a point question", () => {
             },
         };
 
-        const guessClone = clone(guess);
+        const guessClone = _.clone(guess);
 
         scoreInteractiveGraph(guess, rubric);
 
@@ -352,7 +351,7 @@ describe("InteractiveGraph scoring on a point question", () => {
             },
         };
 
-        const rubricClone = clone(rubric);
+        const rubricClone = _.clone(rubric);
 
         scoreInteractiveGraph(guess, rubric);
 

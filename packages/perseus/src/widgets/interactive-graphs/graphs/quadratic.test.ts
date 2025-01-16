@@ -1,6 +1,8 @@
-import {getQuadraticCoefficients} from "./quadratic";
+import {coefficients} from "@khanacademy/kmath";
 
 import type {QuadraticGraphState} from "../types";
+
+const {getQuadraticCoefficients} = coefficients;
 
 describe("QuadraticGraph", () => {
     it("should accurately calculate coefficients", () => {

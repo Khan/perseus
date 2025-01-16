@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 
-import {getClockwiseAngle} from "../math/angles";
+import {getClockwiseAngle} from "../../../../../kmath/src/angles";
 
 import {changeSnapStep, changeRange, actions} from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";

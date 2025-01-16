@@ -8,6 +8,7 @@ export {default as scoreDropdown} from "./widgets/dropdown/score-dropdown";
 export {default as scoreExpression} from "./widgets/expression/score-expression";
 export {default as scoreGrapher} from "./widgets/grapher/score-grapher";
 export {default as scoreIframe} from "./widgets/iframe/score-iframe";
+export {default as scoreInteractiveGraph} from "./widgets/interactive-graph/score-interactive-graph";
 export {
     default as scoreLabelImage,
     labelImageScoreMarker,

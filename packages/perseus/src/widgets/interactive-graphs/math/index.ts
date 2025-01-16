@@ -11,4 +11,4 @@ export {
     getClockwiseAngle,
     getAngleFromVertex,
     polar,
-} from "./angles";
+} from "@khanacademy/kmath/src/angles";

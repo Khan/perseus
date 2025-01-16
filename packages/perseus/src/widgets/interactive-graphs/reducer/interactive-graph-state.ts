@@ -1,4 +1,4 @@
-import {clockwise} from "../../../util/geometry";
+import {clockwise} from "@khanacademy/kmath/src/geometry";
 
 import type {Coord} from "../../../interactive2/types";
 import type {CircleGraphState, InteractiveGraphState} from "../types";

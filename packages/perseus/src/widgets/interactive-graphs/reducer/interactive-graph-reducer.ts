@@ -1,20 +1,9 @@
-import {vector as kvector} from "@khanacademy/kmath";
+import {coefficients, geometry, vector as kvector} from "@khanacademy/kmath";
+import {approximateEqual} from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
-import Util from "../../../util";
-import {
-    angleMeasures,
-    ccw,
-    lawOfCosines,
-    magnitude,
-    polygonSidesIntersect,
-    reverseVector,
-    sign,
-    vector,
-} from "../../../util/geometry";
-import {getQuadraticCoefficients} from "../graphs/quadratic";
 import {getArrayWithoutDuplicates} from "../graphs/utils";
 import {
     clamp,
@@ -71,13 +60,25 @@ import {
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
-import type {QuadraticCoords} from "../graphs/quadratic";
 import type {
     AngleGraphState,
     InteractiveGraphState,
     PairOfPoints,
 } from "../types";
+import type {QuadraticCoords} from "@khanacademy/kmath";
 import type {Interval} from "mafs";
+
+const {
+    angleMeasures,
+    ccw,
+    lawOfCosines,
+    magnitude,
+    polygonSidesIntersect,
+    reverseVector,
+    sign,
+    vector,
+} = geometry;
+const {getQuadraticCoefficients} = coefficients;
 
 const minDistanceBetweenAngleVertexAndSidePoint = 2;
 
@@ -777,11 +778,9 @@ interface ConstraintArgs {
     point: vec.Vector2;
 }
 
-const eq = Util.eq;
-
 // Less than or approximately equal
 function leq(a: any, b) {
-    return a < b || eq(a, b);
+    return a < b || approximateEqual(a, b);
 }
 
 function boundAndSnapToGrid(

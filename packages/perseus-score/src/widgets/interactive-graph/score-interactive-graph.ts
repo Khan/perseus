@@ -1,18 +1,15 @@
-import {number as knumber} from "@khanacademy/kmath";
+import {
+    number as knumber,
+    geometry,
+    angles,
+    coefficients,
+} from "@khanacademy/kmath";
+import {
+    approximateDeepEqual,
+    approximateEqual,
+    deepClone,
+} from "@khanacademy/perseus-core";
 import _ from "underscore";
-
-import Util from "../../util";
-import {
-    canonicalSineCoefficients,
-    collinear,
-    similar,
-} from "../../util/geometry";
-import {
-    getQuadraticCoefficients,
-    getSinusoidCoefficients,
-} from "../interactive-graph";
-
-import {getClockwiseAngle} from "./math/angles";
 
 import type {
     PerseusScore,
@@ -20,8 +17,9 @@ import type {
     PerseusInteractiveGraphUserInput,
 } from "@khanacademy/perseus-score";
 
-const eq = Util.eq;
-const deepEq = Util.deepEq;
+const {collinear, canonicalSineCoefficients, similar} = geometry;
+const {getClockwiseAngle} = angles;
+const {getSinusoidCoefficients, getQuadraticCoefficients} = coefficients;
 
 function scoreInteractiveGraph(
     userInput: PerseusInteractiveGraphUserInput,
@@ -104,7 +102,7 @@ function scoreInteractiveGraph(
             const correctCoeffs = getQuadraticCoefficients(
                 rubric.correct.coords,
             );
-            if (deepEq(guessCoeffs, correctCoeffs)) {
+            if (approximateDeepEqual(guessCoeffs, correctCoeffs)) {
                 return {
                     type: "points",
                     earned: 1,
@@ -126,7 +124,12 @@ function scoreInteractiveGraph(
             const canonicalCorrectCoeffs =
                 canonicalSineCoefficients(correctCoeffs);
             // If the canonical coefficients match, it's correct.
-            if (deepEq(canonicalGuessCoeffs, canonicalCorrectCoeffs)) {
+            if (
+                approximateDeepEqual(
+                    canonicalGuessCoeffs,
+                    canonicalCorrectCoeffs,
+                )
+            ) {
                 return {
                     type: "points",
                     earned: 1,
@@ -139,8 +142,8 @@ function scoreInteractiveGraph(
             rubric.correct.type === "circle"
         ) {
             if (
-                deepEq(userInput.center, rubric.correct.center) &&
-                eq(userInput.radius, rubric.correct.radius)
+                approximateDeepEqual(userInput.center, rubric.correct.center) &&
+                approximateEqual(userInput.radius, rubric.correct.radius)
             ) {
                 return {
                     type: "points",
@@ -167,7 +170,7 @@ function scoreInteractiveGraph(
             guess?.sort();
             // @ts-expect-error - TS2339 - Property 'sort' does not exist on type 'readonly Coord[]'.
             correct.sort();
-            if (deepEq(guess, correct)) {
+            if (approximateDeepEqual(guess, correct)) {
                 return {
                     type: "points",
                     earned: 1,
@@ -194,7 +197,7 @@ function scoreInteractiveGraph(
                 /* exact */
                 guess.sort();
                 correct.sort();
-                match = deepEq(guess, correct);
+                match = approximateDeepEqual(guess, correct);
             }
 
             if (match) {
@@ -210,11 +213,11 @@ function scoreInteractiveGraph(
             rubric.correct.type === "segment" &&
             userInput.coords != null
         ) {
-            let guess = Util.deepClone(userInput.coords);
-            let correct = Util.deepClone(rubric.correct.coords);
+            let guess = deepClone(userInput.coords);
+            let correct = deepClone(rubric.correct.coords);
             guess = _.invoke(guess, "sort").sort();
             correct = _.invoke(correct, "sort").sort();
-            if (deepEq(guess, correct)) {
+            if (approximateDeepEqual(guess, correct)) {
                 return {
                     type: "points",
                     earned: 1,
@@ -230,7 +233,7 @@ function scoreInteractiveGraph(
             const guess = userInput.coords;
             const correct = rubric.correct.coords;
             if (
-                deepEq(guess[0], correct[0]) &&
+                approximateDeepEqual(guess[0], correct[0]) &&
                 collinear(correct[0], correct[1], guess[1])
             ) {
                 return {
@@ -258,11 +261,11 @@ function scoreInteractiveGraph(
                     return angle;
                 });
                 // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
-                match = eq(...angles);
+                match = approximateEqual(...angles);
             } else {
                 /* exact */
                 match = // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
-                    deepEq(guess[1], correct[1]) &&
+                    approximateDeepEqual(guess[1], correct[1]) &&
                     // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                     collinear(correct[1], correct[0], guess[0]) &&
                     // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
