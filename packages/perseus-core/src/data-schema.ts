@@ -181,6 +181,18 @@ export interface PerseusWidgetTypes {
 export type PerseusWidgetsMap = MakeWidgetMap<PerseusWidgetTypes>;
 
 /**
+ * PerseusWidget is a union of all the different types of widget options that
+ * Perseus knows about.
+ *
+ * Thanks to it being based on PerseusWidgetTypes interface, this union is
+ * automatically extended to include widgets used in tests without those widget
+ * option types seeping into our production types.
+ *
+ * @see MockWidget for an example
+ */
+export type PerseusWidget = PerseusWidgetTypes[keyof PerseusWidgetTypes];
+
+/**
  * A "PerseusItem" is a classic Perseus item. It is rendered by the
  * `ServerItemRenderer` and the layout is pre-set.
  *
@@ -376,8 +388,6 @@ export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassage
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
 export type DeprecatedStandinWidget = WidgetOptions<'deprecated-standin', object>;
-
-export type PerseusWidget = PerseusWidgetTypes[keyof PerseusWidgetTypes];
 
 /**
  * A background image applied to various widgets.
