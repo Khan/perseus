@@ -814,7 +814,7 @@ describe("renderer utils", () => {
 
             // Assert
             expect(validatorSpy).toHaveBeenCalledTimes(2);
-            expect(scoreSpy).toHaveBeenCalled();
+            expect(scoreSpy).toHaveBeenCalledTimes(2);
             expect(score).toEqual({
                 type: "points",
                 total: 2,
