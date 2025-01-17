@@ -5,11 +5,22 @@ export type * from "./validation.types";
 export {default as scoreCategorizer} from "./widgets/categorizer/score-categorizer";
 export {default as scoreCSProgram} from "./widgets/cs-program/score-cs-program";
 export {default as scoreDropdown} from "./widgets/dropdown/score-dropdown";
+export {default as scoreExpression} from "./widgets/expression/score-expression";
+export {default as scoreGrapher} from "./widgets/grapher/score-grapher";
 export {default as scoreIframe} from "./widgets/iframe/score-iframe";
+export {default as scoreInteractiveGraph} from "./widgets/interactive-graph/score-interactive-graph";
+export {
+    default as scoreLabelImage,
+    scoreLabelImageMarker,
+} from "./widgets/label-image/score-label-image";
 export {default as scoreMatcher} from "./widgets/matcher/score-matcher";
+export {default as scoreMatrix} from "./widgets/matrix/score-matrix";
 export {default as scoreNumberLine} from "./widgets/number-line/score-number-line";
 export {default as scoreNumericInput} from "./widgets/numeric-input/score-numeric-input";
+export {default as scoreOrderer} from "./widgets/orderer/score-orderer";
+export {default as scorePlotter} from "./widgets/plotter/score-plotter";
 export {default as scoreRadio} from "./widgets/radio/score-radio";
+export {default as scoreSorter} from "./widgets/sorter/score-sorter";
 export {default as scoreTable} from "./widgets/table/score-table";
 export {
     default as scoreInputNumber,

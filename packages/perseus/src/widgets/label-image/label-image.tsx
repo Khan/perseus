@@ -6,6 +6,12 @@
  * knowledge by directly interacting with the image.
  */
 
+import {
+    scoreLabelImageMarker,
+    scoreLabelImage,
+    type PerseusLabelImageRubric,
+    type PerseusLabelImageUserInput,
+} from "@khanacademy/perseus-score";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet, css} from "aphrodite";
@@ -25,7 +31,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/label-image
 import AnswerChoices from "./answer-choices";
 import {HideAnswersToggle} from "./hide-answers-toggle";
 import Marker from "./marker";
-import scoreLabelImage, {scoreMarker} from "./score-label-image";
 
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
@@ -35,10 +40,6 @@ import type {
     InteractiveMarkerType,
     PerseusLabelImageWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type {
-    PerseusLabelImageRubric,
-    PerseusLabelImageUserInput,
-} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
@@ -326,7 +327,7 @@ export class LabelImage
         const {onChange} = this.props;
 
         const updatedMarkers = markers.map((marker) => {
-            const score = scoreMarker(marker);
+            const score = scoreLabelImageMarker(marker);
 
             return {
                 ...marker,
@@ -478,7 +479,7 @@ export class LabelImage
                 }[markerPosition];
             }
 
-            const score = scoreMarker(marker);
+            const score = scoreLabelImageMarker(marker);
             // Once the question is answered, show markers
             // with correct answers, otherwise passthrough
             // the correctness state.
