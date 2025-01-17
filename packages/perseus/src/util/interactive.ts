@@ -13,6 +13,7 @@ import {
     point as kpoint,
     line as kline,
     KhanMath,
+    geometry,
 } from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import $ from "jquery";
@@ -29,12 +30,13 @@ import WrappedEllipse from "../interactive2/wrapped-ellipse";
 import WrappedLine from "../interactive2/wrapped-line";
 
 import KhanColors from "./colors";
-import {clockwise, reverseVector} from "./geometry";
 import GraphUtils, {polar} from "./graphie";
 
 import type {Coord} from "../interactive2/types";
 
 export type MouseHandler = (position: Coord) => void;
+
+const {clockwise, reverseVector} = geometry;
 
 function scaledDistanceFromAngle(angle: number) {
     const a = 3.51470560176242 * 20;

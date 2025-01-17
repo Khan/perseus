@@ -1,4 +1,4 @@
-import {ErrorCodes} from "@khanacademy/perseus-score";
+import type {ErrorCodes} from "@khanacademy/perseus-score";
 
 /**
  * The translated strings that are used to render Perseus.
@@ -318,12 +318,7 @@ export type PerseusStrings = {
  * translator to produce translated strings, passed in as `PerseusStrings`.
  * !! Note: Ensure that all escape sequences are double-escaped. (e.g. `\\text` -> `\\\\text`)
  */
-export const strings: {
-    [key in keyof PerseusStrings]:
-        | string
-        | {context?: string; message: string}
-        | {context?: string; one: string; other: string};
-} = {
+export const strings = {
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
     mathInputBox: "Math input box",
@@ -543,6 +538,11 @@ export const strings: {
     srRayEndpoint: "Endpoint at %(point1X)s comma %(point1Y)s.",
     srRayTerminalPoint: "Through point at %(point2X)s comma %(point2Y)s.",
     // The above strings are used for interactive graph SR descriptions.
+} satisfies {
+    [key in keyof PerseusStrings]:
+        | string
+        | {context?: string; message: string}
+        | {context?: string; one: string; other: string};
 };
 
 /**
@@ -774,16 +774,25 @@ export const mockStrings: PerseusStrings = {
     // The above strings are used for interactive graph SR descriptions.
 };
 
-const errorToString = {
-    [ErrorCodes.MISSING_PERCENT_ERROR]: strings.MISSING_PERCENT_ERROR,
-    [ErrorCodes.NEEDS_TO_BE_SIMPLIFIED_ERROR]:
-        strings.NEEDS_TO_BE_SIMPLFIED_ERROR,
-    [ErrorCodes.APPROXIMATED_PI_ERROR]: strings.APPROXIMATED_PI_ERROR,
-    [ErrorCodes.EXTRA_SYMBOLS_ERROR]: strings.EXTRA_SYMBOLS_ERROR,
-    [ErrorCodes.WRONG_CASE_ERROR]: strings.WRONG_CASE_ERROR,
-    [ErrorCodes.WRONG_LETTER_ERROR]: strings.WRONG_LETTER_ERROR,
-    [ErrorCodes.MULTIPLICATION_SIGN_ERROR]: strings.MULTIPLICATION_SIGN_ERROR,
+// This type helps us make sure all error codes are mapped to strings
+type ErrorStringMap = {
+    [K in keyof typeof ErrorCodes]: string;
 };
+
+const errorToString: ErrorStringMap = {
+    MISSING_PERCENT_ERROR: strings.MISSING_PERCENT_ERROR,
+    NEEDS_TO_BE_SIMPLIFIED_ERROR: strings.NEEDS_TO_BE_SIMPLFIED_ERROR,
+    APPROXIMATED_PI_ERROR: strings.APPROXIMATED_PI_ERROR,
+    EXTRA_SYMBOLS_ERROR: strings.EXTRA_SYMBOLS_ERROR,
+    WRONG_CASE_ERROR: strings.WRONG_CASE_ERROR,
+    WRONG_LETTER_ERROR: strings.WRONG_LETTER_ERROR,
+    MULTIPLICATION_SIGN_ERROR: strings.MULTIPLICATION_SIGN_ERROR,
+    INVALID_SELECTION_ERROR: strings.invalidSelection,
+    CHOOSE_CORRECT_NUM_ERROR: strings.chooseCorrectNum,
+    NOT_NONE_ABOVE_ERROR: strings.notNoneOfTheAbove,
+    FILL_ALL_CELLS_ERROR: strings.fillAllCells,
+};
+
 export function mapErrorToString(err: string | null | undefined) {
     if (!err) {
         return err;

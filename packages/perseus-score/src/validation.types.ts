@@ -46,6 +46,21 @@ import type {
     Relationship,
 } from "@khanacademy/perseus-core";
 
+export type PerseusScore =
+    | {
+          type: "invalid";
+          message?: string | null | undefined;
+          suppressAlmostThere?: boolean | null | undefined;
+      }
+    | {
+          type: "points";
+          earned: number;
+          total: number;
+          message?: string | null | undefined;
+      };
+
+export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
+
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
 export type PerseusCategorizerScoringData = {

@@ -1,7 +1,6 @@
 import {scorePerseusItem} from "../renderer-util";
 import {mockStrings} from "../strings";
 
-import type {PerseusScore} from "../types";
 import type {
     CategorizerWidget,
     ExpressionWidget,
@@ -11,7 +10,7 @@ import type {
     PerseusRenderer,
     RadioWidget,
 } from "@khanacademy/perseus-core";
-import type {UserInputMap} from "@khanacademy/perseus-score";
+import type {PerseusScore, UserInputMap} from "@khanacademy/perseus-score";
 
 export const genericPerseusItemData: PerseusItem = {
     question: {

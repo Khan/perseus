@@ -14,6 +14,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
+    PerseusScore,
     Rubric,
     UserInput,
     UserInputArray,
@@ -96,19 +97,6 @@ export interface Widget {
 export type ImageDict = {
     [url: string]: Dimensions;
 };
-
-export type PerseusScore =
-    | {
-          type: "invalid";
-          message?: string | null | undefined;
-          suppressAlmostThere?: boolean | null | undefined;
-      }
-    | {
-          type: "points";
-          earned: number;
-          total: number;
-          message?: string | null | undefined;
-      };
 
 export type Version = {
     major: number;
@@ -528,8 +516,6 @@ export type WidgetTransform = (
     strings: PerseusStrings,
     problemNumber?: number,
 ) => any;
-
-export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
 
 export type WidgetScorerFunction = (
     // The user data needed to score

@@ -1,5 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {scoreCategorizer} from "@khanacademy/perseus-score";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -17,7 +18,6 @@ import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
 import getCategorizerPublicWidgetOptions from "./categorizer.util";
-import scoreCategorizer from "./score-categorizer";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
