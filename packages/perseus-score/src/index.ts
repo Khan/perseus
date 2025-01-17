@@ -5,6 +5,7 @@ export type * from "./validation.types";
 export {default as scoreCategorizer} from "./widgets/categorizer/score-categorizer";
 export {default as scoreCSProgram} from "./widgets/cs-program/score-cs-program";
 export {default as scoreDropdown} from "./widgets/dropdown/score-dropdown";
+export {default as scoreExpression} from "./widgets/expression/score-expression";
 export {default as scoreIframe} from "./widgets/iframe/score-iframe";
 export {
     default as scoreLabelImage,
