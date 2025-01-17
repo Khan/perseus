@@ -1,11 +1,13 @@
+import {angles} from "@khanacademy/kmath";
 import {vec} from "mafs";
 import * as React from "react";
 
-import {calculateAngleInDegrees} from "../../math";
 import {useTransformVectorsToPixels} from "../use-transform";
 
 import {Arrowhead} from "./arrowhead";
 import {SVGLine} from "./svg-line";
+
+const {calculateAngleInDegrees} = angles;
 
 type Props = {
     tail: vec.Vector2;

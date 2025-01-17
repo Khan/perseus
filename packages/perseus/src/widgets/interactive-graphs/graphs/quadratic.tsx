@@ -12,6 +12,7 @@ import type {
     Dispatch,
     InteractiveGraphElementSuite,
 } from "../types";
+import type {QuadraticCoefficient, QuadraticCoords} from "@khanacademy/kmath";
 
 export function renderQuadraticGraph(
     state: QuadraticGraphState,
@@ -24,8 +25,6 @@ export function renderQuadraticGraph(
 }
 
 type QuadraticGraphProps = MafsGraphProps<QuadraticGraphState>;
-type QuadraticCoefficient = [number, number, number];
-export type QuadraticCoords = QuadraticGraphState["coords"];
 
 function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;

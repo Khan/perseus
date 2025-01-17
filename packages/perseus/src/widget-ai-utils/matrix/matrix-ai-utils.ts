@@ -1,5 +1,5 @@
-import type {PerseusMatrixUserInput} from "../../validation.types";
 import type matrix from "../../widgets/matrix/matrix";
+import type {PerseusMatrixUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
 
 export type MatrixPromptJSON = {
