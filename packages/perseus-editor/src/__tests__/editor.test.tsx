@@ -143,4 +143,26 @@ describe("Editor", () => {
             undefined,
         );
     });
+
+    it("should not log a warning given widget with an undefined key", () => {
+        const consoleErrorSpy = jest.spyOn(console, "error");
+
+        render(
+            <Harnessed
+                widgets={{
+                    "image 1": {
+                        type: "image",
+                        key: undefined,
+                        options: {
+                            backgroundImage: {
+                                url: "http://placekitten.com/200/300",
+                            },
+                        },
+                    },
+                }}
+            />,
+        );
+
+        expect(consoleErrorSpy).not.toHaveBeenCalled();
+    });
 });
