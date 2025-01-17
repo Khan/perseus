@@ -15,8 +15,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import type {Coords} from "@khanacademy/perseus";
-import type {MarkingsType} from "@khanacademy/perseus-core";
+import type {Coords, MarkingsType} from "@khanacademy/perseus-core";
 
 const {ButtonGroup, InfoTip, RangeInput} = components;
 

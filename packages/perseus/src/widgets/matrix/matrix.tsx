@@ -1,4 +1,14 @@
+import {
+    getMatrixSize,
+    type PerseusMatrixWidgetAnswers,
+    type PerseusMatrixWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {
+    scoreMatrix,
+    type PerseusMatrixRubric,
+    type PerseusMatrixUserInput,
+} from "@khanacademy/perseus-score";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -15,18 +25,8 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
-import scoreMatrix from "./score-matrix";
-
 import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
 import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
-import type {
-    PerseusMatrixWidgetAnswers,
-    PerseusMatrixWidgetOptions,
-} from "@khanacademy/perseus-core";
-import type {
-    PerseusMatrixRubric,
-    PerseusMatrixUserInput,
-} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {assert} = InteractiveUtil;
@@ -78,30 +78,6 @@ const getRefForPath = function (path: FocusPath) {
     const column = getColumnFromPath(path);
     return "answer" + row + "," + column;
 };
-
-export function getMatrixSize(matrix: ReadonlyArray<ReadonlyArray<number>>) {
-    const matrixSize = [1, 1];
-
-    // We need to find the widest row and tallest column to get the correct
-    // matrix size.
-    _(matrix).each((matrixRow, row) => {
-        let rowWidth = 0;
-        _(matrixRow).each((matrixCol, col) => {
-            if (matrixCol != null && matrixCol.toString().length) {
-                rowWidth = col + 1;
-            }
-        });
-
-        // Matrix width:
-        matrixSize[1] = Math.max(matrixSize[1], rowWidth);
-
-        // Matrix height:
-        if (rowWidth > 0) {
-            matrixSize[0] = Math.max(matrixSize[0], row + 1);
-        }
-    });
-    return matrixSize;
-}
 
 type ExternalProps = WidgetProps<
     {
