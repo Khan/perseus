@@ -1,22 +1,21 @@
-import {KhanAnswerTypes} from "@khanacademy/perseus-score";
+import {getMatrixSize} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import {getMatrixSize} from "./matrix";
+import KhanAnswerTypes from "../../util/answer-types";
+
 import validateMatrix from "./validate-matrix";
 
-import type {PerseusStrings} from "../../strings";
 import type {
-    PerseusScore,
-    PerseusMatrixRubric,
     PerseusMatrixUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusMatrixRubric,
+    PerseusScore,
+} from "../../validation.types";
 
 function scoreMatrix(
     userInput: PerseusMatrixUserInput,
     rubric: PerseusMatrixRubric,
-    strings: PerseusStrings,
 ): PerseusScore {
-    const validationResult = validateMatrix(userInput, rubric, strings);
+    const validationResult = validateMatrix(userInput, rubric);
     if (validationResult != null) {
         return validationResult;
     }

@@ -1,13 +1,12 @@
-import _ from "underscore";
+import {getMatrixSize} from "@khanacademy/perseus-core";
 
-import {getMatrixSize} from "./matrix";
+import ErrorCodes from "../../error-codes";
 
-import type {PerseusStrings} from "../../strings";
 import type {
-    ValidationResult,
     PerseusMatrixUserInput,
     PerseusMatrixValidationData,
-} from "@khanacademy/perseus-score";
+    ValidationResult,
+} from "../../validation.types";
 
 /**
  * Checks user input from the matrix widget to see if it is scorable.
@@ -20,7 +19,6 @@ import type {
 function validateMatrix(
     userInput: PerseusMatrixUserInput,
     validationData: PerseusMatrixValidationData,
-    strings: PerseusStrings,
 ): ValidationResult {
     const supplied = userInput.answers;
     const suppliedSize = getMatrixSize(supplied);
@@ -33,7 +31,7 @@ function validateMatrix(
             ) {
                 return {
                     type: "invalid",
-                    message: strings.fillAllCells,
+                    message: ErrorCodes.FILL_ALL_CELLS_ERROR,
                 };
             }
         }

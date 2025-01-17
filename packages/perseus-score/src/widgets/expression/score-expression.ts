@@ -1,21 +1,22 @@
 import * as KAS from "@khanacademy/kas";
-import {Errors} from "@khanacademy/perseus-core";
-import {KhanAnswerTypes} from "@khanacademy/perseus-score";
+import {
+    Errors,
+    getDecimalSeparator,
+    PerseusError,
+} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import {Log} from "../../logging/log";
+import KhanAnswerTypes from "../../util/answer-types";
 
-import getDecimalSeparator from "./get-decimal-separator";
 import validateExpression from "./validate-expression";
 
-import type {PerseusStrings} from "../../strings";
-import type {PerseusExpressionAnswerForm} from "@khanacademy/perseus-core";
+import type {Score} from "../../util/answer-types";
 import type {
-    PerseusScore,
-    Score,
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusScore,
+} from "../../validation.types";
+import type {PerseusExpressionAnswerForm} from "@khanacademy/perseus-core";
 
 /* Content creators input a list of answers which are matched from top to
  * bottom. The intent is that they can include spcific solutions which should
@@ -38,7 +39,8 @@ import type {
 function scoreExpression(
     userInput: PerseusExpressionUserInput,
     rubric: PerseusExpressionRubric,
-    strings: PerseusStrings,
+    // TODO: remove strings as a param for scorers
+    strings: any,
     locale: string,
 ): PerseusScore {
     const validationError = validateExpression(userInput);
@@ -62,12 +64,10 @@ function scoreExpression(
         // in the function variables list for the expression.
         if (!expression.parsed) {
             /* c8 ignore next */
-            Log.error(
+            throw new PerseusError(
                 "Unable to parse solution answer for expression",
                 Errors.InvalidInput,
-                {loggedMetadata: {rubric: JSON.stringify(rubric)}},
             );
-            return null;
         }
 
         return KhanAnswerTypes.expression.createValidatorFunctional(

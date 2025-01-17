@@ -1,3 +1,4 @@
+import {approximateDeepEqual} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import validatePlotter from "./validate-plotter";
@@ -18,7 +19,7 @@ function scorePlotter(
     }
     return {
         type: "points",
-        earned: _.isEqual(userInput, scoringData.correct) ? 1 : 0,
+        earned: approximateDeepEqual(userInput, scoringData.correct) ? 1 : 0,
         total: 1,
         message: null,
     };
