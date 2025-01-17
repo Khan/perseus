@@ -13,7 +13,7 @@ import type {FunctionTypeMappingKeys} from "@khanacademy/perseus-core";
 type MovableMap = {
     [K in keyof typeof GrapherUtil.MOVABLES]: any;
 };
-export const movableToGraphieMovable: MovableMap = {
+export const movableTypeToComponent: MovableMap = {
     // @ts-expect-error - TS2339 - Property 'Plot' does not exist on type 'typeof Graphie'.
     PLOT: Graphie.Plot,
     // @ts-expect-error - TS2339 - Property 'Parabola' does not exist on type 'typeof Graphie'.

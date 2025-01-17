@@ -32,7 +32,7 @@ import {
     defaultPlotProps,
     getGridAndSnapSteps,
     maybePointsFromNormalized,
-    movableToGraphieMovable,
+    movableTypeToComponent,
     typeToButton,
 } from "./util";
 
@@ -138,7 +138,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         }
 
         const functionProps = model.getPropsForCoeffs(coeffs, xRange);
-        const Movable = movableToGraphieMovable[model.movable];
+        const Movable = movableTypeToComponent[model.movable];
         return (
             <Movable
                 {...functionProps}
