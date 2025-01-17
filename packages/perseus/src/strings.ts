@@ -268,12 +268,7 @@ export type PerseusStrings = {
  * translator to produce translated strings, passed in as `PerseusStrings`.
  * !! Note: Ensure that all escape sequences are double-escaped. (e.g. `\\text` -> `\\\\text`)
  */
-export const strings: {
-    [key in keyof PerseusStrings]:
-        | string
-        | {context?: string; message: string}
-        | {context?: string; one: string; other: string};
-} = {
+export const strings = {
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
     mathInputBox: "Math input box",
@@ -481,6 +476,11 @@ export const strings: {
     srAngleGraphAriaDescription:
         "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
     // The above strings are used for interactive graph SR descriptions.
+} satisfies {
+    [key in keyof PerseusStrings]:
+        | string
+        | {context?: string; message: string}
+        | {context?: string; one: string; other: string};
 };
 
 /**
@@ -706,16 +706,16 @@ type ErrorStringMap = {
 };
 
 const errorToString: ErrorStringMap = {
-    MISSING_PERCENT_ERROR: strings.MISSING_PERCENT_ERROR as string,
-    NEEDS_TO_BE_SIMPLIFIED_ERROR: strings.NEEDS_TO_BE_SIMPLFIED_ERROR as string,
-    APPROXIMATED_PI_ERROR: strings.APPROXIMATED_PI_ERROR as string,
-    EXTRA_SYMBOLS_ERROR: strings.EXTRA_SYMBOLS_ERROR as string,
-    WRONG_CASE_ERROR: strings.WRONG_CASE_ERROR as string,
-    WRONG_LETTER_ERROR: strings.WRONG_LETTER_ERROR as string,
-    MULTIPLICATION_SIGN_ERROR: strings.MULTIPLICATION_SIGN_ERROR as string,
-    INVALID_SELECTION_ERROR: strings.invalidSelection as string,
-    CHOOSE_CORRECT_NUM_ERROR: strings.chooseCorrectNum as string,
-    NOT_NONE_ABOVE_ERROR: strings.notNoneOfTheAbove as string,
+    MISSING_PERCENT_ERROR: strings.MISSING_PERCENT_ERROR,
+    NEEDS_TO_BE_SIMPLIFIED_ERROR: strings.NEEDS_TO_BE_SIMPLFIED_ERROR,
+    APPROXIMATED_PI_ERROR: strings.APPROXIMATED_PI_ERROR,
+    EXTRA_SYMBOLS_ERROR: strings.EXTRA_SYMBOLS_ERROR,
+    WRONG_CASE_ERROR: strings.WRONG_CASE_ERROR,
+    WRONG_LETTER_ERROR: strings.WRONG_LETTER_ERROR,
+    MULTIPLICATION_SIGN_ERROR: strings.MULTIPLICATION_SIGN_ERROR,
+    INVALID_SELECTION_ERROR: strings.invalidSelection,
+    CHOOSE_CORRECT_NUM_ERROR: strings.chooseCorrectNum,
+    NOT_NONE_ABOVE_ERROR: strings.notNoneOfTheAbove,
 };
 
 export function mapErrorToString(err: string | null | undefined) {
