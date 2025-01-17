@@ -13,6 +13,7 @@ import {iconOk, iconRemove} from "../../icon-paths";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
+import {mapErrorToString} from "../../strings";
 import {
     gray68,
     gray76,
@@ -189,7 +190,7 @@ export class GradedGroup
             score.type === "points"
                 ? score.message || ""
                 : score.message
-                  ? `${INVALID_MESSAGE_PREFIX} ${score.message}`
+                  ? `${INVALID_MESSAGE_PREFIX} ${mapErrorToString(score.message)}`
                   : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE_1}${DEFAULT_INVALID_MESSAGE_2}`;
 
         this.setState({

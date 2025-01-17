@@ -11,6 +11,7 @@ import type {
     WidgetExports,
     WidgetTransform,
     WidgetScorerFunction,
+    PublicWidgetOptionsFunction,
 } from "./types";
 import type {PerseusWidget} from "@khanacademy/perseus-core";
 import type * as React from "react";
@@ -139,6 +140,12 @@ export const getWidgetExport = (name: string): WidgetExports | null => {
 
 export const getWidgetScorer = (name: string): WidgetScorerFunction | null => {
     return widgets[name]?.scorer ?? null;
+};
+
+export const getPublicWidgetOptionsFunction = (
+    name: string,
+): PublicWidgetOptionsFunction => {
+    return widgets[name]?.getPublicWidgetOptions ?? ((i) => i);
 };
 
 export const getEditor = (name: string): Editor | null | undefined => {

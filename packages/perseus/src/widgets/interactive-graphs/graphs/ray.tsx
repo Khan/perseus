@@ -1,9 +1,13 @@
 import * as React from "react";
 
+import {usePerseusI18n} from "../../../components/i18n-context";
+import a11y from "../../../util/a11y";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
+import {srFormatNumber} from "./screenreader-text";
 
+import type {I18nContextType} from "../../../components/i18n-context";
 import type {
     Dispatch,
     InteractiveGraphElementSuite,
@@ -18,7 +22,7 @@ export function renderRayGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <RayGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: null,
+        interactiveElementsDescription: <RayGraphDescription state={state} />,
     };
 }
 
@@ -33,16 +37,100 @@ const RayGraph = (props: Props) => {
     const handleMovePoint = (pointIndex: number, newPoint: vec.Vector2) =>
         dispatch(actions.ray.movePoint(pointIndex, newPoint));
 
+    const {strings, locale} = usePerseusI18n();
+    const id = React.useId();
+    const pointsDescriptionId = id + "-points";
+
+    // Aria label strings
+    const {
+        srRayGraph,
+        srRayPoints,
+        srRayEndpoint,
+        srRayTerminalPoint,
+        srRayGrabHandle,
+    } = describeRayGraph(props.graphState, {strings, locale});
+
     // Ray graphs only have one line
     return (
-        <MovableLine
-            points={line}
-            onMoveLine={handleMoveLine}
-            onMovePoint={handleMovePoint}
-            extend={{
-                start: false,
-                end: true,
-            }}
-        />
+        <g
+            // Outer line minimal description
+            aria-label={srRayGraph}
+            aria-describedby={pointsDescriptionId}
+        >
+            <MovableLine
+                points={line}
+                ariaLabels={{
+                    point1AriaLabel: srRayEndpoint,
+                    point2AriaLabel: srRayTerminalPoint,
+                    grabHandleAriaLabel: srRayGrabHandle,
+                }}
+                onMoveLine={handleMoveLine}
+                onMovePoint={handleMovePoint}
+                extend={{
+                    start: false,
+                    end: true,
+                }}
+            />
+            {/* Hidden elements to provide the descriptions for the
+                `aria-describedby` properties. */}
+            <g id={pointsDescriptionId} style={a11y.srOnly}>
+                {srRayPoints}
+            </g>
+        </g>
     );
 };
+
+function RayGraphDescription({state}: {state: RayGraphState}) {
+    // The reason that RayGraphDescription is a component (rather than a
+    // function that returns a string) is because it needs to use a
+    // hook: `usePerseusI18n`.
+    const i18n = usePerseusI18n();
+    const strings = describeRayGraph(state, i18n);
+
+    return strings.srRayInteractiveElement;
+}
+
+// Exported for testing
+export function describeRayGraph(
+    state: RayGraphState,
+    i18n: I18nContextType,
+): Record<string, string> {
+    const {coords: line} = state;
+    const {strings, locale} = i18n;
+
+    // Aria label strings
+    const srRayGraph = strings.srRayGraph;
+    const srRayPoints = strings.srRayPoints({
+        point1X: srFormatNumber(line[0][0], locale),
+        point1Y: srFormatNumber(line[0][1], locale),
+        point2X: srFormatNumber(line[1][0], locale),
+        point2Y: srFormatNumber(line[1][1], locale),
+    });
+    const srRayEndpoint = strings.srRayEndpoint({
+        x: srFormatNumber(line[0][0], locale),
+        y: srFormatNumber(line[0][1], locale),
+    });
+    const srRayTerminalPoint = strings.srRayTerminalPoint({
+        x: srFormatNumber(line[1][0], locale),
+        y: srFormatNumber(line[1][1], locale),
+    });
+    const srRayGrabHandle = strings.srRayGrabHandle({
+        point1X: srFormatNumber(line[0][0], locale),
+        point1Y: srFormatNumber(line[0][1], locale),
+        point2X: srFormatNumber(line[1][0], locale),
+        point2Y: srFormatNumber(line[1][1], locale),
+    });
+
+    const srRayInteractiveElement = strings.srInteractiveElements({
+        elements: [srRayGraph, srRayPoints].join(" "),
+    });
+
+    return {
+        srRayGraph,
+        srRayPoints,
+        srRayEndpoint,
+        srRayTerminalPoint,
+        srRayGrabHandle,
+        srRayInteractiveElement,
+    };
+}
