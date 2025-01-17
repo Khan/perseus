@@ -19,7 +19,9 @@ export function object<S extends ObjectSchema>(
         for (const [prop, propParser] of Object.entries(schema)) {
             const result = propParser(rawValue[prop], ctx.forSubtree(prop));
             if (isSuccess(result)) {
-                ret[prop] = result.value;
+                if (result.value !== undefined || prop in rawValue) {
+                    ret[prop] = result.value;
+                }
             } else {
                 mismatches.push(...result.detail);
             }
