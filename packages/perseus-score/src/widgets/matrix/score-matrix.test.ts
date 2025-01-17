@@ -1,12 +1,10 @@
-import {mockStrings} from "../../strings";
-
 import scoreMatrix from "./score-matrix";
 import * as MatrixValidator from "./validate-matrix";
 
 import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
 
 describe("scoreMatrix", () => {
     it("should be correctly answerable if validation passes", function () {
@@ -28,14 +26,10 @@ describe("scoreMatrix", () => {
         };
 
         // Act
-        const score = scoreMatrix(userInput, rubric, mockStrings);
+        const score = scoreMatrix(userInput, rubric);
 
         // Assert
-        expect(mockValidator).toHaveBeenCalledWith(
-            userInput,
-            rubric,
-            mockStrings,
-        );
+        expect(mockValidator).toHaveBeenCalledWith(userInput, rubric);
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
@@ -58,14 +52,10 @@ describe("scoreMatrix", () => {
         };
 
         // Act
-        const score = scoreMatrix(userInput, rubric, mockStrings);
+        const score = scoreMatrix(userInput, rubric);
 
         // Assert
-        expect(mockValidator).toHaveBeenCalledWith(
-            userInput,
-            rubric,
-            mockStrings,
-        );
+        expect(mockValidator).toHaveBeenCalledWith(userInput, rubric);
         expect(score).toHaveInvalidInput();
     });
 
@@ -84,7 +74,7 @@ describe("scoreMatrix", () => {
         };
 
         // Act
-        const result = scoreMatrix(userInput, rubric, mockStrings);
+        const result = scoreMatrix(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -109,7 +99,7 @@ describe("scoreMatrix", () => {
         };
 
         // Act
-        const result = scoreMatrix(userInput, rubric, mockStrings);
+        const result = scoreMatrix(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -137,7 +127,7 @@ describe("scoreMatrix", () => {
         };
 
         // Act
-        const result = scoreMatrix(userInput, rubric, mockStrings);
+        const result = scoreMatrix(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -165,7 +155,7 @@ describe("scoreMatrix", () => {
         };
 
         // Act
-        const result = scoreMatrix(userInput, rubric, mockStrings);
+        const result = scoreMatrix(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -194,16 +184,8 @@ describe("scoreMatrix", () => {
         };
 
         // Act
-        const correctResult = scoreMatrix(
-            correctUserInput,
-            rubric,
-            mockStrings,
-        );
-        const incorrectResult = scoreMatrix(
-            incorrectUserInput,
-            rubric,
-            mockStrings,
-        );
+        const correctResult = scoreMatrix(correctUserInput, rubric);
+        const incorrectResult = scoreMatrix(incorrectUserInput, rubric);
 
         // Assert
         expect(correctResult).toHaveBeenAnsweredCorrectly();

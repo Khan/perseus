@@ -1,10 +1,11 @@
-import {mockStrings} from "../../strings";
-
-import {expressionItem3Options} from "./expression.testdata";
 import scoreExpression from "./score-expression";
+import {expressionItem3Options} from "./score-expression.testdata";
 import * as ExpressionValidator from "./validate-expression";
 
 import type {PerseusExpressionRubric} from "@khanacademy/perseus-score";
+
+// TODO: remove strings as a param for scorers
+const mockStrings = {};
 
 describe("scoreExpression", () => {
     it("should be correctly answerable if validation passes", function () {

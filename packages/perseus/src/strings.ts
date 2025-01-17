@@ -716,6 +716,7 @@ const errorToString: ErrorStringMap = {
     INVALID_SELECTION_ERROR: strings.invalidSelection as string,
     CHOOSE_CORRECT_NUM_ERROR: strings.chooseCorrectNum as string,
     NOT_NONE_ABOVE_ERROR: strings.notNoneOfTheAbove as string,
+    FILL_ALL_CELLS_ERROR: strings.fillAllCells as string,
 };
 
 export function mapErrorToString(err: string | null | undefined) {
