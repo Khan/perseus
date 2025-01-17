@@ -1,3 +1,4 @@
+import {approximateDeepEqual} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import type {
@@ -16,7 +17,7 @@ function validatePlotter(
     userInput: PerseusPlotterUserInput,
     validationData: PerseusPlotterValidationData,
 ): ValidationResult {
-    if (_.isEqual(userInput, validationData.starting)) {
+    if (approximateDeepEqual(userInput, validationData.starting)) {
         return {
             type: "invalid",
             message: null,

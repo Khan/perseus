@@ -1,4 +1,4 @@
-import {vector as kvector} from "@khanacademy/kmath";
+import {angles, vector as kvector} from "@khanacademy/kmath";
 import {
     getAngleCoords,
     getCircleCoords,
@@ -9,12 +9,13 @@ import {
     getQuadraticCoords,
     getSegmentCoords,
     getSinusoidCoords,
-    getClockwiseAngle,
 } from "@khanacademy/perseus";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 import type {StartCoords} from "./types";
 import type {Range, PerseusGraphType, Coord} from "@khanacademy/perseus-core";
+
+const {getClockwiseAngle} = angles;
 
 export function getStartCoords(graph: PerseusGraphType): StartCoords {
     if ("startCoords" in graph) {

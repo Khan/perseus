@@ -1,9 +1,8 @@
-import {clockwise} from "../../../util/geometry";
-
-import type {Coord} from "@khanacademy/perseus";
-import type {vec} from "mafs";
-
 // This file contains helper functions for working with angles.
+
+import {clockwise} from "./geometry";
+
+import type {Coord} from "@khanacademy/perseus-core";
 
 export function convertDegreesToRadians(degrees: number): number {
     return (degrees / 180) * Math.PI;
@@ -11,12 +10,12 @@ export function convertDegreesToRadians(degrees: number): number {
 
 // Returns a value between -180 and 180, inclusive. The angle is measured
 // between the positive x-axis and the given vector.
-export function calculateAngleInDegrees([x, y]: vec.Vector2): number {
+export function calculateAngleInDegrees([x, y]: Coord): number {
     return (Math.atan2(y, x) * 180) / Math.PI;
 }
 
 // Converts polar coordinates to cartesian. The th(eta) parameter is in degrees.
-export function polar(r: number | vec.Vector2, th: number): vec.Vector2 {
+export function polar(r: number | Coord, th: number): Coord {
     if (typeof r === "number") {
         r = [r, r];
     }
@@ -26,10 +25,7 @@ export function polar(r: number | vec.Vector2, th: number): vec.Vector2 {
 // This function calculates the angle between two points and an optional vertex.
 // If the vertex is not provided, the angle is measured between the two points.
 // This does not account for reflex angles or clockwise position.
-export const getAngleFromVertex = (
-    point: vec.Vector2,
-    vertex: vec.Vector2,
-): number => {
+export const getAngleFromVertex = (point: Coord, vertex: Coord): number => {
     const x = point[0] - vertex[0];
     const y = point[1] - vertex[1];
     if (!x && !y) {

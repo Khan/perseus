@@ -1,3 +1,4 @@
+import {approximateDeepEqual} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import validateSorter from "./validate-sorter";
@@ -17,7 +18,7 @@ function scoreSorter(
         return validationError;
     }
 
-    const correct = _.isEqual(userInput.options, rubric.correct);
+    const correct = approximateDeepEqual(userInput.options, rubric.correct);
     return {
         type: "points",
         earned: correct ? 1 : 0,
