@@ -1,13 +1,11 @@
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {Errors, PerseusError, GrapherUtil} from "@khanacademy/perseus-core";
 
-import {functionForType} from "./util";
-
-import type {GrapherAnswerTypes} from "@khanacademy/perseus-core";
 import type {
-    PerseusScore,
-    PerseusGrapherRubric,
     PerseusGrapherUserInput,
-} from "@khanacademy/perseus-score";
+    PerseusGrapherRubric,
+    PerseusScore,
+} from "../../validation.types";
+import type {GrapherAnswerTypes} from "@khanacademy/perseus-core";
 
 function getCoefficientsByType(
     data: GrapherAnswerTypes,
@@ -16,7 +14,7 @@ function getCoefficientsByType(
         return undefined;
     }
     if (data.type === "exponential" || data.type === "logarithm") {
-        const grader = functionForType(data.type);
+        const grader = GrapherUtil.functionForType(data.type);
         return grader.getCoefficients(data.coords, data.asymptote);
     } else if (
         data.type === "linear" ||
@@ -25,7 +23,7 @@ function getCoefficientsByType(
         data.type === "sinusoid" ||
         data.type === "tangent"
     ) {
-        const grader = functionForType(data.type);
+        const grader = GrapherUtil.functionForType(data.type);
         return grader.getCoefficients(data.coords);
     } else {
         throw new PerseusError("Invalid grapher type", Errors.InvalidInput);
@@ -54,7 +52,7 @@ function scoreGrapher(
     }
 
     // Get new function handler for grading
-    const grader = functionForType(userInput.type);
+    const grader = GrapherUtil.functionForType(userInput.type);
     const guessCoeffs = getCoefficientsByType(userInput);
     const correctCoeffs = getCoefficientsByType(rubric.correct);
 

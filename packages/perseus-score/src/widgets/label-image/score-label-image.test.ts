@@ -1,4 +1,4 @@
-import scoreLabelImage, {scoreMarker} from "./score-label-image";
+import scoreLabelImage, {scoreLabelImageMarker} from "./score-label-image";
 
 const emptyMarker = {
     label: "",
@@ -8,9 +8,9 @@ const emptyMarker = {
     y: 0,
 } as const;
 
-describe("scoreMarker", function () {
+describe("scoreLabelImageMarker", function () {
     it("should score correct for empty marker with no user answers", function () {
-        const score = scoreMarker({
+        const score = scoreLabelImageMarker({
             ...emptyMarker,
         });
 
@@ -21,7 +21,7 @@ describe("scoreMarker", function () {
     });
 
     it("should score incorrect for empty marker with user answer", function () {
-        const score = scoreMarker({
+        const score = scoreLabelImageMarker({
             ...emptyMarker,
             selected: ["Fiat"],
         });
@@ -33,7 +33,7 @@ describe("scoreMarker", function () {
     });
 
     it("should score incorrect for no user answers", function () {
-        const score = scoreMarker({
+        const score = scoreLabelImageMarker({
             ...emptyMarker,
             answers: ["Lamborghini", "Fiat", "Ferrari"],
         });
@@ -45,7 +45,7 @@ describe("scoreMarker", function () {
     });
 
     it("should score incorrect for wrong user answers", function () {
-        const score = scoreMarker({
+        const score = scoreLabelImageMarker({
             ...emptyMarker,
             answers: ["Lamborghini", "Fiat", "Ferrari"],
             selected: ["Fiat", "Ferrari"],
@@ -58,7 +58,7 @@ describe("scoreMarker", function () {
     });
 
     it("should score correct for user answers", function () {
-        const score = scoreMarker({
+        const score = scoreLabelImageMarker({
             ...emptyMarker,
             answers: ["Lamborghini", "Fiat", "Ferrari"],
             selected: ["Lamborghini", "Fiat", "Ferrari"],

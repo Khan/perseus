@@ -1,4 +1,4 @@
-import type {Coord} from "@khanacademy/perseus";
+import type {Coord} from "../data-schema";
 
 export type Coords = [Coord, Coord];
 
