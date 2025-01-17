@@ -1,5 +1,7 @@
 import _ from "underscore";
 
+import {approximateDeepEqual} from "./equality";
+
 import type {
     LinearType,
     QuadraticType,
@@ -95,7 +97,7 @@ const PlotDefaults = {
         coeffs1: ReadonlyArray<number>,
         coeffs2: ReadonlyArray<number>,
     ): boolean {
-        return _.isEqual(coeffs1, coeffs2);
+        return approximateDeepEqual(coeffs1, coeffs2);
     },
     movable: MOVABLES.PLOT,
     getPropsForCoeffs: function (coeffs: ReadonlyArray<number>): {fn: any} {
@@ -269,7 +271,7 @@ const Sinusoid: SinusoidType = _.extend({}, PlotDefaults, {
         coeffs1: ReadonlyArray<number>,
         coeffs2: ReadonlyArray<number>,
     ) {
-        return _.isEqual(
+        return approximateDeepEqual(
             canonicalSineCoefficients(coeffs1),
             canonicalSineCoefficients(coeffs2),
         );
@@ -326,7 +328,7 @@ const Tangent: TangentType = _.extend({}, PlotDefaults, {
         coeffs1: ReadonlyArray<number>,
         coeffs2: ReadonlyArray<number>,
     ) {
-        return _.isEqual(
+        return approximateDeepEqual(
             canonicalTangentCoefficients(coeffs1),
             canonicalTangentCoefficients(coeffs2),
         );
