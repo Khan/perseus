@@ -1,6 +1,9 @@
 import scoreInputNumber from "./score-input-number";
 
-import type {PerseusInputNumberRubric} from "@khanacademy/perseus-score";
+import type {
+    PerseusInputNumberRubric,
+    PerseusInputNumberUserInput,
+} from "@khanacademy/perseus-score";
 
 describe("scoreInputNumber", () => {
     it("scores correct answer correctly", () => {
@@ -12,9 +15,9 @@ describe("scoreInputNumber", () => {
             answerType: "percent",
         };
 
-        const useInput = {
+        const useInput: PerseusInputNumberUserInput = {
             currentValue: "1",
-        } as const;
+        };
 
         const score = scoreInputNumber(useInput, rubric);
 
@@ -30,9 +33,9 @@ describe("scoreInputNumber", () => {
             answerType: "percent",
         };
 
-        const useInput = {
+        const useInput: PerseusInputNumberUserInput = {
             currentValue: "2",
-        } as const;
+        };
 
         const score = scoreInputNumber(useInput, rubric);
 
@@ -48,9 +51,9 @@ describe("scoreInputNumber", () => {
             answerType: "percent",
         };
 
-        const useInput = {
+        const useInput: PerseusInputNumberUserInput = {
             currentValue: "sadasdfas",
-        } as const;
+        };
 
         const score = scoreInputNumber(useInput, rubric);
 
@@ -71,12 +74,12 @@ describe("scoreInputNumber", () => {
             simplify: "required",
         };
 
-        const userInput = {
+        const userInput: PerseusInputNumberUserInput = {
             // 77 * pi = 241.90263432641407
             // within the 0.01 margin of error
             // to trigger the pi validation flow
             currentValue: "241.91",
-        } as const;
+        };
 
         const score = scoreInputNumber(userInput, rubric);
 
@@ -99,12 +102,28 @@ describe("scoreInputNumber", () => {
             answerType: "pi",
         };
 
-        const userInput = {
+        const userInput: PerseusInputNumberUserInput = {
             currentValue: "77 pi",
-        } as const;
+        };
 
         const score = scoreInputNumber(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should handle invalid answers with no error callback", function () {
+        const rubric: PerseusInputNumberRubric = {
+            value: "2^{-2}-3",
+            simplify: "optional",
+        };
+
+        const userInput: PerseusInputNumberUserInput = {currentValue: "x+1"};
+
+        const err = scoreInputNumber(userInput, rubric);
+
+        expect(err).toEqual({
+            message: "EXTRA_SYMBOLS_ERROR",
+            type: "invalid",
+        });
     });
 });

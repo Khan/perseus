@@ -2,7 +2,6 @@
  * Disclaimer: Definitely not thorough enough
  */
 import {describe, beforeEach, it} from "@jest/globals";
-import {scoreInputNumber} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
@@ -15,19 +14,10 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import InputNumber from "./input-number";
 import {question3 as question} from "./input-number.testdata";
 
-import type {
-    PerseusInputNumberWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const {transform} = InputNumber;
-
-const options: PerseusInputNumberWidgetOptions = {
-    value: "2^{-2}-3",
-    size: "normal",
-    simplify: "optional",
-};
 
 describe("input-number", function () {
     let userEvent: UserEvent;
@@ -259,22 +249,6 @@ describe("input-number", function () {
         }
         const widgetProps = transform(editorProps);
         expect(_.has(widgetProps, "value")).toBe(false);
-    });
-});
-
-describe("invalid", function () {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
-    it("should handle invalid answers with no error callback", function () {
-        const err = scoreInputNumber({currentValue: "x+1"}, options);
-        expect(err).toEqual({
-            message: "EXTRA_SYMBOLS_ERROR",
-            type: "invalid",
-        });
     });
 });
 
