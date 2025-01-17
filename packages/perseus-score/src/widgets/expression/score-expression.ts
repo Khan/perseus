@@ -40,7 +40,7 @@ function scoreExpression(
     userInput: PerseusExpressionUserInput,
     rubric: PerseusExpressionRubric,
     // TODO: remove strings as a param for scorers
-    strings: unknown,
+    strings: any,
     locale: string,
 ): PerseusScore {
     const validationError = validateExpression(userInput);
