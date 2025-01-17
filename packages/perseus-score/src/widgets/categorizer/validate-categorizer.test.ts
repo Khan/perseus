@@ -13,7 +13,7 @@ describe("validateCategorizer", () => {
         } as const;
         const score = validateCategorizer(userInput, validationData);
 
-        expect(score).toHaveInvalidInput("INVALID_SELECTION");
+        expect(score).toHaveInvalidInput("INVALID_SELECTION_ERROR");
     });
 
     it("returns null if the userInput is valid", () => {
