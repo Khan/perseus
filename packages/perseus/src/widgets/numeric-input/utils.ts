@@ -40,7 +40,7 @@ export const generateExamples = (
     }
 
     // Generate a list of the unique answer forms.
-    const uniqueForms = uniqueBy(answerForms);
+    const uniqueForms = getUniqueAnswerForms(answerForms);
 
     // Generate the example strings for each unique form.
     const examples = uniqueForms.map((form) => {
@@ -65,9 +65,9 @@ export const shouldShowExamples = (
     }
 
     // Generate a list of the unique names of the selected answer forms.
-    const answerFormNames: ReadonlyArray<string> = uniqueBy(answerForms).map(
-        (form) => form.name,
-    );
+    const answerFormNames: ReadonlyArray<string> = getUniqueAnswerForms(
+        answerForms,
+    ).map((form) => form.name);
 
     // If all forms are accepted, we do not need to show any examples.
     const allFormsAccepted =
@@ -77,10 +77,11 @@ export const shouldShowExamples = (
 };
 
 /**
- * uniqueBy takes a list of elements and a function which compares whether
- * two elements are equal, and returns a list of unique elements.
+ * uniqueAnswerForms takes a list of answer forms and returns a list of unique
+ * answer forms. This is useful for ensuring that we don't show duplicate examples
+ * to the user.
  */
-const uniqueBy = function (
+const getUniqueAnswerForms = function (
     list: readonly PerseusNumericInputAnswerForm[],
 ): PerseusNumericInputAnswerForm[] {
     return list.reduce<PerseusNumericInputAnswerForm[]>(
@@ -124,8 +125,8 @@ export const unionAnswerForms: (
 ) => ReadonlyArray<PerseusNumericInputAnswerForm> = function (answerFormsList) {
     // Pull out all of the forms from the different lists.
     const allForms = answerFormsList.flat();
-    // Pull out the unique forms using uniqueBy.
-    const uniqueForms = uniqueBy(allForms);
+    // Pull out the unique forms using getUniqueAnswerForms.
+    const uniqueForms = getUniqueAnswerForms(allForms);
     // Sort them by the order they appear in the `formExamples` list.
     const formExampleKeys = Object.keys(NumericExampleStrings);
     return uniqueForms.sort((a, b) => {
