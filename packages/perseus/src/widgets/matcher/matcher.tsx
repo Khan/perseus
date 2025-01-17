@@ -1,4 +1,9 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {
+    scoreMatcher,
+    type PerseusMatcherRubric,
+    type PerseusMatcherUserInput,
+} from "@khanacademy/perseus-score";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
@@ -11,16 +16,10 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
-import scoreMatcher from "./score-matcher";
-
 import type {SortableOption} from "../../components/sortable";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
-import type {
-    PerseusMatcherRubric,
-    PerseusMatcherUserInput,
-} from "@khanacademy/perseus-score";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
