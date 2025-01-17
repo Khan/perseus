@@ -144,7 +144,7 @@ describe("Editor", () => {
         );
     });
 
-    it("should not log a warning given widget with an undefined key", () => {
+    it("should not log a warning given a widget with an undefined key", () => {
         const consoleErrorSpy = jest.spyOn(console, "error");
 
         render(
