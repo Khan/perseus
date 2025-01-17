@@ -1,4 +1,8 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
+import {
+    scoreNumberLine,
+    type PerseusNumberLineUserInput,
+} from "@khanacademy/perseus-score";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -13,13 +17,10 @@ import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
-import scoreNumberLine from "./score-number-line";
-
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {Relationship} from "@khanacademy/perseus-core";
-import type {PerseusNumberLineUserInput} from "@khanacademy/perseus-score";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
