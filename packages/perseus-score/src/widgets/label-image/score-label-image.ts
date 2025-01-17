@@ -13,7 +13,7 @@ type InteractiveMarkerScore = {
     isCorrect: boolean;
 };
 
-export function labelImageScoreMarker(
+export function scoreLabelImageMarker(
     marker: InteractiveMarkerType,
 ): InteractiveMarkerScore {
     const score = {
@@ -52,7 +52,7 @@ function scoreLabelImage(
     let numCorrect = 0;
 
     for (const marker of userInput.markers) {
-        const score = labelImageScoreMarker(marker);
+        const score = scoreLabelImageMarker(marker);
 
         if (score.hasAnswers) {
             numAnswered++;

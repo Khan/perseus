@@ -7,7 +7,7 @@
  */
 
 import {
-    labelImageScoreMarker,
+    scoreLabelImageMarker,
     scoreLabelImage,
     type PerseusLabelImageRubric,
     type PerseusLabelImageUserInput,
@@ -327,7 +327,7 @@ export class LabelImage
         const {onChange} = this.props;
 
         const updatedMarkers = markers.map((marker) => {
-            const score = labelImageScoreMarker(marker);
+            const score = scoreLabelImageMarker(marker);
 
             return {
                 ...marker,
@@ -479,7 +479,7 @@ export class LabelImage
                 }[markerPosition];
             }
 
-            const score = labelImageScoreMarker(marker);
+            const score = scoreLabelImageMarker(marker);
             // Once the question is answered, show markers
             // with correct answers, otherwise passthrough
             // the correctness state.

@@ -8,7 +8,7 @@ export {default as scoreDropdown} from "./widgets/dropdown/score-dropdown";
 export {default as scoreIframe} from "./widgets/iframe/score-iframe";
 export {
     default as scoreLabelImage,
-    labelImageScoreMarker,
+    scoreLabelImageMarker,
 } from "./widgets/label-image/score-label-image";
 export {default as scoreMatcher} from "./widgets/matcher/score-matcher";
 export {default as scoreNumberLine} from "./widgets/number-line/score-number-line";
