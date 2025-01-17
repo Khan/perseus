@@ -1,3 +1,4 @@
+import {angles} from "@khanacademy/kmath";
 import {lockedFigureColors} from "@khanacademy/perseus-core";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Point, Line, vec} from "mafs";
@@ -7,10 +8,12 @@ import {Arrowhead} from "../graphs/components/arrowhead";
 import {Vector} from "../graphs/components/vector";
 import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {getIntersectionOfRayWithBox} from "../graphs/utils";
-import {X, Y, calculateAngleInDegrees} from "../math";
+import {X, Y} from "../math";
 
 import type {LockedLineType} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
+
+const {calculateAngleInDegrees} = angles;
 
 type Props = LockedLineType & {
     range: [Interval, Interval];

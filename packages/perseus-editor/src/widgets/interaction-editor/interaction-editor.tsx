@@ -21,8 +21,7 @@ import ParametricEditor from "./parametric-editor";
 import PointEditor from "./point-editor";
 import RectangleEditor from "./rectangle-editor";
 
-import type {Coords} from "@khanacademy/perseus";
-import type {MarkingsType} from "@khanacademy/perseus-core";
+import type {Coords, MarkingsType} from "@khanacademy/perseus-core";
 
 const {getDependencies} = Dependencies;
 const {unescapeMathMode} = Util;
