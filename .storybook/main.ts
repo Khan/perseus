@@ -9,16 +9,17 @@ import type {StorybookConfig} from "@storybook/react-vite";
 // Once the LESS files have cascade layers included (a more involved task for a later time),
 //     then the following plugin option should be removed.
 const lessWrapper = {
-    name: 'wrap-less-in-layer',
-    transform: (code: string, pathname: string)  => {
+    name: "wrap-less-in-layer",
+    transform: (code: string, pathname: string) => {
         if (pathname.endsWith(".less")) {
-            const layerStatements = "@layer reset, shared, legacy;\n@layer shared";
+            const layerStatements =
+                "@layer reset, shared, legacy;\n@layer shared";
             return {
                 code: `${layerStatements} { ${code} }`,
                 map: null,
-            }
+            };
         }
-    }
+    },
 };
 
 const config: StorybookConfig = {
