@@ -41,7 +41,6 @@ export {default as GrapherWidget} from "./widgets/grapher";
 // `perseus`, so only export the stuff that does need to be exposed
 import {keScoreFromPerseusScore} from "./util/scoring";
 import {
-    allTypes,
     DEFAULT_GRAPHER_PROPS,
     chooseType,
     defaultPlotProps,
@@ -50,7 +49,6 @@ import {
 } from "./widgets/grapher/util";
 
 export const GrapherUtil = {
-    allTypes,
     DEFAULT_GRAPHER_PROPS,
     chooseType,
     defaultPlotProps,
@@ -147,9 +145,6 @@ export {
     getQuadraticCoords,
     getAngleCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
-// This export is to support necessary functionality in the perseus-editor package.
-// It should be removed if widgets and editors become colocated.
-export {getClockwiseAngle} from "./widgets/interactive-graphs/math";
 
 export {makeSafeUrl} from "./widgets/phet-simulation";
 
@@ -188,7 +183,6 @@ export type {
     JiptRenderer,
     PerseusDependencies,
     PerseusDependenciesV2,
-    PerseusScore,
     Version,
     VideoData,
     VideoKind,
@@ -198,7 +192,6 @@ export type {
 export type {ParsedValue} from "./util";
 export type {Result, Success, Failure} from "./util/parse-perseus-json/result";
 export type {Coord} from "./interactive2/types";
-export type {Coords} from "./widgets/grapher/grapher-types";
 export type {
     RendererPromptJSON,
     WidgetPromptJSON,

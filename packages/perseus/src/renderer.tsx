@@ -43,7 +43,6 @@ import type {
     APIOptionsWithDefaults,
     FilterCriterion,
     FocusPath,
-    PerseusScore,
     SerializedState,
     Widget,
     WidgetProps,
@@ -61,7 +60,11 @@ import type {
     ShowSolutions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
-import type {UserInputArray, UserInputMap} from "@khanacademy/perseus-score";
+import type {
+    PerseusScore,
+    UserInputArray,
+    UserInputMap,
+} from "@khanacademy/perseus-score";
 
 import "./styles/perseus-renderer.less";
 
