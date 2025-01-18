@@ -17,7 +17,7 @@ import Behavior from "./label-image/behavior";
 import QuestionMarkers from "./label-image/question-markers";
 import SelectImage from "./label-image/select-image";
 
-import type {MarkerType} from "@khanacademy/perseus";
+import type {MarkerType} from "@khanacademy/perseus-core";
 
 type Props = {
     // List of answer choices to label question image with.

@@ -21,23 +21,24 @@ import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import Util from "./util";
 
-import type {PerseusItem, ShowSolutions} from "./perseus-types";
 import type {
     FocusPath,
     PerseusDependenciesV2,
     SharedRendererProps,
 } from "./types";
-import type {UserInputArray, UserInputMap} from "./validation.types";
 import type {
     GetPromptJSONInterface,
     RendererPromptJSON,
 } from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
+    PerseusItem,
+    ShowSolutions,
     KeypadContextRendererInterface,
     RendererInterface,
     KEScore,
 } from "@khanacademy/perseus-core";
+import type {UserInputArray, UserInputMap} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type OwnProps = {

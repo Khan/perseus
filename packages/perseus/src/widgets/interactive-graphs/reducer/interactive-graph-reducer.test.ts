@@ -1,17 +1,18 @@
+import {angles} from "@khanacademy/kmath";
 import invariant from "tiny-invariant";
-
-import {getClockwiseAngle} from "../math/angles";
 
 import {changeSnapStep, changeRange, actions} from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
-import type {GraphRange} from "../../../perseus-types";
 import type {
     CircleGraphState,
     PointGraphState,
     InteractiveGraphState,
     PolygonGraphState,
 } from "../types";
+import type {GraphRange} from "@khanacademy/perseus-core";
+
+const {getClockwiseAngle} = angles;
 
 const baseSegmentGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,

@@ -1,3 +1,5 @@
+import type {ErrorCodes} from "@khanacademy/perseus-score";
+
 /**
  * The translated strings that are used to render Perseus.
  */
@@ -258,6 +260,56 @@ export type PerseusStrings = {
         endingSideX: string;
         endingSideY: string;
     }) => string;
+    srLinearSystemGraph: string;
+    srLinearSystemPoints: ({
+        lineNumber,
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        lineNumber: number;
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srLinearSystemPoint({
+        lineNumber,
+        pointSequence,
+        x,
+        y,
+    }: {
+        lineNumber: number;
+        pointSequence: number;
+        x: string;
+        y: string;
+    }): string;
+    srRayGraph: string;
+    srRayPoints: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srRayEndpoint: ({x, y}: {x: string; y: string}) => string;
+    srRayTerminalPoint: ({x, y}: {x: string; y: string}) => string;
+    srRayGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -266,12 +318,7 @@ export type PerseusStrings = {
  * translator to produce translated strings, passed in as `PerseusStrings`.
  * !! Note: Ensure that all escape sequences are double-escaped. (e.g. `\\text` -> `\\\\text`)
  */
-export const strings: {
-    [key in keyof PerseusStrings]:
-        | string
-        | {context?: string; message: string}
-        | {context?: string; one: string; other: string};
-} = {
+export const strings = {
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
     mathInputBox: "Math input box",
@@ -478,7 +525,24 @@ export const strings: {
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
     srAngleGraphAriaDescription:
         "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
+    srLinearSystemGraph: "Two lines on a coordinate plane.",
+    srLinearSystemPoints:
+        "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+    srLinearSystemPoint:
+        "Point %(pointSequence)s on line %(lineNumber)s at %(x)s comma %(y)s.",
+    srRayGraph: "A ray on a coordinate plane.",
+    srRayPoints:
+        "The endpoint is at %(point1X)s comma %(point1Y)s and the ray goes through point %(point2X)s comma %(point2Y)s.",
+    srRayGrabHandle:
+        "Ray with endpoint %(point1X)s comma %(point1Y)s going through point %(point2X)s comma %(point2Y)s.",
+    srRayEndpoint: "Endpoint at %(point1X)s comma %(point1Y)s.",
+    srRayTerminalPoint: "Through point at %(point2X)s comma %(point2Y)s.",
     // The above strings are used for interactive graph SR descriptions.
+} satisfies {
+    [key in keyof PerseusStrings]:
+        | string
+        | {context?: string; message: string}
+        | {context?: string; one: string; other: string};
 };
 
 /**
@@ -695,5 +759,43 @@ export const mockStrings: PerseusStrings = {
         endingSideY,
     }) =>
         `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the starting side at ${startingSideX} comma ${startingSideY} and a point on the ending side at ${endingSideX} comma ${endingSideY}.`,
+    srLinearSystemGraph: "Two lines on a coordinate plane.",
+    srLinearSystemPoints: ({lineNumber, point1X, point1Y, point2X, point2Y}) =>
+        `Line ${lineNumber} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
+    srLinearSystemPoint: ({lineNumber, pointSequence, x, y}) =>
+        `Point ${pointSequence} on line ${lineNumber} at ${x} comma ${y}.`,
+    srRayGraph: "A ray on a coordinate plane.",
+    srRayPoints: ({point1X, point1Y, point2X, point2Y}) =>
+        `The endpoint is at ${point1X} comma ${point1Y} and the ray goes through point ${point2X} comma ${point2Y}.`,
+    srRayGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Ray with endpoint ${point1X} comma ${point1Y} going through point ${point2X} comma ${point2Y}.`,
+    srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
+    srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
+
+// This type helps us make sure all error codes are mapped to strings
+type ErrorStringMap = {
+    [K in keyof typeof ErrorCodes]: string;
+};
+
+const errorToString: ErrorStringMap = {
+    MISSING_PERCENT_ERROR: strings.MISSING_PERCENT_ERROR,
+    NEEDS_TO_BE_SIMPLIFIED_ERROR: strings.NEEDS_TO_BE_SIMPLFIED_ERROR,
+    APPROXIMATED_PI_ERROR: strings.APPROXIMATED_PI_ERROR,
+    EXTRA_SYMBOLS_ERROR: strings.EXTRA_SYMBOLS_ERROR,
+    WRONG_CASE_ERROR: strings.WRONG_CASE_ERROR,
+    WRONG_LETTER_ERROR: strings.WRONG_LETTER_ERROR,
+    MULTIPLICATION_SIGN_ERROR: strings.MULTIPLICATION_SIGN_ERROR,
+    INVALID_SELECTION_ERROR: strings.invalidSelection,
+    CHOOSE_CORRECT_NUM_ERROR: strings.chooseCorrectNum,
+    NOT_NONE_ABOVE_ERROR: strings.notNoneOfTheAbove,
+    FILL_ALL_CELLS_ERROR: strings.fillAllCells,
+};
+
+export function mapErrorToString(err: string | null | undefined) {
+    if (!err) {
+        return err;
+    }
+    return errorToString[err] || err;
+}

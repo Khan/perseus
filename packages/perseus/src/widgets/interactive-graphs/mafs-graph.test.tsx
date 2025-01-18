@@ -14,7 +14,7 @@ import {getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
-import type {GraphRange} from "../../perseus-types";
+import type {GraphRange} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 function expectLabelInDoc(label: string) {
@@ -249,10 +249,10 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expectLabelInDoc("Point 1 at 0 comma 0");
-        expectLabelInDoc("Point 2 at -7 comma 0.5");
-        expectLabelInDoc("Point 1 at 1 comma 1");
-        expectLabelInDoc("Point 2 at 7 comma 0.5");
+        expectLabelInDoc("Point 1 on line 1 at 0 comma 0.");
+        expectLabelInDoc("Point 2 on line 1 at -7 comma 0.5.");
+        expectLabelInDoc("Point 1 on line 2 at 1 comma 1.");
+        expectLabelInDoc("Point 2 on line 2 at 7 comma 0.5.");
     });
 
     it("renders ARIA labels for each point (ray)", () => {
@@ -278,8 +278,8 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expectLabelInDoc("Point 1 at 0 comma 0");
-        expectLabelInDoc("Point 2 at -7 comma 0.5");
+        expectLabelInDoc("Endpoint at 0 comma 0.");
+        expectLabelInDoc("Through point at -7 comma 0.5.");
     });
 
     it("renders ARIA labels for each point (circle)", () => {

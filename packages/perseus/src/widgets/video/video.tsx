@@ -16,9 +16,9 @@ import scoreNoop from "../__shared__/score-noop";
 
 import VideoTranscriptLink from "./video-transcript-link";
 
-import type {PerseusVideoWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {PerseusVideoWidgetOptions} from "@khanacademy/perseus-core";
 
 // Current default is 720p, based on the typical videos we upload currently
 const DEFAULT_WIDTH = 1280;

@@ -3,6 +3,12 @@ import {
     vector as kvector,
     point as kpoint,
 } from "@khanacademy/kmath";
+import {GrapherUtil} from "@khanacademy/perseus-core";
+import {
+    scoreGrapher,
+    type PerseusGrapherRubric,
+    type PerseusGrapherUserInput,
+} from "@khanacademy/perseus-score";
 import * as React from "react";
 import _ from "underscore";
 
@@ -20,27 +26,25 @@ import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 /* Mixins. */
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
 
-import scoreGrapher from "./score-grapher";
 import {
     DEFAULT_GRAPHER_PROPS,
     chooseType,
     defaultPlotProps,
-    functionForType,
     getGridAndSnapSteps,
     maybePointsFromNormalized,
+    movableTypeToComponent,
     typeToButton,
 } from "./util";
 
 import type {Coord, Line} from "../../interactive2/types";
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {PerseusGrapherWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
-import type {
-    PerseusGrapherRubric,
-    PerseusGrapherUserInput,
-} from "../../validation.types";
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
+import type {
+    MarkingsType,
+    PerseusGrapherWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
@@ -134,8 +138,9 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         }
 
         const functionProps = model.getPropsForCoeffs(coeffs, xRange);
+        const Movable = movableTypeToComponent[model.movable];
         return (
-            <model.Movable
+            <Movable
                 {...functionProps}
                 key={this.props.model.url}
                 range={xRange}
@@ -356,7 +361,7 @@ type Props = ExternalProps & {
     plot: NonNullable<RenderProps["plot"]>;
     // NOTE(jeremy): This prop exists in the `graph` prop value. Unsure what
     // passes it down as a top-level prop (I suspect the editor?)
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
 };
 
 type DefaultProps = {
@@ -592,7 +597,7 @@ class Grapher extends React.Component<Props> implements Widget {
                 setup: this._setupGraphie,
             },
             onChange: this.handlePlotChanges,
-            model: type && functionForType(type),
+            model: type && GrapherUtil.functionForType(type),
             coords: coords,
             asymptote: asymptote,
             static: this.props.static,

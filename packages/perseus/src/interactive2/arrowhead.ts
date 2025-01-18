@@ -1,7 +1,5 @@
-import {vector as kvector} from "@khanacademy/kmath";
+import {vector as kvector, KhanMath} from "@khanacademy/kmath";
 import _ from "underscore";
-
-import KhanMath from "../util/math";
 
 import {getClipPoint} from "./get-clip-point";
 import WrappedPath from "./wrapped-path";

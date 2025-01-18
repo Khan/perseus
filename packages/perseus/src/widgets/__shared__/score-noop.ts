@@ -1,4 +1,4 @@
-import type {PerseusScore} from "../../types";
+import type {PerseusScore} from "@khanacademy/perseus-score";
 
 /**
  * Several widgets don't have "right"/"wrong" scoring logic,

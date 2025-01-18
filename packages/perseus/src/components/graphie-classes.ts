@@ -1,12 +1,15 @@
 /* eslint-disable @babel/no-invalid-this */
 
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {
+    approximateDeepEqual,
+    Errors,
+    PerseusError,
+} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import Util from "../util";
 
 const nestedMap = Util.nestedMap;
-const deepEq = Util.deepEq;
 
 /**
  * A base class for all Graphie Movables
@@ -116,7 +119,7 @@ const createSimpleClass = function (addFunction: any): any {
         },
 
         modify: function (graphie) {
-            if (!deepEq(this.props, this._prevProps)) {
+            if (!approximateDeepEqual(this.props, this._prevProps)) {
                 this.remove();
                 this.add(graphie);
                 this._prevProps = this.props;

@@ -12,8 +12,8 @@ import {
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
-import type {ImageWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {ImageWidget} from "@khanacademy/perseus-core";
 
 const pairOfNumbers = pair(number, number);
 

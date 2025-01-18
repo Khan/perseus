@@ -1,4 +1,4 @@
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
     content:
@@ -55,12 +55,12 @@ export const question2: PerseusRenderer = {
 };
 
 export const ipsumExample: PerseusRenderer = {
-    content: `Unidentified vessel travelling at sub warp speed, bearing 235.7. 
-                Fluctuations in energy readings from it, Captain. 
-                All transporters off. 
-                A strange set-up, but I'd say the graviton generator is depolarized. 
-                The dark colourings of the scrapes are the leavings of natural rubber, 
-                    a type of non-conductive sole used by researchers experimenting with electricity. 
+    content: `Unidentified vessel travelling at sub warp speed, bearing 235.7.
+                Fluctuations in energy readings from it, Captain.
+                All transporters off.
+                A strange set-up, but I'd say the graviton generator is depolarized.
+                The dark colourings of the scrapes are the leavings of natural rubber,
+                    a type of non-conductive sole used by researchers experimenting with electricity.
                 The molecules must have been partly de-phased by the anyon beam.
                 \n[[\u2603 explanation 1]]\n\nSensors indicate no shuttle or other ships in this sector.
                 According to coordinates, we have travelled 7,000 light years and are located near [the system J-25](#).
@@ -80,12 +80,12 @@ export const ipsumExample: PerseusRenderer = {
             options: {
                 hidePrompt: "Hide",
                 widgets: {},
-                explanation: `It indicates a [synchronic distortion](#) in the areas emanating triolic waves. 
+                explanation: `It indicates a [synchronic distortion](#) in the areas emanating triolic waves.
                     The cerebellum, the cerebral cortex, the brain stem,
-                        the entire nervous system has been depleted of electrochemical energy. 
-                    Any device like that would produce high levels of triolic waves. 
-                    These walls have undergone some kind of [selective molecular polarization](#). 
-                    I haven't determined if our phaser energy can generate a stable field. 
+                        the entire nervous system has been depleted of electrochemical energy.
+                    Any device like that would produce high levels of triolic waves.
+                    These walls have undergone some kind of [selective molecular polarization](#).
+                    I haven't determined if our phaser energy can generate a stable field.
                     We could alter the photons with phase discriminators.
                 `,
                 static: false,
@@ -97,12 +97,12 @@ export const ipsumExample: PerseusRenderer = {
 };
 
 export const wideButton: PerseusRenderer = {
-    content: `Unidentified vessel travelling at sub warp speed, bearing 235.7. 
-                Fluctuations in energy readings from it, Captain. 
-                All transporters off. 
-                A strange set-up, but I'd say the graviton generator is depolarized. 
-                The dark colourings of the scrapes are the leavings of natural rubber, 
-                    a type of non-conductive sole used by researchers experimenting with electricity. 
+    content: `Unidentified vessel travelling at sub warp speed, bearing 235.7.
+                Fluctuations in energy readings from it, Captain.
+                All transporters off.
+                A strange set-up, but I'd say the graviton generator is depolarized.
+                The dark colourings of the scrapes are the leavings of natural rubber,
+                    a type of non-conductive sole used by researchers experimenting with electricity.
                 The molecules must have been partly de-phased by the anyon beam.
                 \n[[\u2603 explanation 1]]\n\nSensors indicate no shuttle or other ships in this sector.
                 According to coordinates, we have travelled 7,000 light years and are located near [the system J-25](#).
@@ -122,12 +122,12 @@ export const wideButton: PerseusRenderer = {
             options: {
                 hidePrompt: "Hide details",
                 widgets: {},
-                explanation: `It indicates a [synchronic distortion](#) in the areas emanating triolic waves. 
+                explanation: `It indicates a [synchronic distortion](#) in the areas emanating triolic waves.
                     The cerebellum, the cerebral cortex, the brain stem,
-                        the entire nervous system has been depleted of electrochemical energy. 
-                    Any device like that would produce high levels of triolic waves. 
-                    These walls have undergone some kind of [selective molecular polarization](#). 
-                    I haven't determined if our phaser energy can generate a stable field. 
+                        the entire nervous system has been depleted of electrochemical energy.
+                    Any device like that would produce high levels of triolic waves.
+                    These walls have undergone some kind of [selective molecular polarization](#).
+                    I haven't determined if our phaser energy can generate a stable field.
                     We could alter the photons with phase discriminators.
                 `,
                 static: false,

@@ -1,16 +1,18 @@
 import {describe, beforeEach, it} from "@jest/globals";
+import {
+    scoreRadio,
+    type PerseusRadioUserInput,
+} from "@khanacademy/perseus-score";
 import {act, screen, fireEvent, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {clone} from "../../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
-import {mockStrings} from "../../../strings";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import PassageWidget from "../../passage";
 import RadioWidgetExport from "../radio";
-import scoreRadio from "../score-radio";
 
 import {
     questionAndAnswer,
@@ -19,12 +21,11 @@ import {
     shuffledNoneQuestion,
 } from "./radio.testdata";
 
+import type {APIOptions} from "../../../types";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRenderer,
-} from "../../../perseus-types";
-import type {APIOptions} from "../../../types";
-import type {PerseusRadioUserInput} from "../../../validation.types";
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
@@ -901,9 +902,7 @@ describe("Radio Widget", () => {
             );
 
             // Assert
-            expect(score).toHaveInvalidInput(
-                "Please choose the correct number of answers",
-            );
+            expect(score).toHaveInvalidInput("CHOOSE_CORRECT_NUM_ERROR");
         });
 
         it.each(incorrect)(
@@ -967,7 +966,7 @@ describe("Radio Widget", () => {
             const userInput =
                 renderer.getUserInput()[0] as PerseusRadioUserInput;
             const rubric = shuffledQuestion.widgets["radio 1"].options;
-            const widgetScore = scoreRadio(userInput, rubric, mockStrings);
+            const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 shuffledQuestion,
                 renderer.getUserInputMap(),
@@ -995,7 +994,7 @@ describe("Radio Widget", () => {
             const userInput =
                 renderer.getUserInput()[0] as PerseusRadioUserInput;
             const rubric = shuffledQuestion.widgets["radio 1"].options;
-            const widgetScore = scoreRadio(userInput, rubric, mockStrings);
+            const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 shuffledQuestion,
                 renderer.getUserInputMap(),
@@ -1023,7 +1022,7 @@ describe("Radio Widget", () => {
             const userInput =
                 renderer.getUserInput()[0] as PerseusRadioUserInput;
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
-            const widgetScore = scoreRadio(userInput, rubric, mockStrings);
+            const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 shuffledNoneQuestion,
                 renderer.getUserInputMap(),
@@ -1051,7 +1050,7 @@ describe("Radio Widget", () => {
             const userInput =
                 renderer.getUserInput()[0] as PerseusRadioUserInput;
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
-            const widgetScore = scoreRadio(userInput, rubric, mockStrings);
+            const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 shuffledQuestion,
                 renderer.getUserInputMap(),

@@ -14,7 +14,6 @@ import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
 import {getArrayWithoutDuplicates} from "./utils";
 
 import type {Coord} from "../../../interactive2/types";
-import type {CollinearTuple} from "../../../perseus-types";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
     Dispatch,
@@ -22,6 +21,7 @@ import type {
     MafsGraphProps,
     PolygonGraphState,
 } from "../types";
+import type {CollinearTuple} from "@khanacademy/perseus-core";
 
 export function renderPolygonGraph(
     state: PolygonGraphState,

@@ -1,23 +1,25 @@
 import type {ILogger} from "./logging/log";
+import type {PerseusStrings} from "./strings";
+import type {SizeClass} from "./util/sizing-utils";
+import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
+import type getCategorizerPublicWidgetOptions from "./widgets/categorizer/categorizer.util";
+import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     Hint,
     PerseusAnswerArea,
     PerseusGraphType,
     PerseusWidget,
     PerseusWidgetsMap,
-} from "./perseus-types";
-import type {PerseusStrings} from "./strings";
-import type {SizeClass} from "./util/sizing-utils";
+    AnalyticsEventHandlerFn,
+} from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
+    PerseusScore,
     Rubric,
     UserInput,
     UserInputArray,
     UserInputMap,
-} from "./validation.types";
-import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
-import type {KeypadAPI} from "@khanacademy/math-input";
-import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
+} from "@khanacademy/perseus-score";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
 
@@ -95,19 +97,6 @@ export interface Widget {
 export type ImageDict = {
     [url: string]: Dimensions;
 };
-
-export type PerseusScore =
-    | {
-          type: "invalid";
-          message?: string | null | undefined;
-          suppressAlmostThere?: boolean | null | undefined;
-      }
-    | {
-          type: "points";
-          earned: number;
-          total: number;
-          message?: string | null | undefined;
-      };
 
 export type Version = {
     major: number;
@@ -528,8 +517,6 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
-export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
-
 export type WidgetScorerFunction = (
     // The user data needed to score
     userInput: UserInput,
@@ -541,6 +528,12 @@ export type WidgetScorerFunction = (
     // (1,000.00 === 1.000,00 in some countries)
     locale?: string,
 ) => PerseusScore;
+
+/**
+ * A union type of all the functions that provide public widget options.
+ */
+export type PublicWidgetOptionsFunction =
+    typeof getCategorizerPublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
@@ -588,6 +581,12 @@ export type WidgetExports<
      * A function that scores user input (the guess) for the widget.
      */
     scorer?: WidgetScorerFunction;
+
+    /**
+     * A function that provides a public version of the widget options that can
+     * be shared with the client.
+     */
+    getPublicWidgetOptions?: PublicWidgetOptionsFunction;
 
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,

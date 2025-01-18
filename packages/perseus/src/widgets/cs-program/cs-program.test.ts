@@ -4,7 +4,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./cs-program.testdata";
 
-import type {PerseusCSProgramUserInput} from "../../validation.types";
+import type {PerseusCSProgramUserInput} from "@khanacademy/perseus-score";
 
 describe("cs-program widget", () => {
     beforeEach(() => {

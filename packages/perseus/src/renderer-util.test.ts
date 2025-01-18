@@ -21,8 +21,8 @@ import type {
     DropdownWidget,
     ExpressionWidget,
     PerseusWidgetsMap,
-} from "./perseus-types";
-import type {UserInputMap} from "./validation.types";
+} from "@khanacademy/perseus-core";
+import type {UserInputMap} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
 function getTestDropdownWidget(): DropdownWidget {

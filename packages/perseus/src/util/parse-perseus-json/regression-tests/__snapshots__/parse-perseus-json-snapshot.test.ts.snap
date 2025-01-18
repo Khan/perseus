@@ -2,7 +2,6 @@
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-randomizeItems.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -16,18 +15,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
 
 [[☃ categorizer 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "categorizer 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "categories": [
             "Non-renewable Energy Sources",
             "Renewable Energy Sources",
           ],
-          "highlightLint": undefined,
           "items": [
             "Coal",
             "Wind",
@@ -37,7 +32,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
             "Petroleum",
             "Solar",
           ],
-          "linterContext": undefined,
           "randomizeItems": false,
           "static": false,
           "values": [
@@ -50,7 +44,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
             1,
           ],
         },
-        "static": undefined,
         "type": "categorizer",
         "version": {
           "major": 0,
@@ -64,7 +57,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-static.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -78,30 +70,24 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
 
 [[☃ categorizer 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "categorizer 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "categories": [
             "one",
             "two",
             "three",
           ],
-          "highlightLint": undefined,
           "items": [
             "this",
             "that",
             "other",
           ],
-          "linterContext": undefined,
           "randomizeItems": true,
           "static": false,
           "values": [],
         },
-        "static": undefined,
         "type": "categorizer",
         "version": {
           "major": 0,
@@ -115,7 +101,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-with-null-value.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -133,19 +118,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-with-nul
 
 [[☃ categorizer 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "categorizer 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "categories": [
             "Transparent",
             "Translucent",
             "Opaque",
           ],
-          "highlightLint": undefined,
           "items": [
             "Water",
             "Clean glass",
@@ -185,7 +167,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-with-nul
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-static.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "periodicTable": false,
@@ -209,16 +190,13 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-s
         "width": 300,
       },
     },
-    "metadata": undefined,
     "widgets": {
       "cs-program 1": {
         "alignment": "block",
         "graded": true,
-        "key": undefined,
         "options": {
           "height": 400,
           "programID": "5900231381221376",
-          "programType": undefined,
           "settings": [
             {
               "name": "",
@@ -230,7 +208,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-s
           "static": false,
           "width": 400,
         },
-        "static": undefined,
         "type": "cs-program",
         "version": {
           "major": 0,
@@ -240,12 +217,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-s
       "numeric-input 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
-          "answerForms": undefined,
           "answers": [
             {
-              "answerForms": undefined,
               "maxError": 0.05,
               "message": "",
               "simplify": "required",
@@ -256,11 +230,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-s
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": undefined,
           "size": "normal",
           "static": false,
         },
-        "static": undefined,
         "type": "numeric-input",
         "version": {
           "major": 0,
@@ -272,9 +244,34 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-s
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-with-null-width.json 1`] = `
+{
+  "answerArea": {},
+  "hints": [],
+  "question": {
+    "content": "[[☃ cs-program 1]]",
+    "images": {},
+    "widgets": {
+      "cs-program 1": {
+        "alignment": "block",
+        "options": {
+          "height": 250,
+          "programID": "4545417404481536",
+          "settings": [],
+          "showButtons": true,
+          "showEditor": true,
+          "static": false,
+          "width": null,
+        },
+        "type": "cs-program",
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/definition-missing-static.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -296,19 +293,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/definition-missing-s
 
 ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "categorizer 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "categories": [
             "Increases",
             "Decreases",
             "Stays constant",
           ],
-          "highlightLint": undefined,
           "items": [
             "Speed",
             "Acceleration",
@@ -334,15 +328,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/definition-missing-s
         },
       },
       "definition 1": {
-        "alignment": undefined,
-        "graded": undefined,
-        "key": undefined,
         "options": {
           "definition": "",
           "static": false,
           "togglePrompt": "",
         },
-        "static": undefined,
         "type": "definition",
         "version": {
           "major": 0,
@@ -356,7 +346,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/definition-missing-s
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-placeholder.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -366,19 +355,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-pla
 
 This is true whether the number is positive, negative, or $0$.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "$(x-x)=0$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
-  "itemDataVersion": undefined,
   "question": {
     "content": "**Compare the two values using the number line below.**  
 
@@ -391,14 +375,10 @@ $\\qquad(x-x)$ [[☃ dropdown 1]] $0$
         "width": 460,
       },
     },
-    "metadata": undefined,
     "widgets": {
       "dropdown 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
-          "ariaLabel": undefined,
           "choices": [
             {
               "content": ">",
@@ -415,11 +395,8 @@ $\\qquad(x-x)$ [[☃ dropdown 1]] $0$
           ],
           "placeholder": "",
           "static": false,
-          "visibleLabel": undefined,
         },
-        "static": undefined,
         "type": "dropdown",
-        "version": undefined,
       },
     },
   },
@@ -428,7 +405,6 @@ $\\qquad(x-x)$ [[☃ dropdown 1]] $0$
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-version.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -436,23 +412,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-ver
     {
       "content": "While the Articles of Confederation did not provide for a federal executive, delegates to the Continental Congress did elect a president.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
-  "itemDataVersion": undefined,
   "question": {
     "content": "**Under the Articles of Confederation[[☃ dropdown 1]] chose the president of the United States.** ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "dropdown 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
-          "ariaLabel": undefined,
           "choices": [
             {
               "content": "state legislatures",
@@ -469,11 +438,8 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-ver
           ],
           "placeholder": "",
           "static": false,
-          "visibleLabel": undefined,
         },
-        "static": undefined,
         "type": "dropdown",
-        "version": undefined,
       },
     },
   },
@@ -482,7 +448,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-ver
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/explanation-missing-widgets-map.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "periodicTable": false,
@@ -491,8 +456,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/explanation-missing-
     {
       "content": "What times $a$ gives us $b$?",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -500,20 +463,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/explanation-missing-
 
 > $b=\\blue{0.25}a$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "The *constant of proportionality* $(r)$ in the equation $b=ra$ is $\\blue{0.25}$.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {
         "explanation 1": {
-          "alignment": undefined,
           "graded": true,
-          "key": undefined,
           "options": {
             "explanation": "Let's check the values of $a$ and $b$ given in the table above.",
             "hidePrompt": "Okay, I'm convinced.",
@@ -521,7 +478,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/explanation-missing-
             "static": false,
             "widgets": {},
           },
-          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -548,17 +504,12 @@ $32$ | $8$
 
 $r =  $ [[☃ numeric-input 1]] ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "numeric-input 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
-          "answerForms": undefined,
           "answers": [
             {
-              "answerForms": undefined,
               "maxError": null,
               "message": "",
               "simplify": "required",
@@ -569,11 +520,9 @@ $r =  $ [[☃ numeric-input 1]] ",
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": undefined,
           "size": "normal",
           "static": false,
         },
-        "static": undefined,
         "type": "numeric-input",
         "version": {
           "major": 0,
@@ -587,7 +536,6 @@ $r =  $ [[☃ numeric-input 1]] ",
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/expression-answerForm-missing-form.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -607,12 +555,10 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-answerFor
 
 [[☃ expression 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "expression 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "answerForms": [
             {
@@ -623,19 +569,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-answerFor
               "value": "j<14",
             },
           ],
-          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "basic relations",
             "advanced relations",
           ],
-          "buttonsVisible": undefined,
           "functions": [
             "f",
             "g",
           ],
           "times": false,
-          "visibleLabel": undefined,
         },
         "static": false,
         "type": "expression",
@@ -651,12 +594,10 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-answerFor
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/expression-missing-buttonSets.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
   "hints": [],
-  "itemDataVersion": undefined,
   "question": {
     "content": " $ax + by = c$
 
@@ -669,12 +610,9 @@ $y=$ [[☃ expression 1]]",
         "width": 291,
       },
     },
-    "metadata": undefined,
     "widgets": {
       "expression 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "answerForms": [
             {
@@ -700,7 +638,6 @@ $y=$ [[☃ expression 1]]",
           "times": false,
           "visibleLabel": undefined,
         },
-        "static": undefined,
         "type": "expression",
         "version": {
           "major": 1,
@@ -714,7 +651,6 @@ $y=$ [[☃ expression 1]]",
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-missing-value.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "periodicTable": false,
@@ -731,28 +667,22 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-mi
 
 [[☃ expression 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "expression 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "answerForms": [],
-          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
           ],
-          "buttonsVisible": undefined,
           "functions": [
             "f",
             "g",
             "h",
           ],
           "times": false,
-          "visibleLabel": undefined,
         },
-        "static": undefined,
         "type": "expression",
         "version": {
           "major": 1,
@@ -766,7 +696,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-mi
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/expression-with-null-answer-key.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -781,8 +710,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-with-null
           "width": 288,
         },
       },
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -792,8 +719,6 @@ $2 \\purple{b} = 6$
 
 $\\purple{b} = 3$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -803,8 +728,6 @@ $3\\pink{\\varphi} = \\pi$
 
 $\\pink{\\varphi} = \\dfrac{\\pi}{3}$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -812,8 +735,6 @@ $\\pink{\\varphi} = \\dfrac{\\pi}{3}$",
 
 $\\blue\\theta = \\dfrac{\\pi}{6}$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -828,8 +749,6 @@ $\\begin{align} \\red{a}^2+ \\purple{b}^2 &= 6^2 \\\\
 
 ($\\red{a}$ is positive because it's a length.)",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -837,8 +756,6 @@ $\\begin{align} \\red{a}^2+ \\purple{b}^2 &= 6^2 \\\\
 
 $\\begin{align}\\sin (\\blue{\\theta})&=\\dfrac{3}{6}\\\\ &= \\frac{1}{2}\\end{align}$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -856,8 +773,6 @@ $\\begin{align}\\sin (\\blue{\\theta})&=\\dfrac{3}{6}\\\\ &= \\frac{1}{2}\\end{a
 - $\\sin (\\blue{\\theta}) =\\dfrac{1}{2}$
 ",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
@@ -887,12 +802,9 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
         "width": 288,
       },
     },
-    "metadata": undefined,
     "widgets": {
       "expression 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "answerForms": [
             {
@@ -903,21 +815,17 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
               "value": "sqrt(3)*3",
             },
           ],
-          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
           ],
-          "buttonsVisible": undefined,
           "functions": [
             "f",
             "g",
             "h",
           ],
           "times": false,
-          "visibleLabel": undefined,
         },
-        "static": undefined,
         "type": "expression",
         "version": {
           "major": 1,
@@ -925,9 +833,7 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
         },
       },
       "expression 2": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "answerForms": [
             {
@@ -938,21 +844,17 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
               "value": "3",
             },
           ],
-          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
           ],
-          "buttonsVisible": undefined,
           "functions": [
             "f",
             "g",
             "h",
           ],
           "times": false,
-          "visibleLabel": undefined,
         },
-        "static": undefined,
         "type": "expression",
         "version": {
           "major": 1,
@@ -960,9 +862,7 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
         },
       },
       "expression 3": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "answerForms": [
             {
@@ -973,21 +873,17 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
               "value": "pi/6",
             },
           ],
-          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
           ],
-          "buttonsVisible": undefined,
           "functions": [
             "f",
             "g",
             "h",
           ],
           "times": false,
-          "visibleLabel": undefined,
         },
-        "static": undefined,
         "type": "expression",
         "version": {
           "major": 1,
@@ -995,9 +891,7 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
         },
       },
       "expression 4": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "answerForms": [
             {
@@ -1015,21 +909,17 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
               "value": "1/2",
             },
           ],
-          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
           ],
-          "buttonsVisible": undefined,
           "functions": [
             "f",
             "g",
             "h",
           ],
           "times": false,
-          "visibleLabel": undefined,
         },
-        "static": undefined,
         "type": "expression",
         "version": {
           "major": 1,
@@ -1043,7 +933,6 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/graded-group-with-false-hint.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -1061,13 +950,11 @@ To find entry $(i,j)$ of the resulting product matrix, we calculate the vector *
 
 ",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {
         "explanation 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "explanation": "In general, vector dot product is an operation that takes two vectors of equal dimensions and returns a single real number.
 
@@ -1118,13 +1005,11 @@ The other entries of $\\text{H}$ can be found similarly.
           "width": 160,
         },
       },
-      "metadata": undefined,
       "replace": false,
       "widgets": {
         "graded-group 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "content": "**What is the appropriate calculation of $\\textbf{H}_{2,1}$?**
 
@@ -1134,44 +1019,30 @@ The other entries of $\\text{H}$ can be found similarly.
             "hasHint": false,
             "hint": null,
             "images": {},
-            "immutableWidgets": undefined,
             "title": "",
-            "widgetEnabled": undefined,
             "widgets": {
               "radio 1": {
                 "alignment": "default",
                 "graded": true,
-                "key": undefined,
                 "options": {
                   "choices": [
                     {
-                      "clue": undefined,
                       "content": "$1 \\cdot 4 + 3\\cdot 0 = 4$",
                       "correct": true,
-                      "isNoneOfTheAbove": undefined,
-                      "widgets": undefined,
                     },
                     {
-                      "clue": undefined,
                       "content": "$4 \\cdot 4 + 3\\cdot 3= 25$",
                       "correct": false,
-                      "isNoneOfTheAbove": undefined,
-                      "widgets": undefined,
                     },
                     {
-                      "clue": undefined,
                       "content": "$1 \\cdot 3 + 4\\cdot -1 = -1$",
-                      "correct": undefined,
                       "isNoneOfTheAbove": false,
-                      "widgets": undefined,
                     },
                   ],
-                  "countChoices": undefined,
                   "deselectEnabled": false,
                   "displayCount": null,
                   "hasNoneOfTheAbove": false,
                   "multipleSelect": false,
-                  "noneOfTheAbove": undefined,
                   "onePerLine": true,
                   "randomize": true,
                 },
@@ -1200,7 +1071,6 @@ After calculating all the remaining entries of $\\text{H}$, we get the following
 
 $ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {},
     },
@@ -1217,12 +1087,10 @@ $ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
 [[☃ matrix 1]]
 ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "matrix 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "answers": [
             [
@@ -1260,7 +1128,6 @@ $ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-coords.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -1274,12 +1141,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-co
 
 ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "grapher 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "availableTypes": [
             "linear",
@@ -1292,24 +1156,12 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-co
           ],
           "correct": {
             "asymptote": null,
-            "coords": [
-              [
-                -5,
-                5,
-              ],
-              [
-                5,
-                5,
-              ],
-            ],
+            "coords": null,
             "type": "linear",
           },
           "graph": {
             "backgroundImage": {
-              "bottom": undefined,
               "height": 0,
-              "left": undefined,
-              "scale": undefined,
               "url": null,
               "width": 0,
             },
@@ -1345,7 +1197,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-co
             "rulerTicks": 10,
             "showProtractor": false,
             "showRuler": false,
-            "showTooltips": undefined,
             "snapStep": [
               1,
               1,
@@ -1357,7 +1208,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-co
             "valid": true,
           },
         },
-        "static": undefined,
         "type": "grapher",
         "version": {
           "major": 0,
@@ -1371,7 +1221,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-co
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/hint-missing-images.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -1397,13 +1246,11 @@ If you haven't practiced [Systems of equations with elimination](/e/systems_of_e
 
 For more practice, go to [Systems of equations with elimination challenge](/e/systems_of_equations_with_elimination?getready=post).",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {
         "graded-group-set 2": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "gradedGroups": [
               {
@@ -1418,7 +1265,6 @@ $\\begin{align}
 $x=$ [[☃ numeric-input 1]]
 
 $y=$ [[☃ numeric-input 2]]",
-                "hasHint": undefined,
                 "hint": {
                   "content": "Let's solve the system by using the *elimination method.* In order to eliminate one of the variables, we need to manipulate the equations so that variable has coefficients of the same size but opposite signs in each equation.
 
@@ -1452,7 +1298,6 @@ $\\begin{align}
 &y=-\\dfrac{1}{3}
 \\end{align}$",
                   "images": {},
-                  "metadata": undefined,
                   "widgets": {},
                 },
                 "images": {},
@@ -1463,12 +1308,9 @@ $\\begin{align}
                   "numeric-input 1": {
                     "alignment": "default",
                     "graded": true,
-                    "key": undefined,
                     "options": {
-                      "answerForms": undefined,
                       "answers": [
                         {
-                          "answerForms": undefined,
                           "maxError": null,
                           "message": "",
                           "simplify": "required",
@@ -1494,9 +1336,7 @@ $\\begin{align}
                   "numeric-input 2": {
                     "alignment": "default",
                     "graded": true,
-                    "key": undefined,
                     "options": {
-                      "answerForms": undefined,
                       "answers": [
                         {
                           "answerForms": [
@@ -1539,7 +1379,6 @@ $\\begin{align}
 $x=$ [[☃ numeric-input 1]]
 
 $y=$ [[☃ numeric-input 2]]",
-                "hasHint": undefined,
                 "hint": {
                   "content": "Let's solve the system by using the *elimination method.* In order to eliminate one of the variables, we need to manipulate the equations so that variable has coefficients of the same size but opposite signs in each equation.
 
@@ -1570,7 +1409,6 @@ $\\begin{align} {72x}-\\maroonD{40y} &= -440 \\\\\\\\
 
 When we solve the resulting equation we obtain that $x = -5$. Then, we can substitute this into one of the original equations and solve for $y$ to obtain $y=2$.",
                   "images": {},
-                  "metadata": undefined,
                   "widgets": {},
                 },
                 "images": {},
@@ -1581,12 +1419,9 @@ When we solve the resulting equation we obtain that $x = -5$. Then, we can subst
                   "numeric-input 1": {
                     "alignment": "default",
                     "graded": true,
-                    "key": undefined,
                     "options": {
-                      "answerForms": undefined,
                       "answers": [
                         {
-                          "answerForms": undefined,
                           "maxError": null,
                           "message": "",
                           "simplify": "required",
@@ -1612,12 +1447,9 @@ When we solve the resulting equation we obtain that $x = -5$. Then, we can subst
                   "numeric-input 2": {
                     "alignment": "default",
                     "graded": true,
-                    "key": undefined,
                     "options": {
-                      "answerForms": undefined,
                       "answers": [
                         {
-                          "answerForms": undefined,
                           "maxError": null,
                           "message": "",
                           "simplify": "required",
@@ -1658,7 +1490,6 @@ When we solve the resulting equation we obtain that $x = -5$. Then, we can subst
 
 It is possible to solve any system of linear equations using the substitution method as long as you're comfortable working with fractions in your equations.",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {},
     },
@@ -1674,15 +1505,130 @@ Our strategic supplement version of algebra 1 is for students who are getting cl
 
 In case you would like a fuller experience, here is a taste of a skill you can learn in our full algebra 1 course.",
     "images": {},
-    "metadata": undefined,
     "widgets": {},
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-allowFullScreen.json 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "This is the easy step. Just drag disk 3 over to peg "B".
+
+[[☃ image 1]]",
+      "images": {},
+      "widgets": {
+        "image 1": {
+          "graded": true,
+          "options": {
+            "backgroundImage": {
+              "height": 215,
+              "url": "https://s3.amazonaws.com/ka-cs-algorithms/hanoi_exercise_step2_1.png",
+              "width": 304,
+            },
+            "box": [
+              304,
+              215,
+            ],
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+          },
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "Congratulations, you have exposed disk 3, and since our goal is move 3 disks to peg "B", that's the disk we want on the bottom of peg "B". Move it to the target peg now.
+
+[[☃ iframe 1]]",
+    "images": {},
+    "widgets": {
+      "iframe 1": {
+        "graded": true,
+        "options": {
+          "allowFullScreen": false,
+          "height": "400",
+          "settings": [
+            {
+              "name": "step",
+              "value": "2",
+            },
+            {
+              "name": "disk1",
+              "value": "2",
+            },
+            {
+              "name": "disk2",
+              "value": "2",
+            },
+            {
+              "name": "",
+              "value": "",
+            },
+          ],
+          "static": false,
+          "url": "4772835774169088",
+          "width": 400,
+        },
+        "type": "iframe",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-settings.json 1`] = `
+{
+  "answerArea": {},
+  "hints": [],
+  "question": {
+    "content": "[[☃ iframe 1]]",
+    "images": {},
+    "widgets": {
+      "iframe 1": {
+        "alignment": "block",
+        "options": {
+          "allowFullScreen": false,
+          "height": "550px",
+          "static": false,
+          "url": "https://learnstorm.typeform.com/to/fnQ2tw?",
+          "width": "100%",
+        },
+        "type": "iframe",
+      },
+    },
   },
 }
 `;
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-static.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "periodicTable": false,
@@ -1693,16 +1639,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-stati
 
 [[☃ iframe 1]]",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {
         "iframe 1": {
-          "alignment": undefined,
           "graded": true,
-          "key": undefined,
           "options": {
             "allowFullScreen": true,
-            "allowTopNavigation": undefined,
             "height": "235",
             "settings": [
               {
@@ -1714,7 +1655,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-stati
             "url": "https://www.youtube.com/embed/qYD5iwhLzm8?enablejsapi=1&wmode=transparent&modestbranding=1&rel=0&frameborder='0'",
             "width": "425",
           },
-          "static": undefined,
           "type": "iframe",
           "version": {
             "major": 0,
@@ -1731,7 +1671,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-stati
   "question": {
     "content": "This is a question.",
     "images": {},
-    "metadata": undefined,
     "widgets": {},
   },
 }
@@ -1739,7 +1678,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-stati
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-boolean-value.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -1751,8 +1689,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-bo
  \\red{- 3|x - 5|}& && \\red{- 3|x - 5|} \\\\ \\\\
 & -3 &=& 1|x - 5| + 7 \\end{eqnarray} $",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -1762,8 +1698,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-bo
  \\red{- 7} && &\\red{- 7} \\\\ \\\\
  -10 &=& 1|x - 5| \\end{eqnarray} $",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -1771,15 +1705,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-bo
 
  $\\qquad -10 = |x - 5| $",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "The absolute value cannot be negative. Therefore, there is no solution.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
@@ -1794,23 +1724,17 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-bo
 
 [[☃ radio 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "input-number 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "answerType": "number",
-          "customKeypad": undefined,
           "inexact": false,
           "maxError": 0.1,
-          "rightAlign": undefined,
           "simplify": "required",
           "size": "small",
           "value": 0,
         },
-        "static": undefined,
         "type": "input-number",
         "version": {
           "major": 0,
@@ -1818,20 +1742,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-bo
         },
       },
       "input-number 2": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "answerType": "number",
-          "customKeypad": undefined,
           "inexact": false,
           "maxError": 0.1,
-          "rightAlign": undefined,
           "simplify": "required",
           "size": "small",
           "value": "true",
         },
-        "static": undefined,
         "type": "input-number",
         "version": {
           "major": 0,
@@ -1839,50 +1758,36 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-bo
         },
       },
       "radio 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "choices": [
             {
               "clue": "Absolute values cannot be negative.",
               "content": "$-5$",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
               "clue": "Check your signs.",
               "content": " $5$",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
               "clue": "You might have made a sign error.",
               "content": " $15$",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "There are no solutions.",
               "correct": true,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
           ],
-          "countChoices": undefined,
           "deselectEnabled": false,
           "displayCount": null,
-          "hasNoneOfTheAbove": undefined,
           "multipleSelect": false,
           "noneOfTheAbove": false,
           "onePerLine": true,
           "randomize": false,
         },
-        "static": undefined,
         "type": "radio",
         "version": {
           "major": 0,
@@ -1896,7 +1801,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-bo
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-missing-constraints.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -1908,12 +1812,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-
   "question": {
     "content": "[[☃ interaction 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "interaction 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "elements": [
             {
@@ -2037,12 +1938,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-
           "graph": {
             "backgroundImage": {
               "bottom": 0,
-              "height": undefined,
               "left": 0,
               "scale": 1,
-              "top": undefined,
               "url": null,
-              "width": undefined,
             },
             "box": [
               400,
@@ -2087,7 +1985,502 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-
           },
           "static": false,
         },
-        "static": undefined,
+        "type": "interaction",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-missing-key.json 1`] = `
+{
+  "answerArea": {},
+  "hints": [],
+  "question": {
+    "content": "# Functions introduction
+
+A function is something that maps one value to another.
+
+Here is a function that maps an $\\orange\\text{input dot}$ on the top to an $\\blue\\text{output dot}$ on the bottom. Try dragging the $\\orange\\text{input dot}$ on the left and see what $\\blue\\text{output}$ the function maps it to below:
+
+[[☃ interaction 1]]
+
+Not all functions are quite so simple! For example, there is no rule that the $\\blue\\text{output}$ has to increase when the $\\orange\\text{input}$ increases:
+
+[[☃ interaction 2]]
+
+There is also no rule that a function has to map to a different value for each different input value:
+
+[[☃ interaction 3]]
+
+Or that it even has to ever map to a different value at all!
+
+[[☃ interaction 4]]
+
+But that's sort of unsatisfying! so here's another function that demonstrates all of those concepts:
+
+[[☃ interaction 5]]
+
+Next, we'll look at some other representations of functions!",
+    "images": {
+      "https://ka-perseus-graphie.s3.amazonaws.com/b59fc02ca1aae800977b8793ed22f647a1aa75ee.png": {
+        "height": 150,
+        "width": 425,
+      },
+      "https://ka-perseus-graphie.s3.amazonaws.com/da8df81c78b22f5c69d477d8eabfb583968eaf84.png": {
+        "height": 70,
+        "width": 400,
+      },
+    },
+    "widgets": {
+      "interaction 1": {
+        "graded": true,
+        "options": {
+          "elements": [
+            {
+              "key": "undefined",
+              "options": {
+                "constraint": "snap",
+                "constraintFn": "-3",
+                "constraintXMax": "8",
+                "constraintXMin": "1",
+                "constraintYMax": "3",
+                "constraintYMin": "3",
+                "snap": 1,
+                "startX": "5",
+                "startY": "3",
+                "varSubscript": 0,
+              },
+              "type": "movable-point",
+            },
+            {
+              "key": "undefined",
+              "options": {
+                "color": "#6495ED",
+                "coordX": "x_0+1",
+                "coordY": "-3",
+              },
+              "type": "point",
+            },
+          ],
+          "graph": {
+            "backgroundImage": {
+              "bottom": 0,
+              "left": 0,
+              "scale": 1,
+              "url": null,
+            },
+            "box": [
+              400,
+              200,
+            ],
+            "editableSettings": [
+              "canvas",
+              "graph",
+            ],
+            "gridStep": [
+              1,
+              3,
+            ],
+            "labels": [
+              "",
+              "",
+            ],
+            "markings": "graph",
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                -6,
+                6,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "scale": [
+              40,
+              16.666666666666668,
+            ],
+            "showProtractor": false,
+            "showRuler": false,
+            "snapStep": [
+              0.5,
+              1.5,
+            ],
+            "tickStep": [
+              1,
+              2,
+            ],
+            "valid": true,
+          },
+          "static": false,
+        },
+        "type": "interaction",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interaction 2": {
+        "graded": true,
+        "options": {
+          "elements": [
+            {
+              "key": "undefined",
+              "options": {
+                "constraint": "snap",
+                "constraintFn": "-3",
+                "constraintXMax": "9",
+                "constraintXMin": "1",
+                "constraintYMax": "3",
+                "constraintYMin": "3",
+                "snap": 1,
+                "startX": "5",
+                "startY": "3",
+                "varSubscript": 0,
+              },
+              "type": "movable-point",
+            },
+            {
+              "key": "undefined",
+              "options": {
+                "color": "#6495ED",
+                "coordX": "10-x_0",
+                "coordY": "-3",
+              },
+              "type": "point",
+            },
+          ],
+          "graph": {
+            "backgroundImage": {
+              "bottom": 0,
+              "left": 0,
+              "scale": 1,
+              "url": null,
+            },
+            "box": [
+              400,
+              200,
+            ],
+            "editableSettings": [
+              "canvas",
+              "graph",
+            ],
+            "gridStep": [
+              1,
+              3,
+            ],
+            "labels": [
+              "",
+              "",
+            ],
+            "markings": "graph",
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                -6,
+                6,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "scale": [
+              40,
+              16.666666666666668,
+            ],
+            "showProtractor": false,
+            "showRuler": false,
+            "snapStep": [
+              0.5,
+              1.5,
+            ],
+            "tickStep": [
+              1,
+              2,
+            ],
+            "valid": true,
+          },
+          "static": false,
+        },
+        "type": "interaction",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interaction 3": {
+        "graded": true,
+        "options": {
+          "elements": [
+            {
+              "key": "undefined",
+              "options": {
+                "constraint": "snap",
+                "constraintFn": "-3",
+                "constraintXMax": "9",
+                "constraintXMin": "1",
+                "constraintYMax": "3",
+                "constraintYMin": "3",
+                "snap": 1,
+                "startX": "5",
+                "startY": "3",
+                "varSubscript": 0,
+              },
+              "type": "movable-point",
+            },
+            {
+              "key": "undefined",
+              "options": {
+                "color": "#6495ED",
+                "coordX": "\\sin\\left(x_0\\cdot\\frac{\\pi}{2}\\right)+5",
+                "coordY": "-3",
+              },
+              "type": "point",
+            },
+          ],
+          "graph": {
+            "backgroundImage": {
+              "bottom": 0,
+              "left": 0,
+              "scale": 1,
+              "url": null,
+            },
+            "box": [
+              400,
+              200,
+            ],
+            "editableSettings": [
+              "canvas",
+              "graph",
+            ],
+            "gridStep": [
+              1,
+              3,
+            ],
+            "labels": [
+              "",
+              "",
+            ],
+            "markings": "graph",
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                -6,
+                6,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "scale": [
+              40,
+              16.666666666666668,
+            ],
+            "showProtractor": false,
+            "showRuler": false,
+            "snapStep": [
+              0.5,
+              1.5,
+            ],
+            "tickStep": [
+              1,
+              2,
+            ],
+            "valid": true,
+          },
+          "static": false,
+        },
+        "type": "interaction",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interaction 4": {
+        "graded": true,
+        "options": {
+          "elements": [
+            {
+              "key": "undefined",
+              "options": {
+                "constraint": "snap",
+                "constraintFn": "-3",
+                "constraintXMax": "9",
+                "constraintXMin": "1",
+                "constraintYMax": "3",
+                "constraintYMin": "3",
+                "snap": 1,
+                "startX": "5",
+                "startY": "3",
+                "varSubscript": 0,
+              },
+              "type": "movable-point",
+            },
+            {
+              "key": "undefined",
+              "options": {
+                "color": "#6495ED",
+                "coordX": "4",
+                "coordY": "-3",
+              },
+              "type": "point",
+            },
+          ],
+          "graph": {
+            "backgroundImage": {
+              "bottom": 0,
+              "left": 0,
+              "scale": 1,
+              "url": null,
+            },
+            "box": [
+              400,
+              200,
+            ],
+            "editableSettings": [
+              "canvas",
+              "graph",
+            ],
+            "gridStep": [
+              1,
+              3,
+            ],
+            "labels": [
+              "",
+              "",
+            ],
+            "markings": "graph",
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                -6,
+                6,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "scale": [
+              40,
+              16.666666666666668,
+            ],
+            "showProtractor": false,
+            "showRuler": false,
+            "snapStep": [
+              0.5,
+              1.5,
+            ],
+            "tickStep": [
+              1,
+              2,
+            ],
+            "valid": true,
+          },
+          "static": false,
+        },
+        "type": "interaction",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interaction 5": {
+        "graded": true,
+        "options": {
+          "elements": [
+            {
+              "key": "undefined",
+              "options": {
+                "constraint": "snap",
+                "constraintFn": "-3",
+                "constraintXMax": "9",
+                "constraintXMin": "1",
+                "constraintYMax": "3",
+                "constraintYMin": "3",
+                "snap": 1,
+                "startX": "5",
+                "startY": "3",
+                "varSubscript": 0,
+              },
+              "type": "movable-point",
+            },
+            {
+              "key": "undefined",
+              "options": {
+                "color": "#6495ED",
+                "coordX": "5-\\left|x_0-5\\right|",
+                "coordY": "-3",
+              },
+              "type": "point",
+            },
+          ],
+          "graph": {
+            "backgroundImage": {
+              "bottom": 0,
+              "left": 0,
+              "scale": 1,
+              "url": null,
+            },
+            "box": [
+              400,
+              200,
+            ],
+            "editableSettings": [
+              "canvas",
+              "graph",
+            ],
+            "gridStep": [
+              1,
+              3,
+            ],
+            "labels": [
+              "",
+              "",
+            ],
+            "markings": "graph",
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                -6,
+                6,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "scale": [
+              40,
+              16.666666666666668,
+            ],
+            "showProtractor": false,
+            "showRuler": false,
+            "snapStep": [
+              0.5,
+              1.5,
+            ],
+            "tickStep": [
+              1,
+              2,
+            ],
+            "valid": true,
+          },
+          "static": false,
+        },
         "type": "interaction",
         "version": {
           "major": 0,
@@ -2101,7 +2494,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-backgroundImage-with-empty-string-coordinates.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "periodicTable": false,
@@ -2116,8 +2508,6 @@ $\\qquad d=\\blue 6+5\\\\~~~~~~~~~~=\\red{11}.$
 
 So we place one point at $(\\blue 6,\\red{11})$.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -2127,8 +2517,6 @@ $\\qquad d=\\blue{10}+5=\\red{15}$.
 
 So the second point is at $(\\blue{10},\\red{15})$.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -2141,8 +2529,6 @@ So the second point is at $(\\blue{10},\\red{15})$.",
           "width": 425,
         },
       },
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
@@ -2170,24 +2556,20 @@ $3$ | $8$
 
 [[☃ interactive-graph 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "interactive-graph 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "backgroundImage": {
             "bottom": 0,
             "height": 0,
             "left": 0,
             "scale": 1,
-            "top": undefined,
             "url": null,
             "width": 0,
           },
           "correct": {
-            "coord": undefined,
             "coords": [
               [
                 6,
@@ -2199,16 +2581,10 @@ $3$ | $8$
               ],
             ],
             "numPoints": 2,
-            "startCoords": undefined,
             "type": "point",
           },
-          "fullGraphAriaDescription": undefined,
-          "fullGraphLabel": undefined,
           "graph": {
-            "coord": undefined,
-            "coords": undefined,
             "numPoints": 2,
-            "startCoords": undefined,
             "type": "point",
           },
           "gridStep": [
@@ -2219,7 +2595,6 @@ $3$ | $8$
             "w",
             "d",
           ],
-          "lockedFigures": undefined,
           "markings": "graph",
           "range": [
             [
@@ -2235,7 +2610,6 @@ $3$ | $8$
           "rulerTicks": 10,
           "showProtractor": false,
           "showRuler": false,
-          "showTooltips": undefined,
           "snapStep": [
             0.5,
             0.5,
@@ -2245,7 +2619,758 @@ $3$ | $8$
             1,
           ],
         },
-        "static": undefined,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-locked-line-missing-showPoint1.json 1`] = `
+{
+  "answerArea": {},
+  "hints": [],
+  "question": {
+    "content": "Custom Axis Labels:
+[[☃ interactive-graph 1]]
+
+Large $y$-range, origin near bottom left:
+[[☃ interactive-graph 2]]
+
+Large $x$-range, origin near left side:
+[[☃ interactive-graph 3]]
+
+Fractional axis labels:
+[[☃ interactive-graph 4]]
+
+Gridlines every two ticks:
+[[☃ interactive-graph 5]]
+
+Gridlines every half tick:
+[[☃ interactive-graph 6]]
+
+Nonsquare grid:
+[[☃ interactive-graph 7]]
+
+Locked figures:
+[[☃ interactive-graph 8]]
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "coords": [
+              [
+                [
+                  -5,
+                  5,
+                ],
+                [
+                  5,
+                  5,
+                ],
+              ],
+              [
+                [
+                  -5,
+                  3,
+                ],
+                [
+                  5,
+                  3,
+                ],
+              ],
+              [
+                [
+                  -5,
+                  1,
+                ],
+                [
+                  5,
+                  1,
+                ],
+              ],
+              [
+                [
+                  -5,
+                  -1,
+                ],
+                [
+                  5,
+                  -1,
+                ],
+              ],
+              [
+                [
+                  -5,
+                  -3,
+                ],
+                [
+                  5,
+                  -3,
+                ],
+              ],
+              [
+                [
+                  -5,
+                  -5,
+                ],
+                [
+                  5,
+                  -5,
+                ],
+              ],
+            ],
+            "numSegments": 6,
+            "type": "segment",
+          },
+          "graph": {
+            "numSegments": 6,
+            "type": "segment",
+          },
+          "gridStep": [
+            1,
+            1,
+          ],
+          "labels": [
+            "\\text{Re}",
+            "\\text{Im}",
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "snapStep": [
+            0.5,
+            0.5,
+          ],
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 2": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "coords": [
+              [
+                [
+                  1.5,
+                  70,
+                ],
+                [
+                  5.5,
+                  70,
+                ],
+              ],
+            ],
+            "type": "segment",
+          },
+          "graph": {
+            "type": "segment",
+          },
+          "gridStep": [
+            1,
+            10,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -0.7,
+              8,
+            ],
+            [
+              -10,
+              100,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "snapStep": [
+            0.5,
+            5,
+          ],
+          "step": [
+            1,
+            10,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 3": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "height": 0,
+            "url": null,
+            "width": 0,
+          },
+          "correct": {
+            "type": "segment",
+          },
+          "graph": {
+            "type": "segment",
+          },
+          "gridStep": [
+            5,
+            1,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              100,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "snapStep": [
+            2.5,
+            0.5,
+          ],
+          "step": [
+            20,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 4": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "segment",
+          },
+          "graph": {
+            "type": "segment",
+          },
+          "gridStep": [
+            0.5,
+            0.5,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -3,
+              3,
+            ],
+            [
+              -3,
+              3,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "snapStep": [
+            0.25,
+            0.25,
+          ],
+          "step": [
+            0.5,
+            0.5,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 5": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "segment",
+          },
+          "graph": {
+            "type": "segment",
+          },
+          "gridStep": [
+            2,
+            2,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "snapStep": [
+            1,
+            1,
+          ],
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 6": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "segment",
+          },
+          "graph": {
+            "type": "segment",
+          },
+          "gridStep": [
+            0.5,
+            0.5,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -5,
+              5,
+            ],
+            [
+              -5,
+              5,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "snapStep": [
+            0.25,
+            0.25,
+          ],
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 7": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "segment",
+          },
+          "graph": {
+            "type": "segment",
+          },
+          "gridStep": [
+            2,
+            0.5,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -5,
+              5,
+            ],
+            [
+              -5,
+              5,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "snapStep": [
+            1,
+            0.25,
+          ],
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "interactive-graph 8": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "coords": [
+              [
+                [
+                  -5,
+                  -5,
+                ],
+                [
+                  5,
+                  5,
+                ],
+              ],
+            ],
+            "hasBeenInteractedWith": true,
+            "markings": "graph",
+            "range": [
+              [
+                -10,
+                10,
+              ],
+              [
+                -10,
+                10,
+              ],
+            ],
+            "snapStep": [
+              0.5,
+              0.5,
+            ],
+            "type": "segment",
+          },
+          "graph": {
+            "type": "segment",
+          },
+          "gridStep": [
+            1,
+            1,
+          ],
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [
+            {
+              "color": "green",
+              "coord": [
+                -1,
+                5,
+              ],
+              "filled": true,
+              "type": "point",
+            },
+            {
+              "color": "grayH",
+              "coord": [
+                1,
+                5,
+              ],
+              "filled": false,
+              "type": "point",
+            },
+            {
+              "color": "grayH",
+              "kind": "line",
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "grayH",
+                  "coord": [
+                    0,
+                    1,
+                  ],
+                  "filled": true,
+                  "type": "point",
+                },
+                {
+                  "color": "grayH",
+                  "coord": [
+                    5,
+                    2,
+                  ],
+                  "filled": true,
+                  "type": "point",
+                },
+              ],
+              "showEndPoint": false,
+              "showPoint1": false,
+              "showPoint2": false,
+              "showStartPoint": false,
+              "type": "line",
+            },
+            {
+              "color": "grayH",
+              "kind": "line",
+              "lineStyle": "dashed",
+              "points": [
+                {
+                  "color": "grayH",
+                  "coord": [
+                    0,
+                    0,
+                  ],
+                  "filled": true,
+                  "type": "point",
+                },
+                {
+                  "color": "grayH",
+                  "coord": [
+                    5,
+                    1,
+                  ],
+                  "filled": false,
+                  "type": "point",
+                },
+              ],
+              "showEndPoint": true,
+              "showPoint1": false,
+              "showPoint2": false,
+              "showStartPoint": true,
+              "type": "line",
+            },
+            {
+              "color": "pink",
+              "kind": "ray",
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "pink",
+                  "coord": [
+                    0,
+                    -1,
+                  ],
+                  "filled": true,
+                  "type": "point",
+                },
+                {
+                  "color": "pink",
+                  "coord": [
+                    5,
+                    0,
+                  ],
+                  "filled": true,
+                  "type": "point",
+                },
+              ],
+              "showEndPoint": false,
+              "showPoint1": false,
+              "showPoint2": false,
+              "showStartPoint": false,
+              "type": "line",
+            },
+            {
+              "color": "pink",
+              "kind": "ray",
+              "lineStyle": "dashed",
+              "points": [
+                {
+                  "color": "purple",
+                  "coord": [
+                    0,
+                    -2,
+                  ],
+                  "filled": true,
+                  "type": "point",
+                },
+                {
+                  "color": "pink",
+                  "coord": [
+                    5,
+                    -1,
+                  ],
+                  "filled": false,
+                  "type": "point",
+                },
+              ],
+              "showEndPoint": true,
+              "showPoint1": false,
+              "showPoint2": false,
+              "showStartPoint": true,
+              "type": "line",
+            },
+            {
+              "color": "red",
+              "kind": "segment",
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "red",
+                  "coord": [
+                    0,
+                    -3,
+                  ],
+                  "filled": true,
+                  "type": "point",
+                },
+                {
+                  "color": "red",
+                  "coord": [
+                    5,
+                    -2,
+                  ],
+                  "filled": true,
+                  "type": "point",
+                },
+              ],
+              "showEndPoint": false,
+              "showPoint1": false,
+              "showPoint2": false,
+              "showStartPoint": false,
+              "type": "line",
+            },
+            {
+              "color": "red",
+              "kind": "segment",
+              "lineStyle": "dashed",
+              "points": [
+                {
+                  "color": "green",
+                  "coord": [
+                    0,
+                    -4,
+                  ],
+                  "filled": true,
+                  "type": "point",
+                },
+                {
+                  "color": "red",
+                  "coord": [
+                    5,
+                    -3,
+                  ],
+                  "filled": false,
+                  "type": "point",
+                },
+              ],
+              "showEndPoint": true,
+              "showPoint1": false,
+              "showPoint2": false,
+              "showStartPoint": true,
+              "type": "line",
+            },
+            {
+              "color": "blue",
+              "coord": [
+                -6,
+                0,
+              ],
+              "size": "medium",
+              "text": "\\frac{1}{4}?",
+              "type": "label",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "snapStep": [
+            0.5,
+            0.5,
+          ],
+          "step": [
+            2,
+            2,
+          ],
+        },
+        "static": false,
         "type": "interactive-graph",
         "version": {
           "major": 0,
@@ -2259,7 +3384,6 @@ $3$ | $8$
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-missing-graph.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -2275,7 +3399,6 @@ Let's remember what magnetic dip means. It is the angle that the magnetic field 
 
 *Tip: The **dip** angle is **positive** when the magnetic field **dips**!*",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {},
     },
@@ -2288,21 +3411,15 @@ Here, the dip angle is **positive**, so the magnetic field is **below** the hori
 
 As we can see the direction of the vertical component is downwards $(\\downarrow)$, now let's find the magnitude.",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {
         "image 1": {
           "alignment": "block",
           "graded": true,
-          "key": undefined,
           "options": {
             "alt": "",
             "backgroundImage": {
-              "bottom": undefined,
               "height": 151,
-              "left": undefined,
-              "scale": undefined,
-              "top": undefined,
               "url": "https://ka-perseus-images.s3.amazonaws.com/d36824c27f73d6263d9a1c548ead1fdac535243e.svg",
               "width": 255,
             },
@@ -2344,13 +3461,11 @@ $\\begin{align}
 
 [[☃ explanation 1]]",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {
         "explanation 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "explanation": "We can move $\\purpleD {B_V}$ to the right in the diagram to get the right angle triangle as shown below.
 
@@ -2369,15 +3484,10 @@ $\\begin{align}
               "image 1": {
                 "alignment": "block",
                 "graded": true,
-                "key": undefined,
                 "options": {
                   "alt": "",
                   "backgroundImage": {
-                    "bottom": undefined,
                     "height": 156,
-                    "left": undefined,
-                    "scale": undefined,
-                    "top": undefined,
                     "url": "https://ka-perseus-images.s3.amazonaws.com/d3b512adb0f11756344a3838f91aa35eda75439b.svg",
                     "width": 255,
                   },
@@ -2408,36 +3518,21 @@ $\\begin{align}
                 },
               },
               "interactive-graph 1": {
-                "alignment": undefined,
-                "graded": undefined,
-                "key": undefined,
                 "options": {
                   "backgroundImage": {
-                    "bottom": undefined,
-                    "height": undefined,
-                    "left": undefined,
-                    "scale": undefined,
-                    "top": undefined,
                     "url": null,
-                    "width": undefined,
                   },
                   "correct": {
-                    "coord": undefined,
                     "coords": null,
-                    "startCoords": undefined,
                     "type": "linear",
                   },
-                  "fullGraphAriaDescription": undefined,
-                  "fullGraphLabel": undefined,
                   "graph": {
                     "type": "linear",
                   },
-                  "gridStep": undefined,
                   "labels": [
                     "x",
                     "y",
                   ],
-                  "lockedFigures": undefined,
                   "markings": "graph",
                   "range": [
                     [
@@ -2454,14 +3549,12 @@ $\\begin{align}
                   "showProtractor": false,
                   "showRuler": false,
                   "showTooltips": false,
-                  "snapStep": undefined,
                   "step": [
                     1,
                     1,
                   ],
                   "valid": true,
                 },
-                "static": undefined,
                 "type": "interactive-graph",
                 "version": {
                   "major": 0,
@@ -2485,7 +3578,6 @@ $\\begin{align}
 $B_E\\ \\sin{45\\degree}\\downarrow$
 ",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {},
     },
@@ -2507,55 +3599,39 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
         "width": 352,
       },
     },
-    "metadata": undefined,
     "widgets": {
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "$B_E\\ \\cos{45\\degree} \\uparrow$",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "$B_E\\ \\cos{45\\degree} \\downarrow$",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "$B_E\\ \\sin{45\\degree} \\downarrow$",
               "correct": true,
               "isNoneOfTheAbove": false,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "$B_E\\ \\sin{45\\degree}\\uparrow$",
               "correct": false,
               "isNoneOfTheAbove": false,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "$B_E\\ \\tan {45\\degree} \\uparrow$",
               "correct": false,
               "isNoneOfTheAbove": false,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "$B_E\\ \\tan {45\\degree} \\downarrow$",
               "correct": false,
               "isNoneOfTheAbove": false,
-              "widgets": undefined,
             },
           ],
           "countChoices": false,
@@ -2563,8 +3639,6 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
           "displayCount": null,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
-          "noneOfTheAbove": undefined,
-          "onePerLine": undefined,
           "randomize": false,
         },
         "static": false,
@@ -2581,7 +3655,6 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-missing-gridStep.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -2601,43 +3674,26 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-mi
 
 ",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {
         "interactive-graph 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "backgroundImage": {
-              "bottom": undefined,
-              "height": undefined,
-              "left": undefined,
-              "scale": undefined,
-              "top": undefined,
               "url": null,
-              "width": undefined,
             },
             "correct": {
-              "coord": undefined,
               "coords": null,
-              "startCoords": undefined,
               "type": "linear",
             },
-            "fullGraphAriaDescription": undefined,
-            "fullGraphLabel": undefined,
             "graph": {
-              "coord": undefined,
-              "coords": undefined,
-              "startCoords": undefined,
               "type": "linear",
             },
-            "gridStep": undefined,
             "labels": [
               "x",
               "y",
             ],
-            "lockedFigures": undefined,
             "markings": "graph",
             "range": [
               [
@@ -2649,12 +3705,8 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-mi
                 10,
               ],
             ],
-            "rulerLabel": undefined,
-            "rulerTicks": undefined,
             "showProtractor": false,
-            "showRuler": undefined,
             "showTooltips": false,
-            "snapStep": undefined,
             "step": [
               1,
               1,
@@ -2681,24 +3733,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-mi
 
 [[☃ interactive-graph 2]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "interactive-graph 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "backgroundImage": {
-            "bottom": undefined,
-            "height": undefined,
-            "left": undefined,
-            "scale": undefined,
-            "top": undefined,
             "url": null,
-            "width": undefined,
           },
           "correct": {
-            "coord": undefined,
             "coords": [
               [
                 -3,
@@ -2724,23 +3767,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-mi
               0.5,
               0.5,
             ],
-            "startCoords": undefined,
             "type": "linear",
           },
-          "fullGraphAriaDescription": undefined,
-          "fullGraphLabel": undefined,
           "graph": {
-            "coord": undefined,
-            "coords": undefined,
-            "startCoords": undefined,
             "type": "linear",
           },
-          "gridStep": undefined,
           "labels": [
             "x",
             "y",
           ],
-          "lockedFigures": undefined,
           "markings": "graph",
           "range": [
             [
@@ -2752,12 +3787,8 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-mi
               10,
             ],
           ],
-          "rulerLabel": undefined,
-          "rulerTicks": undefined,
           "showProtractor": false,
-          "showRuler": undefined,
           "showTooltips": false,
-          "snapStep": undefined,
           "step": [
             1,
             1,
@@ -2773,19 +3804,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-mi
       "interactive-graph 2": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "backgroundImage": {
-            "bottom": undefined,
-            "height": undefined,
-            "left": undefined,
-            "scale": undefined,
-            "top": undefined,
             "url": null,
-            "width": undefined,
           },
           "correct": {
-            "coord": undefined,
             "coords": [
               [
                 -3,
@@ -2811,23 +3834,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-mi
               0.5,
               0.5,
             ],
-            "startCoords": undefined,
             "type": "linear",
           },
-          "fullGraphAriaDescription": undefined,
-          "fullGraphLabel": undefined,
           "graph": {
-            "coord": undefined,
-            "coords": undefined,
-            "startCoords": undefined,
             "type": "linear",
           },
-          "gridStep": undefined,
           "labels": [
             "x",
             "y",
           ],
-          "lockedFigures": undefined,
           "markings": "graph",
           "range": [
             [
@@ -2839,12 +3854,8 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-mi
               10,
             ],
           ],
-          "rulerLabel": undefined,
-          "rulerTicks": undefined,
           "showProtractor": false,
-          "showRuler": undefined,
           "showTooltips": false,
-          "snapStep": undefined,
           "step": [
             1,
             1,
@@ -2864,7 +3875,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-mi
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-missing-labels.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -2876,8 +3886,6 @@ $R$ $(1,-3)$ is transformed into $R'$ $(4,4)$.
 
 ![](https://ka-perseus-graphie.s3.amazonaws.com/0450d707e93ac22809e8e4063f74b98bf35d079e.png)",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -2886,8 +3894,6 @@ $R$ $(1,-3)$ is transformed into $R'$ $(4,4)$.
 $G$ $(-3,-3)$ is transformed into $G'$ $(0,4)$.  
 $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -2896,35 +3902,27 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
 ![](https://ka-perseus-graphie.s3.amazonaws.com/dcbfde322f50640db9f40bf4b79824ad9014d8db.png)
 ",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
-  "itemDataVersion": undefined,
   "question": {
     "content": "**Arrange the vertices of the movable triangle to construct the image of $\\triangle GAR$ after a translation by $\\langle3,7\\rangle$.**
 
 [[☃ interactive-graph 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "interactive-graph 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "backgroundImage": {
             "bottom": 0,
             "height": 425,
             "left": 0,
             "scale": 1,
-            "top": undefined,
             "url": "https://ka-perseus-graphie.s3.amazonaws.com/31eb6c4f83e061ca7e28bb4382469cb4d682f7b4.png",
             "width": 425,
           },
           "correct": {
-            "coord": undefined,
             "coords": [
               [
                 4,
@@ -2939,29 +3937,13 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
                 4,
               ],
             ],
-            "match": undefined,
             "numSides": 3,
-            "showAngles": undefined,
-            "showSides": undefined,
-            "snapTo": undefined,
-            "startCoords": undefined,
             "type": "polygon",
           },
-          "fullGraphAriaDescription": undefined,
-          "fullGraphLabel": undefined,
           "graph": {
-            "coord": undefined,
-            "match": undefined,
             "numSides": 3,
-            "showAngles": undefined,
-            "showSides": undefined,
-            "snapTo": undefined,
-            "startCoords": undefined,
             "type": "polygon",
           },
-          "gridStep": undefined,
-          "labels": undefined,
-          "lockedFigures": undefined,
           "markings": "none",
           "range": [
             [
@@ -2973,20 +3955,13 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
               10,
             ],
           ],
-          "rulerLabel": undefined,
-          "rulerTicks": undefined,
           "showProtractor": false,
-          "showRuler": undefined,
-          "showTooltips": undefined,
-          "snapStep": undefined,
           "step": [
             1,
             1,
           ],
         },
-        "static": undefined,
         "type": "interactive-graph",
-        "version": undefined,
       },
     },
   },
@@ -2995,7 +3970,6 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-polygon-with-exact-match.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -3010,8 +3984,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-po
           "width": 425,
         },
       },
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -3026,8 +3998,6 @@ Plotting the remaining vertices at $(8,7)$ and $(5,3)$ gives the rhombus sides o
           "width": 425,
         },
       },
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -3041,8 +4011,6 @@ We end up with a rhombus that looks like this:
           "width": 425,
         },
       },
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
@@ -3059,24 +4027,17 @@ Draw the rhombus in the first quadrant.
 
 [[☃ interactive-graph 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "interactive-graph 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "backgroundImage": {
             "bottom": 0,
-            "height": undefined,
             "left": 0,
             "scale": 1,
-            "top": undefined,
             "url": null,
-            "width": undefined,
           },
           "correct": {
-            "coord": undefined,
             "coords": [
               [
                 3,
@@ -3097,22 +4058,14 @@ Draw the rhombus in the first quadrant.
             ],
             "match": "exact",
             "numSides": "unlimited",
-            "showAngles": undefined,
             "showSides": true,
             "snapTo": "grid",
-            "startCoords": undefined,
             "type": "polygon",
           },
-          "fullGraphAriaDescription": undefined,
-          "fullGraphLabel": undefined,
           "graph": {
-            "coord": undefined,
-            "match": undefined,
             "numSides": "unlimited",
-            "showAngles": undefined,
             "showSides": true,
             "snapTo": "grid",
-            "startCoords": undefined,
             "type": "polygon",
           },
           "gridStep": [
@@ -3123,7 +4076,6 @@ Draw the rhombus in the first quadrant.
             "x",
             "y",
           ],
-          "lockedFigures": undefined,
           "markings": "graph",
           "range": [
             [
@@ -3139,7 +4091,6 @@ Draw the rhombus in the first quadrant.
           "rulerTicks": 10,
           "showProtractor": false,
           "showRuler": false,
-          "showTooltips": undefined,
           "snapStep": [
             1,
             1,
@@ -3149,7 +4100,6 @@ Draw the rhombus in the first quadrant.
             1,
           ],
         },
-        "static": undefined,
         "type": "interactive-graph",
         "version": {
           "major": 0,
@@ -3163,7 +4113,6 @@ Draw the rhombus in the first quadrant.
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-with-string-backgroundImage-left.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -3186,24 +4135,20 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-wi
 **How far along will Ally be in the race when she reaches her family?**  
 [[☃ radio 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "interactive-graph 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "backgroundImage": {
             "bottom": 4,
             "height": 0,
             "left": 0,
             "scale": 1,
-            "top": undefined,
             "url": "",
             "width": 0,
           },
           "correct": {
-            "coord": undefined,
             "coords": [
               [
                 4,
@@ -3219,16 +4164,10 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-wi
               ],
             ],
             "numPoints": 3,
-            "startCoords": undefined,
             "type": "point",
           },
-          "fullGraphAriaDescription": undefined,
-          "fullGraphLabel": undefined,
           "graph": {
-            "coord": undefined,
-            "coords": undefined,
             "numPoints": 3,
-            "startCoords": undefined,
             "type": "point",
           },
           "gridStep": [
@@ -3239,7 +4178,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-wi
             "x",
             "y",
           ],
-          "lockedFigures": undefined,
           "markings": "graph",
           "range": [
             [
@@ -3275,29 +4213,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-wi
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "Less than halfway through the race",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "Halfway through the race",
               "correct": true,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "More than halfway through the race",
-              "correct": undefined,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
           ],
           "countChoices": false,
@@ -3305,8 +4232,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-wi
           "displayCount": null,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
-          "noneOfTheAbove": undefined,
-          "onePerLine": undefined,
           "randomize": false,
         },
         "static": false,
@@ -3323,7 +4248,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-wi
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/label-image-missing-static.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -3341,14 +4265,12 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/label-image-missing-
 
 Non-renewable source can be exhausted with continuous use",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {},
     },
     {
       "content": "Wind and solar energy are renewable, while oil and coal are non-renewable fossil fuels.",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {},
     },
@@ -3363,18 +4285,15 @@ Non-renewable source can be exhausted with continuous use",
 [[☃ categorizer 1]]
 ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "categorizer 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "categories": [
             "Renewable",
             "Non-renewable",
           ],
-          "highlightLint": undefined,
           "items": [
             "Wind",
             "Oil",
@@ -3404,11 +4323,7 @@ Non-renewable source can be exhausted with continuous use",
         },
       },
       "dropdown 1": {
-        "alignment": undefined,
-        "graded": undefined,
-        "key": undefined,
         "options": {
-          "ariaLabel": undefined,
           "choices": [
             {
               "content": "",
@@ -3417,9 +4332,7 @@ Non-renewable source can be exhausted with continuous use",
           ],
           "placeholder": "",
           "static": false,
-          "visibleLabel": undefined,
         },
-        "static": undefined,
         "type": "dropdown",
         "version": {
           "major": 0,
@@ -3427,9 +4340,6 @@ Non-renewable source can be exhausted with continuous use",
         },
       },
       "label-image 1": {
-        "alignment": undefined,
-        "graded": undefined,
-        "key": undefined,
         "options": {
           "choices": [],
           "hideChoicesFromInstructions": false,
@@ -3441,7 +4351,6 @@ Non-renewable source can be exhausted with continuous use",
           "multipleAnswers": false,
           "static": false,
         },
-        "static": undefined,
         "type": "label-image",
         "version": {
           "major": 0,
@@ -3449,9 +4358,6 @@ Non-renewable source can be exhausted with continuous use",
         },
       },
       "matcher 1": {
-        "alignment": undefined,
-        "graded": undefined,
-        "key": undefined,
         "options": {
           "labels": [
             "test",
@@ -3470,7 +4376,6 @@ Non-renewable source can be exhausted with continuous use",
             "$3$",
           ],
         },
-        "static": undefined,
         "type": "matcher",
         "version": {
           "major": 0,
@@ -3478,9 +4383,6 @@ Non-renewable source can be exhausted with continuous use",
         },
       },
       "sorter 1": {
-        "alignment": undefined,
-        "graded": undefined,
-        "key": undefined,
         "options": {
           "correct": [
             "$x$",
@@ -3490,7 +4392,6 @@ Non-renewable source can be exhausted with continuous use",
           "layout": "horizontal",
           "padding": true,
         },
-        "static": undefined,
         "type": "sorter",
         "version": {
           "major": 0,
@@ -3504,23 +4405,18 @@ Non-renewable source can be exhausted with continuous use",
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/lights-puzzle.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
   "hints": [],
-  "itemDataVersion": undefined,
   "question": {
     "content": "**Light up all the squares by clicking on them.** When you click on a square, it will turn on (if it's off), or off (if it's on), as will each of the squares next to it.
 
 [[☃ lights-puzzle 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "lights-puzzle 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "gradeIncompleteAsWrong": false,
           "startCells": [
@@ -3541,9 +4437,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/lights-puzzle.json 1
             ],
           ],
         },
-        "static": undefined,
         "type": "deprecated-standin",
-        "version": undefined,
       },
     },
   },
@@ -3552,7 +4446,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/lights-puzzle.json 1
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-version.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -3562,8 +4455,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
 
  $ \\textbf A^{-1} = \\frac{1}{det(\\textbf A)}adj(\\textbf A) $",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -3573,8 +4464,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
 
  $ \\left[\\begin{array}{rrr}\\left|\\begin{array}{rr}1 & 1 \\\\ 1 & 1\\end{array}\\right| & \\left|\\begin{array}{rr}0 & 1 \\\\ 1 & 1\\end{array}\\right| & \\left|\\begin{array}{rr}0 & 1 \\\\ 1 & 1\\end{array}\\right| \\\\ \\left|\\begin{array}{rr}0 & 1 \\\\ 1 & 1\\end{array}\\right| & \\left|\\begin{array}{rr}2 & 1 \\\\ 1 & 1\\end{array}\\right| & \\left|\\begin{array}{rr}2 & 0 \\\\ 1 & 1\\end{array}\\right| \\\\ \\left|\\begin{array}{rr}0 & 1 \\\\ 1 & 1\\end{array}\\right| & \\left|\\begin{array}{rr}2 & 1 \\\\ 0 & 1\\end{array}\\right| & \\left|\\begin{array}{rr}2 & 0 \\\\ 0 & 1\\end{array}\\right|\\end{array}\\right] = \\left[\\begin{array}{rrr}0 & -1 & -1 \\\\ -1 & 1 & 2 \\\\ -1 & 2 & 2\\end{array}\\right] $",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -3584,8 +4473,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
 
  $ \\left[\\begin{array}{rrr}0 & 1 & -1 \\\\ 1 & 1 & -2 \\\\ -1 & -2 & 2\\end{array}\\right] $",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -3593,8 +4480,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
 
  $ adj(\\textbf A) = \\left[\\begin{array}{rrr}0 & 1 & -1 \\\\ 1 & 1 & -2 \\\\ -1 & -2 & 2\\end{array}\\right]^T = \\left[\\begin{array}{rrr}\\color{\\#6495ED}{0} & \\color{\\#6495ED}{1} & \\color{\\#6495ED}{-1} \\\\ \\color{\\#6495ED}{1} & \\color{\\#6495ED}{1} & \\color{\\#6495ED}{-2} \\\\ \\color{\\#6495ED}{-1} & \\color{\\#6495ED}{-2} & \\color{\\#6495ED}{2}\\end{array}\\right] $",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -3604,8 +4489,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
 
   $ det(\\textbf A) = \\left|\\begin{array}{rrr}2 & 0 & 1 \\\\ 0 & 1 & 1 \\\\ 1 & 1 & 1\\end{array}\\right|= \\color{\\#DF0030}{-1} $",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -3615,19 +4498,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
 
  $ \\textbf A^{-1} = \\frac{1}{\\color{\\#DF0030}{-1}} \\left[\\begin{array}{rrr}\\color{\\#6495ED}{0} & \\color{\\#6495ED}{1} & \\color{\\#6495ED}{-1} \\\\ \\color{\\#6495ED}{1} & \\color{\\#6495ED}{1} & \\color{\\#6495ED}{-2} \\\\ \\color{\\#6495ED}{-1} & \\color{\\#6495ED}{-2} & \\color{\\#6495ED}{2}\\end{array}\\right] $",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "$ = \\left[\\begin{array}{rrr}0 & -1 & 1 \\\\ -1 & -1 & 2 \\\\ 1 & 2 & -2\\end{array}\\right]$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
-  "itemDataVersion": undefined,
   "question": {
     "content": "$\\textbf A = \\left[\\begin{array}{rrr}2 & 0 & 1 \\\\ 0 & 1 & 1 \\\\ 1 & 1 & 1\\end{array}\\right]$
 
@@ -3635,12 +4513,8 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
 
 [[☃ matrix 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "matrix 1": {
-        "alignment": undefined,
-        "graded": undefined,
-        "key": undefined,
         "options": {
           "answers": [
             [
@@ -3659,18 +4533,12 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
               -2,
             ],
           ],
-          "cursorPosition": undefined,
           "matrixBoardSize": [
             3,
             3,
           ],
-          "prefix": undefined,
-          "static": undefined,
-          "suffix": undefined,
         },
-        "static": undefined,
         "type": "matrix",
-        "version": undefined,
       },
     },
   },
@@ -3679,7 +4547,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-nulls-in-answer.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -3697,12 +4564,10 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-nulls-in
 
 [[☃ matrix 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "matrix 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "answers": [
             [
@@ -3747,7 +4612,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-nulls-in
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-string-answer-element.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": true,
     "chi2Table": false,
@@ -3768,13 +4632,11 @@ $x_1\\cdot\\vec{v_1}+x_2\\cdot\\vec{v_2}+...+x_n\\cdot\\vec{v_n}$
 
 [[☃ explanation 1]]",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {
         "explanation 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "explanation": "We learned that for 2-dimensional matrices, the first column is the image of the unit vector $\\left[\\begin{array}{c}1\\\\\\\\0\\end{array}\\right]$ and the second column is the image of the unit vector $\\left[\\begin{array}{c}0\\\\\\\\1\\end{array}\\right]$.
 
@@ -3905,7 +4767,6 @@ $x_1\\cdot\\left[\\begin{array}{c}1\\\\\\\\0\\\\\\\\0\\\\\\\\0\\end{array}\\righ
 \\end{array}\\right]
 \\end{align}$",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {},
     },
@@ -3938,7 +4799,6 @@ $\\left[\\begin{array}{c}
 -5
 \\end{array}\\right]$",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {},
     },
@@ -3972,12 +4832,10 @@ $\\left[\\begin{array}{c}
 
 [[☃ matrix 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "matrix 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "answers": [
             [
@@ -4017,9 +4875,102 @@ $\\left[\\begin{array}{c}
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-image.json 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "crwdns2931741:0crwdne2931741:0",
+      "images": {},
+      "widgets": {},
+    },
+    {
+      "content": "crwdns2931695:0crwdne2931695:0",
+      "images": {},
+      "widgets": {},
+    },
+    {
+      "content": "crwdns2931679:0crwdne2931679:0",
+      "images": {},
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "crwdns3125767:0crwdne3125767:0",
+    "images": {},
+    "widgets": {
+      "dropdown 1": {
+        "graded": true,
+        "options": {
+          "choices": [
+            {
+              "content": "crwdns2301760:0crwdne2301760:0",
+              "correct": false,
+            },
+            {
+              "content": "crwdns3766725:0crwdne3766725:0",
+              "correct": false,
+            },
+            {
+              "content": "crwdns3395333:0crwdne3395333:0",
+              "correct": true,
+            },
+            {
+              "content": "crwdns3395334:0crwdne3395334:0",
+              "correct": false,
+            },
+            {
+              "content": "crwdns3445395:0crwdne3445395:0",
+              "correct": false,
+            },
+            {
+              "content": "crwdns3395337:0crwdne3395337:0",
+              "correct": false,
+            },
+            {
+              "content": "crwdns3395340:0crwdne3395340:0",
+              "correct": false,
+            },
+          ],
+          "placeholder": "",
+          "static": false,
+        },
+        "type": "dropdown",
+      },
+      "measurer 1": {
+        "graded": true,
+        "options": {
+          "box": [
+            480,
+            480,
+          ],
+          "image": {
+            "left": 0,
+            "top": 0,
+            "url": null,
+          },
+          "imageLeft": 0,
+          "imageTop": 0,
+          "imageUrl": "crwdns6514084:0crwdne6514084:0",
+          "rulerLabel": "",
+          "rulerLength": 10,
+          "rulerPixels": 40,
+          "rulerTicks": 10,
+          "showProtractor": true,
+          "showRuler": false,
+          "static": false,
+        },
+        "type": "measurer",
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-static.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -4033,26 +4984,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-sta
 
 ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "measurer 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "box": [
             480,
             480,
           ],
-          "image": {
-            "bottom": undefined,
-            "height": undefined,
-            "left": undefined,
-            "scale": undefined,
-            "top": undefined,
-            "url": undefined,
-            "width": undefined,
-          },
+          "image": {},
           "rulerLabel": "",
           "rulerLength": 10,
           "rulerPixels": 40,
@@ -4061,7 +5001,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-sta
           "showRuler": true,
           "static": false,
         },
-        "static": undefined,
         "type": "measurer",
         "version": {
           "major": 1,
@@ -4075,7 +5014,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-sta
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-snapDivisions.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -4102,7 +5040,6 @@ This amount must be *greater than or equal to* $\\purpleC{13.50}$, so the inequa
 
 $\\blueD{3}+\\greenD{1.2c}\\maroonD{\\geq}\\purpleC{13.50}$",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {},
     },
@@ -4121,7 +5058,6 @@ c &≥ 8.75
 
 Janie must do $8.75$ or more chores to have enough money to purchase the CD.",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {},
     },
@@ -4132,7 +5068,6 @@ The solution  includes the point $c=8.75$, so we *fill in* the circle at $8.75$.
 
 Because the solution to the inequality says that $c\\geq 8.75$, this means that solutions are numbers to the *right* of $8.75$.",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {},
     },
@@ -4150,13 +5085,11 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
           "width": 460,
         },
       },
-      "metadata": undefined,
       "replace": false,
       "widgets": {
         "number-line 3": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "correctRel": "ge",
             "correctX": 8.75,
@@ -4178,7 +5111,6 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
               5,
               10,
             ],
-            "showTooltip": undefined,
             "showTooltips": false,
             "snapDivisions": 2,
             "static": false,
@@ -4226,12 +5158,10 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
         "width": 460,
       },
     },
-    "metadata": undefined,
     "widgets": {
       "expression 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "answerForms": [
             {
@@ -4242,20 +5172,17 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
               "value": "1.2c+3\\ge13.5",
             },
           ],
-          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "basic relations",
             "advanced relations",
           ],
-          "buttonsVisible": undefined,
           "functions": [
             "f",
             "g",
             "h",
           ],
           "times": false,
-          "visibleLabel": undefined,
         },
         "static": false,
         "type": "expression",
@@ -4267,7 +5194,6 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
       "number-line 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "correctRel": "ge",
           "correctX": 8.75,
@@ -4289,7 +5215,6 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
             5,
             10,
           ],
-          "showTooltip": undefined,
           "showTooltips": false,
           "snapDivisions": 2,
           "static": false,
@@ -4309,7 +5234,6 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-static.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -4323,12 +5247,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-
 
 ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "number-line 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "correctRel": "eq",
           "correctX": 0.5,
@@ -4350,12 +5271,10 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-
             0,
             1,
           ],
-          "showTooltip": undefined,
           "snapDivisions": 1,
           "static": false,
           "tickStep": null,
         },
-        "static": undefined,
         "type": "number-line",
         "version": {
           "major": 0,
@@ -4369,7 +5288,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-empty-strings-in-label-range.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -4387,15 +5305,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-emp
           "width": 460,
         },
       },
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "On the number line, numbers to the left are less than numbers to the right.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
@@ -4408,8 +5322,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-emp
           "width": 460,
         },
       },
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
@@ -4425,12 +5337,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-emp
 
 ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "number-line 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "correctRel": "eq",
           "correctX": -0.375,
@@ -4451,12 +5360,10 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-emp
             -1,
             1,
           ],
-          "showTooltip": undefined,
           "snapDivisions": 2,
           "static": false,
           "tickStep": null,
         },
-        "static": undefined,
         "type": "number-line",
         "version": {
           "major": 0,
@@ -4464,43 +5371,29 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-emp
         },
       },
       "radio 2": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": " $\\,-1\\,\\,\\,<\\,-10$",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": " $-10\\,\\,\\,<\\,\\,\\,1$",
               "correct": true,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "  $\\,\\,\\,\\,\\,10\\,\\,\\,< \\,-1$",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
           ],
-          "countChoices": undefined,
           "deselectEnabled": false,
           "displayCount": null,
-          "hasNoneOfTheAbove": undefined,
           "multipleSelect": true,
           "noneOfTheAbove": false,
           "onePerLine": true,
           "randomize": true,
         },
-        "static": undefined,
         "type": "radio",
         "version": {
           "major": 0,
@@ -4514,7 +5407,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-emp
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-null-correctX.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -4525,22 +5417,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-nul
 
 $=(31-31) -8$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "$ =0-8$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "$=-8$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
@@ -4553,12 +5439,9 @@ $=(31-31) -8$",
 
  [[☃ numeric-input 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "number-line 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "correctRel": "eq",
           "correctX": null,
@@ -4567,7 +5450,6 @@ $=(31-31) -8$",
             12,
           ],
           "initialX": null,
-          "isTickCtrl": undefined,
           "labelRange": [
             null,
             null,
@@ -4579,12 +5461,10 @@ $=(31-31) -8$",
             0,
             10,
           ],
-          "showTooltip": undefined,
           "snapDivisions": 2,
           "static": false,
           "tickStep": null,
         },
-        "static": undefined,
         "type": "number-line",
         "version": {
           "major": 0,
@@ -4592,14 +5472,10 @@ $=(31-31) -8$",
         },
       },
       "numeric-input 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
-          "answerForms": undefined,
           "answers": [
             {
-              "answerForms": undefined,
               "maxError": null,
               "message": "",
               "simplify": "required",
@@ -4609,12 +5485,9 @@ $=(31-31) -8$",
             },
           ],
           "coefficient": false,
-          "labelText": undefined,
-          "rightAlign": undefined,
           "size": "normal",
           "static": false,
         },
-        "static": undefined,
         "type": "numeric-input",
         "version": {
           "major": 0,
@@ -4628,7 +5501,6 @@ $=(31-31) -8$",
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer-with-null-value.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -4642,14 +5514,10 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
 
 [[☃ numeric-input 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "numeric-input 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
-          "answerForms": undefined,
           "answers": [
             {
               "answerForms": [],
@@ -4662,12 +5530,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
             },
           ],
           "coefficient": false,
-          "labelText": undefined,
-          "rightAlign": undefined,
           "size": "normal",
           "static": false,
         },
-        "static": undefined,
         "type": "numeric-input",
         "version": {
           "major": 0,
@@ -4681,7 +5546,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer-with-simplify-true.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -4689,15 +5553,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
     {
       "content": "$= \\dfrac{9 \\times 1}{2 \\times 4}$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "$= \\dfrac{9}{8}$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
@@ -4710,17 +5570,13 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
 
 [[☃ numeric-input 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "numeric-input 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
-          "answerForms": undefined,
           "answers": [
             {
-              "answerForms": undefined,
               "maxError": 0,
               "message": "",
               "simplify": "true",
@@ -4731,11 +5587,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": undefined,
           "size": "normal",
           "static": false,
         },
-        "static": undefined,
         "type": "numeric-input",
         "version": {
           "major": 0,
@@ -4749,7 +5603,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer-without-value.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -4767,7 +5620,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
 
 Let's perform this multiplication to find the answer.",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {},
     },
@@ -4776,7 +5628,6 @@ Let's perform this multiplication to find the answer.",
 
 $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$.",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {},
     },
@@ -4788,12 +5639,10 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
   "question": {
     "content": "$\\bigg(\\dfrac{2}{3} \\bigg)^3 =$ [[☃ expression 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "expression 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "answerForms": [
             {
@@ -4820,11 +5669,9 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
               "value": "\\frac{8}{27}",
             },
           ],
-          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
           ],
-          "buttonsVisible": undefined,
           "functions": [
             "f",
             "g",
@@ -4832,7 +5679,6 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
           ],
           "static": false,
           "times": false,
-          "visibleLabel": undefined,
         },
         "static": false,
         "type": "expression",
@@ -4844,9 +5690,7 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
       "numeric-input 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
-          "answerForms": undefined,
           "answers": [
             {
               "answerForms": [
@@ -4858,7 +5702,6 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
               "simplify": "required",
               "status": "correct",
               "strict": false,
-              "value": undefined,
             },
           ],
           "coefficient": false,
@@ -4882,7 +5725,6 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missing-coefficient.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -4900,14 +5742,10 @@ What is the radius of the mattress when it is rolled up into a cylinder.
 
 [[☃ numeric-input 1]] ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "numeric-input 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
-          "answerForms": undefined,
           "answers": [
             {
               "answerForms": [],
@@ -4920,12 +5758,9 @@ What is the radius of the mattress when it is rolled up into a cylinder.
             },
           ],
           "coefficient": false,
-          "labelText": undefined,
-          "rightAlign": undefined,
           "size": "normal",
           "static": false,
         },
-        "static": undefined,
         "type": "numeric-input",
         "version": {
           "major": 0,
@@ -4939,7 +5774,6 @@ What is the radius of the mattress when it is rolled up into a cylinder.
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missing-labelText.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -4947,13 +5781,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
     {
       "content": "Heart rate is measured in beats per minute: $\\dfrac{beats}{minutes}$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {
         "expression 1": {
-          "alignment": undefined,
           "graded": true,
-          "key": undefined,
           "options": {
             "answerForms": [
               {
@@ -4976,7 +5806,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
             "times": false,
             "visibleLabel": undefined,
           },
-          "static": undefined,
           "type": "expression",
           "version": {
             "major": 1,
@@ -4984,20 +5813,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
           },
         },
         "input-number 1": {
-          "alignment": undefined,
           "graded": true,
-          "key": undefined,
           "options": {
             "answerType": "number",
-            "customKeypad": undefined,
             "inexact": false,
             "maxError": 0.1,
-            "rightAlign": undefined,
             "simplify": "required",
             "size": "normal",
             "value": 0,
           },
-          "static": undefined,
           "type": "input-number",
           "version": {
             "major": 0,
@@ -5005,9 +5829,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
           },
         },
         "passage 1": {
-          "alignment": undefined,
           "graded": true,
-          "key": undefined,
           "options": {
             "footnotes": "",
             "passageText": "",
@@ -5015,7 +5837,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
             "showLineNumbers": true,
             "static": false,
           },
-          "static": undefined,
           "type": "passage",
           "version": {
             "major": 0,
@@ -5029,13 +5850,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
 
 ",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {
         "expression 1": {
-          "alignment": undefined,
           "graded": true,
-          "key": undefined,
           "options": {
             "answerForms": [
               {
@@ -5058,7 +5875,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
             "times": false,
             "visibleLabel": undefined,
           },
-          "static": undefined,
           "type": "expression",
           "version": {
             "major": 1,
@@ -5066,17 +5882,10 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
           },
         },
         "image 1": {
-          "alignment": undefined,
           "graded": true,
-          "key": undefined,
           "options": {
-            "alt": undefined,
             "backgroundImage": {
-              "bottom": undefined,
               "height": 0,
-              "left": undefined,
-              "scale": undefined,
-              "top": undefined,
               "url": null,
               "width": 0,
             },
@@ -5096,10 +5905,8 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
                 10,
               ],
             ],
-            "static": undefined,
             "title": "",
           },
-          "static": undefined,
           "type": "image",
           "version": {
             "major": 0,
@@ -5118,36 +5925,26 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
           "width": 342,
         },
       },
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "From the previous calculation, we get 96 beats per minute as  Lance's active heart rate.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "To find the difference between the active and resting heart rate, subtract the resting heart rate from the active heart rate. The next hint shows this.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "$96$ $bpm$ $-$ $32$ $bpm$ $=$ $64$ $bpm$",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "The difference between Lance Armstrong's  active and resting heart rate is $64$ $bpm$. ",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
@@ -5173,12 +5970,9 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
         "width": 478,
       },
     },
-    "metadata": undefined,
     "widgets": {
       "expression 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "answerForms": [
             {
@@ -5201,7 +5995,6 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
           "times": false,
           "visibleLabel": undefined,
         },
-        "static": undefined,
         "type": "expression",
         "version": {
           "major": 1,
@@ -5209,14 +6002,10 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
         },
       },
       "numeric-input 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
-          "answerForms": undefined,
           "answers": [
             {
-              "answerForms": undefined,
               "maxError": null,
               "message": "",
               "simplify": "required",
@@ -5226,12 +6015,9 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
             },
           ],
           "coefficient": false,
-          "labelText": undefined,
-          "rightAlign": undefined,
           "size": "normal",
           "static": false,
         },
-        "static": undefined,
         "type": "numeric-input",
         "version": {
           "major": 0,
@@ -5239,9 +6025,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
         },
       },
       "sequence 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "json": [
             {
@@ -5251,7 +6035,6 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
             },
           ],
         },
-        "static": undefined,
         "type": "deprecated-standin",
         "version": {
           "major": 0,
@@ -5265,7 +6048,6 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-with-simplify-false.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -5291,17 +6073,13 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-with-s
         "width": 285,
       },
     },
-    "metadata": undefined,
     "widgets": {
       "numeric-input 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
-          "answerForms": undefined,
           "answers": [
             {
-              "answerForms": undefined,
               "maxError": 0,
               "message": "",
               "simplify": "false",
@@ -5331,7 +6109,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-with-s
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missing-images.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -5348,13 +6125,11 @@ To **decompose** a number, we break it into smaller parts.
 
 A **unit fraction** is a fraction with a numerator of $1$. [[☃ explanation 2]]",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {
         "explanation 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "explanation": "We can decompose $54$ into $50+4$.",
             "hidePrompt": "Okay, got it",
@@ -5372,7 +6147,6 @@ A **unit fraction** is a fraction with a numerator of $1$. [[☃ explanation 2]]
         "explanation 2": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "explanation": "$\\dfrac15$ is a unit fraction because the numerator (top number) is $1$.",
             "hidePrompt": "Okay, got it",
@@ -5408,13 +6182,11 @@ Let's decompose $\\dfrac59$ into unit fractions.
           "width": 400,
         },
       },
-      "metadata": undefined,
       "replace": false,
       "widgets": {
         "explanation 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "explanation": "
 
@@ -5436,76 +6208,61 @@ $\\dfrac59$ can be broken up into $\\dfrac19+\\dfrac19+\\dfrac19+\\dfrac19+\\dfr
         "graded-group 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "content": "**Drag the cards to create an expression that is equivalent to $\\dfrac59$.**
 
 [[☃ orderer 1]]",
-            "hasHint": undefined,
-            "hint": undefined,
             "images": {},
-            "immutableWidgets": undefined,
             "title": "",
-            "widgetEnabled": undefined,
             "widgets": {
               "orderer 1": {
                 "alignment": "default",
                 "graded": true,
-                "key": undefined,
                 "options": {
                   "correctOptions": [
                     {
                       "content": "$\\dfrac19$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$+$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$\\dfrac19$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$+$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$\\dfrac19$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$+$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$\\dfrac19$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$+$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$\\dfrac19$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                   ],
@@ -5515,13 +6272,11 @@ $\\dfrac59$ can be broken up into $\\dfrac19+\\dfrac19+\\dfrac19+\\dfrac19+\\dfr
                     {
                       "content": "$\\dfrac19$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$+$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                   ],
@@ -5565,13 +6320,11 @@ How can we decompose $\\dfrac38$?
           "width": 96,
         },
       },
-      "metadata": undefined,
       "replace": false,
       "widgets": {
         "explanation 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "explanation": "$\\dfrac18+\\dfrac18+\\dfrac18$
 
@@ -5591,7 +6344,6 @@ How can we decompose $\\dfrac38$?
         "graded-group 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "content": "**Write an expression decomposing $\\dfrac38$ into unit fractions.**
 
@@ -5600,17 +6352,12 @@ How can we decompose $\\dfrac38$?
 [[☃ expression 1]]
 
 ",
-            "hasHint": undefined,
-            "hint": undefined,
             "images": {},
-            "immutableWidgets": undefined,
             "title": "",
-            "widgetEnabled": undefined,
             "widgets": {
               "expression 1": {
                 "alignment": "default",
                 "graded": true,
-                "key": undefined,
                 "options": {
                   "answerForms": [
                     {
@@ -5621,18 +6368,15 @@ How can we decompose $\\dfrac38$?
                       "value": "\\frac{1}{8}+\\frac{1}{8}+\\frac{1}{8}",
                     },
                   ],
-                  "ariaLabel": undefined,
                   "buttonSets": [
                     "basic",
                   ],
-                  "buttonsVisible": undefined,
                   "functions": [
                     "f",
                     "g",
                     "h",
                   ],
                   "times": true,
-                  "visibleLabel": undefined,
                 },
                 "static": false,
                 "type": "expression",
@@ -5668,13 +6412,11 @@ How can we decompose $\\dfrac64$?
           "width": 410,
         },
       },
-      "metadata": undefined,
       "replace": false,
       "widgets": {
         "explanation 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "explanation": "$\\dfrac14+\\dfrac14+\\dfrac14+\\dfrac14+\\dfrac14+\\dfrac14$",
             "hidePrompt": "Hide solution",
@@ -5692,90 +6434,73 @@ How can we decompose $\\dfrac64$?
         "graded-group 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "content": "**Drag the cards to create an expression that is equivalent to $\\dfrac64$.**
 
 [[☃ orderer 1]]
 
 ",
-            "hasHint": undefined,
-            "hint": undefined,
             "images": {},
-            "immutableWidgets": undefined,
             "title": "",
-            "widgetEnabled": undefined,
             "widgets": {
               "orderer 1": {
                 "alignment": "default",
                 "graded": true,
-                "key": undefined,
                 "options": {
                   "correctOptions": [
                     {
                       "content": "$\\dfrac14$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$+$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$\\dfrac14$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$+$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$\\dfrac14$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$+$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$\\dfrac14$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$+$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$\\dfrac14$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$+$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$\\dfrac14$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                   ],
@@ -5785,13 +6510,11 @@ How can we decompose $\\dfrac64$?
                     {
                       "content": "$\\dfrac14$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                     {
                       "content": "$+$",
                       "images": {},
-                      "metadata": undefined,
                       "widgets": {},
                     },
                   ],
@@ -5846,13 +6569,11 @@ How can we decompose $\\dfrac64$?
 
 [[☃ explanation 4]]",
       "images": {},
-      "metadata": undefined,
       "replace": false,
       "widgets": {
         "explanation 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "explanation": "$\\dfrac29=\\dfrac19+\\dfrac19$",
             "hidePrompt": "Hide solution",
@@ -5870,7 +6591,6 @@ How can we decompose $\\dfrac64$?
         "explanation 2": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "explanation": "$\\dfrac13+\\dfrac13+\\dfrac13+\\dfrac13+\\dfrac13$",
             "hidePrompt": "Hide solution",
@@ -5888,7 +6608,6 @@ How can we decompose $\\dfrac64$?
         "explanation 3": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "explanation": "$\\dfrac16+\\dfrac16+\\dfrac16+\\dfrac16+\\dfrac16=\\dfrac56$
 ",
@@ -5907,7 +6626,6 @@ How can we decompose $\\dfrac64$?
         "explanation 4": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "explanation": "
 
@@ -5931,54 +6649,38 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
         "graded-group 1": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "content": "**Which shows $\\dfrac29$ decomposed into unit fractions?**
 
 [[☃ radio 1]]
 
 ",
-            "hasHint": undefined,
-            "hint": undefined,
             "images": {},
-            "immutableWidgets": undefined,
             "title": "",
-            "widgetEnabled": undefined,
             "widgets": {
               "radio 1": {
                 "alignment": "default",
                 "graded": true,
-                "key": undefined,
                 "options": {
                   "choices": [
                     {
-                      "clue": undefined,
                       "content": "$\\dfrac19+\\dfrac19$",
                       "correct": true,
-                      "isNoneOfTheAbove": undefined,
-                      "widgets": undefined,
                     },
                     {
-                      "clue": undefined,
                       "content": "$\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12$",
                       "correct": false,
-                      "isNoneOfTheAbove": undefined,
-                      "widgets": undefined,
                     },
                     {
-                      "clue": undefined,
                       "content": "$\\dfrac19+\\dfrac29$",
                       "correct": false,
                       "isNoneOfTheAbove": false,
-                      "widgets": undefined,
                     },
                   ],
-                  "countChoices": undefined,
                   "deselectEnabled": false,
                   "displayCount": null,
                   "hasNoneOfTheAbove": false,
                   "multipleSelect": false,
-                  "noneOfTheAbove": undefined,
                   "onePerLine": true,
                   "randomize": false,
                 },
@@ -6001,7 +6703,6 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
         "graded-group 2": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "content": "**Write an expression showing $\\dfrac53$ decomposed into unit fractions.**
 
@@ -6010,17 +6711,12 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
 
 
 ",
-            "hasHint": undefined,
-            "hint": undefined,
             "images": {},
-            "immutableWidgets": undefined,
             "title": "",
-            "widgetEnabled": undefined,
             "widgets": {
               "expression 1": {
                 "alignment": "default",
                 "graded": true,
-                "key": undefined,
                 "options": {
                   "answerForms": [
                     {
@@ -6031,18 +6727,15 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                       "value": "\\frac{1}{3}+\\frac{1}{3}+\\frac{1}{3}+\\frac{1}{3}+\\frac{1}{3}",
                     },
                   ],
-                  "ariaLabel": undefined,
                   "buttonSets": [
                     "basic",
                   ],
-                  "buttonsVisible": undefined,
                   "functions": [
                     "f",
                     "g",
                     "h",
                   ],
                   "times": false,
-                  "visibleLabel": undefined,
                 },
                 "static": false,
                 "type": "expression",
@@ -6063,7 +6756,6 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
         "graded-group 3": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "content": "**What fraction is equal to $\\dfrac16+\\dfrac16+\\dfrac16+\\dfrac16+\\dfrac16$?**
 
@@ -6072,19 +6764,13 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
 
 
 ",
-            "hasHint": undefined,
-            "hint": undefined,
             "images": {},
-            "immutableWidgets": undefined,
             "title": "",
-            "widgetEnabled": undefined,
             "widgets": {
               "numeric-input 1": {
                 "alignment": "default",
                 "graded": true,
-                "key": undefined,
                 "options": {
-                  "answerForms": undefined,
                   "answers": [
                     {
                       "answerForms": [
@@ -6101,7 +6787,6 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                   ],
                   "coefficient": false,
                   "labelText": "",
-                  "rightAlign": undefined,
                   "size": "normal",
                   "static": false,
                 },
@@ -6124,7 +6809,6 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
         "graded-group 4": {
           "alignment": "default",
           "graded": true,
-          "key": undefined,
           "options": {
             "content": "**Match each fraction to its equivalent expression.**
 
@@ -6133,17 +6817,12 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
 
 
 ",
-            "hasHint": undefined,
-            "hint": undefined,
             "images": {},
-            "immutableWidgets": undefined,
             "title": "",
-            "widgetEnabled": undefined,
             "widgets": {
               "matcher 1": {
                 "alignment": "default",
                 "graded": true,
-                "key": undefined,
                 "options": {
                   "labels": [
                     "Fraction",
@@ -6188,7 +6867,6 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
   "question": {
     "content": "",
     "images": {},
-    "metadata": undefined,
     "widgets": {},
   },
 }
@@ -6196,7 +6874,6 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missing-widgets.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -6205,19 +6882,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missi
       "content": "Extinction is a natural process, and the rate of extinction can be determined by studying changes in biodiversity during the history of life on Earth.
 ",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {
         "orderer 1": {
-          "alignment": undefined,
           "graded": true,
-          "key": undefined,
           "options": {
             "correctOptions": [
               {
                 "content": "$x$",
                 "images": {},
-                "metadata": undefined,
                 "widgets": {},
               },
             ],
@@ -6227,13 +6899,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missi
               {
                 "content": "$x$",
                 "images": {},
-                "metadata": undefined,
                 "widgets": {},
               },
               {
                 "content": "$y$",
                 "images": {},
-                "metadata": undefined,
                 "widgets": {},
               },
             ],
@@ -6241,12 +6911,10 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missi
               {
                 "content": "$y$",
                 "images": {},
-                "metadata": undefined,
                 "widgets": {},
               },
             ],
           },
-          "static": undefined,
           "type": "orderer",
           "version": {
             "major": 0,
@@ -6258,8 +6926,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missi
     {
       "content": "Humans are causing a current sixth mass extinction event, but are not the only reason species go extinct.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
@@ -6279,53 +6945,35 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missi
         "width": 396,
       },
     },
-    "metadata": undefined,
     "widgets": {
       "radio 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "a.	the rate of extinction that balances the rate of speciation",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "b.	the average rate at which extinctions have occurred naturally in the geologic past, without human involvement",
               "correct": true,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "c.	the rate of extinction that is currently occurring in protected areas like national parks and marine sanctuaries",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "d.	the rate of extinction that can be determined by using Geiger counters and detecting radiation",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
           ],
-          "countChoices": undefined,
           "deselectEnabled": false,
           "displayCount": null,
-          "hasNoneOfTheAbove": undefined,
           "multipleSelect": false,
           "noneOfTheAbove": false,
           "onePerLine": true,
           "randomize": false,
         },
-        "static": undefined,
         "type": "radio",
         "version": {
           "major": 0,
@@ -6339,7 +6987,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missi
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-invalid-height.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -6347,12 +6994,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-invalid
     {
       "content": "The doric is the oldest and simplest order, the Corinthian is the latest and most complex.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
-  "itemDataVersion": undefined,
   "question": {
     "content": "Here is a doric, ionic and corinthian capital. Put these  in the chronological order of their development. [[☃ orderer 1]]
 
@@ -6365,30 +7009,23 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-invalid
 
 ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "orderer 1": {
-        "alignment": undefined,
-        "graded": undefined,
-        "key": undefined,
         "options": {
           "correctOptions": [
             {
               "content": "![](https://ka-perseus-images.s3.amazonaws.com/a9387c1491bb743a0c76d2ab74c4dd145c964c7b.jpeg)",
               "images": {},
-              "metadata": undefined,
               "widgets": {},
             },
             {
               "content": "![](https://ka-perseus-images.s3.amazonaws.com/45ff66c9387dcb419651883677cfb11fbbf8e075.jpeg)",
               "images": {},
-              "metadata": undefined,
               "widgets": {},
             },
             {
               "content": "![](https://ka-perseus-images.s3.amazonaws.com/54ea9b0cf1a57bf2879772ea81f656264605d75e.jpeg)",
               "images": {},
-              "metadata": undefined,
               "widgets": {},
             },
           ],
@@ -6398,27 +7035,22 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-invalid
             {
               "content": "![](https://ka-perseus-images.s3.amazonaws.com/45ff66c9387dcb419651883677cfb11fbbf8e075.jpeg)",
               "images": {},
-              "metadata": undefined,
               "widgets": {},
             },
             {
               "content": "![](https://ka-perseus-images.s3.amazonaws.com/54ea9b0cf1a57bf2879772ea81f656264605d75e.jpeg)",
               "images": {},
-              "metadata": undefined,
               "widgets": {},
             },
             {
               "content": "![](https://ka-perseus-images.s3.amazonaws.com/a9387c1491bb743a0c76d2ab74c4dd145c964c7b.jpeg)",
               "images": {},
-              "metadata": undefined,
               "widgets": {},
             },
           ],
           "otherOptions": [],
         },
-        "static": undefined,
         "type": "orderer",
-        "version": undefined,
       },
     },
   },
@@ -6427,7 +7059,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-invalid
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-undefined-options.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -6458,20 +7089,14 @@ A free body diagram of the **box** is shown below.
         "width": 400,
       },
     },
-    "metadata": undefined,
     "widgets": {
       "image 1": {
         "alignment": "block",
         "graded": true,
-        "key": undefined,
         "options": {
           "alt": "A woman places a box on a shelf and pushes it to the left, sliding it further onto the shelf.",
           "backgroundImage": {
-            "bottom": undefined,
             "height": 263,
-            "left": undefined,
-            "scale": undefined,
-            "top": undefined,
             "url": "https://cdn.kastatic.org/ka-content-images/89e2cabd1261ec9119c501bd6c9c0f541e09ab2f.png",
             "width": 400,
           },
@@ -6504,15 +7129,10 @@ A free body diagram of the **box** is shown below.
       "image 2": {
         "alignment": "block",
         "graded": true,
-        "key": undefined,
         "options": {
           "alt": "A model shows a square with four arrows pointing out of it. An arrow points down and is labelled F g. Another arrow points up and is labelled F N. Another arrow points left and is labelled F a. Another arrow points right and is labelled F f.",
           "backgroundImage": {
-            "bottom": undefined,
             "height": 306,
-            "left": undefined,
-            "scale": undefined,
-            "top": undefined,
             "url": "https://cdn.kastatic.org/ka-content-images/48c2597aa0e5a7ac27771cfc2e7c955c7cb14881.svg",
             "width": 300,
           },
@@ -6543,15 +7163,11 @@ A free body diagram of the **box** is shown below.
         },
       },
       "orderer 1": {
-        "alignment": undefined,
-        "graded": undefined,
-        "key": undefined,
         "options": {
           "correctOptions": [
             {
               "content": "$x$",
               "images": {},
-              "metadata": undefined,
               "widgets": {},
             },
           ],
@@ -6562,12 +7178,10 @@ A free body diagram of the **box** is shown below.
             {
               "content": "$y$",
               "images": {},
-              "metadata": undefined,
               "widgets": {},
             },
           ],
         },
-        "static": undefined,
         "type": "orderer",
         "version": {
           "major": 0,
@@ -6577,36 +7191,29 @@ A free body diagram of the **box** is shown below.
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "choices": [
             {
               "clue": "$F_\\text{N}$ results from the box interacting with the shelf.",
               "content": "normal force $(F_\\text{N})$",
               "correct": true,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
               "clue": "$F_\\text{g}$ results from the box interacting with Earth.",
               "content": "gravitational force $(F_\\text{g})$",
               "correct": true,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
               "clue": "$F_\\text{a}$ results from the box interacting with the woman's hand.",
               "content": "applied force $(F_\\text{a})$",
               "correct": true,
               "isNoneOfTheAbove": false,
-              "widgets": undefined,
             },
             {
               "clue": "$F_\\text{f}$ results from the box interacting with the shelf.",
               "content": "frictional force $(F_\\text{f})$",
               "correct": true,
               "isNoneOfTheAbove": false,
-              "widgets": undefined,
             },
           ],
           "countChoices": false,
@@ -6614,8 +7221,6 @@ A free body diagram of the **box** is shown below.
           "displayCount": null,
           "hasNoneOfTheAbove": false,
           "multipleSelect": true,
-          "noneOfTheAbove": undefined,
-          "onePerLine": undefined,
           "randomize": true,
         },
         "static": false,
@@ -6628,7 +7233,6 @@ A free body diagram of the **box** is shown below.
       "sorter 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "correct": [
             "$x$",
@@ -6652,7 +7256,6 @@ A free body diagram of the **box** is shown below.
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/passage-missing-footnotes-and-title.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -6668,12 +7271,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/passage-missing-foot
 
 [[☃ passage-ref 1]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "passage 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "footnotes": "",
           "passageText": "a",
@@ -6681,7 +7281,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/passage-missing-foot
           "showLineNumbers": true,
           "static": false,
         },
-        "static": undefined,
         "type": "passage",
         "version": {
           "major": 0,
@@ -6689,15 +7288,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/passage-missing-foot
         },
       },
       "passage-ref 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "passageNumber": 1,
           "referenceNumber": 1,
-          "summaryText": undefined,
         },
-        "static": undefined,
         "type": "passage-ref",
         "version": {
           "major": 0,
@@ -6711,7 +7306,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/passage-missing-foot
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/passage-ref-missing-summaryText.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -6719,22 +7313,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/passage-ref-missing-
     {
       "content": "Anybody likely to need armor would certainly want to be wearing it. Armor was worn for sport, battle, civil defense, ceremony, and in some cases for hunting. This example—commissioned in 1591 by Sophie of Brandenburg as a Christmas gift for her husband, Christian I (reigned 1586–91)—is one of a set of twelve matching armors for the courtly sport of foot combat.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "Many medieval European cities, such as London, Paris, Frankfurt, Vienna, and Milan, actually required their citizens to own armor and weapons so that they would be able to defend the city in times of war.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "The answer is: All of the above. ",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
@@ -6752,20 +7340,12 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
 
 ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "image 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
-          "alt": undefined,
           "backgroundImage": {
-            "bottom": undefined,
             "height": 571,
-            "left": undefined,
-            "scale": undefined,
-            "top": undefined,
             "url": "https://ka-perseus-images.s3.amazonaws.com/3d84aeb69c515789bba289f5118b1d6e2b796ca1.jpg",
             "width": 357,
           },
@@ -6785,11 +7365,9 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
               10,
             ],
           ],
-          "static": undefined,
           "title": "
 ",
         },
-        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -6797,17 +7375,10 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         },
       },
       "image 2": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
-          "alt": undefined,
           "backgroundImage": {
-            "bottom": undefined,
             "height": 0,
-            "left": undefined,
-            "scale": undefined,
-            "top": undefined,
             "url": null,
             "width": 0,
           },
@@ -6827,10 +7398,8 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
               10,
             ],
           ],
-          "static": undefined,
           "title": "",
         },
-        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -6838,9 +7407,7 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         },
       },
       "passage 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "footnotes": "",
           "passageText": "",
@@ -6848,7 +7415,6 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
           "showLineNumbers": true,
           "static": false,
         },
-        "static": undefined,
         "type": "passage",
         "version": {
           "major": 0,
@@ -6856,15 +7422,11 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         },
       },
       "passage-ref 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "passageNumber": 1,
           "referenceNumber": 1,
-          "summaryText": undefined,
         },
-        "static": undefined,
         "type": "passage-ref",
         "version": {
           "major": 0,
@@ -6872,50 +7434,33 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         },
       },
       "radio 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "Members of the high nobility and the wealthiest of the knightly class",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "Soldiers, members of the civilian militia, and mercenaries",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "Horses and dogs",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
               "clue": "Armor (of different styles and quality) was worn by almost all levels of society: high nobility (emperors, dukes, and counts), knights, mercenaries, citizens, peasants, and even young boys. Horses and dogs could also be protected with armor. Price varied considerably based on materials, quality, and decoration.",
               "content": "All of the above",
               "correct": true,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
           ],
-          "countChoices": undefined,
-          "deselectEnabled": undefined,
           "displayCount": null,
-          "hasNoneOfTheAbove": undefined,
           "multipleSelect": false,
           "noneOfTheAbove": false,
           "onePerLine": true,
           "randomize": false,
         },
-        "static": undefined,
         "type": "radio",
         "version": {
           "major": 0,
@@ -6923,36 +7468,22 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         },
       },
       "radio 2": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "",
-              "correct": undefined,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "",
-              "correct": undefined,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
           ],
-          "countChoices": undefined,
-          "deselectEnabled": undefined,
           "displayCount": null,
-          "hasNoneOfTheAbove": undefined,
           "multipleSelect": false,
           "noneOfTheAbove": false,
           "onePerLine": true,
           "randomize": false,
         },
-        "static": undefined,
         "type": "radio",
         "version": {
           "major": 0,
@@ -6960,9 +7491,7 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         },
       },
       "table 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "answers": [
             [
@@ -6984,7 +7513,6 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
           ],
           "rows": 4,
         },
-        "static": undefined,
         "type": "table",
         "version": {
           "major": 0,
@@ -6996,9 +7524,115 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-missing-scaleY-and-snapsPerLine.json 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+  },
+  "hints": [
+    {
+      "content": "Barn | Antal mål
+- | :-: 
+Calista | $\\blue2$ 
+William |$\\red3$ 
+Michaela | $\\green5$ 
+James | $\\gray2$
+
+$$
+
+$\\green5 - \\red3= \\purple{2}$",
+      "images": {},
+      "widgets": {},
+    },
+    {
+      "content": "Michaela gjorde $\\purple{2}$ korgar mer än William.  ",
+      "images": {},
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "En familj spelar basket.  Pictogrammet visar hur många mål varje barn gjorde.  
+
+**Michaela gjorde [[☃ input-number 1]] fler mål än William.**
+
+![](https://ka-perseus-graphie.s3.amazonaws.com/01794c4768ba6b824954277b869aaaefd551a0e5.png)
+
+
+![](https://ka-perseus-images.s3.amazonaws.com/2875f6cdd7dea3db2fef714b1225366c7250c49d.png)",
+    "images": {
+      "https://ka-perseus-graphie.s3.amazonaws.com/01794c4768ba6b824954277b869aaaefd551a0e5.png": {
+        "height": 37,
+        "width": 120,
+      },
+      "https://ka-perseus-images.s3.amazonaws.com/2875f6cdd7dea3db2fef714b1225366c7250c49d.png": {
+        "height": 336,
+        "width": 474,
+      },
+    },
+    "widgets": {
+      "input-number 1": {
+        "graded": true,
+        "options": {
+          "answerType": "number",
+          "inexact": false,
+          "maxError": 0.1,
+          "simplify": "required",
+          "size": "normal",
+          "value": 2,
+        },
+        "type": "input-number",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "plotter 1": {
+        "options": {
+          "categories": [
+            "Calista",
+            "WIlliam",
+            "Michaela",
+            "James",
+          ],
+          "correct": [
+            1,
+            1,
+            1,
+            1,
+          ],
+          "labels": [
+            "Child",
+            "Baskets",
+          ],
+          "maxY": 5,
+          "picUrl": "http://i.imgur.com/B8mGnxB.png",
+          "plotDimensions": [
+            380,
+            300,
+          ],
+          "scaleY": 1,
+          "snapsPerLine": 2,
+          "starting": [
+            1,
+            1,
+            1,
+            1,
+          ],
+          "type": "pic",
+        },
+        "type": "plotter",
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefined-plotDimensions.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -7006,13 +7640,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefin
     {
       "content": "If there is a 60° angle to the ground, this gives us a 30-60-90 triangle. ",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {
         "plotter 1": {
-          "alignment": undefined,
           "graded": true,
-          "key": undefined,
           "options": {
             "categories": [
               "",
@@ -7026,9 +7656,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefin
               "",
             ],
             "maxY": 10,
-            "picBoxHeight": undefined,
-            "picSize": undefined,
-            "picUrl": undefined,
             "plotDimensions": [
               380,
               300,
@@ -7040,7 +7667,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefin
             ],
             "type": "bar",
           },
-          "static": undefined,
           "type": "plotter",
           "version": {
             "major": 0,
@@ -7052,15 +7678,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefin
     {
       "content": "In this case, the horizontal component of force should be equal to the cos θ multiplied by the force of tension. ",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
     {
       "content": "Since we know θ=60, and T=30N, we can solve: 30cos60 = 15 N.",
       "images": {},
-      "metadata": undefined,
-      "replace": undefined,
       "widgets": {},
     },
   ],
@@ -7075,53 +7697,33 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefin
 
 ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "radio 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "15 N",
               "correct": true,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "30 N",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "60 N",
-              "correct": undefined,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "180 N",
-              "correct": undefined,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
           ],
-          "countChoices": undefined,
           "deselectEnabled": false,
           "displayCount": null,
-          "hasNoneOfTheAbove": undefined,
           "multipleSelect": false,
           "noneOfTheAbove": false,
           "onePerLine": true,
           "randomize": true,
         },
-        "static": undefined,
         "type": "radio",
         "version": {
           "major": 0,
@@ -7135,14 +7737,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefin
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/question-missing-content.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {},
   "hints": [],
-  "itemDataVersion": undefined,
   "question": {
     "content": "",
     "images": {},
-    "metadata": undefined,
     "widgets": {},
   },
 }
@@ -7150,7 +7749,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/question-missing-con
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing-content.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -7170,64 +7768,39 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
 
 [[☃ group 4]]",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "group 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "content": "
 
 [[☃ radio 1]]",
           "images": {},
-          "metadata": undefined,
           "widgets": {
             "radio 1": {
-              "alignment": undefined,
               "graded": true,
-              "key": undefined,
               "options": {
                 "choices": [
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                 ],
-                "countChoices": undefined,
                 "deselectEnabled": false,
                 "displayCount": null,
-                "hasNoneOfTheAbove": undefined,
                 "multipleSelect": false,
                 "noneOfTheAbove": false,
                 "onePerLine": true,
                 "randomize": false,
               },
-              "static": undefined,
               "type": "radio",
               "version": {
                 "major": 0,
@@ -7236,7 +7809,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
             },
           },
         },
-        "static": undefined,
         "type": "group",
         "version": {
           "major": 0,
@@ -7244,61 +7816,37 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
         },
       },
       "group 2": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "content": "
 
 [[☃ radio 1]]",
           "images": {},
-          "metadata": undefined,
           "widgets": {
             "radio 1": {
-              "alignment": undefined,
               "graded": true,
-              "key": undefined,
               "options": {
                 "choices": [
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                 ],
-                "countChoices": undefined,
                 "deselectEnabled": false,
                 "displayCount": null,
-                "hasNoneOfTheAbove": undefined,
                 "multipleSelect": false,
                 "noneOfTheAbove": false,
                 "onePerLine": true,
                 "randomize": false,
               },
-              "static": undefined,
               "type": "radio",
               "version": {
                 "major": 0,
@@ -7307,7 +7855,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
             },
           },
         },
-        "static": undefined,
         "type": "group",
         "version": {
           "major": 0,
@@ -7315,61 +7862,37 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
         },
       },
       "group 3": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "content": "
 
 [[☃ radio 1]]",
           "images": {},
-          "metadata": undefined,
           "widgets": {
             "radio 1": {
-              "alignment": undefined,
               "graded": true,
-              "key": undefined,
               "options": {
                 "choices": [
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                 ],
-                "countChoices": undefined,
                 "deselectEnabled": false,
                 "displayCount": null,
-                "hasNoneOfTheAbove": undefined,
                 "multipleSelect": false,
                 "noneOfTheAbove": false,
                 "onePerLine": true,
                 "randomize": false,
               },
-              "static": undefined,
               "type": "radio",
               "version": {
                 "major": 0,
@@ -7378,7 +7901,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
             },
           },
         },
-        "static": undefined,
         "type": "group",
         "version": {
           "major": 0,
@@ -7386,61 +7908,37 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
         },
       },
       "group 4": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "content": "
 
 [[☃ radio 1]]",
           "images": {},
-          "metadata": undefined,
           "widgets": {
             "radio 1": {
-              "alignment": undefined,
               "graded": true,
-              "key": undefined,
               "options": {
                 "choices": [
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
-                    "correct": undefined,
-                    "isNoneOfTheAbove": undefined,
-                    "widgets": undefined,
                   },
                 ],
-                "countChoices": undefined,
                 "deselectEnabled": false,
                 "displayCount": null,
-                "hasNoneOfTheAbove": undefined,
                 "multipleSelect": false,
                 "noneOfTheAbove": false,
                 "onePerLine": true,
                 "randomize": false,
               },
-              "static": undefined,
               "type": "radio",
               "version": {
                 "major": 0,
@@ -7449,7 +7947,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
             },
           },
         },
-        "static": undefined,
         "type": "group",
         "version": {
           "major": 0,
@@ -7463,7 +7960,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/radio-missing-noneOfTheAbove.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
@@ -7487,27 +7983,19 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
 [[☃ radio 1]]
 ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "radio 1": {
         "alignment": "default",
         "graded": true,
-        "key": undefined,
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "Yes",
               "correct": false,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
             {
-              "clue": undefined,
               "content": "No",
               "correct": true,
-              "isNoneOfTheAbove": undefined,
-              "widgets": undefined,
             },
           ],
           "countChoices": false,
@@ -7515,8 +8003,6 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
           "displayCount": null,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
-          "noneOfTheAbove": undefined,
-          "onePerLine": undefined,
           "randomize": false,
         },
         "static": false,
@@ -7533,7 +8019,6 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/simulator-widget.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -7547,12 +8032,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/simulator-widget.jso
 
 ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "simulator 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "numTrials": 100,
           "proportionLabel": "Underlying proportion",
@@ -7560,7 +8042,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/simulator-widget.jso
           "xAxisLabel": "Proportion (%)",
           "yAxisLabel": "Number of times seen",
         },
-        "static": undefined,
         "type": "deprecated-standin",
         "version": {
           "major": 0,
@@ -7568,9 +8049,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/simulator-widget.jso
         },
       },
       "sorter 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "correct": [
             "$x$",
@@ -7580,7 +8059,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/simulator-widget.jso
           "layout": "horizontal",
           "padding": true,
         },
-        "static": undefined,
         "type": "sorter",
         "version": {
           "major": 0,
@@ -7594,7 +8072,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/simulator-widget.jso
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/transformer-widget.json 1`] = `
 {
-  "answer": undefined,
   "answerArea": {
     "calculator": false,
   },
@@ -7608,12 +8085,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/transformer-widget.j
 
 ",
     "images": {},
-    "metadata": undefined,
     "widgets": {
       "transformer 1": {
-        "alignment": undefined,
         "graded": true,
-        "key": undefined,
         "options": {
           "correct": {
             "shape": {
@@ -7748,7 +8222,6 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/transformer-widget.j
           },
           "version": 1.2,
         },
-        "static": undefined,
         "type": "deprecated-standin",
         "version": {
           "major": 0,

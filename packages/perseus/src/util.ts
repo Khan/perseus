@@ -1,10 +1,10 @@
+import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import _ from "underscore";
 
-import KhanAnswerTypes from "./util/answer-types";
 import * as GraphieUtil from "./util.graphie";
 
-import type {Range} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
+import type {Range} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
 type WordPosition = {
@@ -204,7 +204,6 @@ function firstNumericalParse(
             inexact: true,
             forms: "integer, proper, improper, pi, log, mixed, decimal",
         },
-        strings,
     );
 
     val(text);
@@ -407,60 +406,6 @@ function constrainedTickStepsFromTickSteps(
         constrainTickStep(tickSteps[0], ranges[0]),
         constrainTickStep(tickSteps[1], ranges[1]),
     ];
-}
-
-/**
- * Approximate equality on numbers and primitives.
- */
-function eq<T>(x: T, y: T): boolean {
-    if (typeof x === "number" && typeof y === "number") {
-        return Math.abs(x - y) < 1e-9;
-    }
-    return x === y;
-}
-
-/**
- * Deep approximate equality on primitives, numbers, arrays, and objects.
- * Recursive.
- */
-function deepEq<T>(x: T, y: T): boolean {
-    if (Array.isArray(x) && Array.isArray(y)) {
-        if (x.length !== y.length) {
-            return false;
-        }
-        for (let i = 0; i < x.length; i++) {
-            if (!deepEq(x[i], y[i])) {
-                return false;
-            }
-        }
-        return true;
-    }
-    if (Array.isArray(x) || Array.isArray(y)) {
-        return false;
-    }
-    if (typeof x === "function" && typeof y === "function") {
-        return eq(x, y);
-    }
-    if (typeof x === "function" || typeof y === "function") {
-        return false;
-    }
-    if (typeof x === "object" && typeof y === "object" && !!x && !!y) {
-        return (
-            x === y ||
-            (_.all(x, function (v, k) {
-                // @ts-expect-error - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
-                return deepEq(y[k], v);
-            }) &&
-                _.all(y, function (v, k) {
-                    // @ts-expect-error - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
-                    return deepEq(x[k], v);
-                }))
-        );
-    }
-    if ((typeof x === "object" && !!x) || (typeof y === "object" && !!y)) {
-        return false;
-    }
-    return eq(x, y);
 }
 
 /**
@@ -705,23 +650,6 @@ const unescapeMathMode: (label: string) => string = (label) =>
 
 const random: RNG = seededRNG(new Date().getTime() & 0xffffffff);
 
-// TODO(benchristel): in the future, we may want to make deepClone work for
-// Record<string, Cloneable> as well. Currently, it only does arrays.
-type Cloneable =
-    | null
-    | undefined
-    | boolean
-    | string
-    | number
-    | Cloneable[]
-    | readonly Cloneable[];
-function deepClone<T extends Cloneable>(obj: T): T {
-    if (Array.isArray(obj)) {
-        return obj.map(deepClone) as T;
-    }
-    return obj;
-}
-
 const Util = {
     inputPathsEqual,
     nestedMap,
@@ -742,8 +670,6 @@ const Util = {
     gridStepFromTickStep,
     tickStepFromNumTicks,
     constrainedTickStepsFromTickSteps,
-    eq,
-    deepEq,
     parseQueryString,
     updateQueryString,
     strongEncodeURIComponent,
@@ -762,7 +688,6 @@ const Util = {
     textarea,
     unescapeMathMode,
     random,
-    deepClone,
 } as const;
 
 export default Util;

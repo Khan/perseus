@@ -33,14 +33,14 @@ import {
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
+import type {Coord} from "@khanacademy/perseus";
 import type {
-    Coord,
     LockedFigure,
     LockedFigureColor,
     LockedLabelType,
     LockedLineType,
     LockedPointType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 const lengthZeroStr = "The line cannot have length 0.";
 

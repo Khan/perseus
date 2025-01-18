@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import {KhanMath} from "@khanacademy/kmath";
 import {
     components,
     Changeable,
     EditorJsonify,
-    KhanMath,
     Util,
     PerseusI18nContext,
 } from "@khanacademy/perseus";
