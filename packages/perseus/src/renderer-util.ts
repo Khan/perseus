@@ -20,16 +20,6 @@ import type {
     PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
 
-function mapWidgetIdsToEmptyScore(widgetIds: ReadonlyArray<string>): {
-    [widgetId: string]: PerseusScore;
-} {
-    const emptyResult: {[widgetId: string]: PerseusScore} = {};
-    widgetIds.forEach((widgetId) => {
-        emptyResult[widgetId] = {type: "invalid", message: null};
-    });
-    return emptyResult;
-}
-
 export function getUpgradedWidgetOptions(
     oldWidgetOptions: PerseusWidgetsMap,
 ): PerseusWidgetsMap {
@@ -122,18 +112,6 @@ export function scoreWidgetsFunctional(
 ): {[widgetId: string]: PerseusScore} {
     const upgradedWidgets = getUpgradedWidgetOptions(widgets);
 
-    // Do empty check first
-    const emptyWidgets = emptyWidgetsFunctional(
-        widgets,
-        widgetIds,
-        userInputMap,
-        strings,
-        locale,
-    );
-    if (emptyWidgets.length > 0) {
-        return mapWidgetIdsToEmptyScore(emptyWidgets);
-    }
-
     const gradedWidgetIds = widgetIds.filter((id) => {
         const props = upgradedWidgets[id];
         const widgetIsGraded: boolean = props?.graded == null || props.graded;
@@ -150,13 +128,14 @@ export function scoreWidgetsFunctional(
         }
 
         const userInput = userInputMap[id];
+        const validator = getWidgetValidator(widget.type);
         const scorer = getWidgetScorer(widget.type);
-        const score = scorer?.(
-            userInput as UserInput,
-            widget.options,
-            strings,
-            locale,
-        );
+
+        // We do validation (empty checks) first and then scoring. If
+        // validation fails, it's result is itself a PerseusScore.
+        const score =
+            validator?.(userInput, widget.options, strings, locale) ??
+            scorer?.(userInput, widget.options, strings, locale);
         if (score != null) {
             widgetScores[id] = score;
         }

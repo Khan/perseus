@@ -749,14 +749,16 @@ describe("renderer utils", () => {
             // Act
             const validatorSpy = jest
                 .spyOn(DropdownWidgetExport, "validator")
-                // Empty
+                // 1st call - Empty
                 .mockReturnValueOnce({
                     type: "invalid",
                     message: null,
                 })
-                // Not empty
+                // 2nd call - Not empty
                 .mockReturnValueOnce(null);
-            const scoringSpy = jest.spyOn(DropdownWidgetExport, "scorer");
+            const scoringSpy = jest
+                .spyOn(DropdownWidgetExport, "scorer")
+                .mockReturnValueOnce({type: "points", total: 1, earned: 1});
 
             // Act
             const score = scorePerseusItem(
@@ -777,7 +779,8 @@ describe("renderer utils", () => {
 
             // Assert
             expect(validatorSpy).toHaveBeenCalledTimes(2);
-            expect(scoringSpy).not.toHaveBeenCalled();
+            // Scoring is only called if validation passes
+            expect(scoringSpy).toHaveBeenCalledTimes(1);
             expect(score).toEqual({type: "invalid", message: null});
         });
 
