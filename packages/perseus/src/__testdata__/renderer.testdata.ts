@@ -3,7 +3,6 @@ import type {
     DropdownWidget,
     ExpressionWidget,
     ImageWidget,
-    NumericInputWidget,
     MockWidget,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
