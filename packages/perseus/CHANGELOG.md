@@ -1,5 +1,38 @@
 # @khanacademy/perseus
 
+## 51.0.0
+
+### Major Changes
+
+-   [#2101](https://github.com/Khan/perseus/pull/2101) [`9cabe689a`](https://github.com/Khan/perseus/commit/9cabe689a7aa143f95adf4556bf5c10d654a66ae) Thanks [@handeyeco](https://github.com/handeyeco)! - Move scorers and validators to `perseus-score`
+
+### Minor Changes
+
+-   [#2127](https://github.com/Khan/perseus/pull/2127) [`6f2813cfc`](https://github.com/Khan/perseus/commit/6f2813cfcb6bce063d8f0f8f66219ce0123aac66) Thanks [@benchristel](https://github.com/benchristel)! - Avoid adding undefined values to objects parsed from Perseus JSON when properties are missing.
+
+### Patch Changes
+
+-   [#2130](https://github.com/Khan/perseus/pull/2130) [`165305e11`](https://github.com/Khan/perseus/commit/165305e11c5ba196e1a2a9c4fd814d387d34dc55) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change interactive-graph visual regression stories to Storybook's CSF v3
+
+*   [#2077](https://github.com/Khan/perseus/pull/2077) [`faccc2d59`](https://github.com/Khan/perseus/commit/faccc2d5959a4a7051720f7a3dfe4a4875b6ace9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Enable the exhaustive test tool for parsePerseusItem to test articles.
+
+-   [#2030](https://github.com/Khan/perseus/pull/2030) [`d96821e08`](https://github.com/Khan/perseus/commit/d96821e08b3f80eb0a277882f4a8a40330b27adc) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Linear System - add screen reader support for Linear System interactive graph
+
+*   [#2036](https://github.com/Khan/perseus/pull/2036) [`0f8d11c0b`](https://github.com/Khan/perseus/commit/0f8d11c0b8c00a10eb49f2d84b664803c5c83f3f) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Ray graph - Add screen reader support for Ray interactive graph
+
+-   [#2109](https://github.com/Khan/perseus/pull/2109) [`41ffd4a71`](https://github.com/Khan/perseus/commit/41ffd4a71673399657d7024c206af4fa4e0be267) Thanks [@dependabot](https://github.com/apps/dependabot)! - Updating our wonder-blocks packages with the latest versions.
+
+-   Updated dependencies [[`9cabe689a`](https://github.com/Khan/perseus/commit/9cabe689a7aa143f95adf4556bf5c10d654a66ae), [`41ffd4a71`](https://github.com/Khan/perseus/commit/41ffd4a71673399657d7024c206af4fa4e0be267)]:
+    -   @khanacademy/kmath@0.3.0
+    -   @khanacademy/perseus-core@3.2.0
+    -   @khanacademy/perseus-score@1.1.0
+    -   @khanacademy/math-input@22.2.1
+    -   @khanacademy/kas@0.4.11
+    -   @khanacademy/keypad-context@1.0.14
+    -   @khanacademy/perseus-linter@1.2.13
+    -   @khanacademy/pure-markdown@0.3.22
+    -   @khanacademy/simple-markdown@0.13.15
+
 ## 50.1.0
 
 ### Minor Changes
