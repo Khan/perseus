@@ -19,6 +19,14 @@ const meta: Meta<typeof MafsQuestionRenderer> = {
 };
 export default meta;
 
+function MobileContainerDecorator(Story) {
+    return (
+        <div className="framework-perseus perseus-mobile">
+            <Story />
+        </div>
+    );
+}
+
 export const MafsWithCustomAxisLabels: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
@@ -182,6 +190,7 @@ export const MafsInMobileContainer: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().build(),
     },
+    decorators: [MobileContainerDecorator],
 };
 
 export const MafsWithMultipleSegments: Story = {
@@ -200,16 +209,10 @@ export const MafsCircleGraphWithNonsquareRange: Story = {
             .withYRange(-5, 5)
             .build(),
     },
-    decorators: [
-        // NOTE(jeremy): I migrated these stories to the v3 CSF story format,
-        // but I'm unclear why this one story forces mobile when none of the
-        // others do, and this story doesn't look mobile-specific. :thinking:
-        (Story) => (
-            <div className="framework-perseus perseus-mobile">
-                <Story />
-            </div>
-        ),
-    ],
+    // NOTE(jeremy): I migrated these stories to the v3 CSF story format, but
+    // I'm unclear why this one story forces mobile when none of the others do,
+    // and this story doesn't look mobile-specific. :thinking:
+    decorators: [MobileContainerDecorator],
 };
 
 export const MafsLineGraphWithNonsquareRange: Story = {
