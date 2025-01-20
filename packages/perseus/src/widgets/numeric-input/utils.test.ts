@@ -51,7 +51,7 @@ describe("generateExamples", () => {
             },
             {
                 name: "integer",
-                simplify: "optional",
+                simplify: "required",
             },
         ];
         const fakePerseusStrings: Partial<PerseusStrings> = {

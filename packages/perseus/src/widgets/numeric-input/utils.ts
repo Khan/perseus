@@ -84,33 +84,17 @@ export const shouldShowExamples = (
 const getUniqueAnswerForms = function (
     list: readonly PerseusNumericInputAnswerForm[],
 ): PerseusNumericInputAnswerForm[] {
-    return list.reduce<PerseusNumericInputAnswerForm[]>(
-        (uniqueList, element) => {
-            // Check if the element is already in the list.
-            const inList = uniqueList.some((uniqueElement) =>
-                compareAnswerForms(element, uniqueElement),
-            );
-            // If it's in the list, return the list as is
-            if (inList) {
-                return uniqueList;
-            }
-            // If it's not in the list, add it.
-            return uniqueList.concat([element]);
-        },
-        [],
-    );
-};
-
-/**
- * This is a helper function to compare two answer forms
- * to see if they are identical. Given that the answer forms
- * are simple objects, we can just compare the properties.
- */
-const compareAnswerForms = function (
-    a: PerseusNumericInputAnswerForm,
-    b: PerseusNumericInputAnswerForm,
-): boolean {
-    return a.simplify === b.simplify && a.name === b.name;
+    // We use a Set to keep track of the forms we've already seen.
+    const foundForms = new Set<string>();
+    return list.filter((form) => {
+        // If we've already seen this form, skip it.
+        if (foundForms.has(form.name)) {
+            return false;
+        }
+        // Otherwise, add it to the set and return true.
+        foundForms.add(form.name);
+        return true;
+    });
 };
 
 /**
