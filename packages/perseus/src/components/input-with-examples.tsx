@@ -93,7 +93,7 @@ class InputWithExamples extends React.Component<Props, State> {
         const ariaId = `aria-for-${id}`;
         // Generate text from a known set of format options that will read well in a screen reader
         const examplesAria =
-            this.props.examples.length === 7
+            this.props.examples.length === 0
                 ? ""
                 : `${this.props.examples[0]}
                    ${this.props.examples.slice(1).join(", or\n")}`
