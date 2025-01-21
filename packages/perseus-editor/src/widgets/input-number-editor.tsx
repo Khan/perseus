@@ -1,4 +1,5 @@
 import {components, PerseusI18nContext, Util} from "@khanacademy/perseus";
+import {inputNumberAnswerTypes} from "@khanacademy/perseus-score";
 import * as React from "react";
 import _ from "underscore";
 
@@ -8,41 +9,6 @@ import type {ParsedValue} from "@khanacademy/perseus";
 import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
-
-const answerTypes = {
-    number: {
-        name: "Numbers",
-        forms: "integer, decimal, proper, improper, mixed",
-    },
-    decimal: {
-        name: "Decimals",
-        forms: "decimal",
-    },
-    integer: {
-        name: "Integers",
-        forms: "integer",
-    },
-    rational: {
-        name: "Fractions and mixed numbers",
-        forms: "integer, proper, improper, mixed",
-    },
-    improper: {
-        name: "Improper numbers (no mixed)",
-        forms: "integer, proper, improper",
-    },
-    mixed: {
-        name: "Mixed numbers (no improper)",
-        forms: "integer, proper, mixed",
-    },
-    percent: {
-        name: "Numbers or percents",
-        forms: "integer, decimal, proper, improper, mixed, percent",
-    },
-    pi: {
-        name: "Numbers with pi",
-        forms: "pi",
-    },
-} as const;
 
 type Props = {
     value: number;
@@ -121,7 +87,7 @@ class InputNumberEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         const answerTypeOptions = _.map(
-            answerTypes,
+            inputNumberAnswerTypes,
             function (v, k) {
                 return (
                     <option value={k} key={k}>

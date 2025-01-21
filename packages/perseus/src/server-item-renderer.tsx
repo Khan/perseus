@@ -26,7 +26,6 @@ import type {
     PerseusDependenciesV2,
     SharedRendererProps,
 } from "./types";
-import type {UserInputArray, UserInputMap} from "./validation.types";
 import type {
     GetPromptJSONInterface,
     RendererPromptJSON,
@@ -39,6 +38,7 @@ import type {
     RendererInterface,
     KEScore,
 } from "@khanacademy/perseus-core";
+import type {UserInputArray, UserInputMap} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type OwnProps = {

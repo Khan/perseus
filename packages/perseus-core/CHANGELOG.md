@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 3.2.0
+
+### Minor Changes
+
+-   [#2101](https://github.com/Khan/perseus/pull/2101) [`9cabe689a`](https://github.com/Khan/perseus/commit/9cabe689a7aa143f95adf4556bf5c10d654a66ae) Thanks [@handeyeco](https://github.com/handeyeco)! - Move scorers and validators to `perseus-score`
+
 ## 3.1.0
 
 ### Minor Changes
