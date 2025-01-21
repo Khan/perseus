@@ -73,19 +73,24 @@ function getDynamicStyles(
     color: string;
     borderRadius: number;
 } {
+    // TODO: Rewrite this logic into the Aphrodite styling (at the bottom of this document).
+    //       Make sure that stories exist that test all variations of this function.
+    //          Add stories if any are missing.
     let backgroundColor: string | undefined;
     let borderColor: string;
     let color: string;
-    if (!showCorrectness && pressed) {
+    if (!showCorrectness && (pressed || checked)) { // never show color changes while being pressed
         borderColor = WBColor.blue;
         color = WBColor.blue;
         backgroundColor = "transparent";
-    } else if (checked) {
-        const bg = showCorrectness && correct ? WBColor.green : WBColor.blue;
+    } else if (checked) { // not being pressed, option is checked
+        // first handle showCorrectness
+        // then handle correct/incorrect
+        const bg = correct ? WBColor.green : WBColor.red;
         color = styleConstants.white;
         backgroundColor = bg;
         borderColor = bg;
-    } else {
+    } else { // not checked, not being pressed
         borderColor = WBColor.offBlack64;
         color = WBColor.offBlack64;
     }
@@ -111,16 +116,16 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
         hovered,
         multipleSelect,
         pos,
-        previouslyAnswered,
+        previouslyAnswered, // Used in "review mode"/"show rationale" to show that option was previously chosen
         pressed,
     } = props;
 
     const dynamicStyles = getDynamicStyles(
-        checked,
-        showCorrectness,
-        pressed,
-        multipleSelect,
-        correct,
+        checked, // Learner selected the choice
+        showCorrectness, // Lets learner see if the choice is correct or not
+        pressed, // Is learner in the process of choosing option (aka mousedown)
+        multipleSelect, // Single-select are circles, multi-select are square
+        correct, // Choice is correct
     );
 
     return (
