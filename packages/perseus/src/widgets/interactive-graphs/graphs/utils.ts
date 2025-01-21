@@ -153,24 +153,28 @@ export function getCoordQuadrant(coord: Coord): GraphLocations {
     return 4;
 }
 
-export function getQuadraticVertexString(vertex: Coord): string {
+export function getQuadraticVertexString(
+    vertex: Coord,
+    strings: PerseusStrings,
+): string {
     const location = getCoordQuadrant(vertex);
 
     switch (location) {
         case "origin":
-            return "Its vertex is at the origin.";
+            return strings.srQuadraticGraphVertexOrigin;
         case "x-axis":
-            return "Its vertex is on the X-axis.";
+            return strings.srQuadraticGraphVertexXAxis;
         case "y-axis":
-            return "Its vertex is on the Y-axis.";
+            return strings.srQuadraticGraphVertexYAxis;
         default:
-            return `Its vertex is in quadrant ${location}.`;
+            return strings.srQuadraticGraphVertexQuadrant({quadrant: location});
     }
 }
 
 export function getQuadraticPointString(
     pointNumber,
     coord: Coord,
+    strings: PerseusStrings,
     locale: string,
 ): string {
     const location = getCoordQuadrant(coord);
@@ -178,12 +182,22 @@ export function getQuadraticPointString(
 
     switch (location) {
         case "origin":
-            return `Point ${pointNumber} on parabola at the origin.`;
+            return strings.srQuadraticPointOrigin({pointNumber: pointNumber});
         case "x-axis":
         case "y-axis":
-            return `Point ${pointNumber} on parabola at ${srFormatNumber(x, locale)} comma ${srFormatNumber(y, locale)}.`;
+            return strings.srQuadraticPointAxis({
+                pointNumber: pointNumber,
+                x: srFormatNumber(x, locale),
+                y: srFormatNumber(y, locale),
+            });
         default:
-            return `Point ${pointNumber} on parabola in quadrant ${location} at ${srFormatNumber(x, locale)} comma ${srFormatNumber(y, locale)}.`;
+            // return `Point ${pointNumber} on parabola in quadrant ${location} at ${srFormatNumber(x, locale)} comma ${srFormatNumber(y, locale)}.`;
+            return strings.srQuadraticPointQuadrant({
+                pointNumber: pointNumber,
+                quadrant: location,
+                x: srFormatNumber(x, locale),
+                y: srFormatNumber(y, locale),
+            });
     }
 }
 

@@ -331,9 +331,18 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expectLabelInDoc("Point 1 at -1 comma 1");
-        expectLabelInDoc("Point 2 at 0 comma 0");
-        expectLabelInDoc("Point 3 at 1 comma 1");
+        const points = screen.getAllByRole("button");
+        const [point1, point2, point3] = points;
+
+        expect(point1).toHaveAccessibleName(
+            "Point 1 on parabola in quadrant 2 at -1 comma 1.",
+        );
+        expect(point2).toHaveAccessibleName(
+            "Point 2 on parabola at the origin.",
+        );
+        expect(point3).toHaveAccessibleName(
+            "Point 3 on parabola in quadrant 1 at 1 comma 1.",
+        );
     });
 
     it("renders ARIA labels for each point (sinusoid)", () => {

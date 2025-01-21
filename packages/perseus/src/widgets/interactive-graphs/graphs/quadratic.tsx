@@ -15,7 +15,7 @@ import {
 } from "./utils";
 
 import type {I18nContextType} from "../../../components/i18n-context";
-import type {Coord} from "../../../perseus-types";
+import type {Coord} from "../../../interactive2/types";
 import type {
     QuadraticGraphState,
     MafsGraphProps,
@@ -81,7 +81,12 @@ function QuadraticGraph(props: QuadraticGraphProps) {
             {coords.map((coord, i) => (
                 <MovablePoint
                     key={"point-" + i}
-                    ariaLabel={getQuadraticPointString(i + 1, coord, locale)}
+                    ariaLabel={getQuadraticPointString(
+                        i + 1,
+                        coord,
+                        strings,
+                        locale,
+                    )}
                     point={coord}
                     sequenceNumber={i + 1}
                     onMove={(destination) =>
@@ -155,21 +160,31 @@ export function describeQuadraticGraph(
     const xIntercepts = getQuadraticXIntercepts(a, b, c);
 
     // Aria label strings
-    const srQuadraticGraph = "A parabola on a 4-quadrant coordinate plane.";
-    const srQuadraticFaceUp = `The parabola opens upward.`;
-    const srQuadraticFaceDown = `The parabola opens downward.`;
+    const srQuadraticGraph = strings.srQuadraticGraph;
+    const srQuadraticFaceUp = strings.srQuadraticFaceUp;
+    const srQuadraticFaceDown = strings.srQuadraticFaceDown;
     const srQuadraticDirection =
         a === 0 ? undefined : a > 0 ? srQuadraticFaceUp : srQuadraticFaceDown;
     // Only describe vertex if the quadratic graph is not a line.
+    // (Undefined means the quadratic graph is a line and has no vertex.)
     const srQuadraticVertex =
-        a !== 0 ? getQuadraticVertexString(vertex) : undefined;
+        a !== 0 ? getQuadraticVertexString(vertex, strings) : undefined;
+    // Undefined means the quadratic graph has no x-intercepts,
+    // such as when the graph is a horizontal line.
     const srQuadraticXIntercepts =
         xIntercepts.length === 2
-            ? `The X-intercepts are at ${srFormatNumber(xIntercepts[0], locale)} comma 0 and ${srFormatNumber(xIntercepts[1], locale)} comma 0.`
+            ? strings.srQuadraticTwoXIntercepts({
+                  intercept1: srFormatNumber(xIntercepts[0], locale),
+                  intercept2: srFormatNumber(xIntercepts[1], locale),
+              })
             : xIntercepts.length === 1
-              ? `The X-intercept is at ${srFormatNumber(xIntercepts[0], locale)} comma 0.`
+              ? strings.srQuadraticOneXIntercept({
+                    intercept: srFormatNumber(xIntercepts[0], locale),
+                })
               : undefined;
-    const srQuadraticYIntercept = `The Y-intercept is at 0 comma ${srFormatNumber(c, locale)}.`;
+    const srQuadraticYIntercept = strings.srQuadraticYIntercept({
+        intercept: srFormatNumber(c, locale),
+    });
 
     return {
         srQuadraticGraph,
