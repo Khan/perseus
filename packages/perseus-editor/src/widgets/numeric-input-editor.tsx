@@ -174,7 +174,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                 update,
             );
         }
-
+        // this is just a comment.
         let answers = [
             // Have to do this to remove the `readonly` state from the prop
             ...this.props.answers,
