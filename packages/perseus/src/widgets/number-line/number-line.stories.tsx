@@ -7,7 +7,7 @@ import TestKeypadContextWrapper from "../__shared__/test-keypad-context-wrapper"
 
 import {question1, question2} from "./number-line.testdata";
 
-import type {PerseusItem} from "../../perseus-types";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 
 export default {
     title: "Perseus/Widgets/Number Line",

@@ -1,4 +1,7 @@
-import {lockedFigureColors, lockedFigureFillStyles} from "@khanacademy/perseus";
+import {
+    lockedFigureColors,
+    lockedFigureFillStyles,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
@@ -7,7 +10,7 @@ import * as React from "react";
 import type {
     LockedFigureColor,
     LockedFigureFillType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 type Props = {
     color: LockedFigureColor;

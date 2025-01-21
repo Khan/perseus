@@ -1,11 +1,10 @@
 import * as KAS from "@khanacademy/kas";
+import {lockedFigureColors} from "@khanacademy/perseus-core";
 import {Plot} from "mafs";
 import * as React from "react";
 import {useState, useEffect} from "react";
 
-import {lockedFigureColors} from "../../../perseus-types";
-
-import type {LockedFunctionType} from "../../../perseus-types";
+import type {LockedFunctionType} from "@khanacademy/perseus-core";
 
 const LockedFunction = (props: LockedFunctionType) => {
     type Equation = {
@@ -40,6 +39,7 @@ const LockedFunction = (props: LockedFunctionType) => {
             className="locked-function"
             aria-label={hasAria ? props.ariaLabel : undefined}
             aria-hidden={!hasAria}
+            role="img"
         >
             {directionalAxis === "x" && (
                 <Plot.OfX y={(x) => equation.eval({x})} {...plotProps} />

@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import {join} from "path";
 
-import {parseAndTypecheckPerseusItem} from "../index";
+import {parseAndMigratePerseusItem} from "../index";
 
 const dataFiles = fs.readdirSync(join(__dirname, "data"));
 
@@ -11,7 +11,7 @@ describe("parseAndTypecheckPerseusItem", () => {
             join(__dirname, "data", filename),
             "utf-8",
         );
-        const result = parseAndTypecheckPerseusItem(json);
+        const result = parseAndMigratePerseusItem(json);
 
         // This strange-looking assertion style results in the failure message
         // being printed if parsing fails, so the test is easier to debug.

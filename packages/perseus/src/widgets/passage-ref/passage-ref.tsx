@@ -8,9 +8,9 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref
 import scoreNoop from "../__shared__/score-noop";
 import {isPassageWidget} from "../passage/utils";
 
-import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PassageRefPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
+import type {PerseusPassageRefWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const EN_DASH = "\u2013";

@@ -1,16 +1,19 @@
+import {angles, geometry} from "@khanacademy/kmath";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {vec} from "mafs";
 import * as React from "react";
 
-import {clockwise} from "../../../../util/geometry";
-import {getAngleFromVertex, segmentsIntersect} from "../../math";
+import {segmentsIntersect} from "../../math";
 import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
 import {TextLabel} from "./text-label";
 
-import type {CollinearTuple} from "../../../../perseus-types";
+import type {CollinearTuple} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
+
+const {clockwise} = geometry;
+const {getAngleFromVertex} = angles;
 
 interface PolygonAngleProps {
     centerPoint: vec.Vector2;

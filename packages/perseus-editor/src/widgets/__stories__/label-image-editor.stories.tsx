@@ -4,7 +4,7 @@ import * as React from "react";
 
 import LabelImageEditor from "../label-image-editor";
 
-import type {MarkerType} from "@khanacademy/perseus";
+import type {MarkerType} from "@khanacademy/perseus-core";
 
 type StoryArgs = Record<any, any>;
 

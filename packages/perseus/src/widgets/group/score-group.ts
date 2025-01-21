@@ -2,11 +2,11 @@ import {scoreWidgetsFunctional} from "../../renderer-util";
 import {flattenScores} from "../../util/scoring";
 
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "../../types";
 import type {
+    PerseusScore,
     PerseusGroupRubric,
     PerseusGroupUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 // The `group` widget is basically a widget hosting a full Perseus system in
 // it. As such, scoring a group means scoring all widgets it contains.

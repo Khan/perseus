@@ -17,7 +17,7 @@ import {
     withCoefficient,
 } from "./numeric-input.testdata";
 
-import type {PerseusNumericInputRubric} from "../../validation.types";
+import type {PerseusNumericInputRubric} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {

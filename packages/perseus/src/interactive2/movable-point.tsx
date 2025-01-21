@@ -50,7 +50,7 @@
  *     removes the point from graphie
  */
 import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {Errors, PerseusError, pluck} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -63,7 +63,6 @@ import Tex from "../util/tex";
 
 import InteractiveUtil from "./interactive-util";
 import MovablePointOptions from "./movable-point-options";
-import {pluck} from "./objective_";
 import WrappedEllipse from "./wrapped-ellipse";
 
 import type {Movable} from "./movable";

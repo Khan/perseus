@@ -3,7 +3,7 @@ import * as React from "react";
 
 import QuestionMarkers from "../question-markers";
 
-import type {MarkerType} from "@khanacademy/perseus";
+import type {MarkerType} from "@khanacademy/perseus-core";
 
 type StoryArgs = Record<any, any>;
 

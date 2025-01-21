@@ -13,8 +13,8 @@ import GraphUtils from "../util/graph-utils";
 import SvgImage from "./svg-image";
 
 import type {Coord} from "../interactive2/types";
-import type {PerseusImageBackground} from "../perseus-types";
 import type {GridDimensions} from "../util";
+import type {PerseusImageBackground} from "@khanacademy/perseus-core";
 
 const defaultBackgroundImage = {
     url: null,

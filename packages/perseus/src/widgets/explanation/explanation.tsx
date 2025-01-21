@@ -13,9 +13,9 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 import scoreNoop from "../__shared__/score-noop";
 
-import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
+import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
 

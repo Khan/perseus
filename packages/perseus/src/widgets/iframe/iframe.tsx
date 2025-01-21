@@ -7,6 +7,12 @@
  *  but could also be used for embedding viz's hosted elsewhere.
  */
 
+import {
+    scoreIframe,
+    type PerseusIFrameRubric,
+    type PerseusIFrameUserInput,
+    type UserInputStatus,
+} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
@@ -16,16 +22,9 @@ import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
 
-import {scoreIframe} from "./score-iframe";
-
-import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
-import type {
-    PerseusIFrameRubric,
-    PerseusIFrameUserInput,
-    UserInputStatus,
-} from "../../validation.types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {PerseusIFrameWidgetOptions} from "@khanacademy/perseus-core";
 
 const {updateQueryString} = Util;
 

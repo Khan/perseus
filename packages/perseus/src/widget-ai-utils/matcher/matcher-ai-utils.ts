@@ -1,5 +1,5 @@
-import type {PerseusMatcherUserInput} from "../../validation.types";
 import type matcher from "../../widgets/matcher/matcher";
+import type {PerseusMatcherUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
 
 export type MatcherPromptJSON = {

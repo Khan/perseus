@@ -5,7 +5,7 @@ import {
     type LockedPolygonType,
     type LockedFigureColor,
     type LockedLabelType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -34,6 +34,7 @@ import LockedLabelSettings from "./locked-label-settings";
 import PolygonSwatch from "./polygon-swatch";
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
@@ -74,7 +75,15 @@ const LockedPolygonSettings = (props: Props) => {
         let str = `Polygon${visiblelabel} with ${points.length} sides, vertices at `;
 
         // Add the coordinates of each point to the aria label
-        str += points.map(([x, y]) => `${x} comma ${y}`).join(", ");
+        const pointsList = await Promise.all(
+            points.map(async ([x, y]) => {
+                // Ensure negative values are read correctly within aria labels.
+                const spokenX = await generateSpokenMathDetails(`$${x}$`);
+                const spokenY = await generateSpokenMathDetails(`$${y}$`);
+                return `${spokenX} comma ${spokenY}`;
+            }),
+        );
+        str += pointsList.join(", ");
 
         const polygonAppearance = generateLockedFigureAppearanceDescription(
             color,

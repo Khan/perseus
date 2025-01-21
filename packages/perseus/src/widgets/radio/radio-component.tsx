@@ -1,4 +1,9 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {
+    scoreRadio,
+    type PerseusRadioRubric,
+    type PerseusRadioUserInput,
+} from "@khanacademy/perseus-score";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -8,20 +13,15 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio
 import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio";
-import scoreRadio from "./score-radio";
 
 import type {FocusFunction, ChoiceType} from "./base-radio";
+import type {WidgetProps, ChoiceState, Widget} from "../../types";
+import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
     ShowSolutions,
-} from "../../perseus-types";
-import type {WidgetProps, ChoiceState, Widget} from "../../types";
-import type {
-    PerseusRadioRubric,
-    PerseusRadioUserInput,
-} from "../../validation.types";
-import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
+} from "@khanacademy/perseus-core";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {
@@ -271,11 +271,7 @@ class Radio extends React.Component<Props> implements Widget {
     ) => void = (rubric) => {
         const {choiceStates} = this.props;
         if (choiceStates) {
-            const score = scoreRadio(
-                this.getUserInput(),
-                rubric,
-                this.context.strings,
-            );
+            const score = scoreRadio(this.getUserInput(), rubric);
             const widgetCorrect =
                 score.type === "points" && score.total === score.earned;
 

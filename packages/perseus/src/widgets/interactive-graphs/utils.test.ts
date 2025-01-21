@@ -6,7 +6,7 @@ import {
 } from "./utils";
 
 import type {Coord} from "../../interactive2/types";
-import type {GraphRange} from "../../perseus-types";
+import type {GraphRange} from "@khanacademy/perseus-core";
 
 describe("normalizePoints", () => {
     test("should normalize coordinates with snapping", () => {

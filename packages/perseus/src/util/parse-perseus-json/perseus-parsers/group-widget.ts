@@ -3,8 +3,8 @@ import {constant} from "../general-purpose-parsers";
 import {parsePerseusRenderer} from "./perseus-renderer";
 import {parseWidget} from "./widget";
 
-import type {GroupWidget} from "../../../perseus-types";
 import type {Parser} from "../parser-types";
+import type {GroupWidget} from "@khanacademy/perseus-core";
 
 export const parseGroupWidget: Parser<GroupWidget> = parseWidget(
     constant("group"),

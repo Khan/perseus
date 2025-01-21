@@ -16,8 +16,8 @@ import ArticleRenderer from "../article-renderer";
 import * as Dependencies from "../dependencies";
 import {ApiOptions} from "../perseus-api";
 
-import type {PerseusRenderer} from "../perseus-types";
 import type {APIOptions} from "../types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 function KeypadWithContext() {
     return (

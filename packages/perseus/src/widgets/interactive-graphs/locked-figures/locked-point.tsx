@@ -1,8 +1,10 @@
+import {
+    lockedFigureColors,
+    type LockedPointType,
+} from "@khanacademy/perseus-core";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Point} from "mafs";
 import * as React from "react";
-
-import {lockedFigureColors, type LockedPointType} from "../../../perseus-types";
 
 const LockedPoint = (props: LockedPointType) => {
     const {color, coord, filled, ariaLabel} = props;
@@ -15,6 +17,7 @@ const LockedPoint = (props: LockedPointType) => {
             className="locked-point"
             aria-label={hasAria ? ariaLabel : undefined}
             aria-hidden={!hasAria}
+            role="img"
         >
             <Point
                 x={x}
