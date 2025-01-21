@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 51.0.1
+
+### Patch Changes
+
+-   [#2131](https://github.com/Khan/perseus/pull/2131) [`cb15921b8`](https://github.com/Khan/perseus/commit/cb15921b8bdfd850c40610b4df5c9919a668a2a1) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix localized string templates for two the ray interactive graph type
+
 ## 51.0.0
 
 ### Major Changes
