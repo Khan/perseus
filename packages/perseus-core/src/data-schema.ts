@@ -1164,7 +1164,7 @@ export type MathFormat =
     | "pi";
 
 export type PerseusNumericInputAnswerForm = {
-    simplify: PerseusNumericInputSimplify;
+    simplify: PerseusNumericInputSimplify | null | undefined;
     name: MathFormat;
 };
 
@@ -1172,9 +1172,7 @@ export type PerseusNumericInputSimplify =
     | "required"
     | "correct"
     | "enforced"
-    | "optional"
-    | null
-    | undefined;
+    | "optional";
 
 export type PerseusNumericInputWidgetOptions = {
     // A list of all the possible correct and incorrect answers
@@ -1212,7 +1210,7 @@ export type PerseusNumericInputAnswer = {
     // NOTE: perseus_data.go says this is non-nullable even though we handle null values.
     maxError: number | null | undefined;
     // Unsimplified answers are Ungraded, Accepted, or Wrong. Options: "required", "correct", or "enforced"
-    simplify: PerseusNumericInputSimplify;
+    simplify: PerseusNumericInputSimplify | null | undefined;
 };
 
 export type PerseusNumberLineWidgetOptions = {

@@ -1,6 +1,7 @@
+import {mockStrings} from "../../strings";
+
 import {generateExamples, shouldShowExamples, unionAnswerForms} from "./utils";
 
-import type {PerseusStrings} from "../../strings";
 import type {PerseusNumericInputAnswerForm} from "@khanacademy/perseus-core";
 
 describe("generateExamples", () => {
@@ -16,23 +17,15 @@ describe("generateExamples", () => {
                 simplify: "required",
             },
         ];
-        const fakePerseusStrings: Partial<PerseusStrings> = {
-            yourAnswer: "Your answer",
-            integerExample: "Integer example",
-            properExample: "Proper example",
-            simplifiedProperExample: "Simplified proper example",
-        };
+
         const expected = [
-            "Your answer",
-            "Integer example",
-            "Simplified proper example",
+            "**Your answer should be** ",
+            "an integer, like $6$",
+            "a *simplified proper* fraction, like $3/5$",
         ];
 
         // Act
-        const result = generateExamples(
-            answerForms,
-            fakePerseusStrings as PerseusStrings,
-        );
+        const result = generateExamples(answerForms, mockStrings);
 
         // Assert
         expect(result).toEqual(expected);
@@ -54,23 +47,15 @@ describe("generateExamples", () => {
                 simplify: "required",
             },
         ];
-        const fakePerseusStrings: Partial<PerseusStrings> = {
-            yourAnswer: "Your answer",
-            integerExample: "Integer example",
-            properExample: "Proper example",
-            simplifiedProperExample: "Simplified proper example",
-        };
+
         const expected = [
-            "Your answer",
-            "Integer example",
-            "Simplified proper example",
+            "**Your answer should be** ",
+            "an integer, like $6$",
+            "a *simplified proper* fraction, like $3/5$",
         ];
 
         // Act
-        const result = generateExamples(
-            answerForms,
-            fakePerseusStrings as PerseusStrings,
-        );
+        const result = generateExamples(answerForms, mockStrings);
 
         // Assert
         expect(result).toEqual(expected);
@@ -79,19 +64,11 @@ describe("generateExamples", () => {
     it("returns an empty array if no answer forms are provided", () => {
         // Arrange
         const answerForms: readonly PerseusNumericInputAnswerForm[] = [];
-        const fakePerseusStrings: Partial<PerseusStrings> = {
-            yourAnswer: "Your answer",
-            integerExample: "Integer example",
-            properExample: "Proper example",
-            simplifiedProperExample: "Simplified proper example",
-        };
+
         const expected = [];
 
         // Act
-        const result = generateExamples(
-            answerForms,
-            fakePerseusStrings as PerseusStrings,
-        );
+        const result = generateExamples(answerForms, mockStrings);
 
         // Assert
         expect(result).toEqual(expected);

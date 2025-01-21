@@ -169,7 +169,9 @@ type RenderProps = {
 const propsTransform = function (
     widgetOptions: PerseusNumericInputWidgetOptions,
 ): RenderProps {
-    const rendererProps: RenderProps & {answers?: any} = {
+    // Omit the answers from the widget options since they are
+    // not needed for rendering the widget.
+    const {answers: _, ...rendererProps} = {
         ...widgetOptions,
         answerForms: unionAnswerForms(
             widgetOptions.answers.map((answer) => {
@@ -183,7 +185,6 @@ const propsTransform = function (
         ),
     };
 
-    delete rendererProps.answers;
     return rendererProps;
 };
 
