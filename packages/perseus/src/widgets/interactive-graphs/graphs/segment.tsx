@@ -128,6 +128,12 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
                                 segment[1][Y],
                                 i + 1,
                             ),
+                            grabHandleAriaLabel: strings.srSegmentGrabHandle({
+                                point1X: srFormatNumber(segment[0][X], locale),
+                                point1Y: srFormatNumber(segment[0][Y], locale),
+                                point2X: srFormatNumber(segment[1][X], locale),
+                                point2Y: srFormatNumber(segment[1][Y], locale),
+                            }),
                         }}
                     />
                 </g>

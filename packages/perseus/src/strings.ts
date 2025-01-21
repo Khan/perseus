@@ -301,6 +301,17 @@ export type PerseusStrings = {
         y: string;
         indexOfSegment: number;
     }) => string;
+    srSegmentGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
     srLinearSystemGraph: string;
     srLinearSystemPoints: ({
         lineNumber,
@@ -575,6 +586,8 @@ export const strings = {
         "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
     srMultipleSegmentGraphEndpointAriaLabel:
         "Endpoint %(endpointNumber)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
+    srSegmentGrabHandle:
+        "Segment from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
     srLinearSystemGraph: "Two lines on a coordinate plane.",
     srLinearSystemPoints:
         "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
@@ -830,6 +843,8 @@ export const mockStrings: PerseusStrings = {
         indexOfSegment,
     }) =>
         `Endpoint ${endpointNumber} on segment ${indexOfSegment} at ${x} comma ${y}.`,
+    srSegmentGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Segment from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
     srLinearSystemGraph: "Two lines on a coordinate plane.",
     srLinearSystemPoints: ({lineNumber, point1X, point1Y, point2X, point2Y}) =>
         `Line ${lineNumber} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
