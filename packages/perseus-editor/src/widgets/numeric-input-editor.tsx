@@ -18,52 +18,16 @@ import Heading from "../components/heading";
 import PerseusEditorAccordion from "../components/perseus-editor-accordion";
 import Editor from "../editor";
 
+import type {MathFormat, PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {PillSize} from "@khanacademy/wonder-blocks-pill/dist/components/pill";
+import type {PillSize, PillKind} from "@khanacademy/wonder-blocks-pill/dist/components/pill";
+import type { ClickableRole } from "@khanacademy/wonder-blocks-clickable";
+import type { StyleType } from "@khanacademy/wonder-blocks-core";
 
 type ChangeFn = typeof Changeable.change;
 
 const {InfoTip, NumberInput, TextInput} = components;
 const {firstNumericalParse} = Util;
-
-// NOTE(john): Copied from perseus-types.d.ts in the Perseus package.
-// I'm unable to find a good way of importing these types into this project.
-type MathFormat =
-    | "integer"
-    | "mixed"
-    | "improper"
-    | "proper"
-    | "decimal"
-    | "percent"
-    | "pi";
-type PerseusNumericInputAnswerForm = {
-    simplify:
-        | "required"
-        | "correct"
-        | "enforced"
-        | "optional"
-        | null
-        | undefined;
-    name: MathFormat;
-};
-type PerseusNumericInputAnswer = {
-    message: string;
-    value: number;
-    status: string;
-    answerForms?: ReadonlyArray<MathFormat>;
-    strict: boolean;
-    maxError: number | null | undefined;
-    simplify: string | null | undefined;
-};
-type PerseusNumericInputWidgetOptions = {
-    answers: ReadonlyArray<PerseusNumericInputAnswer>;
-    labelText: string;
-    size: string;
-    coefficient: boolean;
-    rightAlign?: boolean;
-    static?: boolean;
-    answerForms?: ReadonlyArray<PerseusNumericInputAnswerForm>;
-};
 
 const answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
@@ -121,7 +85,7 @@ class NumericInputEditor extends React.Component<Props, State> {
         super(props);
         this.state = {
             lastStatus: "wrong",
-            showAnswerDetails: _.map(this.props.answers, () => true),
+            showAnswerDetails: Array(this.props.answers.length).fill(true),
             showSettings: true,
             showAnswers: true,
         };
@@ -180,7 +144,7 @@ class NumericInputEditor extends React.Component<Props, State> {
     onStatusChange = (choiceIndex) => {
         const statuses = ["wrong", "ungraded", "correct"];
         const answers = this.props.answers;
-        const i = _.indexOf(statuses, answers[choiceIndex].status);
+        const i = statuses.indexOf(answers[choiceIndex].status);
         const newStatus = statuses[(i + 1) % statuses.length];
 
         this.updateAnswer(choiceIndex, {
@@ -264,6 +228,11 @@ class NumericInputEditor extends React.Component<Props, State> {
 
     render() {
         const answers = this.props.answers;
+        const commonOptionProps: {size: PillSize, role: ClickableRole, style: StyleType} = {
+            size: "medium",
+            role: "radio",
+            style: {marginRight: "8px"},
+        }
 
         const SettingOption = (props: {
             kind: "accent" | "transparent";
@@ -273,16 +242,12 @@ class NumericInputEditor extends React.Component<Props, State> {
             children: any;
         }): React.ReactElement => {
             const {kind, onClick, ariaLabel, children} = props;
-            const style = {
-                marginRight: "8px",
-            };
             const role = props.role ?? "radio";
             const pillProps = {
+                ...commonOptionProps,
                 "aria-label": ariaLabel,
-                kind: kind,
-                size: "medium" as PillSize,
-                role: role,
-                style: style,
+                kind: kind satisfies PillKind,
+                role: role satisfies ClickableRole,
                 onClick: onClick,
             };
             return <Pill {...pillProps}>{children}</Pill>;
@@ -330,7 +295,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                         <span className="tooltip-for-legend">
                             <InfoTip>
                                 <p>
-                                    Normally select &quot;ungraded&quot;. This
+                                    Normally select "ungraded". This
                                     will give the user a message saying the
                                     answer is correct but not simplified. The
                                     user will then have to simplify it and
@@ -338,12 +303,12 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     grade and after)
                                 </p>
                                 <p>
-                                    Select &quot;accepted&quot; only if the user
+                                    Select "accepted" only if the user
                                     is not expected to know how to simplify
                                     fractions yet. (Anything prior to 5th grade)
                                 </p>
                                 <p>
-                                    Select &quot;wrong&quot; <em>only</em> if we
+                                    Select "wrong" <em>only</em> if we
                                     are specifically assessing the ability to
                                     simplify.
                                 </p>
@@ -379,17 +344,17 @@ class NumericInputEditor extends React.Component<Props, State> {
         const suggestedAnswerTypes = (i: any) => (
             <>
                 <div className="perseus-widget-row">
-                    <label>Possible answer formats</label>
+                    <label>Possible answer formats&ensp;</label>
                     <InfoTip>
                         <p>
                             Formats will be autoselected for you based on the
                             given answer; to show no suggested formats and
                             accept all types, simply have a decimal/integer be
                             the answer. Values with &pi; will have format
-                            &quot;pi&quot;, and values that are fractions will
-                            have some subset (mixed will be &quot;mixed&quot;
-                            and &quot;proper&quot;; improper/proper will both be
-                            &quot;improper&quot; and &quot;proper&quot;). If you
+                            "pi", and values that are fractions will
+                            have some subset (mixed will be "mixed"
+                            and "proper"; improper/proper will both be
+                            "improper" and "proper"). If you
                             would like to specify that it is only a proper
                             fraction (or only a mixed/improper fraction),
                             deselect the other format. Except for specific
@@ -399,7 +364,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                         <p>
                             To restrict the answer to <em>only</em> an improper
                             fraction (i.e. 7/4), select the improper fraction
-                            and toggle &quot;strict&quot; to true. This{" "}
+                            and toggle "strict" to true. This{" "}
                             <b>will not</b> accept 1.75 as an answer.{" "}
                         </p>
                         <p>
@@ -454,14 +419,10 @@ class NumericInputEditor extends React.Component<Props, State> {
             <fieldset className="perseus-widget-row">
                 <legend className="inline-options">Width: </legend>
                 <Pill
+                    {...commonOptionProps}
                     kind={
                         this.props.size === "normal" ? "accent" : "transparent"
                     }
-                    size="medium"
-                    role="radio"
-                    style={{
-                        marginRight: "8px",
-                    }}
                     onClick={() => {
                         this.change("size")("normal");
                     }}
@@ -469,14 +430,10 @@ class NumericInputEditor extends React.Component<Props, State> {
                     Normal (80px)
                 </Pill>
                 <Pill
+                    {...commonOptionProps}
                     kind={
                         this.props.size === "small" ? "accent" : "transparent"
                     }
-                    size="medium"
-                    role="radio"
-                    style={{
-                        marginRight: "8px",
-                    }}
                     onClick={() => {
                         this.change("size")("small");
                     }}
@@ -485,7 +442,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                 </Pill>
                 <InfoTip>
                     <p>
-                        Use size &quot;Normal&quot; for all text boxes, unless
+                        Use size "Normal" for all text boxes, unless
                         there are multiple text boxes in one line and the answer
                         area is too narrow to fit them.
                     </p>
@@ -497,12 +454,8 @@ class NumericInputEditor extends React.Component<Props, State> {
             <fieldset className="perseus-widget-row">
                 <legend className="inline-options">Alignment: </legend>
                 <Pill
+                    {...commonOptionProps}
                     kind={this.props.rightAlign ? "transparent" : "accent"}
-                    size="medium"
-                    role="radio"
-                    style={{
-                        marginRight: "8px",
-                    }}
                     onClick={() => {
                         this.props.onChange({rightAlign: false});
                     }}
@@ -510,12 +463,8 @@ class NumericInputEditor extends React.Component<Props, State> {
                     Left
                 </Pill>
                 <Pill
+                    {...commonOptionProps}
                     kind={this.props.rightAlign ? "accent" : "transparent"}
-                    size="medium"
-                    role="radio"
-                    style={{
-                        marginRight: "8px",
-                    }}
                     onClick={() => {
                         this.props.onChange({rightAlign: true});
                     }}
@@ -548,12 +497,8 @@ class NumericInputEditor extends React.Component<Props, State> {
             <fieldset className="perseus-widget-row">
                 <legend className="inline-options">Number style: </legend>
                 <Pill
+                    {...commonOptionProps}
                     kind={this.props.coefficient ? "transparent" : "accent"}
-                    size="medium"
-                    role="radio"
-                    style={{
-                        marginRight: "8px",
-                    }}
                     onClick={() => {
                         this.props.onChange({coefficient: false});
                     }}
@@ -561,12 +506,8 @@ class NumericInputEditor extends React.Component<Props, State> {
                     Standard
                 </Pill>
                 <Pill
+                    {...commonOptionProps}
                     kind={this.props.coefficient ? "accent" : "transparent"}
-                    size="medium"
-                    role="radio"
-                    style={{
-                        marginRight: "8px",
-                    }}
                     onClick={() => {
                         this.props.onChange({coefficient: true});
                     }}
