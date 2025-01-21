@@ -42,14 +42,12 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     }
 
     const wholeSegmentGraphAriaLabel = getWholeSegmentGraphAriaLabel();
-    // STRING FOR THIS SHOULD BE UPDATED PRIOR TO BEING TRANSLATED
-    const individualSegmentAriaLabel = strings.srIndividualSegmentAriaLabel;
 
-    function getIndividualSegmentAriaDescription(
+    function getIndividualSegmentAriaLabel(
         segment: PairOfPoints,
         index: number,
     ) {
-        return strings.srIndividualSegmentAriaDescription({
+        return strings.srIndividualSegmentAriaLabel({
             point1X: srFormatNumber(segment[0][X], locale),
             point1Y: srFormatNumber(segment[0][Y], locale),
             point2X: srFormatNumber(segment[1][X], locale),
@@ -63,8 +61,7 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
         let description = `${wholeSegmentGraphAriaLabel} `;
 
         segments.forEach((segment, index) => {
-            description +=
-                getIndividualSegmentAriaDescription(segment, index) + " ";
+            description += getIndividualSegmentAriaLabel(segment, index) + " ";
         });
 
         return description;
@@ -97,8 +94,7 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
         >
             {segments?.map((segment, i) => (
                 <g
-                    aria-label={individualSegmentAriaLabel}
-                    aria-describedby={`segment-description-${segmentUniqueId}-${i}`}
+                    aria-label={getIndividualSegmentAriaLabel(segment, i)}
                     key={`${segmentUniqueId}-${i}`}
                 >
                     <MovableLine
@@ -134,12 +130,6 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
                             ),
                         }}
                     />
-                    <g
-                        id={`segment-description-${segmentUniqueId}-${i}`}
-                        style={{display: "hidden"}}
-                    >
-                        {getIndividualSegmentAriaDescription(segment, i)}
-                    </g>
                 </g>
             ))}
             <g
