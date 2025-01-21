@@ -102,7 +102,7 @@ export type MakeWidgetMap<TRegistry> = {
  * `PerseusWidgets` with the one defined below.
  *
  * ```typescript
- * declare module "@khanacademy/perseus" {
+ * declare module "@khanacademy/perseus-core" {
  *     interface PerseusWidgetTypes {
  *         // A new widget
  *         "new-awesomeness": MyAwesomeNewWidget;
@@ -144,7 +144,6 @@ export interface PerseusWidgetTypes {
     matcher: MatcherWidget;
     matrix: MatrixWidget;
     measurer: MeasurerWidget;
-    "mock-widget": MockWidget;
     "molecule-renderer": MoleculeRendererWidget;
     "number-line": NumberLineWidget;
     "numeric-input": NumericInputWidget;
@@ -180,6 +179,18 @@ export interface PerseusWidgetTypes {
  * by augmenting the PerseusWidgetTypes with new widget types!
  */
 export type PerseusWidgetsMap = MakeWidgetMap<PerseusWidgetTypes>;
+
+/**
+ * PerseusWidget is a union of all the different types of widget options that
+ * Perseus knows about.
+ *
+ * Thanks to it being based on PerseusWidgetTypes interface, this union is
+ * automatically extended to include widgets used in tests without those widget
+ * option types seeping into our production types.
+ *
+ * @see MockWidget for an example
+ */
+export type PerseusWidget = PerseusWidgetTypes[keyof PerseusWidgetTypes];
 
 /**
  * A "PerseusItem" is a classic Perseus item. It is rendered by the
@@ -346,8 +357,6 @@ export type MatrixWidget = WidgetOptions<'matrix', PerseusMatrixWidgetOptions>;
 // prettier-ignore
 export type MeasurerWidget = WidgetOptions<'measurer', PerseusMeasurerWidgetOptions>;
 // prettier-ignore
-export type MockWidget = WidgetOptions<'mock-widget', MockWidgetOptions>;
-// prettier-ignore
 export type NumberLineWidget = WidgetOptions<'number-line', PerseusNumberLineWidgetOptions>;
 // prettier-ignore
 export type NumericInputWidget = WidgetOptions<'numeric-input', PerseusNumericInputWidgetOptions>;
@@ -379,43 +388,6 @@ export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassage
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
 export type DeprecatedStandinWidget = WidgetOptions<'deprecated-standin', object>;
-
-export type PerseusWidget =
-    | CategorizerWidget
-    | CSProgramWidget
-    | DefinitionWidget
-    | DropdownWidget
-    | ExplanationWidget
-    | ExpressionWidget
-    | GradedGroupSetWidget
-    | GradedGroupWidget
-    | GrapherWidget
-    | GroupWidget
-    | IFrameWidget
-    | ImageWidget
-    | InputNumberWidget
-    | InteractionWidget
-    | InteractiveGraphWidget
-    | LabelImageWidget
-    | MatcherWidget
-    | MatrixWidget
-    | MeasurerWidget
-    | MockWidget
-    | MoleculeRendererWidget
-    | NumberLineWidget
-    | NumericInputWidget
-    | OrdererWidget
-    | PassageRefWidget
-    | PassageWidget
-    | PhetSimulationWidget
-    | PlotterWidget
-    | PythonProgramWidget
-    | RadioWidget
-    | RefTargetWidget
-    | SorterWidget
-    | TableWidget
-    | VideoWidget
-    | DeprecatedStandinWidget;
 
 /**
  * A background image applied to various widgets.
@@ -1718,11 +1690,6 @@ export type PerseusPhetSimulationWidgetOptions = {
 export type PerseusVideoWidgetOptions = {
     location: string;
     static?: boolean;
-};
-
-export type MockWidgetOptions = {
-    static?: boolean;
-    value: string;
 };
 
 export type PerseusInputNumberWidgetOptions = {

@@ -1,6 +1,6 @@
 import {getPromptJSON} from "./prompt-utils";
 
-import type {PerseusMockWidgetUserInput} from "../../widgets/mock-widgets/mock-widget";
+import type {PerseusMockWidgetUserInput} from "../../widgets/mock-widgets/mock-widget-types";
 
 describe("InputNumber getPromptJSON", () => {
     it("it returns JSON with the expected format and fields", () => {
