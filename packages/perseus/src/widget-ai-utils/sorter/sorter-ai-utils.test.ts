@@ -1,6 +1,6 @@
 import {getPromptJSON} from "./sorter-ai-utils";
 
-import type {PerseusSorterUserInput} from "../../validation.types";
+import type {PerseusSorterUserInput} from "@khanacademy/perseus-score";
 
 describe("Sorter AI utils", () => {
     it("it returns JSON with the expected format and fields", () => {

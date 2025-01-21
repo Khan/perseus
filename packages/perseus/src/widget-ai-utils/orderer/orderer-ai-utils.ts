@@ -1,5 +1,5 @@
-import type {PerseusOrdererUserInput} from "../../validation.types";
 import type orderer from "../../widgets/orderer/orderer";
+import type {PerseusOrdererUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
 
 export type OrdererPromptJSON = {

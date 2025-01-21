@@ -5,11 +5,11 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./input-number-ai-utils";
 
-import type {PerseusInputNumberUserInput} from "../../validation.types";
 import type {
     InputNumberWidget,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import type {PerseusInputNumberUserInput} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
 const question: PerseusRenderer = {

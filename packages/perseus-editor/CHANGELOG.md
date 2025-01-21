@@ -1,5 +1,32 @@
 # @khanacademy/perseus-editor
 
+## 17.3.2
+
+### Patch Changes
+
+-   Updated dependencies [[`cb15921b8`](https://github.com/Khan/perseus/commit/cb15921b8bdfd850c40610b4df5c9919a668a2a1)]:
+    -   @khanacademy/perseus@51.0.1
+
+## 17.3.1
+
+### Patch Changes
+
+-   [#2101](https://github.com/Khan/perseus/pull/2101) [`9cabe689a`](https://github.com/Khan/perseus/commit/9cabe689a7aa143f95adf4556bf5c10d654a66ae) Thanks [@handeyeco](https://github.com/handeyeco)! - Move scorers and validators to `perseus-score`
+
+*   [#2126](https://github.com/Khan/perseus/pull/2126) [`518b005f2`](https://github.com/Khan/perseus/commit/518b005f2b0b9a173dec6526a7b5c808062fe144) Thanks [@benchristel](https://github.com/benchristel)! - Fix a React warning about non-unique component keys in the exercise editor.
+
+-   [#2109](https://github.com/Khan/perseus/pull/2109) [`41ffd4a71`](https://github.com/Khan/perseus/commit/41ffd4a71673399657d7024c206af4fa4e0be267) Thanks [@dependabot](https://github.com/apps/dependabot)! - Updating our wonder-blocks packages with the latest versions.
+
+-   Updated dependencies [[`165305e11`](https://github.com/Khan/perseus/commit/165305e11c5ba196e1a2a9c4fd814d387d34dc55), [`6f2813cfc`](https://github.com/Khan/perseus/commit/6f2813cfcb6bce063d8f0f8f66219ce0123aac66), [`faccc2d59`](https://github.com/Khan/perseus/commit/faccc2d5959a4a7051720f7a3dfe4a4875b6ace9), [`9cabe689a`](https://github.com/Khan/perseus/commit/9cabe689a7aa143f95adf4556bf5c10d654a66ae), [`d96821e08`](https://github.com/Khan/perseus/commit/d96821e08b3f80eb0a277882f4a8a40330b27adc), [`0f8d11c0b`](https://github.com/Khan/perseus/commit/0f8d11c0b8c00a10eb49f2d84b664803c5c83f3f), [`41ffd4a71`](https://github.com/Khan/perseus/commit/41ffd4a71673399657d7024c206af4fa4e0be267)]:
+    -   @khanacademy/perseus@51.0.0
+    -   @khanacademy/kmath@0.3.0
+    -   @khanacademy/perseus-core@3.2.0
+    -   @khanacademy/perseus-score@1.1.0
+    -   @khanacademy/math-input@22.2.1
+    -   @khanacademy/kas@0.4.11
+    -   @khanacademy/keypad-context@1.0.14
+    -   @khanacademy/pure-markdown@0.3.22
+
 ## 17.3.0
 
 ### Minor Changes
