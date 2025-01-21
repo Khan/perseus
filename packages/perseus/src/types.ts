@@ -213,7 +213,7 @@ export const MafsGraphTypeFlags = [
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
- * @see APIOptionsWithDefaults
+ * @see {@link APIOptionsWithDefaults}
  */
 export type APIOptions = Readonly<{
     isArticle?: boolean;

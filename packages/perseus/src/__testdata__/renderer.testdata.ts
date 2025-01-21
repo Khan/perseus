@@ -1,9 +1,9 @@
+import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
 import type {RenderProps} from "../widgets/radio";
 import type {
     DropdownWidget,
     ExpressionWidget,
     ImageWidget,
-    MockWidget,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
