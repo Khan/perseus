@@ -2,6 +2,7 @@ import {point as kpoint} from "@khanacademy/kmath";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
+import a11y from "../../../util/a11y";
 import {X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 
@@ -33,6 +34,9 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     const {coords: segments} = graphState;
     const {strings, locale} = usePerseusI18n();
     const segmentUniqueId = React.useId();
+    const lengthDescriptionId = segmentUniqueId + "-length";
+    const wholeGraphDescriptionId = segmentUniqueId + "-whole-graph";
+
     function getWholeSegmentGraphAriaLabel(): string {
         return segments?.length > 1
             ? strings.srMultipleSegmentGraphAriaLabel({
@@ -52,7 +56,6 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
             point1Y: srFormatNumber(segment[0][Y], locale),
             point2X: srFormatNumber(segment[1][X], locale),
             point2Y: srFormatNumber(segment[1][Y], locale),
-            length: srFormatNumber(getLengthOfSegment(segment), locale),
             indexOfSegment: index + 1,
         });
     }
@@ -90,11 +93,12 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     return (
         <g
             aria-label={wholeSegmentGraphAriaLabel}
-            aria-describedby={`wholeSegmentGraphAriaDescription-${segmentUniqueId}`}
+            aria-describedby={wholeGraphDescriptionId}
         >
             {segments?.map((segment, i) => (
                 <g
                     aria-label={getIndividualSegmentAriaLabel(segment, i)}
+                    aria-describedby={lengthDescriptionId}
                     key={`${segmentUniqueId}-${i}`}
                 >
                     <MovableLine
@@ -136,12 +140,17 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
                             }),
                         }}
                     />
+                    <g id={lengthDescriptionId} style={a11y.srOnly}>
+                        {strings.srSegmentLength({
+                            length: srFormatNumber(
+                                getLengthOfSegment(segment),
+                                locale,
+                            ),
+                        })}
+                    </g>
                 </g>
             ))}
-            <g
-                style={{display: "hidden"}}
-                id={`wholeSegmentGraphAriaDescription-${segmentUniqueId}`}
-            >
+            <g style={a11y.srOnly} id={wholeGraphDescriptionId}>
                 {getWholeSegmentGraphAriaDescription()}
             </g>
         </g>

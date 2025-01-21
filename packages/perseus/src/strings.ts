@@ -271,16 +271,15 @@ export type PerseusStrings = {
         point1Y,
         point2X,
         point2Y,
-        length,
         indexOfSegment,
     }: {
         point1X: string;
         point1Y: string;
         point2X: string;
         point2Y: string;
-        length: string;
         indexOfSegment: number;
     }) => string;
+    srSegmentLength: ({length}: {length: string}) => string;
     srSingleSegmentGraphEndpointAriaLabel: ({
         endpointNumber,
         x,
@@ -581,7 +580,8 @@ export const strings = {
     srMultipleSegmentGraphAriaLabel:
         "%(countOfSegments)s segments on a coordinate plane.",
     srIndividualSegmentAriaLabel:
-        "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s. Segment length %(length)s units.",
+        "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+    srSegmentLength: "Segment length %(length)s units.",
     srSingleSegmentGraphEndpointAriaLabel:
         "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
     srMultipleSegmentGraphEndpointAriaLabel:
@@ -830,10 +830,10 @@ export const mockStrings: PerseusStrings = {
         point1Y,
         point2X,
         point2Y,
-        length,
         indexOfSegment,
     }) =>
         `Segment ${indexOfSegment}: Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}. Segment length ${length} units.`,
+    srSegmentLength: ({length}) => `Segment length ${length} units.`,
     srSingleSegmentGraphEndpointAriaLabel: ({endpointNumber, x, y}) =>
         `Endpoint ${endpointNumber} at ${x} comma ${y}.`,
     srMultipleSegmentGraphEndpointAriaLabel: ({
