@@ -8,12 +8,12 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/mock-widget
 import scoreMockWidget from "./score-mock-widget";
 
 import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
+import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
+import type {MockWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusMockWidgetRubric,
     PerseusMockWidgetUserInput,
-} from "../../validation.types";
-import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
-import type {MockWidgetOptions} from "@khanacademy/perseus-core";
+} from "@khanacademy/perseus-score";
 
 type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetRubric>;
 

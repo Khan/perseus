@@ -29,15 +29,17 @@ import GradedGroupAnswerBar from "./graded-group-answer-bar";
 import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
 import type {
     FocusPath,
-    PerseusScore,
     TrackingGradedGroupExtraArguments,
     Widget,
     WidgetExports,
     WidgetProps,
 } from "../../types";
-import type {PerseusGradedGroupRubric} from "../../validation.types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 import type {PerseusGradedGroupWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusGradedGroupRubric,
+    PerseusScore,
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const GRADING_STATUSES = {

@@ -1,5 +1,17 @@
 # @khanacademy/math-input
 
+## 22.2.1
+
+### Patch Changes
+
+-   [#2101](https://github.com/Khan/perseus/pull/2101) [`9cabe689a`](https://github.com/Khan/perseus/commit/9cabe689a7aa143f95adf4556bf5c10d654a66ae) Thanks [@handeyeco](https://github.com/handeyeco)! - Move scorers and validators to `perseus-score`
+
+*   [#2109](https://github.com/Khan/perseus/pull/2109) [`41ffd4a71`](https://github.com/Khan/perseus/commit/41ffd4a71673399657d7024c206af4fa4e0be267) Thanks [@dependabot](https://github.com/apps/dependabot)! - Updating our wonder-blocks packages with the latest versions.
+
+*   Updated dependencies [[`9cabe689a`](https://github.com/Khan/perseus/commit/9cabe689a7aa143f95adf4556bf5c10d654a66ae)]:
+    -   @khanacademy/perseus-core@3.2.0
+    -   @khanacademy/keypad-context@1.0.14
+
 ## 22.2.0
 
 ### Minor Changes

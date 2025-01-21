@@ -1,6 +1,6 @@
 // Ok here we are
 
-import type {PerseusScore} from "../../packages/perseus/src/types";
+import type {PerseusScore} from "../../packages/perseus-score/src/validation.types";
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
