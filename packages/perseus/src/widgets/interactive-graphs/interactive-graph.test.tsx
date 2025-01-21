@@ -34,6 +34,7 @@ import {
     linearQuestionWithDefaultCorrect,
     linearSystemQuestion,
     linearSystemQuestionWithDefaultCorrect,
+    noneQuestion,
     pointQuestion,
     pointQuestionWithDefaultCorrect,
     polygonQuestion,
@@ -1382,7 +1383,7 @@ describe("Interactive Graph", function () {
 
         it("should not have an aria-label or description if they are not provided", async () => {
             // Arrange
-            const {container} = renderQuestion(segmentQuestion, apiOptions);
+            const {container} = renderQuestion(noneQuestion, apiOptions);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access

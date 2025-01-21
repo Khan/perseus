@@ -9,6 +9,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import {MovableLine} from "./components/movable-line";
 import {srFormatNumber} from "./screenreader-text";
 
+import type {I18nContextType} from "../../../components/i18n-context";
 import type {
     Dispatch,
     InteractiveGraphElementSuite,
@@ -24,7 +25,9 @@ export function renderSegmentGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <SegmentGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: null,
+        interactiveElementsDescription: (
+            <SegmentGraphDescription state={state} />
+        ),
     };
 }
 
@@ -51,7 +54,16 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
         segment: PairOfPoints,
         index: number,
     ) {
-        return strings.srIndividualSegmentAriaLabel({
+        if (segments.length === 1) {
+            return strings.srSingleSegmentLabel({
+                point1X: srFormatNumber(segments[0][0][X], locale),
+                point1Y: srFormatNumber(segments[0][0][Y], locale),
+                point2X: srFormatNumber(segments[0][1][X], locale),
+                point2Y: srFormatNumber(segments[0][1][Y], locale),
+            });
+        }
+
+        return strings.srMultipleSegmentIndividualLabel({
             point1X: srFormatNumber(segment[0][X], locale),
             point1Y: srFormatNumber(segment[0][Y], locale),
             point2X: srFormatNumber(segment[1][X], locale),
@@ -61,13 +73,11 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     }
 
     function getWholeSegmentGraphAriaDescription() {
-        let description = `${wholeSegmentGraphAriaLabel} `;
-
-        segments.forEach((segment, index) => {
-            description += getIndividualSegmentAriaLabel(segment, index) + " ";
-        });
-
-        return description;
+        return segments
+            .map((segment, index) =>
+                getIndividualSegmentAriaLabel(segment, index),
+            )
+            .join(" ");
     }
 
     function formatSegment(
@@ -159,4 +169,34 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
 
 function getLengthOfSegment(segment: PairOfPoints) {
     return kpoint.distanceToPoint(...segment);
+}
+
+function SegmentGraphDescription({state}: {state: SegmentGraphState}) {
+    // The reason that SegmentGraphDescription is a component (rather than a
+    // function that returns a string) is because it needs to use a
+    // hook: `usePerseusI18n`.
+    const i18n = usePerseusI18n();
+    return describeSegmentGraph(state, i18n);
+}
+
+// Exported for testing
+export function describeSegmentGraph(
+    state: SegmentGraphState,
+    i18n: I18nContextType,
+): string {
+    const {strings, locale} = i18n;
+
+    const segmentDescriptions = state.coords.map(([point1, point2], index) =>
+        strings.srMultipleSegmentIndividualLabel({
+            point1X: srFormatNumber(point1[X], locale),
+            point1Y: srFormatNumber(point1[Y], locale),
+            point2X: srFormatNumber(point2[X], locale),
+            point2Y: srFormatNumber(point2[Y], locale),
+            indexOfSegment: index + 1,
+        }),
+    );
+
+    return strings.srInteractiveElements({
+        elements: segmentDescriptions.join(" "),
+    });
 }

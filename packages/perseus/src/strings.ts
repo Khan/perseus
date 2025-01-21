@@ -266,7 +266,7 @@ export type PerseusStrings = {
     }: {
         countOfSegments: number;
     }) => string;
-    srIndividualSegmentAriaLabel: ({
+    srMultipleSegmentIndividualLabel: ({
         point1X,
         point1Y,
         point2X,
@@ -278,6 +278,17 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
         indexOfSegment: number;
+    }) => string;
+    srSingleSegmentLabel: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
     }) => string;
     srSegmentLength: ({length}: {length: string}) => string;
     srSingleSegmentGraphEndpointAriaLabel: ({
@@ -578,9 +589,11 @@ export const strings = {
         "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
     srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
     srMultipleSegmentGraphAriaLabel:
-        "%(countOfSegments)s segments on a coordinate plane.",
-    srIndividualSegmentAriaLabel:
+        "%(countOfSegments)s line segments on a coordinate plane.",
+    srMultipleSegmentIndividualLabel:
         "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+    srSingleSegmentLabel:
+        "Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
     srSegmentLength: "Segment length %(length)s units.",
     srSingleSegmentGraphEndpointAriaLabel:
         "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
@@ -825,14 +838,16 @@ export const mockStrings: PerseusStrings = {
     srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
     srMultipleSegmentGraphAriaLabel: ({countOfSegments}) =>
         `${countOfSegments} segments on a coordinate plane.`,
-    srIndividualSegmentAriaLabel: ({
+    srMultipleSegmentIndividualLabel: ({
         point1X,
         point1Y,
         point2X,
         point2Y,
         indexOfSegment,
     }) =>
-        `Segment ${indexOfSegment}: Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}. Segment length ${length} units.`,
+        `Segment ${indexOfSegment}: Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}.`,
+    srSingleSegmentLabel: ({point1X, point1Y, point2X, point2Y}) =>
+        `Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}.`,
     srSegmentLength: ({length}) => `Segment length ${length} units.`,
     srSingleSegmentGraphEndpointAriaLabel: ({endpointNumber, x, y}) =>
         `Endpoint ${endpointNumber} at ${x} comma ${y}.`,
