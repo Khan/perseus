@@ -535,8 +535,8 @@ export const strings = {
         "The endpoint is at %(point1X)s comma %(point1Y)s and the ray goes through point %(point2X)s comma %(point2Y)s.",
     srRayGrabHandle:
         "Ray with endpoint %(point1X)s comma %(point1Y)s going through point %(point2X)s comma %(point2Y)s.",
-    srRayEndpoint: "Endpoint at %(point1X)s comma %(point1Y)s.",
-    srRayTerminalPoint: "Through point at %(point2X)s comma %(point2Y)s.",
+    srRayEndpoint: "Endpoint at %(x)s comma %(y)s.",
+    srRayTerminalPoint: "Through point at %(x)s comma %(y)s.",
     // The above strings are used for interactive graph SR descriptions.
 } satisfies {
     [key in keyof PerseusStrings]:
