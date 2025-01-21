@@ -56,6 +56,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
     }
 
     const {strings, locale} = usePerseusI18n();
+    const uniqueId = React.useId();
 
     function getMoveablePointAriaLabel(
         index: number,
@@ -64,14 +65,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
         const x = coordinate[0];
         const y = coordinate[1];
 
-        const convertedXCoordinate =
-            x === 0
-                ? `0`
-                : x % 2 === 0
-                  ? `${x / 2} pi`
-                  : x % 1 === 0
-                    ? `${x}/2 pi`
-                    : `${x * 2}/4 pi`;
+        const convertedXCoordinate = formatXCoordsToPi(x);
 
         const coordsObj = {
             x: convertedXCoordinate,
@@ -83,8 +77,39 @@ function SinusoidGraph(props: SinusoidGraphProps) {
             : strings.srSinusoidMidlineIntersection(coordsObj);
     }
 
+    function getWholeGraphDescription(): string {
+        const minMaxYVals = calculateMinAndMaxYValues(
+            coeffRef.current.amplitude,
+            coeffRef.current.verticalOffset,
+        );
+
+        // coords[1] is associated to the extremum point
+        const startEndCoords = calculateFullCycleStartAndEndCoords(
+            minMaxYVals[0],
+            coords[1],
+            coeffRef.current.angularFrequency,
+            locale,
+        );
+
+        const startCoords = startEndCoords[0];
+        const endCoords = startEndCoords[1];
+
+        const descriptionObj = {
+            minValue: srFormatNumber(minMaxYVals[0], locale),
+            maxValue: srFormatNumber(minMaxYVals[1], locale),
+            xStartCoord: startCoords[0],
+            yStartCoord: startCoords[1],
+            xEndCoord: endCoords[0],
+            yEndCoord: endCoords[1],
+        };
+        return strings.srSinusoidDescription(descriptionObj);
+    }
+
     return (
-        <g aria-label={strings.srSinusoidGraphAriaLabel}>
+        <g
+            aria-label={strings.srSinusoidGraphAriaLabel}
+            aria-describedby={`sinusoid-description-${uniqueId}`}
+        >
             <Plot.OfX
                 y={(x) => computeSine(x, coeffRef.current)}
                 color={color.blue}
@@ -100,6 +125,9 @@ function SinusoidGraph(props: SinusoidGraphProps) {
                     }
                 />
             ))}
+            <g id={`sinusoid-description-${uniqueId}`}>
+                {getWholeGraphDescription()}
+            </g>
         </g>
     );
 }
@@ -140,3 +168,61 @@ export const getSinusoidCoefficients = (
 
     return {amplitude, angularFrequency, phase, verticalOffset};
 };
+
+/**
+ * Sine and cosine oscillate between [-1, 1], which is scaled by the graph's amplitude [-A, A] and shifted by the vertical offset [-A+D, A+D]
+ * @param amplitude Distance from the center to either extreme
+ * @param verticalOffset aka vertical shift - moves the range up or down
+ * @returns array [minYVal, maxYVal]
+ */
+export function calculateMinAndMaxYValues(
+    amplitude: number,
+    verticalOffset: number,
+) {
+    const absAmp = Math.abs(amplitude);
+    return [-absAmp + verticalOffset, absAmp + verticalOffset];
+}
+
+/**
+ * Calculates the start and end coordinates for a full cycle of a sinusoid wave by adding or subtracting the period of the graph
+ * from the extremum point. If the extremum point provided is the max, subtract the period, if the extremum point is the min, add the period
+ * @param minVal Y coordinate associated to the minimum value on the graph
+ * @param coords Extremum coordinates for the graph
+ * @param angularFrequency Determines how stretched or compressed the graph is
+ * @returns string matrix of start and end coordinates for the full cycle
+ */
+export function calculateFullCycleStartAndEndCoords(
+    minVal: number,
+    coords: vec.Vector2,
+    angularFrequency: number,
+    locale: string,
+) {
+    const [x, y] = coords;
+    const formattedCoords = [formatXCoordsToPi(x), srFormatNumber(y, locale)];
+    const period = (2 * Math.PI) / Math.abs(angularFrequency);
+    const isMinVal = y === minVal;
+    const adjustedX = isMinVal ? x + period : x - period;
+    const formattedXValue = formatXCoordsToPi(adjustedX);
+
+    const startValCoords = isMinVal
+        ? formattedCoords
+        : [formattedXValue, srFormatNumber(y, locale)];
+    const endValCoords = isMinVal
+        ? [formattedXValue, srFormatNumber(y, locale)]
+        : formattedCoords;
+
+    return [startValCoords, endValCoords];
+}
+
+export function formatXCoordsToPi(x: number) {
+    if (x === 0) {
+        return `0`;
+    }
+    if (x % 2 === 0) {
+        return `${x / 2} pi`;
+    }
+    if (x % 1 === 0) {
+        return `${x}/2 pi`;
+    }
+    return `${x * 2}/4 pi`;
+}
