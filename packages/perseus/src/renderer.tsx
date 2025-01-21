@@ -43,12 +43,10 @@ import type {
     APIOptionsWithDefaults,
     FilterCriterion,
     FocusPath,
-    PerseusScore,
     SerializedState,
     Widget,
     WidgetProps,
 } from "./types";
-import type {UserInputArray, UserInputMap} from "./validation.types";
 import type {
     GetPromptJSONInterface,
     RendererPromptJSON,
@@ -62,6 +60,11 @@ import type {
     ShowSolutions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {
+    PerseusScore,
+    UserInputArray,
+    UserInputMap,
+} from "@khanacademy/perseus-score";
 
 import "./styles/perseus-renderer.less";
 

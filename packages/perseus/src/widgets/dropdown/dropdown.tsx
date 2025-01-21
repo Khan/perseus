@@ -1,3 +1,4 @@
+import {scoreDropdown, validateDropdown} from "@khanacademy/perseus-score";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
@@ -9,16 +10,13 @@ import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
-import scoreDropdown from "./score-dropdown";
-import validateDropdown from "./validate-dropdown";
-
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
+import type {PerseusDropdownWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusDropdownScoringData,
     PerseusDropdownUserInput,
-} from "../../validation.types";
-import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
-import type {PerseusDropdownWidgetOptions} from "@khanacademy/perseus-core";
+} from "@khanacademy/perseus-score";
 
 type Props = WidgetProps<RenderProps, PerseusDropdownScoringData> & {
     selected: number;

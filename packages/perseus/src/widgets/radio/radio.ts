@@ -1,10 +1,9 @@
+import {scoreRadio, validateRadio} from "@khanacademy/perseus-score";
 import _ from "underscore";
 
 import Util from "../../util";
 
 import Radio from "./radio-component";
-import scoreRadio from "./score-radio";
-import validateRadio from "./validate-radio";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusStrings} from "../../strings";

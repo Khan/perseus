@@ -13,7 +13,7 @@ import type {
     PerseusMockWidgetRubric,
     PerseusMockWidgetUserInput,
 } from "./mock-widget-types";
-import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
+import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
 import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 
 type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetRubric>;

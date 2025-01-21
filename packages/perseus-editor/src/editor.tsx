@@ -250,6 +250,11 @@ class Editor extends React.Component<Props, State> {
         }
         return (
             <WidgetEditor
+                // The order of props matters here. We need to spread the
+                // widget data before specifying the `key` prop, to ensure the
+                // key overrides any `key` field on the widget (which might not
+                // be unique.
+                {...this.props.widgets[id]}
                 ref={id}
                 id={id}
                 key={id}
@@ -259,7 +264,6 @@ class Editor extends React.Component<Props, State> {
                 onRemove={this._handleWidgetEditorRemove.bind(this, id)}
                 apiOptions={this.props.apiOptions}
                 widgetIsOpen={this.props.widgetIsOpen}
-                {...this.props.widgets[id]}
             />
         );
     }

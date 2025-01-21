@@ -21,12 +21,12 @@ import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group
 import {GradedGroup} from "../graded-group/graded-group";
 
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {PerseusGradedGroupSetScoringData} from "../../validation.types";
 import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import type {
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
 } from "@khanacademy/perseus-core";
+import type {PerseusGradedGroupSetScoringData} from "@khanacademy/perseus-score";
 
 type IndicatorsProps = {
     currentGroup: number;

@@ -1,8 +1,10 @@
+import {angles} from "@khanacademy/kmath";
 import {vec} from "mafs";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
-import {X, Y, calculateAngleInDegrees, getClockwiseAngle, polar} from "../math";
+import a11y from "../../../util/a11y";
+import {X, Y} from "../math";
 import {findIntersectionOfRays} from "../math/geometry";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
@@ -24,6 +26,8 @@ import type {
     MafsGraphProps,
 } from "../types";
 import type {CollinearTuple} from "@khanacademy/perseus-core";
+
+const {calculateAngleInDegrees, getClockwiseAngle, polar} = angles;
 
 type AngleGraphProps = MafsGraphProps<AngleGraphState>;
 
@@ -215,7 +219,7 @@ function AngleGraph(props: AngleGraphProps) {
                 }
                 ariaLabel={initialSideAriaLabel}
             />
-            <g id="angle-description" style={{display: "hidden"}}>
+            <g id="angle-description" style={a11y.srOnly}>
                 {wholeAngleDescription}
             </g>
         </g>

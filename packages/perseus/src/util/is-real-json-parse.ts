@@ -1,6 +1,4 @@
-import Util from "../util";
-
-const deepEq = Util.deepEq;
+import {approximateDeepEqual} from "@khanacademy/perseus-core";
 
 export function isRealJSONParse(jsonParse: typeof JSON.parse): boolean {
     const randomPhrase = buildRandomPhrase();
@@ -55,7 +53,7 @@ export function isRealJSONParse(jsonParse: typeof JSON.parse): boolean {
     const parsedTestJSON = jsonParse(testJSON);
     const parsedTestItemData: string =
         parsedTestJSON.data.assessmentItem.item.itemData;
-    return deepEq(parsedTestItemData, testingObject);
+    return approximateDeepEqual(parsedTestItemData, testingObject);
 }
 
 function buildRandomString(capitalize: boolean = false) {

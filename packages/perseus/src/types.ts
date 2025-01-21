@@ -1,13 +1,6 @@
 import type {ILogger} from "./logging/log";
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
-import type {
-    ScoringData,
-    UserInput,
-    UserInputArray,
-    UserInputMap,
-    ValidationData,
-} from "./validation.types";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type getCategorizerPublicWidgetOptions from "./widgets/categorizer/categorizer.util";
 import type {KeypadAPI} from "@khanacademy/math-input";
@@ -20,6 +13,15 @@ import type {
     AnalyticsEventHandlerFn,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {
+    PerseusScore,
+    ScoringData,
+    UserInput,
+    UserInputArray,
+    UserInputMap,
+    ValidationData,
+    ValidationResult,
+} from "@khanacademy/perseus-score";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
 
@@ -97,19 +99,6 @@ export interface Widget {
 export type ImageDict = {
     [url: string]: Dimensions;
 };
-
-export type PerseusScore =
-    | {
-          type: "invalid";
-          message?: string | null | undefined;
-          suppressAlmostThere?: boolean | null | undefined;
-      }
-    | {
-          type: "points";
-          earned: number;
-          total: number;
-          message?: string | null | undefined;
-      };
 
 export type Version = {
     major: number;
@@ -529,8 +518,6 @@ export type WidgetTransform = (
     strings: PerseusStrings,
     problemNumber?: number,
 ) => any;
-
-export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
 
 export type WidgetValidatorFunction = (
     userInput: UserInput,

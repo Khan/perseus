@@ -13,8 +13,11 @@ import {
 } from "./widgets";
 
 import type {PerseusStrings} from "./strings";
-import type {PerseusScore} from "./types";
-import type {ValidationDataMap, UserInputMap} from "./validation.types";
+import type {
+    ValidationDataMap,
+    UserInputMap,
+    PerseusScore,
+} from "@khanacademy/perseus-score";
 
 export function getUpgradedWidgetOptions(
     oldWidgetOptions: PerseusWidgetsMap,

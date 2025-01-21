@@ -18,12 +18,12 @@ import {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-test
 import {renderQuestion} from "./widgets/__testutils__/renderQuestion";
 import DropdownWidgetExport from "./widgets/dropdown";
 
-import type {UserInputMap} from "./validation.types";
 import type {
     DropdownWidget,
     ExpressionWidget,
     PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
+import type {UserInputMap} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
 function getTestDropdownWidget(): DropdownWidget {

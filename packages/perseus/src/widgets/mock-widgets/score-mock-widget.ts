@@ -5,7 +5,7 @@ import type {
     PerseusMockWidgetRubric,
 } from "./mock-widget-types";
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "@khanacademy/perseus";
+import type {PerseusScore} from "@khanacademy/perseus-score";
 
 function scoreMockWidget(
     userInput: PerseusMockWidgetUserInput,

@@ -1,11 +1,11 @@
 import {emptyWidgetsFunctional} from "../../renderer-util";
 
 import type {PerseusStrings} from "../../strings";
-import type {ValidationResult} from "../../types";
 import type {
     PerseusGroupUserInput,
     PerseusGroupValidationData,
-} from "../../validation.types";
+    ValidationResult,
+} from "@khanacademy/perseus-score";
 
 function validateGroup(
     userInput: PerseusGroupUserInput,

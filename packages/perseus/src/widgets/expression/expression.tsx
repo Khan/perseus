@@ -1,6 +1,11 @@
 import * as KAS from "@khanacademy/kas";
 import {KeyArray, KeypadInput, KeypadType} from "@khanacademy/math-input";
+import {
+    getDecimalSeparator,
+    type PerseusExpressionWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {scoreExpression, validateExpression} from "@khanacademy/perseus-score";
 import {View} from "@khanacademy/wonder-blocks-core";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
@@ -18,19 +23,14 @@ import {ApiOptions, ClassNames as ApiClassNames} from "../../perseus-api";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
-import getDecimalSeparator from "./get-decimal-separator";
-import scoreExpression from "./score-expression";
-import validateExpression from "./validate-expression";
-
 import type {DependenciesContext} from "../../dependencies";
-import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
+import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
+import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {
     PerseusExpressionScoringData,
     PerseusExpressionUserInput,
-} from "../../validation.types";
-import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
-import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
-import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type InputPath = ReadonlyArray<string>;
