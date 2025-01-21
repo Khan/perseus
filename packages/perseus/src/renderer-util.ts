@@ -1,4 +1,8 @@
-import {mapObject} from "@khanacademy/perseus-core";
+import {
+    mapObject,
+    type PerseusRenderer,
+    type PerseusWidgetsMap,
+} from "@khanacademy/perseus-core";
 
 import {scoreIsEmpty, flattenScores} from "./util/scoring";
 import {getWidgetIdsFromContent} from "./widget-type-utils";
@@ -10,15 +14,7 @@ import {
 
 import type {PerseusStrings} from "./strings";
 import type {PerseusScore} from "./types";
-import type {
-    UserInput,
-    UserInputMap,
-    ValidationDataMap,
-} from "./validation.types";
-import type {
-    PerseusRenderer,
-    PerseusWidgetsMap,
-} from "@khanacademy/perseus-core";
+import type {ValidationDataMap, UserInputMap} from "./validation.types";
 
 export function getUpgradedWidgetOptions(
     oldWidgetOptions: PerseusWidgetsMap,
@@ -54,7 +50,7 @@ export function emptyWidgetsFunctional(
     widgets: ValidationDataMap,
     // This is a port of old code, I'm not sure why
     // we need widgetIds vs the keys of the widgets object
-    widgetIds: Array<string>,
+    widgetIds: ReadonlyArray<string>,
     userInputMap: UserInputMap,
     strings: PerseusStrings,
     locale: string,
@@ -128,13 +124,14 @@ export function scoreWidgetsFunctional(
         }
 
         const userInput = userInputMap[id];
+        const validator = getWidgetValidator(widget.type);
         const scorer = getWidgetScorer(widget.type);
-        const score = scorer?.(
-            userInput as UserInput,
-            widget.options,
-            strings,
-            locale,
-        );
+
+        // We do validation (empty checks) first and then scoring. If
+        // validation fails, it's result is itself a PerseusScore.
+        const score =
+            validator?.(userInput, widget.options, strings, locale) ??
+            scorer?.(userInput, widget.options, strings, locale);
         if (score != null) {
             widgetScores[id] = score;
         }
