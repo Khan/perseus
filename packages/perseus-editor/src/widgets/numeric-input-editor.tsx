@@ -563,7 +563,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                     answer.status.slice(1);
                 const answerFormat = (answer.answerForms || []).at(-1);
                 const answerString = KhanMath.toNumericString(
-                    answer.value,
+                    answer.value ?? 0,
                     answerFormat,
                 );
                 const answerRangeText = answer.maxError
