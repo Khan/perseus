@@ -6,7 +6,7 @@ import {
 
 import type {WidgetLogicExport} from "../logic-export.types";
 
-export {ExpressionDefaultWidgetOptions} from "./expression-upgrade";
+export type {ExpressionDefaultWidgetOptions} from "./expression-upgrade";
 
 const expressionWidgetLogicExport: WidgetLogicExport = {
     name: "expression",
