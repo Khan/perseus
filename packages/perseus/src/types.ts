@@ -3,6 +3,7 @@ import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type getCategorizerPublicWidgetOptions from "./widgets/categorizer/categorizer.util";
+import type getExpressionPublicWidgetOptions from "./widgets/expression/expression.util";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     Hint,
@@ -533,7 +534,8 @@ export type WidgetScorerFunction = (
  * A union type of all the functions that provide public widget options.
  */
 export type PublicWidgetOptionsFunction =
-    typeof getCategorizerPublicWidgetOptions;
+    | typeof getCategorizerPublicWidgetOptions
+    | typeof getExpressionPublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
