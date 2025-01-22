@@ -57,8 +57,8 @@ export const ServerItemRendererWithDebugUI = ({
 
     return (
         <SideBySide
-            leftTitle="Renderer"
-            left={
+            rendererTitle="Renderer"
+            renderer={
                 <>
                     <Perseus.ServerItemRenderer
                         ref={ref}

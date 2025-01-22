@@ -14,7 +14,7 @@ import {scorePerseusItem} from "../packages/perseus/src/renderer-util";
 import {mockStrings} from "../packages/perseus/src/strings";
 import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
 
-import SideBySide from "./side-by-side";
+import SplitView from "./side-by-side";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {ComponentProps} from "react";
@@ -47,8 +47,8 @@ export const RendererWithDebugUI = ({
     };
 
     return (
-        <SideBySide
-            leftTitle={
+        <SplitView
+            rendererTitle={
                 <View
                     style={{
                         flexDirection: "row",
@@ -66,7 +66,7 @@ export const RendererWithDebugUI = ({
                     </View>
                 </View>
             }
-            left={
+            renderer={
                 <View>
                     <View className={isMobile ? "perseus-mobile" : ""}>
                         <Renderer
