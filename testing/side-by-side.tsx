@@ -31,7 +31,7 @@ const SideBySide = ({
                     style={{marginTop: "10px"}}
                     quotesOnKeys={false}
                     enableClipboard={false}
-                    collapsed={5}
+                    collapsed={true}
                     src={jsonObject}
                 />
             </View>

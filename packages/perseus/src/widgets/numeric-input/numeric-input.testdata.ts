@@ -36,6 +36,47 @@ export const question1: PerseusRenderer = {
     },
 };
 
+export const decimalProblem: PerseusRenderer = {
+    // Added a floating question mark to keep enough space to show the examples.
+    content: "$12 + 0.52 =$ [[\u2603 numeric-input 1]] \n\n\n\n\n   ?",
+    images: {},
+    widgets: {
+        "numeric-input 1": {
+            graded: true,
+            version: {
+                major: 0,
+                minor: 0,
+            },
+            static: false,
+            type: "numeric-input",
+            options: {
+                coefficient: false,
+                static: false,
+                answers: [
+                    {
+                        status: "correct",
+                        maxError: null,
+                        strict: false,
+                        value: 12.52,
+                        simplify: "required",
+                        message: "",
+                        answerForms: ["decimal"],
+                    },
+                ],
+                labelText: "",
+                size: "normal",
+                answerForms: [
+                    {
+                        simplify: "required",
+                        name: "decimal",
+                    },
+                ],
+            },
+            alignment: "default",
+        } as NumericInputWidget,
+    },
+};
+
 export const percentageProblem: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},
@@ -134,6 +175,7 @@ export const multipleAnswersWithDecimals: PerseusRenderer = {
                         value: 12.2,
                         simplify: "required",
                         message: "",
+                        answerForms: ["decimal"],
                     },
                     {
                         status: "correct",
@@ -142,10 +184,17 @@ export const multipleAnswersWithDecimals: PerseusRenderer = {
                         value: 13.4,
                         simplify: "required",
                         message: "",
+                        answerForms: ["decimal"],
                     },
                 ],
                 labelText: "What's the answer?",
                 size: "normal",
+                answerforms: [
+                    {
+                        simplify: "required",
+                        name: "decimal",
+                    },
+                ],
             },
             alignment: "default",
         } as NumericInputWidget,

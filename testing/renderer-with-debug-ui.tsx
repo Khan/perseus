@@ -40,6 +40,12 @@ export const RendererWithDebugUI = ({
     const [isMobile, setIsMobile] = React.useState(false);
     const {strings} = usePerseusI18n();
 
+    const controlledAPIOptions = {
+        ...apiOptions,
+        isMobile,
+        customKeypad: isMobile, // Use the mobile keypad for mobile
+    };
+
     return (
         <SideBySide
             leftTitle={
@@ -70,7 +76,7 @@ export const RendererWithDebugUI = ({
                             images={question.images}
                             widgets={question.widgets}
                             problemNum={0}
-                            apiOptions={{...apiOptions, isMobile}}
+                            apiOptions={controlledAPIOptions}
                             reviewMode={reviewMode}
                             strings={strings}
                             {...rest}
