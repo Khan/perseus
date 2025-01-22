@@ -27,11 +27,13 @@ import type {QuadraticCoefficient, QuadraticCoords} from "@khanacademy/kmath";
 export function renderQuadraticGraph(
     state: QuadraticGraphState,
     dispatch: Dispatch,
+    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <QuadraticGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: (
-            <QuadraticGraphDescription state={state} />
+        interactiveElementsDescription: getQuadraticGraphDescription(
+            state,
+            i18n,
         ),
     };
 }
@@ -163,14 +165,13 @@ export const getQuadraticCoefficients = (
     return [a, b, c];
 };
 
-function QuadraticGraphDescription({state}: {state: QuadraticGraphState}) {
-    // The reason that QuadraticGraphDescription is a component (rather than a
-    // function that returns a string) is because it needs to use a
-    // hook: `usePerseusI18n`.
-    const i18n = usePerseusI18n();
+function getQuadraticGraphDescription(
+    state: QuadraticGraphState,
+    i18n: I18nContextType,
+): string {
     const strings = describeQuadraticGraph(state, i18n);
-
-    return strings.srQuadraticInteractiveElements;
+    // This particular string will never be undefined.
+    return strings.srQuadraticInteractiveElements || "";
 }
 
 // Exported for testing
