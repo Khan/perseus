@@ -30,7 +30,9 @@ export function renderQuadraticGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <QuadraticGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: null,
+        interactiveElementsDescription: (
+            <QuadraticGraphDescription state={state} />
+        ),
     };
 }
 
@@ -78,34 +80,48 @@ function QuadraticGraph(props: QuadraticGraphProps) {
             aria-describedby={`${quadraticDirectionId} ${quadraticVertexId} ${quadraticInterceptsId}`}
         >
             <Plot.OfX y={y} color={color.blue} />
-            {coords.map((coord, i) => (
-                <MovablePoint
-                    key={"point-" + i}
-                    ariaLabel={getQuadraticPointString(
-                        i + 1,
-                        coord,
-                        strings,
-                        locale,
-                    )}
-                    point={coord}
-                    sequenceNumber={i + 1}
-                    onMove={(destination) =>
-                        dispatch(actions.quadratic.movePoint(i, destination))
-                    }
-                />
-            ))}
+            {coords.map((coord, i) => {
+                const srQuadraticPoint = getQuadraticPointString(
+                    i + 1,
+                    coord,
+                    strings,
+                    locale,
+                );
+                // Vertex might not exist if the quadratic graph is a line
+                const srVertex = srQuadraticVertex
+                    ? ` ${srQuadraticVertex}`
+                    : "";
+
+                return (
+                    <MovablePoint
+                        key={"point-" + i}
+                        ariaLabel={`${srQuadraticPoint}${srVertex}`}
+                        point={coord}
+                        sequenceNumber={i + 1}
+                        onMove={(destination) =>
+                            dispatch(
+                                actions.quadratic.movePoint(i, destination),
+                            )
+                        }
+                    />
+                );
+            })}
             {/* Hidden elements to provide the descriptions for the
                 `aria-describedby` properties */}
-            <g id={quadraticDirectionId} style={a11y.srOnly}>
-                {srQuadraticDirection}
-            </g>
-            <g id={quadraticVertexId} style={a11y.srOnly}>
-                {srQuadraticVertex}
-            </g>
+            {srQuadraticDirection && (
+                <g id={quadraticDirectionId} style={a11y.srOnly}>
+                    {srQuadraticDirection}
+                </g>
+            )}
+            {srQuadraticVertex && (
+                <g id={quadraticVertexId} style={a11y.srOnly}>
+                    {srQuadraticVertex}
+                </g>
+            )}
             <g id={quadraticInterceptsId} style={a11y.srOnly}>
                 {srQuadraticXIntercepts
                     ? `${srQuadraticXIntercepts} ${srQuadraticYIntercept}`
-                    : srQuadraticYIntercept}
+                    : `${srQuadraticYIntercept}`}
             </g>
         </g>
     );
@@ -147,6 +163,16 @@ export const getQuadraticCoefficients = (
     return [a, b, c];
 };
 
+function QuadraticGraphDescription({state}: {state: QuadraticGraphState}) {
+    // The reason that QuadraticGraphDescription is a component (rather than a
+    // function that returns a string) is because it needs to use a
+    // hook: `usePerseusI18n`.
+    const i18n = usePerseusI18n();
+    const strings = describeQuadraticGraph(state, i18n);
+
+    return strings.srQuadraticInteractiveElements;
+}
+
 // Exported for testing
 export function describeQuadraticGraph(
     state: QuadraticGraphState,
@@ -186,11 +212,23 @@ export function describeQuadraticGraph(
         intercept: srFormatNumber(c, locale),
     });
 
+    const srQuadraticInteractiveElements = strings.srInteractiveElements({
+        elements: strings.srQuadraticInteractiveElements({
+            point1X: srFormatNumber(state.coords[0][0], locale),
+            point1Y: srFormatNumber(state.coords[0][1], locale),
+            point2X: srFormatNumber(state.coords[1][0], locale),
+            point2Y: srFormatNumber(state.coords[1][1], locale),
+            point3X: srFormatNumber(state.coords[2][0], locale),
+            point3Y: srFormatNumber(state.coords[2][1], locale),
+        }),
+    });
+
     return {
         srQuadraticGraph,
         srQuadraticDirection,
         srQuadraticVertex,
         srQuadraticXIntercepts,
         srQuadraticYIntercept,
+        srQuadraticInteractiveElements,
     };
 }

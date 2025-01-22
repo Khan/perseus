@@ -347,7 +347,21 @@ export type PerseusStrings = {
         y: string;
         quadrant: number;
     }) => string;
-
+    srQuadraticInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        point3X,
+        point3Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        point3X: string;
+        point3Y: string;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -578,10 +592,10 @@ export const strings = {
     srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
     srQuadraticFaceUp: "The parabola opens upward.",
     srQuadraticFaceDown: "The parabola opens downward.",
-    srQuadraticGraphVertexOrigin: "Its vertex is at the origin.",
-    srQuadraticGraphVertexXAxis: "Its vertex is on the X-axis.",
-    srQuadraticGraphVertexYAxis: "Its vertex is on the Y-axis.",
-    srQuadraticGraphVertexQuadrant: "Its vertex is in quadrant %(quadrant)s.",
+    srQuadraticGraphVertexOrigin: "Vertex is at the origin.",
+    srQuadraticGraphVertexXAxis: "Vertex is on the X-axis.",
+    srQuadraticGraphVertexYAxis: "Vertex is on the Y-axis.",
+    srQuadraticGraphVertexQuadrant: "Vertex is in quadrant %(quadrant)s.",
     srQuadraticTwoXIntercepts:
         "The X-intercepts are at %(intercept1)s comma 0 and %(intercept2)s comma 0.",
     srQuadraticOneXIntercept: "The X-intercept is at %(intercept)s comma 0.",
@@ -591,6 +605,8 @@ export const strings = {
         "Point %(pointNumber)s on parabola at %(x)s comma %(y)s.",
     srQuadraticPointQuadrant:
         "Point %(pointNumber)s on parabola in quadrant %(quadrant)s at %(x)s comma %(y)s.",
+    srQuadraticInteractiveElements:
+        "Parabola with points at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, and %(point3X)s comma %(point3Y)s.",
     // The above strings are used for interactive graph SR descriptions.
 } satisfies {
     [key in keyof PerseusStrings]:
@@ -828,11 +844,11 @@ export const mockStrings: PerseusStrings = {
     srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
     srQuadraticFaceUp: "The parabola opens upward.",
     srQuadraticFaceDown: "The parabola opens downward.",
-    srQuadraticGraphVertexOrigin: "Its vertex is at the origin.",
-    srQuadraticGraphVertexXAxis: "Its vertex is on the X-axis.",
-    srQuadraticGraphVertexYAxis: "Its vertex is on the Y-axis.",
+    srQuadraticGraphVertexOrigin: "Vertex is at the origin.",
+    srQuadraticGraphVertexXAxis: "Vertex is on the X-axis.",
+    srQuadraticGraphVertexYAxis: "Vertex is on the Y-axis.",
     srQuadraticGraphVertexQuadrant: ({quadrant}) =>
-        `Its vertex is in quadrant ${quadrant}.`,
+        `Vertex is in quadrant ${quadrant}.`,
     srQuadraticTwoXIntercepts: ({intercept1, intercept2}) =>
         `The X-intercepts are at ${intercept1} comma 0 and ${intercept2} comma 0.`,
     srQuadraticOneXIntercept: ({intercept}) =>
@@ -845,6 +861,15 @@ export const mockStrings: PerseusStrings = {
         `Point ${pointNumber} on parabola at ${x} comma ${y}.`,
     srQuadraticPointQuadrant: ({pointNumber, x, y, quadrant}) =>
         `Point ${pointNumber} on parabola in quadrant ${quadrant} at ${x} comma ${y}.`,
+    srQuadraticInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        point3X,
+        point3Y,
+    }) =>
+        `Parabola with points at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, and ${point3X} comma ${point3Y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
 

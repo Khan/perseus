@@ -335,13 +335,13 @@ describe("MafsGraph", () => {
         const [point1, point2, point3] = points;
 
         expect(point1).toHaveAccessibleName(
-            "Point 1 on parabola in quadrant 2 at -1 comma 1.",
+            "Point 1 on parabola in quadrant 2 at -1 comma 1. Vertex is at the origin.",
         );
         expect(point2).toHaveAccessibleName(
-            "Point 2 on parabola at the origin.",
+            "Point 2 on parabola at the origin. Vertex is at the origin.",
         );
         expect(point3).toHaveAccessibleName(
-            "Point 3 on parabola in quadrant 1 at 1 comma 1.",
+            "Point 3 on parabola in quadrant 1 at 1 comma 1. Vertex is at the origin.",
         );
     });
 

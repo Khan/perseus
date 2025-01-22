@@ -124,7 +124,9 @@ export function getInterceptStringForLine(
 type GraphLocations = "origin" | "x-axis" | "y-axis" | 1 | 2 | 3 | 4;
 
 export function getCoordQuadrant(coord: Coord): GraphLocations {
-    const [x, y] = coord;
+    const [unroundedX, unroundedY] = coord;
+    const x = Number(unroundedX.toFixed(3));
+    const y = Number(unroundedY.toFixed(3));
 
     if (x === 0 && y === 0) {
         return "origin";
