@@ -27,6 +27,8 @@ import {ApiOptions, ClassNames as ApiClassNames} from "../../perseus-api";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
+import getExpressionPublicWidgetOptions from "./expression.util";
+
 import type {DependenciesContext} from "../../dependencies";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
@@ -559,6 +561,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
     scorer: scoreExpression,
+    getPublicWidgetOptions: getExpressionPublicWidgetOptions,
 
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.
