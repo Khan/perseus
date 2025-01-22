@@ -183,7 +183,6 @@ export type {
     JiptRenderer,
     PerseusDependencies,
     PerseusDependenciesV2,
-    Version,
     VideoData,
     VideoKind,
     WidgetExports,

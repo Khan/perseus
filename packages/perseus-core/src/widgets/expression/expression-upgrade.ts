@@ -1,4 +1,4 @@
-import type {PerseusExpressionWidgetOptions} from "../data-schema";
+import type {PerseusExpressionWidgetOptions} from "../../data-schema";
 
 export const currentVersion = {major: 1, minor: 0};
 

@@ -2,7 +2,7 @@ import * as KAS from "@khanacademy/kas";
 import {KeyArray, KeypadInput, KeypadType} from "@khanacademy/math-input";
 import {
     getDecimalSeparator,
-    expressionUpgrade,
+    expressionLogic,
     type PerseusExpressionWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
@@ -531,8 +531,8 @@ export default {
             ariaLabel,
         };
     },
-    version: expressionUpgrade.currentVersion,
-    propUpgrades: expressionUpgrade.widgetOptionsUpgrades,
+    version: expressionLogic.version,
+    propUpgrades: expressionLogic.widgetOptionsUpgrades,
 
     // For use by the editor
     isLintable: true,

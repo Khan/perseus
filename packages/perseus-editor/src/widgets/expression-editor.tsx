@@ -2,7 +2,7 @@ import * as KAS from "@khanacademy/kas";
 import {components, Changeable, Expression} from "@khanacademy/perseus";
 import {
     PerseusExpressionAnswerFormConsidered,
-    expressionUpgrade,
+    expressionLogic,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
@@ -92,7 +92,7 @@ class ExpressionEditor extends React.Component<Props, State> {
     static widgetName = "expression" as const;
 
     static defaultProps: ExpressionDefaultWidgetOptions =
-        expressionUpgrade.defaultWidgetOptions;
+        expressionLogic.defaultWidgetOptions;
 
     constructor(props: Props) {
         super(props);
