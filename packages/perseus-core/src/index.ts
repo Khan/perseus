@@ -31,3 +31,8 @@ export {PerseusError} from "./error/perseus-error";
 export * from "./data-schema";
 
 export {pluck, mapObject} from "./utils/objective_";
+
+export {default as expressionLogic} from "./widgets/expression";
+export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
+
+export type * from "./widgets/logic-export.types";
