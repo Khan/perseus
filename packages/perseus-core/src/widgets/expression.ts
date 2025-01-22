@@ -4,20 +4,20 @@ export const currentVersion = {major: 1, minor: 0};
 
 export const widgetOptionsUpgrades = {
     /* c8 ignore next */
-    "1": (v0props: any): PerseusExpressionWidgetOptions => ({
-        times: v0props.times,
-        buttonSets: v0props.buttonSets,
-        functions: v0props.functions,
-        buttonsVisible: v0props.buttonsVisible,
-        visibleLabel: v0props.visibleLabel,
-        ariaLabel: v0props.ariaLabel,
+    "1": (v0options: any): PerseusExpressionWidgetOptions => ({
+        times: v0options.times,
+        buttonSets: v0options.buttonSets,
+        functions: v0options.functions,
+        buttonsVisible: v0options.buttonsVisible,
+        visibleLabel: v0options.visibleLabel,
+        ariaLabel: v0options.ariaLabel,
 
         answerForms: [
             {
                 considered: "correct",
-                form: v0props.form,
-                simplify: v0props.simplify,
-                value: v0props.value,
+                form: v0options.form,
+                simplify: v0options.simplify,
+                value: v0options.value,
             },
         ],
     }),
