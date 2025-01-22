@@ -5,7 +5,7 @@ import type {
 
 /**
  * For details on the individual options, see the
- * PerseusOrdererWidgetOptions type
+ * PerseusExpressionWidgetOptions type
  */
 type ExpressionPublicWidgetOptions = {
     buttonSets: LegacyButtonSets;
