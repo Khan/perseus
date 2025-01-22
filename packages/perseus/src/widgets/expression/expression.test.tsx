@@ -586,7 +586,7 @@ describe("Expression Widget", function () {
             };
 
             const result: PerseusExpressionWidgetOptions =
-                ExpressionWidgetExport.propUpgrades["1"](v0props);
+                ExpressionWidgetExport.propUpgrades?.["1"](v0props);
 
             expect(result).toEqual(expected);
         });

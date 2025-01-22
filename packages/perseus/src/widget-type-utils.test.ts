@@ -6,8 +6,6 @@ import {
 import {
     getWidgetTypeByWidgetId,
     contentHasWidgetType,
-    getWidgetIdsFromContent,
-    getWidgetIdsFromContentByType,
     getWidgetsMapFromItemData,
     getWidgetFromWidgetMap,
     getWidgetsFromWidgetMap,
@@ -73,112 +71,6 @@ describe("widget-type-utils", () => {
 
             // Assert
             expect(result).toBe(false);
-        });
-    });
-
-    describe("getWidgetIdsFromContent", () => {
-        it("finds single widgetId", () => {
-            // Assemble
-            const widgetId = "dont-look-for-type-in-id";
-            const content = `[[☃ ${widgetId}]]`;
-
-            // Act
-            const result = getWidgetIdsFromContent(content);
-
-            // Assert
-            expect(result.length).toBe(1);
-            expect(result[0]).toBe(widgetId);
-        });
-
-        it("finds multiple widgetIds", () => {
-            // Assemble
-            const widgetId1 = "dont-look-for-type-in-id";
-            const widgetId2 = "this-isnt-a-widget-type";
-            const content = `[[☃ ${widgetId1}]] [[☃ ${widgetId2}]]`;
-
-            // Act
-            const result = getWidgetIdsFromContent(content);
-
-            // Assert
-            expect(result.length).toBe(2);
-            expect(result[0]).toBe(widgetId1);
-            expect(result[1]).toBe(widgetId2);
-        });
-
-        it("returns an empty array when nothing is found", () => {
-            // Assemble
-            const content = "hello world";
-
-            // Act
-            const result = getWidgetIdsFromContent(content);
-
-            // Assert
-            expect(Array.isArray(result)).toBe(true);
-            expect(result.length).toBe(0);
-        });
-    });
-
-    describe("getWidgetIdsFromContentByType", () => {
-        it("can get widgetId by type", () => {
-            // Assemble
-            const type = "radio";
-            const widgetId = "dont-look-for-type-in-id";
-            const content = `[[☃ ${widgetId}]]`;
-            const widgetMap = {
-                [widgetId]: generateTestRadioWidget(),
-            };
-
-            // Act
-            const result = getWidgetIdsFromContentByType(
-                type,
-                content,
-                widgetMap,
-            );
-
-            // Assert
-            expect(result.length).toBe(1);
-            expect(result[0]).toBe(widgetId);
-        });
-
-        it("ignores widgetIds of other types", () => {
-            // Assemble
-            const type = "radio";
-            const rightWidgetId = "dont-look-for-type-in-id";
-            const wrongWidgetId = "this-isnt-what-we-want";
-            const content = `[[☃ ${rightWidgetId}]] [[☃ ${wrongWidgetId}]]`;
-            const widgetMap = {
-                [rightWidgetId]: generateTestRadioWidget(),
-                [wrongWidgetId]: generateTestCategorizerWidget(),
-            };
-
-            // Act
-            const result = getWidgetIdsFromContentByType(
-                type,
-                content,
-                widgetMap,
-            );
-
-            // Assert
-            expect(result.length).toBe(1);
-            expect(result[0]).toBe(rightWidgetId);
-        });
-
-        it("returns an empty array when nothing is found", () => {
-            // Assemble
-            const type = "radio";
-            const content = "";
-            const widgetMap = {};
-
-            // Act
-            const result = getWidgetIdsFromContentByType(
-                type,
-                content,
-                widgetMap,
-            );
-
-            // Assert
-            expect(Array.isArray(result)).toBe(true);
-            expect(result.length).toBe(0);
         });
     });
 

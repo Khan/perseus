@@ -11,6 +11,8 @@ import type {
     PerseusWidget,
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
+    Version,
+    WidgetOptionsUpgradeMap,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -98,11 +100,6 @@ export interface Widget {
 
 export type ImageDict = {
     [url: string]: Dimensions;
-};
-
-export type Version = {
-    major: number;
-    minor: number;
 };
 
 export type EditorMode = "edit" | "preview" | "json";
@@ -620,10 +617,7 @@ export type WidgetExports<
      *
      * This configuration would migrate options from major version 0 to 1.
      */
-    propUpgrades?: {
-        // OldProps => NewProps,
-        [targetMajorVersion: string]: (arg1: any) => any;
-    };
+    propUpgrades?: WidgetOptionsUpgradeMap;
 }>;
 
 export type FilterCriterion =

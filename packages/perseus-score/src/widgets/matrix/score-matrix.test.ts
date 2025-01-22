@@ -29,7 +29,7 @@ describe("scoreMatrix", () => {
         const score = scoreMatrix(userInput, scoringData);
 
         // Assert
-        expect(mockValidator).toHaveBeenCalledWith(userInput, scoringData);
+        expect(mockValidator).toHaveBeenCalledWith(userInput);
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
@@ -55,7 +55,7 @@ describe("scoreMatrix", () => {
         const score = scoreMatrix(userInput, scoringData);
 
         // Assert
-        expect(mockValidator).toHaveBeenCalledWith(userInput, scoringData);
+        expect(mockValidator).toHaveBeenCalledWith(userInput);
         expect(score).toHaveInvalidInput();
     });
 

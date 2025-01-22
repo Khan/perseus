@@ -1,11 +1,6 @@
-import {
-    mapObject,
-    type PerseusRenderer,
-    type PerseusWidgetsMap,
-} from "@khanacademy/perseus-core";
+import {getWidgetIdsFromContent, mapObject} from "@khanacademy/perseus-core";
 
 import {scoreIsEmpty, flattenScores} from "./util/scoring";
-import {getWidgetIdsFromContent} from "./widget-type-utils";
 import {
     getWidgetScorer,
     getWidgetValidator,
@@ -14,15 +9,18 @@ import {
 
 import type {PerseusStrings} from "./strings";
 import type {
-    ValidationDataMap,
+    PerseusRenderer,
+    PerseusWidgetsMap,
+} from "@khanacademy/perseus-core";
+import type {
     UserInputMap,
     PerseusScore,
+    ValidationDataMap,
 } from "@khanacademy/perseus-score";
 
 export function getUpgradedWidgetOptions(
     oldWidgetOptions: PerseusWidgetsMap,
 ): PerseusWidgetsMap {
-    // @ts-expect-error - TS2322 - Type '(props: Props) => Partial<Record<string, CategorizerWidget | CSProgramWidget | DefinitionWidget | DropdownWidget | ... 35 more ... | VideoWidget>>' is not assignable to type '(props: Props) => { [key: string]: PerseusWidget; }'.
     return mapObject(oldWidgetOptions, (widgetInfo, widgetId) => {
         if (!widgetInfo.type || !widgetInfo.alignment) {
             const newValues: Record<string, any> = {};
@@ -40,7 +38,8 @@ export function getUpgradedWidgetOptions(
 
             widgetInfo = {...widgetInfo, ...newValues};
         }
-        return upgradeWidgetInfoToLatestVersion(widgetInfo);
+        // TODO(LEMS-2656): remove TS suppression
+        return upgradeWidgetInfoToLatestVersion(widgetInfo) as any;
     });
 }
 
