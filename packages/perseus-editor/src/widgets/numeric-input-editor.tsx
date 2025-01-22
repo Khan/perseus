@@ -18,11 +18,17 @@ import Heading from "../components/heading";
 import PerseusEditorAccordion from "../components/perseus-editor-accordion";
 import Editor from "../editor";
 
-import type {MathFormat, PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {PillSize, PillKind} from "@khanacademy/wonder-blocks-pill/dist/components/pill";
-import type { ClickableRole } from "@khanacademy/wonder-blocks-clickable";
-import type { StyleType } from "@khanacademy/wonder-blocks-core";
+import type {
+    MathFormat,
+    PerseusNumericInputWidgetOptions,
+} from "@khanacademy/perseus-core";
+import type {ClickableRole} from "@khanacademy/wonder-blocks-clickable";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import type {
+    PillSize,
+    PillKind,
+} from "@khanacademy/wonder-blocks-pill/dist/components/pill";
 
 type ChangeFn = typeof Changeable.change;
 
@@ -228,11 +234,15 @@ class NumericInputEditor extends React.Component<Props, State> {
 
     render() {
         const answers = this.props.answers;
-        const commonOptionProps: {size: PillSize, role: ClickableRole, style: StyleType} = {
+        const commonOptionProps: {
+            size: PillSize;
+            role: ClickableRole;
+            style: StyleType;
+        } = {
             size: "medium",
             role: "radio",
             style: {marginRight: "8px"},
-        }
+        };
 
         const SettingOption = (props: {
             kind: "accent" | "transparent";
@@ -295,21 +305,20 @@ class NumericInputEditor extends React.Component<Props, State> {
                         <span className="tooltip-for-legend">
                             <InfoTip>
                                 <p>
-                                    Normally select "ungraded". This
-                                    will give the user a message saying the
-                                    answer is correct but not simplified. The
-                                    user will then have to simplify it and
-                                    re-enter, but will not be penalized. (5th
-                                    grade and after)
+                                    Normally select "ungraded". This will give
+                                    the user a message saying the answer is
+                                    correct but not simplified. The user will
+                                    then have to simplify it and re-enter, but
+                                    will not be penalized. (5th grade and after)
                                 </p>
                                 <p>
-                                    Select "accepted" only if the user
-                                    is not expected to know how to simplify
-                                    fractions yet. (Anything prior to 5th grade)
+                                    Select "accepted" only if the user is not
+                                    expected to know how to simplify fractions
+                                    yet. (Anything prior to 5th grade)
                                 </p>
                                 <p>
-                                    Select "wrong" <em>only</em> if we
-                                    are specifically assessing the ability to
+                                    Select "wrong" <em>only</em> if we are
+                                    specifically assessing the ability to
                                     simplify.
                                 </p>
                             </InfoTip>
@@ -350,22 +359,20 @@ class NumericInputEditor extends React.Component<Props, State> {
                             Formats will be autoselected for you based on the
                             given answer; to show no suggested formats and
                             accept all types, simply have a decimal/integer be
-                            the answer. Values with &pi; will have format
-                            "pi", and values that are fractions will
-                            have some subset (mixed will be "mixed"
-                            and "proper"; improper/proper will both be
-                            "improper" and "proper"). If you
-                            would like to specify that it is only a proper
-                            fraction (or only a mixed/improper fraction),
-                            deselect the other format. Except for specific
-                            cases, you should not need to change the
-                            autoselected formats.
+                            the answer. Values with &pi; will have format "pi",
+                            and values that are fractions will have some subset
+                            (mixed will be "mixed" and "proper"; improper/proper
+                            will both be "improper" and "proper"). If you would
+                            like to specify that it is only a proper fraction
+                            (or only a mixed/improper fraction), deselect the
+                            other format. Except for specific cases, you should
+                            not need to change the autoselected formats.
                         </p>
                         <p>
                             To restrict the answer to <em>only</em> an improper
                             fraction (i.e. 7/4), select the improper fraction
-                            and toggle "strict" to true. This{" "}
-                            <b>will not</b> accept 1.75 as an answer.{" "}
+                            and toggle "strict" to true. This <b>will not</b>{" "}
+                            accept 1.75 as an answer.{" "}
                         </p>
                         <p>
                             Unless you are testing that specific skill, please
@@ -442,9 +449,9 @@ class NumericInputEditor extends React.Component<Props, State> {
                 </Pill>
                 <InfoTip>
                     <p>
-                        Use size "Normal" for all text boxes, unless
-                        there are multiple text boxes in one line and the answer
-                        area is too narrow to fit them.
+                        Use size "Normal" for all text boxes, unless there are
+                        multiple text boxes in one line and the answer area is
+                        too narrow to fit them.
                     </p>
                 </InfoTip>
             </fieldset>
