@@ -260,6 +260,68 @@ export type PerseusStrings = {
         endingSideX: string;
         endingSideY: string;
     }) => string;
+    srSingleSegmentGraphAriaLabel: string;
+    srMultipleSegmentGraphAriaLabel: ({
+        countOfSegments,
+    }: {
+        countOfSegments: number;
+    }) => string;
+    srMultipleSegmentIndividualLabel: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        indexOfSegment,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        indexOfSegment: number;
+    }) => string;
+    srSingleSegmentLabel: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srSegmentLength: ({length}: {length: string}) => string;
+    srSingleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+    }: {
+        endpointNumber: number;
+        x: string;
+        y: string;
+    }) => string;
+    srMultipleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+        indexOfSegment,
+    }: {
+        endpointNumber: number;
+        x: string;
+        y: string;
+        indexOfSegment: number;
+    }) => string;
+    srSegmentGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
     srLinearSystemGraph: string;
     srLinearSystemPoints: ({
         lineNumber,
@@ -577,6 +639,20 @@ export const strings = {
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
     srAngleGraphAriaDescription:
         "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
+    srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
+    srMultipleSegmentGraphAriaLabel:
+        "%(countOfSegments)s line segments on a coordinate plane.",
+    srMultipleSegmentIndividualLabel:
+        "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+    srSingleSegmentLabel:
+        "Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+    srSegmentLength: "Segment length %(length)s units.",
+    srSingleSegmentGraphEndpointAriaLabel:
+        "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
+    srMultipleSegmentGraphEndpointAriaLabel:
+        "Endpoint %(endpointNumber)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
+    srSegmentGrabHandle:
+        "Segment from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
     srLinearSystemGraph: "Two lines on a coordinate plane.",
     srLinearSystemPoints:
         "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
@@ -829,6 +905,31 @@ export const mockStrings: PerseusStrings = {
         endingSideY,
     }) =>
         `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the starting side at ${startingSideX} comma ${startingSideY} and a point on the ending side at ${endingSideX} comma ${endingSideY}.`,
+    srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
+    srMultipleSegmentGraphAriaLabel: ({countOfSegments}) =>
+        `${countOfSegments} segments on a coordinate plane.`,
+    srMultipleSegmentIndividualLabel: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        indexOfSegment,
+    }) =>
+        `Segment ${indexOfSegment}: Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}.`,
+    srSingleSegmentLabel: ({point1X, point1Y, point2X, point2Y}) =>
+        `Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}.`,
+    srSegmentLength: ({length}) => `Segment length ${length} units.`,
+    srSingleSegmentGraphEndpointAriaLabel: ({endpointNumber, x, y}) =>
+        `Endpoint ${endpointNumber} at ${x} comma ${y}.`,
+    srMultipleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+        indexOfSegment,
+    }) =>
+        `Endpoint ${endpointNumber} on segment ${indexOfSegment} at ${x} comma ${y}.`,
+    srSegmentGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Segment from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
     srLinearSystemGraph: "Two lines on a coordinate plane.",
     srLinearSystemPoints: ({lineNumber, point1X, point1Y, point2X, point2Y}) =>
         `Line ${lineNumber} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
