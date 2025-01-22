@@ -60,7 +60,8 @@ const initAnswer = (status: string) => {
     };
 };
 
-type Props = PerseusNumericInputWidgetOptions & {
+// The "static" property is not used in this widget (per the type definition comments)
+type Props = Omit<PerseusNumericInputWidgetOptions, "static"> & {
     onChange: (results: any) => any;
     apiOptions?: APIOptionsWithDefaults;
 };
