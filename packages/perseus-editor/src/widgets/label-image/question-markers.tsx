@@ -11,7 +11,7 @@ import {gray17, gray68} from "../../styles/global-colors";
 
 import Marker from "./marker";
 
-import type {MarkerType} from "@khanacademy/perseus";
+import type {MarkerType} from "@khanacademy/perseus-core";
 
 type Props = {
     // The list of possible answers in a specific order.

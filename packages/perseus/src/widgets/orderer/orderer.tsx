@@ -2,6 +2,11 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe */
 import {Errors} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {
+    scoreOrderer,
+    type PerseusOrdererRubric,
+    type PerseusOrdererUserInput,
+} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -15,13 +20,8 @@ import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 
 import getOrdererPublicWidgetOptions from "./orderer.util";
-import {scoreOrderer} from "./score-orderer";
 
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
-import type {
-    PerseusOrdererRubric,
-    PerseusOrdererUserInput,
-} from "../../validation.types";
 import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -784,7 +784,6 @@ export default {
     widget: Orderer,
     isLintable: true,
     // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type UserInput is not assignable to type PerseusOrdererUserInput
     scorer: scoreOrderer,
     getPublicWidgetOptions: getOrdererPublicWidgetOptions,
 } satisfies WidgetExports<typeof Orderer>;
