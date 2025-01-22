@@ -4,15 +4,15 @@ import {
     widgetOptionsUpgrades,
 } from "./expression-upgrade";
 
-import type {WidgetLogicExport} from "../logic-export.types";
+import type {WidgetLogic} from "../logic-export.types";
 
 export type {ExpressionDefaultWidgetOptions} from "./expression-upgrade";
 
-const expressionWidgetLogicExport: WidgetLogicExport = {
+const expressionWidgetLogic: WidgetLogic = {
     name: "expression",
     version: currentVersion,
     widgetOptionsUpgrades: widgetOptionsUpgrades,
     defaultWidgetOptions: defaultWidgetOptions,
 };
 
-export default expressionWidgetLogicExport;
+export default expressionWidgetLogic;

@@ -5,7 +5,7 @@ export type WidgetOptionsUpgradeMap = {
     [targetMajorVersion: string]: (arg1: any) => any;
 };
 
-export type WidgetLogicExport = {
+export type WidgetLogic = {
     name: string;
     version?: Version;
     widgetOptionsUpgrades?: WidgetOptionsUpgradeMap;
