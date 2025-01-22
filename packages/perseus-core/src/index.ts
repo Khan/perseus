@@ -16,6 +16,10 @@ export {addLibraryVersionToPerseusDebug} from "./utils/add-library-version-to-pe
 export {default as getMatrixSize} from "./utils/get-matrix-size";
 export {default as getDecimalSeparator} from "./utils/get-decimal-separator";
 export {approximateEqual, approximateDeepEqual} from "./utils/equality";
+export {
+    getWidgetIdsFromContent,
+    getWidgetIdsFromContentByType,
+} from "./utils/widget-id-utils";
 export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
 

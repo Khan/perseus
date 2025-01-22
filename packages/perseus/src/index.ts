@@ -126,14 +126,11 @@ export {
 export {
     getWidgetTypeByWidgetId,
     contentHasWidgetType,
-    getWidgetIdsFromContent,
-    getWidgetIdsFromContentByType,
     getWidgetsMapFromItemData,
     getWidgetFromWidgetMap,
     getWidgetsFromWidgetMap,
 } from "./widget-type-utils";
 export {convertWidgetNameToEnum} from "./util/widget-enum-utils";
-export {addWidget, QUESTION_WIDGETS} from "./util/snowman-utils";
 export {
     getCircleCoords,
     getLineCoords,
