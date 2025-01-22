@@ -70,7 +70,7 @@ describe("categorizer widget", () => {
         // Assert
         expect(score).toMatchInlineSnapshot(`
             {
-              "message": "Make sure you select something for every row.",
+              "message": "INVALID_SELECTION_ERROR",
               "type": "invalid",
             }
         `);
@@ -94,7 +94,7 @@ describe("categorizer widget", () => {
         // assert
         expect(score).toMatchInlineSnapshot(`
             {
-              "message": "Make sure you select something for every row.",
+              "message": "INVALID_SELECTION_ERROR",
               "type": "invalid",
             }
         `);

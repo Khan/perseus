@@ -1,9 +1,10 @@
-import {assertFailure, success} from "../result";
+import {assertFailure, assertSuccess, success} from "../result";
 
 import {array} from "./array";
 import {defaulted} from "./defaulted";
 import {number} from "./number";
 import {object} from "./object";
+import {optional} from "./optional";
 import {string} from "./string";
 import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 
@@ -92,5 +93,20 @@ describe("object", () => {
         });
 
         expect(Train({}, ctx())).toEqual(success({boxcars: []}));
+    });
+
+    it("does not include fields not present on the original object", () => {
+        const Penguin = object({hat: optional(string)});
+        const result = Penguin({}, ctx());
+        assertSuccess(result);
+        expect(result.value).not.toHaveProperty("hat");
+    });
+
+    it("includes `undefined` fields from the original object", () => {
+        const Penguin = object({hat: optional(string)});
+        const result = Penguin({hat: undefined}, ctx());
+        assertSuccess(result);
+        expect(result.value).toHaveProperty("hat");
+        expect(result.value.hat).toBe(undefined);
     });
 });

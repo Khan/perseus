@@ -1,5 +1,6 @@
+import {getDecimalSeparator} from "@khanacademy/perseus-core";
+
 import {MathFieldActionType} from "../../types";
-import {getDecimalSeparator} from "../../utils";
 import {mathQuillInstance} from "../input/mathquill-instance";
 
 import handleArrow from "./handle-arrow";

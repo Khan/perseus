@@ -43,7 +43,7 @@ jobs:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
                   autoAcceptChanges: "main"
-                  onlyStoryFiles: "**/*regression.stories.tsx"
+                  onlyStoryFiles: "**/*-regression.stories.tsx"
                   # NOTE: We cannot enable `onlyChanged` because it is
                   # incompatible with `onlyStoryFiles` which we use above.
                   # onlyChanged: true # Enable TurboSnap!

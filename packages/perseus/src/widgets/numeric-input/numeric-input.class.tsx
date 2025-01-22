@@ -1,5 +1,10 @@
 import {KhanMath} from "@khanacademy/kmath";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {
+    scoreNumericInput,
+    type PerseusNumericInputRubric,
+    type PerseusNumericInputUserInput,
+} from "@khanacademy/perseus-score";
 import * as React from "react";
 import _ from "underscore";
 
@@ -7,16 +12,11 @@ import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 import {NumericInputComponent} from "./numeric-input";
-import scoreNumericInput from "./score-numeric-input";
 import {NumericExampleStrings} from "./utils";
 
 import type InputWithExamples from "../../components/input-with-examples";
 import type SimpleKeypadInput from "../../components/simple-keypad-input";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusNumericInputRubric,
-    PerseusNumericInputUserInput,
-} from "../../validation.types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 import type {
     PerseusNumericInputWidgetOptions,
