@@ -27,3 +27,6 @@ export {PerseusError} from "./error/perseus-error";
 export * from "./data-schema";
 
 export {pluck, mapObject} from "./utils/objective_";
+
+export * as expressionUpgrade from "./widgets/expression";
+export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
