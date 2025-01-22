@@ -11,6 +11,27 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react";
 
+// We're using this format as storybook was not able to infer the type of the options.
+// It also gives us a lovely hover view of the JSON structure.
+const answerFormsArray: string = `[
+    {
+        simplify: string;
+        name: string;
+    }
+]`;
+
+const answersArray: string = `[
+    {
+        message: string;
+        value: number;
+        status: string;
+        answerForms: array<string>;
+        strict: boolean;
+        maxError: number;
+        simplify: string;
+    }
+]`;
+
 const meta: Meta<typeof NumericInput> = {
     component: NumericInput,
     title: "Perseus/Widgets/Numeric Input",
@@ -29,30 +50,23 @@ const meta: Meta<typeof NumericInput> = {
                 message: "",
             },
         ],
-        labelText: "What's the answer?",
-        answerForms: [],
+        answerForms: [
+            {simplify: "required", name: "decimal"},
+            {simplify: "required", name: "integer"},
+            {simplify: "required", name: "mixed"},
+            {simplify: "required", name: "percent"},
+            {simplify: "required", name: "pi"},
+        ],
     },
     argTypes: {
         answers: {
             control: {type: "object"},
             description:
                 "A list of all the possible correct and incorrect answers",
-            type: {
-                name: "array",
-                value: {
-                    name: "object",
-                    value: {
-                        message: {name: "string", required: true},
-                        value: {name: "number"},
-                        status: {name: "string", required: true},
-                        answerForms: {
-                            name: "array",
-                            value: {name: "string"},
-                        },
-                        strict: {name: "boolean", required: true},
-                        maxError: {name: "number"},
-                        simplify: {name: "string"},
-                    },
+            table: {
+                type: {
+                    summary: "array",
+                    detail: answersArray,
                 },
             },
         },
@@ -60,14 +74,10 @@ const meta: Meta<typeof NumericInput> = {
             control: {type: "object"},
             description:
                 "Used by examples, maybe not used and should be removed in the future",
-            type: {
-                name: "array",
-                value: {
-                    name: "object",
-                    value: {
-                        simplify: {name: "string"},
-                        name: {name: "string"},
-                    },
+            table: {
+                type: {
+                    summary: "array",
+                    detail: answerFormsArray,
                 },
             },
         },
