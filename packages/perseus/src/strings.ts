@@ -372,6 +372,9 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
+    srSinusoidGraphAriaLabel: string;
+    srSinusoidExtremumPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidMidlineIntersection: ({x, y}: {x: string; y: string}) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -613,6 +616,9 @@ export const strings = {
         "Ray with endpoint %(point1X)s comma %(point1Y)s going through point %(point2X)s comma %(point2Y)s.",
     srRayEndpoint: "Endpoint at %(x)s comma %(y)s.",
     srRayTerminalPoint: "Through point at %(x)s comma %(y)s.",
+    srSinusoidGraphAriaLabel: "A sinusoid function on a coordinate plane.",
+    srSinusoidExtremumPoint: "Extremum Point at %(x)s comma %(y)s.",
+    srSinusoidMidlineIntersection: "Midline Intersection at %(x)s comma %(y)s.",
     // The above strings are used for interactive graph SR descriptions.
 } satisfies {
     [key in keyof PerseusStrings]:
@@ -872,6 +878,10 @@ export const mockStrings: PerseusStrings = {
         `Ray with endpoint ${point1X} comma ${point1Y} going through point ${point2X} comma ${point2Y}.`,
     srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
     srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
+    srSinusoidGraphAriaLabel: "A sinusoid function on a coordinate plane.",
+    srSinusoidExtremumPoint: ({x, y}) => `Extremum Point at ${x} comma ${y}.`,
+    srSinusoidMidlineIntersection: ({x, y}) =>
+        `Midline Intersection at ${x} comma ${y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
 
