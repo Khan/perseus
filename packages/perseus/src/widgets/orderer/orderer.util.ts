@@ -1,16 +1,13 @@
-import type {
-    PerseusOrdererWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 
 /**
  * For details on the individual options, see the
  * PerseusOrdererWidgetOptions type
  */
 type OrdererPublicWidgetOptions = {
-    options: ReadonlyArray<PerseusRenderer>;
-    height: "normal" | "auto";
-    layout: "horizontal" | "vertical";
+    options: PerseusOrdererWidgetOptions["options"];
+    height: PerseusOrdererWidgetOptions["height"];
+    layout: PerseusOrdererWidgetOptions["layout"];
 };
 
 /**
