@@ -3,8 +3,8 @@ import {KeyArray, KeypadInput, KeypadType} from "@khanacademy/math-input";
 import {
     getDecimalSeparator,
     type PerseusExpressionWidgetOptions,
+    getExpressionPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
-import getExpressionPublicWidgetOptions from "@khanacademy/perseus-core/src/utils/expression-util";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {
     scoreExpression,

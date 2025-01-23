@@ -11,8 +11,8 @@ import type {
     PerseusWidget,
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
+    getExpressionPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type getExpressionPublicWidgetOptions from "@khanacademy/perseus-core/src/utils/expression-util";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
     PerseusScore,
