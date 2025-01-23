@@ -34,7 +34,11 @@ export {pluck, mapObject} from "./utils/objective_";
 
 export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
+export {default as passageLogic} from "./widgets/passage";
+export type {PassageDefaultWidgetOptions} from "./widgets/passage";
 export {default as passageRefLogic} from "./widgets/passage-ref";
 export type {PassageRefDefaultWidgetOptions} from "./widgets/passage-ref";
+export {default as passageRefTargetLogic} from "./widgets/passage-ref-target";
+export type {PassageRefTargetDefaultWidgetOptions} from "./widgets/passage-ref-target";
 
 export type * from "./widgets/logic-export.types";
