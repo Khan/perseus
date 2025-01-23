@@ -58,5 +58,9 @@ export {default as inputNumberLogic} from "./widgets/input-number";
 export type {InputNumberDefaultWidgetOptions} from "./widgets/input-number";
 export {default as interactionLogic} from "./widgets/interaction";
 export type {InteractionDefaultWidgetOptions} from "./widgets/interaction";
+export {default as labelImageLogic} from "./widgets/label-image";
+export type {LabelImageDefaultWidgetOptions} from "./widgets/label-image";
+export {default as matcherLogic} from "./widgets/matcher";
+export type {MatcherDefaultWidgetOptions} from "./widgets/matcher";
 
 export type * from "./widgets/logic-export.types";
