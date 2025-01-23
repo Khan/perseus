@@ -52,5 +52,7 @@ export {default as groupLogic} from "./widgets/group";
 export type {GroupDefaultWidgetOptions} from "./widgets/group";
 export {default as iframeLogic} from "./widgets/iframe";
 export type {IFrameDefaultWidgetOptions} from "./widgets/iframe";
+export {default as imageLogic} from "./widgets/image";
+export type {ImageDefaultWidgetOptions} from "./widgets/image";
 
 export type * from "./widgets/logic-export.types";
