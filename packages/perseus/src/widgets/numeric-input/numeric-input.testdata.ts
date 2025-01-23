@@ -38,7 +38,7 @@ export const question1: PerseusRenderer = {
 
 export const decimalProblem: PerseusRenderer = {
     // Added a floating question mark to keep enough space to show the examples.
-    content: "$12 + 0.52 =$ [[\u2603 numeric-input 1]] \n\n\n\n\n\n\n\n‎",
+    content: "$12 + 0.52 =$ [[\u2603 numeric-input 1]] \n\n‎",
     images: {},
     widgets: {
         "numeric-input 1": {
@@ -79,7 +79,7 @@ export const decimalProblem: PerseusRenderer = {
 
 export const integerProblem: PerseusRenderer = {
     // Added a floating question mark to keep enough space to show the examples.
-    content: "$5/5 + 10/10 =$ [[\u2603 numeric-input 1]] \n\n\n\n\n\n\n\n‎",
+    content: "$5/5 + 10/10 =$ [[\u2603 numeric-input 1]] \n\n‎",
     images: {},
     widgets: {
         "numeric-input 1": {
@@ -120,7 +120,7 @@ export const integerProblem: PerseusRenderer = {
 
 export const improperProblem: PerseusRenderer = {
     // Added a floating question mark to keep enough space to show the examples.
-    content: "$2/2 + 5/2 =$ [[\u2603 numeric-input 1]] \n\n\n\n\n\n\n\n‎",
+    content: "$2/2 + 5/2 =$ [[\u2603 numeric-input 1]] \n\n‎\n\n‎",
     images: {},
     widgets: {
         "numeric-input 1": {
@@ -162,7 +162,7 @@ export const improperProblem: PerseusRenderer = {
 export const piProblem: PerseusRenderer = {
     // Added a floating question mark to keep enough space to show the examples.
     content:
-        "$pi * 32 =$ [[\u2603 numeric-input 1]] \n\n\n\n\n\n\n\n‎\n\n\n Hint: Enter 100.53 to get an approx of pi error.",
+        "$pi * 32 =$ [[\u2603 numeric-input 1]] \n\n‎\n\n Hint: Enter 100.53 to get an approx of pi error.",
     images: {},
     widgets: {
         "numeric-input 1": {
@@ -203,7 +203,7 @@ export const piProblem: PerseusRenderer = {
 
 export const mixedProblem: PerseusRenderer = {
     // Added a floating question mark to keep enough space to show the examples.
-    content: "$2 + 2/10 =$ [[\u2603 numeric-input 1]] \n\n\n\n\n\n\n\n‎",
+    content: "$2 + 2/10 =$ [[\u2603 numeric-input 1]] \n\n‎",
     images: {},
     widgets: {
         "numeric-input 1": {
@@ -244,7 +244,7 @@ export const mixedProblem: PerseusRenderer = {
 
 export const properProblem: PerseusRenderer = {
     // Added a floating question mark to keep enough space to show the examples.
-    content: "$3/10 + 2/10 =$ [[\u2603 numeric-input 1]] \n\n\n\n\n\n\n\n‎",
+    content: "$3/10 + 2/10 =$ [[\u2603 numeric-input 1]] \n\n‎\n\n‎",
     images: {},
     widgets: {
         "numeric-input 1": {
