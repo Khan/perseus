@@ -34,5 +34,7 @@ export {pluck, mapObject} from "./utils/objective_";
 
 export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
+export {default as numberLineLogic} from "./widgets/number-line";
+export type {NumberLineDefaultWidgetOptions} from "./widgets/number-line";
 
 export type * from "./widgets/logic-export.types";
