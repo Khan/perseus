@@ -6,9 +6,7 @@ import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import NumericInputWidgetExport, {
-    unionAnswerForms,
-} from "./numeric-input.class";
+import NumericInputWidgetExport from "./numeric-input.class";
 import {
     question1AndAnswer,
     multipleAnswers,
@@ -213,7 +211,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
                     value: 1.0,
                     maxError: 0.2,
                     answerForms: ["decimal"],
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -374,37 +372,5 @@ describe("Numeric input widget", () => {
         expect(document.activeElement).not.toBe(
             screen.getByRole("textbox", {hidden: true}),
         );
-    });
-});
-
-describe("unionAnswerForms utility function", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
-    it("removes duplicates", () => {
-        // arrange
-        const forms = [
-            [
-                {
-                    simplify: "required" as const,
-                    name: "integer",
-                } as const,
-            ],
-            [
-                {
-                    simplify: "required" as const,
-                    name: "integer",
-                } as const,
-            ],
-        ];
-
-        // act
-        const result = unionAnswerForms(forms);
-
-        // assert
-        expect(result).toHaveLength(1);
     });
 });
