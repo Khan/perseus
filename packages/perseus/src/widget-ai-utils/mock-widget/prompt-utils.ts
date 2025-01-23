@@ -1,5 +1,5 @@
 import type mockWidget from "../../widgets/mock-widgets/mock-widget";
-import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
+import type {PerseusMockWidgetUserInput} from "../../widgets/mock-widgets/mock-widget-types";
 import type React from "react";
 
 export type MockWidgetPromptJSON = {

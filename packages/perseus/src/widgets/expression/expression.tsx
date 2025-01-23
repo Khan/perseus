@@ -7,11 +7,7 @@ import {
     getExpressionPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {
-    scoreExpression,
-    type PerseusExpressionRubric,
-    type PerseusExpressionUserInput,
-} from "@khanacademy/perseus-score";
+import {scoreExpression, validateExpression} from "@khanacademy/perseus-score";
 import {View} from "@khanacademy/wonder-blocks-core";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
@@ -30,9 +26,13 @@ import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
 import type {DependenciesContext} from "../../dependencies";
-import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
+import type {
+    PerseusExpressionScoringData,
+    PerseusExpressionUserInput,
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type InputPath = ReadonlyArray<string>;
@@ -72,7 +72,7 @@ type RenderProps = {
     keypadConfiguration: ReturnType<typeof keypadConfigurationForProps>;
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusExpressionRubric>;
+type ExternalProps = WidgetProps<RenderProps, PerseusExpressionScoringData>;
 
 export type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -540,14 +540,17 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
     scorer: scoreExpression,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
+    validator: validateExpression,
     getPublicWidgetOptions: getExpressionPublicWidgetOptions,
 
     // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.
-    getOneCorrectAnswerFromRubric(
-        rubric: PerseusExpressionRubric,
+    // @ts-expect-error: Type 'ScoringData' is not assignable to type 'PerseusExpressionScoringData'.
+    getOneCorrectAnswerFromScoringData(
+        scoringData: PerseusExpressionScoringData,
     ): string | null | undefined {
-        const correctAnswers = (rubric.answerForms || []).filter(
+        const correctAnswers = (scoringData.answerForms || []).filter(
             (answerForm) => answerForm.considered === "correct",
         );
         if (correctAnswers.length === 0) {
