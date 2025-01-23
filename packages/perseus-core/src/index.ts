@@ -34,7 +34,7 @@ export {pluck, mapObject} from "./utils/objective_";
 
 export {default as categorizerLogic} from "./widgets/categorizer";
 export type {CategorizerDefaultWidgetOptions} from "./widgets/categorizer";
-export {default as csPropgramWidgetLogic} from "./widgets/cs-program";
+export {default as csProgramLogic} from "./widgets/cs-program";
 export type {CSProgramDefaultWidgetOptions} from "./widgets/cs-program";
 export {default as definitionLogic} from "./widgets/definition";
 export type {DefinitionDefaultWidgetOptions} from "./widgets/definition";
@@ -68,5 +68,7 @@ export {default as numericInputLogic} from "./widgets/numeric-input";
 export type {NumericInputDefaultWidgetOptions} from "./widgets/numeric-input";
 export {default as ordererLogic} from "./widgets/orderer";
 export type {OrdererDefaultWidgetOptions} from "./widgets/orderer";
+export {default as phetSimulationLogic} from "./widgets/phet-simulation";
+export type {PhetSimulationDefaultWidgetOptions} from "./widgets/phet-simulation";
 
 export type * from "./widgets/logic-export.types";

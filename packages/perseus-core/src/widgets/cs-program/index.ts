@@ -22,9 +22,9 @@ const defaultWidgetOptions: CSProgramDefaultWidgetOptions = {
     height: DEFAULT_HEIGHT,
 };
 
-const csPropgramWidgetLogic: WidgetLogic = {
+const csProgramWidgetLogic: WidgetLogic = {
     name: "cs-program",
     defaultWidgetOptions,
 };
 
-export default csPropgramWidgetLogic;
+export default csProgramWidgetLogic;
