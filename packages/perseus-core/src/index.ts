@@ -48,5 +48,7 @@ export {default as gradedGroupLogic} from "./widgets/graded-group";
 export type {GradedGroupDefaultWidgetOptions} from "./widgets/graded-group";
 export {default as gradedGroupSetLogic} from "./widgets/graded-group-set";
 export type {GradedGroupSetDefaultWidgetOptions} from "./widgets/graded-group-set";
+export {default as groupLogic} from "./widgets/group";
+export type {GroupDefaultWidgetOptions} from "./widgets/group";
 
 export type * from "./widgets/logic-export.types";
