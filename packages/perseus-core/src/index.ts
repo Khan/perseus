@@ -70,5 +70,7 @@ export {default as ordererLogic} from "./widgets/orderer";
 export type {OrdererDefaultWidgetOptions} from "./widgets/orderer";
 export {default as phetSimulationLogic} from "./widgets/phet-simulation";
 export type {PhetSimulationDefaultWidgetOptions} from "./widgets/phet-simulation";
+export {default as pythonProgramLogic} from "./widgets/python-program";
+export type {PythonProgramDefaultWidgetOptions} from "./widgets/python-program";
 
 export type * from "./widgets/logic-export.types";
