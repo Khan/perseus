@@ -14,6 +14,7 @@ import type {
     WidgetOptionsUpgradeMap,
     getOrdererPublicWidgetOptions,
     getCategorizerPublicWidgetOptions,
+    getExpressionPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -541,7 +542,8 @@ export type WidgetScorerFunction = (
  */
 export type PublicWidgetOptionsFunction =
     | typeof getCategorizerPublicWidgetOptions
-    | typeof getOrdererPublicWidgetOptions;
+    | typeof getOrdererPublicWidgetOptions
+    | typeof getExpressionPublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
