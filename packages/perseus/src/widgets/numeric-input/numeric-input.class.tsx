@@ -11,7 +11,7 @@ import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 import {NumericInputComponent} from "./numeric-input";
-import {unionAnswerForms} from "./utils";
+import {getUserInputFromProps, unionAnswerForms} from "./utils";
 
 import type InputWithExamples from "../../components/input-with-examples";
 import type SimpleKeypadInput from "../../components/simple-keypad-input";
@@ -88,14 +88,6 @@ export class NumericInput
         linterContext: linterContextDefault,
     };
 
-    static getUserInputFromProps(
-        props: NumericInputProps,
-    ): PerseusNumericInputUserInput {
-        return {
-            currentValue: props.currentValue,
-        };
-    }
-
     constructor(props: NumericInputProps) {
         super(props);
         // Create a ref that we can pass down to the input component so that we
@@ -140,7 +132,7 @@ export class NumericInput
      * Returns the value the user has currently input for this widget.
      */
     getUserInput(): PerseusNumericInputUserInput {
-        return NumericInput.getUserInputFromProps(this.props);
+        return getUserInputFromProps(this.props);
     }
 
     /**

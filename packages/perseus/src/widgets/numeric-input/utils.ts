@@ -1,5 +1,7 @@
+import type {NumericInputProps} from "./numeric-input.class";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusNumericInputAnswerForm} from "@khanacademy/perseus-core";
+import type {PerseusNumericInputUserInput} from "@khanacademy/perseus-score";
 
 /**
  * The full list of available strings for the numeric input widget,
@@ -118,4 +120,15 @@ export const unionAnswerForms: (
             formExampleKeys.indexOf(a.name) - formExampleKeys.indexOf(b.name)
         );
     });
+};
+
+/**
+ * Returns the value the user has currently input for this widget.
+ */
+export const getUserInputFromProps = (
+    props: NumericInputProps,
+): PerseusNumericInputUserInput => {
+    return {
+        currentValue: props.currentValue,
+    };
 };
