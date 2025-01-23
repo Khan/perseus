@@ -4,14 +4,14 @@ import {filterNonEmpty} from "./utils";
 import validateTable from "./validate-table";
 
 import type {
+    PerseusTableScoringData,
     PerseusScore,
-    PerseusTableRubric,
     PerseusTableUserInput,
 } from "../../validation.types";
 
 function scoreTable(
     userInput: PerseusTableUserInput,
-    rubric: PerseusTableRubric,
+    scoringData: PerseusTableScoringData,
 ): PerseusScore {
     const validationResult = validateTable(userInput);
     if (validationResult != null) {
@@ -19,7 +19,7 @@ function scoreTable(
     }
 
     const supplied = filterNonEmpty(userInput);
-    const solution = filterNonEmpty(rubric.answers);
+    const solution = filterNonEmpty(scoringData.answers);
     if (supplied.length !== solution.length) {
         return {
             type: "points",

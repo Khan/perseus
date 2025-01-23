@@ -18,10 +18,12 @@ import type {
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
     PerseusScore,
-    Rubric,
+    ScoringData,
     UserInput,
     UserInputArray,
     UserInputMap,
+    ValidationData,
+    ValidationResult,
 } from "@khanacademy/perseus-score";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
@@ -198,7 +200,7 @@ export const MafsGraphTypeFlags = [
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
- * @see APIOptionsWithDefaults
+ * @see {@link APIOptionsWithDefaults}
  */
 export type APIOptions = Readonly<{
     isArticle?: boolean;
@@ -515,11 +517,18 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
+export type WidgetValidatorFunction = (
+    userInput: UserInput,
+    validationData: ValidationData,
+    strings: PerseusStrings,
+    locale: string,
+) => ValidationResult;
+
 export type WidgetScorerFunction = (
     // The user data needed to score
     userInput: UserInput,
     // The scoring criteria to score against
-    rubric: Rubric,
+    scoringData: ScoringData,
     // Strings, for error messages in invalid widgets
     string?: PerseusStrings,
     // Locale, for math evaluation
@@ -577,6 +586,14 @@ export type WidgetExports<
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
     /**
+     * Validates the learner's guess to check if it's sufficient for scoring.
+     * Typically, this is basically an "emptiness" check, but for some widgets
+     * such as `interactive-graph` it is a check that the learner has made any
+     * edits (ie. the widget is not in it's origin state).
+     */
+    validator?: WidgetValidatorFunction;
+
+    /**
      * A function that scores user input (the guess) for the widget.
      */
     scorer?: WidgetScorerFunction;
@@ -587,8 +604,8 @@ export type WidgetExports<
      */
     getPublicWidgetOptions?: PublicWidgetOptionsFunction;
 
-    getOneCorrectAnswerFromRubric?: (
-        rubric: Rubric,
+    getOneCorrectAnswerFromScoringData?: (
+        scoringData: ScoringData,
     ) => string | null | undefined;
 
     /**

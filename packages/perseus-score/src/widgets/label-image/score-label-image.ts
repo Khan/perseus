@@ -1,9 +1,10 @@
+import validateLabelImage from "./validate-label-image";
+
 import type {
     PerseusLabelImageUserInput,
-    PerseusLabelImageRubric,
+    PerseusLabelImageScoringData,
     PerseusScore,
 } from "../../validation.types";
-import type {InteractiveMarkerType} from "@khanacademy/perseus-core";
 
 // Question state for marker as result of user selected answers.
 type InteractiveMarkerScore = {
@@ -14,28 +15,26 @@ type InteractiveMarkerScore = {
 };
 
 export function scoreLabelImageMarker(
-    marker: InteractiveMarkerType,
+    userInput: PerseusLabelImageUserInput["markers"][number]["selected"],
+    scoringData: PerseusLabelImageScoringData["markers"][number]["answers"],
 ): InteractiveMarkerScore {
     const score = {
         hasAnswers: false,
         isCorrect: false,
     };
 
-    if (marker.selected && marker.selected.length > 0) {
+    if (userInput && userInput.length > 0) {
         score.hasAnswers = true;
     }
 
-    if (marker.answers.length > 0) {
-        if (
-            marker.selected &&
-            marker.selected.length === marker.answers.length
-        ) {
+    if (scoringData.length > 0) {
+        if (userInput && userInput.length === scoringData.length) {
             // All correct answers are selected by the user.
-            score.isCorrect = marker.selected.every((choice) =>
-                marker.answers.includes(choice),
+            score.isCorrect = userInput.every((choice) =>
+                scoringData.includes(choice),
             );
         }
-    } else if (!marker.selected || marker.selected.length === 0) {
+    } else if (!userInput || userInput.length === 0) {
         // Correct as no answers should be selected by the user.
         score.isCorrect = true;
     }
@@ -43,32 +42,26 @@ export function scoreLabelImageMarker(
     return score;
 }
 
-// TODO(LEMS-2440): May need to pull answers out of PerseusLabelImageWidgetOptions[markers] for the rubric
 function scoreLabelImage(
     userInput: PerseusLabelImageUserInput,
-    rubric?: PerseusLabelImageRubric,
+    scoringData: PerseusLabelImageScoringData,
 ): PerseusScore {
-    let numAnswered = 0;
+    const validationError = validateLabelImage(userInput);
+    if (validationError) {
+        return validationError;
+    }
+
     let numCorrect = 0;
 
-    for (const marker of userInput.markers) {
-        const score = scoreLabelImageMarker(marker);
-
-        if (score.hasAnswers) {
-            numAnswered++;
-        }
+    for (let i = 0; i < userInput.markers.length; i++) {
+        const score = scoreLabelImageMarker(
+            userInput.markers[i].selected,
+            scoringData.markers[i].answers,
+        );
 
         if (score.isCorrect) {
             numCorrect++;
         }
-    }
-
-    // We expect all question markers to be answered before grading.
-    if (numAnswered !== userInput.markers.length) {
-        return {
-            type: "invalid",
-            message: null,
-        };
     }
 
     return {

@@ -252,49 +252,52 @@ describe("input-number", function () {
     });
 });
 
-describe("getOneCorrectAnswerFromRubric", () => {
+describe("getOneCorrectAnswerFromScoringData", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
-    it("should return undefined if rubric.value is null/undefined", () => {
+    it("should return undefined if scoringData.value is null/undefined", () => {
         // Arrange
-        const rubric: Record<string, any> = {};
+        const scoringData: Record<string, any> = {};
 
         // Act
-        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
+        const result =
+            InputNumber.getOneCorrectAnswerFromScoringData?.(scoringData);
 
         // Assert
         expect(result).toBeUndefined();
     });
 
-    it("should return rubric.value if inexact is false", () => {
+    it("should return scoringData.value if inexact is false", () => {
         // Arrange
-        const rubric = {
+        const scoringData = {
             value: 0,
             maxError: 0.1,
             inexact: false,
         } as const;
 
         // Act
-        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
+        const result =
+            InputNumber.getOneCorrectAnswerFromScoringData?.(scoringData);
 
         // Assert
         expect(result).toEqual("0");
     });
 
-    it("should return rubric.value with an error band if inexact is true", () => {
+    it("should return scoringData.value with an error band if inexact is true", () => {
         // Arrange
-        const rubric = {
+        const scoringData = {
             value: 0,
             maxError: 0.1,
             inexact: true,
         } as const;
 
         // Act
-        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
+        const result =
+            InputNumber.getOneCorrectAnswerFromScoringData?.(scoringData);
 
         // Assert
         expect(result).toEqual("0 ± 0.1");

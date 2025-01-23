@@ -1422,7 +1422,7 @@ describe("renderer", () => {
             );
         });
 
-        it("should return user input", async () => {
+        it("[DEPRECATED] should return user input array", async () => {
             // Arrange
             const {renderer} = renderQuestion({
                 ...question2,
@@ -1597,6 +1597,7 @@ describe("renderer", () => {
                 },
             });
             await userEvent.type(screen.getAllByRole("textbox")[0], "150");
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             const emptyWidgets = renderer.emptyWidgets();
@@ -1645,7 +1646,7 @@ describe("renderer", () => {
                 JSON.stringify(simpleGroupQuestion),
             );
             simpleGroupQuestionCopy.widgets["group 1"].options.widgets[
-                "numeric-input 1"
+                "expression 1"
             ].static = true;
             const {renderer} = renderQuestion(simpleGroupQuestionCopy);
 
@@ -1660,6 +1661,7 @@ describe("renderer", () => {
             // Arrange
             const {renderer} = renderQuestion(simpleGroupQuestion);
             await userEvent.type(screen.getByRole("textbox"), "99");
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             const emptyWidgets = renderer.emptyWidgets();
