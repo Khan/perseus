@@ -1,4 +1,4 @@
-import getCategorizerPublicWidgetOptions from "./categorizer.util";
+import getCategorizerPublicWidgetOptions from "./categorizer-util";
 
 import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 
