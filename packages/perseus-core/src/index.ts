@@ -34,5 +34,7 @@ export {pluck, mapObject} from "./utils/objective_";
 
 export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
+export {default as plotterLogic} from "./widgets/plotter";
+export type {PlotterDefaultWidgetOptions} from "./widgets/plotter";
 
 export type * from "./widgets/logic-export.types";
