@@ -62,5 +62,7 @@ export {default as labelImageLogic} from "./widgets/label-image";
 export type {LabelImageDefaultWidgetOptions} from "./widgets/label-image";
 export {default as matcherLogic} from "./widgets/matcher";
 export type {MatcherDefaultWidgetOptions} from "./widgets/matcher";
+export {default as matrixLogic} from "./widgets/matrix";
+export type {MatrixDefaultWidgetOptions} from "./widgets/matrix";
 
 export type * from "./widgets/logic-export.types";
