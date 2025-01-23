@@ -2,6 +2,7 @@ import * as KAS from "@khanacademy/kas";
 import {KeyArray, KeypadInput, KeypadType} from "@khanacademy/math-input";
 import {
     getDecimalSeparator,
+    expressionLogic,
     type PerseusExpressionWidgetOptions,
     getExpressionPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
@@ -490,27 +491,6 @@ export const keypadConfigurationForProps = (
     };
 };
 
-const propUpgrades = {
-    /* c8 ignore next */
-    "1": (v0props: any): PerseusExpressionWidgetOptions => ({
-        times: v0props.times,
-        buttonSets: v0props.buttonSets,
-        functions: v0props.functions,
-        buttonsVisible: v0props.buttonsVisible,
-        visibleLabel: v0props.visibleLabel,
-        ariaLabel: v0props.ariaLabel,
-
-        answerForms: [
-            {
-                considered: "correct",
-                form: v0props.form,
-                simplify: v0props.simplify,
-                value: v0props.value,
-            },
-        ],
-    }),
-} as const;
-
 const ExpressionWithDependencies = React.forwardRef<
     Expression,
     Omit<PropsFor<typeof Expression>, keyof ReturnType<typeof useDependencies>>
@@ -552,8 +532,8 @@ export default {
             ariaLabel,
         };
     },
-    version: {major: 1, minor: 0},
-    propUpgrades: propUpgrades,
+    version: expressionLogic.version,
+    propUpgrades: expressionLogic.widgetOptionsUpgrades,
 
     // For use by the editor
     isLintable: true,

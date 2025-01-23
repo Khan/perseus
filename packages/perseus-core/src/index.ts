@@ -16,6 +16,10 @@ export {addLibraryVersionToPerseusDebug} from "./utils/add-library-version-to-pe
 export {default as getMatrixSize} from "./utils/get-matrix-size";
 export {default as getDecimalSeparator} from "./utils/get-decimal-separator";
 export {approximateEqual, approximateDeepEqual} from "./utils/equality";
+export {
+    getWidgetIdsFromContent,
+    getWidgetIdsFromContentByType,
+} from "./utils/widget-id-utils";
 export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
 
@@ -27,5 +31,10 @@ export {PerseusError} from "./error/perseus-error";
 export * from "./data-schema";
 
 export {pluck, mapObject} from "./utils/objective_";
+
+export {default as expressionLogic} from "./widgets/expression";
+export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
+
+export type * from "./widgets/logic-export.types";
 
 export {default as getExpressionPublicWidgetOptions} from "./utils/expression-util";
