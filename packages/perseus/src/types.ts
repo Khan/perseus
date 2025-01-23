@@ -13,6 +13,7 @@ import type {
     AnalyticsEventHandlerFn,
     Version,
     WidgetOptionsUpgradeMap,
+    getOrdererPublicWidgetOptions,
     getExpressionPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -541,6 +542,7 @@ export type WidgetScorerFunction = (
  */
 export type PublicWidgetOptionsFunction =
     | typeof getCategorizerPublicWidgetOptions
+    | typeof getOrdererPublicWidgetOptions
     | typeof getExpressionPublicWidgetOptions;
 
 export type WidgetExports<
