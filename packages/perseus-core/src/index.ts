@@ -54,5 +54,7 @@ export {default as iframeLogic} from "./widgets/iframe";
 export type {IFrameDefaultWidgetOptions} from "./widgets/iframe";
 export {default as imageLogic} from "./widgets/image";
 export type {ImageDefaultWidgetOptions} from "./widgets/image";
+export {default as inputNumberLogic} from "./widgets/input-number";
+export type {InputNumberDefaultWidgetOptions} from "./widgets/input-number";
 
 export type * from "./widgets/logic-export.types";

@@ -23,9 +23,9 @@ const defaultWidgetOptions: ImageDefaultWidgetOptions = {
     caption: "",
 };
 
-const ImageWidgetLogic: WidgetLogic = {
-    name: "Image",
+const imageWidgetLogic: WidgetLogic = {
+    name: "image",
     defaultWidgetOptions,
 };
 
-export default ImageWidgetLogic;
+export default imageWidgetLogic;
