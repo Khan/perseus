@@ -270,10 +270,6 @@ function getGridStep(
     });
 }
 
-function snapStepFromGridStep(gridStep: [number, number]): [number, number] {
-    return [gridStep[0] / 2, gridStep[1] / 2];
-}
-
 /**
  * Given the tickStep and the graph's scale, find a
  * grid step.
@@ -664,7 +660,6 @@ const Util = {
     stringArrayOfSize,
     gridDimensionConfig,
     getGridStep,
-    snapStepFromGridStep,
     scaleFromExtent,
     tickStepFromExtent,
     gridStepFromTickStep,

@@ -1,3 +1,4 @@
+import {point as kpoint} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import {approximateDeepEqual} from "./equality";
@@ -643,4 +644,49 @@ export function functionForType<T extends FunctionTypeMappingKeys>(
     // @ts-expect-error: TypeScript doesn't know how to use deal with generics
     // and conditional types in this way.
     return functionTypeMapping[type];
+}
+
+const pointsFromNormalized = (
+    coordsList: ReadonlyArray<Coord>,
+    range: [Coord, Coord],
+    step: [number, number],
+    snapStep: [number, number],
+): ReadonlyArray<Coord> => {
+    const numSteps = function (range: Coord, step: number) {
+        return Math.floor((range[1] - range[0]) / step);
+    };
+
+    // @ts-expect-error - TS2322 - Type 'number[][]' is not assignable to type 'readonly Coord[]'.
+    return coordsList.map((coords) => {
+        const unsnappedPoint = coords.map((coord, i) => {
+            const currRange = range[i];
+            const currStep = step[i];
+            const nSteps = numSteps(currRange, currStep);
+            const tick = Math.round(coord * nSteps);
+            return currRange[0] + currStep * tick;
+        });
+        // In some graphing widgets, e.g. interactive-graph, you can rely
+        // on the Graphie to handle snapping. Here, we need the points
+        // returned to already be snapped so that the plot that goes
+        // through them is correct.
+        return kpoint.roundTo(unsnappedPoint, snapStep);
+    });
+};
+
+export const maybePointsFromNormalized = (
+    coordsList: ReadonlyArray<Coord> | null | undefined,
+    range: [Coord, Coord],
+    step: [number, number],
+    snapStep: [number, number],
+): ReadonlyArray<Coord> | null | undefined => {
+    if (coordsList) {
+        return pointsFromNormalized(coordsList, range, step, snapStep);
+    }
+    return coordsList;
+};
+
+export function snapStepFromGridStep(
+    gridStep: [number, number],
+): [number, number] {
+    return [gridStep[0] / 2, gridStep[1] / 2];
 }

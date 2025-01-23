@@ -22,6 +22,7 @@ export {
 } from "./utils/widget-id-utils";
 export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
+export * as GrapherDefault from "./utils/grapher-default";
 
 export {libVersion} from "./version";
 
@@ -34,5 +35,7 @@ export {pluck, mapObject} from "./utils/objective_";
 
 export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
+export {default as grapherLogic} from "./widgets/grapher";
+export type {GrapherDefaultWidgetOptions} from "./widgets/grapher";
 
 export type * from "./widgets/logic-export.types";

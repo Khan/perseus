@@ -41,17 +41,13 @@ export {default as GrapherWidget} from "./widgets/grapher";
 // `perseus`, so only export the stuff that does need to be exposed
 import {keScoreFromPerseusScore} from "./util/scoring";
 import {
-    DEFAULT_GRAPHER_PROPS,
     chooseType,
-    defaultPlotProps,
     getEquationString,
     typeToButton,
 } from "./widgets/grapher/util";
 
 export const GrapherUtil = {
-    DEFAULT_GRAPHER_PROPS,
     chooseType,
-    defaultPlotProps,
     getEquationString,
     typeToButton,
 };

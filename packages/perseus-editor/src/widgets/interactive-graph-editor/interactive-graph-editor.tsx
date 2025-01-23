@@ -7,6 +7,14 @@ import {
     interactiveSizes,
     Util,
 } from "@khanacademy/perseus";
+import {
+    type LockedFigure,
+    type PerseusImageBackground,
+    type PerseusInteractiveGraphWidgetOptions,
+    type PerseusGraphType,
+    type MarkingsType,
+    GrapherUtil,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -33,13 +41,6 @@ import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {
-    LockedFigure,
-    PerseusImageBackground,
-    PerseusInteractiveGraphWidgetOptions,
-    PerseusGraphType,
-    MarkingsType,
-} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
@@ -297,7 +298,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 interactiveSizes.defaultBoxSize,
             );
         const snapStep =
-            this.props.snapStep || Util.snapStepFromGridStep(gridStep);
+            this.props.snapStep || GrapherUtil.snapStepFromGridStep(gridStep);
 
         const sizeClass = containerSizeClass.SMALL;
         if (this.props.valid === true) {

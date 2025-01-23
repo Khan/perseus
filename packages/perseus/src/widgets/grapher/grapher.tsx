@@ -3,7 +3,7 @@ import {
     vector as kvector,
     point as kpoint,
 } from "@khanacademy/kmath";
-import {GrapherUtil} from "@khanacademy/perseus-core";
+import {GrapherDefault, GrapherUtil} from "@khanacademy/perseus-core";
 import {
     scoreGrapher,
     type PerseusGrapherRubric,
@@ -27,11 +27,8 @@ import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
 
 import {
-    DEFAULT_GRAPHER_PROPS,
     chooseType,
-    defaultPlotProps,
     getGridAndSnapSteps,
-    maybePointsFromNormalized,
     movableTypeToComponent,
     typeToButton,
 } from "./util";
@@ -102,7 +99,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         const graph = props.graph;
         const defaultModelCoords =
             props.model &&
-            maybePointsFromNormalized(
+            GrapherUtil.maybePointsFromNormalized(
                 props.model.defaultCoords,
                 graph.range,
                 graph.step,
@@ -374,7 +371,7 @@ class Grapher extends React.Component<Props> implements Widget {
     horizHairline: any;
     vertHairline: any;
 
-    static defaultProps: DefaultProps = DEFAULT_GRAPHER_PROPS;
+    static defaultProps: DefaultProps = GrapherDefault.DEFAULT_GRAPHER_PROPS;
 
     static getUserInputFromProps(props: Props): PerseusGrapherUserInput {
         return props.plot;
@@ -393,7 +390,7 @@ class Grapher extends React.Component<Props> implements Widget {
         const plot = _.extend(
             {},
             this.props.plot,
-            defaultPlotProps(newType, graph),
+            GrapherDefault.defaultPlotProps(newType, graph),
         );
         this.props.onChange({
             plot: plot,
@@ -632,7 +629,7 @@ const propTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
         const graph = widgetProps.graph;
         const type = chooseType(widgetProps.availableTypes);
         // @ts-expect-error - TS2345 - Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
-        widgetProps.plot = defaultPlotProps(type, graph);
+        widgetProps.plot = GrapherDefault.defaultPlotProps(type, graph);
     }
 
     return widgetProps;

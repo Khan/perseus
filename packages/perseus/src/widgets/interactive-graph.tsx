@@ -9,6 +9,7 @@ import {
     approximateEqual,
     Errors,
     PerseusError,
+    GrapherUtil,
 } from "@khanacademy/perseus-core";
 import {
     scoreInteractiveGraph,
@@ -1859,7 +1860,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
             this.props.gridStep ||
             Util.getGridStep(this.props.range, this.props.step, box[0]);
         const snapStep =
-            this.props.snapStep || Util.snapStepFromGridStep(gridStep);
+            this.props.snapStep || GrapherUtil.snapStepFromGridStep(gridStep);
 
         let instructions;
         // isClickToAddPoints() only applies to points and polygons
@@ -1970,7 +1971,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 this.props.gridStep ||
                 Util.getGridStep(this.props.range, this.props.step, box[0]);
             const snapStep =
-                this.props.snapStep || Util.snapStepFromGridStep(gridStep);
+                this.props.snapStep ||
+                GrapherUtil.snapStepFromGridStep(gridStep);
 
             return (
                 <StatefulMafsGraph

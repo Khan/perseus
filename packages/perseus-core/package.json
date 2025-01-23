@@ -25,7 +25,9 @@
         "prepublishOnly": "../../utils/package-pre-publish-check.sh",
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
-    "dependencies": {},
+    "dependencies": {
+        "@khanacademy/kmath": "^0.3.0"
+    },
     "devDependencies": {
         "@khanacademy/wonder-stuff-core": "1.5.4"
     },
