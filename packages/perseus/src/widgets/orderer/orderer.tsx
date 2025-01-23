@@ -1,6 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe */
 import {Errors} from "@khanacademy/perseus-core";
+import getOrdererPublicWidgetOptions from "@khanacademy/perseus-core/src/utils/orderer-util";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {
     scoreOrderer,
@@ -18,8 +19,6 @@ import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
-
-import getOrdererPublicWidgetOptions from "./orderer.util";
 
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";

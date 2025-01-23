@@ -1,5 +1,4 @@
-import {question1} from "./orderer.testdata";
-import getOrdererPublicWidgetOptions from "./orderer.util";
+import getOrdererPublicWidgetOptions from "./orderer-util";
 
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 

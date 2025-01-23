@@ -3,7 +3,6 @@ import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type getCategorizerPublicWidgetOptions from "./widgets/categorizer/categorizer.util";
-import type getOrdererPublicWidgetOptions from "./widgets/orderer/orderer.util";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     Hint,
@@ -13,6 +12,7 @@ import type {
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
 } from "@khanacademy/perseus-core";
+import type getOrdererPublicWidgetOptions from "@khanacademy/perseus-core/src/utils/orderer-util";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
     PerseusScore,
