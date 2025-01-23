@@ -74,5 +74,7 @@ export {default as pythonProgramLogic} from "./widgets/python-program";
 export type {PythonProgramDefaultWidgetOptions} from "./widgets/python-program";
 export {default as sorterLogic} from "./widgets/sorter";
 export type {SorterDefaultWidgetOptions} from "./widgets/sorter";
+export {default as videoLogic} from "./widgets/video";
+export type {VideoDefaultWidgetOptions} from "./widgets/video";
 
 export type * from "./widgets/logic-export.types";
