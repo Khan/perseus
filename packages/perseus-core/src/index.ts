@@ -64,5 +64,7 @@ export {default as matcherLogic} from "./widgets/matcher";
 export type {MatcherDefaultWidgetOptions} from "./widgets/matcher";
 export {default as matrixLogic} from "./widgets/matrix";
 export type {MatrixDefaultWidgetOptions} from "./widgets/matrix";
+export {default as numericInputLogic} from "./widgets/numeric-input";
+export type {NumericInputDefaultWidgetOptions} from "./widgets/numeric-input";
 
 export type * from "./widgets/logic-export.types";
