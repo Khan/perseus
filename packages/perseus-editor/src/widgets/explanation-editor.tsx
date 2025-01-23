@@ -1,20 +1,19 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {explanationLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../editor";
 
+import type {ExplanationDefaultWidgetOptions} from "@khanacademy/perseus-core";
+
 const {TextInput} = components;
 
-const defaultExplanationProps = {
-    showPrompt: "Explain",
-    hidePrompt: "Hide explanation",
-    explanation: "explanation goes here\n\nmore explanation",
-    widgets: {},
-} as const;
+const defaultExplanationProps: ExplanationDefaultWidgetOptions =
+    explanationLogic.defaultWidgetOptions;
 
 type Props = any;
 type State = any;
