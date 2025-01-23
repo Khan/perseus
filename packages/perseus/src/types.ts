@@ -13,6 +13,7 @@ import type {
     AnalyticsEventHandlerFn,
     Version,
     WidgetOptionsUpgradeMap,
+    getOrdererPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -539,7 +540,8 @@ export type WidgetScorerFunction = (
  * A union type of all the functions that provide public widget options.
  */
 export type PublicWidgetOptionsFunction =
-    typeof getCategorizerPublicWidgetOptions;
+    | typeof getCategorizerPublicWidgetOptions
+    | typeof getOrdererPublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
