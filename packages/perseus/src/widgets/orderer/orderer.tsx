@@ -1,7 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe */
-import {Errors} from "@khanacademy/perseus-core";
-import getOrdererPublicWidgetOptions from "@khanacademy/perseus-core/src/utils/orderer-util";
+import {Errors, getOrdererPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {
     scoreOrderer,

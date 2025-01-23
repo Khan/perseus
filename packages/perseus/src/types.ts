@@ -13,8 +13,8 @@ import type {
     AnalyticsEventHandlerFn,
     Version,
     WidgetOptionsUpgradeMap,
+    getOrdererPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type getOrdererPublicWidgetOptions from "@khanacademy/perseus-core/src/utils/orderer-util";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
     PerseusScore,
