@@ -32,6 +32,8 @@ export * from "./data-schema";
 
 export {pluck, mapObject} from "./utils/objective_";
 
+export {default as categorizerLogic} from "./widgets/categorizer";
+export type {CategorizerDefaultWidgetOptions} from "./widgets/categorizer";
 export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
 
