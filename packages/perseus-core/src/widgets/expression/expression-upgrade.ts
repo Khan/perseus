@@ -3,7 +3,6 @@ import type {PerseusExpressionWidgetOptions} from "../../data-schema";
 export const currentVersion = {major: 1, minor: 0};
 
 export const widgetOptionsUpgrades = {
-    /* c8 ignore next */
     "1": (v0options: any): PerseusExpressionWidgetOptions => ({
         times: v0options.times,
         buttonSets: v0options.buttonSets,
