@@ -38,6 +38,8 @@ export {default as csPropgramWidgetLogic} from "./widgets/cs-program";
 export type {CSProgramDefaultWidgetOptions} from "./widgets/cs-program";
 export {default as definitionLogic} from "./widgets/definition";
 export type {DefinitionDefaultWidgetOptions} from "./widgets/definition";
+export {default as dropdownLogic} from "./widgets/dropdown";
+export type {DropdownDefaultWidgetOptions} from "./widgets/dropdown";
 export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
 
