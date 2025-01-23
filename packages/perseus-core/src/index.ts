@@ -66,5 +66,7 @@ export {default as matrixLogic} from "./widgets/matrix";
 export type {MatrixDefaultWidgetOptions} from "./widgets/matrix";
 export {default as numericInputLogic} from "./widgets/numeric-input";
 export type {NumericInputDefaultWidgetOptions} from "./widgets/numeric-input";
+export {default as ordererLogic} from "./widgets/orderer";
+export type {OrdererDefaultWidgetOptions} from "./widgets/orderer";
 
 export type * from "./widgets/logic-export.types";
