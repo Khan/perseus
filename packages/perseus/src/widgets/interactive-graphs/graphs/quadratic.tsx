@@ -170,15 +170,23 @@ function getQuadraticGraphDescription(
     i18n: I18nContextType,
 ): string {
     const strings = describeQuadraticGraph(state, i18n);
-    // This particular string will never be undefined.
-    return strings.srQuadraticInteractiveElements || "";
+    return strings.srQuadraticInteractiveElements;
 }
+
+type QuadraticGraphDescriptionStrings = {
+    srQuadraticGraph: string;
+    srQuadraticDirection?: string;
+    srQuadraticVertex?: string;
+    srQuadraticXIntercepts?: string;
+    srQuadraticYIntercept: string;
+    srQuadraticInteractiveElements: string;
+};
 
 // Exported for testing
 export function describeQuadraticGraph(
     state: QuadraticGraphState,
     i18n: I18nContextType,
-): Record<string, string | undefined> {
+): QuadraticGraphDescriptionStrings {
     const {strings, locale} = i18n;
     const coeffs = getQuadraticCoefficients(state.coords);
     const [a, b, c] = coeffs ?? [0, 0, 0];
@@ -190,6 +198,7 @@ export function describeQuadraticGraph(
     const srQuadraticGraph = strings.srQuadraticGraph;
     const srQuadraticFaceUp = strings.srQuadraticFaceUp;
     const srQuadraticFaceDown = strings.srQuadraticFaceDown;
+    // The graph only has a direction if it is not a line.
     const srQuadraticDirection =
         a === 0 ? undefined : a > 0 ? srQuadraticFaceUp : srQuadraticFaceDown;
     // Only describe vertex if the quadratic graph is not a line.
