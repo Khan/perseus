@@ -3,7 +3,16 @@ import * as React from "react";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 
 import {NumericInput} from "./numeric-input.class";
-import {decimalProblem, question1} from "./numeric-input.testdata";
+import {
+    decimalProblem,
+    improperProblem,
+    integerProblem,
+    mixedProblem,
+    piProblem,
+    properProblem,
+    question1,
+    withCoefficient,
+} from "./numeric-input.testdata";
 
 import type {
     PerseusNumericInputWidgetOptions,
@@ -50,6 +59,7 @@ const meta: Meta<typeof NumericInput> = {
                 message: "",
             },
         ],
+        // We're including all the answer forms to make it easier to edit in storybook.
         answerForms: [
             {simplify: "required", name: "decimal"},
             {simplify: "required", name: "integer"},
@@ -174,8 +184,34 @@ export const Default = (
     return <RendererWithDebugUI question={question} />;
 };
 Default.args = question1.widgets["numeric-input 1"].options;
+Default.parameters = {
+    docs: {
+        description: {
+            story: "The default Numeric Input widget.",
+        },
+    },
+};
 
-export const WithExample = (
+export const IntegerExample = (
+    args: PerseusNumericInputWidgetOptions,
+): React.ReactElement => {
+    const question = updateWidgetOptions(
+        integerProblem,
+        "numeric-input 1",
+        args,
+    );
+    return <RendererWithDebugUI question={question} />;
+};
+IntegerExample.args = integerProblem.widgets["numeric-input 1"].options;
+IntegerExample.parameters = {
+    docs: {
+        description: {
+            story: "Numeric Input set to strictly integer mode will only accept integer answers.",
+        },
+    },
+};
+
+export const DecimalExample = (
     args: PerseusNumericInputWidgetOptions,
 ): React.ReactElement => {
     const question = updateWidgetOptions(
@@ -185,4 +221,98 @@ export const WithExample = (
     );
     return <RendererWithDebugUI question={question} />;
 };
-WithExample.args = decimalProblem.widgets["numeric-input 1"].options;
+DecimalExample.args = decimalProblem.widgets["numeric-input 1"].options;
+DecimalExample.parameters = {
+    docs: {
+        description: {
+            story: "Numeric Inputs set to strictly decimal mode will only accept decimal answers.",
+        },
+    },
+};
+
+export const ImproperExample = (
+    args: PerseusNumericInputWidgetOptions,
+): React.ReactElement => {
+    const question = updateWidgetOptions(
+        improperProblem,
+        "numeric-input 1",
+        args,
+    );
+    return <RendererWithDebugUI question={question} />;
+};
+ImproperExample.args = improperProblem.widgets["numeric-input 1"].options;
+ImproperExample.parameters = {
+    docs: {
+        description: {
+            story: "Numeric Inputs set to strictly improper mode will only accept improper fractions.",
+        },
+    },
+};
+
+export const ProperExample = (
+    args: PerseusNumericInputWidgetOptions,
+): React.ReactElement => {
+    const question = updateWidgetOptions(
+        properProblem,
+        "numeric-input 1",
+        args,
+    );
+    return <RendererWithDebugUI question={question} />;
+};
+ProperExample.args = properProblem.widgets["numeric-input 1"].options;
+ProperExample.parameters = {
+    docs: {
+        description: {
+            story: "Numeric Inputs set to strictly proper mode will only accept proper fractions. This example does not require simplifying.",
+        },
+    },
+};
+
+export const MixedExample = (
+    args: PerseusNumericInputWidgetOptions,
+): React.ReactElement => {
+    const question = updateWidgetOptions(mixedProblem, "numeric-input 1", args);
+    return <RendererWithDebugUI question={question} />;
+};
+MixedExample.args = mixedProblem.widgets["numeric-input 1"].options;
+MixedExample.parameters = {
+    docs: {
+        description: {
+            story: "Numeric Inputs set to strictly mixed mode will only accept mixed fractions.",
+        },
+    },
+};
+
+export const PiExample = (
+    args: PerseusNumericInputWidgetOptions,
+): React.ReactElement => {
+    const question = updateWidgetOptions(piProblem, "numeric-input 1", args);
+    return <RendererWithDebugUI question={question} />;
+};
+PiExample.args = piProblem.widgets["numeric-input 1"].options;
+PiExample.parameters = {
+    docs: {
+        description: {
+            story: "Numeric Inputs set to strictly pi mode will only accept answers in terms of π. Approximating pi will result in an incorrect answer and a hint.",
+        },
+    },
+};
+
+export const CoefficientExample = (
+    args: PerseusNumericInputWidgetOptions,
+): React.ReactElement => {
+    const question = updateWidgetOptions(
+        withCoefficient,
+        "numeric-input 1",
+        args,
+    );
+    return <RendererWithDebugUI question={question} />;
+};
+CoefficientExample.args = withCoefficient.widgets["numeric-input 1"].options;
+CoefficientExample.parameters = {
+    docs: {
+        description: {
+            story: "When Numeric Input is set to coefficient mode, it allows the student to use - for -1 and an empty string to mean 1.",
+        },
+    },
+};
