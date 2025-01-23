@@ -4,7 +4,7 @@ import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import {Editor} from "..";
-import SplitView from "../../../../testing/side-by-side";
+import SplitView from "../../../../testing/split-view";
 import {question1} from "../__testdata__/numeric-input.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 

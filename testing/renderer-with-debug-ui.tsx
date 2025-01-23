@@ -14,7 +14,7 @@ import {scorePerseusItem} from "../packages/perseus/src/renderer-util";
 import {mockStrings} from "../packages/perseus/src/strings";
 import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
 
-import SplitView from "./side-by-side";
+import SplitView from "./split-view";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {ComponentProps} from "react";

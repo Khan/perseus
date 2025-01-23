@@ -11,6 +11,10 @@ type Props = {
     jsonObject: any;
 };
 
+/**
+ * This component is used in Storybook to render both the renderer and the JSON object in a split view.
+ * Currently, the renderer is displayed above the JSON object.
+ */
 const SplitView = ({
     rendererTitle = "Renderer",
     renderer,
