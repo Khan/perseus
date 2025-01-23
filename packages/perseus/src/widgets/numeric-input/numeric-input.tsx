@@ -7,7 +7,6 @@ import {
     useRef,
     useState,
 } from "react";
-import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import InputWithExamples from "../../components/input-with-examples";

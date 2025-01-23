@@ -5579,7 +5579,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
             {
               "maxError": 0,
               "message": "",
-              "simplify": "true",
+              "simplify": "required",
               "status": "correct",
               "strict": false,
               "value": 1.125,
@@ -6082,7 +6082,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-with-s
             {
               "maxError": 0,
               "message": "",
-              "simplify": "false",
+              "simplify": "optional",
               "status": "correct",
               "strict": false,
               "value": 2.6,

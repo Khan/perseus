@@ -29,6 +29,13 @@ const parseMathFormat = enumeration(
     "pi",
 );
 
+const parseSimplify = enumeration(
+    "required",
+    "correct",
+    "enforced",
+    "optional",
+);
+
 export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
     constant("numeric-input"),
     object({
@@ -48,8 +55,15 @@ export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
                 // the data, we should simplify `simplify`.
                 simplify: optional(
                     nullable(
-                        union(string).or(
-                            pipeParsers(boolean).then(convert(String)).parser,
+                        union(parseSimplify).or(
+                            pipeParsers(boolean).then(
+                                convert((value) => {
+                                    if (typeof value === "boolean") {
+                                        return value ? "required" : "optional";
+                                    }
+                                    return value;
+                                }),
+                            ).parser,
                         ).parser,
                     ),
                 ),
