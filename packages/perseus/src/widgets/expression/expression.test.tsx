@@ -269,16 +269,16 @@ describe("Expression Widget", function () {
         });
     });
 
-    describe("getOneCorrectAnswerFromRubric", () => {
+    describe("getOneCorrectAnswerFromScoringData", () => {
         beforeEach(() => {
             jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
         });
 
-        it("should return undefined if rubric.value is null/undefined", () => {
+        it("should return undefined if scoringData.value is null/undefined", () => {
             // Arrange
-            const rubric = {
+            const scoringData = {
                 answerForms: [],
                 buttonSets: [],
                 functions: [],
@@ -287,7 +287,9 @@ describe("Expression Widget", function () {
 
             // Act
             const result =
-                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
+                ExpressionWidgetExport.getOneCorrectAnswerFromScoringData?.(
+                    scoringData,
+                );
 
             // Assert
             expect(result).toBeUndefined();
@@ -295,7 +297,7 @@ describe("Expression Widget", function () {
 
         it("returns a correct answer when there is one correct answer", () => {
             // Arrange
-            const rubric = {
+            const scoringData = {
                 answerForms: [
                     {
                         value: "123",
@@ -311,7 +313,9 @@ describe("Expression Widget", function () {
 
             // Act
             const result =
-                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
+                ExpressionWidgetExport.getOneCorrectAnswerFromScoringData?.(
+                    scoringData,
+                );
 
             // Assert
             expect(result).toEqual("123");
@@ -319,7 +323,7 @@ describe("Expression Widget", function () {
 
         it("returns the first correct answer when there are multiple correct answers", () => {
             // Arrange
-            const rubric = {
+            const scoringData = {
                 answerForms: [
                     {
                         value: "123",
@@ -341,7 +345,9 @@ describe("Expression Widget", function () {
 
             // Act
             const result =
-                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
+                ExpressionWidgetExport.getOneCorrectAnswerFromScoringData?.(
+                    scoringData,
+                );
 
             // Assert
             expect(result).toEqual("123");

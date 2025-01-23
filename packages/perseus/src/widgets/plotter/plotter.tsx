@@ -1,10 +1,6 @@
 /* eslint-disable react/no-unsafe */
 import {KhanMath} from "@khanacademy/kmath";
-import {
-    scorePlotter,
-    type PerseusPlotterScoringData,
-    type PerseusPlotterUserInput,
-} from "@khanacademy/perseus-score";
+import {scorePlotter, validatePlotter} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -21,6 +17,10 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plo
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusPlotterScoringData,
+    PerseusPlotterUserInput,
+} from "@khanacademy/perseus-score";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 
@@ -1181,4 +1181,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
     scorer: scorePlotter,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
+    validator: validatePlotter,
 } satisfies WidgetExports<typeof Plotter>;

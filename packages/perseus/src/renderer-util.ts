@@ -1,7 +1,11 @@
 import {getWidgetIdsFromContent, mapObject} from "@khanacademy/perseus-core";
 
 import {scoreIsEmpty, flattenScores} from "./util/scoring";
-import {getWidgetScorer, upgradeWidgetInfoToLatestVersion} from "./widgets";
+import {
+    getWidgetScorer,
+    getWidgetValidator,
+    upgradeWidgetInfoToLatestVersion,
+} from "./widgets";
 
 import type {PerseusStrings} from "./strings";
 import type {
@@ -9,15 +13,14 @@ import type {
     PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
 import type {
-    PerseusScore,
-    UserInput,
     UserInputMap,
+    PerseusScore,
+    ValidationDataMap,
 } from "@khanacademy/perseus-score";
 
 export function getUpgradedWidgetOptions(
     oldWidgetOptions: PerseusWidgetsMap,
 ): PerseusWidgetsMap {
-    // @ts-expect-error - TS2322 - Type '(props: Props) => Partial<Record<string, CategorizerWidget | CSProgramWidget | DefinitionWidget | DropdownWidget | ... 35 more ... | VideoWidget>>' is not assignable to type '(props: Props) => { [key: string]: PerseusWidget; }'.
     return mapObject(oldWidgetOptions, (widgetInfo, widgetId) => {
         if (!widgetInfo.type || !widgetInfo.alignment) {
             const newValues: Record<string, any> = {};
@@ -35,35 +38,36 @@ export function getUpgradedWidgetOptions(
 
             widgetInfo = {...widgetInfo, ...newValues};
         }
-        return upgradeWidgetInfoToLatestVersion(widgetInfo);
+        // TODO(LEMS-2656): remove TS suppression
+        return upgradeWidgetInfoToLatestVersion(widgetInfo) as any;
     });
 }
 
+/**
+ * Checks the given user input to see if any answerable widgets have not been
+ * "filled in" (ie. if they're empty). Another way to think about this
+ * function is that its a check to see if we can score the provided input.
+ */
 export function emptyWidgetsFunctional(
-    widgets: PerseusWidgetsMap,
+    widgets: ValidationDataMap,
     // This is a port of old code, I'm not sure why
     // we need widgetIds vs the keys of the widgets object
-    widgetIds: Array<string>,
+    widgetIds: ReadonlyArray<string>,
     userInputMap: UserInputMap,
     strings: PerseusStrings,
     locale: string,
 ): ReadonlyArray<string> {
-    const upgradedWidgets = getUpgradedWidgetOptions(widgets);
-
     return widgetIds.filter((id) => {
-        const widget = upgradedWidgets[id];
-        if (!widget || widget.static) {
+        const widget = widgets[id];
+        if (!widget || widget.static === true) {
             // Static widgets shouldn't count as empty
             return false;
         }
 
-        const scorer = getWidgetScorer(widget.type);
-        const score = scorer?.(
-            userInputMap[id] as UserInput,
-            widget.options,
-            strings,
-            locale,
-        );
+        const validator = getWidgetValidator(widget.type);
+        const userInput = userInputMap[id];
+        const validationData = widget.options;
+        const score = validator?.(userInput, validationData, strings, locale);
 
         if (score) {
             return scoreIsEmpty(score);
@@ -122,13 +126,14 @@ export function scoreWidgetsFunctional(
         }
 
         const userInput = userInputMap[id];
+        const validator = getWidgetValidator(widget.type);
         const scorer = getWidgetScorer(widget.type);
-        const score = scorer?.(
-            userInput as UserInput,
-            widget.options,
-            strings,
-            locale,
-        );
+
+        // We do validation (empty checks) first and then scoring. If
+        // validation fails, it's result is itself a PerseusScore.
+        const score =
+            validator?.(userInput, widget.options, strings, locale) ??
+            scorer?.(userInput, widget.options, strings, locale);
         if (score != null) {
             widgetScores[id] = score;
         }
