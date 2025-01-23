@@ -5,8 +5,21 @@ import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 describe("getOrdererPublicWidgetOptions", () => {
     it("should return the correct public options without any answer data", () => {
         // Arrange
-        const options: PerseusOrdererWidgetOptions =
-            question1.widgets["orderer 1"].options;
+        const options: PerseusOrdererWidgetOptions = {
+            otherOptions: [],
+            layout: "horizontal",
+            options: [
+                {content: "$10.9$", images: {}, widgets: {}},
+                {content: "$11$", images: {}, widgets: {}},
+                {content: "$\\sqrt{120}$", images: {}, widgets: {}},
+            ],
+            correctOptions: [
+                {content: "$10.9$", images: {}, widgets: {}},
+                {content: "$\\sqrt{120}$", images: {}, widgets: {}},
+                {content: "$11$", images: {}, widgets: {}},
+            ],
+            height: "normal",
+        };
 
         // Act
         const publicWidgetOptions = getOrdererPublicWidgetOptions(options);
