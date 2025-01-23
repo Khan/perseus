@@ -1,10 +1,12 @@
-import {generateExamples, shouldShowExamples} from "./utils";
+import {mockStrings} from "../../strings";
 
-import type {PerseusStrings} from "../../strings";
+import {generateExamples, shouldShowExamples, unionAnswerForms} from "./utils";
+
 import type {PerseusNumericInputAnswerForm} from "@khanacademy/perseus-core";
 
 describe("generateExamples", () => {
     it("returns an array of examples", () => {
+        // Arrange
         const answerForms: readonly PerseusNumericInputAnswerForm[] = [
             {
                 name: "integer",
@@ -15,25 +17,67 @@ describe("generateExamples", () => {
                 simplify: "required",
             },
         ];
-        const strings: Partial<PerseusStrings> = {
-            yourAnswer: "Your answer",
-            integerExample: "Integer example",
-            properExample: "Proper example",
-            simplifiedProperExample: "Simplified proper example",
-        };
+
         const expected = [
-            "Your answer",
-            "Integer example",
-            "Simplified proper example",
+            "**Your answer should be** ",
+            "an integer, like $6$",
+            "a *simplified proper* fraction, like $3/5$",
         ];
-        expect(
-            generateExamples(answerForms, strings as PerseusStrings),
-        ).toEqual(expected);
+
+        // Act
+        const result = generateExamples(answerForms, mockStrings);
+
+        // Assert
+        expect(result).toEqual(expected);
+    });
+
+    it("returns only unique entries in an array of examples", () => {
+        // Arrange
+        const answerForms: readonly PerseusNumericInputAnswerForm[] = [
+            {
+                name: "integer",
+                simplify: "optional",
+            },
+            {
+                name: "proper",
+                simplify: "required",
+            },
+            {
+                name: "integer",
+                simplify: "required",
+            },
+        ];
+
+        const expected = [
+            "**Your answer should be** ",
+            "an integer, like $6$",
+            "a *simplified proper* fraction, like $3/5$",
+        ];
+
+        // Act
+        const result = generateExamples(answerForms, mockStrings);
+
+        // Assert
+        expect(result).toEqual(expected);
+    });
+
+    it("returns an empty array if no answer forms are provided", () => {
+        // Arrange
+        const answerForms: readonly PerseusNumericInputAnswerForm[] = [];
+
+        const expected = [];
+
+        // Act
+        const result = generateExamples(answerForms, mockStrings);
+
+        // Assert
+        expect(result).toEqual(expected);
     });
 });
 
 describe("shouldShowExamples", () => {
-    it("returns true when not all forms are accepted", () => {
+    it("returns true when only some forms are accepted", () => {
+        // Arrange
         const answerForms: readonly PerseusNumericInputAnswerForm[] = [
             {
                 name: "integer",
@@ -44,10 +88,16 @@ describe("shouldShowExamples", () => {
                 simplify: "required",
             },
         ];
-        expect(shouldShowExamples(answerForms)).toBe(true);
+
+        // Act
+        const result = shouldShowExamples(answerForms);
+
+        // Assert
+        expect(result).toBe(true);
     });
 
     it("returns false when all forms are accepted", () => {
+        // Arrange
         const answerForms: readonly PerseusNumericInputAnswerForm[] = [
             {
                 name: "integer",
@@ -74,11 +124,70 @@ describe("shouldShowExamples", () => {
                 simplify: "required",
             },
         ];
-        expect(shouldShowExamples(answerForms)).toBe(false);
+
+        // Act
+        const result = shouldShowExamples(answerForms);
+
+        // Assert
+        expect(result).toBe(false);
     });
 
     it("returns false when no forms are accepted", () => {
+        // Arrange
         const answerForms = [];
-        expect(shouldShowExamples(answerForms)).toBe(false);
+
+        // Act
+        const result = shouldShowExamples(answerForms);
+
+        // Assert
+        expect(result).toBe(false);
+    });
+});
+
+describe("unionAnswerForms", () => {
+    it("returns an array of unique answer forms in the order provided", () => {
+        // Arrange
+        const answerForms: readonly PerseusNumericInputAnswerForm[][] = [
+            [
+                {
+                    name: "integer",
+                    simplify: "optional",
+                },
+                {
+                    name: "proper",
+                    simplify: "required",
+                },
+            ],
+            [
+                {
+                    name: "integer",
+                    simplify: "optional",
+                },
+                {
+                    name: "improper",
+                    simplify: "required",
+                },
+            ],
+        ];
+        const expected: readonly PerseusNumericInputAnswerForm[] = [
+            {
+                name: "integer",
+                simplify: "optional",
+            },
+            {
+                name: "proper",
+                simplify: "required",
+            },
+            {
+                name: "improper",
+                simplify: "required",
+            },
+        ];
+
+        // Act
+        const result = unionAnswerForms(answerForms);
+
+        // Assert
+        expect(result).toEqual(expected);
     });
 });
