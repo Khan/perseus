@@ -4,6 +4,7 @@ import {
     getDecimalSeparator,
     type PerseusExpressionWidgetOptions,
 } from "@khanacademy/perseus-core";
+import getExpressionPublicWidgetOptions from "@khanacademy/perseus-core/src/utils/expression-util";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {
     scoreExpression,
@@ -26,8 +27,6 @@ import * as Changeable from "../../mixins/changeable";
 import {ApiOptions, ClassNames as ApiClassNames} from "../../perseus-api";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
-
-import getExpressionPublicWidgetOptions from "./expression.util";
 
 import type {DependenciesContext} from "../../dependencies";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";

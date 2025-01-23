@@ -1,4 +1,4 @@
-import getExpressionPublicWidgetOptions from "./expression.util";
+import getExpressionPublicWidgetOptions from "./expression-util";
 
 import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
 
