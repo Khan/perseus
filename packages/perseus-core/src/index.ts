@@ -56,5 +56,7 @@ export {default as imageLogic} from "./widgets/image";
 export type {ImageDefaultWidgetOptions} from "./widgets/image";
 export {default as inputNumberLogic} from "./widgets/input-number";
 export type {InputNumberDefaultWidgetOptions} from "./widgets/input-number";
+export {default as interactionLogic} from "./widgets/interaction";
+export type {InteractionDefaultWidgetOptions} from "./widgets/interaction";
 
 export type * from "./widgets/logic-export.types";
