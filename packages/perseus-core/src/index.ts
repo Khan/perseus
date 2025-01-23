@@ -34,6 +34,8 @@ export {pluck, mapObject} from "./utils/objective_";
 
 export {default as categorizerLogic} from "./widgets/categorizer";
 export type {CategorizerDefaultWidgetOptions} from "./widgets/categorizer";
+export {default as csPropgramWidgetLogic} from "./widgets/cs-program";
+export type {CSProgramDefaultWidgetOptions} from "./widgets/cs-program";
 export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
 
