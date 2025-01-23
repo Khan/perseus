@@ -1,7 +1,6 @@
-import {mapObject} from "@khanacademy/perseus-core";
+import {getWidgetIdsFromContent, mapObject} from "@khanacademy/perseus-core";
 
 import {scoreIsEmpty, flattenScores} from "./util/scoring";
-import {getWidgetIdsFromContent} from "./widget-type-utils";
 import {getWidgetScorer, upgradeWidgetInfoToLatestVersion} from "./widgets";
 
 import type {PerseusStrings} from "./strings";
