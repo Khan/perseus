@@ -34,5 +34,7 @@ export {pluck, mapObject} from "./utils/objective_";
 
 export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
+export {default as measurerLogic} from "./widgets/measurer";
+export type {MeasurerDefaultWidgetOptions} from "./widgets/measurer";
 
 export type * from "./widgets/logic-export.types";
