@@ -1,6 +1,7 @@
 import {getWidgetRegex} from "./util/snowman-utils";
 
 import type {
+    PerseusGraphType,
     PerseusItem,
     PerseusWidget,
     PerseusWidgetsMap,
@@ -20,6 +21,23 @@ export function getWidgetTypeByWidgetId(
 ): string | null {
     const widget = widgetMap[WidgetId];
     return widget?.type ?? null;
+}
+
+export function getWidgetSubTypeByWidgetId(
+    WidgetId: string,
+    widgetMap: PerseusWidgetsMap,
+): string | null {
+    const widget = widgetMap[WidgetId];
+    const widgetType = widget?.type ?? null;
+
+    switch (widgetType) {
+        case "interactive-graph":
+            const graph: PerseusGraphType = widget.options.graph;
+
+            return graph?.type ?? null;
+        default:
+            return widgetType;
+    }
 }
 
 /**
