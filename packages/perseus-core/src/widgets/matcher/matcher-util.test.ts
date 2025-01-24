@@ -29,10 +29,11 @@ describe("getMatcherPublicWidgetOptions", () => {
         const publicWidgetOptions = getMatcherPublicWidgetOptions(options);
 
         // Assert
-        expect(publicWidgetOptions).toEqual({
-            labels: ["**Claims**", "**Evidence**"],
-            padding: true,
-            orderMatters: false,
-        });
+        // the problem here is that sometimes a shuffle could give you back the same thing randomly >.>
+        expect(publicWidgetOptions.left).not.toEqual(options.left);
+        expect(publicWidgetOptions.right).not.toEqual(options.right);
+        expect(publicWidgetOptions.padding).toEqual(options.padding);
+        expect(publicWidgetOptions.orderMatters).toEqual(options.orderMatters);
+        expect(publicWidgetOptions.labels).toEqual(options.labels);
     });
 });
