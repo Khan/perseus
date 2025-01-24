@@ -1253,7 +1253,7 @@ export type PerseusNumberLineWidgetOptions = {
     // This controls the initial position of the point along the number line
     initialX: number | null | undefined;
     // Show tooltips
-    showTooltip?: boolean;
+    showTooltips?: boolean;
     // When true, the answer is displayed and is immutable
     static: boolean;
 };

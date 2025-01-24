@@ -66,6 +66,8 @@ export {default as matrixLogic} from "./widgets/matrix";
 export type {MatrixDefaultWidgetOptions} from "./widgets/matrix";
 export {default as measurerLogic} from "./widgets/measurer";
 export type {MeasurerDefaultWidgetOptions} from "./widgets/measurer";
+export {default as numberLineLogic} from "./widgets/number-line";
+export type {NumberLineDefaultWidgetOptions} from "./widgets/number-line";
 export {default as numericInputLogic} from "./widgets/numeric-input";
 export type {NumericInputDefaultWidgetOptions} from "./widgets/numeric-input";
 export {default as ordererLogic} from "./widgets/orderer";
