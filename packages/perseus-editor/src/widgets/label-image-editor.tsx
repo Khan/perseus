@@ -7,11 +7,7 @@
  */
 
 import {EditorJsonify, Util} from "@khanacademy/perseus";
-import {
-    labelImageLogic,
-    type LabelImageDefaultWidgetOptions,
-    type MarkerType,
-} from "@khanacademy/perseus-core";
+import {labelImageLogic} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -22,6 +18,11 @@ import Behavior from "./label-image/behavior";
 import QuestionMarkers from "./label-image/question-markers";
 import SelectImage from "./label-image/select-image";
 
+import type {
+    PerseusLabelImageWidgetOptions,
+    LabelImageDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
+
 type Props = {
     // List of answer choices to label question image with.
     choices: ReadonlyArray<string>;
@@ -31,7 +32,7 @@ type Props = {
     imageWidth: number;
     imageHeight: number;
     // The list of label markers on the question image.
-    markers: ReadonlyArray<MarkerType>;
+    markers: PerseusLabelImageWidgetOptions["markers"];
     // Whether multiple answer choices may be selected for markers.
     multipleAnswers: boolean;
     // Whether to hide answer choices from user instructions.
@@ -162,9 +163,9 @@ class LabelImageEditor extends React.Component<Props> {
         this.props.onChange({choices});
     };
 
-    handleMarkersChange: (markers: ReadonlyArray<MarkerType>) => void = (
-        markers: ReadonlyArray<MarkerType>,
-    ) => {
+    handleMarkersChange: (
+        markers: PerseusLabelImageWidgetOptions["markers"],
+    ) => void = (markers: PerseusLabelImageWidgetOptions["markers"]) => {
         this.props.onChange({markers});
     };
 

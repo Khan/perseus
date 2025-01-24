@@ -62,5 +62,19 @@ export {default as labelImageLogic} from "./widgets/label-image";
 export type {LabelImageDefaultWidgetOptions} from "./widgets/label-image";
 export {default as matcherLogic} from "./widgets/matcher";
 export type {MatcherDefaultWidgetOptions} from "./widgets/matcher";
+export {default as measurerLogic} from "./widgets/measurer";
+export type {MeasurerDefaultWidgetOptions} from "./widgets/measurer";
+export {default as passageLogic} from "./widgets/passage";
+export type {PassageDefaultWidgetOptions} from "./widgets/passage";
+export {default as passageRefLogic} from "./widgets/passage-ref";
+export type {PassageRefDefaultWidgetOptions} from "./widgets/passage-ref";
+export {default as passageRefTargetLogic} from "./widgets/passage-ref-target";
+export type {PassageRefTargetDefaultWidgetOptions} from "./widgets/passage-ref-target";
+export {default as radioLogic} from "./widgets/radio";
+export type {RadioDefaultWidgetOptions} from "./widgets/radio";
 
 export type * from "./widgets/logic-export.types";
+
+export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
+export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
+export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";

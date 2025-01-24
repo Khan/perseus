@@ -1,4 +1,8 @@
 import {Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {
+    passageRefTargetLogic,
+    type PassageRefTargetDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -13,9 +17,8 @@ class PassageRefTargetEditor extends React.Component<Props> {
 
     static widgetName = "passage-ref-target" as const;
 
-    static defaultProps: Props = {
-        content: "",
-    };
+    static defaultProps: PassageRefTargetDefaultWidgetOptions =
+        passageRefTargetLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);

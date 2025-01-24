@@ -558,7 +558,7 @@ class Renderer
         const apiOptions = this.getApiOptions();
         const widgetProps = this.state.widgetProps[widgetId] || {};
 
-        // The widget needs access to its "rubric" at all times when in review
+        // The widget needs access to its "scoring data" at all times when in review
         // mode (which is really just part of its widget info).
         const widgetInfo = this.state.widgetInfo[widgetId];
         const reviewModeRubric =
