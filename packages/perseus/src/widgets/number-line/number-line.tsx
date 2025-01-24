@@ -1,8 +1,5 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
-import {
-    scoreNumberLine,
-    type PerseusNumberLineUserInput,
-} from "@khanacademy/perseus-score";
+import {scoreNumberLine, validateNumberLine} from "@khanacademy/perseus-score";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -21,6 +18,7 @@ import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {Relationship} from "@khanacademy/perseus-core";
+import type {PerseusNumberLineUserInput} from "@khanacademy/perseus-score";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -807,4 +805,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumberLineUserInput'.
     scorer: scoreNumberLine,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumberLineUserInput'.
+    validator: validateNumberLine,
 } satisfies WidgetExports<typeof NumberLine>;

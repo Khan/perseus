@@ -4,21 +4,24 @@ import _ from "underscore";
 import validateSorter from "./validate-sorter";
 
 import type {
+    PerseusSorterScoringData,
     PerseusSorterUserInput,
-    PerseusSorterRubric,
     PerseusScore,
 } from "../../validation.types";
 
 function scoreSorter(
     userInput: PerseusSorterUserInput,
-    rubric: PerseusSorterRubric,
+    scoringData: PerseusSorterScoringData,
 ): PerseusScore {
     const validationError = validateSorter(userInput);
     if (validationError) {
         return validationError;
     }
 
-    const correct = approximateDeepEqual(userInput.options, rubric.correct);
+    const correct = approximateDeepEqual(
+        userInput.options,
+        scoringData.correct,
+    );
     return {
         type: "points",
         earned: correct ? 1 : 0,

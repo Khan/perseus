@@ -12,8 +12,8 @@ import {
 import _ from "underscore";
 
 import type {
+    PerseusInteractiveGraphScoringData,
     PerseusScore,
-    PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
 } from "@khanacademy/perseus-score";
 
@@ -23,10 +23,10 @@ const {getSinusoidCoefficients, getQuadraticCoefficients} = coefficients;
 
 function scoreInteractiveGraph(
     userInput: PerseusInteractiveGraphUserInput,
-    rubric: PerseusInteractiveGraphRubric,
+    scoringData: PerseusInteractiveGraphScoringData,
 ): PerseusScore {
     // None-type graphs are not graded
-    if (userInput.type === "none" && rubric.correct.type === "none") {
+    if (userInput.type === "none" && scoringData.correct.type === "none") {
         return {
             type: "points",
             earned: 0,
@@ -45,14 +45,14 @@ function scoreInteractiveGraph(
             (userInput.center && userInput.radius),
     );
 
-    if (userInput.type === rubric.correct.type && hasValue) {
+    if (userInput.type === scoringData.correct.type && hasValue) {
         if (
             userInput.type === "linear" &&
-            rubric.correct.type === "linear" &&
+            scoringData.correct.type === "linear" &&
             userInput.coords != null
         ) {
             const guess = userInput.coords;
-            const correct = rubric.correct.coords;
+            const correct = scoringData.correct.coords;
 
             // If both of the guess points are on the correct line, it's
             // correct.
@@ -69,11 +69,11 @@ function scoreInteractiveGraph(
             }
         } else if (
             userInput.type === "linear-system" &&
-            rubric.correct.type === "linear-system" &&
+            scoringData.correct.type === "linear-system" &&
             userInput.coords != null
         ) {
             const guess = userInput.coords;
-            const correct = rubric.correct.coords;
+            const correct = scoringData.correct.coords;
 
             if (
                 (collinear(correct[0][0], correct[0][1], guess[0][0]) &&
@@ -94,13 +94,13 @@ function scoreInteractiveGraph(
             }
         } else if (
             userInput.type === "quadratic" &&
-            rubric.correct.type === "quadratic" &&
+            scoringData.correct.type === "quadratic" &&
             userInput.coords != null
         ) {
             // If the parabola coefficients match, it's correct.
             const guessCoeffs = getQuadraticCoefficients(userInput.coords);
             const correctCoeffs = getQuadraticCoefficients(
-                rubric.correct.coords,
+                scoringData.correct.coords,
             );
             if (approximateDeepEqual(guessCoeffs, correctCoeffs)) {
                 return {
@@ -112,12 +112,12 @@ function scoreInteractiveGraph(
             }
         } else if (
             userInput.type === "sinusoid" &&
-            rubric.correct.type === "sinusoid" &&
+            scoringData.correct.type === "sinusoid" &&
             userInput.coords != null
         ) {
             const guessCoeffs = getSinusoidCoefficients(userInput.coords);
             const correctCoeffs = getSinusoidCoefficients(
-                rubric.correct.coords,
+                scoringData.correct.coords,
             );
 
             const canonicalGuessCoeffs = canonicalSineCoefficients(guessCoeffs);
@@ -139,11 +139,14 @@ function scoreInteractiveGraph(
             }
         } else if (
             userInput.type === "circle" &&
-            rubric.correct.type === "circle"
+            scoringData.correct.type === "circle"
         ) {
             if (
-                approximateDeepEqual(userInput.center, rubric.correct.center) &&
-                approximateEqual(userInput.radius, rubric.correct.radius)
+                approximateDeepEqual(
+                    userInput.center,
+                    scoringData.correct.center,
+                ) &&
+                approximateEqual(userInput.radius, scoringData.correct.radius)
             ) {
                 return {
                     type: "points",
@@ -154,12 +157,12 @@ function scoreInteractiveGraph(
             }
         } else if (
             userInput.type === "point" &&
-            rubric.correct.type === "point" &&
+            scoringData.correct.type === "point" &&
             userInput.coords != null
         ) {
-            let correct = rubric.correct.coords;
+            let correct = scoringData.correct.coords;
             if (correct == null) {
-                throw new Error("Point graph rubric has null coords");
+                throw new Error("Point graph scoringData has null coords");
             }
             const guess = userInput.coords.slice();
             correct = correct.slice();
@@ -180,18 +183,18 @@ function scoreInteractiveGraph(
             }
         } else if (
             userInput.type === "polygon" &&
-            rubric.correct.type === "polygon" &&
+            scoringData.correct.type === "polygon" &&
             userInput.coords != null
         ) {
             const guess = userInput.coords.slice();
-            const correct = rubric.correct.coords.slice();
+            const correct = scoringData.correct.coords.slice();
 
             let match;
-            if (rubric.correct.match === "similar") {
+            if (scoringData.correct.match === "similar") {
                 match = similar(guess, correct, Number.POSITIVE_INFINITY);
-            } else if (rubric.correct.match === "congruent") {
+            } else if (scoringData.correct.match === "congruent") {
                 match = similar(guess, correct, knumber.DEFAULT_TOLERANCE);
-            } else if (rubric.correct.match === "approx") {
+            } else if (scoringData.correct.match === "approx") {
                 match = similar(guess, correct, 0.1);
             } else {
                 /* exact */
@@ -210,11 +213,11 @@ function scoreInteractiveGraph(
             }
         } else if (
             userInput.type === "segment" &&
-            rubric.correct.type === "segment" &&
+            scoringData.correct.type === "segment" &&
             userInput.coords != null
         ) {
             let guess = deepClone(userInput.coords);
-            let correct = deepClone(rubric.correct.coords);
+            let correct = deepClone(scoringData.correct.coords);
             guess = _.invoke(guess, "sort").sort();
             correct = _.invoke(correct, "sort").sort();
             if (approximateDeepEqual(guess, correct)) {
@@ -227,11 +230,11 @@ function scoreInteractiveGraph(
             }
         } else if (
             userInput.type === "ray" &&
-            rubric.correct.type === "ray" &&
+            scoringData.correct.type === "ray" &&
             userInput.coords != null
         ) {
             const guess = userInput.coords;
-            const correct = rubric.correct.coords;
+            const correct = scoringData.correct.coords;
             if (
                 approximateDeepEqual(guess[0], correct[0]) &&
                 collinear(correct[0], correct[1], guess[1])
@@ -245,14 +248,14 @@ function scoreInteractiveGraph(
             }
         } else if (
             userInput.type === "angle" &&
-            rubric.correct.type === "angle"
+            scoringData.correct.type === "angle"
         ) {
             const guess = userInput.coords;
-            const correct = rubric.correct.coords;
-            const allowReflexAngles = rubric.correct.allowReflexAngles;
+            const correct = scoringData.correct.coords;
+            const allowReflexAngles = scoringData.correct.allowReflexAngles;
 
             let match;
-            if (rubric.correct.match === "congruent") {
+            if (scoringData.correct.match === "congruent") {
                 const angles = _.map([guess, correct], function (coords) {
                     if (!coords) {
                         return false;
@@ -285,7 +288,7 @@ function scoreInteractiveGraph(
 
     // The input wasn't correct, so check if it's a blank input or if it's
     // actually just wrong
-    if (!hasValue || _.isEqual(userInput, rubric.graph)) {
+    if (!hasValue || _.isEqual(userInput, scoringData.graph)) {
         // We're where we started.
         return {
             type: "invalid",

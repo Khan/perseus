@@ -3,7 +3,7 @@ import * as React from "react";
 
 import QuestionMarkers from "../question-markers";
 
-import type {MarkerType} from "@khanacademy/perseus-core";
+import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 type StoryArgs = Record<any, any>;
 
@@ -31,7 +31,7 @@ const Wrapper = (props) => (
 class WithState extends React.Component<
     Record<any, any>,
     {
-        markers: ReadonlyArray<MarkerType>;
+        markers: PerseusLabelImageWidgetOptions["markers"];
     }
 > {
     state = {
