@@ -36,6 +36,12 @@ export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
 export {default as measurerLogic} from "./widgets/measurer";
 export type {MeasurerDefaultWidgetOptions} from "./widgets/measurer";
+export {default as passageLogic} from "./widgets/passage";
+export type {PassageDefaultWidgetOptions} from "./widgets/passage";
+export {default as passageRefLogic} from "./widgets/passage-ref";
+export type {PassageRefDefaultWidgetOptions} from "./widgets/passage-ref";
+export {default as passageRefTargetLogic} from "./widgets/passage-ref-target";
+export type {PassageRefTargetDefaultWidgetOptions} from "./widgets/passage-ref-target";
 export {default as radioLogic} from "./widgets/radio";
 export type {RadioDefaultWidgetOptions} from "./widgets/radio";
 
