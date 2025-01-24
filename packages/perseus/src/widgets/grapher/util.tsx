@@ -172,6 +172,8 @@ export const DEFAULT_GRAPHER_PROPS: any = {
     availableTypes: [defaultPlot.type],
 };
 
+console.log(JSON.stringify(DEFAULT_GRAPHER_PROPS, null, 2));
+
 export const typeToButton = (type: FunctionTypeMappingKeys): any => {
     const capitalized = type.charAt(0).toUpperCase() + type.substring(1);
     const staticUrl = getDependencies().staticUrl;
