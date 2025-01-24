@@ -10,7 +10,7 @@ import {
     EditorJsonify,
     Log,
 } from "@khanacademy/perseus";
-import {csPropgramWidgetLogic, Errors} from "@khanacademy/perseus-core";
+import {csProgramLogic, Errors} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import $ from "jquery";
 import PropTypes from "prop-types";
@@ -151,7 +151,7 @@ class CSProgramEditor extends React.Component<any> {
     static widgetName = "cs-program" as const;
 
     static defaultProps: CSProgramDefaultWidgetOptions =
-        csPropgramWidgetLogic.defaultWidgetOptions;
+        csProgramLogic.defaultWidgetOptions;
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
