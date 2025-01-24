@@ -3,23 +3,23 @@ import _ from "underscore";
 import validateOrderer from "./validate-orderer";
 
 import type {
-    PerseusOrdererRubric,
+    PerseusOrdererScoringData,
     PerseusOrdererUserInput,
     PerseusScore,
 } from "../../validation.types";
 
 function scoreOrderer(
     userInput: PerseusOrdererUserInput,
-    rubric: PerseusOrdererRubric,
+    scoringData: PerseusOrdererScoringData,
 ): PerseusScore {
-    const validateError = validateOrderer(userInput);
-    if (validateError) {
-        return validateError;
+    const validationError = validateOrderer(userInput);
+    if (validationError) {
+        return validationError;
     }
 
     const correct = _.isEqual(
         userInput.current,
-        rubric.correctOptions.map((option) => option.content),
+        scoringData.correctOptions.map((option) => option.content),
     );
 
     return {

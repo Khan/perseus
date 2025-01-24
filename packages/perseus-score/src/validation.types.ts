@@ -5,19 +5,20 @@
  *
  * These types are:
  *
- * `Perseus<Widget>UserInput`: the data returned by the widget that the user
- * entered. This is referred to as the 'guess' in some older parts of Perseus.
+ *   * `Perseus<Widget>UserInput`: the data from the widget that represents the
+ *     data the user entered. This is referred to as the 'guess' in some older
+ *     parts of Perseus.
  *
- * `Perseus<Widget>ValidationData`: the data needed to do validation of the
- * user input. Validation refers to the different checks that we can do both on
- * the client-side (before submitting user input for scoring) and on the
- * server-side (when we score it). As such, it cannot contain any of the
- * sensitive scoring data that would reveal the answer.
+ *   * `Perseus<Widget>ValidationData`: the data needed to do validation of the
+ *     user input. Validation refers to the different checks that we can do
+ *     both on the client-side (before submitting user input for scoring) and
+ *     on the server-side (when we score it). As such, it cannot contain any of
+ *     the sensitive scoring data that would reveal the answer.
  *
- * `Perseus<Widget>ScoringData` (nee `Perseus<Widget>Rubric`): the data needed
- * to score the user input. By convention, this type is defined as the set of
- * sensitive answer data and then intersected with
- * `Perseus<Widget>ValidationData`.
+ *   * `Perseus<Widget>ScoringData` (nee `Perseus<Widget>Rubric`): the data
+ *     needed to score the user input. By convention, this type is defined as
+ *     the set of sensitive answer data and then intersected with
+ *     `Perseus<Widget>ValidationData`.
  *
  * For example:
  * ```
@@ -36,13 +37,12 @@ import type {
     PerseusGradedGroupWidgetOptions,
     PerseusGraphType,
     PerseusGroupWidgetOptions,
-    PerseusMatcherWidgetOptions,
     PerseusMatrixWidgetAnswers,
     PerseusNumericInputAnswer,
     PerseusOrdererWidgetOptions,
     PerseusRadioChoice,
     PerseusGraphCorrectType,
-    InteractiveMarkerType,
+    MakeWidgetMap,
     Relationship,
 } from "@khanacademy/perseus-core";
 
@@ -78,18 +78,12 @@ export type PerseusCategorizerValidationData = {
     items: ReadonlyArray<string>;
 };
 
-// TODO(LEMS-2440): Can possibly be removed during 2440?
-// This is not used for grading at all. The only place it is used is to define
-// Props type in cs-program.tsx, but RenderProps already contains WidgetOptions
-// and is already included in the Props type.
-export type PerseusCSProgramRubric = Empty;
-
 export type PerseusCSProgramUserInput = {
     status: UserInputStatus;
     message: string | null;
 };
 
-export type PerseusDropdownRubric = {
+export type PerseusDropdownScoringData = {
     choices: ReadonlyArray<PerseusDropdownChoice>;
 };
 
@@ -97,35 +91,34 @@ export type PerseusDropdownUserInput = {
     value: number;
 };
 
-export type PerseusExpressionRubric = {
+export type PerseusExpressionScoringData = {
     answerForms: ReadonlyArray<PerseusExpressionAnswerForm>;
     functions: ReadonlyArray<string>;
 };
 
 export type PerseusExpressionUserInput = string;
 
-export type PerseusGroupRubric = PerseusGroupWidgetOptions;
+export type PerseusGroupScoringData = PerseusGroupWidgetOptions;
+export type PerseusGroupValidationData = {widgets: ValidationDataMap};
 export type PerseusGroupUserInput = UserInputMap;
 
-export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
+export type PerseusGradedGroupScoringData = PerseusGradedGroupWidgetOptions;
 
-export type PerseusGradedGroupSetRubric = PerseusGradedGroupSetWidgetOptions;
+export type PerseusGradedGroupSetScoringData =
+    PerseusGradedGroupSetWidgetOptions;
 
-export type PerseusGrapherRubric = {
+export type PerseusGrapherScoringData = {
     correct: GrapherAnswerTypes;
 };
 
-export type PerseusGrapherUserInput = PerseusGrapherRubric["correct"];
-
-// TODO(LEMS-2440): Can possibly be removed during 2440; only userInput used
-export type PerseusIFrameRubric = Empty;
+export type PerseusGrapherUserInput = PerseusGrapherScoringData["correct"];
 
 export type PerseusIFrameUserInput = {
     status: UserInputStatus;
     message: string | null;
 };
 
-export type PerseusInputNumberRubric = {
+export type PerseusInputNumberScoringData = {
     answerType?:
         | "number"
         | "decimal"
@@ -145,7 +138,7 @@ export type PerseusInputNumberUserInput = {
     currentValue: string;
 };
 
-export type PerseusInteractiveGraphRubric = {
+export type PerseusInteractiveGraphScoringData = {
     // TODO(LEMS-2344): make the type of `correct` more specific
     correct: PerseusGraphCorrectType;
     graph: PerseusGraphType;
@@ -153,22 +146,33 @@ export type PerseusInteractiveGraphRubric = {
 
 export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
-/* TODO(LEMS-2440): Should be removed or refactored. Grading info may need
-    to be moved to the rubric from userInput. */
-export type PerseusLabelImageRubric = Empty;
-
-export type PerseusLabelImageUserInput = {
-    markers: ReadonlyArray<InteractiveMarkerType>;
+export type PerseusLabelImageScoringData = {
+    markers: ReadonlyArray<{
+        answers: ReadonlyArray<string>;
+        label: string;
+    }>;
 };
 
-export type PerseusMatcherRubric = PerseusMatcherWidgetOptions;
+export type PerseusLabelImageUserInput = {
+    markers: ReadonlyArray<{
+        selected?: ReadonlyArray<string>;
+        label: string;
+    }>;
+};
+
+export type PerseusMatcherScoringData = {
+    // Translatable Text; Static concepts to show in the left column. e.g. ["Fruit", "Color", "Clothes"]
+    left: ReadonlyArray<string>;
+    // Translatable Markup; Values that represent the concepts to be correlated with the concepts.  e.g. ["Red", "Shirt", "Banana"]
+    right: ReadonlyArray<string>;
+};
 
 export type PerseusMatcherUserInput = {
     left: ReadonlyArray<string>;
     right: ReadonlyArray<string>;
 };
 
-export type PerseusMatrixRubric = {
+export type PerseusMatrixScoringData = {
     // A data matrix representing the "correct" answers to be entered into the matrix
     answers: PerseusMatrixWidgetAnswers;
 } & PerseusMatrixValidationData;
@@ -176,15 +180,7 @@ export type PerseusMatrixRubric = {
 export type PerseusMatrixValidationData = Empty;
 
 export type PerseusMatrixUserInput = {
-    answers: PerseusMatrixRubric["answers"];
-};
-
-export type PerseusMockWidgetRubric = {
-    value: string;
-};
-
-export type PerseusMockWidgetUserInput = {
-    currentValue: string;
+    answers: PerseusMatrixScoringData["answers"];
 };
 
 export type PerseusNumberLineScoringData = {
@@ -203,7 +199,7 @@ export type PerseusNumberLineUserInput = {
     divisionRange: ReadonlyArray<number>;
 };
 
-export type PerseusNumericInputRubric = {
+export type PerseusNumericInputScoringData = {
     // A list of all the possible correct and incorrect answers
     answers: ReadonlyArray<PerseusNumericInputAnswer>;
     // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
@@ -214,7 +210,7 @@ export type PerseusNumericInputUserInput = {
     currentValue: string;
 };
 
-export type PerseusOrdererRubric = PerseusOrdererWidgetOptions;
+export type PerseusOrdererScoringData = PerseusOrdererWidgetOptions;
 
 export type PerseusOrdererUserInput = {
     current: ReadonlyArray<string>;
@@ -232,7 +228,7 @@ export type PerseusPlotterValidationData = {
 
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
 
-export type PerseusRadioRubric = {
+export type PerseusRadioScoringData = {
     // The choices provided to the user.
     choices: ReadonlyArray<PerseusRadioChoice>;
 };
@@ -241,7 +237,7 @@ export type PerseusRadioUserInput = {
     choicesSelected: ReadonlyArray<boolean>;
 };
 
-export type PerseusSorterRubric = {
+export type PerseusSorterScoringData = {
     // Translatable Text; The correct answer (in the correct order). The user will see the cards in a randomized order.
     correct: ReadonlyArray<string>;
 };
@@ -251,58 +247,92 @@ export type PerseusSorterUserInput = {
     changed: boolean;
 };
 
-export type PerseusTableRubric = {
+export type PerseusTableScoringData = {
     // Translatable Text; A 2-dimensional array of text to populate the table with
     answers: ReadonlyArray<ReadonlyArray<string>>;
 };
 
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 
-export type Rubric =
-    | PerseusCategorizerScoringData
-    | PerseusCSProgramRubric
-    | PerseusDropdownRubric
-    | PerseusExpressionRubric
-    | PerseusGroupRubric
-    | PerseusGradedGroupRubric
-    | PerseusGradedGroupSetRubric
-    | PerseusGrapherRubric
-    | PerseusIFrameRubric
-    | PerseusInputNumberRubric
-    | PerseusInteractiveGraphRubric
-    | PerseusLabelImageRubric
-    | PerseusMatcherRubric
-    | PerseusMatrixRubric
-    | PerseusMockWidgetRubric
-    | PerseusNumberLineScoringData
-    | PerseusNumericInputRubric
-    | PerseusOrdererRubric
-    | PerseusPlotterScoringData
-    | PerseusRadioRubric
-    | PerseusSorterRubric
-    | PerseusTableRubric;
-export type UserInput =
-    | PerseusCategorizerUserInput
-    | PerseusCSProgramUserInput
-    | PerseusDropdownUserInput
-    | PerseusExpressionUserInput
-    | PerseusGrapherUserInput
-    | PerseusIFrameUserInput
-    | PerseusInputNumberUserInput
-    | PerseusInteractiveGraphUserInput
-    | PerseusLabelImageUserInput
-    | PerseusMatcherUserInput
-    | PerseusMatrixUserInput
-    | PerseusMockWidgetUserInput
-    | PerseusNumberLineUserInput
-    | PerseusNumericInputUserInput
-    | PerseusOrdererUserInput
-    | PerseusPlotterUserInput
-    | PerseusRadioUserInput
-    | PerseusSorterUserInput
-    | PerseusTableUserInput;
+export interface ScoringDataRegistry {
+    categorizer: PerseusCategorizerScoringData;
+    dropdown: PerseusDropdownScoringData;
+    expression: PerseusExpressionScoringData;
+    "graded-group-set": PerseusGradedGroupSetScoringData;
+    "graded-group": PerseusGradedGroupScoringData;
+    grapher: PerseusGrapherScoringData;
+    group: PerseusGroupScoringData;
+    image: PerseusLabelImageScoringData;
+    "input-number": PerseusInputNumberScoringData;
+    "interactive-graph": PerseusInteractiveGraphScoringData;
+    "label-image": PerseusLabelImageScoringData;
+    matcher: PerseusMatcherScoringData;
+    matrix: PerseusMatrixScoringData;
+    "number-line": PerseusNumberLineScoringData;
+    "numeric-input": PerseusNumericInputScoringData;
+    orderer: PerseusOrdererScoringData;
+    plotter: PerseusPlotterScoringData;
+    radio: PerseusRadioScoringData;
+    sorter: PerseusSorterScoringData;
+    table: PerseusTableScoringData;
+}
 
-export type UserInputMap = {[widgetId: string]: UserInput | UserInputMap};
+/**
+ * A map of scoring data (previously referred to as "rubric"), keyed by
+ * `widgetId`. This data is used to score a learner's guess for a PerseusItem.
+ *
+ * NOTE:  The value in this map is intentionally a subset of WidgetOptions<T>.
+ * By using the same shape (minus any unneeded render data), we are able to
+ * share functionality that understands how to traverse maps of `widget id` to
+ * `options`.
+ */
+export type ScoringDataMap = {
+    [Property in keyof ScoringDataRegistry as `${Property} ${number}`]: {
+        type: Property;
+        static?: boolean;
+        options: ScoringDataRegistry[Property];
+    };
+};
+
+export type ScoringData = ScoringDataRegistry[keyof ScoringDataRegistry];
+
+/**
+ * This is an interface so that it can be extended if a widget is created
+ * outside of this Perseus package. See `PerseusWidgetTypes` for a full
+ * explanation.
+ */
+interface UserInputRegistry {
+    categorizer: PerseusCategorizerUserInput;
+    "cs-program": PerseusCSProgramUserInput;
+    dropdown: PerseusDropdownUserInput;
+    expression: PerseusExpressionUserInput;
+    grapher: PerseusGrapherUserInput;
+    group: PerseusGroupUserInput;
+    iframe: PerseusIFrameUserInput;
+    "input-number": PerseusInputNumberUserInput;
+    "interactive-graph": PerseusInteractiveGraphUserInput;
+    "label-image": PerseusLabelImageUserInput;
+    matcher: PerseusMatcherUserInput;
+    matrix: PerseusMatrixUserInput;
+    "number-line": PerseusNumberLineUserInput;
+    "numeric-input": PerseusNumericInputUserInput;
+    orderer: PerseusOrdererUserInput;
+    plotter: PerseusPlotterUserInput;
+    radio: PerseusRadioUserInput;
+    sorter: PerseusSorterUserInput;
+    table: PerseusTableUserInput;
+}
+
+//    | PerseusMockWidgetUserInput
+
+/** A union type of all the widget user input types */
+export type UserInput = UserInputRegistry[keyof UserInputRegistry];
+
+/**
+ * A map of widget IDs to user input types (strongly typed based on the format
+ * of the widget ID).
+ */
+export type UserInputMap = MakeWidgetMap<UserInputRegistry>;
 
 /**
  * deprecated prefer using UserInputMap
@@ -310,3 +340,33 @@ export type UserInputMap = {[widgetId: string]: UserInput | UserInputMap};
 export type UserInputArray = ReadonlyArray<
     UserInputArray | UserInput | null | undefined
 >;
+
+export interface ValidationDataTypes {
+    categorizer: PerseusCategorizerValidationData;
+    group: PerseusGroupValidationData;
+    plotter: PerseusPlotterValidationData;
+}
+
+/**
+ * A map of validation data, keyed by `widgetId`. This data is used to check if
+ * a question is answerable. This data represents the minimal intersection of
+ * data that's available in the client (widget options) and server (scoring
+ * data) and is represented by a group of types known as "validation data".
+ *
+ * NOTE: The value in this map is intentionally a subset of WidgetOptions<T>.
+ * By using the same shape (minus any unneeded data), we are able to pass a
+ * `PerseusWidgetsMap` or ` into any function that accepts a
+ * `ValidationDataMap` without any mutation of data.
+ */
+export type ValidationDataMap = {
+    [Property in keyof ValidationDataTypes as `${Property} ${number}`]: {
+        type: Property;
+        static?: boolean;
+        options: ValidationDataTypes[Property];
+    };
+};
+
+/**
+ * A union type of all the different widget validation data types that exist.
+ */
+export type ValidationData = ValidationDataTypes[keyof ValidationDataTypes];

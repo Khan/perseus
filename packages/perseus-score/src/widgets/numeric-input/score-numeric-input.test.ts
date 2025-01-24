@@ -1,10 +1,36 @@
 import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
 
-import type {PerseusNumericInputRubric} from "../../validation.types";
+import type {PerseusNumericInputScoringData} from "../../validation.types";
 
-describe("static function validate", () => {
+describe("scoreNumericInput", () => {
+    it("is correct when input is empty but answer is 1 and coefficient: true", () => {
+        const scoringData: PerseusNumericInputScoringData = {
+            answers: [
+                {
+                    value: 1,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const userInput = {
+            // Empty input being translated to "1" depends on coefficient being
+            // true.
+            currentValue: "",
+        };
+
+        const score = scoreNumericInput(userInput, scoringData);
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
     it("with a simple value", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     value: 1,
@@ -22,13 +48,13 @@ describe("static function validate", () => {
             currentValue: "1",
         } as const;
 
-        const score = scoreNumericInput(userInput, rubric);
+        const score = scoreNumericInput(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("with nonsense", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     value: 1,
@@ -46,7 +72,7 @@ describe("static function validate", () => {
             currentValue: "sadasdfas",
         } as const;
 
-        const score = scoreNumericInput(userInput, rubric);
+        const score = scoreNumericInput(userInput, scoringData);
 
         expect(score).toHaveInvalidInput("EXTRA_SYMBOLS_ERROR");
     });
@@ -58,7 +84,7 @@ describe("static function validate", () => {
     // important to the test.
     // https://khanacademy.atlassian.net/browse/LC-691
     it("doesn't default to validating pi", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     maxError: null,
@@ -79,7 +105,7 @@ describe("static function validate", () => {
             currentValue: "45.282",
         } as const;
 
-        const score = scoreNumericInput(userInput, rubric);
+        const score = scoreNumericInput(userInput, scoringData);
 
         expect(score.message).not.toBe(
             "Your answer is close, but you may " +
@@ -92,7 +118,7 @@ describe("static function validate", () => {
     });
 
     it("still validates against pi if provided in answerForms", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     maxError: null,
@@ -111,13 +137,13 @@ describe("static function validate", () => {
             currentValue: "99 pi",
         } as const;
 
-        const score = scoreNumericInput(userInput, rubric);
+        const score = scoreNumericInput(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("with a strict answer", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     value: 1,
@@ -135,13 +161,13 @@ describe("static function validate", () => {
             currentValue: "1.0",
         } as const;
 
-        const score = scoreNumericInput(userInput, rubric);
+        const score = scoreNumericInput(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("with a strict answer and max error is outside range", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     value: 1,
@@ -159,13 +185,13 @@ describe("static function validate", () => {
             currentValue: "1.3",
         } as const;
 
-        const score = scoreNumericInput(userInput, rubric);
+        const score = scoreNumericInput(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("with a strict answer and max error is inside range", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     value: 1,
@@ -183,14 +209,14 @@ describe("static function validate", () => {
             currentValue: "1.12",
         } as const;
 
-        const score = scoreNumericInput(userInput, rubric);
+        const score = scoreNumericInput(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("respects the order of answer options when scoring", () => {
         // Arrange
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 // "4" is a wrong answer
                 {
@@ -218,7 +244,7 @@ describe("static function validate", () => {
         const wrongInput = {
             currentValue: "4",
         } as const;
-        let score = scoreNumericInput(wrongInput, rubric);
+        let score = scoreNumericInput(wrongInput, scoringData);
 
         // Assert - "wrong"
         expect(score).toHaveBeenAnsweredIncorrectly();
@@ -227,7 +253,7 @@ describe("static function validate", () => {
         const correctInput = {
             currentValue: "14",
         } as const;
-        score = scoreNumericInput(correctInput, rubric);
+        score = scoreNumericInput(correctInput, scoringData);
 
         // Assert - "correct"
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -235,7 +261,7 @@ describe("static function validate", () => {
 
     it("defaults to 1 or -1 when user input is empty/incomplete", () => {
         // Arrange
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     value: 1,
@@ -261,7 +287,7 @@ describe("static function validate", () => {
         const emptyInput = {
             currentValue: "",
         } as const;
-        let score = scoreNumericInput(emptyInput, rubric);
+        let score = scoreNumericInput(emptyInput, scoringData);
 
         // Assert - "empty"
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -270,7 +296,7 @@ describe("static function validate", () => {
         const incompleteInput = {
             currentValue: "-",
         } as const;
-        score = scoreNumericInput(incompleteInput, rubric);
+        score = scoreNumericInput(incompleteInput, scoringData);
 
         // Assert - "incomplete"
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -281,7 +307,7 @@ describe("static function validate", () => {
         // behavior. Ideally, answers should always have a value field, but
         // some don't, so this test documents how we handle that.
         // TODO(benchristel): Fix the data so we can remove this test.
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     // This answer is missing its value field.
@@ -304,7 +330,7 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "50%"}, rubric);
+        const score = scoreNumericInput({currentValue: "50%"}, scoringData);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -314,7 +340,7 @@ describe("static function validate", () => {
         // behavior. Ideally, answers should always have a value field, but
         // some don't, so this test documents how we handle that.
         // TODO(benchristel): Fix the data so we can remove this test.
-        const rubric: PerseusNumericInputRubric = {
+        const rubric: PerseusNumericInputScoringData = {
             answers: [
                 {
                     value: null,
@@ -343,7 +369,7 @@ describe("static function validate", () => {
     });
 
     it("converts a percentage input value to a decimal", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     value: 0.2,
@@ -357,7 +383,7 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "20%"}, rubric);
+        const score = scoreNumericInput({currentValue: "20%"}, scoringData);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -366,7 +392,7 @@ describe("static function validate", () => {
         // TODO(benchristel): This seems like incorrect behavior. I've added
         // this test to characterize the current behavior. Feel free to
         // delete/change it if it's in your way.
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     value: 1.2,
@@ -380,7 +406,7 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "120%"}, rubric);
+        const score = scoreNumericInput({currentValue: "120%"}, scoringData);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -389,7 +415,7 @@ describe("static function validate", () => {
         // TODO(benchristel): This seems like incorrect behavior. I've added
         // this test to characterize the current behavior. Feel free to
         // delete/change it if it's in your way.
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     value: 1.1,
@@ -403,13 +429,13 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "1.1%"}, rubric);
+        const score = scoreNumericInput({currentValue: "1.1%"}, scoringData);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("rejects answers with an extra, incorrect percent sign if < 1", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     value: 0.9,
@@ -423,7 +449,7 @@ describe("static function validate", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "0.9%"}, rubric);
+        const score = scoreNumericInput({currentValue: "0.9%"}, scoringData);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
