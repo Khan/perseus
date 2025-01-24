@@ -1,10 +1,28 @@
+import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
 import type {RenderProps} from "../widgets/radio";
 import type {
     DropdownWidget,
+    ExpressionWidget,
     ImageWidget,
-    MockWidget,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
+
+export const expressionWidget: ExpressionWidget = {
+    type: "expression",
+    options: {
+        answerForms: [
+            {
+                considered: "correct",
+                form: true,
+                simplify: true,
+                value: "1.0",
+            },
+        ],
+        buttonSets: ["basic"],
+        functions: [],
+        times: true,
+    },
+};
 
 export const dropdownWidget: DropdownWidget = {
     type: "dropdown",
@@ -50,15 +68,15 @@ export const imageWidget: ImageWidget = {
 };
 
 export const mockWidget: MockWidget = {
-    version: {
-        major: 0,
-        minor: 0,
-    },
     type: "mock-widget",
     graded: true,
     alignment: "default",
     options: {
         value: "0.3333333333333333",
+    },
+    version: {
+        major: 0,
+        minor: 0,
     },
 };
 

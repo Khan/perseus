@@ -2,8 +2,6 @@ import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {
     inputNumberAnswerTypes,
     scoreInputNumber,
-    type PerseusInputNumberRubric,
-    type PerseusInputNumberUserInput,
 } from "@khanacademy/perseus-score";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
@@ -20,6 +18,10 @@ import type {PerseusStrings} from "../../strings";
 import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusInputNumberScoringData,
+    PerseusInputNumberUserInput,
+} from "@khanacademy/perseus-score";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {
@@ -58,7 +60,7 @@ type RenderProps = {
     rightAlign: PerseusInputNumberWidgetOptions["rightAlign"];
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberRubric>;
+type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberScoringData>;
 type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
@@ -67,7 +69,7 @@ type Props = ExternalProps & {
     currentValue: string;
     // NOTE(kevinb): This was the only default prop that is listed as
     // not-required in PerseusInputNumberWidgetOptions.
-    answerType: NonNullable<PerseusInputNumberRubric["answerType"]>;
+    answerType: NonNullable<PerseusInputNumberScoringData["answerType"]>;
 };
 
 type DefaultProps = {
@@ -288,13 +290,15 @@ export default {
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusInputNumberUserInput'.
     scorer: scoreInputNumber,
 
-    getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {
-        if (rubric.value == null) {
+    getOneCorrectAnswerFromScoringData(
+        scoringData: any,
+    ): string | null | undefined {
+        if (scoringData.value == null) {
             return;
         }
-        let answerString = String(rubric.value);
-        if (rubric.inexact && rubric.maxError) {
-            answerString += " \u00B1 " + rubric.maxError;
+        let answerString = String(scoringData.value);
+        if (scoringData.inexact && scoringData.maxError) {
+            answerString += " \u00B1 " + scoringData.maxError;
         }
         return answerString;
     },

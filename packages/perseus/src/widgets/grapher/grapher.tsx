@@ -4,11 +4,7 @@ import {
     point as kpoint,
 } from "@khanacademy/kmath";
 import {GrapherUtil} from "@khanacademy/perseus-core";
-import {
-    scoreGrapher,
-    type PerseusGrapherRubric,
-    type PerseusGrapherUserInput,
-} from "@khanacademy/perseus-score";
+import {scoreGrapher} from "@khanacademy/perseus-score";
 import * as React from "react";
 import _ from "underscore";
 
@@ -45,6 +41,10 @@ import type {
     MarkingsType,
     PerseusGrapherWidgetOptions,
 } from "@khanacademy/perseus-core";
+import type {
+    PerseusGrapherScoringData,
+    PerseusGrapherUserInput,
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
@@ -354,7 +354,7 @@ type RenderProps = {
     plot?: any;
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusGrapherRubric>;
+type ExternalProps = WidgetProps<RenderProps, PerseusGrapherScoringData>;
 
 type Props = ExternalProps & {
     // plot is always provided by default props

@@ -1,10 +1,13 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {definitionLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../editor";
+
+import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
@@ -20,10 +23,8 @@ class DefinitionEditor extends React.Component<Props> {
 
     static widgetName = "definition" as const;
 
-    static defaultProps: Props = {
-        togglePrompt: "",
-        definition: "",
-    };
+    static defaultProps: DefinitionDefaultWidgetOptions =
+        definitionLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);

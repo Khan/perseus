@@ -17,7 +17,7 @@ import {
     withCoefficient,
 } from "./numeric-input.testdata";
 
-import type {PerseusNumericInputRubric} from "@khanacademy/perseus-score";
+import type {PerseusNumericInputScoringData} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
@@ -159,44 +159,44 @@ describe("numeric-input widget", () => {
     });
 });
 
-describe("static function getOneCorrectAnswerFromRubric", () => {
+describe("static function getOneCorrectAnswerFromScoringData", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
-    it("can get one correct answer from a rubric with multiple answers", () => {
+    it("can get one correct answer from scoring data with multiple answers", () => {
         const widget = multipleAnswersWithDecimals.widgets["numeric-input 1"];
         const widgetOptions = widget && widget.options;
         const answers: ReadonlyArray<any> =
             (widgetOptions && widgetOptions.answers) || [];
 
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
+            NumericInputWidgetExport.getOneCorrectAnswerFromScoringData?.({
                 answers,
                 coefficient: false,
             });
         expect(singleAnswer).toBe("12.2");
     });
 
-    it("can get one correct answer from a rubric with one answer", () => {
+    it("can get one correct answer from scoring data with one answer", () => {
         const widget = question1.widgets["numeric-input 1"];
         const widgetOptions = widget && widget.options;
         const answers: ReadonlyArray<any> =
             (widgetOptions && widgetOptions.answers) || [];
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
+            NumericInputWidgetExport.getOneCorrectAnswerFromScoringData?.({
                 answers,
                 coefficient: false,
             });
         expect(singleAnswer).toBe("1252");
     });
 
-    it("can not get a correct answer from a rubric with no answer", () => {
+    it("can not get a correct answer from scoring data with no answer", () => {
         const answers: Array<never> = [];
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
+            NumericInputWidgetExport.getOneCorrectAnswerFromScoringData?.({
                 answers,
                 coefficient: false,
             });
@@ -204,7 +204,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
     });
 
     it("supports error bars", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const scoringData: PerseusNumericInputScoringData = {
             answers: [
                 {
                     status: "correct",
@@ -219,7 +219,9 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
             coefficient: true,
         };
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
+            NumericInputWidgetExport.getOneCorrectAnswerFromScoringData?.(
+                scoringData,
+            );
         expect(singleAnswer).toBe("1 ± 0.2");
     });
 });

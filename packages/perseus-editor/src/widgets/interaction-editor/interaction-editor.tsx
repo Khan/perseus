@@ -6,6 +6,12 @@ import {
     EditorJsonify,
     Util,
 } from "@khanacademy/perseus";
+import {
+    interactionLogic,
+    type Coords,
+    type InteractionDefaultWidgetOptions,
+    type MarkingsType,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -20,8 +26,6 @@ import MovablePointEditor from "./movable-point-editor";
 import ParametricEditor from "./parametric-editor";
 import PointEditor from "./point-editor";
 import RectangleEditor from "./rectangle-editor";
-
-import type {Coords, MarkingsType} from "@khanacademy/perseus-core";
 
 const {getDependencies} = Dependencies;
 const {unescapeMathMode} = Util;
@@ -41,29 +45,12 @@ type Props = Changeable.ChangeableProps & {
     graph: Graph;
 };
 
-type DefaultProps = {
-    elements: Props["elements"];
-    graph: Props["graph"];
-};
-
 type State = any;
 
 class InteractionEditor extends React.Component<Props, State> {
     static widgetName = "interaction" as const;
-    static defaultProps: DefaultProps = {
-        graph: {
-            box: [400, 400],
-            labels: ["x", "y"],
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            tickStep: [1, 1],
-            gridStep: [1, 1],
-            markings: "graph",
-        },
-        elements: [],
-    };
+    static defaultProps: InteractionDefaultWidgetOptions =
+        interactionLogic.defaultWidgetOptions;
 
     state: State = {
         usedVarSubscripts: this._getAllVarSubscripts(this.props.elements),
