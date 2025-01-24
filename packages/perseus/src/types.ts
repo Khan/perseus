@@ -2,7 +2,6 @@ import type {ILogger} from "./logging/log";
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
-import type getCategorizerPublicWidgetOptions from "./widgets/categorizer/categorizer.util";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     Hint,
@@ -14,6 +13,7 @@ import type {
     Version,
     WidgetOptionsUpgradeMap,
     getOrdererPublicWidgetOptions,
+    getCategorizerPublicWidgetOptions,
     getExpressionPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";

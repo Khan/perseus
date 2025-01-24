@@ -37,6 +37,6 @@ export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
 
 export type * from "./widgets/logic-export.types";
 
-export {default as getOrdererPublicWidgetOptions} from "./utils/orderer-util";
-
-export {default as getExpressionPublicWidgetOptions} from "./utils/expression-util";
+export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
+export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
+export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
