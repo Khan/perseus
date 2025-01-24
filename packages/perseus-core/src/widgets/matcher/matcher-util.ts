@@ -6,20 +6,10 @@ import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
  */
 type MatcherPublicWidgetOptions = {
     labels: PerseusMatcherWidgetOptions["labels"];
-    left: string[]; // First column that is usually static, but could be movable
-    right: string[]; // Second column that appears to be always movable
+    left: Array<string>; // First column that is usually static, but could be movable
+    right: Array<string>; // Second column that appears to be always movable
     orderMatters: PerseusMatcherWidgetOptions["orderMatters"]; // when this is on, both columns are dynamic and the order of the pairs in the list matters
     padding: PerseusMatcherWidgetOptions["padding"];
-};
-
-/**
-    Utility function to shuffle an array
- */
-const shuffle = (array: string[]) => {
-    return array
-        .map((a) => ({sort: Math.random(), value: a}))
-        .sort((a, b) => a.sort - b.sort)
-        .map((a) => a.value);
 };
 
 /**
@@ -31,8 +21,8 @@ function getMatcherPublicWidgetOptions(
 ): MatcherPublicWidgetOptions {
     return {
         labels: options.labels,
-        left: shuffle(options.left.slice()),
-        right: shuffle(options.right.slice()),
+        left: options.left.slice().sort(),
+        right: options.right.slice().sort(),
         orderMatters: options.orderMatters,
         padding: options.padding,
     };
