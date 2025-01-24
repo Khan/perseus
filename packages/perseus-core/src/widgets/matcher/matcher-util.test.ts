@@ -3,7 +3,7 @@ import getMatcherPublicWidgetOptions from "./matcher-util";
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
 
 describe("getMatcherPublicWidgetOptions", () => {
-    it("should return the correct public options without any answer data", () => {
+    it("should return left and right arrays with sorted items to remove correct order information", () => {
         // Arrange
         const options: PerseusMatcherWidgetOptions = {
             labels: ["**Claims**", "**Evidence**"],
@@ -29,11 +29,24 @@ describe("getMatcherPublicWidgetOptions", () => {
         const publicWidgetOptions = getMatcherPublicWidgetOptions(options);
 
         // Assert
-        // the problem here is that sometimes a shuffle could give you back the same thing randomly >.>
-        expect(publicWidgetOptions.left).not.toEqual(options.left);
-        expect(publicWidgetOptions.right).not.toEqual(options.right);
-        expect(publicWidgetOptions.padding).toEqual(options.padding);
-        expect(publicWidgetOptions.orderMatters).toEqual(options.orderMatters);
-        expect(publicWidgetOptions.labels).toEqual(options.labels);
+        expect(publicWidgetOptions).toEqual({
+            labels: ["**Claims**", "**Evidence**"],
+            padding: true,
+            orderMatters: false,
+            right: [
+                "Medium-sized stars typically exist for roughly 10 billion years",
+                "Rapid escalation of greenhouse gas emissions",
+                "The current trajectory of the Earth\u2019s tectonic plate movement",
+                "The current trajectory of the Milky Way galaxy and those in its immediate proximity",
+                "The life cycle of medium-sized stars includes a red giant stage and ends in a whimper as a white dwarf",
+            ],
+            left: [
+                "Average global temperatures will rise ",
+                "In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda ",
+                "Our Sun will run out of fuel and die in around 5 billion years ",
+                "Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die ",
+                "Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans ",
+            ],
+        });
     });
 });
