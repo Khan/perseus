@@ -7,6 +7,15 @@ import {
     interactiveSizes,
     Util,
 } from "@khanacademy/perseus";
+import {
+    type LockedFigure,
+    type PerseusImageBackground,
+    type PerseusInteractiveGraphWidgetOptions,
+    type PerseusGraphType,
+    type MarkingsType,
+    type InteractiveGraphDefaultWidgetOptions,
+    interactiveGraphLogic,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -33,23 +42,12 @@ import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {
-    LockedFigure,
-    PerseusImageBackground,
-    PerseusInteractiveGraphWidgetOptions,
-    PerseusGraphType,
-    MarkingsType,
-} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
 const InteractiveGraph = InteractiveGraphWidget.widget;
 
 type InteractiveGraphProps = PropsFor<typeof InteractiveGraph>;
-
-const defaultBackgroundImage = {
-    url: null,
-} as const;
 
 const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
     return (
@@ -98,7 +96,7 @@ export type Props = {
      * An error message to display in the graph area, or true if the
      * graph is valid.
      */
-    valid: string | boolean;
+    valid: true | string;
     /**
      * The background image to display in the graph area and its properties.
      */
@@ -155,18 +153,6 @@ export type Props = {
     static?: boolean;
 };
 
-type DefaultProps = {
-    labels: Props["labels"];
-    range: Props["range"];
-    step: Props["step"];
-    valid: Props["valid"];
-    backgroundImage: Props["backgroundImage"];
-    markings: Props["markings"];
-    showProtractor: Props["showProtractor"];
-    showTooltips: Props["showTooltips"];
-    correct: Props["correct"];
-};
-
 /**
  * An editor for the InteractiveGraph widget, which allows the user to
  * specify the graph's properties and the correct answer.
@@ -178,15 +164,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
 
-    static defaultProps: DefaultProps = {
-        ...InteractiveGraph.defaultProps,
+    static defaultProps: InteractiveGraphDefaultWidgetOptions & {
+        valid: true | string;
+    } = {
+        ...interactiveGraphLogic.defaultWidgetOptions,
         valid: true,
-        backgroundImage: defaultBackgroundImage,
-        showTooltips: false,
-        correct: {
-            type: InteractiveGraph.defaultProps.graph.type,
-            coords: null,
-        },
     };
 
     changeStartCoords = (coords) => {

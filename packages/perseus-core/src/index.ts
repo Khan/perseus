@@ -58,6 +58,8 @@ export {default as inputNumberLogic} from "./widgets/input-number";
 export type {InputNumberDefaultWidgetOptions} from "./widgets/input-number";
 export {default as interactionLogic} from "./widgets/interaction";
 export type {InteractionDefaultWidgetOptions} from "./widgets/interaction";
+export {default as interactiveGraphLogic} from "./widgets/interactive-graph";
+export type {InteractiveGraphDefaultWidgetOptions} from "./widgets/interactive-graph";
 export {default as labelImageLogic} from "./widgets/label-image";
 export type {LabelImageDefaultWidgetOptions} from "./widgets/label-image";
 export {default as matcherLogic} from "./widgets/matcher";
