@@ -165,7 +165,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
     className = "perseus-widget-interactive-graph";
 
     static defaultProps: InteractiveGraphDefaultWidgetOptions & {
-        valid: boolean;
+        valid: true | string;
     } = {
         ...interactiveGraphLogic.defaultWidgetOptions,
         valid: true,
