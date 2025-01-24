@@ -4,11 +4,7 @@ import {
     type PerseusMatrixWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {
-    scoreMatrix,
-    type PerseusMatrixRubric,
-    type PerseusMatrixUserInput,
-} from "@khanacademy/perseus-score";
+import {scoreMatrix, validateMatrix} from "@khanacademy/perseus-score";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -25,8 +21,12 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
-import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
+import type {
+    PerseusMatrixScoringData,
+    PerseusMatrixUserInput,
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {assert} = InteractiveUtil;
@@ -94,7 +94,7 @@ type ExternalProps = WidgetProps<
         // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
         static?: boolean | undefined;
     },
-    PerseusMatrixRubric
+    PerseusMatrixScoringData
 >;
 
 // Assert that the PerseusMatrixWidgetOptions parsed from JSON can be passed
@@ -105,7 +105,7 @@ type ExternalProps = WidgetProps<
 // defaultProps.
 0 as any as WidgetProps<
     PerseusMatrixWidgetOptions,
-    PerseusMatrixRubric
+    PerseusMatrixScoringData
 > satisfies PropsFor<typeof Matrix>;
 
 type Props = ExternalProps & {
@@ -576,4 +576,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatrixUserInput'.
     scorer: scoreMatrix,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatrixUserInput'.
+    validator: validateMatrix,
 } satisfies WidgetExports<typeof Matrix>;

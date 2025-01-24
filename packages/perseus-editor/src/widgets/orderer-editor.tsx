@@ -1,6 +1,10 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
 import {components} from "@khanacademy/perseus";
+import {
+    ordererLogic,
+    type OrdererDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -25,12 +29,8 @@ class OrdererEditor extends React.Component<Props> {
 
     static widgetName = "orderer" as const;
 
-    static defaultProps: Props = {
-        correctOptions: [{content: "$x$"}],
-        otherOptions: [{content: "$y$"}],
-        height: NORMAL,
-        layout: HORIZONTAL,
-    };
+    static defaultProps: OrdererDefaultWidgetOptions =
+        ordererLogic.defaultWidgetOptions;
 
     onOptionsChange: (
         arg1: "correctOptions" | "otherOptions",

@@ -91,10 +91,6 @@ class InteractiveGraphQuestionBuilder {
                         lockedFigures: this.lockedFigures,
                     },
                     type: "interactive-graph",
-                    version: {
-                        major: 0,
-                        minor: 0,
-                    },
                 },
             },
         };

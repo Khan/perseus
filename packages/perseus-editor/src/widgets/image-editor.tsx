@@ -6,6 +6,12 @@ import {
     Util,
     iconTrash,
 } from "@khanacademy/perseus";
+import {
+    imageLogic,
+    type ImageDefaultWidgetOptions,
+    type Range,
+    type Size,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -13,19 +19,10 @@ import BlurInput from "../components/blur-input";
 import Editor from "../editor";
 
 import type {APIOptions} from "@khanacademy/perseus";
-import type {Range, Size} from "@khanacademy/perseus-core";
 
 type ChangeFn = typeof Changeable.change;
 
 const {InfoTip, InlineIcon, RangeInput} = components;
-
-const defaultBoxSize = 400;
-const defaultRange = [0, 10] as const;
-const defaultBackgroundImage = {
-    url: null,
-    width: 0,
-    height: 0,
-} as const;
 
 // Match any image URL (including "web+graphie" links) that is hosted by KA.
 // We're somewhat generous in our AWS URL matching
@@ -69,16 +66,6 @@ type Props = Changeable.ChangeableProps & {
     caption: string;
 };
 
-type DefaultProps = {
-    title: NonNullable<Props["title"]>;
-    range: NonNullable<Props["range"]>;
-    box: NonNullable<Props["box"]>;
-    backgroundImage: NonNullable<Props["backgroundImage"]>;
-    labels: NonNullable<Props["labels"]>;
-    alt: NonNullable<Props["alt"]>;
-    caption: NonNullable<Props["caption"]>;
-};
-
 type State = {
     backgroundImageError?: string;
 };
@@ -88,15 +75,8 @@ class ImageEditor extends React.Component<Props> {
     static widgetName = "image";
     _isMounted = false;
 
-    static defaultProps: DefaultProps = {
-        title: "",
-        range: [defaultRange, defaultRange],
-        box: [defaultBoxSize, defaultBoxSize],
-        backgroundImage: defaultBackgroundImage,
-        labels: [],
-        alt: "",
-        caption: "",
-    };
+    static defaultProps: ImageDefaultWidgetOptions =
+        imageLogic.defaultWidgetOptions;
 
     state: State = {
         backgroundImageError: "",

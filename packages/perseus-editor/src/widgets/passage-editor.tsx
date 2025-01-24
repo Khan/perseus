@@ -1,10 +1,13 @@
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {passageLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../editor";
+
+import type {PassageDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
 
@@ -21,12 +24,8 @@ class PassageEditor extends React.Component<Props> {
 
     static widgetName = "passage" as const;
 
-    static defaultProps: Props = {
-        passageTitle: "",
-        passageText: "",
-        footnotes: "",
-        showLineNumbers: true,
-    };
+    static defaultProps: PassageDefaultWidgetOptions =
+        passageLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
