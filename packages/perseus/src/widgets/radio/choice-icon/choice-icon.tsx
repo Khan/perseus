@@ -79,7 +79,7 @@ function getDynamicStyles(
     let backgroundColor: string | undefined;
     let borderColor: string;
     let color: string;
-    if (!showCorrectness && (pressed || checked)) { // never show color changes while being pressed
+    if (!showCorrectness && pressed) { // never show color changes while being pressed
         borderColor = WBColor.blue;
         color = WBColor.blue;
         backgroundColor = "transparent";
@@ -128,6 +128,27 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
         correct, // Choice is correct
     );
 
+    const choiceStyling = [
+        styles.choiceBase,
+        multipleSelect ? styles.multiSelectShape : styles.singleSelectShape,
+        showCorrectness ? styles.choiceHasIcon : styles.choiceHasLetter,
+        checked ? styles.choiceIsChecked : styles.choiceIsUnchecked,
+    ];
+    if (showCorrectness && correct && checked) {
+        choiceStyling.push(styles.choiceCorrect);
+    } else if (showCorrectness && !correct && (checked || previouslyAnswered)) {
+        choiceStyling.push(styles.choiceIncorrect);
+    } else if (checked) {
+        // Show filled neutral blue color (showCorrectness is false)
+        choiceStyling.push(styles.choiceNeutral);
+    } else if (pressed) {
+        // Show outlined neutral blue color (showCorrectness is false)
+        choiceStyling.push(styles.activeNeutral);
+    } else {
+        // choice is not checked
+        choiceStyling.push(styles.uncheckedColors);
+    }
+
     return (
         <div className={css(sharedStyles.iconWrapper)}>
             <FocusRing
@@ -136,17 +157,8 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
                 multipleSelect={multipleSelect}
             >
                 <div
-                    style={dynamicStyles}
                     data-testid="choice-icon__library-choice-icon"
-                    className={css(
-                        styles.circle,
-                        showCorrectness && correct && styles.circleCorrect,
-                        showCorrectness && !correct && styles.circleIncorrect,
-                        showCorrectness &&
-                            !correct &&
-                            (checked || previouslyAnswered) &&
-                            styles.circleIncorrectAnswered,
-                    )}
+                    className={css(...choiceStyling)}
                     // used in BaseRadio editMode to check
                     // if we actually clicked on the radio icon
                     data-is-radio-icon={true}
@@ -160,6 +172,9 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
                     </div>
                 </div>
             </FocusRing>
+            {
+                // TODO: Need to account for loss of dynamicStyles variable
+            }
             {crossedOut && <CrossOutLine color={dynamicStyles.borderColor} />}
         </div>
     );
@@ -175,8 +190,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
-    circle: {
-        // Make the circle
+    choiceBase: {
         width: CHOICE_ICON_SIZE,
         height: CHOICE_ICON_SIZE,
         boxSizing: "border-box",
@@ -189,7 +203,6 @@ const styles = StyleSheet.create({
         // "bold font family" so that characters which fall back to the default
         // font get bolded too.
         fontWeight: "bold",
-        fontSize: 12,
 
         // Center the icon wrapper.
         display: "flex",
@@ -203,20 +216,53 @@ const styles = StyleSheet.create({
         lineHeight: "1px",
     },
 
-    circleCorrect: {
+    choiceHasLetter: {
+        fontSize: 12,
+    },
+
+    choiceHasIcon: {
         fontSize: CHOICE_ICON_SIZE,
     },
 
-    circleIncorrect: {
-        fontSize: CHOICE_ICON_SIZE,
-        borderColor: styleConstants.gray68,
-        color: styleConstants.gray68,
+    choiceIsChecked: {
+        color: WBColor.white,
     },
 
-    circleIncorrectAnswered: {
+    choiceIsUnchecked: {
+        color: WBColor.offBlack64,
+    },
+
+    choiceCorrect: {
+        backgroundColor: WBColor.green,
+        borderColor: WBColor.green,
+    },
+
+    choiceIncorrect: {
         backgroundColor: WBColor.red,
         borderColor: WBColor.red,
-        color: WBColor.white,
+    },
+
+    choiceNeutral: {
+        backgroundColor: WBColor.blue,
+        borderColor: WBColor.blue,
+    },
+
+    activeNeutral: {
+        color: WBColor.blue,
+        borderColor: WBColor.blue,
+        backgroundColor: "transparent",
+    },
+
+    multiSelectShape: {
+        borderRadius: 3,
+    },
+
+    singleSelectShape: {
+        borderRadius: CHOICE_ICON_SIZE,
+    },
+
+    uncheckedColors: {
+        borderColor: WBColor.offBlack64,
     },
 });
 
