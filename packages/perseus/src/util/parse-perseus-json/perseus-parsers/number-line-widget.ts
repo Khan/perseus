@@ -40,7 +40,7 @@ export const parseNumberLineWidget: Parser<NumberLineWidget> = parseWidget(
         correctRel: optional(nullable(string)),
         correctX: nullable(number),
         initialX: optional(nullable(number)),
-        showTooltip: optional(boolean),
+        showTooltips: optional(boolean),
         static: defaulted(boolean, () => false),
     }),
 );
