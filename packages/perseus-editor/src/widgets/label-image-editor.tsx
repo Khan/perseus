@@ -7,6 +7,7 @@
  */
 
 import {EditorJsonify, Util} from "@khanacademy/perseus";
+import {labelImageLogic} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -17,7 +18,10 @@ import Behavior from "./label-image/behavior";
 import QuestionMarkers from "./label-image/question-markers";
 import SelectImage from "./label-image/select-image";
 
-import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusLabelImageWidgetOptions,
+    LabelImageDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 type Props = {
     // List of answer choices to label question image with.
@@ -40,25 +44,8 @@ type Props = {
 class LabelImageEditor extends React.Component<Props> {
     _questionMarkers: QuestionMarkers | null | undefined;
 
-    static defaultProps: {
-        choices: ReadonlyArray<any>;
-        hideChoicesFromInstructions: boolean;
-        imageAlt: string;
-        imageHeight: number;
-        imageUrl: string;
-        imageWidth: number;
-        markers: ReadonlyArray<any>;
-        multipleAnswers: boolean;
-    } = {
-        choices: [],
-        imageAlt: "",
-        imageUrl: "",
-        imageWidth: 0,
-        imageHeight: 0,
-        markers: [],
-        multipleAnswers: false,
-        hideChoicesFromInstructions: false,
-    };
+    static defaultProps: LabelImageDefaultWidgetOptions =
+        labelImageLogic.defaultWidgetOptions;
 
     static widgetName = "label-image" as const;
 

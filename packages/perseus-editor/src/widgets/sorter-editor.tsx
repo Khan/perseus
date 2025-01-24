@@ -1,6 +1,10 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
 import {components} from "@khanacademy/perseus";
+import {
+    sorterLogic,
+    type SorterDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -22,11 +26,8 @@ class SorterEditor extends React.Component<Props> {
 
     static widgetName = "sorter" as const;
 
-    static defaultProps: Props = {
-        correct: ["$x$", "$y$", "$z$"],
-        layout: HORIZONTAL,
-        padding: true,
-    };
+    static defaultProps: SorterDefaultWidgetOptions =
+        sorterLogic.defaultWidgetOptions;
 
     onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
         e,

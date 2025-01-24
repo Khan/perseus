@@ -4,6 +4,7 @@ import {
     getDecimalSeparator,
     expressionLogic,
     type PerseusExpressionWidgetOptions,
+    getExpressionPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {scoreExpression, validateExpression} from "@khanacademy/perseus-score";
@@ -542,6 +543,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
     validator: validateExpression,
+    getPublicWidgetOptions: getExpressionPublicWidgetOptions,
 
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'ScoringData' is not assignable to type 'PerseusExpressionScoringData'.
