@@ -1,3 +1,4 @@
+import {getMatcherPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {scoreMatcher} from "@khanacademy/perseus-score";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
@@ -290,4 +291,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatcherUserInput'.
     scorer: scoreMatcher,
+    getPublicWidgetOptions: getMatcherPublicWidgetOptions,
 } satisfies WidgetExports<typeof Matcher>;
