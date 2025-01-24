@@ -1,7 +1,7 @@
 import scoreRadio from "./score-radio";
 
 import type {
-    PerseusRadioRubric,
+    PerseusRadioScoringData,
     PerseusRadioUserInput,
 } from "../../validation.types";
 
@@ -11,7 +11,7 @@ describe("scoreRadio", () => {
             choicesSelected: [true, false, false, false],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const scoringData: PerseusRadioScoringData = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: true},
@@ -20,7 +20,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, scoringData);
 
         expect(score).toHaveInvalidInput();
     });
@@ -30,7 +30,7 @@ describe("scoreRadio", () => {
             choicesSelected: [true, false, false, false, true],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const scoringData: PerseusRadioScoringData = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: false},
@@ -44,7 +44,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, scoringData);
 
         expect(score).toHaveInvalidInput();
     });
@@ -54,7 +54,7 @@ describe("scoreRadio", () => {
             choicesSelected: [true, false, false, false],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const scoringData: PerseusRadioScoringData = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: false},
@@ -63,7 +63,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -73,7 +73,7 @@ describe("scoreRadio", () => {
             choicesSelected: [false, false, false, true],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const scoringData: PerseusRadioScoringData = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: false},
@@ -82,7 +82,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -92,7 +92,7 @@ describe("scoreRadio", () => {
             choicesSelected: [true, true, false, false],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const scoringData: PerseusRadioScoringData = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: true},
@@ -101,7 +101,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -111,7 +111,7 @@ describe("scoreRadio", () => {
             choicesSelected: [true, false, false, true],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const scoringData: PerseusRadioScoringData = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: true},
@@ -120,7 +120,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -130,7 +130,7 @@ describe("scoreRadio", () => {
             choicesSelected: [false, false, false, false, true],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const scoringData: PerseusRadioScoringData = {
             choices: [
                 {content: "Choice 1", correct: false},
                 {content: "Choice 2", correct: false},
@@ -140,7 +140,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -150,7 +150,7 @@ describe("scoreRadio", () => {
             choicesSelected: [false, false, false, false, true],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const scoringData: PerseusRadioScoringData = {
             choices: [
                 {content: "Choice 1", correct: true},
                 {content: "Choice 2", correct: false},
@@ -160,7 +160,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, scoringData);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });

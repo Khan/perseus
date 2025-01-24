@@ -2,11 +2,7 @@
  * This widget is for embedding Khan Academy CS programs.
  */
 
-import {
-    scoreCSProgram,
-    type PerseusCSProgramRubric,
-    type PerseusCSProgramUserInput,
-} from "@khanacademy/perseus-score";
+import {scoreCSProgram} from "@khanacademy/perseus-score";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
 import * as React from "react";
@@ -23,12 +19,13 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusCSProgramWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusCSProgramUserInput} from "@khanacademy/perseus-score";
 
 const {updateQueryString} = Util;
 
 type RenderProps = PerseusCSProgramWidgetOptions & PerseusCSProgramUserInput;
 
-type Props = WidgetProps<RenderProps, PerseusCSProgramRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     showEditor: Props["showEditor"];

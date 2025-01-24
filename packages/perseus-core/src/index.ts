@@ -34,7 +34,13 @@ export {pluck, mapObject} from "./utils/objective_";
 
 export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
+export {default as measurerLogic} from "./widgets/measurer";
+export type {MeasurerDefaultWidgetOptions} from "./widgets/measurer";
 export {default as radioLogic} from "./widgets/radio";
 export type {RadioDefaultWidgetOptions} from "./widgets/radio";
 
 export type * from "./widgets/logic-export.types";
+
+export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
+export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
+export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
