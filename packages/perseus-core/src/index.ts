@@ -23,6 +23,20 @@ export {
 export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
 
+export {
+    parsePerseusItem,
+    parseAndMigratePerseusItem,
+    parseAndMigratePerseusArticle,
+} from "./parse-perseus-json";
+
+export {
+    isSuccess,
+    isFailure,
+    type Result,
+    type Success,
+    type Failure,
+} from "./parse-perseus-json/result";
+
 export {libVersion} from "./version";
 
 export {Errors} from "./error/errors";
