@@ -96,7 +96,7 @@ export type Props = {
      * An error message to display in the graph area, or true if the
      * graph is valid.
      */
-    valid: string | boolean;
+    valid: true | string;
     /**
      * The background image to display in the graph area and its properties.
      */
