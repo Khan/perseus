@@ -1,6 +1,10 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
 import {ApiOptions, Changeable} from "@khanacademy/perseus";
+import {
+    groupLogic,
+    type GroupDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -21,14 +25,8 @@ class GroupEditor extends React.Component<Props> {
 
     static widgetName = "group" as const;
 
-    static defaultProps: Props = {
-        content: "",
-        widgets: {},
-        images: {},
-        // `undefined` instead of `null` so that getDefaultProps works for
-        // `the GroupMetadataEditor`
-        metadata: undefined,
-    };
+    static defaultProps: GroupDefaultWidgetOptions =
+        groupLogic.defaultWidgetOptions;
 
     editor = React.createRef<Editor>();
 

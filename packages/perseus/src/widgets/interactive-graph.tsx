@@ -10,11 +10,7 @@ import {
     Errors,
     PerseusError,
 } from "@khanacademy/perseus-core";
-import {
-    scoreInteractiveGraph,
-    type PerseusInteractiveGraphRubric,
-    type PerseusInteractiveGraphUserInput,
-} from "@khanacademy/perseus-score";
+import {scoreInteractiveGraph} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import debounce from "lodash.debounce";
 import * as React from "react";
@@ -56,6 +52,10 @@ import type {
     PerseusImageBackground,
     MarkingsType,
 } from "@khanacademy/perseus-core";
+import type {
+    PerseusInteractiveGraphScoringData,
+    PerseusInteractiveGraphUserInput,
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {getClockwiseAngle} = angles;
@@ -230,7 +230,7 @@ type RenderProps = {
      */
     fullGraphAriaDescription?: string;
 }; // There's no transform function in exports
-type Props = WidgetProps<RenderProps, PerseusInteractiveGraphRubric>;
+type Props = WidgetProps<RenderProps, PerseusInteractiveGraphScoringData>;
 type State = any;
 type DefaultProps = {
     labels: ReadonlyArray<string>;
@@ -251,7 +251,7 @@ type DefaultProps = {
 // which receive defaults via defaultProps.
 0 as any as WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
-    PerseusInteractiveGraphRubric
+    PerseusInteractiveGraphScoringData
 > satisfies PropsFor<typeof InteractiveGraph>;
 
 // TODO: there's another, very similar getSinusoidCoefficients function

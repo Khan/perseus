@@ -7,6 +7,10 @@ import {
     PerseusI18nContext,
     iconTrash,
 } from "@khanacademy/perseus";
+import {
+    numericInputLogic,
+    type NumericInputDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
@@ -109,13 +113,8 @@ class NumericInputEditor extends React.Component<Props, State> {
     static widgetName = "numeric-input";
     static displayName = "NumericInputEditor";
 
-    static defaultProps = {
-        answers: [initAnswer("correct")],
-        size: "normal",
-        coefficient: false,
-        labelText: "",
-        rightAlign: false,
-    };
+    static defaultProps: NumericInputDefaultWidgetOptions =
+        numericInputLogic.defaultWidgetOptions;
 
     constructor(props: Props) {
         super(props);
