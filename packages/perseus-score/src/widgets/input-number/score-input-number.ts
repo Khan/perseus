@@ -2,7 +2,7 @@ import KhanAnswerTypes from "../../util/answer-types";
 import {parseTex} from "../../util/tex-wrangler";
 
 import type {
-    PerseusInputNumberRubric,
+    PerseusInputNumberScoringData,
     PerseusInputNumberUserInput,
     PerseusScore,
 } from "../../validation.types";
@@ -44,21 +44,21 @@ export const inputNumberAnswerTypes = {
 
 function scoreInputNumber(
     userInput: PerseusInputNumberUserInput,
-    rubric: PerseusInputNumberRubric,
+    scoringData: PerseusInputNumberScoringData,
 ): PerseusScore {
-    if (rubric.answerType == null) {
-        rubric.answerType = "number";
+    if (scoringData.answerType == null) {
+        scoringData.answerType = "number";
     }
 
     // note(matthewc): this will get immediately parsed again by
     // `KhanAnswerTypes.number.convertToPredicate`, but a string is
     // expected here
-    const stringValue = `${rubric.value}`;
+    const stringValue = `${scoringData.value}`;
     const val = KhanAnswerTypes.number.createValidatorFunctional(stringValue, {
-        simplify: rubric.simplify,
-        inexact: rubric.inexact || undefined,
-        maxError: rubric.maxError,
-        forms: inputNumberAnswerTypes[rubric.answerType].forms,
+        simplify: scoringData.simplify,
+        inexact: scoringData.inexact || undefined,
+        maxError: scoringData.maxError,
+        forms: inputNumberAnswerTypes[scoringData.answerType].forms,
     });
 
     // We may have received TeX; try to parse it before grading.

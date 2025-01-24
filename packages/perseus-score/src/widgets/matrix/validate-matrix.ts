@@ -4,7 +4,6 @@ import ErrorCodes from "../../error-codes";
 
 import type {
     PerseusMatrixUserInput,
-    PerseusMatrixValidationData,
     ValidationResult,
 } from "../../validation.types";
 
@@ -16,10 +15,7 @@ import type {
  *
  * @see `scoreMatrix()` for more details.
  */
-function validateMatrix(
-    userInput: PerseusMatrixUserInput,
-    validationData: PerseusMatrixValidationData,
-): ValidationResult {
+function validateMatrix(userInput: PerseusMatrixUserInput): ValidationResult {
     const supplied = userInput.answers;
     const suppliedSize = getMatrixSize(supplied);
 

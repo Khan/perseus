@@ -7,8 +7,9 @@ import {
     type ExpressionWidget,
     type RadioWidget,
     type NumericInputWidget,
-    type MockWidget,
 } from "@khanacademy/perseus-core";
+
+import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
 
 export const itemWithNumericInput: PerseusItem = {
     question: {
@@ -40,7 +41,7 @@ export const itemWithNumericInput: PerseusItem = {
                     labelText: "What's the answer?",
                     size: "normal",
                 },
-            } as NumericInputWidget,
+            } satisfies NumericInputWidget,
         },
     },
     hints: [
@@ -64,7 +65,7 @@ export const itemWithMockWidget: PerseusItem = {
                 options: {
                     value: "3",
                 },
-            } as MockWidget,
+            } satisfies MockWidget,
         },
     },
     hints: [
@@ -158,14 +159,14 @@ export const itemWithTwoMockWidgets: PerseusItem = {
                 options: {
                     value: "3",
                 },
-            } as MockWidget,
+            } satisfies MockWidget,
             "mock-widget 2": {
                 type: "mock-widget",
                 graded: true,
                 options: {
                     value: "3",
                 },
-            } as MockWidget,
+            } satisfies MockWidget,
         },
     },
     hints: [

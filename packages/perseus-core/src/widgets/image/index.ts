@@ -6,13 +6,13 @@ export type ImageDefaultWidgetOptions = Pick<
     "title" | "range" | "box" | "backgroundImage" | "labels" | "alt" | "caption"
 >;
 
-const defaultBoxSize = 400;
-const defaultRange = [0, 10] as any;
-
 const defaultWidgetOptions: ImageDefaultWidgetOptions = {
     title: "",
-    range: [defaultRange, defaultRange],
-    box: [defaultBoxSize, defaultBoxSize],
+    range: [
+        [0, 10],
+        [0, 10],
+    ],
+    box: [400, 400],
     backgroundImage: {
         url: null,
         width: 0,

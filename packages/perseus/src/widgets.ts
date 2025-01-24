@@ -10,6 +10,7 @@ import type {
     WidgetExports,
     WidgetTransform,
     WidgetScorerFunction,
+    WidgetValidatorFunction,
     PublicWidgetOptionsFunction,
 } from "./types";
 import type {PerseusWidget, Version} from "@khanacademy/perseus-core";
@@ -135,6 +136,12 @@ export const getWidget = (
 
 export const getWidgetExport = (name: string): WidgetExports | null => {
     return widgets[name] ?? null;
+};
+
+export const getWidgetValidator = (
+    name: string,
+): WidgetValidatorFunction | null => {
+    return widgets[name]?.validator ?? null;
 };
 
 export const getWidgetScorer = (name: string): WidgetScorerFunction | null => {

@@ -12,9 +12,6 @@ import type {ExplanationDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-const defaultExplanationProps: ExplanationDefaultWidgetOptions =
-    explanationLogic.defaultWidgetOptions;
-
 type Props = any;
 type State = any;
 
@@ -29,7 +26,10 @@ class ExplanationEditor extends React.Component<Props, State> {
     };
 
     static widgetName = "explanation" as const;
-    static defaultProps: Props = defaultExplanationProps;
+
+    static defaultProps: ExplanationDefaultWidgetOptions =
+        explanationLogic.defaultWidgetOptions;
+
     state: State = {};
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
