@@ -6,9 +6,9 @@ import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
  */
 type MatcherPublicWidgetOptions = {
     labels: PerseusMatcherWidgetOptions["labels"];
-    left: Array<string>; // First column that is usually static, but could be movable
-    right: Array<string>; // Second column that appears to be always movable
-    orderMatters: PerseusMatcherWidgetOptions["orderMatters"]; // when this is on, both columns are dynamic and the order of the pairs in the list matters
+    left: Array<string>;
+    right: Array<string>;
+    orderMatters: PerseusMatcherWidgetOptions["orderMatters"];
     padding: PerseusMatcherWidgetOptions["padding"];
 };
 
