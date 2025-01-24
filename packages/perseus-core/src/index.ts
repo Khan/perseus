@@ -86,6 +86,8 @@ export {default as radioLogic} from "./widgets/radio";
 export type {RadioDefaultWidgetOptions} from "./widgets/radio";
 export {default as sorterLogic} from "./widgets/sorter";
 export type {SorterDefaultWidgetOptions} from "./widgets/sorter";
+export {default as tableLogic} from "./widgets/table";
+export type {TableDefaultWidgetOptions} from "./widgets/table";
 export {default as videoLogic} from "./widgets/video";
 export type {VideoDefaultWidgetOptions} from "./widgets/video";
 
