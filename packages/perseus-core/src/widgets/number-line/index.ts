@@ -14,7 +14,7 @@ export type NumberLineDefaultWidgetOptions = Pick<
     | "correctRel"
     | "correctX"
     | "initialX"
-    | "showTooltip"
+    | "showTooltips"
 >;
 
 const defaultWidgetOptions: NumberLineDefaultWidgetOptions = {
@@ -33,7 +33,7 @@ const defaultWidgetOptions: NumberLineDefaultWidgetOptions = {
     correctX: null,
     initialX: null,
 
-    showTooltip: false,
+    showTooltips: false,
 };
 
 const numberLineWidgetLogic: WidgetLogic = {

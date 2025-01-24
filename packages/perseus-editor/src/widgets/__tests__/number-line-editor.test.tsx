@@ -117,7 +117,7 @@ describe("number-line-editor", () => {
             screen.getByRole("checkbox", {name: "Show tooltips"}),
         );
 
-        expect(onChangeMock).toBeCalledWith({showTooltip: true});
+        expect(onChangeMock).toBeCalledWith({showTooltips: true});
     });
 
     it("should be possible to update tick steps", async () => {

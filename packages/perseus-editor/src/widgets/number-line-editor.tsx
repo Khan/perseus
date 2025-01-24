@@ -38,7 +38,7 @@ type Props = {
     isTickCtrl?: boolean;
 
     static?: boolean;
-    showTooltip: boolean;
+    showTooltips: boolean;
 } & Changeable.ChangeableProps;
 
 class NumberLineEditor extends React.Component<Props> {
@@ -374,9 +374,9 @@ class NumberLineEditor extends React.Component<Props> {
                     {!this.props.static && (
                         <Checkbox
                             label="Show tooltips"
-                            checked={this.props.showTooltip}
+                            checked={this.props.showTooltips}
                             onChange={(value) => {
-                                this.props.onChange({showTooltip: value});
+                                this.props.onChange({showTooltips: value});
                             }}
                         />
                     )}
