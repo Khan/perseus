@@ -82,6 +82,8 @@ export {default as passageRefTargetLogic} from "./widgets/passage-ref-target";
 export type {PassageRefTargetDefaultWidgetOptions} from "./widgets/passage-ref-target";
 export {default as phetSimulationLogic} from "./widgets/phet-simulation";
 export type {PhetSimulationDefaultWidgetOptions} from "./widgets/phet-simulation";
+export {default as plotterLogic} from "./widgets/plotter";
+export type {PlotterDefaultWidgetOptions} from "./widgets/plotter";
 export {default as pythonProgramLogic} from "./widgets/python-program";
 export type {PythonProgramDefaultWidgetOptions} from "./widgets/python-program";
 export {default as radioLogic} from "./widgets/radio";
