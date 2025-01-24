@@ -1,3 +1,4 @@
+import getSorterPublicWidgetOptions from "@khanacademy/perseus-core/src/widgets/sorter/sorter-util";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {scoreSorter, validateSorter} from "@khanacademy/perseus-score";
 import * as React from "react";
@@ -138,4 +139,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusSorterUserInput
     validator: validateSorter,
+    getPublicWidgetOptions: getSorterPublicWidgetOptions,
 } satisfies WidgetExports<typeof Sorter>;
