@@ -1,10 +1,10 @@
 import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
 
-import type {PerseusNumericInputScoringData} from "../../validation.types";
+import type {PerseusNumericInputRubric} from "../../validation.types";
 
 describe("scoreNumericInput", () => {
     it("is correct when input is empty but answer is 1 and coefficient: true", () => {
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -24,13 +24,13 @@ describe("scoreNumericInput", () => {
             currentValue: "",
         };
 
-        const score = scoreNumericInput(userInput, scoringData);
+        const score = scoreNumericInput(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("with a simple value", () => {
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -48,13 +48,13 @@ describe("scoreNumericInput", () => {
             currentValue: "1",
         } as const;
 
-        const score = scoreNumericInput(userInput, scoringData);
+        const score = scoreNumericInput(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("with nonsense", () => {
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -72,7 +72,7 @@ describe("scoreNumericInput", () => {
             currentValue: "sadasdfas",
         } as const;
 
-        const score = scoreNumericInput(userInput, scoringData);
+        const score = scoreNumericInput(userInput, rubric);
 
         expect(score).toHaveInvalidInput("EXTRA_SYMBOLS_ERROR");
     });
@@ -84,7 +84,7 @@ describe("scoreNumericInput", () => {
     // important to the test.
     // https://khanacademy.atlassian.net/browse/LC-691
     it("doesn't default to validating pi", () => {
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     maxError: null,
@@ -105,7 +105,7 @@ describe("scoreNumericInput", () => {
             currentValue: "45.282",
         } as const;
 
-        const score = scoreNumericInput(userInput, scoringData);
+        const score = scoreNumericInput(userInput, rubric);
 
         expect(score.message).not.toBe(
             "Your answer is close, but you may " +
@@ -118,7 +118,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("still validates against pi if provided in answerForms", () => {
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     maxError: null,
@@ -137,13 +137,13 @@ describe("scoreNumericInput", () => {
             currentValue: "99 pi",
         } as const;
 
-        const score = scoreNumericInput(userInput, scoringData);
+        const score = scoreNumericInput(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("with a strict answer", () => {
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -161,13 +161,13 @@ describe("scoreNumericInput", () => {
             currentValue: "1.0",
         } as const;
 
-        const score = scoreNumericInput(userInput, scoringData);
+        const score = scoreNumericInput(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("with a strict answer and max error is outside range", () => {
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -185,13 +185,13 @@ describe("scoreNumericInput", () => {
             currentValue: "1.3",
         } as const;
 
-        const score = scoreNumericInput(userInput, scoringData);
+        const score = scoreNumericInput(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("with a strict answer and max error is inside range", () => {
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -209,14 +209,14 @@ describe("scoreNumericInput", () => {
             currentValue: "1.12",
         } as const;
 
-        const score = scoreNumericInput(userInput, scoringData);
+        const score = scoreNumericInput(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("respects the order of answer options when scoring", () => {
         // Arrange
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 // "4" is a wrong answer
                 {
@@ -244,7 +244,7 @@ describe("scoreNumericInput", () => {
         const wrongInput = {
             currentValue: "4",
         } as const;
-        let score = scoreNumericInput(wrongInput, scoringData);
+        let score = scoreNumericInput(wrongInput, rubric);
 
         // Assert - "wrong"
         expect(score).toHaveBeenAnsweredIncorrectly();
@@ -253,7 +253,7 @@ describe("scoreNumericInput", () => {
         const correctInput = {
             currentValue: "14",
         } as const;
-        score = scoreNumericInput(correctInput, scoringData);
+        score = scoreNumericInput(correctInput, rubric);
 
         // Assert - "correct"
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -261,7 +261,7 @@ describe("scoreNumericInput", () => {
 
     it("defaults to 1 or -1 when user input is empty/incomplete", () => {
         // Arrange
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -287,7 +287,7 @@ describe("scoreNumericInput", () => {
         const emptyInput = {
             currentValue: "",
         } as const;
-        let score = scoreNumericInput(emptyInput, scoringData);
+        let score = scoreNumericInput(emptyInput, rubric);
 
         // Assert - "empty"
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -296,7 +296,7 @@ describe("scoreNumericInput", () => {
         const incompleteInput = {
             currentValue: "-",
         } as const;
-        score = scoreNumericInput(incompleteInput, scoringData);
+        score = scoreNumericInput(incompleteInput, rubric);
 
         // Assert - "incomplete"
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -307,7 +307,7 @@ describe("scoreNumericInput", () => {
         // behavior. Ideally, answers should always have a value field, but
         // some don't, so this test documents how we handle that.
         // TODO(benchristel): Fix the data so we can remove this test.
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     // This answer is missing its value field.
@@ -330,7 +330,7 @@ describe("scoreNumericInput", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "50%"}, scoringData);
+        const score = scoreNumericInput({currentValue: "50%"}, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -340,7 +340,7 @@ describe("scoreNumericInput", () => {
         // behavior. Ideally, answers should always have a value field, but
         // some don't, so this test documents how we handle that.
         // TODO(benchristel): Fix the data so we can remove this test.
-        const rubric: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: null,
@@ -369,7 +369,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("converts a percentage input value to a decimal", () => {
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 0.2,
@@ -383,7 +383,7 @@ describe("scoreNumericInput", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "20%"}, scoringData);
+        const score = scoreNumericInput({currentValue: "20%"}, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -392,7 +392,7 @@ describe("scoreNumericInput", () => {
         // TODO(benchristel): This seems like incorrect behavior. I've added
         // this test to characterize the current behavior. Feel free to
         // delete/change it if it's in your way.
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1.2,
@@ -406,7 +406,7 @@ describe("scoreNumericInput", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "120%"}, scoringData);
+        const score = scoreNumericInput({currentValue: "120%"}, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -415,7 +415,7 @@ describe("scoreNumericInput", () => {
         // TODO(benchristel): This seems like incorrect behavior. I've added
         // this test to characterize the current behavior. Feel free to
         // delete/change it if it's in your way.
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1.1,
@@ -429,13 +429,13 @@ describe("scoreNumericInput", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "1.1%"}, scoringData);
+        const score = scoreNumericInput({currentValue: "1.1%"}, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("rejects answers with an extra, incorrect percent sign if < 1", () => {
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 0.9,
@@ -449,7 +449,7 @@ describe("scoreNumericInput", () => {
             coefficient: true,
         };
 
-        const score = scoreNumericInput({currentValue: "0.9%"}, scoringData);
+        const score = scoreNumericInput({currentValue: "0.9%"}, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });

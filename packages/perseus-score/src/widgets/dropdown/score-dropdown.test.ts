@@ -1,7 +1,7 @@
 import scoreDropdown from "./score-dropdown";
 
 import type {
-    PerseusDropdownScoringData,
+    PerseusDropdownRubric,
     PerseusDropdownUserInput,
 } from "../../validation.types";
 
@@ -11,7 +11,7 @@ describe("scoreDropdown", () => {
         const userInput: PerseusDropdownUserInput = {
             value: 1,
         };
-        const scoringData: PerseusDropdownScoringData = {
+        const rubric: PerseusDropdownRubric = {
             choices: [
                 {
                     content: "greater than or equal to",
@@ -25,7 +25,7 @@ describe("scoreDropdown", () => {
         };
 
         // Act
-        const score = scoreDropdown(userInput, scoringData);
+        const score = scoreDropdown(userInput, rubric);
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();
@@ -36,7 +36,7 @@ describe("scoreDropdown", () => {
         const userInput: PerseusDropdownUserInput = {
             value: 2,
         };
-        const scoringData: PerseusDropdownScoringData = {
+        const rubric: PerseusDropdownRubric = {
             choices: [
                 {
                     content: "greater than or equal to",
@@ -50,7 +50,7 @@ describe("scoreDropdown", () => {
         };
 
         // Act
-        const score = scoreDropdown(userInput, scoringData);
+        const score = scoreDropdown(userInput, rubric);
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();

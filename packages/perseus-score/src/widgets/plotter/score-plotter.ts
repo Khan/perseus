@@ -5,21 +5,21 @@ import validatePlotter from "./validate-plotter";
 
 import type {
     PerseusPlotterUserInput,
-    PerseusPlotterScoringData,
+    PerseusPlotterRubric,
     PerseusScore,
 } from "../../validation.types";
 
 function scorePlotter(
     userInput: PerseusPlotterUserInput,
-    scoringData: PerseusPlotterScoringData,
+    rubric: PerseusPlotterRubric,
 ): PerseusScore {
-    const validationError = validatePlotter(userInput, scoringData);
+    const validationError = validatePlotter(userInput, rubric);
     if (validationError) {
         return validationError;
     }
     return {
         type: "points",
-        earned: approximateDeepEqual(userInput, scoringData.correct) ? 1 : 0,
+        earned: approximateDeepEqual(userInput, rubric.correct) ? 1 : 0,
         total: 1,
         message: null,
     };

@@ -4,14 +4,14 @@ import _ from "underscore";
 import validateSorter from "./validate-sorter";
 
 import type {
-    PerseusSorterScoringData,
+    PerseusSorterRubric,
     PerseusSorterUserInput,
     PerseusScore,
 } from "../../validation.types";
 
 function scoreSorter(
     userInput: PerseusSorterUserInput,
-    scoringData: PerseusSorterScoringData,
+    rubric: PerseusSorterRubric,
 ): PerseusScore {
     const validationError = validateSorter(userInput);
     if (validationError) {
@@ -20,7 +20,7 @@ function scoreSorter(
 
     const correct = approximateDeepEqual(
         userInput.options,
-        scoringData.correct,
+        rubric.correct,
     );
     return {
         type: "points",

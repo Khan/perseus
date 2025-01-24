@@ -1,7 +1,7 @@
 import scoreMatcher from "./score-matcher";
 
 import type {
-    PerseusMatcherScoringData,
+    PerseusMatcherRubric,
     PerseusMatcherUserInput,
 } from "../../validation.types";
 
@@ -13,13 +13,13 @@ describe("scoreMatcher", () => {
             right: ["cool", "beans"],
         };
 
-        const scoringData: PerseusMatcherScoringData = {
+        const rubric: PerseusMatcherRubric = {
             left: ["1", "0+1"],
             right: ["2", "0+2"],
         };
 
         // Act
-        const result = scoreMatcher(userInput, scoringData);
+        const result = scoreMatcher(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -27,18 +27,18 @@ describe("scoreMatcher", () => {
 
     it("can be answered correctly", () => {
         // Arrange
-        const scoringData: PerseusMatcherScoringData = {
+        const rubric: PerseusMatcherRubric = {
             left: ["1", "0+1"],
             right: ["2", "0+2"],
         };
 
         const userInput: PerseusMatcherUserInput = {
-            left: [...scoringData.left],
-            right: [...scoringData.right],
+            left: [...rubric.left],
+            right: [...rubric.right],
         };
 
         // Act
-        const result = scoreMatcher(userInput, scoringData);
+        const result = scoreMatcher(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();

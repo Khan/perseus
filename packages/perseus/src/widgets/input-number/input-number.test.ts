@@ -252,28 +252,28 @@ describe("input-number", function () {
     });
 });
 
-describe("getOneCorrectAnswerFromScoringData", () => {
+describe("getOneCorrectAnswerFromRubric", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
-    it("should return undefined if scoringData.value is null/undefined", () => {
+    it("should return undefined if rubric.value is null/undefined", () => {
         // Arrange
-        const scoringData: Record<string, any> = {};
+        const rubric: Record<string, any> = {};
 
         // Act
         const result =
-            InputNumber.getOneCorrectAnswerFromScoringData?.(scoringData);
+            InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
 
         // Assert
         expect(result).toBeUndefined();
     });
 
-    it("should return scoringData.value if inexact is false", () => {
+    it("should return rubric.value if inexact is false", () => {
         // Arrange
-        const scoringData = {
+        const rubric = {
             value: 0,
             maxError: 0.1,
             inexact: false,
@@ -281,15 +281,15 @@ describe("getOneCorrectAnswerFromScoringData", () => {
 
         // Act
         const result =
-            InputNumber.getOneCorrectAnswerFromScoringData?.(scoringData);
+            InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
 
         // Assert
         expect(result).toEqual("0");
     });
 
-    it("should return scoringData.value with an error band if inexact is true", () => {
+    it("should return rubric.value with an error band if inexact is true", () => {
         // Arrange
-        const scoringData = {
+        const rubric = {
             value: 0,
             maxError: 0.1,
             inexact: true,
@@ -297,7 +297,7 @@ describe("getOneCorrectAnswerFromScoringData", () => {
 
         // Act
         const result =
-            InputNumber.getOneCorrectAnswerFromScoringData?.(scoringData);
+            InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
 
         // Assert
         expect(result).toEqual("0 ± 0.1");

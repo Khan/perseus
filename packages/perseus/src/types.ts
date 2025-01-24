@@ -17,7 +17,7 @@ import type {
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
     PerseusScore,
-    ScoringData,
+    Rubric,
     UserInput,
     UserInputArray,
     UserInputMap,
@@ -527,7 +527,7 @@ export type WidgetScorerFunction = (
     // The user data needed to score
     userInput: UserInput,
     // The scoring criteria to score against
-    scoringData: ScoringData,
+    rubric: Rubric,
     // Strings, for error messages in invalid widgets
     string?: PerseusStrings,
     // Locale, for math evaluation
@@ -602,8 +602,8 @@ export type WidgetExports<
      */
     getPublicWidgetOptions?: PublicWidgetOptionsFunction;
 
-    getOneCorrectAnswerFromScoringData?: (
-        scoringData: ScoringData,
+    getOneCorrectAnswerFromRubric?: (
+        rubric: Rubric,
     ) => string | null | undefined;
 
     /**

@@ -15,7 +15,7 @@ import type {ChangeableProps} from "../../mixins/changeable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PerseusTableWidgetOptions} from "@khanacademy/perseus-core";
 import type {
-    PerseusTableScoringData,
+    PerseusTableRubric,
     PerseusTableUserInput,
 } from "@khanacademy/perseus-score";
 
@@ -27,7 +27,7 @@ type RenderProps = PerseusTableWidgetOptions & {
 };
 
 type Props = ChangeableProps &
-    WidgetProps<RenderProps, PerseusTableScoringData>;
+    WidgetProps<RenderProps, PerseusTableRubric>;
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];

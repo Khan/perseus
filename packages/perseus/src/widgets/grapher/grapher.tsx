@@ -42,7 +42,7 @@ import type {
     PerseusGrapherWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {
-    PerseusGrapherScoringData,
+    PerseusGrapherRubric,
     PerseusGrapherUserInput,
 } from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -354,7 +354,7 @@ type RenderProps = {
     plot?: any;
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusGrapherScoringData>;
+type ExternalProps = WidgetProps<RenderProps, PerseusGrapherRubric>;
 
 type Props = ExternalProps & {
     // plot is always provided by default props

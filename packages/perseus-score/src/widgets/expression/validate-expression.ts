@@ -6,7 +6,7 @@ import type {
 /**
  * Checks user input from the expression widget to see if it is scorable.
  *
- * Note: Most of the expression widget's validation requires the ScoringData because
+ * Note: Most of the expression widget's validation requires the Rubric because
  * of its use of KhanAnswerTypes as a core part of scoring.
  *
  * @see `scoreExpression()` for more details.

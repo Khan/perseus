@@ -2,7 +2,7 @@ import scoreMatrix from "./score-matrix";
 import * as MatrixValidator from "./validate-matrix";
 
 import type {
-    PerseusMatrixScoringData,
+    PerseusMatrixRubric,
     PerseusMatrixUserInput,
 } from "../../validation.types";
 
@@ -13,7 +13,7 @@ describe("scoreMatrix", () => {
             .spyOn(MatrixValidator, "default")
             .mockReturnValue(null);
 
-        const scoringData: PerseusMatrixScoringData = {
+        const rubric: PerseusMatrixRubric = {
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
@@ -22,11 +22,11 @@ describe("scoreMatrix", () => {
         };
 
         const userInput: PerseusMatrixUserInput = {
-            answers: scoringData.answers,
+            answers: rubric.answers,
         };
 
         // Act
-        const score = scoreMatrix(userInput, scoringData);
+        const score = scoreMatrix(userInput, rubric);
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith(userInput);
@@ -39,7 +39,7 @@ describe("scoreMatrix", () => {
             .spyOn(MatrixValidator, "default")
             .mockReturnValue({type: "invalid", message: null});
 
-        const scoringData: PerseusMatrixScoringData = {
+        const rubric: PerseusMatrixRubric = {
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
@@ -48,11 +48,11 @@ describe("scoreMatrix", () => {
         };
 
         const userInput: PerseusMatrixUserInput = {
-            answers: scoringData.answers,
+            answers: rubric.answers,
         };
 
         // Act
-        const score = scoreMatrix(userInput, scoringData);
+        const score = scoreMatrix(userInput, rubric);
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith(userInput);
@@ -61,7 +61,7 @@ describe("scoreMatrix", () => {
 
     it("can be answered correctly", () => {
         // Arrange
-        const scoringData: PerseusMatrixScoringData = {
+        const rubric: PerseusMatrixRubric = {
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
@@ -70,11 +70,11 @@ describe("scoreMatrix", () => {
         };
 
         const userInput: PerseusMatrixUserInput = {
-            answers: scoringData.answers,
+            answers: rubric.answers,
         };
 
         // Act
-        const result = scoreMatrix(userInput, scoringData);
+        const result = scoreMatrix(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -82,7 +82,7 @@ describe("scoreMatrix", () => {
 
     it("can be answered incorrectly", () => {
         // Arrange
-        const scoringData: PerseusMatrixScoringData = {
+        const rubric: PerseusMatrixRubric = {
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
@@ -99,7 +99,7 @@ describe("scoreMatrix", () => {
         };
 
         // Act
-        const result = scoreMatrix(userInput, scoringData);
+        const result = scoreMatrix(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -107,7 +107,7 @@ describe("scoreMatrix", () => {
 
     it("is invalid when there's an empty cell: null", () => {
         // Arrange
-        const scoringData: PerseusMatrixScoringData = {
+        const rubric: PerseusMatrixRubric = {
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
@@ -127,7 +127,7 @@ describe("scoreMatrix", () => {
         };
 
         // Act
-        const result = scoreMatrix(userInput, scoringData);
+        const result = scoreMatrix(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -135,7 +135,7 @@ describe("scoreMatrix", () => {
 
     it("is invalid when there's an empty cell: empty string", () => {
         // Arrange
-        const scoringData: PerseusMatrixScoringData = {
+        const rubric: PerseusMatrixRubric = {
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
@@ -155,7 +155,7 @@ describe("scoreMatrix", () => {
         };
 
         // Act
-        const result = scoreMatrix(userInput, scoringData);
+        const result = scoreMatrix(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -163,7 +163,7 @@ describe("scoreMatrix", () => {
 
     it("is considered incorrect when the size is wrong", () => {
         // Arrange
-        const scoringData: PerseusMatrixScoringData = {
+        const rubric: PerseusMatrixRubric = {
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
@@ -172,7 +172,7 @@ describe("scoreMatrix", () => {
         };
 
         const correctUserInput: PerseusMatrixUserInput = {
-            answers: scoringData.answers,
+            answers: rubric.answers,
         };
 
         const incorrectUserInput: PerseusMatrixUserInput = {
@@ -180,12 +180,12 @@ describe("scoreMatrix", () => {
             // This is so we can check that it's considered incorrect
             // if it has the wrong length, even though it otherwise
             // would be a partial match.
-            answers: [...scoringData.answers, [8, 6, 7]],
+            answers: [...rubric.answers, [8, 6, 7]],
         };
 
         // Act
-        const correctResult = scoreMatrix(correctUserInput, scoringData);
-        const incorrectResult = scoreMatrix(incorrectUserInput, scoringData);
+        const correctResult = scoreMatrix(correctUserInput, rubric);
+        const incorrectResult = scoreMatrix(incorrectUserInput, rubric);
 
         // Assert
         expect(correctResult).toHaveBeenAnsweredCorrectly();
