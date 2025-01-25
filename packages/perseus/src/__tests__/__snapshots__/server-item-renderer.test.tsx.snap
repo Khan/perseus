@@ -45,7 +45,6 @@ exports[`server item renderer should snapshot: initial render 1`] = `
                   aria-disabled="false"
                   aria-invalid="false"
                   aria-label="Mock Widget"
-                  aria-required="false"
                   class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-defaultFocus_9n1kv3"
                   id="mock-widget 1"
                   role="textbox"

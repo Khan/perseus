@@ -124,10 +124,9 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                               style="border-color: transparent; border-radius: 5px;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-multiSelectShape_1rlimxq-o_O-choiceHasLetter_jjjjws-o_O-choiceIsChecked_1lslapz-o_O-choiceNeutral_73mm8d"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 3px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -238,10 +237,9 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                               style="border-color: transparent; border-radius: 5px;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-multiSelectShape_1rlimxq-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -352,10 +350,9 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                               style="border-color: transparent; border-radius: 5px;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-multiSelectShape_1rlimxq-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -457,10 +454,9 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                               style="border-color: transparent; border-radius: 5px;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-multiSelectShape_1rlimxq-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -693,10 +689,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -820,10 +815,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -934,10 +928,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsChecked_1lslapz-o_O-choiceNeutral_73mm8d"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -1051,10 +1044,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -1261,10 +1253,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsChecked_1lslapz-o_O-choiceNeutral_73mm8d"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -1388,10 +1379,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -1502,10 +1492,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -1619,10 +1608,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -1829,10 +1817,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -1956,10 +1943,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -2070,10 +2056,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -2187,10 +2172,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -2397,10 +2381,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -2524,10 +2507,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -2638,10 +2620,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsChecked_1lslapz-o_O-choiceNeutral_73mm8d"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -2755,10 +2736,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -2965,10 +2945,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsChecked_1lslapz-o_O-choiceNeutral_73mm8d"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -3092,10 +3071,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -3206,10 +3184,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -3323,10 +3300,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -3533,10 +3509,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1-o_O-circleIncorrect_gxqnr9"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasIcon_ifnw95-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -3739,10 +3714,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1-o_O-circleIncorrect_gxqnr9"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasIcon_ifnw95-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -3916,10 +3890,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1-o_O-circleCorrect_ifnw95"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasIcon_ifnw95-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
@@ -4091,10 +4064,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="circle_1w6i3h1-o_O-circleIncorrect_gxqnr9"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasIcon_ifnw95-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
-                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
                                   class="innerWrapper_177sg8x"
