@@ -67,7 +67,6 @@ export default {
     transform: (editorProps: any): any => {
         return _.pick(editorProps, "content");
     },
-    version: {major: 0, minor: 0},
     isLintable: true,
     // TODO: things that aren't interactive shouldn't need scoring functions
     scorer: () => scoreNoop(),

@@ -1,0 +1,58 @@
+import scoreDropdown from "./score-dropdown";
+
+import type {
+    PerseusDropdownScoringData,
+    PerseusDropdownUserInput,
+} from "../../validation.types";
+
+describe("scoreDropdown", () => {
+    it("returns 0 points for incorrect answer", () => {
+        // Arrange
+        const userInput: PerseusDropdownUserInput = {
+            value: 1,
+        };
+        const scoringData: PerseusDropdownScoringData = {
+            choices: [
+                {
+                    content: "greater than or equal to",
+                    correct: false,
+                },
+                {
+                    content: "less than or equal to",
+                    correct: true,
+                },
+            ],
+        };
+
+        // Act
+        const score = scoreDropdown(userInput, scoringData);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("returns 1 point for correct answer", () => {
+        // Arrange
+        const userInput: PerseusDropdownUserInput = {
+            value: 2,
+        };
+        const scoringData: PerseusDropdownScoringData = {
+            choices: [
+                {
+                    content: "greater than or equal to",
+                    correct: false,
+                },
+                {
+                    content: "less than or equal to",
+                    correct: true,
+                },
+            ],
+        };
+
+        // Act
+        const score = scoreDropdown(userInput, scoringData);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+});

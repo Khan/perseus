@@ -8,27 +8,16 @@ import _ from "underscore";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {mockStrings} from "../../strings";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import InputNumber from "./input-number";
 import {question3 as question} from "./input-number.testdata";
-import scoreInputNumber from "./score-input-number";
 
-import type {
-    PerseusInputNumberWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const {transform} = InputNumber;
-
-const options: PerseusInputNumberWidgetOptions = {
-    value: "2^{-2}-3",
-    size: "normal",
-    simplify: "optional",
-};
 
 describe("input-number", function () {
     let userEvent: UserEvent;
@@ -263,69 +252,52 @@ describe("input-number", function () {
     });
 });
 
-describe("invalid", function () {
+describe("getOneCorrectAnswerFromScoringData", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
-    it("should handle invalid answers with no error callback", function () {
-        const err = scoreInputNumber(
-            {currentValue: "x+1"},
-            options,
-            mockStrings,
-        );
-        expect(err).toEqual({
-            message: "EXTRA_SYMBOLS_ERROR",
-            type: "invalid",
-        });
-    });
-});
-
-describe("getOneCorrectAnswerFromRubric", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
-    it("should return undefined if rubric.value is null/undefined", () => {
+    it("should return undefined if scoringData.value is null/undefined", () => {
         // Arrange
-        const rubric: Record<string, any> = {};
+        const scoringData: Record<string, any> = {};
 
         // Act
-        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
+        const result =
+            InputNumber.getOneCorrectAnswerFromScoringData?.(scoringData);
 
         // Assert
         expect(result).toBeUndefined();
     });
 
-    it("should return rubric.value if inexact is false", () => {
+    it("should return scoringData.value if inexact is false", () => {
         // Arrange
-        const rubric = {
+        const scoringData = {
             value: 0,
             maxError: 0.1,
             inexact: false,
         } as const;
 
         // Act
-        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
+        const result =
+            InputNumber.getOneCorrectAnswerFromScoringData?.(scoringData);
 
         // Assert
         expect(result).toEqual("0");
     });
 
-    it("should return rubric.value with an error band if inexact is true", () => {
+    it("should return scoringData.value with an error band if inexact is true", () => {
         // Arrange
-        const rubric = {
+        const scoringData = {
             value: 0,
             maxError: 0.1,
             inexact: true,
         } as const;
 
         // Act
-        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
+        const result =
+            InputNumber.getOneCorrectAnswerFromScoringData?.(scoringData);
 
         // Assert
         expect(result).toEqual("0 ± 0.1");

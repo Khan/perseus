@@ -1,4 +1,8 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {
+    inputNumberAnswerTypes,
+    scoreInputNumber,
+} from "@khanacademy/perseus-score";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -10,16 +14,14 @@ import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 
-import scoreInputNumber, {answerTypes} from "./score-input-number";
-
 import type {PerseusStrings} from "../../strings";
 import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusInputNumberRubric,
-    PerseusInputNumberUserInput,
-} from "../../validation.types";
 import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusInputNumberScoringData,
+    PerseusInputNumberUserInput,
+} from "@khanacademy/perseus-score";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {
@@ -58,7 +60,7 @@ type RenderProps = {
     rightAlign: PerseusInputNumberWidgetOptions["rightAlign"];
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberRubric>;
+type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberScoringData>;
 type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
@@ -67,7 +69,7 @@ type Props = ExternalProps & {
     currentValue: string;
     // NOTE(kevinb): This was the only default prop that is listed as
     // not-required in PerseusInputNumberWidgetOptions.
-    answerType: NonNullable<PerseusInputNumberRubric["answerType"]>;
+    answerType: NonNullable<PerseusInputNumberScoringData["answerType"]>;
 };
 
 type DefaultProps = {
@@ -178,7 +180,7 @@ class InputNumber extends React.Component<Props> implements Widget {
     examples(): ReadonlyArray<string> {
         const {strings} = this.context;
         const type = this.props.answerType;
-        const forms = answerTypes[type].forms.split(/\s*,\s*/);
+        const forms = inputNumberAnswerTypes[type].forms.split(/\s*,\s*/);
 
         const examples = _.map(forms, (form) =>
             formExamples[form](this.props, strings),
@@ -288,13 +290,15 @@ export default {
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusInputNumberUserInput'.
     scorer: scoreInputNumber,
 
-    getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {
-        if (rubric.value == null) {
+    getOneCorrectAnswerFromScoringData(
+        scoringData: any,
+    ): string | null | undefined {
+        if (scoringData.value == null) {
             return;
         }
-        let answerString = String(rubric.value);
-        if (rubric.inexact && rubric.maxError) {
-            answerString += " \u00B1 " + rubric.maxError;
+        let answerString = String(scoringData.value);
+        if (scoringData.inexact && scoringData.maxError) {
+            answerString += " \u00B1 " + scoringData.maxError;
         }
         return answerString;
     },

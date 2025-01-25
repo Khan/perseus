@@ -21,7 +21,7 @@ import mockWidget1Item from "./test-items/mock-widget-1-item";
 import mockWidget2Item from "./test-items/mock-widget-2-item";
 import tableItem from "./test-items/table-item";
 
-import type {PerseusMockWidgetUserInput} from "../validation.types";
+import type {PerseusMockWidgetUserInput} from "../widgets/mock-widgets/mock-widget-types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const itemWidget = mockWidget1Item;

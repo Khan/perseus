@@ -38,6 +38,50 @@ export type CollinearTuple = [Vector2, Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
 
 /**
+ * A utility type that constructs a widget map from a "registry interface".
+ * The keys of the registry should be the widget type (aka, "categorizer" or
+ * "radio", etc) and the value should be the option type stored in the value
+ * of the map.
+ *
+ * You can think of this as a type that generates another type. We use
+ * "registry interfaces" as a way to keep a set of widget types to their data
+ * type in several places in Perseus. This type then allows us to generate a
+ * map type that maps a widget id to its data type and keep strong typing by
+ * widget id.
+ *
+ * For example, given a fictitious registry such as this:
+ *
+ * ```
+ * interface DummyRegistry {
+ *     categorizer: { categories: ReadonlyArray<string> };
+ *     dropdown: { choices: ReadonlyArray<string> }:
+ * }
+ * ```
+ *
+ * If we create a DummyMap using this helper:
+ *
+ * ```
+ * type DummyMap = MakeWidgetMap<DummyRegistry>;
+ * ```
+ *
+ * We'll get a map that looks like this:
+ *
+ * ```
+ * type DummyMap = {
+ *     `categorizer ${number}`: { categories: ReadonlyArray<string> };
+ *     `dropdown ${number}`: { choices: ReadonlyArray<string> };
+ * }
+ * ```
+ *
+ * We use interfaces for the registries so that they can be extended in cases
+ * where the consuming app brings along their own widgets. Interfaces in
+ * TypeScript are always open (ie. you can extend them) whereas types aren't.
+ */
+export type MakeWidgetMap<TRegistry> = {
+    [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];
+};
+
+/**
  * Our core set of Perseus widgets.
  *
  * This interface is the basis for "registering" all Perseus widget types.
@@ -58,7 +102,7 @@ export type ShowSolutions = "all" | "selected" | "none";
  * `PerseusWidgets` with the one defined below.
  *
  * ```typescript
- * declare module "@khanacademy/perseus" {
+ * declare module "@khanacademy/perseus-core" {
  *     interface PerseusWidgetTypes {
  *         // A new widget
  *         "new-awesomeness": MyAwesomeNewWidget;
@@ -100,7 +144,6 @@ export interface PerseusWidgetTypes {
     matcher: MatcherWidget;
     matrix: MatrixWidget;
     measurer: MeasurerWidget;
-    "mock-widget": MockWidget;
     "molecule-renderer": MoleculeRendererWidget;
     "number-line": NumberLineWidget;
     "numeric-input": NumericInputWidget;
@@ -135,9 +178,19 @@ export interface PerseusWidgetTypes {
  * @see {@link PerseusWidgetTypes} additional widgets can be added to this map type
  * by augmenting the PerseusWidgetTypes with new widget types!
  */
-export type PerseusWidgetsMap = {
-    [Property in keyof PerseusWidgetTypes as `${Property} ${number}`]: PerseusWidgetTypes[Property];
-};
+export type PerseusWidgetsMap = MakeWidgetMap<PerseusWidgetTypes>;
+
+/**
+ * PerseusWidget is a union of all the different types of widget options that
+ * Perseus knows about.
+ *
+ * Thanks to it being based on PerseusWidgetTypes interface, this union is
+ * automatically extended to include widgets used in tests without those widget
+ * option types seeping into our production types.
+ *
+ * @see MockWidget for an example
+ */
+export type PerseusWidget = PerseusWidgetTypes[keyof PerseusWidgetTypes];
 
 /**
  * A "PerseusItem" is a classic Perseus item. It is rendered by the
@@ -304,8 +357,6 @@ export type MatrixWidget = WidgetOptions<'matrix', PerseusMatrixWidgetOptions>;
 // prettier-ignore
 export type MeasurerWidget = WidgetOptions<'measurer', PerseusMeasurerWidgetOptions>;
 // prettier-ignore
-export type MockWidget = WidgetOptions<'mock-widget', MockWidgetOptions>;
-// prettier-ignore
 export type NumberLineWidget = WidgetOptions<'number-line', PerseusNumberLineWidgetOptions>;
 // prettier-ignore
 export type NumericInputWidget = WidgetOptions<'numeric-input', PerseusNumericInputWidgetOptions>;
@@ -337,43 +388,6 @@ export type RefTargetWidget = WidgetOptions<'passage-ref-target', PerseusPassage
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
 export type DeprecatedStandinWidget = WidgetOptions<'deprecated-standin', object>;
-
-export type PerseusWidget =
-    | CategorizerWidget
-    | CSProgramWidget
-    | DefinitionWidget
-    | DropdownWidget
-    | ExplanationWidget
-    | ExpressionWidget
-    | GradedGroupSetWidget
-    | GradedGroupWidget
-    | GrapherWidget
-    | GroupWidget
-    | IFrameWidget
-    | ImageWidget
-    | InputNumberWidget
-    | InteractionWidget
-    | InteractiveGraphWidget
-    | LabelImageWidget
-    | MatcherWidget
-    | MatrixWidget
-    | MeasurerWidget
-    | MockWidget
-    | MoleculeRendererWidget
-    | NumberLineWidget
-    | NumericInputWidget
-    | OrdererWidget
-    | PassageRefWidget
-    | PassageWidget
-    | PhetSimulationWidget
-    | PlotterWidget
-    | PythonProgramWidget
-    | RadioWidget
-    | RefTargetWidget
-    | SorterWidget
-    | TableWidget
-    | VideoWidget
-    | DeprecatedStandinWidget;
 
 /**
  * A background image applied to various widgets.
@@ -1239,7 +1253,7 @@ export type PerseusNumberLineWidgetOptions = {
     // This controls the initial position of the point along the number line
     initialX: number | null | undefined;
     // Show tooltips
-    showTooltip?: boolean;
+    showTooltips?: boolean;
     // When true, the answer is displayed and is immutable
     static: boolean;
 };
@@ -1676,11 +1690,6 @@ export type PerseusPhetSimulationWidgetOptions = {
 export type PerseusVideoWidgetOptions = {
     location: string;
     static?: boolean;
-};
-
-export type MockWidgetOptions = {
-    static?: boolean;
-    value: string;
 };
 
 export type PerseusInputNumberWidgetOptions = {

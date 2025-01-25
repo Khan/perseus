@@ -1,20 +1,19 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
 import {number as knumber} from "@khanacademy/kmath";
-import {
-    components,
-    Dependencies,
-    PlotterWidget,
-    Util,
-} from "@khanacademy/perseus";
-import {plotterPlotTypes} from "@khanacademy/perseus-core";
+import {components, PlotterWidget, Util} from "@khanacademy/perseus";
+import {plotterLogic, plotterPlotTypes} from "@khanacademy/perseus-core";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
-import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
+import type {APIOptions} from "@khanacademy/perseus";
+import type {
+    PerseusPlotterWidgetOptions,
+    PlotterDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 const {InfoTip, NumberInput, RangeInput, TextListEditor} = components;
 const Plotter = PlotterWidget.widget;
@@ -42,6 +41,7 @@ const editorDefaults = {
 } as const;
 
 type Props = {
+    apiOptions: APIOptions;
     type: PerseusPlotterWidgetOptions["type"];
     labels: Array<string>;
     categories: ReadonlyArray<string | number>;
@@ -59,22 +59,6 @@ type Props = {
     onChange: any;
 };
 
-type DefaultProps = {
-    scaleY: Props["scaleY"];
-    maxY: Props["maxY"];
-    snapsPerLine: Props["snapsPerLine"];
-    correct: Props["correct"];
-    starting: Props["starting"];
-    type: Props["type"];
-    labels: Props["labels"];
-    categories: Props["categories"];
-    picSize: Props["picSize"];
-    picBoxHeight: Props["picBoxHeight"];
-    plotDimensions: Props["plotDimensions"];
-    labelInterval: Props["labelInterval"];
-    picUrl: Props["picUrl"];
-};
-
 type State = {
     editing: EditingState;
     pic: any;
@@ -89,30 +73,8 @@ const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
 class PlotterEditor extends React.Component<Props, State> {
     static widgetName = "plotter" as const;
 
-    static defaultProps: DefaultProps = {
-        ...editorDefaults,
-        correct: [1],
-        starting: [1],
-
-        type: "bar",
-        labels: ["", ""],
-        categories: [""],
-
-        picSize: 30,
-        picBoxHeight: 36,
-        plotDimensions: [275, 200],
-        labelInterval: 1,
-
-        // @ts-expect-error - TS2322
-        get picUrl() {
-            const staticUrl = Dependencies.getDependencies().staticUrl;
-            if (staticUrl) {
-                return staticUrl("/images/badges/earth-small.png");
-            }
-
-            return null;
-        },
-    };
+    static defaultProps: PlotterDefaultWidgetOptions =
+        plotterLogic.defaultWidgetOptions;
 
     state: State = {
         editing: this.props.static ? STARTING : CORRECT,

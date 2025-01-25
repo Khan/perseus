@@ -1,4 +1,10 @@
+import {
+    getMatrixSize,
+    type PerseusMatrixWidgetAnswers,
+    type PerseusMatrixWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {scoreMatrix, validateMatrix} from "@khanacademy/perseus-score";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -15,18 +21,12 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
-import scoreMatrix from "./score-matrix";
-
-import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
-import type {
-    PerseusMatrixRubric,
-    PerseusMatrixUserInput,
-} from "../../validation.types";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 import type {
-    PerseusMatrixWidgetAnswers,
-    PerseusMatrixWidgetOptions,
-} from "@khanacademy/perseus-core";
+    PerseusMatrixScoringData,
+    PerseusMatrixUserInput,
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {assert} = InteractiveUtil;
@@ -79,30 +79,6 @@ const getRefForPath = function (path: FocusPath) {
     return "answer" + row + "," + column;
 };
 
-export function getMatrixSize(matrix: ReadonlyArray<ReadonlyArray<number>>) {
-    const matrixSize = [1, 1];
-
-    // We need to find the widest row and tallest column to get the correct
-    // matrix size.
-    _(matrix).each((matrixRow, row) => {
-        let rowWidth = 0;
-        _(matrixRow).each((matrixCol, col) => {
-            if (matrixCol != null && matrixCol.toString().length) {
-                rowWidth = col + 1;
-            }
-        });
-
-        // Matrix width:
-        matrixSize[1] = Math.max(matrixSize[1], rowWidth);
-
-        // Matrix height:
-        if (rowWidth > 0) {
-            matrixSize[0] = Math.max(matrixSize[0], row + 1);
-        }
-    });
-    return matrixSize;
-}
-
 type ExternalProps = WidgetProps<
     {
         // Translatable Text; Shown before the matrix
@@ -118,7 +94,7 @@ type ExternalProps = WidgetProps<
         // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
         static?: boolean | undefined;
     },
-    PerseusMatrixRubric
+    PerseusMatrixScoringData
 >;
 
 // Assert that the PerseusMatrixWidgetOptions parsed from JSON can be passed
@@ -129,7 +105,7 @@ type ExternalProps = WidgetProps<
 // defaultProps.
 0 as any as WidgetProps<
     PerseusMatrixWidgetOptions,
-    PerseusMatrixRubric
+    PerseusMatrixScoringData
 > satisfies PropsFor<typeof Matrix>;
 
 type Props = ExternalProps & {
@@ -600,4 +576,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatrixUserInput'.
     scorer: scoreMatrix,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatrixUserInput'.
+    validator: validateMatrix,
 } satisfies WidgetExports<typeof Matrix>;

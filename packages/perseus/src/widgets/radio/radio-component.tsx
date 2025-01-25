@@ -1,4 +1,5 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {scoreRadio} from "@khanacademy/perseus-score";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -8,20 +9,19 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio
 import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio";
-import scoreRadio from "./score-radio";
 
 import type {FocusFunction, ChoiceType} from "./base-radio";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
-import type {
-    PerseusRadioRubric,
-    PerseusRadioUserInput,
-} from "../../validation.types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
     ShowSolutions,
 } from "@khanacademy/perseus-core";
+import type {
+    PerseusRadioScoringData,
+    PerseusRadioUserInput,
+} from "@khanacademy/perseus-score";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {
@@ -39,7 +39,7 @@ export type RenderProps = {
     values?: ReadonlyArray<boolean>;
 };
 
-type Props = WidgetProps<RenderProps, PerseusRadioRubric>;
+type Props = WidgetProps<RenderProps, PerseusRadioScoringData>;
 
 type DefaultProps = Required<
     Pick<
@@ -268,14 +268,10 @@ class Radio extends React.Component<Props> implements Widget {
      */
     showRationalesForCurrentlySelectedChoices: (
         arg1: PerseusRadioWidgetOptions,
-    ) => void = (rubric) => {
+    ) => void = (scoringData) => {
         const {choiceStates} = this.props;
         if (choiceStates) {
-            const score = scoreRadio(
-                this.getUserInput(),
-                rubric,
-                this.context.strings,
-            );
+            const score = scoreRadio(this.getUserInput(), scoringData);
             const widgetCorrect =
                 score.type === "points" && score.total === score.earned;
 
@@ -417,7 +413,7 @@ class Radio extends React.Component<Props> implements Widget {
                     // Current versions of the radio widget always pass in the
                     // "correct" value through the choices. Old serialized state
                     // for radio widgets doesn't have this though, so we have to
-                    // pull the correctness out of the review mode rubric. This
+                    // pull the correctness out of the review mode scoring data. This
                     // only works because all of the places we use
                     // `restoreSerializedState()` also turn on reviewMode, but is
                     // fine for now.

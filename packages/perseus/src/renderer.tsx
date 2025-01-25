@@ -43,12 +43,10 @@ import type {
     APIOptionsWithDefaults,
     FilterCriterion,
     FocusPath,
-    PerseusScore,
     SerializedState,
     Widget,
     WidgetProps,
 } from "./types";
-import type {UserInputArray, UserInputMap} from "./validation.types";
 import type {
     GetPromptJSONInterface,
     RendererPromptJSON,
@@ -62,6 +60,11 @@ import type {
     ShowSolutions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {
+    PerseusScore,
+    UserInputArray,
+    UserInputMap,
+} from "@khanacademy/perseus-score";
 
 import "./styles/perseus-renderer.less";
 
@@ -555,7 +558,7 @@ class Renderer
         const apiOptions = this.getApiOptions();
         const widgetProps = this.state.widgetProps[widgetId] || {};
 
-        // The widget needs access to its "rubric" at all times when in review
+        // The widget needs access to its "scoring data" at all times when in review
         // mode (which is really just part of its widget info).
         const widgetInfo = this.state.widgetInfo[widgetId];
         const reviewModeRubric =

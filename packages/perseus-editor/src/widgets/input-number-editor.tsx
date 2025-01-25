@@ -1,48 +1,18 @@
 import {components, PerseusI18nContext, Util} from "@khanacademy/perseus";
+import {inputNumberLogic} from "@khanacademy/perseus-core";
+import {inputNumberAnswerTypes} from "@khanacademy/perseus-score";
 import * as React from "react";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
 import type {ParsedValue} from "@khanacademy/perseus";
-import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusInputNumberWidgetOptions,
+    InputNumberDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
-
-const answerTypes = {
-    number: {
-        name: "Numbers",
-        forms: "integer, decimal, proper, improper, mixed",
-    },
-    decimal: {
-        name: "Decimals",
-        forms: "decimal",
-    },
-    integer: {
-        name: "Integers",
-        forms: "integer",
-    },
-    rational: {
-        name: "Fractions and mixed numbers",
-        forms: "integer, proper, improper, mixed",
-    },
-    improper: {
-        name: "Improper numbers (no mixed)",
-        forms: "integer, proper, improper",
-    },
-    mixed: {
-        name: "Mixed numbers (no improper)",
-        forms: "integer, proper, mixed",
-    },
-    percent: {
-        name: "Numbers or percents",
-        forms: "integer, decimal, proper, improper, mixed, percent",
-    },
-    pi: {
-        name: "Numbers with pi",
-        forms: "pi",
-    },
-} as const;
 
 type Props = {
     value: number;
@@ -63,31 +33,14 @@ type Props = {
     }) => void;
 };
 
-type DefaultProps = {
-    value: Props["value"];
-    simplify: Props["simplify"];
-    size: Props["size"];
-    inexact: Props["inexact"];
-    maxError: Props["maxError"];
-    answerType: Props["answerType"];
-    rightAlign: Props["rightAlign"];
-};
-
 class InputNumberEditor extends React.Component<Props> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     static widgetName = "input-number" as const;
 
-    static defaultProps: DefaultProps = {
-        value: 0,
-        simplify: "required",
-        size: "normal",
-        inexact: false,
-        maxError: 0.1,
-        answerType: "number",
-        rightAlign: false,
-    };
+    static defaultProps: InputNumberDefaultWidgetOptions =
+        inputNumberLogic.defaultWidgetOptions;
 
     input = React.createRef<BlurInput>();
 
@@ -121,7 +74,7 @@ class InputNumberEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         const answerTypeOptions = _.map(
-            answerTypes,
+            inputNumberAnswerTypes,
             function (v, k) {
                 return (
                     <option value={k} key={k}>

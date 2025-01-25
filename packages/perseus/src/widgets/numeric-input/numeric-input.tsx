@@ -1,5 +1,6 @@
 import {KhanMath} from "@khanacademy/kmath";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {scoreNumericInput} from "@khanacademy/perseus-score";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -10,19 +11,17 @@ import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
-import scoreNumericInput from "./score-numeric-input";
-
 import type {PerseusStrings} from "../../strings";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusNumericInputRubric,
-    PerseusNumericInputUserInput,
-} from "../../validation.types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 import type {
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
 } from "@khanacademy/perseus-core";
+import type {
+    PerseusNumericInputScoringData,
+    PerseusNumericInputUserInput,
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const formExamples: {
@@ -47,7 +46,7 @@ const formExamples: {
 
 type ExternalProps = WidgetProps<
     PerseusNumericInputWidgetOptions,
-    PerseusNumericInputRubric
+    PerseusNumericInputScoringData
 >;
 
 type Props = ExternalProps & {
@@ -80,7 +79,7 @@ type DefaultProps = {
 // via defaultProps.
 0 as any as WidgetProps<
     PerseusNumericInputWidgetOptions,
-    PerseusNumericInputRubric
+    PerseusNumericInputScoringData
 > satisfies PropsFor<typeof NumericInput>;
 
 type State = {
@@ -382,11 +381,11 @@ export default {
     scorer: scoreNumericInput,
 
     // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusNumericInputRubric'
-    getOneCorrectAnswerFromRubric(
-        rubric: PerseusNumericInputRubric,
+    // @ts-expect-error: Type 'ScoringData' is not assignable to type 'PerseusNumericInputScoringData'
+    getOneCorrectAnswerFromScoringData(
+        scoringData: PerseusNumericInputScoringData,
     ): string | null | undefined {
-        const correctAnswers = rubric.answers.filter(
+        const correctAnswers = scoringData.answers.filter(
             (answer) => answer.status === "correct",
         );
         const answerStrings = correctAnswers.map((answer) => {

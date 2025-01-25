@@ -1,7 +1,8 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe */
-import {Errors} from "@khanacademy/perseus-core";
+import {Errors, getOrdererPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {scoreOrderer, validateOrderer} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -14,16 +15,14 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 
-import {scoreOrderer} from "./score-orderer";
-
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
-import type {
-    PerseusOrdererRubric,
-    PerseusOrdererUserInput,
-} from "../../validation.types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {
+    PerseusOrdererScoringData,
+    PerseusOrdererUserInput,
+} from "@khanacademy/perseus-score";
 
 type PlaceholderCardProps = {
     width: number | null | undefined;
@@ -299,7 +298,7 @@ type RenderProps = PerseusOrdererWidgetOptions & {
     current: any;
 };
 
-type OrdererProps = WidgetProps<RenderProps, PerseusOrdererRubric>;
+type OrdererProps = WidgetProps<RenderProps, PerseusOrdererScoringData>;
 
 type OrdererDefaultProps = {
     current: OrdererProps["current"];
@@ -785,4 +784,8 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusOrdererUserInput
     scorer: scoreOrderer,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusOrdererUserInput
+    validator: validateOrderer,
+    getPublicWidgetOptions: getOrdererPublicWidgetOptions,
 } satisfies WidgetExports<typeof Orderer>;

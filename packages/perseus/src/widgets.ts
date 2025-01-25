@@ -7,13 +7,13 @@ import type {PerseusStrings} from "./strings";
 import type {
     Alignment,
     Tracking,
-    Version,
     WidgetExports,
     WidgetTransform,
     WidgetScorerFunction,
+    WidgetValidatorFunction,
     PublicWidgetOptionsFunction,
 } from "./types";
-import type {PerseusWidget} from "@khanacademy/perseus-core";
+import type {PerseusWidget, Version} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
 const DEFAULT_ALIGNMENT = "block";
@@ -136,6 +136,12 @@ export const getWidget = (
 
 export const getWidgetExport = (name: string): WidgetExports | null => {
     return widgets[name] ?? null;
+};
+
+export const getWidgetValidator = (
+    name: string,
+): WidgetValidatorFunction | null => {
+    return widgets[name]?.validator ?? null;
 };
 
 export const getWidgetScorer = (name: string): WidgetScorerFunction | null => {

@@ -1,5 +1,13 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+import {
+    type PerseusCategorizerWidgetOptions,
+    getCategorizerPublicWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {
+    scoreCategorizer,
+    validateCategorizer,
+} from "@khanacademy/perseus-score";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -16,16 +24,12 @@ import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
-import getCategorizerPublicWidgetOptions from "./categorizer.util";
-import scoreCategorizer from "./score-categorizer";
-
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 import type {
     PerseusCategorizerScoringData,
     PerseusCategorizerUserInput,
-} from "../../validation.types";
-import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
-import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
+} from "@khanacademy/perseus-score";
 
 type Props = WidgetProps<RenderProps, PerseusCategorizerScoringData> & {
     values: ReadonlyArray<string>;
@@ -329,5 +333,8 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
     scorer: scoreCategorizer,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
+    validator: validateCategorizer,
     getPublicWidgetOptions: getCategorizerPublicWidgetOptions,
 } satisfies WidgetExports<typeof Categorizer>;

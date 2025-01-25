@@ -1,4 +1,4 @@
-import {ErrorCodes} from "@khanacademy/perseus-score";
+import type {ErrorCodes} from "@khanacademy/perseus-score";
 
 /**
  * The translated strings that are used to render Perseus.
@@ -260,6 +260,68 @@ export type PerseusStrings = {
         endingSideX: string;
         endingSideY: string;
     }) => string;
+    srSingleSegmentGraphAriaLabel: string;
+    srMultipleSegmentGraphAriaLabel: ({
+        countOfSegments,
+    }: {
+        countOfSegments: number;
+    }) => string;
+    srMultipleSegmentIndividualLabel: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        indexOfSegment,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        indexOfSegment: number;
+    }) => string;
+    srSingleSegmentLabel: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srSegmentLength: ({length}: {length: string}) => string;
+    srSingleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+    }: {
+        endpointNumber: number;
+        x: string;
+        y: string;
+    }) => string;
+    srMultipleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+        indexOfSegment,
+    }: {
+        endpointNumber: number;
+        x: string;
+        y: string;
+        indexOfSegment: number;
+    }) => string;
+    srSegmentGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
     srLinearSystemGraph: string;
     srLinearSystemPoints: ({
         lineNumber,
@@ -310,6 +372,58 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
+    srQuadraticGraph: string;
+    srQuadraticFaceUp: string;
+    srQuadraticFaceDown: string;
+    srQuadraticGraphVertexOrigin: string;
+    srQuadraticGraphVertexXAxis: string;
+    srQuadraticGraphVertexYAxis: string;
+    srQuadraticGraphVertexQuadrant: ({quadrant}: {quadrant: number}) => string;
+    srQuadraticTwoXIntercepts: ({
+        intercept1,
+        intercept2,
+    }: {
+        intercept1: string;
+        intercept2: string;
+    }) => string;
+    srQuadraticOneXIntercept: ({intercept}: {intercept: string}) => string;
+    srQuadraticYIntercept: ({intercept}: {intercept: string}) => string;
+    srQuadraticPointOrigin: ({pointNumber}: {pointNumber: number}) => string;
+    srQuadraticPointAxis: ({
+        pointNumber,
+        x,
+        y,
+    }: {
+        pointNumber: number;
+        x: string;
+        y: string;
+    }) => string;
+    srQuadraticPointQuadrant: ({
+        pointNumber,
+        x,
+        y,
+        quadrant,
+    }: {
+        pointNumber: number;
+        x: string;
+        y: string;
+        quadrant: number;
+    }) => string;
+    srQuadraticInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        point3X,
+        point3Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        point3X: string;
+        point3Y: string;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -318,12 +432,7 @@ export type PerseusStrings = {
  * translator to produce translated strings, passed in as `PerseusStrings`.
  * !! Note: Ensure that all escape sequences are double-escaped. (e.g. `\\text` -> `\\\\text`)
  */
-export const strings: {
-    [key in keyof PerseusStrings]:
-        | string
-        | {context?: string; message: string}
-        | {context?: string; one: string; other: string};
-} = {
+export const strings = {
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
     mathInputBox: "Math input box",
@@ -530,6 +639,20 @@ export const strings: {
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
     srAngleGraphAriaDescription:
         "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
+    srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
+    srMultipleSegmentGraphAriaLabel:
+        "%(countOfSegments)s line segments on a coordinate plane.",
+    srMultipleSegmentIndividualLabel:
+        "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+    srSingleSegmentLabel:
+        "Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+    srSegmentLength: "Segment length %(length)s units.",
+    srSingleSegmentGraphEndpointAriaLabel:
+        "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
+    srMultipleSegmentGraphEndpointAriaLabel:
+        "Endpoint %(endpointNumber)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
+    srSegmentGrabHandle:
+        "Segment from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
     srLinearSystemGraph: "Two lines on a coordinate plane.",
     srLinearSystemPoints:
         "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
@@ -540,9 +663,32 @@ export const strings: {
         "The endpoint is at %(point1X)s comma %(point1Y)s and the ray goes through point %(point2X)s comma %(point2Y)s.",
     srRayGrabHandle:
         "Ray with endpoint %(point1X)s comma %(point1Y)s going through point %(point2X)s comma %(point2Y)s.",
-    srRayEndpoint: "Endpoint at %(point1X)s comma %(point1Y)s.",
-    srRayTerminalPoint: "Through point at %(point2X)s comma %(point2Y)s.",
+    srRayEndpoint: "Endpoint at %(x)s comma %(y)s.",
+    srRayTerminalPoint: "Through point at %(x)s comma %(y)s.",
+    srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
+    srQuadraticFaceUp: "The parabola opens upward.",
+    srQuadraticFaceDown: "The parabola opens downward.",
+    srQuadraticGraphVertexOrigin: "Vertex is at the origin.",
+    srQuadraticGraphVertexXAxis: "Vertex is on the X-axis.",
+    srQuadraticGraphVertexYAxis: "Vertex is on the Y-axis.",
+    srQuadraticGraphVertexQuadrant: "Vertex is in quadrant %(quadrant)s.",
+    srQuadraticTwoXIntercepts:
+        "The X-intercepts are at %(intercept1)s comma 0 and %(intercept2)s comma 0.",
+    srQuadraticOneXIntercept: "The X-intercept is at %(intercept)s comma 0.",
+    srQuadraticYIntercept: "The Y-intercept is at 0 comma %(intercept)s.",
+    srQuadraticPointOrigin: "Point %(pointNumber)s on parabola at the origin.",
+    srQuadraticPointAxis:
+        "Point %(pointNumber)s on parabola at %(x)s comma %(y)s.",
+    srQuadraticPointQuadrant:
+        "Point %(pointNumber)s on parabola in quadrant %(quadrant)s at %(x)s comma %(y)s.",
+    srQuadraticInteractiveElements:
+        "Parabola with points at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, and %(point3X)s comma %(point3Y)s.",
     // The above strings are used for interactive graph SR descriptions.
+} satisfies {
+    [key in keyof PerseusStrings]:
+        | string
+        | {context?: string; message: string}
+        | {context?: string; one: string; other: string};
 };
 
 /**
@@ -759,6 +905,31 @@ export const mockStrings: PerseusStrings = {
         endingSideY,
     }) =>
         `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the starting side at ${startingSideX} comma ${startingSideY} and a point on the ending side at ${endingSideX} comma ${endingSideY}.`,
+    srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
+    srMultipleSegmentGraphAriaLabel: ({countOfSegments}) =>
+        `${countOfSegments} segments on a coordinate plane.`,
+    srMultipleSegmentIndividualLabel: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        indexOfSegment,
+    }) =>
+        `Segment ${indexOfSegment}: Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}.`,
+    srSingleSegmentLabel: ({point1X, point1Y, point2X, point2Y}) =>
+        `Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}.`,
+    srSegmentLength: ({length}) => `Segment length ${length} units.`,
+    srSingleSegmentGraphEndpointAriaLabel: ({endpointNumber, x, y}) =>
+        `Endpoint ${endpointNumber} at ${x} comma ${y}.`,
+    srMultipleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+        indexOfSegment,
+    }) =>
+        `Endpoint ${endpointNumber} on segment ${indexOfSegment} at ${x} comma ${y}.`,
+    srSegmentGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Segment from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
     srLinearSystemGraph: "Two lines on a coordinate plane.",
     srLinearSystemPoints: ({lineNumber, point1X, point1Y, point2X, point2Y}) =>
         `Line ${lineNumber} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
@@ -771,19 +942,57 @@ export const mockStrings: PerseusStrings = {
         `Ray with endpoint ${point1X} comma ${point1Y} going through point ${point2X} comma ${point2Y}.`,
     srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
     srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
+    srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
+    srQuadraticFaceUp: "The parabola opens upward.",
+    srQuadraticFaceDown: "The parabola opens downward.",
+    srQuadraticGraphVertexOrigin: "Vertex is at the origin.",
+    srQuadraticGraphVertexXAxis: "Vertex is on the X-axis.",
+    srQuadraticGraphVertexYAxis: "Vertex is on the Y-axis.",
+    srQuadraticGraphVertexQuadrant: ({quadrant}) =>
+        `Vertex is in quadrant ${quadrant}.`,
+    srQuadraticTwoXIntercepts: ({intercept1, intercept2}) =>
+        `The X-intercepts are at ${intercept1} comma 0 and ${intercept2} comma 0.`,
+    srQuadraticOneXIntercept: ({intercept}) =>
+        `The X-intercept is at ${intercept} comma 0.`,
+    srQuadraticYIntercept: ({intercept}) =>
+        `The Y-intercept is at 0 comma ${intercept}.`,
+    srQuadraticPointOrigin: ({pointNumber}) =>
+        `Point ${pointNumber} on parabola at the origin.`,
+    srQuadraticPointAxis: ({pointNumber, x, y}) =>
+        `Point ${pointNumber} on parabola at ${x} comma ${y}.`,
+    srQuadraticPointQuadrant: ({pointNumber, x, y, quadrant}) =>
+        `Point ${pointNumber} on parabola in quadrant ${quadrant} at ${x} comma ${y}.`,
+    srQuadraticInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        point3X,
+        point3Y,
+    }) =>
+        `Parabola with points at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, and ${point3X} comma ${point3Y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
 
-const errorToString = {
-    [ErrorCodes.MISSING_PERCENT_ERROR]: strings.MISSING_PERCENT_ERROR,
-    [ErrorCodes.NEEDS_TO_BE_SIMPLIFIED_ERROR]:
-        strings.NEEDS_TO_BE_SIMPLFIED_ERROR,
-    [ErrorCodes.APPROXIMATED_PI_ERROR]: strings.APPROXIMATED_PI_ERROR,
-    [ErrorCodes.EXTRA_SYMBOLS_ERROR]: strings.EXTRA_SYMBOLS_ERROR,
-    [ErrorCodes.WRONG_CASE_ERROR]: strings.WRONG_CASE_ERROR,
-    [ErrorCodes.WRONG_LETTER_ERROR]: strings.WRONG_LETTER_ERROR,
-    [ErrorCodes.MULTIPLICATION_SIGN_ERROR]: strings.MULTIPLICATION_SIGN_ERROR,
+// This type helps us make sure all error codes are mapped to strings
+type ErrorStringMap = {
+    [K in keyof typeof ErrorCodes]: string;
 };
+
+const errorToString: ErrorStringMap = {
+    MISSING_PERCENT_ERROR: strings.MISSING_PERCENT_ERROR,
+    NEEDS_TO_BE_SIMPLIFIED_ERROR: strings.NEEDS_TO_BE_SIMPLFIED_ERROR,
+    APPROXIMATED_PI_ERROR: strings.APPROXIMATED_PI_ERROR,
+    EXTRA_SYMBOLS_ERROR: strings.EXTRA_SYMBOLS_ERROR,
+    WRONG_CASE_ERROR: strings.WRONG_CASE_ERROR,
+    WRONG_LETTER_ERROR: strings.WRONG_LETTER_ERROR,
+    MULTIPLICATION_SIGN_ERROR: strings.MULTIPLICATION_SIGN_ERROR,
+    INVALID_SELECTION_ERROR: strings.invalidSelection,
+    CHOOSE_CORRECT_NUM_ERROR: strings.chooseCorrectNum,
+    NOT_NONE_ABOVE_ERROR: strings.notNoneOfTheAbove,
+    FILL_ALL_CELLS_ERROR: strings.fillAllCells,
+};
+
 export function mapErrorToString(err: string | null | undefined) {
     if (!err) {
         return err;
