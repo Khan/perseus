@@ -1,22 +1,22 @@
 import scorePlotter from "./score-plotter";
 
 import type {
-    PerseusPlotterScoringData,
+    PerseusPlotterRubric,
     PerseusPlotterUserInput,
 } from "../../validation.types";
 
 describe("scorePlotter", () => {
     it("can be answered correctly", () => {
         // Arrange
-        const scoringData: PerseusPlotterScoringData = {
+        const rubric: PerseusPlotterRubric = {
             correct: [15, 25, 5, 10, 10],
             starting: [0, 0, 0, 0, 0],
         };
 
-        const userInput: PerseusPlotterUserInput = scoringData.correct;
+        const userInput: PerseusPlotterUserInput = rubric.correct;
 
         // Act
-        const score = scorePlotter(userInput, scoringData);
+        const score = scorePlotter(userInput, rubric);
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -24,7 +24,7 @@ describe("scorePlotter", () => {
 
     it("can be answered incorrectly", () => {
         // Arrange
-        const scoringData: PerseusPlotterScoringData = {
+        const rubric: PerseusPlotterRubric = {
             correct: [15, 25, 5, 10, 10],
             starting: [0, 0, 0, 0, 0],
         };
@@ -32,7 +32,7 @@ describe("scorePlotter", () => {
         const userInput: PerseusPlotterUserInput = [8, 6, 7, 5, 3, 0, 9];
 
         // Act
-        const score = scorePlotter(userInput, scoringData);
+        const score = scorePlotter(userInput, rubric);
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();

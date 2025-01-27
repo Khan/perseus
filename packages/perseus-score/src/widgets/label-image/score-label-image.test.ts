@@ -75,7 +75,7 @@ describe("scoreLabelImage", function () {
             ],
         } as const;
 
-        const scoringData = {
+        const rubric = {
             markers: [
                 {
                     label: "England",
@@ -92,7 +92,7 @@ describe("scoreLabelImage", function () {
             ],
         } as const;
 
-        const score = scoreLabelImage(userInput, scoringData);
+        const score = scoreLabelImage(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -115,7 +115,7 @@ describe("scoreLabelImage", function () {
             ],
         } as const;
 
-        const scoringData = {
+        const rubric = {
             markers: [
                 {
                     label: "England",
@@ -132,7 +132,7 @@ describe("scoreLabelImage", function () {
             ],
         } as const;
 
-        const score = scoreLabelImage(userInput, scoringData);
+        const score = scoreLabelImage(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -155,7 +155,7 @@ describe("scoreLabelImage", function () {
             ],
         } as const;
 
-        const scoringData = {
+        const rubric = {
             markers: [
                 {
                     label: "England",
@@ -172,7 +172,7 @@ describe("scoreLabelImage", function () {
             ],
         } as const;
 
-        const score = scoreLabelImage(userInput, scoringData);
+        const score = scoreLabelImage(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });

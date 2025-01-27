@@ -3,28 +3,27 @@ import {number as knumber} from "@khanacademy/kmath";
 import validateNumberLine from "./validate-number-line";
 
 import type {
-    PerseusNumberLineScoringData,
+    PerseusNumberLineRubric,
     PerseusNumberLineUserInput,
     PerseusScore,
 } from "../../validation.types";
 
 function scoreNumberLine(
     userInput: PerseusNumberLineUserInput,
-    scoringData: PerseusNumberLineScoringData,
+    rubric: PerseusNumberLineRubric,
 ): PerseusScore {
     const validationError = validateNumberLine(userInput);
     if (validationError) {
         return validationError;
     }
 
-    const range = scoringData.range;
-    const start =
-        scoringData.initialX != null ? scoringData.initialX : range[0];
-    const startRel = scoringData.isInequality ? "ge" : "eq";
-    const correctRel = scoringData.correctRel || "eq";
+    const range = rubric.range;
+    const start = rubric.initialX != null ? rubric.initialX : range[0];
+    const startRel = rubric.isInequality ? "ge" : "eq";
+    const correctRel = rubric.correctRel || "eq";
     const correctPos = knumber.equal(
         userInput.numLinePosition,
-        scoringData.correctX || 0,
+        rubric.correctX || 0,
     );
 
     if (correctPos && correctRel === userInput.rel) {

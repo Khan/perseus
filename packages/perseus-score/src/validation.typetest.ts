@@ -8,7 +8,7 @@
  * compatible. Read the TypeScript error message closely and it should point
  * you in the right direction.
  */
-import type {ScoringDataMap, ValidationDataMap} from "./validation.types";
+import type {RubricMap, ValidationDataMap} from "./validation.types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 /**
@@ -21,5 +21,5 @@ type Extends<T, E extends T> = (T) => E;
 // We can use a 'widgets' map from a PerseusRenderer as a ValidationDataMap
 type _ = Extends<ValidationDataMap, PerseusRenderer["widgets"]>;
 
-// We can use a ScoringDataMap as a ValidationDataMap
-type __ = Extends<ValidationDataMap, ScoringDataMap>;
+// We can use a RubricMap as a ValidationDataMap
+type __ = Extends<ValidationDataMap, RubricMap>;

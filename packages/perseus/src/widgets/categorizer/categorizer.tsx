@@ -27,11 +27,11 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 import type {
-    PerseusCategorizerScoringData,
+    PerseusCategorizerRubric,
     PerseusCategorizerUserInput,
 } from "@khanacademy/perseus-score";
 
-type Props = WidgetProps<RenderProps, PerseusCategorizerScoringData> & {
+type Props = WidgetProps<RenderProps, PerseusCategorizerRubric> & {
     values: ReadonlyArray<string>;
 };
 

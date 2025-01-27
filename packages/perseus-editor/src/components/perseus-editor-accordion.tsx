@@ -7,6 +7,7 @@ import * as React from "react";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
+    animated?: boolean;
     children: React.ReactNode | React.ReactNode[];
     header: string | React.ReactElement;
     expanded?: boolean;
@@ -16,8 +17,15 @@ type Props = {
 };
 
 const PerseusEditorAccordion = (props: Props) => {
-    const {children, header, expanded, containerStyle, panelStyle, onToggle} =
-        props;
+    const {
+        animated,
+        children,
+        header,
+        expanded,
+        containerStyle,
+        panelStyle,
+        onToggle,
+    } = props;
 
     return (
         <View
@@ -27,6 +35,7 @@ const PerseusEditorAccordion = (props: Props) => {
             className="perseus-editor-accordion"
         >
             <AccordionSection
+                animated={animated}
                 expanded={expanded}
                 onToggle={onToggle}
                 style={[styles.container, containerStyle]}

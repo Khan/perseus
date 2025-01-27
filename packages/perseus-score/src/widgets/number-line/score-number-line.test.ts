@@ -1,7 +1,7 @@
 import scoreNumberLine from "./score-number-line";
 
 import type {
-    PerseusNumberLineScoringData,
+    PerseusNumberLineRubric,
     PerseusNumberLineUserInput,
 } from "../../validation.types";
 
@@ -16,7 +16,7 @@ describe("scoreNumberLine", () => {
             numLinePosition: 0,
         };
 
-        const scoringData: PerseusNumberLineScoringData = {
+        const rubric: PerseusNumberLineRubric = {
             correctRel: "eq",
             correctX: -1.5,
             initialX: 0,
@@ -25,7 +25,7 @@ describe("scoreNumberLine", () => {
         };
 
         // Act
-        const score = scoreNumberLine(userInput, scoringData);
+        const score = scoreNumberLine(userInput, rubric);
 
         // Assert
         expect(score).toHaveInvalidInput();
@@ -41,7 +41,7 @@ describe("scoreNumberLine", () => {
             numLinePosition: -1.5,
         };
 
-        const scoringData: PerseusNumberLineScoringData = {
+        const rubric: PerseusNumberLineRubric = {
             correctRel: "eq",
             correctX: -1.5,
             initialX: -1,
@@ -50,7 +50,7 @@ describe("scoreNumberLine", () => {
         };
 
         // Act
-        const score = scoreNumberLine(userInput, scoringData);
+        const score = scoreNumberLine(userInput, rubric);
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -66,7 +66,7 @@ describe("scoreNumberLine", () => {
             numLinePosition: 1.5,
         };
 
-        const scoringData: PerseusNumberLineScoringData = {
+        const rubric: PerseusNumberLineRubric = {
             correctRel: "eq",
             correctX: -1.5,
             initialX: -1,
@@ -75,7 +75,7 @@ describe("scoreNumberLine", () => {
         };
 
         // Act
-        const score = scoreNumberLine(userInput, scoringData);
+        const score = scoreNumberLine(userInput, rubric);
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();
