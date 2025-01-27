@@ -998,7 +998,9 @@ const errorToString: ErrorStringMap = {
 };
 
 export function mapErrorToString(
+    // the string representing an error code
     err: string | null | undefined,
+    // the translated Perseus strings
     strings: PerseusStrings,
 ) {
     if (!err) {
