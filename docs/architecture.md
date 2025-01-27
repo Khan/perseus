@@ -189,7 +189,7 @@ the learner's guess (aka user input).
 ### `Props`
 
 Finally, `Props` form the entire set of props that widget's component supports.
-Typically it is defined as `type Props = WidgetProps<RenderProps, ScoringData>`. In
+Typically it is defined as `type Props = WidgetProps<RenderProps, Rubric>`. In
 cases where there are `RenderProps` that are optional that are provided via
 `DefaultProps`, this `Props` type "redefines" these props as `myProp:
 NonNullable<ExternalProps["myProps"]>;`.

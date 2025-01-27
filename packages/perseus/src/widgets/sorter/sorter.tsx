@@ -11,7 +11,7 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {
-    PerseusSorterScoringData,
+    PerseusSorterRubric,
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-score";
 
@@ -19,7 +19,7 @@ const {shuffle} = Util;
 
 type RenderProps = PerseusSorterWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusSorterScoringData>;
+type Props = WidgetProps<RenderProps, PerseusSorterRubric>;
 
 type DefaultProps = {
     correct: Props["correct"];

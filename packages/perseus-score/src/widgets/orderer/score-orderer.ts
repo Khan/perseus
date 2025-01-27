@@ -3,14 +3,14 @@ import _ from "underscore";
 import validateOrderer from "./validate-orderer";
 
 import type {
-    PerseusOrdererScoringData,
+    PerseusOrdererRubric,
     PerseusOrdererUserInput,
     PerseusScore,
 } from "../../validation.types";
 
 function scoreOrderer(
     userInput: PerseusOrdererUserInput,
-    scoringData: PerseusOrdererScoringData,
+    rubric: PerseusOrdererRubric,
 ): PerseusScore {
     const validationError = validateOrderer(userInput);
     if (validationError) {
@@ -19,7 +19,7 @@ function scoreOrderer(
 
     const correct = _.isEqual(
         userInput.current,
-        scoringData.correctOptions.map((option) => option.content),
+        rubric.correctOptions.map((option) => option.content),
     );
 
     return {

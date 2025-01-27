@@ -12,7 +12,7 @@ import validateExpression from "./validate-expression";
 
 import type {Score} from "../../util/answer-types";
 import type {
-    PerseusExpressionScoringData,
+    PerseusExpressionRubric,
     PerseusExpressionUserInput,
     PerseusScore,
 } from "../../validation.types";
@@ -38,7 +38,7 @@ import type {PerseusExpressionAnswerForm} from "@khanacademy/perseus-core";
  */
 function scoreExpression(
     userInput: PerseusExpressionUserInput,
-    scoringData: PerseusExpressionScoringData,
+    rubric: PerseusExpressionRubric,
     locale: string,
 ): PerseusScore {
     const validationError = validateExpression(userInput);
@@ -46,7 +46,7 @@ function scoreExpression(
         return validationError;
     }
 
-    const options = _.clone(scoringData);
+    const options = _.clone(rubric);
     _.extend(options, {
         decimal_separator: getDecimalSeparator(locale),
     });
@@ -56,7 +56,7 @@ function scoreExpression(
         // solution answer, not the student answer, and we don't want a
         // solution to work if the student is using a different language
         // (different from the content creation language, ie. English).
-        const expression = KAS.parse(answer.value, scoringData);
+        const expression = KAS.parse(answer.value, rubric);
         // An answer may not be parsed if the expression was defined
         // incorrectly. For example if the answer is using a symbol defined
         // in the function variables list for the expression.
@@ -65,7 +65,7 @@ function scoreExpression(
             throw new PerseusError(
                 "Unable to parse solution answer for expression",
                 Errors.InvalidInput,
-                {metadata: {scoringData: JSON.stringify(scoringData)}},
+                {metadata: {rubric: JSON.stringify(rubric)}},
             );
         }
 
@@ -93,7 +93,7 @@ function scoreExpression(
     let matchMessage: string | undefined;
     let allEmpty = true;
     let firstUngradedResult: Score | undefined;
-    for (const answerForm of scoringData.answerForms || []) {
+    for (const answerForm of rubric.answerForms || []) {
         const validator = createValidator(answerForm);
         if (!validator) {
             continue;

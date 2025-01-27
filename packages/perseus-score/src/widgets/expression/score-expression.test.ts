@@ -2,7 +2,7 @@ import scoreExpression from "./score-expression";
 import {expressionItem3Options} from "./score-expression.testdata";
 import * as ExpressionValidator from "./validate-expression";
 
-import type {PerseusExpressionScoringData} from "@khanacademy/perseus-score";
+import type {PerseusExpressionRubric} from "@khanacademy/perseus-score";
 
 describe("scoreExpression", () => {
     it("should be correctly answerable if validation passes", function () {
@@ -10,11 +10,10 @@ describe("scoreExpression", () => {
         const mockValidator = jest
             .spyOn(ExpressionValidator, "default")
             .mockReturnValue(null);
-        const scoringData: PerseusExpressionScoringData =
-            expressionItem3Options;
+        const rubric: PerseusExpressionRubric = expressionItem3Options;
 
         // Act
-        const score = scoreExpression("z+1", scoringData, "en");
+        const score = scoreExpression("z+1", rubric, "en");
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith("z+1");
@@ -26,11 +25,10 @@ describe("scoreExpression", () => {
         const mockValidator = jest
             .spyOn(ExpressionValidator, "default")
             .mockReturnValue({type: "invalid", message: null});
-        const scoringData: PerseusExpressionScoringData =
-            expressionItem3Options;
+        const rubric: PerseusExpressionRubric = expressionItem3Options;
 
         // Act
-        const score = scoreExpression("z+1", scoringData, "en");
+        const score = scoreExpression("z+1", rubric, "en");
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith("z+1");

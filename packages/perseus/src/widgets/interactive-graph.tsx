@@ -53,7 +53,7 @@ import type {
     MarkingsType,
 } from "@khanacademy/perseus-core";
 import type {
-    PerseusInteractiveGraphScoringData,
+    PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
 } from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -230,7 +230,7 @@ type RenderProps = {
      */
     fullGraphAriaDescription?: string;
 }; // There's no transform function in exports
-type Props = WidgetProps<RenderProps, PerseusInteractiveGraphScoringData>;
+type Props = WidgetProps<RenderProps, PerseusInteractiveGraphRubric>;
 type State = any;
 type DefaultProps = {
     labels: ReadonlyArray<string>;
@@ -251,7 +251,7 @@ type DefaultProps = {
 // which receive defaults via defaultProps.
 0 as any as WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
-    PerseusInteractiveGraphScoringData
+    PerseusInteractiveGraphRubric
 > satisfies PropsFor<typeof InteractiveGraph>;
 
 // TODO: there's another, very similar getSinusoidCoefficients function

@@ -20,7 +20,7 @@ import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-u
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
-    PerseusOrdererScoringData,
+    PerseusOrdererRubric,
     PerseusOrdererUserInput,
 } from "@khanacademy/perseus-score";
 
@@ -298,7 +298,7 @@ type RenderProps = PerseusOrdererWidgetOptions & {
     current: any;
 };
 
-type OrdererProps = WidgetProps<RenderProps, PerseusOrdererScoringData>;
+type OrdererProps = WidgetProps<RenderProps, PerseusOrdererRubric>;
 
 type OrdererDefaultProps = {
     current: OrdererProps["current"];
