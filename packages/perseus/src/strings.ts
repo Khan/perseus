@@ -976,26 +976,34 @@ export const mockStrings: PerseusStrings = {
 
 // This type helps us make sure all error codes are mapped to strings
 type ErrorStringMap = {
-    [K in keyof typeof ErrorCodes]: string;
+    [K in keyof typeof ErrorCodes]: keyof PerseusStrings;
 };
 
+/**
+ * Map an error string to a PerseusStrings key
+ * that we can use to get the translated error message
+ */
 const errorToString: ErrorStringMap = {
-    MISSING_PERCENT_ERROR: strings.MISSING_PERCENT_ERROR,
-    NEEDS_TO_BE_SIMPLIFIED_ERROR: strings.NEEDS_TO_BE_SIMPLFIED_ERROR,
-    APPROXIMATED_PI_ERROR: strings.APPROXIMATED_PI_ERROR,
-    EXTRA_SYMBOLS_ERROR: strings.EXTRA_SYMBOLS_ERROR,
-    WRONG_CASE_ERROR: strings.WRONG_CASE_ERROR,
-    WRONG_LETTER_ERROR: strings.WRONG_LETTER_ERROR,
-    MULTIPLICATION_SIGN_ERROR: strings.MULTIPLICATION_SIGN_ERROR,
-    INVALID_SELECTION_ERROR: strings.invalidSelection,
-    CHOOSE_CORRECT_NUM_ERROR: strings.chooseCorrectNum,
-    NOT_NONE_ABOVE_ERROR: strings.notNoneOfTheAbove,
-    FILL_ALL_CELLS_ERROR: strings.fillAllCells,
+    MISSING_PERCENT_ERROR: "MISSING_PERCENT_ERROR",
+    NEEDS_TO_BE_SIMPLIFIED_ERROR: "NEEDS_TO_BE_SIMPLFIED_ERROR",
+    APPROXIMATED_PI_ERROR: "APPROXIMATED_PI_ERROR",
+    EXTRA_SYMBOLS_ERROR: "EXTRA_SYMBOLS_ERROR",
+    WRONG_CASE_ERROR: "WRONG_CASE_ERROR",
+    WRONG_LETTER_ERROR: "WRONG_LETTER_ERROR",
+    MULTIPLICATION_SIGN_ERROR: "MULTIPLICATION_SIGN_ERROR",
+    INVALID_SELECTION_ERROR: "invalidSelection",
+    CHOOSE_CORRECT_NUM_ERROR: "chooseCorrectNum",
+    NOT_NONE_ABOVE_ERROR: "notNoneOfTheAbove",
+    FILL_ALL_CELLS_ERROR: "fillAllCells",
 };
 
-export function mapErrorToString(err: string | null | undefined) {
+export function mapErrorToString(
+    err: string | null | undefined,
+    strings: PerseusStrings,
+) {
     if (!err) {
         return err;
     }
-    return errorToString[err] || err;
+
+    return strings[errorToString[err]] || err;
 }
