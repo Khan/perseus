@@ -15,6 +15,7 @@ import {
     question1,
     duplicatedAnswers,
     withCoefficient,
+    correctAndWrongAnswers,
 } from "./numeric-input.testdata";
 
 import type {PerseusNumericInputRubric} from "@khanacademy/perseus-score";
@@ -111,6 +112,16 @@ describe("numeric-input widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("render with format list tooltip");
+    });
+
+    it("Should render tooltip using only correct answer formats", async () => {
+        // Arrange
+        const {container} = renderQuestion(correctAndWrongAnswers);
+
+        // Assert
+        expect(container).toMatchSnapshot(
+            "render tooltip only with correct answers",
+        );
     });
 
     it("Should render an element with format options as text for use by assistive technologies", async () => {
@@ -372,5 +383,16 @@ describe("Numeric input widget", () => {
         expect(document.activeElement).not.toBe(
             screen.getByRole("textbox", {hidden: true}),
         );
+    });
+
+    it("only generates examples for correct answers", async () => {
+        const {renderer} = renderQuestion(question1);
+
+        // Act
+        const gotFocus = await act(() => renderer.focus());
+
+        // Assert
+        expect(gotFocus).toBe(true);
+        expect(screen.getByRole("textbox", {hidden: true})).toHaveFocus();
     });
 });
