@@ -1,0 +1,13 @@
+import{a as y}from"./chunk-D5ZWXAHU-vR62DWf0.js";import{M as f}from"./math-input-Mtzv0eWK.js";import"./v4-yQnnJER4.js";import"./jsx-runtime-63Ea5SlK.js";import"./index-6oxdNXpR.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./prop-types-CUTNhdhn.js";import"./index-VBBZE5E5.js";import"./index-default-4_ZsnO94.js";import"./mobile-keypad-c_EymJUU.js";import"./index-awljIyHI.js";import"./index-9gkyvru-.js";import"./index-7-BESUpx.js";import"./index-J2t_5nK1.js";import"./index-Cj1jPHW9.js";import"./assertThisInitialized-4q6YPdh3.js";import"./index-bRdc6KRF.js";import"./index-dmcq622U.js";import"./tabbar-1DjuEemW.js";import"./item-E1d38aVD.js";import"./button-assets-C9-XBuHb.js";import"./keypad-button-ALxKiNZP.js";import"./operators-page-jWMGUty8.js";import"./navigation-pad-6_6K7cLJ.js";import"./key-translator-6O5FDUK4.js";import"./index-SpvvvrhE.js";import"./index-0kkDMKyq.js";import"./index-ocYiwKv6.js";import"./index-cljMqpCc.js";import"./index-TVweWxDl.js";import"./index-SAZ92ybN.js";import"./index-GucNpBmh.js";import"./Popper-Y5KDXl-P.js";import"./index-dnMhQZ-1.js";import"./jquery-5v7aFUvu.js";import"./i18n-context-YAdgKrxn.js";const ee={title:"Perseus/Components/Math Input",component:f,args:{keypadButtonSets:{advancedRelations:!0,basicRelations:!0,divisionKey:!0,logarithms:!0,preAlgebra:!0,trigonometry:!0,scientific:!0},convertDotToTimes:!1,value:"",onChange:y("onChange"),analytics:{onAnalyticsEvent:()=>Promise.resolve()},labelText:"Math input"},parameters:{controls:{exclude:["onChange","analytics"]}}},e={},r={args:{ariaLabel:"Sample label"}},t={args:{buttonsVisible:"always"}},a={args:{buttonsVisible:"never"}};var o,s,i;e.parameters={...e.parameters,docs:{...(o=e.parameters)==null?void 0:o.docs,source:{originalSource:"{}",...(i=(s=e.parameters)==null?void 0:s.docs)==null?void 0:i.source}}};var p,m,n;r.parameters={...r.parameters,docs:{...(p=r.parameters)==null?void 0:p.docs,source:{originalSource:`{
+  args: {
+    ariaLabel: "Sample label"
+  }
+}`,...(n=(m=r.parameters)==null?void 0:m.docs)==null?void 0:n.source}}};var c,l,u;t.parameters={...t.parameters,docs:{...(c=t.parameters)==null?void 0:c.docs,source:{originalSource:`{
+  args: {
+    buttonsVisible: "always"
+  }
+}`,...(u=(l=t.parameters)==null?void 0:l.docs)==null?void 0:u.source}}};var d,b,g;a.parameters={...a.parameters,docs:{...(d=a.parameters)==null?void 0:d.docs,source:{originalSource:`{
+  args: {
+    buttonsVisible: "never"
+  }
+}`,...(g=(b=a.parameters)==null?void 0:b.docs)==null?void 0:g.source}}};const re=["DefaultWithBasicButtonSet","DefaultWithAriaLabel","KeypadOpenByDefault","KeypadNeverVisible"];export{r as DefaultWithAriaLabel,e as DefaultWithBasicButtonSet,a as KeypadNeverVisible,t as KeypadOpenByDefault,re as __namedExportsOrder,ee as default};
