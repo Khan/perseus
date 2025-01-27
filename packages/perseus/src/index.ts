@@ -109,11 +109,28 @@ export {
     getImagesWithoutAltData,
 } from "./util/extract-perseus-data";
 export {
+    /**
+     * @deprecated - import this function from perseus-core instead
+     */
     parsePerseusItem,
+    /**
+     * @deprecated - import this function from perseus-core instead
+     */
     parseAndMigratePerseusItem,
+    /**
+     * @deprecated - import this function from perseus-core instead
+     */
     parseAndMigratePerseusArticle,
-} from "./util/parse-perseus-json";
-export {isSuccess, isFailure} from "./util/parse-perseus-json/result";
+    /**
+     * @deprecated - import this function from perseus-core instead
+     */
+    isSuccess,
+    /**
+     * @deprecated - import this function from perseus-core instead
+     */
+    isFailure,
+} from "@khanacademy/perseus-core";
+
 export {
     generateTestPerseusItem,
     genericPerseusItemData,
@@ -186,7 +203,20 @@ export type {
     SharedRendererProps,
 } from "./types";
 export type {ParsedValue} from "./util";
-export type {Result, Success, Failure} from "./util/parse-perseus-json/result";
+export type {
+    /**
+     * @deprecated - import this function from perseus-core instead
+     */
+    Result,
+    /**
+     * @deprecated - import this function from perseus-core instead
+     */
+    Success,
+    /**
+     * @deprecated - import this function from perseus-core instead
+     */
+    Failure,
+} from "@khanacademy/perseus-core";
 export type {Coord} from "./interactive2/types";
 export type {
     RendererPromptJSON,
