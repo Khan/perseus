@@ -18,10 +18,7 @@ function scoreSorter(
         return validationError;
     }
 
-    const correct = approximateDeepEqual(
-        userInput.options,
-        rubric.correct,
-    );
+    const correct = approximateDeepEqual(userInput.options, rubric.correct);
     return {
         type: "points",
         earned: correct ? 1 : 0,

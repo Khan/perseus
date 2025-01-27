@@ -18,8 +18,7 @@ function scoreNumberLine(
     }
 
     const range = rubric.range;
-    const start =
-        rubric.initialX != null ? rubric.initialX : range[0];
+    const start = rubric.initialX != null ? rubric.initialX : range[0];
     const startRel = rubric.isInequality ? "ge" : "eq";
     const correctRel = rubric.correctRel || "eq";
     const correctPos = knumber.equal(

@@ -21,12 +21,9 @@ function scoreRadio(
         return sum + (selected ? 1 : 0);
     }, 0);
 
-    const numCorrect: number = rubric.choices.reduce(
-        (sum, currentChoice) => {
-            return currentChoice.correct ? sum + 1 : sum;
-        },
-        0,
-    );
+    const numCorrect: number = rubric.choices.reduce((sum, currentChoice) => {
+        return currentChoice.correct ? sum + 1 : sum;
+    }, 0);
 
     if (numCorrect > 1 && numSelected !== numCorrect) {
         return {

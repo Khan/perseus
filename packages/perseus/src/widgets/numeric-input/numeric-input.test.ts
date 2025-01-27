@@ -219,9 +219,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
             coefficient: true,
         };
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(
-                rubric,
-            );
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
         expect(singleAnswer).toBe("1 ± 0.2");
     });
 });

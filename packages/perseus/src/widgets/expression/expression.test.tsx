@@ -287,9 +287,7 @@ describe("Expression Widget", function () {
 
             // Act
             const result =
-                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(
-                    rubric,
-                );
+                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
 
             // Assert
             expect(result).toBeUndefined();
@@ -313,9 +311,7 @@ describe("Expression Widget", function () {
 
             // Act
             const result =
-                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(
-                    rubric,
-                );
+                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
 
             // Assert
             expect(result).toEqual("123");
@@ -345,9 +341,7 @@ describe("Expression Widget", function () {
 
             // Act
             const result =
-                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(
-                    rubric,
-                );
+                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
 
             // Assert
             expect(result).toEqual("123");

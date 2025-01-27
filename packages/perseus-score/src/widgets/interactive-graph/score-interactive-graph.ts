@@ -142,10 +142,7 @@ function scoreInteractiveGraph(
             rubric.correct.type === "circle"
         ) {
             if (
-                approximateDeepEqual(
-                    userInput.center,
-                    rubric.correct.center,
-                ) &&
+                approximateDeepEqual(userInput.center, rubric.correct.center) &&
                 approximateEqual(userInput.radius, rubric.correct.radius)
             ) {
                 return {

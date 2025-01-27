@@ -104,8 +104,7 @@ export type PerseusGroupUserInput = UserInputMap;
 
 export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
 
-export type PerseusGradedGroupSetRubric =
-    PerseusGradedGroupSetWidgetOptions;
+export type PerseusGradedGroupSetRubric = PerseusGradedGroupSetWidgetOptions;
 
 export type PerseusGrapherRubric = {
     correct: GrapherAnswerTypes;

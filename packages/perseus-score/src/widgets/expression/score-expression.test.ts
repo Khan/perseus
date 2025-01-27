@@ -10,8 +10,7 @@ describe("scoreExpression", () => {
         const mockValidator = jest
             .spyOn(ExpressionValidator, "default")
             .mockReturnValue(null);
-        const rubric: PerseusExpressionRubric =
-            expressionItem3Options;
+        const rubric: PerseusExpressionRubric = expressionItem3Options;
 
         // Act
         const score = scoreExpression("z+1", rubric, "en");
@@ -26,8 +25,7 @@ describe("scoreExpression", () => {
         const mockValidator = jest
             .spyOn(ExpressionValidator, "default")
             .mockReturnValue({type: "invalid", message: null});
-        const rubric: PerseusExpressionRubric =
-            expressionItem3Options;
+        const rubric: PerseusExpressionRubric = expressionItem3Options;
 
         // Act
         const score = scoreExpression("z+1", rubric, "en");

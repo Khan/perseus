@@ -26,8 +26,7 @@ type RenderProps = PerseusTableWidgetOptions & {
     Editor: any;
 };
 
-type Props = ChangeableProps &
-    WidgetProps<RenderProps, PerseusTableRubric>;
+type Props = ChangeableProps & WidgetProps<RenderProps, PerseusTableRubric>;
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
