@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 52.0.1
+
+### Patch Changes
+
+-   [#2160](https://github.com/Khan/perseus/pull/2160) [`26de8f41f`](https://github.com/Khan/perseus/commit/26de8f41f544d2f72ab05e2829ffe53309a74fa2) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: use translated strings in mapErrorToString
+
 ## 52.0.0
 
 ### Major Changes
