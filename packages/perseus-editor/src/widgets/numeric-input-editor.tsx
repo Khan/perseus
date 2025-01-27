@@ -7,6 +7,12 @@ import {
     Util,
     PerseusI18nContext,
 } from "@khanacademy/perseus";
+import {
+    numericInputLogic,
+    type MathFormat,
+    type NumericInputDefaultWidgetOptions,
+    type PerseusNumericInputWidgetOptions,
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
@@ -19,10 +25,6 @@ import PerseusEditorAccordion from "../components/perseus-editor-accordion";
 import Editor from "../editor";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {
-    MathFormat,
-    PerseusNumericInputWidgetOptions,
-} from "@khanacademy/perseus-core";
 import type {ClickableRole} from "@khanacademy/wonder-blocks-clickable";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import type {
@@ -80,13 +82,8 @@ class NumericInputEditor extends React.Component<Props, State> {
     static widgetName = "numeric-input";
     static displayName = "NumericInputEditor";
 
-    static defaultProps = {
-        answers: [initAnswer("correct")],
-        size: "normal",
-        coefficient: false,
-        labelText: "",
-        rightAlign: false,
-    };
+    static defaultProps: NumericInputDefaultWidgetOptions =
+        numericInputLogic.defaultWidgetOptions;
 
     constructor(props: Props) {
         super(props);

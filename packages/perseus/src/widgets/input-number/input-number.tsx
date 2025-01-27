@@ -2,8 +2,6 @@ import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {
     inputNumberAnswerTypes,
     scoreInputNumber,
-    type PerseusInputNumberRubric,
-    type PerseusInputNumberUserInput,
 } from "@khanacademy/perseus-score";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
@@ -20,6 +18,10 @@ import type {PerseusStrings} from "../../strings";
 import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusInputNumberRubric,
+    PerseusInputNumberUserInput,
+} from "@khanacademy/perseus-score";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {

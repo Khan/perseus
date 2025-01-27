@@ -18,7 +18,6 @@ export const mockedAssetItem: PerseusItem = {
                 static: false,
                 graded: true,
                 options: Object.freeze({value: ""}),
-                version: {major: 1, minor: 0},
             },
         },
     },

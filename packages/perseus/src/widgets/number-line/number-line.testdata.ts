@@ -52,7 +52,7 @@ export const question2: PerseusRenderer = {
                 correctRel: "eq",
                 correctX: 0.5,
                 initialX: null,
-                showTooltip: false,
+                showTooltips: false,
                 isTickCtrl: true,
             },
         },

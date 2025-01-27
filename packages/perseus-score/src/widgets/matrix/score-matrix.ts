@@ -6,8 +6,8 @@ import KhanAnswerTypes from "../../util/answer-types";
 import validateMatrix from "./validate-matrix";
 
 import type {
-    PerseusMatrixUserInput,
     PerseusMatrixRubric,
+    PerseusMatrixUserInput,
     PerseusScore,
 } from "../../validation.types";
 
@@ -15,9 +15,9 @@ function scoreMatrix(
     userInput: PerseusMatrixUserInput,
     rubric: PerseusMatrixRubric,
 ): PerseusScore {
-    const validationResult = validateMatrix(userInput, rubric);
-    if (validationResult != null) {
-        return validationResult;
+    const validationError = validateMatrix(userInput);
+    if (validationError != null) {
+        return validationError;
     }
 
     const solution = rubric.answers;

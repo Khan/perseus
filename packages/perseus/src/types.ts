@@ -2,7 +2,6 @@ import type {ILogger} from "./logging/log";
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
-import type getCategorizerPublicWidgetOptions from "./widgets/categorizer/categorizer.util";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     Hint,
@@ -11,6 +10,11 @@ import type {
     PerseusWidget,
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
+    Version,
+    WidgetOptionsUpgradeMap,
+    getOrdererPublicWidgetOptions,
+    getCategorizerPublicWidgetOptions,
+    getExpressionPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -19,6 +23,8 @@ import type {
     UserInput,
     UserInputArray,
     UserInputMap,
+    ValidationData,
+    ValidationResult,
 } from "@khanacademy/perseus-score";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
@@ -96,11 +102,6 @@ export interface Widget {
 
 export type ImageDict = {
     [url: string]: Dimensions;
-};
-
-export type Version = {
-    major: number;
-    minor: number;
 };
 
 export type EditorMode = "edit" | "preview" | "json";
@@ -200,7 +201,7 @@ export const MafsGraphTypeFlags = [
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
- * @see APIOptionsWithDefaults
+ * @see {@link APIOptionsWithDefaults}
  */
 export type APIOptions = Readonly<{
     isArticle?: boolean;
@@ -517,6 +518,13 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
+export type WidgetValidatorFunction = (
+    userInput: UserInput,
+    validationData: ValidationData,
+    strings: PerseusStrings,
+    locale: string,
+) => ValidationResult;
+
 export type WidgetScorerFunction = (
     // The user data needed to score
     userInput: UserInput,
@@ -533,7 +541,9 @@ export type WidgetScorerFunction = (
  * A union type of all the functions that provide public widget options.
  */
 export type PublicWidgetOptionsFunction =
-    typeof getCategorizerPublicWidgetOptions;
+    | typeof getCategorizerPublicWidgetOptions
+    | typeof getOrdererPublicWidgetOptions
+    | typeof getExpressionPublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
@@ -578,6 +588,14 @@ export type WidgetExports<
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
     /**
+     * Validates the learner's guess to check if it's sufficient for scoring.
+     * Typically, this is basically an "emptiness" check, but for some widgets
+     * such as `interactive-graph` it is a check that the learner has made any
+     * edits (ie. the widget is not in it's origin state).
+     */
+    validator?: WidgetValidatorFunction;
+
+    /**
      * A function that scores user input (the guess) for the widget.
      */
     scorer?: WidgetScorerFunction;
@@ -603,10 +621,7 @@ export type WidgetExports<
      *
      * This configuration would migrate options from major version 0 to 1.
      */
-    propUpgrades?: {
-        // OldProps => NewProps,
-        [targetMajorVersion: string]: (arg1: any) => any;
-    };
+    propUpgrades?: WidgetOptionsUpgradeMap;
 }>;
 
 export type FilterCriterion =

@@ -12,7 +12,6 @@ import * as Dependencies from "../../../dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import PassageWidget from "../../passage";
-import RadioWidgetExport from "../radio";
 
 import {
     questionAndAnswer,
@@ -22,10 +21,7 @@ import {
 } from "./radio.testdata";
 
 import type {APIOptions} from "../../../types";
-import type {
-    PerseusRadioWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
@@ -952,7 +948,7 @@ describe("Radio Widget", () => {
         /**
          * (LEMS-2435) We want to be sure that we're able to score shuffled
          * Radio widgets outside of the component which means `getUserInput`
-         * should return the same order that the rubric provides
+         * should return the same order that the scoring data provides
          */
         it("can be scored correctly when shuffled", async () => {
             // Arrange
@@ -980,7 +976,7 @@ describe("Radio Widget", () => {
         /**
          * (LEMS-2435) We want to be sure that we're able to score shuffled
          * Radio widgets outside of the component which means `getUserInput`
-         * should return the same order that the rubric provides
+         * should return the same order that the scoring data provides
          */
         it("can be scored incorrectly when shuffled", async () => {
             // Arrange
@@ -1008,7 +1004,7 @@ describe("Radio Widget", () => {
         /**
          * (LEMS-2435) We want to be sure that we're able to score shuffled
          * Radio widgets outside of the component which means `getUserInput`
-         * should return the same order that the rubric provides
+         * should return the same order that the scoring data provides
          */
         it("can be scored correctly when shuffled with none of the above", async () => {
             // Arrange
@@ -1036,7 +1032,7 @@ describe("Radio Widget", () => {
         /**
          * (LEMS-2435) We want to be sure that we're able to score shuffled
          * Radio widgets outside of the component which means `getUserInput`
-         * should return the same order that the rubric provides
+         * should return the same order that the scoring data provides
          */
         it("can be scored incorrectly when shuffled with none of the above", async () => {
             // Arrange
@@ -1059,35 +1055,6 @@ describe("Radio Widget", () => {
             // Assert
             expect(widgetScore).toHaveBeenAnsweredIncorrectly();
             expect(rendererScore).toHaveBeenAnsweredIncorrectly();
-        });
-    });
-
-    describe("propsUpgrade", () => {
-        it("can upgrade from v0 to v1", () => {
-            const v0props = {
-                choices: [{content: "Choice 1"}, {content: "Choice 2"}],
-            };
-
-            const expected: PerseusRadioWidgetOptions = {
-                choices: [{content: "Choice 1"}, {content: "Choice 2"}],
-                hasNoneOfTheAbove: false,
-            };
-
-            const result: PerseusRadioWidgetOptions =
-                RadioWidgetExport.propUpgrades["1"](v0props);
-
-            expect(result).toEqual(expected);
-        });
-
-        it("throws from noneOfTheAbove", () => {
-            const v0props = {
-                choices: [{content: "Choice 1"}, {content: "Choice 2"}],
-                noneOfTheAbove: true,
-            };
-
-            expect(() => RadioWidgetExport.propUpgrades["1"](v0props)).toThrow(
-                "radio widget v0 no longer supports auto noneOfTheAbove",
-            );
         });
     });
 });

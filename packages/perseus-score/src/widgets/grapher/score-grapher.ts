@@ -1,8 +1,8 @@
 import {Errors, PerseusError, GrapherUtil} from "@khanacademy/perseus-core";
 
 import type {
-    PerseusGrapherUserInput,
     PerseusGrapherRubric,
+    PerseusGrapherUserInput,
     PerseusScore,
 } from "../../validation.types";
 import type {GrapherAnswerTypes} from "@khanacademy/perseus-core";

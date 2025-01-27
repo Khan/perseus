@@ -1,10 +1,15 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {number as knumber} from "@khanacademy/kmath";
 import {components, EditorJsonify} from "@khanacademy/perseus";
+import {
+    numberLineLogic,
+    type NumberLineDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
+
+import type {Changeable} from "@khanacademy/perseus";
 
 const {ButtonGroup, InfoTip, NumberInput, RangeInput} = components;
 
@@ -15,52 +20,32 @@ const bound = (x: number, gt: number, lt: number): number =>
 
 const EN_DASH = "\u2013";
 
-type Props = any;
+type Props = {
+    range: number[];
+
+    labelRange: ReadonlyArray<number>;
+    labelStyle: string;
+    labelTicks: boolean;
+
+    divisionRange: ReadonlyArray<number>;
+    numDivisions: number;
+    snapDivisions: number;
+
+    tickStep: number;
+    correctRel: "lt" | "gt" | "le" | "ge" | "eq";
+    correctX: number;
+    initialX: number;
+    isTickCtrl?: boolean;
+
+    static?: boolean;
+    showTooltips: boolean;
+} & Changeable.ChangeableProps;
 
 class NumberLineEditor extends React.Component<Props> {
-    static propTypes = {
-        range: PropTypes.arrayOf(PropTypes.number).isRequired,
-
-        labelRange: PropTypes.arrayOf(PropTypes.number).isRequired,
-        labelStyle: PropTypes.string.isRequired,
-        labelTicks: PropTypes.bool,
-
-        divisionRange: PropTypes.arrayOf(PropTypes.number).isRequired,
-        numDivisions: PropTypes.number.isRequired,
-        snapDivisions: PropTypes.number,
-
-        tickStep: PropTypes.number,
-        correctRel: PropTypes.oneOf(["lt", "gt", "le", "ge", "eq"]),
-        correctX: PropTypes.number,
-        initialX: PropTypes.number,
-        isTickCtrl: PropTypes.bool,
-
-        onChange: PropTypes.func.isRequired,
-
-        static: PropTypes.bool,
-        showTooltips: PropTypes.bool,
-    };
-
     static widgetName = "number-line" as const;
 
-    static defaultProps: Props = {
-        range: [0, 10],
-
-        labelRange: [null, null],
-        labelStyle: "decimal",
-        labelTicks: true,
-
-        divisionRange: [1, 12],
-        numDivisions: 5,
-        snapDivisions: 2,
-
-        tickStep: null,
-        correctRel: "eq",
-        correctX: null,
-        initialX: null,
-
-        showTooltips: false,
-    };
+    static defaultProps: NumberLineDefaultWidgetOptions =
+        numberLineLogic.defaultWidgetOptions;
 
     onRangeChange: (arg1: Range) => void = (range) => {
         // Changing the range constrains the initial position, as well as the

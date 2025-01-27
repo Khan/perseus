@@ -12,8 +12,8 @@ import {
 import _ from "underscore";
 
 import type {
-    PerseusScore,
     PerseusInteractiveGraphRubric,
+    PerseusScore,
     PerseusInteractiveGraphUserInput,
 } from "@khanacademy/perseus-score";
 

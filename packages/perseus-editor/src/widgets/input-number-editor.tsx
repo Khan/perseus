@@ -1,4 +1,5 @@
 import {components, PerseusI18nContext, Util} from "@khanacademy/perseus";
+import {inputNumberLogic} from "@khanacademy/perseus-core";
 import {inputNumberAnswerTypes} from "@khanacademy/perseus-score";
 import * as React from "react";
 import _ from "underscore";
@@ -6,7 +7,10 @@ import _ from "underscore";
 import BlurInput from "../components/blur-input";
 
 import type {ParsedValue} from "@khanacademy/perseus";
-import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusInputNumberWidgetOptions,
+    InputNumberDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
 
@@ -29,31 +33,14 @@ type Props = {
     }) => void;
 };
 
-type DefaultProps = {
-    value: Props["value"];
-    simplify: Props["simplify"];
-    size: Props["size"];
-    inexact: Props["inexact"];
-    maxError: Props["maxError"];
-    answerType: Props["answerType"];
-    rightAlign: Props["rightAlign"];
-};
-
 class InputNumberEditor extends React.Component<Props> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     static widgetName = "input-number" as const;
 
-    static defaultProps: DefaultProps = {
-        value: 0,
-        simplify: "required",
-        size: "normal",
-        inexact: false,
-        maxError: 0.1,
-        answerType: "number",
-        rightAlign: false,
-    };
+    static defaultProps: InputNumberDefaultWidgetOptions =
+        inputNumberLogic.defaultWidgetOptions;
 
     input = React.createRef<BlurInput>();
 

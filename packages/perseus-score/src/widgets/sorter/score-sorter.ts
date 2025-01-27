@@ -4,8 +4,8 @@ import _ from "underscore";
 import validateSorter from "./validate-sorter";
 
 import type {
-    PerseusSorterUserInput,
     PerseusSorterRubric,
+    PerseusSorterUserInput,
     PerseusScore,
 } from "../../validation.types";
 

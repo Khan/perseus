@@ -39,8 +39,6 @@ import type {PerseusExpressionAnswerForm} from "@khanacademy/perseus-core";
 function scoreExpression(
     userInput: PerseusExpressionUserInput,
     rubric: PerseusExpressionRubric,
-    // TODO: remove strings as a param for scorers
-    strings: any,
     locale: string,
 ): PerseusScore {
     const validationError = validateExpression(userInput);
@@ -67,6 +65,7 @@ function scoreExpression(
             throw new PerseusError(
                 "Unable to parse solution answer for expression",
                 Errors.InvalidInput,
+                {metadata: {rubric: JSON.stringify(rubric)}},
             );
         }
 
