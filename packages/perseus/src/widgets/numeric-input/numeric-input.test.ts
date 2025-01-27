@@ -384,15 +384,4 @@ describe("Numeric input widget", () => {
             screen.getByRole("textbox", {hidden: true}),
         );
     });
-
-    it("only generates examples for correct answers", async () => {
-        const {renderer} = renderQuestion(question1);
-
-        // Act
-        const gotFocus = await act(() => renderer.focus());
-
-        // Assert
-        expect(gotFocus).toBe(true);
-        expect(screen.getByRole("textbox", {hidden: true})).toHaveFocus();
-    });
 });
