@@ -1001,11 +1001,11 @@ export function mapErrorToString(
     // the string representing an error code
     err: string | null | undefined,
     // the translated Perseus strings
-    strings: PerseusStrings,
+    translatedStrings: PerseusStrings,
 ) {
     if (!err) {
         return err;
     }
 
-    return strings[errorToString[err]] || err;
+    return translatedStrings[errorToString[err]] || err;
 }
