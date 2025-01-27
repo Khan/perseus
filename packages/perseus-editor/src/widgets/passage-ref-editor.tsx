@@ -1,7 +1,10 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {passageRefLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
+
+import type {PassageRefDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {InfoTip, NumberInput, TextInput} = components;
 
@@ -17,11 +20,8 @@ class PassageRefEditor extends React.Component<Props> {
 
     static widgetName = "passage-ref" as const;
 
-    static defaultProps: Props = {
-        passageNumber: 1,
-        referenceNumber: 1,
-        summaryText: "",
-    };
+    static defaultProps: PassageRefDefaultWidgetOptions =
+        passageRefLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);

@@ -1,4 +1,8 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+import {
+    type PerseusCategorizerWidgetOptions,
+    getCategorizerPublicWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {
     scoreCategorizer,
@@ -20,11 +24,8 @@ import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
-import getCategorizerPublicWidgetOptions from "./categorizer.util";
-
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
-import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusCategorizerRubric,
     PerseusCategorizerUserInput,

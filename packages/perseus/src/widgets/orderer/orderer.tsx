@@ -1,6 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe */
-import {Errors} from "@khanacademy/perseus-core";
+import {Errors, getOrdererPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {scoreOrderer, validateOrderer} from "@khanacademy/perseus-score";
 import $ from "jquery";
@@ -787,4 +787,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusOrdererUserInput
     validator: validateOrderer,
+    getPublicWidgetOptions: getOrdererPublicWidgetOptions,
 } satisfies WidgetExports<typeof Orderer>;
