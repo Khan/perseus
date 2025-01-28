@@ -18,6 +18,7 @@ import validateLabelImage from "./label-image/validate-label-image";
 import scoreMatcher from "./matcher/score-matcher";
 import scoreMatrix from "./matrix/score-matrix";
 import validateMatrix from "./matrix/validate-matrix";
+import scoreMockWidget from "./mock-widget/score-mock-widget";
 import scoreNumberLine from "./number-line/score-number-line";
 import validateNumberLine from "./number-line/validate-number-line";
 import scoreNumericInput from "./numeric-input/score-numeric-input";
@@ -80,6 +81,7 @@ registerWidget(
 );
 registerWidget("matcher", scoreMatcher as any);
 registerWidget("matrix", scoreMatrix as any, validateMatrix as any);
+registerWidget("mock-widget", scoreMockWidget as any, scoreMockWidget as any);
 registerWidget(
     "number-line",
     scoreNumberLine as any,

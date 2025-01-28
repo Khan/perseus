@@ -7,6 +7,7 @@ import {
     iconTrash,
 } from "@khanacademy/perseus";
 import {
+    upgradeWidgetInfoToLatestVersion,
     WidgetLogic,
     type Alignment,
     type PerseusWidget,
@@ -49,8 +50,7 @@ const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = _.omit(props, WIDGET_PROP_DENYLIST);
-    // @ts-expect-error TS(2345) Type '"categorizer" | undefined' is not assignable to type '"deprecated-standin"'.
-    return Widgets.upgradeWidgetInfoToLatestVersion(filteredProps);
+    return upgradeWidgetInfoToLatestVersion(filteredProps as any);
 };
 
 // This component handles upgading widget editor props via prop
