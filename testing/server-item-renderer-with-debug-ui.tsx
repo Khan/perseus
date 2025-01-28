@@ -8,7 +8,7 @@ import {mockStrings} from "../packages/perseus/src/strings";
 import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
 
 import KEScoreUI from "./ke-score-ui";
-import SideBySide from "./side-by-side";
+import SideBySide from "./split-view";
 import {storybookDependenciesV2} from "./test-dependencies";
 
 import type {APIOptions} from "../packages/perseus/src/types";
@@ -57,8 +57,8 @@ export const ServerItemRendererWithDebugUI = ({
 
     return (
         <SideBySide
-            leftTitle="Renderer"
-            left={
+            rendererTitle="Renderer"
+            renderer={
                 <>
                     <Perseus.ServerItemRenderer
                         ref={ref}

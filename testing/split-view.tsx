@@ -4,34 +4,36 @@ import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
-import {interactiveSizes} from "../packages/perseus/src/styles/constants";
-
 type Props = {
-    leftTitle: React.ReactNode;
-    left: React.ReactNode;
-    rightTitle?: string;
+    rendererTitle: React.ReactNode;
+    renderer: React.ReactNode;
+    JSONTitle?: string;
     jsonObject: any;
 };
 
-const SideBySide = ({
-    leftTitle = "Renderer",
-    left,
-    rightTitle = "Perseus JSON",
+/**
+ * This component is used in Storybook to render both the renderer and the JSON object in a split view.
+ * Currently, the renderer is displayed above the JSON object.
+ */
+const SplitView = ({
+    rendererTitle = "Renderer",
+    renderer,
+    JSONTitle = "Perseus JSON",
     jsonObject,
 }: Props): React.ReactElement => {
     return (
         <View style={styles.sideBySide}>
-            <View style={styles.leftPanel} className="framework-perseus">
-                <HeadingMedium>{leftTitle}</HeadingMedium>
-                {left}
+            <View className="framework-perseus">
+                <HeadingMedium>{rendererTitle}</HeadingMedium>
+                {renderer}
             </View>
-            <View style={styles.rightPanel}>
-                <HeadingMedium>{rightTitle}</HeadingMedium>
+            <View>
+                <HeadingMedium>{JSONTitle}</HeadingMedium>
                 <ReactJson
                     style={{marginTop: "10px"}}
                     quotesOnKeys={false}
                     enableClipboard={false}
-                    collapsed={5}
+                    collapsed={true}
                     src={jsonObject}
                 />
             </View>
@@ -43,18 +45,10 @@ const styles = {
     sideBySide: {
         display: "flex",
         flexWrap: "wrap",
-        flexDirection: "row",
+        flexDirection: "column",
         gap: spacing.large_24,
         padding: `0px ${spacing.large_24}px`,
     },
-    leftPanel: {
-        flexBasis: `${interactiveSizes.defaultBoxSize}px`,
-    },
-    rightPanel: {
-        flexGrow: 1,
-        flexBasis: `${interactiveSizes.defaultBoxSize}px`,
-        maxWidth: "50%",
-    },
 } as const;
 
-export default SideBySide;
+export default SplitView;

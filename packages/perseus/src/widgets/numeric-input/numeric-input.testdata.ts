@@ -36,6 +36,253 @@ export const question1: PerseusRenderer = {
     },
 };
 
+export const decimalProblem: PerseusRenderer = {
+    // Added a floating question mark to keep enough space to show the examples.
+    content: "$12 + 0.52 =$ [[\u2603 numeric-input 1]] \n\n‎",
+    images: {},
+    widgets: {
+        "numeric-input 1": {
+            graded: true,
+            version: {
+                major: 0,
+                minor: 0,
+            },
+            static: false,
+            type: "numeric-input",
+            options: {
+                coefficient: false,
+                static: false,
+                answers: [
+                    {
+                        status: "correct",
+                        maxError: null,
+                        strict: true,
+                        value: 12.52,
+                        simplify: "required",
+                        message: "",
+                        answerForms: ["decimal"],
+                    },
+                ],
+                labelText: "",
+                size: "normal",
+                answerForms: [
+                    {
+                        simplify: "required",
+                        name: "decimal",
+                    },
+                ],
+            },
+            alignment: "default",
+        } as NumericInputWidget,
+    },
+};
+
+export const integerProblem: PerseusRenderer = {
+    // Added a floating question mark to keep enough space to show the examples.
+    content: "$5/5 + 10/10 =$ [[\u2603 numeric-input 1]] \n\n‎",
+    images: {},
+    widgets: {
+        "numeric-input 1": {
+            graded: true,
+            version: {
+                major: 0,
+                minor: 0,
+            },
+            static: false,
+            type: "numeric-input",
+            options: {
+                coefficient: false,
+                static: false,
+                answers: [
+                    {
+                        status: "correct",
+                        maxError: null,
+                        strict: true,
+                        value: 15,
+                        simplify: "required",
+                        message: "",
+                        answerForms: ["integer"],
+                    },
+                ],
+                labelText: "",
+                size: "normal",
+                answerForms: [
+                    {
+                        simplify: "required",
+                        name: "integer",
+                    },
+                ],
+            },
+            alignment: "default",
+        } as NumericInputWidget,
+    },
+};
+
+export const improperProblem: PerseusRenderer = {
+    // Added a floating question mark to keep enough space to show the examples.
+    content: "$2/2 + 5/2 =$ [[\u2603 numeric-input 1]] \n\n‎\n\n‎",
+    images: {},
+    widgets: {
+        "numeric-input 1": {
+            graded: true,
+            version: {
+                major: 0,
+                minor: 0,
+            },
+            static: false,
+            type: "numeric-input",
+            options: {
+                coefficient: false,
+                static: false,
+                answers: [
+                    {
+                        status: "correct",
+                        maxError: null,
+                        strict: true,
+                        value: 3.5,
+                        simplify: "optional",
+                        message: "",
+                        answerForms: ["improper"],
+                    },
+                ],
+                labelText: "",
+                size: "normal",
+                answerForms: [
+                    {
+                        simplify: "optional",
+                        name: "improper",
+                    },
+                ],
+            },
+            alignment: "default",
+        } as NumericInputWidget,
+    },
+};
+
+export const piProblem: PerseusRenderer = {
+    // Added a floating question mark to keep enough space to show the examples.
+    content:
+        "$pi * 32 =$ [[\u2603 numeric-input 1]] \n\n‎\n\n Hint: Enter 100.53 to get an approx of pi error.",
+    images: {},
+    widgets: {
+        "numeric-input 1": {
+            graded: true,
+            version: {
+                major: 0,
+                minor: 0,
+            },
+            static: false,
+            type: "numeric-input",
+            options: {
+                coefficient: false,
+                static: false,
+                answers: [
+                    {
+                        status: "correct",
+                        maxError: null,
+                        strict: false,
+                        value: 100.53096491487338,
+                        simplify: "required",
+                        message: "",
+                        answerForms: ["pi"],
+                    },
+                ],
+                labelText: "",
+                size: "normal",
+                answerForms: [
+                    {
+                        simplify: "required",
+                        name: "pi",
+                    },
+                ],
+            },
+            alignment: "default",
+        } as NumericInputWidget,
+    },
+};
+
+export const mixedProblem: PerseusRenderer = {
+    // Added a floating question mark to keep enough space to show the examples.
+    content: "$2 + 2/10 =$ [[\u2603 numeric-input 1]] \n\n‎",
+    images: {},
+    widgets: {
+        "numeric-input 1": {
+            graded: true,
+            version: {
+                major: 0,
+                minor: 0,
+            },
+            static: false,
+            type: "numeric-input",
+            options: {
+                coefficient: false,
+                static: false,
+                answers: [
+                    {
+                        status: "correct",
+                        maxError: null,
+                        strict: true,
+                        value: 2.2,
+                        simplify: "optional",
+                        message: "",
+                        answerForms: ["mixed"],
+                    },
+                ],
+                labelText: "",
+                size: "normal",
+                answerForms: [
+                    {
+                        simplify: "optional",
+                        name: "mixed",
+                    },
+                ],
+            },
+            alignment: "default",
+        } as NumericInputWidget,
+    },
+};
+
+export const properProblem: PerseusRenderer = {
+    // Added a floating question mark to keep enough space to show the examples.
+    content: "$3/10 + 2/10 =$ [[\u2603 numeric-input 1]] \n\n‎\n\n‎",
+    images: {},
+    widgets: {
+        "numeric-input 1": {
+            graded: true,
+            version: {
+                major: 0,
+                minor: 0,
+            },
+            static: false,
+            type: "numeric-input",
+            options: {
+                coefficient: false,
+                static: false,
+                answers: [
+                    {
+                        status: "correct",
+                        maxError: null,
+                        strict: true,
+                        value: 0.5,
+                        simplify: "optional",
+                        message: "",
+                        answerForms: ["proper"],
+                    },
+                ],
+                labelText: "",
+                size: "normal",
+                answerForms: [
+                    {
+                        simplify: "optional",
+                        name: "proper",
+                    },
+                ],
+            },
+            alignment: "default",
+        } as NumericInputWidget,
+    },
+};
+
 export const percentageProblem: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},
@@ -134,6 +381,7 @@ export const multipleAnswersWithDecimals: PerseusRenderer = {
                         value: 12.2,
                         simplify: "required",
                         message: "",
+                        answerForms: ["decimal"],
                     },
                     {
                         status: "correct",
@@ -142,10 +390,17 @@ export const multipleAnswersWithDecimals: PerseusRenderer = {
                         value: 13.4,
                         simplify: "required",
                         message: "",
+                        answerForms: ["decimal"],
                     },
                 ],
                 labelText: "What's the answer?",
                 size: "normal",
+                answerforms: [
+                    {
+                        simplify: "required",
+                        name: "decimal",
+                    },
+                ],
             },
             alignment: "default",
         } as NumericInputWidget,
@@ -196,7 +451,7 @@ export const duplicatedAnswers: PerseusRenderer = {
 };
 
 export const withCoefficient: PerseusRenderer = {
-    content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
+    content: "$1 =$ [[\u2603 numeric-input 1]] ",
     images: {},
     widgets: {
         "numeric-input 1": {
