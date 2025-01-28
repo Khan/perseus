@@ -35,7 +35,6 @@ describe("emptyWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -60,7 +59,6 @@ describe("emptyWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -85,7 +83,6 @@ describe("emptyWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -114,7 +111,6 @@ describe("emptyWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -150,7 +146,6 @@ describe("emptyWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -186,7 +181,6 @@ describe("emptyWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -209,7 +203,6 @@ describe("emptyWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -232,7 +225,6 @@ describe("emptyWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 

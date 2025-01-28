@@ -1,13 +1,16 @@
-import {Widgets} from "@khanacademy/perseus";
 /**
  * A side by side diff view for Perseus renderers.
  */
-import {WidgetLogic, type PerseusRenderer} from "@khanacademy/perseus-core";
+
+import {Widgets} from "@khanacademy/perseus";
+import {WidgetLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
 import TextDiff from "./text-diff";
 import WidgetDiff from "./widget-diff";
+
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 // In diffs, only show the widgetInfo props that can change
 const filterWidgetInfo = function (widgetInfo, showAlignmentOptions: boolean) {

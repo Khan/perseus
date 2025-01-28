@@ -152,7 +152,7 @@ export function getUpgradedWidgetOptions(
 
             widgetInfo = {...widgetInfo, ...newValues};
         }
-        // TODO(LEMS-2656): remove TS suppression
+
         return upgradeWidgetInfoToLatestVersion(widgetInfo) as any;
     });
 }

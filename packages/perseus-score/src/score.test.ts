@@ -588,26 +588,4 @@ describe("scorePerseusItem", () => {
             shouldHavePoints: true,
         });
     });
-
-    // it("should return score from contained Renderer", async () => {
-    //     // Arrange
-    //     const {renderer} = renderQuestion(question1);
-
-    //     // Answer correctly
-    //     await userEvent.click(screen.getByRole("combobox"));
-    //     await act(() => jest.runOnlyPendingTimers());
-
-    //     await userEvent.click(
-    //         screen.getByRole("option", {
-    //             name: "less than or equal to",
-    //         }),
-    //     );
-
-    //     // Act
-    //     const userInput = renderer.getUserInputMap();
-    //     const score = scorePerseusItem(question1, userInput, "en");
-
-    //     // Assert
-    //     expect(score).toHaveBeenAnsweredCorrectly();
-    // });
 });
