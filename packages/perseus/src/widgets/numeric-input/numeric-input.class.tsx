@@ -173,14 +173,18 @@ const propsTransform = function (
     const {answers: _, ...rendererProps} = {
         ...widgetOptions,
         answerForms: unionAnswerForms(
-            widgetOptions.answers.map((answer) => {
-                return (answer.answerForms || []).map((form) => {
-                    return {
-                        simplify: answer.simplify,
-                        name: form,
-                    };
-                });
-            }),
+            // Filter out the correct answers and map them to the answer forms
+            // so that we can generate the examples for the widget.
+            widgetOptions.answers
+                .filter((answer) => answer.status === "correct")
+                .map((answer) => {
+                    return (answer.answerForms || []).map((form) => {
+                        return {
+                            simplify: answer.simplify,
+                            name: form,
+                        };
+                    });
+                }),
         ),
     };
 
