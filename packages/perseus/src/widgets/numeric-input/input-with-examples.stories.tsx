@@ -1,6 +1,6 @@
 import {action} from "@storybook/addon-actions";
 
-import InputWithExamples from "../input-with-examples";
+import InputWithExamples from "./input-with-examples";
 
 import type {Meta, StoryObj} from "@storybook/react";
 

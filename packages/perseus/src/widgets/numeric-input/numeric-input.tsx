@@ -9,13 +9,13 @@ import {
 } from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import InputWithExamples from "../../components/input-with-examples";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 
+import InputWithExamples from "./input-with-examples";
 import {type NumericInputProps} from "./numeric-input.class";
 import {generateExamples, shouldShowExamples} from "./utils";
 
-type InputRefType = SimpleKeypadInput | InputWithExamples | null;
+type InputRefType = SimpleKeypadInput | typeof InputWithExamples | null;
 
 /**
  * The NumericInputComponent is a child component of the NumericInput class
@@ -30,15 +30,16 @@ export const NumericInputComponent = forwardRef(
 
         // Pass the focus and blur methods to the Numeric Input Class component
         useImperativeHandle(ref, () => ({
+            current: inputRef.current,
             focus: () => {
                 if (inputRef.current) {
-                    inputRef.current.focus();
+                    inputRef.current?.focus();
                     setIsFocused(true);
                 }
             },
             blur: () => {
                 if (inputRef.current) {
-                    inputRef.current.blur();
+                    inputRef.current?.blur();
                     setIsFocused(false);
                 }
             },
@@ -105,7 +106,7 @@ export const NumericInputComponent = forwardRef(
         // (desktop-only) Otherwise, use the InputWithExamples component
         return (
             <InputWithExamples
-                ref={inputRef as React.RefObject<InputWithExamples>}
+                ref={inputRef as React.RefObject<typeof InputWithExamples>}
                 value={props.currentValue}
                 onChange={handleChange}
                 labelText={labelText}
