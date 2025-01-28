@@ -5,6 +5,7 @@ import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
  * PerseusSorterWidgetOptions type
  */
 type SorterPublicWidgetOptions = {
+    correct: PerseusSorterWidgetOptions["correct"];
     padding: PerseusSorterWidgetOptions["padding"];
     layout: PerseusSorterWidgetOptions["layout"];
 };
@@ -17,6 +18,10 @@ function getSorterPublicWidgetOptions(
     options: PerseusSorterWidgetOptions,
 ): SorterPublicWidgetOptions {
     return {
+        // Note(Tamara): This does not provide correct answer information any longer.
+        // To maintain compatibility with the original widget options, we are
+        // keeping the key the same. Represents initial state of the cards here.
+        correct: options.correct.slice().sort(),
         padding: options.padding,
         layout: options.layout,
     };
