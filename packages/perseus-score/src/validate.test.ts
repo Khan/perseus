@@ -2,8 +2,7 @@ import {
     getExpressionWidget,
     getLegacyExpressionWidget,
     getTestDropdownWidget,
-} from "../util/test-helpers";
-
+} from "./util/test-helpers";
 import {emptyWidgetsFunctional} from "./validate";
 
 import type {UserInputMap} from "./validation.types";

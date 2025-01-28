@@ -1,10 +1,9 @@
+import {flattenScores, scorePerseusItem, scoreWidgetsFunctional} from "./score";
 import {
     getExpressionWidget,
     getLegacyExpressionWidget,
     getTestDropdownWidget,
-} from "../util/test-helpers";
-
-import {flattenScores, scorePerseusItem, scoreWidgetsFunctional} from "./score";
+} from "./util/test-helpers";
 
 import type {UserInputMap} from "./validation.types";
 import type {
