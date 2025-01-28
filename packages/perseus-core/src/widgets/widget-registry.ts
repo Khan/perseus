@@ -31,12 +31,55 @@ import tableWidgetLogic from "./table";
 import videoWidgetLogic from "./video";
 
 import type {WidgetLogic} from "./logic-export.types";
+import type {Alignment} from "../types";
 
 const widgets = {};
 
 function registerWidget(type: string, logic: WidgetLogic) {
     widgets[type] = logic;
 }
+
+/**
+ * Handling for the optional alignments for widgets
+ * See widget-container.jsx for details on how alignments are implemented.
+ */
+
+/**
+ * Returns the list of supported alignments for the given (string) widget
+ * type. This is used primarily at editing time to display the choices
+ * for the user.
+ *
+ * Supported alignments are given as an array of strings in the exports of
+ * a widget's module.
+ */
+
+// NOTE(kevinb): "default" is not one in `validAlignments`.
+const DEFAULT_SUPPORTED_ALIGNMENTS = ["default"];
+export const getSupportedAlignments = (
+    type: string,
+): ReadonlyArray<Alignment> => {
+    const widgetLogic = widgets[type];
+    return widgetLogic?.supportedAlignments || DEFAULT_SUPPORTED_ALIGNMENTS;
+};
+
+/**
+ * For the given (string) widget type, determine the default alignment for
+ * the widget. This is used at rendering time to go from "default" alignment
+ * to the actual alignment displayed on the screen.
+ *
+ * The default alignment is given either as a string (called
+ * `defaultAlignment`) or a function (called `getDefaultAlignment`) on
+ * the exports of a widget's module.
+ */
+const DEFAULT_ALIGNMENT = "block";
+export const getDefaultAlignment = (type: string): Alignment => {
+    const widgetLogic = widgets[type];
+    if (!widgetLogic) {
+        return DEFAULT_ALIGNMENT;
+    }
+
+    return widgetLogic.defaultAlignment || DEFAULT_ALIGNMENT;
+};
 
 registerWidget("categorizer", categorizerWidgetLogic);
 registerWidget("cs-program", csProgramWidgetLogic);

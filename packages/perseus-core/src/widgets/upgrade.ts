@@ -4,42 +4,11 @@ import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
 import {mapObject} from "../utils/objective_";
 
+import {getSupportedAlignments} from "./widget-registry";
+
 import type {PerseusWidget, PerseusWidgetsMap} from "../data-schema";
-import type {Alignment} from "../types";
 
 const DEFAULT_STATIC = false;
-
-// START: STOPSHIP / HACK
-// do we really need this??
-const widgetSupportedAlignments = {
-    "cs-program": ["block", "full-width"],
-    image: ["block", "full-width"],
-    video: ["block", "float-left", "float-right", "full-width"],
-};
-
-// NOTE(kevinb): "default" is not one in `validAlignments`.
-const DEFAULT_SUPPORTED_ALIGNMENTS = ["default"];
-
-/**
- * Handling for the optional alignments for widgets
- * See widget-container.jsx for details on how alignments are implemented.
- */
-
-/**
- * Returns the list of supported alignments for the given (string) widget
- * type. This is used primarily at editing time to display the choices
- * for the user.
- *
- * Supported alignments are given as an array of strings in the exports of
- * a widget's module.
- */
-export const getSupportedAlignments = (
-    type: string,
-): ReadonlyArray<Alignment> => {
-    const supportedAlignments = widgetSupportedAlignments[type];
-    return supportedAlignments || DEFAULT_SUPPORTED_ALIGNMENTS;
-};
-// END: STOPSHIP / HACK
 
 export const upgradeWidgetInfoToLatestVersion = (
     oldWidgetInfo: PerseusWidget,

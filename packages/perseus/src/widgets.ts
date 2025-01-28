@@ -17,7 +17,6 @@ import type {
 } from "@khanacademy/perseus-core";
 import type * as React from "react";
 
-const DEFAULT_ALIGNMENT = "block";
 const DEFAULT_TRACKING = "";
 const DEFAULT_LINTABLE = false;
 
@@ -248,29 +247,6 @@ export const traverseChildWidgets = (
         return _.extend({}, widgetInfo, {options: newProps});
     }
     return widgetInfo;
-};
-
-/**
- * For the given (string) widget type, determine the default alignment for
- * the widget. This is used at rendering time to go from "default" alignment
- * to the actual alignment displayed on the screen.
- *
- * The default alignment is given either as a string (called
- * `defaultAlignment`) or a function (called `getDefaultAlignment`) on
- * the exports of a widget's module.
- */
-export const getDefaultAlignment = (type: string): Alignment => {
-    const widgetExports = widgets[type];
-    if (!widgetExports) {
-        return DEFAULT_ALIGNMENT;
-    }
-
-    if (widgetExports.getDefaultAlignment) {
-        alignment = widgetExports.getDefaultAlignment();
-    } else {
-        alignment = widgetExports.defaultAlignment;
-    }
-    return alignment || DEFAULT_ALIGNMENT;
 };
 
 const validAlignments: ReadonlyArray<Alignment> = [

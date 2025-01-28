@@ -118,6 +118,8 @@ export {
 
 export type * from "./widgets/logic-export.types";
 
+export * as WidgetLogic from "./widgets/widget-registry";
+
 export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
 export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";

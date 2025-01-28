@@ -6,6 +6,11 @@ import {
     iconChevronDown,
     iconTrash,
 } from "@khanacademy/perseus";
+import {
+    WidgetLogic,
+    type Alignment,
+    type PerseusWidget,
+} from "@khanacademy/perseus-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -19,7 +24,6 @@ import SectionControlButton from "./section-control-button";
 
 import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
-import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
 const {InlineIcon} = components;
 
@@ -152,7 +156,7 @@ class WidgetEditor extends React.Component<
         const Ed = Widgets.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;
         if (this.props.apiOptions.showAlignmentOptions) {
-            supportedAlignments = Widgets.getSupportedAlignments(
+            supportedAlignments = WidgetLogic.getSupportedAlignments(
                 widgetInfo.type,
             );
         } else {

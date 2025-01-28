@@ -6,7 +6,7 @@ import {
     Util,
     Widgets,
 } from "@khanacademy/perseus";
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {Errors, PerseusError, WidgetLogic} from "@khanacademy/perseus-core";
 import $ from "jquery";
 // eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import katex from "katex";
@@ -673,7 +673,7 @@ class Editor extends React.Component<Props, State> {
         const widgetContent = widgetPlaceholder.replace("{id}", id);
 
         // Add newlines before block-display widgets like graphs
-        const isBlock = Widgets.getDefaultAlignment(widgetType) === "block";
+        const isBlock = WidgetLogic.getDefaultAlignment(widgetType) === "block";
 
         const prelude = oldContent.slice(0, cursorRange[0]);
         const postlude = oldContent.slice(cursorRange[1]);
