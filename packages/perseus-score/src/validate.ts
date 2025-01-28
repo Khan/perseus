@@ -1,4 +1,5 @@
 import {scoreIsEmpty} from "./score";
+import {getWidgetValidator} from "./widgets/widget-registry";
 
 import type {UserInputMap, ValidationDataMap} from "./validation.types";
 

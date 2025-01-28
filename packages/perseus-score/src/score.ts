@@ -7,6 +7,8 @@ import {
     PerseusError,
 } from "@khanacademy/perseus-core";
 
+import {getWidgetScorer, getWidgetValidator} from "./widgets/widget-registry";
+
 import type {PerseusScore, UserInputMap} from "./validation.types";
 import type {
     PerseusRenderer,

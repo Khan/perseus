@@ -510,25 +510,6 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
-export type WidgetValidatorFunction = (
-    userInput: UserInput,
-    validationData: ValidationData,
-    strings: PerseusStrings,
-    locale: string,
-) => ValidationResult;
-
-export type WidgetScorerFunction = (
-    // The user data needed to score
-    userInput: UserInput,
-    // The scoring criteria to score against
-    rubric: Rubric,
-    // Strings, for error messages in invalid widgets
-    string?: PerseusStrings,
-    // Locale, for math evaluation
-    // (1,000.00 === 1.000,00 in some countries)
-    locale?: string,
-) => PerseusScore;
-
 /**
  * A union type of all the functions that provide public widget options.
  */
