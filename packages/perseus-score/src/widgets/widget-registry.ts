@@ -1,3 +1,5 @@
+import scoreNoop from "../util/score-noop";
+
 import scoreCategorizer from "./categorizer/score-categorizer";
 import validateCategorizer from "./categorizer/validate-categorizer";
 import scoreCSProgram from "./cs-program/score-cs-program";
@@ -86,3 +88,16 @@ registerWidget("plotter", scorePlotter as any, validatePlotter as any);
 registerWidget("radio", scoreRadio as any, validateRadio as any);
 registerWidget("sorter", scoreSorter as any, validateSorter as any);
 registerWidget("table", scoreTable as any, validateTable as any);
+
+registerWidget("deprecated-standin", () => scoreNoop(1) as any);
+registerWidget("measurer", () => scoreNoop(1) as any);
+
+registerWidget("definition", scoreNoop as any);
+registerWidget("explanation", scoreNoop as any);
+registerWidget("image", scoreNoop as any);
+registerWidget("interaction", scoreNoop as any);
+registerWidget("molecule", scoreNoop as any);
+registerWidget("passage", scoreNoop as any);
+registerWidget("passage-ref", scoreNoop as any);
+registerWidget("passage-ref-target", scoreNoop as any);
+registerWidget("video", scoreNoop as any);

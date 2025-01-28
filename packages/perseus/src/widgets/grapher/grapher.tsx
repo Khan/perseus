@@ -4,7 +4,6 @@ import {
     point as kpoint,
 } from "@khanacademy/kmath";
 import {GrapherUtil} from "@khanacademy/perseus-core";
-import {scoreGrapher} from "@khanacademy/perseus-score";
 import * as React from "react";
 import _ from "underscore";
 
@@ -659,7 +658,4 @@ export default {
     widget: Grapher,
     transform: propTransform,
     staticTransform: staticTransform,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusGrapherUserInput'.
-    scorer: scoreGrapher,
 } satisfies WidgetExports<typeof Grapher>;

@@ -1,5 +1,4 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {scoreSorter, validateSorter} from "@khanacademy/perseus-score";
 import * as React from "react";
 
 import Sortable from "../../components/sortable";
@@ -132,10 +131,4 @@ export default {
     displayName: "Sorter",
     widget: Sorter,
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type UserInput is not assignable to type PerseusSorterUserInput
-    scorer: scoreSorter,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type UserInput is not assignable to type PerseusSorterUserInput
-    validator: validateSorter,
 } satisfies WidgetExports<typeof Sorter>;

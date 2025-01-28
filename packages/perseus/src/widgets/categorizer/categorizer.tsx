@@ -4,10 +4,6 @@ import {
     getCategorizerPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {
-    scoreCategorizer,
-    validateCategorizer,
-} from "@khanacademy/perseus-score";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -330,11 +326,5 @@ export default {
         );
     },
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
-    scorer: scoreCategorizer,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
-    validator: validateCategorizer,
     getPublicWidgetOptions: getCategorizerPublicWidgetOptions,
 } satisfies WidgetExports<typeof Categorizer>;

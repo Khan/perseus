@@ -6,7 +6,6 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
-import scoreNoop from "../__shared__/score-noop";
 
 import type {APIOptions, WidgetExports, Widget} from "../../types";
 import type {PerseusPassageRefTargetWidgetOptions} from "@khanacademy/perseus-core";
@@ -68,6 +67,4 @@ export default {
         return _.pick(editorProps, "content");
     },
     isLintable: true,
-    // TODO: things that aren't interactive shouldn't need scoring functions
-    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof PassageRefTarget>;

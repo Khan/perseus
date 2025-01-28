@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unsafe */
 import {KhanMath} from "@khanacademy/kmath";
-import {scorePlotter, validatePlotter} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -1178,10 +1177,4 @@ export default {
     hidden: true,
     widget: Plotter,
     staticTransform: staticTransform,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
-    scorer: scorePlotter,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
-    validator: validatePlotter,
 } satisfies WidgetExports<typeof Plotter>;

@@ -1,8 +1,5 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {
-    inputNumberAnswerTypes,
-    scoreInputNumber,
-} from "@khanacademy/perseus-score";
+import {inputNumberAnswerTypes} from "@khanacademy/perseus-score";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -286,9 +283,6 @@ export default {
     widget: InputNumber,
     transform: propTransform,
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusInputNumberUserInput'.
-    scorer: scoreInputNumber,
 
     getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {
         if (rubric.value == null) {

@@ -11,7 +11,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
-import scoreNoop from "../__shared__/score-noop";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
@@ -227,6 +226,4 @@ export default {
     widget: Explanation,
     transform: _.identity,
     isLintable: true,
-    // TODO: things that aren't interactive shouldn't need scoring functions
-    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof Explanation>;

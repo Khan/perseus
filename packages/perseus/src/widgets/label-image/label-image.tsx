@@ -6,10 +6,7 @@
  * knowledge by directly interacting with the image.
  */
 
-import {
-    scoreLabelImageMarker,
-    scoreLabelImage,
-} from "@khanacademy/perseus-score";
+import {scoreLabelImageMarker} from "@khanacademy/perseus-score";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet, css} from "aphrodite";
@@ -758,7 +755,4 @@ export default {
     widget: LabelImageWithDependencies,
     accessible: true,
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusLabelImageUserInput'.
-    scorer: scoreLabelImage,
 } satisfies WidgetExports<typeof LabelImageWithDependencies>;

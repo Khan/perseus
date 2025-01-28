@@ -1,5 +1,4 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {scoreTable, validateTable} from "@khanacademy/perseus-score";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -323,10 +322,4 @@ export default {
     transform: propTransform,
     hidden: true,
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type UserInput is not assignable to type PerseusTableUserInput
-    scorer: scoreTable,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type UserInput is not assignable to type PerseusTableUserInput
-    validator: validateTable,
 } satisfies WidgetExports<typeof Table>;
