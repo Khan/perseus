@@ -4,7 +4,13 @@ import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
 import {mapObject} from "../utils/objective_";
 
-import {getSupportedAlignments} from "./widget-registry";
+import {
+    getCurrentVersion,
+    getDefaultWidgetOptions,
+    getSupportedAlignments,
+    getWidgetOptionsUpgrades,
+    isWidgetRegistered,
+} from "./widget-registry";
 
 import type {PerseusWidget, PerseusWidgetsMap} from "../data-schema";
 
@@ -24,9 +30,8 @@ export const upgradeWidgetInfoToLatestVersion = (
             Errors.Internal,
         );
     }
-    const widgetExports = widgets[type];
 
-    if (widgetExports == null) {
+    if (!isWidgetRegistered(type)) {
         // If we have a widget that isn't registered, we can't upgrade it
         // TODO(aria): Figure out what the best thing to do here would be
         return oldWidgetInfo;
@@ -34,7 +39,7 @@ export const upgradeWidgetInfoToLatestVersion = (
 
     // Unversioned widgets (pre-July 2014) are all implicitly 0.0
     const initialVersion = oldWidgetInfo.version || {major: 0, minor: 0};
-    const latestVersion = widgetExports.version || {major: 0, minor: 0};
+    const latestVersion = getCurrentVersion(type);
 
     // If the widget version is later than what we understand (major
     // version is higher than latest, or major versions are equal and minor
@@ -50,15 +55,15 @@ export const upgradeWidgetInfoToLatestVersion = (
     // We do a clone here so that it's safe to mutate the input parameter
     // in propUpgrades functions (which I will probably accidentally do at
     // some point, and we would like to not break when that happens).
-    let newEditorProps = _.clone(oldWidgetInfo.options) || {};
+    let newEditorOptions = _.clone(oldWidgetInfo.options) || {};
 
-    const upgradePropsMap = widgetExports.propUpgrades || {};
+    const upgradePropsMap = getWidgetOptionsUpgrades(type);
 
     // Empty props usually mean a newly created widget by the editor,
     // and are always considerered up-to-date.
     // Mostly, we'd rather not run upgrade functions on props that are
     // not complete.
-    if (_.keys(newEditorProps).length !== 0) {
+    if (_.keys(newEditorOptions).length !== 0) {
         // We loop through all the versions after the current version of
         // the loaded widget, up to and including the latest version of the
         // loaded widget, and run the upgrade function to bring our loaded
@@ -72,8 +77,8 @@ export const upgradeWidgetInfoToLatestVersion = (
             nextVersion++
         ) {
             if (upgradePropsMap[String(nextVersion)]) {
-                newEditorProps =
-                    upgradePropsMap[String(nextVersion)](newEditorProps);
+                newEditorOptions =
+                    upgradePropsMap[String(nextVersion)](newEditorOptions);
             } else {
                 // This is a Log.error because it is unlikely to be hit in
                 // local testing, and a Log.error is slightly less scary in
@@ -101,10 +106,10 @@ export const upgradeWidgetInfoToLatestVersion = (
     // Minor version upgrades (eg. new optional props) don't have
     // transform functions. Instead, we fill in the new props with their
     // defaults.
-    const defaultProps = type in editors ? editors[type].defaultProps : {};
-    newEditorProps = {
-        ...defaultProps,
-        ...newEditorProps,
+    const defaultOptions = getDefaultWidgetOptions(type);
+    newEditorOptions = {
+        ...defaultOptions,
+        ...newEditorOptions,
     };
 
     let alignment = oldWidgetInfo.alignment;
@@ -131,7 +136,7 @@ export const upgradeWidgetInfoToLatestVersion = (
         graded: oldWidgetInfo.graded != null ? oldWidgetInfo.graded : true,
         alignment: alignment,
         static: widgetStatic,
-        options: newEditorProps,
+        options: newEditorOptions,
     });
 };
 

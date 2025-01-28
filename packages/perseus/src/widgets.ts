@@ -10,11 +10,7 @@ import type {
     WidgetTransform,
     PublicWidgetOptionsFunction,
 } from "./types";
-import type {
-    Alignment,
-    PerseusWidget,
-    Version,
-} from "@khanacademy/perseus-core";
+import type {PerseusWidget, Version} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
 const DEFAULT_TRACKING = "";
@@ -39,8 +35,6 @@ export const registerWidgets = (widgets: ReadonlyArray<WidgetExports>) => {
     widgets.forEach((widget) => {
         registerWidget(widget.name, widget);
     });
-
-    validateAlignments();
 };
 
 /**
@@ -247,56 +241,6 @@ export const traverseChildWidgets = (
         return _.extend({}, widgetInfo, {options: newProps});
     }
     return widgetInfo;
-};
-
-const validAlignments: ReadonlyArray<Alignment> = [
-    "block",
-    "inline-block",
-    "inline",
-    "float-left",
-    "float-right",
-    "full-width",
-];
-
-/**
- * Used at startup to fail fast if an alignment given by a widget is
- * invalid.
- */
-// TODO(alex): Change this to run as a testcase (vs. being run at runtime)
-// TODO(LP-10707): I think this can be completely removed because our TypeScript types
-// enforce this!
-export const validateAlignments = () => {
-    _.each(widgets, function (widgetInfo) {
-        if (
-            widgetInfo.defaultAlignment &&
-            !_.contains(validAlignments, widgetInfo.defaultAlignment)
-        ) {
-            throw new PerseusError(
-                "Widget '" +
-                    widgetInfo.displayName +
-                    "' has an invalid defaultAlignment value: " +
-                    widgetInfo.defaultAlignment,
-                Errors.InvalidInput,
-            );
-        }
-
-        if (widgetInfo.supportedAlignments) {
-            const unknownAlignments = _.difference(
-                widgetInfo.supportedAlignments,
-                validAlignments,
-            );
-
-            if (unknownAlignments.length) {
-                throw new PerseusError(
-                    "Widget '" +
-                        widgetInfo.displayName +
-                        "' has an invalid value for supportedAlignments: " +
-                        unknownAlignments.join(" "),
-                    Errors.InvalidInput,
-                );
-            }
-        }
-    });
 };
 
 /**

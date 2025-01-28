@@ -39,6 +39,26 @@ function registerWidget(type: string, logic: WidgetLogic) {
     widgets[type] = logic;
 }
 
+export function isWidgetRegistered(type: string) {
+    const widgetLogic = widgets[type];
+    return !!widgetLogic;
+}
+
+export function getCurrentVersion(type: string) {
+    const widgetLogic = widgets[type];
+    return widgetLogic?.version || {major: 0, minor: 0};
+}
+
+export function getWidgetOptionsUpgrades(type: string) {
+    const widgetLogic = widgets[type];
+    return widgetLogic?.widgetOptionsUpgrades || {};
+}
+
+export function getDefaultWidgetOptions(type: string) {
+    const widgetLogic = widgets[type];
+    return widgetLogic?.defaultWidgetOptions || {};
+}
+
 /**
  * Handling for the optional alignments for widgets
  * See widget-container.jsx for details on how alignments are implemented.
