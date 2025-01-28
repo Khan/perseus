@@ -15,7 +15,6 @@ import type {
     getOrdererPublicWidgetOptions,
     getCategorizerPublicWidgetOptions,
     getExpressionPublicWidgetOptions,
-    Alignment,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -539,7 +538,6 @@ export type WidgetExports<
      * This key defaults to `{major: 0, minor: 0}` if not provided.
      */
     version?: Version;
-    getDefaultAlignment?: () => Alignment;
     isLintable?: boolean;
     tracking?: Tracking;
 

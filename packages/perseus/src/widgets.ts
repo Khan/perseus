@@ -261,7 +261,6 @@ export const traverseChildWidgets = (
  */
 export const getDefaultAlignment = (type: string): Alignment => {
     const widgetExports = widgets[type];
-    let alignment;
     if (!widgetExports) {
         return DEFAULT_ALIGNMENT;
     }
