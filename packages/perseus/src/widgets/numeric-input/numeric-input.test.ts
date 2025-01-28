@@ -15,8 +15,10 @@ import {
     question1,
     duplicatedAnswers,
     withCoefficient,
+    correctAndWrongAnswers,
 } from "./numeric-input.testdata";
 
+import type {PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
 import type {PerseusNumericInputRubric} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -111,6 +113,16 @@ describe("numeric-input widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("render with format list tooltip");
+    });
+
+    it("Should render tooltip using only correct answer formats", async () => {
+        // Arrange
+        const {container} = renderQuestion(correctAndWrongAnswers);
+
+        // Assert
+        expect(container).toMatchSnapshot(
+            "render tooltip only with correct answers",
+        );
     });
 
     it("Should render an element with format options as text for use by assistive technologies", async () => {
@@ -372,5 +384,80 @@ describe("Numeric input widget", () => {
         expect(document.activeElement).not.toBe(
             screen.getByRole("textbox", {hidden: true}),
         );
+    });
+});
+
+describe("transform", () => {
+    it("removes the answers and extracts the answer forms", () => {
+        const transform = NumericInputWidgetExport.transform;
+        const widgetOptions: PerseusNumericInputWidgetOptions = {
+            coefficient: false,
+            static: false,
+            size: "normal",
+            answers: [
+                {
+                    status: "correct",
+                    maxError: null,
+                    strict: true,
+                    value: 0.5,
+                    simplify: "required",
+                    answerForms: ["proper"],
+                    message: "",
+                },
+            ],
+        };
+        const renderProps = transform(widgetOptions);
+        expect(renderProps).toEqual({
+            coefficient: false,
+            static: false,
+            size: "normal",
+            answerForms: [
+                {
+                    simplify: "required",
+                    name: "proper",
+                },
+            ],
+        });
+    });
+
+    it("only uses answer forms from correct answers", () => {
+        const transform = NumericInputWidgetExport.transform;
+        const widgetOptions: PerseusNumericInputWidgetOptions = {
+            coefficient: false,
+            static: false,
+            size: "normal",
+            answers: [
+                {
+                    status: "correct",
+                    maxError: null,
+                    strict: true,
+                    value: 0.5,
+                    simplify: "required",
+                    answerForms: ["proper"],
+                    message: "",
+                },
+                {
+                    status: "wrong",
+                    maxError: null,
+                    strict: true,
+                    value: 0.5,
+                    simplify: "required",
+                    answerForms: ["decimal"],
+                    message: "",
+                },
+            ],
+        };
+        const renderProps = transform(widgetOptions);
+        expect(renderProps).toEqual({
+            coefficient: false,
+            static: false,
+            size: "normal",
+            answerForms: [
+                {
+                    simplify: "required",
+                    name: "proper",
+                },
+            ],
+        });
     });
 });
