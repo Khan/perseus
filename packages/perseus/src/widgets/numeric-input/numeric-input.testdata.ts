@@ -358,6 +358,49 @@ export const multipleAnswers: PerseusRenderer = {
     },
 };
 
+export const correctAndWrongAnswers: PerseusRenderer = {
+    content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
+    images: {},
+    widgets: {
+        "numeric-input 1": {
+            graded: true,
+            version: {
+                major: 0,
+                minor: 0,
+            },
+            static: false,
+            type: "numeric-input",
+            options: {
+                coefficient: false,
+                static: false,
+                answers: [
+                    {
+                        status: "correct",
+                        maxError: null,
+                        strict: true,
+                        value: 0.5,
+                        simplify: "required",
+                        answerForms: ["proper"],
+                        message: "",
+                    },
+                    {
+                        status: "wrong",
+                        maxError: null,
+                        strict: true,
+                        value: 0.5,
+                        simplify: "required",
+                        answerForms: ["decimal"],
+                        message: "",
+                    },
+                ],
+                labelText: "What's the answer?",
+                size: "normal",
+            },
+            alignment: "default",
+        } as NumericInputWidget,
+    },
+};
+
 export const multipleAnswersWithDecimals: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},
