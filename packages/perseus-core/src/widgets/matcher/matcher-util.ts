@@ -6,8 +6,8 @@ import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
  */
 type MatcherPublicWidgetOptions = {
     labels: PerseusMatcherWidgetOptions["labels"];
-    left: Array<string>;
-    right: Array<string>;
+    left: PerseusMatcherWidgetOptions["left"];
+    right: PerseusMatcherWidgetOptions["right"];
     orderMatters: PerseusMatcherWidgetOptions["orderMatters"];
     padding: PerseusMatcherWidgetOptions["padding"];
 };
