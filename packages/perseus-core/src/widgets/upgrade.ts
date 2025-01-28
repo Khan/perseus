@@ -83,17 +83,18 @@ export const upgradeWidgetInfoToLatestVersion = (
                 // This is a Log.error because it is unlikely to be hit in
                 // local testing, and a Log.error is slightly less scary in
                 // prod than a `throw new Error`
-                Log.error(
-                    "No upgrade found for widget. Cannot render.",
-                    Errors.Internal,
-                    {
-                        loggedMetadata: {
-                            type,
-                            fromMajorVersion: nextVersion - 1,
-                            toMajorVersion: nextVersion,
-                        },
-                    },
-                );
+                // STOPSHIP, figure this out
+                // Log.error(
+                //     "No upgrade found for widget. Cannot render.",
+                //     Errors.Internal,
+                //     {
+                //         loggedMetadata: {
+                //             type,
+                //             fromMajorVersion: nextVersion - 1,
+                //             toMajorVersion: nextVersion,
+                //         },
+                //     },
+                // );
                 // But try to keep going anyways (yolo!)
                 // (Throwing an error here would just break the page
                 // silently anyways, so that doesn't seem much better

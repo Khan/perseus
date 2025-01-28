@@ -4,10 +4,13 @@ import {
     getTestDropdownWidget,
 } from "../util/test-helpers";
 
-import {flattenScores, scoreWidgetsFunctional} from "./score";
+import {flattenScores, scorePerseusItem, scoreWidgetsFunctional} from "./score";
 
 import type {UserInputMap} from "./validation.types";
-import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
+import type {
+    DropdownWidget,
+    PerseusWidgetsMap,
+} from "@khanacademy/perseus-core";
 
 describe("flattenScores", () => {
     it("defaults to an empty score", () => {
@@ -467,4 +470,144 @@ describe("scoreWidgetsFunctional", () => {
         // Assert
         expect(result["expression 1"]).toHaveBeenAnsweredIncorrectly();
     });
+});
+
+function generateDropdown(): DropdownWidget {
+    return {
+        type: "dropdown",
+        alignment: "default",
+        static: false,
+        graded: true,
+        options: {
+            static: false,
+            ariaLabel: "Test ARIA label",
+            visibleLabel: "Test visible label",
+            placeholder: "Answer me",
+            choices: [
+                {
+                    content: "Incorrect",
+                    correct: false,
+                },
+                {
+                    content: "Correct",
+                    correct: true,
+                },
+            ],
+        },
+        version: {
+            major: 0,
+            minor: 0,
+        },
+    };
+}
+
+describe("scorePerseusItem", () => {
+    it("should return empty if any validator returns empty", () => {
+        // Act
+        const score = scorePerseusItem(
+            {
+                content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
+                widgets: {
+                    "dropdown 1": generateDropdown(),
+                    "dropdown 2": generateDropdown(),
+                },
+                images: {},
+            },
+            {
+                "dropdown 1": {value: 0},
+                "dropdown 2": {value: 1},
+            },
+            "en",
+        );
+
+        // Assert
+        expect(score).toEqual({type: "invalid", message: null});
+    });
+
+    it("should score item if all validators return null", () => {
+        // Arrange
+
+        // Act
+        const score = scorePerseusItem(
+            {
+                content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
+                widgets: {
+                    "dropdown 1": generateDropdown(),
+                    "dropdown 2": generateDropdown(),
+                },
+                images: {},
+            },
+            {
+                "dropdown 1": {value: 2},
+                "dropdown 2": {value: 2},
+            },
+            "en",
+        );
+
+        // Assert
+        expect(score).toEqual({
+            type: "points",
+            total: 2,
+            earned: 2,
+            message: null,
+        });
+    });
+
+    it("should return correct, with no points earned, if widget is static", () => {
+        const json = {
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": generateDropdown(),
+            },
+            images: {},
+        };
+        json.widgets["dropdown 1"].static = true;
+        const score = scorePerseusItem(json, {"dropdown 1": {value: 2}}, "en");
+
+        expect(score).toHaveBeenAnsweredCorrectly({
+            shouldHavePoints: false,
+        });
+    });
+
+    it("should ignore widgets that aren't referenced in content", () => {
+        const score = scorePerseusItem(
+            {
+                content: "[[☃ dropdown 1]]",
+                widgets: {
+                    "dropdown 1": generateDropdown(),
+                    "dropdown 2": generateDropdown(),
+                },
+                images: {},
+            },
+            {"dropdown 1": {value: 2}},
+
+            "en",
+        );
+
+        expect(score).toHaveBeenAnsweredCorrectly({
+            shouldHavePoints: true,
+        });
+    });
+
+    // it("should return score from contained Renderer", async () => {
+    //     // Arrange
+    //     const {renderer} = renderQuestion(question1);
+
+    //     // Answer correctly
+    //     await userEvent.click(screen.getByRole("combobox"));
+    //     await act(() => jest.runOnlyPendingTimers());
+
+    //     await userEvent.click(
+    //         screen.getByRole("option", {
+    //             name: "less than or equal to",
+    //         }),
+    //     );
+
+    //     // Act
+    //     const userInput = renderer.getUserInputMap();
+    //     const score = scorePerseusItem(question1, userInput, "en");
+
+    //     // Assert
+    //     expect(score).toHaveBeenAnsweredCorrectly();
+    // });
 });
