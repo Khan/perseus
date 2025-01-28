@@ -22,10 +22,6 @@ const defaultBackgroundImage = {
     height: 0,
 } as const;
 
-const editorAlignments = ["block", "full-width"] as const;
-
-const DEFAULT_ALIGNMENT = "block";
-
 type RenderProps = PerseusImageWidgetOptions; // there is no transform as part of exports
 
 type ExternalProps = WidgetProps<RenderProps>;
@@ -59,7 +55,7 @@ class ImageWidget extends React.Component<Props> implements Widget {
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     static defaultProps: DefaultProps = {
-        alignment: DEFAULT_ALIGNMENT,
+        alignment: "block",
         title: "",
         range: [defaultRange, defaultRange],
         box: [defaultBoxSize, defaultBoxSize],
@@ -257,8 +253,6 @@ export default {
         const bgImage = widgetOptions.backgroundImage;
         return !(bgImage && bgImage.url && !widgetOptions.alt);
     },
-    defaultAlignment: DEFAULT_ALIGNMENT,
-    supportedAlignments: editorAlignments,
     displayName: "Image",
     widget: ImageWidget,
     isLintable: true,

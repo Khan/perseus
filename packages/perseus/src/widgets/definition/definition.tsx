@@ -106,7 +106,6 @@ export default {
     name: "definition",
     displayName: "Definition",
     accessible: true,
-    defaultAlignment: "inline",
     widget: Definition,
     transform: (x: any) => x,
 } satisfies WidgetExports<typeof Definition>;

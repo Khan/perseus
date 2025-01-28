@@ -165,7 +165,6 @@ const optionsTransform: (arg1: PerseusDropdownWidgetOptions) => RenderProps = (
 export default {
     name: "dropdown",
     displayName: "Drop down",
-    defaultAlignment: "inline-block",
     accessible: true,
     widget: Dropdown,
     transform: optionsTransform,

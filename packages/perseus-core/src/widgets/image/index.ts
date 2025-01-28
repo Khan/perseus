@@ -26,6 +26,8 @@ const defaultWidgetOptions: ImageDefaultWidgetOptions = {
 const imageWidgetLogic: WidgetLogic = {
     name: "image",
     defaultWidgetOptions,
+    supportedAlignments: ["block", "full-width"],
+    defaultAlignment: "block",
 };
 
 export default imageWidgetLogic;

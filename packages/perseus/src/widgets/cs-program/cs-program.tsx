@@ -197,7 +197,6 @@ const styles = StyleSheet.create({
 export default {
     name: "cs-program",
     displayName: "CS Program",
-    supportedAlignments: ["block", "full-width"],
     widget: CSProgram,
     hidden: true,
 } satisfies WidgetExports<typeof CSProgram>;

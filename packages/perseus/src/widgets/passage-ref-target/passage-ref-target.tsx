@@ -60,7 +60,6 @@ class PassageRefTarget extends React.Component<Props> implements Widget {
 export default {
     name: "passage-ref-target",
     displayName: "PassageRefTarget",
-    defaultAlignment: "inline",
     widget: PassageRefTarget,
     hidden: true,
     transform: (editorProps: any): any => {

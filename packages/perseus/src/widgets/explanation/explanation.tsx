@@ -222,7 +222,6 @@ export default {
     name: "explanation",
     displayName: "Explanation",
     accessible: true,
-    defaultAlignment: "inline",
     widget: Explanation,
     transform: _.identity,
     isLintable: true,

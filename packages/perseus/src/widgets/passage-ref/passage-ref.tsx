@@ -180,7 +180,6 @@ export default {
     name: "passage-ref",
     displayName: "PassageRef (SAT only)",
     hidden: true,
-    defaultAlignment: "inline",
     widget: PassageRef,
     transform: (widgetOptions: PerseusPassageRefWidgetOptions) => ({
         passageNumber: widgetOptions.passageNumber,

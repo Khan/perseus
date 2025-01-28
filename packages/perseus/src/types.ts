@@ -539,8 +539,6 @@ export type WidgetExports<
      * This key defaults to `{major: 0, minor: 0}` if not provided.
      */
     version?: Version;
-    supportedAlignments?: ReadonlyArray<Alignment>;
-    defaultAlignment?: Alignment;
     getDefaultAlignment?: () => Alignment;
     isLintable?: boolean;
     tracking?: Tracking;

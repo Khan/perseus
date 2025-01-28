@@ -278,7 +278,6 @@ const propTransform = (
 export default {
     name: "input-number",
     displayName: "Input number (deprecated - use numeric input instead)",
-    defaultAlignment: "inline-block",
     hidden: true,
     widget: InputNumber,
     transform: propTransform,

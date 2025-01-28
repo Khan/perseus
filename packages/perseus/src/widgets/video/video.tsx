@@ -118,7 +118,5 @@ class Video extends React.Component<Props> implements Widget {
 export default {
     name: "video",
     displayName: "Video",
-    defaultAlignment: "block",
-    supportedAlignments: ["block", "float-left", "float-right", "full-width"],
     widget: Video,
 } satisfies WidgetExports<typeof Video>;

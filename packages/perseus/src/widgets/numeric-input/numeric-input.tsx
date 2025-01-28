@@ -370,7 +370,6 @@ const propsTransform = function (
 export default {
     name: "numeric-input",
     displayName: "Numeric input",
-    defaultAlignment: "inline-block",
     accessible: true,
     widget: NumericInput,
     transform: propsTransform,
