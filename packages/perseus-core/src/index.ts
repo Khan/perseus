@@ -17,11 +17,26 @@ export {default as getMatrixSize} from "./utils/get-matrix-size";
 export {default as getDecimalSeparator} from "./utils/get-decimal-separator";
 export {approximateEqual, approximateDeepEqual} from "./utils/equality";
 export {
+    addWidget,
     getWidgetIdsFromContent,
     getWidgetIdsFromContentByType,
 } from "./utils/widget-id-utils";
 export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
+
+export {
+    parsePerseusItem,
+    parseAndMigratePerseusItem,
+    parseAndMigratePerseusArticle,
+} from "./parse-perseus-json";
+
+export {
+    isSuccess,
+    isFailure,
+    type Result,
+    type Success,
+    type Failure,
+} from "./parse-perseus-json/result";
 
 export {libVersion} from "./version";
 
@@ -58,6 +73,8 @@ export {default as inputNumberLogic} from "./widgets/input-number";
 export type {InputNumberDefaultWidgetOptions} from "./widgets/input-number";
 export {default as interactionLogic} from "./widgets/interaction";
 export type {InteractionDefaultWidgetOptions} from "./widgets/interaction";
+export {default as interactiveGraphLogic} from "./widgets/interactive-graph";
+export type {InteractiveGraphDefaultWidgetOptions} from "./widgets/interactive-graph";
 export {default as labelImageLogic} from "./widgets/label-image";
 export type {LabelImageDefaultWidgetOptions} from "./widgets/label-image";
 export {default as matcherLogic} from "./widgets/matcher";
@@ -80,12 +97,16 @@ export {default as passageRefTargetLogic} from "./widgets/passage-ref-target";
 export type {PassageRefTargetDefaultWidgetOptions} from "./widgets/passage-ref-target";
 export {default as phetSimulationLogic} from "./widgets/phet-simulation";
 export type {PhetSimulationDefaultWidgetOptions} from "./widgets/phet-simulation";
+export {default as plotterLogic} from "./widgets/plotter";
+export type {PlotterDefaultWidgetOptions} from "./widgets/plotter";
 export {default as pythonProgramLogic} from "./widgets/python-program";
 export type {PythonProgramDefaultWidgetOptions} from "./widgets/python-program";
 export {default as radioLogic} from "./widgets/radio";
 export type {RadioDefaultWidgetOptions} from "./widgets/radio";
 export {default as sorterLogic} from "./widgets/sorter";
 export type {SorterDefaultWidgetOptions} from "./widgets/sorter";
+export {default as tableLogic} from "./widgets/table";
+export type {TableDefaultWidgetOptions} from "./widgets/table";
 export {default as videoLogic} from "./widgets/video";
 export type {VideoDefaultWidgetOptions} from "./widgets/video";
 

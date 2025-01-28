@@ -1,20 +1,20 @@
 import validateDropdown from "./validate-dropdown";
 
 import type {
-    PerseusDropdownScoringData,
+    PerseusDropdownRubric,
     PerseusDropdownUserInput,
     PerseusScore,
 } from "../../validation.types";
 
 function scoreDropdown(
     userInput: PerseusDropdownUserInput,
-    scoringData: PerseusDropdownScoringData,
+    rubric: PerseusDropdownRubric,
 ): PerseusScore {
     const validationError = validateDropdown(userInput);
     if (validationError) {
         return validationError;
     }
-    const correct = scoringData.choices[userInput.value - 1].correct;
+    const correct = rubric.choices[userInput.value - 1].correct;
     return {
         type: "points",
         earned: correct ? 1 : 0,

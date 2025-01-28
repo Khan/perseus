@@ -6,21 +6,21 @@ import KhanAnswerTypes from "../../util/answer-types";
 import validateMatrix from "./validate-matrix";
 
 import type {
-    PerseusMatrixScoringData,
+    PerseusMatrixRubric,
     PerseusMatrixUserInput,
     PerseusScore,
 } from "../../validation.types";
 
 function scoreMatrix(
     userInput: PerseusMatrixUserInput,
-    scoringData: PerseusMatrixScoringData,
+    rubric: PerseusMatrixRubric,
 ): PerseusScore {
     const validationError = validateMatrix(userInput);
     if (validationError != null) {
         return validationError;
     }
 
-    const solution = scoringData.answers;
+    const solution = rubric.answers;
     const supplied = userInput.answers;
     const solutionSize = getMatrixSize(solution);
     const suppliedSize = getMatrixSize(supplied);

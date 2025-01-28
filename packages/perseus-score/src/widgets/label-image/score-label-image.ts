@@ -2,7 +2,7 @@ import validateLabelImage from "./validate-label-image";
 
 import type {
     PerseusLabelImageUserInput,
-    PerseusLabelImageScoringData,
+    PerseusLabelImageRubric,
     PerseusScore,
 } from "../../validation.types";
 
@@ -16,7 +16,7 @@ type InteractiveMarkerScore = {
 
 export function scoreLabelImageMarker(
     userInput: PerseusLabelImageUserInput["markers"][number]["selected"],
-    scoringData: PerseusLabelImageScoringData["markers"][number]["answers"],
+    rubric: PerseusLabelImageRubric["markers"][number]["answers"],
 ): InteractiveMarkerScore {
     const score = {
         hasAnswers: false,
@@ -27,11 +27,11 @@ export function scoreLabelImageMarker(
         score.hasAnswers = true;
     }
 
-    if (scoringData.length > 0) {
-        if (userInput && userInput.length === scoringData.length) {
+    if (rubric.length > 0) {
+        if (userInput && userInput.length === rubric.length) {
             // All correct answers are selected by the user.
             score.isCorrect = userInput.every((choice) =>
-                scoringData.includes(choice),
+                rubric.includes(choice),
             );
         }
     } else if (!userInput || userInput.length === 0) {
@@ -44,7 +44,7 @@ export function scoreLabelImageMarker(
 
 function scoreLabelImage(
     userInput: PerseusLabelImageUserInput,
-    scoringData: PerseusLabelImageScoringData,
+    rubric: PerseusLabelImageRubric,
 ): PerseusScore {
     const validationError = validateLabelImage(userInput);
     if (validationError) {
@@ -56,7 +56,7 @@ function scoreLabelImage(
     for (let i = 0; i < userInput.markers.length; i++) {
         const score = scoreLabelImageMarker(
             userInput.markers[i].selected,
-            scoringData.markers[i].answers,
+            rubric.markers[i].answers,
         );
 
         if (score.isCorrect) {
