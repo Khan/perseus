@@ -66,6 +66,8 @@ const meta: Meta<typeof NumericInput> = {
             {simplify: "required", name: "mixed"},
             {simplify: "required", name: "percent"},
             {simplify: "required", name: "pi"},
+            {simplify: "required", name: "proper"},
+            {simplify: "required", name: "improper"},
         ],
     },
     argTypes: {
