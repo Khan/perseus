@@ -17,7 +17,7 @@ import {
     withCoefficient,
 } from "./numeric-input.testdata";
 
-import type {PerseusNumericInputScoringData} from "@khanacademy/perseus-score";
+import type {PerseusNumericInputRubric} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
@@ -159,7 +159,7 @@ describe("numeric-input widget", () => {
     });
 });
 
-describe("static function getOneCorrectAnswerFromScoringData", () => {
+describe("static function getOneCorrectAnswerFromRubric", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
@@ -173,7 +173,7 @@ describe("static function getOneCorrectAnswerFromScoringData", () => {
             (widgetOptions && widgetOptions.answers) || [];
 
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromScoringData?.({
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
                 answers,
                 coefficient: false,
             });
@@ -186,7 +186,7 @@ describe("static function getOneCorrectAnswerFromScoringData", () => {
         const answers: ReadonlyArray<any> =
             (widgetOptions && widgetOptions.answers) || [];
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromScoringData?.({
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
                 answers,
                 coefficient: false,
             });
@@ -196,7 +196,7 @@ describe("static function getOneCorrectAnswerFromScoringData", () => {
     it("can not get a correct answer from scoring data with no answer", () => {
         const answers: Array<never> = [];
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromScoringData?.({
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
                 answers,
                 coefficient: false,
             });
@@ -204,7 +204,7 @@ describe("static function getOneCorrectAnswerFromScoringData", () => {
     });
 
     it("supports error bars", () => {
-        const scoringData: PerseusNumericInputScoringData = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     status: "correct",
@@ -219,9 +219,7 @@ describe("static function getOneCorrectAnswerFromScoringData", () => {
             coefficient: true,
         };
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromScoringData?.(
-                scoringData,
-            );
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
         expect(singleAnswer).toBe("1 ± 0.2");
     });
 });

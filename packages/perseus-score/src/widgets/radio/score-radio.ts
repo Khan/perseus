@@ -3,14 +3,14 @@ import ErrorCodes from "../../error-codes";
 import validateRadio from "./validate-radio";
 
 import type {
-    PerseusRadioScoringData,
+    PerseusRadioRubric,
     PerseusRadioUserInput,
     PerseusScore,
 } from "../../validation.types";
 
 function scoreRadio(
     userInput: PerseusRadioUserInput,
-    scoringData: PerseusRadioScoringData,
+    rubric: PerseusRadioRubric,
 ): PerseusScore {
     const validationError = validateRadio(userInput);
     if (validationError) {
@@ -21,12 +21,9 @@ function scoreRadio(
         return sum + (selected ? 1 : 0);
     }, 0);
 
-    const numCorrect: number = scoringData.choices.reduce(
-        (sum, currentChoice) => {
-            return currentChoice.correct ? sum + 1 : sum;
-        },
-        0,
-    );
+    const numCorrect: number = rubric.choices.reduce((sum, currentChoice) => {
+        return currentChoice.correct ? sum + 1 : sum;
+    }, 0);
 
     if (numCorrect > 1 && numSelected !== numCorrect) {
         return {
@@ -36,7 +33,7 @@ function scoreRadio(
         // If NOTA and some other answer are checked, ...
     }
 
-    const noneOfTheAboveSelected = scoringData.choices.some(
+    const noneOfTheAboveSelected = rubric.choices.some(
         (choice, index) =>
             choice.isNoneOfTheAbove && userInput.choicesSelected[index],
     );
@@ -50,12 +47,12 @@ function scoreRadio(
 
     const correct = userInput.choicesSelected.every((selected, i) => {
         let isCorrect: boolean;
-        if (scoringData.choices[i].isNoneOfTheAbove) {
-            isCorrect = scoringData.choices.every((choice, j) => {
+        if (rubric.choices[i].isNoneOfTheAbove) {
+            isCorrect = rubric.choices.every((choice, j) => {
                 return i === j || !choice.correct;
             });
         } else {
-            isCorrect = !!scoringData.choices[i].correct;
+            isCorrect = !!rubric.choices[i].correct;
         }
         return isCorrect === selected;
     });

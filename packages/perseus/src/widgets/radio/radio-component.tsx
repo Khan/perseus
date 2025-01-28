@@ -19,7 +19,7 @@ import type {
     ShowSolutions,
 } from "@khanacademy/perseus-core";
 import type {
-    PerseusRadioScoringData,
+    PerseusRadioRubric,
     PerseusRadioUserInput,
 } from "@khanacademy/perseus-score";
 
@@ -39,7 +39,7 @@ export type RenderProps = {
     values?: ReadonlyArray<boolean>;
 };
 
-type Props = WidgetProps<RenderProps, PerseusRadioScoringData>;
+type Props = WidgetProps<RenderProps, PerseusRadioRubric>;
 
 type DefaultProps = Required<
     Pick<
@@ -268,10 +268,10 @@ class Radio extends React.Component<Props> implements Widget {
      */
     showRationalesForCurrentlySelectedChoices: (
         arg1: PerseusRadioWidgetOptions,
-    ) => void = (scoringData) => {
+    ) => void = (rubric) => {
         const {choiceStates} = this.props;
         if (choiceStates) {
-            const score = scoreRadio(this.getUserInput(), scoringData);
+            const score = scoreRadio(this.getUserInput(), rubric);
             const widgetCorrect =
                 score.type === "points" && score.total === score.earned;
 

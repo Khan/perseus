@@ -1,7 +1,7 @@
 import scoreGrapher from "./score-grapher";
 
 import type {
-    PerseusGrapherScoringData,
+    PerseusGrapherRubric,
     PerseusGrapherUserInput,
 } from "../../validation.types";
 import type {Coord} from "@khanacademy/perseus-core";
@@ -24,7 +24,7 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const scoringData: PerseusGrapherScoringData = {
+        const rubric: PerseusGrapherRubric = {
             correct: {
                 type: "logarithm",
                 asymptote,
@@ -33,7 +33,7 @@ describe("scoreGrapher", () => {
         };
 
         // Act
-        const result = scoreGrapher(userInput, scoringData);
+        const result = scoreGrapher(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -56,7 +56,7 @@ describe("scoreGrapher", () => {
             coords: null,
         };
 
-        const scoringData: PerseusGrapherScoringData = {
+        const rubric: PerseusGrapherRubric = {
             correct: {
                 type: "exponential",
                 asymptote,
@@ -65,7 +65,7 @@ describe("scoreGrapher", () => {
         };
 
         // Act
-        const result = scoreGrapher(userInput, scoringData);
+        const result = scoreGrapher(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -86,7 +86,7 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const scoringData: PerseusGrapherScoringData = {
+        const rubric: PerseusGrapherRubric = {
             correct: {
                 type: "linear",
                 coords,
@@ -94,7 +94,7 @@ describe("scoreGrapher", () => {
         };
 
         // Act
-        const result = scoreGrapher(userInput, scoringData);
+        const result = scoreGrapher(userInput, rubric);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -117,7 +117,7 @@ describe("scoreGrapher", () => {
             ],
         };
 
-        const rubric: PerseusGrapherScoringData = {
+        const rubric: PerseusGrapherRubric = {
             correct: {
                 type: "linear",
                 coords: null,
@@ -143,7 +143,7 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const scoringData: PerseusGrapherScoringData = {
+        const rubric: PerseusGrapherRubric = {
             correct: {
                 type: "linear",
                 coords,
@@ -151,7 +151,7 @@ describe("scoreGrapher", () => {
         };
 
         // Act
-        const result = scoreGrapher(userInput, scoringData);
+        const result = scoreGrapher(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -167,7 +167,7 @@ describe("scoreGrapher", () => {
             ],
         };
 
-        const scoringData: PerseusGrapherScoringData = {
+        const rubric: PerseusGrapherRubric = {
             correct: {
                 type: "linear",
                 coords: [
@@ -178,7 +178,7 @@ describe("scoreGrapher", () => {
         };
 
         // Act
-        const result = scoreGrapher(userInput, scoringData);
+        const result = scoreGrapher(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();

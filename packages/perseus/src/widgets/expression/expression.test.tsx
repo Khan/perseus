@@ -269,16 +269,16 @@ describe("Expression Widget", function () {
         });
     });
 
-    describe("getOneCorrectAnswerFromScoringData", () => {
+    describe("getOneCorrectAnswerFromRubric", () => {
         beforeEach(() => {
             jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
         });
 
-        it("should return undefined if scoringData.value is null/undefined", () => {
+        it("should return undefined if rubric.value is null/undefined", () => {
             // Arrange
-            const scoringData = {
+            const rubric = {
                 answerForms: [],
                 buttonSets: [],
                 functions: [],
@@ -287,9 +287,7 @@ describe("Expression Widget", function () {
 
             // Act
             const result =
-                ExpressionWidgetExport.getOneCorrectAnswerFromScoringData?.(
-                    scoringData,
-                );
+                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
 
             // Assert
             expect(result).toBeUndefined();
@@ -297,7 +295,7 @@ describe("Expression Widget", function () {
 
         it("returns a correct answer when there is one correct answer", () => {
             // Arrange
-            const scoringData = {
+            const rubric = {
                 answerForms: [
                     {
                         value: "123",
@@ -313,9 +311,7 @@ describe("Expression Widget", function () {
 
             // Act
             const result =
-                ExpressionWidgetExport.getOneCorrectAnswerFromScoringData?.(
-                    scoringData,
-                );
+                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
 
             // Assert
             expect(result).toEqual("123");
@@ -323,7 +319,7 @@ describe("Expression Widget", function () {
 
         it("returns the first correct answer when there are multiple correct answers", () => {
             // Arrange
-            const scoringData = {
+            const rubric = {
                 answerForms: [
                     {
                         value: "123",
@@ -345,9 +341,7 @@ describe("Expression Widget", function () {
 
             // Act
             const result =
-                ExpressionWidgetExport.getOneCorrectAnswerFromScoringData?.(
-                    scoringData,
-                );
+                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
 
             // Assert
             expect(result).toEqual("123");
@@ -557,38 +551,6 @@ describe("Expression Widget", function () {
             expect(
                 screen.queryByText("Sorry, I don't understand that!"),
             ).toBeNull();
-        });
-    });
-
-    describe("propUpgrades", () => {
-        it("can upgrade from v0 to v1", () => {
-            const v0props = {
-                times: false,
-                buttonSets: ["basic"],
-                functions: [],
-                form: false,
-                simplify: false,
-                value: "42",
-            };
-
-            const expected: PerseusExpressionWidgetOptions = {
-                times: false,
-                buttonSets: ["basic"],
-                functions: [],
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: false,
-                        simplify: false,
-                        value: "42",
-                    },
-                ],
-            };
-
-            const result: PerseusExpressionWidgetOptions =
-                ExpressionWidgetExport.propUpgrades?.["1"](v0props);
-
-            expect(result).toEqual(expected);
         });
     });
 });

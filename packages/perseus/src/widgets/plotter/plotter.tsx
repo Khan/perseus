@@ -18,13 +18,13 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 import type {
-    PerseusPlotterScoringData,
+    PerseusPlotterRubric,
     PerseusPlotterUserInput,
 } from "@khanacademy/perseus-score";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusPlotterScoringData> & {
+type Props = WidgetProps<RenderProps, PerseusPlotterRubric> & {
     labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
     picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
 };

@@ -14,11 +14,11 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 import type {PerseusDropdownWidgetOptions} from "@khanacademy/perseus-core";
 import type {
-    PerseusDropdownScoringData,
+    PerseusDropdownRubric,
     PerseusDropdownUserInput,
 } from "@khanacademy/perseus-score";
 
-type Props = WidgetProps<RenderProps, PerseusDropdownScoringData> & {
+type Props = WidgetProps<RenderProps, PerseusDropdownRubric> & {
     selected: number;
 };
 

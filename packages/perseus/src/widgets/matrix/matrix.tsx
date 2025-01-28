@@ -24,7 +24,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matr
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 import type {
-    PerseusMatrixScoringData,
+    PerseusMatrixRubric,
     PerseusMatrixUserInput,
 } from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -94,7 +94,7 @@ type ExternalProps = WidgetProps<
         // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
         static?: boolean | undefined;
     },
-    PerseusMatrixScoringData
+    PerseusMatrixRubric
 >;
 
 // Assert that the PerseusMatrixWidgetOptions parsed from JSON can be passed
@@ -105,7 +105,7 @@ type ExternalProps = WidgetProps<
 // defaultProps.
 0 as any as WidgetProps<
     PerseusMatrixWidgetOptions,
-    PerseusMatrixScoringData
+    PerseusMatrixRubric
 > satisfies PropsFor<typeof Matrix>;
 
 type Props = ExternalProps & {

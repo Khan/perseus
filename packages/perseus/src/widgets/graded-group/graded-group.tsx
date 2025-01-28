@@ -37,7 +37,7 @@ import type {
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 import type {PerseusGradedGroupWidgetOptions} from "@khanacademy/perseus-core";
 import type {
-    PerseusGradedGroupScoringData,
+    PerseusGradedGroupRubric,
     PerseusScore,
 } from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -73,7 +73,7 @@ type RenderProps = PerseusGradedGroupWidgetOptions; // exports has no 'transform
 
 type Props = WidgetProps<
     RenderProps,
-    PerseusGradedGroupScoringData,
+    PerseusGradedGroupRubric,
     TrackingGradedGroupExtraArguments
 > & {
     inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
@@ -105,7 +105,7 @@ type State = {
 // via defaultProps.
 0 as any as WidgetProps<
     PerseusGradedGroupWidgetOptions,
-    PerseusGradedGroupScoringData
+    PerseusGradedGroupRubric
 > satisfies PropsFor<typeof GradedGroup>;
 
 // A Graded Group is more or less a Group widget that displays a check
@@ -192,7 +192,7 @@ export class GradedGroup
             score.type === "points"
                 ? score.message || ""
                 : score.message
-                  ? `${INVALID_MESSAGE_PREFIX} ${mapErrorToString(score.message)}`
+                  ? `${INVALID_MESSAGE_PREFIX} ${mapErrorToString(score.message, this.context.strings)}`
                   : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE_1}${DEFAULT_INVALID_MESSAGE_2}`;
 
         this.setState({

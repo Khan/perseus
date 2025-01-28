@@ -1,7 +1,7 @@
 import {Errors, PerseusError, GrapherUtil} from "@khanacademy/perseus-core";
 
 import type {
-    PerseusGrapherScoringData,
+    PerseusGrapherRubric,
     PerseusGrapherUserInput,
     PerseusScore,
 } from "../../validation.types";
@@ -32,9 +32,9 @@ function getCoefficientsByType(
 
 function scoreGrapher(
     userInput: PerseusGrapherUserInput,
-    scoringData: PerseusGrapherScoringData,
+    rubric: PerseusGrapherRubric,
 ): PerseusScore {
-    if (userInput.type !== scoringData.correct.type) {
+    if (userInput.type !== rubric.correct.type) {
         return {
             type: "points",
             earned: 0,
@@ -54,7 +54,7 @@ function scoreGrapher(
     // Get new function handler for grading
     const grader = GrapherUtil.functionForType(userInput.type);
     const guessCoeffs = getCoefficientsByType(userInput);
-    const correctCoeffs = getCoefficientsByType(scoringData.correct);
+    const correctCoeffs = getCoefficientsByType(rubric.correct);
 
     if (guessCoeffs == null || correctCoeffs == null) {
         return {

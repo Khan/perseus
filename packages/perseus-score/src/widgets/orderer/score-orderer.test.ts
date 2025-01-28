@@ -2,11 +2,11 @@ import scoreOrderer from "./score-orderer";
 import * as OrdererValidator from "./validate-orderer";
 
 import type {
-    PerseusOrdererScoringData,
+    PerseusOrdererRubric,
     PerseusOrdererUserInput,
 } from "../../validation.types";
 
-function generateOrdererScoringData(): PerseusOrdererScoringData {
+function generateOrdererRubric(): PerseusOrdererRubric {
     return {
         otherOptions: [],
         layout: "horizontal",
@@ -25,49 +25,46 @@ function generateOrdererScoringData(): PerseusOrdererScoringData {
 }
 
 describe("scoreOrderer", () => {
-    it("is correct when the userInput is in the same order and is the same length as the scoringData's correctOption content items", () => {
+    it("is correct when the userInput is in the same order and is the same length as the rubric's correctOption content items", () => {
         // Arrange
-        const scoringData: PerseusOrdererScoringData =
-            generateOrdererScoringData();
+        const rubric: PerseusOrdererRubric = generateOrdererRubric();
 
         const userInput: PerseusOrdererUserInput = {
-            current: scoringData.correctOptions.map((e) => e.content),
+            current: rubric.correctOptions.map((e) => e.content),
         };
 
         // Act
-        const result = scoreOrderer(userInput, scoringData);
+        const result = scoreOrderer(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 
-    it("is incorrect when the userInput is not in the same order as the scoringData's correctOption content items", () => {
+    it("is incorrect when the userInput is not in the same order as the rubric's correctOption content items", () => {
         // Arrange
-        const scoringData: PerseusOrdererScoringData =
-            generateOrdererScoringData();
+        const rubric: PerseusOrdererRubric = generateOrdererRubric();
 
         const userInput: PerseusOrdererUserInput = {
-            current: scoringData.options.map((e) => e.content),
+            current: rubric.options.map((e) => e.content),
         };
 
         // Act
-        const result = scoreOrderer(userInput, scoringData);
+        const result = scoreOrderer(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
-    it("is incorrect when the userInput is not the same length as the scoringData's correctOption content items", () => {
+    it("is incorrect when the userInput is not the same length as the rubric's correctOption content items", () => {
         // Arrange
-        const scoringData: PerseusOrdererScoringData =
-            generateOrdererScoringData();
+        const rubric: PerseusOrdererRubric = generateOrdererRubric();
 
         const userInput: PerseusOrdererUserInput = {
-            current: scoringData.correctOptions.map((e) => e.content).slice(1),
+            current: rubric.correctOptions.map((e) => e.content).slice(1),
         };
 
         // Act
-        const result = scoreOrderer(userInput, scoringData);
+        const result = scoreOrderer(userInput, rubric);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -79,14 +76,13 @@ describe("scoreOrderer", () => {
             .spyOn(OrdererValidator, "default")
             .mockReturnValue(null);
 
-        const scoringData: PerseusOrdererScoringData =
-            generateOrdererScoringData();
+        const rubric: PerseusOrdererRubric = generateOrdererRubric();
 
         const userInput: PerseusOrdererUserInput = {
-            current: scoringData.correctOptions.map((e) => e.content),
+            current: rubric.correctOptions.map((e) => e.content),
         };
         // Act
-        const result = scoreOrderer(userInput, scoringData);
+        const result = scoreOrderer(userInput, rubric);
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith(userInput);
@@ -102,15 +98,14 @@ describe("scoreOrderer", () => {
                 message: null,
             });
 
-        const scoringData: PerseusOrdererScoringData =
-            generateOrdererScoringData();
+        const rubric: PerseusOrdererRubric = generateOrdererRubric();
 
         const userInput: PerseusOrdererUserInput = {
             current: [],
         };
 
         // Act
-        const result = scoreOrderer(userInput, scoringData);
+        const result = scoreOrderer(userInput, rubric);
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith(userInput);

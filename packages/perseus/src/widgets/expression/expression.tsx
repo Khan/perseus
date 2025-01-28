@@ -30,7 +30,7 @@ import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {
-    PerseusExpressionScoringData,
+    PerseusExpressionRubric,
     PerseusExpressionUserInput,
 } from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -72,7 +72,7 @@ type RenderProps = {
     keypadConfiguration: ReturnType<typeof keypadConfigurationForProps>;
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusExpressionScoringData>;
+type ExternalProps = WidgetProps<RenderProps, PerseusExpressionRubric>;
 
 export type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -546,11 +546,11 @@ export default {
     getPublicWidgetOptions: getExpressionPublicWidgetOptions,
 
     // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'ScoringData' is not assignable to type 'PerseusExpressionScoringData'.
-    getOneCorrectAnswerFromScoringData(
-        scoringData: PerseusExpressionScoringData,
+    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.
+    getOneCorrectAnswerFromRubric(
+        rubric: PerseusExpressionRubric,
     ): string | null | undefined {
-        const correctAnswers = (scoringData.answerForms || []).filter(
+        const correctAnswers = (rubric.answerForms || []).filter(
             (answerForm) => answerForm.considered === "correct",
         );
         if (correctAnswers.length === 0) {

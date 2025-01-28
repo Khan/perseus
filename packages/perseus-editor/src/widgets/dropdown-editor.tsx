@@ -1,5 +1,9 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components, EditorJsonify, iconTrash} from "@khanacademy/perseus";
+import {
+    dropdownLogic,
+    type DropdownDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import PropTypes from "prop-types";
@@ -26,15 +30,8 @@ class DropdownEditor extends React.Component<Props> {
 
     static widgetName = "dropdown" as const;
 
-    static defaultProps: Props = {
-        placeholder: "",
-        choices: [
-            {
-                content: "",
-                correct: false,
-            },
-        ],
-    };
+    static defaultProps: DropdownDefaultWidgetOptions =
+        dropdownLogic.defaultWidgetOptions;
 
     onVisibleLabelChange: (arg1: string) => void = (visibleLabel) => {
         this.props.onChange({visibleLabel});

@@ -218,11 +218,32 @@
         &.leave {
             display: none;
         }
+
+        .inline-options {
+            float: inline-start; /* flexbox and inline-block don't work on <legend> elements, so going old-school here */
+            line-height: 24px; /* for alignment with items in same line (like pills or buttons) */
+            padding-inline-end: 0.5em;
+        }
+
+        .tooltip-for-legend {
+            display: inline-block;
+            line-height: 24px;
+        }
     }
 
     // Are any widgets capable of overflowing in the editor interface?
     .categorizer-container {
         overflow-x: scroll;
+    }
+
+    .section-accordion {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .delete-item-button {
+        align-self: center;
+        padding-right: 0.5em;
     }
 }
 
@@ -230,6 +251,33 @@
     float: left;
     font-size: 14px;
     margin-right: 10px;
+}
+
+.perseus-editor-accordion-container {
+    display: inline-grid;
+    width: 100%;
+
+    &.collapsed {
+        grid-template-rows: 0fr;
+        min-height: 0;
+        visibility: hidden;
+        transition:
+            all 0.25s step-end,
+            grid-template-rows 0.25s;
+    }
+
+    &.expanded {
+        grid-template-rows: 1fr;
+        min-height: 100%;
+        visibility: visible;
+        transition: grid-template-rows 0.5s;
+    }
+
+    .perseus-editor-accordion-content {
+        overflow: hidden;
+        margin: 0 -1px; /* allows focus ring on accordion to show */
+        padding: 0 1px;
+    }
 }
 
 .perseus-editor-widgets-selectors {
@@ -538,25 +586,27 @@
 // Input Number / Text Input
 //
 .perseus-input-number-editor {
-    font-size: 14px;
+    font-family: Lato, "Noto Sans", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
 
-    .ui-title,
-    .msg-title {
-        display: inline-block;
-        text-align: center;
+    .answer-option {
+        .unsimplified-options {
+            min-height: 48px;
+        }
     }
 
-    .ui-title {
-        width: 100px;
-    }
-
-    .msg-title {
-        margin-left: 5px;
-        width: 230px;
-    }
-
-    .options-container {
-        padding-left: 30px;
+    .perseus-textarea-pair {
+        font-size: 16px;
+        .perseus-textarea-underlay {
+            margin-bottom: 26px;
+        }
+        textarea {
+            background-color: #ffffff;
+            border: 1px solid rgba(33, 36, 44, 0.5);
+            border-radius: 4px;
+        }
     }
 
     .input-answer-editor-value,
@@ -565,38 +615,59 @@
     }
 
     .input-answer-editor-value-container {
-        border: @widgetBorder;
-        border-radius: @widgetBorderRadius;
-        float: left;
-        .size(100px, 53px);
-        overflow: hidden;
-        position: relative;
+        display: block;
+
+        input {
+            background: #ffffff;
+            border: 1px solid rgba(33, 36, 44, 0.5);
+            border-radius: 4px;
+            color: #21242c;
+            font-family: Lato, "Noto Sans", sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 20px;
+            outline-offset: -2px;
+        }
 
         .numeric-input-value {
-            border: 0;
-            font-size: 13px;
-            outline-offset: -3px;
-            width: 100%;
+            margin-left: 8px;
+            width: 6em;
         }
 
-        &.with-max-error {
+        .max-error-input-value {
+            display: none;
+            width: 3em;
+        }
+
+        .max-error-plusmn {
+            cursor: default;
+            display: none;
+            height: 32px;
+            padding-top: 4px;
+            text-align: center;
+            vertical-align: top;
+            width: 1em;
+        }
+
+        &.with-max-error,
+        &:focus-within {
             .numeric-input-value {
-                width: 60%;
+                border-right: none;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
             }
-        }
 
-        .max-error-container {
-            display: inline-block;
-            width: 40%;
-            .max-error-plusmn {
-                cursor: default;
+            .max-error-input-value {
+                border-left: none;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
                 display: inline-block;
-                width: 20%;
             }
-            .number-input {
-                border: 0;
-                font-size: 13px;
-                width: 80%;
+
+            .max-error-plusmn {
+                border-top: 1px solid rgba(33, 36, 44, 0.5);
+                border-bottom: 1px solid rgba(33, 36, 44, 0.5);
+                display: inline-block;
             }
         }
     }

@@ -1,13 +1,13 @@
 import scoreInputNumber from "./score-input-number";
 
 import type {
-    PerseusInputNumberScoringData,
+    PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
 } from "../../validation.types";
 
 describe("scoreInputNumber", () => {
     it("scores correct answer correctly", () => {
-        const scoringData: PerseusInputNumberScoringData = {
+        const rubric: PerseusInputNumberRubric = {
             maxError: 0.1,
             inexact: false,
             value: 1,
@@ -19,13 +19,13 @@ describe("scoreInputNumber", () => {
             currentValue: "1",
         };
 
-        const score = scoreInputNumber(useInput, scoringData);
+        const score = scoreInputNumber(useInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("scores incorrect answer correctly", () => {
-        const scoringData: PerseusInputNumberScoringData = {
+        const rubric: PerseusInputNumberRubric = {
             maxError: 0.1,
             inexact: false,
             value: 1,
@@ -37,13 +37,13 @@ describe("scoreInputNumber", () => {
             currentValue: "2",
         };
 
-        const score = scoreInputNumber(useInput, scoringData);
+        const score = scoreInputNumber(useInput, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("shows as invalid with a nonsense answer", () => {
-        const scoringData: PerseusInputNumberScoringData = {
+        const rubric: PerseusInputNumberRubric = {
             maxError: 0.1,
             inexact: false,
             value: 1,
@@ -55,7 +55,7 @@ describe("scoreInputNumber", () => {
             currentValue: "sadasdfas",
         };
 
-        const score = scoreInputNumber(useInput, scoringData);
+        const score = scoreInputNumber(useInput, rubric);
 
         expect(score).toHaveInvalidInput("EXTRA_SYMBOLS_ERROR");
     });
@@ -67,7 +67,7 @@ describe("scoreInputNumber", () => {
     // important to the test.
     // https://khanacademy.atlassian.net/browse/LC-691
     it("doesn't default to validating pi", () => {
-        const scoringData: PerseusInputNumberScoringData = {
+        const rubric: PerseusInputNumberRubric = {
             maxError: 0.1,
             inexact: false,
             value: 241.90263432641407,
@@ -81,7 +81,7 @@ describe("scoreInputNumber", () => {
             currentValue: "241.91",
         };
 
-        const score = scoreInputNumber(userInput, scoringData);
+        const score = scoreInputNumber(userInput, rubric);
 
         expect(score.message).not.toBe(
             "Your answer is close, but yyou may " +
@@ -94,7 +94,7 @@ describe("scoreInputNumber", () => {
     });
 
     it("validates against pi if provided in answerType", () => {
-        const scoringData: PerseusInputNumberScoringData = {
+        const rubric: PerseusInputNumberRubric = {
             maxError: 0.1,
             inexact: false,
             value: 241.90263432641407,
@@ -106,13 +106,13 @@ describe("scoreInputNumber", () => {
             currentValue: "77 pi",
         };
 
-        const score = scoreInputNumber(userInput, scoringData);
+        const score = scoreInputNumber(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("should handle invalid answers with no error callback", function () {
-        const rubric: PerseusInputNumberScoringData = {
+        const rubric: PerseusInputNumberRubric = {
             value: "2^{-2}-3",
             simplify: "optional",
         };
