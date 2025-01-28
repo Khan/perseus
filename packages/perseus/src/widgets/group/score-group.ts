@@ -1,11 +1,9 @@
-import {scoreWidgetsFunctional} from "../../renderer-util";
-import {flattenScores} from "../../util/scoring";
-
-import type {PerseusStrings} from "../../strings";
-import type {
-    PerseusGroupRubric,
-    PerseusGroupUserInput,
-    PerseusScore,
+import {
+    flattenScores,
+    scoreWidgetsFunctional,
+    type PerseusGroupRubric,
+    type PerseusGroupUserInput,
+    type PerseusScore,
 } from "@khanacademy/perseus-score";
 
 // The `group` widget is basically a widget hosting a full Perseus system in
@@ -13,14 +11,12 @@ import type {
 function scoreGroup(
     userInput: PerseusGroupUserInput,
     rubric: PerseusGroupRubric,
-    strings: PerseusStrings,
     locale: string,
 ): PerseusScore {
     const scores = scoreWidgetsFunctional(
         rubric.widgets,
         Object.keys(rubric.widgets),
         userInput,
-        strings,
         locale,
     );
 

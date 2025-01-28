@@ -6,6 +6,7 @@ export type {
     MarkerType,
     InteractiveMarkerType,
     Relationship,
+    Alignment,
 } from "./types";
 export type {ErrorKind} from "./error/errors";
 export type {FunctionTypeMappingKeys} from "./utils/grapher-util";
@@ -109,6 +110,11 @@ export {default as tableLogic} from "./widgets/table";
 export type {TableDefaultWidgetOptions} from "./widgets/table";
 export {default as videoLogic} from "./widgets/video";
 export type {VideoDefaultWidgetOptions} from "./widgets/video";
+
+export {
+    getUpgradedWidgetOptions,
+    upgradeWidgetInfoToLatestVersion,
+} from "./widgets/upgrade";
 
 export type * from "./widgets/logic-export.types";
 

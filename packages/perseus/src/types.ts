@@ -15,6 +15,7 @@ import type {
     getOrdererPublicWidgetOptions,
     getCategorizerPublicWidgetOptions,
     getExpressionPublicWidgetOptions,
+    Alignment,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -493,15 +494,6 @@ export type TrackingGradedGroupExtraArguments = {
 type TrackingSequenceExtraArguments = {
     visible: number;
 };
-
-export type Alignment =
-    | "default"
-    | "block"
-    | "inline-block"
-    | "inline"
-    | "float-left"
-    | "float-right"
-    | "full-width";
 
 type WidgetOptions = any;
 

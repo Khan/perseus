@@ -19,6 +19,7 @@
         "@khanacademy/math-input": "^22.2.2",
         "@khanacademy/perseus-core": "3.3.0",
         "@khanacademy/perseus-linter": "^1.2.14",
+        "@khanacademy/perseus-score": "^2.0.0",
         "@khanacademy/pure-markdown": "^0.3.23",
         "@khanacademy/simple-markdown": "^0.13.16",
         "@khanacademy/wonder-blocks-banner": "4.0.5",
