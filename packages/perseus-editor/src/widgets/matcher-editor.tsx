@@ -1,5 +1,9 @@
 /* eslint-disable react/forbid-prop-types */
 import {components} from "@khanacademy/perseus";
+import {
+    matcherLogic,
+    type MatcherDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -20,13 +24,8 @@ class MatcherEditor extends React.Component<Props> {
 
     static widgetName = "matcher" as const;
 
-    static defaultProps: Props = {
-        left: ["$x$", "$y$", "$z$"],
-        right: ["$1$", "$2$", "$3$"],
-        labels: ["test", "label"],
-        orderMatters: false,
-        padding: true,
-    };
+    static defaultProps: MatcherDefaultWidgetOptions =
+        matcherLogic.defaultWidgetOptions;
 
     onLabelChange: (
         arg1: number,

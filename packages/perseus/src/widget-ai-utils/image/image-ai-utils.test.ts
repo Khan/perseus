@@ -2,7 +2,7 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./image-ai-utils";
 
-import type {ImageWidget} from "../../perseus-types";
+import type {ImageWidget} from "@khanacademy/perseus-core";
 
 const question = {
     content:
@@ -40,6 +40,16 @@ const question = {
 } as const;
 
 describe("Image AI utils", () => {
+    beforeEach(() => {
+        // Mocked for loading graphie in svg-image
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                text: () => "",
+                ok: true,
+            }),
+        ) as jest.Mock;
+    });
+
     it("it returns JSON with the expected format and fields", () => {
         const renderProps: any = {
             alt: "An image of a textbook",

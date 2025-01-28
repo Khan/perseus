@@ -4,8 +4,7 @@ import {useState} from "react";
 import {ServerItemRendererWithDebugUI} from "../../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
 import {
-    itemWithInput,
-    itemWithInputNumber,
+    itemWithNumericInput,
     itemWithLintingError,
     labelImageItem,
     itemWithImages,
@@ -25,11 +24,7 @@ export default {
 } as Story;
 
 export const NumericInputItem = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={itemWithInput} />;
-};
-
-export const InputNumberItem = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={itemWithInputNumber} />;
+    return <ServerItemRendererWithDebugUI item={itemWithNumericInput} />;
 };
 
 export const LabelImageItem = (args: StoryArgs): React.ReactElement => {
@@ -56,7 +51,7 @@ export const WithLintingError = (args: StoryArgs): React.ReactElement => {
     );
 };
 
-export const InputNumberWithInteractionCallback = (
+export const NumericInputWithInteractionCallback = (
     args: StoryArgs,
 ): React.ReactElement => {
     return (

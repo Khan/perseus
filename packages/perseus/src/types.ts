@@ -1,24 +1,31 @@
 import type {ILogger} from "./logging/log";
-import type {Item} from "./multi-items/item-types";
+import type {PerseusStrings} from "./strings";
+import type {SizeClass} from "./util/sizing-utils";
+import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
+import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     Hint,
     PerseusAnswerArea,
     PerseusGraphType,
     PerseusWidget,
     PerseusWidgetsMap,
-} from "./perseus-types";
-import type {PerseusStrings} from "./strings";
-import type {SizeClass} from "./util/sizing-utils";
+    AnalyticsEventHandlerFn,
+    Version,
+    WidgetOptionsUpgradeMap,
+    getOrdererPublicWidgetOptions,
+    getCategorizerPublicWidgetOptions,
+    getExpressionPublicWidgetOptions,
+} from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
+    PerseusScore,
     Rubric,
     UserInput,
     UserInputArray,
     UserInputMap,
-} from "./validation.types";
-import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
-import type {KeypadAPI} from "@khanacademy/math-input";
-import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
+    ValidationData,
+    ValidationResult,
+} from "@khanacademy/perseus-score";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
 
@@ -65,13 +72,15 @@ export interface Widget {
     getDOMNodeForPath?: (path: FocusPath) => Element | Text | null;
     deselectIncorrectSelectedChoices?: () => void;
 
+    /**
+     * Returns widget state that can be passed back to `restoreSerializedState`
+     * to put the widget back into exactly the same state. If the widget does
+     * not implement this function, the renderer simply returns all of the
+     * widget's props.
+     */
     // TODO(jeremy): I think this return value is wrong. The widget
     // getSerializedState should just return _its_ serialized state, not a
     // key/value list of all widget states (i think!)
-    // Returns widget state that can be passed back to `restoreSerializedState`
-    // to put the widget back into exactly the same state. If the widget does
-    // not implement this function, the renderer simply returns all of the
-    // widget's props.
     getSerializedState?: () => SerializedState; // SUSPECT,
     restoreSerializedState?: (props: any, callback: () => void) => any;
 
@@ -88,30 +97,11 @@ export interface Widget {
     getUserInput?: () => UserInputArray | UserInput | undefined;
 
     showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
-    examples?: () => ReadonlyArray<string>;
     getPromptJSON?: () => WidgetPromptJSON;
 }
 
 export type ImageDict = {
     [url: string]: Dimensions;
-};
-
-export type PerseusScore =
-    | {
-          type: "invalid";
-          message?: string | null | undefined;
-          suppressAlmostThere?: boolean | null | undefined;
-      }
-    | {
-          type: "points";
-          earned: number;
-          total: number;
-          message?: string | null | undefined;
-      };
-
-export type Version = {
-    major: number;
-    minor: number;
 };
 
 export type EditorMode = "edit" | "preview" | "json";
@@ -137,8 +127,6 @@ export type ChangeHandler = (
         question?: any;
         answerArea?: PerseusAnswerArea | null;
         itemDataVersion?: Version;
-        // used in MutirenderEditor
-        item?: Item;
         editorMode?: EditorMode;
         jsonMode?: boolean;
         // perseus-all-package/widgets/unit.jsx
@@ -154,7 +142,7 @@ export type ChangeHandler = (
         // Interactive Graph callback (see legacy: interactive-graph.tsx)
         graph?: PerseusGraphType;
     },
-    callback?: () => unknown | null | undefined,
+    callback?: () => void,
     silent?: boolean,
 ) => unknown;
 
@@ -210,54 +198,10 @@ export const MafsGraphTypeFlags = [
     "none",
 ] as const;
 
-export const InteractiveGraphLockedFeaturesFlags = [
-    /**
-     * Enables/Disables locked features in the new Mafs interactive-graph
-     * widget (locked labels).
-     */
-    "interactive-graph-locked-features-labels",
-    /**
-     * Enables/disables the aria labels associated with specific locked
-     * figures in the updated Interactive Graph widget.
-     */
-    "locked-figures-aria",
-
-    /**
-     * Enables/disables the labels associated with locked points in the
-     * updated Interactive Graph widget.
-     */
-    "locked-point-labels",
-    /**
-     * Enables/disables the labels associated with locked lines in the
-     * updated Interactive Graph widget.
-     */
-    "locked-line-labels",
-    /**
-     * enables/disables the labels associated with locked vectors in the
-     * updated Interactive Graph widget.
-     */
-    "locked-vector-labels",
-    /**
-     * Enables/disables the labels associated with locked ellipses in the
-     * updated Interactive Graph widget.
-     */
-    "locked-ellipse-labels",
-    /**
-     * Enables/disables the labels associated with locked polygons in the
-     * updated Interactive Graph widget.
-     */
-    "locked-polygon-labels",
-    /**
-     * Enables/disables the labels associated with locked functions in the
-     * updated Interactive Graph widget.
-     */
-    "locked-function-labels",
-] as const;
-
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
- * @see APIOptionsWithDefaults
+ * @see {@link APIOptionsWithDefaults}
  */
 export type APIOptions = Readonly<{
     isArticle?: boolean;
@@ -383,11 +327,7 @@ export type APIOptions = Readonly<{
          *
          * Add values to the relevant array to create new flags.
          */
-        mafs?:
-            | false
-            | ({[Key in (typeof MafsGraphTypeFlags)[number]]?: boolean} & {
-                  [Key in (typeof InteractiveGraphLockedFeaturesFlags)[number]]?: boolean;
-              });
+        mafs?: false | {[Key in (typeof MafsGraphTypeFlags)[number]]?: boolean};
     };
     /**
      * This is a callback function that returns all of the Widget props
@@ -459,15 +399,17 @@ type InitialRequestUrlInterface = {
 
 export type VideoKind = "YOUTUBE_ID" | "READABLE_ID";
 
-// An object for dependency injection, to allow different clients
-// to provide different methods for logging, translation, network
-// requests, etc.
-//
-// NOTE: You should avoid adding new dependencies here as this type was added
-// as a quick fix to get around the fact that some of the dependencies Perseus
-// needs are used in places where neither `APIOptions` nor a React Context
-// could be used. Aim to shrink the footprint of PerseusDependencies and try to
-// use alternative methods where possible.
+/**
+ * An object for dependency injection, to allow different clients
+ * to provide different methods for logging, translation, network
+ * requests, etc.
+ *
+ * NOTE: You should avoid adding new dependencies here as this type was added
+ * as a quick fix to get around the fact that some of the dependencies Perseus
+ * needs are used in places where neither `APIOptions` nor a React Context
+ * could be used. Aim to shrink the footprint of PerseusDependencies and try to
+ * use alternative methods where possible.
+ */
 export type PerseusDependencies = {
     // JIPT
     JIPT: JIPT;
@@ -563,9 +505,11 @@ export type Alignment =
 
 type WidgetOptions = any;
 
-// A transform that maps the WidgetOptions (sometimes referred to as
-// EditorProps) to the props used to render the widget. Often this is an
-// identity transform.
+/**
+ * A transform that maps the WidgetOptions (sometimes referred to as
+ * EditorProps) to the props used to render the widget. Often this is an
+ * identity transform.
+ */
 // TODO(jeremy): Make this generic so that the WidgetOptions and output type
 // become strongly typed.
 export type WidgetTransform = (
@@ -573,6 +517,13 @@ export type WidgetTransform = (
     strings: PerseusStrings,
     problemNumber?: number,
 ) => any;
+
+export type WidgetValidatorFunction = (
+    userInput: UserInput,
+    validationData: ValidationData,
+    strings: PerseusStrings,
+    locale: string,
+) => ValidationResult;
 
 export type WidgetScorerFunction = (
     // The user data needed to score
@@ -585,6 +536,14 @@ export type WidgetScorerFunction = (
     // (1,000.00 === 1.000,00 in some countries)
     locale?: string,
 ) => PerseusScore;
+
+/**
+ * A union type of all the functions that provide public widget options.
+ */
+export type PublicWidgetOptionsFunction =
+    | typeof getCategorizerPublicWidgetOptions
+    | typeof getOrdererPublicWidgetOptions
+    | typeof getExpressionPublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
@@ -602,11 +561,12 @@ export type WidgetExports<
     /** Supresses widget from showing up in the dropdown in the content editor */
     hidden?: boolean;
     /**
-    The widget version. Any time the _major_ version changes, the widget
-    should provide a new entry in the propUpgrades map to migrate from the
-    older version to the current (new) version. Minor version changes must
-    be backwards compatible with previous minor versions widget options.
-    This key defaults to `{major: 0, minor: 0}` if not provided.
+     * The widget version. Any time the _major_ version changes, the widget
+     * should provide a new entry in the propUpgrades map to migrate from the
+     * older version to the current (new) version. Minor version changes must
+     * be backwards compatible with previous minor versions widget options.
+     *
+     * This key defaults to `{major: 0, minor: 0}` if not provided.
      */
     version?: Version;
     supportedAlignments?: ReadonlyArray<Alignment>;
@@ -617,27 +577,51 @@ export type WidgetExports<
 
     traverseChildWidgets?: any; // (Props, traverseRenderer) => NewProps,
 
-    /** transforms the widget options to the props used to render the widget */
+    /**
+     * Transforms the widget options to the props used to render the widget.
+     */
     transform?: WidgetTransform;
-    /** transforms the widget options to the props used to render the widget for
-    static renders  */
+    /**
+     * Transforms the widget options to the props used to render the widget for
+     * static renders.
+     */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
+    /**
+     * Validates the learner's guess to check if it's sufficient for scoring.
+     * Typically, this is basically an "emptiness" check, but for some widgets
+     * such as `interactive-graph` it is a check that the learner has made any
+     * edits (ie. the widget is not in it's origin state).
+     */
+    validator?: WidgetValidatorFunction;
+
+    /**
+     * A function that scores user input (the guess) for the widget.
+     */
     scorer?: WidgetScorerFunction;
+
+    /**
+     * A function that provides a public version of the widget options that can
+     * be shared with the client.
+     */
+    getPublicWidgetOptions?: PublicWidgetOptionsFunction;
+
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,
     ) => string | null | undefined;
 
     /**
-    A map of major version numbers (as a string, eg "1") to a function that
-    migrates from the _previous_ major version.
-    Example:
-      propUpgrades: {'1': (options) => ({...options})}
-    would migrate from major version 0 to 1.
-    */
-    propUpgrades?: {
-        [key: string]: (arg1: any) => any;
-    }; // OldProps => NewProps,
+     * A map of major version numbers (as a string, eg "1") to a function that
+     * migrates from the _previous_ major version.
+     *
+     * Example:
+     * ```
+     * propUpgrades: {'1': (options) => ({...options})}
+     * ```
+     *
+     * This configuration would migrate options from major version 0 to 1.
+     */
+    propUpgrades?: WidgetOptionsUpgradeMap;
 }>;
 
 export type FilterCriterion =
@@ -648,6 +632,14 @@ export type FilterCriterion =
           widget?: Widget | null | undefined,
       ) => boolean);
 
+/**
+ * The full set of props provided to all widgets when they are rendered. The
+ * `RenderProps` generic argument are the widget-specific props that originate
+ * from the stored PerseusItem. Note that they may not match the serialized
+ * widget options exactly as they are the result of running the options through
+ * any `propUpgrades` the widget defines as well as its `transform` or
+ * `staticTransform` functions (depending on the options `static` flag).
+ */
 // NOTE: Rubric should always be the corresponding widget options type for the component.
 // TODO: in fact, is it really the rubric? WidgetOptions is what we use to configure the widget
 // (which is what this seems to be for)

@@ -15,20 +15,13 @@ const meta: Meta = {
             logarithms: true,
             preAlgebra: true,
             trigonometry: true,
+            scientific: true,
         },
         convertDotToTimes: false,
         value: "",
         onChange: action("onChange"),
         analytics: {onAnalyticsEvent: () => Promise.resolve()},
         labelText: "Math input",
-    },
-    argTypes: {
-        onChange: {
-            control: {type: null},
-        },
-        analytics: {
-            control: {type: null},
-        },
     },
     parameters: {
         controls: {exclude: ["onChange", "analytics"]},

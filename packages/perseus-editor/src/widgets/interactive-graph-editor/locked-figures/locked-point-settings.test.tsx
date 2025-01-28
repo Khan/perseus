@@ -6,7 +6,11 @@ import * as React from "react";
 import {flags} from "../../../__stories__/flags-for-api-options";
 
 import LockedPointSettings from "./locked-point-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    getDefaultFigureForType,
+    mockedGenerateSpokenMathDetailsForTests,
+    mockedJoinLabelsAsSpokenMathForTests,
+} from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -26,12 +30,13 @@ const defaultProps = {
 
 const defaultLabel = getDefaultFigureForType("label");
 
-// Mock the async function generateSpokenMathDetails
+// Mock the async functions
 jest.mock("./util", () => ({
     ...jest.requireActual("./util"),
-    generateSpokenMathDetails: (input) => {
-        return Promise.resolve(`Spoken math details for ${input}`);
-    },
+    generateSpokenMathDetails: (input) =>
+        mockedGenerateSpokenMathDetailsForTests(input),
+    joinLabelsAsSpokenMath: (input) =>
+        mockedJoinLabelsAsSpokenMathForTests(input),
 }));
 
 describe("LockedPointSettings", () => {
@@ -421,7 +426,7 @@ describe("LockedPointSettings", () => {
         // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
             ariaLabel:
-                "Spoken math details for Point at (0, 0). Appearance solid gray.",
+                "Point at spoken $0$ comma spoken $0$. Appearance solid gray.",
         });
     });
 
@@ -450,11 +455,12 @@ describe("LockedPointSettings", () => {
         await userEvent.click(autoGenButton);
 
         // Assert
+        expect(onChangeProps).toHaveBeenCalled();
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
             ariaLabel:
-                "Spoken math details for Point A at (0, 0). Appearance solid gray.",
+                "Point spoken A at spoken $0$ comma spoken $0$. Appearance solid gray.",
         });
     });
 
@@ -491,7 +497,7 @@ describe("LockedPointSettings", () => {
         // with "Spoken math details for " prepended.
         expect(onChangeProps).toHaveBeenCalledWith({
             ariaLabel:
-                "Spoken math details for Point A, B at (0, 0). Appearance solid gray.",
+                "Point spoken A, spoken B at spoken $0$ comma spoken $0$. Appearance solid gray.",
         });
     });
 });

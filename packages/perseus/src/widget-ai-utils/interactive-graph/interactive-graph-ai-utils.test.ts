@@ -29,6 +29,14 @@ describe("InteractiveGraph AI utils", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
+
+        // Mocked for loading graphie in svg-image
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                text: () => "",
+                ok: true,
+            }),
+        ) as jest.Mock;
     });
 
     it("should return JSON for an angle graph", () => {
@@ -47,7 +55,7 @@ describe("InteractiveGraph AI utils", () => {
                 [-10, 10],
                 [-10, 10],
             ],
-            labels: ["x", "y"],
+            labels: ["$x$", "$y$"],
         };
 
         const userInput: any = {
@@ -79,7 +87,7 @@ describe("InteractiveGraph AI utils", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                labels: ["x", "y"],
+                labels: ["$x$", "$y$"],
             },
             userInput: {
                 coords: [
@@ -106,7 +114,7 @@ describe("InteractiveGraph AI utils", () => {
                 [-10, 10],
                 [-10, 10],
             ],
-            labels: ["x", "y"],
+            labels: ["$x$", "$y$"],
         };
 
         const userInput: any = {
@@ -132,7 +140,7 @@ describe("InteractiveGraph AI utils", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                labels: ["x", "y"],
+                labels: ["$x$", "$y$"],
             },
             userInput: {
                 center: [1, 1],
@@ -155,7 +163,7 @@ describe("InteractiveGraph AI utils", () => {
                 [-10, 10],
                 [-10, 10],
             ],
-            labels: ["x", "y"],
+            labels: ["$x$", "$y$"],
         };
 
         const userInput: any = {
@@ -183,7 +191,7 @@ describe("InteractiveGraph AI utils", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                labels: ["x", "y"],
+                labels: ["$x$", "$y$"],
             },
             userInput: {
                 coords: [
@@ -214,7 +222,7 @@ describe("InteractiveGraph AI utils", () => {
                 [-10, 10],
                 [-10, 10],
             ],
-            labels: ["x", "y"],
+            labels: ["$x$", "$y$"],
         };
 
         const userInput: any = {
@@ -254,7 +262,7 @@ describe("InteractiveGraph AI utils", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                labels: ["x", "y"],
+                labels: ["$x$", "$y$"],
             },
             userInput: {
                 coords: [
@@ -279,7 +287,7 @@ describe("InteractiveGraph AI utils", () => {
                 [-10, 10],
                 [-10, 10],
             ],
-            labels: ["x", "y"],
+            labels: ["$x$", "$y$"],
         };
 
         const userInput: any = {
@@ -305,7 +313,7 @@ describe("InteractiveGraph AI utils", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                labels: ["x", "y"],
+                labels: ["$x$", "$y$"],
             },
             userInput: {
                 coords: [
@@ -333,7 +341,7 @@ describe("InteractiveGraph AI utils", () => {
                 [-10, 10],
                 [-10, 10],
             ],
-            labels: ["x", "y"],
+            labels: ["$x$", "$y$"],
         };
 
         const userInput: any = {
@@ -365,7 +373,7 @@ describe("InteractiveGraph AI utils", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                labels: ["x", "y"],
+                labels: ["$x$", "$y$"],
             },
             userInput: {
                 coords: [
@@ -392,7 +400,7 @@ describe("InteractiveGraph AI utils", () => {
                 [-10, 10],
                 [-10, 10],
             ],
-            labels: ["x", "y"],
+            labels: ["$x$", "$y$"],
         };
 
         const userInput: any = {
@@ -422,7 +430,7 @@ describe("InteractiveGraph AI utils", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                labels: ["x", "y"],
+                labels: ["$x$", "$y$"],
             },
             userInput: {
                 coords: [
@@ -448,7 +456,7 @@ describe("InteractiveGraph AI utils", () => {
                 [-10, 10],
                 [-10, 10],
             ],
-            labels: ["x", "y"],
+            labels: ["$x$", "$y$"],
         };
 
         const userInput: any = {
@@ -476,7 +484,7 @@ describe("InteractiveGraph AI utils", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                labels: ["x", "y"],
+                labels: ["$x$", "$y$"],
             },
             userInput: {
                 coords: [
@@ -502,7 +510,7 @@ describe("InteractiveGraph AI utils", () => {
                 [-10, 10],
                 [-10, 10],
             ],
-            labels: ["x", "y"],
+            labels: ["$x$", "$y$"],
         };
 
         const userInput: any = {
@@ -531,7 +539,7 @@ describe("InteractiveGraph AI utils", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                labels: ["x", "y"],
+                labels: ["$x$", "$y$"],
             },
             userInput: {
                 coords: [
@@ -556,7 +564,7 @@ describe("InteractiveGraph AI utils", () => {
                 [-10, 10],
                 [-10, 10],
             ],
-            labels: ["x", "y"],
+            labels: ["$x$", "$y$"],
         };
 
         const userInput: any = {
@@ -584,7 +592,7 @@ describe("InteractiveGraph AI utils", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                labels: ["x", "y"],
+                labels: ["$x$", "$y$"],
             },
             userInput: {
                 coords: [
@@ -605,7 +613,7 @@ describe("InteractiveGraph AI utils", () => {
                 [-10, 10],
                 [-10, 10],
             ],
-            labels: ["x", "y"],
+            labels: ["$x$", "$y$"],
         };
 
         const userInput: any = {
@@ -650,7 +658,7 @@ describe("InteractiveGraph AI utils", () => {
                             [-10, 10],
                             [-10, 10],
                         ],
-                        labels: ["x", "y"],
+                        labels: ["$x$", "$y$"],
                     },
                     userInput: {
                         coords: [
@@ -694,7 +702,7 @@ describe("InteractiveGraph AI utils", () => {
                             [-10, 10],
                             [-10, 10],
                         ],
-                        labels: ["x", "y"],
+                        labels: ["$x$", "$y$"],
                     },
                     userInput: {
                         center: [0, 0],
@@ -731,7 +739,7 @@ describe("InteractiveGraph AI utils", () => {
                             [-10, 10],
                             [-10, 10],
                         ],
-                        labels: ["x", "y"],
+                        labels: ["$x$", "$y$"],
                     },
                     userInput: {
                         coords: [
@@ -770,7 +778,7 @@ describe("InteractiveGraph AI utils", () => {
                             [-10, 10],
                             [-10, 10],
                         ],
-                        labels: ["x", "y"],
+                        labels: ["$x$", "$y$"],
                     },
                     userInput: {
                         coords: [
@@ -815,7 +823,7 @@ describe("InteractiveGraph AI utils", () => {
                             [-4, 4],
                             [-4, 4],
                         ],
-                        labels: ["x", "y"],
+                        labels: ["$x$", "$y$"],
                     },
                     userInput: {
                         coords: undefined,
@@ -854,7 +862,7 @@ describe("InteractiveGraph AI utils", () => {
                             [-1, 6],
                             [-1, 6],
                         ],
-                        labels: ["x", "y"],
+                        labels: ["$x$", "$y$"],
                     },
                     userInput: {
                         coords: [
@@ -894,7 +902,7 @@ describe("InteractiveGraph AI utils", () => {
                             [-10, 10],
                             [-10, 10],
                         ],
-                        labels: ["x", "y"],
+                        labels: ["$x$", "$y$"],
                     },
                     userInput: {
                         coords: [
@@ -935,7 +943,7 @@ describe("InteractiveGraph AI utils", () => {
                             [-10, 10],
                             [-10, 10],
                         ],
-                        labels: ["x", "y"],
+                        labels: ["$x$", "$y$"],
                     },
                     userInput: {
                         coords: [
@@ -976,7 +984,7 @@ describe("InteractiveGraph AI utils", () => {
                             [-10, 10],
                             [-10, 10],
                         ],
-                        labels: ["x", "y"],
+                        labels: ["$x$", "$y$"],
                     },
                     userInput: {
                         coords: [
@@ -1019,7 +1027,7 @@ describe("InteractiveGraph AI utils", () => {
                             [-10, 10],
                             [-10, 10],
                         ],
-                        labels: ["x", "y"],
+                        labels: ["$x$", "$y$"],
                     },
                     userInput: {
                         coords: [

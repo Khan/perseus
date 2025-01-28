@@ -5,254 +5,249 @@ import {mockStrings} from "../../strings";
 
 import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react";
 
-type StoryArgs = Record<any, any>;
+type Story = StoryObj<typeof MafsQuestionRenderer>;
 
-export default {
+const meta: Meta<typeof MafsQuestionRenderer> = {
     title: "Perseus/Widgets/Interactive Graph Visual Regression Tests",
+    component: MafsQuestionRenderer,
+    parameters: {
+        chromatic: {disableSnapshot: false},
+    },
 };
+export default meta;
 
-export const MafsWithCustomAxisLabels = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder()
+function MobileContainerDecorator(Story) {
+    return (
+        <div className="framework-perseus perseus-mobile">
+            <Story />
+        </div>
+    );
+}
+
+export const MafsWithCustomAxisLabels: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .withAxisLabels(
                 "\\text{Custom $x$ label}",
                 "\\text{Custom $y$ label}",
             )
-            .build()}
-    />
-);
+            .build(),
+    },
+};
 
-export const MafsWithFractionalGridStep = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder()
+export const MafsWithFractionalGridStep: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .withGridStep(2.571, 3.123)
-            .build()}
-    />
-);
+            .build(),
+    },
+};
 
-export const MafsWithFractionalAxisTicks = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder()
+export const MafsWithFractionalAxisTicks: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .withTickStep(1.5, 1.5)
-            .build()}
-    />
-);
+            .build(),
+    },
+};
 
-export const MafsWithGridMarkings = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder()
+export const MafsWithAxesMarkings: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withMarkings("axes")
+            .build(),
+    },
+};
+
+export const MafsWithGridMarkings: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .withMarkings("grid")
-            .build()}
-    />
-);
+            .build(),
+    },
+};
 
-export const MafsWithNoMarkings = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder()
+export const MafsWithNoMarkings: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .withMarkings("none")
-            .build()}
-    />
-);
+            .build(),
+    },
+};
 
-export const MafsWithSmallRange = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder()
+export const MafsWithSmallRange: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .withXRange(-2, 2)
             .withYRange(-2, 2)
-            .build()}
-    />
-);
+            .build(),
+    },
+};
 
-export const MafsWithLargeRange = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder()
+export const MafsWithLargeRange: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .withXRange(-50, 50)
             .withYRange(-50, 50)
-            .build()}
-    />
-);
+            .build(),
+    },
+};
 
-export const MafsWithYAxisAtLeft = (args: StoryArgs): React.ReactElement => (
-    <>
-        <MafsQuestionRenderer
-            question={interactiveGraphQuestionBuilder()
-                .withXRange(0, 20)
-                .addLockedLine([1, 1], [5, 2])
-                .build()}
-        />
-    </>
-);
+export const MafsWithYAxisAtLeft: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withXRange(0, 20)
+            .addLockedLine([1, 1], [5, 2])
+            .build(),
+    },
+};
 
-export const MafsWithYAxisNearLeft = (args: StoryArgs): React.ReactElement => (
-    <>
-        <MafsQuestionRenderer
-            question={interactiveGraphQuestionBuilder()
-                .withXRange(-1, 20)
-                .addLockedLine([1, 1], [5, 2])
-                .build()}
-        />
-    </>
-);
+export const MafsWithYAxisNearLeft: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withXRange(-1, 20)
+            .addLockedLine([1, 1], [5, 2])
+            .build(),
+    },
+};
 
-export const MafsWithYAxisJustOverLeft = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <>
-        <MafsQuestionRenderer
-            question={interactiveGraphQuestionBuilder()
-                .withXRange(-3, 20)
-                .addLockedLine([1, 1], [5, 2])
-                .build()}
-        />
-    </>
-);
+export const MafsWithYAxisJustOverLeft: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withXRange(-3, 20)
+            .addLockedLine([1, 1], [5, 2])
+            .build(),
+    },
+};
 
-export const MafsWithYAxisOffLeft = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withXRange(1, 20).build()}
-    />
-);
+export const MafsWithYAxisOffLeft: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder().withXRange(1, 20).build(),
+    },
+};
 
-export const MafsWithYAxisOffFarLeft = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withXRange(6, 20).build()}
-    />
-);
+export const MafsWithYAxisOffFarLeft: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder().withXRange(6, 20).build(),
+    },
+};
 
-export const MafsWithYAxisAtRight = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withXRange(-20, 0).build()}
-    />
-);
+export const MafsWithYAxisAtRight: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder().withXRange(-20, 0).build(),
+    },
+};
 
-export const MafsWithYAxisOffRight = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withXRange(-20, -1).build()}
-    />
-);
+export const MafsWithYAxisOffRight: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder().withXRange(-20, -1).build(),
+    },
+};
 
-export const MafsWithXAxisAtBottom = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withYRange(0, 20).build()}
-    />
-);
+export const MafsWithXAxisAtBottom: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder().withYRange(0, 20).build(),
+    },
+};
 
-export const MafsWithXAxisNearBottom = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withYRange(-1, 20).build()}
-    />
-);
+export const MafsWithXAxisNearBottom: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder().withYRange(-1, 20).build(),
+    },
+};
 
-export const MafsWithXAxisOffBottom = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withYRange(1, 20).build()}
-    />
-);
+export const MafsWithXAxisOffBottom: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder().withYRange(1, 20).build(),
+    },
+};
 
-export const MafsWithXAxisJustOverBottom = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <>
-        <MafsQuestionRenderer
-            question={interactiveGraphQuestionBuilder()
-                .withYRange(-3, 20)
-                .addLockedLine([-3, 2], [5, 16])
-                .build()}
-        />
-    </>
-);
+export const MafsWithXAxisJustOverBottom: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withYRange(-3, 20)
+            .addLockedLine([-3, 2], [5, 16])
+            .build(),
+    },
+};
 
-export const MafsWithXAxisAtTop = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withYRange(-20, 0).build()}
-    />
-);
+export const MafsWithXAxisAtTop: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder().withYRange(-20, 0).build(),
+    },
+};
 
-export const MafsWithXAxisOffTop = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withYRange(-20, -1).build()}
-    />
-);
+export const MafsWithXAxisOffTop: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder().withYRange(-20, -1).build(),
+    },
+};
 
-export const MafsInMobileContainer = (args: StoryArgs): React.ReactElement => (
-    <div className="framework-perseus perseus-mobile">
-        <MafsQuestionRenderer
-            question={interactiveGraphQuestionBuilder().build()}
-        />
-    </div>
-);
+export const MafsInMobileContainer: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder().build(),
+    },
+    decorators: [MobileContainerDecorator],
+};
 
-export const MafsWithMultipleSegments = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder()
+export const MafsWithMultipleSegments: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .withSegments({numSegments: 3})
-            .build()}
-    />
-);
+            .build(),
+    },
+};
 
-export const MafsCircleGraphWithNonsquareRange = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <div className="framework-perseus perseus-mobile">
-        <MafsQuestionRenderer
-            question={interactiveGraphQuestionBuilder()
-                .withCircle()
-                .withXRange(-10, 10)
-                .withYRange(-5, 5)
-                .build()}
-        />
-    </div>
-);
+export const MafsCircleGraphWithNonsquareRange: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withCircle()
+            .withXRange(-10, 10)
+            .withYRange(-5, 5)
+            .build(),
+    },
+    // NOTE(jeremy): I migrated these stories to the v3 CSF story format, but
+    // I'm unclear why this one story forces mobile when none of the others do,
+    // and this story doesn't look mobile-specific. :thinking:
+    decorators: [MobileContainerDecorator],
+};
 
-export const MafsLineGraphWithNonsquareRange = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder()
+export const MafsLineGraphWithNonsquareRange: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .addLockedLine([-3, -3], [3, 3])
             .withXRange(-5, 5)
             .withYRange(-10, 10)
-            .build()}
-    />
-);
+            .build(),
+    },
+};
 
-export const MafsWithLockedPoints = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder()
+export const MafsWithLockedPoints: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .addLockedPointAt(3, 2)
             .addLockedPointAt(-1, 1)
             .addLockedPointAt(0, -4)
-            .build()}
-    />
-);
+            .build(),
+    },
+};
 
-export const MafsWithLockedLine = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder()
+export const MafsWithLockedLine: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .addLockedLine([-1, 1], [2, 3])
-            .build()}
-    />
-);
+            .build(),
+    },
+};
 
-export const MafsWithProtractor = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withProtractor().build()}
-    />
-);
+export const MafsWithProtractor: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder().withProtractor().build(),
+    },
+};
 
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;

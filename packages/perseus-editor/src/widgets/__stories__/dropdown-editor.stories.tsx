@@ -14,5 +14,9 @@ export default {
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {
-    return <DropdownEditor onChange={action("onChange")} />;
+    return (
+        <div className="framework-perseus">
+            <DropdownEditor onChange={action("onChange")} />
+        </div>
+    );
 };

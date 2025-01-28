@@ -5,7 +5,7 @@ import {
     type LockedPolygonType,
     type LockedFigureColor,
     type LockedLabelType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -36,6 +36,7 @@ import {
     generateLockedFigureAppearanceDescription,
     generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -50,7 +51,6 @@ export type Props = LockedFigureSettingsCommonProps &
 
 const LockedPolygonSettings = (props: Props) => {
     const {
-        flags,
         points,
         color,
         showVertices,
@@ -70,17 +70,20 @@ const LockedPolygonSettings = (props: Props) => {
      * with the math details converted into spoken words.
      */
     async function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
-        let str = await generateSpokenMathDetails(
-            `Polygon${visiblelabel} with ${points.length} sides, vertices at `,
-        );
+        let str = `Polygon${visiblelabel} with ${points.length} sides, vertices at `;
 
         // Add the coordinates of each point to the aria label
-        str += points.map(([x, y]) => `(${x}, ${y})`).join(", ");
+        const pointsList = await Promise.all(
+            points.map(async ([x, y]) => {
+                // Ensure negative values are read correctly within aria labels.
+                const spokenX = await generateSpokenMathDetails(`$${x}$`);
+                const spokenY = await generateSpokenMathDetails(`$${y}$`);
+                return `${spokenX} comma ${spokenY}`;
+            }),
+        );
+        str += pointsList.join(", ");
 
         const polygonAppearance = generateLockedFigureAppearanceDescription(
             color,
@@ -147,7 +150,7 @@ const LockedPolygonSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -194,8 +197,7 @@ const LockedPolygonSettings = (props: Props) => {
                 {/* Color */}
                 <ColorSelect
                     selectedValue={color}
-                    // TODO(LEMS-2656): remove TS suppression
-                    onChange={handleColorChange as any}
+                    onChange={handleColorChange}
                 />
                 <Strut size={spacing.medium_16} />
 
@@ -230,11 +232,7 @@ const LockedPolygonSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
-                // TODO(LEMS-2656): remove TS suppression
-                onChange={
-                    ((value: "solid" | "dashed") =>
-                        onChangeProps({strokeStyle: value})) as any
-                }
+                onChange={(value) => onChangeProps({strokeStyle: value})}
             />
 
             {/* Show vertices switch */}
@@ -348,73 +346,59 @@ const LockedPolygonSettings = (props: Props) => {
             </PerseusEditorAccordion>
 
             {/* Aria label */}
-            {flags?.["mafs"]?.["locked-figures-aria"] && (
-                <>
-                    <Strut size={spacing.small_12} />
-                    <View style={styles.horizontalRule} />
-
-                    <LockedFigureAria
-                        ariaLabel={ariaLabel}
-                        getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
-                        onChangeProps={(newProps) => {
-                            onChangeProps(newProps);
-                        }}
-                    />
-                </>
-            )}
+            <Strut size={spacing.small_12} />
+            <View style={styles.horizontalRule} />
+            <LockedFigureAria
+                ariaLabel={ariaLabel}
+                getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                onChangeProps={(newProps) => {
+                    onChangeProps(newProps);
+                }}
+            />
 
             {/* Visible Labels */}
-            {flags?.["mafs"]?.["locked-polygon-labels"] && (
-                <>
-                    <Strut size={spacing.xxxSmall_4} />
-                    <View style={styles.horizontalRule} />
-                    <Strut size={spacing.small_12} />
+            <Strut size={spacing.xxxSmall_4} />
+            <View style={styles.horizontalRule} />
+            <Strut size={spacing.small_12} />
+            <LabelMedium>Visible labels</LabelMedium>
+            {labels?.map((label, labelIndex) => (
+                <LockedLabelSettings
+                    {...label}
+                    key={labelIndex}
+                    expanded={true}
+                    onChangeProps={(newLabel) => {
+                        handleLabelChange(newLabel, labelIndex);
+                    }}
+                    onRemove={() => {
+                        handleLabelRemove(labelIndex);
+                    }}
+                    containerStyle={styles.labelContainer}
+                />
+            ))}
+            <Button
+                kind="tertiary"
+                startIcon={plusCircle}
+                onClick={() => {
+                    const newLabel = {
+                        ...getDefaultFigureForType("label"),
+                        coord: [
+                            points[0][0],
+                            // Additional vertical offset for each
+                            // label so they don't overlap.
+                            points[0][1] - (labels?.length ?? 0),
+                        ],
+                        // Default to the same color as the ellipse
+                        color: color,
+                    } satisfies LockedLabelType;
 
-                    <LabelMedium>Visible labels</LabelMedium>
-
-                    {labels?.map((label, labelIndex) => (
-                        <LockedLabelSettings
-                            {...label}
-                            expanded={true}
-                            // TODO(LEMS-2656): remove TS suppression
-                            onChangeProps={
-                                ((newLabel: LockedLabelType) => {
-                                    handleLabelChange(newLabel, labelIndex);
-                                }) as any
-                            }
-                            onRemove={() => {
-                                handleLabelRemove(labelIndex);
-                            }}
-                            containerStyle={styles.labelContainer}
-                        />
-                    ))}
-
-                    <Button
-                        kind="tertiary"
-                        startIcon={plusCircle}
-                        onClick={() => {
-                            const newLabel = {
-                                ...getDefaultFigureForType("label"),
-                                coord: [
-                                    points[0][0],
-                                    // Additional vertical offset for each
-                                    // label so they don't overlap.
-                                    points[0][1] - (labels?.length ?? 0),
-                                ],
-                                // Default to the same color as the ellipse
-                                color: color,
-                            } satisfies LockedLabelType;
-
-                            onChangeProps({
-                                labels: [...(labels ?? []), newLabel],
-                            });
-                        }}
-                        style={styles.addButton}
-                    >
-                        Add visible label
-                    </Button>
-                </>
-            )}
+                    onChangeProps({
+                        labels: [...(labels ?? []), newLabel],
+                    });
+                }}
+                style={styles.addButton}
+            >
+                Add visible label
+            </Button>
 
             {/* Actions */}
             <LockedFigureSettingsActions

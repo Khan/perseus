@@ -1,8 +1,8 @@
-/* eslint-disable @babel/no-invalid-this */
 import {
     point as kpoint,
     vector as kvector,
     number as knumber,
+    KhanMath,
 } from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {entries} from "@khanacademy/wonder-stuff-core";
@@ -19,7 +19,6 @@ import {Log} from "../logging/log";
 import KhanColors from "./colors";
 import {DrawingTransform} from "./drawing-transform";
 import {GraphBounds} from "./graph-bounds";
-import KhanMath from "./math";
 import Tex from "./tex";
 
 import type {MouseHandler} from "./interactive";
@@ -128,6 +127,9 @@ export class Graphie {
         this.el = el;
         $(el).css("position", "relative");
         this.raphael = Raphael(el);
+
+        // Hide the Raphael canvas from screen readers
+        $(el).attr("aria-hidden", "true");
 
         // For a sometimes-reproducible IE8 bug; doesn't affect SVG browsers at all
         $(el).children("div").css("position", "absolute");

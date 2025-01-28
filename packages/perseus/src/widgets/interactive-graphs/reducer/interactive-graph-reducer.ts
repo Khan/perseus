@@ -1,31 +1,16 @@
-import {vector as kvector} from "@khanacademy/kmath";
+import {
+    angles,
+    coefficients,
+    geometry,
+    vector as kvector,
+} from "@khanacademy/kmath";
+import {approximateEqual} from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
-import Util from "../../../util";
-import {
-    angleMeasures,
-    ccw,
-    lawOfCosines,
-    magnitude,
-    polygonSidesIntersect,
-    reverseVector,
-    sign,
-    vector,
-} from "../../../util/geometry";
-import {getQuadraticCoefficients} from "../graphs/quadratic";
-import {
-    clamp,
-    clampToBox,
-    getAngleFromVertex,
-    getClockwiseAngle,
-    inset,
-    polar,
-    snap,
-    X,
-    Y,
-} from "../math";
+import {getArrayWithoutDuplicates} from "../graphs/utils";
+import {clamp, clampToBox, inset, snap, X, Y} from "../math";
 import {bound, isUnlimitedGraphState} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
@@ -70,13 +55,26 @@ import {
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
-import type {QuadraticCoords} from "../graphs/quadratic";
 import type {
     AngleGraphState,
     InteractiveGraphState,
     PairOfPoints,
 } from "../types";
+import type {QuadraticCoords} from "@khanacademy/kmath";
 import type {Interval} from "mafs";
+
+const {getAngleFromVertex, getClockwiseAngle, polar} = angles;
+const {
+    angleMeasures,
+    ccw,
+    lawOfCosines,
+    magnitude,
+    polygonSidesIntersect,
+    reverseVector,
+    sign,
+    vector,
+} = geometry;
+const {getQuadraticCoefficients} = coefficients;
 
 const minDistanceBetweenAngleVertexAndSidePoint = 2;
 
@@ -200,8 +198,15 @@ function doClickPoint(
 
 function doClosePolygon(state: InteractiveGraphState): InteractiveGraphState {
     if (isUnlimitedGraphState(state) && state.type === "polygon") {
+        // We want to remove any duplicate points when closing the polygon to
+        // (1) prevent the polygon from sides with length zero, and
+        // (2) make sure the question is can be marked correct if the polygon
+        //     LOOKS correct, even if two of the points are at the same coords.
+        const noDupedPoints = getArrayWithoutDuplicates(state.coords);
+
         return {
             ...state,
+            coords: noDupedPoints,
             closedPolygon: true,
         };
     }
@@ -483,8 +488,13 @@ function doMovePoint(
                 newValue: newValue,
             });
 
-            // Reject the move if it would cause the sides of the polygon to cross
-            if (polygonSidesIntersect(newCoords)) {
+            // Boolean value to track whether we can let the polygon sides interact.
+            // They can interact if it's an unlimited polygon that is open.
+            const polygonSidesCanIntersect =
+                state.numSides === "unlimited" && !state.closedPolygon;
+
+            // Reject the move if it would cause the sides of the polygon to cross.
+            if (!polygonSidesCanIntersect && polygonSidesIntersect(newCoords)) {
                 return state;
             }
 
@@ -764,11 +774,9 @@ interface ConstraintArgs {
     point: vec.Vector2;
 }
 
-const eq = Util.eq;
-
 // Less than or approximately equal
 function leq(a: any, b) {
-    return a < b || eq(a, b);
+    return a < b || approximateEqual(a, b);
 }
 
 function boundAndSnapToGrid(

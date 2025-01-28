@@ -36,9 +36,9 @@ class TexErrorView extends React.Component<Props, State> {
                 </View>
                 {showErrors && (
                     <View style={styles.errorExplanation}>
-                        If your math doesn't display correctly, these errors
-                        might help you troubleshoot. Message #content-kitchen
-                        for help.
+                        If your math doesn&apos;t display correctly, these
+                        errors might help you troubleshoot. Message
+                        #content-kitchen for help.
                     </View>
                 )}
                 {showErrors &&

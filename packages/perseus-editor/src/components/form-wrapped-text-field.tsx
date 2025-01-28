@@ -86,14 +86,14 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
 
     handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {onBlur} = this.props;
-        onBlur && onBlur(e);
+        onBlur?.(e);
 
         this.setState({focused: false});
     };
 
     handleFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {onFocus} = this.props;
-        onFocus && onFocus(e);
+        onFocus?.(e);
 
         this.setState({focused: true});
     };

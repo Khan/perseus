@@ -1,3 +1,5 @@
+import type {ErrorCodes} from "@khanacademy/perseus-score";
+
 /**
  * The translated strings that are used to render Perseus.
  */
@@ -130,6 +132,8 @@ export type PerseusStrings = {
     tan: string;
     simulationLoadFail: string;
     simulationLocaleWarning: string;
+    selectAnAnswer: string;
+    // The following strings are used for interactive graph SR descriptions.
     addPoint: string;
     removePoint: string;
     graphKeyboardPrompt: string;
@@ -146,18 +150,289 @@ export type PerseusStrings = {
     }) => string;
     srInteractiveElements: ({elements}: {elements: string}) => string;
     srNoInteractiveElements: string;
+    srCircleGraph: string;
+    srCircleShape: ({
+        centerX,
+        centerY,
+    }: {
+        centerX: string;
+        centerY: string;
+    }) => string;
+    srCircleRadiusPoint: ({
+        radiusPointX,
+        radiusPointY,
+    }: {
+        radiusPointX: string;
+        radiusPointY: string;
+    }) => string;
+    srCircleRadius: ({radius}: {radius: number}) => string;
+    srCircleOuterPoints: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        point3X,
+        point3Y,
+        point4X,
+        point4Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        point3X: string;
+        point3Y: string;
+        point4X: string;
+        point4Y: string;
+    }) => string;
+    srLinearGraph: string;
+    srLinearGraphPoints: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srLinearGraphSlopeIncreasing: string;
+    srLinearGraphSlopeDecreasing: string;
+    srLinearGraphSlopeHorizontal: string;
+    srLinearGraphSlopeVertical: string;
+    srLinearGraphXOnlyIntercept: ({xIntercept}: {xIntercept: string}) => string;
+    srLinearGraphYOnlyIntercept: ({yIntercept}: {yIntercept: string}) => string;
+    srLinearGraphBothIntercepts: ({
+        xIntercept,
+        yIntercept,
+    }: {
+        xIntercept: string;
+        yIntercept: string;
+    }) => string;
+    srLinearGraphOriginIntercept: string;
+    srLinearGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srAngleSideAtCoordinates: ({
+        point,
+        side,
+        x,
+        y,
+    }: {
+        point: number;
+        side: string;
+        x: string;
+        y: string;
+    }) => string;
+    srAngleVertexAtCoordinatesWithAngleMeasure: ({
+        x,
+        y,
+        angleMeasure,
+    }: {
+        x: string;
+        y: string;
+        angleMeasure: string;
+    }) => string;
+    srAngleGraphAriaLabel: string;
+    srAngleGraphAriaDescription: ({
+        angleMeasure,
+        vertexX,
+        vertexY,
+        startingSideX,
+        startingSideY,
+        endingSideX,
+        endingSideY,
+    }: {
+        angleMeasure: string;
+        vertexX: string;
+        vertexY: string;
+        startingSideX: string;
+        startingSideY: string;
+        endingSideX: string;
+        endingSideY: string;
+    }) => string;
+    srSingleSegmentGraphAriaLabel: string;
+    srMultipleSegmentGraphAriaLabel: ({
+        countOfSegments,
+    }: {
+        countOfSegments: number;
+    }) => string;
+    srMultipleSegmentIndividualLabel: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        indexOfSegment,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        indexOfSegment: number;
+    }) => string;
+    srSingleSegmentLabel: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srSegmentLength: ({length}: {length: string}) => string;
+    srSingleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+    }: {
+        endpointNumber: number;
+        x: string;
+        y: string;
+    }) => string;
+    srMultipleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+        indexOfSegment,
+    }: {
+        endpointNumber: number;
+        x: string;
+        y: string;
+        indexOfSegment: number;
+    }) => string;
+    srSegmentGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srLinearSystemGraph: string;
+    srLinearSystemPoints: ({
+        lineNumber,
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        lineNumber: number;
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srLinearSystemPoint({
+        lineNumber,
+        pointSequence,
+        x,
+        y,
+    }: {
+        lineNumber: number;
+        pointSequence: number;
+        x: string;
+        y: string;
+    }): string;
+    srRayGraph: string;
+    srRayPoints: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srRayEndpoint: ({x, y}: {x: string; y: string}) => string;
+    srRayTerminalPoint: ({x, y}: {x: string; y: string}) => string;
+    srRayGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srQuadraticGraph: string;
+    srQuadraticFaceUp: string;
+    srQuadraticFaceDown: string;
+    srQuadraticGraphVertexOrigin: string;
+    srQuadraticGraphVertexXAxis: string;
+    srQuadraticGraphVertexYAxis: string;
+    srQuadraticGraphVertexQuadrant: ({quadrant}: {quadrant: number}) => string;
+    srQuadraticTwoXIntercepts: ({
+        intercept1,
+        intercept2,
+    }: {
+        intercept1: string;
+        intercept2: string;
+    }) => string;
+    srQuadraticOneXIntercept: ({intercept}: {intercept: string}) => string;
+    srQuadraticYIntercept: ({intercept}: {intercept: string}) => string;
+    srQuadraticPointOrigin: ({pointNumber}: {pointNumber: number}) => string;
+    srQuadraticPointAxis: ({
+        pointNumber,
+        x,
+        y,
+    }: {
+        pointNumber: number;
+        x: string;
+        y: string;
+    }) => string;
+    srQuadraticPointQuadrant: ({
+        pointNumber,
+        x,
+        y,
+        quadrant,
+    }: {
+        pointNumber: number;
+        x: string;
+        y: string;
+        quadrant: number;
+    }) => string;
+    srQuadraticInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        point3X,
+        point3Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        point3X: string;
+        point3Y: string;
+    }) => string;
+    // The above strings are used for interactive graph SR descriptions.
 };
 
 /**
  * Untranslated strings used in Perseus. To be used by an external
  * translator to produce translated strings, passed in as `PerseusStrings`.
+ * !! Note: Ensure that all escape sequences are double-escaped. (e.g. `\\text` -> `\\\\text`)
  */
-export const strings: {
-    [key in keyof PerseusStrings]:
-        | string
-        | {context?: string; message: string}
-        | {context?: string; one: string; other: string};
-} = {
+export const strings = {
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
     mathInputBox: "Math input box",
@@ -169,8 +444,8 @@ export const strings: {
         "Your answer is close, but you may " +
         "have approximated pi. Enter your " +
         "answer as a multiple of pi, like " +
-        "<code>12\\ \\text{pi}</code> or " +
-        "<code>2/3\\ \\text{pi}</code>",
+        "12 pi or " +
+        "2/3 pi",
     EXTRA_SYMBOLS_ERROR:
         "We could not understand your " +
         "answer. Please check your answer for extra " +
@@ -180,7 +455,7 @@ export const strings: {
     MISSING_PERCENT_ERROR:
         "Your answer is almost correct, " +
         "but it is missing a " +
-        "<code>\\%</code> at the end.",
+        "<code>\\\\%</code> at the end.",
     MULTIPLICATION_SIGN_ERROR:
         "I'm a computer. I only understand " +
         "multiplication if you use an asterisk " +
@@ -217,10 +492,10 @@ export const strings: {
     simplifiedProperExample: "a *simplified proper* fraction, like $3/5$",
     improperExample: "an *improper* fraction, like $10/7$ or $14/8$",
     simplifiedImproperExample: "a *simplified improper* fraction, like $7/4$",
-    mixedExample: "a mixed number, like $1\\ 3/4$",
+    mixedExample: "a mixed number, like $1\\\\ 3/4$",
     decimalExample: "an *exact* decimal, like $0.75$",
-    percentExample: "a percent, like $12.34\\%$",
-    piExample: "a multiple of pi, like $12\\ \\text{pi}$ or $2/3\\ \\text{pi}$",
+    percentExample: "a percent, like $12.34\\\\%$",
+    piExample: "a multiple of pi, like $12$ pi or $2/3$ pi",
     yourAnswer: "**Your answer should be** ",
     yourAnswerLabel: "Your answer:",
     addPoints: "Click to add points",
@@ -318,17 +593,102 @@ export const strings: {
     simulationLoadFail: "Sorry, this simulation cannot load.",
     simulationLocaleWarning:
         "Sorry, this simulation isn't available in your language.",
+    selectAnAnswer: "Select an answer",
+
+    // The following strings are used for interactive graph SR descriptions.
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     closePolygon: "Close shape",
     openPolygon: "Re-open shape",
-    srPointAtCoordinates: {
-        context: "Screenreader-accessible description of a point on a graph",
-        message: "Point %(num)s at %(x)s comma %(y)s",
-    },
     srInteractiveElements: "Interactive elements: %(elements)s",
     srNoInteractiveElements: "No interactive elements",
+    // TODO(LEMS-2660): The following strings are ones that will need
+    // translation tickets after all interactive graph SR strings have
+    // been finalized. Remove this comment after the tickets have been
+    // created.
+    srPointAtCoordinates: "Point %(num)s at %(x)s comma %(y)s",
+    srCircleGraph: "A circle on a coordinate plane.",
+    srCircleShape:
+        "Circle. The center point is at %(centerX)s comma %(centerY)s.",
+    srCircleRadiusPoint:
+        "Radius point at %(radiusPointX)s comma %(radiusPointY)s.",
+    srCircleRadius: "Circle radius is %(radius)s.",
+    srCircleOuterPoints:
+        "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
+    srLinearGraph: "A line on a coordinate plane.",
+    srLinearGraphPoints:
+        "The line has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+    srLinearGraphSlopeIncreasing: "Its slope increases from left to right.",
+    srLinearGraphSlopeDecreasing: "Its slope decreases from left to right.",
+    srLinearGraphSlopeHorizontal: "Its slope is zero.",
+    srLinearGraphSlopeVertical: "Its slope is undefined.",
+    srLinearGraphXOnlyIntercept:
+        "The line crosses the X-axis at %(xIntercept)s comma 0.",
+    srLinearGraphYOnlyIntercept:
+        "The line crosses the Y-axis at 0 comma %(yIntercept)s.",
+    srLinearGraphBothIntercepts:
+        "The line crosses the X-axis at %(xIntercept)s comma 0 and the Y-axis at 0 comma %(yIntercept)s.",
+    srLinearGraphOriginIntercept:
+        "The line crosses the x and y axes at the graph's origin.",
+    srLinearGrabHandle:
+        "Line from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
+    srAngleSideAtCoordinates: "Point %(point)s, %(side)s at %(x)s comma %(y)s",
+    srAngleVertexAtCoordinatesWithAngleMeasure:
+        "Point 2, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees",
+    srAngleGraphAriaLabel: "An angle on a coordinate plane.",
+    srAngleGraphAriaDescription:
+        "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
+    srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
+    srMultipleSegmentGraphAriaLabel:
+        "%(countOfSegments)s line segments on a coordinate plane.",
+    srMultipleSegmentIndividualLabel:
+        "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+    srSingleSegmentLabel:
+        "Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+    srSegmentLength: "Segment length %(length)s units.",
+    srSingleSegmentGraphEndpointAriaLabel:
+        "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
+    srMultipleSegmentGraphEndpointAriaLabel:
+        "Endpoint %(endpointNumber)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
+    srSegmentGrabHandle:
+        "Segment from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
+    srLinearSystemGraph: "Two lines on a coordinate plane.",
+    srLinearSystemPoints:
+        "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+    srLinearSystemPoint:
+        "Point %(pointSequence)s on line %(lineNumber)s at %(x)s comma %(y)s.",
+    srRayGraph: "A ray on a coordinate plane.",
+    srRayPoints:
+        "The endpoint is at %(point1X)s comma %(point1Y)s and the ray goes through point %(point2X)s comma %(point2Y)s.",
+    srRayGrabHandle:
+        "Ray with endpoint %(point1X)s comma %(point1Y)s going through point %(point2X)s comma %(point2Y)s.",
+    srRayEndpoint: "Endpoint at %(x)s comma %(y)s.",
+    srRayTerminalPoint: "Through point at %(x)s comma %(y)s.",
+    srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
+    srQuadraticFaceUp: "The parabola opens upward.",
+    srQuadraticFaceDown: "The parabola opens downward.",
+    srQuadraticGraphVertexOrigin: "Vertex is at the origin.",
+    srQuadraticGraphVertexXAxis: "Vertex is on the X-axis.",
+    srQuadraticGraphVertexYAxis: "Vertex is on the Y-axis.",
+    srQuadraticGraphVertexQuadrant: "Vertex is in quadrant %(quadrant)s.",
+    srQuadraticTwoXIntercepts:
+        "The X-intercepts are at %(intercept1)s comma 0 and %(intercept2)s comma 0.",
+    srQuadraticOneXIntercept: "The X-intercept is at %(intercept)s comma 0.",
+    srQuadraticYIntercept: "The Y-intercept is at 0 comma %(intercept)s.",
+    srQuadraticPointOrigin: "Point %(pointNumber)s on parabola at the origin.",
+    srQuadraticPointAxis:
+        "Point %(pointNumber)s on parabola at %(x)s comma %(y)s.",
+    srQuadraticPointQuadrant:
+        "Point %(pointNumber)s on parabola in quadrant %(quadrant)s at %(x)s comma %(y)s.",
+    srQuadraticInteractiveElements:
+        "Parabola with points at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, and %(point3X)s comma %(point3Y)s.",
+    // The above strings are used for interactive graph SR descriptions.
+} satisfies {
+    [key in keyof PerseusStrings]:
+        | string
+        | {context?: string; message: string}
+        | {context?: string; one: string; other: string};
 };
 
 /**
@@ -485,12 +845,167 @@ export const mockStrings: PerseusStrings = {
     simulationLoadFail: "Sorry, this simulation cannot load.",
     simulationLocaleWarning:
         "Sorry, this simulation isn't available in your language.",
+    selectAnAnswer: "Select an answer",
+
+    // The following strings are used for interactive graph SR descriptions.
+    graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     addPoint: "Add Point",
     removePoint: "Remove Point",
-    graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     closePolygon: "Close shape",
     openPolygon: "Re-open shape",
     srPointAtCoordinates: ({num, x, y}) => `Point ${num} at ${x} comma ${y}`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
+    srCircleGraph: "A circle on a coordinate plane.",
+    srCircleShape: ({centerX, centerY}) =>
+        `Circle. The center point is at ${centerX} comma ${centerY}.`,
+    srCircleRadiusPoint: ({radiusPointX, radiusPointY}) =>
+        `Radius point at ${radiusPointX} comma ${radiusPointY}.`,
+    srCircleRadius: ({radius}) => `Circle radius is ${radius}.`,
+    srCircleOuterPoints: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        point3X,
+        point3Y,
+        point4X,
+        point4Y,
+    }) =>
+        `Points on the circle at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, ${point3X} comma ${point3Y}, ${point4X} comma ${point4Y}.`,
+    srLinearGraph: "A line on a coordinate plane.",
+    srLinearGraphPoints: ({point1X, point1Y, point2X, point2Y}) =>
+        `The line has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
+    srLinearGraphSlopeIncreasing: "Its slope increases from left to right.",
+    srLinearGraphSlopeDecreasing: "Its slope decreases from left to right.",
+    srLinearGraphSlopeHorizontal: "Its slope is zero.",
+    srLinearGraphSlopeVertical: "Its slope is undefined.",
+    srLinearGraphXOnlyIntercept: ({xIntercept}) =>
+        `The line crosses the X-axis at ${xIntercept} comma 0.`,
+    srLinearGraphYOnlyIntercept: ({yIntercept}) =>
+        `The line crosses the Y-axis at 0 comma ${yIntercept}.`,
+    srLinearGraphBothIntercepts: ({xIntercept, yIntercept}) =>
+        `The line crosses the X-axis at ${xIntercept} comma 0 and the Y-axis at 0 comma ${yIntercept}.`,
+    srLinearGraphOriginIntercept:
+        "The line crosses the x and y axes at the graph's origin.",
+    srLinearGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Line from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
+    srAngleSideAtCoordinates: ({point, side, x, y}) =>
+        `Point ${point}, ${side} at ${x} comma ${y}`,
+    srAngleVertexAtCoordinatesWithAngleMeasure: ({x, y, angleMeasure}) =>
+        `Point 2, vertex at ${x} comma ${y}. Angle ${angleMeasure} degrees`,
+    srAngleGraphAriaLabel: "An angle on a coordinate plane.",
+    srAngleGraphAriaDescription: ({
+        angleMeasure,
+        vertexX,
+        vertexY,
+        startingSideX,
+        startingSideY,
+        endingSideX,
+        endingSideY,
+    }) =>
+        `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the starting side at ${startingSideX} comma ${startingSideY} and a point on the ending side at ${endingSideX} comma ${endingSideY}.`,
+    srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
+    srMultipleSegmentGraphAriaLabel: ({countOfSegments}) =>
+        `${countOfSegments} segments on a coordinate plane.`,
+    srMultipleSegmentIndividualLabel: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        indexOfSegment,
+    }) =>
+        `Segment ${indexOfSegment}: Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}.`,
+    srSingleSegmentLabel: ({point1X, point1Y, point2X, point2Y}) =>
+        `Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}.`,
+    srSegmentLength: ({length}) => `Segment length ${length} units.`,
+    srSingleSegmentGraphEndpointAriaLabel: ({endpointNumber, x, y}) =>
+        `Endpoint ${endpointNumber} at ${x} comma ${y}.`,
+    srMultipleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+        indexOfSegment,
+    }) =>
+        `Endpoint ${endpointNumber} on segment ${indexOfSegment} at ${x} comma ${y}.`,
+    srSegmentGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Segment from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
+    srLinearSystemGraph: "Two lines on a coordinate plane.",
+    srLinearSystemPoints: ({lineNumber, point1X, point1Y, point2X, point2Y}) =>
+        `Line ${lineNumber} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
+    srLinearSystemPoint: ({lineNumber, pointSequence, x, y}) =>
+        `Point ${pointSequence} on line ${lineNumber} at ${x} comma ${y}.`,
+    srRayGraph: "A ray on a coordinate plane.",
+    srRayPoints: ({point1X, point1Y, point2X, point2Y}) =>
+        `The endpoint is at ${point1X} comma ${point1Y} and the ray goes through point ${point2X} comma ${point2Y}.`,
+    srRayGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Ray with endpoint ${point1X} comma ${point1Y} going through point ${point2X} comma ${point2Y}.`,
+    srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
+    srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
+    srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
+    srQuadraticFaceUp: "The parabola opens upward.",
+    srQuadraticFaceDown: "The parabola opens downward.",
+    srQuadraticGraphVertexOrigin: "Vertex is at the origin.",
+    srQuadraticGraphVertexXAxis: "Vertex is on the X-axis.",
+    srQuadraticGraphVertexYAxis: "Vertex is on the Y-axis.",
+    srQuadraticGraphVertexQuadrant: ({quadrant}) =>
+        `Vertex is in quadrant ${quadrant}.`,
+    srQuadraticTwoXIntercepts: ({intercept1, intercept2}) =>
+        `The X-intercepts are at ${intercept1} comma 0 and ${intercept2} comma 0.`,
+    srQuadraticOneXIntercept: ({intercept}) =>
+        `The X-intercept is at ${intercept} comma 0.`,
+    srQuadraticYIntercept: ({intercept}) =>
+        `The Y-intercept is at 0 comma ${intercept}.`,
+    srQuadraticPointOrigin: ({pointNumber}) =>
+        `Point ${pointNumber} on parabola at the origin.`,
+    srQuadraticPointAxis: ({pointNumber, x, y}) =>
+        `Point ${pointNumber} on parabola at ${x} comma ${y}.`,
+    srQuadraticPointQuadrant: ({pointNumber, x, y, quadrant}) =>
+        `Point ${pointNumber} on parabola in quadrant ${quadrant} at ${x} comma ${y}.`,
+    srQuadraticInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        point3X,
+        point3Y,
+    }) =>
+        `Parabola with points at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, and ${point3X} comma ${point3Y}.`,
+    // The above strings are used for interactive graph SR descriptions.
 };
+
+// This type helps us make sure all error codes are mapped to strings
+type ErrorStringMap = {
+    [K in keyof typeof ErrorCodes]: keyof PerseusStrings;
+};
+
+/**
+ * Map an error string to a PerseusStrings key
+ * that we can use to get the translated error message
+ */
+const errorToString: ErrorStringMap = {
+    MISSING_PERCENT_ERROR: "MISSING_PERCENT_ERROR",
+    NEEDS_TO_BE_SIMPLIFIED_ERROR: "NEEDS_TO_BE_SIMPLFIED_ERROR",
+    APPROXIMATED_PI_ERROR: "APPROXIMATED_PI_ERROR",
+    EXTRA_SYMBOLS_ERROR: "EXTRA_SYMBOLS_ERROR",
+    WRONG_CASE_ERROR: "WRONG_CASE_ERROR",
+    WRONG_LETTER_ERROR: "WRONG_LETTER_ERROR",
+    MULTIPLICATION_SIGN_ERROR: "MULTIPLICATION_SIGN_ERROR",
+    INVALID_SELECTION_ERROR: "invalidSelection",
+    CHOOSE_CORRECT_NUM_ERROR: "chooseCorrectNum",
+    NOT_NONE_ABOVE_ERROR: "notNoneOfTheAbove",
+    FILL_ALL_CELLS_ERROR: "fillAllCells",
+};
+
+export function mapErrorToString(
+    // the string representing an error code
+    err: string | null | undefined,
+    // the translated Perseus strings
+    translatedStrings: PerseusStrings,
+) {
+    if (!err) {
+        return err;
+    }
+
+    return translatedStrings[errorToString[err]] || err;
+}

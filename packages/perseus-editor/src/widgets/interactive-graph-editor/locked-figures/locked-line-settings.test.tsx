@@ -6,7 +6,11 @@ import * as React from "react";
 import {flags} from "../../../__stories__/flags-for-api-options";
 
 import LockedLineSettings from "./locked-line-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    getDefaultFigureForType,
+    mockedGenerateSpokenMathDetailsForTests,
+    mockedJoinLabelsAsSpokenMathForTests,
+} from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -26,12 +30,13 @@ const defaultProps = {
 
 const defaultLabel = getDefaultFigureForType("label");
 
-// Mock the async function generateSpokenMathDetails
+// Mock the async functions
 jest.mock("./util", () => ({
     ...jest.requireActual("./util"),
-    generateSpokenMathDetails: (input) => {
-        return Promise.resolve(`Spoken math details for ${input}`);
-    },
+    generateSpokenMathDetails: (input) =>
+        mockedGenerateSpokenMathDetailsForTests(input),
+    joinLabelsAsSpokenMath: (input) =>
+        mockedJoinLabelsAsSpokenMathForTests(input),
 }));
 
 describe("LockedLineSettings", () => {
@@ -623,7 +628,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Spoken math details for Segment from point at (0, 0) to point at (2, 2). Appearance solid gray.",
+                    "Segment from point at spoken $0$ comma spoken $0$ to point at spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
 
@@ -649,7 +654,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Spoken math details for Line from point at (0, 0) to point at (2, 2). Appearance solid gray.",
+                    "Line from point at spoken $0$ comma spoken $0$ to point at spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
 
@@ -680,7 +685,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Spoken math details for Line A from point at (0, 0) to point at (2, 2). Appearance solid gray.",
+                    "Line spoken A from point at spoken $0$ comma spoken $0$ to point at spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
 
@@ -715,7 +720,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Spoken math details for Line A, B from point at (0, 0) to point at (2, 2). Appearance solid gray.",
+                    "Line spoken A, spoken B from point at spoken $0$ comma spoken $0$ to point at spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
 
@@ -756,7 +761,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Spoken math details for Line A from point C at (0, 0) to point D at (2, 2). Appearance solid gray.",
+                    "Line spoken A from point spoken C at spoken $0$ comma spoken $0$ to point spoken D at spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
 
@@ -807,7 +812,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Spoken math details for Line A, B from point C, C2 at (0, 0) to point D, D2 at (2, 2). Appearance solid gray.",
+                    "Line spoken A, spoken B from point spoken C, spoken C2 at spoken $0$ comma spoken $0$ to point spoken D, spoken D2 at spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
     });

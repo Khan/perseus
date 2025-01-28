@@ -1,10 +1,9 @@
 import * as KAS from "@khanacademy/kas";
+import {components, Changeable, Expression} from "@khanacademy/perseus";
 import {
-    components,
-    Changeable,
-    Expression,
     PerseusExpressionAnswerFormConsidered,
-} from "@khanacademy/perseus";
+    expressionLogic,
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -25,7 +24,8 @@ import SortableArea from "../components/sortable";
 import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
-} from "@khanacademy/perseus";
+    ExpressionDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 type ChangeFn = typeof Changeable.change;
 
@@ -41,18 +41,12 @@ type Props = {
 type AnswerForm = PerseusExpressionWidgetOptions["answerForms"][number];
 type LegacyButtonSet = PerseusExpressionWidgetOptions["buttonSets"][number];
 
-type DefaultProps = {
-    answerForms: Props["answerForms"];
-    times: Props["times"];
-    buttonSets: Props["buttonSets"];
-    functions: Props["functions"];
-};
-
 const buttonSetsList: LegacyButtonSets = [
     "basic",
     "trig",
     "prealgebra",
     "logarithms",
+    "scientific",
     "basic relations",
     "advanced relations",
 ];
@@ -97,12 +91,8 @@ type State = {
 class ExpressionEditor extends React.Component<Props, State> {
     static widgetName = "expression" as const;
 
-    static defaultProps: DefaultProps = {
-        answerForms: [],
-        times: false,
-        buttonSets: ["basic"],
-        functions: ["f", "g", "h"],
-    };
+    static defaultProps: ExpressionDefaultWidgetOptions =
+        expressionLogic.defaultWidgetOptions;
 
     constructor(props: Props) {
         super(props);
@@ -189,13 +179,14 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     _newEmptyAnswerForm: () => any = () => {
+        const newKey = _makeNewKey(this.props.answerForms);
         return {
             considered: "correct",
             form: false,
 
             // note: the key means "n-th form created" - not "form in
             // position n" and will stay the same for the life of this form
-            key: _makeNewKey(this.props.answerForms),
+            key: `${newKey}`,
 
             simplify: false,
             value: "",
@@ -211,7 +202,11 @@ class ExpressionEditor extends React.Component<Props, State> {
     handleRemoveForm: (answerKey: number) => void = (i) => {
         const answerForms = this.props.answerForms.slice();
         answerForms.splice(i, 1);
-        this.change({answerForms});
+        const updatedAnswerForms = answerForms.map((form, index) => ({
+            ...form,
+            key: `${index}`,
+        }));
+        this.change({answerForms: updatedAnswerForms});
     };
 
     // This function is designed to update the answerForm property
@@ -344,7 +339,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         const answerOptions: React.JSX.Element[] = this.props.answerForms.map(
-            (ans: AnswerForm) => {
+            (ans: AnswerForm, index: number) => {
                 const key = parseAnswerKey(ans);
 
                 const expressionProps: Partial<
@@ -370,12 +365,13 @@ class ExpressionEditor extends React.Component<Props, State> {
 
                 return (
                     <AnswerOption
+                        key={ans.key}
                         draggable={true}
                         considered={ans.considered}
                         expressionProps={expressionProps}
                         form={ans.form}
                         simplify={ans.simplify}
-                        onDelete={() => this.handleRemoveForm(key)}
+                        onDelete={() => this.handleRemoveForm(index)}
                         onChangeSimplify={(simplify) =>
                             this.changeSimplify(key, simplify)
                         }
@@ -449,13 +445,14 @@ class ExpressionEditor extends React.Component<Props, State> {
                     />
                     <InfoTip>
                         <p>
-                            Label text that's read by screen readers. Highly
-                            recommend adding a label here to ensure your
+                            Label text that&apos;s read by screen readers.
+                            Highly recommend adding a label here to ensure your
                             exercise is accessible. For more information on
                             writting accessible labels, please see{" "}
                             <a
                                 href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
                                 target="_blank"
+                                rel="noreferrer"
                             >
                                 this article.
                             </a>
@@ -473,7 +470,8 @@ class ExpressionEditor extends React.Component<Props, State> {
                         <p>
                             Single-letter variables listed here will be
                             interpreted as functions. This let us know that f(x)
-                            means "f of x" and not "f times x".
+                            means &quot;f of x&quot; and not &quot;f times
+                            x&quot;.
                         </p>
                     </InfoTip>
                 </div>
@@ -562,6 +560,7 @@ class AnswerOption extends React.Component<
 
     handleImSure = () => {
         this.props.onDelete();
+        this.handleCancelDelete();
     };
 
     handleCancelDelete = () => {
@@ -588,7 +587,7 @@ class AnswerOption extends React.Component<
                     onClick={this.handleImSure}
                     color="destructive"
                 >
-                    I'm sure!
+                    I&apos;m sure!
                 </Button>
                 <Strut size={spacing.small_12} />
                 <Button size="small" onClick={this.handleCancelDelete} light>
@@ -639,9 +638,9 @@ class AnswerOption extends React.Component<
                         />
                         <InfoTip>
                             <p>
-                                The student's answer must be in the same form.
-                                Commutativity and excess negative signs are
-                                ignored.
+                                The student&apos;s answer must be in the same
+                                form. Commutativity and excess negative signs
+                                are ignored.
                             </p>
                         </InfoTip>
                     </div>
@@ -654,11 +653,11 @@ class AnswerOption extends React.Component<
                         />
                         <InfoTip>
                             <p>
-                                The student's answer must be fully expanded and
-                                simplified. Answering this equation (x^2+2x+1)
-                                with this factored equation (x+1)^2 will render
-                                this response "Your answer is not fully expanded
-                                and simplified."
+                                The student&apos;s answer must be fully expanded
+                                and simplified. Answering this equation
+                                (x^2+2x+1) with this factored equation (x+1)^2
+                                will render this response &quot;Your answer is
+                                not fully expanded and simplified.&quot;
                             </p>
                         </InfoTip>
                     </div>

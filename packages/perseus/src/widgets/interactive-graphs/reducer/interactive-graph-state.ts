@@ -1,8 +1,10 @@
-import {clockwise} from "../../../util/geometry";
+import {geometry} from "@khanacademy/kmath";
 
 import type {Coord} from "../../../interactive2/types";
-import type {PerseusGraphType} from "../../../perseus-types";
 import type {CircleGraphState, InteractiveGraphState} from "../types";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
+
+const {clockwise} = geometry;
 
 export function getGradableGraph(
     state: InteractiveGraphState,
@@ -44,6 +46,14 @@ export function getGradableGraph(
     }
 
     if (state.type === "polygon" && initialGraph.type === "polygon") {
+        // Unless the polygon is closed it is not considered score-able.
+        if (state.numSides === "unlimited" && !state.closedPolygon) {
+            return {
+                ...initialGraph,
+                coords: null,
+            };
+        }
+
         return {
             ...initialGraph,
             coords: state.coords,
@@ -51,6 +61,14 @@ export function getGradableGraph(
     }
 
     if (state.type === "point" && initialGraph.type === "point") {
+        // The unlimited point graph must have at least 1 coordinate or else it is not considered score-able.
+        if (state.numPoints === "unlimited" && state.coords.length === 0) {
+            return {
+                ...initialGraph,
+                coords: null,
+            };
+        }
+
         return {
             ...initialGraph,
             coords: state.coords,

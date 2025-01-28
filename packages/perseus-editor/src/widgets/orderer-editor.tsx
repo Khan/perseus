@@ -1,16 +1,20 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable one-var, react/forbid-prop-types */
+/* eslint-disable react/forbid-prop-types */
 import {components} from "@khanacademy/perseus";
+import {
+    ordererLogic,
+    type OrdererDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 const {InfoTip, TextListEditor} = components;
 
-const NORMAL = "normal",
-    AUTO = "auto",
-    HORIZONTAL = "horizontal",
-    VERTICAL = "vertical";
+const NORMAL = "normal";
+const AUTO = "auto";
+const HORIZONTAL = "horizontal";
+const VERTICAL = "vertical";
 
 type Props = any;
 
@@ -25,12 +29,8 @@ class OrdererEditor extends React.Component<Props> {
 
     static widgetName = "orderer" as const;
 
-    static defaultProps: Props = {
-        correctOptions: [{content: "$x$"}],
-        otherOptions: [{content: "$y$"}],
-        height: NORMAL,
-        layout: HORIZONTAL,
-    };
+    static defaultProps: OrdererDefaultWidgetOptions =
+        ordererLogic.defaultWidgetOptions;
 
     onOptionsChange: (
         arg1: "correctOptions" | "otherOptions",
@@ -161,7 +161,10 @@ class OrdererEditor extends React.Component<Props> {
                         </select>
                     </label>
                     <InfoTip>
-                        <p>Use "Normal" for text, "Automatic" for images.</p>
+                        <p>
+                            Use &quot;Normal&quot; for text,
+                            &quot;Automatic&quot; for images.
+                        </p>
                     </InfoTip>
                 </div>
             </div>

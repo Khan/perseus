@@ -1,7 +1,6 @@
-import {Errors} from "@khanacademy/perseus-core";
+import {approximateDeepEqual, Errors} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import InteractiveUtil from "../interactive2/interactive-util";
@@ -14,12 +13,12 @@ import GraphieClasses from "./graphie-classes";
 import Movables from "./graphie-movables";
 
 import type {Coord} from "../interactive2/types";
-import type {Range, Size} from "../perseus-types";
+import type {Range, Size} from "@khanacademy/perseus-core";
 
 const GraphieMovable = GraphieClasses.GraphieMovable;
 
 const createGraphie = GraphUtils.createGraphie;
-const {deepEq, nestedMap} = Util;
+const {nestedMap} = Util;
 const {assert} = InteractiveUtil;
 
 type Props = {
@@ -115,9 +114,9 @@ class Graphie extends React.Component<Props> {
             );
         }
         if (
-            !deepEq(this.props.options, prevProps.options) ||
-            !deepEq(this.props.box, prevProps.box) ||
-            !deepEq(this.props.range, prevProps.range)
+            !approximateDeepEqual(this.props.options, prevProps.options) ||
+            !approximateDeepEqual(this.props.box, prevProps.box) ||
+            !approximateDeepEqual(this.props.range, prevProps.range)
         ) {
             this._setupGraphie();
         }
@@ -176,7 +175,7 @@ class Graphie extends React.Component<Props> {
     _setupGraphie: () => void = () => {
         this._removeMovables();
 
-        const graphieDiv = ReactDOM.findDOMNode(this.graphieDivRef.current);
+        const graphieDiv = this.graphieDivRef.current;
         if (graphieDiv == null || graphieDiv instanceof Text) {
             throw new Error("No graphie container div found");
         }

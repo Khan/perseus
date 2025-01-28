@@ -5,8 +5,11 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./input-number-ai-utils";
 
-import type {InputNumberWidget, PerseusRenderer} from "../../perseus-types";
-import type {PerseusInputNumberUserInput} from "../../validation.types";
+import type {
+    InputNumberWidget,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
+import type {PerseusInputNumberUserInput} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
 const question: PerseusRenderer = {
@@ -67,7 +70,7 @@ describe("InputNumber AI utils", () => {
         });
     });
 
-    xit("should get prompt json which matches the state of the UI", async () => {
+    it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
 

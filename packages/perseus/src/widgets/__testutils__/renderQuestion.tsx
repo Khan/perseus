@@ -16,23 +16,22 @@ import * as Perseus from "../../index";
 import {mockStrings} from "../../strings";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
-import type {PerseusRenderer} from "../../perseus-types";
 import type {APIOptions} from "../../types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type RenderResult = ReturnType<typeof render>;
 
+type ExtraProps = Omit<PropsFor<typeof Perseus.Renderer>, "strings">;
+
 export const renderQuestion = (
     question: PerseusRenderer,
     apiOptions: APIOptions = Object.freeze({}),
-    extraProps?: Omit<PropsFor<typeof Perseus.Renderer>, "strings">,
+    extraProps?: ExtraProps,
 ): {
     container: HTMLElement;
     renderer: Perseus.Renderer;
-    rerender: (
-        question: PerseusRenderer,
-        extraProps?: Omit<PropsFor<typeof Perseus.Renderer>, "strings">,
-    ) => void;
+    rerender: (question: PerseusRenderer, extraProps?: ExtraProps) => void;
     unmount: RenderResult["unmount"];
 } => {
     setDependencies(testDependencies);
@@ -59,7 +58,7 @@ export const renderQuestion = (
     }
     const renderAgain = (
         question: PerseusRenderer,
-        extraProps: undefined | React.ComponentProps<typeof Perseus.Renderer>,
+        extraProps?: ExtraProps,
     ) => {
         rerender(
             <RenderStateRoot>
@@ -81,8 +80,7 @@ export const renderQuestion = (
         }
     };
 
-    // TODO(LEMS-2656): remove TS suppression
-    return {container, renderer, rerender: renderAgain as any, unmount};
+    return {container, renderer, rerender: renderAgain, unmount};
 };
 
 const Renderer = React.forwardRef<

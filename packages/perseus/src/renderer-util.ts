@@ -1,56 +1,76 @@
-import Util from "./util";
+import {getWidgetIdsFromContent, mapObject} from "@khanacademy/perseus-core";
+
+import {scoreIsEmpty, flattenScores} from "./util/scoring";
 import {
-    conversionRequired,
-    convertDeprecatedWidgetsForScoring,
-} from "./util/deprecated-widgets/modernize-widgets-utils";
-import {getWidgetIdsFromContent} from "./widget-type-utils";
-import {getWidgetScorer} from "./widgets";
+    getWidgetScorer,
+    getWidgetValidator,
+    upgradeWidgetInfoToLatestVersion,
+} from "./widgets";
 
-import type {PerseusRenderer, PerseusWidgetsMap} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
-import type {PerseusScore} from "./types";
-import type {UserInput, UserInputMap} from "./validation.types";
+import type {
+    PerseusRenderer,
+    PerseusWidgetsMap,
+} from "@khanacademy/perseus-core";
+import type {
+    UserInputMap,
+    PerseusScore,
+    ValidationDataMap,
+} from "@khanacademy/perseus-score";
 
+export function getUpgradedWidgetOptions(
+    oldWidgetOptions: PerseusWidgetsMap,
+): PerseusWidgetsMap {
+    return mapObject(oldWidgetOptions, (widgetInfo, widgetId) => {
+        if (!widgetInfo.type || !widgetInfo.alignment) {
+            const newValues: Record<string, any> = {};
+
+            if (!widgetInfo.type) {
+                // TODO: why does widget have no type?
+                // We don't want to derive type from widget ID
+                // see: LEMS-1845
+                newValues.type = widgetId.split(" ")[0];
+            }
+
+            if (!widgetInfo.alignment) {
+                newValues.alignment = "default";
+            }
+
+            widgetInfo = {...widgetInfo, ...newValues};
+        }
+        // TODO(LEMS-2656): remove TS suppression
+        return upgradeWidgetInfoToLatestVersion(widgetInfo) as any;
+    });
+}
+
+/**
+ * Checks the given user input to see if any answerable widgets have not been
+ * "filled in" (ie. if they're empty). Another way to think about this
+ * function is that its a check to see if we can score the provided input.
+ */
 export function emptyWidgetsFunctional(
-    widgets: PerseusWidgetsMap,
+    widgets: ValidationDataMap,
     // This is a port of old code, I'm not sure why
     // we need widgetIds vs the keys of the widgets object
-    widgetIds: Array<string>,
+    widgetIds: ReadonlyArray<string>,
     userInputMap: UserInputMap,
     strings: PerseusStrings,
     locale: string,
 ): ReadonlyArray<string> {
     return widgetIds.filter((id) => {
         const widget = widgets[id];
-        if (!widget || widget.static) {
+        if (!widget || widget.static === true) {
             // Static widgets shouldn't count as empty
             return false;
         }
 
-        let score: PerseusScore | null = null;
+        const validator = getWidgetValidator(widget.type);
         const userInput = userInputMap[id];
-        const scorer = getWidgetScorer(widget.type);
-
-        if (widget.type === "group") {
-            const scores = scoreWidgetsFunctional(
-                widget.options.widgets,
-                Object.keys(widget.options.widgets),
-                userInputMap[id] as UserInputMap,
-                strings,
-                locale,
-            );
-            score = Util.flattenScores(scores);
-        } else if (scorer) {
-            score = scorer(
-                userInput as UserInput,
-                widget.options,
-                strings,
-                locale,
-            );
-        }
+        const validationData = widget.options;
+        const score = validator?.(userInput, validationData, strings, locale);
 
         if (score) {
-            return Util.scoreIsEmpty(score);
+            return scoreIsEmpty(score);
         }
     });
 }
@@ -65,30 +85,18 @@ export function scorePerseusItem(
     strings: PerseusStrings,
     locale: string,
 ): PerseusScore {
-    let convertedRenderData = perseusRenderData;
-    let convertedUserInputMap = userInputMap;
-
-    // Check if the PerseusRenderer object contains any deprecated widgets that need to be converted
-    const mustConvertData = conversionRequired(perseusRenderData);
-    if (mustConvertData) {
-        const {convertedRubric, convertedUserData} =
-            convertDeprecatedWidgetsForScoring(perseusRenderData, userInputMap);
-        convertedRenderData = convertedRubric;
-        convertedUserInputMap = convertedUserData;
-    }
-
     // There seems to be a chance that PerseusRenderer.widgets might include
     // widget data for widgets that are not in PerseusRenderer.content,
     // so this checks that the widgets are being used before scoring them
-    const usedWidgetIds = getWidgetIdsFromContent(convertedRenderData.content);
+    const usedWidgetIds = getWidgetIdsFromContent(perseusRenderData.content);
     const scores = scoreWidgetsFunctional(
-        convertedRenderData.widgets,
+        perseusRenderData.widgets,
         usedWidgetIds,
-        convertedUserInputMap,
+        userInputMap,
         strings,
         locale,
     );
-    return Util.flattenScores(scores);
+    return flattenScores(scores);
 }
 
 export function scoreWidgetsFunctional(
@@ -100,8 +108,10 @@ export function scoreWidgetsFunctional(
     strings: PerseusStrings,
     locale: string,
 ): {[widgetId: string]: PerseusScore} {
+    const upgradedWidgets = getUpgradedWidgetOptions(widgets);
+
     const gradedWidgetIds = widgetIds.filter((id) => {
-        const props = widgets[id];
+        const props = upgradedWidgets[id];
         const widgetIsGraded: boolean = props?.graded == null || props.graded;
         const widgetIsStatic = !!props?.static;
         // Ungraded widgets or widgets set to static shouldn't be graded.
@@ -110,29 +120,22 @@ export function scoreWidgetsFunctional(
 
     const widgetScores: Record<string, PerseusScore> = {};
     gradedWidgetIds.forEach((id) => {
-        const widget = widgets[id];
+        const widget = upgradedWidgets[id];
         if (!widget) {
             return;
         }
 
         const userInput = userInputMap[id];
+        const validator = getWidgetValidator(widget.type);
         const scorer = getWidgetScorer(widget.type);
-        if (widget.type === "group") {
-            const scores = scoreWidgetsFunctional(
-                widget.options.widgets,
-                getWidgetIdsFromContent(widget.options.content),
-                userInputMap[id] as UserInputMap,
-                strings,
-                locale,
-            );
-            widgetScores[id] = Util.flattenScores(scores);
-        } else if (scorer) {
-            widgetScores[id] = scorer(
-                userInput as UserInput,
-                widget.options,
-                strings,
-                locale,
-            );
+
+        // We do validation (empty checks) first and then scoring. If
+        // validation fails, it's result is itself a PerseusScore.
+        const score =
+            validator?.(userInput, widget.options, strings, locale) ??
+            scorer?.(userInput, widget.options, strings, locale);
+        if (score != null) {
+            widgetScores[id] = score;
         }
     });
 

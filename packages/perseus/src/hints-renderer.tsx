@@ -1,4 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";
@@ -20,9 +19,9 @@ import mediaQueries from "./styles/media-queries";
 import sharedStyles from "./styles/shared";
 import Util from "./util";
 
-import type {Hint} from "./perseus-types";
 import type Renderer from "./renderer";
 import type {APIOptionsWithDefaults} from "./types";
+import type {Hint} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type Props = PropsFor<typeof Renderer> & {

@@ -1,3 +1,7 @@
+import {
+    passageRefLogic,
+    type PerseusPassageRefWidgetOptions,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -8,16 +12,16 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref
 import scoreNoop from "../__shared__/score-noop";
 import {isPassageWidget} from "../passage/utils";
 
-import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PassageRefPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const EN_DASH = "\u2013";
 
 type RenderProps = {
     passageNumber: PerseusPassageRefWidgetOptions["passageNumber"];
     referenceNumber: PerseusPassageRefWidgetOptions["referenceNumber"];
-    summaryText: PerseusPassageRefWidgetOptions["summaryText"];
+    summaryText: string;
 };
 
 type Props = WidgetProps<RenderProps>;
@@ -25,13 +29,17 @@ type Props = WidgetProps<RenderProps>;
 type DefaultProps = {
     passageNumber: Props["passageNumber"];
     referenceNumber: Props["referenceNumber"];
-    summaryText: Props["summaryText"];
+    summaryText: string;
 };
 
 type State = {
     lineRange: [number, number] | null | undefined;
     content: string | null | undefined;
 };
+
+0 as any as WidgetProps<PerseusPassageRefWidgetOptions> satisfies PropsFor<
+    typeof PassageRef
+>;
 
 class PassageRef extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
@@ -175,14 +183,12 @@ export default {
     hidden: true,
     defaultAlignment: "inline",
     widget: PassageRef,
-    transform: (
-        widgetOptions: PerseusPassageRefWidgetOptions,
-    ): RenderProps => ({
+    transform: (widgetOptions: PerseusPassageRefWidgetOptions) => ({
         passageNumber: widgetOptions.passageNumber,
         referenceNumber: widgetOptions.referenceNumber,
         summaryText: widgetOptions.summaryText,
     }),
-    version: {major: 0, minor: 1},
+    version: passageRefLogic.version,
     // TODO: things that aren't interactive shouldn't need scoring functions
     scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof PassageRef>;

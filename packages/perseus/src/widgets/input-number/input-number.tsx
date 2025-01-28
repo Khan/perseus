@@ -1,4 +1,8 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {
+    inputNumberAnswerTypes,
+    scoreInputNumber,
+} from "@khanacademy/perseus-score";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -10,16 +14,14 @@ import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 
-import scoreInputNumber, {answerTypes} from "./score-input-number";
-
-import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
+import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
-} from "../../validation.types";
-import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
+} from "@khanacademy/perseus-score";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {
@@ -175,17 +177,17 @@ class InputNumber extends React.Component<Props> implements Widget {
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
-    examples: () => ReadonlyArray<string> = () => {
+    examples(): ReadonlyArray<string> {
         const {strings} = this.context;
         const type = this.props.answerType;
-        const forms = answerTypes[type].forms.split(/\s*,\s*/);
+        const forms = inputNumberAnswerTypes[type].forms.split(/\s*,\s*/);
 
         const examples = _.map(forms, (form) =>
             formExamples[form](this.props, strings),
         );
 
         return [strings.yourAnswer].concat(examples);
-    };
+    }
 
     render(): React.ReactNode {
         if (this.props.apiOptions.customKeypad) {

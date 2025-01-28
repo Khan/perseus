@@ -50,7 +50,7 @@
  *     removes the point from graphie
  */
 import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {Errors, PerseusError, pluck} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -63,7 +63,6 @@ import Tex from "../util/tex";
 
 import InteractiveUtil from "./interactive-util";
 import MovablePointOptions from "./movable-point-options";
-import objective_ from "./objective_";
 import WrappedEllipse from "./wrapped-ellipse";
 
 import type {Movable} from "./movable";
@@ -170,7 +169,7 @@ export class MovablePoint {
                 //    - are objects, not primitives (and need a deeper copy)
                 //    - they don't need getters created for them
                 // TODO(jack): Consider "default" once we es3ify perseus
-                objective_.pluck(MovablePointOptions, "standard"),
+                pluck(MovablePointOptions, "standard"),
                 // We only update props here, because we want things on state to
                 // be persistent, and updated appropriately in modify()
             ),

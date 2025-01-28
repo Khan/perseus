@@ -1,3 +1,7 @@
+import {
+    measurerLogic,
+    type PerseusMeasurerWidgetOptions,
+} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -9,7 +13,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/me
 import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";
-import type {PerseusMeasurerWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {Interval} from "../../util/interval";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
@@ -181,30 +184,13 @@ class Measurer extends React.Component<Props> implements Widget {
     }
 }
 
-const propUpgrades = {
-    "1": (v0props: any): any => {
-        const v1props = _(v0props)
-            .chain()
-            .omit("imageUrl", "imageTop", "imageLeft")
-            .extend({
-                image: {
-                    url: v0props.imageUrl,
-                    top: v0props.imageTop,
-                    left: v0props.imageLeft,
-                },
-            })
-            .value();
-        return v1props;
-    },
-} as const;
-
 export default {
     name: "measurer",
     displayName: "Measurer",
     hidden: true,
     widget: Measurer,
-    version: {major: 1, minor: 0},
-    propUpgrades: propUpgrades,
+    version: measurerLogic.version,
+    propUpgrades: measurerLogic.widgetOptionsUpgrades,
     // TODO: things that aren't interactive shouldn't need scoring functions
     scorer: () => scoreNoop(1),
 } satisfies WidgetExports<typeof Measurer>;

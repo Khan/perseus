@@ -1,4 +1,7 @@
-import type {PerseusRenderer, InputNumberWidget} from "../../perseus-types";
+import type {
+    PerseusRenderer,
+    InputNumberWidget,
+} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
     content:
@@ -26,7 +29,6 @@ export const question1: PerseusRenderer = {
                 simplify: "optional",
                 answerType: "rational",
                 size: "normal",
-                rightAlign: true,
             },
         } as InputNumberWidget,
     },

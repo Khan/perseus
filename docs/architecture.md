@@ -11,10 +11,10 @@ base Markdown syntax:
 
   1. Widgets - Perseus can render custom widgets (in the form of React
      components) which conform to a special API that enables the user to
-     interact with the widget and for the widget to check taht input for
-     correctness against a rubric. Widgets are denoted using the following
-     Markdown syntax: `[[☃️ widget-id ]]` (where `widget-id` represents a
-     generated ID that is unique within the Perseus instance.
+     interact with the widget and for the widget to check that input for
+     correctness against a set of scoring data. Widgets are denoted using the
+     following Markdown syntax: `[[☃️ widget-id ]]` (where `widget-id`
+     represents a generated ID that is unique within the Perseus instance.
   1. Math - Perseus can also render beautiful math using MathJax. Math is
      denoted using an opening and close dollar sign (eg. `$y = mx + b$`).
 
@@ -53,17 +53,6 @@ with a short description and the main Perseus data type it accepts.
             provided by the learner. There is a `graded-group` widget which
             allows content authors to embed a "knowledge check" inside an
             article, but the scoring is not available outside of the renderer.
-        </td>
-    </tr>
-    <tr>
-        <td><code>MultiItemRenderer</code></td>
-        <td> <code>{ _multi: any }</code></td>
-        <td>
-            The `MultiItemRenderer` is a more advanced renderer. It accepts an
-            object representing a tree of `PerseusRenderer` objects. A `Shape`
-            object defines the structure of the tree and you must provide a
-            "callback" object of the same structure which defines how and where
-            to render each `PerseusRenderer` that appears in the tree.
         </td>
     </tr>
     <tr>
@@ -192,7 +181,7 @@ the widgets options type (ie. the type `T` wrapped in `WidgetOptions<T>` from
 In a few rare cases, this type is defined as the sum of RenderProps wrapped in
 `WidgetOptions`.
 
-### `Rubric`
+### `Scoring Data`
 
 This type defines the data that the scoring function needs in order to score
 the learner's guess (aka user input).

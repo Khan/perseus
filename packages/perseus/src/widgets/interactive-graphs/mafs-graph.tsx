@@ -37,6 +37,7 @@ import {renderQuadraticGraph} from "./graphs/quadratic";
 import {renderRayGraph} from "./graphs/ray";
 import {renderSegmentGraph} from "./graphs/segment";
 import {renderSinusoidGraph} from "./graphs/sinusoid";
+import {getArrayWithoutDuplicates} from "./graphs/utils";
 import {MIN, X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {actions} from "./reducer/interactive-graph-action";
@@ -51,6 +52,7 @@ import type {
     PolygonGraphState,
     InteractiveGraphElementSuite,
 } from "./types";
+import type {I18nContextType} from "../../components/i18n-context";
 import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
 import type {vec} from "mafs";
@@ -64,12 +66,12 @@ export type MafsGraphProps = {
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
     step: InteractiveGraphProps["step"];
-    gridStep: InteractiveGraphProps["gridStep"];
+    gridStep: [x: number, y: number];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
-    labels: InteractiveGraphProps["labels"];
+    labels: ReadonlyArray<string>;
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     state: InteractiveGraphState;
@@ -94,6 +96,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const uniqueId = React.useId();
     const descriptionId = `interactive-graph-description-${uniqueId}`;
     const interactiveElementsDescriptionId = `interactive-graph-interactive-elements-description-${uniqueId}`;
+    const unlimitedGraphKeyboardPromptId = `unlimited-graph-keyboard-prompt-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
     const {analytics} = useDependencies();
 
@@ -114,7 +117,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
         y: viewboxY,
     };
 
-    const {strings} = usePerseusI18n();
+    const i18n = usePerseusI18n();
+    const {strings} = i18n;
 
     const interactionPrompt =
         isUnlimitedGraphState(state) && state.showKeyboardInteractionInvitation;
@@ -133,6 +137,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const {graph, interactiveElementsDescription} = renderGraphElements({
         state,
         dispatch,
+        i18n,
     });
 
     return (
@@ -151,7 +156,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 disableKeyboardInteraction: readOnly || !!props.static,
             }}
         >
-            <View>
+            <View className="mafs-graph-container">
                 <View
                     className="mafs-graph"
                     style={{
@@ -173,6 +178,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         fullGraphAriaDescription && descriptionId,
                         interactiveElementsDescription &&
                             interactiveElementsDescriptionId,
+                        isUnlimitedGraphState(state) &&
+                            "unlimited-graph-keyboard-prompt",
                     )}
                     ref={graphRef}
                     tabIndex={0}
@@ -212,7 +219,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             left: 0,
                         }}
                     >
-                        {props.markings === "graph" && (
+                        {(props.markings === "graph" ||
+                            props.markings === "axes") && (
                             <>
                                 <AxisLabels />
                             </>
@@ -247,7 +255,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             {/* Axis Ticks, Labels, and Arrows */}
                             {
                                 // Only render the axis ticks and arrows if the markings are set to a full "graph"
-                                props.markings === "graph" && (
+                                (props.markings === "graph" ||
+                                    props.markings === "axes") && (
                                     <>
                                         <AxisTicks />
                                         <AxisArrows />
@@ -259,22 +268,17 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 {/* Locked figures layer */}
                                 {props.lockedFigures && (
                                     <GraphLockedLayer
-                                        flags={props.flags}
                                         lockedFigures={props.lockedFigures}
                                         range={state.range}
                                     />
                                 )}
                             </svg>
                         </Mafs>
-                        {props.flags?.["mafs"]?.[
-                            "interactive-graph-locked-features-labels"
-                        ] &&
-                            props.lockedFigures && (
-                                <GraphLockedLabelsLayer
-                                    flags={props.flags}
-                                    lockedFigures={props.lockedFigures}
-                                />
-                            )}
+                        {props.lockedFigures && (
+                            <GraphLockedLabelsLayer
+                                lockedFigures={props.lockedFigures}
+                            />
+                        )}
                         <View style={{position: "absolute"}}>
                             <Mafs
                                 preserveAspectRatio={false}
@@ -301,6 +305,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     {interactionPrompt && (
                         <View
                             style={{
+                                display: interactionPrompt
+                                    ? undefined
+                                    : "hidden",
                                 textAlign: "center",
                                 backgroundColor: "white",
                                 border: "1px solid #21242C52",
@@ -314,7 +321,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 transform: "translateY(-50%)",
                             }}
                         >
-                            <LabelMedium>
+                            <LabelMedium id={unlimitedGraphKeyboardPromptId}>
                                 {strings.graphKeyboardPrompt}
                             </LabelMedium>
                         </View>
@@ -414,6 +421,10 @@ const renderPolygonGraphControls = (props: {
     const shouldShowRemoveButton =
         showRemovePointButton && focusedPointIndex !== null;
 
+    // We want to disable the closePolygon button when
+    // there are not enough coords to make a polygon
+    const disableCloseButton = getArrayWithoutDuplicates(coords).length < 3;
+
     // If polygon is closed, show open button.
     // If polygon is open, show close button.
     const polygonButton = closedPolygon ? (
@@ -435,12 +446,12 @@ const renderPolygonGraphControls = (props: {
             kind="secondary"
             // Conditional disable when there are less than 3 points in
             // the graph
-            disabled={coords.length < 3}
+            disabled={disableCloseButton}
             style={{
                 width: "100%",
                 marginLeft: "20px",
             }}
-            tabIndex={0}
+            tabIndex={disableCloseButton ? -1 : 0}
             onClick={() => {
                 props.dispatch(actions.polygon.closePolygon());
             }}
@@ -668,8 +679,9 @@ export const calculateNestedSVGCoords = (
 const renderGraphElements = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
+    i18n: I18nContextType;
 }): InteractiveGraphElementSuite => {
-    const {state, dispatch} = props;
+    const {state, dispatch, i18n} = props;
     const {type} = state;
     switch (type) {
         case "angle":
@@ -689,7 +701,7 @@ const renderGraphElements = (props: {
         case "circle":
             return renderCircleGraph(state, dispatch);
         case "quadratic":
-            return renderQuadraticGraph(state, dispatch);
+            return renderQuadraticGraph(state, dispatch, i18n);
         case "sinusoid":
             return renderSinusoidGraph(state, dispatch);
         case "none":

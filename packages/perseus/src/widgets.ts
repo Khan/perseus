@@ -3,16 +3,17 @@ import _ from "underscore";
 
 import {Log} from "./logging/log";
 
-import type {PerseusWidget} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {
     Alignment,
     Tracking,
-    Version,
     WidgetExports,
     WidgetTransform,
     WidgetScorerFunction,
+    WidgetValidatorFunction,
+    PublicWidgetOptionsFunction,
 } from "./types";
+import type {PerseusWidget, Version} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
 const DEFAULT_ALIGNMENT = "block";
@@ -74,9 +75,6 @@ export const replaceDeprecatedWidgets = () => {
     replaceWidget("sequence", "deprecated-standin");
     replaceWidget("simulator", "deprecated-standin");
     replaceWidget("unit-input", "deprecated-standin");
-
-    // Input-Number is a special case as it is being replaced by Numeric-Input
-    replaceWidget("input-number", "numeric-input");
 };
 
 export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
@@ -118,11 +116,6 @@ export const replaceDeprecatedEditors = () => {
     replaceEditor("sequence", "deprecated-standin");
     replaceEditor("simulator", "deprecated-standin");
     replaceEditor("unit-input", "deprecated-standin");
-
-    // We're replacing the input-number editor with the numeric-input editor here,
-    // but we're also modifying the JSON content to convert input-number into the
-    // numeric-input format over in editor-page.tsx on line 92.
-    replaceEditor("input-number", "numeric-input");
 };
 
 export const getWidget = (
@@ -145,8 +138,20 @@ export const getWidgetExport = (name: string): WidgetExports | null => {
     return widgets[name] ?? null;
 };
 
+export const getWidgetValidator = (
+    name: string,
+): WidgetValidatorFunction | null => {
+    return widgets[name]?.validator ?? null;
+};
+
 export const getWidgetScorer = (name: string): WidgetScorerFunction | null => {
     return widgets[name]?.scorer ?? null;
+};
+
+export const getPublicWidgetOptionsFunction = (
+    name: string,
+): PublicWidgetOptionsFunction => {
+    return widgets[name]?.getPublicWidgetOptions ?? ((i) => i);
 };
 
 export const getEditor = (name: string): Editor | null | undefined => {
@@ -182,8 +187,9 @@ export const getPublicWidgets = (): ReadonlyArray<WidgetExports> => {
     // @ts-expect-error - TS2740 - Type 'Pick<{ [key: string]: Readonly<{ name: string; displayName: string; getWidget?: (() => ComponentType<any>) | undefined; accessible?: boolean | ((props: any) => boolean) | undefined; hidden?: boolean | undefined; ... 10 more ...; widget: ComponentType<...>; }>; }, string>' is missing the following properties from type 'readonly Readonly<{ name: string; displayName: string; getWidget?: (() => ComponentType<any>) | undefined; accessible?: boolean | ((props: any) => boolean) | undefined; hidden?: boolean | undefined; ... 10 more ...; widget: ComponentType<...>; }>[]': length, concat, join, slice, and 18 more.
     return _.pick(
         widgets,
+        // @ts-expect-error - TS2345 - Argument of type '(name: string) => boolean | undefined' is not assignable to parameter of type 'Iteratee<string[], boolean, string>'.
         _.reject(_.keys(widgets), function (name) {
-            return widgets[name].hidden || name === "input-number";
+            return widgets[name].hidden;
         }),
     );
 };

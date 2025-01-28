@@ -2,13 +2,15 @@ import {
     generateLockedFigureAppearanceDescription,
     generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {
     LockedFigureColor,
     LockedFigureFillType,
+    LockedLabelType,
     LockedLineStyle,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 describe("getDefaultFigureForType", () => {
     test("should return a point with default values", () => {
@@ -104,7 +106,7 @@ describe("getDefaultFigureForType", () => {
         expect(figure).toEqual({
             type: "label",
             coord: [0, 0],
-            text: "",
+            text: "label",
             color: "grayH",
             size: "medium",
         });
@@ -338,5 +340,59 @@ describe("generateMathDetails", () => {
         const convertedString = await generateSpokenMathDetails(mathString);
 
         expect(convertedString).toBe("\\");
+    });
+
+    test("Should read lone dollar signs as regular dollar signs", async () => {
+        const mathString = "$50";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("$50");
+    });
+
+    test("Should read lone escaped dollar signs in text as regular dollar signs", async () => {
+        const mathString = "\\$50";
+        const convertedString = await generateSpokenMathDetails(mathString);
+
+        expect(convertedString).toBe("$50");
+    });
+});
+
+describe("joinLabelsAsSpokenText", () => {
+    test("returns empty string for undefined input", async () => {
+        const actualOutput = await joinLabelsAsSpokenMath(undefined);
+
+        expect(actualOutput).toBe("");
+    });
+
+    test("return empty string if input is an empty array", async () => {
+        const actualOutput = await joinLabelsAsSpokenMath([]);
+
+        expect(actualOutput).toBe("");
+    });
+
+    test.each`
+        input                   | expectedOutput
+        ${["a"]}                | ${" a"}
+        ${["a", "b"]}           | ${" a, b"}
+        ${["$A$", "$B$"]}       | ${" upper A, upper B"}
+        ${["$1", "$2"]}         | ${" $1, $2"}
+        ${["\\$1", "\\$2"]}     | ${" $1, $2"}
+        ${["$\\$1$", "$\\$2$"]} | ${" normal dollar sign 1, normal dollar sign 2"}
+        ${["${$}1$", "${$}2$"]} | ${" dollar sign 1, dollar sign 2"}
+        ${["$$1$", "$$2$"]}     | ${" 1$, 2$"}
+        ${["hello $world$"]}    | ${" hello w o r l d"}
+        ${["$hello$ world"]}    | ${" h e l l o world"}
+        ${["x^2"]}              | ${" x^2"}
+        ${["$x^2$"]}            | ${" x Superscript 2"}
+        ${["{}"]}               | ${" {}"}
+        ${["${}$"]}             | ${" "}
+    `("should join labels", async ({input, expectedOutput}) => {
+        const lockedLabels: LockedLabelType[] = input.map((label) => {
+            return {...getDefaultFigureForType("label"), text: label};
+        });
+
+        const actualOutput = await joinLabelsAsSpokenMath(lockedLabels);
+
+        expect(actualOutput).toBe(expectedOutput);
     });
 });

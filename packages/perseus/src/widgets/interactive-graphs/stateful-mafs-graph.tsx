@@ -14,9 +14,9 @@ import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {getGradableGraph} from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
-import type {PerseusGraphType} from "../../perseus-types";
 import type {APIOptions} from "../../types";
-import type {PerseusInteractiveGraphUserInput} from "../../validation.types";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
+import type {PerseusInteractiveGraphUserInput} from "@khanacademy/perseus-score";
 
 export type StatefulMafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -27,15 +27,15 @@ export type StatefulMafsGraphProps = {
     correct: PerseusGraphType;
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
     range: InteractiveGraphProps["range"];
-    snapStep: InteractiveGraphProps["snapStep"];
+    snapStep: [x: number, y: number];
     step: InteractiveGraphProps["step"];
-    gridStep: InteractiveGraphProps["gridStep"];
+    gridStep: [x: number, y: number];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
-    labels: InteractiveGraphProps["labels"];
+    labels: ReadonlyArray<string>;
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     readOnly: boolean;

@@ -13,10 +13,9 @@
  * more confident in the interface provided first.
  */
 
+import {mapObject} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-// TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
-import objective_ from "./interactive2/objective_";
 import * as Widgets from "./widgets";
 
 const noop = function () {};
@@ -93,7 +92,7 @@ const traverseRenderer = function (
         }
     }
 
-    const newWidgets = objective_.mapObject(
+    const newWidgets = mapObject(
         rendererOptions.widgets || {},
         function (widgetInfo, widgetId) {
             // Widgets without info or a type are empty widgets, and

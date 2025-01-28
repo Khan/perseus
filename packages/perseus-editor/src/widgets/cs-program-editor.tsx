@@ -10,7 +10,7 @@ import {
     EditorJsonify,
     Log,
 } from "@khanacademy/perseus";
-import {Errors} from "@khanacademy/perseus-core";
+import {csProgramLogic, Errors} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import $ from "jquery";
 import PropTypes from "prop-types";
@@ -18,6 +18,8 @@ import * as React from "react";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
+
+import type {CSProgramDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 type ChangeFn = typeof Changeable.change;
 
@@ -148,15 +150,8 @@ class CSProgramEditor extends React.Component<any> {
 
     static widgetName = "cs-program" as const;
 
-    static defaultProps: any = {
-        programID: "",
-        programType: null,
-        settings: [{name: "", value: ""}],
-        showEditor: false,
-        showButtons: false,
-        width: DEFAULT_WIDTH,
-        height: DEFAULT_HEIGHT,
-    };
+    static defaultProps: CSProgramDefaultWidgetOptions =
+        csProgramLogic.defaultWidgetOptions;
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
@@ -231,8 +226,9 @@ class CSProgramEditor extends React.Component<any> {
                     }}
                 />
                 <InfoTip>
-                    If you show the editor, you should use the "full-width"
-                    alignment to make room for the width of the editor.
+                    If you show the editor, you should use the
+                    &quot;full-width&quot; alignment to make room for the width
+                    of the editor.
                 </InfoTip>
                 <br />
                 <Checkbox

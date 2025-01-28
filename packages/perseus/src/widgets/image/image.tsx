@@ -11,9 +11,9 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
 import scoreNoop from "../__shared__/score-noop";
 
-import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, WidgetExports, WidgetProps, Widget} from "../../types";
 import type {ImagePromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
+import type {Range, PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];

@@ -1,12 +1,15 @@
+import {
+    radioLogic,
+    type PerseusRadioWidgetOptions,
+} from "@khanacademy/perseus-core";
+import {scoreRadio, validateRadio} from "@khanacademy/perseus-score";
 import _ from "underscore";
 
 import Util from "../../util";
 
 import Radio from "./radio-component";
-import scoreRadio from "./score-radio";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
-import type {PerseusRadioWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports} from "../../types";
 
@@ -125,27 +128,6 @@ const transform = (
     };
 };
 
-const propUpgrades = {
-    "1": (v0props: any): any => {
-        let choices;
-        let hasNoneOfTheAbove;
-
-        if (!v0props.noneOfTheAbove) {
-            choices = v0props.choices;
-            hasNoneOfTheAbove = false;
-        } else {
-            throw new Error(
-                "radio widget v0 no longer supports auto noneOfTheAbove",
-            );
-        }
-
-        return _.extend(_.omit(v0props, "noneOfTheAbove"), {
-            choices: choices,
-            hasNoneOfTheAbove: hasNoneOfTheAbove,
-        });
-    },
-} as const;
-
 export default {
     name: "radio",
     displayName: "Radio / Multiple choice",
@@ -153,10 +135,13 @@ export default {
     widget: Radio,
     transform: transform,
     staticTransform: transform,
-    version: {major: 1, minor: 0},
-    propUpgrades: propUpgrades,
+    version: radioLogic.version,
+    propUpgrades: radioLogic.widgetOptionsUpgrades,
     isLintable: true,
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusRadioUserInput
     scorer: scoreRadio,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusRadioUserInput
+    validator: validateRadio,
 } satisfies WidgetExports<typeof Radio>;

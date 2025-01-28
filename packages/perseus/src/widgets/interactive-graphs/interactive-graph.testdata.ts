@@ -2,7 +2,7 @@ import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-buil
 
 import type {LockedFunctionOptions} from "./interactive-graph-question-builder";
 import type {Coord} from "../../interactive2/types";
-import type {PerseusRenderer, RadioWidget} from "../../perseus-types";
+import type {PerseusRenderer, RadioWidget} from "@khanacademy/perseus-core";
 
 // Data for the interactive graph widget
 
@@ -189,6 +189,19 @@ export const polygonWithStartingCoordsQuestion: PerseusRenderer =
                 [8, 6],
                 [8, 8],
                 [6, 8],
+            ],
+        })
+        .build();
+
+export const unlimitedPolygonWithCorrectAnswerQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withPolygon("grid", {
+            numSides: "unlimited",
+            coords: [
+                [-4.5, -6],
+                [4.5, -5],
+                [3.5, 0.5],
+                [-4.5, 0],
             ],
         })
         .build();

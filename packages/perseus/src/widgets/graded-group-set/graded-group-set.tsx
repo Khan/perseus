@@ -20,13 +20,13 @@ import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import {GradedGroup} from "../graded-group/graded-group";
 
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import type {
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
-} from "../../perseus-types";
-import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {PerseusGradedGroupSetRubric} from "../../validation.types";
-import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
+} from "@khanacademy/perseus-core";
+import type {PerseusGradedGroupSetRubric} from "@khanacademy/perseus-score";
 
 type IndicatorsProps = {
     currentGroup: number;
@@ -122,7 +122,6 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
     };
 
     shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
-        nextProps.gradedGroups as ReadonlyArray<PerseusGradedGroupWidgetOptions>;
         return nextProps !== this.props || nextState !== this.state;
     }
 

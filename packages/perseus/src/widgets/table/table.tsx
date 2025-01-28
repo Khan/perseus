@@ -1,4 +1,5 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {scoreTable, validateTable} from "@khanacademy/perseus-score";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -10,15 +11,13 @@ import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
-import scoreTable from "./score-table";
-
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {PerseusTableWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {PerseusTableWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusTableRubric,
     PerseusTableUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 const {assert} = InteractiveUtil;
 
@@ -327,4 +326,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusTableUserInput
     scorer: scoreTable,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusTableUserInput
+    validator: validateTable,
 } satisfies WidgetExports<typeof Table>;

@@ -1,17 +1,15 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {makeSafeUrl} from "@khanacademy/perseus";
+import {
+    phetSimulationLogic,
+    type PerseusPhetSimulationWidgetOptions,
+    type PhetSimulationDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-import type {PerseusPhetSimulationWidgetOptions} from "@khanacademy/perseus";
-
-type DefaultProps = {
-    url: PerseusPhetSimulationWidgetOptions["url"];
-    description: PerseusPhetSimulationWidgetOptions["description"];
-};
-
-type Props = DefaultProps & {
+type Props = PhetSimulationDefaultWidgetOptions & {
     onChange: (arg1: {
         url?: Props["url"];
         description?: Props["description"];
@@ -19,10 +17,8 @@ type Props = DefaultProps & {
 };
 
 class PhetSimulationEditor extends React.Component<Props> {
-    static defaultProps: DefaultProps = {
-        url: "",
-        description: "",
-    };
+    static defaultProps: PhetSimulationDefaultWidgetOptions =
+        phetSimulationLogic.defaultWidgetOptions;
 
     static widgetName = "phet-simulation" as const;
 

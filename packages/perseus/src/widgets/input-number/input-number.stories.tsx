@@ -7,7 +7,7 @@ import {question1, question2, question3} from "./input-number.testdata";
 import type {
     PerseusRenderer,
     PerseusInputNumberWidgetOptions,
-} from "../../perseus-types";
+} from "@khanacademy/perseus-core";
 
 export default {
     title: "Perseus/Widgets/InputNumber",

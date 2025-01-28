@@ -16,9 +16,11 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
         <div
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
-          <div>
+          <div
+            class="default_xu2jcg"
+          >
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
               <span
                 aria-atomic="true"
@@ -30,18 +32,34 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
                 3 items
               </span>
               <button
-                aria-controls="uid-single-select-dropdown-2-wb-id"
+                aria-controls=":r4:"
                 aria-disabled="false"
                 aria-expanded="true"
                 aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Select an answer"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
-                id="uid-single-select-opener-3-wb-id"
+                id=":r3:"
+                role="combobox"
                 type="button"
               >
                 <span
                   class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
-                  greater/less than or equal to
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        greater/less than or equal to
+                      </div>
+                    </div>
+                  </div>
                 </span>
                 <span
                   aria-hidden="true"
@@ -86,9 +104,11 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
         <div
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
-          <div>
+          <div
+            class="default_xu2jcg"
+          >
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
               <span
                 aria-atomic="true"
@@ -98,18 +118,34 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
                 data-testid="dropdown-live-region"
               />
               <button
-                aria-controls="uid-single-select-dropdown-0-wb-id"
+                aria-controls=":r1:"
                 aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Select an answer"
                 class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
-                id="uid-single-select-opener-1-wb-id"
+                id=":r0:"
+                role="combobox"
                 type="button"
               >
                 <span
                   class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
-                  greater/less than or equal to
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        greater/less than or equal to
+                      </div>
+                    </div>
+                  </div>
                 </span>
                 <span
                   aria-hidden="true"

@@ -4,11 +4,12 @@
  * the dropdown for adding figures as well as the settings for each figure.
  */
 import Button from "@khanacademy/wonder-blocks-button";
-import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+import {useId} from "react";
 
 import Heading from "../../../components/heading";
 
@@ -18,18 +19,9 @@ import {getDefaultFigureForType} from "./util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {Props as InteractiveGraphEditorProps} from "../interactive-graph-editor";
-import type {
-    APIOptions,
-    LockedFigure,
-    LockedFigureType,
-} from "@khanacademy/perseus";
+import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus-core";
 
 type Props = {
-    flags?: APIOptions["flags"];
-    // Whether to show the locked labels in the locked figure settings.
-    // TODO(LEMS-2274): Remove this prop once the label flag is
-    // sfully rolled out.
-    showLabelsFlag?: boolean;
     figures?: Array<LockedFigure>;
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
 };
@@ -43,7 +35,7 @@ const LockedFiguresSection = (props: Props) => {
 
     const [isExpanded, setIsExpanded] = React.useState(true);
 
-    const uniqueId = useUniqueIdWithMock().get("locked-figures-section");
+    const uniqueId = useId();
     const {figures, onChange} = props;
 
     function addLockedFigure(newFigure: LockedFigureType) {
@@ -168,8 +160,6 @@ const LockedFiguresSection = (props: Props) => {
                         return (
                             <LockedFigureSettings
                                 key={`${uniqueId}-locked-${figure}-${index}`}
-                                flags={props.flags}
-                                showLabelsFlag={props.showLabelsFlag}
                                 expanded={expandedStates[index]}
                                 onToggle={(newValue) => {
                                     const newExpanded = [...expandedStates];
@@ -189,10 +179,8 @@ const LockedFiguresSection = (props: Props) => {
                     })}
                     <View style={styles.buttonContainer}>
                         <LockedFigureSelect
-                            showLabelsFlag={props.showLabelsFlag}
                             id={`${uniqueId}-select`}
-                            // TODO(LEMS-2656): remove TS suppression
-                            onChange={addLockedFigure as any}
+                            onChange={addLockedFigure}
                         />
                         <Strut size={spacing.small_12} />
                         {showExpandButton && (

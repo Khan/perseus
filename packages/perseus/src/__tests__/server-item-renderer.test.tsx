@@ -8,28 +8,26 @@ import {
     testDependenciesV2,
 } from "../../../../testing/test-dependencies";
 import {
-    itemWithInput,
+    itemWithNumericInput,
     itemWithLintingError,
-    itemWithMultipleNumericInputs,
     itemWithRadioAndExpressionWidgets,
-    definitionItem,
+    itemWithTwoMockWidgets,
+    itemWithMockWidget,
 } from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
 import WrappedServerItemRenderer, {
     ServerItemRenderer,
 } from "../server-item-renderer";
 import {registerWidget} from "../widgets";
-import NumericInputExport from "../widgets/numeric-input";
-import RadioWidgetExport from "../widgets/radio";
-
+import {MockWidget} from "../widgets/mock-widgets";
 import MockAssetLoadingWidgetExport, {
     mockedAssetItem,
-} from "./mock-asset-loading-widget";
+} from "../widgets/mock-widgets/mock-asset-loading-widget";
 
-import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
-import type {PerseusItem} from "../perseus-types";
 import type {APIOptions} from "../types";
+import type {MockAssetLoadingWidget} from "../widgets/mock-widgets/mock-asset-loading-widget";
 import type {KeypadAPI} from "@khanacademy/math-input";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -69,11 +67,8 @@ const renderQuestion = (
 describe("server item renderer", () => {
     beforeAll(() => {
         // TODO(LEMS-2656): remove TS suppression
-        // @ts-expect-error: NumericInputExport is not assignable to type WidgetExports
-        registerWidget("numeric-input", NumericInputExport);
-        // TODO(LEMS-2656): remove TS suppression
-        // @ts-expect-error: RadioWidgetExport is not assignable to type WidgetExports
-        registerWidget("radio", RadioWidgetExport);
+        // @ts-expect-error: MockWidget is not assignable to type WidgetExports
+        registerWidget("mock-widget", MockWidget);
     });
 
     let userEvent: UserEvent;
@@ -98,7 +93,7 @@ describe("server item renderer", () => {
     it("should snapshot", () => {
         // Arrange and Act
         const {container} = renderQuestion({
-            ...itemWithInput,
+            ...itemWithMockWidget,
             hints: [
                 {content: "Hint #1", images: {}, widgets: {}},
                 {content: "Hint #2", images: {}, widgets: {}},
@@ -112,35 +107,10 @@ describe("server item renderer", () => {
 
     it("should render the content", () => {
         // Arrange and Act
-        renderQuestion(itemWithInput);
+        renderQuestion(itemWithMockWidget);
 
         // Assert
         expect(screen.getByRole("textbox")).toBeVisible();
-    });
-
-    it("should be invalid if no input provided", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(itemWithInput);
-
-        // Act
-        const score = await act(() => renderer.scoreInput());
-
-        // Assert
-        expect(score.correct).toBe(false);
-        expect(score.empty).toBe(true);
-    });
-
-    it("should be answerable", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(itemWithInput);
-        await userEvent.type(screen.getByRole("textbox"), "-42");
-
-        // Act
-        const score = await act(() => renderer.scoreInput());
-
-        // Assert
-        expect(score.correct).toBe(true);
-        expect(score.empty).toBe(false);
     });
 
     it("should pass showSolutions to the widgets", () => {
@@ -158,7 +128,7 @@ describe("server item renderer", () => {
     it("calls onInteraction callback with the current user data", async () => {
         // Arrange
         const interactionCallback = jest.fn();
-        renderQuestion(itemWithMultipleNumericInputs, {
+        renderQuestion(itemWithTwoMockWidgets, {
             interactionCallback,
         });
 
@@ -170,17 +140,17 @@ describe("server item renderer", () => {
 
         // Assert
         expect(interactionCallback).toHaveBeenCalledWith({
-            "numeric-input 1": {currentValue: "1"},
-            "numeric-input 2": {currentValue: "2"},
+            "mock-widget 1": {currentValue: "1"},
+            "mock-widget 2": {currentValue: "2"},
         });
     });
 
     it("should return the DOM node for the requested focus path", async () => {
         // Arrange
-        const {renderer} = renderQuestion(itemWithInput);
+        const {renderer} = renderQuestion(itemWithMockWidget);
 
         // Act
-        const node = renderer.getDOMNodeForPath(["numeric-input 1"]);
+        const node = renderer.getDOMNodeForPath(["mock-widget 1"]);
 
         // Assert
         // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
@@ -190,7 +160,7 @@ describe("server item renderer", () => {
     it("should return the number of hints available", () => {
         // Arrange
         const {renderer} = renderQuestion({
-            ...itemWithInput,
+            ...itemWithMockWidget,
             hints: [
                 {content: "Hint #1", images: {}, widgets: {}},
                 {content: "Hint #2", images: {}, widgets: {}},
@@ -207,18 +177,13 @@ describe("server item renderer", () => {
 
     it("should return all widget ids", () => {
         // Arrange
-        const {renderer} = renderQuestion(definitionItem);
+        const {renderer} = renderQuestion(itemWithTwoMockWidgets);
 
         // Act
         const widgetIds = renderer.getWidgetIds();
 
         // Assert
-        expect(widgetIds).toStrictEqual([
-            "definition 1",
-            "definition 2",
-            "definition 3",
-            "definition 4",
-        ]);
+        expect(widgetIds).toStrictEqual(["mock-widget 1", "mock-widget 2"]);
     });
 
     it("should call the answerable callback when no widgets are empty", async () => {
@@ -230,7 +195,7 @@ describe("server item renderer", () => {
                     apiOptions={{
                         answerableCallback,
                     }}
-                    item={itemWithInput}
+                    item={itemWithMockWidget}
                     problemNum={0}
                     reviewMode={false}
                     dependencies={testDependenciesV2}
@@ -246,7 +211,7 @@ describe("server item renderer", () => {
                     apiOptions={{
                         answerableCallback,
                     }}
-                    item={itemWithInput}
+                    item={itemWithMockWidget}
                     problemNum={1} // to force componentDidUpdate
                     reviewMode={false}
                     dependencies={testDependenciesV2}
@@ -320,17 +285,13 @@ describe("server item renderer", () => {
     });
 
     it("should get prompt JSON with the correct content and widgets", () => {
-        const {renderer} = renderQuestion(itemWithRadioAndExpressionWidgets);
+        const {renderer} = renderQuestion(itemWithTwoMockWidgets);
 
         const json = renderer.getPromptJSON();
 
-        expect(json.content).toBe(
-            itemWithRadioAndExpressionWidgets.question.content,
-        );
+        expect(json.content).toBe(itemWithTwoMockWidgets.question.content);
 
-        const widgetKeys = Object.keys(
-            itemWithRadioAndExpressionWidgets.question.widgets,
-        );
+        const widgetKeys = Object.keys(itemWithTwoMockWidgets.question.widgets);
 
         expect(Object.keys(json.widgets)).toEqual(widgetKeys);
     });
@@ -339,7 +300,7 @@ describe("server item renderer", () => {
         it("calls onFocusChange when focusing the renderer", async () => {
             // Arranged
             const onFocusChange = jest.fn();
-            const {renderer} = renderQuestion(itemWithInput, {
+            const {renderer} = renderQuestion(itemWithMockWidget, {
                 onFocusChange,
             });
 
@@ -352,7 +313,7 @@ describe("server item renderer", () => {
             // Assert
             expect(gotFocus).toBe(true);
             expect(onFocusChange).toHaveBeenCalledWith(
-                ["numeric-input 1"],
+                ["mock-widget 1"],
                 null,
                 0,
                 expect.any(Object),
@@ -382,7 +343,7 @@ describe("server item renderer", () => {
                 setKeyHandler: jest.fn(),
             };
             const {renderer} = renderQuestion(
-                itemWithInput,
+                itemWithNumericInput,
                 {onFocusChange, isMobile: true},
                 {keypadElement},
             );
@@ -407,7 +368,7 @@ describe("server item renderer", () => {
         it("calls onFocusChange when blurring the renderer", () => {
             // Arrange
             const onFocusChange = jest.fn();
-            const {renderer} = renderQuestion(itemWithInput, {
+            const {renderer} = renderQuestion(itemWithMockWidget, {
                 onFocusChange,
             });
             act(() => renderer.focus());
@@ -422,7 +383,7 @@ describe("server item renderer", () => {
             expect(onFocusChange).toHaveBeenCalledTimes(2);
             expect(onFocusChange).toHaveBeenLastCalledWith(
                 null,
-                ["numeric-input 1"],
+                ["mock-widget 1"],
                 0,
                 null,
             );
@@ -451,7 +412,7 @@ describe("server item renderer", () => {
                 setKeyHandler: jest.fn(),
             };
             const {renderer} = renderQuestion(
-                itemWithInput,
+                itemWithNumericInput,
                 {onFocusChange, isMobile: true},
                 {keypadElement},
             );
@@ -477,19 +438,19 @@ describe("server item renderer", () => {
         it("should focus the widget requested in focusPath()", () => {
             // Arrange
             const onFocusChange = jest.fn();
-            const {renderer} = renderQuestion(itemWithInput, {
+            const {renderer} = renderQuestion(itemWithMockWidget, {
                 onFocusChange,
             });
 
             // Act
-            act(() => renderer.focusPath(["numeric-input 1"]));
+            act(() => renderer.focusPath(["mock-widget 1"]));
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
-                ["numeric-input 1"],
+                ["mock-widget 1"],
                 null,
                 0,
                 expect.any(Object),
@@ -501,7 +462,7 @@ describe("server item renderer", () => {
         it("should serialize the current state", async () => {
             // Arrange
             const {renderer} = renderQuestion({
-                ...itemWithInput,
+                ...itemWithMockWidget,
                 hints: [
                     {content: "Hint #1", images: {}, widgets: {}},
                     {content: "Hint #2", images: {}, widgets: {}},
@@ -522,14 +483,9 @@ describe("server item renderer", () => {
                     {},
                   ],
                   "question": {
-                    "numeric-input 1": {
-                      "answerForms": [],
-                      "coefficient": false,
+                    "mock-widget 1": {
                       "currentValue": "-42",
-                      "labelText": "",
-                      "rightAlign": false,
-                      "size": "normal",
-                      "static": false,
+                      "value": "3",
                     },
                   },
                 }
@@ -539,7 +495,7 @@ describe("server item renderer", () => {
         it("should restore serialized state", () => {
             // Arrange
             const callback = jest.fn();
-            const {renderer} = renderQuestion(itemWithInput);
+            const {renderer} = renderQuestion(itemWithMockWidget);
 
             // Act
             act(() =>
@@ -547,12 +503,8 @@ describe("server item renderer", () => {
                     {
                         hints: [{}, {}, {}],
                         question: {
-                            "numeric-input 1": {
-                                answerType: "number",
+                            "mock-widget 1": {
                                 currentValue: "-42",
-                                rightAlign: undefined,
-                                simplify: "required",
-                                size: "normal",
                             },
                         },
                     },

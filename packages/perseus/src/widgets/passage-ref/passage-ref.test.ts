@@ -2,6 +2,7 @@ import {act, screen} from "@testing-library/react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 import PassageExport from "../passage";
 
@@ -160,8 +161,12 @@ describe("passage-ref widget", () => {
         // Act
         const {renderer} = renderQuestion(question1);
         act(() => jest.runOnlyPendingTimers());
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 });

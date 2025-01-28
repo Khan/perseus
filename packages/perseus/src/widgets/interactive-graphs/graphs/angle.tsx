@@ -1,7 +1,10 @@
+import {angles} from "@khanacademy/kmath";
 import {vec} from "mafs";
 import * as React from "react";
 
-import {calculateAngleInDegrees, polar} from "../math";
+import {usePerseusI18n} from "../../../components/i18n-context";
+import a11y from "../../../util/a11y";
+import {X, Y} from "../math";
 import {findIntersectionOfRays} from "../math/geometry";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
@@ -11,10 +14,10 @@ import {trimRange} from "./components/movable-line";
 import {MovablePoint} from "./components/movable-point";
 import {SVGLine} from "./components/svg-line";
 import {Vector} from "./components/vector";
+import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {getIntersectionOfRayWithBox} from "./utils";
 
-import type {CollinearTuple} from "../../../perseus-types";
 import type {Segment} from "../math/geometry";
 import type {
     AngleGraphState,
@@ -22,6 +25,9 @@ import type {
     InteractiveGraphElementSuite,
     MafsGraphProps,
 } from "../types";
+import type {CollinearTuple} from "@khanacademy/perseus-core";
+
+const {calculateAngleInDegrees, getClockwiseAngle, polar} = angles;
 
 type AngleGraphProps = MafsGraphProps<AngleGraphState>;
 
@@ -95,9 +101,84 @@ function AngleGraph(props: AngleGraphProps) {
         showAngles: showAngles || false, // Whether to show the angle or not
     };
 
+    const {strings, locale} = usePerseusI18n();
+
+    const angleMeasure = srFormatNumber(
+        getClockwiseAngle(
+            [endPoints[0], centerPoint, endPoints[1]],
+            allowReflexAngles,
+        ),
+        locale,
+    );
+
+    const wholeAngleAriaLabel = strings.srAngleGraphAriaLabel;
+    const wholeAngleDescription = strings.srAngleGraphAriaDescription({
+        angleMeasure,
+        vertexX: srFormatNumber(coords[1][X], locale),
+        vertexY: srFormatNumber(coords[1][Y], locale),
+        startingSideX: srFormatNumber(coords[2][X], locale),
+        startingSideY: srFormatNumber(coords[2][Y], locale),
+        endingSideX: srFormatNumber(coords[0][X], locale),
+        endingSideY: srFormatNumber(coords[0][Y], locale),
+    });
+
+    const formatCoordinates = (x: number, y: number) => ({
+        x: srFormatNumber(x, locale),
+        y: srFormatNumber(y, locale),
+    });
+
+    const formatSideAriaLabel = (
+        side: "terminal" | "initial",
+        newPoint: vec.Vector2,
+    ): string => {
+        const formattedCoordinates = formatCoordinates(
+            newPoint[X],
+            newPoint[Y],
+        );
+        const label =
+            side === "terminal"
+                ? strings.srAngleSideAtCoordinates({
+                      point: 1,
+                      side: "terminal side",
+                      ...formattedCoordinates,
+                  })
+                : strings.srAngleSideAtCoordinates({
+                      point: 3,
+                      side: "initial side",
+                      ...formattedCoordinates,
+                  });
+        return label;
+    };
+
+    const formatVertexAriaLabel = (newPoint: vec.Vector2) => {
+        const formattedVertexCoordinates = formatCoordinates(
+            newPoint[X],
+            newPoint[Y],
+        );
+        const label = showAngles
+            ? strings.srAngleVertexAtCoordinatesWithAngleMeasure({
+                  ...formattedVertexCoordinates,
+                  angleMeasure: angleMeasure,
+              })
+            : strings.srAngleSideAtCoordinates({
+                  point: 2,
+                  side: "vertex",
+                  ...formattedVertexCoordinates,
+              });
+
+        return label;
+    };
+
+    const initialSideAriaLabel = formatSideAriaLabel("initial", coords[2]);
+    const terminalSideAriaLabel = formatSideAriaLabel("terminal", coords[0]);
+    const vertexAriaLabel = formatVertexAriaLabel(coords[1]);
+
     // Render the lines, angle, and then movable points
     return (
-        <>
+        <g
+            aria-label={wholeAngleAriaLabel}
+            aria-describedby="angle-description"
+        >
             {svgLines}
             <Angle {...angleParams} />
             {/* vertex */}
@@ -108,6 +189,7 @@ function AngleGraph(props: AngleGraphProps) {
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(1, destination))
                 }
+                ariaLabel={vertexAriaLabel}
             />
             {/* side 1 */}
             <MovablePoint
@@ -121,6 +203,7 @@ function AngleGraph(props: AngleGraphProps) {
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(0, destination))
                 }
+                ariaLabel={terminalSideAriaLabel}
             />
             {/* side 2 */}
             <MovablePoint
@@ -134,8 +217,12 @@ function AngleGraph(props: AngleGraphProps) {
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(2, destination))
                 }
+                ariaLabel={initialSideAriaLabel}
             />
-        </>
+            <g id="angle-description" style={a11y.srOnly}>
+                {wholeAngleDescription}
+            </g>
+        </g>
     );
 }
 
