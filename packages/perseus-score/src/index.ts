@@ -39,3 +39,8 @@ export {
 
 export {scorePerseusItem, scoreWidgetsFunctional, flattenScores} from "./score";
 export {emptyWidgetsFunctional} from "./validate";
+
+export type {
+    PerseusMockWidgetRubric,
+    PerseusMockWidgetUserInput,
+} from "./widgets/mock-widget/mock-widget-validation.types";
