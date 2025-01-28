@@ -13,7 +13,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-inp
 import {NumericInputComponent} from "./numeric-input";
 import {unionAnswerForms} from "./utils";
 
-import type InputWithExamples from "../../components/input-with-examples";
+import type InputWithExamples from "./input-with-examples";
 import type SimpleKeypadInput from "../../components/simple-keypad-input";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
@@ -75,7 +75,7 @@ export class NumericInput
     extends React.Component<NumericInputProps>
     implements Widget
 {
-    inputRef: RefObject<SimpleKeypadInput | InputWithExamples>;
+    inputRef: RefObject<SimpleKeypadInput | typeof InputWithExamples>;
 
     static defaultProps: DefaultProps = {
         currentValue: "",
@@ -101,7 +101,7 @@ export class NumericInput
         // Create a ref that we can pass down to the input component so that we
         // can call focus on it when necessary.
         this.inputRef = React.createRef<
-            SimpleKeypadInput | InputWithExamples
+            SimpleKeypadInput | typeof InputWithExamples
         >();
     }
 
