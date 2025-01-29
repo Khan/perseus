@@ -8,8 +8,8 @@ import draw from "./molecule-drawing";
 import MoleculeLayout from "./molecule-layout";
 import SmilesParser from "./smiles-parser";
 
-import type {PerseusMoleculeRendererWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports} from "../../types";
+import type {PerseusMoleculeRendererWidgetOptions} from "@khanacademy/perseus-core";
 
 const {layout} = MoleculeLayout;
 const parse = SmilesParser.parse;

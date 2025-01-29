@@ -66,6 +66,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                             aria-disabled="false"
                             aria-invalid="false"
                             aria-label="Your answer:"
+                            aria-required="false"
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
@@ -251,12 +252,12 @@ exports[`graded-group-set should render all graded groups 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1w5v67"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_pxdq54"
                 role="button"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_6kf3xs"
+                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
                 >
                   Check
                 </span>
@@ -308,6 +309,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                             aria-disabled="false"
                             aria-invalid="false"
                             aria-label="Your answer:"
+                            aria-required="false"
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
@@ -493,12 +495,12 @@ exports[`graded-group-set should render all graded groups 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1w5v67"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_pxdq54"
                 role="button"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_6kf3xs"
+                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
                 >
                   Check
                 </span>
@@ -550,6 +552,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                             aria-disabled="false"
                             aria-invalid="false"
                             aria-label="Your answer:"
+                            aria-required="false"
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
@@ -735,12 +738,12 @@ exports[`graded-group-set should render all graded groups 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1w5v67"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_pxdq54"
                 role="button"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_6kf3xs"
+                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
                 >
                   Check
                 </span>

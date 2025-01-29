@@ -12,11 +12,9 @@ import type {
     APIOptionsWithDefaults,
     ChangeHandler,
     DeviceType,
-    Hint,
     ImageUploader,
-    Version,
-    PerseusItem,
 } from "@khanacademy/perseus";
+import type {Hint, PerseusItem, Version} from "@khanacademy/perseus-core";
 
 const {HUD} = components;
 

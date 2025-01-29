@@ -1,10 +1,9 @@
 import * as KAS from "@khanacademy/kas";
+import {components, Changeable, Expression} from "@khanacademy/perseus";
 import {
-    components,
-    Changeable,
-    Expression,
     PerseusExpressionAnswerFormConsidered,
-} from "@khanacademy/perseus";
+    expressionLogic,
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -25,7 +24,8 @@ import SortableArea from "../components/sortable";
 import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
-} from "@khanacademy/perseus";
+    ExpressionDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 type ChangeFn = typeof Changeable.change;
 
@@ -40,13 +40,6 @@ type Props = {
 // types for iterables
 type AnswerForm = PerseusExpressionWidgetOptions["answerForms"][number];
 type LegacyButtonSet = PerseusExpressionWidgetOptions["buttonSets"][number];
-
-type DefaultProps = {
-    answerForms: Props["answerForms"];
-    times: Props["times"];
-    buttonSets: Props["buttonSets"];
-    functions: Props["functions"];
-};
 
 const buttonSetsList: LegacyButtonSets = [
     "basic",
@@ -98,12 +91,8 @@ type State = {
 class ExpressionEditor extends React.Component<Props, State> {
     static widgetName = "expression" as const;
 
-    static defaultProps: DefaultProps = {
-        answerForms: [],
-        times: false,
-        buttonSets: ["basic"],
-        functions: ["f", "g", "h"],
-    };
+    static defaultProps: ExpressionDefaultWidgetOptions =
+        expressionLogic.defaultWidgetOptions;
 
     constructor(props: Props) {
         super(props);

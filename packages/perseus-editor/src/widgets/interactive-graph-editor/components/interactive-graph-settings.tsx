@@ -19,7 +19,10 @@ import _ from "underscore";
 import Heading from "../../../components/heading";
 import LabeledRow from "../locked-figures/labeled-row";
 
-import type {PerseusImageBackground} from "@khanacademy/perseus";
+import type {
+    MarkingsType,
+    PerseusImageBackground,
+} from "@khanacademy/perseus-core";
 
 type ChangeFn = typeof Changeable.change;
 
@@ -67,7 +70,7 @@ type Props = {
      * An error message to display in the graph area, or true if the
      * graph is valid.
      */
-    valid: boolean | string;
+    valid: true | string;
     /**
      * The background image to display in the graph area and its properties.
      */
@@ -75,11 +78,12 @@ type Props = {
 
     /**
      * The type of markings to display on the graph.
+     * - axes: shows the axes without the gride lines
      * - graph: shows the axes and the grid lines
      * - grid: shows only the grid lines
      * - none: shows no markings
      */
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     /**
      * Whether to show the protractor on the graph.
      */
@@ -539,6 +543,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         value={this.props.markings}
                                         allowEmpty={false}
                                         buttons={[
+                                            {value: "axes", content: "Axes"},
                                             {value: "graph", content: "Graph"},
                                             {value: "grid", content: "Grid"},
                                             {value: "none", content: "None"},

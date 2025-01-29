@@ -4,11 +4,11 @@ import * as React from "react";
 
 import RadioEditor from "../radio/editor";
 
+import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRenderer,
-    APIOptions,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react";
 
 type StoryArgs = StoryObj<RadioEditor>;

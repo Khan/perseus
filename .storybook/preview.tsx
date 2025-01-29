@@ -41,6 +41,16 @@ const preview: Preview = {
     // These parameters apply to all stories, both inside and outside the fixture
     // framework.
     parameters: {
+        // Disables Chromatic's snapshotting on a global level
+        // We disable snapshotting globally because we have enabled
+        // turbosnaps for `-regression.stories.tsx` files. If we have
+        // snapshots enabled globally, we pay for turbosnaps even for
+        // skipped stories/tests (which is all of them).
+        // We then enable snapshots for `-regression.stories.tsx` files in
+        // each of those files (unfortunately, this is how we have to do
+        // it).
+        chromatic: {disableSnapshot: true},
+
         options: {
             storySort: {
                 order: ["Perseus", "PerseusEditor", "Math-Input", "*"],

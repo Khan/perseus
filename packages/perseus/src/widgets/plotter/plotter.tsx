@@ -1,4 +1,6 @@
 /* eslint-disable react/no-unsafe */
+import {KhanMath} from "@khanacademy/kmath";
+import {scorePlotter, validatePlotter} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -10,22 +12,19 @@ import WrappedLine from "../../interactive2/wrapped-line";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import GraphUtils from "../../util/graph-utils";
-import KhanMath from "../../util/math";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
 
-import scorePlotter from "./score-plotter";
-
-import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusPlotterScoringData,
-    PerseusPlotterUserInput,
-} from "../../validation.types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusPlotterRubric,
+    PerseusPlotterUserInput,
+} from "@khanacademy/perseus-score";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusPlotterScoringData> & {
+type Props = WidgetProps<RenderProps, PerseusPlotterRubric> & {
     labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
     picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
 };
@@ -1182,4 +1181,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
     scorer: scorePlotter,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
+    validator: validatePlotter,
 } satisfies WidgetExports<typeof Plotter>;

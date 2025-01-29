@@ -6,7 +6,7 @@ import {clampToBox, inset, MIN, size} from "./math";
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
 import type {Coord} from "../../interactive2/types";
-import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
+import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 
 /**

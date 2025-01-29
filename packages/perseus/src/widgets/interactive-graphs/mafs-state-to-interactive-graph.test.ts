@@ -14,7 +14,7 @@ import type {
     SegmentGraphState,
     SinusoidGraphState,
 } from "./types";
-import type {PerseusGraphType} from "../../perseus-types";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
 const commonGraphState: InteractiveGraphStateCommon = {
     hasBeenInteractedWith: true,

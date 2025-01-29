@@ -1,3 +1,4 @@
+import {scoreDropdown, validateDropdown} from "@khanacademy/perseus-score";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
@@ -9,15 +10,13 @@ import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
-import scoreDropdown from "./score-dropdown";
-
-import type {PerseusDropdownWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
+import type {PerseusDropdownWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
-} from "../../validation.types";
-import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
+} from "@khanacademy/perseus-score";
 
 type Props = WidgetProps<RenderProps, PerseusDropdownRubric> & {
     selected: number;
@@ -174,4 +173,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusDropdownUserInput'.
     scorer: scoreDropdown,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusDropdownUserInput'.
+    validator: validateDropdown,
 } satisfies WidgetExports<typeof Dropdown>;

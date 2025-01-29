@@ -1,4 +1,5 @@
 import {describe, beforeEach, it} from "@jest/globals";
+import {lockedFigureColors} from "@khanacademy/perseus-core";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -12,7 +13,6 @@ import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import {getDefaultFigureForType} from "../../../../perseus-editor/src/widgets/interactive-graph-editor/locked-figures/util";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
-import {lockedFigureColors} from "../../perseus-types";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
@@ -34,6 +34,7 @@ import {
     linearQuestionWithDefaultCorrect,
     linearSystemQuestion,
     linearSystemQuestionWithDefaultCorrect,
+    noneQuestion,
     pointQuestion,
     pointQuestionWithDefaultCorrect,
     polygonQuestion,
@@ -61,9 +62,9 @@ import {trueForAllMafsSupportedGraphTypes} from "./mafs-supported-graph-types";
 
 import type {mafsSupportedGraphTypes} from "./mafs-supported-graph-types";
 import type {Coord} from "../../interactive2/types";
-import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
@@ -1382,7 +1383,7 @@ describe("Interactive Graph", function () {
 
         it("should not have an aria-label or description if they are not provided", async () => {
             // Arrange
-            const {container} = renderQuestion(segmentQuestion, apiOptions);
+            const {container} = renderQuestion(noneQuestion, apiOptions);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access

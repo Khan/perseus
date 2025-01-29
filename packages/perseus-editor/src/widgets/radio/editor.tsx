@@ -6,6 +6,10 @@ import {
     Changeable,
     iconTrash,
 } from "@khanacademy/perseus";
+import {
+    radioLogic,
+    type RadioDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -119,15 +123,8 @@ class RadioEditor extends React.Component<any> {
 
     static widgetName = "radio" as const;
 
-    static defaultProps: any = {
-        choices: [{}, {}, {}, {}],
-        displayCount: null,
-        randomize: false,
-        hasNoneOfTheAbove: false,
-        multipleSelect: false,
-        countChoices: false,
-        deselectEnabled: false,
-    };
+    static defaultProps: RadioDefaultWidgetOptions =
+        radioLogic.defaultWidgetOptions;
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.

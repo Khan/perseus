@@ -1,5 +1,176 @@
 # @khanacademy/perseus
 
+## 52.0.1
+
+### Patch Changes
+
+-   [#2160](https://github.com/Khan/perseus/pull/2160) [`26de8f41f`](https://github.com/Khan/perseus/commit/26de8f41f544d2f72ab05e2829ffe53309a74fa2) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: use translated strings in mapErrorToString
+
+## 52.0.0
+
+### Major Changes
+
+-   [#1965](https://github.com/Khan/perseus/pull/1965) [`0f2bec314`](https://github.com/Khan/perseus/commit/0f2bec314518636e822e8ca0fc080209f4be8bfe) Thanks [@Myranae](https://github.com/Myranae)! - Refactor the LabelImage widget to separate out answers from userInput into scoringData
+
+*   [#2134](https://github.com/Khan/perseus/pull/2134) [`117e78d03`](https://github.com/Khan/perseus/commit/117e78d03f29304274c1d7cc206743439f94d6ef) Thanks [@handeyeco](https://github.com/handeyeco)! - Move widget ID utils to perseus-core
+
+-   [#2153](https://github.com/Khan/perseus/pull/2153) [`29a1c656e`](https://github.com/Khan/perseus/commit/29a1c656ee7f74b6eba8ce95fa9c239b2f328813) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Rename all instances of the term "ScoringData" back to "Rubric"
+
+*   [#2135](https://github.com/Khan/perseus/pull/2135) [`7a984eba6`](https://github.com/Khan/perseus/commit/7a984eba6f1cec3df314ec245d2176f5db190548) Thanks [@handeyeco](https://github.com/handeyeco)! - Move Expression WidgetOptions logic to core
+
+### Minor Changes
+
+-   [#2002](https://github.com/Khan/perseus/pull/2002) [`a1e22a4e3`](https://github.com/Khan/perseus/commit/a1e22a4e3cc752fb8b768d4441b9cf79e777b37f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add and improve types for scoring and validation
+
+*   [#2155](https://github.com/Khan/perseus/pull/2155) [`0df0b1940`](https://github.com/Khan/perseus/commit/0df0b194012627a98708cfcafd1ad5eb76ad91e2) Thanks [@benchristel](https://github.com/benchristel)! - Move `parsePerseusItem`, `parseAndMigratePerseusItem`,
+    `parseAndMigratePerseusArticle`, `isSuccess`, and `isFailure` to the
+    `perseus-core` package, and deprecate the equivalent exports from the `perseus`
+    package.
+
+-   [#2032](https://github.com/Khan/perseus/pull/2032) [`22d108fdc`](https://github.com/Khan/perseus/commit/22d108fdc1bd6cc6b150abae137e3716c5c59b92) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - adds aria labels to line segment
+
+*   [#2038](https://github.com/Khan/perseus/pull/2038) [`e6f7cc91e`](https://github.com/Khan/perseus/commit/e6f7cc91ec9601bb7df7e8e6846349c114d09cd0) Thanks [@Myranae](https://github.com/Myranae)! - Fix some naming discrepancies related to validation and simplify Matcher ScoringData type
+
+-   [#2083](https://github.com/Khan/perseus/pull/2083) [`4c10af109`](https://github.com/Khan/perseus/commit/4c10af109245ac10846ef1d0c6fad2a095c11d0b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Use empty widgets check in scoring function
+
+*   [#2000](https://github.com/Khan/perseus/pull/2000) [`0db68d222`](https://github.com/Khan/perseus/commit/0db68d2227118cf4de51c3ccad59b525be657cf3) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change empty widgets check in Renderer to depend only on data available (and not on scoring data)
+
+-   [#2137](https://github.com/Khan/perseus/pull/2137) [`b4b3a3dbb`](https://github.com/Khan/perseus/commit/b4b3a3dbb5097b1225e9e5acdda254f2f1e66122) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the orderer widget
+
+*   [#2006](https://github.com/Khan/perseus/pull/2006) [`879d2a501`](https://github.com/Khan/perseus/commit/879d2a501e25304bd715eb73a2d615a7d06d2cd9) Thanks [@Myranae](https://github.com/Myranae)! - Rename usages of rubric to scoringData
+
+-   [#2139](https://github.com/Khan/perseus/pull/2139) [`32cc4a45b`](https://github.com/Khan/perseus/commit/32cc4a45bd2df34a0620729ca659a8aec6bcd62a) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Expression widget
+
+*   [#2016](https://github.com/Khan/perseus/pull/2016) [`55ad836c6`](https://github.com/Khan/perseus/commit/55ad836c6a65526762a0a9b189305941f2bc422f) Thanks [@Myranae](https://github.com/Myranae)! - Introduces a validation function for the label-image widget (extracted from label-image scoring function).
+
+### Patch Changes
+
+-   [#2142](https://github.com/Khan/perseus/pull/2142) [`d7bcb14c3`](https://github.com/Khan/perseus/commit/d7bcb14c398059be0be20bea118f9fee1dfc93f6) Thanks [@handeyeco](https://github.com/handeyeco)! - Move Radio upgrade logic to Perseus Core
+
+*   [#2122](https://github.com/Khan/perseus/pull/2122) [`1a75ca628`](https://github.com/Khan/perseus/commit/1a75ca628405dbd9cbe8ee21d7a9039a78327c47) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Type and test fixes for new MockWidget (isolating to be seen only in tests)
+
+-   [#2143](https://github.com/Khan/perseus/pull/2143) [`459c25074`](https://github.com/Khan/perseus/commit/459c2507472f104f521b5410feaa64402d473a43) Thanks [@handeyeco](https://github.com/handeyeco)! - Move Passage widgets upgrade logic to Perseus Core
+
+*   [#1997](https://github.com/Khan/perseus/pull/1997) [`0464a760f`](https://github.com/Khan/perseus/commit/0464a760f3b6b49e30accde9b41a320dd2ea7bed) Thanks [@Myranae](https://github.com/Myranae)! - Remove unused CS Program rubric type
+
+-   [#2110](https://github.com/Khan/perseus/pull/2110) [`e2f2cee9f`](https://github.com/Khan/perseus/commit/e2f2cee9fe39313885e7c6aaed963612f807caca) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Linear - Add the interactive elements linear description to the whole graph container
+
+*   [#2136](https://github.com/Khan/perseus/pull/2136) [`ffaa3904a`](https://github.com/Khan/perseus/commit/ffaa3904aa885f29694bf1fd6348578c6ab3e19e) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Quadratic - add screen reader support for Quadratic interactive graph
+
+-   [#1996](https://github.com/Khan/perseus/pull/1996) [`b6623bb56`](https://github.com/Khan/perseus/commit/b6623bb569c8776ad5bf4e770789e4b079e230e0) Thanks [@Myranae](https://github.com/Myranae)! - Remove unused iframe rubric type
+
+*   [#2124](https://github.com/Khan/perseus/pull/2124) [`bdbdafe5d`](https://github.com/Khan/perseus/commit/bdbdafe5d66a76149624410a746909e4dc3a1ddc) Thanks [@dependabot](https://github.com/apps/dependabot)! - Updating wonder-blocks dependences.
+
+-   [#2152](https://github.com/Khan/perseus/pull/2152) [`f8c9d3574`](https://github.com/Khan/perseus/commit/f8c9d35743d2e8ccf12875ef91498543e2015576) Thanks [@Myranae](https://github.com/Myranae)! - Move the categorizer, orderer, and expression public widget options functions from perseus package to their widget folders in perseus-core
+
+*   [#1995](https://github.com/Khan/perseus/pull/1995) [`99cd254de`](https://github.com/Khan/perseus/commit/99cd254de354bbebf6b6ea84e0c33241d2a18763) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - TESTS: swap input-number out of renderer tests as it is deprecated
+
+-   [#2141](https://github.com/Khan/perseus/pull/2141) [`1355d6cfc`](https://github.com/Khan/perseus/commit/1355d6cfcbd4cb44de3f05084744dbdefd19def8) Thanks [@handeyeco](https://github.com/handeyeco)! - Move Measurer upgrade logic to Perseus Core
+
+-   Updated dependencies [[`8f8955718`](https://github.com/Khan/perseus/commit/8f89557185f7bed910251520863ed1c8ed3a4410), [`d7bcb14c3`](https://github.com/Khan/perseus/commit/d7bcb14c398059be0be20bea118f9fee1dfc93f6), [`685774f2e`](https://github.com/Khan/perseus/commit/685774f2eae44e4cd5e0d6341a209012cf7e9bcb), [`8a489600e`](https://github.com/Khan/perseus/commit/8a489600e3b0b474da36cc492671879d1372ea46), [`1a75ca628`](https://github.com/Khan/perseus/commit/1a75ca628405dbd9cbe8ee21d7a9039a78327c47), [`459c25074`](https://github.com/Khan/perseus/commit/459c2507472f104f521b5410feaa64402d473a43), [`0df0b1940`](https://github.com/Khan/perseus/commit/0df0b194012627a98708cfcafd1ad5eb76ad91e2), [`dc8118aa1`](https://github.com/Khan/perseus/commit/dc8118aa1e28e77d78a57bc13e50d1954e3f8f69), [`82fa90299`](https://github.com/Khan/perseus/commit/82fa902999d9d79a050fe9acf0031ba886b387fa), [`b4b3a3dbb`](https://github.com/Khan/perseus/commit/b4b3a3dbb5097b1225e9e5acdda254f2f1e66122), [`117e78d03`](https://github.com/Khan/perseus/commit/117e78d03f29304274c1d7cc206743439f94d6ef), [`29a1c656e`](https://github.com/Khan/perseus/commit/29a1c656ee7f74b6eba8ce95fa9c239b2f328813), [`7a984eba6`](https://github.com/Khan/perseus/commit/7a984eba6f1cec3df314ec245d2176f5db190548), [`f8c9d3574`](https://github.com/Khan/perseus/commit/f8c9d35743d2e8ccf12875ef91498543e2015576), [`1355d6cfc`](https://github.com/Khan/perseus/commit/1355d6cfcbd4cb44de3f05084744dbdefd19def8), [`75f43a8f4`](https://github.com/Khan/perseus/commit/75f43a8f41739df4831e589e0a2724e1c7169312), [`32cc4a45b`](https://github.com/Khan/perseus/commit/32cc4a45bd2df34a0620729ca659a8aec6bcd62a), [`ebf3695b6`](https://github.com/Khan/perseus/commit/ebf3695b69c7526279ef1c999f13b4e24be885be)]:
+    -   @khanacademy/perseus-core@3.3.0
+    -   @khanacademy/perseus-score@2.0.0
+    -   @khanacademy/kas@0.4.12
+    -   @khanacademy/keypad-context@1.0.15
+    -   @khanacademy/kmath@0.3.1
+    -   @khanacademy/math-input@22.2.2
+    -   @khanacademy/perseus-linter@1.2.14
+    -   @khanacademy/pure-markdown@0.3.23
+    -   @khanacademy/simple-markdown@0.13.16
+
+## 51.0.1
+
+### Patch Changes
+
+-   [#2131](https://github.com/Khan/perseus/pull/2131) [`cb15921b8`](https://github.com/Khan/perseus/commit/cb15921b8bdfd850c40610b4df5c9919a668a2a1) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix localized string templates for two the ray interactive graph type
+
+## 51.0.0
+
+### Major Changes
+
+-   [#2101](https://github.com/Khan/perseus/pull/2101) [`9cabe689a`](https://github.com/Khan/perseus/commit/9cabe689a7aa143f95adf4556bf5c10d654a66ae) Thanks [@handeyeco](https://github.com/handeyeco)! - Move scorers and validators to `perseus-score`
+
+### Minor Changes
+
+-   [#2127](https://github.com/Khan/perseus/pull/2127) [`6f2813cfc`](https://github.com/Khan/perseus/commit/6f2813cfcb6bce063d8f0f8f66219ce0123aac66) Thanks [@benchristel](https://github.com/benchristel)! - Avoid adding undefined values to objects parsed from Perseus JSON when properties are missing.
+
+### Patch Changes
+
+-   [#2130](https://github.com/Khan/perseus/pull/2130) [`165305e11`](https://github.com/Khan/perseus/commit/165305e11c5ba196e1a2a9c4fd814d387d34dc55) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change interactive-graph visual regression stories to Storybook's CSF v3
+
+*   [#2077](https://github.com/Khan/perseus/pull/2077) [`faccc2d59`](https://github.com/Khan/perseus/commit/faccc2d5959a4a7051720f7a3dfe4a4875b6ace9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Enable the exhaustive test tool for parsePerseusItem to test articles.
+
+-   [#2030](https://github.com/Khan/perseus/pull/2030) [`d96821e08`](https://github.com/Khan/perseus/commit/d96821e08b3f80eb0a277882f4a8a40330b27adc) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Linear System - add screen reader support for Linear System interactive graph
+
+*   [#2036](https://github.com/Khan/perseus/pull/2036) [`0f8d11c0b`](https://github.com/Khan/perseus/commit/0f8d11c0b8c00a10eb49f2d84b664803c5c83f3f) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Ray graph - Add screen reader support for Ray interactive graph
+
+-   [#2109](https://github.com/Khan/perseus/pull/2109) [`41ffd4a71`](https://github.com/Khan/perseus/commit/41ffd4a71673399657d7024c206af4fa4e0be267) Thanks [@dependabot](https://github.com/apps/dependabot)! - Updating our wonder-blocks packages with the latest versions.
+
+-   Updated dependencies [[`9cabe689a`](https://github.com/Khan/perseus/commit/9cabe689a7aa143f95adf4556bf5c10d654a66ae), [`41ffd4a71`](https://github.com/Khan/perseus/commit/41ffd4a71673399657d7024c206af4fa4e0be267)]:
+    -   @khanacademy/kmath@0.3.0
+    -   @khanacademy/perseus-core@3.2.0
+    -   @khanacademy/perseus-score@1.1.0
+    -   @khanacademy/math-input@22.2.1
+    -   @khanacademy/kas@0.4.11
+    -   @khanacademy/keypad-context@1.0.14
+    -   @khanacademy/perseus-linter@1.2.13
+    -   @khanacademy/pure-markdown@0.3.22
+    -   @khanacademy/simple-markdown@0.13.15
+
+## 50.1.0
+
+### Minor Changes
+
+-   [#2092](https://github.com/Khan/perseus/pull/2092) [`600bf6acb`](https://github.com/Khan/perseus/commit/600bf6acbbf76817e3bf7893f8f85188a538bd6a) Thanks [@Myranae](https://github.com/Myranae)! - Introduce a widget export function to filter out scoring data from widget options. Implement this function for the categorizer widget.
+
+*   [#2103](https://github.com/Khan/perseus/pull/2103) [`01caf5f31`](https://github.com/Khan/perseus/commit/01caf5f3111d84cf37dffc45012f21860d1648b1) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - revert wb versions
+
+### Patch Changes
+
+-   [#2097](https://github.com/Khan/perseus/pull/2097) [`7ed21f49e`](https://github.com/Khan/perseus/commit/7ed21f49ee0cccbb40f200903a7fdfb9c2c0389b) Thanks [@nishasy](https://github.com/nishasy)! - [SR][locked figures] Give all locked figures "img" role
+
+*   [#2104](https://github.com/Khan/perseus/pull/2104) [`ce67b0f0a`](https://github.com/Khan/perseus/commit/ce67b0f0a823c09c1c942220d93eca20aa8a963f) Thanks [@handeyeco](https://github.com/handeyeco)! - Handle error codes better in Graded Group
+
+*   Updated dependencies [[`01caf5f31`](https://github.com/Khan/perseus/commit/01caf5f3111d84cf37dffc45012f21860d1648b1)]:
+    -   @khanacademy/math-input@22.2.0
+
+## 50.0.0
+
+### Major Changes
+
+-   [#2093](https://github.com/Khan/perseus/pull/2093) [`766d33577`](https://github.com/Khan/perseus/commit/766d33577a5ea83ef8f8c291534eb34833c54197) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove exports from Perseus that were moved to Perseus-Core
+
+*   [#2086](https://github.com/Khan/perseus/pull/2086) [`bc3d955b5`](https://github.com/Khan/perseus/commit/bc3d955b57e847a379328fcc7cf276f42e0874dd) Thanks [@handeyeco](https://github.com/handeyeco)! - Init perseus-score, move AnswerTypes from perseus to perseus-score, move perseus-types in perseus to data-schema in perseus-core
+
+### Minor Changes
+
+-   [#2082](https://github.com/Khan/perseus/pull/2082) [`bbf7f3b1b`](https://github.com/Khan/perseus/commit/bbf7f3b1be657c588270a3b47983c0aecbf84418) Thanks [@benchristel](https://github.com/benchristel)! - Enable parsePerseusItem to parse all published content, upgrading old formats to the current one.
+
+*   [#2085](https://github.com/Khan/perseus/pull/2085) [`72fb7ecd3`](https://github.com/Khan/perseus/commit/72fb7ecd35fa302b88a051af4f1380f513e53b21) Thanks [@benchristel](https://github.com/benchristel)! - Deprecates `parsePerseusItem()` in favor of typesafe `parseAndMigratePerseusItem()` and `parseAndMigratePerseusArticle()` functions.
+
+-   [#2053](https://github.com/Khan/perseus/pull/2053) [`5173c2e43`](https://github.com/Khan/perseus/commit/5173c2e43bf939159f420dcd448b90691d52353b) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding new interactive graph marking type, axes.
+
+### Patch Changes
+
+-   [#2062](https://github.com/Khan/perseus/pull/2062) [`785908077`](https://github.com/Khan/perseus/commit/78590807708e3d8745ac99440dbeb96b7d3d42bd) Thanks [@nishasy](https://github.com/nishasy)! - [SR][sr tree] Add screen reader tree to interactive graph editor
+
+*   [#2060](https://github.com/Khan/perseus/pull/2060) [`43e99d28d`](https://github.com/Khan/perseus/commit/43e99d28d90ead605fb2319c9b6b9982cdbc6edd) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Circle - Add interactive Circle element to full graph description
+
+-   [#2072](https://github.com/Khan/perseus/pull/2072) [`6cf647729`](https://github.com/Khan/perseus/commit/6cf6477291053d85faac48028b8f038fd0c28930) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - The creation of a new Mock Widget for tests.
+
+*   [#2088](https://github.com/Khan/perseus/pull/2088) [`d2797bb2d`](https://github.com/Khan/perseus/commit/d2797bb2dc51bd80cb03f2c1eeb39286e4dfa45c) Thanks [@handeyeco](https://github.com/handeyeco)! - Move objective\_ helpers into perseus-core
+
+*   Updated dependencies [[`bbf7f3b1b`](https://github.com/Khan/perseus/commit/bbf7f3b1be657c588270a3b47983c0aecbf84418), [`6cf647729`](https://github.com/Khan/perseus/commit/6cf6477291053d85faac48028b8f038fd0c28930), [`5173c2e43`](https://github.com/Khan/perseus/commit/5173c2e43bf939159f420dcd448b90691d52353b), [`bc3d955b5`](https://github.com/Khan/perseus/commit/bc3d955b57e847a379328fcc7cf276f42e0874dd), [`d2797bb2d`](https://github.com/Khan/perseus/commit/d2797bb2dc51bd80cb03f2c1eeb39286e4dfa45c)]:
+    -   @khanacademy/perseus-core@3.1.0
+    -   @khanacademy/pure-markdown@0.3.21
+    -   @khanacademy/perseus-score@1.0.0
+    -   @khanacademy/kmath@0.2.0
+    -   @khanacademy/kas@0.4.10
+    -   @khanacademy/keypad-context@1.0.13
+    -   @khanacademy/math-input@22.1.2
+    -   @khanacademy/perseus-linter@1.2.12
+    -   @khanacademy/simple-markdown@0.13.14
+
 ## 49.2.2
 
 ### Patch Changes

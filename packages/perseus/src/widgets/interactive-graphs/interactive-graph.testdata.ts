@@ -2,7 +2,7 @@ import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-buil
 
 import type {LockedFunctionOptions} from "./interactive-graph-question-builder";
 import type {Coord} from "../../interactive2/types";
-import type {PerseusRenderer, RadioWidget} from "../../perseus-types";
+import type {PerseusRenderer, RadioWidget} from "@khanacademy/perseus-core";
 
 // Data for the interactive graph widget
 

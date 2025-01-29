@@ -14,9 +14,10 @@ import type {
     LockedPointType,
     LockedPolygonType,
     LockedVectorType,
+    MarkingsType,
     PerseusGraphType,
     PerseusRenderer,
-} from "../../perseus-types";
+} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 export type LockedFunctionOptions = {
@@ -54,7 +55,7 @@ class InteractiveGraphQuestionBuilder {
     };
     private gridStep: vec.Vector2 = [1, 1];
     private labels: [string, string] = ["$x$", "$y$"];
-    private markings: "graph" | "grid" | "none" = "graph";
+    private markings: MarkingsType = "graph";
     private xRange: Interval = [-10, 10];
     private yRange: Interval = [-10, 10];
     private snapStep: vec.Vector2 = [0.5, 0.5];
@@ -90,10 +91,6 @@ class InteractiveGraphQuestionBuilder {
                         lockedFigures: this.lockedFigures,
                     },
                     type: "interactive-graph",
-                    version: {
-                        major: 0,
-                        minor: 0,
-                    },
                 },
             },
         };
@@ -152,9 +149,7 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
-    withMarkings(
-        markings: "graph" | "grid" | "none",
-    ): InteractiveGraphQuestionBuilder {
+    withMarkings(markings: MarkingsType): InteractiveGraphQuestionBuilder {
         this.markings = markings;
         return this;
     }

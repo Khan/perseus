@@ -10,7 +10,7 @@
 import fs from "fs";
 import path from "path";
 
-import type {PerseusRenderer} from "@khanacademy/perseus";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 // ==========================
 // MODIFY THIS WHEN SEARCHING

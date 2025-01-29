@@ -1,6 +1,16 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
-import {number as knumber, point as kpoint} from "@khanacademy/kmath";
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {
+    angles,
+    geometry,
+    number as knumber,
+    point as kpoint,
+} from "@khanacademy/kmath";
+import {
+    approximateEqual,
+    Errors,
+    PerseusError,
+} from "@khanacademy/perseus-core";
+import {scoreInteractiveGraph} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import debounce from "lodash.debounce";
 import * as React from "react";
@@ -12,7 +22,45 @@ import Interactive2 from "../interactive2";
 import WrappedLine from "../interactive2/wrapped-line";
 import Util from "../util";
 import KhanColors from "../util/colors";
-import {
+import GraphUtils from "../util/graph-utils";
+import {polar} from "../util/graphie";
+import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
+import {getPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
+
+import {StatefulMafsGraph} from "./interactive-graphs";
+
+import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
+import type {QuadraticGraphState} from "./interactive-graphs/types";
+import type {Coord} from "../interactive2/types";
+import type {ChangeHandler, WidgetExports, WidgetProps} from "../types";
+import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
+import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
+import type {
+    QuadraticCoefficient,
+    SineCoefficient,
+    Range,
+} from "@khanacademy/kmath";
+import type {
+    PerseusGraphType,
+    PerseusGraphTypeAngle,
+    PerseusGraphTypePoint,
+    PerseusGraphTypePolygon,
+    PerseusGraphTypeSegment,
+    PerseusInteractiveGraphWidgetOptions,
+    GraphRange,
+    LockedFigure,
+    PerseusImageBackground,
+    MarkingsType,
+} from "@khanacademy/perseus-core";
+import type {
+    PerseusInteractiveGraphRubric,
+    PerseusInteractiveGraphUserInput,
+} from "@khanacademy/perseus-score";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
+const {getClockwiseAngle} = angles;
+
+const {
     angleMeasures,
     ccw,
     collinear,
@@ -24,43 +72,7 @@ import {
     rotate,
     sign,
     vector,
-} from "../util/geometry";
-import GraphUtils from "../util/graph-utils";
-import {polar} from "../util/graphie";
-import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
-import {getPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
-
-import {StatefulMafsGraph} from "./interactive-graphs";
-import {getClockwiseAngle} from "./interactive-graphs/math";
-import scoreInteractiveGraph from "./interactive-graphs/score-interactive-graph";
-
-import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
-import type {QuadraticGraphState} from "./interactive-graphs/types";
-import type {Coord} from "../interactive2/types";
-import type {
-    PerseusGraphType,
-    PerseusGraphTypeAngle,
-    PerseusGraphTypePoint,
-    PerseusGraphTypePolygon,
-    PerseusGraphTypeSegment,
-    PerseusInteractiveGraphWidgetOptions,
-    GraphRange,
-    LockedFigure,
-    PerseusImageBackground,
-} from "../perseus-types";
-import type {ChangeHandler, WidgetExports, WidgetProps} from "../types";
-import type {
-    QuadraticCoefficient,
-    Range,
-    SineCoefficient,
-} from "../util/geometry";
-import type {
-    PerseusInteractiveGraphRubric,
-    PerseusInteractiveGraphUserInput,
-} from "../validation.types";
-import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
-import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+} = geometry;
 
 const TRASH_ICON_URI =
     "https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png";
@@ -68,8 +80,6 @@ const TRASH_ICON_URI =
 const defaultBackgroundImage = {
     url: null,
 };
-
-const eq = Util.eq;
 
 const UNLIMITED = "unlimited" as const;
 
@@ -83,7 +93,7 @@ function defaultVal<T>(actual: T | null | undefined, defaultValue: T): T {
 
 // Less than or approximately equal
 function leq(a: any, b) {
-    return a < b || eq(a, b);
+    return a < b || approximateEqual(a, b);
 }
 
 function capitalize(str) {
@@ -148,11 +158,12 @@ type RenderProps = {
     backgroundImage?: PerseusImageBackground;
     /**
      * The type of markings to display on the graph.
+     * - axes: shows the axes without the gride lines
      * - graph: shows the axes and the grid lines
      * - grid: shows only the grid lines
      * - none: shows no markings
      */
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     /**
      * How to label the X and Y axis.  default: ["x", "y"]
      */
@@ -2289,12 +2300,12 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static getLinearEquationString(props: Props): string {
         const coords = InteractiveGraph.getLineCoords(props.graph, props);
-        if (eq(coords[0][0], coords[1][0])) {
+        if (approximateEqual(coords[0][0], coords[1][0])) {
             return "x = " + coords[0][0].toFixed(3);
         }
         const m = (coords[1][1] - coords[0][1]) / (coords[1][0] - coords[0][0]);
         const b = coords[0][1] - m * coords[0][0];
-        if (eq(m, 0)) {
+        if (approximateEqual(m, 0)) {
             return "y = " + b.toFixed(3);
         }
         return "y = " + m.toFixed(3) + "x + " + b.toFixed(3);

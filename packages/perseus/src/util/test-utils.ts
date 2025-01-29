@@ -9,9 +9,8 @@ import type {
     PerseusItem,
     PerseusRenderer,
     RadioWidget,
-} from "../perseus-types";
-import type {PerseusScore} from "../types";
-import type {UserInputMap} from "../validation.types";
+} from "@khanacademy/perseus-core";
+import type {PerseusScore, UserInputMap} from "@khanacademy/perseus-score";
 
 export const genericPerseusItemData: PerseusItem = {
     question: {

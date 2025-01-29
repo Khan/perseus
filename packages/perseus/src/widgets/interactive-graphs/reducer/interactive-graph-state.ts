@@ -1,8 +1,10 @@
-import {clockwise} from "../../../util/geometry";
+import {geometry} from "@khanacademy/kmath";
 
 import type {Coord} from "../../../interactive2/types";
-import type {PerseusGraphType} from "../../../perseus-types";
 import type {CircleGraphState, InteractiveGraphState} from "../types";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
+
+const {clockwise} = geometry;
 
 export function getGradableGraph(
     state: InteractiveGraphState,

@@ -1,3 +1,5 @@
+import type {ErrorCodes} from "@khanacademy/perseus-score";
+
 /**
  * The translated strings that are used to render Perseus.
  */
@@ -258,6 +260,170 @@ export type PerseusStrings = {
         endingSideX: string;
         endingSideY: string;
     }) => string;
+    srSingleSegmentGraphAriaLabel: string;
+    srMultipleSegmentGraphAriaLabel: ({
+        countOfSegments,
+    }: {
+        countOfSegments: number;
+    }) => string;
+    srMultipleSegmentIndividualLabel: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        indexOfSegment,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        indexOfSegment: number;
+    }) => string;
+    srSingleSegmentLabel: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srSegmentLength: ({length}: {length: string}) => string;
+    srSingleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+    }: {
+        endpointNumber: number;
+        x: string;
+        y: string;
+    }) => string;
+    srMultipleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+        indexOfSegment,
+    }: {
+        endpointNumber: number;
+        x: string;
+        y: string;
+        indexOfSegment: number;
+    }) => string;
+    srSegmentGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srLinearSystemGraph: string;
+    srLinearSystemPoints: ({
+        lineNumber,
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        lineNumber: number;
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srLinearSystemPoint({
+        lineNumber,
+        pointSequence,
+        x,
+        y,
+    }: {
+        lineNumber: number;
+        pointSequence: number;
+        x: string;
+        y: string;
+    }): string;
+    srRayGraph: string;
+    srRayPoints: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srRayEndpoint: ({x, y}: {x: string; y: string}) => string;
+    srRayTerminalPoint: ({x, y}: {x: string; y: string}) => string;
+    srRayGrabHandle: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
+    srQuadraticGraph: string;
+    srQuadraticFaceUp: string;
+    srQuadraticFaceDown: string;
+    srQuadraticGraphVertexOrigin: string;
+    srQuadraticGraphVertexXAxis: string;
+    srQuadraticGraphVertexYAxis: string;
+    srQuadraticGraphVertexQuadrant: ({quadrant}: {quadrant: number}) => string;
+    srQuadraticTwoXIntercepts: ({
+        intercept1,
+        intercept2,
+    }: {
+        intercept1: string;
+        intercept2: string;
+    }) => string;
+    srQuadraticOneXIntercept: ({intercept}: {intercept: string}) => string;
+    srQuadraticYIntercept: ({intercept}: {intercept: string}) => string;
+    srQuadraticPointOrigin: ({pointNumber}: {pointNumber: number}) => string;
+    srQuadraticPointAxis: ({
+        pointNumber,
+        x,
+        y,
+    }: {
+        pointNumber: number;
+        x: string;
+        y: string;
+    }) => string;
+    srQuadraticPointQuadrant: ({
+        pointNumber,
+        x,
+        y,
+        quadrant,
+    }: {
+        pointNumber: number;
+        x: string;
+        y: string;
+        quadrant: number;
+    }) => string;
+    srQuadraticInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        point3X,
+        point3Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        point3X: string;
+        point3Y: string;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -266,12 +432,7 @@ export type PerseusStrings = {
  * translator to produce translated strings, passed in as `PerseusStrings`.
  * !! Note: Ensure that all escape sequences are double-escaped. (e.g. `\\text` -> `\\\\text`)
  */
-export const strings: {
-    [key in keyof PerseusStrings]:
-        | string
-        | {context?: string; message: string}
-        | {context?: string; one: string; other: string};
-} = {
+export const strings = {
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
     mathInputBox: "Math input box",
@@ -478,7 +639,56 @@ export const strings: {
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
     srAngleGraphAriaDescription:
         "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
+    srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
+    srMultipleSegmentGraphAriaLabel:
+        "%(countOfSegments)s line segments on a coordinate plane.",
+    srMultipleSegmentIndividualLabel:
+        "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+    srSingleSegmentLabel:
+        "Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+    srSegmentLength: "Segment length %(length)s units.",
+    srSingleSegmentGraphEndpointAriaLabel:
+        "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
+    srMultipleSegmentGraphEndpointAriaLabel:
+        "Endpoint %(endpointNumber)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
+    srSegmentGrabHandle:
+        "Segment from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
+    srLinearSystemGraph: "Two lines on a coordinate plane.",
+    srLinearSystemPoints:
+        "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+    srLinearSystemPoint:
+        "Point %(pointSequence)s on line %(lineNumber)s at %(x)s comma %(y)s.",
+    srRayGraph: "A ray on a coordinate plane.",
+    srRayPoints:
+        "The endpoint is at %(point1X)s comma %(point1Y)s and the ray goes through point %(point2X)s comma %(point2Y)s.",
+    srRayGrabHandle:
+        "Ray with endpoint %(point1X)s comma %(point1Y)s going through point %(point2X)s comma %(point2Y)s.",
+    srRayEndpoint: "Endpoint at %(x)s comma %(y)s.",
+    srRayTerminalPoint: "Through point at %(x)s comma %(y)s.",
+    srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
+    srQuadraticFaceUp: "The parabola opens upward.",
+    srQuadraticFaceDown: "The parabola opens downward.",
+    srQuadraticGraphVertexOrigin: "Vertex is at the origin.",
+    srQuadraticGraphVertexXAxis: "Vertex is on the X-axis.",
+    srQuadraticGraphVertexYAxis: "Vertex is on the Y-axis.",
+    srQuadraticGraphVertexQuadrant: "Vertex is in quadrant %(quadrant)s.",
+    srQuadraticTwoXIntercepts:
+        "The X-intercepts are at %(intercept1)s comma 0 and %(intercept2)s comma 0.",
+    srQuadraticOneXIntercept: "The X-intercept is at %(intercept)s comma 0.",
+    srQuadraticYIntercept: "The Y-intercept is at 0 comma %(intercept)s.",
+    srQuadraticPointOrigin: "Point %(pointNumber)s on parabola at the origin.",
+    srQuadraticPointAxis:
+        "Point %(pointNumber)s on parabola at %(x)s comma %(y)s.",
+    srQuadraticPointQuadrant:
+        "Point %(pointNumber)s on parabola in quadrant %(quadrant)s at %(x)s comma %(y)s.",
+    srQuadraticInteractiveElements:
+        "Parabola with points at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, and %(point3X)s comma %(point3Y)s.",
     // The above strings are used for interactive graph SR descriptions.
+} satisfies {
+    [key in keyof PerseusStrings]:
+        | string
+        | {context?: string; message: string}
+        | {context?: string; one: string; other: string};
 };
 
 /**
@@ -695,5 +905,107 @@ export const mockStrings: PerseusStrings = {
         endingSideY,
     }) =>
         `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the starting side at ${startingSideX} comma ${startingSideY} and a point on the ending side at ${endingSideX} comma ${endingSideY}.`,
+    srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
+    srMultipleSegmentGraphAriaLabel: ({countOfSegments}) =>
+        `${countOfSegments} segments on a coordinate plane.`,
+    srMultipleSegmentIndividualLabel: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        indexOfSegment,
+    }) =>
+        `Segment ${indexOfSegment}: Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}.`,
+    srSingleSegmentLabel: ({point1X, point1Y, point2X, point2Y}) =>
+        `Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}.`,
+    srSegmentLength: ({length}) => `Segment length ${length} units.`,
+    srSingleSegmentGraphEndpointAriaLabel: ({endpointNumber, x, y}) =>
+        `Endpoint ${endpointNumber} at ${x} comma ${y}.`,
+    srMultipleSegmentGraphEndpointAriaLabel: ({
+        endpointNumber,
+        x,
+        y,
+        indexOfSegment,
+    }) =>
+        `Endpoint ${endpointNumber} on segment ${indexOfSegment} at ${x} comma ${y}.`,
+    srSegmentGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Segment from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
+    srLinearSystemGraph: "Two lines on a coordinate plane.",
+    srLinearSystemPoints: ({lineNumber, point1X, point1Y, point2X, point2Y}) =>
+        `Line ${lineNumber} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
+    srLinearSystemPoint: ({lineNumber, pointSequence, x, y}) =>
+        `Point ${pointSequence} on line ${lineNumber} at ${x} comma ${y}.`,
+    srRayGraph: "A ray on a coordinate plane.",
+    srRayPoints: ({point1X, point1Y, point2X, point2Y}) =>
+        `The endpoint is at ${point1X} comma ${point1Y} and the ray goes through point ${point2X} comma ${point2Y}.`,
+    srRayGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
+        `Ray with endpoint ${point1X} comma ${point1Y} going through point ${point2X} comma ${point2Y}.`,
+    srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
+    srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
+    srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
+    srQuadraticFaceUp: "The parabola opens upward.",
+    srQuadraticFaceDown: "The parabola opens downward.",
+    srQuadraticGraphVertexOrigin: "Vertex is at the origin.",
+    srQuadraticGraphVertexXAxis: "Vertex is on the X-axis.",
+    srQuadraticGraphVertexYAxis: "Vertex is on the Y-axis.",
+    srQuadraticGraphVertexQuadrant: ({quadrant}) =>
+        `Vertex is in quadrant ${quadrant}.`,
+    srQuadraticTwoXIntercepts: ({intercept1, intercept2}) =>
+        `The X-intercepts are at ${intercept1} comma 0 and ${intercept2} comma 0.`,
+    srQuadraticOneXIntercept: ({intercept}) =>
+        `The X-intercept is at ${intercept} comma 0.`,
+    srQuadraticYIntercept: ({intercept}) =>
+        `The Y-intercept is at 0 comma ${intercept}.`,
+    srQuadraticPointOrigin: ({pointNumber}) =>
+        `Point ${pointNumber} on parabola at the origin.`,
+    srQuadraticPointAxis: ({pointNumber, x, y}) =>
+        `Point ${pointNumber} on parabola at ${x} comma ${y}.`,
+    srQuadraticPointQuadrant: ({pointNumber, x, y, quadrant}) =>
+        `Point ${pointNumber} on parabola in quadrant ${quadrant} at ${x} comma ${y}.`,
+    srQuadraticInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        point3X,
+        point3Y,
+    }) =>
+        `Parabola with points at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, and ${point3X} comma ${point3Y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
+
+// This type helps us make sure all error codes are mapped to strings
+type ErrorStringMap = {
+    [K in keyof typeof ErrorCodes]: keyof PerseusStrings;
+};
+
+/**
+ * Map an error string to a PerseusStrings key
+ * that we can use to get the translated error message
+ */
+const errorToString: ErrorStringMap = {
+    MISSING_PERCENT_ERROR: "MISSING_PERCENT_ERROR",
+    NEEDS_TO_BE_SIMPLIFIED_ERROR: "NEEDS_TO_BE_SIMPLFIED_ERROR",
+    APPROXIMATED_PI_ERROR: "APPROXIMATED_PI_ERROR",
+    EXTRA_SYMBOLS_ERROR: "EXTRA_SYMBOLS_ERROR",
+    WRONG_CASE_ERROR: "WRONG_CASE_ERROR",
+    WRONG_LETTER_ERROR: "WRONG_LETTER_ERROR",
+    MULTIPLICATION_SIGN_ERROR: "MULTIPLICATION_SIGN_ERROR",
+    INVALID_SELECTION_ERROR: "invalidSelection",
+    CHOOSE_CORRECT_NUM_ERROR: "chooseCorrectNum",
+    NOT_NONE_ABOVE_ERROR: "notNoneOfTheAbove",
+    FILL_ALL_CELLS_ERROR: "fillAllCells",
+};
+
+export function mapErrorToString(
+    // the string representing an error code
+    err: string | null | undefined,
+    // the translated Perseus strings
+    translatedStrings: PerseusStrings,
+) {
+    if (!err) {
+        return err;
+    }
+
+    return translatedStrings[errorToString[err]] || err;
+}

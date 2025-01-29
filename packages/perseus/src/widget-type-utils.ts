@@ -1,10 +1,9 @@
-import {getWidgetRegex} from "./util/snowman-utils";
-
-import type {
-    PerseusItem,
-    PerseusWidget,
-    PerseusWidgetsMap,
-} from "./perseus-types";
+import {
+    getWidgetIdsFromContentByType,
+    type PerseusItem,
+    type PerseusWidget,
+    type PerseusWidgetsMap,
+} from "@khanacademy/perseus-core";
 
 /**
  * Get a widget type by a widget's ID
@@ -36,57 +35,6 @@ export function contentHasWidgetType(
     widgetMap: PerseusWidgetsMap,
 ): boolean {
     return getWidgetIdsFromContentByType(type, content, widgetMap).length > 0;
-}
-
-/**
- * Extract all widget IDs, which includes the widget type and instance number.
- * example output: ['radio 1', 'categorizer 1', 'categorizor 2']
- *
- * Content should contain Perseus widget placeholders,
- * which look like: '[[☃ radio 1]]'.
- *
- * @param {string} content
- * @returns {ReadonlyArray<string>} widgetIds
- */
-export function getWidgetIdsFromContent(
-    content: string,
-): ReadonlyArray<string> {
-    const widgets: Array<string> = [];
-    const localWidgetRegex = getWidgetRegex();
-
-    let match = localWidgetRegex.exec(content);
-
-    while (match !== null) {
-        widgets.push(match[1]);
-        match = localWidgetRegex.exec(content);
-    }
-
-    return widgets;
-}
-
-/**
- * Get a list of widget IDs from content,
- * but only for specific widget types
- *
- * @param {string} type the type of widget (ie "radio")
- * @param {string} content the string to parse
- * @param {PerseusWidgetsMap} widgetMap widget ID to widget map
- * @returns {ReadonlyArray<string>} the widget type (ie "radio")
- */
-export function getWidgetIdsFromContentByType(
-    type: string,
-    content: string,
-    widgetMap: PerseusWidgetsMap,
-): ReadonlyArray<string> {
-    const rv: Array<string> = [];
-    const widgetIdsInContent = getWidgetIdsFromContent(content);
-    widgetIdsInContent.forEach((widgetId) => {
-        const widget = widgetMap[widgetId];
-        if (widget?.type === type) {
-            rv.push(widgetId);
-        }
-    });
-    return rv;
 }
 
 /**

@@ -1,4 +1,4 @@
-import type {PerseusRenderer} from "../perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const singleSectionArticle: PerseusRenderer = {
     content:

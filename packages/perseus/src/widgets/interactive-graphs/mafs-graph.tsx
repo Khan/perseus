@@ -52,6 +52,7 @@ import type {
     PolygonGraphState,
     InteractiveGraphElementSuite,
 } from "./types";
+import type {I18nContextType} from "../../components/i18n-context";
 import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
 import type {vec} from "mafs";
@@ -116,7 +117,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
         y: viewboxY,
     };
 
-    const {strings} = usePerseusI18n();
+    const i18n = usePerseusI18n();
+    const {strings} = i18n;
 
     const interactionPrompt =
         isUnlimitedGraphState(state) && state.showKeyboardInteractionInvitation;
@@ -135,6 +137,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const {graph, interactiveElementsDescription} = renderGraphElements({
         state,
         dispatch,
+        i18n,
     });
 
     return (
@@ -153,7 +156,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 disableKeyboardInteraction: readOnly || !!props.static,
             }}
         >
-            <View>
+            <View className="mafs-graph-container">
                 <View
                     className="mafs-graph"
                     style={{
@@ -216,7 +219,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             left: 0,
                         }}
                     >
-                        {props.markings === "graph" && (
+                        {(props.markings === "graph" ||
+                            props.markings === "axes") && (
                             <>
                                 <AxisLabels />
                             </>
@@ -251,7 +255,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             {/* Axis Ticks, Labels, and Arrows */}
                             {
                                 // Only render the axis ticks and arrows if the markings are set to a full "graph"
-                                props.markings === "graph" && (
+                                (props.markings === "graph" ||
+                                    props.markings === "axes") && (
                                     <>
                                         <AxisTicks />
                                         <AxisArrows />
@@ -674,8 +679,9 @@ export const calculateNestedSVGCoords = (
 const renderGraphElements = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
+    i18n: I18nContextType;
 }): InteractiveGraphElementSuite => {
-    const {state, dispatch} = props;
+    const {state, dispatch, i18n} = props;
     const {type} = state;
     switch (type) {
         case "angle":
@@ -695,7 +701,7 @@ const renderGraphElements = (props: {
         case "circle":
             return renderCircleGraph(state, dispatch);
         case "quadratic":
-            return renderQuadraticGraph(state, dispatch);
+            return renderQuadraticGraph(state, dispatch, i18n);
         case "sinusoid":
             return renderSinusoidGraph(state, dispatch);
         case "none":

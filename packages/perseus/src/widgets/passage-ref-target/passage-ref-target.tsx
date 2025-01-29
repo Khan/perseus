@@ -8,8 +8,8 @@ import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
 import scoreNoop from "../__shared__/score-noop";
 
-import type {PerseusPassageRefTargetWidgetOptions} from "../../perseus-types";
 import type {APIOptions, WidgetExports, Widget} from "../../types";
+import type {PerseusPassageRefTargetWidgetOptions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = Changeable.ChangeableProps & {
@@ -67,7 +67,6 @@ export default {
     transform: (editorProps: any): any => {
         return _.pick(editorProps, "content");
     },
-    version: {major: 0, minor: 0},
     isLintable: true,
     // TODO: things that aren't interactive shouldn't need scoring functions
     scorer: () => scoreNoop(),
