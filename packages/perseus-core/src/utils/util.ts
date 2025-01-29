@@ -72,3 +72,5 @@ export const CoreUtil = {
     shuffle,
     random,
 } as const;
+
+export default CoreUtil;
