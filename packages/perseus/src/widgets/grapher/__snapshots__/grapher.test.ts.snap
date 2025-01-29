@@ -45,7 +45,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
               style="width: 400px; height: 400px; box-sizing: initial;"
             >
               <div
-                class="graphie-container above-scratchpad"
+                class="graphie-container blank-background"
                 style="width: 400px; height: 400px;"
               >
                 <div
@@ -1364,7 +1364,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
               style="width: 400px; height: 400px; box-sizing: initial;"
             >
               <div
-                class="graphie-container above-scratchpad"
+                class="graphie-container blank-background"
                 style="width: 400px; height: 400px;"
               >
                 <div
@@ -2603,7 +2603,6 @@ exports[`grapher widget should snapshot question with multiple graph types: init
               </div>
             </div>
             <div
-              class="above-scratchpad"
               style="padding: 5px 5px;"
             >
               <div

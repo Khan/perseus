@@ -29,7 +29,7 @@ exports[`orderer widget should snapshot on mobile: first mobile render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="draggy-boxy-thing orderer height-normal layout-horizontal above-scratchpad blank-background perseus-clearfix perseus-interactive"
+            class="draggy-boxy-thing orderer height-normal layout-horizontal blank-background perseus-clearfix perseus-interactive"
           >
             <div
               class="bank perseus-clearfix"
@@ -150,7 +150,7 @@ exports[`orderer widget should snapshot: first render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="draggy-boxy-thing orderer height-normal layout-horizontal above-scratchpad blank-background perseus-clearfix perseus-interactive"
+            class="draggy-boxy-thing orderer height-normal layout-horizontal blank-background perseus-clearfix perseus-interactive"
           >
             <div
               class="bank perseus-clearfix"
