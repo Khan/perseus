@@ -152,7 +152,6 @@ describe("scoreWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -177,7 +176,6 @@ describe("scoreWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -202,7 +200,6 @@ describe("scoreWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -231,7 +228,6 @@ describe("scoreWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -261,7 +257,6 @@ describe("scoreWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -298,7 +293,6 @@ describe("scoreWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -334,7 +328,6 @@ describe("scoreWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -370,7 +363,6 @@ describe("scoreWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -393,7 +385,6 @@ describe("scoreWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -416,7 +407,6 @@ describe("scoreWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -439,7 +429,6 @@ describe("scoreWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -462,7 +451,6 @@ describe("scoreWidgetsFunctional", () => {
             widgets,
             widgetIds,
             userInputMap,
-
             "en",
         );
 
@@ -579,7 +567,6 @@ describe("scorePerseusItem", () => {
                 images: {},
             },
             {"dropdown 1": {value: 2}},
-
             "en",
         );
 

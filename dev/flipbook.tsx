@@ -1,5 +1,4 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -22,6 +21,7 @@ import {SvgImage} from "../packages/perseus/src/components";
 import {mockStrings} from "../packages/perseus/src/strings";
 import {isCorrect} from "../packages/perseus/src/util/scoring";
 import {trueForAllMafsSupportedGraphTypes} from "../packages/perseus/src/widgets/interactive-graphs/mafs-supported-graph-types";
+import {scorePerseusItem} from "../packages/perseus-score/src";
 
 import {EditableControlledInput} from "./editable-controlled-input";
 import {
