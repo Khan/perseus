@@ -4,6 +4,7 @@ import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
+    getLabelImagePublicWidgetOptions,
     Hint,
     PerseusAnswerArea,
     PerseusGraphType,
@@ -28,7 +29,6 @@ import type {
 } from "@khanacademy/perseus-score";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
-import {getLabelImagePublicWidgetOptions} from "@khanacademy/perseus-core";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
