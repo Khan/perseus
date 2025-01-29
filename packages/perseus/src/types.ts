@@ -4,6 +4,7 @@ import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
+    getLabelImagePublicWidgetOptions,
     Hint,
     PerseusAnswerArea,
     PerseusGraphType,
@@ -543,7 +544,8 @@ export type WidgetScorerFunction = (
 export type PublicWidgetOptionsFunction =
     | typeof getCategorizerPublicWidgetOptions
     | typeof getOrdererPublicWidgetOptions
-    | typeof getExpressionPublicWidgetOptions;
+    | typeof getExpressionPublicWidgetOptions
+    | typeof getLabelImagePublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,

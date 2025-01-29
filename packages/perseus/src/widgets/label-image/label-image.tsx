@@ -6,6 +6,7 @@
  * knowledge by directly interacting with the image.
  */
 
+import {getLabelImagePublicWidgetOptions} from "@khanacademy/perseus-core";
 import {
     scoreLabelImageMarker,
     scoreLabelImage,
@@ -761,4 +762,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusLabelImageUserInput'.
     scorer: scoreLabelImage,
+    getPublicWidgetOptions: getLabelImagePublicWidgetOptions,
 } satisfies WidgetExports<typeof LabelImageWithDependencies>;
