@@ -14,6 +14,19 @@
         padding-left: 2px; /* adds space between the left border and the button text */
     }
 
+    .button-style-overrides > span {
+        font-size: 18px;
+        line-height: inherit;
+        text-align: left;
+        /*
+          The following property adjusts the large space between the button text and the caret icon.
+          Since we are unable to adjust the styling of the icon (where the extra space exists),
+          we are adjusting it on the text label by using a negative margin.
+        */
+        margin-right: -6px;
+        white-space: normal;
+    }
+
     .content {
         border-left: 0px solid #ccc;
         display: inline-grid;
@@ -49,19 +62,6 @@
 
     .content-wrapper {
         overflow: hidden;
-    }
-
-    .label-style {
-        font-size: 18px;
-        line-height: inherit;
-        text-align: left;
-        /*
-          The following property adjusts the large space between the button text and the caret icon.
-          Since we are unable to adjust the styling of the icon (where the extra space exists),
-          we are adjusting it on the text label by using a negative margin.
-        */
-        margin-right: -6px;
-        white-space: normal;
     }
 
     .transition-collapsed {

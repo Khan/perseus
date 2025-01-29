@@ -102,7 +102,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
                 ? styles.contentExpanded
                 : styles.contentCollapsed,
             allowTransition &&
-            (this.state.expanded
+                (this.state.expanded
                 ? styles.transitionExpanded
                 : styles.transitionCollapsed),
         ];
@@ -116,7 +116,6 @@ class Explanation extends React.Component<Props, State> implements Widget {
                             aria-controls={contentId}
                             endIcon={caretIcon}
                             kind="tertiary"
-                            // labelStyle={labelStyle}
                             onClick={this._onClick}
                             size="small"
                             className={styles.buttonStyleOverrides}
