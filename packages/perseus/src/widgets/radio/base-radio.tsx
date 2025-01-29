@@ -303,7 +303,6 @@ const BaseRadio = function ({
                         // Whether or not to show correctness borders
                         // for this choice and the next choice.
                         return css(
-                            sharedStyles.aboveScratchpad,
                             styles.item,
                             styles.responsiveItem,
                             checked && styles.selectedItem,

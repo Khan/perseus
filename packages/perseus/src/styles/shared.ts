@@ -6,7 +6,6 @@ import mediaQueries from "./media-queries";
 import type {StyleDeclaration} from "aphrodite";
 
 const {
-    zIndexAboveScratchpad,
     zIndexInteractiveComponent,
     radioBorderColor,
     checkedColor,
@@ -18,11 +17,6 @@ export default StyleSheet.create({
     perseusInteractive: {
         zIndex: zIndexInteractiveComponent,
         position: "relative",
-    },
-
-    aboveScratchpad: {
-        position: "relative",
-        zIndex: zIndexAboveScratchpad,
     },
 
     blankBackground: {
