@@ -1,4 +1,7 @@
-import {getMatcherPublicWidgetOptions} from "@khanacademy/perseus-core";
+import {
+    CoreUtil,
+    getMatcherPublicWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {scoreMatcher} from "@khanacademy/perseus-score";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
@@ -10,7 +13,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import Sortable from "../../components/sortable";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
-import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
@@ -22,7 +24,7 @@ import type {
     PerseusMatcherUserInput,
 } from "@khanacademy/perseus-score";
 
-const {shuffle, seededRNG} = Util;
+const {shuffle, seededRNG} = CoreUtil;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
 type RenderProps = PerseusMatcherWidgetOptions;

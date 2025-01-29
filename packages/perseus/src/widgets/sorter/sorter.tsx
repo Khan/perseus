@@ -1,9 +1,9 @@
+import {CoreUtil} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {scoreSorter, validateSorter} from "@khanacademy/perseus-score";
 import * as React from "react";
 
 import Sortable from "../../components/sortable";
-import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
@@ -15,7 +15,7 @@ import type {
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-score";
 
-const {shuffle} = Util;
+const {shuffle} = CoreUtil;
 
 type RenderProps = PerseusSorterWidgetOptions;
 
