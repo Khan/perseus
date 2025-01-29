@@ -192,7 +192,7 @@ export class GradedGroup
             score.type === "points"
                 ? score.message || ""
                 : score.message
-                  ? `${INVALID_MESSAGE_PREFIX} ${mapErrorToString(score.message)}`
+                  ? `${INVALID_MESSAGE_PREFIX} ${mapErrorToString(score.message, this.context.strings)}`
                   : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE_1}${DEFAULT_INVALID_MESSAGE_2}`;
 
         this.setState({

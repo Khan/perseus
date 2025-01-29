@@ -17,11 +17,26 @@ export {default as getMatrixSize} from "./utils/get-matrix-size";
 export {default as getDecimalSeparator} from "./utils/get-decimal-separator";
 export {approximateEqual, approximateDeepEqual} from "./utils/equality";
 export {
+    addWidget,
     getWidgetIdsFromContent,
     getWidgetIdsFromContentByType,
 } from "./utils/widget-id-utils";
 export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
+
+export {
+    parsePerseusItem,
+    parseAndMigratePerseusItem,
+    parseAndMigratePerseusArticle,
+} from "./parse-perseus-json";
+
+export {
+    isSuccess,
+    isFailure,
+    type Result,
+    type Success,
+    type Failure,
+} from "./parse-perseus-json/result";
 
 export {libVersion} from "./version";
 
