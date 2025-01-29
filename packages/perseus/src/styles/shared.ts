@@ -5,20 +5,10 @@ import mediaQueries from "./media-queries";
 
 import type {StyleDeclaration} from "aphrodite";
 
-const {
-    zIndexInteractiveComponent,
-    radioBorderColor,
-    checkedColor,
-    circleSize,
-    radioMarginWidth,
-} = constants;
+const {radioBorderColor, checkedColor, circleSize, radioMarginWidth} =
+    constants;
 
 export default StyleSheet.create({
-    perseusInteractive: {
-        zIndex: zIndexInteractiveComponent,
-        position: "relative",
-    },
-
     blankBackground: {
         // TODO(emily): Use WB colors?
         backgroundColor: "#FDFDFD",
