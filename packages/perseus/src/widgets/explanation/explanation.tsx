@@ -103,8 +103,8 @@ class Explanation extends React.Component<Props, State> implements Widget {
                 : styles.contentCollapsed,
             allowTransition &&
                 (this.state.expanded
-                ? styles.transitionExpanded
-                : styles.transitionCollapsed),
+                    ? styles.transitionExpanded
+                    : styles.transitionCollapsed),
         ];
 
         return (

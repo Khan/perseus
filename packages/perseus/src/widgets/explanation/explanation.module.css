@@ -1,7 +1,6 @@
 @layer reset, shared, legacy;
 
 @layer legacy {
-
     /*
       Special styling is needed to fit the button in a block of text without throwing off the line spacing.
       While the button is not normally included in a block of text, it needs to be able to accommodate such a case.
@@ -65,11 +64,19 @@
     }
 
     .transition-collapsed {
-        transition: all 0.25s step-end, grid-template-rows 0.25s, margin-top 0.25s, margin-bottom 0.25s, padding-bottom 0.25s;
+        transition:
+            all 0.25s step-end,
+            grid-template-rows 0.25s,
+            margin-top 0.25s,
+            margin-bottom 0.25s,
+            padding-bottom 0.25s;
     }
 
     .transition-expanded {
-        transition: grid-template-rows 0.5s, margin-top 0.5s, margin-bottom 0.5s, padding-bottom 0.5s;
+        transition:
+            grid-template-rows 0.5s,
+            margin-top 0.5s,
+            margin-bottom 0.5s,
+            padding-bottom 0.5s;
     }
-
 }
