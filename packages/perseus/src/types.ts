@@ -28,6 +28,7 @@ import type {
 } from "@khanacademy/perseus-score";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
+import {getLabelImagePublicWidgetOptions} from "@khanacademy/perseus-core";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
@@ -543,7 +544,8 @@ export type WidgetScorerFunction = (
 export type PublicWidgetOptionsFunction =
     | typeof getCategorizerPublicWidgetOptions
     | typeof getOrdererPublicWidgetOptions
-    | typeof getExpressionPublicWidgetOptions;
+    | typeof getExpressionPublicWidgetOptions
+    | typeof getLabelImagePublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,

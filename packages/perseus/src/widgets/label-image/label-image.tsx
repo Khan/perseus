@@ -41,6 +41,9 @@ import type {
 import type {PerseusLabelImageUserInput} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
+import {
+    getLabelImagePublicWidgetOptions
+} from "@khanacademy/perseus-core";
 
 export type PreferredPopoverDirection =
     | "NONE"
@@ -761,4 +764,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusLabelImageUserInput'.
     scorer: scoreLabelImage,
+    getPublicWidgetOptions: getLabelImagePublicWidgetOptions,
 } satisfies WidgetExports<typeof LabelImageWithDependencies>;
