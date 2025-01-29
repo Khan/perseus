@@ -14,9 +14,9 @@ type LabelImagePublicWidgetOptions = {
     imageHeight: PerseusLabelImageWidgetOptions["imageHeight"];
     imageWidth: PerseusLabelImageWidgetOptions["imageWidth"];
     markers: ReadonlyArray<LabelImageMarkerPublicData>;
-    hideChoicesFromInstructions: boolean;
-    multipleAnswers: boolean;
-    static: boolean;
+    hideChoicesFromInstructions: PerseusLabelImageWidgetOptions["hideChoicesFromInstructions"];
+    multipleAnswers: PerseusLabelImageWidgetOptions["multipleAnswers"];
+    static: PerseusLabelImageWidgetOptions["static"];
 };
 
 type LabelImageMarkerPublicData = Pick<

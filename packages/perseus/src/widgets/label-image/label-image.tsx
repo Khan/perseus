@@ -6,6 +6,7 @@
  * knowledge by directly interacting with the image.
  */
 
+import {getLabelImagePublicWidgetOptions} from "@khanacademy/perseus-core";
 import {
     scoreLabelImageMarker,
     scoreLabelImage,
@@ -41,9 +42,6 @@ import type {
 import type {PerseusLabelImageUserInput} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
-import {
-    getLabelImagePublicWidgetOptions
-} from "@khanacademy/perseus-core";
 
 export type PreferredPopoverDirection =
     | "NONE"
