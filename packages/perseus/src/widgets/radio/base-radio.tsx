@@ -10,7 +10,6 @@ import {usePerseusI18n} from "../../components/i18n-context";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import * as styleConstants from "../../styles/constants";
 import mediaQueries from "../../styles/media-queries";
-import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 import {scrollElementIntoView} from "../../util/scroll-utils";
 
