@@ -105,6 +105,8 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
         crossOutColor = WBColor.offBlack64;
     }
 
+    console.log(`Using updated choice-icon.tsx`); // eslint-disable-line no-console
+
     return (
         <div className={css(sharedStyles.iconWrapper)}>
             <FocusRing
