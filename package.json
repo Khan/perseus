@@ -123,8 +123,8 @@
         "winston": "^3.7.2"
     },
     "scripts": {
-        "gen:parsers": "yarn --cwd packages/kas gen:parsers",
-        "prebuild": "yarn gen:parsers",
+        "gen:parsers": "pnpm --filter ./packages/kas gen:parsers",
+        "prebuild": "pnpm gen:parsers",
         "build": "rollup -c config/build/rollup.config.js",
         "build:types": "tsc --build tsconfig-build.json",
         "build:prodsizecheck": "yarn build --configEnvironment='production'",
