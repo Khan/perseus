@@ -47,10 +47,12 @@ type MatcherPublicWidgetOptions = {
 function getMatcherPublicWidgetOptions(
     options: PerseusMatcherWidgetOptions,
 ): MatcherPublicWidgetOptions {
+    const {left, right} = matcherShuffle({...options, problemNum: undefined});
+
     return {
         labels: options.labels,
-        left: options.left.slice().sort(),
-        right: options.right.slice().sort(),
+        left: left,
+        right: right,
         orderMatters: options.orderMatters,
         padding: options.padding,
     };
