@@ -7,8 +7,8 @@ import {
     iconTrash,
 } from "@khanacademy/perseus";
 import {
+    CoreWidgetRegistry,
     upgradeWidgetInfoToLatestVersion,
-    WidgetLogic,
 } from "@khanacademy/perseus-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
@@ -155,7 +155,7 @@ class WidgetEditor extends React.Component<
         const Ed = Widgets.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;
         if (this.props.apiOptions.showAlignmentOptions) {
-            supportedAlignments = WidgetLogic.getSupportedAlignments(
+            supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
                 widgetInfo.type,
             );
         } else {

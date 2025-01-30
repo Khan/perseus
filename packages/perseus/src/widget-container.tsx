@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unsafe */
 import {
-    WidgetLogic,
+    CoreWidgetRegistry,
     type PerseusWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
@@ -120,7 +120,7 @@ class WidgetContainer extends React.Component<Props, State> {
 
         let alignment = this.state.widgetProps.alignment;
         if (alignment === "default") {
-            alignment = WidgetLogic.getDefaultAlignment(type);
+            alignment = CoreWidgetRegistry.getDefaultAlignment(type);
         }
 
         className += " widget-" + alignment;
