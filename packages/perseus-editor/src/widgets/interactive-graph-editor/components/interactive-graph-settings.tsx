@@ -495,6 +495,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                             onChange={(vals) =>
                                                 this.changeRange(0, vals)
                                             }
+                                            allowPiTruncation={true}
                                         />
                                     </LabeledRow>
                                 </div>
@@ -505,6 +506,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                             onChange={(vals) =>
                                                 this.changeRange(1, vals)
                                             }
+                                            allowPiTruncation={true}
                                         />
                                     </LabeledRow>
                                 </div>
@@ -515,6 +517,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         <RangeInput
                                             value={this.state.stepTextbox}
                                             onChange={this.changeStep}
+                                            allowPiTruncation={true}
                                         />
                                     </LabeledRow>
                                 </div>
@@ -523,6 +526,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         <RangeInput
                                             value={this.state.gridStepTextbox}
                                             onChange={this.changeGridStep}
+                                            allowPiTruncation={true}
                                         />
                                     </LabeledRow>
                                 </div>
@@ -533,6 +537,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         <RangeInput
                                             value={this.state.snapStepTextbox}
                                             onChange={this.changeSnapStep}
+                                            allowPiTruncation={true}
                                         />
                                     </LabeledRow>
                                 </div>
