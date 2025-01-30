@@ -14,10 +14,13 @@ const YGridTick = ({
     y,
     range,
     tickStep,
+    showPi,
 }: {
     y: number;
     range: [Interval, Interval];
     tickStep: number;
+    // Whether to show the tick label as a multiple of pi
+    showPi: boolean;
 }) => {
     // If the graph requires out-of-bounds labels, we want to make sure to set the
     // coordinates to the edge of the visible range of the graph. Otherwise,
@@ -55,6 +58,8 @@ const YGridTick = ({
     // to hide the label at -1 on the y-axis to prevent overlap with the x-axis label
     const showLabel = shouldShowLabel(y, range, tickStep);
 
+    const yLabel = showPi ? divideByAndShowPi(y) : y.toString();
+
     return (
         <g className="tick" aria-hidden={true}>
             <line x1={x1} y1={y1} x2={x2} y2={y2} className="axis-tick" />
@@ -66,14 +71,23 @@ const YGridTick = ({
                     x={xPositionText}
                     y={yPositionText}
                 >
-                    {y.toString()}
+                    {yLabel}
                 </text>
             )}
         </g>
     );
 };
 
-const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
+const XGridTick = ({
+    x,
+    range,
+    showPi,
+}: {
+    x: number;
+    range: [Interval, Interval];
+    // Whether to show the tick label as a multiple of pi
+    showPi: boolean;
+}) => {
     // If the graph requires out-of-bounds labels, we want to make sure to set the
     // coordinates to the edge of the visible range of the graph. Otherwise,
     // the ticks and labels would render outside of the clipping-mask.
@@ -113,6 +127,8 @@ const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
     const xPositionText = xPosition + xAdjustment;
     const yPositionText = yPosition + yAdjustment;
 
+    const xLabel = showPi ? divideByAndShowPi(x) : x.toString();
+
     return (
         <g className="tick" aria-hidden={true}>
             <line x1={x1} y1={y1} x2={x2} y2={y2} className="axis-tick" />
@@ -124,7 +140,7 @@ const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
                     x={xPositionText}
                     y={yPositionText}
                 >
-                    {x.toString()}
+                    {xLabel}
                 </text>
             }
         </g>
@@ -190,6 +206,23 @@ export const countSignificantDecimals = (number: number): number => {
     return numStr.split(".")[1].length;
 };
 
+// Show the given value as a multiple of pi (already assumed to be
+// a multiple of pi). Exported for testing
+export function divideByAndShowPi(value: number): string {
+    const dividedValue = value / Math.PI;
+
+    switch (dividedValue) {
+        case 1:
+            return "π";
+        case -1:
+            return "-π";
+        case 0:
+            return "0";
+        default:
+            return dividedValue + "π";
+    }
+}
+
 export const AxisTicks = () => {
     const {tickStep, range} = useGraphConfig();
     const [[xMin, xMax], [yMin, yMax]] = range;
@@ -209,6 +242,9 @@ export const AxisTicks = () => {
                             key={`y-grid-tick-${y}`}
                             range={range}
                             tickStep={tickStep[Y]}
+                            // Show the tick labels as multiples of pi
+                            // if the tick step is a multiple of pi.
+                            showPi={tickStep[Y] % Math.PI === 0}
                         />
                     );
                 })}
@@ -220,6 +256,9 @@ export const AxisTicks = () => {
                             x={x}
                             key={`x-grid-tick-${x}`}
                             range={range}
+                            // Show the tick labels as multiples of pi
+                            // if the tick step is a multiple of pi.
+                            showPi={tickStep[X] % Math.PI === 0}
                         />
                     );
                 })}

@@ -6,6 +6,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import Util from "../util";
+import {isPiMultiple} from "../util/math-utils";
 
 import {PerseusI18nContext} from "./i18n-context";
 
@@ -48,6 +49,7 @@ class NumberInput extends React.Component<any, any> {
         checkValidity: PropTypes.func,
         size: PropTypes.oneOf(["mini", "small", "normal"]),
         label: PropTypes.oneOf(["put your labels outside your inputs!"]),
+        allowPiTruncation: PropTypes.bool,
     };
 
     static defaultProps: any = {
@@ -62,6 +64,18 @@ class NumberInput extends React.Component<any, any> {
     state: any = {
         format: this.props.format,
     };
+
+    componentDidMount() {
+        // If the value is a multiple of pi, but it is not in the pi format,
+        // then convert it to the pi format and show it as a multiple of pi.
+        const value = this.getValue();
+        if (this.props.allowPiTruncation && value !== null && value !== 0) {
+            if (this.state.format !== "pi" && isPiMultiple(value)) {
+                this._setValue(value / Math.PI, "pi");
+                this.setState({format: "pi"});
+            }
+        }
+    }
 
     componentDidUpdate(prevProps: any) {
         if (!knumber.equal(this.getValue(), this.props.value)) {

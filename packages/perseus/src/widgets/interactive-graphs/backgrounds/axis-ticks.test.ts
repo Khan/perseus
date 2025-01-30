@@ -2,6 +2,7 @@ import {
     generateTickLocations,
     shouldShowLabel,
     countSignificantDecimals,
+    divideByAndShowPi,
 } from "./axis-ticks";
 
 import type {Interval} from "mafs";
@@ -75,4 +76,25 @@ describe("countSignificantDecimals", () => {
             expect(decimalPlaces).toBe(expected);
         },
     );
+});
+
+describe("divideByAndShowPi", () => {
+    it.each`
+        value           | expected
+        ${Math.PI}      | ${"π"}
+        ${-1 * Math.PI} | ${"-π"}
+        ${0}            | ${"0"}
+        ${Math.PI * 2}  | ${"2π"}
+        ${Math.PI * -2} | ${"-2π"}
+        ${Math.PI / 2}  | ${"0.5π"}
+        ${Math.PI / -2} | ${"-0.5π"}
+    `("should display $expected as a multiple of pi", ({value, expected}) => {
+        // Arrange
+
+        // Act
+        const result = divideByAndShowPi(value);
+
+        // Assert
+        expect(result).toBe(expected);
+    });
 });

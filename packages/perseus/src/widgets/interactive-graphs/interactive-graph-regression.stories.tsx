@@ -4,6 +4,7 @@ import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
 
 import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
+import {sinusoidWithPiTicks} from "./interactive-graph.testdata";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react";
@@ -249,6 +250,12 @@ export const MafsWithProtractor: Story = {
     },
 };
 
+export const MafsWithPiTicks: Story = {
+    args: {
+        question: sinusoidWithPiTicks,
+    },
+};
+
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (
@@ -263,6 +270,7 @@ function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
                         segment: true,
                         circle: true,
                         linear: true,
+                        sinusoid: true,
                     },
                 },
             }}
