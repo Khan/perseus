@@ -26,9 +26,9 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/kas": "^0.4.16",
-        "@khanacademy/kmath": "^0.3.5",
-        "@khanacademy/perseus-core": "3.7.0"
+        "@khanacademy/kas": "workspace:*",
+        "@khanacademy/kmath": "workspace:*",
+        "@khanacademy/perseus-core": "workspace:*"
     },
     "devDependencies": {},
     "peerDependencies": {},
