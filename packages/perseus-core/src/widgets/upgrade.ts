@@ -128,7 +128,8 @@ export const upgradeWidgetInfoToLatestVersion = (
         widgetStatic = DEFAULT_STATIC;
     }
 
-    return _.extend({}, oldWidgetInfo, {
+    return {
+        ...oldWidgetInfo,
         // maintain other info, like type
         // After upgrading we guarantee that the version is up-to-date
         version: latestVersion,
@@ -137,7 +138,7 @@ export const upgradeWidgetInfoToLatestVersion = (
         alignment: alignment,
         static: widgetStatic,
         options: newEditorOptions,
-    });
+    } as any;
 };
 
 export function getUpgradedWidgetOptions(
