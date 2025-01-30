@@ -111,4 +111,47 @@ describe("NumberInput", function () {
 
         expect(onChange).not.toHaveBeenCalled();
     });
+
+    it.each`
+        value            | expected
+        ${Math.PI}       | ${"π"}
+        ${Math.PI * 2}   | ${"2π"}
+        ${Math.PI * 0.5} | ${"π/2"}
+    `(
+        "allowPiTruncation: loads $value as $expected on mount",
+        async function ({value, expected}) {
+            // Arrange
+
+            // Act
+            render(
+                <NumberInput
+                    value={value}
+                    onChange={jest.fn()}
+                    allowPiTruncation={true}
+                />,
+            );
+            const input = screen.getByRole("textbox");
+
+            // Assert
+            expect(input).toHaveValue(expected);
+        },
+    );
+
+    it("does not auto-convert number to pi format when allowPiTruncation is false", async function () {
+        // Arrange
+
+        // Act
+        render(
+            <NumberInput
+                value={Math.PI}
+                onChange={jest.fn()}
+                allowPiTruncation={false}
+            />,
+        );
+        const input = screen.getByRole("textbox");
+
+        // Assert
+        expect(input).not.toHaveValue("π");
+        expect(input).toHaveValue(Math.PI.toString());
+    });
 });
