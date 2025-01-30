@@ -1,6 +1,6 @@
 import {
-    CoreUtil,
     getMatcherPublicWidgetOptions,
+    matcherShuffle,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {scoreMatcher} from "@khanacademy/perseus-score";
@@ -24,7 +24,6 @@ import type {
     PerseusMatcherUserInput,
 } from "@khanacademy/perseus-score";
 
-const {shuffle, seededRNG} = CoreUtil;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
 type RenderProps = PerseusMatcherWidgetOptions;
@@ -161,18 +160,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
             );
         }
 
-        // Use the same random() function to shuffle both columns sequentially
-        const rng = seededRNG(this.props.problemNum as number);
-
-        let left;
-        if (!this.props.orderMatters) {
-            // If the order doesn't matter, don't shuffle the left column
-            left = this.props.left;
-        } else {
-            left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
-        }
-
-        const right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
+        const {left, right} = matcherShuffle(this.props);
 
         const showLabels = _.any(this.props.labels);
         const constraints = {

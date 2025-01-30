@@ -116,4 +116,5 @@ export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/ordere
 export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
 export {default as getMatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
+export {matcherShuffle} from "./widgets/matcher/matcher-util";
 export {default as CoreUtil} from "./utils/util";
