@@ -116,4 +116,5 @@ export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/ordere
 export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
 export {default as getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
+export {default as getSorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
