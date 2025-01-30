@@ -73,15 +73,13 @@ export function getDefaultWidgetOptions(type: string) {
  * Supported alignments are given as an array of strings in the exports of
  * a widget's module.
  */
-
-// NOTE(kevinb): "default" is not one in `validAlignments`.
-const DEFAULT_SUPPORTED_ALIGNMENTS: ReadonlyArray<Alignment> = ["default"];
 export const getSupportedAlignments = (
     type: string,
 ): ReadonlyArray<Alignment> => {
     const widgetLogic = widgets[type];
     if (!widgetLogic?.supportedAlignments?.[0]) {
-        return DEFAULT_SUPPORTED_ALIGNMENTS;
+        // default alignments
+        return ["default"];
     }
     return widgetLogic?.supportedAlignments;
 };
