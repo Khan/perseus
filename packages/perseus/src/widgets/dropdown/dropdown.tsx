@@ -1,3 +1,4 @@
+import {getDropdownPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {scoreDropdown, validateDropdown} from "@khanacademy/perseus-score";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
@@ -176,4 +177,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusDropdownUserInput'.
     validator: validateDropdown,
+    getPublicWidgetOptions: getDropdownPublicWidgetOptions,
 } satisfies WidgetExports<typeof Dropdown>;
