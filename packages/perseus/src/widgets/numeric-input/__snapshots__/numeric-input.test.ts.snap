@@ -458,6 +458,7 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
                 aria-disabled="false"
                 aria-invalid="false"
                 aria-label="What's the answer?"
+                aria-required="false"
                 autocapitalize="off"
                 autocomplete="off"
                 autocorrect="off"

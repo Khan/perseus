@@ -8,7 +8,7 @@ import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 import {NumericInputComponent} from "./numeric-input";
-import {NumericExampleStrings, unionAnswerForms} from "./utils";
+import {unionAnswerForms} from "./utils";
 
 import type InputWithExamples from "./input-with-examples";
 import type SimpleKeypadInput from "../../components/simple-keypad-input";
