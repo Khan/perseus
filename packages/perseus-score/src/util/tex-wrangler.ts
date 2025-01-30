@@ -42,11 +42,23 @@ function parseNextExpression(
     // Find the first '{' and grab subsequent TeX
     // Ex) tex: '{3}{7}', and we want the '3'
     const openBracketIndex = tex.indexOf("{", currentIndex);
+
+    // If there is no open bracket, set the endpoint to the end of the string
+    // and the expression to an empty string. This helps ensure we don't
+    // get stuck in an infinite loop when users handtype TeX.
+    if (openBracketIndex === -1) {
+        return {
+            endpoint: tex.length,
+            expression: "",
+        };
+    }
+
     const nextExpIndex = openBracketIndex + 1;
 
     // Truncate to only contain remaining TeX
     const endpoint = findEndpoint(tex, nextExpIndex);
     const expressionTeX = tex.substring(nextExpIndex, endpoint);
+
     const parsedExp = walkTex(expressionTeX, handler);
 
     return {
