@@ -93,14 +93,12 @@ export const getSupportedAlignments = (
  * `defaultAlignment`) or a function (called `getDefaultAlignment`) on
  * the exports of a widget's module.
  */
-const DEFAULT_ALIGNMENT = "block";
 export const getDefaultAlignment = (type: string): Alignment => {
     const widgetLogic = widgets[type];
-    if (!widgetLogic) {
-        return DEFAULT_ALIGNMENT;
+    if (!widgetLogic?.defaultAlignment) {
+        return "block";
     }
-
-    return widgetLogic.defaultAlignment || DEFAULT_ALIGNMENT;
+    return widgetLogic.defaultAlignment;
 };
 
 registerWidget("categorizer", categorizerWidgetLogic);
