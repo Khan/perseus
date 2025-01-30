@@ -459,10 +459,14 @@ export const quadraticWithStartingCoordsQuestion: PerseusRenderer =
 
 export const sinusoidWithStartingCoordsQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
+        .withXRange(-6 * Math.PI, 6 * Math.PI)
+        .withTickStep(Math.PI, 1)
+        .withGridStep(Math.PI, 1)
+        .withSnapStep(Math.PI / 2, 1)
         .withSinusoid({
             startCoords: [
                 [0, 0],
-                [1, -1],
+                [3 * Math.PI, -3],
             ],
         })
         .build();
@@ -1063,4 +1067,14 @@ export const graphWithLabeledFunction: PerseusRenderer =
         .addLockedFunction("sin(x)", {
             labels: [{text: "F"}],
         })
+        .build();
+
+export const sinusoidWithPiTicks: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withXRange(-6 * Math.PI, 6 * Math.PI)
+        .withYRange(-10 * Math.PI, 10 * Math.PI)
+        .withTickStep(Math.PI, 2 * Math.PI)
+        .withGridStep(Math.PI, 2 * Math.PI)
+        .withSnapStep(Math.PI / 2, Math.PI)
+        .withSinusoid()
         .build();
