@@ -63,16 +63,16 @@
         "@khanacademy/wonder-blocks-tooltip": "4.1.1",
         "@khanacademy/wonder-blocks-typography": "3.1.1",
         "@khanacademy/wonder-stuff-core": "1.5.4",
-        "@phosphor-icons/core": "^2.0.2",
-        "aphrodite": "^1.2.5",
-        "classnames": "1.1.4",
-        "jquery": "^2.1.1",
+        "@phosphor-icons/core": "catalog:",
+        "aphrodite": "catalog:",
+        "classnames": "catalog:",
+        "jquery": "catalog:",
         "katex": "0.11.1",
         "perseus-build-settings": "workspace:*",
-        "prop-types": "15.6.1",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "underscore": "^1.4.4"
+        "prop-types": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "underscore": "catalog:"
     },
     "peerDependencies": {
         "@khanacademy/wonder-blocks-accordion": "3.1.1",
@@ -91,14 +91,14 @@
         "@khanacademy/wonder-blocks-tooltip": "4.1.1",
         "@khanacademy/wonder-blocks-typography": "3.1.1",
         "@khanacademy/wonder-stuff-core": "1.5.4",
-        "@phosphor-icons/core": "^2.0.2",
-        "aphrodite": "^1.2.5",
-        "classnames": "1.1.4",
-        "jquery": "^2.1.1",
-        "prop-types": "15.6.1",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "underscore": "^1.4.4"
+        "@phosphor-icons/core": "catalog:",
+        "aphrodite": "catalog:",
+        "classnames": "catalog:",
+        "jquery": "catalog:",
+        "prop-types": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "underscore": "catalog:"
     },
     "keywords": []
 }

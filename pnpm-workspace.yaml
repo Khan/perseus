@@ -2,3 +2,13 @@ packages:
   - config/build
   - dev
   - packages/*
+
+catalog:
+  react: ^18.2.0
+  react-dom: ^18.2.0
+  aphrodite: ^1.2.5
+  classnames: 1.1.4
+  "@phosphor-icons/core": ^2.0.2
+  prop-types: 15.6.1
+  jquery: ^2.1.1
+  underscore: ^1.4.4

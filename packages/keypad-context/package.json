@@ -29,10 +29,10 @@
         "@khanacademy/perseus-core": "workspace:*"
     },
     "devDependencies": {
-        "react": "^18.2.0"
+        "react": "catalog:"
     },
     "peerDependencies": {
-        "react": "^18.2.0"
+        "react": "catalog:"
     },
     "keywords": []
 }
