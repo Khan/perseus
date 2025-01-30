@@ -12,7 +12,6 @@ import replace from "@rollup/plugin-replace";
 import ancesdir from "ancesdir";
 import autoExternal from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
-import postcss from "rollup-plugin-postcss";
 import styles from "rollup-plugin-styles";
 
 const createBabelPlugins = require("./create-babel-plugins");
@@ -244,10 +243,6 @@ const createConfig = (
             }),
             autoExternal({
                 packagePath: makePackageBasedPath(name, "./package.json"),
-            }),
-            postcss({
-                modules: true,
-                extract: false,
             }),
             // TODO(FEI-4557): Figure out how to make this plugin work so that
             // @khanacademy/perseus-editor works in webapp.  If we enable this
