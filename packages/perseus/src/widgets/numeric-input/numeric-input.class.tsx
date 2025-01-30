@@ -7,7 +7,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-inp
 
 import {NumericInputComponent} from "./numeric-input";
 import {unionAnswerForms} from "./utils";
-
+import {scoreNumericInput} from "@khanacademy/perseus-score";
 import type InputWithExamples from "./input-with-examples";
 import type SimpleKeypadInput from "../../components/simple-keypad-input";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
