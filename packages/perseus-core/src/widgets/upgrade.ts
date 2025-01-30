@@ -112,7 +112,14 @@ export const upgradeWidgetInfoToLatestVersion = (
     // select box. If the widget only supports one alignment, the
     // alignment value will likely just end up as "default".
     if (alignment == null || alignment === "default") {
-        alignment = getSupportedAlignments(type)[0];
+        alignment = getSupportedAlignments(type)?.[0];
+        if (!alignment) {
+            throw new PerseusError(
+                "No default alignment found when upgrading widget",
+                Errors.Internal,
+                {metadata: {widgetType: type}},
+            );
+        }
     }
 
     let widgetStatic = oldWidgetInfo.static;

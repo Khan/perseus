@@ -75,12 +75,15 @@ export function getDefaultWidgetOptions(type: string) {
  */
 
 // NOTE(kevinb): "default" is not one in `validAlignments`.
-const DEFAULT_SUPPORTED_ALIGNMENTS = ["default"];
+const DEFAULT_SUPPORTED_ALIGNMENTS: ReadonlyArray<Alignment> = ["default"];
 export const getSupportedAlignments = (
     type: string,
 ): ReadonlyArray<Alignment> => {
     const widgetLogic = widgets[type];
-    return widgetLogic?.supportedAlignments || DEFAULT_SUPPORTED_ALIGNMENTS;
+    if (!widgetLogic?.supportedAlignments?.[0]) {
+        return DEFAULT_SUPPORTED_ALIGNMENTS;
+    }
+    return widgetLogic?.supportedAlignments;
 };
 
 /**
