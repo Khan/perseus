@@ -1,9 +1,11 @@
+import {vec} from "mafs";
+
 import {srFormatNumber} from "./screenreader-text";
 
 import type {PerseusStrings} from "../../../strings";
 import type {PairOfPoints} from "../types";
 import type {Coord} from "@khanacademy/perseus";
-import type {Interval, vec} from "mafs";
+import type {Interval} from "mafs";
 
 /**
  * Given a ray and a rectangular box, find the point where the ray intersects
@@ -236,4 +238,75 @@ export function getQuadraticXIntercepts(
     }
 
     return [x1, x2];
+}
+
+export function getAngleFromPoints(points: Coord[], i: number) {
+    if (points.length < 3) {
+        return null;
+    }
+
+    const point = points.at(i);
+    const pt1 = points.at(i - 1);
+    const pt2 = points[(i + 1) % points.length];
+    if (!point || !pt1 || !pt2) {
+        return null;
+    }
+
+    const a = vec.dist(point, pt1);
+    const b = vec.dist(point, pt2);
+    const c = vec.dist(pt1, pt2);
+
+    // Law of cosines
+    const angle = Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b));
+
+    return angle;
+}
+
+export function radianToDegree(radians: number) {
+    const degree = (radians / Math.PI) * 180;
+    // Account for floating point errors.
+    return Number(degree.toPrecision(15));
+}
+
+export function getSideLengthsFromPoints(
+    points: Coord[],
+    i: number,
+): Array<{
+    pointIndex: number;
+    sideLength: number;
+}> {
+    if (points.length < 2) {
+        return [];
+    }
+
+    const returnArray: Array<{
+        pointIndex: number;
+        sideLength: number;
+    }> = [];
+    const point = points[i];
+    // If this point is the first point, then side 1 is the
+    // last point in the list.
+    const point1Index = i === 0 ? points.length - 1 : i - 1;
+    const point1 = points[point1Index];
+    // Make sure the previous point is not the same
+    // as the current point.
+    const side1 = i !== point1Index ? vec.dist(point, point1) : null;
+    if (side1) {
+        returnArray.push({pointIndex: point1Index, sideLength: side1});
+    }
+
+    // See if there is a side 2.
+    const point2Index = (i + 1) % points.length;
+    const point2 = points[point2Index];
+    // Make sure that the next point is not the same as the
+    // current point, and don't repeat the first point.
+    const side2 =
+        i !== point2Index && point2Index !== point1Index
+            ? vec.dist(point, point2)
+            : null;
+    if (side2) {
+        returnArray.push({pointIndex: point2Index, sideLength: side2});
+    }
+
+    return returnArray;
 }
