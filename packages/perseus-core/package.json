@@ -27,8 +27,10 @@
     },
     "dependencies": {},
     "devDependencies": {
-        "@khanacademy/wonder-stuff-core": "1.5.4"
+        "@khanacademy/wonder-stuff-core": "catalog:"
     },
-    "peerDependencies": {},
+    "peerDependencies": {
+        "@khanacademy/wonder-stuff-core": "catalog:"
+    },
     "keywords": []
 }

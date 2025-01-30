@@ -6,9 +6,84 @@ settings:
 
 catalogs:
   default:
+    '@khanacademy/mathjax-renderer':
+      specifier: ^2.1.1
+      version: 2.1.1
+    '@khanacademy/wonder-blocks-accordion':
+      specifier: 3.1.1
+      version: 3.1.1
+    '@khanacademy/wonder-blocks-banner':
+      specifier: 4.1.1
+      version: 4.1.1
+    '@khanacademy/wonder-blocks-button':
+      specifier: 7.1.1
+      version: 7.1.1
+    '@khanacademy/wonder-blocks-clickable':
+      specifier: 6.1.1
+      version: 6.1.1
+    '@khanacademy/wonder-blocks-core':
+      specifier: 12.1.1
+      version: 12.1.1
+    '@khanacademy/wonder-blocks-data':
+      specifier: 14.1.1
+      version: 14.1.1
+    '@khanacademy/wonder-blocks-dropdown':
+      specifier: 9.1.1
+      version: 9.1.1
+    '@khanacademy/wonder-blocks-form':
+      specifier: 7.1.1
+      version: 7.1.1
+    '@khanacademy/wonder-blocks-icon':
+      specifier: 5.1.1
+      version: 5.1.1
+    '@khanacademy/wonder-blocks-icon-button':
+      specifier: 6.1.1
+      version: 6.1.1
+    '@khanacademy/wonder-blocks-layout':
+      specifier: 3.1.1
+      version: 3.1.1
+    '@khanacademy/wonder-blocks-link':
+      specifier: 7.1.1
+      version: 7.1.1
+    '@khanacademy/wonder-blocks-pill':
+      specifier: 3.1.1
+      version: 3.1.1
+    '@khanacademy/wonder-blocks-popover':
+      specifier: 5.1.1
+      version: 5.1.1
+    '@khanacademy/wonder-blocks-progress-spinner':
+      specifier: 3.1.1
+      version: 3.1.1
+    '@khanacademy/wonder-blocks-search-field':
+      specifier: 4.0.6
+      version: 4.0.6
+    '@khanacademy/wonder-blocks-switch':
+      specifier: 3.1.1
+      version: 3.1.1
+    '@khanacademy/wonder-blocks-timing':
+      specifier: 7.0.1
+      version: 7.0.1
+    '@khanacademy/wonder-blocks-tokens':
+      specifier: 4.2.1
+      version: 4.2.1
+    '@khanacademy/wonder-blocks-toolbar':
+      specifier: 5.0.5
+      version: 5.0.5
+    '@khanacademy/wonder-blocks-tooltip':
+      specifier: 4.0.3
+      version: 4.0.3
+    '@khanacademy/wonder-blocks-typography':
+      specifier: 3.1.1
+      version: 3.1.1
+    '@khanacademy/wonder-stuff-core':
+      specifier: 1.5.4
+      version: 1.5.4
     '@phosphor-icons/core':
       specifier: ^2.0.2
       version: 2.0.2
+    '@popperjs/core':
+      specifier: ^2.10.2
+      version: 2.11.8
     aphrodite:
       specifier: ^1.2.5
       version: 1.2.5
@@ -29,12 +104,12 @@ catalogs:
       version: 18.3.1
     underscore:
       specifier: ^1.4.4
-      version: 1.4.4
+      version: 1.6.0
 
 importers:
 
   .:
-    dependencies:
+    devDependencies:
       '@babel/core':
         specifier: ^7.23.2
         version: 7.26.0
@@ -81,22 +156,19 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(eslint@8.57.1)(typescript@5.7.2)
       '@khanacademy/mathjax-renderer':
-        specifier: ^2.1.1
+        specifier: 'catalog:'
         version: 2.1.1(@khanacademy/wonder-blocks-i18n@2.0.2(react@18.3.1))
       '@khanacademy/wonder-blocks-button':
-        specifier: 7.1.1
+        specifier: 'catalog:'
         version: 7.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-layout':
-        specifier: 3.1.1
+        specifier: 'catalog:'
         version: 3.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-pill':
-        specifier: 3.1.1
+        specifier: 'catalog:'
         version: 3.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-spacing':
-        specifier: ^4.0.1
-        version: 4.0.1
       '@popperjs/core':
-        specifier: ^2.10.2
+        specifier: 'catalog:'
         version: 2.11.8
       '@rollup/plugin-alias':
         specifier: ^3.1.9
@@ -395,45 +467,50 @@ importers:
         specifier: workspace:*
         version: link:../packages/simple-markdown
       '@khanacademy/wonder-blocks-banner':
-        specifier: 4.0.5
-        version: 4.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+        specifier: 'catalog:'
+        version: 4.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+      '@khanacademy/wonder-blocks-core':
+        specifier: 'catalog:'
+        version: 12.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+      '@khanacademy/wonder-blocks-dropdown':
+        specifier: 'catalog:'
+        version: 9.1.1(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react-window@1.8.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-icon':
-        specifier: 5.0.5
-        version: 5.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+        specifier: 'catalog:'
+        version: 5.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-icon-button':
-        specifier: 6.0.5
-        version: 6.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+        specifier: 'catalog:'
+        version: 6.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-link':
-        specifier: 7.0.5
-        version: 7.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+        specifier: 'catalog:'
+        version: 7.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-search-field':
-        specifier: 4.0.6
+        specifier: 'catalog:'
         version: 4.0.6(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+      '@khanacademy/wonder-blocks-switch':
+        specifier: 'catalog:'
+        version: 3.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-timing':
-        specifier: 6.0.1
-        version: 6.0.1(react@18.3.1)
+        specifier: 'catalog:'
+        version: 7.0.1(react@18.3.1)
       '@khanacademy/wonder-blocks-tokens':
-        specifier: 3.0.1
-        version: 3.0.1
+        specifier: 'catalog:'
+        version: 4.2.1
       '@khanacademy/wonder-blocks-toolbar':
-        specifier: 5.0.5
+        specifier: 'catalog:'
         version: 5.0.5(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-tooltip':
-        specifier: 4.0.3
+        specifier: 'catalog:'
         version: 4.0.3(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
-        specifier: 1.5.4
+        specifier: 'catalog:'
         version: 1.5.4
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
-    devDependencies:
-      '@vitejs/plugin-react':
-        specifier: ^4.3.3
-        version: 4.3.4(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.37.0))
-      vite:
-        specifier: ^5.1.0
-        version: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.37.0)
+      aphrodite:
+        specifier: 'catalog:'
+        version: 1.2.5
 
   packages/kas:
     dependencies:
@@ -448,8 +525,8 @@ importers:
         specifier: workspace:*
         version: link:../../config/build
       underscore:
-        specifier: 1.4.4
-        version: 1.4.4
+        specifier: 'catalog:'
+        version: 1.6.0
 
   packages/keypad-context:
     dependencies:
@@ -471,8 +548,8 @@ importers:
         specifier: workspace:*
         version: link:../../config/build
       underscore:
-        specifier: 1.4.4
-        version: 1.4.4
+        specifier: 'catalog:'
+        version: 1.6.0
 
   packages/math-input:
     dependencies:
@@ -487,25 +564,25 @@ importers:
         version: https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz
     devDependencies:
       '@khanacademy/mathjax-renderer':
-        specifier: ^2.1.1
+        specifier: 'catalog:'
         version: 2.1.1(@khanacademy/wonder-blocks-i18n@2.0.2(react@18.3.1))
       '@khanacademy/wonder-blocks-clickable':
-        specifier: 6.1.1
+        specifier: 'catalog:'
         version: 6.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-core':
-        specifier: 12.1.1
+        specifier: 'catalog:'
         version: 12.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-popover':
-        specifier: 5.1.1
+        specifier: 'catalog:'
         version: 5.1.1(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-timing':
-        specifier: 7.0.1
+        specifier: 'catalog:'
         version: 7.0.1(react@18.3.1)
       '@khanacademy/wonder-blocks-tokens':
-        specifier: 4.2.1
+        specifier: 'catalog:'
         version: 4.2.1
       '@khanacademy/wonder-stuff-core':
-        specifier: 1.5.4
+        specifier: 'catalog:'
         version: 1.5.4
       '@phosphor-icons/core':
         specifier: 'catalog:'
@@ -575,67 +652,67 @@ importers:
         version: 10.0.0
     devDependencies:
       '@khanacademy/wonder-blocks-banner':
-        specifier: 4.1.1
+        specifier: 'catalog:'
         version: 4.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-button':
-        specifier: 7.1.1
+        specifier: 'catalog:'
         version: 7.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-clickable':
-        specifier: 6.1.1
+        specifier: 'catalog:'
         version: 6.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-core':
-        specifier: 12.1.1
+        specifier: 'catalog:'
         version: 12.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-data':
-        specifier: 14.1.1
+        specifier: 'catalog:'
         version: 14.1.1(@khanacademy/wonder-stuff-core@1.5.4)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-dropdown':
-        specifier: 9.1.1
+        specifier: 'catalog:'
         version: 9.1.1(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react-window@1.8.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-form':
-        specifier: 7.1.1
+        specifier: 'catalog:'
         version: 7.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-icon':
-        specifier: 5.1.1
+        specifier: 'catalog:'
         version: 5.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-icon-button':
-        specifier: 6.1.1
+        specifier: 'catalog:'
         version: 6.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-layout':
-        specifier: 3.1.1
+        specifier: 'catalog:'
         version: 3.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-link':
-        specifier: 7.1.1
+        specifier: 'catalog:'
         version: 7.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-pill':
-        specifier: 3.1.1
+        specifier: 'catalog:'
         version: 3.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-popover':
-        specifier: 5.1.1
+        specifier: 'catalog:'
         version: 5.1.1(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-progress-spinner':
-        specifier: 3.1.1
+        specifier: 'catalog:'
         version: 3.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-switch':
-        specifier: 3.1.1
+        specifier: 'catalog:'
         version: 3.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-tokens':
-        specifier: 4.2.1
+        specifier: 'catalog:'
         version: 4.2.1
       '@khanacademy/wonder-blocks-tooltip':
-        specifier: 4.1.1
-        version: 4.1.1(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+        specifier: 'catalog:'
+        version: 4.0.3(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-typography':
-        specifier: 3.1.1
+        specifier: 'catalog:'
         version: 3.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
-        specifier: 1.5.4
+        specifier: 'catalog:'
         version: 1.5.4
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
       '@popperjs/core':
-        specifier: ^2.10.2
+        specifier: 'catalog:'
         version: 2.11.8
       aphrodite:
         specifier: 'catalog:'
@@ -672,12 +749,12 @@ importers:
         version: 2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       underscore:
         specifier: 'catalog:'
-        version: 1.4.4
+        version: 1.6.0
 
   packages/perseus-core:
     devDependencies:
       '@khanacademy/wonder-stuff-core':
-        specifier: 1.5.4
+        specifier: 'catalog:'
         version: 1.5.4
 
   packages/perseus-editor:
@@ -714,52 +791,52 @@ importers:
         specifier: workspace:*
         version: link:../perseus-linter
       '@khanacademy/wonder-blocks-accordion':
-        specifier: 3.1.1
+        specifier: 'catalog:'
         version: 3.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-banner':
-        specifier: 4.1.1
+        specifier: 'catalog:'
         version: 4.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-button':
-        specifier: 7.1.1
+        specifier: 'catalog:'
         version: 7.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-clickable':
-        specifier: 6.1.1
+        specifier: 'catalog:'
         version: 6.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-core':
-        specifier: 12.1.1
+        specifier: 'catalog:'
         version: 12.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-dropdown':
-        specifier: 9.1.1
+        specifier: 'catalog:'
         version: 9.1.1(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react-window@1.8.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-form':
-        specifier: 7.1.1
+        specifier: 'catalog:'
         version: 7.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-icon':
-        specifier: 5.1.1
+        specifier: 'catalog:'
         version: 5.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-icon-button':
-        specifier: 6.1.1
+        specifier: 'catalog:'
         version: 6.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-pill':
-        specifier: 3.1.1
+        specifier: 'catalog:'
         version: 3.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-switch':
-        specifier: 3.1.1
+        specifier: 'catalog:'
         version: 3.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-timing':
-        specifier: 7.0.1
+        specifier: 'catalog:'
         version: 7.0.1(react@18.3.1)
       '@khanacademy/wonder-blocks-tokens':
-        specifier: 4.2.1
+        specifier: 'catalog:'
         version: 4.2.1
       '@khanacademy/wonder-blocks-tooltip':
-        specifier: 4.1.1
-        version: 4.1.1(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+        specifier: 'catalog:'
+        version: 4.0.3(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-typography':
-        specifier: 3.1.1
+        specifier: 'catalog:'
         version: 3.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
-        specifier: 1.5.4
+        specifier: 'catalog:'
         version: 1.5.4
       '@phosphor-icons/core':
         specifier: 'catalog:'
@@ -790,7 +867,7 @@ importers:
         version: 18.3.1(react@18.3.1)
       underscore:
         specifier: 'catalog:'
-        version: 1.4.4
+        version: 1.6.0
 
   packages/perseus-linter:
     dependencies:
@@ -1365,18 +1442,6 @@ packages:
 
   '@babel/plugin-transform-react-jsx-development@7.22.5':
     resolution: {integrity: sha512-bDhuzwWMuInwCYeDeMzyi7TaBgRQei6DqxhbyniL7/VG4RSS7HtSL2QbY4eESy1KJqlWt8g3xeEBGPuo+XqC8A==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
-  '@babel/plugin-transform-react-jsx-self@7.25.9':
-    resolution: {integrity: sha512-y8quW6p0WHkEhmErnfe58r7x0A70uKphQm8Sp8cV7tjNQwK56sNVK0M73LK3WuYmsuyrftut4xAkjjgU0twaMg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
-  '@babel/plugin-transform-react-jsx-source@7.25.9':
-    resolution: {integrity: sha512-+iqjT8xmXhhYv4/uiYd8FNQsraMFZIfxVSqxxVSZP0WbbSAWvBXAul0m/zu+7Vv4O/3WtApy9pmaTMiumEZgfg==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2108,23 +2173,10 @@ packages:
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-banner@4.0.5':
-    resolution: {integrity: sha512-nbjmqZCLh2NppgPw/+xZWj13oACs0xQzRaMPwlS5jxqpD9ay/Iqq91oQb5Sq6gMNc4wrzAgberHjYTaCROaMwA==}
-    peerDependencies:
-      '@phosphor-icons/core': ^2.0.2
-      aphrodite: ^1.2.5
-      react: 18.2.0
-
   '@khanacademy/wonder-blocks-banner@4.1.1':
     resolution: {integrity: sha512-D4t1u84QPHA6eP2pdH98eSvwmpdacp7PPMJkBrjl707fRxw4hUX33qBK6krStnjKZKwxj8+7/1iKuOxtHHLneg==}
     peerDependencies:
       '@phosphor-icons/core': ^2.0.2
-      aphrodite: ^1.2.5
-      react: 18.2.0
-
-  '@khanacademy/wonder-blocks-breadcrumbs@3.0.5':
-    resolution: {integrity: sha512-KSDxl/IgYp+OsELQZ3reY3h3qszGRWCNS/i3QoiuWtVMJIn/jXtZNqOkX+IJEJY+8PQLio3UvLDpyFoUAfi9ug==}
-    peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
 
@@ -2222,14 +2274,6 @@ packages:
     peerDependencies:
       react: 16.14.0
 
-  '@khanacademy/wonder-blocks-icon-button@6.0.5':
-    resolution: {integrity: sha512-8lcr69mygt54h3oNrXENIOlTb3uXwj6qGqkzqexHz0H6s5sHyIsDSQ8EHmgZrKevKgtCvDNq/MeAETQ4CAii7w==}
-    peerDependencies:
-      aphrodite: ^1.2.5
-      react: 18.2.0
-      react-router: 5.3.4
-      react-router-dom: 5.3.4
-
   '@khanacademy/wonder-blocks-icon-button@6.1.1':
     resolution: {integrity: sha512-YdTy8sRld9LGrvxl648H7m8rL+4o77Hfb/+8gvpNMSdXSDawBSPcwVxwm4FuR1EloYQoK/oA58Eqc9AAhrhAfg==}
     peerDependencies:
@@ -2237,13 +2281,6 @@ packages:
       react: 18.2.0
       react-router: 5.3.4
       react-router-dom: 5.3.4
-
-  '@khanacademy/wonder-blocks-icon@5.0.5':
-    resolution: {integrity: sha512-EZ0DwQqsz/bwQEivVidCeIDDmOVS581Nhes3JtJl66fQc4qKV/wu9vLYCD2XA/j9UfgdKNs9m2/06Azr1hmnzw==}
-    peerDependencies:
-      '@phosphor-icons/core': ^2.0.2
-      aphrodite: ^1.2.5
-      react: 18.2.0
 
   '@khanacademy/wonder-blocks-icon@5.1.1':
     resolution: {integrity: sha512-/LKxfldWYfz/dQu9WRRTzWSHOi4PNCgebXJ7IBoxbbnXFHn2R5L1OND3Ldyv/SycXlYjJ8D/P7RQiNDDmhxFiQ==}
@@ -2258,14 +2295,6 @@ packages:
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-link@7.0.5':
-    resolution: {integrity: sha512-f20C4psTDc+LrYLXS5g5ivYz3qRLVEX0j5nImsWuOdZgS4vHdlT2SQDtwhWZAlnvo4vuTpZQCPMVrsAwK1B6yw==}
-    peerDependencies:
-      aphrodite: ^1.2.5
-      react: 18.2.0
-      react-router: 5.3.4
-      react-router-dom: 5.3.4
-
   '@khanacademy/wonder-blocks-link@7.1.1':
     resolution: {integrity: sha512-8X7mT3WnFIHkToZlm6o121RQGEWOWYzGbcepyMeRxCX50pmyLQs71WApKnDNHz39OE+ihmIA6LWgrp76U3038w==}
     peerDependencies:
@@ -2274,14 +2303,6 @@ packages:
       react: 18.2.0
       react-router: 5.3.4
       react-router-dom: 5.3.4
-
-  '@khanacademy/wonder-blocks-modal@7.0.3':
-    resolution: {integrity: sha512-vuqMn19NIpIYTZrH9zSBvCGDXtbJq24B6puNlQuhRx9Kz/m/gweFXXYDrV+8IDCxej8TdT9p065CzrCyOo1ztg==}
-    peerDependencies:
-      '@phosphor-icons/core': ^2.0.2
-      aphrodite: ^1.2.5
-      react: 18.2.0
-      react-dom: 18.2.0
 
   '@khanacademy/wonder-blocks-modal@7.1.1':
     resolution: {integrity: sha512-Cyoy8IlhzggMYXcKqcVAyof3Ie+6nSBKC4/DVk4YE8QCGowtKAEvbW90nArAdWaNTHX2xjmk2WWBvHUGUVddmQ==}
@@ -2327,22 +2348,11 @@ packages:
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-blocks-spacing@4.0.1':
-    resolution: {integrity: sha512-do4UUHxC1/YveLfEfuS36ehVlZi7wImASX3orrLpzGoYFZRTjbEmmW6gN46UdW9jEy3e5fv0f5WUpded3ZtWIw==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
-
   '@khanacademy/wonder-blocks-switch@3.1.1':
     resolution: {integrity: sha512-dz14JUqv+YMZjEHPX1IRy8LIxlV+rd0J+WwwT2v4jirxRGr9usZi03aiFRb0zTusHfSXaDGLqUAYrvQ8haH5vQ==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
-
-  '@khanacademy/wonder-blocks-theming@3.0.1':
-    resolution: {integrity: sha512-6+cqzzpbbOe1CteAFAvYLC1XiANaGxTy8PKGQvTaQKPjL/lw3/aoKI8I0Rm0PTii8SrO/KyU/hpAW1qkc01lAA==}
-    peerDependencies:
-      aphrodite: ^1.2.5
-      react: 18.2.0
-      react-dom: 18.2.0
 
   '@khanacademy/wonder-blocks-theming@3.1.1':
     resolution: {integrity: sha512-WH9KypMm1d/2tabASvAQuYZlj1GfM34OFi1h1CJjYnJT3EaHUajL3dpBw5ezLZA9diY6Qvg3U1JwniLEKVXcpA==}
@@ -2350,11 +2360,6 @@ packages:
       aphrodite: ^1.2.5
       react: 18.2.0
       react-dom: 18.2.0
-
-  '@khanacademy/wonder-blocks-timing@6.0.1':
-    resolution: {integrity: sha512-vzNJzqQSJAV0ijQL0HuXBLJtuYUSzqRWxW46sHQLPmLjXkor2GTyk7FvxQWY6NmrK86olOVTjkR3JyVJnHfiVw==}
-    peerDependencies:
-      react: 18.2.0
 
   '@khanacademy/wonder-blocks-timing@7.0.1':
     resolution: {integrity: sha512-e2jxLH2laeUpvFNoG0hGQmDEofTK7xuBKXVwNruHKF0NVMWrudY+Oq92NqxVDnUY4CwAaQdfajtSYvB0/0tXrQ==}
@@ -2390,12 +2395,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0
       react-popper: ^2.0.0
-
-  '@khanacademy/wonder-blocks-typography@3.0.5':
-    resolution: {integrity: sha512-RFEBlFhwg6c5BNtTe9J/dkMoONtYxH/YZELzsWwEzpDkHcyqoNq0XjUfBwjVULiJFQYj+5ztnpG4eKefldC2Bg==}
-    peerDependencies:
-      aphrodite: ^1.2.5
-      react: 18.2.0
 
   '@khanacademy/wonder-blocks-typography@3.1.1':
     resolution: {integrity: sha512-8WwhOAjU4ktZWX0VZneI3TAfOLPJs45uU/fWd2sCX4LlJG7s3tp63v5tSFHrrh2F7EIdMn662lacI+TSkkLthQ==}
@@ -3189,12 +3188,6 @@ packages:
     resolution: {integrity: sha512-3zc+Ve99z4usVP6l9knYVbVnZgfqhKah7sIG+PS2w+vpig2v2OLct05vs+ZXMzwxdNCMka8B+8WlOo0z6Pn6DA==}
     peerDependencies:
       react: '>= 16.8.0'
-
-  '@vitejs/plugin-react@4.3.4':
-    resolution: {integrity: sha512-SCCPBJtYLdE8PX/7ZQAs1QAZ8Jqwih+0VBLum1EGqmCCQal+MIUqLCzj3ZUy8ufbC0cAM4LRlSTm7IQJwWT4ug==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    peerDependencies:
-      vite: ^4.2.0 || ^5.0.0 || ^6.0.0
 
   '@webassemblyjs/ast@1.14.1':
     resolution: {integrity: sha512-nuBEDgQfm1ccRp/8bCQrx1frohyufl4JlbMMZ4P1wpeOfDhF6FQkxZJ1b/e+PLwr6X1Nhw6OLme5usuBWYBvuQ==}
@@ -5966,6 +5959,7 @@ packages:
 
   jquery@2.2.4:
     resolution: {integrity: sha512-lBHj60ezci2u1v2FqnZIraShGgEXq35qCzMv4lITyHGppTnA13rwR0MgwyNJh9TnDs3aXUvd1xjAotfraMHX/Q==}
+    deprecated: This version is deprecated. Please upgrade to the latest version or find support at https://www.herodevs.com/support/jquery-nes.
 
   jquery@3.6.0:
     resolution: {integrity: sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==}
@@ -7293,10 +7287,6 @@ packages:
       react: ^16.8.0 || ^17 || ^18
       react-dom: ^16.8.0 || ^17 || ^18
 
-  react-refresh@0.14.2:
-    resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
-    engines: {node: '>=0.10.0'}
-
   react-router-dom@5.3.4:
     resolution: {integrity: sha512-m4EqFMHv/Ih4kpcBCONHbkT68KoAeHN4p3lAGoNryfHi0dMy0kCzEZakiKRsvg5wHZ/JLrLW8o8KomWiz/qbYQ==}
     peerDependencies:
@@ -8278,9 +8268,6 @@ packages:
 
   underscore@1.1.7:
     resolution: {integrity: sha512-w4QtCHoLBXw1mjofIDoMyexaEdWGMedWNDhlWTtT1V1lCRqi65Pnoygkh6+WRdr+Bm8ldkBNkNeCsXGMlQS9HQ==}
-
-  underscore@1.4.4:
-    resolution: {integrity: sha512-ZqGrAgaqqZM7LGRzNjLnw5elevWb5M8LEoDMadxIW3OWbcv72wMMgKdwOKpd5Fqxe8choLD8HN3iSj3TUh/giQ==}
 
   underscore@1.6.0:
     resolution: {integrity: sha512-z4o1fvKUojIWh9XuaVLUDdf86RQiq13AC1dmHbTpoyuu+bquHms76v16CjycCbec87J7z0k//SiQVk0sMdFmpQ==}
@@ -9265,16 +9252,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-react-jsx-self@7.25.9(@babel/core@7.26.0)':
-    dependencies:
-      '@babel/core': 7.26.0
-      '@babel/helper-plugin-utils': 7.25.9
-
-  '@babel/plugin-transform-react-jsx-source@7.25.9(@babel/core@7.26.0)':
-    dependencies:
-      '@babel/core': 7.26.0
-      '@babel/helper-plugin-utils': 7.25.9
-
   '@babel/plugin-transform-react-jsx@7.22.15(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
@@ -10257,24 +10234,6 @@ snapshots:
       - react-router
       - react-router-dom
 
-  '@khanacademy/wonder-blocks-banner@4.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.25.4
-      '@khanacademy/wonder-blocks-button': 7.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-core': 11.1.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-icon': 5.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-icon-button': 6.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-link': 7.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-tokens': 3.0.1
-      '@khanacademy/wonder-blocks-typography': 3.0.5(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@phosphor-icons/core': 2.0.2
-      aphrodite: 1.2.5
-      react: 18.3.1
-    transitivePeerDependencies:
-      - react-dom
-      - react-router
-      - react-router-dom
-
   '@khanacademy/wonder-blocks-banner@4.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.25.4
@@ -10286,18 +10245,6 @@ snapshots:
       '@khanacademy/wonder-blocks-tokens': 4.2.1
       '@khanacademy/wonder-blocks-typography': 3.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@phosphor-icons/core': 2.0.2
-      aphrodite: 1.2.5
-      react: 18.3.1
-    transitivePeerDependencies:
-      - react-dom
-      - react-router
-      - react-router-dom
-
-  '@khanacademy/wonder-blocks-breadcrumbs@3.0.5(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.25.4
-      '@khanacademy/wonder-blocks-core': 11.1.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-tokens': 3.0.1
       aphrodite: 1.2.5
       react: 18.3.1
     transitivePeerDependencies:
@@ -10465,22 +10412,6 @@ snapshots:
       '@babel/runtime': 7.25.4
       react: 18.3.1
 
-  '@khanacademy/wonder-blocks-icon-button@6.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.25.4
-      '@khanacademy/wonder-blocks-clickable': 5.0.5(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-core': 11.1.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-icon': 5.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-theming': 3.0.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-tokens': 3.0.1
-      aphrodite: 1.2.5
-      react: 18.3.1
-      react-router: 5.3.4(react@18.3.1)
-      react-router-dom: 5.3.4(react@18.3.1)
-    transitivePeerDependencies:
-      - '@phosphor-icons/core'
-      - react-dom
-
   '@khanacademy/wonder-blocks-icon-button@6.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.25.4
@@ -10496,18 +10427,6 @@ snapshots:
     transitivePeerDependencies:
       - '@phosphor-icons/core'
       - react-dom
-
-  '@khanacademy/wonder-blocks-icon@5.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.25.4
-      '@khanacademy/wonder-blocks-core': 11.1.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@phosphor-icons/core': 2.0.2
-      aphrodite: 1.2.5
-      react: 18.3.1
-    transitivePeerDependencies:
-      - react-dom
-      - react-router
-      - react-router-dom
 
   '@khanacademy/wonder-blocks-icon@5.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -10533,21 +10452,6 @@ snapshots:
       - react-router
       - react-router-dom
 
-  '@khanacademy/wonder-blocks-link@7.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.25.4
-      '@khanacademy/wonder-blocks-clickable': 5.0.5(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-core': 11.1.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-icon': 5.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-tokens': 3.0.1
-      aphrodite: 1.2.5
-      react: 18.3.1
-      react-router: 5.3.4(react@18.3.1)
-      react-router-dom: 5.3.4(react@18.3.1)
-    transitivePeerDependencies:
-      - '@phosphor-icons/core'
-      - react-dom
-
   '@khanacademy/wonder-blocks-link@7.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.25.4
@@ -10562,25 +10466,6 @@ snapshots:
       react-router-dom: 5.3.4(react@18.3.1)
     transitivePeerDependencies:
       - react-dom
-
-  '@khanacademy/wonder-blocks-modal@7.0.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.25.4
-      '@khanacademy/wonder-blocks-breadcrumbs': 3.0.5(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-core': 11.1.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-icon-button': 6.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-layout': 3.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-theming': 3.0.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-timing': 6.0.1(react@18.3.1)
-      '@khanacademy/wonder-blocks-tokens': 3.0.1
-      '@khanacademy/wonder-blocks-typography': 3.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@phosphor-icons/core': 2.0.2
-      aphrodite: 1.2.5
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    transitivePeerDependencies:
-      - react-router
-      - react-router-dom
 
   '@khanacademy/wonder-blocks-modal@7.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -10653,10 +10538,10 @@ snapshots:
       '@babel/runtime': 7.25.4
       '@khanacademy/wonder-blocks-core': 11.1.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-form': 6.0.6(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-icon': 5.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-icon-button': 6.0.5(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+      '@khanacademy/wonder-blocks-icon': 5.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+      '@khanacademy/wonder-blocks-icon-button': 6.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-tokens': 3.0.1
-      '@khanacademy/wonder-blocks-typography': 3.0.5(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+      '@khanacademy/wonder-blocks-typography': 3.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@phosphor-icons/core': 2.0.2
       aphrodite: 1.2.5
       react: 18.3.1
@@ -10682,8 +10567,6 @@ snapshots:
       - react-router
       - react-router-dom
 
-  '@khanacademy/wonder-blocks-spacing@4.0.1': {}
-
   '@khanacademy/wonder-blocks-switch@3.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.25.4
@@ -10699,21 +10582,11 @@ snapshots:
       - react-router
       - react-router-dom
 
-  '@khanacademy/wonder-blocks-theming@3.0.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      aphrodite: 1.2.5
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
   '@khanacademy/wonder-blocks-theming@3.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       aphrodite: 1.2.5
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-
-  '@khanacademy/wonder-blocks-timing@6.0.1(react@18.3.1)':
-    dependencies:
-      react: 18.3.1
 
   '@khanacademy/wonder-blocks-timing@7.0.1(react@18.3.1)':
     dependencies:
@@ -10728,7 +10601,7 @@ snapshots:
       '@babel/runtime': 7.25.4
       '@khanacademy/wonder-blocks-core': 11.1.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-tokens': 3.0.1
-      '@khanacademy/wonder-blocks-typography': 3.0.5(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+      '@khanacademy/wonder-blocks-typography': 3.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       aphrodite: 1.2.5
       react: 18.3.1
     transitivePeerDependencies:
@@ -10741,9 +10614,9 @@ snapshots:
       '@babel/runtime': 7.25.4
       '@khanacademy/wonder-blocks-core': 11.1.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-layout': 3.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-blocks-modal': 7.0.3(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+      '@khanacademy/wonder-blocks-modal': 7.1.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-tokens': 3.0.1
-      '@khanacademy/wonder-blocks-typography': 3.0.5(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+      '@khanacademy/wonder-blocks-typography': 3.1.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@popperjs/core': 2.11.8
       aphrodite: 1.2.5
       react: 18.3.1
@@ -10769,17 +10642,6 @@ snapshots:
       react-popper: 2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     transitivePeerDependencies:
       - '@phosphor-icons/core'
-      - react-router
-      - react-router-dom
-
-  '@khanacademy/wonder-blocks-typography@3.0.5(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.25.4
-      '@khanacademy/wonder-blocks-core': 11.1.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      aphrodite: 1.2.5
-      react: 18.3.1
-    transitivePeerDependencies:
-      - react-dom
       - react-router
       - react-router-dom
 
@@ -11666,17 +11528,6 @@ snapshots:
     dependencies:
       '@use-gesture/core': 10.3.0
       react: 18.3.1
-
-  '@vitejs/plugin-react@4.3.4(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.37.0))':
-    dependencies:
-      '@babel/core': 7.26.0
-      '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.0)
-      '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.0)
-      '@types/babel__core': 7.20.5
-      react-refresh: 0.14.2
-      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.37.0)
-    transitivePeerDependencies:
-      - supports-color
 
   '@webassemblyjs/ast@1.14.1':
     dependencies:
@@ -16679,8 +16530,6 @@ snapshots:
       react-fast-compare: 3.2.0
       warning: 4.0.3
 
-  react-refresh@0.14.2: {}
-
   react-router-dom@5.3.4(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.25.4
@@ -17907,8 +17756,6 @@ snapshots:
       which-boxed-primitive: 1.1.1
 
   underscore@1.1.7: {}
-
-  underscore@1.4.4: {}
 
   underscore@1.6.0: {}
 
