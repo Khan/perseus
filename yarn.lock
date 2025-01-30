@@ -11631,6 +11631,11 @@ pkg-dir@^7.0.0:
   dependencies:
     find-up "^6.3.0"
 
+pnpm@^9.15.4:
+  version "9.15.4"
+  resolved "https://registry.yarnpkg.com/pnpm/-/pnpm-9.15.4.tgz#ffa0b5c573381e8035b354028ccff97c8e452047"
+  integrity sha512-stwg4vxys+GISEWbNzWaMgZGY+VielHkx0ssKd2OjgSRSDw6u0B4nP1Xi/Ni+2uoJhsF8Dh9dnku1uI+o7G2oA==
+
 polished@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/polished/-/polished-4.2.2.tgz#2529bb7c3198945373c52e34618c8fe7b1aa84d1"
