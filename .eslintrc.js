@@ -151,7 +151,7 @@ module.exports = {
             },
         },
         {
-            files: ["config/**", "utils/**", "testing/*"],
+            files: ["config/**", "utils/**", "testing/*", "dev/*"],
             rules: {
                 "@typescript-eslint/no-require-imports": "off",
                 "import/no-commonjs": "off",

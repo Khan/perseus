@@ -8,7 +8,7 @@
     "engines": {
         "node": ">=20"
     },
-    "devDependencies": {
+    "dependencies": {
         "@babel/core": "^7.23.2",
         "@babel/eslint-parser": "^7.22.15",
         "@babel/eslint-plugin": "^7.22.10",
@@ -57,6 +57,7 @@
         "@types/underscore": "^1.11.4",
         "@typescript-eslint/eslint-plugin": "^8.18.0",
         "@typescript-eslint/parser": "^8.18.0",
+        "@vitejs/plugin-react": "4.3.3",
         "ancesdir": "^3.1.0",
         "babel-jest": "^29.7.0",
         "babel-loader": "^9.1.3",
@@ -117,6 +118,7 @@
         "tiny-invariant": "^1.3.1",
         "typescript": "5.7.2",
         "typescript-coverage-report": "^0.7.0",
+        "vite": "5.1.0",
         "vite-plugin-istanbul": "^5.0.0",
         "winston": "^3.7.2"
     },
@@ -129,7 +131,7 @@
         "watch": "yarn build --watch",
         "clean": "./utils/clean.sh",
         "coverage": "./utils/test-with-coverage.sh",
-        "dev": "yarn --cwd dev dev",
+        "dev": "pnpm --filter ./dev dev",
         "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
         "lint:timing": "cross-env TIMING=1 yarn lint",
         "publish:ci": "utils/pre-publish-check-ci.ts && git diff --stat --exit-code HEAD && yarn build && yarn build:types && changeset publish",
@@ -146,6 +148,5 @@
     },
     "nyc": {
         "report-dir": "coverage/cypress/"
-    },
-    "dependencies": {}
+    }
 }
