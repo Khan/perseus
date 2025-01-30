@@ -6,6 +6,7 @@
  * knowledge by directly interacting with the image.
  */
 
+import {getLabelImagePublicWidgetOptions} from "@khanacademy/perseus-core";
 import {scoreLabelImageMarker} from "@khanacademy/perseus-score";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -755,4 +756,5 @@ export default {
     widget: LabelImageWithDependencies,
     accessible: true,
     isLintable: true,
+    getPublicWidgetOptions: getLabelImagePublicWidgetOptions,
 } satisfies WidgetExports<typeof LabelImageWithDependencies>;

@@ -1,3 +1,4 @@
+import {getDropdownPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
@@ -168,4 +169,5 @@ export default {
     accessible: true,
     widget: Dropdown,
     transform: optionsTransform,
+    getPublicWidgetOptions: getDropdownPublicWidgetOptions,
 } satisfies WidgetExports<typeof Dropdown>;

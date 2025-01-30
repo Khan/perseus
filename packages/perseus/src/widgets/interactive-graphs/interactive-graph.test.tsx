@@ -57,6 +57,7 @@ import {
     segmentWithLockedPolygonWhite,
     segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
+    sinusoidWithPiTicks,
 } from "./interactive-graph.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "./mafs-supported-graph-types";
 
@@ -1392,6 +1393,71 @@ describe("Interactive Graph", function () {
             // Assert
             expect(graph).not.toHaveAttribute("aria-label");
             expect(graph).not.toHaveAttribute("aria-describedby");
+        });
+    });
+
+    describe("axis labels", () => {
+        test("should render x axis labels as multiples of pi if the tick step is a multiple of pi", () => {
+            // Arrange
+            const {container} = renderQuestion(sinusoidWithPiTicks, {
+                flags: {mafs: {sinusoid: true}},
+            });
+
+            // Act
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const xAxisLabels = container.querySelectorAll(
+                ".x-axis-ticks > .tick",
+            );
+
+            // Assert
+            // The first label is π
+            expect(xAxisLabels[0]).toHaveTextContent("π");
+
+            // There are four more labels in the positive direction
+            for (let i = 0; i < 4; i++) {
+                expect(xAxisLabels[i + 1]).toHaveTextContent(`${i + 2}π`);
+            }
+
+            // First label in the negative direction is -π
+            expect(xAxisLabels[5]).toHaveTextContent("-π");
+
+            // There are four more labels in the negative direction
+            for (let i = 0; i < 4; i++) {
+                expect(xAxisLabels[i + 6]).toHaveTextContent(`-${i + 2}π`);
+            }
+        });
+
+        test("should render y axis labels as multiples of pi if the tick step is a multiple of pi", () => {
+            // Arrange
+            const {container} = renderQuestion(sinusoidWithPiTicks, {
+                flags: {mafs: {sinusoid: true}},
+            });
+
+            // Act
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const yAxisLabels = container.querySelectorAll(
+                ".y-axis-ticks > .tick",
+            );
+
+            // Assert
+            // The first label is 2π
+            expect(yAxisLabels[0]).toHaveTextContent("2π");
+
+            // There are three more labels in the positive direction,
+            // increasing by 2π each time.
+            for (let i = 1; i < 4; i++) {
+                expect(yAxisLabels[i]).toHaveTextContent(`${2 + 2 * i}π`);
+            }
+
+            // First label in the negative direction is empty
+            // to make room for the x axis labels (in place of -2π).
+            expect(yAxisLabels[4]).toHaveTextContent("");
+
+            // There are three more labels in the negative direction,
+            // decreasing by 2π each time.
+            for (let i = 1; i < 4; i++) {
+                expect(yAxisLabels[i + 4]).toHaveTextContent(`-${2 + 2 * i}π`);
+            }
         });
     });
 });
