@@ -63,6 +63,8 @@ export {default as gradedGroupLogic} from "./widgets/graded-group";
 export type {GradedGroupDefaultWidgetOptions} from "./widgets/graded-group";
 export {default as gradedGroupSetLogic} from "./widgets/graded-group-set";
 export type {GradedGroupSetDefaultWidgetOptions} from "./widgets/graded-group-set";
+export {default as grapherLogic} from "./widgets/grapher";
+export type {GrapherDefaultWidgetOptions} from "./widgets/grapher";
 export {default as groupLogic} from "./widgets/group";
 export type {GroupDefaultWidgetOptions} from "./widgets/group";
 export {default as iframeLogic} from "./widgets/iframe";
