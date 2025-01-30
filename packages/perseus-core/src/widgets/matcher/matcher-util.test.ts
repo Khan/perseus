@@ -26,7 +26,7 @@ describe("getMatcherPublicWidgetOptions", () => {
         });
     });
 
-    it("should return shuffled left and right array when order matters", () => {
+    it("should return shuffled left and right arrays when order matters", () => {
         // Arrange
         const options: PerseusMatcherWidgetOptions = {
             labels: ["**Claims**", "**Evidence**"],
