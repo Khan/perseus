@@ -88,6 +88,7 @@ export const upgradeWidgetInfoToLatestVersion = (
                             type,
                             fromMajorVersion: nextVersion - 1,
                             toMajorVersion: nextVersion,
+                            oldWidgetInfo: JSON.stringify(oldWidgetInfo),
                         },
                     },
                 );
