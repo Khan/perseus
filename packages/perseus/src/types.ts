@@ -16,6 +16,9 @@ import type {
     getOrdererPublicWidgetOptions,
     getCategorizerPublicWidgetOptions,
     getExpressionPublicWidgetOptions,
+    getSorterPublicWidgetOptions,
+    getDropdownPublicWidgetOptions,
+    getNumericInputPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -542,10 +545,13 @@ export type WidgetScorerFunction = (
  * A union type of all the functions that provide public widget options.
  */
 export type PublicWidgetOptionsFunction =
+    | typeof getNumericInputPublicWidgetOptions
+    | typeof getDropdownPublicWidgetOptions
     | typeof getCategorizerPublicWidgetOptions
     | typeof getOrdererPublicWidgetOptions
     | typeof getExpressionPublicWidgetOptions
-    | typeof getLabelImagePublicWidgetOptions;
+    | typeof getLabelImagePublicWidgetOptions
+    | typeof getSorterPublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
