@@ -27,7 +27,7 @@
 .nvmrc
 .prettierignore
 LICENSE
-yarn.lock
+pnpm-lock.yaml
 
 coverage/
 docs/
