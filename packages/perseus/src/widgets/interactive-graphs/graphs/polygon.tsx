@@ -69,11 +69,6 @@ type StatefulProps = MafsGraphProps<PolygonGraphState> & {
     setFocusVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-type InnerProps = StatefulProps & {
-    id: string;
-    i18n: I18nContextType;
-};
-
 const PolygonGraph = (props: Props) => {
     const {dispatch} = props;
     const {numSides, coords, snapStep, snapTo = "grid"} = props.graphState;
@@ -152,24 +147,15 @@ const PolygonGraph = (props: Props) => {
         setFocusVisible,
     };
 
-    // Using hooks in the parent so that we don't get conditional hook errors.
-    const id = React.useId();
-    const i18n = usePerseusI18n();
-
-    const innerProps = {
-        ...statefulProps,
-        id,
-        i18n,
-    };
-
-    return numSides === "unlimited"
-        ? UnlimitedPolygonGraph(innerProps)
-        : LimitedPolygonGraph(innerProps);
+    return numSides === "unlimited" ? (
+        <UnlimitedPolygonGraph {...statefulProps} />
+    ) : (
+        <LimitedPolygonGraph {...statefulProps} />
+    );
 };
 
-const LimitedPolygonGraph = (innerProps: InnerProps) => {
+const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const {
-        id,
         dispatch,
         hovered,
         setHovered,
@@ -181,16 +167,16 @@ const LimitedPolygonGraph = (innerProps: InnerProps) => {
         dragging,
         points,
         constrain,
-        i18n,
-    } = innerProps;
+    } = statefulProps;
     const {
         showAngles,
         showSides,
         range,
         snapTo = "grid",
-    } = innerProps.graphState;
+    } = statefulProps.graphState;
     const {disableKeyboardInteraction} = graphConfig;
-    const {strings, locale} = i18n;
+    const {strings, locale} = usePerseusI18n();
+    const id = React.useId();
 
     const lines = getLines(points);
 
@@ -204,9 +190,9 @@ const LimitedPolygonGraph = (innerProps: InnerProps) => {
         srPolygonGraphPoints,
         srPolygonElementsNum,
     } = describePolygonGraph(
-        innerProps.graphState,
+        statefulProps.graphState,
         {strings, locale},
-        innerProps.graphConfig.markings,
+        statefulProps.graphConfig.markings,
     );
 
     return (
@@ -381,13 +367,13 @@ const LimitedPolygonGraph = (innerProps: InnerProps) => {
     );
 };
 
-const UnlimitedPolygonGraph = (innerProps: InnerProps) => {
-    const {dispatch, graphConfig, left, top, pointsRef, points} = innerProps;
-    const {coords, closedPolygon} = innerProps.graphState;
+const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
+    const {dispatch, graphConfig, left, top, pointsRef, points} = statefulProps;
+    const {coords, closedPolygon} = statefulProps.graphState;
 
     // If the polygon is closed, return a LimitedPolygon component.
     if (closedPolygon) {
-        const closedPolygonProps = {...innerProps, numSides: coords.length};
+        const closedPolygonProps = {...statefulProps, numSides: coords.length};
         return <LimitedPolygonGraph {...closedPolygonProps} />;
     }
 
