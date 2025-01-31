@@ -375,8 +375,14 @@ export class LabelImage
     }
 
     activateMarker(index: number, opened: boolean) {
+        // LEMS-2830
         this.props.analytics?.onAnalyticsEvent({
             type: "perseus:label-image:marker-interacted-with",
+            payload: null,
+        });
+
+        this.props.analytics?.onAnalyticsEvent({
+            type: "perseus:label-image:marker-interacted-with:ti",
             payload: null,
         });
 
@@ -539,8 +545,13 @@ export class LabelImage
                         }))}
                         multipleSelect={this.props.multipleAnswers}
                         onChange={(selection) => {
+                            // LEMS-2829
                             this.props.analytics?.onAnalyticsEvent({
                                 type: "perseus:label-image:choiced-interacted-with",
+                                payload: null,
+                            });
+                            this.props.analytics?.onAnalyticsEvent({
+                                type: "perseus:label-image:choiced-interacted-with:ti",
                                 payload: null,
                             });
                             this.handleAnswerChoicesChangeForMarker(
@@ -675,8 +686,13 @@ export class LabelImage
                 <HideAnswersToggle
                     areAnswersHidden={this.state.hideAnswers}
                     onChange={(hideAnswers) => {
+                        // LEMS-2831
                         this.props.analytics?.onAnalyticsEvent({
                             type: "perseus:label-image:toggle-answers-hidden",
+                            payload: null,
+                        });
+                        this.props.analytics?.onAnalyticsEvent({
+                            type: "perseus:label-image:toggle-answers-hidden:ti",
                             payload: null,
                         });
                         this.setState({hideAnswers});
