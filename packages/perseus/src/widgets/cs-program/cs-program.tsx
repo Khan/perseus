@@ -2,6 +2,7 @@
  * This widget is for embedding Khan Academy CS programs.
  */
 
+import {getCSProgramPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {scoreCSProgram} from "@khanacademy/perseus-score";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
@@ -204,4 +205,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
     scorer: scoreCSProgram,
+    getPublicWidgetOptions: getCSProgramPublicWidgetOptions,
 } satisfies WidgetExports<typeof CSProgram>;
