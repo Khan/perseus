@@ -68,6 +68,11 @@ type StatefulProps = MafsGraphProps<PolygonGraphState> & {
     setFocusVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+type InnerProps = StatefulProps & {
+    id: string;
+    i18n: I18nContextType;
+};
+
 const PolygonGraph = (props: Props) => {
     const {dispatch} = props;
     const {numSides, coords, snapStep, snapTo = "grid"} = props.graphState;
@@ -146,13 +151,24 @@ const PolygonGraph = (props: Props) => {
         setFocusVisible,
     };
 
+    // Using hooks in the parent so that we don't get conditional hook errors.
+    const id = React.useId();
+    const i18n = usePerseusI18n();
+
+    const innerProps = {
+        ...statefulProps,
+        id,
+        i18n,
+    };
+
     return numSides === "unlimited"
-        ? UnlimitedPolygonGraph(statefulProps)
-        : LimitedPolygonGraph(statefulProps);
+        ? UnlimitedPolygonGraph(innerProps)
+        : LimitedPolygonGraph(innerProps);
 };
 
-const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
+const LimitedPolygonGraph = (statefulProps: InnerProps) => {
     const {
+        id,
         dispatch,
         hovered,
         setHovered,
@@ -164,6 +180,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         dragging,
         points,
         constrain,
+        i18n,
     } = statefulProps;
     const {
         showAngles,
@@ -172,12 +189,10 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         snapTo = "grid",
     } = statefulProps.graphState;
     const {disableKeyboardInteraction} = graphConfig;
-    const {strings, locale} = usePerseusI18n();
-    const uniqueId = React.useId();
+    const {strings, locale} = i18n;
 
     const lines = getLines(points);
 
-    const id = React.useId();
     const polygonPointsNumId = id + "-points-num";
     const polygonPointsId = id + "-points";
 
@@ -272,25 +287,23 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                 }}
             />
             {points.map((point, i) => {
-                const angleId = `${uniqueId}-angle-${i}`;
-                let sideIds = "";
+                const angleId = `${id}-angle-${i}`;
+                const side1Id = `${id}-point-${i}-side-1`;
+                const side2Id = `${id}-point-${i}-side-2`;
 
                 const angle = getAngleFromPoints(points, i);
                 const angleDegree = angle ? radianToDegree(angle) : null;
 
                 const sidesArray = getSideLengthsFromPoints(points, i);
-                for (
-                    let sideIndex = 0;
-                    sideIndex < sidesArray.length;
-                    sideIndex++
-                ) {
-                    sideIds += `${uniqueId}-point-${i}-side-${sideIndex} `;
-                }
+                const {pointIndex: point1Index, sideLength: side1Length} =
+                    sidesArray[0];
+                const {pointIndex: point2Index, sideLength: side2Length} =
+                    sidesArray[1];
 
                 return (
                     <g key={"point-" + i}>
                         <MovablePoint
-                            ariaDescribedBy={`${angleId} ${sideIds}`}
+                            // ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
                             constrain={constrain}
                             point={point}
                             sequenceNumber={i + 1}
@@ -328,17 +341,18 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                       })}
                             </g>
                         )}
-                        {sidesArray.map(({pointIndex, sideLength}, j) => (
-                            <g
-                                key={`${uniqueId}-point-${i}-side-${j}`}
-                                id={`${uniqueId}-point-${i}-side-${j}`}
-                            >
-                                {strings.srPolygonSideLength({
-                                    pointNum: pointIndex + 1,
-                                    length: srFormatNumber(sideLength, locale),
-                                })}
-                            </g>
-                        ))}
+                        <g id={side1Id}>
+                            {strings.srPolygonSideLength({
+                                pointNum: point1Index + 1,
+                                length: srFormatNumber(side1Length, locale),
+                            })}
+                        </g>
+                        <g id={side2Id}>
+                            {strings.srPolygonSideLength({
+                                pointNum: point2Index + 1,
+                                length: srFormatNumber(side2Length, locale),
+                            })}
+                        </g>
                     </g>
                 );
             })}
@@ -356,19 +370,13 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
     );
 };
 
-const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
-    const {dispatch, graphConfig, left, top, pointsRef, points} = statefulProps;
-    const {coords, closedPolygon} = statefulProps.graphState;
-    const {strings, locale} = usePerseusI18n();
-    const uniqueId = React.useId();
-
-    const id = React.useId();
-    const polygonPointsNumId = id + "-points-num";
-    const polygonPointsId = id + "-points";
+const UnlimitedPolygonGraph = (innerProps: InnerProps) => {
+    const {dispatch, graphConfig, left, top, pointsRef, points} = innerProps;
+    const {coords, closedPolygon} = innerProps.graphState;
 
     // If the polygon is closed, return a LimitedPolygon component.
     if (closedPolygon) {
-        const closedPolygonProps = {...statefulProps, numSides: coords.length};
+        const closedPolygonProps = {...innerProps, numSides: coords.length};
         return <LimitedPolygonGraph {...closedPolygonProps} />;
     }
 
@@ -377,20 +385,8 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const widthPx = graphDimensionsInPixels[0];
     const heightPx = graphDimensionsInPixels[1];
 
-    // Aria label srings
-    const {srPolygonGraph, srPolygonGraphPointsNum, srPolygonGraphPoints} =
-        describePolygonGraph(
-            statefulProps.graphState,
-            {strings, locale},
-            statefulProps.graphConfig.markings,
-        );
-
     return (
-        <g
-            // Outer graph minimal description
-            aria-label={srPolygonGraph}
-            aria-describedby={`${polygonPointsNumId} ${polygonPointsId}`}
-        >
+        <>
             <Polyline
                 points={[...points]}
                 color="var(--movable-line-stroke-color)"
@@ -425,94 +421,36 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     dispatch(actions.polygon.addPoint(graphCoordinates[0]));
                 }}
             />
-            {coords.map((point, i) => {
-                const angleId = `${uniqueId}-angle-${i}`;
-                let sideIds = "";
-
-                const angle = getAngleFromPoints(points, i);
-                const angleDegree = angle ? radianToDegree(angle) : null;
-
-                const sidesArray = getSideLengthsFromPoints(points, i);
-                for (
-                    let sideIndex = 0;
-                    sideIndex < sidesArray.length;
-                    sideIndex++
-                ) {
-                    sideIds += `${uniqueId}-point-${i}-side-${sideIndex} `;
-                }
-
-                return (
-                    <g key={"point-" + i}>
-                        <MovablePoint
-                            ariaDescribedBy={`${angleId} ${sideIds}`}
-                            point={point}
-                            sequenceNumber={i + 1}
-                            onMove={(destination) =>
-                                dispatch(
-                                    actions.polygon.movePoint(i, destination),
-                                )
-                            }
-                            ref={(ref) => {
-                                pointsRef.current[i] = ref;
-                            }}
-                            onFocus={() => {
-                                dispatch(actions.polygon.focusPoint(i));
-                            }}
-                            onClick={() => {
-                                // If the point being clicked is the first point and
-                                // there's enough non-duplicated points to form
-                                // a polygon (3 or more), close the shape before
-                                // setting focus.
-                                if (
-                                    i === 0 &&
-                                    getArrayWithoutDuplicates(coords).length >=
-                                        3
-                                ) {
-                                    dispatch(actions.polygon.closePolygon());
-                                }
-                                dispatch(actions.polygon.clickPoint(i));
-                            }}
-                        />
-                        {angleDegree && (
-                            <g id={angleId}>
-                                {Number.isInteger(angleDegree)
-                                    ? strings.srPolygonPointAngle({
-                                          angle: angleDegree,
-                                      })
-                                    : strings.srPolygonPointAngleApprox({
-                                          angle: srFormatNumber(
-                                              angleDegree,
-                                              locale,
-                                              1,
-                                          ),
-                                      })}
-                            </g>
-                        )}
-                        {sidesArray.map(({pointIndex, sideLength}, j) => (
-                            <g
-                                key={`${uniqueId}-point-${i}-side-${j}`}
-                                id={`${uniqueId}-point-${i}-side-${j}`}
-                            >
-                                {strings.srPolygonSideLength({
-                                    pointNum: pointIndex + 1,
-                                    length: srFormatNumber(sideLength, locale),
-                                })}
-                            </g>
-                        ))}
-                    </g>
-                );
-            })}
-            {/* Hidden elements to provide the descriptions for the
-                `aria-describedby` properties */}
-            <g id={polygonPointsNumId} style={a11y.srOnly}>
-                {srPolygonGraphPointsNum}
-            </g>
-            {srPolygonGraphPoints && (
-                <g id={polygonPointsId} style={a11y.srOnly}>
-                    {srPolygonGraphPoints}
-                </g>
-            )}
-        </g>
+            {coords.map((point, i) => (
+                <MovablePoint
+                    key={i}
+                    point={point}
+                    sequenceNumber={i + 1}
+                    onMove={(destination) =>
+                        dispatch(actions.polygon.movePoint(i, destination))
+                    }
+                    ref={(ref) => {
+                        pointsRef.current[i] = ref;
+                    }}
+                    onFocus={() => {
+                        dispatch(actions.polygon.focusPoint(i));
+                    }}
+                    onClick={() => {
+                        // If the point being clicked is the first point and
+                        // there's enough non-duplicated points to form
+                        // a polygon (3 or more), close the shape before
+                        // setting focus.
+                        if (
+                            i === 0 &&
+                            getArrayWithoutDuplicates(coords).length >= 3
+                        ) {
+                            dispatch(actions.polygon.closePolygon());
+                        }
+                        dispatch(actions.polygon.clickPoint(i));
+                    }}
+                />
+            ))}
+        </>
     );
 };
 
