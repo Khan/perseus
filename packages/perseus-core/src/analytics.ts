@@ -21,14 +21,35 @@ export type PerseusAnalyticsEvent =
     | {
           type: "perseus:widget-rendering-error";
           payload: {
+              widgetSubType: string;
               widgetType: string;
               widgetId: string;
+              message: string;
+              userAgent: string;
+          };
+      }
+    | {
+          type: "perseus:widget-rendering-error:ti";
+          payload: {
+              widgetSubType: string;
+              widgetType: string;
+              widgetId: string;
+              message: string;
+              userAgent: string;
           };
       }
     | {
           type: "perseus:interactive-graph-widget:rendered";
           payload: {
               type: string;
+              widgetType: string;
+              widgetId: string;
+          };
+      }
+    | {
+          type: "perseus:widget:rendered:ti";
+          payload: {
+              widgetSubType: string;
               widgetType: string;
               widgetId: string;
           };
@@ -43,6 +64,18 @@ export type PerseusAnalyticsEvent =
       }
     | {
           type: "perseus:label-image:choiced-interacted-with";
+          payload: null;
+      }
+    | {
+          type: "perseus:label-image:toggle-answers-hidden:ti";
+          payload: null;
+      }
+    | {
+          type: "perseus:label-image:marker-interacted-with:ti";
+          payload: null;
+      }
+    | {
+          type: "perseus:label-image:choiced-interacted-with:ti";
           payload: null;
       }
     | {
