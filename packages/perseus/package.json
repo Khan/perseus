@@ -37,8 +37,7 @@
         "dist"
     ],
     "scripts": {
-        "prepublishOnly": "../../utils/package-pre-publish-check.sh",
-        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
+        "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
         "@khanacademy/kas": "workspace:*",
