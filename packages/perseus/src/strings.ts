@@ -437,6 +437,13 @@ export type PerseusStrings = {
         pointNum: number;
         length: string;
     }) => string;
+    srPolygonSideLengthApprox: ({
+        pointNum,
+        length,
+    }: {
+        pointNum: number;
+        length: string;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -704,7 +711,9 @@ export const strings = {
         "Angle approximately equal to %(angle)s degrees.",
     srPolygonPointAngle: "Angle equal to %(angle)s degrees.",
     srPolygonSideLength:
-        "Connected to point %(pointNum)s at a distance of %(length)s.",
+        "A line segment, length equal to %(length)s units, connects to point %(pointNum)s.",
+    srPolygonSideLengthApprox:
+        "A line segment, length approximately equal to %(length)s units, connects to point %(pointNum)s.",
     // The above strings are used for interactive graph SR descriptions.
 } satisfies {
     [key in keyof PerseusStrings]:
@@ -1001,7 +1010,9 @@ export const mockStrings: PerseusStrings = {
         `Angle approximately equal to ${angle} degrees.`,
     srPolygonPointAngle: ({angle}) => `Angle equal to ${angle} degrees.`,
     srPolygonSideLength: ({pointNum, length}) =>
-        `Connected to point ${pointNum} at a distance of ${length}.`,
+        `A line segment, length equal to ${length} units, connects to point ${pointNum}.`,
+    srPolygonSideLengthApprox: ({pointNum, length}) =>
+        `A line segment, length approximately equal to ${length} units, connects to point ${pointNum}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
 

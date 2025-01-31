@@ -20,6 +20,7 @@ import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
 import {
     getAngleFromPoints,
     getArrayWithoutDuplicates,
+    getPolygonSideString,
     getSideLengthsFromPoints,
     radianToDegree,
 } from "./utils";
@@ -289,7 +290,9 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     className: "movable-polygon",
                     // Accessibility-related fields
                     role: "button",
-                    "aria-label": `${srPolygonElementsNum} ${srPolygonGraphPoints}`,
+                    "aria-label": srPolygonGraphPoints
+                        ? `${srPolygonElementsNum} ${srPolygonGraphPoints}`
+                        : srPolygonElementsNum,
                     "aria-live": ariaLives[0],
                 }}
             />
@@ -359,16 +362,20 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             </g>
                         )}
                         <g id={side1Id}>
-                            {strings.srPolygonSideLength({
-                                pointNum: point1Index + 1,
-                                length: srFormatNumber(side1Length, locale),
-                            })}
+                            {getPolygonSideString(
+                                side1Length,
+                                point1Index,
+                                strings,
+                                locale,
+                            )}
                         </g>
                         <g id={side2Id}>
-                            {strings.srPolygonSideLength({
-                                pointNum: point2Index + 1,
-                                length: srFormatNumber(side2Length, locale),
-                            })}
+                            {getPolygonSideString(
+                                side2Length,
+                                point2Index,
+                                strings,
+                                locale,
+                            )}
                         </g>
                     </g>
                 );
@@ -509,8 +516,7 @@ type PolygonGraphDescriptionStrings = {
     srPolygonInteractiveElements: string;
 };
 
-// Exported for testing
-export function describePolygonGraph(
+function describePolygonGraph(
     state: PolygonGraphState,
     i18n: I18nContextType,
     markings: InteractiveGraphProps["markings"],

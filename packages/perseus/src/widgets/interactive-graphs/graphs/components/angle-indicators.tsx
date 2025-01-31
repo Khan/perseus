@@ -32,7 +32,6 @@ export const PolygonAngle = ({
     showAngles,
     snapTo,
 }: PolygonAngleProps) => {
-    // TODO: USE THE UTIL FUCNTION HERE!~!!!!!!!!!!
     const [centerX, centerY] = centerPoint;
     const areClockwise = clockwise([centerPoint, ...endPoints]);
     const [[startX, startY], [endX, endY]] = areClockwise

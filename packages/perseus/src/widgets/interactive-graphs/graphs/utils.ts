@@ -241,6 +241,10 @@ export function getQuadraticXIntercepts(
 }
 
 export function getAngleFromPoints(points: Coord[], i: number) {
+    if (i < 0 || i >= points.length || !Number.isInteger(i)) {
+        return null;
+    }
+
     if (points.length < 3) {
         return null;
     }
@@ -275,6 +279,10 @@ export function getSideLengthsFromPoints(
     pointIndex: number;
     sideLength: number;
 }> {
+    if (i < 0 || i >= points.length || !Number.isInteger(i)) {
+        return [];
+    }
+
     if (points.length < 2) {
         return [];
     }
@@ -309,4 +317,25 @@ export function getSideLengthsFromPoints(
     }
 
     return returnArray;
+}
+
+/**
+ * Determine whether to determine the string with the
+ * exact side length or the approximate side length.
+ */
+export function getPolygonSideString(
+    sideLength: number,
+    pointIndex: number,
+    strings: PerseusStrings,
+    locale: string,
+) {
+    return Number.isInteger(sideLength)
+        ? strings.srPolygonSideLength({
+              pointNum: pointIndex + 1,
+              length: `${sideLength}`,
+          })
+        : strings.srPolygonSideLengthApprox({
+              pointNum: pointIndex + 1,
+              length: srFormatNumber(sideLength, locale, 1),
+          });
 }
