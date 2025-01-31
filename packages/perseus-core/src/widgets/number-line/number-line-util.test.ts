@@ -1,6 +1,6 @@
 import getNumberLinePublicWidgetOptions from "./number-line-util";
 
-import type {PerseusNumberLineWidgetOptions} from "../../data-schema"
+import type {PerseusNumberLineWidgetOptions} from "../../data-schema";
 
 describe("getNumberLinePublicWidgetOptions", () => {
     it("removes correctX and correctRel", () => {
@@ -36,6 +36,6 @@ describe("getNumberLinePublicWidgetOptions", () => {
             isTickCtrl: false,
             showTooltips: false,
             static: false,
-        })
-    })
-})
+        });
+    });
+});
