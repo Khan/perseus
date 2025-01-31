@@ -1,5 +1,19 @@
 # @khanacademy/perseus-core
 
+## 3.4.0
+
+### Minor Changes
+
+-   [#2154](https://github.com/Khan/perseus/pull/2154) [`a21fd908d`](https://github.com/Khan/perseus/commit/a21fd908d705c5b9de56f29af54d726824f5668e) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Sorter widget
+
+*   [#2157](https://github.com/Khan/perseus/pull/2157) [`af8f5d3ca`](https://github.com/Khan/perseus/commit/af8f5d3cac1f642bb5f0c96a2f536990c277224f) Thanks [@handeyeco](https://github.com/handeyeco)! - Move default widget options for Grapher to Perseus Core
+
+-   [#2171](https://github.com/Khan/perseus/pull/2171) [`a470c799e`](https://github.com/Khan/perseus/commit/a470c799eb53c87e08fb2f829b27e114ca80f63f) Thanks [@benchristel](https://github.com/benchristel)! - Create a function to get the public options for the LabelImage widget
+
+*   [#2174](https://github.com/Khan/perseus/pull/2174) [`97e07c8ba`](https://github.com/Khan/perseus/commit/97e07c8baee12a37e471e8292dedbcf0588e2f50) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Numeric Input widget
+
+-   [#2166](https://github.com/Khan/perseus/pull/2166) [`3c4c6bc92`](https://github.com/Khan/perseus/commit/3c4c6bc9207f6f2d65312df1c2bd5bf5246182a2) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Dropdown widget
+
 ## 3.3.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @khanacademy/kmath
 
+## 0.3.2
+
+### Patch Changes
+
+-   [#2162](https://github.com/Khan/perseus/pull/2162) [`781834332`](https://github.com/Khan/perseus/commit/781834332921f839028aa5cb3c5c867121859e02) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update repository information
+
+-   Updated dependencies [[`a21fd908d`](https://github.com/Khan/perseus/commit/a21fd908d705c5b9de56f29af54d726824f5668e), [`af8f5d3ca`](https://github.com/Khan/perseus/commit/af8f5d3cac1f642bb5f0c96a2f536990c277224f), [`a470c799e`](https://github.com/Khan/perseus/commit/a470c799eb53c87e08fb2f829b27e114ca80f63f), [`97e07c8ba`](https://github.com/Khan/perseus/commit/97e07c8baee12a37e471e8292dedbcf0588e2f50), [`3c4c6bc92`](https://github.com/Khan/perseus/commit/3c4c6bc9207f6f2d65312df1c2bd5bf5246182a2)]:
+    -   @khanacademy/perseus-core@3.4.0
+
 ## 0.3.1
 
 ### Patch Changes
