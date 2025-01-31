@@ -1,23 +1,20 @@
-import {emptyWidgetsFunctional} from "../../renderer-util";
+import {emptyWidgetsFunctional} from "../../validate";
 
-import type {PerseusStrings} from "../../strings";
 import type {
     PerseusGroupUserInput,
     PerseusGroupValidationData,
     ValidationResult,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
 
 function validateGroup(
     userInput: PerseusGroupUserInput,
     validationData: PerseusGroupValidationData,
-    strings: PerseusStrings,
     locale: string,
 ): ValidationResult {
     const emptyWidgets = emptyWidgetsFunctional(
         validationData.widgets,
         Object.keys(validationData.widgets),
         userInput,
-        strings,
         locale,
     );
 

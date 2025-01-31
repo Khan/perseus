@@ -1,12 +1,11 @@
 import {it, describe, beforeEach} from "@jest/globals";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, render, screen} from "@testing-library/react";
 import React from "react";
 
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
-import {scorePerseusItem} from "../../../renderer-util";
-import {mockStrings} from "../../../strings";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import PassageWidgetExport, {LineHeightMeasurer} from "../passage";
 
@@ -138,7 +137,6 @@ describe("passage widget", () => {
         const score = scorePerseusItem(
             question2,
             renderer.getUserInputMap(),
-            mockStrings,
             "en",
         );
 

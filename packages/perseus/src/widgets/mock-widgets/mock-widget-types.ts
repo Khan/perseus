@@ -7,14 +7,6 @@ export type MockWidgetOptions = {
     value: string;
 };
 
-export type PerseusMockWidgetRubric = {
-    value: string;
-};
-
-export type PerseusMockWidgetUserInput = {
-    currentValue: string;
-};
-
 // Extend the widget registries for testing
 // See @khanacademy/perseus-core's PerseusWidgetTypes for a full explanation.
 // Basically, we're extending the interface from that package so that our

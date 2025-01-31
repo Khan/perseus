@@ -3,8 +3,6 @@ import _ from "underscore";
 
 import KhanAnswerTypes from "../../util/answer-types";
 
-import validateMatrix from "./validate-matrix";
-
 import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
@@ -15,11 +13,6 @@ function scoreMatrix(
     userInput: PerseusMatrixUserInput,
     rubric: PerseusMatrixRubric,
 ): PerseusScore {
-    const validationError = validateMatrix(userInput);
-    if (validationError != null) {
-        return validationError;
-    }
-
     const solution = rubric.answers;
     const supplied = userInput.answers;
     const solutionSize = getMatrixSize(solution);

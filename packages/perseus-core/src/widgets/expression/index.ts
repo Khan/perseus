@@ -13,6 +13,7 @@ const expressionWidgetLogic: WidgetLogic = {
     version: currentVersion,
     widgetOptionsUpgrades: widgetOptionsUpgrades,
     defaultWidgetOptions: defaultWidgetOptions,
+    defaultAlignment: "inline-block",
 };
 
 export default expressionWidgetLogic;

@@ -3,8 +3,9 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import * as React from "react";
 
+import {scorePerseusItem} from "@khanacademy/perseus-score";
+
 import * as Perseus from "../packages/perseus/src/index";
-import {mockStrings} from "../packages/perseus/src/strings";
 import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
 
 import KEScoreUI from "./ke-score-ui";
@@ -37,12 +38,7 @@ export const ServerItemRendererWithDebugUI = ({
         }
 
         const userInput = renderer.getUserInput();
-        const score = Perseus.scorePerseusItem(
-            item.question,
-            userInput,
-            mockStrings,
-            "en",
-        );
+        const score = scorePerseusItem(item.question, userInput, "en");
 
         // Continue to include an empty guess for the now defunct answer area.
         // TODO(alex): Check whether we rely on the format here for

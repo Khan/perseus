@@ -1,7 +1,5 @@
 import ErrorCodes from "../../error-codes";
 
-import validateRadio from "./validate-radio";
-
 import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
@@ -12,11 +10,6 @@ function scoreRadio(
     userInput: PerseusRadioUserInput,
     rubric: PerseusRadioRubric,
 ): PerseusScore {
-    const validationError = validateRadio(userInput);
-    if (validationError) {
-        return validationError;
-    }
-
     const numSelected = userInput.choicesSelected.reduce((sum, selected) => {
         return sum + (selected ? 1 : 0);
     }, 0);

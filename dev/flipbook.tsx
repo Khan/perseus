@@ -18,10 +18,10 @@ import {useEffect, useMemo, useReducer, useRef, useState} from "react";
 
 import {Renderer} from "../packages/perseus/src";
 import {SvgImage} from "../packages/perseus/src/components";
-import {scorePerseusItem} from "../packages/perseus/src/renderer-util";
 import {mockStrings} from "../packages/perseus/src/strings";
 import {isCorrect} from "../packages/perseus/src/util/scoring";
 import {trueForAllMafsSupportedGraphTypes} from "../packages/perseus/src/widgets/interactive-graphs/mafs-supported-graph-types";
+import {scorePerseusItem} from "../packages/perseus-score/src";
 
 import {EditableControlledInput} from "./editable-controlled-input";
 import {
@@ -324,7 +324,6 @@ function GradableRenderer(props: QuestionRendererProps) {
                                 const score = scorePerseusItem(
                                     question,
                                     rendererRef.current.getUserInputMap(),
-                                    mockStrings,
                                     "en",
                                 );
                                 setScore(score);

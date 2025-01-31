@@ -1,10 +1,9 @@
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {scorePerseusItem} from "../../renderer-util";
-import {mockStrings} from "../../strings";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -63,7 +62,6 @@ describe("categorizer widget", () => {
         const score = scorePerseusItem(
             question1,
             renderer.getUserInputMap(),
-            mockStrings,
             "en",
         );
 
@@ -87,7 +85,6 @@ describe("categorizer widget", () => {
         const score = scorePerseusItem(
             question1,
             renderer.getUserInputMap(),
-            mockStrings,
             "en",
         );
 

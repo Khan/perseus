@@ -25,6 +25,7 @@ const defaultWidgetOptions: InputNumberDefaultWidgetOptions = {
 const inputNumberWidgetLogic: WidgetLogic = {
     name: "input-number",
     defaultWidgetOptions,
+    defaultAlignment: "inline-block",
 };
 
 export default inputNumberWidgetLogic;

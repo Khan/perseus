@@ -8,8 +8,6 @@ import _ from "underscore";
 
 import KhanAnswerTypes from "../../util/answer-types";
 
-import validateExpression from "./validate-expression";
-
 import type {Score} from "../../util/answer-types";
 import type {
     PerseusExpressionRubric,
@@ -41,11 +39,6 @@ function scoreExpression(
     rubric: PerseusExpressionRubric,
     locale: string,
 ): PerseusScore {
-    const validationError = validateExpression(userInput);
-    if (validationError) {
-        return validationError;
-    }
-
     const options = _.clone(rubric);
     _.extend(options, {
         decimal_separator: getDecimalSeparator(locale),

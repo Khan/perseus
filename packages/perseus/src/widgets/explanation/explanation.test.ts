@@ -264,14 +264,4 @@ describe("Explanation", function () {
         expect(changeMock.mock.contexts[0]).toEqual(widget);
         expect(changeMock).toHaveBeenCalledWith("foo", "bar", callbackMock);
     });
-
-    describe("scorer", () => {
-        it("should always return 0 points", async () => {
-            const result = ExplanationWidgetExports?.scorer?.();
-
-            expect(result).toHaveBeenAnsweredCorrectly({
-                shouldHavePoints: false,
-            });
-        });
-    });
 });

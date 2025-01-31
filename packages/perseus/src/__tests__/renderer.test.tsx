@@ -45,8 +45,6 @@ jest.mock("../translation-linter", () => {
 
 describe("renderer", () => {
     beforeAll(() => {
-        // TODO(LEMS-2656): remove TS suppression
-        // @ts-expect-error: MockWidget is not assignable to type WidgetExports
         registerWidget("mock-widget", MockWidgetExport);
     });
 

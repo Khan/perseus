@@ -1,7 +1,5 @@
 import {number as knumber} from "@khanacademy/kmath";
 
-import validateNumberLine from "./validate-number-line";
-
 import type {
     PerseusNumberLineRubric,
     PerseusNumberLineUserInput,
@@ -12,11 +10,6 @@ function scoreNumberLine(
     userInput: PerseusNumberLineUserInput,
     rubric: PerseusNumberLineRubric,
 ): PerseusScore {
-    const validationError = validateNumberLine(userInput);
-    if (validationError) {
-        return validationError;
-    }
-
     const range = rubric.range;
     const start = rubric.initialX != null ? rubric.initialX : range[0];
     const startRel = rubric.isInequality ? "ge" : "eq";

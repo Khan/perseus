@@ -16,6 +16,7 @@ const defaultWidgetOptions: ExplanationDefaultWidgetOptions = {
 const explanationWidgetLogic: WidgetLogic = {
     name: "explanation",
     defaultWidgetOptions,
+    defaultAlignment: "inline",
 };
 
 export default explanationWidgetLogic;

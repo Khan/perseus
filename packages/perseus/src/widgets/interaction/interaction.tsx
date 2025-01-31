@@ -9,7 +9,6 @@ import Graphie from "../../components/graphie";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction/interaction-ai-utils";
-import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -812,6 +811,4 @@ export default {
     widget: Interaction,
     transform: _.identity,
     hidden: true,
-    // TODO: things that aren't interactive shouldn't need scoring functions
-    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof Interaction>;

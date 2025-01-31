@@ -12,7 +12,6 @@ import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/video-ai-utils";
-import scoreNoop from "../__shared__/score-noop";
 
 import VideoTranscriptLink from "./video-transcript-link";
 
@@ -119,9 +118,5 @@ class Video extends React.Component<Props> implements Widget {
 export default {
     name: "video",
     displayName: "Video",
-    defaultAlignment: "block",
-    supportedAlignments: ["block", "float-left", "float-right", "full-width"],
     widget: Video,
-    // TODO: things that aren't interactive shouldn't need scoring functions
-    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof Video>;

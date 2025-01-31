@@ -15,9 +15,9 @@ const defaultWidgetOptions: GroupDefaultWidgetOptions = {
     metadata: undefined,
 };
 
-const GroupWidgetLogic: WidgetLogic = {
+const groupWidgetLogic: WidgetLogic = {
     name: "group",
     defaultWidgetOptions,
 };
 
-export default GroupWidgetLogic;
+export default groupWidgetLogic;

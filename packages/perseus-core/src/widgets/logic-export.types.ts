@@ -1,4 +1,5 @@
 import type {Version} from "../data-schema";
+import type {Alignment} from "../types";
 
 export type WidgetOptionsUpgradeMap = {
     // OldProps => NewProps,
@@ -10,4 +11,6 @@ export type WidgetLogic = {
     version?: Version;
     widgetOptionsUpgrades?: WidgetOptionsUpgradeMap;
     defaultWidgetOptions?: any;
+    supportedAlignments?: ReadonlyArray<Alignment>;
+    defaultAlignment?: Alignment;
 };

@@ -1,5 +1,4 @@
 import scoreMatrix from "./score-matrix";
-import * as MatrixValidator from "./validate-matrix";
 
 import type {
     PerseusMatrixRubric,
@@ -7,58 +6,6 @@ import type {
 } from "../../validation.types";
 
 describe("scoreMatrix", () => {
-    it("should be correctly answerable if validation passes", function () {
-        // Arrange
-        const mockValidator = jest
-            .spyOn(MatrixValidator, "default")
-            .mockReturnValue(null);
-
-        const rubric: PerseusMatrixRubric = {
-            answers: [
-                [0, 1, 2],
-                [3, 4, 5],
-                [6, 7, 8],
-            ],
-        };
-
-        const userInput: PerseusMatrixUserInput = {
-            answers: rubric.answers,
-        };
-
-        // Act
-        const score = scoreMatrix(userInput, rubric);
-
-        // Assert
-        expect(mockValidator).toHaveBeenCalledWith(userInput);
-        expect(score).toHaveBeenAnsweredCorrectly();
-    });
-
-    it("should return 'empty' result if validation fails", function () {
-        // Arrange
-        const mockValidator = jest
-            .spyOn(MatrixValidator, "default")
-            .mockReturnValue({type: "invalid", message: null});
-
-        const rubric: PerseusMatrixRubric = {
-            answers: [
-                [0, 1, 2],
-                [3, 4, 5],
-                [6, 7, 8],
-            ],
-        };
-
-        const userInput: PerseusMatrixUserInput = {
-            answers: rubric.answers,
-        };
-
-        // Act
-        const score = scoreMatrix(userInput, rubric);
-
-        // Assert
-        expect(mockValidator).toHaveBeenCalledWith(userInput);
-        expect(score).toHaveInvalidInput();
-    });
-
     it("can be answered correctly", () => {
         // Arrange
         const rubric: PerseusMatrixRubric = {
@@ -103,62 +50,6 @@ describe("scoreMatrix", () => {
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
-    });
-
-    it("is invalid when there's an empty cell: null", () => {
-        // Arrange
-        const rubric: PerseusMatrixRubric = {
-            answers: [
-                [0, 1, 2],
-                [3, 4, 5],
-                [6, 7, 8],
-            ],
-        };
-
-        const userInput: PerseusMatrixUserInput = {
-            answers: [
-                // TODO: this is either legacy logic or an incorrect type,
-                // but this is what the scoring function is checking for
-                // @ts-expect-error - TS(2322) - Type 'null' is not assignable to type 'number'.
-                [0, 0, null],
-                [0, 0, 0],
-                [0, 0, 0],
-            ],
-        };
-
-        // Act
-        const result = scoreMatrix(userInput, rubric);
-
-        // Assert
-        expect(result).toHaveInvalidInput();
-    });
-
-    it("is invalid when there's an empty cell: empty string", () => {
-        // Arrange
-        const rubric: PerseusMatrixRubric = {
-            answers: [
-                [0, 1, 2],
-                [3, 4, 5],
-                [6, 7, 8],
-            ],
-        };
-
-        const userInput: PerseusMatrixUserInput = {
-            answers: [
-                // TODO: this is either legacy logic or an incorrect type,
-                // but this is what the scoring function is checking for
-                // @ts-expect-error - TS(2322) - Type 'null' is not assignable to type 'number'.
-                [0, 0, ""],
-                [0, 0, 0],
-                [0, 0, 0],
-            ],
-        };
-
-        // Act
-        const result = scoreMatrix(userInput, rubric);
-
-        // Assert
-        expect(result).toHaveInvalidInput();
     });
 
     it("is considered incorrect when the size is wrong", () => {

@@ -1,5 +1,4 @@
 import scoreOrderer from "./score-orderer";
-import * as OrdererValidator from "./validate-orderer";
 
 import type {
     PerseusOrdererRubric,
@@ -68,47 +67,5 @@ describe("scoreOrderer", () => {
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
-    });
-
-    it("should be correctly answerable if validation passes", () => {
-        // Arrange
-        const mockValidator = jest
-            .spyOn(OrdererValidator, "default")
-            .mockReturnValue(null);
-
-        const rubric: PerseusOrdererRubric = generateOrdererRubric();
-
-        const userInput: PerseusOrdererUserInput = {
-            current: rubric.correctOptions.map((e) => e.content),
-        };
-        // Act
-        const result = scoreOrderer(userInput, rubric);
-
-        // Assert
-        expect(mockValidator).toHaveBeenCalledWith(userInput);
-        expect(result).toHaveBeenAnsweredCorrectly();
-    });
-
-    it("should return an invalid response if validation fails", () => {
-        // Arrange
-        const mockValidator = jest
-            .spyOn(OrdererValidator, "default")
-            .mockReturnValue({
-                type: "invalid",
-                message: null,
-            });
-
-        const rubric: PerseusOrdererRubric = generateOrdererRubric();
-
-        const userInput: PerseusOrdererUserInput = {
-            current: [],
-        };
-
-        // Act
-        const result = scoreOrderer(userInput, rubric);
-
-        // Assert
-        expect(mockValidator).toHaveBeenCalledWith(userInput);
-        expect(result).toHaveInvalidInput();
     });
 });

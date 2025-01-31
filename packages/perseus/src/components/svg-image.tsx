@@ -18,8 +18,8 @@ import ImageLoader from "./image-loader";
 
 import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
-import type {Alignment, Dimensions} from "../types";
-import type {Size} from "@khanacademy/perseus-core";
+import type {Dimensions} from "../types";
+import type {Alignment, Size} from "@khanacademy/perseus-core";
 
 // Minimum image width to make an image appear as zoomable.
 const ZOOMABLE_THRESHOLD = 700;

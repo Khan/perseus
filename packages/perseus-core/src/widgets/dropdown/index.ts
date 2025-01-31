@@ -19,6 +19,7 @@ const defaultWidgetOptions: DropdownDefaultWidgetOptions = {
 const dropdownWidgetLogic: WidgetLogic = {
     name: "definition",
     defaultWidgetOptions,
+    defaultAlignment: "inline-block",
 };
 
 export default dropdownWidgetLogic;
