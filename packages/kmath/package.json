@@ -29,9 +29,11 @@
     },
     "devDependencies": {
         "perseus-build-settings": "workspace:*",
+        "jquery": "catalog:",
         "underscore": "catalog:"
     },
     "peerDependencies": {
+        "jquery": "catalog:",
         "underscore": "catalog:"
     },
     "keywords": []
