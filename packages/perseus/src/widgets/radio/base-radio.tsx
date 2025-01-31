@@ -10,7 +10,6 @@ import {usePerseusI18n} from "../../components/i18n-context";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import * as styleConstants from "../../styles/constants";
 import mediaQueries from "../../styles/media-queries";
-import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 import {scrollElementIntoView} from "../../util/scroll-utils";
 
@@ -303,7 +302,6 @@ const BaseRadio = function ({
                         // Whether or not to show correctness borders
                         // for this choice and the next choice.
                         return css(
-                            sharedStyles.aboveScratchpad,
                             styles.item,
                             styles.responsiveItem,
                             checked && styles.selectedItem,

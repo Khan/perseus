@@ -37,31 +37,9 @@
     background-color: transparent;
 }
 
-.above-scratchpad {
-    position: relative;
-    z-index: @zIndexAboveScratchpad;
-}
-
-// All graphie components placed above the scratchpad should have their
-// background wiped out.
-.graphie.above-scratchpad,
-.graphie-container.above-scratchpad {
-    .blank-background;
-}
-
-.perseus-mobile .graphie-container.above-scratchpad {
-    background: #ffffff;
-}
-
 // Selectable graphie components make for awkward touch experiences
 .graphie {
     .no-select;
-}
-
-.perseus-interactive,
-.perseus-interactive.above-scratchpad {
-    position: relative;
-    z-index: @zIndexInteractiveComponent;
 }
 
 &,  // and moar specificity...

@@ -161,7 +161,7 @@ class Measurer extends React.Component<Props> implements Widget {
             <div
                 className={
                     "perseus-widget perseus-widget-measurer " +
-                    "graphie-container above-scratchpad"
+                    "graphie-container blank-background"
                 }
                 style={{width: this.props.box[0], height: this.props.box[1]}}
             >

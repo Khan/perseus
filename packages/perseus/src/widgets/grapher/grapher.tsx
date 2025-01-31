@@ -325,7 +325,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                 }}
             >
                 <div
-                    className="graphie-container above-scratchpad"
+                    className="graphie-container blank-background"
                     style={{
                         width: box[0],
                         height: box[1],
@@ -556,7 +556,7 @@ class Grapher extends React.Component<Props> implements Widget {
         const asymptote = this.props.plot.asymptote;
 
         const typeSelector = (
-            <div style={typeSelectorStyle} className="above-scratchpad">
+            <div style={typeSelectorStyle}>
                 <ButtonGroup
                     value={type}
                     allowEmpty={true}

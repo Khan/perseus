@@ -416,7 +416,7 @@ class Graph extends React.Component<Props> {
 
         return (
             <div
-                className="graphie-container above-scratchpad"
+                className="graphie-container blank-background"
                 style={{
                     width: this.props.box[0],
                     height: this.props.box[1],

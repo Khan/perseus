@@ -761,7 +761,7 @@ class Orderer
                     "layout-" +
                     this.props.layout +
                     " " +
-                    "above-scratchpad blank-background " +
+                    "blank-background " +
                     "perseus-clearfix " +
                     ApiClassNames.INTERACTIVE
                 }
