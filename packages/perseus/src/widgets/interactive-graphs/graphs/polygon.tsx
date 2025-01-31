@@ -177,6 +177,16 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const {disableKeyboardInteraction} = graphConfig;
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
+    const pointsOffArray = Array(points.length).fill("off");
+    // When moving an element, set its aria-live to "polite" and the others
+    // to "off". Otherwise, other connected elements that move at the same
+    // time might override the currently focused element's aria live.
+    const [ariaLives, setAriaLives] = React.useState<Array<AriaLive>>([
+        // First one represents the aria-live value for the polygon itself.
+        "off",
+        // The rest represent the points.
+        ...pointsOffArray,
+    ]);
 
     const lines = getLines(points);
 
@@ -268,8 +278,10 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         setFocusVisible(hasFocusVisible(polygonRef.current));
                     },
                     // Required for lines to darken on focus
-                    onFocus: () =>
-                        setFocusVisible(hasFocusVisible(polygonRef.current)),
+                    onFocus: () => {
+                        setFocusVisible(hasFocusVisible(polygonRef.current));
+                        setAriaLives(() => ["polite", ...pointsOffArray]);
+                    },
                     // Required for line weighting to update on blur. Without this,
                     // the user has to hover over the shape for it to update
                     onBlur: () =>
@@ -278,7 +290,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     // Accessibility-related fields
                     role: "button",
                     "aria-label": `${srPolygonElementsNum} ${srPolygonGraphPoints}`,
-                    "aria-live": "polite",
+                    "aria-live": ariaLives[0],
                 }}
             />
             {points.map((point, i) => {
@@ -301,6 +313,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     <g key={"point-" + i}>
                         <MovablePoint
                             ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
+                            ariaLive={ariaLives[i + 1]}
                             constrain={constrain}
                             point={point}
                             sequenceNumber={i + 1}
@@ -321,6 +334,13 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                     );
                                     lastMoveTimeRef.current = now;
                                 }
+                            }}
+                            onFocus={() => {
+                                const newPointAriaLives = [...pointsOffArray];
+                                newPointAriaLives[i] = "polite";
+                                // Whole polygon is "off", and the current
+                                // point is "polite".
+                                setAriaLives(["off", ...newPointAriaLives]);
                             }}
                         />
                         {angleDegree && (
@@ -527,7 +547,7 @@ export function describePolygonGraph(
     });
 
     const srPolygonInteractiveElements = strings.srInteractiveElements({
-        elements: [srPolygonGraphPointsNum, srPolygonGraphPoints].join(" "),
+        elements: [srPolygonElementsNum, srPolygonGraphPoints].join(" "),
     });
 
     return {
