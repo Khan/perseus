@@ -26,10 +26,12 @@
     },
     "dependencies": {},
     "devDependencies": {
-        "@khanacademy/wonder-stuff-core": "catalog:"
+        "@khanacademy/wonder-stuff-core": "catalog:",
+        "underscore":"catalog:"
     },
     "peerDependencies": {
-        "@khanacademy/wonder-stuff-core": "catalog:"
+        "@khanacademy/wonder-stuff-core": "catalog:",
+        "underscore":"catalog:"
     },
     "keywords": []
 }

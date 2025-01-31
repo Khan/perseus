@@ -29,7 +29,11 @@
         "@khanacademy/kmath": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*"
     },
-    "devDependencies": {},
-    "peerDependencies": {},
+    "devDependencies": {
+        "underscore":"catalog:"
+    },
+    "peerDependencies": {
+        "underscore":"catalog:"
+    },
     "keywords": []
 }
