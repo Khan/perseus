@@ -1,4 +1,6 @@
 /* eslint-disable react/no-unsafe */
+import {KhanMath} from "@khanacademy/kmath";
+import {scorePlotter, validatePlotter} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -10,16 +12,15 @@ import WrappedLine from "../../interactive2/wrapped-line";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import GraphUtils from "../../util/graph-utils";
-import KhanMath from "../../util/math";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
 
-import plotterValidator from "./plotter-validator";
-
-import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusPlotterRubric,
     PerseusPlotterUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 
@@ -1141,6 +1142,10 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         return this.state.values;
     }
 
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
+    }
+
     render(): React.ReactNode {
         // TODO(kevinb) actually compute the size of the graphie correctly and
         // make it that size so we don't have to add extra padding.  The value
@@ -1173,5 +1178,10 @@ export default {
     hidden: true,
     widget: Plotter,
     staticTransform: staticTransform,
-    validator: plotterValidator,
-} as WidgetExports<typeof Plotter>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
+    scorer: scorePlotter,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
+    validator: validatePlotter,
+} satisfies WidgetExports<typeof Plotter>;

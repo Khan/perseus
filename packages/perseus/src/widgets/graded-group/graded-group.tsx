@@ -13,6 +13,7 @@ import {iconOk, iconRemove} from "../../icon-paths";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
+import {mapErrorToString} from "../../strings";
 import {
     gray68,
     gray76,
@@ -21,19 +22,25 @@ import {
     tableBackgroundAccent,
 } from "../../styles/constants";
 import a11y from "../../util/a11y";
+import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
 
 import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
-import type {PerseusGradedGroupWidgetOptions} from "../../perseus-types";
 import type {
-    PerseusScore,
+    FocusPath,
     TrackingGradedGroupExtraArguments,
     Widget,
     WidgetExports,
     WidgetProps,
 } from "../../types";
-import type {PerseusGradedGroupRubric} from "../../validation.types";
+import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
+import type {PerseusGradedGroupWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusGradedGroupRubric,
+    PerseusScore,
+} from "@khanacademy/perseus-score";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const GRADING_STATUSES = {
     ungraded: "ungraded" as const,
@@ -90,6 +97,17 @@ type State = {
     answerBarState: ANSWER_BAR_STATES;
 };
 
+// Assert that the PerseusGradedGroupWidgetOptions parsed from JSON can be
+// passed as props to this component. This ensures that the
+// PerseusGradedGroupWidgetOptions stays in sync with the prop types. The
+// PropsFor<Component> type takes defaultProps into account, which is important
+// because PerseusGradedGroupWidgetOptions has optional fields which receive defaults
+// via defaultProps.
+0 as any as WidgetProps<
+    PerseusGradedGroupWidgetOptions,
+    PerseusGradedGroupRubric
+> satisfies PropsFor<typeof GradedGroup>;
+
 // A Graded Group is more or less a Group widget that displays a check
 // answer button below the rendered content. When clicked, the widget grades
 // the stuff inside and displays feedback about whether the inputted answer was
@@ -118,6 +136,9 @@ export class GradedGroup
         answerBarState: "HIDDEN",
     };
 
+    rendererRef = React.createRef<Renderer>();
+    hintRendererRef = React.createRef<Renderer>();
+
     shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
         return nextProps !== this.props || nextState !== this.state;
     }
@@ -139,12 +160,9 @@ export class GradedGroup
             message: "",
         });
 
-        // eslint-disable-next-line react/no-string-refs
-        if (this.refs.renderer) {
+        if (this.rendererRef.current) {
             this.change("widgets", this.props.widgets);
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'emptyWidgets' does not exist on type 'ReactInstance'.
-            const emptyWidgets = this.refs.renderer.emptyWidgets();
+            const emptyWidgets = this.rendererRef.current.emptyWidgets();
             const answerable = emptyWidgets.length === 0;
             const answerBarState = this.state.answerBarState;
             this.setState({
@@ -154,12 +172,10 @@ export class GradedGroup
     };
 
     _checkAnswer: () => void = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'showRationalesForCurrentlySelectedChoices' does not exist on type 'ReactInstance'.
-        this.refs.renderer.showRationalesForCurrentlySelectedChoices();
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'score' does not exist on type 'ReactInstance'.
-        const score: PerseusScore = this.refs.renderer.score();
+        this.rendererRef.current?.showRationalesForCurrentlySelectedChoices();
+        const score: PerseusScore = this.rendererRef.current?.score() || {
+            type: "invalid",
+        };
         const {
             INVALID_MESSAGE_PREFIX,
             DEFAULT_INVALID_MESSAGE_1,
@@ -176,7 +192,7 @@ export class GradedGroup
             score.type === "points"
                 ? score.message || ""
                 : score.message
-                  ? `${INVALID_MESSAGE_PREFIX} ${score.message}`
+                  ? `${INVALID_MESSAGE_PREFIX} ${mapErrorToString(score.message, this.context.strings)}`
                   : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE_1}${DEFAULT_INVALID_MESSAGE_2}`;
 
         this.setState({
@@ -192,38 +208,43 @@ export class GradedGroup
     };
 
     // Mobile API
-    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getInputPaths' does not exist on type 'ReactInstance'.
-        return this.refs.renderer.getInputPaths();
+    getInputPaths: () => ReadonlyArray<FocusPath> = () => {
+        return this.rendererRef.current?.getInputPaths() || [];
     };
+
+    getPromptJSON(): GradedGroupPromptJSON {
+        // If the hint isn't expanded, we can't get the prompt JSON from the rendered widgets.
+        // We'll just pass in the hint content as a string instead.
+        const hint = this.hintRendererRef.current?.getPromptJSON() || {
+            content: this.props.hint?.content || "",
+            widgets: {},
+        };
+
+        return getPromptJSON(
+            this.props.title,
+            this.rendererRef.current?.getPromptJSON(),
+            hint,
+        );
+    }
 
     setInputValue: (arg1: any, arg2: any, arg3: any) => any = (
         path,
         newValue,
         cb,
     ) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'setInputValue' does not exist on type 'ReactInstance'.
-        return this.refs.renderer.setInputValue(path, newValue, cb);
+        return this.rendererRef.current?.setInputValue(path, newValue, cb);
     };
 
     focus: () => boolean = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        return this.refs.renderer.focus();
+        return !!this.rendererRef.current?.focus();
     };
 
     focusInputPath: (arg1: any) => void = (path) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focusPath' does not exist on type 'ReactInstance'.
-        this.refs.renderer.focusPath(path);
+        this.rendererRef.current?.focusPath(path);
     };
 
     blurInputPath: (arg1: any) => void = (path) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'blurPath' does not exist on type 'ReactInstance'.
-        this.refs.renderer.blurPath(path);
+        this.rendererRef.current?.blurPath(path);
     };
 
     render(): React.ReactNode {
@@ -298,8 +319,7 @@ export class GradedGroup
                 {/* @ts-expect-error - TS2322 - Type '{ ref: string; apiOptions: any; onInteractWithWidget: (arg1: string) => void; linterContext: LinterContextProps; title: string; hasHint?: boolean | null | undefined; ... 22 more ...; children?: ReactNode; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "keypadElement" | "problemNum" | "apiOptions" | "legacyPerseusLint">'. */}
                 <Renderer
                     {...this.props}
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="renderer"
+                    ref={this.rendererRef}
                     apiOptions={{...apiOptions, readOnly}}
                     onInteractWithWidget={this._onInteractWithWidget}
                     linterContext={this.props.linterContext}
@@ -368,8 +388,7 @@ export class GradedGroup
                              */}
                             <Renderer
                                 {...this.props.hint}
-                                // eslint-disable-next-line react/no-string-refs
-                                ref="hints-renderer"
+                                ref={this.hintRendererRef}
                                 apiOptions={apiOptions}
                                 linterContext={this.props.linterContext}
                                 strings={this.context.strings}
@@ -474,4 +493,4 @@ export default {
     hidden: false,
     tracking: "all",
     isLintable: true,
-} as WidgetExports<typeof GradedGroup>;
+} satisfies WidgetExports<typeof GradedGroup>;

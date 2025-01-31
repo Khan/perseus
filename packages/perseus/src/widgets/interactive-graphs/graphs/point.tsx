@@ -1,15 +1,15 @@
 import * as React from "react";
 
+import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import {MovablePoint} from "./components/movable-point";
-import {
-    useTransformDimensionsToPixels,
-    useTransformVectorsToPixels,
-    pixelsToVectors,
-} from "./use-transform";
+import {srFormatNumber} from "./screenreader-text";
+import {useTransformVectorsToPixels, pixelsToVectors} from "./use-transform";
 
+import type {PerseusStrings} from "../../../strings";
+import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
     PointGraphState,
     MafsGraphProps,
@@ -23,30 +23,62 @@ export function renderPointGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <PointGraph graphState={state} dispatch={dispatch} />,
-        screenreaderDescription: null,
+        interactiveElementsDescription: <PointGraphDescription state={state} />,
     };
 }
 
-type PointGraphProps = MafsGraphProps<PointGraphState>;
+type Props = MafsGraphProps<PointGraphState>;
+type StatefulProps = Props & {
+    graphConfig: GraphConfig;
+    pointsRef: React.MutableRefObject<(SVGElement | null)[]>;
+    top: number;
+    left: number;
+};
 
-function PointGraph(props: PointGraphProps) {
-    const numPoints = props.graphState.numPoints;
+function PointGraph(props: Props) {
+    const {numPoints} = props.graphState;
+    const graphConfig = useGraphConfig();
+    const pointsRef = React.useRef<Array<SVGElement | null>>([]);
+
+    // Dimensions to build the graph overlay for Unlimited Point.
+    const {
+        range: [x, y],
+    } = graphConfig;
+    const [[left, top]] = useTransformVectorsToPixels([x[0], y[1]]);
+
+    // This useEffect is to handle the focus snapping for Unlimited Point.
+    React.useEffect(() => {
+        const focusedIndex = props.graphState.focusedPointIndex;
+        if (focusedIndex != null) {
+            pointsRef.current[focusedIndex]?.focus();
+        }
+    }, [props.graphState.focusedPointIndex, pointsRef]);
+
+    const statefulProps = {
+        ...props,
+        graphConfig,
+        pointsRef,
+        top,
+        left,
+    };
+
     if (numPoints === "unlimited") {
-        return UnlimitedPointGraph(props);
+        return UnlimitedPointGraph(statefulProps);
     }
 
-    return LimitedPointGraph(props);
+    return LimitedPointGraph(statefulProps);
 }
 
-function LimitedPointGraph(props: PointGraphProps) {
-    const {dispatch} = props;
+function LimitedPointGraph(statefulProps: StatefulProps) {
+    const {dispatch} = statefulProps;
 
     return (
         <>
-            {props.graphState.coords.map((point, i) => (
+            {statefulProps.graphState.coords.map((point, i) => (
                 <MovablePoint
                     key={i}
                     point={point}
+                    sequenceNumber={i + 1}
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
@@ -56,27 +88,14 @@ function LimitedPointGraph(props: PointGraphProps) {
     );
 }
 
-function UnlimitedPointGraph(props: PointGraphProps) {
-    const {dispatch} = props;
-    const graphConfig = useGraphConfig();
-    const {
-        range: [[minX, maxX], [minY, maxY]],
-    } = graphConfig;
-    const width = maxX - minX;
-    const height = maxY - minY;
-    const [[widthPx, heightPx]] = useTransformDimensionsToPixels([
-        width,
-        height,
-    ]);
-    const [[left, top]] = useTransformVectorsToPixels([minX, maxY]);
-    const itemsRef = React.useRef<Array<SVGElement | null>>([]);
+function UnlimitedPointGraph(statefulProps: StatefulProps) {
+    const {dispatch, graphConfig, pointsRef, top, left} = statefulProps;
+    const {coords} = statefulProps.graphState;
 
-    React.useEffect(() => {
-        const focusedIndex = props.graphState.focusedPointIndex;
-        if (focusedIndex != null) {
-            itemsRef.current[focusedIndex]?.focus();
-        }
-    }, [props.graphState.focusedPointIndex, itemsRef]);
+    const {graphDimensionsInPixels} = graphConfig;
+
+    const widthPx = graphDimensionsInPixels[0];
+    const heightPx = graphDimensionsInPixels[1];
 
     return (
         <>
@@ -106,15 +125,16 @@ function UnlimitedPointGraph(props: PointGraphProps) {
                     dispatch(actions.pointGraph.addPoint(graphCoordinates[0]));
                 }}
             />
-            {props.graphState.coords.map((point, i) => (
+            {coords.map((point, i) => (
                 <MovablePoint
                     key={i}
                     point={point}
+                    sequenceNumber={i + 1}
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
                     ref={(ref) => {
-                        itemsRef.current[i] = ref;
+                        pointsRef.current[i] = ref;
                     }}
                     onFocus={() => {
                         dispatch(actions.pointGraph.focusPoint(i));
@@ -126,4 +146,35 @@ function UnlimitedPointGraph(props: PointGraphProps) {
             ))}
         </>
     );
+}
+
+function PointGraphDescription({state}: {state: PointGraphState}) {
+    // PointGraphDescription needs to `usePerseusI18n`, so it has to be a
+    // component rather than a function that simply returns a string.
+    const i18n = usePerseusI18n();
+    return describePointGraph(state, i18n);
+}
+
+// Exported for testing
+export function describePointGraph(
+    state: PointGraphState,
+    i18n: {strings: PerseusStrings; locale: string},
+): string {
+    const {strings, locale} = i18n;
+
+    if (state.coords.length === 0) {
+        return strings.srNoInteractiveElements;
+    }
+
+    const pointDescriptions = state.coords.map(([x, y], index) =>
+        strings.srPointAtCoordinates({
+            num: index + 1,
+            x: srFormatNumber(x, locale),
+            y: srFormatNumber(y, locale),
+        }),
+    );
+
+    return strings.srInteractiveElements({
+        elements: pointDescriptions.join(", "),
+    });
 }

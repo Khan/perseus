@@ -1,9 +1,9 @@
+import {KhanMath} from "@khanacademy/kmath";
 import $ from "jquery";
 import * as React from "react";
 
 import {getDependencies} from "../dependencies";
 
-import KhanMath from "./math";
 // eslint-disable-next-line import/no-deprecated
 import reactRender from "./react-render";
 
@@ -64,6 +64,7 @@ export default {
             // that name is already taken.
             // eslint-disable-next-line import/no-deprecated
             reactRender(
+                // eslint-disable-next-line react/no-children-prop
                 React.createElement(TeX, {
                     children: text,
                     onRender: callback,

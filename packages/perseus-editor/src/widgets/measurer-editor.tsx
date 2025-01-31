@@ -1,9 +1,12 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {measurerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
+
+import type {MeasurerDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {InfoTip, NumberInput, RangeInput} = components;
 
@@ -34,16 +37,8 @@ class MeasurerEditor extends React.Component<Props> {
         rulerLength: PropTypes.number,
     };
 
-    static defaultProps: Props = {
-        box: [480, 480],
-        image: {},
-        showProtractor: true,
-        showRuler: false,
-        rulerLabel: "",
-        rulerTicks: 10,
-        rulerPixels: 40,
-        rulerLength: 10,
-    };
+    static defaultProps: MeasurerDefaultWidgetOptions =
+        measurerLogic.defaultWidgetOptions;
 
     className = "perseus-widget-measurer";
 
@@ -107,8 +102,8 @@ class MeasurerEditor extends React.Component<Props> {
                     />
                     <InfoTip>
                         <p>
-                            Create an image in graphie, or use the "Add image"
-                            function to create a background.
+                            Create an image in graphie, or use the &quot;Add
+                            image&quot; function to create a background.
                         </p>
                     </InfoTip>
                 </div>

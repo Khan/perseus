@@ -23,7 +23,17 @@ const preview: Preview = {
         (Story) => (
             <RenderStateRoot>
                 <DependenciesContext.Provider value={storybookDependenciesV2}>
-                    <Story />
+                    {/* Most of our components have an expectation to be
+                        rendered inside of a .framework-perseus container.
+                        We want to make sure we can include it here, since it
+                        can also affect the styling.
+
+                        Inclue box-sizing-border-box-reset to reflect
+                        the global styles from prod.
+                    */}
+                    <div className="framework-perseus box-sizing-border-box-reset">
+                        <Story />
+                    </div>
                 </DependenciesContext.Provider>
             </RenderStateRoot>
         ),
@@ -31,6 +41,16 @@ const preview: Preview = {
     // These parameters apply to all stories, both inside and outside the fixture
     // framework.
     parameters: {
+        // Disables Chromatic's snapshotting on a global level
+        // We disable snapshotting globally because we have enabled
+        // turbosnaps for `-regression.stories.tsx` files. If we have
+        // snapshots enabled globally, we pay for turbosnaps even for
+        // skipped stories/tests (which is all of them).
+        // We then enable snapshots for `-regression.stories.tsx` files in
+        // each of those files (unfortunately, this is how we have to do
+        // it).
+        chromatic: {disableSnapshot: true},
+
         options: {
             storySort: {
                 order: ["Perseus", "PerseusEditor", "Math-Input", "*"],
@@ -60,6 +80,10 @@ const preview: Preview = {
             })),
         },
     },
+    tags: [
+        //👇 Enables auto-generated documentation for all stories
+        "autodocs",
+    ],
 };
 
 export default preview;

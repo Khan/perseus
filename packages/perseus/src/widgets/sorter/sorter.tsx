@@ -1,18 +1,22 @@
+import {
+    type PerseusSorterWidgetOptions,
+    getSorterPublicWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {scoreSorter, validateSorter} from "@khanacademy/perseus-score";
 import * as React from "react";
 
 import Sortable from "../../components/sortable";
 import Util from "../../util";
-
-import sorterValidator from "./sorter-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
-import type {PerseusSorterWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 import type {
     PerseusSorterRubric,
     PerseusSorterUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 const {shuffle} = Util;
 
@@ -86,6 +90,10 @@ class Sorter extends React.Component<Props, State> implements Widget {
         };
     }
 
+    getPromptJSON(): SorterPromptJSON {
+        return _getPromptJSON(this.getUserInput());
+    }
+
     moveOptionToIndex: (option: SortableOption, index: number) => void = (
         option,
         index,
@@ -127,5 +135,11 @@ export default {
     displayName: "Sorter",
     widget: Sorter,
     isLintable: true,
-    validator: sorterValidator,
-} as WidgetExports<typeof Sorter>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusSorterUserInput
+    scorer: scoreSorter,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusSorterUserInput
+    validator: validateSorter,
+    getPublicWidgetOptions: getSorterPublicWidgetOptions,
+} satisfies WidgetExports<typeof Sorter>;

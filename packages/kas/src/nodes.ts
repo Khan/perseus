@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable import/order */
-/* TODO(charlie): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-undef, no-var, one-var, no-dupe-keys, no-new-func, no-redeclare, @typescript-eslint/no-unused-vars, comma-dangle, max-len, prefer-spread, space-infix-ops, space-unary-ops */
+/* TODO: fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable indent, no-undef, no-var, no-dupe-keys, no-new-func, no-redeclare, comma-dangle, max-len, prefer-spread, space-infix-ops, space-unary-ops */
 import _ from "underscore";
 
 import {unitParser} from "./__genfiles__/unitparser";
@@ -128,7 +128,7 @@ abstract class Expr {
     abstract func: {new (...args: any[]): any; name: string};
 
     // an array of the arguments to this node's immediate constructor
-    abstract args(): (number | string | Expr)[];
+    abstract args(): (number | string | Expr | undefined)[];
 
     // make a new node with the given arguments
     construct(args: any[]) {
@@ -144,10 +144,10 @@ abstract class Expr {
     // NOTE(kevinb): This method is highly dynamic.  It's possible that it
     // could be made more type-safe using overload signatures.
     recurse(method: string, ...passed: any[]): this {
-        var args = _.map(this.args(), function (arg) {
+        var args = this.args().map(function (arg) {
             return _.isString(arg) || _.isNumber(arg)
                 ? arg
-                : arg[method].apply(arg, passed);
+                : arg?.[method].apply(arg, passed);
         });
         return this.construct(args);
     }
@@ -181,7 +181,7 @@ abstract class Expr {
             // @ts-expect-error: TypeScript doesn't want to unify
             // `Function` with the `compile`'s return type.
             return new Function("vars", "return " + code + ";");
-        } catch (e) {
+        } catch {
             throw new Error("Function did not compile: " + code);
         }
     }
@@ -230,9 +230,13 @@ abstract class Expr {
         return (
             this.name() +
             "(" +
-            _.map(this.args(), function (arg) {
-                return _.isString(arg) || _.isNumber(arg) ? arg : arg.repr();
-            }).join(",") +
+            this.args()
+                .map(function (arg) {
+                    return _.isString(arg) || _.isNumber(arg)
+                        ? arg
+                        : arg?.repr();
+                })
+                .join(",") +
             ")"
         );
     }
@@ -309,6 +313,7 @@ abstract class Expr {
 
     // return the child nodes of this node
     exprArgs(): Expr[] {
+        // @ts-expect-error: Type 'string | number | Expr | undefined' is not assignable to type 'string | Expr'.
         return this.args().filter(isExpr);
     }
 
@@ -813,6 +818,7 @@ export class Add extends Seq {
     reduce(options?: Options): Expr {
         return _.reduce(
             this.terms,
+            // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
             (memo, term) => {
                 return memo.add(term, options);
             },
@@ -1296,6 +1302,7 @@ export class Mul extends Seq {
     reduce(options?: {preciseFloats: boolean}) {
         return _.reduce(
             this.terms,
+            // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
             (memo, term) => {
                 return memo.mul(term, options);
             },
@@ -1407,7 +1414,6 @@ export class Mul extends Seq {
                 rational = rational.addHint("fraction");
             }
 
-            var result;
             if (num.n < 0 && right.n < 0) {
                 rational.d = -rational.d;
                 return left.replace(num, [NumNeg, rational]);
@@ -1553,12 +1559,15 @@ export class Mul extends Seq {
                 return pos(num) || neg(num);
             };
 
+            // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
             const posNum = numbers.find(pos);
+            // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
             const negNum = numbers.find(neg);
             if (
                 numbers.length > 1 &&
                 negNum &&
                 posNum &&
+                // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
                 _.every(numbers, posOrNeg)
             ) {
                 var firstNeg = _.indexOf(expr.terms, negNum);
@@ -2969,9 +2978,9 @@ export class Func extends Sym {
 /* variable */
 export class Var extends Sym {
     symbol: string;
-    subscript: Expr;
+    subscript?: Expr;
 
-    constructor(symbol: string, subscript: Expr) {
+    constructor(symbol: string, subscript?: Expr) {
         super();
         this.symbol = symbol;
         this.subscript = subscript;
@@ -3590,7 +3599,7 @@ parser.yy = {
 };
 
 type ParseOptions = {
-    functions?: string[];
+    functions?: ReadonlyArray<string>;
     decimal_separator?: string;
 };
 

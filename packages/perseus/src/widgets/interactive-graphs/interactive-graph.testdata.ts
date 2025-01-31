@@ -2,7 +2,7 @@ import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-buil
 
 import type {LockedFunctionOptions} from "./interactive-graph-question-builder";
 import type {Coord} from "../../interactive2/types";
-import type {PerseusRenderer, RadioWidget} from "../../perseus-types";
+import type {PerseusRenderer, RadioWidget} from "@khanacademy/perseus-core";
 
 // Data for the interactive graph widget
 
@@ -162,6 +162,25 @@ export const polygonQuestion: PerseusRenderer =
         })
         .build();
 
+export const unlimitedPolygonQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withContent(
+            "**Sides shown** Drag the vertices of the triangle below to draw a right triangle with side lengths $3$, $4$, and $5$. \n[[\u2603 interactive-graph 1]] \n",
+        )
+        .withGridStep(1, 1)
+        .withSnapStep(0.25, 0.25)
+        .withTickStep(1, 1)
+        .withXRange(-10, 10)
+        .withYRange(-10, 10)
+        .withPolygon("grid", {
+            match: "congruent",
+            numSides: "unlimited",
+            showSides: true,
+            showAngles: true,
+            coords: [],
+        })
+        .build();
+
 export const polygonWithStartingCoordsQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withPolygon("grid", {
@@ -170,6 +189,19 @@ export const polygonWithStartingCoordsQuestion: PerseusRenderer =
                 [8, 6],
                 [8, 8],
                 [6, 8],
+            ],
+        })
+        .build();
+
+export const unlimitedPolygonWithCorrectAnswerQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withPolygon("grid", {
+            numSides: "unlimited",
+            coords: [
+                [-4.5, -6],
+                [4.5, -5],
+                [3.5, 0.5],
+                [-4.5, 0],
             ],
         })
         .build();
@@ -284,6 +316,8 @@ export const polygonWithUnlimitedSidesQuestion: PerseusRenderer =
             "**Example of unlimited polygon sides** \n[[\u2603 interactive-graph 1]] \n",
         )
         .withPolygon("grid", {
+            showAngles: true,
+            showSides: true,
             numSides: "unlimited",
             coords: [
                 [0, 0],
@@ -425,10 +459,14 @@ export const quadraticWithStartingCoordsQuestion: PerseusRenderer =
 
 export const sinusoidWithStartingCoordsQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
+        .withXRange(-6 * Math.PI, 6 * Math.PI)
+        .withTickStep(Math.PI, 1)
+        .withGridStep(Math.PI, 1)
+        .withSnapStep(Math.PI / 2, 1)
         .withSinusoid({
             startCoords: [
                 [0, 0],
-                [1, -1],
+                [3 * Math.PI, -3],
             ],
         })
         .build();
@@ -829,15 +867,15 @@ export const segmentWithLockedFunction = (
 
 export const segmentWithLockedLabels: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .addLockedLabel("small \\frac{1}{2}", [-6, 2], {
+        .addLockedLabel("small $\\frac{1}{2}$", [-6, 2], {
             color: "pink",
             size: "small",
         })
-        .addLockedLabel("medium E_0 = mc^2", [1, 2], {
+        .addLockedLabel("medium $E_0 = mc^2$", [1, 2], {
             color: "blue",
             size: "medium",
         })
-        .addLockedLabel("large \\sqrt{2a}", [-3, -2], {
+        .addLockedLabel("large $\\sqrt{2a}$", [-3, -2], {
             color: "green",
             size: "large",
         })
@@ -877,7 +915,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
             labels: [{text: "F"}],
             ariaLabel: "Function F",
         })
-        .addLockedLabel("\\sqrt{\\frac{1}{2}}", [6, -5])
+        .addLockedLabel("$\\sqrt{\\frac{1}{2}}$", [6, -5])
         .build();
 
 export const quadraticQuestion: PerseusRenderer =
@@ -1029,4 +1067,14 @@ export const graphWithLabeledFunction: PerseusRenderer =
         .addLockedFunction("sin(x)", {
             labels: [{text: "F"}],
         })
+        .build();
+
+export const sinusoidWithPiTicks: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withXRange(-6 * Math.PI, 6 * Math.PI)
+        .withYRange(-10 * Math.PI, 10 * Math.PI)
+        .withTickStep(Math.PI, 2 * Math.PI)
+        .withGridStep(Math.PI, 2 * Math.PI)
+        .withSnapStep(Math.PI / 2, Math.PI)
+        .withSinusoid()
         .build();

@@ -1,21 +1,27 @@
+import {
+    passageRefLogic,
+    type PerseusPassageRefWidgetOptions,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import PerseusMarkdown from "../../perseus-markdown";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 import {isPassageWidget} from "../passage/utils";
 
-import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {PassageRefPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const EN_DASH = "\u2013";
 
 type RenderProps = {
     passageNumber: PerseusPassageRefWidgetOptions["passageNumber"];
     referenceNumber: PerseusPassageRefWidgetOptions["referenceNumber"];
-    summaryText: PerseusPassageRefWidgetOptions["summaryText"];
+    summaryText: string;
 };
 
 type Props = WidgetProps<RenderProps>;
@@ -23,13 +29,17 @@ type Props = WidgetProps<RenderProps>;
 type DefaultProps = {
     passageNumber: Props["passageNumber"];
     referenceNumber: Props["referenceNumber"];
-    summaryText: Props["summaryText"];
+    summaryText: string;
 };
 
 type State = {
     lineRange: [number, number] | null | undefined;
     content: string | null | undefined;
 };
+
+0 as any as WidgetProps<PerseusPassageRefWidgetOptions> satisfies PropsFor<
+    typeof PassageRef
+>;
 
 class PassageRef extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
@@ -87,6 +97,10 @@ class PassageRef extends React.Component<Props, State> implements Widget {
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
+
+    getPromptJSON(): PassageRefPromptJSON {
+        return _getPromptJSON(this.props);
+    }
 
     _deferredUpdateRange: () => void = () => {
         _.defer(this._updateRange);
@@ -169,14 +183,12 @@ export default {
     hidden: true,
     defaultAlignment: "inline",
     widget: PassageRef,
-    transform: (
-        widgetOptions: PerseusPassageRefWidgetOptions,
-    ): RenderProps => ({
+    transform: (widgetOptions: PerseusPassageRefWidgetOptions) => ({
         passageNumber: widgetOptions.passageNumber,
         referenceNumber: widgetOptions.referenceNumber,
         summaryText: widgetOptions.summaryText,
     }),
-    version: {major: 0, minor: 1},
-    // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(),
-} as WidgetExports<typeof PassageRef>;
+    version: passageRefLogic.version,
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof PassageRef>;

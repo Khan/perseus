@@ -3,6 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -127,10 +128,13 @@ describe("Definition widget", () => {
         const {renderer} = renderQuestion(question);
 
         // Act
-        const result = renderer.scoreWidgets();
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(result["definition 1"]).toHaveBeenAnsweredCorrectly({
+        expect(score).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: false,
         });
     });

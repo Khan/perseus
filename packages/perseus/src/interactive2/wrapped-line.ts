@@ -1,7 +1,5 @@
-import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
+import {point as kpoint, vector as kvector, KhanMath} from "@khanacademy/kmath";
 import _ from "underscore";
-
-import KhanMath from "../util/math";
 
 import InteractiveUtil from "./interactive-util";
 import WrappedDrawing from "./wrapped-drawing";

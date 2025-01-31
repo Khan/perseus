@@ -6,8 +6,11 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 
-import type {PerseusGroupWidgetOptions} from "../../perseus-types";
+import scoreGroup from "./score-group";
+import validateGroup from "./validate-group";
+
 import type {
     APIOptions,
     ChangeFn,
@@ -16,7 +19,13 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
-import type {PerseusGroupRubric, UserInputArray} from "../../validation.types";
+import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
+import type {PerseusGroupWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusGroupRubric,
+    UserInputArray,
+    UserInputMap,
+} from "@khanacademy/perseus-score";
 
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
 type Props = WidgetProps<RenderProps, PerseusGroupRubric>;
@@ -51,7 +60,7 @@ class Group extends React.Component<Props> implements Widget {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInputMap() {
+    getUserInputMap(): UserInputMap | undefined {
         return this.rendererRef?.getUserInputMap();
     }
 
@@ -60,6 +69,10 @@ class Group extends React.Component<Props> implements Widget {
      */
     getUserInput(): UserInputArray | undefined {
         return this.rendererRef?.getUserInput();
+    }
+
+    getPromptJSON(): GroupPromptJSON {
+        return _getPromptJSON(this.rendererRef?.getPromptJSON());
     }
 
     getSerializedState: () => any = () => {
@@ -84,7 +97,7 @@ class Group extends React.Component<Props> implements Widget {
     setInputValue: (
         arg1: FocusPath,
         arg2: string,
-        arg3: () => unknown,
+        arg3?: () => unknown,
     ) => void = (path, newValue, callback) => {
         return this.rendererRef?.setInputValue(path, newValue, callback);
     };
@@ -148,6 +161,8 @@ class Group extends React.Component<Props> implements Widget {
             }
         };
 
+        // TODO(LEMS-2391): replace this when there's a separate check
+        // for valid/invalid state
         const score = this.rendererRef?.score();
         const isValid = score && score.type !== "invalid";
         const isInvalid = score && score.type === "invalid";
@@ -194,6 +209,12 @@ export default {
     displayName: "Group (SAT only)",
     widget: Group,
     traverseChildWidgets: traverseChildWidgets,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusGroupUserInput'.
+    scorer: scoreGroup,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusGroupUserInput'.
+    validator: validateGroup,
     hidden: true,
     isLintable: true,
-} as WidgetExports<typeof Group>;
+} satisfies WidgetExports<typeof Group>;

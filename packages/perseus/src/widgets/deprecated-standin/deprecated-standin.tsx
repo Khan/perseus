@@ -2,13 +2,13 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import noopValidator from "../__shared__/noop-validator";
+import scoreNoop from "../__shared__/score-noop";
 
 import type {Widget, WidgetExports} from "../../types";
 
-// The props are type `any` on purpose so that this can receive props
-// from any deprecated widget
-type Props = any;
+// There are no required props, but this component can receive props from any
+// deprecated widget
+type Props = object;
 
 class DeprecatedStandin extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
@@ -41,6 +41,6 @@ export default {
     displayName: "Deprecated Standin",
     widget: DeprecatedStandin,
     hidden: true,
-    // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(1),
-} as WidgetExports<typeof DeprecatedStandin>;
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(1),
+} satisfies WidgetExports<typeof DeprecatedStandin>;

@@ -13,11 +13,6 @@ const meta: Meta = {
         onChange: action("onChange"),
         value: "",
     },
-    argTypes: {
-        onChange: {
-            control: {type: null},
-        },
-    },
 };
 export default meta;
 

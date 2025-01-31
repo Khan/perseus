@@ -3,15 +3,15 @@ import * as React from "react";
 
 import {X, Y} from "../math";
 
-import type {GraphRange} from "../../../perseus-types";
 import type {SizeClass} from "../../../util/sizing-utils";
+import type {GraphRange, MarkingsType} from "@khanacademy/perseus-core";
 import type {vec} from "mafs";
 
 interface GridProps {
     gridStep: vec.Vector2;
     range: GraphRange;
     containerSizeClass: SizeClass;
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     width: number;
     height: number;
 }
@@ -30,9 +30,11 @@ const axisOptions = (
     props: Omit<GridProps, "containerSizeClass">,
     axisIndex: number,
 ) => {
+    const lines: number | false =
+        props.markings === "axes" ? false : props.gridStep[axisIndex];
     return {
-        axis: props.markings === "graph",
-        lines: props.gridStep[axisIndex],
+        axis: props.markings === "graph" || props.markings === "axes",
+        lines: lines,
         labels: false as const,
     };
 };

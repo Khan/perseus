@@ -24,14 +24,10 @@ import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
 
-import type {
-    ChangeHandler,
-    ImageUploader,
-    PerseusWidget,
-    PerseusWidgetsMap,
-} from "@khanacademy/perseus";
+import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
+import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
-// like [[snowman input-number 1]]
+// like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
 const widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
 const rWidgetSplit = new RegExp(
@@ -254,6 +250,11 @@ class Editor extends React.Component<Props, State> {
         }
         return (
             <WidgetEditor
+                // The order of props matters here. We need to spread the
+                // widget data before specifying the `key` prop, to ensure the
+                // key overrides any `key` field on the widget (which might not
+                // be unique.
+                {...this.props.widgets[id]}
                 ref={id}
                 id={id}
                 key={id}
@@ -263,7 +264,6 @@ class Editor extends React.Component<Props, State> {
                 onRemove={this._handleWidgetEditorRemove.bind(this, id)}
                 apiOptions={this.props.apiOptions}
                 widgetIsOpen={this.props.widgetIsOpen}
-                {...this.props.widgets[id]}
             />
         );
     }
@@ -634,6 +634,7 @@ class Editor extends React.Component<Props, State> {
         return safeWidgetMapping;
     };
 
+    // @ts-expect-error: Types of parameter 'widgetType' and 'widgetType' are incompatible. Type 'string' is not assignable to type '"cs-program" | "iframe" | "table" | "video" | "image" | "deprecated-standin" | "categorizer" | "definition" | "dropdown" | "explanation" | "expression" | "graded-group" | "graded-group-set" | ... 20 more ... | "radio"'.
     _addWidgetToContent: (
         oldContent: string,
         cursorRange: ReadonlyArray<number>,

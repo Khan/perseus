@@ -46,9 +46,9 @@ const WithState = () => {
                 style={{fontStyle: "italic", marginBottom: spacing.small_12}}
             >
                 <b>Note</b> that this editor has a known-issue where it does not
-                calculate the image dimensions initially if they aren't
-                provided. It does update the dimensions when you blur the 'Image
-                url:' field.
+                calculate the image dimensions initially if they aren&apos;t
+                provided. It does update the dimensions when you blur the
+                &apos;Image url:&apos; field.
             </LabelSmall>
             <ImageEditor
                 {...state}

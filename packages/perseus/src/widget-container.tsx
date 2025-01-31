@@ -10,8 +10,8 @@ import {zIndexInteractiveComponent} from "./styles/constants";
 import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
 import * as Widgets from "./widgets";
 
-import type {PerseusWidgetOptions} from "./perseus-types";
 import type {WidgetProps} from "./types";
+import type {PerseusWidgetOptions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
@@ -153,8 +153,8 @@ class WidgetContainer extends React.Component<Props, State> {
             : {...this.props.linterContext, highlightLint: false};
 
         // Note: if you add more props here, please consider whether or not
-        // it should be auto-serialized (e.g. used in scoreInput()). See
-        // widget-jsonify-deprecated.jsx and widget-prop-denylist.jsx
+        // it should be auto-serialized.
+        // See widget-jsonify-deprecated.jsx and widget-prop-denylist.jsx
 
         // We default to an empty object for style instead of null
         // because of a strange bug where the static styles aren't applied

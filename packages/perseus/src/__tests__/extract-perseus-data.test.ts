@@ -28,7 +28,7 @@ beforeEach(() => {
     stub.mockClear();
 });
 
-import type {RadioWidget, PerseusWidgetsMap} from "../perseus-types";
+import type {RadioWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 describe("ExtractPerseusData", () => {
     describe("getAnswersFromWidgets", () => {
@@ -292,6 +292,7 @@ describe("ExtractPerseusData", () => {
                 type: "dropdown",
                 options: {
                     placeholder: "Select an option",
+                    ariaLabel: "",
                     static: false,
                     choices: [
                         {

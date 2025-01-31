@@ -8,26 +8,16 @@ import _ from "underscore";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {mockStrings} from "../../strings";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import InputNumber from "./input-number";
-import inputNumberValidator from "./input-number-validator";
 import {question3 as question} from "./input-number.testdata";
 
-import type {
-    PerseusInputNumberWidgetOptions,
-    PerseusRenderer,
-} from "../../perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const {transform} = InputNumber;
-
-const options: PerseusInputNumberWidgetOptions = {
-    value: "2^{-2}-3",
-    size: "normal",
-    simplify: "optional",
-};
 
 describe("input-number", function () {
     let userEvent: UserEvent;
@@ -50,9 +40,13 @@ describe("input-number", function () {
             const textbox = screen.getByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "1/2");
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
 
             // Assert
-            expect(renderer).toHaveBeenAnsweredCorrectly();
+            expect(score).toHaveBeenAnsweredCorrectly();
         });
 
         it("should reject an incorrect answer", async () => {
@@ -63,9 +57,13 @@ describe("input-number", function () {
             const textbox = screen.getByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0.7");
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
 
             // Assert
-            expect(renderer).toHaveBeenAnsweredIncorrectly();
+            expect(score).toHaveBeenAnsweredIncorrectly();
         });
 
         it("should refuse to score an incoherent answer", async () => {
@@ -76,9 +74,13 @@ describe("input-number", function () {
             const textbox = screen.getByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0..7");
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
 
             // Assert
-            expect(renderer).toHaveInvalidInput();
+            expect(score).toHaveInvalidInput();
         });
     });
 
@@ -206,9 +208,13 @@ describe("input-number", function () {
             const textbox = screen.getByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, correct);
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
 
             // Assert
-            expect(renderer).toHaveBeenAnsweredCorrectly();
+            expect(score).toHaveBeenAnsweredCorrectly();
         });
 
         it("should reject an incorrect answer", async () => {
@@ -219,9 +225,13 @@ describe("input-number", function () {
             const textbox = screen.getByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, incorrect);
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
 
             // Assert
-            expect(renderer).toHaveBeenAnsweredIncorrectly();
+            expect(score).toHaveBeenAnsweredIncorrectly();
         });
     });
 
@@ -237,30 +247,8 @@ describe("input-number", function () {
         if (!transform) {
             throw new Error("transform not defined");
         }
-        const widgetProps = transform(editorProps, mockStrings);
+        const widgetProps = transform(editorProps);
         expect(_.has(widgetProps, "value")).toBe(false);
-    });
-});
-
-describe("invalid", function () {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
-    it("should handle invalid answers with no error callback", function () {
-        const err = inputNumberValidator(
-            {currentValue: "x+1"},
-            options,
-            mockStrings,
-        );
-        expect(err).toMatchInlineSnapshot(`
-            {
-              "message": "We could not understand your answer. Please check your answer for extra text or symbols.",
-              "type": "invalid",
-            }
-        `);
     });
 });
 

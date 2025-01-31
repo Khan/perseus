@@ -26,19 +26,22 @@ import {debounce} from "../util/debounce";
 
 import {PerseusI18nContext} from "./i18n-context";
 
-import type {LegacyButtonSets} from "../perseus-types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
-import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+import type {
+    AnalyticsEventHandlerFn,
+    LegacyButtonSets,
+} from "@khanacademy/perseus-core";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
-type KeypadButtonSets = {
+export type KeypadButtonSets = {
     advancedRelations?: boolean;
     basicRelations?: boolean;
     divisionKey?: boolean;
     logarithms?: boolean;
     preAlgebra?: boolean;
     trigonometry?: boolean;
+    scientific?: boolean;
 };
 
 type Props = {
@@ -182,6 +185,8 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                 this.__mathFieldWrapperRef,
                 locale,
                 this.props.mathInputStrings,
+                // TODO(LEMS-2656): remove TS suppression
+                // @ts-expect-error: Type 'EditableMathQuill' is not assignable to type 'MathFieldInterface'.
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
@@ -511,6 +516,9 @@ const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
                 break;
             case "trig":
                 keypadButtonSets.trigonometry = true;
+                break;
+            case "scientific":
+                keypadButtonSets.scientific = true;
                 break;
             case "basic":
             default:

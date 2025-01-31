@@ -5,12 +5,11 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
+import {components} from "@khanacademy/perseus";
 import {
     lockedFigureColors,
-    type LockedFigure,
-    type LockedFigureColor,
     type LockedLabelType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
@@ -29,11 +28,13 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
+const {InfoTip} = components;
+
 export type Props = LockedLabelType & {
     /**
      * Called when the props (coord, color, etc.) are updated.
      */
-    onChangeProps: (newProps: Partial<LockedFigure>) => void;
+    onChangeProps: (newProps: Partial<LockedLabelType>) => void;
 
     // Movement props. Used for standalone label actions.
     // Not used within other locked figure settings.
@@ -115,24 +116,39 @@ export default function LockedLabelSettings(props: Props) {
             />
 
             {/* Text settings */}
-            <LabelMedium tag="label" style={[styles.row, styles.spaceUnder]}>
-                TeX
-                <Strut size={spacing.xSmall_8} />
-                <TextField
-                    value={text}
-                    placeholder="ex. x^2 or \frac{1}{2}"
-                    onChange={(newValue) =>
-                        onChangeProps({
-                            text: newValue,
-                        })
-                    }
-                />
-            </LabelMedium>
+            <View style={styles.row}>
+                <LabelMedium
+                    tag="label"
+                    style={[styles.row, styles.spaceUnder, {flexGrow: 1}]}
+                >
+                    text
+                    <Strut size={spacing.xSmall_8} />
+                    <TextField
+                        value={text}
+                        placeholder="ex. $x^2$ or $\frac{1}{2}$"
+                        onChange={(newValue) =>
+                            onChangeProps({
+                                text: newValue,
+                            })
+                        }
+                    />
+                </LabelMedium>
+                <InfoTip>
+                    Surround your text with $ for TeX.
+                    <br />
+                    Example: {`This circle has radius $\\frac{1}{2}$ units.`}
+                    <br />
+                    <br />
+                    It is important to use TeX when appropriate for
+                    accessibility. The above example would be read as &quot;This
+                    circle has radius one-half units&quot; by screen readers.
+                </InfoTip>
+            </View>
 
             <View style={styles.row}>
                 <ColorSelect
                     selectedValue={color}
-                    onChange={(newColor: LockedFigureColor) => {
+                    onChange={(newColor) => {
                         onChangeProps({color: newColor});
                     }}
                     style={styles.spaceUnder}
@@ -145,10 +161,12 @@ export default function LockedLabelSettings(props: Props) {
                     <Strut size={spacing.xSmall_8} />
                     <SingleSelect
                         selectedValue={size}
-                        onChange={(newValue: "small" | "medium" | "large") =>
-                            onChangeProps({
-                                size: newValue,
-                            })
+                        // TODO(LEMS-2656): remove TS suppression
+                        onChange={
+                            ((newValue: "small" | "medium" | "large") =>
+                                onChangeProps({
+                                    size: newValue,
+                                })) as any
                         }
                         // Placeholder is required, but never gets used since
                         // we have a label for the select.

@@ -1,6 +1,13 @@
 import * as KAS from "@khanacademy/kas";
 import {KeyArray, KeypadInput, KeypadType} from "@khanacademy/math-input";
+import {
+    getDecimalSeparator,
+    expressionLogic,
+    type PerseusExpressionWidgetOptions,
+    getExpressionPublicWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {scoreExpression, validateExpression} from "@khanacademy/perseus-score";
 import {View} from "@khanacademy/wonder-blocks-core";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
@@ -16,18 +23,16 @@ import {useDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions, ClassNames as ApiClassNames} from "../../perseus-api";
 import a11y from "../../util/a11y";
-
-import expressionValidator from "./expression-validator";
-import getDecimalSeparator from "./get-decimal-separator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
 import type {DependenciesContext} from "../../dependencies";
-import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
-import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
+import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
+import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
-} from "../../validation.types";
-import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type InputPath = ReadonlyArray<string>;
@@ -195,6 +200,10 @@ export class Expression
         return Expression.getUserInputFromProps(this.props);
     }
 
+    getPromptJSON(): ExpressionPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
+
     change: (...args: any) => any | undefined = (...args: any) => {
         return Changeable.change.apply(this, args);
     };
@@ -248,12 +257,16 @@ export class Expression
         return true;
     };
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'InputPath'.
     focusInputPath(inputPath: InputPath) {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     }
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'InputPath'.
     blurInputPath(inputPath: InputPath) {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
@@ -278,19 +291,20 @@ export class Expression
         return [[]];
     };
 
-    setInputValue(path: FocusPath, newValue: string, cb: () => void) {
-        if (this._mathInput.current) {
-            const inputRef = this._mathInput.current.inputRef;
-            if (inputRef.current) {
-                inputRef.current.setValue(newValue);
-            }
-        }
+    setInputValue(path: FocusPath, newValue: string, cb?: () => void) {
         this.props.onChange(
             {
                 value: newValue,
             },
             cb,
         );
+
+        if (this._mathInput.current) {
+            const inputRef = this._mathInput.current.inputRef;
+            if (inputRef.current) {
+                inputRef.current.setValue(newValue);
+            }
+        }
     }
 
     render() {
@@ -431,7 +445,7 @@ const styles = StyleSheet.create({
  *       to be included as keys on the keypad. These are scraped from the answer
  *       forms.
  */
-const keypadConfigurationForProps = (
+export const keypadConfigurationForProps = (
     widgetOptions: PerseusExpressionWidgetOptions,
 ): KeypadConfiguration => {
     // Always use the Expression keypad, regardless of the button sets that have
@@ -495,27 +509,6 @@ const keypadConfigurationForProps = (
     };
 };
 
-const propUpgrades = {
-    /* c8 ignore next */
-    "1": (v0props: any): PerseusExpressionWidgetOptions => ({
-        times: v0props.times,
-        buttonSets: v0props.buttonSets,
-        functions: v0props.functions,
-        buttonsVisible: v0props.buttonsVisible,
-        visibleLabel: v0props.visibleLabel,
-        ariaLabel: v0props.ariaLabel,
-
-        answerForms: [
-            {
-                considered: "correct",
-                form: v0props.form,
-                simplify: v0props.simplify,
-                value: v0props.value,
-            },
-        ],
-    }),
-} as const;
-
 const ExpressionWithDependencies = React.forwardRef<
     Expression,
     Omit<PropsFor<typeof Expression>, keyof ReturnType<typeof useDependencies>>
@@ -557,13 +550,21 @@ export default {
             ariaLabel,
         };
     },
-    version: {major: 1, minor: 0},
-    propUpgrades: propUpgrades,
+    version: expressionLogic.version,
+    propUpgrades: expressionLogic.widgetOptionsUpgrades,
 
     // For use by the editor
     isLintable: true,
-    validator: expressionValidator,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
+    scorer: scoreExpression,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
+    validator: validateExpression,
+    getPublicWidgetOptions: getExpressionPublicWidgetOptions,
 
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.
     getOneCorrectAnswerFromRubric(
         rubric: PerseusExpressionRubric,
     ): string | null | undefined {
@@ -575,4 +576,4 @@ export default {
         }
         return correctAnswers[0].value;
     },
-} as WidgetExports<typeof ExpressionWithDependencies>;
+} satisfies WidgetExports<typeof ExpressionWithDependencies>;

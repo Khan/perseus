@@ -19,7 +19,12 @@ import _ from "underscore";
 import Heading from "../../../components/heading";
 import LabeledRow from "../locked-figures/labeled-row";
 
-import type {PerseusImageBackground} from "@khanacademy/perseus";
+import type {
+    MarkingsType,
+    PerseusImageBackground,
+} from "@khanacademy/perseus-core";
+
+type ChangeFn = typeof Changeable.change;
 
 const {ButtonGroup, InfoTip, RangeInput} = components;
 
@@ -65,7 +70,7 @@ type Props = {
      * An error message to display in the graph area, or true if the
      * graph is valid.
      */
-    valid: boolean | string;
+    valid: true | string;
     /**
      * The background image to display in the graph area and its properties.
      */
@@ -73,11 +78,12 @@ type Props = {
 
     /**
      * The type of markings to display on the graph.
+     * - axes: shows the axes without the gride lines
      * - graph: shows the axes and the grid lines
      * - grid: shows only the grid lines
      * - none: shows no markings
      */
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     /**
      * Whether to show the protractor on the graph.
      */
@@ -133,7 +139,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             interactiveSizes.defaultBoxSizeSmall,
             interactiveSizes.defaultBoxSizeSmall,
         ],
-        labels: ["x", "y"],
+        labels: ["$x$", "$y$"],
         range: [
             [-10, 10],
             [-10, 10],
@@ -157,8 +163,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-        // Make sure that state updates when switching
-        // between different items in a multi-item editor.
         if (
             !_.isEqual(this.props.labels, nextProps.labels) ||
             !_.isEqual(this.props.gridStep, nextProps.gridStep) ||
@@ -175,7 +179,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         this._isMounted = false;
     }
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -491,6 +495,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                             onChange={(vals) =>
                                                 this.changeRange(0, vals)
                                             }
+                                            allowPiTruncation={true}
                                         />
                                     </LabeledRow>
                                 </div>
@@ -501,6 +506,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                             onChange={(vals) =>
                                                 this.changeRange(1, vals)
                                             }
+                                            allowPiTruncation={true}
                                         />
                                     </LabeledRow>
                                 </div>
@@ -511,6 +517,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         <RangeInput
                                             value={this.state.stepTextbox}
                                             onChange={this.changeStep}
+                                            allowPiTruncation={true}
                                         />
                                     </LabeledRow>
                                 </div>
@@ -519,6 +526,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         <RangeInput
                                             value={this.state.gridStepTextbox}
                                             onChange={this.changeGridStep}
+                                            allowPiTruncation={true}
                                         />
                                     </LabeledRow>
                                 </div>
@@ -529,6 +537,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         <RangeInput
                                             value={this.state.snapStepTextbox}
                                             onChange={this.changeSnapStep}
+                                            allowPiTruncation={true}
                                         />
                                     </LabeledRow>
                                 </div>
@@ -539,6 +548,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         value={this.props.markings}
                                         allowEmpty={false}
                                         buttons={[
+                                            {value: "axes", content: "Axes"},
                                             {value: "graph", content: "Graph"},
                                             {value: "grid", content: "Grid"},
                                             {value: "none", content: "None"},
@@ -580,8 +590,9 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                             />
                             <InfoTip>
                                 <p>
-                                    Create an image in graphie, or use the "Add
-                                    image" function to create a background.
+                                    Create an image in graphie, or use the
+                                    &quot;Add image&quot; function to create a
+                                    background.
                                 </p>
                             </InfoTip>
                         </LabeledRow>

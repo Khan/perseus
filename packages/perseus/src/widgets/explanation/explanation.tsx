@@ -1,6 +1,6 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
-import {UniqueIDProvider, View} from "@khanacademy/wonder-blocks-core";
+import {Id, View} from "@khanacademy/wonder-blocks-core";
 import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
 import {StyleSheet} from "aphrodite";
@@ -10,10 +10,12 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 
-import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
+import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
 
@@ -78,6 +80,10 @@ class Explanation extends React.Component<Props, State> implements Widget {
         this.props.trackInteraction();
     };
 
+    getPromptJSON(): ExplanationPromptJSON {
+        return _getPromptJSON(this.props);
+    }
+
     render(): React.ReactNode {
         const promptText = this.state.expanded
             ? this.props.hidePrompt
@@ -122,15 +128,12 @@ class Explanation extends React.Component<Props, State> implements Widget {
         ];
 
         return (
-            <UniqueIDProvider
-                mockOnFirstRender={true}
-                scope="explanation-widget"
-            >
-                {(ids) => (
+            <Id>
+                {(contentId) => (
                     <>
                         <Button
                             aria-expanded={this.state.expanded}
-                            aria-controls={ids.get("content")}
+                            aria-controls={contentId}
                             endIcon={caretIcon}
                             kind="tertiary"
                             labelStyle={labelStyle}
@@ -142,7 +145,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
                         </Button>
 
                         <View
-                            id={ids.get("content")}
+                            id={contentId}
                             style={contentStyling}
                             aria-hidden={!this.state.expanded}
                             testId="content-container"
@@ -159,7 +162,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
                         </View>
                     </>
                 )}
-            </UniqueIDProvider>
+            </Id>
         );
     }
 }
@@ -224,6 +227,6 @@ export default {
     widget: Explanation,
     transform: _.identity,
     isLintable: true,
-    // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(),
-} as WidgetExports<typeof Explanation>;
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof Explanation>;

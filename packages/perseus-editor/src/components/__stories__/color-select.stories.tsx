@@ -3,7 +3,7 @@ import * as React from "react";
 import ColorSelect from "../../widgets/interactive-graph-editor/locked-figures/color-select";
 import {getDefaultFigureForType} from "../../widgets/interactive-graph-editor/locked-figures/util";
 
-import type {LockedFigureColor} from "@khanacademy/perseus";
+import type {LockedFigureColor} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react";
 
 export default {
@@ -29,14 +29,10 @@ export const Controlled = {
         const [selectedValue, setSelectedValue] =
             React.useState<LockedFigureColor>(defaultColor);
 
-        const handleColorChange = (color: LockedFigureColor) => {
-            setSelectedValue(color);
-        };
-
         return (
             <ColorSelect
                 selectedValue={selectedValue}
-                onChange={handleColorChange}
+                onChange={setSelectedValue}
             />
         );
     },

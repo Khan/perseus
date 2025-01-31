@@ -1,5 +1,271 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.1.2
+
+### Patch Changes
+
+-   [#2124](https://github.com/Khan/perseus/pull/2124) [`bdbdafe5d`](https://github.com/Khan/perseus/commit/bdbdafe5d66a76149624410a746909e4dc3a1ddc) Thanks [@dependabot](https://github.com/apps/dependabot)! - Updating wonder-blocks dependences.
+
+-   Updated dependencies [[`8f8955718`](https://github.com/Khan/perseus/commit/8f89557185f7bed910251520863ed1c8ed3a4410), [`d7bcb14c3`](https://github.com/Khan/perseus/commit/d7bcb14c398059be0be20bea118f9fee1dfc93f6), [`685774f2e`](https://github.com/Khan/perseus/commit/685774f2eae44e4cd5e0d6341a209012cf7e9bcb), [`8a489600e`](https://github.com/Khan/perseus/commit/8a489600e3b0b474da36cc492671879d1372ea46), [`1a75ca628`](https://github.com/Khan/perseus/commit/1a75ca628405dbd9cbe8ee21d7a9039a78327c47), [`459c25074`](https://github.com/Khan/perseus/commit/459c2507472f104f521b5410feaa64402d473a43), [`0df0b1940`](https://github.com/Khan/perseus/commit/0df0b194012627a98708cfcafd1ad5eb76ad91e2), [`dc8118aa1`](https://github.com/Khan/perseus/commit/dc8118aa1e28e77d78a57bc13e50d1954e3f8f69), [`82fa90299`](https://github.com/Khan/perseus/commit/82fa902999d9d79a050fe9acf0031ba886b387fa), [`b4b3a3dbb`](https://github.com/Khan/perseus/commit/b4b3a3dbb5097b1225e9e5acdda254f2f1e66122), [`117e78d03`](https://github.com/Khan/perseus/commit/117e78d03f29304274c1d7cc206743439f94d6ef), [`7a984eba6`](https://github.com/Khan/perseus/commit/7a984eba6f1cec3df314ec245d2176f5db190548), [`f8c9d3574`](https://github.com/Khan/perseus/commit/f8c9d35743d2e8ccf12875ef91498543e2015576), [`1355d6cfc`](https://github.com/Khan/perseus/commit/1355d6cfcbd4cb44de3f05084744dbdefd19def8), [`75f43a8f4`](https://github.com/Khan/perseus/commit/75f43a8f41739df4831e589e0a2724e1c7169312), [`32cc4a45b`](https://github.com/Khan/perseus/commit/32cc4a45bd2df34a0620729ca659a8aec6bcd62a), [`ebf3695b6`](https://github.com/Khan/perseus/commit/ebf3695b69c7526279ef1c999f13b4e24be885be)]:
+    -   @khanacademy/perseus-core@3.3.0
+    -   @khanacademy/kas@0.4.12
+    -   @khanacademy/kmath@0.3.1
+    -   @khanacademy/math-input@22.2.2
+    -   @khanacademy/perseus-linter@1.2.14
+    -   @khanacademy/pure-markdown@0.3.23
+    -   @khanacademy/simple-markdown@0.13.16
+
+## 5.1.1
+
+### Patch Changes
+
+-   [#2101](https://github.com/Khan/perseus/pull/2101) [`9cabe689a`](https://github.com/Khan/perseus/commit/9cabe689a7aa143f95adf4556bf5c10d654a66ae) Thanks [@handeyeco](https://github.com/handeyeco)! - Move scorers and validators to `perseus-score`
+
+*   [#2109](https://github.com/Khan/perseus/pull/2109) [`41ffd4a71`](https://github.com/Khan/perseus/commit/41ffd4a71673399657d7024c206af4fa4e0be267) Thanks [@dependabot](https://github.com/apps/dependabot)! - Updating our wonder-blocks packages with the latest versions.
+
+*   Updated dependencies [[`9cabe689a`](https://github.com/Khan/perseus/commit/9cabe689a7aa143f95adf4556bf5c10d654a66ae), [`41ffd4a71`](https://github.com/Khan/perseus/commit/41ffd4a71673399657d7024c206af4fa4e0be267)]:
+    -   @khanacademy/kmath@0.3.0
+    -   @khanacademy/perseus-core@3.2.0
+    -   @khanacademy/math-input@22.2.1
+    -   @khanacademy/kas@0.4.11
+    -   @khanacademy/perseus-linter@1.2.13
+    -   @khanacademy/pure-markdown@0.3.22
+    -   @khanacademy/simple-markdown@0.13.15
+
+## 5.1.0
+
+### Minor Changes
+
+-   [#2103](https://github.com/Khan/perseus/pull/2103) [`01caf5f31`](https://github.com/Khan/perseus/commit/01caf5f3111d84cf37dffc45012f21860d1648b1) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - revert wb versions
+
+### Patch Changes
+
+-   Updated dependencies [[`01caf5f31`](https://github.com/Khan/perseus/commit/01caf5f3111d84cf37dffc45012f21860d1648b1)]:
+    -   @khanacademy/math-input@22.2.0
+
+## 5.0.12
+
+### Patch Changes
+
+-   [#2093](https://github.com/Khan/perseus/pull/2093) [`766d33577`](https://github.com/Khan/perseus/commit/766d33577a5ea83ef8f8c291534eb34833c54197) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove exports from Perseus that were moved to Perseus-Core
+
+*   [#2086](https://github.com/Khan/perseus/pull/2086) [`bc3d955b5`](https://github.com/Khan/perseus/commit/bc3d955b57e847a379328fcc7cf276f42e0874dd) Thanks [@handeyeco](https://github.com/handeyeco)! - Init perseus-score, move AnswerTypes from perseus to perseus-score, move perseus-types in perseus to data-schema in perseus-core
+
+*   Updated dependencies [[`bbf7f3b1b`](https://github.com/Khan/perseus/commit/bbf7f3b1be657c588270a3b47983c0aecbf84418), [`6cf647729`](https://github.com/Khan/perseus/commit/6cf6477291053d85faac48028b8f038fd0c28930), [`5173c2e43`](https://github.com/Khan/perseus/commit/5173c2e43bf939159f420dcd448b90691d52353b), [`bc3d955b5`](https://github.com/Khan/perseus/commit/bc3d955b57e847a379328fcc7cf276f42e0874dd), [`d2797bb2d`](https://github.com/Khan/perseus/commit/d2797bb2dc51bd80cb03f2c1eeb39286e4dfa45c)]:
+    -   @khanacademy/perseus-core@3.1.0
+    -   @khanacademy/pure-markdown@0.3.21
+    -   @khanacademy/kmath@0.2.0
+    -   @khanacademy/kas@0.4.10
+    -   @khanacademy/math-input@22.1.2
+    -   @khanacademy/perseus-linter@1.2.12
+    -   @khanacademy/simple-markdown@0.13.14
+
+## 5.0.11
+
+### Patch Changes
+
+-   [#2057](https://github.com/Khan/perseus/pull/2057) [`2dc22def4`](https://github.com/Khan/perseus/commit/2dc22def44b7616ad739d2c5a575b83bd6362949) Thanks [@dependabot](https://github.com/apps/dependabot)! - update wonderblocks dependencies
+
+-   Updated dependencies [[`2dc22def4`](https://github.com/Khan/perseus/commit/2dc22def44b7616ad739d2c5a575b83bd6362949)]:
+    -   @khanacademy/math-input@22.1.1
+
+## 5.0.10
+
+### Patch Changes
+
+-   Updated dependencies [[`dbbc82f2d`](https://github.com/Khan/perseus/commit/dbbc82f2dd33545b12c6073174b05ebcf8d551ba)]:
+    -   @khanacademy/math-input@22.1.0
+
+## 5.0.9
+
+### Patch Changes
+
+-   Updated dependencies [[`9c17ab518`](https://github.com/Khan/perseus/commit/9c17ab5188052bb0f42de615e48af1a7439f2770)]:
+    -   @khanacademy/kmath@0.1.24
+
+## 5.0.8
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/math-input@22.0.7
+
+## 5.0.7
+
+### Patch Changes
+
+-   [#2040](https://github.com/Khan/perseus/pull/2040) [`1496a7a93`](https://github.com/Khan/perseus/commit/1496a7a93ef691c8e34da309c10cb77d35627bf3) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Bump versions to fix release
+
+-   Updated dependencies [[`1496a7a93`](https://github.com/Khan/perseus/commit/1496a7a93ef691c8e34da309c10cb77d35627bf3)]:
+    -   @khanacademy/kas@0.4.9
+    -   @khanacademy/kmath@0.1.23
+    -   @khanacademy/math-input@22.0.6
+    -   @khanacademy/perseus-core@3.0.5
+    -   @khanacademy/perseus-linter@1.2.11
+    -   @khanacademy/pure-markdown@0.3.20
+    -   @khanacademy/simple-markdown@0.13.13
+
+## 5.0.6
+
+### Patch Changes
+
+-   Updated dependencies [[`b80e7882b`](https://github.com/Khan/perseus/commit/b80e7882bf58f8e71cbf9482585577032c317428)]:
+    -   @khanacademy/kas@0.4.8
+    -   @khanacademy/kmath@0.1.22
+    -   @khanacademy/math-input@22.0.5
+    -   @khanacademy/perseus-core@3.0.4
+    -   @khanacademy/perseus-linter@1.2.10
+    -   @khanacademy/pure-markdown@0.3.19
+    -   @khanacademy/simple-markdown@0.13.12
+
+## 5.0.5
+
+### Patch Changes
+
+-   Updated dependencies [[`762b295ec`](https://github.com/Khan/perseus/commit/762b295eccd7d0dbc344edd271d3300b506adb93)]:
+    -   @khanacademy/kas@0.4.7
+    -   @khanacademy/kmath@0.1.21
+    -   @khanacademy/math-input@22.0.4
+    -   @khanacademy/perseus-core@3.0.3
+    -   @khanacademy/perseus-linter@1.2.9
+    -   @khanacademy/pure-markdown@0.3.18
+    -   @khanacademy/simple-markdown@0.13.11
+
+## 5.0.4
+
+### Patch Changes
+
+-   [#2027](https://github.com/Khan/perseus/pull/2027) [`368e222a6`](https://github.com/Khan/perseus/commit/368e222a6577dff38143d1584d6773129e8abbd7) Thanks [@handeyeco](https://github.com/handeyeco)! - Bump all packages to reset releases
+
+-   Updated dependencies [[`368e222a6`](https://github.com/Khan/perseus/commit/368e222a6577dff38143d1584d6773129e8abbd7)]:
+    -   @khanacademy/kas@0.4.6
+    -   @khanacademy/kmath@0.1.20
+    -   @khanacademy/math-input@22.0.3
+    -   @khanacademy/perseus-core@3.0.2
+    -   @khanacademy/perseus-linter@1.2.8
+    -   @khanacademy/pure-markdown@0.3.17
+    -   @khanacademy/simple-markdown@0.13.10
+
+## 5.0.3
+
+### Patch Changes
+
+-   [#1810](https://github.com/Khan/perseus/pull/1810) [`e21ead80e`](https://github.com/Khan/perseus/commit/e21ead80e7cf467a2003fc145bfa1f65973eb270) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Update Dropdown widget to support displaying TeX
+
+-   Updated dependencies [[`e21ead80e`](https://github.com/Khan/perseus/commit/e21ead80e7cf467a2003fc145bfa1f65973eb270)]:
+    -   @khanacademy/math-input@22.0.2
+    -   @khanacademy/perseus-core@3.0.1
+    -   @khanacademy/kas@0.4.5
+    -   @khanacademy/kmath@0.1.19
+    -   @khanacademy/perseus-linter@1.2.7
+    -   @khanacademy/pure-markdown@0.3.16
+    -   @khanacademy/simple-markdown@0.13.9
+
+## 5.0.2
+
+### Patch Changes
+
+-   [#2022](https://github.com/Khan/perseus/pull/2022) [`266d240ed`](https://github.com/Khan/perseus/commit/266d240ed01f9b32242d150414e18fcfa8bd5230) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Update to Wonder Blocks without custom ID generation API
+
+-   Updated dependencies [[`266d240ed`](https://github.com/Khan/perseus/commit/266d240ed01f9b32242d150414e18fcfa8bd5230)]:
+    -   @khanacademy/math-input@22.0.1
+
+## 5.0.1
+
+### Patch Changes
+
+-   [#2014](https://github.com/Khan/perseus/pull/2014) [`763d2d0f1`](https://github.com/Khan/perseus/commit/763d2d0f14e3aade030b1ef0aa28c3895c17b685) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Migrate off deprecated ID generation APIs
+
+## 5.0.0
+
+### Major Changes
+
+-   [#2007](https://github.com/Khan/perseus/pull/2007) [`ea1bf0c2c`](https://github.com/Khan/perseus/commit/ea1bf0c2cfc7ae552d039549950d1973b56f5ca9) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Update to latest webapp dependencies and prepare for deprecation of custom WB ID generators
+
+### Patch Changes
+
+-   Updated dependencies [[`ea1bf0c2c`](https://github.com/Khan/perseus/commit/ea1bf0c2cfc7ae552d039549950d1973b56f5ca9)]:
+    -   @khanacademy/math-input@22.0.0
+    -   @khanacademy/perseus-core@3.0.0
+    -   @khanacademy/kas@0.4.4
+    -   @khanacademy/kmath@0.1.18
+    -   @khanacademy/perseus-linter@1.2.6
+    -   @khanacademy/pure-markdown@0.3.15
+    -   @khanacademy/simple-markdown@0.13.8
+
+## 4.0.4
+
+### Patch Changes
+
+-   Updated dependencies [[`f9906728c`](https://github.com/Khan/perseus/commit/f9906728c1a8f09c91c11d824718b8a06d6a7609), [`341d316aa`](https://github.com/Khan/perseus/commit/341d316aa8727ebb9e7fde28fc4e2d8779aa3e82)]:
+    -   @khanacademy/perseus-core@2.0.0
+    -   @khanacademy/kas@0.4.3
+    -   @khanacademy/kmath@0.1.17
+    -   @khanacademy/math-input@21.1.7
+    -   @khanacademy/perseus-linter@1.2.5
+    -   @khanacademy/pure-markdown@0.3.14
+    -   @khanacademy/simple-markdown@0.13.7
+
+## 4.0.3
+
+### Patch Changes
+
+-   [#1910](https://github.com/Khan/perseus/pull/1910) [`0a44d468d`](https://github.com/Khan/perseus/commit/0a44d468dd127bf15dc32e720b9b0301af41a572) Thanks [@handeyeco](https://github.com/handeyeco)! - Change ServerItemRenderer scoring APIs to externalize scoring
+
+## 4.0.2
+
+### Patch Changes
+
+-   [#1904](https://github.com/Khan/perseus/pull/1904) [`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Upgrade Storybook to v8.x
+
+*   [#1904](https://github.com/Khan/perseus/pull/1904) [`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Upgrade Storybook to v8.x
+
+*   Updated dependencies [[`83b1beab8`](https://github.com/Khan/perseus/commit/83b1beab86dd9e7ee1e1760c4fad4be9f2ff5a71)]:
+    -   @khanacademy/math-input@21.1.6
+
+## 4.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`88ba71bef`](https://github.com/Khan/perseus/commit/88ba71bef0cdd75fa0c8b467dcea2cccc637d034)]:
+    -   @khanacademy/kas@0.4.2
+    -   @khanacademy/simple-markdown@0.13.6
+    -   @khanacademy/pure-markdown@0.3.13
+
+## 4.0.0
+
+### Major Changes
+
+-   [#1905](https://github.com/Khan/perseus/pull/1905) [`9c225f936`](https://github.com/Khan/perseus/commit/9c225f9365cbb2e92bba3bd67b1abde724809367) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - We're reverting work done for the Server Side Scoring and Input Number Conversion projects.
+
+### Patch Changes
+
+-   Updated dependencies [[`55a532175`](https://github.com/Khan/perseus/commit/55a532175192bfee3dc550c7eb7ce74d4a6542a9)]:
+    -   @khanacademy/kas@0.4.1
+    -   @khanacademy/math-input@21.1.5
+    -   @khanacademy/simple-markdown@0.13.5
+    -   @khanacademy/pure-markdown@0.3.12
+
+## 3.1.3
+
+### Patch Changes
+
+-   [#1753](https://github.com/Khan/perseus/pull/1753) [`c1ba55fc0`](https://github.com/Khan/perseus/commit/c1ba55fc0247e16d9a78558721969382ee6992f8) Thanks [@handeyeco](https://github.com/handeyeco)! - Change ServerItemRenderer scoring APIs to externalize scoring
+
+## 3.1.2
+
+### Patch Changes
+
+-   Updated dependencies [[`46dc13f10`](https://github.com/Khan/perseus/commit/46dc13f10b97c22537e70e106540aa754c75b7b0)]:
+    -   @khanacademy/kas@0.4.0
+
+## 3.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`d6381f773`](https://github.com/Khan/perseus/commit/d6381f7737ff44f1ec3d91c4ab25ce51f47b35b9)]:
+    -   @khanacademy/math-input@21.1.4
+
 ## 3.1.0
 
 ### Minor Changes

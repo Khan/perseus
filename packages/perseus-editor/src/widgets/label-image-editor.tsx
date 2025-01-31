@@ -7,6 +7,7 @@
  */
 
 import {EditorJsonify, Util} from "@khanacademy/perseus";
+import {labelImageLogic} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -17,7 +18,10 @@ import Behavior from "./label-image/behavior";
 import QuestionMarkers from "./label-image/question-markers";
 import SelectImage from "./label-image/select-image";
 
-import type {MarkerType} from "@khanacademy/perseus";
+import type {
+    PerseusLabelImageWidgetOptions,
+    LabelImageDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 type Props = {
     // List of answer choices to label question image with.
@@ -28,7 +32,7 @@ type Props = {
     imageWidth: number;
     imageHeight: number;
     // The list of label markers on the question image.
-    markers: ReadonlyArray<MarkerType>;
+    markers: PerseusLabelImageWidgetOptions["markers"];
     // Whether multiple answer choices may be selected for markers.
     multipleAnswers: boolean;
     // Whether to hide answer choices from user instructions.
@@ -40,25 +44,8 @@ type Props = {
 class LabelImageEditor extends React.Component<Props> {
     _questionMarkers: QuestionMarkers | null | undefined;
 
-    static defaultProps: {
-        choices: ReadonlyArray<any>;
-        hideChoicesFromInstructions: boolean;
-        imageAlt: string;
-        imageHeight: number;
-        imageUrl: string;
-        imageWidth: number;
-        markers: ReadonlyArray<any>;
-        multipleAnswers: boolean;
-    } = {
-        choices: [],
-        imageAlt: "",
-        imageUrl: "",
-        imageWidth: 0,
-        imageHeight: 0,
-        markers: [],
-        multipleAnswers: false,
-        hideChoicesFromInstructions: false,
-    };
+    static defaultProps: LabelImageDefaultWidgetOptions =
+        labelImageLogic.defaultWidgetOptions;
 
     static widgetName = "label-image" as const;
 
@@ -151,6 +138,14 @@ class LabelImageEditor extends React.Component<Props> {
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 this.props.onChange({
+                    /**
+                     * Sending `imageUrl` up again
+                     * (even though we did so at the beginning of handleImageChange)
+                     * because we ran into a race condition (LEMS-2583) where
+                     * `imageUrl` was getting set to an empty string if measuring
+                     * happened too fast.
+                     */
+                    imageUrl: url,
                     imageWidth: width,
                     imageHeight: height,
                 });
@@ -168,9 +163,9 @@ class LabelImageEditor extends React.Component<Props> {
         this.props.onChange({choices});
     };
 
-    handleMarkersChange: (markers: ReadonlyArray<MarkerType>) => void = (
-        markers: ReadonlyArray<MarkerType>,
-    ) => {
+    handleMarkersChange: (
+        markers: PerseusLabelImageWidgetOptions["markers"],
+    ) => void = (markers: PerseusLabelImageWidgetOptions["markers"]) => {
         this.props.onChange({markers});
     };
 

@@ -3,6 +3,8 @@ import {
     vector as kvector,
     point as kpoint,
 } from "@khanacademy/kmath";
+import {GrapherUtil} from "@khanacademy/perseus-core";
+import {scoreGrapher} from "@khanacademy/perseus-score";
 import * as React from "react";
 import _ from "underscore";
 
@@ -16,29 +18,33 @@ import {interactiveSizes} from "../../styles/constants";
 import Util from "../../util";
 import KhanColors from "../../util/colors";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
-
 /* Graphie and relevant components. */
 /* Mixins. */
-import grapherValidator from "./grapher-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
+
 import {
     DEFAULT_GRAPHER_PROPS,
     chooseType,
     defaultPlotProps,
-    functionForType,
     getGridAndSnapSteps,
     maybePointsFromNormalized,
+    movableTypeToComponent,
     typeToButton,
 } from "./util";
 
 import type {Coord, Line} from "../../interactive2/types";
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {PerseusGrapherWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
+import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
+import type {
+    MarkingsType,
+    PerseusGrapherWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {
     PerseusGrapherRubric,
     PerseusGrapherUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
@@ -111,6 +117,8 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     };
 
     change = (...args) => {
+        // TODO(LEMS-2656): remove TS suppression
+        // @ts-expect-error: Argument of type 'any[]' is not assignable to parameter of type '[newPropsOrSinglePropName: string | { [key: string]: any; }, propValue?: any, callback?: (() => unknown) | undefined]'. Target requires 1 element(s) but source may have fewer.
         return Changeable.change.apply(this, args);
     };
 
@@ -130,8 +138,9 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         }
 
         const functionProps = model.getPropsForCoeffs(coeffs, xRange);
+        const Movable = movableTypeToComponent[model.movable];
         return (
-            <model.Movable
+            <Movable
                 {...functionProps}
                 key={this.props.model.url}
                 range={xRange}
@@ -352,7 +361,7 @@ type Props = ExternalProps & {
     plot: NonNullable<RenderProps["plot"]>;
     // NOTE(jeremy): This prop exists in the `graph` prop value. Unsure what
     // passes it down as a top-level prop (I suspect the editor?)
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
 };
 
 type DefaultProps = {
@@ -537,6 +546,10 @@ class Grapher extends React.Component<Props> implements Widget {
         return Grapher.getUserInputFromProps(this.props);
     }
 
+    getPromptJSON(): GrapherPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
+
     render(): React.ReactNode {
         const type = this.props.plot.type;
         const coords = this.props.plot.coords;
@@ -584,7 +597,7 @@ class Grapher extends React.Component<Props> implements Widget {
                 setup: this._setupGraphie,
             },
             onChange: this.handlePlotChanges,
-            model: type && functionForType(type),
+            model: type && GrapherUtil.functionForType(type),
             coords: coords,
             asymptote: asymptote,
             static: this.props.static,
@@ -646,5 +659,7 @@ export default {
     widget: Grapher,
     transform: propTransform,
     staticTransform: staticTransform,
-    validator: grapherValidator,
-} as WidgetExports<typeof Grapher>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusGrapherUserInput'.
+    scorer: scoreGrapher,
+} satisfies WidgetExports<typeof Grapher>;

@@ -1,7 +1,8 @@
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {Coord} from "../../interactive2/types";
-import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {WidgetProps} from "../../types";
+import type {QuadraticCoords} from "@khanacademy/kmath";
+import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 import type {ReactNode} from "react";
 
@@ -21,7 +22,7 @@ export type MafsGraphProps<T extends InteractiveGraphState> = {
 // end up in different sections of the DOM.
 export type InteractiveGraphElementSuite = {
     graph: ReactNode;
-    screenreaderDescription: ReactNode;
+    interactiveElementsDescription: ReactNode;
     // TODO(benchristel): add actionBar controls here
 };
 
@@ -95,6 +96,7 @@ export interface PolygonGraphState extends InteractiveGraphStateCommon {
     showRemovePointButton: boolean;
     interactionMode: InteractionMode;
     showKeyboardInteractionInvitation: boolean;
+    closedPolygon: boolean;
 }
 
 export interface CircleGraphState extends InteractiveGraphStateCommon {
@@ -105,7 +107,7 @@ export interface CircleGraphState extends InteractiveGraphStateCommon {
 
 export interface QuadraticGraphState extends InteractiveGraphStateCommon {
     type: "quadratic";
-    coords: [Coord, Coord, Coord];
+    coords: QuadraticCoords;
 }
 
 export interface SinusoidGraphState extends InteractiveGraphStateCommon {
@@ -134,3 +136,5 @@ export type GraphDimensions = {
     width: number; // pixels
     height: number; // pixels
 };
+
+export type AriaLive = "off" | "assertive" | "polite" | undefined;

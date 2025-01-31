@@ -18,6 +18,7 @@ export {default as ServerItemRenderer} from "./server-item-renderer";
 export {default as HintsRenderer} from "./hints-renderer";
 export {default as HintRenderer} from "./hint-renderer";
 export {default as Renderer} from "./renderer";
+export {scorePerseusItem} from "./renderer-util";
 
 /**
  * Widgets
@@ -36,10 +37,10 @@ export {default as TableWidget} from "./widgets/table";
 export {default as PlotterWidget} from "./widgets/plotter";
 export {default as GrapherWidget} from "./widgets/grapher";
 
-// Some utils in grapher/utils don't need to be used outside of `perseus`,
-// so only export the stuff that does need to be exposed
+// Some utils in grapher/utils and scoring don't need to be used outside of
+// `perseus`, so only export the stuff that does need to be exposed
+import {keScoreFromPerseusScore} from "./util/scoring";
 import {
-    allTypes,
     DEFAULT_GRAPHER_PROPS,
     chooseType,
     defaultPlotProps,
@@ -48,12 +49,15 @@ import {
 } from "./widgets/grapher/util";
 
 export const GrapherUtil = {
-    allTypes,
     DEFAULT_GRAPHER_PROPS,
     chooseType,
     defaultPlotProps,
     getEquationString,
     typeToButton,
+};
+
+export const ScoringUtil = {
+    keScoreFromPerseusScore,
 };
 
 /**
@@ -65,17 +69,9 @@ export {bodyXsmallBold} from "./styles/global-styles";
 export * as Dependencies from "./dependencies";
 export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
-export {default as KhanMath} from "./util/math";
 export {default as LoadingContext} from "./loading-context";
 export {default as mediaQueries} from "./styles/media-queries";
 export {default as PerseusMarkdown} from "./perseus-markdown";
-export {
-    PerseusExpressionAnswerFormConsidered,
-    plotterPlotTypes,
-    ItemExtras,
-    lockedFigureColors,
-    lockedFigureFillStyles,
-} from "./perseus-types";
 export {traverse} from "./traversal";
 export {isItemRenderableByVersion} from "./renderability";
 export {violatingWidgets} from "./a11y";
@@ -100,6 +96,7 @@ export {
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
 } from "./util/sizing-utils";
+export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
 export {
     getAnswersFromWidgets,
     injectWidgets,
@@ -111,7 +108,7 @@ export {
     getAnswerFromUserInput,
     getImagesWithoutAltData,
 } from "./util/extract-perseus-data";
-export {parsePerseusItem} from "./util/parse-perseus-json";
+
 export {
     generateTestPerseusItem,
     genericPerseusItemData,
@@ -124,14 +121,11 @@ export {
 export {
     getWidgetTypeByWidgetId,
     contentHasWidgetType,
-    getWidgetIdsFromContent,
-    getWidgetIdsFromContentByType,
     getWidgetsMapFromItemData,
     getWidgetFromWidgetMap,
     getWidgetsFromWidgetMap,
 } from "./widget-type-utils";
 export {convertWidgetNameToEnum} from "./util/widget-enum-utils";
-export {addWidget, QUESTION_WIDGETS} from "./util/snowman-utils";
 export {
     getCircleCoords,
     getLineCoords,
@@ -143,11 +137,16 @@ export {
     getQuadraticCoords,
     getAngleCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
-// This export is to support necessary functionality in the perseus-editor package.
-// It should be removed if widgets and editors become colocated.
-export {getClockwiseAngle} from "./widgets/interactive-graphs/math";
 
 export {makeSafeUrl} from "./widgets/phet-simulation";
+
+// These exports are to support shared functionality between Perseus and Graphie2000
+export {parseDataFromJSONP} from "./util/graphie-utils";
+export type {
+    GraphieData,
+    GraphieLabel,
+    GraphieRange,
+} from "./util/graphie-utils";
 
 /**
  * Mixins
@@ -159,7 +158,6 @@ export {default as WIDGET_PROP_DENYLIST} from "./mixins/widget-prop-denylist";
 /**
  * Types
  */
-export type {PerseusOptions} from "./init";
 export type {ILogger, LogErrorOptions} from "./logging/log";
 export type {ServerItemRenderer as ServerItemRendererComponent} from "./server-item-renderer";
 export type {
@@ -176,80 +174,15 @@ export type {
     JiptLabelStore,
     JiptRenderer,
     PerseusDependencies,
-    PerseusScore,
-    Version,
+    PerseusDependenciesV2,
     VideoData,
     VideoKind,
     WidgetExports,
     SharedRendererProps,
 } from "./types";
 export type {ParsedValue} from "./util";
-export type {
-    Hint,
-    LegacyButtonSets,
-    LockedFigure,
-    LockedFigureColor,
-    LockedFigureFillType,
-    LockedFigureType,
-    LockedPointType,
-    LockedLineType,
-    LockedVectorType,
-    LockedEllipseType,
-    LockedPolygonType,
-    LockedFunctionType,
-    LockedLabelType,
-    LockedLineStyle,
-    PerseusGraphType,
-    PerseusAnswerArea,
-    PerseusExpressionWidgetOptions,
-    // Utility types
-    Range,
-    Size,
-    CollinearTuple,
-    MathFormat,
-    InputNumberWidget, // TODO(jeremy): remove?
-    // Widget configuration types
-    PerseusImageBackground,
-    PerseusInputNumberWidgetOptions,
-    PerseusInteractiveGraphWidgetOptions,
-    PerseusItem,
-    PerseusPhetSimulationWidgetOptions,
-    PerseusPlotterWidgetOptions,
-    PerseusPythonProgramWidgetOptions,
-    PerseusRadioWidgetOptions,
-    PerseusExampleWidgetOptions,
-    PerseusSimpleMarkdownTesterWidgetOptions,
-    PerseusRenderer,
-    PerseusWidget,
-    PerseusWidgetsMap,
-    MultiItem,
-} from "./perseus-types";
 export type {Coord} from "./interactive2/types";
-export type {MarkerType} from "./widgets/label-image/types";
-
-/**
- * Multi-items
- */
-export {default as MultiItems} from "./multi-items";
-export {buildEmptyItemTreeForShape, itemToTree} from "./multi-items/items";
-export {default as shapes} from "./multi-items/shapes";
-export {buildMapper} from "./multi-items/trees";
-
 export type {
-    ContentNode,
-    HintNode,
-    Item,
-    ItemTree,
-    ItemObjectNode,
-    ItemArrayNode,
-    TagsNode,
-} from "./multi-items/item-types";
-export type {
-    Shape,
-    ArrayShape,
-    ObjectShape,
-    ContentShape,
-    HintShape,
-    TagsShape,
-} from "./multi-items/shape-types";
-export type {Path} from "./multi-items/trees";
+    RendererPromptJSON,
+    WidgetPromptJSON,
+} from "./widget-ai-utils/prompt-types";

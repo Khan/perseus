@@ -7,6 +7,7 @@
  *  but could also be used for embedding viz's hosted elsewhere.
  */
 
+import {scoreIframe} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
@@ -14,16 +15,15 @@ import _ from "underscore";
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
 
-import {iframeValidator} from "./iframe-validator";
-
-import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {PerseusIFrameWidgetOptions} from "@khanacademy/perseus-core";
 import type {
-    PerseusIFrameRubric,
     PerseusIFrameUserInput,
     UserInputStatus,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 const {updateQueryString} = Util;
 
@@ -34,7 +34,7 @@ type RenderProps = PerseusIFrameWidgetOptions & {
     height: string;
 };
 
-type Props = WidgetProps<RenderProps, PerseusIFrameRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     status: Props["status"];
@@ -65,6 +65,10 @@ class Iframe extends React.Component<Props> implements Widget {
         return {status: this.props.status, message: this.props.message};
     }
 
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
+    }
+
     handleMessageEvent: (arg1: any) => void = (e) => {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
@@ -72,7 +76,7 @@ class Iframe extends React.Component<Props> implements Widget {
         let data: Record<string, any> = {};
         try {
             data = JSON.parse(e.originalEvent.data);
-        } catch (err: any) {
+        } catch {
             return;
         }
 
@@ -166,5 +170,7 @@ export default {
     widget: Iframe,
     // Let's not expose it to all content creators yet
     hidden: true,
-    validator: iframeValidator,
-} as WidgetExports<typeof Iframe>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusIframeUserInput'.
+    scorer: scoreIframe,
+} satisfies WidgetExports<typeof Iframe>;

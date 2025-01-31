@@ -7,6 +7,15 @@ import {
     interactiveSizes,
     Util,
 } from "@khanacademy/perseus";
+import {
+    type LockedFigure,
+    type PerseusImageBackground,
+    type PerseusInteractiveGraphWidgetOptions,
+    type PerseusGraphType,
+    type MarkingsType,
+    type InteractiveGraphDefaultWidgetOptions,
+    interactiveGraphLogic,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -25,29 +34,20 @@ import GraphTypeSelector from "./components/graph-type-selector";
 import {InteractiveGraphCorrectAnswer} from "./components/interactive-graph-correct-answer";
 import InteractiveGraphDescription from "./components/interactive-graph-description";
 import InteractiveGraphSettings from "./components/interactive-graph-settings";
+import InteractiveGraphSRTree from "./components/interactive-graph-sr-tree";
 import SegmentCountSelector from "./components/segment-count-selector";
 import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
 
-import type {
-    APIOptionsWithDefaults,
-    LockedFigure,
-    PerseusImageBackground,
-    PerseusInteractiveGraphWidgetOptions,
-    PerseusGraphType,
-} from "@khanacademy/perseus";
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
 const InteractiveGraph = InteractiveGraphWidget.widget;
 
 type InteractiveGraphProps = PropsFor<typeof InteractiveGraph>;
-
-const defaultBackgroundImage = {
-    url: null,
-} as const;
 
 const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
     return (
@@ -96,7 +96,7 @@ export type Props = {
      * An error message to display in the graph area, or true if the
      * graph is valid.
      */
-    valid: string | boolean;
+    valid: true | string;
     /**
      * The background image to display in the graph area and its properties.
      */
@@ -107,7 +107,7 @@ export type Props = {
      * - grid: shows only the grid lines
      * - none: shows no markings
      */
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     /**
      * Whether to show the protractor on the graph.
      */
@@ -153,18 +153,6 @@ export type Props = {
     static?: boolean;
 };
 
-type DefaultProps = {
-    labels: Props["labels"];
-    range: Props["range"];
-    step: Props["step"];
-    valid: Props["valid"];
-    backgroundImage: Props["backgroundImage"];
-    markings: Props["markings"];
-    showProtractor: Props["showProtractor"];
-    showTooltips: Props["showTooltips"];
-    correct: Props["correct"];
-};
-
 /**
  * An editor for the InteractiveGraph widget, which allows the user to
  * specify the graph's properties and the correct answer.
@@ -176,15 +164,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
 
-    static defaultProps: DefaultProps = {
-        ...InteractiveGraph.defaultProps,
+    static defaultProps: InteractiveGraphDefaultWidgetOptions & {
+        valid: true | string;
+    } = {
+        ...interactiveGraphLogic.defaultWidgetOptions,
         valid: true,
-        backgroundImage: defaultBackgroundImage,
-        showTooltips: false,
-        correct: {
-            type: InteractiveGraph.defaultProps.graph.type,
-            coords: null,
-        },
     };
 
     changeStartCoords = (coords) => {
@@ -269,6 +253,15 @@ class InteractiveGraphEditor extends React.Component<Props> {
             ) {
                 issues.push("The line cannot have length 0.");
             }
+        }
+
+        // Do not save a unlimited polygon that is open (coords is null).
+        if (
+            this.props.graph?.type === "polygon" &&
+            this.props.graph.numSides === "unlimited" &&
+            this.props.graph.coords === null
+        ) {
+            issues.push("Polygon must be closed.");
         }
 
         return issues;
@@ -358,14 +351,17 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             this.props.graph?.type ??
                             InteractiveGraph.defaultProps.graph.type
                         }
-                        onChange={(
-                            type: Required<InteractiveGraphProps>["graph"]["type"],
-                        ) => {
-                            this.props.onChange({
-                                graph: {type},
-                                correct: {type},
-                            });
-                        }}
+                        // TODO(LEMS-2656): remove TS suppression
+                        onChange={
+                            ((
+                                type: Required<InteractiveGraphProps>["graph"]["type"],
+                            ) => {
+                                this.props.onChange({
+                                    graph: {type},
+                                    correct: {type},
+                                });
+                            }) as any
+                        }
                         showNoneOption={
                             this.props.apiOptions?.flags?.mafs?.["none"]
                         }
@@ -700,6 +696,14 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             onChange={this.changeStartCoords}
                         />
                     )}
+                <InteractiveGraphSRTree
+                    correct={this.props.correct}
+                    fullGraphAriaLabel={this.props.fullGraphAriaLabel}
+                    fullGraphAriaDescription={
+                        this.props.fullGraphAriaDescription
+                    }
+                    lockedFigures={this.props.lockedFigures}
+                />
                 <InteractiveGraphSettings
                     box={getInteractiveBoxFromSizeClass(sizeClass)}
                     range={this.props.range}
@@ -730,8 +734,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     // value for `match`; a value of undefined
                                     // means exact matching. The code happens
                                     // to work because "exact" falls through
-                                    // to the correct else branch in
-                                    // InteractiveGraph.validate()
+                                    // to the correct else branch when scoring
                                     match: newValue as PerseusGraphTypePolygon["match"],
                                 };
                                 this.props.onChange({correct});
@@ -807,8 +810,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         // value for `match`; a value of undefined
                                         // means exact matching. The code happens
                                         // to work because "exact" falls through
-                                        // to the correct else branch in
-                                        // InteractiveGraph.validate()
+                                        // to the correct else branch when scoring
                                         match: newValue as PerseusGraphTypeAngle["match"],
                                     },
                                 });
@@ -842,12 +844,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             this.props.graph.type
                         ] && (
                             <LockedFiguresSection
-                                flags={this.props.apiOptions.flags}
-                                showLabelsFlag={
-                                    this.props.apiOptions?.flags?.mafs?.[
-                                        "interactive-graph-locked-features-labels"
-                                    ]
-                                }
                                 figures={this.props.lockedFigures}
                                 onChange={this.props.onChange}
                             />

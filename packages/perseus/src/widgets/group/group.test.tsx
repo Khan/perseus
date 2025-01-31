@@ -8,6 +8,7 @@ import * as Perseus from "@khanacademy/perseus";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItem} from "../../renderer-util";
 import {mockStrings} from "../../strings";
 import {traverse} from "../../traversal";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -26,6 +27,14 @@ describe("group widget", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+
+        // Mocked for loading graphie in svg-image
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                text: () => "",
+                ok: true,
+            }),
+        ) as jest.Mock;
     });
 
     it("should snapshot", () => {
@@ -413,10 +422,13 @@ describe("group widget", () => {
             screen.getByRole("textbox", {name: /nearest hundred/}),
             "200",
         );
-        const guessAndScore = renderer.guessAndScore();
+
+        const guess = renderer.getUserInputMap();
+        const score = scorePerseusItem(question1, guess, mockStrings, "en");
+        const guessAndScore = [renderer.getUserInput(), score];
 
         // Assert
-        expect(guessAndScore[1]).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
         expect(guessAndScore).toMatchInlineSnapshot(`
             [
               [
@@ -429,9 +441,6 @@ describe("group widget", () => {
                       false,
                       true,
                     ],
-                    "noneOfTheAboveIndex": null,
-                    "noneOfTheAboveSelected": false,
-                    "numCorrect": 1,
                   },
                 ],
                 [

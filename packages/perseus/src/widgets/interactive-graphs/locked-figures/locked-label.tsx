@@ -1,10 +1,14 @@
+import {
+    lockedFigureColors,
+    type LockedLabelType,
+} from "@khanacademy/perseus-core";
 import {font} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {getDependencies} from "../../../dependencies";
-import {lockedFigureColors, type LockedLabelType} from "../../../perseus-types";
 import {pointToPixel} from "../graphs/use-transform";
 import useGraphConfig from "../reducer/use-graph-config";
+import {replaceOutsideTeX} from "../utils";
 
 export default function LockedLabel(props: LockedLabelType) {
     const {coord, text, color, size} = props;
@@ -13,7 +17,7 @@ export default function LockedLabel(props: LockedLabelType) {
 
     const {TeX} = getDependencies();
 
-    // Move this all outside the SVG element
+    // Note: The TeX component cannot be rendered within an SVG
     return (
         <span
             className="locked-label"
@@ -27,7 +31,7 @@ export default function LockedLabel(props: LockedLabelType) {
             }}
             aria-hidden={true}
         >
-            <TeX>{text}</TeX>
+            <TeX>{replaceOutsideTeX(text)}</TeX>
         </span>
     );
 }

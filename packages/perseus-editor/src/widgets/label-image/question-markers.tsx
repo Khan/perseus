@@ -11,7 +11,7 @@ import {gray17, gray68} from "../../styles/global-colors";
 
 import Marker from "./marker";
 
-import type {MarkerType} from "@khanacademy/perseus";
+import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = {
     // The list of possible answers in a specific order.
@@ -21,9 +21,9 @@ type Props = {
     imageWidth: number;
     imageHeight: number;
     // The list of markers placed on the question image.
-    markers: ReadonlyArray<MarkerType>;
+    markers: PerseusLabelImageWidgetOptions["markers"];
     // Callback for when any of markers change.
-    onChange: (markers: ReadonlyArray<MarkerType>) => void;
+    onChange: (markers: PerseusLabelImageWidgetOptions["markers"]) => void;
 };
 
 export default class QuestionMarkers extends React.Component<Props> {

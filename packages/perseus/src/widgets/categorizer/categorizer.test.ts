@@ -3,6 +3,9 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItem} from "../../renderer-util";
+import {mockStrings} from "../../strings";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {Categorizer} from "./categorizer";
@@ -57,12 +60,17 @@ describe("categorizer widget", () => {
         const {renderer} = renderQuestion(question1, apiOptions);
 
         // Act
-        const [_, score] = renderer.guessAndScore();
+        const score = scorePerseusItem(
+            question1,
+            renderer.getUserInputMap(),
+            mockStrings,
+            "en",
+        );
 
         // Assert
         expect(score).toMatchInlineSnapshot(`
             {
-              "message": "Make sure you select something for every row.",
+              "message": "INVALID_SELECTION_ERROR",
               "type": "invalid",
             }
         `);
@@ -76,12 +84,17 @@ describe("categorizer widget", () => {
         await userEvent.click(firstItem);
 
         // act
-        const [_, score] = renderer.guessAndScore();
+        const score = scorePerseusItem(
+            question1,
+            renderer.getUserInputMap(),
+            mockStrings,
+            "en",
+        );
 
         // assert
         expect(score).toMatchInlineSnapshot(`
             {
-              "message": "Make sure you select something for every row.",
+              "message": "INVALID_SELECTION_ERROR",
               "type": "invalid",
             }
         `);
@@ -111,10 +124,13 @@ describe("categorizer widget", () => {
             })[1],
         );
 
-        renderer.guessAndScore();
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("can get user input from props", () => {

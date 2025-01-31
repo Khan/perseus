@@ -146,6 +146,7 @@ describe("Locked Label Settings", () => {
             render(
                 <LockedLabelSettings
                     {...defaultProps}
+                    text=""
                     onChangeProps={onChangeProps}
                 />,
                 {
@@ -155,7 +156,7 @@ describe("Locked Label Settings", () => {
 
             // Act
             const textInput = screen.getByRole("textbox", {
-                name: "TeX",
+                name: "text",
             });
             await userEvent.type(textInput, "x^2");
 

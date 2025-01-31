@@ -80,7 +80,12 @@ describe("MovablePoint", () => {
             useGraphConfigMock.mockReturnValue(graphConfigContextWithTooltips);
             render(
                 <Mafs width={200} height={200}>
-                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
                 </Mafs>,
             );
             expect(Tooltip).toHaveBeenCalled();
@@ -90,7 +95,12 @@ describe("MovablePoint", () => {
             useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
             render(
                 <Mafs width={200} height={200}>
-                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
                 </Mafs>,
             );
             expect(Tooltip).not.toHaveBeenCalled();
@@ -100,7 +110,12 @@ describe("MovablePoint", () => {
             useGraphConfigMock.mockReturnValue(graphConfigContextWithTooltips);
             render(
                 <Mafs width={200} height={200}>
-                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
                 </Mafs>,
             );
             // @ts-expect-error // TS2339: Property mock does not exist on type typeof Tooltip
@@ -115,6 +130,7 @@ describe("MovablePoint", () => {
                 <Mafs width={200} height={200}>
                     <MovablePoint
                         point={[0, 0]}
+                        sequenceNumber={1}
                         color="#9059ff"
                         onMove={() => {}}
                     />
@@ -133,6 +149,7 @@ describe("MovablePoint", () => {
                 <Mafs width={200} height={200}>
                     <MovablePoint
                         point={[0, 0]}
+                        sequenceNumber={1}
                         color="#f00"
                         onMove={() => {}}
                     />
@@ -152,7 +169,12 @@ describe("MovablePoint", () => {
             useDraggableMock.mockReturnValue({dragging: true});
             const {container} = render(
                 <Mafs width={200} height={200}>
-                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
                 </Mafs>,
             );
 
@@ -165,7 +187,12 @@ describe("MovablePoint", () => {
             useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
             const {container} = render(
                 <Mafs width={200} height={200}>
-                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
                 </Mafs>,
             );
 
@@ -181,7 +208,12 @@ describe("MovablePoint", () => {
             useDraggableMock.mockReturnValue({dragging: true});
             const {container} = render(
                 <Mafs width={200} height={200}>
-                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
                 </Mafs>,
             );
 
@@ -195,7 +227,12 @@ describe("MovablePoint", () => {
         const focusSpy = jest.fn();
         render(
             <Mafs width={200} height={200}>
-                <MovablePoint point={[0, 0]} onFocus={focusSpy} />,
+                <MovablePoint
+                    point={[0, 0]}
+                    sequenceNumber={1}
+                    onFocus={focusSpy}
+                />
+                ,
             </Mafs>,
         );
 
@@ -211,7 +248,12 @@ describe("MovablePoint", () => {
         const blurSpy = jest.fn();
         render(
             <Mafs width={200} height={200}>
-                <MovablePoint point={[0, 0]} onBlur={blurSpy} />,
+                <MovablePoint
+                    point={[0, 0]}
+                    sequenceNumber={1}
+                    onBlur={blurSpy}
+                />
+                ,
             </Mafs>,
         );
 
@@ -228,7 +270,12 @@ describe("MovablePoint", () => {
         const focusSpy = jest.fn();
         render(
             <Mafs width={200} height={200}>
-                <MovablePoint point={[0, 0]} onFocus={focusSpy} />,
+                <MovablePoint
+                    point={[0, 0]}
+                    sequenceNumber={1}
+                    onFocus={focusSpy}
+                />
+                ,
             </Mafs>,
         );
 
@@ -237,5 +284,113 @@ describe("MovablePoint", () => {
         await userEvent.click(screen.getByTestId("movable-point"));
 
         expect(focusSpy).toHaveBeenCalledTimes(1);
+    });
+
+    describe("accessibility", () => {
+        it("uses the default sequence number when ariaLabel and sequence number are not provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} />
+                </Mafs>,
+            );
+
+            expect(
+                screen.getByLabelText("Point 1 at 0 comma 0"),
+            ).toBeInTheDocument();
+        });
+
+        it("uses sequence number when sequence is provided and aria label is not provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} sequenceNumber={2} />
+                </Mafs>,
+            );
+
+            expect(
+                screen.getByLabelText("Point 2 at 0 comma 0"),
+            ).toBeInTheDocument();
+        });
+
+        it("uses the ariaLabel when both sequence and ariaLabel are provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        ariaLabel="Aria Label being used instead of sequence number"
+                    />
+                </Mafs>,
+            );
+
+            expect(
+                screen.getByLabelText(
+                    "Aria Label being used instead of sequence number",
+                ),
+            ).toBeInTheDocument();
+        });
+
+        it("uses the ariaLabel when only ariaLabel is provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint
+                        point={[0, 0]}
+                        ariaLabel="Custom aria label"
+                    />
+                </Mafs>,
+            );
+
+            expect(
+                screen.getByLabelText("Custom aria label"),
+            ).toBeInTheDocument();
+        });
+
+        it("uses the ariaDescribedBy when provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint
+                        point={[0, 0]}
+                        ariaDescribedBy="description"
+                    />
+                    <p id="description">Aria is described by me</p>
+                </Mafs>,
+            );
+
+            const pointElement = screen.getByRole("button", {
+                name: "Point 1 at 0 comma 0",
+            });
+            expect(pointElement).toHaveAttribute(
+                "aria-describedby",
+                "description",
+            );
+
+            const descriptionElement = screen.getByText(
+                "Aria is described by me",
+            );
+            expect(descriptionElement).toBeInTheDocument();
+        });
+
+        it("uses the ariaLive when provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} ariaLive="assertive" />
+                </Mafs>,
+            );
+
+            expect(
+                screen.getByLabelText("Point 1 at 0 comma 0"),
+            ).toHaveAttribute("aria-live", "assertive");
+        });
+
+        it("uses the default ariaLive when not provided", () => {
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} />
+                </Mafs>,
+            );
+
+            expect(
+                screen.getByLabelText("Point 1 at 0 comma 0"),
+            ).toHaveAttribute("aria-live", "polite");
+        });
     });
 });

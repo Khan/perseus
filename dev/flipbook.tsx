@@ -18,8 +18,9 @@ import {useEffect, useMemo, useReducer, useRef, useState} from "react";
 
 import {Renderer} from "../packages/perseus/src";
 import {SvgImage} from "../packages/perseus/src/components";
+import {scorePerseusItem} from "../packages/perseus/src/renderer-util";
 import {mockStrings} from "../packages/perseus/src/strings";
-import {isCorrect} from "../packages/perseus/src/util";
+import {isCorrect} from "../packages/perseus/src/util/scoring";
 import {trueForAllMafsSupportedGraphTypes} from "../packages/perseus/src/widgets/interactive-graphs/mafs-supported-graph-types";
 
 import {EditableControlledInput} from "./editable-controlled-input";
@@ -38,13 +39,13 @@ import {
 } from "./flipbook-model";
 import {Header} from "./header";
 
+import type {APIOptions} from "../packages/perseus/src";
 import type {
-    APIOptions,
+    InteractiveGraphWidget,
     PerseusRenderer,
-    PerseusScore,
     PerseusWidget,
-} from "../packages/perseus/src";
-import type {InteractiveGraphWidget} from "../packages/perseus/src/perseus-types";
+} from "../packages/perseus-core/src/data-schema";
+import type {PerseusScore} from "../packages/perseus-score/src/validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
@@ -319,7 +320,15 @@ function GradableRenderer(props: QuestionRendererProps) {
                 leftContent={
                     <Button
                         onClick={() => {
-                            setScore(rendererRef.current?.score());
+                            if (rendererRef.current) {
+                                const score = scorePerseusItem(
+                                    question,
+                                    rendererRef.current.getUserInputMap(),
+                                    mockStrings,
+                                    "en",
+                                );
+                                setScore(score);
+                            }
                             clearScoreTimeout.set();
                         }}
                     >

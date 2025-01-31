@@ -8,7 +8,7 @@ import * as React from "react";
 type StyleOptions = "solid" | "dashed";
 type Props = {
     selectedValue: StyleOptions;
-    onChange: (newValue: string) => void;
+    onChange: (newValue: StyleOptions) => void;
 };
 
 const LineStrokeSelect = (props: Props) => {
@@ -20,7 +20,7 @@ const LineStrokeSelect = (props: Props) => {
             <Strut size={spacing.xxxSmall_4} />
             <SingleSelect
                 selectedValue={selectedValue}
-                onChange={onChange}
+                onChange={onChange as any}
                 // Placeholder is required, but never gets used.
                 placeholder=""
             >

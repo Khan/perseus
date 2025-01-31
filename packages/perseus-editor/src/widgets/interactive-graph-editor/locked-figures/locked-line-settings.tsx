@@ -27,18 +27,20 @@ import LockedLabelSettings from "./locked-label-settings";
 import LockedPointSettings from "./locked-point-settings";
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
+import type {Coord} from "@khanacademy/perseus";
 import type {
-    Coord,
     LockedFigure,
     LockedFigureColor,
     LockedLabelType,
     LockedLineType,
     LockedPointType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 const lengthZeroStr = "The line cannot have length 0.";
 
@@ -52,7 +54,6 @@ export type Props = LockedLineType &
 
 const LockedLineSettings = (props: Props) => {
     const {
-        flags,
         kind,
         points,
         color: lineColor,
@@ -73,13 +74,30 @@ const LockedLineSettings = (props: Props) => {
 
     // Check if the line has length 0.
     const isInvalid = kvector.equal(point1.coord, point2.coord);
+    /**
+     * Generate a prepopulated aria label for the line, with the math
+     * details converted into spoken words.
+     */
+    async function getPrepopulatedAriaLabel() {
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
+        const point1VisibleLabel = await joinLabelsAsSpokenMath(point1.labels);
+        const point2VisibleLabel = await joinLabelsAsSpokenMath(point2.labels);
+        // Ensure negative values are read correctly within aria labels.
+        const spokenPoint1X = await generateSpokenMathDetails(
+            `$${point1.coord[0]}$`,
+        );
+        const spokenPoint1Y = await generateSpokenMathDetails(
+            `$${point1.coord[1]}$`,
+        );
+        const spokenPoint2X = await generateSpokenMathDetails(
+            `$${point2.coord[0]}$`,
+        );
+        const spokenPoint2Y = await generateSpokenMathDetails(
+            `$${point2.coord[1]}$`,
+        );
 
-    function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
-        let str = `${capitalizeKind}${visiblelabel} from (${point1.coord[0]}, ${point1.coord[1]}) to (${point2.coord[0]}, ${point2.coord[1]})`;
+        let str = `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at ${spokenPoint1X} comma ${spokenPoint1Y} to point${point2VisibleLabel} at ${spokenPoint2X} comma ${spokenPoint2Y}`;
+
         const lineAppearance = generateLockedFigureAppearanceDescription(
             lineColor,
             lineStyle,
@@ -157,7 +175,7 @@ const LockedLineSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -201,8 +219,10 @@ const LockedLineSettings = (props: Props) => {
                 <Strut size={spacing.xxxSmall_4} />
                 <SingleSelect
                     selectedValue={kind}
-                    onChange={(value: "line" | "segment" | "ray") =>
-                        onChangeProps({kind: value})
+                    // TODO(LEMS-2656): remove TS suppression
+                    onChange={
+                        ((value: "line" | "segment" | "ray") =>
+                            onChangeProps({kind: value})) as any
                     }
                     // Placeholder is required, but never gets used.
                     placeholder=""
@@ -224,8 +244,9 @@ const LockedLineSettings = (props: Props) => {
                 {/* Line style settings */}
                 <LineStrokeSelect
                     selectedValue={lineStyle}
-                    onChange={(value: "solid" | "dashed") =>
-                        onChangeProps({lineStyle: value})
+                    onChange={
+                        ((value: "solid" | "dashed") =>
+                            onChangeProps({lineStyle: value})) as any
                     }
                 />
             </View>
@@ -239,7 +260,6 @@ const LockedLineSettings = (props: Props) => {
 
             {/* Defining points settings */}
             <LockedPointSettings
-                flags={flags}
                 headerLabel="Point 1"
                 expanded={true}
                 showPoint={showPoint1}
@@ -251,7 +271,6 @@ const LockedLineSettings = (props: Props) => {
                 onChangeProps={(newProps) => handleChangePoint(newProps, 0)}
             />
             <LockedPointSettings
-                flags={flags}
                 headerLabel="Point 2"
                 expanded={true}
                 showPoint={showPoint2}
@@ -263,72 +282,64 @@ const LockedLineSettings = (props: Props) => {
                 onChangeProps={(newProps) => handleChangePoint(newProps, 1)}
             />
 
-            {flags?.["mafs"]?.["locked-figures-aria"] && (
-                <>
-                    <Strut size={spacing.small_12} />
-                    <View style={styles.horizontalRule} />
+            {/* Aria label */}
+            <Strut size={spacing.small_12} />
+            <View style={styles.horizontalRule} />
+            <LockedFigureAria
+                ariaLabel={ariaLabel}
+                getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                onChangeProps={(newProps) => {
+                    onChangeProps(newProps);
+                }}
+            />
 
-                    <LockedFigureAria
-                        ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
-                        onChangeProps={(newProps) => {
-                            onChangeProps(newProps);
-                        }}
-                    />
-                </>
-            )}
+            {/* Visible labels */}
+            <Strut size={spacing.xxxSmall_4} />
+            <View style={styles.horizontalRule} />
+            <Strut size={spacing.small_12} />
+            <LabelMedium>Visible labels</LabelMedium>
 
-            {flags?.["mafs"]?.["locked-line-labels"] && (
-                <>
-                    <Strut size={spacing.xxxSmall_4} />
-                    <View style={styles.horizontalRule} />
-                    <Strut size={spacing.small_12} />
+            {labels?.map((label, labelIndex) => (
+                <LockedLabelSettings
+                    {...label}
+                    key={labelIndex}
+                    expanded={true}
+                    onChangeProps={(newLabel) => {
+                        handleLabelChange(newLabel, labelIndex);
+                    }}
+                    onRemove={() => {
+                        handleLabelRemove(labelIndex);
+                    }}
+                    containerStyle={styles.labelContainer}
+                />
+            ))}
+            <Button
+                kind="tertiary"
+                startIcon={plusCircle}
+                onClick={() => {
+                    // Additional vertical offset for each label so
+                    // they don't overlap.
+                    const offsetPerLabel: vec.Vector2 = [0, -1];
+                    const labelLocation = vec.add(
+                        vec.scale(offsetPerLabel, labels?.length ?? 0),
+                        vec.midpoint(points[0].coord, points[1].coord),
+                    );
 
-                    <LabelMedium>Visible labels</LabelMedium>
+                    const newLabel = {
+                        ...getDefaultFigureForType("label"),
+                        coord: labelLocation,
+                        // Default to the same color as the line
+                        color: lineColor,
+                    } satisfies LockedLabelType;
 
-                    {labels?.map((label, labelIndex) => (
-                        <LockedLabelSettings
-                            {...label}
-                            expanded={true}
-                            onChangeProps={(newLabel: LockedLabelType) => {
-                                handleLabelChange(newLabel, labelIndex);
-                            }}
-                            onRemove={() => {
-                                handleLabelRemove(labelIndex);
-                            }}
-                            containerStyle={styles.labelContainer}
-                        />
-                    ))}
-
-                    <Button
-                        kind="tertiary"
-                        startIcon={plusCircle}
-                        onClick={() => {
-                            // Additional vertical offset for each label so
-                            // they don't overlap.
-                            const offsetPerLabel: vec.Vector2 = [0, -1];
-                            const labelLocation = vec.add(
-                                vec.scale(offsetPerLabel, labels?.length ?? 0),
-                                vec.midpoint(points[0].coord, points[1].coord),
-                            );
-
-                            const newLabel = {
-                                ...getDefaultFigureForType("label"),
-                                coord: labelLocation,
-                                // Default to the same color as the line
-                                color: lineColor,
-                            } satisfies LockedLabelType;
-
-                            onChangeProps({
-                                labels: [...(labels ?? []), newLabel],
-                            });
-                        }}
-                        style={styles.addButton}
-                    >
-                        Add visible label
-                    </Button>
-                </>
-            )}
+                    onChangeProps({
+                        labels: [...(labels ?? []), newLabel],
+                    });
+                }}
+                style={styles.addButton}
+            >
+                Add visible label
+            </Button>
 
             {/* Actions */}
             <LockedFigureSettingsActions

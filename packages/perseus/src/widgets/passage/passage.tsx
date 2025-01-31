@@ -9,7 +9,8 @@ import HighlightableContent from "../../components/highlighting/highlightable-co
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage/passage-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 
 import PassageMarkdown from "./passage-markdown";
 import {isPassageWidget} from "./utils";
@@ -17,11 +18,12 @@ import {isPassageWidget} from "./utils";
 import type {ParseState} from "./passage-markdown";
 import type {SerializedHighlightSet} from "../../components/highlighting/types";
 import type {ChangeableProps} from "../../mixins/changeable";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {PassagePromptJSON} from "../../widget-ai-utils/passage/passage-ai-utils";
 import type {
     PerseusPassageWidgetOptions,
     PerseusWidget,
-} from "../../perseus-types";
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
+} from "@khanacademy/perseus-core";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 // A fake paragraph to measure the line height of the passage,
@@ -369,6 +371,10 @@ export class Passage
         };
     }
 
+    getPromptJSON(): PassagePromptJSON {
+        return _getPromptJSON(this.props);
+    }
+
     /**
      * Rendering
      *
@@ -558,5 +564,5 @@ export default {
         );
     },
     isLintable: true,
-    validator: () => noopValidator(),
-} as WidgetExports<typeof Passage>;
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof Passage>;

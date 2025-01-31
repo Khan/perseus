@@ -1,10 +1,11 @@
+import {geometry} from "@khanacademy/kmath";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 
-import {magnitude, vector} from "../../../util/geometry";
 import {normalizeCoords, normalizePoints} from "../utils";
 
 import type {Coord} from "../../../interactive2/types";
+import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {
     PerseusGraphType,
     PerseusGraphTypeAngle,
@@ -17,9 +18,10 @@ import type {
     PerseusGraphTypeRay,
     PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
-} from "../../../perseus-types";
-import type {InteractiveGraphState, PairOfPoints} from "../types";
+} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
+
+const {magnitude, vector} = geometry;
 
 export type InitializeGraphStateParams = {
     range: [x: Interval, y: Interval];
@@ -75,6 +77,7 @@ export function initializeGraphState(
                 showRemovePointButton: false,
                 interactionMode: "mouse",
                 showKeyboardInteractionInvitation: false,
+                closedPolygon: false,
             };
         case "point":
             return {

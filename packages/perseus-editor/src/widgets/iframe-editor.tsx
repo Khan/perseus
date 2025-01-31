@@ -1,11 +1,17 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {
+    iframeLogic,
+    type IFrameDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
+
+type ChangeFn = typeof Changeable.change;
 
 type PairEditorProps = any;
 
@@ -24,7 +30,7 @@ class PairEditor extends React.Component<PairEditorProps> {
         value: "",
     };
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -70,7 +76,7 @@ class PairsEditor extends React.Component<PairsEditorProps> {
         ).isRequired,
     };
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -118,14 +124,8 @@ class IframeEditor extends React.Component<IframeEditorProps> {
 
     static widgetName = "iframe" as const;
 
-    static defaultProps: IframeEditorProps = {
-        url: "",
-        settings: [{name: "", value: ""}],
-        width: "400",
-        height: "400",
-        allowFullScreen: false,
-        allowTopNavigation: false,
-    };
+    static defaultProps: IFrameDefaultWidgetOptions =
+        iframeLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);

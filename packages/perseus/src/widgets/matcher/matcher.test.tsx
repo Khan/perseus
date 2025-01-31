@@ -4,6 +4,7 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {wait} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./matcher.testdata";
@@ -105,6 +106,7 @@ describe("matcher widget", () => {
         const {renderer} = renderQuestion(question1, apiOptions);
         await wait();
 
+        // Act
         const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
 
         // Put the right options in the correct order by repeatedly moving
@@ -118,12 +120,13 @@ describe("matcher widget", () => {
         ].forEach((option, index) => {
             act(() => matcher.moveRightOptionToIndex(option, 4));
         });
-
-        // Act
-        renderer.guessAndScore();
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("can be answered incorrectly", async () => {
@@ -134,6 +137,7 @@ describe("matcher widget", () => {
         const {renderer} = renderQuestion(question1, apiOptions);
         await wait();
 
+        // Act
         const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
 
         // Put the left options in reverse order
@@ -146,12 +150,13 @@ describe("matcher widget", () => {
         ].forEach((option, index) => {
             matcher.moveLeftOptionToIndex(option, 0);
         });
-
-        // Act
-        renderer.guessAndScore();
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("is scored incorrect if the math renderer hasn't loaded yet", () => {
@@ -164,15 +169,17 @@ describe("matcher widget", () => {
             },
         });
 
+        // Act
         const apiOptions: APIOptions = {
             isMobile: false,
         };
         const {renderer} = renderQuestion(question1, apiOptions);
-
-        // Act
-        renderer.guessAndScore();
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 });

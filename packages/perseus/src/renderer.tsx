@@ -1,6 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {Errors, PerseusError, mapObject} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import classNames from "classnames";
@@ -19,45 +19,54 @@ import {DefinitionProvider} from "./definition-context";
 import {getDependencies} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
 import InteractionTracker from "./interaction-tracker";
-import Objective from "./interactive2/objective_";
 import JiptParagraphs from "./jipt-paragraphs";
 import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
-import {emptyWidgetsFunctional, scoreWidgetsFunctional} from "./renderer-util";
+import {
+    emptyWidgetsFunctional,
+    getUpgradedWidgetOptions,
+    scoreWidgetsFunctional,
+} from "./renderer-util";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
+import {flattenScores} from "./util/scoring";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";
-import type {
-    PerseusRenderer,
-    PerseusWidget,
-    PerseusWidgetOptions,
-    PerseusWidgetsMap,
-    ShowSolutions,
-} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
     FilterCriterion,
     FocusPath,
-    PerseusScore,
     SerializedState,
     Widget,
     WidgetProps,
 } from "./types";
-import type {UserInputArray, UserInputMap} from "./validation.types";
+import type {
+    GetPromptJSONInterface,
+    RendererPromptJSON,
+} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
+import type {
+    PerseusRenderer,
+    PerseusWidget,
+    PerseusWidgetOptions,
+    PerseusWidgetsMap,
+    ShowSolutions,
+} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {
+    PerseusScore,
+    UserInputArray,
+    UserInputMap,
+} from "@khanacademy/perseus-score";
 
 import "./styles/perseus-renderer.less";
-
-const {mapObject} = Objective;
 
 const rContainsNonWhitespace = /\S/;
 const rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
@@ -187,7 +196,10 @@ type DefaultProps = Required<
     >
 >;
 
-class Renderer extends React.Component<Props, State> {
+class Renderer
+    extends React.Component<Props, State>
+    implements GetPromptJSONInterface
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -375,9 +387,9 @@ class Renderer extends React.Component<Props, State> {
         // WidgetContainers don't update their widgets' props when
         // they are re-rendered, so even if they've been
         // re-rendered we need to call these methods on them.
-        _.each(this.widgetIds, (id) => {
+        this.widgetIds.forEach((id) => {
             const container = this._widgetContainers.get(makeContainerId(id));
-            container && container.replaceWidgetProps(this.getWidgetProps(id));
+            container?.replaceWidgetProps(this.getWidgetProps(id));
         });
 
         if (
@@ -431,36 +443,11 @@ class Renderer extends React.Component<Props, State> {
         widgetInfo: State["widgetInfo"];
         widgetProps: State["widgetProps"];
     } = (props: Props) => {
-        const allWidgetInfo = this._getAllWidgetsInfo(props);
+        const allWidgetInfo = getUpgradedWidgetOptions(props.widgets);
         return {
             widgetInfo: allWidgetInfo,
             widgetProps: this._getAllWidgetsStartProps(allWidgetInfo, props),
         };
-    };
-
-    // @ts-expect-error - TS2322 - Type '(props: Props) => Partial<Record<string, CategorizerWidget | CSProgramWidget | DefinitionWidget | DropdownWidget | ... 35 more ... | VideoWidget>>' is not assignable to type '(props: Props) => { [key: string]: PerseusWidget; }'.
-    _getAllWidgetsInfo: (props: Props) => PerseusWidgetsMap = (
-        props: Props,
-    ) => {
-        return mapObject(props.widgets, (widgetInfo, widgetId) => {
-            if (!widgetInfo.type || !widgetInfo.alignment) {
-                const newValues: Record<string, any> = {};
-
-                if (!widgetInfo.type) {
-                    // TODO: why does widget have no type?
-                    // We don't want to derive type from widget ID
-                    // see: LEMS-1845
-                    newValues.type = widgetId.split(" ")[0];
-                }
-
-                if (!widgetInfo.alignment) {
-                    newValues.alignment = "default";
-                }
-
-                widgetInfo = _.extend({}, widgetInfo, newValues);
-            }
-            return Widgets.upgradeWidgetInfoToLatestVersion(widgetInfo);
-        });
     };
 
     _getAllWidgetsStartProps: (
@@ -567,15 +554,13 @@ class Renderer extends React.Component<Props, State> {
         return null;
     };
 
-    getWidgetProps: (id: string) => WidgetProps<any, PerseusWidgetOptions> = (
-        id,
-    ) => {
+    getWidgetProps(widgetId: string): WidgetProps<any, PerseusWidgetOptions> {
         const apiOptions = this.getApiOptions();
-        const widgetProps = this.state.widgetProps[id] || {};
+        const widgetProps = this.state.widgetProps[widgetId] || {};
 
-        // The widget needs access to its "rubric" at all times when in review
+        // The widget needs access to its "scoring data" at all times when in review
         // mode (which is really just part of its widget info).
-        const widgetInfo = this.state.widgetInfo[id];
+        const widgetInfo = this.state.widgetInfo[widgetId];
         const reviewModeRubric =
             this.props.reviewMode && widgetInfo ? widgetInfo.options : null;
 
@@ -583,20 +568,20 @@ class Renderer extends React.Component<Props, State> {
             this._interactionTrackers = {};
         }
 
-        let interactionTracker = this._interactionTrackers[id];
+        let interactionTracker = this._interactionTrackers[widgetId];
         if (!interactionTracker) {
-            interactionTracker = this._interactionTrackers[id] =
+            interactionTracker = this._interactionTrackers[widgetId] =
                 new InteractionTracker(
                     apiOptions.trackInteraction,
                     widgetInfo && widgetInfo.type,
-                    id,
+                    widgetId,
                     Widgets.getTracking(widgetInfo && widgetInfo.type),
                 );
         }
 
         return {
             ...widgetProps,
-            widgetId: id,
+            widgetId: widgetId,
             alignment: widgetInfo && widgetInfo.alignment,
             static: widgetInfo?.static,
             problemNum: this.props.problemNum,
@@ -604,18 +589,18 @@ class Renderer extends React.Component<Props, State> {
             keypadElement: this.props.keypadElement,
             questionCompleted: this.props.questionCompleted,
             showSolutions: this.props.showSolutions,
-            onFocus: _.partial(this._onWidgetFocus, id),
-            onBlur: _.partial(this._onWidgetBlur, id),
+            onFocus: _.partial(this._onWidgetFocus, widgetId),
+            onBlur: _.partial(this._onWidgetBlur, widgetId),
             findWidgets: this.findWidgets,
             reviewModeRubric: reviewModeRubric,
             reviewMode: this.props.reviewMode,
             onChange: (newProps, cb, silent = false) => {
-                this._setWidgetProps(id, newProps, cb, silent);
+                this._setWidgetProps(widgetId, newProps, cb, silent);
             },
             trackInteraction: interactionTracker.track,
-            isLastUsedWidget: id === this.state.lastUsedWidgetId,
+            isLastUsedWidget: widgetId === this.state.lastUsedWidgetId,
         };
-    };
+    }
 
     /**
      * Serializes the questions state so it can be recovered.
@@ -1119,7 +1104,7 @@ class Renderer extends React.Component<Props, State> {
             // /cry(aria)
             this._foundTextNodes = true;
 
-            if (_.contains(this.widgetIds, node.id)) {
+            if (this.widgetIds.includes(node.id)) {
                 // We don't want to render a duplicate widget key/ref,
                 // as this causes problems with react (for obvious
                 // reasons). Instead we just notify the
@@ -1505,7 +1490,7 @@ class Renderer extends React.Component<Props, State> {
 
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         const inputPaths: Array<FocusPath> = [];
-        _.each(this.widgetIds, (widgetId: string) => {
+        this.widgetIds.forEach((widgetId: string) => {
             const widget = this.getWidgetInstance(widgetId);
             if (widget && widget.getInputPaths) {
                 // Grab all input paths and add widgetID to the front
@@ -1513,7 +1498,7 @@ class Renderer extends React.Component<Props, State> {
                 // Prefix paths with their widgetID and add to collective
                 // list of paths.
                 // @ts-expect-error - TS2345 - Argument of type '(inputPath: string) => void' is not assignable to parameter of type 'CollectionIterator<FocusPath, void, readonly FocusPath[]>'.
-                _.each(widgetInputPaths, (inputPath: string) => {
+                widgetInputPaths.forEach((inputPath: string) => {
                     const relativeInputPath = [widgetId].concat(inputPath);
                     inputPaths.push(relativeInputPath);
                 });
@@ -1589,6 +1574,12 @@ class Renderer extends React.Component<Props, State> {
         return state;
     };
 
+    /**
+     * Returns an array of widget ids that are empty (meaning widgets where the
+     * learner has not interacted with the widget yet or has not filled in all
+     * fields).  For example, the `interactive-graph` widget is considered
+     * empty if the graph is in the starting state.
+     */
     emptyWidgets(): ReadonlyArray<string> {
         return emptyWidgetsFunctional(
             this.state.widgetInfo,
@@ -1662,8 +1653,8 @@ class Renderer extends React.Component<Props, State> {
     setInputValue: (
         path: FocusPath,
         newValue: string,
-        focus?: () => unknown,
-    ) => void = (path, newValue, focus) => {
+        cb?: () => void,
+    ) => void = (path, newValue, cb) => {
         // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
         const widgetId = _.first(path);
         // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
@@ -1671,7 +1662,7 @@ class Renderer extends React.Component<Props, State> {
         const widget = this.getWidgetInstance(widgetId);
 
         // Widget handles parsing of the interWidgetPath.
-        widget?.setInputValue?.(interWidgetPath, newValue, focus);
+        widget?.setInputValue?.(interWidgetPath, newValue, cb);
     };
 
     /**
@@ -1717,64 +1708,41 @@ class Renderer extends React.Component<Props, State> {
     };
 
     /**
-     * Returns an object mapping from widget ID to perseus-style score.
-     * The keys of this object are the values of the array returned
-     * from `getWidgetIds`.
+     * Returns a JSON representation of the content and widgets
+     * that can be passed to an LLM for prompt context.
      */
-    scoreWidgets(): {[widgetId: string]: PerseusScore} {
-        return scoreWidgetsFunctional(
+    getPromptJSON(): RendererPromptJSON {
+        const {content} = this.props;
+        const widgetJSON = {};
+
+        this.widgetIds.forEach((id) => {
+            const widget = this.getWidgetInstance(id);
+
+            widgetJSON[id] = widget?.getPromptJSON?.() || {};
+        });
+
+        return {
+            content,
+            widgets: widgetJSON,
+        };
+    }
+
+    /**
+     * Scores the content.
+     *
+     * @deprecated use scorePerseusItem
+     */
+    score(): PerseusScore {
+        const scores = scoreWidgetsFunctional(
             this.state.widgetInfo,
             this.widgetIds,
             this.getUserInputMap(),
             this.props.strings,
             this.context.locale,
         );
-    }
-
-    /**
-     * Grades the content.
-     */
-    score(): PerseusScore {
-        const scores = this.scoreWidgets();
-        const combinedScore = Util.flattenScores(scores);
+        const combinedScore = flattenScores(scores);
         return combinedScore;
     }
-
-    guessAndScore(): [UserInputArray, PerseusScore] {
-        const totalGuess = this.getUserInput();
-        const totalScore = this.score();
-
-        return [totalGuess, totalScore];
-    }
-
-    examples: () => ReadonlyArray<string> | null | undefined = () => {
-        const widgetIds = this.widgetIds;
-        const examples = _.compact(
-            _.map(widgetIds, (widgetId) => {
-                const widget = this.getWidgetInstance(widgetId);
-                return widget != null && widget.examples
-                    ? widget.examples()
-                    : null;
-            }),
-        );
-
-        // no widgets with examples
-        if (!examples.length) {
-            return null;
-        }
-
-        const allEqual = _.all(examples, function (example) {
-            return _.isEqual(examples[0], example);
-        });
-
-        // some widgets have different examples
-        // TODO(alex): handle this better
-        if (!allEqual) {
-            return null;
-        }
-
-        return examples[0];
-    };
 
     // TranslationLinter callback
     handletranslationLintErrors: (lintErrors: ReadonlyArray<string>) => void = (

@@ -1,4 +1,5 @@
 import {it, describe, beforeEach} from "@jest/globals";
+import {KeypadType} from "@khanacademy/math-input";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -7,9 +8,14 @@ import {
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItem} from "../../renderer-util";
+import {mockStrings} from "../../strings";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import ExpressionWidgetExport from "./expression";
+import ExpressionWidgetExport, {
+    keypadConfigurationForProps,
+} from "./expression";
 import {
     expressionItem2,
     expressionItem3,
@@ -17,7 +23,11 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
-import type {PerseusItem} from "../../perseus-types";
+import type {KeypadConfiguration} from "@khanacademy/math-input";
+import type {
+    PerseusItem,
+    PerseusExpressionWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
@@ -45,7 +55,11 @@ const assertCorrect = async (
         input,
         true,
     );
-    expect(renderer).toHaveBeenAnsweredCorrectly();
+    const score = scorePerseusItemTesting(
+        itemData.question,
+        renderer.getUserInputMap(),
+    );
+    expect(score).toHaveBeenAnsweredCorrectly();
 };
 
 const assertIncorrect = async (
@@ -59,7 +73,11 @@ const assertIncorrect = async (
         input,
         false,
     );
-    expect(renderer).toHaveBeenAnsweredIncorrectly();
+    const score = scorePerseusItemTesting(
+        itemData.question,
+        renderer.getUserInputMap(),
+    );
+    expect(score).toHaveBeenAnsweredIncorrectly();
 };
 
 // TODO: actually Assert that message is being set on the score object.
@@ -75,7 +93,11 @@ const assertInvalid = async (
         await userEvent.type(screen.getByRole("textbox"), input);
     }
     act(() => jest.runOnlyPendingTimers());
-    expect(renderer).toHaveInvalidInput();
+    const score = scorePerseusItemTesting(
+        itemData.question,
+        renderer.getUserInputMap(),
+    );
+    expect(score).toHaveInvalidInput();
 };
 
 describe("Expression Widget", function () {
@@ -444,7 +466,12 @@ describe("Expression Widget", function () {
                 renderer.setInputValue(["expression 1"], "123-x", () => {}),
             );
             act(() => jest.runOnlyPendingTimers());
-            const score = renderer.guessAndScore()[1];
+            const score = scorePerseusItem(
+                expressionItem2.question,
+                renderer.getUserInputMap(),
+                mockStrings,
+                "en",
+            );
 
             // Assert
             expect(score.type).toBe("points");
@@ -464,7 +491,12 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
 
             // act
-            const score = renderer.score();
+            const score = scorePerseusItem(
+                expressionItem2.question,
+                renderer.getUserInputMap(),
+                mockStrings,
+                "en",
+            );
 
             // Assert
             // Score.total doesn't exist if the input is invalid
@@ -495,7 +527,6 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
             act(() => screen.getByRole("textbox").blur());
             act(() => jest.runOnlyPendingTimers());
-            renderer.guessAndScore();
 
             // Assert
             await waitFor(() =>
@@ -514,13 +545,86 @@ describe("Expression Widget", function () {
             act(() => expression.insert("sen(x)"));
             act(() => jest.runOnlyPendingTimers());
             act(() => screen.getByRole("textbox").blur());
-            renderer.guessAndScore();
 
             // Assert
             expect(screen.queryByText("Oops!")).toBeNull();
             expect(
                 screen.queryByText("Sorry, I don't understand that!"),
             ).toBeNull();
+        });
+    });
+});
+
+describe("Keypad configuration", () => {
+    it("should handle basic button set", async () => {
+        // Arrange
+        const widgetOptions: PerseusExpressionWidgetOptions = {
+            answerForms: [],
+            buttonSets: ["basic"],
+            times: false,
+            functions: [],
+        };
+
+        const expected: KeypadConfiguration = {
+            keypadType: KeypadType.EXPRESSION,
+            times: false,
+            extraKeys: ["PI"],
+        };
+
+        // Act
+        const result = keypadConfigurationForProps(widgetOptions);
+
+        // Assert
+        expect(result).toEqual(expected);
+    });
+
+    it("should handle basic+div button set", async () => {
+        // Arrange
+        // Act
+        // Assert
+        expect(
+            keypadConfigurationForProps({
+                answerForms: [],
+                buttonSets: ["basic+div"],
+                times: false,
+                functions: [],
+            }),
+        ).toEqual({
+            keypadType: KeypadType.EXPRESSION,
+            times: false,
+            extraKeys: ["PI"],
+        });
+    });
+
+    it("should return expression keypad configuration by default", async () => {
+        // Arrange
+        // Act
+        const result = keypadConfigurationForProps({
+            answerForms: [],
+            buttonSets: [],
+            times: false,
+            functions: [],
+        });
+
+        // Assert
+        expect(result.keypadType).toEqual(KeypadType.EXPRESSION);
+    });
+
+    it("should handle scientific button set", async () => {
+        // Arrange
+        // Act
+        // Assert
+        expect(
+            keypadConfigurationForProps({
+                answerForms: [],
+                buttonSets: ["scientific"],
+                times: false,
+                functions: [],
+            }),
+        ).toEqual({
+            keypadType: KeypadType.EXPRESSION,
+            times: false,
+            extraKeys: ["PI"],
         });
     });
 });

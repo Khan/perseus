@@ -7,21 +7,21 @@ import {
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
 } from "@khanacademy/perseus";
+import {
+    GrapherUtil as CoreGrapherUtil,
+    grapherLogic,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
 import GraphSettings from "../components/graph-settings";
 
+import type {GrapherDefaultWidgetOptions} from "@khanacademy/perseus-core";
+
 const {InfoTip, MultiButtonGroup} = components;
 const Grapher = GrapherWidget.widget;
-const {
-    DEFAULT_GRAPHER_PROPS,
-    allTypes,
-    chooseType,
-    defaultPlotProps,
-    getEquationString,
-    typeToButton,
-} = GrapherUtil;
+const {chooseType, defaultPlotProps, getEquationString, typeToButton} =
+    GrapherUtil;
 
 type Props = any;
 
@@ -32,11 +32,8 @@ class GrapherEditor extends React.Component<Props> {
 
     static widgetName = "grapher" as const;
 
-    static defaultProps: Props = {
-        correct: DEFAULT_GRAPHER_PROPS.plot,
-        graph: DEFAULT_GRAPHER_PROPS.graph,
-        availableTypes: DEFAULT_GRAPHER_PROPS.availableTypes,
-    };
+    static defaultProps: GrapherDefaultWidgetOptions =
+        grapherLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
@@ -141,7 +138,7 @@ class GrapherEditor extends React.Component<Props> {
                     <MultiButtonGroup
                         allowEmpty={false}
                         values={this.props.availableTypes}
-                        buttons={_.map(allTypes, typeToButton)}
+                        buttons={_.map(CoreGrapherUtil.allTypes, typeToButton)}
                         onChange={this.handleAvailableTypesChange}
                     />
                 </div>

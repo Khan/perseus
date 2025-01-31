@@ -2,6 +2,7 @@
  * This widget is for embedding Khan Academy CS programs.
  */
 
+import {scoreCSProgram} from "@khanacademy/perseus-score";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
 import * as React from "react";
@@ -13,21 +14,18 @@ import {articleMaxWidthInPx} from "../../styles/constants";
 import Util from "../../util";
 import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/cs-program-ai-utils";
 
-import {csProgramValidator} from "./cs-program-validator";
-
-import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusCSProgramRubric,
-    PerseusCSProgramUserInput,
-} from "../../validation.types";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {PerseusCSProgramWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusCSProgramUserInput} from "@khanacademy/perseus-score";
 
 const {updateQueryString} = Util;
 
 type RenderProps = PerseusCSProgramWidgetOptions & PerseusCSProgramUserInput;
 
-type Props = WidgetProps<RenderProps, PerseusCSProgramRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     showEditor: Props["showEditor"];
@@ -79,7 +77,7 @@ class CSProgram extends React.Component<Props> implements Widget {
         let data: Record<string, any> = {};
         try {
             data = JSON.parse(e.originalEvent.data);
-        } catch (err: any) {
+        } catch {
             return;
         }
 
@@ -104,6 +102,10 @@ class CSProgram extends React.Component<Props> implements Widget {
             status: this.props.status,
             message: this.props.message,
         };
+    }
+
+    getPromptJSON(): UnsupportedWidgetPromptJSON {
+        return _getPromptJSON();
     }
 
     render(): React.ReactNode {
@@ -199,5 +201,7 @@ export default {
     supportedAlignments: ["block", "full-width"],
     widget: CSProgram,
     hidden: true,
-    validator: csProgramValidator,
-} as WidgetExports<typeof CSProgram>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
+    scorer: scoreCSProgram,
+} satisfies WidgetExports<typeof CSProgram>;

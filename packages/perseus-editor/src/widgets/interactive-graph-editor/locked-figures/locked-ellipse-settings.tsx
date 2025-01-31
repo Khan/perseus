@@ -1,4 +1,5 @@
-import {components, lockedFigureFillStyles} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
+import {lockedFigureFillStyles} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -22,7 +23,9 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -32,7 +35,7 @@ import type {
     LockedEllipseType,
     LockedFigureColor,
     LockedLabelType,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
 
@@ -46,7 +49,6 @@ export type Props = LockedFigureSettingsCommonProps &
 
 const LockedEllipseSettings = (props: Props) => {
     const {
-        flags,
         center,
         radius,
         angle,
@@ -62,11 +64,18 @@ const LockedEllipseSettings = (props: Props) => {
         onRemove,
     } = props;
 
-    function getPrepopulatedAriaLabel() {
-        let visiblelabel = "";
-        if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
+    /**
+     * Generate the prepopulated aria label for the ellipse,
+     * with the math details converted into spoken words.
+     */
+    async function getPrepopulatedAriaLabel() {
+        // Ensure negative values are read correctly within aria labels.
+        const visiblelabel = await joinLabelsAsSpokenMath(labels);
+        const spokenCenterX = await generateSpokenMathDetails(`$${center[0]}$`);
+        const spokenCenterY = await generateSpokenMathDetails(`$${center[1]}$`);
+        const spokenRotation = await generateSpokenMathDetails(
+            `$${radianToDegree(angle)}$`,
+        );
 
         const isCircle = radius[0] === radius[1];
         let str = "";
@@ -77,10 +86,10 @@ const LockedEllipseSettings = (props: Props) => {
             str += `Ellipse${visiblelabel} with x radius ${radius[0]} and y radius ${radius[1]}`;
         }
 
-        str += `, centered at (${center[0]}, ${center[1]})`;
+        str += `, centered at ${spokenCenterX} comma ${spokenCenterY}`;
 
         if (!isCircle && angle !== 0) {
-            str += `, rotated by ${radianToDegree(angle)} degrees`;
+            str += `, rotated by ${spokenRotation} degrees`;
         }
 
         const ellipseAppearance = generateLockedFigureAppearanceDescription(
@@ -124,7 +133,7 @@ const LockedEllipseSettings = (props: Props) => {
     }
 
     function handleLabelChange(
-        updatedLabel: LockedLabelType,
+        updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
         if (!labels) {
@@ -217,8 +226,10 @@ const LockedEllipseSettings = (props: Props) => {
                     <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
                         selectedValue={fillStyle}
-                        onChange={(value: LockedFigureFillType) =>
-                            onChangeProps({fillStyle: value})
+                        // TODO(LEMS-2656): remove TS suppression
+                        onChange={
+                            ((value: LockedFigureFillType) =>
+                                onChangeProps({fillStyle: value})) as any
                         }
                         // Placeholder is required, but never gets used.
                         placeholder=""
@@ -237,76 +248,63 @@ const LockedEllipseSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
-                onChange={(value: "solid" | "dashed") =>
-                    onChangeProps({strokeStyle: value})
-                }
+                onChange={(value) => onChangeProps({strokeStyle: value})}
             />
 
             {/* Aria label */}
-            {flags?.["mafs"]?.["locked-figures-aria"] && (
-                <>
-                    <Strut size={spacing.small_12} />
-                    <View style={styles.horizontalRule} />
-
-                    <LockedFigureAria
-                        ariaLabel={ariaLabel}
-                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
-                        onChangeProps={(newProps) => {
-                            onChangeProps(newProps);
-                        }}
-                    />
-                </>
-            )}
+            <Strut size={spacing.small_12} />
+            <View style={styles.horizontalRule} />
+            <LockedFigureAria
+                ariaLabel={ariaLabel}
+                getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                onChangeProps={(newProps) => {
+                    onChangeProps(newProps);
+                }}
+            />
 
             {/* Visible Labels */}
-            {flags?.["mafs"]?.["locked-ellipse-labels"] && (
-                <>
-                    <Strut size={spacing.xxxSmall_4} />
-                    <View style={styles.horizontalRule} />
-                    <Strut size={spacing.small_12} />
+            <Strut size={spacing.xxxSmall_4} />
+            <View style={styles.horizontalRule} />
+            <Strut size={spacing.small_12} />
+            <LabelMedium>Visible labels</LabelMedium>
+            {labels?.map((label, labelIndex) => (
+                <LockedLabelSettings
+                    {...label}
+                    key={labelIndex}
+                    expanded={true}
+                    onChangeProps={(newLabel) => {
+                        handleLabelChange(newLabel, labelIndex);
+                    }}
+                    onRemove={() => {
+                        handleLabelRemove(labelIndex);
+                    }}
+                    containerStyle={styles.labelContainer}
+                />
+            ))}
+            <Button
+                kind="tertiary"
+                startIcon={plusCircle}
+                onClick={() => {
+                    const newLabel = {
+                        ...getDefaultFigureForType("label"),
+                        coord: [
+                            center[0],
+                            // Additional vertical offset for each
+                            // label so they don't overlap.
+                            center[1] - (labels?.length ?? 0),
+                        ],
+                        // Default to the same color as the ellipse
+                        color: color,
+                    } satisfies LockedLabelType;
 
-                    <LabelMedium>Visible labels</LabelMedium>
-
-                    {labels?.map((label, labelIndex) => (
-                        <LockedLabelSettings
-                            {...label}
-                            expanded={true}
-                            onChangeProps={(newLabel: LockedLabelType) => {
-                                handleLabelChange(newLabel, labelIndex);
-                            }}
-                            onRemove={() => {
-                                handleLabelRemove(labelIndex);
-                            }}
-                            containerStyle={styles.labelContainer}
-                        />
-                    ))}
-
-                    <Button
-                        kind="tertiary"
-                        startIcon={plusCircle}
-                        onClick={() => {
-                            const newLabel = {
-                                ...getDefaultFigureForType("label"),
-                                coord: [
-                                    center[0],
-                                    // Additional vertical offset for each
-                                    // label so they don't overlap.
-                                    center[1] - (labels?.length ?? 0),
-                                ],
-                                // Default to the same color as the ellipse
-                                color: color,
-                            } satisfies LockedLabelType;
-
-                            onChangeProps({
-                                labels: [...(labels ?? []), newLabel],
-                            });
-                        }}
-                        style={styles.addButton}
-                    >
-                        Add visible label
-                    </Button>
-                </>
-            )}
+                    onChangeProps({
+                        labels: [...(labels ?? []), newLabel],
+                    });
+                }}
+                style={styles.addButton}
+            >
+                Add visible label
+            </Button>
 
             {/* Actions */}
             <LockedFigureSettingsActions

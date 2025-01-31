@@ -1,4 +1,5 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {scoreMatcher} from "@khanacademy/perseus-score";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
@@ -9,16 +10,16 @@ import Sortable from "../../components/sortable";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import Util from "../../util";
-
-import matcherValidator from "./matcher-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
-import type {PerseusMatcherWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
+import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-score";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
@@ -100,6 +101,10 @@ export class Matcher extends React.Component<Props, State> implements Widget {
             right: this.refs.right.getOptions(),
         };
     };
+
+    getPromptJSON(): MatcherPromptJSON {
+        return _getPromptJSON(this.props, this.getUserInput());
+    }
 
     // Programatic API for moving options
     // This is used by testing
@@ -282,5 +287,7 @@ export default {
     displayName: "Matcher (two column)",
     widget: Matcher,
     isLintable: true,
-    validator: matcherValidator,
-} as WidgetExports<typeof Matcher>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatcherUserInput'.
+    scorer: scoreMatcher,
+} satisfies WidgetExports<typeof Matcher>;

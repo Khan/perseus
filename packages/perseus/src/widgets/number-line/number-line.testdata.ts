@@ -1,4 +1,4 @@
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
     content:
@@ -52,7 +52,7 @@ export const question2: PerseusRenderer = {
                 correctRel: "eq",
                 correctX: 0.5,
                 initialX: null,
-                showTooltip: false,
+                showTooltips: false,
                 isTickCtrl: true,
             },
         },

@@ -1,15 +1,15 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {testDependenciesV2} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 
 import VideoTranscriptLink from "./video-transcript-link";
 
 describe("VideoTranscriptLink", () => {
     beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-            ...testDependencies,
+        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+            ...testDependenciesV2,
             useVideo: (videoId, kind) => {
                 if (videoId === "5qap5aO4i9A") {
                     return {
@@ -135,11 +135,15 @@ describe("VideoTranscriptLink", () => {
 
     it("should link to /transcript/videoNotFound if the URL is not a youtube URL", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-            ...testDependencies,
-            // @ts-expect-error - TS2322 - Type '(videoId: string, kind: VideoKind) => { status: "success"; data: {}; }' is not assignable to type '(id: string, kind: VideoKind) => Result<{ video: VideoData | null | undefined; }>'.
+        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+            ...testDependenciesV2,
             useVideo: (videoId, kind) => {
-                return {status: "success", data: {}};
+                return {
+                    status: "success",
+                    data: {
+                        video: null,
+                    },
+                };
             },
         });
 
@@ -152,8 +156,8 @@ describe("VideoTranscriptLink", () => {
 
     it("should handle a success state", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-            ...testDependencies,
+        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+            ...testDependenciesV2,
             useVideo: (videoId, kind) => {
                 return {status: "loading"};
             },
@@ -166,11 +170,15 @@ describe("VideoTranscriptLink", () => {
 
     it("should link to /transcript/videoNotFound if there's no data", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-            ...testDependencies,
-            // @ts-expect-error - TS2322 - Type '(videoId: string, kind: VideoKind) => { status: "success"; data: {}; }' is not assignable to type '(id: string, kind: VideoKind) => Result<{ video: VideoData | null | undefined; }>'.
+        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+            ...testDependenciesV2,
             useVideo: (videoId, kind) => {
-                return {status: "success", data: {}};
+                return {
+                    status: "success",
+                    data: {
+                        video: null,
+                    },
+                };
             },
         });
 
@@ -183,11 +191,10 @@ describe("VideoTranscriptLink", () => {
 
     it("should handle an error state", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-            ...testDependencies,
-            // @ts-expect-error - TS2322 - Type '(videoId: string, kind: VideoKind) => { status: "error"; }' is not assignable to type '(id: string, kind: VideoKind) => Result<{ video: VideoData | null | undefined; }>'.
+        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+            ...testDependenciesV2,
             useVideo: (videoId, kind) => {
-                return {status: "error"};
+                return {status: "error", error: new Error()};
             },
         });
 
@@ -198,8 +205,8 @@ describe("VideoTranscriptLink", () => {
 
     it("should handle an aborted state", () => {
         // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-            ...testDependencies,
+        jest.spyOn(Dependencies, "useDependencies").mockReturnValue({
+            ...testDependenciesV2,
             useVideo: (videoId, kind) => {
                 return {status: "aborted"};
             },

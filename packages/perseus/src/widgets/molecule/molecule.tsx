@@ -2,14 +2,14 @@
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import noopValidator from "../__shared__/noop-validator";
+import scoreNoop from "../__shared__/score-noop";
 
 import draw from "./molecule-drawing";
 import MoleculeLayout from "./molecule-layout";
 import SmilesParser from "./smiles-parser";
 
-import type {PerseusMoleculeRendererWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports} from "../../types";
+import type {PerseusMoleculeRendererWidgetOptions} from "@khanacademy/perseus-core";
 
 const {layout} = MoleculeLayout;
 const parse = SmilesParser.parse;
@@ -160,5 +160,5 @@ export default {
     displayName: "Molecule renderer",
     hidden: true,
     widget: MoleculeWidget,
-    validator: () => noopValidator(),
-} as WidgetExports<typeof MoleculeWidget>;
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof MoleculeWidget>;

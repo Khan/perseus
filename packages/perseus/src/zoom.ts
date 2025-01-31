@@ -125,7 +125,9 @@ function changeViewportTag(
         // finished resetting.
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        callback && setTimeout(callback, 0);
+        if (callback != null) {
+            setTimeout(callback, 0);
+        }
     }, 0);
 }
 
@@ -263,7 +265,9 @@ ZoomServiceClass.prototype._scrollHandler = function (e: any) {
 };
 
 ZoomServiceClass.prototype._keyHandler = function (e: any) {
-    if (e.keyCode === 27) {
+    // 27: Esc, 13: Enter, 32: Space
+    const keyCodes = [27, 13, 32];
+    if (keyCodes.includes(e.keyCode)) {
         this._activeZoomClose();
     }
 };
@@ -364,12 +368,15 @@ Zoom.prototype.zoomImage = function () {
     }.bind(this);
 
     img.src = this._targetImage.src;
+    img.alt = this._targetImage.alt;
+    img.tabIndex = 0;
 
     this.$zoomedImage = $zoomedImage;
 };
 
 Zoom.prototype._zoomOriginal = function () {
     this.$zoomedImage.addClass("zoom-img").attr("data-action", "zoom-out");
+
     $(this._targetImage).css("visibility", "hidden");
 
     this._backdrop = document.createElement("div");

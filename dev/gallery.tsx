@@ -1,6 +1,6 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
 import Button from "@khanacademy/wonder-blocks-button";
-import {useUniqueIdWithMock, View} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, MultiSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import SearchField from "@khanacademy/wonder-blocks-search-field";
@@ -8,7 +8,7 @@ import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useId, useMemo, useState} from "react";
 
 import {Renderer} from "../packages/perseus/src";
 import {mockStrings} from "../packages/perseus/src/strings";
@@ -19,9 +19,9 @@ import * as numberLine from "../packages/perseus/src/widgets/number-line/number-
 
 import {Header} from "./header";
 
-import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
-
+import type {APIOptions} from "../packages/perseus/src";
 import "../packages/perseus/src/styles/perseus-renderer.less";
+import type {PerseusRenderer} from "../packages/perseus-core/src/data-schema";
 
 const questions: [PerseusRenderer, number][] = pairWithIndices([
     interactiveGraph.segmentQuestion,
@@ -98,7 +98,6 @@ function capitalize(key: string): string {
 }
 
 export function Gallery() {
-    const ids = useUniqueIdWithMock();
     const params = useMemo(
         () => new URLSearchParams(window.location.search),
         [],
@@ -148,10 +147,10 @@ export function Gallery() {
         return acc;
     }, {});
 
-    const mobileId = ids.get("mobile");
-    const tooltipId = ids.get("tooltip");
-    const flagsId = ids.get("flags");
-    const searchId = ids.get("search");
+    const mobileId = useId();
+    const tooltipId = useId();
+    const flagsId = useId();
+    const searchId = useId();
 
     const insertShowTooltips = ([question, i]): [PerseusRenderer, number] => {
         Object.keys(question.widgets).forEach((widgetName) => {

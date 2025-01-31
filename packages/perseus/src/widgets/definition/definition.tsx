@@ -6,13 +6,15 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {DefinitionConsumer} from "../../definition-context";
 import Renderer from "../../renderer";
-import noopValidator from "../__shared__/noop-validator";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
+import scoreNoop from "../__shared__/score-noop";
 
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {DefinitionPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
 import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
-} from "../../perseus-types";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+} from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 
@@ -37,6 +39,10 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
     isWidget = true as const;
+
+    getPromptJSON(): DefinitionPromptJSON {
+        return _getPromptJSON(this.props);
+    }
 
     render(): React.ReactNode {
         return (
@@ -104,6 +110,6 @@ export default {
     defaultAlignment: "inline",
     widget: Definition,
     transform: (x: any) => x,
-    // TODO: things that aren't interactive shouldn't need validators
-    validator: () => noopValidator(),
-} as WidgetExports<typeof Definition>;
+    // TODO: things that aren't interactive shouldn't need scoring functions
+    scorer: () => scoreNoop(),
+} satisfies WidgetExports<typeof Definition>;

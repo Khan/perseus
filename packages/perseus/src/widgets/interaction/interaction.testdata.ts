@@ -1,4 +1,4 @@
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
     content:
@@ -256,6 +256,63 @@ export const question1: PerseusRenderer = {
                 major: 0,
                 minor: 0,
             },
+        },
+    },
+};
+
+export const questionWithMovablePointMissingConstraints: PerseusRenderer = {
+    content: "[[☃ interaction 1]]",
+    images: {},
+    widgets: {
+        "interaction 1": {
+            graded: true,
+            options: {
+                static: false,
+                elements: [
+                    {
+                        key: "movable-point-64f8ec",
+                        options: {
+                            constraint: "none",
+                            constraintFn: "0",
+                            constraintXMin: "",
+                            constraintXMax: "",
+                            constraintYMin: "",
+                            constraintYMax: "",
+                            snap: 0.5,
+                            startX: "0",
+                            startY: "10",
+                            varSubscript: 0,
+                        },
+                        type: "movable-point",
+                    },
+                ],
+                graph: {
+                    backgroundImage: {
+                        bottom: 0,
+                        left: 0,
+                        scale: 1,
+                        url: null,
+                    },
+                    box: [400, 400],
+                    editableSettings: ["canvas", "graph"],
+                    gridStep: [2, 2],
+                    labels: ["x", "y"],
+                    markings: "graph",
+                    range: [
+                        [-5, 50],
+                        [-5, 50],
+                    ],
+                    rulerLabel: "",
+                    rulerTicks: 10,
+                    showProtractor: false,
+                    showRuler: false,
+                    snapStep: [1, 1],
+                    tickStep: [5, 5],
+                    valid: true,
+                },
+            },
+            type: "interaction",
+            version: {major: 0, minor: 0},
         },
     },
 };

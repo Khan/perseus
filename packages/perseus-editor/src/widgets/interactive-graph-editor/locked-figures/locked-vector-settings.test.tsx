@@ -6,7 +6,11 @@ import * as React from "react";
 import {flags} from "../../../__stories__/flags-for-api-options";
 
 import LockedVectorSettings from "./locked-vector-settings";
-import {getDefaultFigureForType} from "./util";
+import {
+    getDefaultFigureForType,
+    mockedGenerateSpokenMathDetailsForTests,
+    mockedJoinLabelsAsSpokenMathForTests,
+} from "./util";
 
 import type {Props} from "./locked-vector-settings";
 import type {UserEvent} from "@testing-library/user-event";
@@ -26,6 +30,15 @@ const defaultProps = {
 } as Props;
 
 const defaultLabel = getDefaultFigureForType("label");
+
+// Mock the async functions
+jest.mock("./util", () => ({
+    ...jest.requireActual("./util"),
+    generateSpokenMathDetails: (input) =>
+        mockedGenerateSpokenMathDetailsForTests(input),
+    joinLabelsAsSpokenMath: (input) =>
+        mockedJoinLabelsAsSpokenMathForTests(input),
+}));
 
 describe("Locked Vector Settings", () => {
     let userEvent: UserEvent;
@@ -288,7 +301,7 @@ describe("Locked Vector Settings", () => {
             );
 
             // Act
-            const labelText = screen.getByLabelText("TeX");
+            const labelText = screen.getByLabelText("text");
             await userEvent.type(labelText, "!");
 
             // Assert
@@ -431,7 +444,7 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Vector from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Vector from spoken $0$ comma spoken $0$ to spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
 
@@ -462,7 +475,7 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Vector A from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Vector spoken A from spoken $0$ comma spoken $0$ to spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
 
@@ -497,7 +510,7 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Vector A, B from (0, 0) to (2, 2). Appearance solid gray.",
+                    "Vector spoken A, spoken B from spoken $0$ comma spoken $0$ to spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
     });

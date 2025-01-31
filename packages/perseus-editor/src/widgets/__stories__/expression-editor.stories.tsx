@@ -4,11 +4,11 @@ import * as React from "react";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import ExpressionEditor from "../expression-editor";
 
+import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusRenderer,
-    APIOptions,
     PerseusExpressionWidgetOptions,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 type StoryArgs = Record<any, any>;
 
@@ -59,11 +59,14 @@ class WithDebug extends React.Component<Empty, State> {
                 <div className={css(styles.editorWrapper)}>
                     <ExpressionEditor
                         {...this.state}
-                        onChange={(props: PerseusExpressionWidgetOptions) => {
-                            this.setState({
-                                ...props,
-                            });
-                        }}
+                        // TODO(LEMS-2656): remove TS suppression
+                        onChange={
+                            ((props: PerseusExpressionWidgetOptions) => {
+                                this.setState({
+                                    ...props,
+                                });
+                            }) as any
+                        }
                     />
                 </div>
                 <RendererWithDebugUI

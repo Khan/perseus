@@ -4,7 +4,7 @@ import * as React from "react";
 
 import LabelImageEditor from "../label-image-editor";
 
-import type {MarkerType} from "@khanacademy/perseus";
+import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 type StoryArgs = Record<any, any>;
 
@@ -29,7 +29,7 @@ type State = {
     imageUrl: string;
     imageWidth: number;
     imageHeight: number;
-    markers: ReadonlyArray<MarkerType>;
+    markers: PerseusLabelImageWidgetOptions["markers"];
 };
 
 class WithState extends React.Component<Empty, State> {

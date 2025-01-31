@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable import/no-commonjs */
 const fs = require("fs");
 const path = require("path");
@@ -49,6 +49,7 @@ function banImportExtension(extension) {
 module.exports = {
     extends: [
         "@khanacademy",
+        "plugin:react/recommended",
         // This config includes rules from storybook to enforce story best
         // practices
         "plugin:storybook/recommended",
@@ -138,7 +139,7 @@ module.exports = {
         {
             files: ["config/**", "utils/**", "testing/*"],
             rules: {
-                "@typescript-eslint/no-var-requires": "off",
+                "@typescript-eslint/no-require-imports": "off",
                 "import/no-commonjs": "off",
                 "import/no-extraneous-dependencies": "off",
                 "import/no-relative-packages": "off",
@@ -147,7 +148,7 @@ module.exports = {
             },
         },
         {
-            files: ["*-validator.ts"],
+            files: ["score-*.ts"],
             rules: {
                 "no-restricted-syntax": [
                     "error",
@@ -155,14 +156,26 @@ module.exports = {
                         selector:
                             "ImportDeclaration > ImportSpecifier[local.name='APIOptions']",
                         message:
-                            "APIOptions is not available and should not be imported in validators.",
+                            "APIOptions is not available and should not be imported in scoring functions.",
                     },
                     {
                         selector: "ImportDeclaration[source.value='react']",
                         message:
-                            "React is not available and should not be imported in validators.",
+                            "React is not available and should not be imported in scoring functions.",
                     },
                 ],
+            },
+        },
+        {
+            /**
+             * .typetest.ts files are used to do "type testing" :mindblown:
+             * It is common practice in these files to declare variables and
+             * expressions that are never used.
+             */
+            files: ["*.typetest.ts"],
+            rules: {
+                "@typescript-eslint/no-unused-vars": "off",
+                "@typescript-eslint/no-unused-expressions": "off",
             },
         },
     ],
@@ -172,6 +185,11 @@ module.exports = {
         "no-invalid-this": "off",
         "@typescript-eslint/no-this-alias": "off",
         "no-unused-expressions": "off",
+        "no-restricted-imports": [
+            "error",
+            "@khanacademy/wonder-blocks-color",
+            "@khanacademy/wonder-blocks-spacing",
+        ],
         "object-curly-spacing": "off",
         semi: "off",
 
@@ -303,6 +321,12 @@ module.exports = {
         /**
          * react
          */
+        "react/no-string-refs": "off", // on in react/recommended, but we have #legacy-code
+        "react/no-find-dom-node": "off", // on in react/recommended, but we have #legacy-code
+        "react/display-name": "off", // on in react/recommended, but doesn't seem that useful to fix
+        // On in react/recommended, but doesn't seem helpful
+        // (requires quotes to be escaped to catch developer mistakes when other characters are misplaced)
+        "react/no-unescaped-entities": "off",
         // This rule results in false-positives when using some types of React
         // components (such as functional components or hooks). Since
         // TypeScript is already checking that components are only using props

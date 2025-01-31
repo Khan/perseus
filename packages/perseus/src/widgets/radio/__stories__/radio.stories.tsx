@@ -8,8 +8,8 @@ import {
     multiChoiceQuestionSimple,
 } from "../__tests__/radio.testdata";
 
-import type {PerseusRenderer} from "../../../perseus-types";
 import type {APIOptions} from "../../../types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react";
 
 type StoryArgs = {
@@ -49,7 +49,7 @@ export default {
             showSolutions={args.showSolutions}
         />
     ),
-} satisfies Meta;
+} satisfies Meta<StoryArgs>;
 
 const applyStoryArgs = (args: StoryArgs): PerseusRenderer => {
     const q = {
