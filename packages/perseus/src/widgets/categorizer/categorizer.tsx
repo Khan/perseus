@@ -2,6 +2,7 @@
 import {
     type PerseusCategorizerWidgetOptions,
     getCategorizerPublicWidgetOptions,
+    CoreUtil,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {
@@ -21,7 +22,6 @@ import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
-import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -97,8 +97,12 @@ export class Categorizer
         const isMobile = this.props.apiOptions.isMobile;
         let indexedItems = this.props.items.map((item, n) => [item, n]);
         if (this.props.randomizeItems) {
-            // @ts-expect-error - TS4104 - The type 'readonly (string | number)[][]' is 'readonly' and cannot be assigned to the mutable type '(string | number)[][]'. | TS2345 - Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | RNG'.
-            indexedItems = Util.shuffle(indexedItems, this.props.problemNum);
+            // @ts-expect-error - TS4104 - The type 'readonly (string | number)[][]' is 'readonly' and cannot be assigned to the mutable type '(string | number)[][]'.
+            indexedItems = CoreUtil.shuffle(
+                indexedItems,
+                // @ts-expect-error - TS2345 - Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | RNG'.
+                this.props.problemNum,
+            );
         }
 
         const table = (

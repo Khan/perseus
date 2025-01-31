@@ -120,3 +120,6 @@ export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/
 export {default as getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
 export {default as getSorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
+export {default as getMatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
+export {matcherShuffle} from "./widgets/matcher/matcher-util";
+export {default as CoreUtil} from "./utils/util";
