@@ -123,9 +123,18 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
+            // LEMS-2827 deprecate event in favor of ti below.
             type: "perseus:interactive-graph-widget:rendered",
             payload: {
                 type,
+                widgetType: "INTERACTIVE_GRAPH",
+                widgetId: "interactive-graph",
+            },
+        });
+        analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: type,
                 widgetType: "INTERACTIVE_GRAPH",
                 widgetId: "interactive-graph",
             },
