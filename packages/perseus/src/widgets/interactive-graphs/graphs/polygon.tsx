@@ -27,6 +27,7 @@ import {
 import type {Coord} from "../../../interactive2/types";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
+    AriaLive,
     Dispatch,
     InteractiveGraphElementSuite,
     InteractiveGraphProps,
@@ -166,7 +167,7 @@ const PolygonGraph = (props: Props) => {
         : LimitedPolygonGraph(innerProps);
 };
 
-const LimitedPolygonGraph = (statefulProps: InnerProps) => {
+const LimitedPolygonGraph = (innerProps: InnerProps) => {
     const {
         id,
         dispatch,
@@ -181,13 +182,13 @@ const LimitedPolygonGraph = (statefulProps: InnerProps) => {
         points,
         constrain,
         i18n,
-    } = statefulProps;
+    } = innerProps;
     const {
         showAngles,
         showSides,
         range,
         snapTo = "grid",
-    } = statefulProps.graphState;
+    } = innerProps.graphState;
     const {disableKeyboardInteraction} = graphConfig;
     const {strings, locale} = i18n;
 
@@ -197,12 +198,16 @@ const LimitedPolygonGraph = (statefulProps: InnerProps) => {
     const polygonPointsId = id + "-points";
 
     // Aria label srings
-    const {srPolygonGraph, srPolygonGraphPointsNum, srPolygonGraphPoints} =
-        describePolygonGraph(
-            statefulProps.graphState,
-            {strings, locale},
-            statefulProps.graphConfig.markings,
-        );
+    const {
+        srPolygonGraph,
+        srPolygonGraphPointsNum,
+        srPolygonGraphPoints,
+        srPolygonElementsNum,
+    } = describePolygonGraph(
+        innerProps.graphState,
+        {strings, locale},
+        innerProps.graphConfig.markings,
+    );
 
     return (
         <g
@@ -284,6 +289,10 @@ const LimitedPolygonGraph = (statefulProps: InnerProps) => {
                     onBlur: () =>
                         setFocusVisible(hasFocusVisible(polygonRef.current)),
                     className: "movable-polygon",
+                    // Accessibility-related fields
+                    role: "button",
+                    "aria-label": `${srPolygonElementsNum} ${srPolygonGraphPoints}`,
+                    "aria-live": "polite",
                 }}
             />
             {points.map((point, i) => {
@@ -291,9 +300,11 @@ const LimitedPolygonGraph = (statefulProps: InnerProps) => {
                 const side1Id = `${id}-point-${i}-side-1`;
                 const side2Id = `${id}-point-${i}-side-2`;
 
+                // Limited polygons always have an angle at each vertex.
                 const angle = getAngleFromPoints(points, i);
                 const angleDegree = angle ? radianToDegree(angle) : null;
 
+                // Limited polygons always two sides attached to each vertex.
                 const sidesArray = getSideLengthsFromPoints(points, i);
                 const {pointIndex: point1Index, sideLength: side1Length} =
                     sidesArray[0];
@@ -303,7 +314,7 @@ const LimitedPolygonGraph = (statefulProps: InnerProps) => {
                 return (
                     <g key={"point-" + i}>
                         <MovablePoint
-                            // ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
+                            ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
                             constrain={constrain}
                             point={point}
                             sequenceNumber={i + 1}
@@ -488,6 +499,7 @@ type PolygonGraphDescriptionStrings = {
     srPolygonGraph: string;
     srPolygonGraphPointsNum: string;
     srPolygonGraphPoints?: string;
+    srPolygonElementsNum: string;
     srPolygonInteractiveElements: string;
 };
 
@@ -524,17 +536,19 @@ export function describePolygonGraph(
         srPolygonGraphPoints = pointsString.join(" ");
     }
 
+    const srPolygonElementsNum = strings.srPolygonElementsNum({
+        num: coords.length,
+    });
+
     const srPolygonInteractiveElements = strings.srInteractiveElements({
-        elements: [
-            strings.srPolygonElementsNum({num: coords.length}),
-            srPolygonGraphPoints,
-        ].join(" "),
+        elements: [srPolygonGraphPointsNum, srPolygonGraphPoints].join(" "),
     });
 
     return {
         srPolygonGraph,
         srPolygonGraphPointsNum,
         srPolygonGraphPoints,
+        srPolygonElementsNum,
         srPolygonInteractiveElements,
     };
 }
