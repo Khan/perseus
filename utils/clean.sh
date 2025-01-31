@@ -15,20 +15,6 @@ ROOT="$MYPATH/.."
 
 pushd "$ROOT" >/dev/null 2>&1
 
-CLEAN_ALL=false
-while [[ $# -gt 0 ]]; do
-  case $1 in
-    -a|--all)
-      CLEAN_ALL=true
-      shift # past argument
-      ;;
-    *)
-      echo "Unknown option: $1"
-      exit 1
-      ;;
-  esac
-done
-
 rm -rf packages/*/dist
 rm -rf .nyc_output/
 rm -rf coverage/
@@ -36,7 +22,6 @@ rm -rf cypress/
 rm -rf packages/*/*.tsbuildinfo
 rm -rf storybook-static/
 
-if [[ "$CLEAN_ALL" == "true" ]]; then
-    echo "Removing node_modules directories. You'll need to 'yarn install' after this."
-    find . -name node_modules -and -type d -prune -exec rm -rf '{}' \;
-fi
+echo "Removing node_modules directories. You'll need to 'yarn install' after this."
+find . -name node_modules -and -type d -prune -exec rm -rf '{}' \;
+
