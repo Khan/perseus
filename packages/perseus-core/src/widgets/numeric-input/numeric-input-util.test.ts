@@ -34,6 +34,7 @@ describe("getNumericInputPublicWidgetOptions", () => {
             coefficient: false,
             rightAlign: false,
             static: false,
+            answerForms: [{simplify: "required", name: "decimal"}],
         });
     });
 });

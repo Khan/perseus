@@ -10,6 +10,7 @@ type NumericInputPublicWidgetOptions = {
     coefficient: PerseusNumericInputWidgetOptions["coefficient"];
     rightAlign?: PerseusNumericInputWidgetOptions["rightAlign"];
     static: PerseusNumericInputWidgetOptions["static"];
+    answerForms?: PerseusNumericInputWidgetOptions["answerForms"];
 };
 
 /**
@@ -19,7 +20,7 @@ type NumericInputPublicWidgetOptions = {
 function getNumericInputPublicWidgetOptions(
     options: PerseusNumericInputWidgetOptions,
 ): NumericInputPublicWidgetOptions {
-    const {answers: _, answerForms: __, ...publicWidgetOptions} = options;
+    const {answers: _, ...publicWidgetOptions} = options;
     return publicWidgetOptions;
 }
 
