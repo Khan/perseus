@@ -10,7 +10,7 @@ describe("matrixValidator", () => {
         };
 
         // Act
-        const result = validateMatrix(userInput, {});
+        const result = validateMatrix(userInput);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -23,7 +23,7 @@ describe("matrixValidator", () => {
         };
 
         // Act
-        const result = validateMatrix(userInput, {});
+        const result = validateMatrix(userInput);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -40,7 +40,7 @@ describe("matrixValidator", () => {
         };
 
         // Act
-        const result = validateMatrix(userInput, {});
+        const result = validateMatrix(userInput);
 
         // Assert
         expect(result).toBeNull();

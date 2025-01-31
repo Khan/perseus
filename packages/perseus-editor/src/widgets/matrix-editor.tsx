@@ -4,12 +4,14 @@ import {
     EditorJsonify,
     MatrixWidget,
 } from "@khanacademy/perseus";
-import {getMatrixSize} from "@khanacademy/perseus-core";
+import {getMatrixSize, matrixLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../editor";
+
+import type {MatrixDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {RangeInput} = components;
 const Matrix = MatrixWidget.widget;
@@ -32,13 +34,8 @@ class MatrixEditor extends React.Component<Props> {
 
     static widgetName = "matrix" as const;
 
-    static defaultProps: Props = {
-        matrixBoardSize: [3, 3],
-        answers: [[]],
-        prefix: "",
-        suffix: "",
-        cursorPosition: [0, 0],
-    };
+    static defaultProps: MatrixDefaultWidgetOptions =
+        matrixLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);

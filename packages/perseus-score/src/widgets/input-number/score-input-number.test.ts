@@ -3,7 +3,7 @@ import scoreInputNumber from "./score-input-number";
 import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
 
 describe("scoreInputNumber", () => {
     it("scores correct answer correctly", () => {

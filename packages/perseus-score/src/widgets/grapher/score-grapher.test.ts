@@ -1,13 +1,13 @@
 import scoreGrapher from "./score-grapher";
 
 import type {
-    PerseusGrapherUserInput,
     PerseusGrapherRubric,
+    PerseusGrapherUserInput,
 } from "../../validation.types";
 import type {Coord} from "@khanacademy/perseus-core";
 
 describe("scoreGrapher", () => {
-    it("is incorrect when user input type doesn't match rubric type", () => {
+    it("is incorrect when user input type doesn't match scoring data type", () => {
         const asymptote: [Coord, Coord] = [
             [-10, -10],
             [10, 10],
@@ -157,7 +157,7 @@ describe("scoreGrapher", () => {
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 
-    it("can be answered incorrectly when user input and rubric coords don't match", () => {
+    it("can be answered incorrectly when user input and scoring data coords don't match", () => {
         // Arrange
         const userInput: PerseusGrapherUserInput = {
             type: "linear",

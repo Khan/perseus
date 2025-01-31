@@ -2,7 +2,33 @@ import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
 
 import type {PerseusNumericInputRubric} from "../../validation.types";
 
-describe("static function validate", () => {
+describe("scoreNumericInput", () => {
+    it("is correct when input is empty but answer is 1 and coefficient: true", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 1,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const userInput = {
+            // Empty input being translated to "1" depends on coefficient being
+            // true.
+            currentValue: "",
+        };
+
+        const score = scoreNumericInput(userInput, rubric);
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
     it("with a simple value", () => {
         const rubric: PerseusNumericInputRubric = {
             answers: [

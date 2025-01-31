@@ -5,8 +5,11 @@ import * as React from "react";
 import {Dependencies} from "@khanacademy/perseus";
 
 import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
+
+import {describeLinearGraph} from "./linear";
 
 import type {InteractiveGraphState} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -50,9 +53,8 @@ describe("Linear graph screen reader", () => {
 
         // Assert
         expect(linearGraph).toBeInTheDocument();
-        expect(linearGraph).toHaveAttribute(
-            "aria-describedby",
-            ":r1:-points :r1:-intercept :r1:-slope",
+        expect(linearGraph).toHaveAccessibleDescription(
+            "The line has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5. The line crosses the Y-axis at 0 comma 5. Its slope is zero.",
         );
     });
 
@@ -238,4 +240,66 @@ describe("Linear graph screen reader", () => {
             expect(point2).toHaveAttribute("aria-live", expectedAriaLive[2]);
         },
     );
+});
+
+describe("describeLinearGraph", () => {
+    test("describes a default linear graph", () => {
+        // Arrange
+
+        // Act
+        const strings = describeLinearGraph(
+            baseLinearState,
+            mockPerseusI18nContext,
+        );
+
+        // Assert
+        expect(strings.srLinearGraph).toBe("A line on a coordinate plane.");
+        expect(strings.srLinearGraphPoints).toBe(
+            "The line has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5.",
+        );
+        expect(strings.srLinearGrabHandle).toBe(
+            "Line from -5 comma 5 to 5 comma 5.",
+        );
+        expect(strings.slopeString).toBe("Its slope is zero.");
+        expect(strings.interceptString).toBe(
+            "The line crosses the Y-axis at 0 comma 5.",
+        );
+        expect(strings.srLinearInteractiveElement).toBe(
+            "Interactive elements: A line on a coordinate plane. The line has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5.",
+        );
+    });
+
+    test("describes a linear graph with updated points", () => {
+        // Arrange
+
+        // Act
+        const strings = describeLinearGraph(
+            {
+                ...baseLinearState,
+                coords: [
+                    [-1, 2],
+                    [3, 4],
+                ],
+            },
+            mockPerseusI18nContext,
+        );
+
+        // Assert
+        expect(strings.srLinearGraph).toBe("A line on a coordinate plane.");
+        expect(strings.srLinearGraphPoints).toBe(
+            "The line has two points, point 1 at -1 comma 2 and point 2 at 3 comma 4.",
+        );
+        expect(strings.srLinearGrabHandle).toBe(
+            "Line from -1 comma 2 to 3 comma 4.",
+        );
+        expect(strings.slopeString).toBe(
+            "Its slope increases from left to right.",
+        );
+        expect(strings.interceptString).toBe(
+            "The line crosses the X-axis at -5 comma 0 and the Y-axis at 0 comma 2.5.",
+        );
+        expect(strings.srLinearInteractiveElement).toBe(
+            "Interactive elements: A line on a coordinate plane. The line has two points, point 1 at -1 comma 2 and point 2 at 3 comma 4.",
+        );
+    });
 });

@@ -6,14 +6,15 @@ import * as React from "react";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 
 import scoreMockWidget from "./score-mock-widget";
+import validateMockWidget from "./validate-mock-widget";
 
-import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
-import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
-import type {MockWidgetOptions} from "@khanacademy/perseus-core";
 import type {
+    MockWidgetOptions,
     PerseusMockWidgetRubric,
     PerseusMockWidgetUserInput,
-} from "@khanacademy/perseus-score";
+} from "./mock-widget-types";
+import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
+import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 
 type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetRubric>;
 
@@ -37,7 +38,7 @@ type Props = ExternalProps & {
  *
  * You can register this widget for your tests by calling `registerWidget("mock-widget", MockWidget);`
  */
-export class MockWidget extends React.Component<Props> implements Widget {
+class MockWidgetComponent extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         currentValue: "",
     };
@@ -89,7 +90,7 @@ export class MockWidget extends React.Component<Props> implements Widget {
     };
 
     getUserInput(): PerseusMockWidgetUserInput {
-        return MockWidget.getUserInputFromProps(this.props);
+        return MockWidgetComponent.getUserInputFromProps(this.props);
     }
 
     handleChange: (
@@ -127,9 +128,12 @@ const styles = StyleSheet.create({
 export default {
     name: "mock-widget",
     displayName: "Mock Widget",
-    widget: MockWidget,
+    widget: MockWidgetComponent,
     isLintable: true,
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'MockWidget'.
     scorer: scoreMockWidget,
-} satisfies WidgetExports<typeof MockWidget>;
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMockWidgetUserInput'.
+    validator: validateMockWidget,
+} satisfies WidgetExports<typeof MockWidgetComponent>;

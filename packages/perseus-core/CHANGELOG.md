@@ -1,5 +1,48 @@
 # @khanacademy/perseus-core
 
+## 3.3.0
+
+### Minor Changes
+
+-   [#2158](https://github.com/Khan/perseus/pull/2158) [`8f8955718`](https://github.com/Khan/perseus/commit/8f89557185f7bed910251520863ed1c8ed3a4410) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Re-export widget id support function: addWidget
+
+*   [#2142](https://github.com/Khan/perseus/pull/2142) [`d7bcb14c3`](https://github.com/Khan/perseus/commit/d7bcb14c398059be0be20bea118f9fee1dfc93f6) Thanks [@handeyeco](https://github.com/handeyeco)! - Move Radio upgrade logic to Perseus Core
+
+-   [#2148](https://github.com/Khan/perseus/pull/2148) [`685774f2e`](https://github.com/Khan/perseus/commit/685774f2eae44e4cd5e0d6341a209012cf7e9bcb) Thanks [@handeyeco](https://github.com/handeyeco)! - Move Matcher upgrade logic to Perseus Core
+
+*   [#2145](https://github.com/Khan/perseus/pull/2145) [`8a489600e`](https://github.com/Khan/perseus/commit/8a489600e3b0b474da36cc492671879d1372ea46) Thanks [@handeyeco](https://github.com/handeyeco)! - Move simple widget upgrade logic to Perseus Core (pt 2)
+
+-   [#2143](https://github.com/Khan/perseus/pull/2143) [`459c25074`](https://github.com/Khan/perseus/commit/459c2507472f104f521b5410feaa64402d473a43) Thanks [@handeyeco](https://github.com/handeyeco)! - Move Passage widgets upgrade logic to Perseus Core
+
+*   [#2155](https://github.com/Khan/perseus/pull/2155) [`0df0b1940`](https://github.com/Khan/perseus/commit/0df0b194012627a98708cfcafd1ad5eb76ad91e2) Thanks [@benchristel](https://github.com/benchristel)! - Move `parsePerseusItem`, `parseAndMigratePerseusItem`,
+    `parseAndMigratePerseusArticle`, `isSuccess`, and `isFailure` to the
+    `perseus-core` package, and deprecate the equivalent exports from the `perseus`
+    package.
+
+-   [#2144](https://github.com/Khan/perseus/pull/2144) [`dc8118aa1`](https://github.com/Khan/perseus/commit/dc8118aa1e28e77d78a57bc13e50d1954e3f8f69) Thanks [@handeyeco](https://github.com/handeyeco)! - Move simple widget upgrade logic to Perseus Core (pt 1)
+
+*   [#2150](https://github.com/Khan/perseus/pull/2150) [`82fa90299`](https://github.com/Khan/perseus/commit/82fa902999d9d79a050fe9acf0031ba886b387fa) Thanks [@handeyeco](https://github.com/handeyeco)! - Move InteractiveGraph widget upgrade to Perseus Core
+
+-   [#2134](https://github.com/Khan/perseus/pull/2134) [`117e78d03`](https://github.com/Khan/perseus/commit/117e78d03f29304274c1d7cc206743439f94d6ef) Thanks [@handeyeco](https://github.com/handeyeco)! - Move widget ID utils to perseus-core
+
+*   [#2135](https://github.com/Khan/perseus/pull/2135) [`7a984eba6`](https://github.com/Khan/perseus/commit/7a984eba6f1cec3df314ec245d2176f5db190548) Thanks [@handeyeco](https://github.com/handeyeco)! - Move Expression WidgetOptions logic to core
+
+-   [#2141](https://github.com/Khan/perseus/pull/2141) [`1355d6cfc`](https://github.com/Khan/perseus/commit/1355d6cfcbd4cb44de3f05084744dbdefd19def8) Thanks [@handeyeco](https://github.com/handeyeco)! - Move Measurer upgrade logic to Perseus Core
+
+*   [#2149](https://github.com/Khan/perseus/pull/2149) [`75f43a8f4`](https://github.com/Khan/perseus/commit/75f43a8f41739df4831e589e0a2724e1c7169312) Thanks [@handeyeco](https://github.com/handeyeco)! - Move Table upgrade logic to Perseus Core
+
+-   [#2147](https://github.com/Khan/perseus/pull/2147) [`ebf3695b6`](https://github.com/Khan/perseus/commit/ebf3695b69c7526279ef1c999f13b4e24be885be) Thanks [@handeyeco](https://github.com/handeyeco)! - Move upgrade logic for NumberLine to Perseus Core
+
+### Patch Changes
+
+-   [#2122](https://github.com/Khan/perseus/pull/2122) [`1a75ca628`](https://github.com/Khan/perseus/commit/1a75ca628405dbd9cbe8ee21d7a9039a78327c47) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Type and test fixes for new MockWidget (isolating to be seen only in tests)
+
+*   [#2137](https://github.com/Khan/perseus/pull/2137) [`b4b3a3dbb`](https://github.com/Khan/perseus/commit/b4b3a3dbb5097b1225e9e5acdda254f2f1e66122) Thanks [@Myranae](https://github.com/Myranae)! - Move util files out of widget folder in perseus package to utils folder in perseus-core
+
+-   [#2152](https://github.com/Khan/perseus/pull/2152) [`f8c9d3574`](https://github.com/Khan/perseus/commit/f8c9d35743d2e8ccf12875ef91498543e2015576) Thanks [@Myranae](https://github.com/Myranae)! - Move the categorizer, orderer, and expression public widget options functions from perseus package to their widget folders in perseus-core
+
+*   [#2139](https://github.com/Khan/perseus/pull/2139) [`32cc4a45b`](https://github.com/Khan/perseus/commit/32cc4a45bd2df34a0620729ca659a8aec6bcd62a) Thanks [@Myranae](https://github.com/Myranae)! - Move util files out of widget folder in perseus package to utils folder in perseus-core
+
 ## 3.2.0
 
 ### Minor Changes

@@ -6,10 +6,15 @@ import {
     testDependenciesV2,
 } from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
+import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import {LabelImage} from "../label-image";
 
-import {textQuestion} from "./label-image.testdata";
+import {
+    shortTextQuestion,
+    textQuestion,
+    textWithoutAnswersQuestion,
+} from "./label-image.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -715,6 +720,112 @@ describe("LabelImage", function () {
                 type: "perseus:label-image:choiced-interacted-with",
                 payload: null,
             });
+        });
+    });
+
+    describe("getUserInput", () => {
+        it("should return the current user input on initial render", () => {
+            // render component
+            const {renderer} = renderQuestion(textQuestion);
+
+            const userInput = renderer.getUserInputMap();
+
+            expect(userInput).toEqual({
+                "label-image 1": {
+                    markers: [
+                        {
+                            label: "The fourth unlabeled bar line.",
+                            selected: undefined,
+                        },
+                        {
+                            label: "The third unlabeled bar line.",
+                            selected: undefined,
+                        },
+                        {
+                            label: "The second unlabeled bar line.",
+                            selected: undefined,
+                        },
+                        {
+                            label: "The first unlabeled bar line.",
+                            selected: undefined,
+                        },
+                    ],
+                },
+            });
+        });
+    });
+
+    describe("scorePerseusItem", () => {
+        it("should be invalid on first render", () => {
+            // Arrange
+            const {renderer} = renderQuestion(textQuestion);
+
+            // Act
+            const score = scorePerseusItemTesting(
+                textQuestion,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveInvalidInput();
+        });
+
+        it("can be answered correctly when correct option is picked for the marker", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(shortTextQuestion);
+
+            // Act
+            const markerButton = screen.getByRole("button", {
+                name: "The fourth unlabeled bar line.",
+            });
+            await userEvent.click(markerButton);
+
+            const choice = screen.getByRole("option", {name: "SUVs"});
+            await userEvent.click(choice);
+
+            const score = scorePerseusItemTesting(
+                shortTextQuestion,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
+
+        it("can be answered incorrectly when incorrect option picked for the marker", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(shortTextQuestion);
+
+            // Act
+            const markerButton = screen.getByRole("button", {
+                name: "The fourth unlabeled bar line.",
+            });
+            await userEvent.click(markerButton);
+
+            const choice = screen.getByRole("option", {name: "Trucks"});
+            await userEvent.click(choice);
+
+            const score = scorePerseusItemTesting(
+                shortTextQuestion,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredIncorrectly();
+        });
+    });
+
+    describe("textWithoutAnswersQuestion", () => {
+        it("should render the widget without answers", async () => {
+            // Arrange
+            renderQuestion(textWithoutAnswersQuestion);
+
+            // Act and Assert
+            const markerButton = screen.getByRole("button", {
+                name: "The fourth unlabeled bar line.",
+            });
+            // Confirms the widget renders and that marker buttons are present
+            await userEvent.click(markerButton);
         });
     });
 });

@@ -1,9 +1,5 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {
-    scoreRadio,
-    type PerseusRadioRubric,
-    type PerseusRadioUserInput,
-} from "@khanacademy/perseus-score";
+import {scoreRadio} from "@khanacademy/perseus-score";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -22,6 +18,10 @@ import type {
     PerseusRadioWidgetOptions,
     ShowSolutions,
 } from "@khanacademy/perseus-core";
+import type {
+    PerseusRadioRubric,
+    PerseusRadioUserInput,
+} from "@khanacademy/perseus-score";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {
@@ -413,7 +413,7 @@ class Radio extends React.Component<Props> implements Widget {
                     // Current versions of the radio widget always pass in the
                     // "correct" value through the choices. Old serialized state
                     // for radio widgets doesn't have this though, so we have to
-                    // pull the correctness out of the review mode rubric. This
+                    // pull the correctness out of the review mode scoring data. This
                     // only works because all of the places we use
                     // `restoreSerializedState()` also turn on reviewMode, but is
                     // fine for now.

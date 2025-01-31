@@ -1,3 +1,7 @@
+import {
+    passageRefLogic,
+    type PerseusPassageRefWidgetOptions,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -10,7 +14,6 @@ import {isPassageWidget} from "../passage/utils";
 
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PassageRefPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
-import type {PerseusPassageRefWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const EN_DASH = "\u2013";
@@ -185,7 +188,7 @@ export default {
         referenceNumber: widgetOptions.referenceNumber,
         summaryText: widgetOptions.summaryText,
     }),
-    version: {major: 0, minor: 1},
+    version: passageRefLogic.version,
     // TODO: things that aren't interactive shouldn't need scoring functions
     scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof PassageRef>;

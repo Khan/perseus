@@ -149,7 +149,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
         ]);
     });
 
-    it("does not modify the `rubric` data", () => {
+    it("does not modify `rubric`", () => {
         const guess: PerseusGraphType = {
             type: "segment",
             coords: [
@@ -332,7 +332,7 @@ describe("InteractiveGraph scoring on a point question", () => {
         expect(guess).toEqual(guessClone);
     });
 
-    it("does not modify the `rubric` data", () => {
+    it("does not modify `rubric`", () => {
         const guess: PerseusGraphType = {
             type: "point",
             coords: [

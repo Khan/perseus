@@ -4,8 +4,8 @@ import {filterNonEmpty} from "./utils";
 import validateTable from "./validate-table";
 
 import type {
-    PerseusScore,
     PerseusTableRubric,
+    PerseusScore,
     PerseusTableUserInput,
 } from "../../validation.types";
 

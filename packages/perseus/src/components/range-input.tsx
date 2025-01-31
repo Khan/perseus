@@ -15,6 +15,7 @@ class RangeInput extends React.Component<any> {
         onChange: PropTypes.func.isRequired,
         placeholder: PropTypes.array,
         checkValidity: PropTypes.func,
+        allowPiTruncation: PropTypes.bool,
     };
 
     static defaultProps: any = {
@@ -43,6 +44,7 @@ class RangeInput extends React.Component<any> {
                     // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onChange.bind(this, 0)}
                     placeholder={this.props.placeholder[0]}
+                    allowPiTruncation={this.props.allowPiTruncation}
                 />
                 <NumberInput
                     {...this.props}
@@ -51,6 +53,7 @@ class RangeInput extends React.Component<any> {
                     // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onChange.bind(this, 1)}
                     placeholder={this.props.placeholder[1]}
+                    allowPiTruncation={this.props.allowPiTruncation}
                 />
             </div>
         );

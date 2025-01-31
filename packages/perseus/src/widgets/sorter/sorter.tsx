@@ -1,9 +1,9 @@
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {
-    scoreSorter,
-    type PerseusSorterRubric,
-    type PerseusSorterUserInput,
-} from "@khanacademy/perseus-score";
+    type PerseusSorterWidgetOptions,
+    getSorterPublicWidgetOptions,
+} from "@khanacademy/perseus-core";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {scoreSorter, validateSorter} from "@khanacademy/perseus-score";
 import * as React from "react";
 
 import Sortable from "../../components/sortable";
@@ -13,7 +13,10 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sort
 import type {SortableOption} from "../../components/sortable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
-import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusSorterRubric,
+    PerseusSorterUserInput,
+} from "@khanacademy/perseus-score";
 
 const {shuffle} = Util;
 
@@ -135,4 +138,8 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type UserInput is not assignable to type PerseusSorterUserInput
     scorer: scoreSorter,
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type UserInput is not assignable to type PerseusSorterUserInput
+    validator: validateSorter,
+    getPublicWidgetOptions: getSorterPublicWidgetOptions,
 } satisfies WidgetExports<typeof Sorter>;

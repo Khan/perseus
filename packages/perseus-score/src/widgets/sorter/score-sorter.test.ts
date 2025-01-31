@@ -2,8 +2,8 @@ import scoreSorter from "./score-sorter";
 import * as SorterValidator from "./validate-sorter";
 
 import type {
-    PerseusSorterUserInput,
     PerseusSorterRubric,
+    PerseusSorterUserInput,
 } from "../../validation.types";
 
 describe("scoreSorter", () => {

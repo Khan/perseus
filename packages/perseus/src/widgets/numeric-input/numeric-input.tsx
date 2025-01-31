@@ -1,10 +1,7 @@
 import {KhanMath} from "@khanacademy/kmath";
+import {getNumericInputPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {
-    scoreNumericInput,
-    type PerseusNumericInputRubric,
-    type PerseusNumericInputUserInput,
-} from "@khanacademy/perseus-score";
+import {scoreNumericInput} from "@khanacademy/perseus-score";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -22,6 +19,10 @@ import type {
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
 } from "@khanacademy/perseus-core";
+import type {
+    PerseusNumericInputRubric,
+    PerseusNumericInputUserInput,
+} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const formExamples: {
@@ -379,7 +380,7 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumericInputUserInput'.
     scorer: scoreNumericInput,
-
+    getPublicWidgetOptions: getNumericInputPublicWidgetOptions,
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusNumericInputRubric'
     getOneCorrectAnswerFromRubric(
