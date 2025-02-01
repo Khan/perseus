@@ -172,11 +172,25 @@ class WidgetContainer extends React.Component<Props, State> {
                                 widget_id: this.props.id,
                             }}
                             onError={() => {
+                                // LEMS-2826
                                 analytics.onAnalyticsEvent({
                                     type: "perseus:widget-rendering-error",
                                     payload: {
+                                        widgetSubType: "none", // fix
                                         widgetType: type,
                                         widgetId: this.props.id,
+                                        message: "message", // fix
+                                        userAgent: "userAgent", // fix
+                                    },
+                                });
+                                analytics.onAnalyticsEvent({
+                                    type: "perseus:widget-rendering-error:ti",
+                                    payload: {
+                                        widgetSubType: "none", // fix
+                                        widgetType: type,
+                                        widgetId: this.props.id,
+                                        message: "message", // fix
+                                        userAgent: "userAgent", // fix
                                     },
                                 });
                             }}
