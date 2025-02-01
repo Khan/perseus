@@ -216,8 +216,8 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expectLabelInDoc("Point 1 at 0 comma 0");
-        expectLabelInDoc("Point 2 at -7 comma 0.5");
+        expectLabelInDoc("Point 1 at 0 comma 0.");
+        expectLabelInDoc("Point 2 at -7 comma 0.5.");
     });
 
     it("renders ARIA labels for each point (linear system)", () => {
@@ -368,8 +368,8 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expectLabelInDoc("Point 1 at -1 comma 1");
-        expectLabelInDoc("Point 2 at 0 comma 0");
+        expectLabelInDoc("Point 1 at -1 comma 1.");
+        expectLabelInDoc("Point 2 at 0 comma 0.");
     });
 
     it("renders ARIA labels for each point (point)", () => {
@@ -400,8 +400,8 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expectLabelInDoc("Point 1 at -1 comma 1");
-        expectLabelInDoc("Point 2 at 0 comma 0");
+        expectLabelInDoc("Point 1 at -1 comma 1.");
+        expectLabelInDoc("Point 2 at 0 comma 0.");
     });
 
     it("renders ARIA labels for each point (polygon)", () => {
@@ -436,9 +436,9 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expectLabelInDoc("Point 1 at -1 comma 1");
-        expectLabelInDoc("Point 2 at 0 comma 0");
-        expectLabelInDoc("Point 3 at 1 comma 1");
+        expectLabelInDoc("Point 1 at -1 comma 1.");
+        expectLabelInDoc("Point 2 at 0 comma 0.");
+        expectLabelInDoc("Point 3 at 1 comma 1.");
     });
 
     it("renders ARIA labels for each point (angle)", () => {
@@ -607,7 +607,7 @@ describe("MafsGraph", () => {
         );
 
         expect(
-            screen.getByText("Interactive elements: Point 1 at -7 comma 0.5"),
+            screen.getByText("Interactive elements: Point 1 at -7 comma 0.5."),
         ).toBeInTheDocument();
     });
 
