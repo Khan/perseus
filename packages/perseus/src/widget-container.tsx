@@ -106,9 +106,7 @@ class WidgetContainer extends React.Component<Props, State> {
         });
 
         const type = this.props.type;
-
-        // Grab subType here!
-        const subType = "null";
+        const userAgent = navigator.userAgent;
 
         const WidgetType = Widgets.getWidget(type);
         if (WidgetType == null) {
@@ -117,6 +115,13 @@ class WidgetContainer extends React.Component<Props, State> {
             console.warn(`Widget type '${type}' not found!`);
             // Just give up on invalid widget types
             return <div className={className} />;
+        }
+
+        let subType = "null";
+        if (type === "interactive-graph") {
+            const props = this.state.widgetProps;
+
+            subType = props.options.graph?.type ?? "null";
         }
 
         let alignment = this.state.widgetProps.alignment;
@@ -176,8 +181,6 @@ class WidgetContainer extends React.Component<Props, State> {
                                 widget_id: this.props.id,
                             }}
                             onError={(error: Error) => {
-                                const userAgent = navigator.userAgent;
-
                                 // LEMS-2826
                                 analytics.onAnalyticsEvent({
                                     type: "perseus:widget-rendering-error",
