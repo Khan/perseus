@@ -106,6 +106,10 @@ class WidgetContainer extends React.Component<Props, State> {
         });
 
         const type = this.props.type;
+
+        // Grab subType here!
+        const subType = "null";
+
         const WidgetType = Widgets.getWidget(type);
         if (WidgetType == null) {
             // This is for the good of all people!!
@@ -171,26 +175,28 @@ class WidgetContainer extends React.Component<Props, State> {
                                 widget_type: type,
                                 widget_id: this.props.id,
                             }}
-                            onError={() => {
+                            onError={(error: Error) => {
+                                const userAgent = navigator.userAgent;
+
                                 // LEMS-2826
                                 analytics.onAnalyticsEvent({
                                     type: "perseus:widget-rendering-error",
                                     payload: {
-                                        widgetSubType: "none", // fix
+                                        widgetSubType: subType,
                                         widgetType: type,
                                         widgetId: this.props.id,
-                                        message: "message", // fix
-                                        userAgent: "userAgent", // fix
+                                        message: error.message,
+                                        userAgent: userAgent,
                                     },
                                 });
                                 analytics.onAnalyticsEvent({
                                     type: "perseus:widget-rendering-error:ti",
                                     payload: {
-                                        widgetSubType: "none", // fix
+                                        widgetSubType: subType,
                                         widgetType: type,
                                         widgetId: this.props.id,
-                                        message: "message", // fix
-                                        userAgent: "userAgent", // fix
+                                        message: error.message,
+                                        userAgent: userAgent,
                                     },
                                 });
                             }}
