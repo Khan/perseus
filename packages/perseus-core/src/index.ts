@@ -122,3 +122,4 @@ export {default as getLabelImagePublicWidgetOptions} from "./widgets/label-image
 export {default as getSorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";
+export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
