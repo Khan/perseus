@@ -20,7 +20,7 @@ exports[`Interactive Graph interactive-graph widget A none-type graph renders pr
             style="width: 400px; height: 400px;"
           >
             <div
-              class="graphie-container above-scratchpad"
+              class="graphie-container blank-background"
               style="width: 400px; height: 400px;"
             >
               <div
@@ -1161,7 +1161,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             style="width: 400px; height: 400px;"
           >
             <div
-              class="graphie-container above-scratchpad"
+              class="graphie-container blank-background"
               style="width: 400px; height: 400px;"
             >
               <div
@@ -1531,7 +1531,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             style="width: 400px; height: 400px;"
           >
             <div
-              class="graphie-container above-scratchpad"
+              class="graphie-container blank-background"
               style="width: 400px; height: 400px;"
             >
               <div
@@ -1942,7 +1942,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             style="width: 400px; height: 400px;"
           >
             <div
-              class="graphie-container above-scratchpad"
+              class="graphie-container blank-background"
               style="width: 400px; height: 400px;"
             >
               <div
@@ -2346,7 +2346,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             style="width: 400px; height: 400px;"
           >
             <div
-              class="graphie-container above-scratchpad"
+              class="graphie-container blank-background"
               style="width: 400px; height: 400px;"
             >
               <div
@@ -2857,7 +2857,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             style="width: 400px; height: 400px;"
           >
             <div
-              class="graphie-container above-scratchpad"
+              class="graphie-container blank-background"
               style="width: 400px; height: 400px;"
             >
               <div
@@ -3227,7 +3227,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             style="width: 400px; height: 400px;"
           >
             <div
-              class="graphie-container above-scratchpad"
+              class="graphie-container blank-background"
               style="width: 400px; height: 400px;"
             >
               <div
@@ -3638,7 +3638,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             style="width: 400px; height: 400px;"
           >
             <div
-              class="graphie-container above-scratchpad"
+              class="graphie-container blank-background"
               style="width: 400px; height: 400px;"
             >
               <div
@@ -3854,7 +3854,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             style="width: 400px; height: 400px;"
           >
             <div
-              class="graphie-container above-scratchpad"
+              class="graphie-container blank-background"
               style="width: 400px; height: 400px;"
             >
               <div

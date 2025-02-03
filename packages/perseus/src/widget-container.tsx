@@ -6,7 +6,6 @@ import ReactDOM from "react-dom";
 
 import {DependenciesContext} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
-import {zIndexInteractiveComponent} from "./styles/constants";
 import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
 import * as Widgets from "./widgets";
 
@@ -127,6 +126,7 @@ class WidgetContainer extends React.Component<Props, State> {
         // Hack to prevent interaction with static widgets: we overlay a big
         // div on top of the widget and overflow: hidden the container.
         // Ideally widgets themselves should know how to prevent interaction.
+        // UPDATE HTML5: `inert` on the underlying div would be better
         const isStatic = this.state.widgetProps.static || apiOptions.readOnly;
         const staticContainerStyles = {
             position: "relative",
@@ -138,7 +138,7 @@ class WidgetContainer extends React.Component<Props, State> {
             position: "absolute",
             top: 0,
             left: 0,
-            zIndex: zIndexInteractiveComponent,
+            zIndex: 3,
         } as const;
 
         // Some widgets may include strings of markdown that we may
