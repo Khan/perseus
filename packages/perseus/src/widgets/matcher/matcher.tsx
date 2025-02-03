@@ -1,3 +1,7 @@
+import {
+    getMatcherPublicWidgetOptions,
+    matcherShuffle,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {scoreMatcher} from "@khanacademy/perseus-score";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
@@ -9,7 +13,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import Sortable from "../../components/sortable";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
-import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
@@ -21,7 +24,6 @@ import type {
     PerseusMatcherUserInput,
 } from "@khanacademy/perseus-score";
 
-const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
 type RenderProps = PerseusMatcherWidgetOptions;
@@ -158,18 +160,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
             );
         }
 
-        // Use the same random() function to shuffle both columns sequentially
-        const rng = seededRNG(this.props.problemNum as number);
-
-        let left;
-        if (!this.props.orderMatters) {
-            // If the order doesn't matter, don't shuffle the left column
-            left = this.props.left;
-        } else {
-            left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
-        }
-
-        const right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
+        const {left, right} = matcherShuffle(this.props);
 
         const showLabels = _.any(this.props.labels);
         const constraints = {
@@ -290,4 +281,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatcherUserInput'.
     scorer: scoreMatcher,
+    getPublicWidgetOptions: getMatcherPublicWidgetOptions,
 } satisfies WidgetExports<typeof Matcher>;
