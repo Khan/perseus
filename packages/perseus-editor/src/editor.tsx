@@ -19,6 +19,7 @@ import "./katex-mhchem";
 import * as React from "react";
 import _ from "underscore";
 
+import AccessibilityPanel from "./a11y-panel";
 import DragTarget from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
@@ -1008,6 +1009,7 @@ class Editor extends React.Component<Props, State> {
                             {widgetsDropDown}
                             {templatesDropDown}
                             {wordCountDisplay}
+                            <AccessibilityPanel />
                         </div>
                         {widgetNodes}
                     </div>
