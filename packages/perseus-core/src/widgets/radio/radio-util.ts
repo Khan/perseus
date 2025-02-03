@@ -50,15 +50,8 @@ function getRadioPublicWidgetOptions(
     options: PerseusRadioWidgetOptions,
 ): RadioPublicWidgetOptions {
     return {
+        ...options,
         choices: options.choices.map(getRadioChoicePublicData),
-        hasNoneOfTheAbove: options.hasNoneOfTheAbove,
-        countChoices: options.countChoices,
-        randomize: options.randomize,
-        multipleSelect: options.multipleSelect,
-        deselectEnabled: options.deselectEnabled,
-        onePerLine: options.onePerLine,
-        displayCount: options.displayCount,
-        noneOfTheAbove: options.noneOfTheAbove,
     };
 }
 
