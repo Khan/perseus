@@ -40,7 +40,7 @@ import type {
 
 const widgets = {};
 
-function registerWidget(
+export function registerWidget(
     type: string,
     scorer: WidgetScorerFunction,
     validator?: WidgetValidatorFunction,

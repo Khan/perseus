@@ -44,3 +44,5 @@ export type {
     PerseusMockWidgetRubric,
     PerseusMockWidgetUserInput,
 } from "./widgets/mock-widget/mock-widget-validation.types";
+
+export * from "./widgets/widget-registry";
