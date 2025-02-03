@@ -1,6 +1,7 @@
 import {
     radioLogic,
     type PerseusRadioWidgetOptions,
+    getRadioPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
@@ -137,4 +138,5 @@ export default {
     version: radioLogic.version,
     propUpgrades: radioLogic.widgetOptionsUpgrades,
     isLintable: true,
+    getPublicWidgetOptions: getRadioPublicWidgetOptions,
 } satisfies WidgetExports<typeof Radio>;

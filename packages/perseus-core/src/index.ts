@@ -131,3 +131,4 @@ export {default as getSorterPublicWidgetOptions} from "./widgets/sorter/sorter-u
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";
 export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
+export {default as getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";
