@@ -46,6 +46,22 @@ import type {
     Relationship,
 } from "@khanacademy/perseus-core";
 
+export type WidgetValidatorFunction = (
+    userInput: UserInput,
+    validationData: ValidationData,
+    locale: string,
+) => ValidationResult;
+
+export type WidgetScorerFunction = (
+    // The user data needed to score
+    userInput: UserInput,
+    // The scoring criteria to score against
+    rubric: Rubric,
+    // Locale, for math evaluation
+    // (1,000.00 === 1.000,00 in some countries)
+    locale?: string,
+) => PerseusScore;
+
 export type PerseusScore =
     | {
           type: "invalid";

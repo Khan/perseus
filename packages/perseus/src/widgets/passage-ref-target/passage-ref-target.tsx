@@ -6,7 +6,6 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
-import scoreNoop from "../__shared__/score-noop";
 
 import type {APIOptions, WidgetExports, Widget} from "../../types";
 import type {PerseusPassageRefTargetWidgetOptions} from "@khanacademy/perseus-core";
@@ -61,13 +60,10 @@ class PassageRefTarget extends React.Component<Props> implements Widget {
 export default {
     name: "passage-ref-target",
     displayName: "PassageRefTarget",
-    defaultAlignment: "inline",
     widget: PassageRefTarget,
     hidden: true,
     transform: (editorProps: any): any => {
         return _.pick(editorProps, "content");
     },
     isLintable: true,
-    // TODO: things that aren't interactive shouldn't need scoring functions
-    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof PassageRefTarget>;

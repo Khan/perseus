@@ -25,6 +25,7 @@ const defaultWidgetOptions: CSProgramDefaultWidgetOptions = {
 const csProgramWidgetLogic: WidgetLogic = {
     name: "cs-program",
     defaultWidgetOptions,
+    supportedAlignments: ["block", "full-width"],
 };
 
 export default csProgramWidgetLogic;
