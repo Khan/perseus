@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 3.5.0
+
+### Minor Changes
+
+-   [#2183](https://github.com/Khan/perseus/pull/2183) [`cac39013b`](https://github.com/Khan/perseus/commit/cac39013bd59a5ef73f151e1170dec83b463f076) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Radio widget
+
 ## 3.4.0
 
 ### Minor Changes

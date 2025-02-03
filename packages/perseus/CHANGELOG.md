@@ -1,5 +1,24 @@
 # @khanacademy/perseus
 
+## 53.1.0
+
+### Minor Changes
+
+-   [#2183](https://github.com/Khan/perseus/pull/2183) [`cac39013b`](https://github.com/Khan/perseus/commit/cac39013bd59a5ef73f151e1170dec83b463f076) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Radio widget
+
+### Patch Changes
+
+-   Updated dependencies [[`cac39013b`](https://github.com/Khan/perseus/commit/cac39013bd59a5ef73f151e1170dec83b463f076)]:
+    -   @khanacademy/perseus-core@3.5.0
+    -   @khanacademy/kas@0.4.14
+    -   @khanacademy/keypad-context@1.0.17
+    -   @khanacademy/kmath@0.3.3
+    -   @khanacademy/math-input@22.2.4
+    -   @khanacademy/perseus-linter@1.2.16
+    -   @khanacademy/perseus-score@2.1.1
+    -   @khanacademy/pure-markdown@0.3.25
+    -   @khanacademy/simple-markdown@0.13.18
+
 ## 53.0.0
 
 ### Major Changes
