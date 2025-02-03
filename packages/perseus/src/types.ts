@@ -18,6 +18,7 @@ import type {
     getExpressionPublicWidgetOptions,
     getSorterPublicWidgetOptions,
     getDropdownPublicWidgetOptions,
+    getNumericInputPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -513,6 +514,7 @@ export type WidgetTransform = (
  * A union type of all the functions that provide public widget options.
  */
 export type PublicWidgetOptionsFunction =
+    | typeof getNumericInputPublicWidgetOptions
     | typeof getDropdownPublicWidgetOptions
     | typeof getCategorizerPublicWidgetOptions
     | typeof getOrdererPublicWidgetOptions
