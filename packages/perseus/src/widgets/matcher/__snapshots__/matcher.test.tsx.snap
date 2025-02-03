@@ -85,7 +85,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                     class="sortable_13d4756 perseus-sortable"
                   >
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -104,7 +104,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -123,7 +123,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -142,7 +142,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -161,7 +161,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px;"
                     >
                       <div
@@ -188,7 +188,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                     class="sortable_13d4756 perseus-sortable"
                   >
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -207,7 +207,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -226,7 +226,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -245,7 +245,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -264,7 +264,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px;"
                     >
                       <div
@@ -379,7 +379,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                     class="sortable_13d4756 perseus-sortable"
                   >
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -398,7 +398,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -417,7 +417,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -436,7 +436,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -455,7 +455,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px;"
                     >
                       <div
@@ -482,7 +482,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                     class="sortable_13d4756 perseus-sortable"
                   >
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -501,7 +501,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -520,7 +520,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -539,7 +539,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -558,7 +558,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px;"
                     >
                       <div
@@ -673,7 +673,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                     class="sortable_13d4756 perseus-sortable"
                   >
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -692,7 +692,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -711,7 +711,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -730,7 +730,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -749,7 +749,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
                       style="position: static; margin: 0px;"
                     >
                       <div
@@ -776,7 +776,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                     class="sortable_13d4756 perseus-sortable"
                   >
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -795,7 +795,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -814,7 +814,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -833,7 +833,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -852,7 +852,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-interactive perseus-sortable-draggable"
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
                       style="position: static; margin: 0px;"
                     >
                       <div

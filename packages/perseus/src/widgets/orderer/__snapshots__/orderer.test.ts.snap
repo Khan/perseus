@@ -29,13 +29,13 @@ exports[`orderer widget should snapshot on mobile: first mobile render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="draggy-boxy-thing orderer height-normal layout-horizontal above-scratchpad blank-background perseus-clearfix perseus-interactive"
+            class="draggy-boxy-thing orderer height-normal layout-horizontal blank-background perseus-clearfix "
           >
             <div
               class="bank perseus-clearfix"
             >
               <div
-                class="card-wrap perseus-interactive"
+                class="card-wrap"
               >
                 <div
                   class="card stack"
@@ -57,7 +57,7 @@ exports[`orderer widget should snapshot on mobile: first mobile render 1`] = `
                 </div>
               </div>
               <div
-                class="card-wrap perseus-interactive"
+                class="card-wrap"
               >
                 <div
                   class="card stack"
@@ -79,7 +79,7 @@ exports[`orderer widget should snapshot on mobile: first mobile render 1`] = `
                 </div>
               </div>
               <div
-                class="card-wrap perseus-interactive"
+                class="card-wrap"
               >
                 <div
                   class="card stack"
@@ -105,7 +105,7 @@ exports[`orderer widget should snapshot on mobile: first mobile render 1`] = `
               class="perseus-clearfix draggable-box"
             >
               <div
-                class="card-wrap perseus-interactive"
+                class="card-wrap"
               >
                 <div
                   class="card drag-hint"
@@ -150,13 +150,13 @@ exports[`orderer widget should snapshot: first render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="draggy-boxy-thing orderer height-normal layout-horizontal above-scratchpad blank-background perseus-clearfix perseus-interactive"
+            class="draggy-boxy-thing orderer height-normal layout-horizontal blank-background perseus-clearfix "
           >
             <div
               class="bank perseus-clearfix"
             >
               <div
-                class="card-wrap perseus-interactive"
+                class="card-wrap"
               >
                 <div
                   class="card stack"
@@ -178,7 +178,7 @@ exports[`orderer widget should snapshot: first render 1`] = `
                 </div>
               </div>
               <div
-                class="card-wrap perseus-interactive"
+                class="card-wrap"
               >
                 <div
                   class="card stack"
@@ -200,7 +200,7 @@ exports[`orderer widget should snapshot: first render 1`] = `
                 </div>
               </div>
               <div
-                class="card-wrap perseus-interactive"
+                class="card-wrap"
               >
                 <div
                   class="card stack"
@@ -226,7 +226,7 @@ exports[`orderer widget should snapshot: first render 1`] = `
               class="perseus-clearfix draggable-box"
             >
               <div
-                class="card-wrap perseus-interactive"
+                class="card-wrap"
               >
                 <div
                   class="card drag-hint"

@@ -30,10 +30,6 @@ export const pureMdMax = "1023px";
 export const pureLgMax = "1279px";
 // @tableBackgroundAccent: #f9f9f9; // for striping
 export const tableBackgroundAccent = "#F9F9F9";
-// @zIndexAboveScratchpad: @zIndexScratchPad + 1;
-export const zIndexAboveScratchpad = 2;
-// @zIndexInteractiveComponent: @zIndexAboveScratchpad + 1;
-export const zIndexInteractiveComponent = 3;
 // @phoneMargin: 16px;
 export const phoneMargin = 16;
 

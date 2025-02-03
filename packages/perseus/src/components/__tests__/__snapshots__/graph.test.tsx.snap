@@ -3,7 +3,7 @@
 exports[`graph should render 1`] = `
 <div>
   <div
-    class="graphie-container above-scratchpad"
+    class="graphie-container blank-background"
     style="width: 400px; height: 400px;"
   >
     <div
