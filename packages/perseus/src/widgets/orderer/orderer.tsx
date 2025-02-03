@@ -10,7 +10,6 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {Log} from "../../logging/log";
-import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
@@ -33,7 +32,7 @@ class PlaceholderCard extends React.Component<PlaceholderCardProps> {
     render(): React.ReactNode {
         return (
             <div
-                className={"card-wrap " + ApiClassNames.INTERACTIVE}
+                className={"card-wrap"}
                 style={{width: this.props.width as number}}
             >
                 <div
@@ -48,7 +47,7 @@ class PlaceholderCard extends React.Component<PlaceholderCardProps> {
 class DragHintCard extends React.Component<any> {
     render(): React.ReactNode {
         return (
-            <div className={"card-wrap " + ApiClassNames.INTERACTIVE}>
+            <div className={"card-wrap"}>
                 <div className="card drag-hint" />
             </div>
         );
@@ -275,7 +274,7 @@ class Card extends React.Component<CardProps, CardState> {
 
         return (
             <div
-                className={"card-wrap " + ApiClassNames.INTERACTIVE}
+                className={"card-wrap"}
                 style={style}
                 onMouseDown={onMouseDown}
                 onTouchStart={onMouseDown}
@@ -762,8 +761,7 @@ class Orderer
                     this.props.layout +
                     " " +
                     "blank-background " +
-                    "perseus-clearfix " +
-                    ApiClassNames.INTERACTIVE
+                    "perseus-clearfix "
                 }
                 // eslint-disable-next-line react/no-string-refs
                 ref="orderer"

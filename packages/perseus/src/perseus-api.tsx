@@ -168,10 +168,6 @@ export const ClassNames = {
         SELECTED: "perseus-radio-selected",
         OPTION_CONTENT: "perseus-radio-option-content",
     },
-    /**
-     * @deprecated This used to add a z-index of 3. Now it does nothing.
-     */
-    INTERACTIVE: "perseus-interactive",
     CORRECT: "perseus-correct",
     INCORRECT: "perseus-incorrect",
     UNANSWERED: "perseus-unanswered",
