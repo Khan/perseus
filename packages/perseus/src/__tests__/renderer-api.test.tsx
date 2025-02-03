@@ -21,7 +21,7 @@ import mockWidget1Item from "./test-items/mock-widget-1-item";
 import mockWidget2Item from "./test-items/mock-widget-2-item";
 import tableItem from "./test-items/table-item";
 
-import type {PerseusMockWidgetUserInput} from "../widgets/mock-widgets/mock-widget-types";
+import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
 const itemWidget = mockWidget1Item;
@@ -37,8 +37,6 @@ describe("Perseus API", function () {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        // TODO(LEMS-2656): remove TS suppression
-        // @ts-expect-error: MockWidget is not assignable to type WidgetExports
         registerWidget("mock-widget", MockWidget);
     });
 

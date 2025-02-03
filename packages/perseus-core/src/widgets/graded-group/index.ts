@@ -14,9 +14,9 @@ const defaultWidgetOptions: GradedGroupDefaultWidgetOptions = {
     hint: null,
 };
 
-const GradedGroupWidgetLogic: WidgetLogic = {
+const gradedGroupWidgetLogic: WidgetLogic = {
     name: "graded-group",
     defaultWidgetOptions,
 };
 
-export default GradedGroupWidgetLogic;
+export default gradedGroupWidgetLogic;

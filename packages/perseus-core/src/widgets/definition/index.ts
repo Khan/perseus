@@ -14,6 +14,7 @@ const defaultWidgetOptions: DefinitionDefaultWidgetOptions = {
 const definitionWidgetLogic: WidgetLogic = {
     name: "definition",
     defaultWidgetOptions,
+    defaultAlignment: "inline",
 };
 
 export default definitionWidgetLogic;
