@@ -15,10 +15,12 @@ import type {
     WidgetOptionsUpgradeMap,
     getOrdererPublicWidgetOptions,
     getCategorizerPublicWidgetOptions,
+    getCSProgramPublicWidgetOptions,
     getExpressionPublicWidgetOptions,
     getSorterPublicWidgetOptions,
     getDropdownPublicWidgetOptions,
     getNumericInputPublicWidgetOptions,
+    getNumberLinePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -520,7 +522,9 @@ export type PublicWidgetOptionsFunction =
     | typeof getOrdererPublicWidgetOptions
     | typeof getExpressionPublicWidgetOptions
     | typeof getLabelImagePublicWidgetOptions
-    | typeof getSorterPublicWidgetOptions;
+    | typeof getSorterPublicWidgetOptions
+    | typeof getCSProgramPublicWidgetOptions
+    | typeof getNumberLinePublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,

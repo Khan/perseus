@@ -2,6 +2,7 @@
  * This widget is for embedding Khan Academy CS programs.
  */
 
+import {getCSProgramPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
 import * as React from "react";
@@ -199,4 +200,5 @@ export default {
     displayName: "CS Program",
     widget: CSProgram,
     hidden: true,
+    getPublicWidgetOptions: getCSProgramPublicWidgetOptions,
 } satisfies WidgetExports<typeof CSProgram>;

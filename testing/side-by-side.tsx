@@ -48,11 +48,11 @@ const styles = {
         padding: `0px ${spacing.large_24}px`,
     },
     leftPanel: {
-        flexBasis: `${interactiveSizes.defaultBoxSize}px`,
+        flex: `1 0 ${interactiveSizes.defaultBoxSize}px`,
+        overflow: "auto",
     },
     rightPanel: {
-        flexGrow: 1,
-        flexBasis: `${interactiveSizes.defaultBoxSize}px`,
+        flex: `1 1 ${interactiveSizes.defaultBoxSizeSmall}px`,
         maxWidth: "50%",
     },
 } as const;

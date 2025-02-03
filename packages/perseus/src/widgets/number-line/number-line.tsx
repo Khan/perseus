@@ -1,4 +1,5 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
+import {getNumberLinePublicWidgetOptions} from "@khanacademy/perseus-core";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -801,4 +802,5 @@ export default {
     widget: NumberLine,
     transform: numberLineTransform,
     staticTransform: staticTransform,
+    getPublicWidgetOptions: getNumberLinePublicWidgetOptions,
 } satisfies WidgetExports<typeof NumberLine>;

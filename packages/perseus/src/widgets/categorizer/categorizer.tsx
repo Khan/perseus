@@ -13,7 +13,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
 import {iconCircle, iconCircleThin} from "../../icon-paths";
 import * as Changeable from "../../mixins/changeable";
-import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
@@ -148,13 +147,7 @@ export class Categorizer
                                                 }
                                                 key={catNum}
                                             >
-                                                {/* a pseudo-label: toggle the
-                                value of the checkbox when this div or the
-                                checkbox is clicked */}
                                                 <div
-                                                    className={
-                                                        ApiClassNames.INTERACTIVE
-                                                    }
                                                     role="button"
                                                     aria-label={catName}
                                                     onClick={() =>

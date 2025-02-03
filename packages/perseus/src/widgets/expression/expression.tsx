@@ -20,7 +20,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import MathInput from "../../components/math-input";
 import {useDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
-import {ApiOptions, ClassNames as ApiClassNames} from "../../perseus-api";
+import {ApiOptions} from "../../perseus-api";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
@@ -379,7 +379,6 @@ export class Expression
                         <MathInput
                             // eslint-disable-next-line react/no-string-refs
                             ref="input"
-                            className={ApiClassNames.INTERACTIVE}
                             value={this.props.value}
                             onChange={this.changeAndTrack}
                             convertDotToTimes={this.props.times}
