@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
     crossOutLine: {
         // Center the icon within the container.
         position: "absolute",
-        top: `0px`,
-        left: `0px`,
+        top: `2px`,
+        left: `2px`,
     },
 });
 
