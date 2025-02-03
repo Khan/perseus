@@ -34,7 +34,7 @@ exports[`sorter widget should snapshot on mobile: first mobile render 1`] = `
               class="sortable_13d4756 perseus-sortable"
             >
               <li
-                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-sortable-draggable"
                 style="position: static; margin: 0px 8px 0px 0px;"
               >
                 <div
@@ -64,7 +64,7 @@ exports[`sorter widget should snapshot on mobile: first mobile render 1`] = `
                 </div>
               </li>
               <li
-                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-sortable-draggable"
                 style="position: static; margin: 0px 8px 0px 0px;"
               >
                 <div
@@ -94,7 +94,7 @@ exports[`sorter widget should snapshot on mobile: first mobile render 1`] = `
                 </div>
               </li>
               <li
-                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-sortable-draggable"
                 style="position: static; margin: 0px;"
               >
                 <div
@@ -166,7 +166,7 @@ exports[`sorter widget should snapshot: first render 1`] = `
               class="sortable_13d4756 perseus-sortable"
             >
               <li
-                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-sortable-draggable"
                 style="position: static; margin: 0px 5px 0px 0px;"
               >
                 <div
@@ -196,7 +196,7 @@ exports[`sorter widget should snapshot: first render 1`] = `
                 </div>
               </li>
               <li
-                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-sortable-draggable"
                 style="position: static; margin: 0px 5px 0px 0px;"
               >
                 <div
@@ -226,7 +226,7 @@ exports[`sorter widget should snapshot: first render 1`] = `
                 </div>
               </li>
               <li
-                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-sortable-draggable"
                 style="position: static; margin: 0px;"
               >
                 <div

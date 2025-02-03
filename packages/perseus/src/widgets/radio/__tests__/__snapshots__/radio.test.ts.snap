@@ -61,7 +61,7 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                 style="list-style: none;"
               >
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
                 >
                   <div
                     class="description description_psmgei"
@@ -174,7 +174,7 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -287,7 +287,7 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -400,7 +400,7 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -613,7 +613,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 style="list-style: none;"
               >
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -752,7 +752,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -865,7 +865,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
                 >
                   <div
                     class="description description_psmgei"
@@ -978,7 +978,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -1177,7 +1177,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 style="list-style: none;"
               >
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
                 >
                   <div
                     class="description description_psmgei"
@@ -1316,7 +1316,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -1429,7 +1429,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -1542,7 +1542,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -1741,7 +1741,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 style="list-style: none;"
               >
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -1880,7 +1880,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -1993,7 +1993,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -2106,7 +2106,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -2305,7 +2305,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 style="list-style: none;"
               >
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -2444,7 +2444,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -2557,7 +2557,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
                 >
                   <div
                     class="description description_psmgei"
@@ -2670,7 +2670,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -2869,7 +2869,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 style="list-style: none;"
               >
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
                 >
                   <div
                     class="description description_psmgei"
@@ -3008,7 +3008,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -3121,7 +3121,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -3234,7 +3234,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -3433,7 +3433,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 style="list-style: none;"
               >
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option perseus-incorrect"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option perseus-incorrect"
                 >
                   <div
                     class="description description_psmgei"
@@ -3651,7 +3651,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option perseus-incorrect"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option perseus-incorrect"
                 >
                   <div
                     class="description description_psmgei"
@@ -3827,7 +3827,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option perseus-correct"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option perseus-correct"
                 >
                   <div
                     class="description description_psmgei"
@@ -3998,7 +3998,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                   </div>
                 </li>
                 <li
-                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option perseus-incorrect"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option perseus-incorrect"
                 >
                   <div
                     class="description description_psmgei"

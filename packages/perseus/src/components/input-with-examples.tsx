@@ -71,7 +71,7 @@ class InputWithExamples extends React.Component<Props, State> {
 
     _getInputClassName: () => string = () => {
         // Otherwise, we need to add these INPUT and FOCUSED tags here.
-        let className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
+        let className = ApiClassNames.INPUT;
         if (this.state.focused) {
             className += " " + ApiClassNames.FOCUSED;
         }
