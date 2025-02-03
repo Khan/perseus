@@ -71,12 +71,16 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
         pressed,
     } = props;
 
+    // Accounts for incorrect choice still displaying as learner tries again
+    const choiceIsChecked =
+        checked || (showCorrectness && !correct && previouslyAnswered);
+
     // Core styling
     const choiceStyling = [
         styles.choiceBase,
         multipleSelect ? styles.multiSelectShape : styles.singleSelectShape,
         showCorrectness ? styles.choiceHasIcon : styles.choiceHasLetter,
-        checked ? styles.choiceIsChecked : styles.choiceIsUnchecked,
+        choiceIsChecked ? styles.choiceIsChecked : styles.choiceIsUnchecked,
     ];
 
     // Color styling
@@ -104,8 +108,6 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
         choiceStyling.push(styles.uncheckedColors);
         crossOutColor = WBColor.offBlack64;
     }
-
-    console.log(`Using updated choice-icon.tsx`); // eslint-disable-line no-console
 
     return (
         <div className={css(sharedStyles.iconWrapper)}>
