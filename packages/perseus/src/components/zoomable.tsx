@@ -194,10 +194,14 @@ class Zoomable extends React.Component<Props, State> {
         //      (which should have a width).
         // To be cautious, we also account for the possibility that we can't find any parents with a valid width
         //      (not that they don't exist, just that we can't find them).
+        console.log(`Node: `, this._node);
         let parentNode = this._node;
         let currentNode: HTMLElement | null = parentNode;
+        console.log(`   Parent width (initial): `, parentNode.offsetWidth);
         while (currentNode && currentNode.offsetWidth === 0) {
+            console.log(`   Looking for ancestor...`);
             currentNode = currentNode.closest(".perseus-renderer");
+            console.log(`      Found: `, currentNode);
         }
         if (currentNode) {
             parentNode = currentNode;
@@ -206,10 +210,12 @@ class Zoomable extends React.Component<Props, State> {
             width: parentNode.offsetWidth,
             height: parentNode.offsetHeight,
         } as const;
+        console.log(`   Parent Bounds: `, parentBounds);
         const childBounds = this.props.computeChildBounds(
             this._node,
             parentBounds,
         );
+        console.log(`   Child Bounds: `, childBounds);
 
         // The +1 is a fudge factor to make sure any border on the
         // content isn't clipped by the the container it's in.
@@ -218,6 +224,7 @@ class Zoomable extends React.Component<Props, State> {
 
         if (childWidth > parentBounds.width) {
             const scale = parentBounds.width / childWidth;
+            console.log(`   Scale: `, parentBounds.width, childWidth, scale);
 
             this.setState({
                 scale,
