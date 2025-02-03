@@ -168,7 +168,6 @@ export const ClassNames = {
         SELECTED: "perseus-radio-selected",
         OPTION_CONTENT: "perseus-radio-option-content",
     },
-    INTERACTIVE: "perseus-interactive",
     CORRECT: "perseus-correct",
     INCORRECT: "perseus-incorrect",
     UNANSWERED: "perseus-unanswered",

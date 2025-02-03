@@ -126,7 +126,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 style="list-style: none;"
                               >
                                 <li
-                                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -240,7 +240,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                   </div>
                                 </li>
                                 <li
-                                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -354,7 +354,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                   </div>
                                 </li>
                                 <li
-                                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -468,7 +468,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                   </div>
                                 </li>
                                 <li
-                                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -582,7 +582,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                   </div>
                                 </li>
                                 <li
-                                  class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                                 >
                                   <div
                                     class="description description_psmgei"

@@ -170,7 +170,6 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                   >
                     <div
                       aria-label="No relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <input
@@ -185,7 +184,6 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                   >
                     <div
                       aria-label="Positive linear relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <input
@@ -200,7 +198,6 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                   >
                     <div
                       aria-label="Negative linear relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <input
@@ -215,7 +212,6 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                   >
                     <div
                       aria-label="Nonlinear relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <input
@@ -259,7 +255,6 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                   >
                     <div
                       aria-label="No relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <input
@@ -274,7 +269,6 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                   >
                     <div
                       aria-label="Positive linear relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <input
@@ -289,7 +283,6 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                   >
                     <div
                       aria-label="Negative linear relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <input
@@ -304,7 +297,6 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                   >
                     <div
                       aria-label="Nonlinear relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <input
@@ -589,7 +581,6 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                   >
                     <div
                       aria-label="No relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <span
@@ -616,7 +607,6 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                   >
                     <div
                       aria-label="Positive linear relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <span
@@ -643,7 +633,6 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                   >
                     <div
                       aria-label="Negative linear relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <span
@@ -670,7 +659,6 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                   >
                     <div
                       aria-label="Nonlinear relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <span
@@ -726,7 +714,6 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                   >
                     <div
                       aria-label="No relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <span
@@ -753,7 +740,6 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                   >
                     <div
                       aria-label="Positive linear relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <span
@@ -780,7 +766,6 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                   >
                     <div
                       aria-label="Negative linear relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <span
@@ -807,7 +792,6 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                   >
                     <div
                       aria-label="Nonlinear relationship"
-                      class="perseus-interactive"
                       role="button"
                     >
                       <span
