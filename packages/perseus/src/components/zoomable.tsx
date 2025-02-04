@@ -194,22 +194,11 @@ class Zoomable extends React.Component<Props, State> {
         //      (which should have a width).
         // To be cautious, we also account for the possibility that we can't find any parents with a valid width
         //      (not that they don't exist, just that we can't find them).
-        // eslint-disable-next-line no-console
-        console.log(`Node: `, this._node);
         let parentNode = this._node;
         let currentNode: HTMLElement | null = parentNode;
-        // eslint-disable-next-line no-console
-        console.log(`   Parent width (initial): `, parentNode.offsetWidth);
         while (currentNode && currentNode.offsetWidth === 0) {
-            // eslint-disable-next-line no-console
-            console.log(`   Looking for ancestor...`);
             currentNode =
                 currentNode.parentElement?.closest(".perseus-renderer") ?? null;
-            // eslint-disable-next-line no-console
-            console.log(
-                `      Found: `,
-                currentNode?.outerHTML.substring(0, 100),
-            );
         }
         if (currentNode) {
             parentNode = currentNode;
@@ -218,14 +207,10 @@ class Zoomable extends React.Component<Props, State> {
             width: parentNode.offsetWidth,
             height: parentNode.offsetHeight,
         } as const;
-        // eslint-disable-next-line no-console
-        console.log(`   Parent Bounds: `, parentBounds);
         const childBounds = this.props.computeChildBounds(
             this._node,
             parentBounds,
         );
-        // eslint-disable-next-line no-console
-        console.log(`   Child Bounds: `, childBounds);
 
         // The +1 is a fudge factor to make sure any border on the
         // content isn't clipped by the the container it's in.
@@ -234,8 +219,6 @@ class Zoomable extends React.Component<Props, State> {
 
         if (childWidth > parentBounds.width) {
             const scale = parentBounds.width / childWidth;
-            // eslint-disable-next-line no-console
-            console.log(`   Scale: `, parentBounds.width, childWidth, scale);
 
             this.setState({
                 scale,
