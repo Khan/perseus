@@ -240,15 +240,22 @@ export function getQuadraticXIntercepts(
     return [x1, x2];
 }
 
+/**
+ * Given a list of points, return the angle made by the point at index i
+ * with the points at indices i - 1 and i + 1.
+ */
 export function getAngleFromPoints(points: Coord[], i: number) {
+    // Make sure the index is valid.
     if (i < 0 || i >= points.length || !Number.isInteger(i)) {
         return null;
     }
 
+    // If there are fewer than 3 points, there is no angle.
     if (points.length < 3) {
         return null;
     }
 
+    // Get the points at the current index and the two adjacent points.
     const point = points.at(i);
     const pt1 = points.at(i - 1);
     const pt2 = points[(i + 1) % points.length];
@@ -256,6 +263,8 @@ export function getAngleFromPoints(points: Coord[], i: number) {
         return null;
     }
 
+    // Get the lengths of adjacent sides, making a triangle
+    // we can use to calculate the angle.
     const a = vec.dist(point, pt1);
     const b = vec.dist(point, pt2);
     const c = vec.dist(pt1, pt2);
