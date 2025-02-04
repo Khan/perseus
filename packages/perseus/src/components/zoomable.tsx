@@ -203,9 +203,10 @@ class Zoomable extends React.Component<Props, State> {
         while (currentNode && currentNode.offsetWidth === 0) {
             // eslint-disable-next-line no-console
             console.log(`   Looking for ancestor...`);
-            currentNode = currentNode.closest(".perseus-renderer");
+            currentNode =
+                currentNode.parentElement?.closest(".perseus-renderer");
             // eslint-disable-next-line no-console
-            console.log(`      Found: `, currentNode);
+            console.log(`      Found: `, currentNode?.outerHTML.substring(0, 100));
         }
         if (currentNode) {
             parentNode = currentNode;
