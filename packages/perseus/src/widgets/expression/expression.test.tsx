@@ -1,5 +1,6 @@
 import {it, describe, beforeEach} from "@jest/globals";
 import {KeypadType} from "@khanacademy/math-input";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -8,8 +9,6 @@ import {
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {scorePerseusItem} from "../../renderer-util";
-import {mockStrings} from "../../strings";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -469,7 +468,6 @@ describe("Expression Widget", function () {
             const score = scorePerseusItem(
                 expressionItem2.question,
                 renderer.getUserInputMap(),
-                mockStrings,
                 "en",
             );
 
@@ -494,7 +492,6 @@ describe("Expression Widget", function () {
             const score = scorePerseusItem(
                 expressionItem2.question,
                 renderer.getUserInputMap(),
-                mockStrings,
                 "en",
             );
 

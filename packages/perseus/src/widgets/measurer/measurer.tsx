@@ -10,7 +10,6 @@ import _ from "underscore";
 import SvgImage from "../../components/svg-image";
 import GraphUtils from "../../util/graph-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/measurer-ai-utils";
-import scoreNoop from "../__shared__/score-noop";
 
 import type {Coord} from "../../interactive2/types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -161,7 +160,7 @@ class Measurer extends React.Component<Props> implements Widget {
             <div
                 className={
                     "perseus-widget perseus-widget-measurer " +
-                    "graphie-container above-scratchpad"
+                    "graphie-container blank-background"
                 }
                 style={{width: this.props.box[0], height: this.props.box[1]}}
             >
@@ -191,6 +190,4 @@ export default {
     widget: Measurer,
     version: measurerLogic.version,
     propUpgrades: measurerLogic.widgetOptionsUpgrades,
-    // TODO: things that aren't interactive shouldn't need scoring functions
-    scorer: () => scoreNoop(1),
 } satisfies WidgetExports<typeof Measurer>;

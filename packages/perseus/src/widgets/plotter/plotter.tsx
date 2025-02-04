@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unsafe */
 import {KhanMath} from "@khanacademy/kmath";
-import {scorePlotter, validatePlotter} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -9,7 +8,6 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
-import {ClassNames as ApiClassNames} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import GraphUtils from "../../util/graph-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
@@ -1157,10 +1155,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
 
         return (
             <div
-                className={
-                    "perseus-widget-plotter graphie " +
-                    ApiClassNames.INTERACTIVE
-                }
+                className={"perseus-widget-plotter graphie"}
                 // eslint-disable-next-line react/no-string-refs
                 ref="graphieDiv"
                 style={style}
@@ -1178,10 +1173,4 @@ export default {
     hidden: true,
     widget: Plotter,
     staticTransform: staticTransform,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
-    scorer: scorePlotter,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type UserInput is not assignable to type PerseusPlotterUserInput
-    validator: validatePlotter,
 } satisfies WidgetExports<typeof Plotter>;

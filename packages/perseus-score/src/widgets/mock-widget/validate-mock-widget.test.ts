@@ -1,6 +1,6 @@
 import validateMockWidget from "./validate-mock-widget";
 
-import type {PerseusMockWidgetUserInput} from "./mock-widget-types";
+import type {PerseusMockWidgetUserInput} from "./mock-widget-validation.types";
 
 describe("mock-widget", () => {
     it("should be invalid if no value provided", () => {
