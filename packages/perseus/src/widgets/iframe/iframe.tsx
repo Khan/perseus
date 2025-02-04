@@ -7,6 +7,7 @@
  *  but could also be used for embedding viz's hosted elsewhere.
  */
 
+import getIFramePublicWidgetOptions from "@khanacademy/perseus-core/src/widgets/iframe/iframe-util";
 import {scoreIframe} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import * as React from "react";
@@ -173,4 +174,5 @@ export default {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusIframeUserInput'.
     scorer: scoreIframe,
+    getPublicWidgetOptions: getIFramePublicWidgetOptions,
 } satisfies WidgetExports<typeof Iframe>;
