@@ -8,6 +8,12 @@ export function convertDegreesToRadians(degrees: number): number {
     return (degrees / 180) * Math.PI;
 }
 
+export function convertRadiansToDegrees(radians: number): number {
+    const degree = (radians / Math.PI) * 180;
+    // Account for floating point errors.
+    return Number(degree.toPrecision(15));
+}
+
 // Returns a value between -180 and 180, inclusive. The angle is measured
 // between the positive x-axis and the given vector.
 export function calculateAngleInDegrees([x, y]: Coord): number {

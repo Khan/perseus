@@ -1,3 +1,4 @@
+import {angles} from "@khanacademy/kmath";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
@@ -5,7 +6,8 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import ScrolllessNumberTextField from "./scrollless-number-text-field";
-import {degreeToRadian, radianToDegree} from "./util";
+
+const {convertDegreesToRadians, convertRadiansToDegrees} = angles;
 
 type Props = {
     angle: number;
@@ -16,7 +18,7 @@ const AngleInput = (props: Props) => {
     const {angle, onChange} = props;
 
     const [angleInput, setAngleInput] = React.useState(
-        radianToDegree(angle).toString(),
+        convertRadiansToDegrees(angle).toString(),
     );
 
     function handleAngleChange(newValue) {
@@ -30,7 +32,7 @@ const AngleInput = (props: Props) => {
         }
 
         // Update the graph.
-        onChange(degreeToRadian(newValue));
+        onChange(convertDegreesToRadians(newValue));
     }
 
     return (
