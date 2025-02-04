@@ -1,3 +1,4 @@
+import {getTablePublicWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -17,7 +18,6 @@ import type {
     PerseusTableRubric,
     PerseusTableUserInput,
 } from "@khanacademy/perseus-score";
-import {getTablePublicWidgetOptions} from "@khanacademy/perseus-core";
 
 const {assert} = InteractiveUtil;
 
