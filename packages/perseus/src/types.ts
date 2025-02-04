@@ -21,6 +21,7 @@ import type {
     getDropdownPublicWidgetOptions,
     getNumericInputPublicWidgetOptions,
     getNumberLinePublicWidgetOptions,
+    getIframePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -547,6 +548,7 @@ export type WidgetScorerFunction = (
  * A union type of all the functions that provide public widget options.
  */
 export type PublicWidgetOptionsFunction =
+    | typeof getIframePublicWidgetOptions
     | typeof getNumericInputPublicWidgetOptions
     | typeof getDropdownPublicWidgetOptions
     | typeof getCategorizerPublicWidgetOptions
