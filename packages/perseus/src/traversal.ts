@@ -13,7 +13,10 @@
  * more confident in the interface provided first.
  */
 
-import {mapObject} from "@khanacademy/perseus-core";
+import {
+    mapObject,
+    upgradeWidgetInfoToLatestVersion,
+} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import * as Widgets from "./widgets";
@@ -29,8 +32,7 @@ const deepCallbackFor = function (
         // This doesn't modify the widget info if the widget info
         // is at a later version than is supported, which is important
         // for our latestVersion test below.
-        const upgradedWidgetInfo =
-            Widgets.upgradeWidgetInfoToLatestVersion(widgetInfo);
+        const upgradedWidgetInfo = upgradeWidgetInfoToLatestVersion(widgetInfo);
         const latestVersion = Widgets.getVersion(upgradedWidgetInfo.type);
 
         // Only traverse our children if we can understand this version

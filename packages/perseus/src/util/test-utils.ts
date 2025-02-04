@@ -1,5 +1,8 @@
-import {scorePerseusItem} from "../renderer-util";
-import {mockStrings} from "../strings";
+import {
+    scorePerseusItem,
+    type PerseusScore,
+    type UserInputMap,
+} from "@khanacademy/perseus-score";
 
 import type {
     CategorizerWidget,
@@ -10,7 +13,6 @@ import type {
     PerseusRenderer,
     RadioWidget,
 } from "@khanacademy/perseus-core";
-import type {PerseusScore, UserInputMap} from "@khanacademy/perseus-score";
 
 export const genericPerseusItemData: PerseusItem = {
     question: {
@@ -44,7 +46,7 @@ export function scorePerseusItemTesting(
     perseusRenderData: PerseusRenderer,
     userInputMap: UserInputMap,
 ): PerseusScore {
-    return scorePerseusItem(perseusRenderData, userInputMap, mockStrings, "en");
+    return scorePerseusItem(perseusRenderData, userInputMap, "en");
 }
 
 /**

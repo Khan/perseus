@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "17.4.1",
+    "version": "17.5.0",
     "publishConfig": {
         "access": "public"
     },
@@ -35,19 +35,19 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/kas": "^0.4.12",
-        "@khanacademy/keypad-context": "^1.0.15",
-        "@khanacademy/kmath": "^0.3.1",
-        "@khanacademy/math-input": "^22.2.2",
-        "@khanacademy/perseus": "^52.0.1",
-        "@khanacademy/perseus-core": "3.3.0",
-        "@khanacademy/perseus-score": "^2.0.0",
-        "@khanacademy/pure-markdown": "^0.3.23",
+        "@khanacademy/kas": "^0.4.13",
+        "@khanacademy/keypad-context": "^1.0.16",
+        "@khanacademy/kmath": "^0.3.2",
+        "@khanacademy/math-input": "^22.2.3",
+        "@khanacademy/perseus": "^53.0.0",
+        "@khanacademy/perseus-core": "3.4.0",
+        "@khanacademy/perseus-score": "^2.1.0",
+        "@khanacademy/pure-markdown": "^0.3.24",
         "axe-core": "^4.10.2",
         "mafs": "^0.19.0"
     },
     "devDependencies": {
-        "@khanacademy/perseus-linter": "^1.2.14",
+        "@khanacademy/perseus-linter": "^1.2.15",
         "@khanacademy/wonder-blocks-accordion": "3.0.3",
         "@khanacademy/wonder-blocks-banner": "4.0.5",
         "@khanacademy/wonder-blocks-button": "7.0.5",

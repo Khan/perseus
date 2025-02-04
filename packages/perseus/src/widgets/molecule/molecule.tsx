@@ -2,7 +2,6 @@
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import scoreNoop from "../__shared__/score-noop";
 
 import draw from "./molecule-drawing";
 import MoleculeLayout from "./molecule-layout";
@@ -160,5 +159,4 @@ export default {
     displayName: "Molecule renderer",
     hidden: true,
     widget: MoleculeWidget,
-    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof MoleculeWidget>;

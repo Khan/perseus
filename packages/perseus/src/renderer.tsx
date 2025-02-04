@@ -1,7 +1,20 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
-import {Errors, PerseusError, mapObject} from "@khanacademy/perseus-core";
+import {
+    Errors,
+    PerseusError,
+    getUpgradedWidgetOptions,
+    mapObject,
+} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
+import {
+    emptyWidgetsFunctional,
+    flattenScores,
+    scoreWidgetsFunctional,
+    type PerseusScore,
+    type UserInputArray,
+    type UserInputMap,
+} from "@khanacademy/perseus-score";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import classNames from "classnames";
 import $ from "jquery";
@@ -24,14 +37,8 @@ import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
-import {
-    emptyWidgetsFunctional,
-    getUpgradedWidgetOptions,
-    scoreWidgetsFunctional,
-} from "./renderer-util";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
-import {flattenScores} from "./util/scoring";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
@@ -60,11 +67,6 @@ import type {
     ShowSolutions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
-import type {
-    PerseusScore,
-    UserInputArray,
-    UserInputMap,
-} from "@khanacademy/perseus-score";
 
 import "./styles/perseus-renderer.less";
 
@@ -1585,7 +1587,6 @@ class Renderer
             this.state.widgetInfo,
             this.widgetIds,
             this.getUserInputMap(),
-            this.props.strings,
             this.context.locale,
         );
     }
@@ -1737,7 +1738,6 @@ class Renderer
             this.state.widgetInfo,
             this.widgetIds,
             this.getUserInputMap(),
-            this.props.strings,
             this.context.locale,
         );
         const combinedScore = flattenScores(scores);

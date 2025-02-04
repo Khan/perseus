@@ -5,16 +5,13 @@ import * as React from "react";
 
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 
-import scoreMockWidget from "./score-mock-widget";
-import validateMockWidget from "./validate-mock-widget";
-
-import type {
-    MockWidgetOptions,
-    PerseusMockWidgetRubric,
-    PerseusMockWidgetUserInput,
-} from "./mock-widget-types";
+import type {MockWidgetOptions} from "./mock-widget-types";
 import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
 import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
+import type {
+    PerseusMockWidgetRubric,
+    PerseusMockWidgetUserInput,
+} from "@khanacademy/perseus-score";
 
 type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetRubric>;
 
@@ -130,10 +127,4 @@ export default {
     displayName: "Mock Widget",
     widget: MockWidgetComponent,
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'MockWidget'.
-    scorer: scoreMockWidget,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMockWidgetUserInput'.
-    validator: validateMockWidget,
 } satisfies WidgetExports<typeof MockWidgetComponent>;

@@ -9,7 +9,6 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
-import {ClassNames as ApiClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import Util from "../util";
 
@@ -351,8 +350,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
                 !includePadding && styles.unpaddedCard,
             ) +
             " " +
-            ApiClassNames.INTERACTIVE +
-            " perseus-sortable-draggable";
+            "perseus-sortable-draggable";
 
         if (!includePadding) {
             className += " perseus-sortable-draggable-unpadded";
