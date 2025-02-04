@@ -21,17 +21,15 @@ import type {
     getDropdownPublicWidgetOptions,
     getNumericInputPublicWidgetOptions,
     getNumberLinePublicWidgetOptions,
+    getRadioPublicWidgetOptions,
     getIframePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
-    PerseusScore,
     Rubric,
     UserInput,
     UserInputArray,
     UserInputMap,
-    ValidationData,
-    ValidationResult,
 } from "@khanacademy/perseus-score";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
@@ -501,15 +499,6 @@ type TrackingSequenceExtraArguments = {
     visible: number;
 };
 
-export type Alignment =
-    | "default"
-    | "block"
-    | "inline-block"
-    | "inline"
-    | "float-left"
-    | "float-right"
-    | "full-width";
-
 type WidgetOptions = any;
 
 /**
@@ -525,30 +514,12 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
-export type WidgetValidatorFunction = (
-    userInput: UserInput,
-    validationData: ValidationData,
-    strings: PerseusStrings,
-    locale: string,
-) => ValidationResult;
-
-export type WidgetScorerFunction = (
-    // The user data needed to score
-    userInput: UserInput,
-    // The scoring criteria to score against
-    rubric: Rubric,
-    // Strings, for error messages in invalid widgets
-    string?: PerseusStrings,
-    // Locale, for math evaluation
-    // (1,000.00 === 1.000,00 in some countries)
-    locale?: string,
-) => PerseusScore;
-
 /**
  * A union type of all the functions that provide public widget options.
  */
 export type PublicWidgetOptionsFunction =
     | typeof getIframePublicWidgetOptions
+    | typeof getRadioPublicWidgetOptions
     | typeof getNumericInputPublicWidgetOptions
     | typeof getDropdownPublicWidgetOptions
     | typeof getCategorizerPublicWidgetOptions
@@ -583,9 +554,6 @@ export type WidgetExports<
      * This key defaults to `{major: 0, minor: 0}` if not provided.
      */
     version?: Version;
-    supportedAlignments?: ReadonlyArray<Alignment>;
-    defaultAlignment?: Alignment;
-    getDefaultAlignment?: () => Alignment;
     isLintable?: boolean;
     tracking?: Tracking;
 
@@ -600,19 +568,6 @@ export type WidgetExports<
      * static renders.
      */
     staticTransform?: WidgetTransform; // this is a function of some sort,
-
-    /**
-     * Validates the learner's guess to check if it's sufficient for scoring.
-     * Typically, this is basically an "emptiness" check, but for some widgets
-     * such as `interactive-graph` it is a check that the learner has made any
-     * edits (ie. the widget is not in it's origin state).
-     */
-    validator?: WidgetValidatorFunction;
-
-    /**
-     * A function that scores user input (the guess) for the widget.
-     */
-    scorer?: WidgetScorerFunction;
 
     /**
      * A function that provides a public version of the widget options that can

@@ -1,5 +1,27 @@
 # @khanacademy/perseus-editor
 
+## 17.5.0
+
+### Minor Changes
+
+-   [#2167](https://github.com/Khan/perseus/pull/2167) [`c72166c30`](https://github.com/Khan/perseus/commit/c72166c3046aa7c0fcd4e3348d604248e8565c2e) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Allow axis tick labels to be multiples of pi
+
+### Patch Changes
+
+-   [#2157](https://github.com/Khan/perseus/pull/2157) [`af8f5d3ca`](https://github.com/Khan/perseus/commit/af8f5d3cac1f642bb5f0c96a2f536990c277224f) Thanks [@handeyeco](https://github.com/handeyeco)! - Move default widget options for Grapher to Perseus Core
+
+*   [#2165](https://github.com/Khan/perseus/pull/2165) [`c8e383b46`](https://github.com/Khan/perseus/commit/c8e383b469426182a1392ca6ad2cde21b61e2f40) Thanks [@handeyeco](https://github.com/handeyeco)! - Move scorePerseusItem logic to PerseusScore
+
+*   Updated dependencies [[`a21fd908d`](https://github.com/Khan/perseus/commit/a21fd908d705c5b9de56f29af54d726824f5668e), [`781834332`](https://github.com/Khan/perseus/commit/781834332921f839028aa5cb3c5c867121859e02), [`af8f5d3ca`](https://github.com/Khan/perseus/commit/af8f5d3cac1f642bb5f0c96a2f536990c277224f), [`a470c799e`](https://github.com/Khan/perseus/commit/a470c799eb53c87e08fb2f829b27e114ca80f63f), [`97e07c8ba`](https://github.com/Khan/perseus/commit/97e07c8baee12a37e471e8292dedbcf0588e2f50), [`43d8bc68e`](https://github.com/Khan/perseus/commit/43d8bc68e1b816f8eaf56d15c8d4623d4cd163b6), [`c72166c30`](https://github.com/Khan/perseus/commit/c72166c3046aa7c0fcd4e3348d604248e8565c2e), [`dbd496769`](https://github.com/Khan/perseus/commit/dbd496769e210fc4aca33778a567a99ff1654e7e), [`7f88f17fc`](https://github.com/Khan/perseus/commit/7f88f17fcd19914e6652e7abe86afc769930a0a4), [`3c4c6bc92`](https://github.com/Khan/perseus/commit/3c4c6bc9207f6f2d65312df1c2bd5bf5246182a2), [`c8e383b46`](https://github.com/Khan/perseus/commit/c8e383b469426182a1392ca6ad2cde21b61e2f40), [`564447af2`](https://github.com/Khan/perseus/commit/564447af2c030143c303c7ec88b055bab324fff1)]:
+    -   @khanacademy/perseus@53.0.0
+    -   @khanacademy/perseus-core@3.4.0
+    -   @khanacademy/kmath@0.3.2
+    -   @khanacademy/perseus-score@2.1.0
+    -   @khanacademy/kas@0.4.13
+    -   @khanacademy/keypad-context@1.0.16
+    -   @khanacademy/math-input@22.2.3
+    -   @khanacademy/pure-markdown@0.3.24
+
 ## 17.4.1
 
 ### Patch Changes

@@ -10,7 +10,6 @@ import {
     Errors,
     PerseusError,
 } from "@khanacademy/perseus-core";
-import {scoreInteractiveGraph} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import debounce from "lodash.debounce";
 import * as React from "react";
@@ -2518,7 +2517,4 @@ export default {
     displayName: "Interactive graph (Assessments only)",
     widget: InteractiveGraph,
     staticTransform: staticTransform,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusInteractiveGraphUserInput'.
-    scorer: scoreInteractiveGraph,
 } satisfies WidgetExports<typeof InteractiveGraph>;

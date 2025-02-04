@@ -7,7 +7,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import {DefinitionConsumer} from "../../definition-context";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
-import scoreNoop from "../__shared__/score-noop";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {DefinitionPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
@@ -107,9 +106,6 @@ export default {
     name: "definition",
     displayName: "Definition",
     accessible: true,
-    defaultAlignment: "inline",
     widget: Definition,
     transform: (x: any) => x,
-    // TODO: things that aren't interactive shouldn't need scoring functions
-    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof Definition>;
