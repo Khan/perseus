@@ -17,6 +17,7 @@ import type {
     PerseusTableRubric,
     PerseusTableUserInput,
 } from "@khanacademy/perseus-score";
+import {getTablePublicWidgetOptions} from "@khanacademy/perseus-core";
 
 const {assert} = InteractiveUtil;
 
@@ -322,4 +323,5 @@ export default {
     transform: propTransform,
     hidden: true,
     isLintable: true,
+    getPublicWidgetOptions: getTablePublicWidgetOptions,
 } satisfies WidgetExports<typeof Table>;
