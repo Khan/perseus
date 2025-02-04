@@ -197,6 +197,9 @@ class Zoomable extends React.Component<Props, State> {
         let parentNode = this._node;
         let currentNode: HTMLElement | null = parentNode;
         while (currentNode && currentNode.offsetWidth === 0) {
+            // When traversing up the DOM tree, we need to start at the "parentElement"
+            //      because "closest()" can match the current element,
+            //      and if it does so, then we are stuck in an infinite loop.
             currentNode =
                 currentNode.parentElement?.closest(".perseus-renderer") ?? null;
         }
