@@ -1,5 +1,3 @@
-import validateCategorizer from "./validate-categorizer";
-
 import type {
     PerseusCategorizerRubric,
     PerseusCategorizerUserInput,
@@ -10,11 +8,6 @@ function scoreCategorizer(
     userInput: PerseusCategorizerUserInput,
     rubric: PerseusCategorizerRubric,
 ): PerseusScore {
-    const validationError = validateCategorizer(userInput, rubric);
-    if (validationError) {
-        return validationError;
-    }
-
     let allCorrect = true;
     rubric.values.forEach((value, i) => {
         if (userInput.values[i] !== value) {

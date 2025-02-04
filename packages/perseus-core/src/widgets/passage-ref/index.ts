@@ -8,6 +8,7 @@ const passageRefWidgetLogic: WidgetLogic = {
     name: "passageRef",
     version: currentVersion,
     defaultWidgetOptions: defaultWidgetOptions,
+    defaultAlignment: "inline",
 };
 
 export default passageRefWidgetLogic;

@@ -7,7 +7,6 @@ import {
     getExpressionPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {scoreExpression, validateExpression} from "@khanacademy/perseus-score";
 import {View} from "@khanacademy/wonder-blocks-core";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
@@ -510,7 +509,6 @@ export default {
     name: "expression",
     displayName: "Expression / Equation",
     accessible: true,
-    defaultAlignment: "inline-block",
     widget: ExpressionWithDependencies,
     transform: (widgetOptions: PerseusExpressionWidgetOptions): RenderProps => {
         const {
@@ -536,12 +534,6 @@ export default {
 
     // For use by the editor
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
-    scorer: scoreExpression,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusExpressionUserInput'.
-    validator: validateExpression,
     getPublicWidgetOptions: getExpressionPublicWidgetOptions,
 
     // TODO(LEMS-2656): remove TS suppression
