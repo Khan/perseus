@@ -275,12 +275,6 @@ export function getAngleFromPoints(points: Coord[], i: number) {
     return angle;
 }
 
-export function radianToDegree(radians: number) {
-    const degree = (radians / Math.PI) * 180;
-    // Account for floating point errors.
-    return Number(degree.toPrecision(15));
-}
-
 export function getSideLengthsFromPoints(
     points: Coord[],
     i: number,

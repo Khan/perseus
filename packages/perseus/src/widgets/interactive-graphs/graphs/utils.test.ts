@@ -1,13 +1,16 @@
+import {angles} from "@khanacademy/kmath";
+
 import {
     getIntersectionOfRayWithBox,
     getArrayWithoutDuplicates,
     getAngleFromPoints,
-    radianToDegree,
     getSideLengthsFromPoints,
 } from "./utils";
 
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
+
+const {convertRadiansToDegrees} = angles;
 
 describe("getIntersectionOfRayWithBox", () => {
     test("a horizontal ray passing through the origin to the left", () => {
@@ -246,7 +249,7 @@ describe("getAngleFromPoints", () => {
             const result = getAngleFromPoints(squarePoints, index);
             expect(result).not.toBeNull();
 
-            const degrees = radianToDegree(result as number);
+            const degrees = convertRadiansToDegrees(result as number);
             expect(degrees).toEqual(90);
         }
     });
@@ -268,7 +271,7 @@ describe("getAngleFromPoints", () => {
             const result = getAngleFromPoints(trianglePoints, index);
             expect(result).not.toBeNull();
 
-            const degrees = radianToDegree(result as number);
+            const degrees = convertRadiansToDegrees(result as number);
             expect(degrees).toEqual(angle);
         },
     );

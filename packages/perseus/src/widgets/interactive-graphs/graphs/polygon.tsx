@@ -1,3 +1,4 @@
+import {angles} from "@khanacademy/kmath";
 import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
 
@@ -22,7 +23,6 @@ import {
     getArrayWithoutDuplicates,
     getPolygonSideString,
     getSideLengthsFromPoints,
-    radianToDegree,
 } from "./utils";
 
 import type {Coord} from "../../../interactive2/types";
@@ -36,6 +36,8 @@ import type {
     PolygonGraphState,
 } from "../types";
 import type {CollinearTuple} from "@khanacademy/perseus-core";
+
+const {convertRadiansToDegrees} = angles;
 
 export function renderPolygonGraph(
     state: PolygonGraphState,
@@ -303,7 +305,9 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
 
                 // Limited polygons always have an angle at each vertex.
                 const angle = getAngleFromPoints(points, i);
-                const angleDegree = angle ? radianToDegree(angle) : null;
+                const angleDegree = angle
+                    ? convertRadiansToDegrees(angle)
+                    : null;
 
                 // Limited polygons always two sides attached to each vertex.
                 const sidesArray = getSideLengthsFromPoints(points, i);
