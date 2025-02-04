@@ -7,7 +7,10 @@
  *  but could also be used for embedding viz's hosted elsewhere.
  */
 
-import getIFramePublicWidgetOptions from "@khanacademy/perseus-core/src/widgets/iframe/iframe-util";
+import {
+    type PerseusIFrameWidgetOptions,
+    getIFramePublicWidgetOptions,
+} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
@@ -19,7 +22,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/ifra
 
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
-import type {PerseusIFrameWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusIFrameUserInput,
     UserInputStatus,
