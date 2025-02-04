@@ -1,6 +1,12 @@
+import {angles} from "@khanacademy/kmath";
 import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
 
+import {
+    usePerseusI18n,
+    type I18nContextType,
+} from "../../../components/i18n-context";
+import a11y from "../../../util/a11y";
 import {snap} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
@@ -9,27 +15,43 @@ import {TARGET_SIZE} from "../utils";
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
+import {srFormatNumber} from "./screenreader-text";
 import {useDraggable} from "./use-draggable";
 import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
-import {getArrayWithoutDuplicates} from "./utils";
+import {
+    getAngleFromPoints,
+    getArrayWithoutDuplicates,
+    getPolygonSideString,
+    getSideLengthsFromPoints,
+} from "./utils";
 
 import type {Coord} from "../../../interactive2/types";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
+    AriaLive,
     Dispatch,
     InteractiveGraphElementSuite,
+    InteractiveGraphProps,
     MafsGraphProps,
     PolygonGraphState,
 } from "../types";
 import type {CollinearTuple} from "@khanacademy/perseus-core";
 
+const {convertRadiansToDegrees} = angles;
+
 export function renderPolygonGraph(
     state: PolygonGraphState,
     dispatch: Dispatch,
+    i18n: I18nContextType,
+    markings: InteractiveGraphProps["markings"],
 ): InteractiveGraphElementSuite {
     return {
         graph: <PolygonGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: null,
+        interactiveElementsDescription: getPolygonGraphDescription(
+            state,
+            i18n,
+            markings,
+        ),
     };
 }
 
@@ -128,9 +150,11 @@ const PolygonGraph = (props: Props) => {
         setFocusVisible,
     };
 
-    return numSides === "unlimited"
-        ? UnlimitedPolygonGraph(statefulProps)
-        : LimitedPolygonGraph(statefulProps);
+    return numSides === "unlimited" ? (
+        <UnlimitedPolygonGraph {...statefulProps} />
+    ) : (
+        <LimitedPolygonGraph {...statefulProps} />
+    );
 };
 
 const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
@@ -154,11 +178,42 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         snapTo = "grid",
     } = statefulProps.graphState;
     const {disableKeyboardInteraction} = graphConfig;
+    const {strings, locale} = usePerseusI18n();
+    const id = React.useId();
+    const pointsOffArray = Array(points.length).fill("off");
+    // When moving an element, set its aria-live to "polite" and the others
+    // to "off". Otherwise, other connected elements that move at the same
+    // time might override the currently focused element's aria live.
+    const [ariaLives, setAriaLives] = React.useState<Array<AriaLive>>([
+        // First one represents the aria-live value for the polygon itself.
+        "off",
+        // The rest represent the points.
+        ...pointsOffArray,
+    ]);
 
     const lines = getLines(points);
 
+    const polygonPointsNumId = id + "-points-num";
+    const polygonPointsId = id + "-points";
+
+    // Aria label srings
+    const {
+        srPolygonGraph,
+        srPolygonGraphPointsNum,
+        srPolygonGraphPoints,
+        srPolygonElementsNum,
+    } = describePolygonGraph(
+        statefulProps.graphState,
+        {strings, locale},
+        statefulProps.graphConfig.markings,
+    );
+
     return (
-        <>
+        <g
+            // Outer graph minimal description
+            aria-label={srPolygonGraph}
+            aria-describedby={`${polygonPointsNumId} ${polygonPointsId}`}
+        >
             <Polygon
                 points={[...points]}
                 color="var(--movable-line-stroke-color)"
@@ -189,16 +244,17 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
             })}
             {showSides &&
                 lines.map(([start, end], i) => {
+                    // Use x and y to find the position of the label
                     const [x, y] = vec.midpoint(start, end);
-                    const length = parseFloat(
-                        vec
-                            .dist(start, end)
-                            .toFixed(snapTo === "sides" ? 0 : 1),
-                    );
+                    const length = vec.dist(start, end);
+                    // Check if the length needs to indicate
+                    // that it's an approximation.
+                    const isApprox = !Number.isInteger(length);
                     return (
                         <TextLabel key={"side-" + i} x={x} y={y}>
-                            {!Number.isInteger(length) && "≈ "}
-                            {length}
+                            {isApprox
+                                ? `≈ ${length.toFixed(snapTo === "sides" ? 0 : 1)}`
+                                : length}
                         </TextLabel>
                     );
                 })}
@@ -225,34 +281,120 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         setFocusVisible(hasFocusVisible(polygonRef.current));
                     },
                     // Required for lines to darken on focus
-                    onFocus: () =>
-                        setFocusVisible(hasFocusVisible(polygonRef.current)),
+                    onFocus: () => {
+                        setFocusVisible(hasFocusVisible(polygonRef.current));
+                        setAriaLives(() => ["polite", ...pointsOffArray]);
+                    },
                     // Required for line weighting to update on blur. Without this,
                     // the user has to hover over the shape for it to update
                     onBlur: () =>
                         setFocusVisible(hasFocusVisible(polygonRef.current)),
                     className: "movable-polygon",
+                    // Accessibility-related fields
+                    role: "button",
+                    "aria-label": srPolygonGraphPoints
+                        ? `${srPolygonElementsNum} ${srPolygonGraphPoints}`
+                        : srPolygonElementsNum,
+                    "aria-live": ariaLives[0],
                 }}
             />
-            {points.map((point, i) => (
-                <MovablePoint
-                    key={"point-" + i}
-                    constrain={constrain}
-                    point={point}
-                    sequenceNumber={i + 1}
-                    onMove={(destination: vec.Vector2) => {
-                        const now = Date.now();
-                        const targetFPS = 40;
-                        const moveThresholdTime = 1000 / targetFPS;
+            {points.map((point, i) => {
+                const angleId = `${id}-angle-${i}`;
+                const side1Id = `${id}-point-${i}-side-1`;
+                const side2Id = `${id}-point-${i}-side-2`;
 
-                        if (now - lastMoveTimeRef.current > moveThresholdTime) {
-                            dispatch(actions.polygon.movePoint(i, destination));
-                            lastMoveTimeRef.current = now;
-                        }
-                    }}
-                />
-            ))}
-        </>
+                // Limited polygons always have an angle at each vertex.
+                const angle = getAngleFromPoints(points, i);
+                const angleDegree = angle
+                    ? convertRadiansToDegrees(angle)
+                    : null;
+
+                // Limited polygons always two sides attached to each vertex.
+                const sidesArray = getSideLengthsFromPoints(points, i);
+                const {pointIndex: point1Index, sideLength: side1Length} =
+                    sidesArray[0];
+                const {pointIndex: point2Index, sideLength: side2Length} =
+                    sidesArray[1];
+
+                return (
+                    <g key={"point-" + i}>
+                        <MovablePoint
+                            ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
+                            ariaLive={ariaLives[i + 1]}
+                            constrain={constrain}
+                            point={point}
+                            sequenceNumber={i + 1}
+                            onMove={(destination: vec.Vector2) => {
+                                const now = Date.now();
+                                const targetFPS = 40;
+                                const moveThresholdTime = 1000 / targetFPS;
+
+                                if (
+                                    now - lastMoveTimeRef.current >
+                                    moveThresholdTime
+                                ) {
+                                    dispatch(
+                                        actions.polygon.movePoint(
+                                            i,
+                                            destination,
+                                        ),
+                                    );
+                                    lastMoveTimeRef.current = now;
+                                }
+                            }}
+                            onFocus={() => {
+                                const newPointAriaLives = [...pointsOffArray];
+                                newPointAriaLives[i] = "polite";
+                                // Whole polygon is "off", and the current
+                                // point is "polite".
+                                setAriaLives(["off", ...newPointAriaLives]);
+                            }}
+                        />
+                        {angleDegree && (
+                            <g id={angleId}>
+                                {Number.isInteger(angleDegree)
+                                    ? strings.srPolygonPointAngle({
+                                          angle: angleDegree,
+                                      })
+                                    : strings.srPolygonPointAngleApprox({
+                                          angle: srFormatNumber(
+                                              angleDegree,
+                                              locale,
+                                              1,
+                                          ),
+                                      })}
+                            </g>
+                        )}
+                        <g id={side1Id}>
+                            {getPolygonSideString(
+                                side1Length,
+                                point1Index,
+                                strings,
+                                locale,
+                            )}
+                        </g>
+                        <g id={side2Id}>
+                            {getPolygonSideString(
+                                side2Length,
+                                point2Index,
+                                strings,
+                                locale,
+                            )}
+                        </g>
+                    </g>
+                );
+            })}
+            {/* Hidden elements to provide the descriptions for the
+                `aria-describedby` properties */}
+            <g id={polygonPointsNumId} style={a11y.srOnly}>
+                {srPolygonGraphPointsNum}
+            </g>
+            {srPolygonGraphPoints && (
+                <g id={polygonPointsId} style={a11y.srOnly}>
+                    {srPolygonGraphPoints}
+                </g>
+            )}
+        </g>
     );
 };
 
@@ -360,3 +502,69 @@ export const hasFocusVisible = (
         return matches(":focus");
     }
 };
+
+function getPolygonGraphDescription(
+    state: PolygonGraphState,
+    i18n: I18nContextType,
+    markings: InteractiveGraphProps["markings"],
+): string {
+    const strings = describePolygonGraph(state, i18n, markings);
+    return strings.srPolygonInteractiveElements;
+}
+
+type PolygonGraphDescriptionStrings = {
+    srPolygonGraph: string;
+    srPolygonGraphPointsNum: string;
+    srPolygonGraphPoints?: string;
+    srPolygonElementsNum: string;
+    srPolygonInteractiveElements: string;
+};
+
+function describePolygonGraph(
+    state: PolygonGraphState,
+    i18n: I18nContextType,
+    markings: InteractiveGraphProps["markings"],
+): PolygonGraphDescriptionStrings {
+    const {strings, locale} = i18n;
+    const {coords} = state;
+    const isCoordinatePlane = markings === "axes" || markings === "graph";
+
+    // Figure out graph aria label based on markings.
+    const srPolygonGraph = isCoordinatePlane
+        ? strings.srPolygonGraphCoordinatePlane
+        : strings.srPolygonGraph;
+
+    // Figure out graph description based on markings.
+    // If the graph is not on a coordinate plane, we should not include
+    // the points' coordinates in the description.
+    const srPolygonGraphPointsNum = strings.srPolygonGraphPointsNum({
+        num: coords.length,
+    });
+    let srPolygonGraphPoints;
+    if (isCoordinatePlane) {
+        const pointsString = coords.map((coord, i) => {
+            return strings.srPointAtCoordinates({
+                num: i + 1,
+                x: srFormatNumber(coord[0], locale),
+                y: srFormatNumber(coord[1], locale),
+            });
+        });
+        srPolygonGraphPoints = pointsString.join(" ");
+    }
+
+    const srPolygonElementsNum = strings.srPolygonElementsNum({
+        num: coords.length,
+    });
+
+    const srPolygonInteractiveElements = strings.srInteractiveElements({
+        elements: [srPolygonElementsNum, srPolygonGraphPoints].join(" "),
+    });
+
+    return {
+        srPolygonGraph,
+        srPolygonGraphPointsNum,
+        srPolygonGraphPoints,
+        srPolygonElementsNum,
+        srPolygonInteractiveElements,
+    };
+}

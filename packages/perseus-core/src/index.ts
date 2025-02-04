@@ -132,4 +132,5 @@ export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/drop
 export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";
 export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
 export {default as getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";
+export {default as getTablePublicWidgetOptions} from "./widgets/table/table-util";
 export {default as getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-util";
