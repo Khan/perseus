@@ -1,13 +1,13 @@
 import type {PerseusTableWidgetOptions} from "@khanacademy/perseus-core";
 
-type TableWidgetPublicOptions = Pick<
+type TablePublicWidgetOptions = Pick<
     PerseusTableWidgetOptions,
     "headers" | "rows" | "columns"
 >;
 
 export default function getTablePublicWidgetOptions(
     options: PerseusTableWidgetOptions,
-): TableWidgetPublicOptions {
+): TablePublicWidgetOptions {
     const {answers: _, ...publicOptions} = options;
     return publicOptions;
 }
