@@ -5,12 +5,12 @@ import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui
 import {NumericInput} from "./numeric-input.class";
 import {
     decimalProblem,
+    defaultQuestion,
     improperProblem,
     integerProblem,
     mixedProblem,
     piProblem,
     properProblem,
-    question1,
     withCoefficient,
 } from "./numeric-input.testdata";
 
@@ -182,10 +182,14 @@ const updateWidgetOptions = (
 export const Default = (
     args: PerseusNumericInputWidgetOptions,
 ): React.ReactElement => {
-    const question = updateWidgetOptions(question1, "numeric-input 1", args);
+    const question = updateWidgetOptions(
+        defaultQuestion,
+        "numeric-input 1",
+        args,
+    );
     return <RendererWithDebugUI question={question} />;
 };
-Default.args = question1.widgets["numeric-input 1"].options;
+Default.args = defaultQuestion.widgets["numeric-input 1"].options;
 Default.parameters = {
     docs: {
         description: {

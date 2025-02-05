@@ -3,6 +3,7 @@ import type {
     NumericInputWidget,
 } from "@khanacademy/perseus-core";
 
+// Used for testing the NumericInput widget.
 export const question1: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},
@@ -27,6 +28,58 @@ export const question1: PerseusRenderer = {
                         simplify: "required",
                         message: "",
                     },
+                ],
+                labelText: "",
+                size: "normal",
+            },
+            alignment: "default",
+        } as NumericInputWidget,
+    },
+};
+
+// Used for Storybook.
+export const defaultQuestion: PerseusRenderer = {
+    content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
+    images: {},
+    widgets: {
+        "numeric-input 1": {
+            graded: true,
+            version: {
+                major: 0,
+                minor: 0,
+            },
+            static: false,
+            type: "numeric-input",
+            options: {
+                coefficient: false,
+                static: false,
+                answers: [
+                    {
+                        status: "correct",
+                        maxError: null,
+                        strict: true,
+                        value: 1252,
+                        simplify: "required",
+                        message: "",
+                        // We don't include proper as otherwise
+                        // the tooltip will hide the examples.
+                        answerForms: [
+                            "integer",
+                            "mixed",
+                            "improper",
+                            "decimal",
+                            "pi",
+                        ],
+                    },
+                ],
+                answerForms: [
+                    // We don't include proper as otherwise
+                    // the tooltip will hide the examples.
+                    {simplify: "required", name: "integer"},
+                    {simplify: "required", name: "mixed"},
+                    {simplify: "required", name: "improper"},
+                    {simplify: "required", name: "decimal"},
+                    {simplify: "required", name: "pi"},
                 ],
                 labelText: "",
                 size: "normal",
