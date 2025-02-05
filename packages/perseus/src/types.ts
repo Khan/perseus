@@ -4,6 +4,7 @@ import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
+    getGrapherPublicWidgetOptions,
     getInteractiveGraphPublicWidgetOptions,
     getLabelImagePublicWidgetOptions,
     Hint,
@@ -532,7 +533,8 @@ export type PublicWidgetOptionsFunction =
     | typeof getSorterPublicWidgetOptions
     | typeof getCSProgramPublicWidgetOptions
     | typeof getNumberLinePublicWidgetOptions
-    | typeof getTablePublicWidgetOptions;
+    | typeof getTablePublicWidgetOptions
+    | typeof getGrapherPublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
