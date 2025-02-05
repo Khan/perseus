@@ -72,7 +72,7 @@ const config: StorybookConfig = {
             },
             // Fix from: https://github.com/storybookjs/storybook/issues/25256#issuecomment-1866441206
             assetsInclude: ["/sb-preview/runtime.js"],
-            plugins: [...viteConfig.plugins, lessWrapper],
+            plugins: [...(viteConfig.plugins ?? []), lessWrapper],
         });
     },
     staticDirs: ["../static"],
