@@ -931,11 +931,14 @@ class MathInput extends React.Component<Props, State> {
         // padding values for the vertical directions.
         const symbolaPaddingBottom = 3;
         const symbolaPaddingTop = 1;
+        // We also add a little padding for the cursor to ensure there's no
+        // overflow when the input is empty and set to right aligned.
+        const cursorPadding = 2;
         const padding = {
             paddingTop: paddingInset - symbolaPaddingTop,
-            paddingRight: paddingInset,
+            paddingRight: paddingInset + cursorPadding,
             paddingBottom: paddingInset - symbolaPaddingBottom,
-            paddingLeft: paddingInset,
+            paddingLeft: paddingInset + cursorPadding,
         } as const;
 
         return padding;
