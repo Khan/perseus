@@ -14,6 +14,11 @@
 // has settled down.
 const toolbarHeightPx = 60;
 
+// TEMPORARY HACK FOR THIRD TO MAKE SURE CHANGES MIGRATE
+export const doesNothing = () => {
+    return;
+};
+
 export const scrollIntoView = (containerNode, keypadNode) => {
     // TODO(charlie): There's no need for us to be reading the keypad bounds
     // here, since they're pre-determined by logic in the store. We should
