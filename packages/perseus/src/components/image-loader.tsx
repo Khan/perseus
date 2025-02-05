@@ -144,6 +144,7 @@ class ImageLoader extends React.Component<Props, State> {
 
         return (
             <img
+                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- TODO: Address a11y error
                 tabIndex={0}
                 src={staticUrl(src)}
                 onKeyUp={onKeyUp}
