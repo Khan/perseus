@@ -175,6 +175,6 @@ export function describePointGraph(
     );
 
     return strings.srInteractiveElements({
-        elements: pointDescriptions.join(", "),
+        elements: pointDescriptions.join(" "),
     });
 }

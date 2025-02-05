@@ -36,10 +36,3 @@ export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
     // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element'.
     element.focus({preventScroll: true});
 }
-
-export function degreeToRadian(degrees: number) {
-    return (degrees / 180) * Math.PI;
-}
-export function radianToDegree(radians: number) {
-    return (radians / Math.PI) * 180;
-}

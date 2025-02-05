@@ -4,6 +4,7 @@ import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
+    getInteractiveGraphPublicWidgetOptions,
     getLabelImagePublicWidgetOptions,
     Hint,
     PerseusAnswerArea,
@@ -22,6 +23,8 @@ import type {
     getNumericInputPublicWidgetOptions,
     getNumberLinePublicWidgetOptions,
     getRadioPublicWidgetOptions,
+    getTablePublicWidgetOptions,
+    getIFramePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -517,16 +520,19 @@ export type WidgetTransform = (
  * A union type of all the functions that provide public widget options.
  */
 export type PublicWidgetOptionsFunction =
+    | typeof getIFramePublicWidgetOptions
     | typeof getRadioPublicWidgetOptions
     | typeof getNumericInputPublicWidgetOptions
     | typeof getDropdownPublicWidgetOptions
     | typeof getCategorizerPublicWidgetOptions
     | typeof getOrdererPublicWidgetOptions
     | typeof getExpressionPublicWidgetOptions
+    | typeof getInteractiveGraphPublicWidgetOptions
     | typeof getLabelImagePublicWidgetOptions
     | typeof getSorterPublicWidgetOptions
     | typeof getCSProgramPublicWidgetOptions
-    | typeof getNumberLinePublicWidgetOptions;
+    | typeof getNumberLinePublicWidgetOptions
+    | typeof getTablePublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,

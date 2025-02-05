@@ -1,3 +1,4 @@
+import {angles} from "@khanacademy/kmath";
 import {components} from "@khanacademy/perseus";
 import {lockedFigureFillStyles} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
@@ -13,7 +14,6 @@ import * as React from "react";
 import AngleInput from "../../../components/angle-input";
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
-import {radianToDegree} from "../../../components/util";
 
 import ColorSelect from "./color-select";
 import EllipseSwatch from "./ellipse-swatch";
@@ -37,6 +37,7 @@ import type {
     LockedLabelType,
 } from "@khanacademy/perseus-core";
 
+const {convertRadiansToDegrees} = angles;
 const {InfoTip} = components;
 
 export type Props = LockedFigureSettingsCommonProps &
@@ -74,7 +75,7 @@ const LockedEllipseSettings = (props: Props) => {
         const spokenCenterX = await generateSpokenMathDetails(`$${center[0]}$`);
         const spokenCenterY = await generateSpokenMathDetails(`$${center[1]}$`);
         const spokenRotation = await generateSpokenMathDetails(
-            `$${radianToDegree(angle)}$`,
+            `$${convertRadiansToDegrees(angle)}$`,
         );
 
         const isCircle = radius[0] === radius[1];
