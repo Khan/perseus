@@ -663,9 +663,9 @@ export const strings = {
     srMultipleSegmentGraphAriaLabel:
         "%(countOfSegments)s line segments on a coordinate plane.",
     srMultipleSegmentIndividualLabel:
-        "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+        "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 at %(point2X)s comma %(point2Y)s.",
     srSingleSegmentLabel:
-        "Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+        "Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 at %(point2X)s comma %(point2Y)s.",
     srSegmentLength: "Segment length %(length)s units.",
     srSingleSegmentGraphEndpointAriaLabel:
         "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
