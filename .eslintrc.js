@@ -49,6 +49,7 @@ function banImportExtension(extension) {
 module.exports = {
     extends: [
         "@khanacademy",
+        "@khanacademy/eslint-config/a11y",
         "plugin:react/recommended",
         // This config includes rules from storybook to enforce story best
         // practices
