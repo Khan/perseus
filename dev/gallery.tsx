@@ -1,7 +1,6 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, MultiSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import SearchField from "@khanacademy/wonder-blocks-search-field";
 import Switch from "@khanacademy/wonder-blocks-switch";
@@ -12,7 +11,6 @@ import {useEffect, useId, useMemo, useState} from "react";
 
 import {Renderer} from "../packages/perseus/src";
 import {mockStrings} from "../packages/perseus/src/strings";
-import {MafsGraphTypeFlags} from "../packages/perseus/src/types";
 import * as grapher from "../packages/perseus/src/widgets/grapher/grapher.testdata";
 import * as interactiveGraph from "../packages/perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
 import * as numberLine from "../packages/perseus/src/widgets/number-line/number-line.testdata";
@@ -87,16 +85,6 @@ const styles = StyleSheet.create({
     },
 });
 
-function capitalize(key: string): string {
-    return key
-        .split("-")
-        .map(
-            (word) =>
-                `${word.slice(0, 1).toLocaleUpperCase()}${word.slice(1).toLocaleLowerCase()}`,
-        )
-        .join(" ");
-}
-
 export function Gallery() {
     const params = useMemo(
         () => new URLSearchParams(window.location.search),
@@ -107,14 +95,7 @@ export function Gallery() {
     const [showTooltips, setShowTooltips] = useState(
         params.get("tooltips") === "true",
     );
-    const [mafsFlags, setMafsFlags] = useState<Array<string>>(
-        params
-            .get("flags")
-            ?.split(",")
-            // We filter through the MafsFlags array to ensure we don't retain
-            // flags from the query string that don't actually exist anymore.
-            .filter((flag) => MafsGraphTypeFlags.includes(flag as any)) || [],
-    );
+
     const [search, setSearch] = useState<string>(params.get("search") || "");
 
     useEffect(() => {
@@ -129,27 +110,16 @@ export function Gallery() {
         } else {
             url.searchParams.delete("tooltips");
         }
-        if (mafsFlags.length === 0) {
-            url.searchParams.delete("flags");
-        } else {
-            url.searchParams.set("flags", mafsFlags.join(","));
-        }
         if (!search) {
             url.searchParams.delete("search");
         } else {
             url.searchParams.set("search", search);
         }
         window.history.replaceState({}, "", url.toString());
-    }, [isMobile, showTooltips, mafsFlags, params, search]);
-
-    const mafsFlagsObject = mafsFlags.reduce((acc, flag) => {
-        acc[flag] = true;
-        return acc;
-    }, {});
+    }, [isMobile, showTooltips, params, search]);
 
     const mobileId = useId();
     const tooltipId = useId();
-    const flagsId = useId();
     const searchId = useId();
 
     const insertShowTooltips = ([question, i]): [PerseusRenderer, number] => {
@@ -178,23 +148,6 @@ export function Gallery() {
                     />
                     <Strut size={spacing.xSmall_8} />
                     <label htmlFor={searchId}>Search Types</label>
-                </View>
-                <View style={styles.headerItem}>
-                    <MultiSelect
-                        id={flagsId}
-                        onChange={setMafsFlags}
-                        selectedValues={mafsFlags}
-                    >
-                        {MafsGraphTypeFlags.map((flag) => (
-                            <OptionItem
-                                key={flag}
-                                value={flag}
-                                label={capitalize(flag)}
-                            />
-                        ))}
-                    </MultiSelect>
-                    <Strut size={spacing.xSmall_8} />
-                    <label htmlFor={flagsId}>Mafs Flags</label>
                 </View>
                 <View style={styles.headerItem}>
                     <Switch
@@ -233,7 +186,6 @@ export function Gallery() {
                                 question={question}
                                 apiOptions={{
                                     isMobile,
-                                    flags: {mafs: mafsFlagsObject},
                                 }}
                             />
                         ))}

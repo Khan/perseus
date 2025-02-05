@@ -20,7 +20,6 @@ import {Renderer} from "../packages/perseus/src";
 import {SvgImage} from "../packages/perseus/src/components";
 import {mockStrings} from "../packages/perseus/src/strings";
 import {isCorrect} from "../packages/perseus/src/util/scoring";
-import {trueForAllMafsSupportedGraphTypes} from "../packages/perseus/src/widgets/interactive-graphs/mafs-supported-graph-types";
 import {scorePerseusItem} from "../packages/perseus-score/src";
 
 import {EditableControlledInput} from "./editable-controlled-input";
@@ -244,13 +243,8 @@ function SideBySideQuestionRenderer({
             >
                 <GradableRenderer
                     question={question}
-                    apiOptions={{...apiOptions, flags: {mafs: false}}}
-                />
-                <GradableRenderer
-                    question={question}
                     apiOptions={{
                         ...apiOptions,
-                        flags: {mafs: trueForAllMafsSupportedGraphTypes},
                     }}
                 />
             </View>

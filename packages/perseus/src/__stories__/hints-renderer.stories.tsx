@@ -2,9 +2,12 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
 import HintsRenderer from "../hints-renderer";
+import {ApiOptions} from "../perseus-api";
 import {interactiveGraphQuestionBuilder} from "../widgets/interactive-graphs/interactive-graph-question-builder";
 
 import type {Meta, StoryObj} from "@storybook/react";
+
+const defaultApiOptions = ApiOptions.defaults;
 
 const meta: Meta<typeof HintsRenderer> = {
     title: "Perseus/Renderers/Hints Renderer",
@@ -57,22 +60,7 @@ export const Interactive: Story = {
 
 export const WithAllInteractiveGraphs: Story = {
     args: {
-        apiOptions: {
-            flags: {
-                mafs: {
-                    angle: true,
-                    circle: true,
-                    linear: true,
-                    "linear-system": true,
-                    point: true,
-                    polygon: true,
-                    ray: true,
-                    segment: true,
-                    quadratic: true,
-                    sinusoid: true,
-                },
-            },
-        },
+        apiOptions: defaultApiOptions,
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().withAngle().build(),
@@ -120,11 +108,7 @@ export const WithAllInteractiveGraphs: Story = {
 
 export const WithSegmentInteractiveGraph: Story = {
     args: {
-        apiOptions: {
-            flags: {
-                mafs: {segment: true},
-            },
-        },
+        apiOptions: defaultApiOptions,
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().build(),
@@ -136,11 +120,7 @@ export const WithSegmentInteractiveGraph: Story = {
 
 export const WithLinearInteractiveGraph: Story = {
     args: {
-        apiOptions: {
-            flags: {
-                mafs: {linear: true},
-            },
-        },
+        apiOptions: defaultApiOptions,
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().withLinear().build(),
@@ -152,11 +132,7 @@ export const WithLinearInteractiveGraph: Story = {
 
 export const WithLinearSystemsInteractiveGraph: Story = {
     args: {
-        apiOptions: {
-            flags: {
-                mafs: {"linear-system": true},
-            },
-        },
+        apiOptions: defaultApiOptions,
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().withLinearSystem().build(),
@@ -168,11 +144,7 @@ export const WithLinearSystemsInteractiveGraph: Story = {
 
 export const WithRayInteractiveGraph: Story = {
     args: {
-        apiOptions: {
-            flags: {
-                mafs: {ray: true},
-            },
-        },
+        apiOptions: defaultApiOptions,
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().withRay().build(),
@@ -184,11 +156,7 @@ export const WithRayInteractiveGraph: Story = {
 
 export const WithCircleInteractiveGraph: Story = {
     args: {
-        apiOptions: {
-            flags: {
-                mafs: {circle: true},
-            },
-        },
+        apiOptions: defaultApiOptions,
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().withCircle().build(),
@@ -200,11 +168,7 @@ export const WithCircleInteractiveGraph: Story = {
 
 export const WithQuadraticInteractiveGraph: Story = {
     args: {
-        apiOptions: {
-            flags: {
-                mafs: {quadratic: true},
-            },
-        },
+        apiOptions: defaultApiOptions,
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().withQuadratic().build(),
@@ -216,11 +180,7 @@ export const WithQuadraticInteractiveGraph: Story = {
 
 export const WithSinusoidInteractiveGraph: Story = {
     args: {
-        apiOptions: {
-            flags: {
-                mafs: {circle: true},
-            },
-        },
+        apiOptions: defaultApiOptions,
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().withSinusoid().build(),
@@ -232,11 +192,7 @@ export const WithSinusoidInteractiveGraph: Story = {
 
 export const WithPolygonInteractiveGraph: Story = {
     args: {
-        apiOptions: {
-            flags: {
-                mafs: {polygon: true},
-            },
-        },
+        apiOptions: defaultApiOptions,
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().withPolygon().build(),
@@ -260,11 +216,7 @@ export const WithPolygonInteractiveGraph: Story = {
 
 export const WithPointsInteractiveGraph: Story = {
     args: {
-        apiOptions: {
-            flags: {
-                mafs: {point: true},
-            },
-        },
+        apiOptions: defaultApiOptions,
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().withPoints(3).build(),
@@ -276,11 +228,7 @@ export const WithPointsInteractiveGraph: Story = {
 
 export const WithAngleInteractiveGraph: Story = {
     args: {
-        apiOptions: {
-            flags: {
-                mafs: {angle: true},
-            },
-        },
+        apiOptions: defaultApiOptions,
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().withAngle().build(),

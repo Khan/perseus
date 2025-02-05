@@ -176,35 +176,6 @@ type TrackInteractionArgs = {
 } & Partial<TrackingGradedGroupExtraArguments> &
     Partial<TrackingSequenceExtraArguments>;
 
-export const MafsGraphTypeFlags = [
-    /** Enables the `angle` interactive-graph type.  */
-    "angle",
-    /** Enables the `segment` interactive-graph type.  */
-    "segment",
-    /** Enables the `linear` interactive-graph type.  */
-    "linear",
-    /** Enables the `linear-system` interactive-graph type.  */
-    "linear-system",
-    /** Enables the `ray` interactive-graph type.  */
-    "ray",
-    /** Enables the `polygon` interactive-graph type a fixed number of sides. */
-    "polygon",
-    /** Enable the `unlimited-polygon` interactive graph type for an unlimited number of sides */
-    "unlimited-polygon",
-    /** Enables the `circle` interactive-graph type.  */
-    "circle",
-    /** Enables the `quadratic` interactive-graph type.  */
-    "quadratic",
-    /** Enables the `sinusoid` interactive-graph type.  */
-    "sinusoid",
-    /** Enables the `point` interactive-graph type with a fixed number of points. */
-    "point",
-    /** Enable the `unlimited-point` interactive graph type */
-    "unlimited-point",
-    /** Enable the `none` interactive graph type for content editors */
-    "none",
-] as const;
-
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
@@ -327,15 +298,6 @@ export type APIOptions = Readonly<{
      * only after a good few seconds.
      */
     editorChangeDelay?: number;
-    /** Feature flags that can be passed from consuming application. */
-    flags?: {
-        /**
-         * Flags related to the interactive-graph Mafs migration.
-         *
-         * Add values to the relevant array to create new flags.
-         */
-        mafs?: false | {[Key in (typeof MafsGraphTypeFlags)[number]]?: boolean};
-    };
     /**
      * This is a callback function that returns all of the Widget props
      * after they have been transformed by the widget's transform function.

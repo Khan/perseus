@@ -19,8 +19,6 @@ import * as React from "react";
 import {mockStrings} from "../../../perseus/src/strings";
 import EditorPage from "../editor-page";
 
-import {flags} from "./flags-for-api-options";
-
 type Props = {
     apiOptions?: APIOptions;
     question?: PerseusRenderer;
@@ -47,7 +45,6 @@ function EditorPageWithStorybookPreview(props: Props) {
 
     const apiOptions = props.apiOptions ?? {
         isMobile: false,
-        flags,
     };
 
     return (

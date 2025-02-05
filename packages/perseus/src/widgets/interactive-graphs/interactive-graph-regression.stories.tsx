@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
 
@@ -9,11 +10,11 @@ import {sinusoidWithPiTicks} from "./interactive-graph.testdata";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = StoryObj<typeof MafsQuestionRenderer>;
+type Story = StoryObj<typeof QuestionRenderer>;
 
-const meta: Meta<typeof MafsQuestionRenderer> = {
+const meta: Meta<typeof QuestionRenderer> = {
     title: "Perseus/Widgets/Interactive Graph Visual Regression Tests",
-    component: MafsQuestionRenderer,
+    component: QuestionRenderer,
     parameters: {
         chromatic: {disableSnapshot: false},
     },
@@ -28,7 +29,7 @@ function MobileContainerDecorator(Story) {
     );
 }
 
-export const MafsWithCustomAxisLabels: Story = {
+export const CustomAxisLabels: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withAxisLabels(
@@ -39,7 +40,7 @@ export const MafsWithCustomAxisLabels: Story = {
     },
 };
 
-export const MafsWithFractionalGridStep: Story = {
+export const FractionalGridStep: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withGridStep(2.571, 3.123)
@@ -47,7 +48,7 @@ export const MafsWithFractionalGridStep: Story = {
     },
 };
 
-export const MafsWithFractionalAxisTicks: Story = {
+export const FractionalAxisTicks: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withTickStep(1.5, 1.5)
@@ -55,7 +56,7 @@ export const MafsWithFractionalAxisTicks: Story = {
     },
 };
 
-export const MafsWithAxesMarkings: Story = {
+export const AxesMarkings: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withMarkings("axes")
@@ -63,7 +64,7 @@ export const MafsWithAxesMarkings: Story = {
     },
 };
 
-export const MafsWithGridMarkings: Story = {
+export const GridMarkings: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withMarkings("grid")
@@ -71,7 +72,7 @@ export const MafsWithGridMarkings: Story = {
     },
 };
 
-export const MafsWithNoMarkings: Story = {
+export const NoMarkings: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withMarkings("none")
@@ -79,7 +80,7 @@ export const MafsWithNoMarkings: Story = {
     },
 };
 
-export const MafsWithSmallRange: Story = {
+export const SmallRange: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withXRange(-2, 2)
@@ -88,7 +89,7 @@ export const MafsWithSmallRange: Story = {
     },
 };
 
-export const MafsWithLargeRange: Story = {
+export const LargeRange: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withXRange(-50, 50)
@@ -97,7 +98,7 @@ export const MafsWithLargeRange: Story = {
     },
 };
 
-export const MafsWithYAxisAtLeft: Story = {
+export const YAxisAtLeft: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withXRange(0, 20)
@@ -106,7 +107,7 @@ export const MafsWithYAxisAtLeft: Story = {
     },
 };
 
-export const MafsWithYAxisNearLeft: Story = {
+export const YAxisNearLeft: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withXRange(-1, 20)
@@ -115,7 +116,7 @@ export const MafsWithYAxisNearLeft: Story = {
     },
 };
 
-export const MafsWithYAxisJustOverLeft: Story = {
+export const YAxisJustOverLeft: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withXRange(-3, 20)
@@ -124,49 +125,49 @@ export const MafsWithYAxisJustOverLeft: Story = {
     },
 };
 
-export const MafsWithYAxisOffLeft: Story = {
+export const YAxisOffLeft: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().withXRange(1, 20).build(),
     },
 };
 
-export const MafsWithYAxisOffFarLeft: Story = {
+export const YAxisOffFarLeft: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().withXRange(6, 20).build(),
     },
 };
 
-export const MafsWithYAxisAtRight: Story = {
+export const YAxisAtRight: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().withXRange(-20, 0).build(),
     },
 };
 
-export const MafsWithYAxisOffRight: Story = {
+export const YAxisOffRight: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().withXRange(-20, -1).build(),
     },
 };
 
-export const MafsWithXAxisAtBottom: Story = {
+export const XAxisAtBottom: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().withYRange(0, 20).build(),
     },
 };
 
-export const MafsWithXAxisNearBottom: Story = {
+export const XAxisNearBottom: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().withYRange(-1, 20).build(),
     },
 };
 
-export const MafsWithXAxisOffBottom: Story = {
+export const XAxisOffBottom: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().withYRange(1, 20).build(),
     },
 };
 
-export const MafsWithXAxisJustOverBottom: Story = {
+export const XAxisJustOverBottom: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withYRange(-3, 20)
@@ -175,26 +176,26 @@ export const MafsWithXAxisJustOverBottom: Story = {
     },
 };
 
-export const MafsWithXAxisAtTop: Story = {
+export const XAxisAtTop: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().withYRange(-20, 0).build(),
     },
 };
 
-export const MafsWithXAxisOffTop: Story = {
+export const XAxisOffTop: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().withYRange(-20, -1).build(),
     },
 };
 
-export const MafsInMobileContainer: Story = {
+export const InMobileContainer: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().build(),
     },
     decorators: [MobileContainerDecorator],
 };
 
-export const MafsWithMultipleSegments: Story = {
+export const MultipleSegments: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withSegments({numSegments: 3})
@@ -202,7 +203,7 @@ export const MafsWithMultipleSegments: Story = {
     },
 };
 
-export const MafsCircleGraphWithNonsquareRange: Story = {
+export const CircleGraphWithNonsquareRange: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withCircle()
@@ -216,7 +217,7 @@ export const MafsCircleGraphWithNonsquareRange: Story = {
     decorators: [MobileContainerDecorator],
 };
 
-export const MafsLineGraphWithNonsquareRange: Story = {
+export const LineGraphWithNonsquareRange: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .addLockedLine([-3, -3], [3, 3])
@@ -226,7 +227,7 @@ export const MafsLineGraphWithNonsquareRange: Story = {
     },
 };
 
-export const MafsWithLockedPoints: Story = {
+export const LockedPoints: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .addLockedPointAt(3, 2)
@@ -236,7 +237,7 @@ export const MafsWithLockedPoints: Story = {
     },
 };
 
-export const MafsWithLockedLine: Story = {
+export const LockedLine: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .addLockedLine([-1, 1], [2, 3])
@@ -244,19 +245,19 @@ export const MafsWithLockedLine: Story = {
     },
 };
 
-export const MafsWithProtractor: Story = {
+export const Protractor: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().withProtractor().build(),
     },
 };
 
-export const MafsWithPiTicks: Story = {
+export const PiTicks: Story = {
     args: {
         question: sinusoidWithPiTicks,
     },
 };
 
-function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
+function QuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (
         <Renderer
@@ -264,16 +265,7 @@ function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
             content={question.content}
             widgets={question.widgets}
             images={question.images}
-            apiOptions={{
-                flags: {
-                    mafs: {
-                        segment: true,
-                        circle: true,
-                        linear: true,
-                        sinusoid: true,
-                    },
-                },
-            }}
+            apiOptions={ApiOptions.defaults}
         />
     );
 }
