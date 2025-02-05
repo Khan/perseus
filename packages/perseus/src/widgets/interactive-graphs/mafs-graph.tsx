@@ -180,7 +180,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         interactiveElementsDescription &&
                             interactiveElementsDescriptionId,
                         isUnlimitedGraphState(state) &&
-                            "unlimited-graph-keyboard-prompt",
+                            unlimitedGraphKeyboardPromptId,
                     )}
                     ref={graphRef}
                     tabIndex={0}

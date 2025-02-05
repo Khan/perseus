@@ -427,7 +427,9 @@ export type PerseusStrings = {
     srPolygonGraph: string;
     srPolygonGraphCoordinatePlane: string;
     srPolygonGraphPointsNum: ({num}: {num: number}) => string;
+    srPolygonGraphPointsOne: string;
     srPolygonElementsNum: ({num}: {num: number}) => string;
+    srPolygonElementsOne: string;
     srPolygonPointAngleApprox: ({angle}: {angle: string}) => string;
     srPolygonPointAngle: ({angle}: {angle: number}) => string;
     srPolygonSideLength: ({
@@ -444,6 +446,7 @@ export type PerseusStrings = {
         pointNum: number;
         length: string;
     }) => string;
+    srUnlimitedPolygonEmpty: string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -706,7 +709,9 @@ export const strings = {
     srPolygonGraph: "A polygon.",
     srPolygonGraphCoordinatePlane: "A polygon on a coordinate plane.",
     srPolygonGraphPointsNum: "The polygon has %(num)s points.",
+    srPolygonGraphPointsOne: "The polygon has 1 point.",
     srPolygonElementsNum: "A polygon with %(num)s points.",
+    srPolygonElementsOne: "A polygon with 1 point.",
     srPolygonPointAngleApprox:
         "Angle approximately equal to %(angle)s degrees.",
     srPolygonPointAngle: "Angle equal to %(angle)s degrees.",
@@ -714,6 +719,7 @@ export const strings = {
         "A line segment, length equal to %(length)s units, connects to point %(pointNum)s.",
     srPolygonSideLengthApprox:
         "A line segment, length approximately equal to %(length)s units, connects to point %(pointNum)s.",
+    srUnlimitedPolygonEmpty: "An empty coordinate plane.",
     // The above strings are used for interactive graph SR descriptions.
 } satisfies {
     [key in keyof PerseusStrings]:
@@ -1005,7 +1011,9 @@ export const mockStrings: PerseusStrings = {
     srPolygonGraph: "A polygon.",
     srPolygonGraphCoordinatePlane: "A polygon on a coordinate plane.",
     srPolygonGraphPointsNum: ({num}) => `The polygon has ${num} points.`,
+    srPolygonGraphPointsOne: "The polygon has 1 point.",
     srPolygonElementsNum: ({num}) => `A polygon with ${num} points.`,
+    srPolygonElementsOne: "A polygon with 1 point.",
     srPolygonPointAngleApprox: ({angle}) =>
         `Angle approximately equal to ${angle} degrees.`,
     srPolygonPointAngle: ({angle}) => `Angle equal to ${angle} degrees.`,
@@ -1013,6 +1021,7 @@ export const mockStrings: PerseusStrings = {
         `A line segment, length equal to ${length} units, connects to point ${pointNum}.`,
     srPolygonSideLengthApprox: ({pointNum, length}) =>
         `A line segment, length approximately equal to ${length} units, connects to point ${pointNum}.`,
+    srUnlimitedPolygonEmpty: "An empty coordinate plane.",
     // The above strings are used for interactive graph SR descriptions.
 };
 

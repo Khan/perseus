@@ -8,6 +8,7 @@ import {
 import {
     approximateEqual,
     Errors,
+    getInteractiveGraphPublicWidgetOptions,
     PerseusError,
 } from "@khanacademy/perseus-core";
 import $ from "jquery";
@@ -2517,4 +2518,5 @@ export default {
     displayName: "Interactive graph (Assessments only)",
     widget: InteractiveGraph,
     staticTransform: staticTransform,
+    getPublicWidgetOptions: getInteractiveGraphPublicWidgetOptions,
 } satisfies WidgetExports<typeof InteractiveGraph>;
