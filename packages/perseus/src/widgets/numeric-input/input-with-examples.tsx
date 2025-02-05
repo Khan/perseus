@@ -1,14 +1,11 @@
 import * as PerseusLinter from "@khanacademy/perseus-linter";
+import Tooltip, {TooltipContent} from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import TextInput from "../../components/text-input";
-import Tooltip, {
-    HorizontalDirection,
-    VerticalDirection,
-} from "../../components/tooltip";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
@@ -148,6 +145,25 @@ const InputWithExamples = forwardRef<
         setInputFocused(false);
     };
 
+    const getTooltipContent = () => {
+        return (
+            <TooltipContent>
+                <div
+                    id={_getUniqueId()}
+                    className="input-with-examples-tooltip"
+                >
+                    <Renderer
+                        content={examplesContent}
+                        linterContext={PerseusLinter.pushContextStack(
+                            linterContext,
+                            "input-with-examples",
+                        )}
+                        strings={context.strings}
+                    />
+                </div>
+            </TooltipContent>
+        );
+    };
     // Display the examples as a string when there are less than or equal to 2 examples.
     // Otherwise, display the examples as a list.
     const examplesContent =
@@ -165,26 +181,8 @@ const InputWithExamples = forwardRef<
     const showExamplesTooltip = shouldShowExamples && inputFocused;
 
     return (
-        <Tooltip
-            className="perseus-formats-tooltip preview-measure"
-            horizontalPosition={HorizontalDirection.Left}
-            horizontalAlign={HorizontalDirection.Left}
-            verticalPosition={VerticalDirection.Bottom}
-            arrowSize={10}
-            borderColor="#ccc"
-            show={showExamplesTooltip}
-        >
+        <Tooltip content={getTooltipContent()} opened={showExamplesTooltip}>
             {_renderInput()}
-            <div id={_getUniqueId()}>
-                <Renderer
-                    content={examplesContent}
-                    linterContext={PerseusLinter.pushContextStack(
-                        linterContext,
-                        "input-with-examples",
-                    )}
-                    strings={context.strings}
-                />
-            </div>
         </Tooltip>
     );
 });
