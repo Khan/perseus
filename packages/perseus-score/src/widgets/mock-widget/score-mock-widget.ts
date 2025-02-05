@@ -1,16 +1,14 @@
 import validateMockWidget from "./validate-mock-widget";
 
 import type {
-    PerseusMockWidgetUserInput,
     PerseusMockWidgetRubric,
-} from "./mock-widget-types";
-import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "@khanacademy/perseus-score";
+    PerseusMockWidgetUserInput,
+} from "./mock-widget-validation.types";
+import type {PerseusScore} from "../../validation.types";
 
 function scoreMockWidget(
     userInput: PerseusMockWidgetUserInput,
     rubric: PerseusMockWidgetRubric,
-    strings: PerseusStrings,
 ): PerseusScore {
     const validationResult = validateMockWidget(userInput);
     if (validationResult != null) {

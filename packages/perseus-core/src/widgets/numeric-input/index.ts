@@ -27,6 +27,7 @@ const defaultWidgetOptions: NumericInputDefaultWidgetOptions = {
 const numericInputWidgetLogic: WidgetLogic = {
     name: "numeric-input",
     defaultWidgetOptions,
+    defaultAlignment: "inline-block",
 };
 
 export default numericInputWidgetLogic;

@@ -2,7 +2,6 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe */
 import {Errors, getOrdererPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {scoreOrderer, validateOrderer} from "@khanacademy/perseus-score";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -779,11 +778,5 @@ export default {
     hidden: true,
     widget: Orderer,
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type UserInput is not assignable to type PerseusOrdererUserInput
-    scorer: scoreOrderer,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type UserInput is not assignable to type PerseusOrdererUserInput
-    validator: validateOrderer,
     getPublicWidgetOptions: getOrdererPublicWidgetOptions,
 } satisfies WidgetExports<typeof Orderer>;

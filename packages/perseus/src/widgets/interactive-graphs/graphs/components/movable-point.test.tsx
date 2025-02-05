@@ -295,7 +295,7 @@ describe("MovablePoint", () => {
             );
 
             expect(
-                screen.getByLabelText("Point 1 at 0 comma 0"),
+                screen.getByLabelText("Point 1 at 0 comma 0."),
             ).toBeInTheDocument();
         });
 
@@ -307,7 +307,7 @@ describe("MovablePoint", () => {
             );
 
             expect(
-                screen.getByLabelText("Point 2 at 0 comma 0"),
+                screen.getByLabelText("Point 2 at 0 comma 0."),
             ).toBeInTheDocument();
         });
 
@@ -356,7 +356,7 @@ describe("MovablePoint", () => {
             );
 
             const pointElement = screen.getByRole("button", {
-                name: "Point 1 at 0 comma 0",
+                name: "Point 1 at 0 comma 0.",
             });
             expect(pointElement).toHaveAttribute(
                 "aria-describedby",
@@ -377,7 +377,7 @@ describe("MovablePoint", () => {
             );
 
             expect(
-                screen.getByLabelText("Point 1 at 0 comma 0"),
+                screen.getByLabelText("Point 1 at 0 comma 0."),
             ).toHaveAttribute("aria-live", "assertive");
         });
 
@@ -389,7 +389,7 @@ describe("MovablePoint", () => {
             );
 
             expect(
-                screen.getByLabelText("Point 1 at 0 comma 0"),
+                screen.getByLabelText("Point 1 at 0 comma 0."),
             ).toHaveAttribute("aria-live", "polite");
         });
     });

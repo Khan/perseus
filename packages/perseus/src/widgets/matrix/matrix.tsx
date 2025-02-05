@@ -4,7 +4,6 @@ import {
     type PerseusMatrixWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {scoreMatrix, validateMatrix} from "@khanacademy/perseus-score";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -573,10 +572,4 @@ export default {
     transform: propTransform,
     staticTransform: staticTransform,
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatrixUserInput'.
-    scorer: scoreMatrix,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatrixUserInput'.
-    validator: validateMatrix,
 } satisfies WidgetExports<typeof Matrix>;

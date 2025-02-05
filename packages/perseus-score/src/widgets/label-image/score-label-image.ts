@@ -1,5 +1,3 @@
-import validateLabelImage from "./validate-label-image";
-
 import type {
     PerseusLabelImageUserInput,
     PerseusLabelImageRubric,
@@ -46,11 +44,6 @@ function scoreLabelImage(
     userInput: PerseusLabelImageUserInput,
     rubric: PerseusLabelImageRubric,
 ): PerseusScore {
-    const validationError = validateLabelImage(userInput);
-    if (validationError) {
-        return validationError;
-    }
-
     let numCorrect = 0;
 
     for (let i = 0; i < userInput.markers.length; i++) {

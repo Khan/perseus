@@ -8,11 +8,14 @@
  * group or sequence widgets.
  */
 
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {
+    Errors,
+    PerseusError,
+    upgradeWidgetInfoToLatestVersion,
+} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import {traverse} from "./traversal";
-import * as Widgets from "./widgets";
 
 import type {PerseusWidget} from "@khanacademy/perseus-core";
 
@@ -52,8 +55,7 @@ const isRawWidgetInfoRenderableBy = function (
 
     // NOTE: This doesn't modify the widget info if the widget info
     // is at a later version than is supported.
-    const upgradedWidgetInfo =
-        Widgets.upgradeWidgetInfoToLatestVersion(widgetInfo);
+    const upgradedWidgetInfo = upgradeWidgetInfoToLatestVersion(widgetInfo);
     return isUpgradedWidgetInfoRenderableBy(
         upgradedWidgetInfo,
         rendererContentVersion[upgradedWidgetInfo.type],

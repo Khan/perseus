@@ -1,3 +1,4 @@
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
 import {act, cleanup, render, screen, waitFor} from "@testing-library/react";
@@ -8,7 +9,6 @@ import * as Perseus from "@khanacademy/perseus";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {scorePerseusItem} from "../../renderer-util";
 import {mockStrings} from "../../strings";
 import {traverse} from "../../traversal";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -249,8 +249,8 @@ describe("group widget", () => {
                       "originalIndex": 4,
                     },
                   ],
-                  "countChoices": undefined,
-                  "deselectEnabled": undefined,
+                  "countChoices": false,
+                  "deselectEnabled": false,
                   "hasNoneOfTheAbove": false,
                   "multipleSelect": false,
                   "numCorrect": 1,
@@ -336,8 +336,8 @@ describe("group widget", () => {
                     "originalIndex": 4,
                   },
                 ],
-                "countChoices": undefined,
-                "deselectEnabled": undefined,
+                "countChoices": false,
+                "deselectEnabled": false,
                 "hasNoneOfTheAbove": false,
                 "multipleSelect": false,
                 "numCorrect": 1,
@@ -424,7 +424,7 @@ describe("group widget", () => {
         );
 
         const guess = renderer.getUserInputMap();
-        const score = scorePerseusItem(question1, guess, mockStrings, "en");
+        const score = scorePerseusItem(question1, guess, "en");
         const guessAndScore = [renderer.getUserInput(), score];
 
         // Assert

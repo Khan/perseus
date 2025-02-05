@@ -424,6 +424,29 @@ export type PerseusStrings = {
         point3X: string;
         point3Y: string;
     }) => string;
+    srPolygonGraph: string;
+    srPolygonGraphCoordinatePlane: string;
+    srPolygonGraphPointsNum: ({num}: {num: number}) => string;
+    srPolygonGraphPointsOne: string;
+    srPolygonElementsNum: ({num}: {num: number}) => string;
+    srPolygonElementsOne: string;
+    srPolygonPointAngleApprox: ({angle}: {angle: string}) => string;
+    srPolygonPointAngle: ({angle}: {angle: number}) => string;
+    srPolygonSideLength: ({
+        pointNum,
+        length,
+    }: {
+        pointNum: number;
+        length: string;
+    }) => string;
+    srPolygonSideLengthApprox: ({
+        pointNum,
+        length,
+    }: {
+        pointNum: number;
+        length: string;
+    }) => string;
+    srUnlimitedPolygonEmpty: string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -607,7 +630,7 @@ export const strings = {
     // translation tickets after all interactive graph SR strings have
     // been finalized. Remove this comment after the tickets have been
     // created.
-    srPointAtCoordinates: "Point %(num)s at %(x)s comma %(y)s",
+    srPointAtCoordinates: "Point %(num)s at %(x)s comma %(y)s.",
     srCircleGraph: "A circle on a coordinate plane.",
     srCircleShape:
         "Circle. The center point is at %(centerX)s comma %(centerY)s.",
@@ -643,9 +666,9 @@ export const strings = {
     srMultipleSegmentGraphAriaLabel:
         "%(countOfSegments)s line segments on a coordinate plane.",
     srMultipleSegmentIndividualLabel:
-        "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+        "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 at %(point2X)s comma %(point2Y)s.",
     srSingleSegmentLabel:
-        "Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 %(point2X)s comma %(point2Y)s.",
+        "Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 at %(point2X)s comma %(point2Y)s.",
     srSegmentLength: "Segment length %(length)s units.",
     srSingleSegmentGraphEndpointAriaLabel:
         "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
@@ -683,6 +706,20 @@ export const strings = {
         "Point %(pointNumber)s on parabola in quadrant %(quadrant)s at %(x)s comma %(y)s.",
     srQuadraticInteractiveElements:
         "Parabola with points at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, and %(point3X)s comma %(point3Y)s.",
+    srPolygonGraph: "A polygon.",
+    srPolygonGraphCoordinatePlane: "A polygon on a coordinate plane.",
+    srPolygonGraphPointsNum: "The polygon has %(num)s points.",
+    srPolygonGraphPointsOne: "The polygon has 1 point.",
+    srPolygonElementsNum: "A polygon with %(num)s points.",
+    srPolygonElementsOne: "A polygon with 1 point.",
+    srPolygonPointAngleApprox:
+        "Angle approximately equal to %(angle)s degrees.",
+    srPolygonPointAngle: "Angle equal to %(angle)s degrees.",
+    srPolygonSideLength:
+        "A line segment, length equal to %(length)s units, connects to point %(pointNum)s.",
+    srPolygonSideLengthApprox:
+        "A line segment, length approximately equal to %(length)s units, connects to point %(pointNum)s.",
+    srUnlimitedPolygonEmpty: "An empty coordinate plane.",
     // The above strings are used for interactive graph SR descriptions.
 } satisfies {
     [key in keyof PerseusStrings]:
@@ -853,7 +890,7 @@ export const mockStrings: PerseusStrings = {
     removePoint: "Remove Point",
     closePolygon: "Close shape",
     openPolygon: "Re-open shape",
-    srPointAtCoordinates: ({num, x, y}) => `Point ${num} at ${x} comma ${y}`,
+    srPointAtCoordinates: ({num, x, y}) => `Point ${num} at ${x} comma ${y}.`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
     srCircleGraph: "A circle on a coordinate plane.",
@@ -971,6 +1008,20 @@ export const mockStrings: PerseusStrings = {
         point3Y,
     }) =>
         `Parabola with points at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, and ${point3X} comma ${point3Y}.`,
+    srPolygonGraph: "A polygon.",
+    srPolygonGraphCoordinatePlane: "A polygon on a coordinate plane.",
+    srPolygonGraphPointsNum: ({num}) => `The polygon has ${num} points.`,
+    srPolygonGraphPointsOne: "The polygon has 1 point.",
+    srPolygonElementsNum: ({num}) => `A polygon with ${num} points.`,
+    srPolygonElementsOne: "A polygon with 1 point.",
+    srPolygonPointAngleApprox: ({angle}) =>
+        `Angle approximately equal to ${angle} degrees.`,
+    srPolygonPointAngle: ({angle}) => `Angle equal to ${angle} degrees.`,
+    srPolygonSideLength: ({pointNum, length}) =>
+        `A line segment, length equal to ${length} units, connects to point ${pointNum}.`,
+    srPolygonSideLengthApprox: ({pointNum, length}) =>
+        `A line segment, length approximately equal to ${length} units, connects to point ${pointNum}.`,
+    srUnlimitedPolygonEmpty: "An empty coordinate plane.",
     // The above strings are used for interactive graph SR descriptions.
 };
 
