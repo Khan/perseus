@@ -415,6 +415,7 @@ class Graph extends React.Component<Props> {
         }
 
         return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO: Address a11y error
             <div
                 className="graphie-container blank-background"
                 style={{

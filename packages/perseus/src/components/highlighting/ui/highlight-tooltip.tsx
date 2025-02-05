@@ -94,6 +94,7 @@ class HighlightTooltip extends React.PureComponent<Props> {
         // TooltipContent wouldn't let me overwrite
         // user-select and onClick
         const content: any = (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO: Address a11y error
             <div
                 className={css(styles.tooltipLabel)}
                 onClick={this.props.onClick}
@@ -111,6 +112,7 @@ class HighlightTooltip extends React.PureComponent<Props> {
         } as const;
 
         return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO: Address a11y error
             <div
                 style={style}
                 onMouseEnter={this.props.onMouseEnter}

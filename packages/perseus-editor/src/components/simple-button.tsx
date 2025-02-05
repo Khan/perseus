@@ -23,6 +23,7 @@ class SimpleButton extends React.Component<any> {
     render(): React.ReactNode {
         const {children, color, onClick, ...otherProps} = this.props;
         return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO: Address a11y error
             <div
                 className={css(
                     styles.baseButton,
