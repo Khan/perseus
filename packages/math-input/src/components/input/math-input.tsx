@@ -537,6 +537,7 @@ class MathInput extends React.Component<Props, State> {
                 return true;
             }
         }
+
         return false;
     };
 
@@ -1082,8 +1083,5 @@ const inlineStyles = {
         color: color.offBlack,
     },
 } as const;
-
-export const thisDoesNothing =
-    "Adding a variable to see if this triggers the less to move over in the snapshot. This is annoying.";
 
 export default MathInput;
