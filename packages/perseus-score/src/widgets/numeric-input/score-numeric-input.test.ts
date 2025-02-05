@@ -214,6 +214,56 @@ describe("scoreNumericInput", () => {
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
+    it("rejects a strict improper and whole number answer", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 3,
+                    status: "correct",
+                    maxError: 0.2,
+                    simplify: "optional",
+                    strict: true,
+                    answerForms: ["improper"],
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const userInput = {
+            currentValue: "3",
+        } as const;
+
+        const score = scoreNumericInput(userInput, rubric);
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("accepts a strict improper answer and tex", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 3,
+                    status: "correct",
+                    maxError: 0.2,
+                    simplify: "optional",
+                    strict: true,
+                    answerForms: ["improper"],
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const userInput = {
+            currentValue: "\\frac{9}{3}",
+        } as const;
+
+        const score = scoreNumericInput(userInput, rubric);
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
     it("respects the order of answer options when scoring", () => {
         // Arrange
         const rubric: PerseusNumericInputRubric = {
