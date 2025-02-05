@@ -306,7 +306,7 @@ class Zoomable extends React.Component<Props, State> {
         } as const;
 
         return (
-            // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO: Address a11y error
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO: Address a11y error
             <span
                 onClick={this.handleClick}
                 onClickCapture={this.handleClickIfZoomed}

@@ -147,6 +147,7 @@ export class Categorizer
                                                 }
                                                 key={catNum}
                                             >
+                                                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events -- TODO: Address a11y error */}
                                                 <div
                                                     role="button"
                                                     aria-label={catName}

@@ -70,7 +70,7 @@ class View extends React.Component<Props> {
             (this.props.extraClassName ? ` ${this.props.extraClassName}` : "");
 
         return (
-            // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO: Address a11y error
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO: Address a11y error
             <div
                 className={className}
                 style={this.props.dynamicStyle}
