@@ -9,7 +9,7 @@ import * as React from "react";
 
 import Heading from "../../../components/heading";
 
-const StyledUL = addStyle("ul");
+const StyledUl = addStyle("ul");
 
 type Attribute = {
     name: string;
@@ -110,7 +110,7 @@ function SRTree(props: Props) {
                         </Pill>
                     )}
                     {aria.className}
-                    <StyledUL style={styles.indentListLeft}>
+                    <StyledUl style={styles.indentListLeft}>
                         {aria.attributes.map((value, index) => (
                             <li key={index}>
                                 <Pill
@@ -127,7 +127,7 @@ function SRTree(props: Props) {
                                 {value.value}
                             </li>
                         ))}
-                    </StyledUL>
+                    </StyledUl>
                 </li>
             ))}
         </ol>
