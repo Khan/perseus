@@ -219,6 +219,7 @@ jobs:
               uses: actions/checkout@v4
               with:
                   fetch-depth: "0"
+
             - name: Ensure main branch is available
               run: |
                   REF=$(git rev-parse HEAD)
