@@ -1,4 +1,4 @@
-import viteConfig from "../dev/vite.config";
+import viteConfig from "../vite.config";
 import {mergeConfig} from "vite";
 
 import type {StorybookConfig} from "@storybook/react-vite";

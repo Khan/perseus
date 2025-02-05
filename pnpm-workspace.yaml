@@ -1,7 +1,8 @@
 packages:
-    - config/build
-    - dev
-    - packages/*
+    - 'config/build'
+    - 'dev'
+    - 'packages/*'
+    - 'vendor/*'
 
 catalog:
     react: ^18.2.0

@@ -4,7 +4,7 @@ import {mergeConfig} from "vite";
 import istanbul from "vite-plugin-istanbul";
 
 import {defineConfig} from "cypress";
-import viteConfig from "../../dev/vite.config";
+import viteConfig from "../../vite.config";
 
 const aliases = {};
 fs.readdirSync(path.join(__dirname, "../../packages")).forEach((name) => {

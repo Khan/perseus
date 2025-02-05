@@ -278,6 +278,9 @@ importers:
       ancesdir:
         specifier: ^3.1.0
         version: 3.1.0
+      aphrodite:
+        specifier: 'catalog:'
+        version: 1.2.5
       babel-jest:
         specifier: ^29.7.0
         version: 29.7.0(@babel/core@7.26.0)
@@ -674,6 +677,9 @@ importers:
       mafs:
         specifier: 0.19.0
         version: 0.19.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      raphael:
+        specifier: workspace:*
+        version: link:../../vendor/raphael
       uuid:
         specifier: ^10.0.0
         version: 10.0.0
@@ -813,6 +819,12 @@ importers:
       '@khanacademy/pure-markdown':
         specifier: workspace:*
         version: link:../pure-markdown
+      hubble:
+        specifier: workspace:*
+        version: link:../../vendor/hubble
+      jsdiff:
+        specifier: workspace:*
+        version: link:../../vendor/jsdiff
       mafs:
         specifier: ^0.19.0
         version: 0.19.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -955,6 +967,12 @@ importers:
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
+
+  vendor/hubble: {}
+
+  vendor/jsdiff: {}
+
+  vendor/raphael: {}
 
 packages:
 
