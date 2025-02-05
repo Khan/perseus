@@ -423,8 +423,10 @@ class Graph extends React.Component<Props> {
                     height: this.props.box[1],
                 }}
                 // @ts-expect-error - TS2339 - Property 'onMouseOut' does not exist on type 'Graph'.
+                // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events -- TODO: Address a11y error
                 onMouseOut={this.onMouseOut}
                 // @ts-expect-error - TS2339 - Property 'onMouseOver' does not exist on type 'Graph'.
+                // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events -- TODO: Address a11y error
                 onMouseOver={this.onMouseOver}
                 // @ts-expect-error - TS2339 - Property 'onClick' does not exist on type 'Graph'.
                 onClick={this.onClick}
