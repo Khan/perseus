@@ -9,7 +9,7 @@ import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {describeLinearSystemGraph} from "./linear-system";
+import {getLinearSystemGraphDescription} from "./linear-system";
 
 import type {InteractiveGraphState} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -256,12 +256,12 @@ describe("Linear System graph screen reader", () => {
     });
 });
 
-describe(describeLinearSystemGraph, () => {
+describe("getLinearSystemGraphDescription", () => {
     test("describes a default linear system graph", () => {
         // Arrange
 
         // Act
-        const linearSystemGraphDescription = describeLinearSystemGraph(
+        const linearSystemGraphDescription = getLinearSystemGraphDescription(
             baseLinearSystemState,
             mockPerseusI18nContext,
         );
@@ -276,7 +276,7 @@ describe(describeLinearSystemGraph, () => {
         // Arrange
 
         // Act
-        const linearSystemGraphDescription = describeLinearSystemGraph(
+        const linearSystemGraphDescription = getLinearSystemGraphDescription(
             {
                 ...baseLinearSystemState,
                 coords: [

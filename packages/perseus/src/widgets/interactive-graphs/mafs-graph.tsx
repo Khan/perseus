@@ -692,19 +692,19 @@ const renderGraphElements = (props: {
         case "angle":
             return renderAngleGraph(state, dispatch);
         case "segment":
-            return renderSegmentGraph(state, dispatch);
+            return renderSegmentGraph(state, dispatch, i18n);
         case "linear-system":
-            return renderLinearSystemGraph(state, dispatch);
+            return renderLinearSystemGraph(state, dispatch, i18n);
         case "linear":
-            return renderLinearGraph(state, dispatch);
+            return renderLinearGraph(state, dispatch, i18n);
         case "ray":
-            return renderRayGraph(state, dispatch);
+            return renderRayGraph(state, dispatch, i18n);
         case "polygon":
             return renderPolygonGraph(state, dispatch, i18n, markings);
         case "point":
-            return renderPointGraph(state, dispatch);
+            return renderPointGraph(state, dispatch, i18n);
         case "circle":
-            return renderCircleGraph(state, dispatch);
+            return renderCircleGraph(state, dispatch, i18n);
         case "quadratic":
             return renderQuadraticGraph(state, dispatch, i18n);
         case "sinusoid":
