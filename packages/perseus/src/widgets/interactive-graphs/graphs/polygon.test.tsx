@@ -38,6 +38,20 @@ const baseLimitedPolygonState: InteractiveGraphState = {
     snapStep: [1, 1],
     snapTo: "grid",
 };
+const baseUnlimitedPolygonStateClosed: InteractiveGraphState = {
+    ...baseLimitedPolygonState,
+    closedPolygon: true,
+    numSides: "unlimited",
+};
+const baseUnlimitedPolygonStateOpen: InteractiveGraphState = {
+    ...baseLimitedPolygonState,
+    closedPolygon: false,
+    numSides: "unlimited",
+};
+const emptyUnlimitedPolygonState: InteractiveGraphState = {
+    ...baseUnlimitedPolygonStateOpen,
+    coords: [],
+};
 
 describe("hasFocusVisible", () => {
     let userEvent: UserEvent;
@@ -105,12 +119,15 @@ describe("hasFocusVisible", () => {
     });
 });
 
-describe("Polygon screen reader", () => {
-    let userEvent: UserEvent;
+// Common tests among limited polygons, closed unlimited polygons, and
+// open unlimited polygons.
+describe.each`
+    polygonType             | polygonState
+    ${"Limited"}            | ${baseLimitedPolygonState}
+    ${"Unlimited (closed)"} | ${baseUnlimitedPolygonStateClosed}
+    ${"Unlimited (open)"}   | ${baseUnlimitedPolygonStateOpen}
+`("$polygonType Polygon screen reader full graph", ({polygonState}) => {
     beforeEach(() => {
-        userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
-        });
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -118,12 +135,7 @@ describe("Polygon screen reader", () => {
 
     test("Has description of interactive elements on graph", () => {
         // Arrange
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={baseLimitedPolygonState}
-            />,
-        );
+        render(<MafsGraph {...baseMafsGraphProps} state={polygonState} />);
 
         // Act
         const mafsGraph = screen.getByText(
@@ -136,12 +148,7 @@ describe("Polygon screen reader", () => {
 
     test("Has overall graph label and description", () => {
         // Arrange
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={baseLimitedPolygonState}
-            />,
-        );
+        render(<MafsGraph {...baseMafsGraphProps} state={polygonState} />);
 
         // Act
         const polygonGraph = screen.getByLabelText(
@@ -168,7 +175,7 @@ describe("Polygon screen reader", () => {
             render(
                 <MafsGraph
                     {...baseMafsGraphProps}
-                    state={baseLimitedPolygonState}
+                    state={polygonState}
                     markings={markings}
                 />,
             );
@@ -180,62 +187,292 @@ describe("Polygon screen reader", () => {
             expect(polygonGraph).toBeInTheDocument();
         },
     );
+});
 
-    test.each`
-        markings   | expectedLabel
-        ${"axes"}  | ${" Point 1 at 3 comma -2. Point 2 at 0 comma 4. Point 3 at -3 comma -2."}
-        ${"graph"} | ${" Point 1 at 3 comma -2. Point 2 at 0 comma 4. Point 3 at -3 comma -2."}
-        ${"grid"}  | ${""}
-        ${"none"}  | ${""}
-    `(
-        "Uses movable polygon label based on graph markings $markings",
-        ({markings, expectedLabel}) => {
+// Unlimited polygon should have the same experience as
+// limited polygon when it is closed.
+// These tests don't apply to open unlimited polygons.
+describe.each`
+    polygonType    | polygonState
+    ${"Limited"}   | ${baseLimitedPolygonState}
+    ${"Unlimited"} | ${baseUnlimitedPolygonStateClosed}
+`(
+    "$polygonType Polygon screen reader interactive elements",
+    ({polygonState}) => {
+        let userEvent: UserEvent;
+        beforeEach(() => {
+            userEvent = userEventLib.setup({
+                advanceTimers: jest.advanceTimersByTime,
+            });
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+        });
+
+        test.each`
+            markings   | expectedLabel
+            ${"axes"}  | ${" Point 1 at 3 comma -2. Point 2 at 0 comma 4. Point 3 at -3 comma -2."}
+            ${"graph"} | ${" Point 1 at 3 comma -2. Point 2 at 0 comma 4. Point 3 at -3 comma -2."}
+            ${"grid"}  | ${""}
+            ${"none"}  | ${""}
+        `(
+            "Uses movable polygon label based on graph markings $markings",
+            ({markings, expectedLabel}) => {
+                // Arrange
+                render(
+                    <MafsGraph
+                        {...baseMafsGraphProps}
+                        state={polygonState}
+                        markings={markings}
+                    />,
+                );
+
+                // Act
+                const movablePolygon = screen.getAllByRole("button")[0];
+                const concatenatedLabel = `A polygon with 3 points.${expectedLabel}`;
+
+                // Assert
+                expect(movablePolygon).toHaveAccessibleName(concatenatedLabel);
+            },
+        );
+
+        test("Interactive elements have expected descriptions (approx angles, approx and exact sides)", () => {
+            // Arrange
+            render(<MafsGraph {...baseMafsGraphProps} state={polygonState} />);
+
+            // Act
+            const interactiveElements = screen.getAllByRole("button");
+            const [polygon, point1, point2, point3] = interactiveElements;
+
+            // Assert
+            expect(polygon).toHaveAccessibleName(
+                "A polygon with 3 points. Point 1 at 3 comma -2. Point 2 at 0 comma 4. Point 3 at -3 comma -2.",
+            );
+            expect(point1).toHaveAccessibleName("Point 1 at 3 comma -2.");
+            expect(point1).toHaveAccessibleDescription(
+                "Angle approximately equal to 63.4 degrees. A line segment, length equal to 6 units, connects to point 3. A line segment, length approximately equal to 6.7 units, connects to point 2.",
+            );
+            expect(point2).toHaveAccessibleName("Point 2 at 0 comma 4.");
+            expect(point2).toHaveAccessibleDescription(
+                "Angle approximately equal to 53.1 degrees. A line segment, length approximately equal to 6.7 units, connects to point 1. A line segment, length approximately equal to 6.7 units, connects to point 3.",
+            );
+            expect(point3).toHaveAccessibleName("Point 3 at -3 comma -2.");
+            expect(point3).toHaveAccessibleDescription(
+                "Angle approximately equal to 63.4 degrees. A line segment, length approximately equal to 6.7 units, connects to point 2. A line segment, length equal to 6 units, connects to point 1.",
+            );
+        });
+
+        test("Interactive elements have expected descriptions (exact angles, approx and exact sides)", () => {
             // Arrange
             render(
                 <MafsGraph
                     {...baseMafsGraphProps}
-                    state={baseLimitedPolygonState}
-                    markings={markings}
+                    state={{
+                        ...polygonState,
+                        // Rectangle
+                        coords: [
+                            [-5, 5.5],
+                            [5, 5.5],
+                            [5, -5],
+                            [-5, -5],
+                        ],
+                    }}
                 />,
             );
 
             // Act
-            const movablePolygon = screen.getAllByRole("button")[0];
-            const concatenatedLabel = `A polygon with 3 points.${expectedLabel}`;
+            const interactiveElements = screen.getAllByRole("button");
+            const [polygon, point1, point2, point3, point4] =
+                interactiveElements;
 
             // Assert
-            expect(movablePolygon).toHaveAccessibleName(concatenatedLabel);
-        },
-    );
+            expect(polygon).toHaveAccessibleName(
+                "A polygon with 4 points. Point 1 at -5 comma 5.5. Point 2 at 5 comma 5.5. Point 3 at 5 comma -5. Point 4 at -5 comma -5.",
+            );
+            expect(point1).toHaveAccessibleName("Point 1 at -5 comma 5.5.");
+            expect(point1).toHaveAccessibleDescription(
+                "Angle equal to 90 degrees. A line segment, length approximately equal to 10.5 units, connects to point 4. A line segment, length equal to 10 units, connects to point 2.",
+            );
+            expect(point2).toHaveAccessibleName("Point 2 at 5 comma 5.5.");
+            expect(point2).toHaveAccessibleDescription(
+                "Angle equal to 90 degrees. A line segment, length equal to 10 units, connects to point 1. A line segment, length approximately equal to 10.5 units, connects to point 3.",
+            );
+            expect(point3).toHaveAccessibleName("Point 3 at 5 comma -5.");
+            expect(point3).toHaveAccessibleDescription(
+                "Angle equal to 90 degrees. A line segment, length approximately equal to 10.5 units, connects to point 2. A line segment, length equal to 10 units, connects to point 4.",
+            );
+            expect(point4).toHaveAccessibleName("Point 4 at -5 comma -5.");
+            expect(point4).toHaveAccessibleDescription(
+                "Angle equal to 90 degrees. A line segment, length equal to 10 units, connects to point 3. A line segment, length approximately equal to 10.5 units, connects to point 1.",
+            );
+        });
+
+        test.each`
+            elementName  | index
+            ${"polygon"} | ${0}
+            ${"point1"}  | ${1}
+            ${"point2"}  | ${2}
+            ${"point3"}  | ${3}
+        `(
+            "Should update the aria-live when $elementName is moved",
+            async ({index}) => {
+                // Arrange
+                render(
+                    <MafsGraph {...baseMafsGraphProps} state={polygonState} />,
+                );
+                const interactiveElements = screen.getAllByRole("button");
+                const [polygon, point1, point2, point3] = interactiveElements;
+                const movingElement = interactiveElements[index];
+
+                // Act - Move the element
+                movingElement.focus();
+                await userEvent.keyboard("{ArrowRight}");
+
+                const expectedAriaLive = ["off", "off", "off", "off"];
+                expectedAriaLive[index] = "polite";
+
+                // Assert
+                expect(polygon).toHaveAttribute(
+                    "aria-live",
+                    expectedAriaLive[0],
+                );
+                expect(point1).toHaveAttribute(
+                    "aria-live",
+                    expectedAriaLive[1],
+                );
+                expect(point2).toHaveAttribute(
+                    "aria-live",
+                    expectedAriaLive[2],
+                );
+                expect(point3).toHaveAttribute(
+                    "aria-live",
+                    expectedAriaLive[3],
+                );
+            },
+        );
+    },
+);
+
+describe("Unlimited Polygon (open) screen reader", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    test("Empty graph does not have description of interactive elements on graph", () => {
+        // Arrange
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={emptyUnlimitedPolygonState}
+            />,
+        );
+
+        // Act
+        const mafsGraph = screen.queryByText(/Interactive elements/);
+
+        // Assert
+        expect(mafsGraph).not.toBeInTheDocument();
+    });
+
+    test("Empty graph the coordinate plane as empty", () => {
+        // Arrange
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={emptyUnlimitedPolygonState}
+            />,
+        );
+
+        // Act
+        const polygonGraph = screen.getByLabelText(
+            "An empty coordinate plane.",
+        );
+
+        // Assert
+        expect(polygonGraph).toBeInTheDocument();
+    });
+
+    test("Empty graph does not describe the nonexistent polygon", () => {
+        // Arrange
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={emptyUnlimitedPolygonState}
+            />,
+        );
+
+        // Act
+        const polygon = screen.queryByText(/polygon/);
+
+        // Assert
+        expect(polygon).not.toBeInTheDocument();
+    });
+
+    test("Polygon with 3 point has expected elements and aria labels", () => {
+        // Arrange
+        const polygonState: InteractiveGraphState = {
+            ...baseUnlimitedPolygonStateOpen,
+            coords: [[0, 0]],
+        };
+
+        // Act
+        render(<MafsGraph {...baseMafsGraphProps} state={polygonState} />);
+
+        const overallGraph = screen.getByText(
+            "Interactive elements: A polygon with 1 point. Point 1 at 0 comma 0.",
+        );
+        const polygonGraph = screen.getByLabelText(
+            "A polygon on a coordinate plane.",
+        );
+        const point = screen.getByRole("button", {
+            name: "Point 1 at 0 comma 0.",
+        });
+
+        // Assert
+        expect(overallGraph).toBeInTheDocument();
+        expect(polygonGraph).toHaveAccessibleDescription(
+            "The polygon has 1 point. Point 1 at 0 comma 0.",
+        );
+        expect(point).toHaveAccessibleName("Point 1 at 0 comma 0.");
+    });
 
     test("Interactive elements have expected descriptions (approx angles, approx and exact sides)", () => {
         // Arrange
         render(
             <MafsGraph
                 {...baseMafsGraphProps}
-                state={baseLimitedPolygonState}
+                state={baseUnlimitedPolygonStateOpen}
             />,
         );
 
         // Act
+        // The overall polygon is not an interactive element if
+        // the polygon is open.
         const interactiveElements = screen.getAllByRole("button");
-        const [polygon, point1, point2, point3] = interactiveElements;
+        const [point1, point2, point3] = interactiveElements;
 
         // Assert
-        expect(polygon).toHaveAccessibleName(
-            "A polygon with 3 points. Point 1 at 3 comma -2. Point 2 at 0 comma 4. Point 3 at -3 comma -2.",
-        );
         expect(point1).toHaveAccessibleName("Point 1 at 3 comma -2.");
+        // Since the polygon is open, the first point doesn't have an angle,
+        // and it only connects to the point after it.
         expect(point1).toHaveAccessibleDescription(
-            "Angle approximately equal to 63.4 degrees. A line segment, length equal to 6 units, connects to point 3. A line segment, length approximately equal to 6.7 units, connects to point 2.",
+            "A line segment, length approximately equal to 6.7 units, connects to point 2.",
         );
         expect(point2).toHaveAccessibleName("Point 2 at 0 comma 4.");
         expect(point2).toHaveAccessibleDescription(
             "Angle approximately equal to 53.1 degrees. A line segment, length approximately equal to 6.7 units, connects to point 1. A line segment, length approximately equal to 6.7 units, connects to point 3.",
         );
         expect(point3).toHaveAccessibleName("Point 3 at -3 comma -2.");
+        // Since the polygon is open, the last point doesn't have an angle,
+        // and it only connects to the point before it.
         expect(point3).toHaveAccessibleDescription(
-            "Angle approximately equal to 63.4 degrees. A line segment, length approximately equal to 6.7 units, connects to point 2. A line segment, length equal to 6 units, connects to point 1.",
+            "A line segment, length approximately equal to 6.7 units, connects to point 2.",
         );
     });
 
@@ -245,7 +482,7 @@ describe("Polygon screen reader", () => {
             <MafsGraph
                 {...baseMafsGraphProps}
                 state={{
-                    ...baseLimitedPolygonState,
+                    ...baseUnlimitedPolygonStateOpen,
                     // Rectangle
                     coords: [
                         [-5, 5.5],
@@ -258,16 +495,17 @@ describe("Polygon screen reader", () => {
         );
 
         // Act
+        // The overall polygon is not an interactive element if
+        // the polygon is open.
         const interactiveElements = screen.getAllByRole("button");
-        const [polygon, point1, point2, point3, point4] = interactiveElements;
+        const [point1, point2, point3, point4] = interactiveElements;
 
         // Assert
-        expect(polygon).toHaveAccessibleName(
-            "A polygon with 4 points. Point 1 at -5 comma 5.5. Point 2 at 5 comma 5.5. Point 3 at 5 comma -5. Point 4 at -5 comma -5.",
-        );
         expect(point1).toHaveAccessibleName("Point 1 at -5 comma 5.5.");
+        // Since the polygon is open, the first point doesn't have an angle,
+        // and it only connects to the point after it.
         expect(point1).toHaveAccessibleDescription(
-            "Angle equal to 90 degrees. A line segment, length approximately equal to 10.5 units, connects to point 4. A line segment, length equal to 10 units, connects to point 2.",
+            "A line segment, length equal to 10 units, connects to point 2.",
         );
         expect(point2).toHaveAccessibleName("Point 2 at 5 comma 5.5.");
         expect(point2).toHaveAccessibleDescription(
@@ -278,8 +516,10 @@ describe("Polygon screen reader", () => {
             "Angle equal to 90 degrees. A line segment, length approximately equal to 10.5 units, connects to point 2. A line segment, length equal to 10 units, connects to point 4.",
         );
         expect(point4).toHaveAccessibleName("Point 4 at -5 comma -5.");
+        // Since the polygon is open, the last point doesn't have an angle,
+        // and it only connects to the point before it.
         expect(point4).toHaveAccessibleDescription(
-            "Angle equal to 90 degrees. A line segment, length equal to 10 units, connects to point 3. A line segment, length approximately equal to 10.5 units, connects to point 1.",
+            "A line segment, length equal to 10 units, connects to point 3.",
         );
     });
 
@@ -296,11 +536,11 @@ describe("Polygon screen reader", () => {
             render(
                 <MafsGraph
                     {...baseMafsGraphProps}
-                    state={baseLimitedPolygonState}
+                    state={baseUnlimitedPolygonStateOpen}
                 />,
             );
             const interactiveElements = screen.getAllByRole("button");
-            const [polygon, point1, point2, point3] = interactiveElements;
+            const [point1, point2, point3] = interactiveElements;
             const movingElement = interactiveElements[index];
 
             // Act - Move the element
@@ -311,10 +551,9 @@ describe("Polygon screen reader", () => {
             expectedAriaLive[index] = "polite";
 
             // Assert
-            expect(polygon).toHaveAttribute("aria-live", expectedAriaLive[0]);
-            expect(point1).toHaveAttribute("aria-live", expectedAriaLive[1]);
-            expect(point2).toHaveAttribute("aria-live", expectedAriaLive[2]);
-            expect(point3).toHaveAttribute("aria-live", expectedAriaLive[3]);
+            expect(point1).toHaveAttribute("aria-live", expectedAriaLive[0]);
+            expect(point2).toHaveAttribute("aria-live", expectedAriaLive[1]);
+            expect(point3).toHaveAttribute("aria-live", expectedAriaLive[2]);
         },
     );
 });

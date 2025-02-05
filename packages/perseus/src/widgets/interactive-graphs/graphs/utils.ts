@@ -278,6 +278,7 @@ export function getAngleFromPoints(points: Coord[], i: number) {
 export function getSideLengthsFromPoints(
     points: Coord[],
     i: number,
+    isPolygonOpen?: boolean,
 ): Array<{
     pointIndex: number;
     sideLength: number;
@@ -298,11 +299,14 @@ export function getSideLengthsFromPoints(
     // If this point is the first point, then side 1 is the
     // last point in the list.
     const point1Index = i === 0 ? points.length - 1 : i - 1;
+
     const point1 = points[point1Index];
     // Make sure the previous point is not the same
     // as the current point.
     const side1 = i !== point1Index ? vec.dist(point, point1) : null;
-    if (side1) {
+    // The first side of the first point does not exist if
+    // the polygon is open.
+    if (side1 && !(isPolygonOpen && i === 0)) {
         returnArray.push({pointIndex: point1Index, sideLength: side1});
     }
 
@@ -315,7 +319,9 @@ export function getSideLengthsFromPoints(
         i !== point2Index && point2Index !== point1Index
             ? vec.dist(point, point2)
             : null;
-    if (side2) {
+    // The second side of the last point does not exist if
+    // the polygon is open.
+    if (side2 && !(isPolygonOpen && i === points.length - 1)) {
         returnArray.push({pointIndex: point2Index, sideLength: side2});
     }
 
