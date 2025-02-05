@@ -38,7 +38,7 @@ jobs:
             - uses: pnpm/action-setup@v4
               name: Install pnpm
               with:
-                run_install: false
+                  run_install: false
 
             - name: Force Node version
               uses: actions/setup-node@v4

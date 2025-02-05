@@ -7,7 +7,7 @@ inputs:
         description: "Node version to use"
         required: true
     cache-bust:
-        description: 'A unique string to bust the cache'
+        description: "A unique string to bust the cache"
         required: true
 
 # The steps this action runs.
@@ -18,14 +18,14 @@ runs:
         - uses: pnpm/action-setup@v4
           name: Install pnpm
           with:
-            run_install: false
+              run_install: false
 
         - name: Use Node.js ${{ inputs.node-version }}
           uses: actions/setup-node@v4
           with:
               node-version: ${{ inputs.node-version }}
               cache: pnpm
-              cache-dependency-path: 'pnpm-lock.yaml'
+              cache-dependency-path: "pnpm-lock.yaml"
 
         - name: pnpm install
           shell: sh
