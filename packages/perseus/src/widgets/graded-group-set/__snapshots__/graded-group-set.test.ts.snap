@@ -125,68 +125,25 @@ exports[`graded group widget should snapshot 1`] = `
                     <div
                       class="perseus-widget-container widget-nohighlight widget-inline-block"
                     >
-                      <span>
-                        <div>
-                          <input
-                            aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
-                            aria-disabled="false"
-                            aria-invalid="false"
-                            aria-label="Your answer:"
-                            aria-required="false"
-                            autocapitalize="off"
-                            autocomplete="off"
-                            autocorrect="off"
-                            class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-defaultFocus_9n1kv3-o_O-inputWithExamples_1y6ajxo"
-                            id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
-                            type="text"
-                            value=""
-                          />
-                          <span
-                            id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
-                            style="display: none;"
-                          />
-                        </div>
-                        <div
-                          style="position: relative; height: 0px; display: none;"
-                        >
-                          <div
-                            class="tooltipContainer"
-                            role="tooltip"
-                            style="position: absolute; left: 0px;"
-                          >
-                            <div
-                              style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
-                            >
-                              <div
-                                style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
-                              />
-                              <div
-                                style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
-                              />
-                            </div>
-                            <div
-                              class="perseus-formats-tooltip preview-measure"
-                              style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
-                            >
-                              <div
-                                id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
-                              >
-                                <div
-                                  class="perseus-renderer perseus-renderer-responsive"
-                                >
-                                  <div
-                                    class="paragraph perseus-paragraph-centered"
-                                    data-perseus-paragraph-index="0"
-                                  >
-                                    
-
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </span>
+                      <input
+                        aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                        aria-disabled="false"
+                        aria-invalid="false"
+                        aria-label="Your answer:"
+                        aria-required="false"
+                        autocapitalize="off"
+                        autocomplete="off"
+                        autocorrect="off"
+                        class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-defaultFocus_9n1kv3-o_O-inputWithExamples_1y6ajxo"
+                        id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                        tabindex="0"
+                        type="text"
+                        value=""
+                      />
+                      <span
+                        id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                        style="display: none;"
+                      />
                     </div>
                   </div>
                 </div>
