@@ -195,6 +195,8 @@ class Zoomable extends React.Component<Props, State> {
             parentBounds,
         );
 
+        // Testing
+
         // The +1 is a fudge factor to make sure any border on the
         // content isn't clipped by the the container it's in.
         const childWidth = childBounds.width + 1;
