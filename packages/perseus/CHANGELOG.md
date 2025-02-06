@@ -1,5 +1,46 @@
 # @khanacademy/perseus
 
+## 53.0.0
+
+### Major Changes
+
+-   [#2165](https://github.com/Khan/perseus/pull/2165) [`c8e383b46`](https://github.com/Khan/perseus/commit/c8e383b469426182a1392ca6ad2cde21b61e2f40) Thanks [@handeyeco](https://github.com/handeyeco)! - Move scorePerseusItem logic to PerseusScore
+
+### Minor Changes
+
+-   [#2154](https://github.com/Khan/perseus/pull/2154) [`a21fd908d`](https://github.com/Khan/perseus/commit/a21fd908d705c5b9de56f29af54d726824f5668e) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Sorter widget
+
+*   [#2171](https://github.com/Khan/perseus/pull/2171) [`a470c799e`](https://github.com/Khan/perseus/commit/a470c799eb53c87e08fb2f829b27e114ca80f63f) Thanks [@benchristel](https://github.com/benchristel)! - Create a function to get the public options for the LabelImage widget
+
+-   [#2174](https://github.com/Khan/perseus/pull/2174) [`97e07c8ba`](https://github.com/Khan/perseus/commit/97e07c8baee12a37e471e8292dedbcf0588e2f50) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Numeric Input widget
+
+*   [#2167](https://github.com/Khan/perseus/pull/2167) [`c72166c30`](https://github.com/Khan/perseus/commit/c72166c3046aa7c0fcd4e3348d604248e8565c2e) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Allow axis tick labels to be multiples of pi
+
+-   [#2178](https://github.com/Khan/perseus/pull/2178) [`dbd496769`](https://github.com/Khan/perseus/commit/dbd496769e210fc4aca33778a567a99ff1654e7e) Thanks [@benchristel](https://github.com/benchristel)! - Create a function to get the public widget options for a CS widget.
+
+*   [#2170](https://github.com/Khan/perseus/pull/2170) [`7f88f17fc`](https://github.com/Khan/perseus/commit/7f88f17fcd19914e6652e7abe86afc769930a0a4) Thanks [@nedredmond](https://github.com/nedredmond)! - Removes explicit z-indexes from many widgets to fix long-standing bugs in consuming code.
+
+-   [#2166](https://github.com/Khan/perseus/pull/2166) [`3c4c6bc92`](https://github.com/Khan/perseus/commit/3c4c6bc9207f6f2d65312df1c2bd5bf5246182a2) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Dropdown widget
+
+*   [#2179](https://github.com/Khan/perseus/pull/2179) [`564447af2`](https://github.com/Khan/perseus/commit/564447af2c030143c303c7ec88b055bab324fff1) Thanks [@benchristel](https://github.com/benchristel)! - Create a function to get the public options for the NumberLine widget
+
+### Patch Changes
+
+-   [#2180](https://github.com/Khan/perseus/pull/2180) [`43d8bc68e`](https://github.com/Khan/perseus/commit/43d8bc68e1b816f8eaf56d15c8d4623d4cd163b6) Thanks [@benchristel](https://github.com/benchristel)! - Restores the following deprecated exports to `@khanacademy/perseus`:
+    `parsePerseusItem`, `parseAndMigratePerseusItem`,
+    `parseAndMigratePerseusArticle`, `isSuccess`, `isFailure`, `Result`, `Success`,
+    `Failure`.
+-   Updated dependencies [[`a21fd908d`](https://github.com/Khan/perseus/commit/a21fd908d705c5b9de56f29af54d726824f5668e), [`781834332`](https://github.com/Khan/perseus/commit/781834332921f839028aa5cb3c5c867121859e02), [`af8f5d3ca`](https://github.com/Khan/perseus/commit/af8f5d3cac1f642bb5f0c96a2f536990c277224f), [`a470c799e`](https://github.com/Khan/perseus/commit/a470c799eb53c87e08fb2f829b27e114ca80f63f), [`97e07c8ba`](https://github.com/Khan/perseus/commit/97e07c8baee12a37e471e8292dedbcf0588e2f50), [`dbd496769`](https://github.com/Khan/perseus/commit/dbd496769e210fc4aca33778a567a99ff1654e7e), [`3c4c6bc92`](https://github.com/Khan/perseus/commit/3c4c6bc9207f6f2d65312df1c2bd5bf5246182a2), [`c8e383b46`](https://github.com/Khan/perseus/commit/c8e383b469426182a1392ca6ad2cde21b61e2f40), [`564447af2`](https://github.com/Khan/perseus/commit/564447af2c030143c303c7ec88b055bab324fff1)]:
+    -   @khanacademy/perseus-core@3.4.0
+    -   @khanacademy/kmath@0.3.2
+    -   @khanacademy/perseus-score@2.1.0
+    -   @khanacademy/kas@0.4.13
+    -   @khanacademy/keypad-context@1.0.16
+    -   @khanacademy/math-input@22.2.3
+    -   @khanacademy/perseus-linter@1.2.15
+    -   @khanacademy/pure-markdown@0.3.24
+    -   @khanacademy/simple-markdown@0.13.17
+
 ## 52.0.1
 
 ### Patch Changes

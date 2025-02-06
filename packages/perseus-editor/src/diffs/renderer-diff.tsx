@@ -1,7 +1,9 @@
-import {Widgets} from "@khanacademy/perseus";
 /**
  * A side by side diff view for Perseus renderers.
  */
+
+import {Widgets} from "@khanacademy/perseus";
+import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -19,7 +21,7 @@ const filterWidgetInfo = function (widgetInfo, showAlignmentOptions: boolean) {
     // Show alignment options iff multiple valid ones exist for this widget
     if (
         showAlignmentOptions &&
-        Widgets.getSupportedAlignments(type).length > 1
+        CoreWidgetRegistry.getSupportedAlignments(type).length > 1
     ) {
         // @ts-expect-error - TS2339 - Property 'alignment' does not exist on type '{ readonly options: any; }'.
         filteredWidgetInfo.alignment = alignment;

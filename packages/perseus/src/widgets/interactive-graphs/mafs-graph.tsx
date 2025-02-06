@@ -147,6 +147,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         state,
         dispatch,
         i18n,
+        markings: props.markings,
     });
 
     return (
@@ -188,7 +189,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         interactiveElementsDescription &&
                             interactiveElementsDescriptionId,
                         isUnlimitedGraphState(state) &&
-                            "unlimited-graph-keyboard-prompt",
+                            unlimitedGraphKeyboardPromptId,
                     )}
                     ref={graphRef}
                     tabIndex={0}
@@ -689,8 +690,12 @@ const renderGraphElements = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
     i18n: I18nContextType;
+    // Used to determine if the graph description should specify the
+    // coordinates of the graph elements. We don't want to mention the
+    // coordinates if the graph is not on a coordinate plane (no axes).
+    markings: InteractiveGraphProps["markings"];
 }): InteractiveGraphElementSuite => {
-    const {state, dispatch, i18n} = props;
+    const {state, dispatch, i18n, markings} = props;
     const {type} = state;
     switch (type) {
         case "angle":
@@ -704,7 +709,7 @@ const renderGraphElements = (props: {
         case "ray":
             return renderRayGraph(state, dispatch);
         case "polygon":
-            return renderPolygonGraph(state, dispatch);
+            return renderPolygonGraph(state, dispatch, i18n, markings);
         case "point":
             return renderPointGraph(state, dispatch);
         case "circle":

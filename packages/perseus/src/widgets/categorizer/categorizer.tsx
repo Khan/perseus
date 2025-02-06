@@ -4,10 +4,6 @@ import {
     getCategorizerPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {
-    scoreCategorizer,
-    validateCategorizer,
-} from "@khanacademy/perseus-score";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -17,7 +13,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
 import {iconCircle, iconCircleThin} from "../../icon-paths";
 import * as Changeable from "../../mixins/changeable";
-import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
@@ -152,13 +147,7 @@ export class Categorizer
                                                 }
                                                 key={catNum}
                                             >
-                                                {/* a pseudo-label: toggle the
-                                value of the checkbox when this div or the
-                                checkbox is clicked */}
                                                 <div
-                                                    className={
-                                                        ApiClassNames.INTERACTIVE
-                                                    }
                                                     role="button"
                                                     aria-label={catName}
                                                     onClick={() =>
@@ -330,11 +319,5 @@ export default {
         );
     },
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
-    scorer: scoreCategorizer,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusCSProgramUserInput'.
-    validator: validateCategorizer,
     getPublicWidgetOptions: getCategorizerPublicWidgetOptions,
 } satisfies WidgetExports<typeof Categorizer>;

@@ -4,7 +4,6 @@ import {
     point as kpoint,
 } from "@khanacademy/kmath";
 import {GrapherUtil} from "@khanacademy/perseus-core";
-import {scoreGrapher} from "@khanacademy/perseus-score";
 import * as React from "react";
 import _ from "underscore";
 
@@ -325,7 +324,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                 }}
             >
                 <div
-                    className="graphie-container above-scratchpad"
+                    className="graphie-container blank-background"
                     style={{
                         width: box[0],
                         height: box[1],
@@ -556,7 +555,7 @@ class Grapher extends React.Component<Props> implements Widget {
         const asymptote = this.props.plot.asymptote;
 
         const typeSelector = (
-            <div style={typeSelectorStyle} className="above-scratchpad">
+            <div style={typeSelectorStyle}>
                 <ButtonGroup
                     value={type}
                     allowEmpty={true}
@@ -659,7 +658,4 @@ export default {
     widget: Grapher,
     transform: propTransform,
     staticTransform: staticTransform,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusGrapherUserInput'.
-    scorer: scoreGrapher,
 } satisfies WidgetExports<typeof Grapher>;

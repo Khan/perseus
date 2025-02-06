@@ -3,7 +3,6 @@ import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import ChoiceIcon from "../choice-icon/choice-icon";
-import {CHOICE_ICON_SIZE} from "../choice-icon/shared-styles";
 
 function renderChoiceIcon(options) {
     const defaultOptions = {
@@ -27,14 +26,11 @@ function renderChoiceIcon(options) {
 
 describe("choice icon", () => {
     describe.each([[true], [false]])("multipleSelect: %s", (multipleSelect) => {
-        it("renders with the correct border radius", () => {
+        it("renders with the correct shape", () => {
             // Arrange
-            let expectedRadius;
-            if (multipleSelect) {
-                expectedRadius = 3;
-            } else {
-                expectedRadius = CHOICE_ICON_SIZE;
-            }
+            const expectedClass = multipleSelect
+                ? "multiSelectShape"
+                : "singleSelectShape";
 
             // Act
             renderChoiceIcon({multipleSelect});
@@ -42,11 +38,10 @@ describe("choice icon", () => {
             const choiceWrapper = screen.getByTestId(
                 `choice-icon__library-choice-icon`,
             );
+            const choiceAttrib = choiceWrapper.getAttribute("class");
 
             // Assert
-            expect(choiceWrapper).toHaveStyle(
-                `border-radius: ${expectedRadius}px`,
-            );
+            expect(choiceAttrib).toContain(expectedClass);
         });
     });
 
@@ -65,7 +60,7 @@ describe("choice icon", () => {
         const choiceAttrib = choiceWrapper.getAttribute("class");
 
         // Assert
-        expect(choiceAttrib).toContain("circleCorrect");
+        expect(choiceAttrib).toContain("choiceCorrect");
     });
 
     it("shows a dash for incorrect answers", () => {
@@ -83,6 +78,6 @@ describe("choice icon", () => {
         const choiceAttrib = choiceWrapper.getAttribute("class");
 
         // Assert
-        expect(choiceAttrib).toContain("circleIncorrect");
+        expect(choiceAttrib).toContain("choiceIncorrect");
     });
 });

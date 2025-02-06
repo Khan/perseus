@@ -38,12 +38,10 @@
 @pure-md-max: (@pure-lg-min - 1);
 @pure-lg-max: (@pure-xl-min - 1);
 
+// TODO: Remove these; only handle stacking with DOM order
 // Layer variables
-@zIndexScratchPad: 1;
-@zIndexAboveScratchpad: @zIndexScratchPad + 1;
-@zIndexInteractiveComponent: @zIndexAboveScratchpad + 1;
-@zIndexCurrentlyDragging: @zIndexInteractiveComponent + 1;
-@zIndexCalculator: @zIndexCurrentlyDragging + 1;
+@zIndexCurrentlyDragging: 4;
+@zIndexCalculator: 5;
 
 // Responsive variables
 @phoneMargin: 16px;

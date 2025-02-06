@@ -11,9 +11,9 @@ const defaultWidgetOptions: PhetSimulationDefaultWidgetOptions = {
     description: "",
 };
 
-const PhetSimulationWidgetLogic: WidgetLogic = {
+const phetSimulationWidgetLogic: WidgetLogic = {
     name: "phet-simulation",
     defaultWidgetOptions,
 };
 
-export default PhetSimulationWidgetLogic;
+export default phetSimulationWidgetLogic;

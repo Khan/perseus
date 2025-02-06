@@ -1,5 +1,4 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {scoreMatcher} from "@khanacademy/perseus-score";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
@@ -287,7 +286,4 @@ export default {
     displayName: "Matcher (two column)",
     widget: Matcher,
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusMatcherUserInput'.
-    scorer: scoreMatcher,
 } satisfies WidgetExports<typeof Matcher>;
