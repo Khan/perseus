@@ -109,7 +109,6 @@ class WidgetContainer extends React.Component<Props, State> {
 
         const type = this.props.type;
         const userAgent = navigator.userAgent;
-        console.log("userAgent, grabbed.");
 
         const WidgetType = Widgets.getWidget(type);
         if (WidgetType == null) {
@@ -120,12 +119,12 @@ class WidgetContainer extends React.Component<Props, State> {
             return <div className={className} />;
         }
 
-        const subType = "null";
+        let subType = "null";
         if (type === "interactive-graph") {
-            // const props = this.state.widgetProps;
-            // subType = props.options.graph?.type ?? "null";
+            const props = this.state.widgetProps;
+
+            subType = props.graph?.type ?? "null";
         }
-        console.log("subtype, grabbed.");
 
         let alignment = this.state.widgetProps.alignment;
         if (alignment === "default") {
