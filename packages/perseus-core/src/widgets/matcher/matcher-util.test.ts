@@ -21,9 +21,10 @@ describe("getMatcherPublicWidgetOptions", () => {
             labels: ["**Claims**", "**Evidence**"],
             padding: true,
             orderMatters: false,
-            right: ["Life", "Rapid", "Stars", "Milky Way", "Earth"],
+            right: ["Milky Way", "Stars", "Life", "Earth", "Rapid"],
             left: ["Fuel", "Plate", "Hydrogen", "Average", "Billion"],
         });
+        expect(publicWidgetOptions.right).not.toEqual(options.right);
     });
 
     it("should return shuffled left and right arrays when order matters", () => {
@@ -44,8 +45,10 @@ describe("getMatcherPublicWidgetOptions", () => {
             labels: ["**Claims**", "**Evidence**"],
             padding: true,
             orderMatters: true,
-            right: ["Life", "Earth", "Rapid", "Stars", "Milky Way"],
-            left: ["Hydrogen", "Average", "Fuel", "Billion", "Plate"],
+            right: ["Milky Way", "Stars", "Life", "Earth", "Rapid"],
+            left: ["Billion", "Fuel", "Hydrogen", "Plate", "Average"],
         });
+        expect(publicWidgetOptions.right).not.toEqual(options.right);
+        expect(publicWidgetOptions.left).not.toEqual(options.left);
     });
 });
