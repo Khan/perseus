@@ -101,6 +101,16 @@ module.exports = {
         react: {
             version: "detect",
         },
+        "jsx-a11y": {
+            // Map perseus components to their corresponding DOM elements
+            components: {
+                NumericInput: "input",
+                ScrolllessNumberTextField: "input",
+                BlurInput: "input",
+                TextInput: "input",
+                NumberInput: "input",
+            },
+        },
     },
     env: {
         "cypress/globals": true,
