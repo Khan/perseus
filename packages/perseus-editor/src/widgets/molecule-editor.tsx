@@ -39,6 +39,7 @@ class MoleculeWidgetEditor extends React.Component<Props> {
                 <div>
                     {/* TODO(colin): instead of nbsp hacks, use styles to get
                     the spacing right. */}
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
                     <label>
                         SMILES:&nbsp;
                         <TextInput
@@ -48,6 +49,7 @@ class MoleculeWidgetEditor extends React.Component<Props> {
                     </label>
                 </div>
                 <div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
                     <label>
                         Rotation (deg):&nbsp;
                         <NumberInput

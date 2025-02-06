@@ -68,10 +68,12 @@ export const Sizes = (args: StoryArgs): React.ReactElement => {
 
     return (
         <div>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
             <label>
                 Small:
                 <NumericInput {...smallProps} />
             </label>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
             <label>
                 Normal:
                 <NumericInput {...normalProps} />
@@ -86,10 +88,12 @@ export const TextAlignment = (args: StoryArgs): React.ReactElement => {
 
     return (
         <div>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
             <label>
                 Left:
                 <NumericInput {...leftProps} />
             </label>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
             <label>
                 Right:
                 <NumericInput {...rightProps} />

@@ -156,6 +156,7 @@ export default function LockedLabelSettings(props: Props) {
                 <Strut size={spacing.medium_16} />
 
                 {/* Size settings */}
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
                 <LabelMedium tag="label" style={styles.row}>
                     size
                     <Strut size={spacing.xSmall_8} />

@@ -36,6 +36,7 @@ const AngleInput = (props: Props) => {
     }
 
     return (
+        // eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error
         <LabelMedium tag="label" style={styles.row}>
             angle (degrees)
             <Strut size={spacing.xxSmall_6} />
