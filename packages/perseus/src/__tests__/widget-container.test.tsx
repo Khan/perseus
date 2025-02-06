@@ -87,6 +87,9 @@ describe("widget-container", () => {
 
     it("should send analytics even when widget rendering errors", () => {
         // Arrange
+        jest.spyOn(window.navigator, "userAgent", "get").mockReturnValue(
+            "userAgent",
+        );
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -120,26 +123,24 @@ describe("widget-container", () => {
         );
 
         // Assert
-        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+        expect(onAnalyticsEventSpy).toHaveBeenNthCalledWith(1, {
             type: "perseus:widget-rendering-error",
             payload: {
                 widgetSubType: "null",
                 widgetType: "mock-widget",
                 widgetId: "mock-widget 1",
                 message: "MockWidget failed to render",
-                userAgent:
-                    "Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/20.0.3",
+                userAgent: "userAgent",
             },
         });
-        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+        expect(onAnalyticsEventSpy).toHaveBeenNthCalledWith(2, {
             type: "perseus:widget-rendering-error:ti",
             payload: {
                 widgetSubType: "null",
                 widgetType: "mock-widget",
                 widgetId: "mock-widget 1",
                 message: "MockWidget failed to render",
-                userAgent:
-                    "Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/20.0.3",
+                userAgent: "userAgent",
             },
         });
     });
