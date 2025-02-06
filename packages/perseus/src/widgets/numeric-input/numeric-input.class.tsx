@@ -1,7 +1,6 @@
 import {KhanMath} from "@khanacademy/kmath";
 import {getNumericInputPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {scoreNumericInput} from "@khanacademy/perseus-score";
 import * as React from "react";
 
 import {ApiOptions} from "../../perseus-api";
@@ -196,14 +195,10 @@ const propsTransform = function (
 export default {
     name: "numeric-input",
     displayName: "Numeric input",
-    defaultAlignment: "inline-block",
     accessible: true,
     widget: NumericInput,
     transform: propsTransform,
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumericInputUserInput'.
-    scorer: scoreNumericInput,
     getPublicWidgetOptions: getNumericInputPublicWidgetOptions,
 
     // TODO(LEMS-2656): remove TS suppression
