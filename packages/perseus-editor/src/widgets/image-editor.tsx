@@ -262,6 +262,7 @@ class ImageEditor extends React.Component<Props> {
                         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
                         <label>
                             <div>Preview:</div>
+                            {/* eslint-disable-next-line jsx-a11y/img-redundant-alt -- TODO: Address a11y error */}
                             <img
                                 alt="Editor preview of image"
                                 src={backgroundImage.url}
