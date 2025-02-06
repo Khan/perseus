@@ -126,7 +126,6 @@ exports[`graded group widget should snapshot 1`] = `
                       class="perseus-widget-container widget-nohighlight widget-inline-block"
                     >
                       <input
-                        aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                         aria-disabled="false"
                         aria-invalid="false"
                         aria-required="false"
