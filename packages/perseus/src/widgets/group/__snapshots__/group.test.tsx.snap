@@ -189,10 +189,9 @@ exports[`group widget should snapshot: initial render 1`] = `
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
-                                                class="circle_1w6i3h1"
+                                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                                 data-is-radio-icon="true"
                                                 data-testid="choice-icon__library-choice-icon"
-                                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
                                                   class="innerWrapper_177sg8x"
@@ -303,10 +302,9 @@ exports[`group widget should snapshot: initial render 1`] = `
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
-                                                class="circle_1w6i3h1"
+                                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                                 data-is-radio-icon="true"
                                                 data-testid="choice-icon__library-choice-icon"
-                                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
                                                   class="innerWrapper_177sg8x"
@@ -417,10 +415,9 @@ exports[`group widget should snapshot: initial render 1`] = `
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
-                                                class="circle_1w6i3h1"
+                                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                                 data-is-radio-icon="true"
                                                 data-testid="choice-icon__library-choice-icon"
-                                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
                                                   class="innerWrapper_177sg8x"
@@ -531,10 +528,9 @@ exports[`group widget should snapshot: initial render 1`] = `
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
-                                                class="circle_1w6i3h1"
+                                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                                 data-is-radio-icon="true"
                                                 data-testid="choice-icon__library-choice-icon"
-                                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
                                                   class="innerWrapper_177sg8x"
@@ -645,10 +641,9 @@ exports[`group widget should snapshot: initial render 1`] = `
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
-                                                class="circle_1w6i3h1"
+                                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                                 data-is-radio-icon="true"
                                                 data-testid="choice-icon__library-choice-icon"
-                                                style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
                                                   class="innerWrapper_177sg8x"
