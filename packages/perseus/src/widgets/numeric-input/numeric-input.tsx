@@ -63,9 +63,6 @@ export const NumericInputComponent = forwardRef(
             setIsFocused(false);
         };
 
-        // Use the label text from the content provider, if provided.
-        const labelText = props.labelText;
-
         // Styles for the InputWithExamples
         const styles = StyleSheet.create({
             inputWithExamples: {
