@@ -52,11 +52,9 @@ function getMatcherPublicWidgetOptions(
     const {left, right} = matcherShuffle({...options, problemNum: undefined});
 
     return {
-        labels: options.labels,
+        ...options,
         left: left,
         right: right,
-        orderMatters: options.orderMatters,
-        padding: options.padding,
     };
 }
 
