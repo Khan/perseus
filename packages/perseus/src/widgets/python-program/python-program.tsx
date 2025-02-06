@@ -67,6 +67,7 @@ class PythonProgram extends React.Component<Props> implements Widget {
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         return (
             <View style={styles.container}>
+                {/* eslint-disable-next-line jsx-a11y/iframe-has-title -- TODO: Address a11y error */}
                 <iframe
                     sandbox={sandboxOptions}
                     src={url}
