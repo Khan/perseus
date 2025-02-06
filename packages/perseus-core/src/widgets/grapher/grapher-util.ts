@@ -1,4 +1,4 @@
-import type {PerseusGrapherWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusGrapherWidgetOptions} from "../../data-schema";
 
 type GrapherPublicWidgetOptions = Pick<
     PerseusGrapherWidgetOptions,
