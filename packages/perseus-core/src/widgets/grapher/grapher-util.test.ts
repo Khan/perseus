@@ -1,6 +1,6 @@
 import getGrapherPublicWidgetOptions from "./grapher-util";
 
-import type {PerseusGrapherWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusGrapherWidgetOptions} from "../../data-schema";
 
 describe("getGrapherPublicWidgetOptions", () => {
     it("removes the `correct` field", () => {
