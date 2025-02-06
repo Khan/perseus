@@ -753,7 +753,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                           class="perseus-widget-container widget-nohighlight widget-inline-block"
                         >
                           <input
-                            aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                             aria-disabled="false"
                             aria-invalid="false"
                             aria-label="value rounded to the nearest ten"
@@ -810,7 +809,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                           class="perseus-widget-container widget-nohighlight widget-inline-block"
                         >
                           <input
-                            aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAy"
                             aria-disabled="false"
                             aria-invalid="false"
                             aria-label="value rounded to the nearest hundred"

@@ -60,10 +60,8 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       class="perseus-widget-container widget-nohighlight widget-inline-block"
                     >
                       <input
-                        aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                         aria-disabled="false"
                         aria-invalid="false"
-                        aria-label="Your answer:"
                         aria-required="false"
                         autocapitalize="off"
                         autocomplete="off"
@@ -139,10 +137,8 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       class="perseus-widget-container widget-nohighlight widget-inline-block"
                     >
                       <input
-                        aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                         aria-disabled="false"
                         aria-invalid="false"
-                        aria-label="Your answer:"
                         aria-required="false"
                         autocapitalize="off"
                         autocomplete="off"
@@ -218,10 +214,8 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       class="perseus-widget-container widget-nohighlight widget-inline-block"
                     >
                       <input
-                        aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                         aria-disabled="false"
                         aria-invalid="false"
-                        aria-label="Your answer:"
                         aria-required="false"
                         autocapitalize="off"
                         autocomplete="off"

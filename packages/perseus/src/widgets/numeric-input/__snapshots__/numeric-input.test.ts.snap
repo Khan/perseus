@@ -51,7 +51,7 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
                   <span
                     aria-hidden="true"
                     class="mq-root-block mq-empty"
-                    style="padding: 10px 11px 8px 11px; font-size: 18pt;"
+                    style="padding: 10px 13px 8px 13px; font-size: 18pt;"
                   />
                 </div>
               </div>
@@ -93,10 +93,8 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <input
-            aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
             aria-disabled="false"
             aria-invalid="false"
-            aria-label="Your answer:"
             aria-required="false"
             autocapitalize="off"
             autocomplete="off"
@@ -147,10 +145,8 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <input
-            aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
             aria-disabled="false"
             aria-invalid="false"
-            aria-label="Your answer:"
             aria-required="false"
             autocapitalize="off"
             autocomplete="off"
@@ -204,7 +200,6 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
             aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
             aria-disabled="false"
             aria-invalid="false"
-            aria-label="Your answer:"
             aria-required="false"
             autocapitalize="off"
             autocomplete="off"
@@ -320,7 +315,6 @@ exports[`numeric-input widget Should render tooltip when format option is given:
             aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
             aria-disabled="false"
             aria-invalid="false"
-            aria-label="Your answer:"
             aria-required="false"
             autocapitalize="off"
             autocomplete="off"
