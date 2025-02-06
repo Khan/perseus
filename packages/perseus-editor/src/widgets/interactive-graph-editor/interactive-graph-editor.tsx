@@ -362,23 +362,15 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 });
                             }) as any
                         }
-                        showNoneOption={
-                            this.props.apiOptions?.flags?.mafs?.["none"]
-                        }
                     />
                 </LabeledRow>
-                {this.props.graph &&
-                    this.props.apiOptions?.flags?.mafs?.[
-                        this.props.graph.type
-                    ] && (
-                        <InteractiveGraphDescription
-                            ariaLabelValue={this.props.fullGraphAriaLabel ?? ""}
-                            ariaDescriptionValue={
-                                this.props.fullGraphAriaDescription ?? ""
-                            }
-                            onChange={this.props.onChange}
-                        />
-                    )}
+                <InteractiveGraphDescription
+                    ariaLabelValue={this.props.fullGraphAriaLabel ?? ""}
+                    ariaDescriptionValue={
+                        this.props.fullGraphAriaDescription ?? ""
+                    }
+                    onChange={this.props.onChange}
+                />
                 <InteractiveGraphCorrectAnswer equationString={equationString}>
                     {graph}
                 </InteractiveGraphCorrectAnswer>
@@ -836,19 +828,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         </InfoTip>
                     </LabeledRow>
                 )}
-                {
-                    // Only show the "Add locked figure" dropdown if the graph
-                    // is using Mafs.
-                    this.props.graph &&
-                        this.props.apiOptions?.flags?.mafs?.[
-                            this.props.graph.type
-                        ] && (
-                            <LockedFiguresSection
-                                figures={this.props.lockedFigures}
-                                onChange={this.props.onChange}
-                            />
-                        )
-                }
+                <LockedFiguresSection
+                    figures={this.props.lockedFigures}
+                    onChange={this.props.onChange}
+                />
             </View>
         );
     }

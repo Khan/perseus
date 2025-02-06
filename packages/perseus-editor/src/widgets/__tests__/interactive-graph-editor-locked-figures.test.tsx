@@ -5,7 +5,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import {flags} from "../../__stories__/flags-for-api-options";
 import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
 import {getDefaultFigureForType} from "../interactive-graph-editor/locked-figures/util";
 
@@ -25,19 +24,15 @@ const baseProps = {
     graph: undefined,
 };
 
-const mafsProps = {
+const segmentProps = {
     ...baseProps,
-    apiOptions: {
-        ...ApiOptions.defaults,
-        flags,
-    },
     graph: {type: "segment"} as PerseusGraphType,
 };
 
 // Breaking this out into its own function, because the RenderStateRoot
 // wrapper was making it take up a lot of space.
 const renderEditor = (props) => {
-    render(<InteractiveGraphEditor {...mafsProps} {...props} />, {
+    render(<InteractiveGraphEditor {...segmentProps} {...props} />, {
         wrapper: RenderStateRoot,
     });
 };

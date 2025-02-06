@@ -3,8 +3,6 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {flags} from "../../../__stories__/flags-for-api-options";
-
 import LockedFunctionSettings from "./locked-function-settings";
 import {
     getDefaultFigureForType,
@@ -15,7 +13,6 @@ import type {Props} from "./locked-function-settings";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
-    flags: flags,
     ...getDefaultFigureForType("function"),
     onChangeProps: () => {},
     onMove: () => {},

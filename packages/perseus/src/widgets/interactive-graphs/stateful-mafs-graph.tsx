@@ -14,12 +14,10 @@ import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {getGradableGraph} from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
-import type {APIOptions} from "../../types";
 import type {PerseusGraphType} from "@khanacademy/perseus-core";
 import type {PerseusInteractiveGraphUserInput} from "@khanacademy/perseus-score";
 
 export type StatefulMafsGraphProps = {
-    flags?: APIOptions["flags"];
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: PerseusGraphType;
