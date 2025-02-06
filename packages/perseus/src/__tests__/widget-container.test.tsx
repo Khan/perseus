@@ -123,8 +123,23 @@ describe("widget-container", () => {
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
             type: "perseus:widget-rendering-error",
             payload: {
+                widgetSubType: "null",
                 widgetType: "mock-widget",
                 widgetId: "mock-widget 1",
+                message: "MockWidget failed to render",
+                userAgent:
+                    "Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/20.0.3",
+            },
+        });
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget-rendering-error:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "mock-widget",
+                widgetId: "mock-widget 1",
+                message: "MockWidget failed to render",
+                userAgent:
+                    "Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/20.0.3",
             },
         });
     });
