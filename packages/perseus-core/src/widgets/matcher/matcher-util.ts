@@ -84,6 +84,24 @@ export const matcherShuffle = (
     return {left, right};
 };
 
+function matcherShuffleFromHash(
+    data: MatcherShuffleInfo,
+    seed: number,
+): {left: ReadonlyArray<string>; right: ReadonlyArray<string>} {
+    // Use the same random() function to shuffle both columns sequentially
+    let left;
+    if (!data.orderMatters) {
+        // If the order doesn't matter, don't shuffle the left column
+        left = data.left;
+    } else {
+        left = CoreUtil.shuffle(data.left, seed, /* ensurePermuted */ true);
+    }
+
+    const right = CoreUtil.shuffle(data.right, seed, /* ensurePermuted */ true);
+
+    return {left, right};
+}
+
 /**
  * For details on the individual options, see the
  * PerseusMatcherWidgetOptions type
