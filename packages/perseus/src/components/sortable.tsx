@@ -377,6 +377,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             style.margin = this.props.margin;
         }
         return (
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- TODO: Address a11y error
             <li
                 className={className}
                 style={style}

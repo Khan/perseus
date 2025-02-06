@@ -207,6 +207,7 @@ class SortableItem extends React.Component<ItemProps> {
         }
 
         return (
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- TODO: Address a11y error
             <li
                 draggable={this.props.draggable}
                 className={[dragState, css(styles.sortableListItem)].join(" ")}
