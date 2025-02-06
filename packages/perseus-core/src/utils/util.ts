@@ -1,4 +1,4 @@
-/* Note(TB): Brought over from the perseus package packages/perseus/src/util.ts file.
+/* Note(tamara): Brought over from the perseus package packages/perseus/src/util.ts file.
 May be useful to bring other perseus package utilities here. */
 
 import _ from "underscore";
