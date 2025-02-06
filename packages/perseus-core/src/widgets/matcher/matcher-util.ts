@@ -2,6 +2,7 @@ import {CoreUtil} from "@khanacademy/perseus-core";
 
 import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
 
+// TODO(LEMS-2841): Should be able to remove once getPublicWidgetOptions is hooked up
 type MatcherInfo = {
     left: ReadonlyArray<string>;
     right: ReadonlyArray<string>;
@@ -9,6 +10,7 @@ type MatcherInfo = {
     problemNum: number | null | undefined;
 };
 
+// TODO(LEMS-2841): Should be able to remove once getPublicWidgetOptions is hooked up
 export const matcherShuffle = (
     props: MatcherInfo,
 ): {left: ReadonlyArray<string>; right: ReadonlyArray<string>} => {
