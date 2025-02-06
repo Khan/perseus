@@ -23,6 +23,9 @@ export default defineConfig({
     resolve: {
         alias: {
             ...packageAliases,
+            hubble: resolve(__dirname, "vendor/hubble/hubble.js"),
+            raphael: resolve(__dirname, "vendor/raphael/raphael.js"),
+            jsdiff: resolve(__dirname, "vendor/jsdiff/jsdiff.js"),
             aphrodite: resolve(
                 __dirname,
                 "node_modules/aphrodite/no-important",

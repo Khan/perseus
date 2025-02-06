@@ -42,8 +42,6 @@
         "@khanacademy/perseus-core": "workspace:*",
         "@khanacademy/perseus-score": "workspace:*",
         "@khanacademy/pure-markdown": "workspace:*",
-        "jsdiff": "workspace:*",
-        "hubble": "workspace:*",
         "mafs": "^0.19.0"
     },
     "devDependencies": {
