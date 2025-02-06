@@ -10,6 +10,12 @@ type MatcherInfo = {
     problemNum: number | null | undefined;
 };
 
+type MatcherShuffleInfo = {
+    left: ReadonlyArray<string>;
+    right: ReadonlyArray<string>;
+    orderMatters: boolean;
+};
+
 // TODO(LEMS-2841): Should be able to remove once getPublicWidgetOptions is hooked up
 export const matcherShuffle = (
     props: MatcherInfo,
