@@ -113,6 +113,10 @@ const createConfig = (
 
     const extensions = [".js", ".jsx", ".ts", ".tsx"];
 
+    console.log(
+        `Config for ${name} - platform: ${platform}, format: ${format}`,
+    );
+
     const config = {
         output: createOutputConfig(name, format, file),
         input: makePackageBasedPath(name, inputFile),
@@ -158,10 +162,7 @@ const createConfig = (
                 },
             }),
             babel({
-                babelHelpers:
-                    platform === "browser" && format === "esm"
-                        ? "runtime"
-                        : "bundled",
+                babelHelpers: "runtime",
                 presets: createBabelPresets({platform, format}),
                 plugins: createBabelPlugins({platform, format}),
                 exclude: "node_modules/**",
