@@ -15,7 +15,6 @@ const LineStrokeSelect = (props: Props) => {
     const {selectedValue, onChange} = props;
 
     return (
-        // eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error
         <LabelMedium tag="label" style={styles.lineStrokeSelect}>
             stroke
             <Strut size={spacing.xxxSmall_4} />

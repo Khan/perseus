@@ -67,7 +67,6 @@ const StartCoordsCircle = (props: Props) => {
             <Strut size={spacing.small_12} />
 
             {/* Radius */}
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
             <LabelLarge tag="label" style={styles.row}>
                 Radius:
                 <Strut size={spacing.small_12} />

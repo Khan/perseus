@@ -41,7 +41,6 @@ class PairEditor extends React.Component<PairEditorProps> {
     render(): React.ReactNode {
         return (
             <fieldset>
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
                 <label>
                     Name:
                     <BlurInput
@@ -49,7 +48,6 @@ class PairEditor extends React.Component<PairEditorProps> {
                         onChange={this.change("name")}
                     />
                 </label>
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
                 <label>
                     Value:
                     <BlurInput
@@ -149,7 +147,6 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                     This widget is deprecated! <br />
                     Try using the Video or CS Program widgets instead.
                 </div>
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
                 <label>
                     Url or Program ID:
                     <BlurInput
@@ -159,7 +156,6 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                     />
                 </label>
                 <br />
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
                 <label>
                     Settings:
                     <PairsEditor
@@ -169,7 +165,6 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                     />
                 </label>
                 <br />
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
                 <label>
                     Width:
                     <BlurInput
@@ -178,7 +173,6 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                         onChange={this.change("width")}
                     />
                 </label>
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
                 <label>
                     Height:
                     <BlurInput
