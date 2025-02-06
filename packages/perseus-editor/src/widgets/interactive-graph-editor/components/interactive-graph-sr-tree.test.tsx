@@ -19,6 +19,7 @@ describe("InteractiveGraphSRTree", () => {
     test("should show the heading and the switch even if empty", () => {
         // Arrange
         const defaultProps = {
+            graphId: "test-id",
             correct: {},
             fullGraphAriaLabel: "full graph aria label",
             fullGraphAriaDescription: "full graph description",
@@ -40,6 +41,7 @@ describe("InteractiveGraphSRTree", () => {
     test("should have an empty list if mafs graph is not found", () => {
         // Arrange
         const defaultProps = {
+            graphId: "test-id",
             correct: {},
             fullGraphAriaLabel: "full graph aria label",
             fullGraphAriaDescription: "full graph description",
@@ -57,6 +59,7 @@ describe("InteractiveGraphSRTree", () => {
     test("should show the tree with the correct aria attributes", () => {
         // Arrange
         const defaultProps = {
+            graphId: "test-id",
             correct: {},
             fullGraphAriaLabel: "full graph aria label",
             fullGraphAriaDescription: "full graph description",
@@ -65,7 +68,7 @@ describe("InteractiveGraphSRTree", () => {
 
         // Act
         render(
-            <View>
+            <View id="test-id">
                 <View className="mafs-graph-container">
                     <View
                         className="mafs-graph-inner"
@@ -89,13 +92,14 @@ describe("InteractiveGraphSRTree", () => {
     test("should show the tree with the roles/tags when toggled", async () => {
         // Arrange
         const defaultProps = {
+            graphId: "test-id",
             correct: {},
             fullGraphAriaLabel: "full graph aria label",
             fullGraphAriaDescription: "full graph description",
             lockedFigures: [],
         };
         render(
-            <View>
+            <View id={"test-id"}>
                 <View className="mafs-graph-container">
                     <View
                         className="inner-div-1"
@@ -136,13 +140,12 @@ describe("InteractiveGraphSRTree", () => {
 });
 
 describe("fetchAriaLabels", () => {
-    test("should return an empty array if the container is null", () => {
+    test("should return an empty array if the container is not found", () => {
         // Arrange
-        const container = undefined;
         const expected = [];
 
         // Act
-        const result = getAccessibilityAttributes(container);
+        const result = getAccessibilityAttributes("something");
 
         // Assert
         expect(result).toEqual(expected);
@@ -150,15 +153,15 @@ describe("fetchAriaLabels", () => {
 
     test("should return an array of labels", () => {
         // Arrange
-        const {container} = render(
-            <div>
+        render(
+            <div id="test-id">
                 <div aria-label="label1" />
                 <div aria-label="label2" />
             </div>,
         );
 
         // Act
-        const result = getAccessibilityAttributes(container);
+        const result = getAccessibilityAttributes("test-id");
 
         // Assert
         expect(result).toEqual([
@@ -177,15 +180,15 @@ describe("fetchAriaLabels", () => {
 
     test("should return an array with given roles", () => {
         // Arrange
-        const {container} = render(
-            <div>
+        render(
+            <div id="test-id">
                 <div role="button" aria-label="aria-label1" />
                 <div role="button" aria-label="aria-label2" />
             </div>,
         );
 
         // Act
-        const result = getAccessibilityAttributes(container);
+        const result = getAccessibilityAttributes("test-id");
 
         // Assert
         expect(result).toEqual([
@@ -204,15 +207,15 @@ describe("fetchAriaLabels", () => {
 
     test("should include provided class", () => {
         // Arrange
-        const {container} = render(
-            <div>
+        render(
+            <div id="test-id">
                 <div className="class1" aria-label="label1" />
                 <div className="class2" aria-label="label2" />
             </div>,
         );
 
         // Act
-        const result = getAccessibilityAttributes(container);
+        const result = getAccessibilityAttributes("test-id");
 
         // Assert
         expect(result).toEqual([
@@ -231,8 +234,8 @@ describe("fetchAriaLabels", () => {
 
     test("should return last class if multiple classes are provided", () => {
         // Arrange
-        const {container} = render(
-            <div>
+        render(
+            <div id="test-id">
                 <div
                     className="class1 class2 class3 class4"
                     aria-label="label1"
@@ -241,7 +244,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = getAccessibilityAttributes(container);
+        const result = getAccessibilityAttributes("test-id");
 
         // Assert
         expect(result).toEqual([
@@ -255,8 +258,8 @@ describe("fetchAriaLabels", () => {
 
     test("should return an array with descriptions", () => {
         // Arrange
-        const {container} = render(
-            <div>
+        render(
+            <div id="test-id">
                 <div aria-describedby="description1">label1</div>
                 <div aria-describedby="description2">label2</div>
                 <div id="description1">description1 content</div>
@@ -265,7 +268,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = getAccessibilityAttributes(container);
+        const result = getAccessibilityAttributes("test-id");
 
         // Assert
         expect(result).toEqual([
@@ -288,8 +291,8 @@ describe("fetchAriaLabels", () => {
 
     test("should return an array for element with multiple descriptions", () => {
         // Arrange
-        const {container} = render(
-            <div>
+        render(
+            <div id="test-id">
                 <div aria-describedby="description1 description2">label1</div>
                 <div id="description1">description1 content</div>
                 <div id="description2">description2 content</div>
@@ -297,7 +300,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = getAccessibilityAttributes(container);
+        const result = getAccessibilityAttributes("test-id");
 
         // Assert
         expect(result).toEqual([
@@ -314,8 +317,8 @@ describe("fetchAriaLabels", () => {
 
     test("should return an array for element with multiple descriptions with multiple spaces", () => {
         // Arrange
-        const {container} = render(
-            <div>
+        render(
+            <div id="test-id">
                 <div aria-describedby="description1     description2">
                     label1
                 </div>
@@ -325,7 +328,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = getAccessibilityAttributes(container);
+        const result = getAccessibilityAttributes("test-id");
 
         // Assert
         expect(result).toEqual([
@@ -342,15 +345,15 @@ describe("fetchAriaLabels", () => {
 
     test("should not include descriptions that are not found", () => {
         // Arrange
-        const {container} = render(
-            <div>
+        render(
+            <div id="test-id">
                 <div aria-describedby="description1 description2">label1</div>
                 <div id="description1">description1 content</div>
             </div>,
         );
 
         // Act
-        const result = getAccessibilityAttributes(container);
+        const result = getAccessibilityAttributes("test-id");
 
         // Assert
         expect(result).toEqual([
@@ -366,8 +369,8 @@ describe("fetchAriaLabels", () => {
 
     test("should build attributes array with a variety of attributes", () => {
         // Arrange
-        const {container} = render(
-            <div>
+        render(
+            <div id="test-id">
                 <div aria-label="label-only" />
                 <div aria-describedby="description-only" />
                 <div role="img" aria-label="label with role" />
@@ -388,7 +391,7 @@ describe("fetchAriaLabels", () => {
         );
 
         // Act
-        const result = getAccessibilityAttributes(container);
+        const result = getAccessibilityAttributes("test-id");
 
         // Assert
         expect(result).toEqual([
@@ -430,14 +433,14 @@ describe("fetchAriaLabels", () => {
 
     test("should not add element if descriptions are not found", () => {
         // Arrange
-        const {container} = render(
-            <div>
+        render(
+            <div id="test-id">
                 <div aria-describedby="description1 description2">label1</div>
             </div>,
         );
 
         // Act
-        const result = getAccessibilityAttributes(container);
+        const result = getAccessibilityAttributes("test-id");
 
         // Assert
         expect(result).toEqual([]);
@@ -445,14 +448,14 @@ describe("fetchAriaLabels", () => {
 
     test("should not add element if aria attributes are not found", () => {
         // Arrange
-        const {container} = render(
-            <div>
+        render(
+            <div id="test-id">
                 <div />
             </div>,
         );
 
         // Act
-        const result = getAccessibilityAttributes(container);
+        const result = getAccessibilityAttributes("test-id");
 
         // Assert
         expect(result).toEqual([]);
