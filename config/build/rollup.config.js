@@ -113,10 +113,6 @@ const createConfig = (
 
     const extensions = [".js", ".jsx", ".ts", ".tsx"];
 
-    console.log(
-        `Config for ${name} - platform: ${platform}, format: ${format}`,
-    );
-
     const config = {
         output: createOutputConfig(name, format, file),
         input: makePackageBasedPath(name, inputFile),
