@@ -4,6 +4,7 @@ import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
+    // ...........................
     getInteractiveGraphPublicWidgetOptions,
     getLabelImagePublicWidgetOptions,
     Hint,
