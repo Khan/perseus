@@ -95,21 +95,20 @@ const InputWithExamples = forwardRef<
         const ariaId = `aria-for-${id}`;
 
         // Generate the provided examples in simple language for screen readers.
-        // If all examples are provided, do not provide them to the screen reader.
-        const examplesAria =
-            props.examples.length === 0
-                ? ""
-                : `${props.examples[0]}
+        const examplesAria = props.shouldShowExamples
+            ? `${props.examples[0]}
                    ${props.examples.slice(1).join(", or\n")}`
-                      // @ts-expect-error TS2550: Property replaceAll does not exist on type string.
-                      .replaceAll("*", "")
-                      .replaceAll("$", "")
-                      .replaceAll("\\ \\text{pi}", " pi")
-                      .replaceAll("\\ ", " and ");
+                  // @ts-expect-error TS2550: Property replaceAll does not exist on type string.
+                  .replaceAll("*", "")
+                  .replaceAll("$", "")
+                  .replaceAll("\\ \\text{pi}", " pi")
+                  .replaceAll("\\ ", " and ")
+            : "";
 
         const inputProps = {
             id: id,
-            "aria-describedby": ariaId,
+            // If we have examples, we want to provide the aria-describedby attribute
+            "aria-describedby": props.shouldShowExamples ? ariaId : undefined,
             ref: inputRef,
             className: _getInputClassName(),
             labelText: props.labelText,

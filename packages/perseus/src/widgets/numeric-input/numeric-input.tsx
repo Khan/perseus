@@ -63,12 +63,6 @@ export const NumericInputComponent = forwardRef(
             setIsFocused(false);
         };
 
-        // If the labelText is not provided by the Content Creators, use the default label text
-        let labelText = props.labelText;
-        if (labelText == null || labelText === "") {
-            labelText = context.strings.yourAnswerLabel;
-        }
-
         // Styles for the InputWithExamples
         const styles = StyleSheet.create({
             inputWithExamples: {
@@ -109,7 +103,7 @@ export const NumericInputComponent = forwardRef(
                 ref={inputRef as React.RefObject<typeof InputWithExamples>}
                 value={props.currentValue}
                 onChange={handleChange}
-                labelText={labelText}
+                labelText={props.labelText}
                 examples={generateExamples(props.answerForms, context.strings)}
                 shouldShowExamples={shouldShowExamples(props.answerForms)}
                 onFocus={handleFocus}
