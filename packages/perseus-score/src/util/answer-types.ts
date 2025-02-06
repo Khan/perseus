@@ -246,9 +246,7 @@ const KhanAnswerTypes = {
                     // validating the answer. If no fraction is found, we consider
                     // the answer to be incorrect.
                     const fractionExists: boolean =
-                        text.includes("/") ||
-                        text.includes("\\") || // be nice in case the user uses the wrong slash.
-                        text.match(/\\(d?frac)/);
+                        text.includes("/") || text.match(/\\(d?frac)/);
 
                     if (!fractionExists) {
                         return [];

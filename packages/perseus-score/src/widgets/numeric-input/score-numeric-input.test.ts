@@ -214,7 +214,7 @@ describe("scoreNumericInput", () => {
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
-    it("rejects a strict improper and whole number answer", () => {
+    it("rejects a strict improper with whole number answer", () => {
         const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
@@ -239,7 +239,7 @@ describe("scoreNumericInput", () => {
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
-    it("accepts a strict improper answer and tex", () => {
+    it("accepts a strict improper answer with tex answer", () => {
         const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
@@ -257,6 +257,31 @@ describe("scoreNumericInput", () => {
 
         const userInput = {
             currentValue: "\\frac{9}{3}",
+        } as const;
+
+        const score = scoreNumericInput(userInput, rubric);
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("accepts a strict improper answer with simple text answer", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 3,
+                    status: "correct",
+                    maxError: 0.2,
+                    simplify: "optional",
+                    strict: true,
+                    answerForms: ["improper"],
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const userInput = {
+            currentValue: "9/3",
         } as const;
 
         const score = scoreNumericInput(userInput, rubric);
