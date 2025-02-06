@@ -99,7 +99,7 @@ describe("InteractiveGraphSRTree", () => {
             lockedFigures: [],
         };
         render(
-            <View id={"test-id"}>
+            <View id="test-id">
                 <View className="mafs-graph-container">
                     <View
                         className="inner-div-1"
