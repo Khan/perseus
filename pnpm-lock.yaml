@@ -109,7 +109,7 @@ catalogs:
 importers:
 
   .:
-    dependencies:
+    devDependencies:
       '@babel/core':
         specifier: ^7.23.2
         version: 7.26.0
