@@ -10,9 +10,9 @@ const defaultWidgetOptions: GradedGroupSetDefaultWidgetOptions = {
     gradedGroups: [],
 };
 
-const GradedGroupSetWidgetLogic: WidgetLogic = {
+const gradedGroupSetWidgetLogic: WidgetLogic = {
     name: "graded-group-set",
     defaultWidgetOptions,
 };
 
-export default GradedGroupSetWidgetLogic;
+export default gradedGroupSetWidgetLogic;

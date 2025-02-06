@@ -9,7 +9,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import PerseusMarkdown from "../../perseus-markdown";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
-import scoreNoop from "../__shared__/score-noop";
 import {isPassageWidget} from "../passage/utils";
 
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
@@ -181,7 +180,6 @@ export default {
     name: "passage-ref",
     displayName: "PassageRef (SAT only)",
     hidden: true,
-    defaultAlignment: "inline",
     widget: PassageRef,
     transform: (widgetOptions: PerseusPassageRefWidgetOptions) => ({
         passageNumber: widgetOptions.passageNumber,
@@ -189,6 +187,4 @@ export default {
         summaryText: widgetOptions.summaryText,
     }),
     version: passageRefLogic.version,
-    // TODO: things that aren't interactive shouldn't need scoring functions
-    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof PassageRef>;

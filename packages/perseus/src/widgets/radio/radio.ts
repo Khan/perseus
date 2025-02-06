@@ -1,9 +1,9 @@
 import {
     radioLogic,
     type PerseusRadioWidgetOptions,
+    getRadioPublicWidgetOptions,
     CoreUtil,
 } from "@khanacademy/perseus-core";
-import {scoreRadio, validateRadio} from "@khanacademy/perseus-score";
 import _ from "underscore";
 
 import Radio from "./radio-component";
@@ -137,10 +137,5 @@ export default {
     version: radioLogic.version,
     propUpgrades: radioLogic.widgetOptionsUpgrades,
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type UserInput is not assignable to type PerseusRadioUserInput
-    scorer: scoreRadio,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type UserInput is not assignable to type PerseusRadioUserInput
-    validator: validateRadio,
+    getPublicWidgetOptions: getRadioPublicWidgetOptions,
 } satisfies WidgetExports<typeof Radio>;

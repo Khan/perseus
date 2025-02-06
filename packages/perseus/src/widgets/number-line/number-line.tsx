@@ -1,6 +1,5 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
 import {getNumberLinePublicWidgetOptions} from "@khanacademy/perseus-core";
-import {scoreNumberLine, validateNumberLine} from "@khanacademy/perseus-score";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -803,11 +802,5 @@ export default {
     widget: NumberLine,
     transform: numberLineTransform,
     staticTransform: staticTransform,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumberLineUserInput'.
-    scorer: scoreNumberLine,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'UserInput' is not assignable to type 'PerseusNumberLineUserInput'.
-    validator: validateNumberLine,
     getPublicWidgetOptions: getNumberLinePublicWidgetOptions,
 } satisfies WidgetExports<typeof NumberLine>;

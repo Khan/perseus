@@ -9,7 +9,6 @@ import SvgImage from "../../components/svg-image";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
-import scoreNoop from "../__shared__/score-noop";
 
 import type {ChangeFn, WidgetExports, WidgetProps, Widget} from "../../types";
 import type {ImagePromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
@@ -22,10 +21,6 @@ const defaultBackgroundImage = {
     width: 0,
     height: 0,
 } as const;
-
-const editorAlignments = ["block", "full-width"] as const;
-
-const DEFAULT_ALIGNMENT = "block";
 
 type RenderProps = PerseusImageWidgetOptions; // there is no transform as part of exports
 
@@ -60,7 +55,7 @@ class ImageWidget extends React.Component<Props> implements Widget {
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     static defaultProps: DefaultProps = {
-        alignment: DEFAULT_ALIGNMENT,
+        alignment: "block",
         title: "",
         range: [defaultRange, defaultRange],
         box: [defaultBoxSize, defaultBoxSize],
@@ -258,11 +253,7 @@ export default {
         const bgImage = widgetOptions.backgroundImage;
         return !(bgImage && bgImage.url && !widgetOptions.alt);
     },
-    defaultAlignment: DEFAULT_ALIGNMENT,
-    supportedAlignments: editorAlignments,
     displayName: "Image",
     widget: ImageWidget,
     isLintable: true,
-    // TODO: things that aren't interactive shouldn't need scoring functions
-    scorer: () => scoreNoop(),
 } satisfies WidgetExports<typeof ImageWidget>;

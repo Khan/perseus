@@ -33,8 +33,6 @@ const question: PerseusRenderer = {
 describe("mock-widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
-        // TODO(LEMS-2656): remove TS suppression
-        // @ts-expect-error: MockWidget is not assignable to type WidgetExports
         registerWidget("mock-widget", MockWidgetExport);
 
         userEvent = userEventLib.setup({

@@ -6,6 +6,10 @@ import {
     iconChevronDown,
     iconTrash,
 } from "@khanacademy/perseus";
+import {
+    CoreWidgetRegistry,
+    upgradeWidgetInfoToLatestVersion,
+} from "@khanacademy/perseus-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -18,8 +22,8 @@ import {iconChevronRight} from "../styles/icon-paths";
 import SectionControlButton from "./section-control-button";
 
 import type Editor from "../editor";
-import type {APIOptions, Alignment} from "@khanacademy/perseus";
-import type {PerseusWidget} from "@khanacademy/perseus-core";
+import type {APIOptions} from "@khanacademy/perseus";
+import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
 const {InlineIcon} = components;
 
@@ -45,8 +49,7 @@ const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = _.omit(props, WIDGET_PROP_DENYLIST);
-    // @ts-expect-error TS(2345) Type '"categorizer" | undefined' is not assignable to type '"deprecated-standin"'.
-    return Widgets.upgradeWidgetInfoToLatestVersion(filteredProps);
+    return upgradeWidgetInfoToLatestVersion(filteredProps as any);
 };
 
 // This component handles upgading widget editor props via prop
@@ -152,7 +155,7 @@ class WidgetEditor extends React.Component<
         const Ed = Widgets.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;
         if (this.props.apiOptions.showAlignmentOptions) {
-            supportedAlignments = Widgets.getSupportedAlignments(
+            supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
                 widgetInfo.type,
             );
         } else {
