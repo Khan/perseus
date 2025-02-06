@@ -9,21 +9,2788 @@ exports[`Interactive Graph interactive-graph widget A none-type graph renders pr
       class="paragraph"
       data-perseus-paragraph-index="0"
     >
-      <svg
-        height="16"
-        role="img"
-        viewBox="0 0 16 16"
-        width="16"
+      <div
+        class="paragraph"
       >
-        <title>
-          Rendering Error!
-        </title>
-        <path
-          d="m8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-3c0.55 0 1-0.45 1-1s-0.45-1-1-1-1 0.45-1 1 0.45 1 1 1zm0-9c-0.55 0-1 0.45-1 1v4c0 0.55.45 1 1 1s1-0.45 1-1v-4c0-0.55-0.45-1-1-1z"
-          fill="#d92916"
-          fill-rule="evenodd"
-        />
-      </svg>
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="perseus-widget perseus-widget-interactive-graph"
+            style="width: 400px; height: 400px;"
+          >
+            <div
+              class="graphie-container blank-background"
+              style="width: 400px; height: 400px;"
+            >
+              <div
+                aria-hidden="true"
+                class="graphie"
+                style="position: relative; width: 400px; height: 400px;"
+              >
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                </svg>
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <path
+                    d="M0,400L0,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M20,400L20,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M40,400L40,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M60,400L60,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M80,400L80,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M100,400L100,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M120,400L120,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M140,400L140,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M160,400L160,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M180,400L180,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M200,400L200,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M220,400L220,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M240,400L240,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M260,400L260,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M280,400L280,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M300,400L300,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M320,400L320,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M340,400L340,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M360,400L360,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M380,400L380,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M400,400L400,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,400L400,400"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,380L400,380"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,360L400,360"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,340L400,340"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,320L400,320"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,300L400,300"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,280L400,280"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,260L400,260"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,240L400,240"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,220L400,220"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,200L400,200"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,180L400,180"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,160L400,160"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,140L400,140"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,120L400,120"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,100L400,100"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,80L400,80"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,60L400,60"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,40L400,40"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,20L400,20"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,0L400,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M-3.4499999999999886,205.6C-3.0999999999999885,203.5,0.7500000000000115,200.35,1.8000000000000114,200C0.7500000000000113,199.65,-3.099999999999989,196.5,-3.4499999999999886,194.4"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1; stroke-linejoin: round; stroke-linecap: round;"
+                    transform="rotate(180 1.8000000000000114 200)"
+                  />
+                  <path
+                    d="M200,200C200,200,200,200,1.0500000000000114,200"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
+                  />
+                  <path
+                    d="M394.45,205.6C394.8,203.5,398.65,200.35,399.7,200C398.65,199.65,394.8,196.5,394.45,194.4"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1; stroke-linejoin: round; stroke-linecap: round;"
+                    transform=""
+                  />
+                  <path
+                    d="M200,200C200,200,200,200,398.95,200"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
+                  />
+                  <path
+                    d="M195.5,404.55C195.85,402.45,199.7,399.3,200.75,398.95C199.7,398.59999999999997,195.85,395.45,195.5,393.34999999999997"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1; stroke-linejoin: round; stroke-linecap: round;"
+                    transform="rotate(90 200.75 398.95)"
+                  />
+                  <path
+                    d="M200,200C200,200,200,200,200,398.95"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
+                  />
+                  <path
+                    d="M195.5,6.650000000000011C195.85,4.550000000000011,199.7,1.400000000000011,200.75,1.0500000000000114C199.7,0.7000000000000114,195.85,-2.4499999999999886,195.5,-4.549999999999988"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1; stroke-linejoin: round; stroke-linecap: round;"
+                    transform="rotate(-90 200.75 1.0500000000000114)"
+                  />
+                  <path
+                    d="M200,200C200,200,200,200,200,1.0500000000000114"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
+                  />
+                  <path
+                    d="M220,205L220,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M240,205L240,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M260,205L260,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M280,205L280,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M300,205L300,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M320,205L320,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M340,205L340,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M360,205L360,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M380,205L380,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M180,205L180,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M160,205L160,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M140,205L140,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M120,205L120,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M100,205L100,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M80,205L80,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M60,205L60,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M40,205L40,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M20,205L20,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,180L205,180"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,160L205,160"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,140L205,140"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,120L205,120"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,100L205,100"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,80L205,80"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,60L205,60"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,40L205,40"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,20L205,20"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,220L205,220"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,240L205,240"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,260L205,260"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,280L205,280"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,300L205,300"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,320L205,320"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,340L205,340"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,360L205,360"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,380L205,380"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                </svg>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{1}"
+                  style="position: absolute; padding: 7px; color: black; left: 220px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{2}"
+                  style="position: absolute; padding: 7px; color: black; left: 240px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{3}"
+                  style="position: absolute; padding: 7px; color: black; left: 260px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{4}"
+                  style="position: absolute; padding: 7px; color: black; left: 280px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{5}"
+                  style="position: absolute; padding: 7px; color: black; left: 300px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{6}"
+                  style="position: absolute; padding: 7px; color: black; left: 320px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{7}"
+                  style="position: absolute; padding: 7px; color: black; left: 340px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{8}"
+                  style="position: absolute; padding: 7px; color: black; left: 360px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{9}"
+                  style="position: absolute; padding: 7px; color: black; left: 380px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}2}"
+                  style="position: absolute; padding: 7px; color: black; left: 160px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}3}"
+                  style="position: absolute; padding: 7px; color: black; left: 140px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}4}"
+                  style="position: absolute; padding: 7px; color: black; left: 120px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}5}"
+                  style="position: absolute; padding: 7px; color: black; left: 100px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}6}"
+                  style="position: absolute; padding: 7px; color: black; left: 80px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}7}"
+                  style="position: absolute; padding: 7px; color: black; left: 60px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}8}"
+                  style="position: absolute; padding: 7px; color: black; left: 40px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}9}"
+                  style="position: absolute; padding: 7px; color: black; left: 20px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{1}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 180px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{2}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 160px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{3}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 140px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{4}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 120px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{5}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 100px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{6}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 80px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{7}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 60px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{8}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 40px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{9}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 20px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}2}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 240px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}3}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 260px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}4}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 280px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}5}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 300px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}6}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 320px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}7}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 340px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}8}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 360px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}9}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 380px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="y"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 0px; fill: none;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="x"
+                  style="position: absolute; padding: 7px; color: black; left: 400px; top: 200px; fill: none;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <div
+                  style="position: absolute; left: 0px; top: 0px;"
+                />
+                <div
+                  style="position: absolute; left: 0px; top: 0px; z-index: 2;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Interactive Graph interactive-graph widget question Should render predictably: after interaction 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <strong>
+          Sides shown
+        </strong>
+         Drag the vertices of the triangle below to draw a right triangle with side lengths 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            3
+          </span>
+          <span />
+        </span>
+        , 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            4
+          </span>
+          <span />
+        </span>
+        , and 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            5
+          </span>
+          <span />
+        </span>
+        . 
+
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="perseus-widget perseus-widget-interactive-graph"
+            style="width: 400px; height: 400px;"
+          >
+            <div
+              class="graphie-container blank-background"
+              style="width: 400px; height: 400px;"
+            >
+              <div
+                aria-hidden="true"
+                class="graphie"
+                style="position: relative; width: 400px; height: 400px;"
+              >
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <path
+                    d="M257.14285714285717,228.57142857142858L200,114.28571428571429L142.85714285714286,228.57142857142858Z"
+                    fill="#000000"
+                    opacity="0"
+                    stroke="#000000"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                  />
+                </svg>
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <path
+                    d="M257.14285714285717,228.57142857142858L200,114.28571428571429L142.85714285714286,228.57142857142858Z"
+                    fill="#00a60e"
+                    fill-opacity="0"
+                    stroke="#00a60e"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
+                  />
+                </svg>
+                <div
+                  style="position: absolute; left: 0px; top: 0px;"
+                >
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 244.14285714285717px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 187px; top: 101.28571428571429px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 129.85714285714286px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  style="position: absolute; left: 0px; top: 0px; z-index: 2;"
+                >
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 233.14285714285717px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 176px; top: 90.28571428571429px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 118.85714285714286px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\approx 2.2"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 246.45997239142687px; top: 162.4842995185723px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\approx 2.2"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 153.54002760857313px; top: 162.48429951857227px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="2.0"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 248.57142857142856px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+         
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Interactive Graph interactive-graph widget question Should render predictably: after interaction 2`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <strong>
+          Plot the image of triangle 
+          <span
+            style="white-space: nowrap;"
+          >
+            <span />
+            <span
+              class="mock-TeX"
+            >
+              \\triangle ABC
+            </span>
+            <span />
+          </span>
+           under a reflection across line 
+          <span
+            style="white-space: nowrap;"
+          >
+            <span />
+            <span
+              class="mock-TeX"
+            >
+              \\ell
+            </span>
+            <span />
+          </span>
+          .
+        </strong>
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="perseus-widget perseus-widget-interactive-graph"
+            style="width: 400px; height: 400px;"
+          >
+            <div
+              class="graphie-container blank-background"
+              style="width: 400px; height: 400px;"
+            >
+              <div
+                class="unresponsive-svg-image"
+                style="width: 400px; height: 400px;"
+              >
+                <span
+                  style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                >
+                  <div
+                    class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                  >
+                    <svg
+                      height="48"
+                      viewBox="0 0 48 48"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                        d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                        fill-rule="nonzero"
+                      />
+                    </svg>
+                  </div>
+                </span>
+              </div>
+              <div
+                aria-hidden="true"
+                class="graphie"
+                style="position: relative; width: 400px; height: 400px;"
+              >
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <path
+                    d="M50,375L225,300L125,300Z"
+                    fill="#000000"
+                    opacity="0"
+                    stroke="#000000"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                  />
+                </svg>
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <path
+                    d="M50,375L225,300L125,300Z"
+                    fill="#00a60e"
+                    fill-opacity="0"
+                    stroke="#00a60e"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
+                  />
+                </svg>
+                <div
+                  style="position: absolute; left: 0px; top: 0px;"
+                >
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 37px; top: 362px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 212px; top: 287px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 112px; top: 287px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  style="position: absolute; left: 0px; top: 0px; z-index: 2;"
+                >
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 26px; top: 351px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 201px; top: 276px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 101px; top: 276px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Interactive Graph interactive-graph widget question Should render predictably: after interaction 3`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        We want to find the zeros of this polynomial:
+      </div>
+    </div>
+    <div
+      class="paragraph perseus-paragraph-centered"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="perseus-block-math"
+      >
+        <div
+          class="perseus-block-math-inner"
+          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+        >
+          <span
+            class="mock-TeX"
+          >
+            p(x)=x(2x+5)(x+1)
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="2"
+    >
+      <div
+        class="paragraph"
+      >
+        <strong>
+          Plot all the zeros (
+          <span
+            style="white-space: nowrap;"
+          >
+            <span />
+            <span
+              class="mock-TeX"
+            >
+              x
+            </span>
+            <span />
+          </span>
+          -intercepts) of the polynomial in the interactive graph.
+        </strong>
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="3"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="perseus-widget perseus-widget-interactive-graph"
+            style="width: 400px; height: 400px;"
+          >
+            <div
+              class="graphie-container blank-background"
+              style="width: 400px; height: 400px;"
+            >
+              <div
+                class="unresponsive-svg-image"
+                style="width: 425px; height: 425px;"
+              >
+                <span
+                  style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                >
+                  <div
+                    class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                  >
+                    <svg
+                      height="48"
+                      viewBox="0 0 48 48"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                        d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                        fill-rule="nonzero"
+                      />
+                    </svg>
+                  </div>
+                </span>
+              </div>
+              <div
+                aria-hidden="true"
+                class="graphie"
+                style="position: relative; width: 400px; height: 400px;"
+              >
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <rect
+                    fill="#000000"
+                    height="400"
+                    opacity="0"
+                    r="0"
+                    rx="0"
+                    ry="0"
+                    stroke="#000"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"
+                    width="400"
+                    x="0"
+                    y="0"
+                  />
+                </svg>
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <image
+                    height="40"
+                    href="https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png"
+                    opacity="0.5"
+                    preserveAspectRatio="none"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0.5;"
+                    width="40"
+                    x="360"
+                    y="360"
+                  />
+                </svg>
+                <div
+                  style="font-style: italic; font-weight: bold; font-size: 32px; width: 100%; height: 100%; text-align: center; background-color: white; position: absolute; z-index: 1; transition: opacity .25s ease-in-out; opacity: 0.5;"
+                >
+                  <span
+                    style="position: relative; top: 25%;"
+                  >
+                    Click to add points
+                  </span>
+                </div>
+                <div
+                  style="position: absolute; left: 0px; top: 0px;"
+                >
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 187px; top: 187px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 62px; top: 187px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 137px; top: 187px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  style="position: absolute; left: 0px; top: 0px; z-index: 2;"
+                >
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 176px; top: 176px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 51px; top: 176px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 126px; top: 176px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Interactive Graph interactive-graph widget question Should render predictably: after interaction 4`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        The graph below contains quadrilateral 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            TREK
+          </span>
+          <span />
+        </span>
+         and the point 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            P(-8,-6)
+          </span>
+          <span />
+        </span>
+        .  
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="paragraph"
+      >
+        <strong>
+          Draw the image of quadrilateral 
+          <span
+            style="white-space: nowrap;"
+          >
+            <span />
+            <span
+              class="mock-TeX"
+            >
+              TREK
+            </span>
+            <span />
+          </span>
+           under a dilation whose center is 
+          <span
+            style="white-space: nowrap;"
+          >
+            <span />
+            <span
+              class="mock-TeX"
+            >
+              P
+            </span>
+            <span />
+          </span>
+           and scale factor is 
+          <span
+            style="white-space: nowrap;"
+          >
+            <span />
+            <span
+              class="mock-TeX"
+            >
+              3
+            </span>
+            <span />
+          </span>
+          .
+        </strong>
+          
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="2"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="perseus-widget perseus-widget-interactive-graph"
+            style="width: 400px; height: 400px;"
+          >
+            <div
+              class="graphie-container blank-background"
+              style="width: 400px; height: 400px;"
+            >
+              <div
+                class="unresponsive-svg-image"
+                style="width: 425px; height: 425px;"
+              >
+                <span
+                  style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                >
+                  <div
+                    class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                  >
+                    <svg
+                      height="48"
+                      viewBox="0 0 48 48"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                        d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                        fill-rule="nonzero"
+                      />
+                    </svg>
+                  </div>
+                </span>
+              </div>
+              <div
+                aria-hidden="true"
+                class="graphie"
+                style="position: relative; width: 400px; height: 400px;"
+              >
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <rect
+                    fill="#000000"
+                    height="400"
+                    opacity="0"
+                    r="0"
+                    rx="0"
+                    ry="0"
+                    stroke="#000"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"
+                    width="400"
+                    x="0"
+                    y="0"
+                  />
+                  <path
+                    d="M116.66666666666667,266.6666666666667L266.6666666666667,16.666666666666668L266.6666666666667,266.6666666666667L216.66666666666669,216.66666666666669Z"
+                    fill="#000000"
+                    opacity="0"
+                    stroke="#000000"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                  />
+                </svg>
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <image
+                    height="40"
+                    href="https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png"
+                    opacity="0.5"
+                    preserveAspectRatio="none"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0.5;"
+                    width="40"
+                    x="360"
+                    y="360"
+                  />
+                  <path
+                    d="M116.66666666666667,266.6666666666667L266.6666666666667,16.666666666666668L266.6666666666667,266.6666666666667L216.66666666666669,216.66666666666669Z"
+                    fill="#00a60e"
+                    fill-opacity="0"
+                    stroke="#00a60e"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
+                  />
+                </svg>
+                <div
+                  style="font-style: italic; font-weight: bold; font-size: 32px; width: 100%; height: 100%; text-align: center; background-color: white; position: absolute; z-index: 1; transition: opacity .25s ease-in-out; opacity: 0.5;"
+                >
+                  <span
+                    style="position: relative; top: 25%;"
+                  >
+                    Click to add vertices
+                  </span>
+                </div>
+                <div
+                  style="position: absolute; left: 0px; top: 0px;"
+                >
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 103.66666666666667px; top: 253.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 253.66666666666669px; top: 3.666666666666668px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 253.66666666666669px; top: 253.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 203.66666666666669px; top: 203.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  style="position: absolute; left: 0px; top: 0px; z-index: 2;"
+                >
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 92.66666666666667px; top: 242.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 242.66666666666669px; top: -7.333333333333332px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 242.66666666666669px; top: 242.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 192.66666666666669px; top: 192.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -38,21 +2805,367 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
       class="paragraph"
       data-perseus-paragraph-index="0"
     >
-      <svg
-        height="16"
-        role="img"
-        viewBox="0 0 16 16"
-        width="16"
+      <div
+        class="paragraph"
       >
-        <title>
-          Rendering Error!
-        </title>
-        <path
-          d="m8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-3c0.55 0 1-0.45 1-1s-0.45-1-1-1-1 0.45-1 1 0.45 1 1 1zm0-9c-0.55 0-1 0.45-1 1v4c0 0.55.45 1 1 1s1-0.45 1-1v-4c0-0.55-0.45-1-1-1z"
-          fill="#d92916"
-          fill-rule="evenodd"
-        />
-      </svg>
+        <strong>
+          Sides shown
+        </strong>
+         Drag the vertices of the triangle below to draw a right triangle with side lengths 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            3
+          </span>
+          <span />
+        </span>
+        , 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            4
+          </span>
+          <span />
+        </span>
+        , and 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            5
+          </span>
+          <span />
+        </span>
+        . 
+
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="perseus-widget perseus-widget-interactive-graph"
+            style="width: 400px; height: 400px;"
+          >
+            <div
+              class="graphie-container blank-background"
+              style="width: 400px; height: 400px;"
+            >
+              <div
+                aria-hidden="true"
+                class="graphie"
+                style="position: relative; width: 400px; height: 400px;"
+              >
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <path
+                    d="M257.14285714285717,228.57142857142858L200,114.28571428571429L142.85714285714286,228.57142857142858Z"
+                    fill="#000000"
+                    opacity="0"
+                    stroke="#000000"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                  />
+                </svg>
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <path
+                    d="M257.14285714285717,228.57142857142858L200,114.28571428571429L142.85714285714286,228.57142857142858Z"
+                    fill="#00a60e"
+                    fill-opacity="0"
+                    stroke="#00a60e"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
+                  />
+                </svg>
+                <div
+                  style="position: absolute; left: 0px; top: 0px;"
+                >
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 244.14285714285717px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 187px; top: 101.28571428571429px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 129.85714285714286px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  style="position: absolute; left: 0px; top: 0px; z-index: 2;"
+                >
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 233.14285714285717px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 176px; top: 90.28571428571429px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 118.85714285714286px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\approx 2.2"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 246.45997239142687px; top: 162.4842995185723px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\approx 2.2"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 153.54002760857313px; top: 162.48429951857227px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="2.0"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 248.57142857142856px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+         
+      </div>
     </div>
   </div>
 </div>
@@ -103,21 +3216,350 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
       class="paragraph"
       data-perseus-paragraph-index="1"
     >
-      <svg
-        height="16"
-        role="img"
-        viewBox="0 0 16 16"
-        width="16"
+      <div
+        class="paragraph"
       >
-        <title>
-          Rendering Error!
-        </title>
-        <path
-          d="m8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-3c0.55 0 1-0.45 1-1s-0.45-1-1-1-1 0.45-1 1 0.45 1 1 1zm0-9c-0.55 0-1 0.45-1 1v4c0 0.55.45 1 1 1s1-0.45 1-1v-4c0-0.55-0.45-1-1-1z"
-          fill="#d92916"
-          fill-rule="evenodd"
-        />
-      </svg>
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="perseus-widget perseus-widget-interactive-graph"
+            style="width: 400px; height: 400px;"
+          >
+            <div
+              class="graphie-container blank-background"
+              style="width: 400px; height: 400px;"
+            >
+              <div
+                class="unresponsive-svg-image"
+                style="width: 400px; height: 400px;"
+              >
+                <span
+                  style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                >
+                  <div
+                    class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                  >
+                    <svg
+                      height="48"
+                      viewBox="0 0 48 48"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                        d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                        fill-rule="nonzero"
+                      />
+                    </svg>
+                  </div>
+                </span>
+              </div>
+              <div
+                aria-hidden="true"
+                class="graphie"
+                style="position: relative; width: 400px; height: 400px;"
+              >
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <path
+                    d="M275,250L200,125L125,250Z"
+                    fill="#000000"
+                    opacity="0"
+                    stroke="#000000"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                  />
+                </svg>
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <path
+                    d="M275,250L200,125L125,250Z"
+                    fill="#00a60e"
+                    fill-opacity="0"
+                    stroke="#00a60e"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
+                  />
+                </svg>
+                <div
+                  style="position: absolute; left: 0px; top: 0px;"
+                >
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 262px; top: 237px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 187px; top: 112px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 112px; top: 237px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#00a60e"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#00a60e"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  style="position: absolute; left: 0px; top: 0px; z-index: 2;"
+                >
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 251px; top: 226px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 176px; top: 101px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 101px; top: 226px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -185,21 +3627,125 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
       class="paragraph"
       data-perseus-paragraph-index="3"
     >
-      <svg
-        height="16"
-        role="img"
-        viewBox="0 0 16 16"
-        width="16"
+      <div
+        class="paragraph"
       >
-        <title>
-          Rendering Error!
-        </title>
-        <path
-          d="m8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-3c0.55 0 1-0.45 1-1s-0.45-1-1-1-1 0.45-1 1 0.45 1 1 1zm0-9c-0.55 0-1 0.45-1 1v4c0 0.55.45 1 1 1s1-0.45 1-1v-4c0-0.55-0.45-1-1-1z"
-          fill="#d92916"
-          fill-rule="evenodd"
-        />
-      </svg>
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="perseus-widget perseus-widget-interactive-graph"
+            style="width: 400px; height: 400px;"
+          >
+            <div
+              class="graphie-container blank-background"
+              style="width: 400px; height: 400px;"
+            >
+              <div
+                class="unresponsive-svg-image"
+                style="width: 425px; height: 425px;"
+              >
+                <span
+                  style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                >
+                  <div
+                    class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                  >
+                    <svg
+                      height="48"
+                      viewBox="0 0 48 48"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                        d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                        fill-rule="nonzero"
+                      />
+                    </svg>
+                  </div>
+                </span>
+              </div>
+              <div
+                aria-hidden="true"
+                class="graphie"
+                style="position: relative; width: 400px; height: 400px;"
+              >
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <rect
+                    fill="#000000"
+                    height="400"
+                    opacity="0"
+                    r="0"
+                    rx="0"
+                    ry="0"
+                    stroke="#000"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"
+                    width="400"
+                    x="0"
+                    y="0"
+                  />
+                </svg>
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <image
+                    height="40"
+                    href="https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png"
+                    opacity="0.5"
+                    preserveAspectRatio="none"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0.5;"
+                    width="40"
+                    x="360"
+                    y="360"
+                  />
+                </svg>
+                <div
+                  style="font-style: italic; font-weight: bold; font-size: 32px; width: 100%; height: 100%; text-align: center; background-color: white; position: absolute; z-index: 1; transition: opacity .25s ease-in-out; opacity: 0.5;"
+                >
+                  <span
+                    style="position: relative; top: 25%;"
+                  >
+                    Click to add points
+                  </span>
+                </div>
+                <div
+                  style="position: absolute; left: 0px; top: 0px;"
+                />
+                <div
+                  style="position: absolute; left: 0px; top: 0px; z-index: 2;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -297,21 +3843,140 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
       class="paragraph"
       data-perseus-paragraph-index="2"
     >
-      <svg
-        height="16"
-        role="img"
-        viewBox="0 0 16 16"
-        width="16"
+      <div
+        class="paragraph"
       >
-        <title>
-          Rendering Error!
-        </title>
-        <path
-          d="m8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-3c0.55 0 1-0.45 1-1s-0.45-1-1-1-1 0.45-1 1 0.45 1 1 1zm0-9c-0.55 0-1 0.45-1 1v4c0 0.55.45 1 1 1s1-0.45 1-1v-4c0-0.55-0.45-1-1-1z"
-          fill="#d92916"
-          fill-rule="evenodd"
-        />
-      </svg>
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="perseus-widget perseus-widget-interactive-graph"
+            style="width: 400px; height: 400px;"
+          >
+            <div
+              class="graphie-container blank-background"
+              style="width: 400px; height: 400px;"
+            >
+              <div
+                class="unresponsive-svg-image"
+                style="width: 425px; height: 425px;"
+              >
+                <span
+                  style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                >
+                  <div
+                    class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                  >
+                    <svg
+                      height="48"
+                      viewBox="0 0 48 48"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                        d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                        fill-rule="nonzero"
+                      />
+                    </svg>
+                  </div>
+                </span>
+              </div>
+              <div
+                aria-hidden="true"
+                class="graphie"
+                style="position: relative; width: 400px; height: 400px;"
+              >
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <rect
+                    fill="#000000"
+                    height="400"
+                    opacity="0"
+                    r="0"
+                    rx="0"
+                    ry="0"
+                    stroke="#000"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"
+                    width="400"
+                    x="0"
+                    y="0"
+                  />
+                  <path
+                    d="M0,0"
+                    fill="#000000"
+                    opacity="0"
+                    stroke="#000000"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                  />
+                </svg>
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <image
+                    height="40"
+                    href="https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png"
+                    opacity="0.5"
+                    preserveAspectRatio="none"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0.5;"
+                    width="40"
+                    x="360"
+                    y="360"
+                  />
+                  <path
+                    d="M0,0"
+                    fill="#00a60e"
+                    fill-opacity="0"
+                    stroke="#00a60e"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
+                  />
+                </svg>
+                <div
+                  style="font-style: italic; font-weight: bold; font-size: 32px; width: 100%; height: 100%; text-align: center; background-color: white; position: absolute; z-index: 1; transition: opacity .25s ease-in-out; opacity: 0.5;"
+                >
+                  <span
+                    style="position: relative; top: 25%;"
+                  >
+                    Click to add vertices
+                  </span>
+                </div>
+                <div
+                  style="position: absolute; left: 0px; top: 0px;"
+                />
+                <div
+                  style="position: absolute; left: 0px; top: 0px; z-index: 2;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
