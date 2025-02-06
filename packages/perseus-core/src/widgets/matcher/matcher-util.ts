@@ -121,7 +121,12 @@ type MatcherPublicWidgetOptions = {
 function getMatcherPublicWidgetOptions(
     options: PerseusMatcherWidgetOptions,
 ): MatcherPublicWidgetOptions {
-    const {left, right} = matcherShuffle({...options, problemNum: undefined});
+    const columnsToString = options.left.join("") + options.right.join("");
+    const hashes = getHashes(columnsToString);
+    const getSeed = getSeedFunctionFromHashes(...hashes);
+    const seedFromColumns = getSeed();
+
+    const {left, right} = matcherShuffleFromHash(options, seedFromColumns);
 
     return {
         ...options,
