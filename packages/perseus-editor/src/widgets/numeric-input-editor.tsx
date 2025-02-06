@@ -351,6 +351,7 @@ class NumericInputEditor extends React.Component<Props, State> {
         const suggestedAnswerTypes = (i: any) => (
             <>
                 <div className="perseus-widget-row">
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
                     <label>Possible answer formats&ensp;</label>
                     <InfoTip>
                         <p>
@@ -482,6 +483,7 @@ class NumericInputEditor extends React.Component<Props, State> {
         const labelText = (
             <>
                 <div className="perseus-widget-row">
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
                     <label>Aria label</label>
                     <InfoTip>
                         <p>
@@ -588,6 +590,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     (answer.maxError ? " with-max-error" : "")
                                 }
                             >
+                                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
                                 <label>User input:</label>
                                 <NumberInput
                                     value={answer.value}
