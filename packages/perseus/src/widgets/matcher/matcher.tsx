@@ -160,6 +160,12 @@ export class Matcher extends React.Component<Props, State> implements Widget {
             );
         }
 
+        /* TODO(tamara):
+            Once the getRadioPublicWidgetOptions function gets connected to the
+            widget, we'll need to update this to the line below to only shuffle
+            on the server.
+                const {left, right} = this.props;
+         */
         const {left, right} = matcherShuffle(this.props);
 
         const showLabels = _.any(this.props.labels);
