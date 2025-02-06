@@ -778,16 +778,9 @@ describe("InteractiveGraphEditor", () => {
         // Arrange
 
         // Act
-        render(
-            <InteractiveGraphEditor
-                {...baseProps}
-                graph={{type: "segment"}}
-                correct={{type: "segment"}}
-            />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
+        render(<InteractiveGraphEditor {...segmentProps} />, {
+            wrapper: RenderStateRoot,
+        });
 
         // Assert
         expect(
