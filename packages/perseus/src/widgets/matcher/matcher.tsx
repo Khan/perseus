@@ -160,7 +160,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
             );
         }
 
-        /* TODO(tamara):
+        /* TODO(LEMS-2841):
             Once the getRadioPublicWidgetOptions function gets connected to the
             widget, we'll need to update this to the line below to only shuffle
             on the server.
