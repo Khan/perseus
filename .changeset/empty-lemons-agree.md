@@ -14,4 +14,6 @@
 "@khanacademy/simple-markdown": minor
 ---
 
-Tooling:- Switching to `pnpm`.
+Tooling:
+
+- Switching to `pnpm`.
