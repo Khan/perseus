@@ -3,7 +3,7 @@ import getMatcherPublicWidgetOptions from "./matcher-util";
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
 
 describe("getMatcherPublicWidgetOptions", () => {
-    it("should return shuffled right array when order doesn't matter", () => {
+    it("should not return the right array in answer order when order doesn't matter", () => {
         // Arrange
         const options: PerseusMatcherWidgetOptions = {
             labels: ["**Claims**", "**Evidence**"],
@@ -27,7 +27,7 @@ describe("getMatcherPublicWidgetOptions", () => {
         expect(publicWidgetOptions.right).not.toEqual(options.right);
     });
 
-    it("should return shuffled left and right arrays when order matters", () => {
+    it("should not return the left or right arrays in answer order when order matters", () => {
         // Arrange
         const options: PerseusMatcherWidgetOptions = {
             labels: ["**Claims**", "**Evidence**"],
