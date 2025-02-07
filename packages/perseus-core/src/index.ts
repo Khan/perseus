@@ -140,4 +140,4 @@ export {default as getMatrixPublicWidgetOptions} from "./widgets/matrix/matrix-u
 export {default as getPlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
 export {default as getMatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
 export {matcherShuffle} from "./widgets/matcher/matcher-util";
-export {default as CoreUtil} from "./utils/util";
+export {default as CoreUtil} from "./utils/random_utils";

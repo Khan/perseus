@@ -1,5 +1,6 @@
-/* Note(tamara): Brought over from the perseus package packages/perseus/src/util.ts file.
-May be useful to bring other perseus package utilities here. */
+/* Note(tamara): Brought over from the perseus package packages/perseus/src/random_utils.ts file.
+    May be useful to bring other perseus package utilities here. Contains utility functions
+    and types used across multiple widgets. */
 
 import _ from "underscore";
 
