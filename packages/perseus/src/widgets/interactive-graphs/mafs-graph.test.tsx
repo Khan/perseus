@@ -4,7 +4,10 @@ import {vec} from "mafs";
 import React from "react";
 import invariant from "tiny-invariant";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 
 import {calculateNestedSVGCoords, MafsGraph} from "./mafs-graph";
@@ -14,6 +17,7 @@ import {getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
+import type {PerseusDependenciesV2} from "@khanacademy/perseus";
 import type {GraphRange} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -105,6 +109,61 @@ describe("MafsGraph", () => {
         expect(line.getAttribute("y1")).toBe(-expectedY1 + "");
         expect(line.getAttribute("x2")).toBe(expectedX2 + "");
         expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
+    });
+
+    it("should send analytics even when widget is rendered", () => {
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+            ],
+        };
+
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
+
+        render(
+            <Dependencies.DependenciesContext.Provider value={depsV2}>
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />
+            </Dependencies.DependenciesContext.Provider>,
+        );
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenNthCalledWith(1, {
+            type: "perseus:interactive-graph-widget:rendered",
+            payload: {
+                type: "segment",
+                widgetType: "INTERACTIVE_GRAPH",
+                widgetId: "interactive-graph",
+            },
+        });
+        expect(onAnalyticsEventSpy).toHaveBeenNthCalledWith(2, {
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "segment",
+                widgetType: "INTERACTIVE_GRAPH",
+                widgetId: "interactive-graph",
+            },
+        });
     });
 
     it("renders TeX in axis Labels", () => {
