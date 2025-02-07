@@ -180,7 +180,11 @@ const InputWithExamples = forwardRef<
     const showExamplesTooltip = shouldShowExamples && inputFocused;
 
     return (
-        <Tooltip content={getTooltipContent()} opened={showExamplesTooltip}>
+        <Tooltip
+            content={getTooltipContent()}
+            opened={showExamplesTooltip}
+            placement="bottom"
+        >
             {_renderInput()}
         </Tooltip>
     );
