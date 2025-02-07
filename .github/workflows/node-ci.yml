@@ -158,15 +158,20 @@ jobs:
             - name: Checking out latest commit
               uses: actions/checkout@v4
 
+            # MUST be before we install node_modules as that depends on finding
+            # Cypress binaries in this cache!
+            - uses: actions/cache@v4
+              with:
+                path: ~/.cache/Cypress
+                key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
 
-            - name: Cypress run
-              uses: cypress-io/github-action@v6
-            # - name: Run tests
-            #   run: pnpm cypress:ci
+            - name: Run tests
+              run: pnpm cypress:ci
 
             - name: Upload Screenshots
               uses: actions/upload-artifact@v4
