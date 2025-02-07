@@ -49,6 +49,43 @@ function EditorPageWithStorybookPreview(props: Props) {
 
     return (
         <View>
+            {/* Panel to show the question/hint previews */}
+            {/* Placing the preview panel first in the DOM since it is position: fixed
+                This enables the accessibility "Show Me" toggle to place outlines above the offending element.
+             */}
+            {panelOpen && (
+                <View style={styles.panel}>
+                    {/* Close button */}
+                    <IconButton
+                        icon={xIcon}
+                        onClick={() => setPanelOpen(!panelOpen)}
+                        style={styles.closeButton}
+                    />
+
+                    <View id="preview-panel" style={styles.panelInner}>
+                        {/* Question preview */}
+                        <Renderer
+                            strings={mockStrings}
+                            apiOptions={apiOptions}
+                            {...question}
+                        />
+                    </View>
+
+                    {/* Hints preview */}
+                    {hints?.map((hint, index) => (
+                        <View key={index} style={styles.panelInner}>
+                            <Strut size={spacing.medium_16} />
+                            <LabelLarge>{`Hint ${index + 1}`}</LabelLarge>
+                            <Renderer
+                                strings={mockStrings}
+                                apiOptions={apiOptions}
+                                {...hint}
+                            />
+                        </View>
+                    ))}
+                </View>
+            )}
+
             <EditorPage
                 apiOptions={apiOptions}
                 previewDevice={previewDevice}
@@ -89,40 +126,6 @@ function EditorPageWithStorybookPreview(props: Props) {
                 >
                     Open preview (storybook only)
                 </Button>
-            )}
-
-            {/* Panel to show the question/hint previews */}
-            {panelOpen && (
-                <View style={styles.panel}>
-                    {/* Close button */}
-                    <IconButton
-                        icon={xIcon}
-                        onClick={() => setPanelOpen(!panelOpen)}
-                        style={styles.closeButton}
-                    />
-
-                    <View id="preview-panel" style={styles.panelInner}>
-                        {/* Question preview */}
-                        <Renderer
-                            strings={mockStrings}
-                            apiOptions={apiOptions}
-                            {...question}
-                        />
-                    </View>
-
-                    {/* Hints preview */}
-                    {hints?.map((hint, index) => (
-                        <View key={index} style={styles.panelInner}>
-                            <Strut size={spacing.medium_16} />
-                            <LabelLarge>{`Hint ${index + 1}`}</LabelLarge>
-                            <Renderer
-                                strings={mockStrings}
-                                apiOptions={apiOptions}
-                                {...hint}
-                            />
-                        </View>
-                    ))}
-                </View>
             )}
         </View>
     );

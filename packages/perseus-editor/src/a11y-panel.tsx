@@ -1,7 +1,8 @@
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
+import Switch from "@khanacademy/wonder-blocks-switch";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {LabelLarge, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import iconPass from "@phosphor-icons/core/fill/check-circle-fill.svg";
 import iconCaution from "@phosphor-icons/core/fill/warning-fill.svg";
 import iconViolations from "@phosphor-icons/core/fill/warning-octagon-fill.svg";
@@ -88,11 +89,6 @@ const AccessibilityPanel = () => {
               : wbColor.green;
     const issuesCount = `${violations.length + incompletes.length} issue${violations.length + incompletes.length === 1 ? "" : "s"}`;
 
-    // TODO: Build UI for panel
-    //          Panel should be pre-collapsed, with issue counts & icons in header
-    //          List out violations and incompletes as accordion sections (when header accordion is expanded)
-    //          Details are listed in accordion panel
-    //          Highlight element toggle
     return (
         <div className={editorClasses}>
             <div className="perseus-widget-editor-title">
@@ -141,29 +137,111 @@ const IssueDetails = (props: IssueProps) => {
     const [expanded, setExpanded] = useState(false);
     const toggleVisibility = () => setExpanded(!expanded);
     const title = issueType === "violation" ? "Violation" : "Investigate";
+    const message = getIssueMessage(issue.nodes);
+
     const headingStyle = {
         textOverflow: "ellipsis",
         maxWidth: "100%",
         overflow: "hidden",
         whiteSpace: "nowrap",
     };
-
-    // console.log(`Issue: `, issue);
+    const labelStyle = {
+        marginTop: "1em",
+        fontWeight: "bold",
+    };
 
     return (
         <PerseusEditorAccordion
             animated={true}
             expanded={expanded}
             onToggle={toggleVisibility}
+            panelStyle={{backgroundColor: "white"}}
             header={
                 <LabelLarge
                     style={headingStyle}
                 >{`${title}: ${issue.id}`}</LabelLarge>
             }
         >
-            Details
+            <LabelSmall style={{fontWeight: "bold"}}>Description:</LabelSmall>
+            <a href={issue.helpUrl} target="_blank" rel="noreferrer">
+                {issue.help}
+            </a>
+            <LabelSmall style={labelStyle}>
+                Impact:
+                <span style={{fontWeight: "initial"}}> {issue.impact}</span>
+            </LabelSmall>
+            <LabelSmall style={labelStyle}>Issue:</LabelSmall>
+            <span>{message}</span>
+            <ShowMe issue={issue} />
         </PerseusEditorAccordion>
     );
+};
+
+const ShowMe = ({issue}: {issue: axe.Result}) => {
+    const [showMe, setShowMe] = useState(false);
+    const issueElements = getIssueElements(issue.nodes);
+    const issueBoundary =
+        Array.isArray(issueElements) && issueElements.length > 0
+            ? issueElements[0].getBoundingClientRect()
+            : null;
+    const showMeStyle = {
+        marginTop: "1em",
+        fontWeight: "bold",
+        display: "flex",
+        alignItems: "center",
+    };
+    const showMeOutlineStyle =
+        showMe && issueBoundary !== null
+            ? {
+                  display: "block",
+                  border: "2px solid red",
+                  borderRadius: "4px",
+                  position: "fixed",
+                  height: issueBoundary.height + 8,
+                  width: issueBoundary.width + 8,
+                  top: issueBoundary.top - 4,
+                  left: issueBoundary.left - 4,
+              }
+            : {display: "none"};
+
+    const showMeToggle =  (
+        <LabelSmall style={showMeStyle}>
+            <span style={{marginRight: "1em"}}>Show Me</span>
+            <Switch checked={showMe} onChange={setShowMe} />
+            <div style={showMeOutlineStyle} />
+        </LabelSmall>
+    );
+    const showMeUnavailable = (
+        <div>
+            Unable to find the offending element. Please ask a developer for
+            help fixing this.
+        </div>
+    );
+
+    return issueBoundary ? showMeToggle : showMeUnavailable;
+};
+
+const getIssueMessage = (nodes: axe.NodeResult[]): string => {
+    return nodes
+        .map((node) => {
+            return node.all
+                .concat(node.any, node.none)
+                .map((result) => result.message)
+                .join(" ");
+        })
+        .join(" ");
+};
+
+const getIssueElements = (nodes: axe.NodeResult[]): Element[] => {
+    return nodes.flatMap((node) => {
+        return node.target.reduce((elements: Element[], target: string) => {
+            const element = document.querySelector(target);
+            if (element) {
+                elements.push(element);
+            }
+            return elements;
+        }, []);
+    });
 };
 
 export default AccessibilityPanel;

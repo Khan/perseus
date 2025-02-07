@@ -226,10 +226,10 @@ export class NumericInput
     };
 
     render(): React.ReactNode {
-        let labelText = this.props.labelText;
-        if (labelText == null || labelText === "") {
-            labelText = this.context.strings.yourAnswerLabel;
-        }
+        const labelText = this.props.labelText;
+        // if (labelText == null || labelText === "") {
+        //     labelText = this.context.strings.yourAnswerLabel;
+        // }
 
         // To right align a custom keypad we need to wrap it.
         const maybeRightAlignKeypadInput = (
