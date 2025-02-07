@@ -214,7 +214,8 @@
         overflow: hidden;
 
         .inline-options {
-            float: inline-start; /* flexbox and inline-block don't work on <legend> elements, so going old-school here */
+            /* float: inline-start; Linter isn't happy with this option, so using "left" (below) */
+            float: left; /* flexbox and inline-block don't work on <legend> elements, so going old-school here */
             line-height: 24px; /* for alignment with items in same line (like pills or buttons) */
             padding-inline-end: 0.5em;
         }
