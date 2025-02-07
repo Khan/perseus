@@ -11,13 +11,14 @@ import {
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
+import type {Coord} from "@khanacademy/perseus-core";
 import type {
     PerseusInteractiveGraphRubric,
     PerseusScore,
     PerseusInteractiveGraphUserInput,
 } from "@khanacademy/perseus-score";
 
-const {collinear, canonicalSineCoefficients, similar} = geometry;
+const {collinear, canonicalSineCoefficients, similar, clockwise} = geometry;
 const {getClockwiseAngle} = angles;
 const {getSinusoidCoefficients, getQuadraticCoefficients} = coefficients;
 
@@ -247,9 +248,27 @@ function scoreInteractiveGraph(
             userInput.type === "angle" &&
             rubric.correct.type === "angle"
         ) {
-            const guess = userInput.coords;
+            const coords = userInput.coords;
             const correct = rubric.correct.coords;
             const allowReflexAngles = rubric.correct.allowReflexAngles;
+
+            // While the angle graph should always have 3 points, our types
+            // technically allow for null values. We'll check for that here.
+            if (!coords) {
+                return {
+                    type: "invalid",
+                    message: null,
+                };
+            }
+
+            // We need to check both the direction of the angle and the
+            // whether the graph allows for reflexive angles in order to
+            // to determine if we need to reverse the coords for scoring.
+            const areClockwise = clockwise([coords[0], coords[2], coords[1]]);
+            const shouldReverseCoords = areClockwise && !allowReflexAngles;
+            const guess = shouldReverseCoords
+                ? (coords.slice().reverse() as [Coord, Coord, Coord])
+                : coords;
 
             let match;
             if (rubric.correct.match === "congruent") {
@@ -264,11 +283,9 @@ function scoreInteractiveGraph(
                 match = approximateEqual(...angles);
             } else {
                 /* exact */
-                match = // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+                match =
                     approximateDeepEqual(guess[1], correct[1]) &&
-                    // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                     collinear(correct[1], correct[0], guess[0]) &&
-                    // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                     collinear(correct[1], correct[2], guess[2]);
             }
 
