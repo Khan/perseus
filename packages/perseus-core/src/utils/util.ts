@@ -21,7 +21,8 @@ const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
     };
 };
 
-// Note: Previously called cyrb128
+// Note: Previously called cyrb128 -
+// https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript
 function getHashes(str: string): [number, number, number, number] {
     let h1 = 1779033703;
     let h2 = 3144134277;
@@ -47,8 +48,9 @@ function getHashes(str: string): [number, number, number, number] {
     ];
 }
 
-// Note: Previously called sfc32
-function getSeedFunctionFromHashes(
+// Note: Previously called sfc32 -
+// https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript
+function createRandomNumberGenerator(
     a: number,
     b: number,
     c: number,
@@ -120,7 +122,7 @@ export const CoreUtil = {
     shuffle,
     random,
     getHashes,
-    getSeedFunctionFromHashes,
+    getSeedFunctionFromHashes: createRandomNumberGenerator,
 } as const;
 
 export default CoreUtil;
