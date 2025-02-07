@@ -1,6 +1,6 @@
 /* Note(tamara): Brought over from the perseus package packages/perseus/src/random_utils.ts file.
     May be useful to bring other perseus package utilities here. Contains utility functions
-    and types used across multiple widgets. */
+    and types used across multiple widgets for randomization and shuffling. */
 
 import _ from "underscore";
 
