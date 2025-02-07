@@ -1,4 +1,7 @@
-import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
+import {
+    CoreUtil,
+    type PerseusSorterWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 /**
  * For details on the individual options, see the
@@ -17,13 +20,23 @@ type SorterPublicWidgetOptions = {
 function getSorterPublicWidgetOptions(
     options: PerseusSorterWidgetOptions,
 ): SorterPublicWidgetOptions {
+    const correctToString = options.correct.join("");
+    const hashes = CoreUtil.getHashes(correctToString);
+    const getSeed = CoreUtil.getSeedFunctionFromHashes(...hashes);
+    const seedFromCorrect = getSeed();
+
+    const shuffledCorrect = CoreUtil.shuffle(
+        options.correct,
+        seedFromCorrect,
+        /* ensurePermuted */ true,
+    );
+
     return {
+        ...options,
         // Note(Tamara): This does not provide correct answer information any longer.
         // To maintain compatibility with the original widget options, we are
         // keeping the key the same. Represents initial state of the cards here.
-        correct: options.correct.slice().sort(),
-        padding: options.padding,
-        layout: options.layout,
+        correct: shuffledCorrect,
     };
 }
 
