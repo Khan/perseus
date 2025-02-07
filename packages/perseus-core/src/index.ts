@@ -135,3 +135,4 @@ export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line
 export {default as getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";
 export {default as getTablePublicWidgetOptions} from "./widgets/table/table-util";
 export {default as getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-util";
+export {default as getPlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
