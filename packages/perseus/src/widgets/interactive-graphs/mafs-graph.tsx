@@ -262,16 +262,16 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                     </>
                                 )
                             }
-                            {/* Locked & Interactive elements nested an SVG to lock to graph bounds*/}
-                            <svg {...nestedSVGAttributes}>
-                                {/* Locked figures layer */}
-                                {props.lockedFigures && (
-                                    <GraphLockedLayer
-                                        lockedFigures={props.lockedFigures}
-                                        range={state.range}
-                                    />
+                            {/* Locked figures layer nested in SVG to lock to graph bounds*/}
+                            {props.lockedFigures &&
+                                props.lockedFigures.length > 0 && (
+                                    <svg {...nestedSVGAttributes}>
+                                        <GraphLockedLayer
+                                            lockedFigures={props.lockedFigures}
+                                            range={state.range}
+                                        />
+                                    </svg>
                                 )}
-                            </svg>
                         </Mafs>
                         {props.lockedFigures && (
                             <GraphLockedLabelsLayer

@@ -993,14 +993,6 @@ exports[`Interactive Graph interactive-graph widget A none-type graph renders pr
                         />
                       </g>
                     </g>
-                    <svg
-                      height="400"
-                      preserveAspectRatio="xMidYMin"
-                      viewBox="-200 -200 400 400"
-                      width="400"
-                      x="-200"
-                      y="-200"
-                    />
                   </svg>
                 </div>
                 <div
@@ -1143,14 +1135,6 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                         />
                       </filter>
                     </defs>
-                    <svg
-                      height="400"
-                      preserveAspectRatio="xMidYMin"
-                      viewBox="-57.142857142857146 -342.85714285714283 400 400"
-                      width="400"
-                      x="-57.142857142857146"
-                      y="-342.85714285714283"
-                    />
                     <svg
                       height="400"
                       preserveAspectRatio="xMidYMin"
@@ -1583,14 +1567,6 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                       x="-200"
                       y="-200"
                     />
-                    <svg
-                      height="400"
-                      preserveAspectRatio="xMidYMin"
-                      viewBox="-200 -200 400 400"
-                      width="400"
-                      x="-200"
-                      y="-200"
-                    />
                   </svg>
                 </div>
                 <div
@@ -1992,14 +1968,6 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                       x="-200"
                       y="-200"
                     />
-                    <svg
-                      height="400"
-                      preserveAspectRatio="xMidYMin"
-                      viewBox="-200 -200 400 400"
-                      width="400"
-                      x="-200"
-                      y="-200"
-                    />
                   </svg>
                 </div>
                 <div
@@ -2240,14 +2208,6 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                       x="-200"
                       y="-266.66666666666663"
                     />
-                    <svg
-                      height="400"
-                      preserveAspectRatio="xMidYMin"
-                      viewBox="-200 -266.66666666666663 400 400"
-                      width="400"
-                      x="-200"
-                      y="-266.66666666666663"
-                    />
                   </svg>
                 </div>
                 <div
@@ -2441,14 +2401,6 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                         />
                       </filter>
                     </defs>
-                    <svg
-                      height="400"
-                      preserveAspectRatio="xMidYMin"
-                      viewBox="-57.142857142857146 -342.85714285714283 400 400"
-                      width="400"
-                      x="-57.142857142857146"
-                      y="-342.85714285714283"
-                    />
                     <svg
                       height="400"
                       preserveAspectRatio="xMidYMin"
@@ -2881,14 +2833,6 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                       x="-200"
                       y="-200"
                     />
-                    <svg
-                      height="400"
-                      preserveAspectRatio="xMidYMin"
-                      viewBox="-200 -200 400 400"
-                      width="400"
-                      x="-200"
-                      y="-200"
-                    />
                   </svg>
                 </div>
                 <div
@@ -3290,14 +3234,6 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                       x="-200"
                       y="-200"
                     />
-                    <svg
-                      height="400"
-                      preserveAspectRatio="xMidYMin"
-                      viewBox="-200 -200 400 400"
-                      width="400"
-                      x="-200"
-                      y="-200"
-                    />
                   </svg>
                 </div>
                 <div
@@ -3530,14 +3466,6 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                         />
                       </filter>
                     </defs>
-                    <svg
-                      height="400"
-                      preserveAspectRatio="xMidYMin"
-                      viewBox="-200 -266.66666666666663 400 400"
-                      width="400"
-                      x="-200"
-                      y="-266.66666666666663"
-                    />
                     <svg
                       height="400"
                       preserveAspectRatio="xMidYMin"
