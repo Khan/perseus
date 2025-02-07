@@ -33,8 +33,8 @@ describe("getMatcherPublicWidgetOptions", () => {
             labels: ["**Claims**", "**Evidence**"],
             padding: true,
             orderMatters: true,
-            right: ["Stars", "Earth", "Life", "Rapid", "Milky Way"],
             left: ["Fuel", "Plate", "Hydrogen", "Average", "Billion"],
+            right: ["Stars", "Earth", "Life", "Rapid", "Milky Way"],
         };
 
         // Act
@@ -45,8 +45,8 @@ describe("getMatcherPublicWidgetOptions", () => {
             labels: ["**Claims**", "**Evidence**"],
             padding: true,
             orderMatters: true,
-            right: ["Milky Way", "Stars", "Life", "Earth", "Rapid"],
             left: ["Billion", "Fuel", "Hydrogen", "Plate", "Average"],
+            right: ["Milky Way", "Stars", "Life", "Earth", "Rapid"],
         });
         expect(publicWidgetOptions.right).not.toEqual(options.right);
         expect(publicWidgetOptions.left).not.toEqual(options.left);
