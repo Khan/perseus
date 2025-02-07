@@ -5,8 +5,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import {waitForInitialGraphieRender} from "../../../../../testing/wait";
-import {flags} from "../../__stories__/flags-for-api-options";
 import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
 import {getDefaultFigureForType} from "../interactive-graph-editor/locked-figures/util";
 
@@ -23,12 +21,8 @@ const baseProps = {
     graph: undefined,
 };
 
-const mafsProps: PropsFor<typeof InteractiveGraphEditor> = {
+const segmentProps: PropsFor<typeof InteractiveGraphEditor> = {
     ...baseProps,
-    apiOptions: {
-        ...ApiOptions.defaults,
-        flags,
-    },
     graph: {type: "segment"} as PerseusGraphType,
 };
 
@@ -551,7 +545,7 @@ describe("InteractiveGraphEditor", () => {
         // Act
         const {rerender} = render(
             <InteractiveGraphEditor
-                {...mafsProps}
+                {...segmentProps}
                 graph={{type: "segment"}}
                 correct={{type: "segment"}}
             />,
@@ -564,7 +558,7 @@ describe("InteractiveGraphEditor", () => {
         // Assert
         rerender(
             <InteractiveGraphEditor
-                {...mafsProps}
+                {...segmentProps}
                 graph={{type: "segment"}}
                 correct={{type: "segment", numSegments: 4}}
             />,
@@ -598,7 +592,6 @@ describe("InteractiveGraphEditor", () => {
                 wrapper: RenderStateRoot,
             },
         );
-        await waitForInitialGraphieRender();
 
         // Assert
         expect(ref.current?.getSaveWarnings()).toEqual([
@@ -613,8 +606,7 @@ describe("InteractiveGraphEditor", () => {
         // Act
         render(
             <InteractiveGraphEditor
-                {...baseProps}
-                graph={{type: "segment"}}
+                {...segmentProps}
                 correct={{type: "segment"}}
                 lockedFigures={[
                     {
@@ -627,7 +619,6 @@ describe("InteractiveGraphEditor", () => {
                 wrapper: RenderStateRoot,
             },
         );
-        await waitForInitialGraphieRender();
 
         // Assert
         expect(ref.current?.getSaveWarnings()).toEqual([]);
@@ -639,7 +630,7 @@ describe("InteractiveGraphEditor", () => {
 
         render(
             <InteractiveGraphEditor
-                {...mafsProps}
+                {...segmentProps}
                 graph={{type: "linear"}}
                 correct={{type: "linear"}}
                 onChange={onChangeMock}
@@ -673,7 +664,7 @@ describe("InteractiveGraphEditor", () => {
         // Act
         render(
             <InteractiveGraphEditor
-                {...mafsProps}
+                {...segmentProps}
                 graph={{type: "point", numPoints: "unlimited"}}
                 correct={{type: "point", numPoints: "unlimited"}}
             />,
@@ -696,7 +687,7 @@ describe("InteractiveGraphEditor", () => {
         // Act
         render(
             <InteractiveGraphEditor
-                {...mafsProps}
+                {...segmentProps}
                 graph={{type: "polygon", numSides: "unlimited"}}
                 correct={{type: "polygon", numSides: "unlimited"}}
             />,
@@ -719,7 +710,7 @@ describe("InteractiveGraphEditor", () => {
         // Act
         render(
             <InteractiveGraphEditor
-                {...mafsProps}
+                {...segmentProps}
                 graph={{type: "polygon", snapTo: "angles"}}
                 correct={{type: "polygon", snapTo: "angles"}}
             />,
@@ -742,7 +733,7 @@ describe("InteractiveGraphEditor", () => {
         // Act
         render(
             <InteractiveGraphEditor
-                {...mafsProps}
+                {...segmentProps}
                 graph={{type: "polygon", snapTo: "sides"}}
                 correct={{type: "polygon", snapTo: "sides"}}
             />,
@@ -765,7 +756,7 @@ describe("InteractiveGraphEditor", () => {
         // Act
         render(
             <InteractiveGraphEditor
-                {...mafsProps}
+                {...segmentProps}
                 graph={{type: "segment"}}
                 correct={{type: "segment"}}
                 static={true}
@@ -787,16 +778,9 @@ describe("InteractiveGraphEditor", () => {
         // Arrange
 
         // Act
-        render(
-            <InteractiveGraphEditor
-                {...mafsProps}
-                graph={{type: "segment"}}
-                correct={{type: "segment"}}
-            />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
+        render(<InteractiveGraphEditor {...segmentProps} />, {
+            wrapper: RenderStateRoot,
+        });
 
         // Assert
         expect(
@@ -810,7 +794,7 @@ describe("InteractiveGraphEditor", () => {
     test("should render for none-type graphs", () => {
         render(
             <InteractiveGraphEditor
-                {...mafsProps}
+                {...segmentProps}
                 graph={{type: "none"}}
                 correct={{type: "none"}}
             />,
@@ -820,47 +804,10 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("does not display a 'None' answer type option by default", async () => {
+    test("displays a 'None' answer type option", async () => {
         render(
             <InteractiveGraphEditor
-                {...{
-                    ...mafsProps,
-                    apiOptions: {
-                        ...mafsProps.apiOptions,
-                        flags: {
-                            ...mafsProps.apiOptions.flags,
-                            mafs: {},
-                        },
-                    },
-                }}
-                graph={{type: "none"}}
-                correct={{type: "none"}}
-            />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
-
-        const dropdown = screen.getByRole("button", {name: "Answer type:"});
-        await userEvent.click(dropdown);
-        expect(
-            screen.queryByRole("option", {name: "None"}),
-        ).not.toBeInTheDocument();
-    });
-
-    test("displays a 'None' answer type option when the feature flag is on", async () => {
-        render(
-            <InteractiveGraphEditor
-                {...{
-                    ...mafsProps,
-                    apiOptions: {
-                        ...mafsProps.apiOptions,
-                        flags: {
-                            ...mafsProps.apiOptions.flags,
-                            mafs: {none: true},
-                        },
-                    },
-                }}
+                {...baseProps}
                 graph={{type: "none"}}
                 correct={{type: "none"}}
             />,

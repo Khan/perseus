@@ -5,7 +5,6 @@ import * as React from "react";
 type GraphTypeSelectorProps = {
     graphType: string;
     onChange: (newGraphType: string) => void;
-    showNoneOption: boolean;
 };
 
 const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
@@ -16,7 +15,7 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             placeholder="Select an answer type"
             style={styles.singleSelectShort}
         >
-            {props.showNoneOption && <OptionItem value="none" label="None" />}
+            <OptionItem value="none" label="None" />
             <OptionItem value="linear" label="Linear function" />
             <OptionItem value="quadratic" label="Quadratic function" />
             <OptionItem value="sinusoid" label="Sinusoid function" />
