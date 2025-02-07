@@ -18,6 +18,7 @@ import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {getIntersectionOfRayWithBox} from "./utils";
 
+import type {I18nContextType} from "../../../components/i18n-context";
 import type {Segment} from "../math/geometry";
 import type {
     AngleGraphState,
@@ -34,10 +35,11 @@ type AngleGraphProps = MafsGraphProps<AngleGraphState>;
 export function renderAngleGraph(
     state: AngleGraphState,
     dispatch: Dispatch,
+    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <AngleGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: null,
+        interactiveElementsDescription: getAngleGraphDescription(state, i18n),
     };
 }
 
@@ -224,6 +226,25 @@ function AngleGraph(props: AngleGraphProps) {
             </g>
         </g>
     );
+}
+
+function getAngleGraphDescription(
+    state: AngleGraphState,
+    i18n: I18nContextType,
+): string {
+    const {strings, locale} = i18n;
+    const {coords} = state;
+
+    return strings.srInteractiveElements({
+        elements: strings.srAngleInteractiveElements({
+            vertexX: srFormatNumber(coords[1][X], locale),
+            vertexY: srFormatNumber(coords[1][Y], locale),
+            startingSideX: srFormatNumber(coords[2][X], locale),
+            startingSideY: srFormatNumber(coords[2][Y], locale),
+            endingSideX: srFormatNumber(coords[0][X], locale),
+            endingSideY: srFormatNumber(coords[0][Y], locale),
+        }),
+    });
 }
 
 const positiveX: vec.Vector2 = [1, 0];
