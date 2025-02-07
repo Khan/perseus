@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unsafe */
 import {KhanMath} from "@khanacademy/kmath";
+import {getPlotterPublicWidgetOptions} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -1173,4 +1174,5 @@ export default {
     hidden: true,
     widget: Plotter,
     staticTransform: staticTransform,
+    getPublicWidgetOptions: getPlotterPublicWidgetOptions,
 } satisfies WidgetExports<typeof Plotter>;
