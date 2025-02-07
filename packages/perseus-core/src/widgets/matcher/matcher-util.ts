@@ -131,9 +131,10 @@ type MatcherPublicWidgetOptions = {
 function getMatcherPublicWidgetOptions(
     options: PerseusMatcherWidgetOptions,
 ): MatcherPublicWidgetOptions {
-    const columnsToString = options.left.join("") + options.right.join("");
-    const hashes = getHashes(columnsToString);
-    const getSeed = getSeedFunctionFromHashes(...hashes);
+    const columnsToString =
+        JSON.stringify(options.left) + JSON.stringify(options.right);
+    const hashes = getHash(columnsToString);
+    const getSeed = createRandomNumberGenerator(...hashes);
     const seedFromColumns = getSeed();
 
     const {left, right} = shuffleMatcherWithHash(options, seedFromColumns);
