@@ -162,8 +162,8 @@ jobs:
             # Cypress binaries in this cache!
             - uses: actions/cache@v4
               with:
-                path: ~/.cache/Cypress
-                key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+                  path: ~/.cache/Cypress
+                  key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
