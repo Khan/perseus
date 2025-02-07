@@ -34,6 +34,7 @@ import type {
     getRadioPublicWidgetOptions,
     getTablePublicWidgetOptions,
     getIFramePublicWidgetOptions,
+    getMatrixPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -504,7 +505,8 @@ export type PublicWidgetOptionsFunction =
     | typeof getCSProgramPublicWidgetOptions
     | typeof getNumberLinePublicWidgetOptions
     | typeof getTablePublicWidgetOptions
-    | typeof getGrapherPublicWidgetOptions;
+    | typeof getGrapherPublicWidgetOptions
+    | typeof getMatrixPublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
