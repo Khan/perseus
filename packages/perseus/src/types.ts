@@ -3,7 +3,16 @@ import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
+// MAGIC: Removal of this comment may cause `tsc --build` to output a syntax
+// error in packages/perseus/dist/server-item-renderer.d.ts and then fail. This
+// appears to be a bug introduced in TS 5.6. If you are curious about this, try
+// deleting this comment and running:
+//     rm -rf packages/*/{dist,tsconfig-build.tsbuildinfo} && yarn build:types
+// If that succeeds, maybe the bug has been fixed.
+// For more information, see:
+// https://khanacademy.slack.com/archives/C01AZ9H8TTQ/p1738883377389969
 import type {
+    getGrapherPublicWidgetOptions,
     getInteractiveGraphPublicWidgetOptions,
     getLabelImagePublicWidgetOptions,
     Hint,
@@ -25,6 +34,7 @@ import type {
     getRadioPublicWidgetOptions,
     getTablePublicWidgetOptions,
     getIFramePublicWidgetOptions,
+    getMatrixPublicWidgetOptions,
     getPlotterPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -496,7 +506,9 @@ export type PublicWidgetOptionsFunction =
     | typeof getSorterPublicWidgetOptions
     | typeof getCSProgramPublicWidgetOptions
     | typeof getNumberLinePublicWidgetOptions
-    | typeof getTablePublicWidgetOptions;
+    | typeof getTablePublicWidgetOptions
+    | typeof getGrapherPublicWidgetOptions
+    | typeof getMatrixPublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
