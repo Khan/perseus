@@ -54,14 +54,12 @@ import type {
 } from "./types";
 import type {I18nContextType} from "../../components/i18n-context";
 import type {PerseusStrings} from "../../strings";
-import type {APIOptions} from "../../types";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
 
 export type MafsGraphProps = {
-    flags?: APIOptions["flags"];
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];

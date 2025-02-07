@@ -27,7 +27,6 @@ import {
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
-import {flags} from "./flags-for-api-options";
 
 import type {DeviceType} from "@khanacademy/perseus";
 import type {
@@ -153,7 +152,7 @@ export const InteractiveGraphNone = (): React.ReactElement => {
     );
 };
 
-export const MafsWithLockedFigures = (): React.ReactElement => {
+export const LockedFigures = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview question={segmentWithLockedFigures} />
     );
@@ -187,7 +186,6 @@ export const WithSaveWarnings = (): React.ReactElement => {
                 ref={editorPageRef}
                 apiOptions={{
                     isMobile: false,
-                    flags,
                 }}
                 previewDevice={previewDevice}
                 onPreviewDeviceChange={(newDevice) =>

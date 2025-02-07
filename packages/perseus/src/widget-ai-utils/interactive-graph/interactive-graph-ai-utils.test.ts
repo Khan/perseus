@@ -1,5 +1,6 @@
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {ApiOptions} from "../../perseus-api";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {
     angleQuestion,
@@ -13,15 +14,12 @@ import {
     segmentQuestion,
     sinusoidQuestion,
 } from "../../widgets/interactive-graphs/interactive-graph.testdata";
-import {trueForAllMafsSupportedGraphTypes} from "../../widgets/interactive-graphs/mafs-supported-graph-types";
 
 import {getPromptJSON} from "./interactive-graph-ai-utils";
 
 import type {UserEvent} from "@testing-library/user-event";
 
-const apiOptions = {
-    flags: {mafs: trueForAllMafsSupportedGraphTypes},
-};
+const apiOptions = ApiOptions.defaults;
 
 describe("InteractiveGraph AI utils", () => {
     let userEvent: UserEvent;

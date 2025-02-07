@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
 
@@ -264,16 +265,7 @@ function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
             content={question.content}
             widgets={question.widgets}
             images={question.images}
-            apiOptions={{
-                flags: {
-                    mafs: {
-                        segment: true,
-                        circle: true,
-                        linear: true,
-                        sinusoid: true,
-                    },
-                },
-            }}
+            apiOptions={ApiOptions.defaults}
         />
     );
 }
