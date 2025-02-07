@@ -7,6 +7,7 @@ export type {
     InteractiveMarkerType,
     Relationship,
     Alignment,
+    ShowSolutions,
 } from "./types";
 export type {ErrorKind} from "./error/errors";
 export type {FunctionTypeMappingKeys} from "./utils/grapher-util";

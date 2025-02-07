@@ -35,7 +35,6 @@ export type Vector2 = Coord; // Same name as Mafs
 export type Range = Interval;
 export type Size = [width: number, height: number];
 export type CollinearTuple = [Vector2, Vector2];
-export type ShowSolutions = "all" | "selected" | "none";
 
 /**
  * A utility type that constructs a widget map from a "registry interface".

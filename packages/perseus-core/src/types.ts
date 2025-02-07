@@ -60,3 +60,5 @@ export type Alignment =
     | "float-left"
     | "float-right"
     | "full-width";
+
+export type ShowSolutions = "all" | "selected" | "none";
