@@ -11,6 +11,7 @@ type SorterPublicWidgetOptions = {
     correct: PerseusSorterWidgetOptions["correct"];
     padding: PerseusSorterWidgetOptions["padding"];
     layout: PerseusSorterWidgetOptions["layout"];
+    isCorrectShuffled: boolean;
 };
 
 /**
@@ -37,6 +38,7 @@ function getSorterPublicWidgetOptions(
         // To maintain compatibility with the original widget options, we are
         // keeping the key the same. Represents initial state of the cards here.
         correct: shuffledCorrect,
+        isCorrectShuffled: true,
     };
 }
 
