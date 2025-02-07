@@ -15,6 +15,7 @@ import {useEffect, useState} from "react";
 import PerseusEditorAccordion from "./components/perseus-editor-accordion";
 
 import type axe from "axe-core";
+import type {CSSProperties} from "react";
 
 const axeCoreEditorOptions = {
     include: {
@@ -48,6 +49,7 @@ const AccessibilityPanel = () => {
             if (isInStorybook) {
                 axeCore.configure({reporter: "v2"});
             }
+            // @ts-expect-error TS2769: No overload matches this call.
             axeCore.run(options).then((results) => {
                 // eslint-disable-next-line no-console
                 console.log(`Accessibility Results: `, results);
@@ -139,7 +141,7 @@ const IssueDetails = (props: IssueProps) => {
     const title = issueType === "violation" ? "Violation" : "Investigate";
     const message = getIssueMessage(issue.nodes);
 
-    const headingStyle = {
+    const headingStyle: CSSProperties = {
         textOverflow: "ellipsis",
         maxWidth: "100%",
         overflow: "hidden",
@@ -190,7 +192,7 @@ const ShowMe = ({issue}: {issue: axe.Result}) => {
         display: "flex",
         alignItems: "center",
     };
-    const showMeOutlineStyle =
+    const showMeOutlineStyle: CSSProperties =
         showMe && issueBoundary !== null
             ? {
                   display: "block",
@@ -204,7 +206,7 @@ const ShowMe = ({issue}: {issue: axe.Result}) => {
               }
             : {display: "none"};
 
-    const showMeToggle =  (
+    const showMeToggle = (
         <LabelSmall style={showMeStyle}>
             <span style={{marginRight: "1em"}}>Show Me</span>
             <Switch checked={showMe} onChange={setShowMe} />
@@ -233,7 +235,9 @@ const getIssueMessage = (nodes: axe.NodeResult[]): string => {
 };
 
 const getIssueElements = (nodes: axe.NodeResult[]): Element[] => {
+    // @ts-expect-error TS2322: Type 'string[]' is not assignable to type 'Element[]'.
     return nodes.flatMap((node) => {
+        // @ts-expect-error TS2769: No overload matches this call.
         return node.target.reduce((elements: Element[], target: string) => {
             const element = document.querySelector(target);
             if (element) {
