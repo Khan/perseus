@@ -9,8 +9,8 @@ describe("getMatcherPublicWidgetOptions", () => {
             labels: ["**Claims**", "**Evidence**"],
             padding: true,
             orderMatters: false,
-            right: ["Stars", "Earth", "Life", "Rapid", "Milky Way"],
             left: ["Fuel", "Plate", "Hydrogen", "Average", "Billion"],
+            right: ["Stars", "Earth", "Life", "Rapid", "Milky Way"],
         };
 
         // Act
@@ -21,8 +21,8 @@ describe("getMatcherPublicWidgetOptions", () => {
             labels: ["**Claims**", "**Evidence**"],
             padding: true,
             orderMatters: false,
-            right: ["Milky Way", "Stars", "Life", "Earth", "Rapid"],
             left: ["Fuel", "Plate", "Hydrogen", "Average", "Billion"],
+            right: ["Milky Way", "Stars", "Life", "Earth", "Rapid"],
         });
         expect(publicWidgetOptions.right).not.toEqual(options.right);
     });
