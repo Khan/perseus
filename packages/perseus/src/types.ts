@@ -35,6 +35,7 @@ import type {
     getTablePublicWidgetOptions,
     getIFramePublicWidgetOptions,
     getMatrixPublicWidgetOptions,
+    getPlotterPublicWidgetOptions,
     getMatcherPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -493,6 +494,7 @@ export type WidgetTransform = (
  * A union type of all the functions that provide public widget options.
  */
 export type PublicWidgetOptionsFunction =
+    | typeof getPlotterPublicWidgetOptions
     | typeof getIFramePublicWidgetOptions
     | typeof getRadioPublicWidgetOptions
     | typeof getMatcherPublicWidgetOptions
