@@ -9,6 +9,8 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 // deleting this comment and running:
 //     rm -rf packages/*/{dist,tsconfig-build.tsbuildinfo} && yarn build:types
 // If that succeeds, maybe the bug has been fixed.
+// For more information, see:
+// https://khanacademy.slack.com/archives/C01AZ9H8TTQ/p1738883377389969
 import type {
     getGrapherPublicWidgetOptions,
     getInteractiveGraphPublicWidgetOptions,
