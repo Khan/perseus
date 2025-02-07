@@ -1,18 +1,13 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {
-    components,
-    Widgets,
-    WIDGET_PROP_DENYLIST,
-    iconTrash,
-} from "@khanacademy/perseus";
+import {Widgets, WIDGET_PROP_DENYLIST, iconTrash} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     upgradeWidgetInfoToLatestVersion,
 } from "@khanacademy/perseus-core";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretRight from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
@@ -24,8 +19,6 @@ import SectionControlButton from "./section-control-button";
 import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
-
-const {InlineIcon} = components;
 
 type WidgetEditorProps = {
     // Unserialized props
@@ -173,9 +166,7 @@ class WidgetEditor extends React.Component<
             <div
                 className={
                     "perseus-widget-editor" +
-                    (this.state.showWidget
-                        ? " perseus-widget-editor-open"
-                        : "")
+                    (this.state.showWidget ? " perseus-widget-editor-open" : "")
                 }
             >
                 <div

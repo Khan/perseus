@@ -1,11 +1,12 @@
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
-import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
-import caretRight from "@phosphor-icons/core/regular/caret-right.svg";
+import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import iconPass from "@phosphor-icons/core/fill/check-circle-fill.svg";
 import iconCaution from "@phosphor-icons/core/fill/warning-fill.svg";
 import iconViolations from "@phosphor-icons/core/fill/warning-octagon-fill.svg";
+import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
+import caretRight from "@phosphor-icons/core/regular/caret-right.svg";
 import * as axeCore from "axe-core";
 import * as React from "react";
 import {useEffect, useState} from "react";
@@ -13,7 +14,6 @@ import {useEffect, useState} from "react";
 import PerseusEditorAccordion from "./components/perseus-editor-accordion";
 
 import type axe from "axe-core";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 
 const axeCoreEditorOptions = {
     include: {
@@ -57,6 +57,7 @@ const AccessibilityPanel = () => {
     };
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         isInStorybook = !!document.getElementById("storybook-root");
         window.addEventListener("message", runAxeCoreOnUpdate);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -146,14 +147,18 @@ const IssueDetails = (props: IssueProps) => {
         overflow: "hidden",
         whiteSpace: "nowrap",
     };
-    console.log(`Issue: `, issue);
+    // console.log(`Issue: `, issue);
 
     return (
         <PerseusEditorAccordion
             animated={true}
             expanded={expanded}
             onToggle={toggleVisibility}
-            header={<LabelLarge style={headingStyle}>{`${title}: ${issue.id}`}</LabelLarge>}
+            header={
+                <LabelLarge
+                    style={headingStyle}
+                >{`${title}: ${issue.id}`}</LabelLarge>
+            }
         >
             Details
         </PerseusEditorAccordion>
