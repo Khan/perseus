@@ -24,7 +24,6 @@ const axeCoreEditorOptions = {
     exclude: {
         fromFrames: ["iframe", '[target="lint-help-window"]'],
     },
-    reporter: "v2",
 };
 
 const axeCoreStorybookOptions = {
@@ -41,21 +40,37 @@ const AccessibilityPanel = () => {
     let isInStorybook = false;
 
     const runAxeCoreOnUpdate = () => {
+        // eslint-disable-next-line no-console
+        console.log(`\nrunAxeCoreOnUpdate`);
+        // eslint-disable-next-line no-console
+        console.log(`   Clearing timeout ID: `, timeoutId);
         clearTimeout(timeoutId);
+        // eslint-disable-next-line no-console
+        console.log(`   Setting new timeout...`);
         timeoutId = setTimeout(() => {
+            // eslint-disable-next-line no-console
+            console.log(`      Executing timeout...`);
             const options = isInStorybook
                 ? axeCoreStorybookOptions
                 : axeCoreEditorOptions;
-            if (isInStorybook) {
-                axeCore.configure({reporter: "v2"});
-            }
+            // eslint-disable-next-line no-console
+            console.log(`      Axe Core options: `, options);
+            axeCore.configure({reporter: "v2"});
+            // eslint-disable-next-line no-console
+            console.log(`      Starting axe-core...`);
             // @ts-expect-error TS2769: No overload matches this call.
-            axeCore.run(options).then((results) => {
-                // eslint-disable-next-line no-console
-                console.log(`Accessibility Results: `, results);
-                setViolations(results.violations);
-                setIncompletes(results.incomplete);
-            });
+            axeCore.run(options).then(
+                (results) => {
+                    // eslint-disable-next-line no-console
+                    console.log(`Accessibility Results: `, results);
+                    setViolations(results.violations);
+                    setIncompletes(results.incomplete);
+                },
+                (error) => {
+                    // eslint-disable-next-line no-console
+                    console.log(`      Error: `, error);
+                },
+            );
         }, 1500);
     };
 
