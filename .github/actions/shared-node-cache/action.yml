@@ -18,6 +18,7 @@ runs:
         - uses: pnpm/action-setup@v4
           name: Install pnpm
           with:
+              version: 10 # must match what's in package.json
               run_install: false
 
         - name: Use Node.js ${{ inputs.node-version }}
