@@ -139,5 +139,5 @@ export {default as getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-u
 export {default as getMatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
 export {default as getPlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
 export {default as getMatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
-export {matcherShuffle} from "./widgets/matcher/matcher-util";
+export {shuffleMatcher} from "./widgets/matcher/matcher-util";
 export {default as CoreUtil} from "./utils/random_utils";

@@ -65,7 +65,7 @@ function getSeedFunctionFromHashes(
 }
 
 // TODO(LEMS-2841): Should be able to remove once getPublicWidgetOptions is hooked up
-export const matcherShuffle = (
+export const shuffleMatcher = (
     props: MatcherInfo,
 ): {left: ReadonlyArray<string>; right: ReadonlyArray<string>} => {
     // Use the same random() function to shuffle both columns sequentially
@@ -84,7 +84,7 @@ export const matcherShuffle = (
     return {left, right};
 };
 
-function matcherShuffleFromHash(
+function shuffleMatcherWithHash(
     data: MatcherShuffleInfo,
     seed: number,
 ): {left: ReadonlyArray<string>; right: ReadonlyArray<string>} {
@@ -126,7 +126,7 @@ function getMatcherPublicWidgetOptions(
     const getSeed = getSeedFunctionFromHashes(...hashes);
     const seedFromColumns = getSeed();
 
-    const {left, right} = matcherShuffleFromHash(options, seedFromColumns);
+    const {left, right} = shuffleMatcherWithHash(options, seedFromColumns);
 
     return {
         ...options,
