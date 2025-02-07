@@ -74,8 +74,8 @@ function getMatcherPublicWidgetOptions(
     options: PerseusMatcherWidgetOptions,
 ): MatcherPublicWidgetOptions {
     const columnsToString = options.left.join("") + options.right.join("");
-    const hashes = CoreUtil.getHashes(columnsToString);
-    const getSeed = CoreUtil.getSeedFunctionFromHashes(...hashes);
+    const hashes = CoreUtil.getHash(columnsToString);
+    const getSeed = CoreUtil.createRandomNumberGenerator(...hashes);
     const seedFromColumns = getSeed();
 
     const {left, right} = matcherShuffleFromHash(options, seedFromColumns);

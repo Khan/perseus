@@ -121,8 +121,8 @@ export const CoreUtil = {
     seededRNG,
     shuffle,
     random,
-    getHashes: getHash,
-    getSeedFunctionFromHashes: createRandomNumberGenerator,
+    getHash,
+    createRandomNumberGenerator,
 } as const;
 
 export default CoreUtil;
