@@ -20,7 +20,7 @@ type SorterPublicWidgetOptions = {
 function getSorterPublicWidgetOptions(
     options: PerseusSorterWidgetOptions,
 ): SorterPublicWidgetOptions {
-    const correctToString = options.correct.join("");
+    const correctToString = JSON.stringify(options.correct);
     const hashes = CoreUtil.getHashes(correctToString);
     const getSeed = CoreUtil.getSeedFunctionFromHashes(...hashes);
     const seedFromCorrect = getSeed();
