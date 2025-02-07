@@ -104,7 +104,7 @@ function EditorPageWithStorybookPreview(props: Props) {
                         style={styles.closeButton}
                     />
 
-                    <View style={styles.panelInner}>
+                    <View id="preview-panel" style={styles.panelInner}>
                         {/* Question preview */}
                         <Renderer
                             strings={mockStrings}

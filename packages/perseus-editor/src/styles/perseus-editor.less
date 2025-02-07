@@ -211,13 +211,7 @@
         border-radius: 0 0 @editorBorderRadius @editorBorderRadius;
         border-top: @editorBorder;
         padding: @editorPadding;
-        transition: all 0s;
-
-        &.enter {
-        }
-        &.leave {
-            display: none;
-        }
+        overflow: hidden;
 
         .inline-options {
             float: inline-start; /* flexbox and inline-block don't work on <legend> elements, so going old-school here */
@@ -245,6 +239,36 @@
         align-self: center;
         padding-right: 0.5em;
     }
+}
+
+.perseus-widget-editor-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: 0.5s;
+
+    .perseus-widget-editor-content {
+        transition: all 0.5s, visibility 0.5s step-end;
+        visibility: hidden;
+    }
+}
+
+.perseus-widget-editor:not(.perseus-widget-editor-open) .perseus-widget-editor-content {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.perseus-widget-editor-open .perseus-widget-editor-panel {
+    grid-template-rows: 1fr;
+
+    .perseus-widget-editor-content {
+        transition: all 0.5s, visibility 0s;
+        visibility: visible;
+    }
+}
+
+.perseus-widget-editor-title-id {
+    display: flex;
+    align-items: center;
 }
 
 .perseus-widget-editor-title-id > svg {
