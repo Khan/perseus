@@ -21,7 +21,8 @@ type MatcherShuffleInfo = {
  *
  * Using the implementation found at:
  * https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript
- */ function getHashes(str: string): [number, number, number, number] {
+ */
+function getHashes(str: string): [number, number, number, number] {
     let h1 = 1779033703;
     let h2 = 3144134277;
     let h3 = 1013904242;
