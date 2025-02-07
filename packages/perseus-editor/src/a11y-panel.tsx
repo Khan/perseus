@@ -147,7 +147,6 @@ const IssueDetails = (props: IssueProps) => {
         overflow: "hidden",
         whiteSpace: "nowrap",
     };
-
     // console.log(`Issue: `, issue);
 
     return (
