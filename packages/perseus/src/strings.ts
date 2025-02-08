@@ -134,8 +134,8 @@ export type PerseusStrings = {
     simulationLocaleWarning: string;
     selectAnAnswer: string;
     // The following strings are used for interactive graph SR descriptions.
-    xAxisPrefix: string;
-    yAxisPrefix: string;
+    xAxis: string;
+    yAxis: string;
     addPoint: string;
     removePoint: string;
     graphKeyboardPrompt: string;
@@ -632,8 +632,8 @@ export const strings = {
     // translation tickets after all interactive graph SR strings have
     // been finalized. Remove this comment after the tickets have been
     // created.
-    xAxisPrefix: "X-axis",
-    yAxisPrefix: "Y-axis",
+    xAxis: "X-axis",
+    yAxis: "Y-axis",
     srPointAtCoordinates: "Point %(num)s at %(x)s comma %(y)s.",
     srCircleGraph: "A circle on a coordinate plane.",
     srCircleShape:
@@ -889,8 +889,8 @@ export const mockStrings: PerseusStrings = {
     selectAnAnswer: "Select an answer",
 
     // The following strings are used for interactive graph SR descriptions.
-    xAxisPrefix: "X-axis",
-    yAxisPrefix: "Y-axis",
+    xAxis: "X-axis",
+    yAxis: "Y-axis",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     addPoint: "Add Point",
     removePoint: "Remove Point",

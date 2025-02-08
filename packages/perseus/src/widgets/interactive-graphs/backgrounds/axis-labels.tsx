@@ -37,7 +37,7 @@ export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
     return (
         <>
             <span
-                aria-label={strings.xAxisPrefix}
+                aria-label={strings.xAxis}
                 style={{
                     position: "absolute",
                     left: x1,
@@ -49,7 +49,7 @@ export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
                 <TeX>{replaceOutsideTeX(xAxisLabelText)}</TeX>
             </span>
             <span
-                aria-label={strings.yAxisPrefix}
+                aria-label={strings.yAxis}
                 style={{
                     position: "absolute",
                     left: x2,
