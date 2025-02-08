@@ -221,7 +221,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         {(props.markings === "graph" ||
                             props.markings === "axes") && (
                             <>
-                                <AxisLabels />
+                                <AxisLabels i18n={i18n} />
                             </>
                         )}
                         <View
