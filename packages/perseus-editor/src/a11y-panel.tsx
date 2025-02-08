@@ -39,6 +39,32 @@ const AccessibilityPanel = () => {
     let timeoutId = setTimeout(() => {});
     let isInStorybook = false;
 
+    const runAxeCore = () => {
+        // eslint-disable-next-line no-console
+        console.log(`      Executing timeout...`);
+        const options = isInStorybook
+            ? axeCoreStorybookOptions
+            : axeCoreEditorOptions;
+        // eslint-disable-next-line no-console
+        console.log(`      Axe Core options: `, options);
+        axeCore.configure({reporter: "v2"});
+        // eslint-disable-next-line no-console
+        console.log(`      Starting axe-core...`);
+        // @ts-expect-error TS2769: No overload matches this call.
+        axeCore.run(options).then(
+            (results) => {
+                // eslint-disable-next-line no-console
+                console.log(`Accessibility Results: `, results);
+                setViolations(results.violations);
+                setIncompletes(results.incomplete);
+            },
+            (error) => {
+                // eslint-disable-next-line no-console
+                console.log(`      Error: `, error);
+            },
+        );
+    };
+
     const runAxeCoreOnUpdate = () => {
         // eslint-disable-next-line no-console
         console.log(`\nrunAxeCoreOnUpdate`);
@@ -47,37 +73,17 @@ const AccessibilityPanel = () => {
         clearTimeout(timeoutId);
         // eslint-disable-next-line no-console
         console.log(`   Setting new timeout...`);
-        timeoutId = setTimeout(() => {
-            // eslint-disable-next-line no-console
-            console.log(`      Executing timeout...`);
-            const options = isInStorybook
-                ? axeCoreStorybookOptions
-                : axeCoreEditorOptions;
-            // eslint-disable-next-line no-console
-            console.log(`      Axe Core options: `, options);
-            axeCore.configure({reporter: "v2"});
-            // eslint-disable-next-line no-console
-            console.log(`      Starting axe-core...`);
-            // @ts-expect-error TS2769: No overload matches this call.
-            axeCore.run(options).then(
-                (results) => {
-                    // eslint-disable-next-line no-console
-                    console.log(`Accessibility Results: `, results);
-                    setViolations(results.violations);
-                    setIncompletes(results.incomplete);
-                },
-                (error) => {
-                    // eslint-disable-next-line no-console
-                    console.log(`      Error: `, error);
-                },
-            );
-        }, 1500);
+        timeoutId = setTimeout(runAxeCore, 1500);
     };
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         isInStorybook = !!document.getElementById("storybook-root");
-        window.addEventListener("message", runAxeCoreOnUpdate);
+        if (isInStorybook) {
+            window.addEventListener("message", runAxeCoreOnUpdate);
+        } else {
+            setInterval(runAxeCore, 1500);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
