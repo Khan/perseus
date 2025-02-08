@@ -6,9 +6,6 @@ inputs:
     node-version:
         description: "Node version to use"
         required: true
-    cache-bust:
-        description: "A unique string to bust the cache"
-        required: true
 
 # The steps this action runs.
 # The order of the two steps below needs to be maintained.
