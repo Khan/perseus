@@ -38,8 +38,30 @@ const AccessibilityPanel = () => {
     // Variables needed within the setTimeout function (useState doesn't work within setTimeout)
     let timeoutId = setTimeout(() => {});
     let isInStorybook = false;
+    let warningShown = false;
+
+    const injectAxeCore = () => {
+        const iFrame = document.querySelector("iframe");
+        if (iFrame && !iFrame.contentWindow.axe) {
+            // eslint-disable-next-line no-console
+            console.log(`      Axe-Core missing from iFrame. Adding it now...`);
+            iFrame.contentWindow.eval(
+                `import('https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.2/axe.min.js')`,
+            );
+            warningShown = false;
+        } else if (!warningShown) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                `Unable to locate preview iframe element. Accessibility test not attempted.`,
+            );
+            warningShown = true;
+        }
+    };
 
     const runAxeCore = () => {
+        if (!isInStorybook) {
+            injectAxeCore();
+        }
         // eslint-disable-next-line no-console
         console.log(`      Executing timeout...`);
         const options = isInStorybook
@@ -82,6 +104,7 @@ const AccessibilityPanel = () => {
         if (isInStorybook) {
             window.addEventListener("message", runAxeCoreOnUpdate);
         } else {
+            injectAxeCore();
             setInterval(runAxeCore, 1500);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
