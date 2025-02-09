@@ -42,10 +42,12 @@ const AccessibilityPanel = () => {
 
     const injectAxeCore = () => {
         const iFrame = document.querySelector("iframe");
-        if (iFrame && !iFrame.contentWindow.axe) {
+        // @ts-expect-error TS2339: Property 'axe' does not exist on type 'Window'
+        if (iFrame?.contentWindow && !iFrame.contentWindow.axe) {
             // eslint-disable-next-line no-console
             console.log(`      Axe-Core missing from iFrame. Adding it now...`);
-            iFrame.contentWindow.eval(
+            // @ts-expect-error TS2339: Property 'eval' does not exist on type 'Window'
+            iFrame.contentWindow?.eval(
                 `import('https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.2/axe.min.js')`,
             );
             warningShown = false;
