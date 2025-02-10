@@ -235,19 +235,33 @@ const IssueDetails = (props: IssueProps) => {
 const ShowMe = ({issue}: {issue: axe.Result}) => {
     const [showMe, setShowMe] = useState(false);
     const issueElements = getIssueElements(issue.nodes);
+    // eslint-disable-next-line no-console
+    console.log(`\nShow Me`);
+    // eslint-disable-next-line no-console
+    console.log(`   Issue Elements: `, issueElements);
     const issueBoundary = issueElements.reduce(
         (boundary, element, index) => {
             const elementBoundary = element.getBoundingClientRect();
+            // eslint-disable-next-line no-console
+            console.log(`      Initial Boundary: `, boundary);
+            // eslint-disable-next-line no-console
+            console.log(`      Element: `, element);
+            // eslint-disable-next-line no-console
+            console.log(`      Element Boundary: `, elementBoundary);
             boundary.top += elementBoundary.top;
             boundary.left += elementBoundary.left;
             if (index === issueElements.length - 1) {
                 boundary.height = elementBoundary.height;
                 boundary.width = elementBoundary.width;
             }
+            // eslint-disable-next-line no-console
+            console.log(`      Adjusted Boundary: `, boundary);
             return boundary;
         },
         {top: 0, left: 0, height: 0, width: 0},
     );
+    // eslint-disable-next-line no-console
+    console.log(`      Final Boundary: `, issueBoundary);
     const showMeStyle = {
         marginTop: "1em",
         fontWeight: "bold",
