@@ -520,6 +520,8 @@ export type PerseusExpressionWidgetOptions = {
     // NOTE: This isn't listed in perseus-format.js or perseus_data.go, but
     // appears in item data in the datastore.
     buttonsVisible?: "always" | "never" | "focused";
+    // TODO this is really ReadonlyArray<Key>
+    extraKeys?: ReadonlyArray<string>;
 };
 
 export const PerseusExpressionAnswerFormConsidered = [

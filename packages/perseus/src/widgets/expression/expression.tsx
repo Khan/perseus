@@ -5,6 +5,7 @@ import {
     expressionLogic,
     type PerseusExpressionWidgetOptions,
     getExpressionPublicWidgetOptions,
+    ExpressionPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -436,7 +437,11 @@ export default {
     displayName: "Expression / Equation",
     accessible: true,
     widget: ExpressionWithDependencies,
-    transform: (widgetOptions: PerseusExpressionWidgetOptions): RenderProps => {
+    transform: (
+        widgetOptions:
+            | PerseusExpressionWidgetOptions
+            | ExpressionPublicWidgetOptions,
+    ): RenderProps => {
         const {
             times,
             functions,
@@ -444,11 +449,16 @@ export default {
             buttonsVisible,
             visibleLabel,
             ariaLabel,
+            extraKeys,
         } = widgetOptions;
         return {
             keypadConfiguration: {
                 keypadType: KeypadType.EXPRESSION,
-                extraKeys: deriveExtraKeys(widgetOptions),
+                extraKeys:
+                    (extraKeys as ReadonlyArray<Key>) ||
+                    deriveExtraKeys(
+                        widgetOptions as PerseusExpressionWidgetOptions,
+                    ),
                 times: widgetOptions.times,
             },
             times,

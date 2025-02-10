@@ -4,13 +4,14 @@ import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
  * For details on the individual options, see the
  * PerseusExpressionWidgetOptions type
  */
-type ExpressionPublicWidgetOptions = {
+export type ExpressionPublicWidgetOptions = {
     buttonSets: PerseusExpressionWidgetOptions["buttonSets"];
     functions: PerseusExpressionWidgetOptions["functions"];
     times: PerseusExpressionWidgetOptions["times"];
     visibleLabel?: PerseusExpressionWidgetOptions["visibleLabel"];
     ariaLabel?: PerseusExpressionWidgetOptions["ariaLabel"];
     buttonsVisible?: PerseusExpressionWidgetOptions["buttonsVisible"];
+    extraKeys?: PerseusExpressionWidgetOptions["extraKeys"];
 };
 
 /**
