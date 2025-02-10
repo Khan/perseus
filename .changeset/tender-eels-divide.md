@@ -3,4 +3,4 @@
 "@khanacademy/perseus-core": minor
 ---
 
-Update Sorter's public widget option function to use custom seed generation for shuffle
+Update Sorter's public widget option function to use Random.math() for shuffle
