@@ -59,6 +59,11 @@ const config: StorybookConfig = {
     viteFinal: async (config, {configType}) => {
         return mergeConfig(config, {
             ...viteConfig,
+            define: {
+                // This is used to determine if we are running in a
+                // Dev/Storybook environment.
+                "process.env.STORYBOOK": JSON.stringify(true),
+            },
             build: {
                 // Vite 5 has a bug with how it builds `url(data: )` urls when
                 // it inlines SVGs. Given this is mostly used for static

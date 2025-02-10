@@ -5,5 +5,10 @@ import {mergeConfig} from "vite";
 import viteConfig from "../vite.config";
 
 export default mergeConfig(viteConfig, {
+    define: {
+        // This is used to determine if we are running in a
+        // Dev/Storybook environment.
+        "process.env.STORYBOOK": JSON.stringify(true),
+    },
     plugins: [react({jsxRuntime: "automatic"})],
 });
