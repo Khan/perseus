@@ -69,19 +69,26 @@ const LockedFunctionSettings = (props: Props) => {
     // Tracking the string value of domain/range constraints to handle interim state of
     //     entering a negative value, as well as representing Infinity as an empty string.
     // This variable is used when specifying the values of the input fields.
-    const [domainEntries, setDomainEntries] = useState([
-        domain && domain[0] !== -Infinity ? domain[0].toString() : "",
-        domain && domain[1] !== Infinity ? domain[1].toString() : "",
-    ]);
+    const getDomainStringValues = (domain): [string, string] => {
+        return [
+            domain && domain[0] && domain[0] !== -Infinity
+                ? domain[0].toString()
+                : "",
+            domain && domain[1] && domain[1] !== Infinity
+                ? domain[1].toString()
+                : "",
+        ];
+    };
+
+    const [domainEntries, setDomainEntries] = useState(
+        getDomainStringValues(domain),
+    );
 
     const [exampleCategory, setExampleCategory] = useState("");
 
     useEffect(() => {
         // "useEffect" used to maintain parity between domain/range constraints and their string representation.
-        setDomainEntries([
-            domain && domain[0] !== -Infinity ? domain[0].toString() : "",
-            domain && domain[1] !== Infinity ? domain[1].toString() : "",
-        ]);
+        setDomainEntries(getDomainStringValues(domain));
     }, [domain]);
 
     /**
@@ -122,7 +129,7 @@ const LockedFunctionSettings = (props: Props) => {
             dedicated code to convert empty to Infinity.
      */
     function handleDomainChange(limitIndex: number, newValueString: string) {
-        const newDomainEntries = [...domainEntries];
+        const newDomainEntries = [...domainEntries] satisfies [string, string];
         newDomainEntries[limitIndex] = newValueString;
         setDomainEntries(newDomainEntries);
         const newDomain: Interval = domain
