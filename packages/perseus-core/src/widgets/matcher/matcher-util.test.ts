@@ -3,14 +3,14 @@ import getMatcherPublicWidgetOptions from "./matcher-util";
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
 
 describe("getMatcherPublicWidgetOptions", () => {
-    it("should return shuffled right array when order doesn't matter", () => {
+    it("should return a shuffled right array when order doesn't matter to remove the correct order information", () => {
         // Arrange
         const options: PerseusMatcherWidgetOptions = {
             labels: ["**Claims**", "**Evidence**"],
             padding: true,
             orderMatters: false,
-            right: ["Stars", "Earth", "Life", "Rapid", "Milky Way"],
             left: ["Fuel", "Plate", "Hydrogen", "Average", "Billion"],
+            right: ["Stars", "Earth", "Life", "Rapid", "Milky Way"],
         };
 
         // Act
@@ -21,14 +21,14 @@ describe("getMatcherPublicWidgetOptions", () => {
         expect(publicWidgetOptions.right).not.toEqual(options.right);
     });
 
-    it("should return shuffled left and right arrays when order matters", () => {
+    it("should return shuffled left and right arrays when order matters to remove the correct order information", () => {
         // Arrange
         const options: PerseusMatcherWidgetOptions = {
             labels: ["**Claims**", "**Evidence**"],
             padding: true,
             orderMatters: true,
-            right: ["Stars", "Earth", "Life", "Rapid", "Milky Way"],
             left: ["Fuel", "Plate", "Hydrogen", "Average", "Billion"],
+            right: ["Stars", "Earth", "Life", "Rapid", "Milky Way"],
         };
 
         // Act

@@ -1,6 +1,6 @@
 import {
     getMatcherPublicWidgetOptions,
-    matcherShuffle,
+    shuffleMatcher,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
@@ -165,7 +165,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
             on the server.
                 const {left, right} = this.props;
          */
-        const {left, right} = matcherShuffle(this.props);
+        const {left, right} = shuffleMatcher(this.props);
 
         const showLabels = _.any(this.props.labels);
         const constraints = {

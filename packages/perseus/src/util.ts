@@ -1,10 +1,10 @@
-import {type Range} from "@khanacademy/perseus-core";
 import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import _ from "underscore";
 
 import * as GraphieUtil from "./util.graphie";
 
 import type {PerseusStrings} from "./strings";
+import type {Range} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
 type WordPosition = {

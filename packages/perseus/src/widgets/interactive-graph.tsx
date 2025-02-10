@@ -1960,33 +1960,25 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     render() {
-        // Mafs shim
-        const mafsFlags = this.props.apiOptions?.flags?.["mafs"];
-        if (shouldUseMafs(mafsFlags, this.props.graph)) {
-            const box = getInteractiveBoxFromSizeClass(
-                this.props.containerSizeClass,
-            );
-            const gridStep =
-                this.props.gridStep ||
-                Util.getGridStep(this.props.range, this.props.step, box[0]);
-            const snapStep =
-                this.props.snapStep || Util.snapStepFromGridStep(gridStep);
+        const box = getInteractiveBoxFromSizeClass(
+            this.props.containerSizeClass,
+        );
+        const gridStep =
+            this.props.gridStep ||
+            Util.getGridStep(this.props.range, this.props.step, box[0]);
+        const snapStep =
+            this.props.snapStep || Util.snapStepFromGridStep(gridStep);
 
-            return (
-                <StatefulMafsGraph
-                    {...this.props}
-                    flags={this.props.apiOptions?.flags}
-                    ref={this.mafsRef}
-                    gridStep={gridStep}
-                    snapStep={snapStep}
-                    box={box}
-                    showTooltips={!!this.props.showTooltips}
-                    readOnly={this.props.apiOptions?.readOnly}
-                />
-            );
-        }
         return (
-            <LegacyInteractiveGraph ref={this.legacyGraphRef} {...this.props} />
+            <StatefulMafsGraph
+                {...this.props}
+                ref={this.mafsRef}
+                gridStep={gridStep}
+                snapStep={snapStep}
+                box={box}
+                showTooltips={!!this.props.showTooltips}
+                readOnly={this.props.apiOptions?.readOnly}
+            />
         );
     }
 
@@ -2484,32 +2476,6 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 }
 
-// exported for testing
-export function shouldUseMafs(
-    mafsFlags: Record<string, boolean> | undefined | boolean,
-    graph: PerseusGraphType,
-): boolean {
-    if (typeof mafsFlags === "boolean" || typeof mafsFlags === "undefined") {
-        return false;
-    }
-
-    switch (graph.type) {
-        case "none":
-            return true;
-        case "point":
-            if (graph.numPoints === UNLIMITED) {
-                return Boolean(mafsFlags["unlimited-point"]);
-            }
-            return Boolean(mafsFlags["point"]);
-        case "polygon":
-            if (graph.numSides === UNLIMITED) {
-                return Boolean(mafsFlags["unlimited-polygon"]);
-            }
-            return Boolean(mafsFlags["polygon"]);
-        default:
-            return Boolean(mafsFlags[graph.type]);
-    }
-}
 // We don't need to change any of the original props for static mode
 const staticTransform = _.identity;
 

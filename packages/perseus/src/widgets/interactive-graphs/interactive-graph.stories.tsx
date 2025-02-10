@@ -2,6 +2,7 @@ import * as React from "react";
 
 import {Flipbook} from "../../../../../dev/flipbook";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ApiOptions} from "../../perseus-api";
 
 import {
     angleQuestion,
@@ -27,22 +28,10 @@ import {
     unlimitedPolygonQuestion,
 } from "./interactive-graph.testdata";
 
-import type {APIOptions} from "../../types";
+const defaultApiOptions = ApiOptions.defaults;
 
 export default {
     title: "Perseus/Widgets/Interactive Graph",
-};
-
-const enableMafs: APIOptions = {
-    flags: {
-        mafs: {
-            segment: true,
-            polygon: true,
-            "unlimited-polygon": true,
-            "unlimited-point": true,
-            angle: true,
-        },
-    },
 };
 
 type StoryArgs = Record<any, any>;
@@ -71,40 +60,12 @@ export const Point = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={pointQuestion} />
 );
 
-export const PointWithMafs = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={{...enableMafs}}
-        question={pointQuestion}
-    />
-);
-
 export const Polygon = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={polygonQuestion} />
 );
 
-export const PolygonWithMafs = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={{...enableMafs}}
-        question={polygonQuestion}
-    />
-);
-
-export const UnlimitedPolygonWithMafs = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={{...enableMafs}}
-        question={unlimitedPolygonQuestion}
-    />
-);
-
-export const PolygonWithMafsReadOnly = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={{...enableMafs, readOnly: true}}
-        question={polygonQuestion}
-    />
+export const UnlimitedPolygon = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI question={unlimitedPolygonQuestion} />
 );
 
 export const Ray = (args: StoryArgs): React.ReactElement => (
@@ -115,84 +76,92 @@ export const Segment = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={segmentQuestion} />
 );
 
-export const SegmentWithMafsAndLockedPoints = (
-    args: StoryArgs,
-): React.ReactElement => (
+export const Sinusoid = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI question={sinusoidQuestion} />
+);
+
+export const LockedPoints = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{...enableMafs}}
+        apiOptions={defaultApiOptions}
         question={segmentWithLockedPointsQuestion}
     />
 );
 
-export const SegmentWithMafsAndLockedLines = (
-    args: StoryArgs,
-): React.ReactElement => (
+export const LockedLines = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{...enableMafs}}
+        apiOptions={defaultApiOptions}
         question={segmentWithLockedLineQuestion}
     />
 );
 
-export const AllLockedLineSegments = (args: StoryArgs): React.ReactElement => (
+export const AllLockedLineSegmentStyles = (
+    args: StoryArgs,
+): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{...enableMafs}}
+        apiOptions={defaultApiOptions}
         question={segmentWithAllLockedLineSegmentVariations}
     />
 );
 
-export const AllLockedLines = (args: StoryArgs): React.ReactElement => (
+export const AllLockedLineStyles = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{...enableMafs}}
+        apiOptions={defaultApiOptions}
         question={segmentWithAllLockedLineVariations}
     />
 );
 
-export const AllLockedRays = (args: StoryArgs): React.ReactElement => (
+export const AllLockedRayStyles = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{...enableMafs}}
+        apiOptions={defaultApiOptions}
         question={segmentWithAllLockedRayVariations}
     />
 );
 
 export const LockedVector = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{...enableMafs}}
+        apiOptions={defaultApiOptions}
         question={segmentWithLockedVectors}
     />
 );
 
 export const LockedEllipse = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{...enableMafs}}
+        apiOptions={defaultApiOptions}
         question={segmentWithLockedEllipses}
     />
 );
 
 export const LockedPolygon = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{...enableMafs}}
+        apiOptions={defaultApiOptions}
         question={segmentWithLockedPolygons}
     />
 );
 
 export const LockedLabel = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{...enableMafs}}
+        apiOptions={defaultApiOptions}
         question={segmentWithLockedLabels}
     />
 );
 
-export const Sinusoid = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={sinusoidQuestion} />
+/**
+ * Read only mode appears after a question is answered.
+ */
+export const PolygonReadOnly = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI
+        apiOptions={{...defaultApiOptions, readOnly: true}}
+        question={polygonQuestion}
+    />
 );
 
-export const AngleWithMafs = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI apiOptions={enableMafs} question={angleQuestion} />
-);
-
+/**
+ * Content authors can specify if they want a graph to be static, which
+ * makes the graph non-interactive. This is generally used for hints.
+ */
 export const StaticGraph = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={enableMafs}
+        apiOptions={defaultApiOptions}
         question={staticGraphQuestion}
     />
 );
@@ -201,7 +170,7 @@ export const StaticGraphWithAnotherWidget = (
     args: StoryArgs,
 ): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={enableMafs}
+        apiOptions={defaultApiOptions}
         question={staticGraphQuestionWithAnotherWidget()}
     />
 );

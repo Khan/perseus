@@ -1,5 +1,6 @@
 /* Note(tamara): Brought over from the perseus package packages/perseus/src/util.ts file.
-May be useful to bring other perseus package utilities here. */
+    May be useful to bring other perseus package utilities here. Contains utility functions
+    and types used across multiple widgets for randomization and shuffling. */
 
 import _ from "underscore";
 
@@ -22,7 +23,7 @@ const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
 };
 
 // Shuffle an array using a given random seed or function.
-// If `ensurePermuted` is true, the input and ouput are guaranteed to be
+// If `ensurePermuted` is true, the input and output are guaranteed to be
 // distinct permutations.
 function shuffle<T>(
     array: ReadonlyArray<T>,

@@ -17,7 +17,7 @@ type MatcherShuffleInfo = {
 };
 
 // TODO(LEMS-2841): Should be able to remove once getPublicWidgetOptions is hooked up
-export const matcherShuffle = (
+export const shuffleMatcher = (
     props: MatcherInfo,
 ): {left: ReadonlyArray<string>; right: ReadonlyArray<string>} => {
     // Use the same random() function to shuffle both columns sequentially
@@ -36,7 +36,8 @@ export const matcherShuffle = (
     return {left, right};
 };
 
-function matcherShuffleFromRandom(data: MatcherShuffleInfo): {
+// TODO(LEMS-2841): Can shorten to shuffleMatcher after above function removed
+function shuffleMatcherWithRandom(data: MatcherShuffleInfo): {
     left: ReadonlyArray<string>;
     right: ReadonlyArray<string>;
 } {
@@ -81,7 +82,7 @@ type MatcherPublicWidgetOptions = {
 function getMatcherPublicWidgetOptions(
     options: PerseusMatcherWidgetOptions,
 ): MatcherPublicWidgetOptions {
-    const {left, right} = matcherShuffleFromRandom(options);
+    const {left, right} = shuffleMatcherWithRandom(options);
 
     return {
         ...options,

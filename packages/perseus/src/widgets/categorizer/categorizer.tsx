@@ -95,8 +95,7 @@ export class Categorizer
             // @ts-expect-error - TS4104 - The type 'readonly (string | number)[][]' is 'readonly' and cannot be assigned to the mutable type '(string | number)[][]'.
             indexedItems = CoreUtil.shuffle(
                 indexedItems,
-                // @ts-expect-error - TS2345 - Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | RNG'.
-                this.props.problemNum,
+                this.props.problemNum as any,
             );
         }
 
