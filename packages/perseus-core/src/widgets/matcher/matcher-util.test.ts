@@ -17,8 +17,8 @@ describe("getMatcherPublicWidgetOptions", () => {
         const publicWidgetOptions = getMatcherPublicWidgetOptions(options);
 
         // Assert
-        expect(publicWidgetOptions.right).not.toEqual(options.right);
         expect(publicWidgetOptions.left).toEqual(options.left);
+        expect(publicWidgetOptions.right).not.toEqual(options.right);
     });
 
     it("should return shuffled left and right arrays when order matters to remove the correct order information", () => {
@@ -35,7 +35,7 @@ describe("getMatcherPublicWidgetOptions", () => {
         const publicWidgetOptions = getMatcherPublicWidgetOptions(options);
 
         // Assert
-        expect(publicWidgetOptions.right).not.toEqual(options.right);
         expect(publicWidgetOptions.left).not.toEqual(options.left);
+        expect(publicWidgetOptions.right).not.toEqual(options.right);
     });
 });
