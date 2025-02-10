@@ -21,14 +21,9 @@ type SorterPublicWidgetOptions = {
 function getSorterPublicWidgetOptions(
     options: PerseusSorterWidgetOptions,
 ): SorterPublicWidgetOptions {
-    const correctToString = JSON.stringify(options.correct);
-    const hashes = CoreUtil.getHash(correctToString);
-    const getSeed = CoreUtil.createRandomNumberGenerator(...hashes);
-    const seedFromCorrect = getSeed();
-
     const shuffledCorrect = CoreUtil.shuffle(
         options.correct,
-        seedFromCorrect,
+        Math.random() * 100,
         /* ensurePermuted */ true,
     );
 

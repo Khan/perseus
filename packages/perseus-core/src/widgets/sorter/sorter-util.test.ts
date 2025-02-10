@@ -15,11 +15,6 @@ describe("getSorterPublicWidgetOptions", () => {
         const publicWidgetOptions = getSorterPublicWidgetOptions(options);
 
         // Assert
-        expect(publicWidgetOptions).toEqual({
-            correct: ["$55$ grams", "$15$ grams", "$0.005$ kilograms"],
-            layout: "horizontal",
-            padding: true,
-        });
         expect(publicWidgetOptions.correct).not.toEqual(options.correct);
     });
 });
