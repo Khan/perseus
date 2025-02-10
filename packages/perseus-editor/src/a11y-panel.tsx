@@ -38,6 +38,7 @@ const AccessibilityPanel = () => {
     // Variables needed within the setTimeout function (useState doesn't work within setTimeout)
     let timeoutId = setTimeout(() => {});
     let isInStorybook = false;
+    let axeIsInstalled = false;
     let warningShown = false;
 
     const injectAxeCore = () => {
@@ -58,35 +59,39 @@ const AccessibilityPanel = () => {
             );
             warningShown = true;
         }
+        // @ts-expect-error TS2339: Property 'axe' does not exist on type 'Window'
+        axeIsInstalled = iFrame?.contentWindow && iFrame.contentWindow.axe;
     };
 
     const runAxeCore = () => {
         if (!isInStorybook) {
             injectAxeCore();
         }
-        // eslint-disable-next-line no-console
-        console.log(`      Executing timeout...`);
-        const options = isInStorybook
-            ? axeCoreStorybookOptions
-            : axeCoreEditorOptions;
-        // eslint-disable-next-line no-console
-        console.log(`      Axe Core options: `, options);
-        axeCore.configure({reporter: "v2"});
-        // eslint-disable-next-line no-console
-        console.log(`      Starting axe-core...`);
-        // @ts-expect-error TS2769: No overload matches this call.
-        axeCore.run(options).then(
-            (results) => {
-                // eslint-disable-next-line no-console
-                console.log(`Accessibility Results: `, results);
-                setViolations(results.violations);
-                setIncompletes(results.incomplete);
-            },
-            (error) => {
-                // eslint-disable-next-line no-console
-                console.log(`      Error: `, error);
-            },
-        );
+        if (axeIsInstalled) {
+            // eslint-disable-next-line no-console
+            console.log(`      Executing timeout...`);
+            const options = isInStorybook
+                ? axeCoreStorybookOptions
+                : axeCoreEditorOptions;
+            // eslint-disable-next-line no-console
+            console.log(`      Axe Core options: `, options);
+            axeCore.configure({reporter: "v2"});
+            // eslint-disable-next-line no-console
+            console.log(`      Starting axe-core...`);
+            // @ts-expect-error TS2769: No overload matches this call.
+            axeCore.run(options).then(
+                (results) => {
+                    // eslint-disable-next-line no-console
+                    console.log(`Accessibility Results: `, results);
+                    setViolations(results.violations);
+                    setIncompletes(results.incomplete);
+                },
+                (error) => {
+                    // eslint-disable-next-line no-console
+                    console.log(`      Error: `, error);
+                },
+            );
+        }
     };
 
     const runAxeCoreOnUpdate = () => {
@@ -105,6 +110,8 @@ const AccessibilityPanel = () => {
         isInStorybook = !!document.getElementById("storybook-root");
         if (isInStorybook) {
             window.addEventListener("message", runAxeCoreOnUpdate);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            axeIsInstalled = true;
         } else {
             injectAxeCore();
             setInterval(runAxeCore, 1500);
@@ -282,15 +289,16 @@ const getIssueMessage = (nodes: axe.NodeResult[]): string => {
 
 const getIssueElements = (nodes: axe.NodeResult[]): Element[] => {
     // @ts-expect-error TS2322: Type 'string[]' is not assignable to type 'Element[]'.
-    return nodes.flatMap((node) => {
+    return nodes.map((node) => {
         // @ts-expect-error TS2769: No overload matches this call.
-        return node.target.reduce((elements: Element[], target: string) => {
-            const element = document.querySelector(target);
-            if (element) {
-                elements.push(element);
+        return node.target.reduce((context: Element | null, target: string) => {
+            if (context?.tagName === "iframe") {
+                // @ts-expect-error TS2551: Property 'contentDocument' does not exist on type 'Element'
+                return context.contentDocument.querySelector(target);
+            } else {
+                return context?.querySelector(target);
             }
-            return elements;
-        }, []);
+        }, document);
     });
 };
 
