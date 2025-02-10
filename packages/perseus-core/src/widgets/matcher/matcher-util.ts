@@ -36,20 +36,28 @@ export const matcherShuffle = (
     return {left, right};
 };
 
-function matcherShuffleFromHash(
-    data: MatcherShuffleInfo,
-    seed: number,
-): {left: ReadonlyArray<string>; right: ReadonlyArray<string>} {
+function matcherShuffleFromRandom(data: MatcherShuffleInfo): {
+    left: ReadonlyArray<string>;
+    right: ReadonlyArray<string>;
+} {
     // Use the same random() function to shuffle both columns sequentially
     let left;
     if (!data.orderMatters) {
         // If the order doesn't matter, don't shuffle the left column
         left = data.left;
     } else {
-        left = CoreUtil.shuffle(data.left, seed, /* ensurePermuted */ true);
+        left = CoreUtil.shuffle(
+            data.left,
+            Math.random() * 100,
+            /* ensurePermuted */ true,
+        );
     }
 
-    const right = CoreUtil.shuffle(data.right, seed, /* ensurePermuted */ true);
+    const right = CoreUtil.shuffle(
+        data.right,
+        Math.random() * 100,
+        /* ensurePermuted */ true,
+    );
 
     return {left, right};
 }
@@ -73,12 +81,7 @@ type MatcherPublicWidgetOptions = {
 function getMatcherPublicWidgetOptions(
     options: PerseusMatcherWidgetOptions,
 ): MatcherPublicWidgetOptions {
-    const columnsToString = options.left.join("") + options.right.join("");
-    const hashes = CoreUtil.getHash(columnsToString);
-    const getSeed = CoreUtil.createRandomNumberGenerator(...hashes);
-    const seedFromColumns = getSeed();
-
-    const {left, right} = matcherShuffleFromHash(options, seedFromColumns);
+    const {left, right} = matcherShuffleFromRandom(options);
 
     return {
         ...options,

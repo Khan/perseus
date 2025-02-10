@@ -17,13 +17,7 @@ describe("getMatcherPublicWidgetOptions", () => {
         const publicWidgetOptions = getMatcherPublicWidgetOptions(options);
 
         // Assert
-        expect(publicWidgetOptions).toEqual({
-            labels: ["**Claims**", "**Evidence**"],
-            padding: true,
-            orderMatters: false,
-            right: ["Milky Way", "Stars", "Life", "Earth", "Rapid"],
-            left: ["Fuel", "Plate", "Hydrogen", "Average", "Billion"],
-        });
+        expect(publicWidgetOptions.left).toEqual(options.left);
         expect(publicWidgetOptions.right).not.toEqual(options.right);
     });
 
@@ -41,14 +35,7 @@ describe("getMatcherPublicWidgetOptions", () => {
         const publicWidgetOptions = getMatcherPublicWidgetOptions(options);
 
         // Assert
-        expect(publicWidgetOptions).toEqual({
-            labels: ["**Claims**", "**Evidence**"],
-            padding: true,
-            orderMatters: true,
-            right: ["Milky Way", "Stars", "Life", "Earth", "Rapid"],
-            left: ["Billion", "Fuel", "Hydrogen", "Plate", "Average"],
-        });
-        expect(publicWidgetOptions.right).not.toEqual(options.right);
         expect(publicWidgetOptions.left).not.toEqual(options.left);
+        expect(publicWidgetOptions.right).not.toEqual(options.right);
     });
 });
