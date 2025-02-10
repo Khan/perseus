@@ -1,0 +1,3018 @@
+import{j as e}from"./jsx-runtime-63Ea5SlK.js";import{l as ue,d as me,c as Ge,e as De,U as oe}from"./util-BtPxNFcx.js";import{_ as R}from"./index-default-4_ZsnO94.js";import{x as Ve}from"./core-widget-registry-uiKfW1Am.js";import{i as c}from"./tiny-invariant-bHgPayXn.js";import"./jquery-5v7aFUvu.js";import{S as Me,g as de,a as pe,f as ce,h as he,i as ye,j as ge,k as we,l as be,n as ke,I as ze}from"./article-renderer-_j6tP1Ju.js";import"./phet-simulation-FB_1B1eX.js";import"./dependencies-CP7Uh8Kq.js";import"./perseus-api-DO0X8arb.js";import"./server-item-renderer-JSv3os-1.js";import"./hints-renderer-FLN9QzbX.js";import{j as We,k as _e}from"./renderer-0uRjNERv.js";import"./base-radio-xFik4BCs.js";import{c as He}from"./components-wgixE12W.js";import{i as $e}from"./constants-NhstHO4m.js";import"./i18n-context-dE2bX2K_.js";import"./svg-image-0o8lzVFf.js";import{w as fe}from"./index-J2t_5nK1.js";import"./index-smZ6iCr_.js";import{V as u,b as Be,I as Ke}from"./index-vSZRSFNi.js";import{S as L,O as d}from"./answer-choices-Ty71F49y.js";import{T as Xe,a as Ue,C as D}from"./index-UQ8A7rVv.js";import{s as o,c as b,f as X}from"./index-dmcq622U.js";import{d as ve,f as W,L as g,b as O,a as U}from"./index-cEypnc5R.js";import{n as v}from"./no-important-xCWWYXQR.js";import{r as C}from"./index-6oxdNXpR.js";import{H as _}from"./heading-i-GJtYJq.js";import{S as y}from"./index--SWPVuAw.js";import{L as P,I as Qe}from"./interactive-graph-settings-XzGc0yag.js";import{P as le}from"./index-JoFbAW28.js";import{L as Ye}from"./locked-figures-section-zqEpakMl.js";import"./button-group-SY8dumRU.js";import"./graph-9L6eEW0E.js";import"./hud-vl2wgoGQ.js";import"./icon-7RFbyLiL.js";import"./index-v9JNnMLE.js";import"./inline-icon-6fh0Wu1y.js";import"./math-input-31AyIaJ4.js";import"./multi-button-group-3E5hf1eq.js";import"./number-input-X-xsqQXH.js";import"./range-input-IlZfZEkU.js";import"./text-input-Sekx5wCf.js";import"./text-list-editor-ND6Qift6.js";import{B as Ze}from"./index-D0lzyG2H.js";import{C as k}from"./locked-label-settings-IZTTMPzj.js";import{S as Je}from"./scrollless-number-text-field-n6lsrul6.js";import{P as en}from"./trash-bold-S6d4Ab3T.js";const B="unlimited",Ce=r=>{const n=parseInt(r,10);return isNaN(n)||n===0?B:n},qe=({numPoints:r=1,onChange:n})=>e.jsx(L,{selectedValue:`${r}`,onChange:a=>{n(Ce(a))},placeholder:"",style:nn.singleSelectShort,children:[...[...Array(7).keys()].map(a=>e.jsx(d,{value:`${a}`,label:`${a} point${a>1?"s":""}`},a)),e.jsx(d,{value:B,label:"unlimited"},"unlimited")]}),nn=v.StyleSheet.create({singleSelectShort:{height:26}});qe.__docgenInfo={description:"",methods:[],displayName:"GraphPointsCountSelector",props:{numPoints:{required:!1,tsType:{name:"union",raw:"number | typeof UNLIMITED",elements:[{name:"number"},{name:"UNLIMITED"}]},description:"",defaultValue:{value:"1",computed:!1}},onChange:{required:!0,tsType:{name:"signature",type:"function",raw:"(points: PointValue) => void",signature:{arguments:[{type:{name:"union",raw:"number | typeof UNLIMITED",elements:[{name:"number"},{name:"UNLIMITED"}]},name:"points"}],return:{name:"void"}}},description:""}}};const xe=r=>e.jsxs(L,{selectedValue:r.graphType,onChange:r.onChange,placeholder:"Select an answer type",style:rn.singleSelectShort,children:[e.jsx(d,{value:"none",label:"None"}),e.jsx(d,{value:"linear",label:"Linear function"}),e.jsx(d,{value:"quadratic",label:"Quadratic function"}),e.jsx(d,{value:"sinusoid",label:"Sinusoid function"}),e.jsx(d,{value:"circle",label:"Circle"}),e.jsx(d,{value:"point",label:"Point(s)"}),e.jsx(d,{value:"linear-system",label:"Linear System"}),e.jsx(d,{value:"polygon",label:"Polygon"}),e.jsx(d,{value:"segment",label:"Line Segment(s)"}),e.jsx(d,{value:"ray",label:"Ray"}),e.jsx(d,{value:"angle",label:"Angle"})]}),rn=v.StyleSheet.create({singleSelectShort:{height:26}});xe.__docgenInfo={description:"",methods:[],displayName:"GraphTypeSelector",props:{graphType:{required:!0,tsType:{name:"string"},description:""},onChange:{required:!0,tsType:{name:"signature",type:"function",raw:"(newGraphType: string) => void",signature:{arguments:[{type:{name:"string"},name:"newGraphType"}],return:{name:"void"}}},description:""}}};function Te(r){return e.jsxs(e.Fragment,{children:[e.jsx(_,{title:"Correct Answer",isOpen:!0,isCollapsible:!1}),e.jsxs(u,{id:r.id,children:[e.jsxs(u,{children:[e.jsx(ve,{style:{paddingTop:o.xxSmall_6,paddingBottom:o.xxSmall_6,color:b.offBlack64},children:"Graph the correct answer in the graph below and ensure the equation or point coordinates displayed represent the correct answer."}),e.jsx(W,{style:{fontSize:12,backgroundColor:"#eee",paddingInline:o.xxSmall_6,borderColor:"#ccc",borderStyle:"solid",borderWidth:1},children:r.equationString})]}),r.children]})]})}Te.__docgenInfo={description:"",methods:[],displayName:"InteractiveGraphCorrectAnswer",props:{id:{required:!0,tsType:{name:"string"},description:""},equationString:{required:!0,tsType:{name:"string"},description:""},children:{required:!0,tsType:{name:"ReactReactNode",raw:"React.ReactNode"},description:""}}};function Ae(r){const{ariaLabelValue:n,ariaDescriptionValue:a,onChange:t}=r,[l,i]=C.useState(!0);return e.jsxs(e.Fragment,{children:[e.jsx(_,{title:"Description",isCollapsible:!0,isOpen:l,onToggle:i}),l&&e.jsxs(u,{children:[e.jsx(ve,{style:H.caption,children:"Use these fields to describe the graph as a whole. These are used by screen readers to describe content to users who may be visually impaired."}),e.jsxs(g,{tag:"label",children:["Title",e.jsx(Xe,{value:n,onChange:s=>t({fullGraphAriaLabel:s||void 0}),style:H.spaceAbove})]}),e.jsx(y,{size:o.small_12}),e.jsxs(g,{tag:"label",children:["Description",e.jsx(Ue,{rows:8,resizeType:"vertical",value:a,onChange:s=>t({fullGraphAriaDescription:s||void 0}),style:H.spaceAbove})]})]})]})}const H=v.StyleSheet.create({caption:{color:b.offBlack64,paddingTop:o.xxSmall_6,paddingBottom:o.xxSmall_6},spaceAbove:{marginTop:o.xxxSmall_4}});Ae.__docgenInfo={description:"",methods:[],displayName:"InteractiveGraphDescription",props:{ariaLabelValue:{required:!0,tsType:{name:"string"},description:""},ariaDescriptionValue:{required:!0,tsType:{name:"string"},description:""},onChange:{required:!0,tsType:{name:"signature",type:"function",raw:"(graphProps: Partial<EditorProps>) => void",signature:{arguments:[{type:{name:"Partial",elements:[{name:"signature",type:"object",raw:`{
+    apiOptions: APIOptionsWithDefaults;
+
+    /**
+     * The labels for the x and y axes.
+     */
+    labels: ReadonlyArray<string>;
+    /**
+     * The range of the graph in the x and y directions.
+     */
+    range: [x: Range, y: Range];
+    /**
+     * How far apart the tick marks on the axes are in the x and y
+     * directions.
+     */
+    step: [x: number, y: number];
+    /**
+     * How far apart the grid lines are in the x and y directions.
+     */
+    gridStep: [x: number, y: number];
+    /**
+     * How far apart the snap-to points are in the x and y directions.
+     */
+    snapStep: [x: number, y: number];
+    /**
+     * The size of the graph in pixels.
+     */
+    box: [x: number, y: number];
+
+    /**
+     * An error message to display in the graph area, or true if the
+     * graph is valid.
+     */
+    valid: true | string;
+    /**
+     * The background image to display in the graph area and its properties.
+     */
+    backgroundImage: PerseusImageBackground;
+    /**
+     * The type of markings to display on the graph.
+     * - graph: shows the axes and the grid lines
+     * - grid: shows only the grid lines
+     * - none: shows no markings
+     */
+    markings: MarkingsType;
+    /**
+     * Whether to show the protractor on the graph.
+     */
+    showProtractor: boolean;
+    /**
+     * Whether to show tooltips on the graph.
+     * (Currently not used, but will be in the future.)
+     */
+    showTooltips: boolean;
+    /**
+     * The current correct answer for the graph. Updated by this component
+     * when the graph is changed.
+     *
+     * Note that the "Correct answer:" textbox is not an interactive
+     * element. Instead, it is a representation of the correct answer based
+     * on the state of the interactive graph previewed at the bottom of the
+     * editor page.
+     */
+    // TODO(LEMS-2344): make the type of \`correct\` more specific
+    correct: PerseusGraphType;
+    /**
+     * The locked figures to display in the graph area.
+     * Locked figures are graph elements (points, lines, line segmeents,
+     * etc.) that are locked in place and not interactive.
+     */
+    lockedFigures?: Array<LockedFigure>;
+    // Aria-label for the full graph area. Short title for the graph.
+    fullGraphAriaLabel?: string;
+    // Aria-description for the graph area. Longer description of the graph.
+    // Note that the \`aria-description\` property is not supported well,
+    // so this description will be hidden in a DOM element whose ID will
+    // then be referenced by the graph's \`aria-describedby\` property.
+    fullGraphAriaDescription?: string;
+
+    /**
+     * The graph to display in the graph area.
+     */
+    graph: InteractiveGraphProps["graph"];
+    onChange: (props: Partial<Props>) => void;
+    // Whether the graph has been set to static mode.
+    // Graphs in static mode are not interactive, and their coords are
+    // set to those of the "correct" graph in the editor.
+    static?: boolean;
+}`,signature:{properties:[{key:"apiOptions",value:{name:"Readonly",elements:[{name:"intersection",raw:`APIOptions & {
+    GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
+    baseElements: NonNullable<APIOptions["baseElements"]>;
+    canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
+    crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
+    editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
+    groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
+    isArticle: NonNullable<APIOptions["isArticle"]>;
+    isMobile: NonNullable<APIOptions["isMobile"]>;
+    onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
+    readOnly: NonNullable<APIOptions["readOnly"]>;
+    setDrawingAreaAvailable: NonNullable<
+        APIOptions["setDrawingAreaAvailable"]
+    >;
+    showAlignmentOptions: NonNullable<APIOptions["showAlignmentOptions"]>;
+}`,elements:[{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+    isArticle?: boolean;
+    onFocusChange?: (
+        newFocusPath: FocusPath,
+        oldFocusPath: FocusPath,
+        keypadHeight?: number,
+        focusedElement?: HTMLElement,
+    ) => unknown;
+    GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
+    showAlignmentOptions?: boolean;
+    /**
+     * A boolean that indicates whether the associated problem has been
+     * answered correctly and should no longer be interactive.
+     */
+    readOnly?: boolean;
+    answerableCallback?: (arg1: boolean) => unknown;
+    getAnotherHint?: () => unknown;
+    interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
+    /**
+     * A function that takes in the relative problem number (starts at
+     * 0 and is incremented for each group widget), and the ID of the
+     * group widget, then returns a react component that will be added
+     * immediately above the renderer in the group widget. If the
+     * function returns null, no annotation will be added.
+     */
+    groupAnnotator?: (groupNumber: number, widgetId: string) => React.ReactNode;
+    /**
+     * If imagePlaceholder is set, Perseus will render the placeholder instead
+     * of the image node.
+     */
+    imagePlaceholder?: React.ReactNode;
+    /**
+     * If widgetPlaceholder is set, Perseus will render the placeholder instead
+     * of the widget node.
+     */
+    widgetPlaceholder?: React.ReactNode;
+    /**
+     * Base React elements that can be used in place of the standard DOM
+     * DOM elements. For example, when provided, <Link /> will be used
+     * in place of <a />. This allows clients to provide pre-styled
+     * components or components with custom behavior.
+     */
+    baseElements?: {
+        /**
+         * The <Link /> component provided here must adhere to the same
+         * interface as React's base <a /> component.
+         */
+        Link: React.ComponentType<any>;
+    };
+    /**
+     * Function that takes dimensions and returns a React component
+     * to display while an image is loading.
+     */
+    imagePreloader?: (dimensions: Dimensions) => React.ReactNode;
+    /**
+     * A function that is called when the user has interacted with a widget. It
+     * also includes any extra parameters that the originating widget provided.
+     * This is used for keeping track of widget interactions.
+     */
+    trackInteraction?: (args: TrackInteractionArgs) => void;
+    /**
+     * A boolean that indicates whether or not a custom keypad is
+     * being used.  For mobile web this will be the ProvidedKeypad
+     * component.  In this situation we use the MathInput component
+     * from the math-input repo instead of the existing perseus math
+     * input components.
+     */
+    customKeypad?: boolean;
+    /**
+     * If this is provided, it is called instead of appending an instance
+     * of \`math-input\`'s keypad to the body. This is used by the native
+     * apps so they can have the keypad be defined on the native side.
+     * It is called with an function that, when called, blurs the input,
+     * and is expected to return an object of the shape
+     * keypadElementPropType from math-input/src/prop-types.js.
+     */
+    nativeKeypadProxy?: (blur: () => void) => KeypadAPI;
+    /** Indicates whether or not to use mobile styling. */
+    isMobile?: boolean;
+    /** A function, called with a bool indicating whether use of the
+     * drawing area (scratchpad) should be allowed/disallowed.
+     *
+     * Previously handled by \`Khan.scratchpad.enable/disable\`
+     */
+    setDrawingAreaAvailable?: (arg1: boolean) => unknown;
+    /** The color used for the hint progress indicator (eg. 1 / 3) */
+    hintProgressColor?: string;
+    /**
+     * Whether this Renderer is allowed to auto-scroll the rest of the
+     * page. For example, if this is enabled, the most recently used
+     * radio widget will attempt to keep the "selected" answer in view
+     * after entering review mode.
+     *
+     * Defaults to \`false\`.
+     */
+    canScrollPage?: boolean;
+    /**
+     * Whether to enable the cross-out feature on multiple-choice radio
+     * widgets. This allows users to note which answers they believe to
+     * be incorrect, to find the answer by process of elimination.
+     *
+     * We plan to roll this out to all call sites eventually, but for
+     * now we have this flag, to add it to Generalized Test Prep first.
+     */
+    crossOutEnabled?: boolean;
+    /**
+     * The value in milliseconds by which the local state of content
+     * in a editor is delayed before propagated to a prop. For example,
+     * when text is typed in the text area of an Editor component,
+     * there will be a delay equal to the value of \`editorChangeDelay\`
+     * before the change is propagated. This is added for better
+     * responsiveness of the editor when used in certain contexts such
+     * as StructuredItem exercises where constant re-rendering for each
+     * keystroke caused text typed in the text area to appear in it
+     * only after a good few seconds.
+     */
+    editorChangeDelay?: number;
+    /**
+     * This is a callback function that returns all of the Widget props
+     * after they have been transformed by the widget's transform function.
+     * This is useful for when we need to know how a widget has shuffled its
+     * the available choices.
+     */
+    onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
+}`,signature:{properties:[{key:"isArticle",value:{name:"boolean",required:!1}},{key:"onFocusChange",value:{name:"signature",type:"function",raw:`(
+    newFocusPath: FocusPath,
+    oldFocusPath: FocusPath,
+    keypadHeight?: number,
+    focusedElement?: HTMLElement,
+) => unknown`,signature:{arguments:[{type:{name:"union",raw:"ReadonlyArray<string> | null | undefined",elements:[{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>"},{name:"null"},{name:"undefined"}]},name:"newFocusPath"},{type:{name:"union",raw:"ReadonlyArray<string> | null | undefined",elements:[{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>"},{name:"null"},{name:"undefined"}]},name:"oldFocusPath"},{type:{name:"number"},name:"keypadHeight"},{type:{name:"HTMLElement"},name:"focusedElement"}],return:{name:"unknown"}},required:!1}},{key:"GroupMetadataEditor",value:{name:"ReactComponentType",raw:"React.ComponentType<StubTagEditorType>",elements:[{name:"any"}],required:!1}},{key:"showAlignmentOptions",value:{name:"boolean",required:!1}},{key:"readOnly",value:{name:"boolean",required:!1},description:`A boolean that indicates whether the associated problem has been
+answered correctly and should no longer be interactive.`},{key:"answerableCallback",value:{name:"signature",type:"function",raw:"(arg1: boolean) => unknown",signature:{arguments:[{type:{name:"boolean"},name:"arg1"}],return:{name:"unknown"}},required:!1}},{key:"getAnotherHint",value:{name:"signature",type:"function",raw:"() => unknown",signature:{arguments:[],return:{name:"unknown"}},required:!1}},{key:"interactionCallback",value:{name:"signature",type:"function",raw:"(widgetData: {[widgetId: string]: any}) => void",signature:{arguments:[{type:{name:"signature",type:"object",raw:"{[widgetId: string]: any}",signature:{properties:[{key:{name:"string"},value:{name:"any",required:!0}}]}},name:"widgetData"}],return:{name:"void"}},required:!1}},{key:"groupAnnotator",value:{name:"signature",type:"function",raw:"(groupNumber: number, widgetId: string) => React.ReactNode",signature:{arguments:[{type:{name:"number"},name:"groupNumber"},{type:{name:"string"},name:"widgetId"}],return:{name:"ReactReactNode",raw:"React.ReactNode"}},required:!1},description:`A function that takes in the relative problem number (starts at
+0 and is incremented for each group widget), and the ID of the
+group widget, then returns a react component that will be added
+immediately above the renderer in the group widget. If the
+function returns null, no annotation will be added.`},{key:"imagePlaceholder",value:{name:"ReactReactNode",raw:"React.ReactNode",required:!1},description:`If imagePlaceholder is set, Perseus will render the placeholder instead
+of the image node.`},{key:"widgetPlaceholder",value:{name:"ReactReactNode",raw:"React.ReactNode",required:!1},description:`If widgetPlaceholder is set, Perseus will render the placeholder instead
+of the widget node.`},{key:"baseElements",value:{name:"signature",type:"object",raw:`{
+    /**
+     * The <Link /> component provided here must adhere to the same
+     * interface as React's base <a /> component.
+     */
+    Link: React.ComponentType<any>;
+}`,signature:{properties:[{key:"Link",value:{name:"ReactComponentType",raw:"React.ComponentType<any>",elements:[{name:"any"}],required:!0},description:`The <Link /> component provided here must adhere to the same
+interface as React's base <a /> component.`}]},required:!1},description:`Base React elements that can be used in place of the standard DOM
+DOM elements. For example, when provided, <Link /> will be used
+in place of <a />. This allows clients to provide pre-styled
+components or components with custom behavior.`},{key:"imagePreloader",value:{name:"signature",type:"function",raw:"(dimensions: Dimensions) => React.ReactNode",signature:{arguments:[{type:{name:"signature",type:"object",raw:`{
+    width?: number;
+    height?: number;
+}`,signature:{properties:[{key:"width",value:{name:"number",required:!1}},{key:"height",value:{name:"number",required:!1}}]}},name:"dimensions"}],return:{name:"ReactReactNode",raw:"React.ReactNode"}},required:!1},description:`Function that takes dimensions and returns a React component
+to display while an image is loading.`},{key:"trackInteraction",value:{name:"signature",type:"function",raw:"(args: TrackInteractionArgs) => void",signature:{arguments:[{type:{name:"intersection",raw:`{
+    // The widget type that this interaction originates from
+    type: string;
+    // The widget id that this interaction originates from
+    id: string;
+
+    correct?: boolean;
+
+    // Tracking args are all optional here because we don't know which
+    // widgets originated the call, and thus can't know what extra
+    // arguments will be included!
+} & Partial<TrackingGradedGroupExtraArguments> &
+    Partial<TrackingSequenceExtraArguments>`,elements:[{name:"signature",type:"object",raw:`{
+    // The widget type that this interaction originates from
+    type: string;
+    // The widget id that this interaction originates from
+    id: string;
+
+    correct?: boolean;
+
+    // Tracking args are all optional here because we don't know which
+    // widgets originated the call, and thus can't know what extra
+    // arguments will be included!
+}`,signature:{properties:[{key:"type",value:{name:"string",required:!0}},{key:"id",value:{name:"string",required:!0}},{key:"correct",value:{name:"boolean",required:!1}}]}},{name:"Partial",elements:[{name:"signature",type:"object",raw:`{
+    status: "correct" | "incorrect" | "invalid";
+}`,signature:{properties:[{key:"status",value:{name:"union",raw:'"correct" | "incorrect" | "invalid"',elements:[{name:"literal",value:'"correct"'},{name:"literal",value:'"incorrect"'},{name:"literal",value:'"invalid"'}],required:!0}}]}}],raw:"Partial<TrackingGradedGroupExtraArguments>"},{name:"Partial",elements:[{name:"signature",type:"object",raw:`{
+    visible: number;
+}`,signature:{properties:[{key:"visible",value:{name:"number",required:!0}}]}}],raw:"Partial<TrackingSequenceExtraArguments>"}]},name:"args"}],return:{name:"void"}},required:!1},description:`A function that is called when the user has interacted with a widget. It
+also includes any extra parameters that the originating widget provided.
+This is used for keeping track of widget interactions.`},{key:"customKeypad",value:{name:"boolean",required:!1},description:`A boolean that indicates whether or not a custom keypad is
+being used.  For mobile web this will be the ProvidedKeypad
+component.  In this situation we use the MathInput component
+from the math-input repo instead of the existing perseus math
+input components.`},{key:"nativeKeypadProxy",value:{name:"signature",type:"function",raw:"(blur: () => void) => KeypadAPI",signature:{arguments:[{type:{name:"signature",type:"function",raw:"() => void",signature:{arguments:[],return:{name:"void"}}},name:"blur"}],return:{name:"KeypadAPI"}},required:!1},description:`If this is provided, it is called instead of appending an instance
+of \`math-input\`'s keypad to the body. This is used by the native
+apps so they can have the keypad be defined on the native side.
+It is called with an function that, when called, blurs the input,
+and is expected to return an object of the shape
+keypadElementPropType from math-input/src/prop-types.js.`},{key:"isMobile",value:{name:"boolean",required:!1},description:"Indicates whether or not to use mobile styling."},{key:"setDrawingAreaAvailable",value:{name:"signature",type:"function",raw:"(arg1: boolean) => unknown",signature:{arguments:[{type:{name:"boolean"},name:"arg1"}],return:{name:"unknown"}},required:!1},description:`A function, called with a bool indicating whether use of the
+drawing area (scratchpad) should be allowed/disallowed.
+
+Previously handled by \`Khan.scratchpad.enable/disable\``},{key:"hintProgressColor",value:{name:"string",required:!1},description:"The color used for the hint progress indicator (eg. 1 / 3)"},{key:"canScrollPage",value:{name:"boolean",required:!1},description:`Whether this Renderer is allowed to auto-scroll the rest of the
+page. For example, if this is enabled, the most recently used
+radio widget will attempt to keep the "selected" answer in view
+after entering review mode.
+
+Defaults to \`false\`.`},{key:"crossOutEnabled",value:{name:"boolean",required:!1},description:`Whether to enable the cross-out feature on multiple-choice radio
+widgets. This allows users to note which answers they believe to
+be incorrect, to find the answer by process of elimination.
+
+We plan to roll this out to all call sites eventually, but for
+now we have this flag, to add it to Generalized Test Prep first.`},{key:"editorChangeDelay",value:{name:"number",required:!1},description:`The value in milliseconds by which the local state of content
+in a editor is delayed before propagated to a prop. For example,
+when text is typed in the text area of an Editor component,
+there will be a delay equal to the value of \`editorChangeDelay\`
+before the change is propagated. This is added for better
+responsiveness of the editor when used in certain contexts such
+as StructuredItem exercises where constant re-rendering for each
+keystroke caused text typed in the text area to appear in it
+only after a good few seconds.`},{key:"onWidgetStartProps",value:{name:"signature",type:"function",raw:"(widgets: PerseusWidgetsMap) => void",signature:{arguments:[{type:{name:"signature",type:"object",raw:"{\n    [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];\n}",signature:{properties:[{key:{name:"PerseusWidgetTypes",required:!0},value:{name:"PerseusWidgetTypes[Property]",raw:"TRegistry[Property]"}}]}},name:"widgets"}],return:{name:"void"}},required:!1},description:`This is a callback function that returns all of the Widget props
+after they have been transformed by the widget's transform function.
+This is useful for when we need to know how a widget has shuffled its
+the available choices.`}]}}],raw:`Readonly<{
+    isArticle?: boolean;
+    onFocusChange?: (
+        newFocusPath: FocusPath,
+        oldFocusPath: FocusPath,
+        keypadHeight?: number,
+        focusedElement?: HTMLElement,
+    ) => unknown;
+    GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
+    showAlignmentOptions?: boolean;
+    /**
+     * A boolean that indicates whether the associated problem has been
+     * answered correctly and should no longer be interactive.
+     */
+    readOnly?: boolean;
+    answerableCallback?: (arg1: boolean) => unknown;
+    getAnotherHint?: () => unknown;
+    interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
+    /**
+     * A function that takes in the relative problem number (starts at
+     * 0 and is incremented for each group widget), and the ID of the
+     * group widget, then returns a react component that will be added
+     * immediately above the renderer in the group widget. If the
+     * function returns null, no annotation will be added.
+     */
+    groupAnnotator?: (groupNumber: number, widgetId: string) => React.ReactNode;
+    /**
+     * If imagePlaceholder is set, Perseus will render the placeholder instead
+     * of the image node.
+     */
+    imagePlaceholder?: React.ReactNode;
+    /**
+     * If widgetPlaceholder is set, Perseus will render the placeholder instead
+     * of the widget node.
+     */
+    widgetPlaceholder?: React.ReactNode;
+    /**
+     * Base React elements that can be used in place of the standard DOM
+     * DOM elements. For example, when provided, <Link /> will be used
+     * in place of <a />. This allows clients to provide pre-styled
+     * components or components with custom behavior.
+     */
+    baseElements?: {
+        /**
+         * The <Link /> component provided here must adhere to the same
+         * interface as React's base <a /> component.
+         */
+        Link: React.ComponentType<any>;
+    };
+    /**
+     * Function that takes dimensions and returns a React component
+     * to display while an image is loading.
+     */
+    imagePreloader?: (dimensions: Dimensions) => React.ReactNode;
+    /**
+     * A function that is called when the user has interacted with a widget. It
+     * also includes any extra parameters that the originating widget provided.
+     * This is used for keeping track of widget interactions.
+     */
+    trackInteraction?: (args: TrackInteractionArgs) => void;
+    /**
+     * A boolean that indicates whether or not a custom keypad is
+     * being used.  For mobile web this will be the ProvidedKeypad
+     * component.  In this situation we use the MathInput component
+     * from the math-input repo instead of the existing perseus math
+     * input components.
+     */
+    customKeypad?: boolean;
+    /**
+     * If this is provided, it is called instead of appending an instance
+     * of \`math-input\`'s keypad to the body. This is used by the native
+     * apps so they can have the keypad be defined on the native side.
+     * It is called with an function that, when called, blurs the input,
+     * and is expected to return an object of the shape
+     * keypadElementPropType from math-input/src/prop-types.js.
+     */
+    nativeKeypadProxy?: (blur: () => void) => KeypadAPI;
+    /** Indicates whether or not to use mobile styling. */
+    isMobile?: boolean;
+    /** A function, called with a bool indicating whether use of the
+     * drawing area (scratchpad) should be allowed/disallowed.
+     *
+     * Previously handled by \`Khan.scratchpad.enable/disable\`
+     */
+    setDrawingAreaAvailable?: (arg1: boolean) => unknown;
+    /** The color used for the hint progress indicator (eg. 1 / 3) */
+    hintProgressColor?: string;
+    /**
+     * Whether this Renderer is allowed to auto-scroll the rest of the
+     * page. For example, if this is enabled, the most recently used
+     * radio widget will attempt to keep the "selected" answer in view
+     * after entering review mode.
+     *
+     * Defaults to \`false\`.
+     */
+    canScrollPage?: boolean;
+    /**
+     * Whether to enable the cross-out feature on multiple-choice radio
+     * widgets. This allows users to note which answers they believe to
+     * be incorrect, to find the answer by process of elimination.
+     *
+     * We plan to roll this out to all call sites eventually, but for
+     * now we have this flag, to add it to Generalized Test Prep first.
+     */
+    crossOutEnabled?: boolean;
+    /**
+     * The value in milliseconds by which the local state of content
+     * in a editor is delayed before propagated to a prop. For example,
+     * when text is typed in the text area of an Editor component,
+     * there will be a delay equal to the value of \`editorChangeDelay\`
+     * before the change is propagated. This is added for better
+     * responsiveness of the editor when used in certain contexts such
+     * as StructuredItem exercises where constant re-rendering for each
+     * keystroke caused text typed in the text area to appear in it
+     * only after a good few seconds.
+     */
+    editorChangeDelay?: number;
+    /**
+     * This is a callback function that returns all of the Widget props
+     * after they have been transformed by the widget's transform function.
+     * This is useful for when we need to know how a widget has shuffled its
+     * the available choices.
+     */
+    onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
+}>`},{name:"signature",type:"object",raw:`{
+    GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
+    baseElements: NonNullable<APIOptions["baseElements"]>;
+    canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
+    crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
+    editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
+    groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
+    isArticle: NonNullable<APIOptions["isArticle"]>;
+    isMobile: NonNullable<APIOptions["isMobile"]>;
+    onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
+    readOnly: NonNullable<APIOptions["readOnly"]>;
+    setDrawingAreaAvailable: NonNullable<
+        APIOptions["setDrawingAreaAvailable"]
+    >;
+    showAlignmentOptions: NonNullable<APIOptions["showAlignmentOptions"]>;
+}`,signature:{properties:[{key:"GroupMetadataEditor",value:{name:"NonNullable",elements:[{name:'Readonly["GroupMetadataEditor"]',raw:'APIOptions["GroupMetadataEditor"]'}],raw:'NonNullable<APIOptions["GroupMetadataEditor"]>',required:!0}},{key:"baseElements",value:{name:"NonNullable",elements:[{name:'Readonly["baseElements"]',raw:'APIOptions["baseElements"]'}],raw:'NonNullable<APIOptions["baseElements"]>',required:!0}},{key:"canScrollPage",value:{name:"NonNullable",elements:[{name:'Readonly["canScrollPage"]',raw:'APIOptions["canScrollPage"]'}],raw:'NonNullable<APIOptions["canScrollPage"]>',required:!0}},{key:"crossOutEnabled",value:{name:"NonNullable",elements:[{name:'Readonly["crossOutEnabled"]',raw:'APIOptions["crossOutEnabled"]'}],raw:'NonNullable<APIOptions["crossOutEnabled"]>',required:!0}},{key:"editorChangeDelay",value:{name:"NonNullable",elements:[{name:'Readonly["editorChangeDelay"]',raw:'APIOptions["editorChangeDelay"]'}],raw:'NonNullable<APIOptions["editorChangeDelay"]>',required:!0}},{key:"groupAnnotator",value:{name:"NonNullable",elements:[{name:'Readonly["groupAnnotator"]',raw:'APIOptions["groupAnnotator"]'}],raw:'NonNullable<APIOptions["groupAnnotator"]>',required:!0}},{key:"isArticle",value:{name:"NonNullable",elements:[{name:'Readonly["isArticle"]',raw:'APIOptions["isArticle"]'}],raw:'NonNullable<APIOptions["isArticle"]>',required:!0}},{key:"isMobile",value:{name:"NonNullable",elements:[{name:'Readonly["isMobile"]',raw:'APIOptions["isMobile"]'}],raw:'NonNullable<APIOptions["isMobile"]>',required:!0}},{key:"onFocusChange",value:{name:"NonNullable",elements:[{name:'Readonly["onFocusChange"]',raw:'APIOptions["onFocusChange"]'}],raw:'NonNullable<APIOptions["onFocusChange"]>',required:!0}},{key:"readOnly",value:{name:"NonNullable",elements:[{name:'Readonly["readOnly"]',raw:'APIOptions["readOnly"]'}],raw:'NonNullable<APIOptions["readOnly"]>',required:!0}},{key:"setDrawingAreaAvailable",value:{name:"NonNullable",elements:[{name:'Readonly["setDrawingAreaAvailable"]',raw:'APIOptions["setDrawingAreaAvailable"]'}],raw:`NonNullable<
+    APIOptions["setDrawingAreaAvailable"]
+>`,required:!0}},{key:"showAlignmentOptions",value:{name:"NonNullable",elements:[{name:'Readonly["showAlignmentOptions"]',raw:'APIOptions["showAlignmentOptions"]'}],raw:'NonNullable<APIOptions["showAlignmentOptions"]>',required:!0}}]}}]}],raw:`Readonly<
+    APIOptions & {
+        GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
+        baseElements: NonNullable<APIOptions["baseElements"]>;
+        canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
+        crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
+        editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
+        groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
+        isArticle: NonNullable<APIOptions["isArticle"]>;
+        isMobile: NonNullable<APIOptions["isMobile"]>;
+        onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
+        readOnly: NonNullable<APIOptions["readOnly"]>;
+        setDrawingAreaAvailable: NonNullable<
+            APIOptions["setDrawingAreaAvailable"]
+        >;
+        showAlignmentOptions: NonNullable<APIOptions["showAlignmentOptions"]>;
+    }
+>`,required:!0}},{key:"labels",value:{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>",required:!0},description:"The labels for the x and y axes."},{key:"range",value:{name:"tuple",raw:"[x: Range, y: Range]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},description:"The range of the graph in the x and y directions."},{key:"step",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},description:`How far apart the tick marks on the axes are in the x and y
+directions.`},{key:"gridStep",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},description:"How far apart the grid lines are in the x and y directions."},{key:"snapStep",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},description:"How far apart the snap-to points are in the x and y directions."},{key:"box",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},description:"The size of the graph in pixels."},{key:"valid",value:{name:"union",raw:"true | string",elements:[{name:"literal",value:"true"},{name:"string"}],required:!0},description:`An error message to display in the graph area, or true if the
+graph is valid.`},{key:"backgroundImage",value:{name:"signature",type:"object",raw:`{
+    // The URL of the image
+    url: string | null | undefined;
+    // The width of the image
+    width?: number;
+    // The height of the image
+    height?: number;
+    // The top offset of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    top?: number;
+    // The left offset of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    left?: number;
+    // The scale of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    // Yikes, production data as this as both a number (1) and string ("1")
+    scale?: number | string;
+    // The bottom offset of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    bottom?: number;
+}`,signature:{properties:[{key:"url",value:{name:"union",raw:"string | null | undefined",elements:[{name:"string"},{name:"null"},{name:"undefined"}],required:!0}},{key:"width",value:{name:"number",required:!1}},{key:"height",value:{name:"number",required:!1}},{key:"top",value:{name:"number",required:!1}},{key:"left",value:{name:"number",required:!1}},{key:"scale",value:{name:"union",raw:"number | string",elements:[{name:"number"},{name:"string"}],required:!1}},{key:"bottom",value:{name:"number",required:!1}}]},required:!0},description:"The background image to display in the graph area and its properties."},{key:"markings",value:{name:"union",raw:'"axes" | "graph" | "grid" | "none"',elements:[{name:"literal",value:'"axes"'},{name:"literal",value:'"graph"'},{name:"literal",value:'"grid"'},{name:"literal",value:'"none"'}],required:!0},description:`The type of markings to display on the graph.
+- graph: shows the axes and the grid lines
+- grid: shows only the grid lines
+- none: shows no markings`},{key:"showProtractor",value:{name:"boolean",required:!0},description:"Whether to show the protractor on the graph."},{key:"showTooltips",value:{name:"boolean",required:!0},description:`Whether to show tooltips on the graph.
+(Currently not used, but will be in the future.)`},{key:"correct",value:{name:"union",raw:`| PerseusGraphTypeAngle
+| PerseusGraphTypeCircle
+| PerseusGraphTypeLinear
+| PerseusGraphTypeLinearSystem
+| PerseusGraphTypeNone
+| PerseusGraphTypePoint
+| PerseusGraphTypePolygon
+| PerseusGraphTypeQuadratic
+| PerseusGraphTypeRay
+| PerseusGraphTypeSegment
+| PerseusGraphTypeSinusoid`,elements:[{name:"signature",type:"object",raw:`{
+    type: "angle";
+    // Whether to show the angle measurements.  default: false
+    showAngles?: boolean;
+    // Allow Reflex Angles if an "angle" type.  default: true
+    allowReflexAngles?: boolean;
+    // The angle offset in degrees if an "angle" type. default: 0
+    angleOffsetDeg?: number;
+    // Snap to degree increments if an "angle" type. default: 1
+    snapDegrees?: number;
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "congruent";
+    // must have 3 coords - ie [Coord, Coord, Coord]
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"angle"',required:!0}},{key:"showAngles",value:{name:"boolean",required:!1}},{key:"allowReflexAngles",value:{name:"boolean",required:!1}},{key:"angleOffsetDeg",value:{name:"number",required:!1}},{key:"snapDegrees",value:{name:"number",required:!1}},{key:"match",value:{name:"literal",value:'"congruent"',required:!1}},{key:"coords",value:{name:"union",raw:"[Coord, Coord, Coord] | null",elements:[{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}]},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"intersection",raw:`{
+    type: "circle";
+    center?: Coord;
+    radius?: number;
+    // The initial coordinates the graph renders with.
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "circle";
+    center?: Coord;
+    radius?: number;
+    // The initial coordinates the graph renders with.
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"circle"',required:!0}},{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"radius",value:{name:"number",required:!1}},{key:"startCoords",value:{name:"signature",type:"object",raw:`{
+    center: Coord;
+    radius: number;
+}`,signature:{properties:[{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"radius",value:{name:"number",required:!0}}]},required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "linear";
+    // expects 2 coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "linear";
+    // expects 2 coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"linear"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple | null",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "linear-system";
+    // expects 2 sets of 2 coords
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "linear-system";
+    // expects 2 sets of 2 coords
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"linear-system"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple[] | null",elements:[{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"signature",type:"object",raw:`{
+    type: "none";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"none"',required:!0}}]}},{name:"intersection",raw:`{
+    type: "point";
+    // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
+    numPoints?: number | "unlimited";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "point";
+    // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
+    numPoints?: number | "unlimited";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"point"',required:!0}},{key:"numPoints",value:{name:"union",raw:'number | "unlimited"',elements:[{name:"number"},{name:"literal",value:'"unlimited"'}],required:!1}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "polygon";
+    // The number of sides.  default: 3. "unlimited" if no limit
+    numSides?: number | "unlimited";
+    // Whether to the angle measurements.  default: false
+    showAngles?: boolean;
+    // Whether to show side measurements. default: false
+    showSides?: boolean;
+    // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
+    snapTo?: "grid" | "angles" | "sides";
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "similar" | "congruent" | "approx" | "exact";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "polygon";
+    // The number of sides.  default: 3. "unlimited" if no limit
+    numSides?: number | "unlimited";
+    // Whether to the angle measurements.  default: false
+    showAngles?: boolean;
+    // Whether to show side measurements. default: false
+    showSides?: boolean;
+    // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
+    snapTo?: "grid" | "angles" | "sides";
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "similar" | "congruent" | "approx" | "exact";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"polygon"',required:!0}},{key:"numSides",value:{name:"union",raw:'number | "unlimited"',elements:[{name:"number"},{name:"literal",value:'"unlimited"'}],required:!1}},{key:"showAngles",value:{name:"boolean",required:!1}},{key:"showSides",value:{name:"boolean",required:!1}},{key:"snapTo",value:{name:"union",raw:'"grid" | "angles" | "sides"',elements:[{name:"literal",value:'"grid"'},{name:"literal",value:'"angles"'},{name:"literal",value:'"sides"'}],required:!1}},{key:"match",value:{name:"union",raw:'"similar" | "congruent" | "approx" | "exact"',elements:[{name:"literal",value:'"similar"'},{name:"literal",value:'"congruent"'},{name:"literal",value:'"approx"'},{name:"literal",value:'"exact"'}],required:!1}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "quadratic";
+    // expects a list of 3 coords
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "quadratic";
+    // expects a list of 3 coords
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"quadratic"',required:!0}},{key:"coords",value:{name:"union",raw:"[Coord, Coord, Coord] | null",elements:[{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}]},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "ray";
+    // Expects a list of 2 Coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "ray";
+    // Expects a list of 2 Coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"ray"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple | null",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "segment";
+    // The number of segments if a "segment" type. default: 1.  Max: 6
+    numSegments?: number;
+    // Expects a list of Coord tuples. Length should match the \`numSegments\` value.
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "segment";
+    // The number of segments if a "segment" type. default: 1.  Max: 6
+    numSegments?: number;
+    // Expects a list of Coord tuples. Length should match the \`numSegments\` value.
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"segment"',required:!0}},{key:"numSegments",value:{name:"number",required:!1}},{key:"coords",value:{name:"union",raw:"CollinearTuple[] | null",elements:[{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "sinusoid";
+    // Expects a list of 2 Coords
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "sinusoid";
+    // Expects a list of 2 Coords
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"sinusoid"',required:!0}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]}],required:!0},description:`The current correct answer for the graph. Updated by this component
+when the graph is changed.
+
+Note that the "Correct answer:" textbox is not an interactive
+element. Instead, it is a representation of the correct answer based
+on the state of the interactive graph previewed at the bottom of the
+editor page.`},{key:"lockedFigures",value:{name:"Array",elements:[{name:"union",raw:`| LockedPointType
+| LockedLineType
+| LockedVectorType
+| LockedEllipseType
+| LockedPolygonType
+| LockedFunctionType
+| LockedLabelType`,elements:[{name:"signature",type:"object",raw:`{
+    type: "point";
+    coord: Coord;
+    color: LockedFigureColor;
+    filled: boolean;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"point"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"filled",value:{name:"boolean",required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "line";
+    kind: "line" | "ray" | "segment";
+    points: [point1: LockedPointType, point2: LockedPointType];
+    color: LockedFigureColor;
+    lineStyle: LockedLineStyle;
+    showPoint1: boolean;
+    showPoint2: boolean;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"line"',required:!0}},{key:"kind",value:{name:"union",raw:'"line" | "ray" | "segment"',elements:[{name:"literal",value:'"line"'},{name:"literal",value:'"ray"'},{name:"literal",value:'"segment"'}],required:!0}},{key:"points",value:{name:"tuple",raw:"[point1: LockedPointType, point2: LockedPointType]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"lineStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"showPoint1",value:{name:"boolean",required:!0}},{key:"showPoint2",value:{name:"boolean",required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "vector";
+    points: [tail: Coord, tip: Coord];
+    color: LockedFigureColor;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"vector"',required:!0}},{key:"points",value:{name:"tuple",raw:"[tail: Coord, tip: Coord]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "ellipse";
+    center: Coord;
+    radius: [x: number, y: number];
+    angle: number;
+    color: LockedFigureColor;
+    fillStyle: LockedFigureFillType;
+    strokeStyle: LockedLineStyle;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"ellipse"',required:!0}},{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"radius",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"angle",value:{name:"number",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"fillStyle",value:{name:"union",raw:'"none" | "white" | "translucent" | "solid"',elements:[{name:"literal",value:'"none"'},{name:"literal",value:'"white"'},{name:"literal",value:'"translucent"'},{name:"literal",value:'"solid"'}],required:!0}},{key:"strokeStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "polygon";
+    points: ReadonlyArray<Coord>;
+    color: LockedFigureColor;
+    showVertices: boolean;
+    fillStyle: LockedFigureFillType;
+    strokeStyle: LockedLineStyle;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"polygon"',required:!0}},{key:"points",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"showVertices",value:{name:"boolean",required:!0}},{key:"fillStyle",value:{name:"union",raw:'"none" | "white" | "translucent" | "solid"',elements:[{name:"literal",value:'"none"'},{name:"literal",value:'"white"'},{name:"literal",value:'"translucent"'},{name:"literal",value:'"solid"'}],required:!0}},{key:"strokeStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "function";
+    color: LockedFigureColor;
+    strokeStyle: LockedLineStyle;
+    equation: string; // This is the user-defined equation (as it was typed)
+    directionalAxis: "x" | "y";
+    domain?: Interval;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"function"',required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"strokeStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"equation",value:{name:"string",required:!0}},{key:"directionalAxis",value:{name:"union",raw:'"x" | "y"',elements:[{name:"literal",value:'"x"'},{name:"literal",value:'"y"'}],required:!0}},{key:"domain",value:{name:"tuple",raw:"[min: number, max: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}]}],raw:"Array<LockedFigure>",required:!1},description:`The locked figures to display in the graph area.
+Locked figures are graph elements (points, lines, line segmeents,
+etc.) that are locked in place and not interactive.`},{key:"fullGraphAriaLabel",value:{name:"string",required:!1}},{key:"fullGraphAriaDescription",value:{name:"string",required:!1}},{key:"graph",value:{name:'PropsFor["graph"]',raw:'InteractiveGraphProps["graph"]',required:!0},description:"The graph to display in the graph area."},{key:"onChange",value:{name:"signature",type:"function",raw:"(props: Partial<Props>) => void",signature:{arguments:[{type:{name:"Partial",elements:[{name:"Props"}],raw:"Partial<Props>"},name:"props"}],return:{name:"void"}},required:!0}},{key:"static",value:{name:"boolean",required:!1}}]}}],raw:"Partial<EditorProps>"},name:"graphProps"}],return:{name:"void"}}},description:""}}};const an=Be("ul");function tn(r){const n=[],a=document.getElementById(r);return a&&a.querySelectorAll("*").forEach(t=>{var h;const l=[],i=t.getAttribute("aria-label"),s=t.getAttribute("aria-describedby");if(i&&l.unshift({name:"label",value:i}),s){const p=s.split(/ +/);for(const w of p){const q=(h=document.getElementById(w))==null?void 0:h.textContent;q&&l.push({name:"description",value:q})}}l.length>0&&n.push({roleOrTag:t.getAttribute("role")||t.tagName.toLowerCase(),className:t.classList[t.classList.length-1]||"",attributes:l})}),n}function on(r){const{elementArias:n,showTags:a}=r;return e.jsx("ol",{style:{listStyle:"revert",marginLeft:8},children:n.map((t,l)=>e.jsxs("li",{children:[a&&e.jsx(le,{size:"small",kind:"success",style:E.smallSpaceRight,children:t.roleOrTag}),t.className,e.jsx(an,{style:E.indentListLeft,children:t.attributes.map((i,s)=>e.jsxs("li",{children:[e.jsx(le,{size:"small",kind:i.name==="label"?"info":"neutral",style:E.smallSpaceRight,children:i.name}),i.value]},s))})]},l))})}function Pe({graphId:r,correct:n,fullGraphAriaLabel:a,fullGraphAriaDescription:t,lockedFigures:l}){const[i,s]=C.useState(!0),[h,p]=C.useState(!1),[w,q]=C.useState([]),A=C.useId();return C.useEffect(()=>{q(tn(r))},[n,a,t,r,l]),e.jsxs(e.Fragment,{children:[e.jsx(_,{title:"Screen reader tree",isOpen:i,onToggle:s,isCollapsible:!0}),i&&e.jsxs(e.Fragment,{children:[e.jsxs(u,{style:[E.row,E.tagSwitch],children:[e.jsx(Me,{id:A,checked:h,onChange:p}),e.jsx(y,{size:o.xSmall_8}),e.jsx(O,{tag:"label",htmlFor:A,children:"Show HTML roles/tags"})]}),e.jsx(on,{elementArias:w,showTags:h})]})]})}const E=v.StyleSheet.create({smallSpaceRight:{marginRight:o.xxSmall_6},indentListLeft:{listStyle:"revert",marginLeft:o.small_12},tagSwitch:{marginTop:o.xSmall_8,marginBottom:o.xSmall_8},row:{flexDirection:"row",alignItems:"center"}});Pe.__docgenInfo={description:"",methods:[],displayName:"InteractiveGraphSRTree"};const Ne=({numSegments:r=1,onChange:n})=>e.jsx(L,{selectedValue:`${r}`,placeholder:"",onChange:a=>{const t=+a;n(t)},style:ln.singleSelectShort,children:R.range(1,7).map(a=>e.jsx(d,{value:`${a}`,label:`${a} segment${a>1?"s":""}`},a))},"segment-select"),ln=v.StyleSheet.create({singleSelectShort:{height:26}});Ne.__docgenInfo={description:"",methods:[],displayName:"SegmentCountSelector",props:{numSegments:{required:!1,tsType:{name:"number"},description:"",defaultValue:{value:"1",computed:!1}},onChange:{required:!0,tsType:{name:"signature",type:"function",raw:"(numSegments: number) => void",signature:{arguments:[{type:{name:"number"},name:"numSegments"}],return:{name:"void"}}},description:""}}};const sn=""+new URL("arrow-counter-clockwise-bold-Zg1fUITb.svg",import.meta.url).href,{getClockwiseAngle:un}=Ge;function mn(r){if("startCoords"in r)return r.startCoords}function dn(r,n,a){switch(r.type){case"linear":case"ray":return ke({...r,startCoords:void 0},n,a);case"segment":return be({...r,startCoords:void 0},n,a);case"linear-system":return we({...r,startCoords:void 0},n,a);case"circle":const t=ge({...r,startCoords:void 0}),l=ue(me(t.radiusPoint,t.center));return{center:t.center,radius:l};case"sinusoid":return ye({...r,startCoords:void 0},n,a);case"quadratic":return he({...r,startCoords:void 0},n,a);case"point":return ce({...r,startCoords:void 0},n,a);case"polygon":return pe({...r,startCoords:void 0},n,a);case"angle":return de({graph:{...r,startCoords:void 0},range:n,step:a});default:return}}const pn=r=>{const n=r[0],a=r[1],t=a[1]-n[1],l=Math.PI/(2*(a[0]-n[0])),i=n[0]*l,s=n[1];return"y = "+t.toFixed(3)+"sin("+l.toFixed(3)+"x - "+i.toFixed(3)+") + "+s.toFixed(3)},cn=r=>{const n=r[0],a=r[1],t=r[2],l=(n[0]-a[0])*(n[0]-t[0])*(a[0]-t[0]);if(l===0)return"Division by zero error";const i=(t[0]*(a[1]-n[1])+a[0]*(n[1]-t[1])+n[0]*(t[1]-a[1]))/l,s=(t[0]*t[0]*(n[1]-a[1])+a[0]*a[0]*(t[1]-n[1])+n[0]*n[0]*(a[1]-t[1]))/l,h=(a[0]*t[0]*(a[0]-t[0])*n[1]+t[0]*n[0]*(t[0]-n[0])*a[1]+n[0]*a[0]*(n[0]-a[0])*t[1])/l;return"y = "+i.toFixed(3)+"x^2 + "+s.toFixed(3)+"x + "+h.toFixed(3)},hn=(r,n=!1)=>{const a=r[1];return`${un(r,n).toFixed(0)}° angle at (${a[0]}, ${a[1]})`},yn=(r,n)=>{if(n)return!1;switch(r.type){case"point":return r.numPoints!=="unlimited";case"polygon":return r.numSides!=="unlimited"&&r.snapTo!=="angles"&&r.snapTo!=="sides";case"none":return!1;case"angle":case"circle":case"linear":case"linear-system":case"quadratic":case"ray":case"segment":case"sinusoid":return!0;default:throw new fe(r)}},Re=r=>{const{startCoords:n,allowReflexAngles:a,onChange:t}=r;return e.jsxs(e.Fragment,{children:[e.jsxs(u,{style:S.equationSection,children:[e.jsx(U,{children:"Starting equation:"}),e.jsx(W,{style:S.equationBody,children:hn(n,a)})]}),e.jsxs(u,{style:S.tile,children:[e.jsx(g,{children:"Point 1:"}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:n[0],labels:["x","y"],onChange:l=>t([l,n[1],n[2]])})]}),e.jsxs(u,{style:S.tile,children:[e.jsx(g,{children:"Vertex:"}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:n[1],labels:["x","y"],onChange:l=>t([n[0],l,n[2]])})]}),e.jsxs(u,{style:S.tile,children:[e.jsx(g,{children:"Point 2:"}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:n[2],labels:["x","y"],onChange:l=>t([n[0],n[1],l])})]})]})},S=v.StyleSheet.create({tile:{backgroundColor:b.fadedBlue8,marginTop:o.xSmall_8,padding:o.small_12,borderRadius:o.xSmall_8,flexDirection:"row",alignItems:"center"},equationSection:{marginTop:o.small_12},equationBody:{backgroundColor:b.fadedOffBlack8,border:`1px solid ${b.fadedOffBlack32}`,marginTop:o.xSmall_8,paddingLeft:o.xSmall_8,paddingRight:o.xSmall_8,fontSize:X.size.xSmall}});Re.__docgenInfo={description:"",methods:[],displayName:"StartCoordsAngle",props:{startCoords:{required:!0,tsType:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]},{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]},{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]}]},description:""},allowReflexAngles:{required:!1,tsType:{name:"boolean"},description:""},onChange:{required:!0,tsType:{name:"signature",type:"function",raw:"(startCoords: AngleCoords) => void",signature:{arguments:[{type:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]},{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]},{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]}]},name:"startCoords"}],return:{name:"void"}}},description:""}}};const Le=r=>{const{startCoords:n,onChange:a}=r,[t,l]=C.useState(n.radius.toString());C.useEffect(()=>{l(n.radius.toString())},[n.radius]);function i(s){l(s),!(isNaN(+s)||s===""||+s==0)&&a({center:n.center,radius:parseFloat(s)})}return e.jsxs(u,{style:V.tile,children:[e.jsxs(u,{style:V.row,children:[e.jsx(g,{children:"Center:"}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:n.center,labels:["x","y"],onChange:s=>a({center:s,radius:n.radius})})]}),e.jsx(y,{size:o.small_12}),e.jsxs(g,{tag:"label",style:V.row,children:["Radius:",e.jsx(y,{size:o.small_12}),e.jsx(Je,{value:t,onChange:i,style:V.textField})]})]})},V=v.StyleSheet.create({tile:{backgroundColor:b.fadedBlue8,marginTop:o.xSmall_8,padding:o.small_12,borderRadius:o.xSmall_8},row:{display:"flex",flexDirection:"row",alignItems:"center"},textField:{width:o.xxxLarge_64}});Le.__docgenInfo={description:"",methods:[],displayName:"StartCoordsCircle",props:{startCoords:{required:!0,tsType:{name:"signature",type:"object",raw:`{
+    center: Coord;
+    radius: number;
+}`,signature:{properties:[{key:"center",value:{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}],required:!0}},{key:"radius",value:{name:"number",required:!0}}]}},description:""},onChange:{required:!0,tsType:{name:"signature",type:"function",raw:"(startCoords: CircleCoords) => void",signature:{arguments:[{type:{name:"signature",type:"object",raw:`{
+    center: Coord;
+    radius: number;
+}`,signature:{properties:[{key:"center",value:{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}],required:!0}},{key:"radius",value:{name:"number",required:!0}}]}},name:"startCoords"}],return:{name:"void"}}},description:""}}};const je=r=>{const{startCoords:n,onChange:a}=r;return e.jsxs(e.Fragment,{children:[e.jsxs(u,{style:ie.tile,children:[e.jsx(g,{children:"Point 1:"}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:n[0],labels:["x","y"],onChange:t=>a([t,n[1]])})]}),e.jsxs(u,{style:ie.tile,children:[e.jsx(g,{children:"Point 2:"}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:n[1],labels:["x","y"],onChange:t=>a([n[0],t])})]})]})},ie=v.StyleSheet.create({tile:{backgroundColor:b.fadedBlue8,marginTop:o.xSmall_8,padding:o.small_12,borderRadius:o.xSmall_8,flexDirection:"row",alignItems:"center"}});je.__docgenInfo={description:"",methods:[],displayName:"StartCoordsLine",props:{startCoords:{required:!0,tsType:{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}]},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}]}]},description:""},onChange:{required:!0,tsType:{name:"signature",type:"function",raw:"(startCoords: CollinearTuple) => void",signature:{arguments:[{type:{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}]},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}]}]},name:"startCoords"}],return:{name:"void"}}},description:""}}};const Se=r=>{const{startCoords:n,type:a,onChange:t}=r,l=a==="segment"?"Segment":"Line";return e.jsx(e.Fragment,{children:n.map((i,s)=>e.jsxs(en,{header:e.jsx(g,{children:`${l} ${s+1}`}),expanded:!0,children:[e.jsxs(u,{style:se.nestedTile,children:[e.jsx(g,{children:"Point 1:"}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:i[0],labels:["x","y"],onChange:h=>{const p=[...n];p[s]=[h,i[1]],t(p)}})]}),e.jsxs(u,{style:se.nestedTile,children:[e.jsx(g,{children:"Point 2:"}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:i[1],labels:["x","y"],onChange:h=>{const p=[...n];p[s]=[i[0],h],t(p)}})]})]},`segment-${s}-start-coords`))})},se=v.StyleSheet.create({nestedTile:{paddingBottom:o.small_12,flexDirection:"row",alignItems:"center"}});Se.__docgenInfo={description:"",methods:[],displayName:"StartCoordsMultiline",props:{type:{required:!0,tsType:{name:"union",raw:'"linear-system" | "segment"',elements:[{name:"literal",value:'"linear-system"'},{name:"literal",value:'"segment"'}]},description:""},startCoords:{required:!0,tsType:{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}]},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}]}]}],raw:"CollinearTuple[]"},description:""},onChange:{required:!0,tsType:{name:"signature",type:"function",raw:"(startCoords: CollinearTuple[]) => void",signature:{arguments:[{type:{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}]},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}]}]}],raw:"CollinearTuple[]"},name:"startCoords"}],return:{name:"void"}}},description:""}}};const Ie=r=>{const{startCoords:n,onChange:a}=r;return e.jsx(e.Fragment,{children:n.map((t,l)=>e.jsxs(u,{style:gn.tile,children:[e.jsx(g,{children:`Point ${l+1}:`}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:t,labels:["x","y"],onChange:i=>{const s=[...n];s[l]=i,a(s)}})]},l))})},gn=v.StyleSheet.create({tile:{backgroundColor:b.fadedBlue8,marginTop:o.xSmall_8,padding:o.small_12,borderRadius:o.xSmall_8,flexDirection:"row",alignItems:"center"}});Ie.__docgenInfo={description:"",methods:[],displayName:"StartCoordsPoint",props:{startCoords:{required:!0,tsType:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]}],raw:"ReadonlyArray<Coord>"},description:""},onChange:{required:!0,tsType:{name:"signature",type:"function",raw:"(startCoords: ReadonlyArray<Coord>) => void",signature:{arguments:[{type:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]}],raw:"ReadonlyArray<Coord>"},name:"startCoords"}],return:{name:"void"}}},description:""}}};const Oe=r=>{const{startCoords:n,onChange:a}=r;return e.jsxs(e.Fragment,{children:[e.jsxs(u,{style:I.equationSection,children:[e.jsx(U,{children:"Starting equation:"}),e.jsx(W,{style:I.equationBody,children:cn(n)})]}),e.jsxs(u,{style:I.tile,children:[e.jsx(g,{children:"Point 1:"}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:n[0],labels:["x","y"],onChange:t=>a([t,n[1],n[2]])})]}),e.jsxs(u,{style:I.tile,children:[e.jsx(g,{children:"Point 2:"}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:n[1],labels:["x","y"],onChange:t=>a([n[0],t,n[2]])})]}),e.jsxs(u,{style:I.tile,children:[e.jsx(g,{children:"Point 3:"}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:n[2],labels:["x","y"],onChange:t=>a([n[0],n[1],t])})]})]})},I=v.StyleSheet.create({tile:{backgroundColor:b.fadedBlue8,marginTop:o.xSmall_8,padding:o.small_12,borderRadius:o.xSmall_8,flexDirection:"row",alignItems:"center"},equationSection:{marginTop:o.small_12},equationBody:{backgroundColor:b.fadedOffBlack8,border:`1px solid ${b.fadedOffBlack32}`,marginTop:o.xSmall_8,paddingLeft:o.xSmall_8,paddingRight:o.xSmall_8,fontSize:X.size.xSmall}});Oe.__docgenInfo={description:"",methods:[],displayName:"StartCoordsQuadratic",props:{startCoords:{required:!0,tsType:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]},{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]},{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]}]},description:""},onChange:{required:!0,tsType:{name:"signature",type:"function",raw:"(startCoords: [Coord, Coord, Coord]) => void",signature:{arguments:[{type:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]},{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]},{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]}]},name:"startCoords"}],return:{name:"void"}}},description:""}}};const Ee=r=>{const{startCoords:n,onChange:a}=r;return e.jsxs(e.Fragment,{children:[e.jsxs(u,{style:M.equationSection,children:[e.jsx(U,{children:"Starting equation:"}),e.jsx(W,{style:M.equationBody,children:pn(n)})]}),e.jsxs(u,{style:M.tile,children:[e.jsx(g,{children:"Point 1:"}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:n[0],labels:["x","y"],onChange:t=>a([t,n[1]])})]}),e.jsxs(u,{style:M.tile,children:[e.jsx(g,{children:"Point 2:"}),e.jsx(y,{size:o.small_12}),e.jsx(k,{coord:n[1],labels:["x","y"],onChange:t=>a([n[0],t])})]})]})},M=v.StyleSheet.create({tile:{backgroundColor:b.fadedBlue8,marginTop:o.xSmall_8,padding:o.small_12,borderRadius:o.xSmall_8,flexDirection:"row",alignItems:"center"},equationSection:{marginTop:o.small_12},equationBody:{backgroundColor:b.fadedOffBlack8,border:`1px solid ${b.fadedOffBlack32}`,marginTop:o.xSmall_8,paddingLeft:o.xSmall_8,paddingRight:o.xSmall_8,fontSize:X.size.xSmall}});Ee.__docgenInfo={description:"",methods:[],displayName:"StartCoordsSinusoid",props:{startCoords:{required:!0,tsType:{name:"tuple",raw:"[Coord, Coord]",elements:[{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]},{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]}]},description:""},onChange:{required:!0,tsType:{name:"signature",type:"function",raw:"(startCoords: SinusoidCoords) => void",signature:{arguments:[{type:{name:"tuple",raw:"[Coord, Coord]",elements:[{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]},{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}]}]},name:"startCoords"}],return:{name:"void"}}},description:""}}};const wn=r=>{const{type:n,range:a,step:t,allowReflexAngles:l,onChange:i}=r;switch(n){case"linear":case"ray":const s=ke(r,a,t);return e.jsx(je,{startCoords:s,onChange:i});case"linear-system":case"segment":const h=n==="segment"?be(r,a,t):we(r,a,t);return e.jsx(Se,{type:n,startCoords:h,onChange:i});case"circle":const p=ge(r),w=ue(me(p.radiusPoint,p.center));return e.jsx(Le,{startCoords:{center:p.center,radius:w},onChange:i});case"sinusoid":const q=ye(r,a,t);return e.jsx(Ee,{startCoords:q,onChange:i});case"quadratic":const A=he(r,a,t);return e.jsx(Oe,{startCoords:A,onChange:i});case"point":case"polygon":const F=n==="point"?ce(r,a,t):pe(r,a,t);return e.jsx(Ie,{startCoords:F,onChange:i});case"angle":const G=de({graph:r,range:a,step:t});return e.jsx(Re,{startCoords:G,allowReflexAngles:l,onChange:i});default:return null}},Fe=r=>{const{range:n,step:a,onChange:t}=r,[l,i]=C.useState(!0);return e.jsxs(u,{children:[e.jsx(_,{isCollapsible:!0,title:"Start coordinates",isOpen:l,onToggle:()=>i(!l)}),l&&e.jsxs(e.Fragment,{children:[e.jsx(wn,{...r}),e.jsx(y,{size:o.small_12}),e.jsx(Ze,{startIcon:sn,kind:"tertiary",size:"small",onClick:()=>{t(dn(r,n,a))},children:"Use default start coordinates"})]})]})};Fe.__docgenInfo={description:"",methods:[],displayName:"StartCoordsSettings",props:{range:{required:!0,tsType:{name:"tuple",raw:"[x: Range, y: Range]",elements:[{name:"unknown"},{name:"unknown"}]},description:""},step:{required:!0,tsType:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}]},description:""},allowReflexAngles:{required:!1,tsType:{name:"boolean"},description:""},onChange:{required:!0,tsType:{name:"signature",type:"function",raw:"(startCoords: StartCoords) => void",signature:{arguments:[{type:{name:'Extract["startCoords"]',raw:`Extract<
+    PerseusGraphType,
+    GraphTypesThatHaveStartCoords
+>["startCoords"]`},name:"startCoords"}],return:{name:"void"}}},description:""}}};const{InfoTip:N}=He,$=ze.widget,bn=R.map(R.range(3,13),function(r){return e.jsx(d,{value:`${r}`,label:`${r} sides`},`polygon-sides-${r}`)}),z=class z extends C.Component{constructor(){super(...arguments),this.displayName="InteractiveGraphEditor",this.className="perseus-widget-interactive-graph",this.changeStartCoords=n=>{var t;if(!((t=this.props.graph)!=null&&t.type))return;const a={...this.props.graph,startCoords:n};this.props.onChange({graph:a})},this.getSaveWarnings=()=>{var a;const n=[];for(const t of this.props.lockedFigures??[])t.type==="line"&&De(t.points[0].coord,t.points[1].coord)&&n.push("The line cannot have length 0.");return((a=this.props.graph)==null?void 0:a.type)==="polygon"&&this.props.graph.numSides==="unlimited"&&this.props.graph.coords===null&&n.push("Polygon must be closed."),n}}serialize(){const n=R.pick(this.props,"step","backgroundImage","markings","labels","showProtractor","showTooltips","range","gridStep","snapStep","lockedFigures","fullGraphAriaLabel","fullGraphAriaDescription"),a=this.refs.graph;if(a){const t=a&&a.getUserInput();R.extend(n,{graph:{type:t.type,startCoords:this.props.graph&&mn(this.props.graph)},correct:t}),R.each(["allowReflexAngles","angleOffsetDeg","numPoints","numSides","numSegments","showAngles","showSides","snapTo","snapDegrees"],function(l){R.has(t,l)&&(n.graph[l]=t[l])})}return n}render(){let n,a;const t=this.props.gridStep||oe.getGridStep(this.props.range,this.props.step,$e.defaultBoxSize),l=this.props.snapStep||oe.snapStepFromGridStep(t),i=_e.SMALL;if(this.props.valid===!0){const s=this.props.correct,h={ref:"graph",box:this.props.box,range:this.props.range,labels:this.props.labels,step:this.props.step,gridStep:t,snapStep:l,graph:s,backgroundImage:this.props.backgroundImage,markings:this.props.markings,showProtractor:this.props.showProtractor,showTooltips:this.props.showTooltips,lockedFigures:this.props.lockedFigures,fullGraphAriaLabel:this.props.fullGraphAriaLabel,fullGraphAriaDescription:this.props.fullGraphAriaDescription,trackInteraction:function(){},onChange:({graph:p})=>{let w=this.props.correct;c(p!=null),w.type===p.type?w=kn(w,p):w=p,this.props.onChange({correct:w,graph:this.props.graph})}};n=e.jsx($,{...h,containerSizeClass:i,apiOptions:{...this.props.apiOptions,isMobile:!1}}),a=$.getEquationString(h)}else n=e.jsx("div",{className:"perseus-error",children:this.props.valid});return e.jsx(Ke,{children:s=>{var h,p,w,q,A,F,G,Q,Y,Z,J,ee,ne,re,ae,te;return e.jsxs(u,{children:[e.jsx(P,{label:"Answer type:",children:e.jsx(xe,{graphType:((h=this.props.graph)==null?void 0:h.type)??$.defaultProps.graph.type,onChange:m=>{this.props.onChange({graph:{type:m},correct:{type:m}})}})}),e.jsx(Ae,{ariaLabelValue:this.props.fullGraphAriaLabel??"",ariaDescriptionValue:this.props.fullGraphAriaDescription??"",onChange:this.props.onChange}),e.jsx(Te,{id:s,equationString:a,children:n}),((p=this.props.correct)==null?void 0:p.type)==="point"&&e.jsx(P,{label:"Number of Points:",children:e.jsx(qe,{numPoints:(w=this.props.correct)==null?void 0:w.numPoints,onChange:m=>{this.props.onChange({correct:{type:"point",numPoints:m},graph:{type:"point",numPoints:m}})}})}),((q=this.props.correct)==null?void 0:q.type)==="angle"&&e.jsxs(e.Fragment,{children:[e.jsxs(u,{style:T.row,children:[e.jsx(D,{label:e.jsx(O,{children:"Show angle measures"}),checked:!!((A=this.props.correct)!=null&&A.showAngles),onChange:m=>{var f;((f=this.props.graph)==null?void 0:f.type)==="angle"&&(c(this.props.correct.type==="angle",`Expected graph type to be angle, but got ${this.props.correct.type}`),this.props.onChange({correct:{...this.props.correct,showAngles:m},graph:{...this.props.graph,showAngles:m}}))}}),e.jsx(N,{children:e.jsx("p",{children:"Displays the interior angle measures."})})]}),e.jsxs(u,{style:T.row,children:[e.jsx(D,{label:e.jsx(O,{children:"Allow reflex angles"}),checked:!!((F=this.props.correct)!=null&&F.allowReflexAngles),onChange:m=>{var x,j;c(this.props.correct.type==="angle",`Expected graph type to be angle, but got ${this.props.correct.type}`),c(((x=this.props.graph)==null?void 0:x.type)==="angle",`Expected graph type to be angle, but got ${(j=this.props.graph)==null?void 0:j.type}`);const f={allowReflexAngles:m};this.props.onChange({correct:{...this.props.correct,...f},graph:{...this.props.graph,...f}})}}),e.jsx(N,{children:e.jsx("p",{children:"Allow students to be able to create reflex angles."})})]})]}),((G=this.props.correct)==null?void 0:G.type)==="polygon"&&e.jsxs(e.Fragment,{children:[e.jsx(P,{label:"Number of sides:",children:e.jsx(L,{selectedValue:(Q=this.props.correct)!=null&&Q.numSides?`${this.props.correct.numSides}`:"3",placeholder:"",onChange:m=>{var x;c(((x=this.props.graph)==null?void 0:x.type)==="polygon");const f={numSides:Ce(m),coords:null,snapTo:"grid"};this.props.onChange({correct:{...this.props.correct,...f},graph:{...this.props.graph,...f}})},style:T.singleSelectShort,children:[...bn,e.jsx(d,{value:"unlimited",label:"unlimited sides"},"unlimited")]},"polygon-select")}),e.jsxs(P,{label:"Snap to:",children:[e.jsxs(L,{selectedValue:((Y=this.props.correct)==null?void 0:Y.snapTo)||"grid",placeholder:"",onChange:m=>{var x,j;c(this.props.correct.type==="polygon",`Expected correct answer type to be polygon, but got ${this.props.correct.type}`),c(((x=this.props.graph)==null?void 0:x.type)==="polygon",`Expected graph type to be polygon, but got ${(j=this.props.graph)==null?void 0:j.type}`);const f={snapTo:m,coords:null};this.props.onChange({correct:{...this.props.correct,...f},graph:{...this.props.graph,...f}})},style:T.singleSelectShort,children:[e.jsx(d,{value:"grid",label:"grid"}),((Z=this.props.correct)==null?void 0:Z.numSides)!=="unlimited"&&e.jsx(d,{value:"angles",label:"interior angles"}),((J=this.props.correct)==null?void 0:J.numSides)!=="unlimited"&&e.jsx(d,{value:"sides",label:"side measures"})]}),e.jsxs(N,{children:[e.jsx("p",{children:"These options affect the movement of the vertex points. The grid option will guide the points to the nearest half step along the grid."}),e.jsx("p",{children:"The interior angle and side measure options guide the points to the nearest whole angle or side measure respectively."})]})]}),e.jsxs(u,{style:T.row,children:[e.jsx(D,{label:e.jsx(O,{children:"Show angle measures"}),checked:!!((ee=this.props.correct)!=null&&ee.showAngles),onChange:()=>{var m;((m=this.props.graph)==null?void 0:m.type)==="polygon"&&(c(this.props.correct.type==="polygon",`Expected graph type to be polygon, but got ${this.props.correct.type}`),this.props.onChange({correct:{...this.props.correct,showAngles:!this.props.correct.showAngles},graph:{...this.props.graph,showAngles:!this.props.graph.showAngles}}))}}),e.jsx(N,{children:e.jsx("p",{children:"Displays the interior angle measures."})})]}),e.jsxs(u,{style:T.row,children:[e.jsx(D,{label:e.jsx(O,{children:"Show side measures"}),checked:!!((ne=this.props.correct)!=null&&ne.showSides),onChange:()=>{var m;((m=this.props.graph)==null?void 0:m.type)==="polygon"&&this.props.correct.type==="polygon"&&this.props.onChange({correct:{...this.props.correct,showSides:!this.props.correct.showSides},graph:{...this.props.graph,showSides:!this.props.graph.showSides}})}}),e.jsx(N,{children:e.jsx("p",{children:"Displays the side lengths."})})]})]}),((re=this.props.correct)==null?void 0:re.type)==="segment"&&e.jsx(P,{label:"Number of segments:",children:e.jsx(Ne,{numSegments:(ae=this.props.correct)==null?void 0:ae.numSegments,onChange:m=>{this.props.onChange({correct:{type:"segment",numSegments:m,coords:null},graph:{type:"segment",numSegments:m}})}})}),((te=this.props.graph)==null?void 0:te.type)&&yn(this.props.graph,this.props.static)&&e.jsx(Fe,{...this.props.graph,range:this.props.range,step:this.props.step,onChange:this.changeStartCoords}),e.jsx(Pe,{graphId:s,correct:this.props.correct,fullGraphAriaLabel:this.props.fullGraphAriaLabel,fullGraphAriaDescription:this.props.fullGraphAriaDescription,lockedFigures:this.props.lockedFigures}),e.jsx(Qe,{box:We(i),range:this.props.range,labels:this.props.labels,step:this.props.step,gridStep:t,snapStep:l,valid:this.props.valid,backgroundImage:this.props.backgroundImage,markings:this.props.markings,showProtractor:this.props.showProtractor,showTooltips:this.props.showTooltips,onChange:this.props.onChange}),this.props.correct.type==="polygon"&&e.jsxs(P,{label:"Student answer must",children:[e.jsxs(L,{selectedValue:this.props.correct.match||"exact",onChange:m=>{c(this.props.correct.type==="polygon",`Expected graph type to be polygon, but got ${this.props.correct.type}`);const f={...this.props.correct,match:m};this.props.onChange({correct:f})},placeholder:"",style:T.singleSelectShort,children:[e.jsx(d,{value:"exact",label:"match exactly"}),e.jsx(d,{value:"congruent",label:"be congruent"}),e.jsx(d,{value:"approx",label:"be approximately congruent"}),e.jsx(d,{value:"similar",label:"be similar"})]}),e.jsx(N,{children:e.jsxs("ul",{children:[e.jsx("li",{children:e.jsxs("p",{children:[e.jsx("b",{children:"Match Exactly:"})," Match exactly in size, orientation, and location on the grid even if it is not shown in the background."]})}),e.jsx("li",{children:e.jsxs("p",{children:[e.jsx("b",{children:"Be Congruent:"})," Be congruent in size and shape, but can be located anywhere on the grid."]})}),e.jsx("li",{children:e.jsxs("p",{children:[e.jsx("b",{children:"Be Approximately Congruent:"})," ","Be exactly similar, and congruent in size and shape to within 0.1 units, but can be located anywhere on the grid."," ",e.jsx("em",{children:"Use this with snapping to angle measure."})]})}),e.jsx("li",{children:e.jsxs("p",{children:[e.jsx("b",{children:"Be Similar:"})," Be similar with matching interior angles, and side measures that are matching or a multiple of the correct side measures. The figure can be located anywhere on the grid."]})})]})})]}),this.props.correct.type==="angle"&&e.jsxs(P,{label:"Student answer must",children:[e.jsxs(L,{selectedValue:this.props.correct.match||"exact",onChange:m=>{this.props.onChange({correct:{...this.props.correct,match:m}})},placeholder:"",style:T.singleSelectShort,children:[e.jsx(d,{value:"exact",label:"match exactly"}),e.jsx(d,{value:"congruent",label:"be congruent"})]}),e.jsx(N,{children:e.jsx("p",{children:"Congruency requires only that the angle measures are the same. An exact match implies congruency, but also requires that the angles have the same orientation and that the vertices are in the same position."})})]}),e.jsx(Ye,{figures:this.props.lockedFigures,onChange:this.props.onChange})]})}})}};z.widgetName="interactive-graph",z.defaultProps={...Ve.defaultWidgetOptions,valid:!0};let K=z;function kn(r,n){if(r.type!==n.type)throw new Error(`Cannot merge graphs with different types (${r.type} and ${n.type})`);switch(r.type){case"angle":return c(n.type==="angle"),{...r,...n};case"circle":return c(n.type==="circle"),{...r,...n};case"linear":return c(n.type==="linear"),{...r,...n};case"linear-system":return c(n.type==="linear-system"),{...r,...n};case"none":return c(n.type==="none"),{...r,...n};case"point":return c(n.type==="point"),{...r,...n};case"polygon":return c(n.type==="polygon"),{...r,...n};case"quadratic":return c(n.type==="quadratic"),{...r,...n};case"ray":return c(n.type==="ray"),{...r,...n};case"segment":return c(n.type==="segment"),{...r,...n};case"sinusoid":return c(n.type==="sinusoid"),{...r,...n};default:throw new fe(r)}}const T=v.StyleSheet.create({singleSelectShort:{height:26},row:{flexDirection:"row",marginTop:o.xSmall_8,alignItems:"center"}});K.__docgenInfo={description:`An editor for the InteractiveGraph widget, which allows the user to
+specify the graph's properties and the correct answer.
+
+Used in the exercise editor.`,methods:[{name:"changeStartCoords",docblock:null,modifiers:[],params:[{name:"coords",optional:!1,type:null}],returns:null},{name:"serialize",docblock:null,modifiers:[],params:[],returns:{type:{name:"signature",type:"object",raw:`{
+    // Where the little black axis lines & labels (ticks) should render.
+    // Also known as the tick step. default [1, 1]
+    // NOTE(kevinb): perseus_data.go defines this as Array<number>
+    step: [number, number];
+    // Where the grid lines on the graph will render. default [1, 1]
+    // NOTE(kevinb): perseus_data.go defines this as Array<number>
+    gridStep?: [x: number, y: number];
+    // Where the graph points will lock to when they are dragged. default [0.5, 0.5]
+    // NOTE(kevinb): perseus_data.go defines this as Array<number>
+    snapStep?: [x: number, y: number];
+    // An optional image to use in the background
+    backgroundImage?: PerseusImageBackground;
+    /**
+     * The type of markings to display on the graph.
+     */
+    markings: MarkingsType;
+    // How to label the X and Y axis.  default: ["x", "y"]
+    labels?: ReadonlyArray<string>;
+    // Whether to show the Protractor tool overlayed on top of the graph
+    showProtractor: boolean;
+    /**
+     * Whether to show the Ruler tool overlayed on top of the graph.
+     * @deprecated - no longer used by the InteractiveGraph widget. The
+     * property is kept on this type to prevent its accidental reuse in future
+     * features, since it may appear in production data.
+     */
+    showRuler?: boolean;
+    // Whether to show tooltips on the graph
+    showTooltips?: boolean;
+    /**
+     * The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft",
+     * "yd", "mi".
+     * @deprecated - no longer used by the InteractiveGraph widget. The
+     * property is kept on this type to prevent its accidental reuse in future
+     * features, since it may appear in production data.
+     */
+    rulerLabel?: string;
+    /**
+     * How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16. Must be
+     * an integer.
+     * @deprecated - no longer used by the InteractiveGraph widget. The
+     * property is kept on this type to prevent its accidental reuse in future
+     * features, since it may appear in production data.
+     */
+    rulerTicks?: number;
+    // The X and Y coordinate ranges for the view of the graph.  default: [[-10, 10], [-10, 10]]
+    // NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
+    // TODO(kevinb): Add a transform function to interactive-graph.jsx to
+    // rename \`range\` to \`ranges\` so that things are less confusing.
+    range: GraphRange;
+    // The type of graph
+    graph: PerseusGraphType;
+    // The correct kind of graph, if being used to select function type
+    // TODO(LEMS-2344): make the type of \`correct\` more specific
+    correct: PerseusGraphType;
+    // Shapes (points, chords, etc) displayed on the graph that cannot
+    // be moved by the user.
+    lockedFigures?: ReadonlyArray<LockedFigure>;
+    // Aria label that applies to the entire graph.
+    fullGraphAriaLabel?: string;
+    // Aria description that applies to the entire graph.
+    fullGraphAriaDescription?: string;
+}`,signature:{properties:[{key:"step",value:{name:"tuple",raw:"[number, number]",elements:[{name:"number"},{name:"number"}],required:!0}},{key:"gridStep",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}},{key:"snapStep",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}},{key:"backgroundImage",value:{name:"signature",type:"object",raw:`{
+    // The URL of the image
+    url: string | null | undefined;
+    // The width of the image
+    width?: number;
+    // The height of the image
+    height?: number;
+    // The top offset of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    top?: number;
+    // The left offset of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    left?: number;
+    // The scale of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    // Yikes, production data as this as both a number (1) and string ("1")
+    scale?: number | string;
+    // The bottom offset of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    bottom?: number;
+}`,signature:{properties:[{key:"url",value:{name:"union",raw:"string | null | undefined",elements:[{name:"string"},{name:"null"},{name:"undefined"}],required:!0}},{key:"width",value:{name:"number",required:!1}},{key:"height",value:{name:"number",required:!1}},{key:"top",value:{name:"number",required:!1}},{key:"left",value:{name:"number",required:!1}},{key:"scale",value:{name:"union",raw:"number | string",elements:[{name:"number"},{name:"string"}],required:!1}},{key:"bottom",value:{name:"number",required:!1}}]},required:!1}},{key:"markings",value:{name:"union",raw:'"axes" | "graph" | "grid" | "none"',elements:[{name:"literal",value:'"axes"'},{name:"literal",value:'"graph"'},{name:"literal",value:'"grid"'},{name:"literal",value:'"none"'}],required:!0},description:"The type of markings to display on the graph."},{key:"labels",value:{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>",required:!1}},{key:"showProtractor",value:{name:"boolean",required:!0}},{key:"showRuler",value:{name:"boolean",required:!1},description:`Whether to show the Ruler tool overlayed on top of the graph.
+@deprecated - no longer used by the InteractiveGraph widget. The
+property is kept on this type to prevent its accidental reuse in future
+features, since it may appear in production data.`},{key:"showTooltips",value:{name:"boolean",required:!1}},{key:"rulerLabel",value:{name:"string",required:!1},description:`The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft",
+"yd", "mi".
+@deprecated - no longer used by the InteractiveGraph widget. The
+property is kept on this type to prevent its accidental reuse in future
+features, since it may appear in production data.`},{key:"rulerTicks",value:{name:"number",required:!1},description:`How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16. Must be
+an integer.
+@deprecated - no longer used by the InteractiveGraph widget. The
+property is kept on this type to prevent its accidental reuse in future
+features, since it may appear in production data.`},{key:"range",value:{name:"tuple",raw:`[
+    x: [min: number, max: number],
+    y: [min: number, max: number],
+]`,elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"graph",value:{name:"union",raw:`| PerseusGraphTypeAngle
+| PerseusGraphTypeCircle
+| PerseusGraphTypeLinear
+| PerseusGraphTypeLinearSystem
+| PerseusGraphTypeNone
+| PerseusGraphTypePoint
+| PerseusGraphTypePolygon
+| PerseusGraphTypeQuadratic
+| PerseusGraphTypeRay
+| PerseusGraphTypeSegment
+| PerseusGraphTypeSinusoid`,elements:[{name:"signature",type:"object",raw:`{
+    type: "angle";
+    // Whether to show the angle measurements.  default: false
+    showAngles?: boolean;
+    // Allow Reflex Angles if an "angle" type.  default: true
+    allowReflexAngles?: boolean;
+    // The angle offset in degrees if an "angle" type. default: 0
+    angleOffsetDeg?: number;
+    // Snap to degree increments if an "angle" type. default: 1
+    snapDegrees?: number;
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "congruent";
+    // must have 3 coords - ie [Coord, Coord, Coord]
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"angle"',required:!0}},{key:"showAngles",value:{name:"boolean",required:!1}},{key:"allowReflexAngles",value:{name:"boolean",required:!1}},{key:"angleOffsetDeg",value:{name:"number",required:!1}},{key:"snapDegrees",value:{name:"number",required:!1}},{key:"match",value:{name:"literal",value:'"congruent"',required:!1}},{key:"coords",value:{name:"union",raw:"[Coord, Coord, Coord] | null",elements:[{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}]},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"intersection",raw:`{
+    type: "circle";
+    center?: Coord;
+    radius?: number;
+    // The initial coordinates the graph renders with.
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "circle";
+    center?: Coord;
+    radius?: number;
+    // The initial coordinates the graph renders with.
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"circle"',required:!0}},{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"radius",value:{name:"number",required:!1}},{key:"startCoords",value:{name:"signature",type:"object",raw:`{
+    center: Coord;
+    radius: number;
+}`,signature:{properties:[{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"radius",value:{name:"number",required:!0}}]},required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "linear";
+    // expects 2 coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "linear";
+    // expects 2 coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"linear"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple | null",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "linear-system";
+    // expects 2 sets of 2 coords
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "linear-system";
+    // expects 2 sets of 2 coords
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"linear-system"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple[] | null",elements:[{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"signature",type:"object",raw:`{
+    type: "none";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"none"',required:!0}}]}},{name:"intersection",raw:`{
+    type: "point";
+    // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
+    numPoints?: number | "unlimited";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "point";
+    // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
+    numPoints?: number | "unlimited";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"point"',required:!0}},{key:"numPoints",value:{name:"union",raw:'number | "unlimited"',elements:[{name:"number"},{name:"literal",value:'"unlimited"'}],required:!1}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "polygon";
+    // The number of sides.  default: 3. "unlimited" if no limit
+    numSides?: number | "unlimited";
+    // Whether to the angle measurements.  default: false
+    showAngles?: boolean;
+    // Whether to show side measurements. default: false
+    showSides?: boolean;
+    // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
+    snapTo?: "grid" | "angles" | "sides";
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "similar" | "congruent" | "approx" | "exact";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "polygon";
+    // The number of sides.  default: 3. "unlimited" if no limit
+    numSides?: number | "unlimited";
+    // Whether to the angle measurements.  default: false
+    showAngles?: boolean;
+    // Whether to show side measurements. default: false
+    showSides?: boolean;
+    // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
+    snapTo?: "grid" | "angles" | "sides";
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "similar" | "congruent" | "approx" | "exact";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"polygon"',required:!0}},{key:"numSides",value:{name:"union",raw:'number | "unlimited"',elements:[{name:"number"},{name:"literal",value:'"unlimited"'}],required:!1}},{key:"showAngles",value:{name:"boolean",required:!1}},{key:"showSides",value:{name:"boolean",required:!1}},{key:"snapTo",value:{name:"union",raw:'"grid" | "angles" | "sides"',elements:[{name:"literal",value:'"grid"'},{name:"literal",value:'"angles"'},{name:"literal",value:'"sides"'}],required:!1}},{key:"match",value:{name:"union",raw:'"similar" | "congruent" | "approx" | "exact"',elements:[{name:"literal",value:'"similar"'},{name:"literal",value:'"congruent"'},{name:"literal",value:'"approx"'},{name:"literal",value:'"exact"'}],required:!1}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "quadratic";
+    // expects a list of 3 coords
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "quadratic";
+    // expects a list of 3 coords
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"quadratic"',required:!0}},{key:"coords",value:{name:"union",raw:"[Coord, Coord, Coord] | null",elements:[{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}]},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "ray";
+    // Expects a list of 2 Coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "ray";
+    // Expects a list of 2 Coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"ray"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple | null",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "segment";
+    // The number of segments if a "segment" type. default: 1.  Max: 6
+    numSegments?: number;
+    // Expects a list of Coord tuples. Length should match the \`numSegments\` value.
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "segment";
+    // The number of segments if a "segment" type. default: 1.  Max: 6
+    numSegments?: number;
+    // Expects a list of Coord tuples. Length should match the \`numSegments\` value.
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"segment"',required:!0}},{key:"numSegments",value:{name:"number",required:!1}},{key:"coords",value:{name:"union",raw:"CollinearTuple[] | null",elements:[{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "sinusoid";
+    // Expects a list of 2 Coords
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "sinusoid";
+    // Expects a list of 2 Coords
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"sinusoid"',required:!0}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]}],required:!0}},{key:"correct",value:{name:"union",raw:`| PerseusGraphTypeAngle
+| PerseusGraphTypeCircle
+| PerseusGraphTypeLinear
+| PerseusGraphTypeLinearSystem
+| PerseusGraphTypeNone
+| PerseusGraphTypePoint
+| PerseusGraphTypePolygon
+| PerseusGraphTypeQuadratic
+| PerseusGraphTypeRay
+| PerseusGraphTypeSegment
+| PerseusGraphTypeSinusoid`,elements:[{name:"signature",type:"object",raw:`{
+    type: "angle";
+    // Whether to show the angle measurements.  default: false
+    showAngles?: boolean;
+    // Allow Reflex Angles if an "angle" type.  default: true
+    allowReflexAngles?: boolean;
+    // The angle offset in degrees if an "angle" type. default: 0
+    angleOffsetDeg?: number;
+    // Snap to degree increments if an "angle" type. default: 1
+    snapDegrees?: number;
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "congruent";
+    // must have 3 coords - ie [Coord, Coord, Coord]
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"angle"',required:!0}},{key:"showAngles",value:{name:"boolean",required:!1}},{key:"allowReflexAngles",value:{name:"boolean",required:!1}},{key:"angleOffsetDeg",value:{name:"number",required:!1}},{key:"snapDegrees",value:{name:"number",required:!1}},{key:"match",value:{name:"literal",value:'"congruent"',required:!1}},{key:"coords",value:{name:"union",raw:"[Coord, Coord, Coord] | null",elements:[{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}]},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"intersection",raw:`{
+    type: "circle";
+    center?: Coord;
+    radius?: number;
+    // The initial coordinates the graph renders with.
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "circle";
+    center?: Coord;
+    radius?: number;
+    // The initial coordinates the graph renders with.
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"circle"',required:!0}},{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"radius",value:{name:"number",required:!1}},{key:"startCoords",value:{name:"signature",type:"object",raw:`{
+    center: Coord;
+    radius: number;
+}`,signature:{properties:[{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"radius",value:{name:"number",required:!0}}]},required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "linear";
+    // expects 2 coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "linear";
+    // expects 2 coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"linear"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple | null",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "linear-system";
+    // expects 2 sets of 2 coords
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "linear-system";
+    // expects 2 sets of 2 coords
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"linear-system"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple[] | null",elements:[{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"signature",type:"object",raw:`{
+    type: "none";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"none"',required:!0}}]}},{name:"intersection",raw:`{
+    type: "point";
+    // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
+    numPoints?: number | "unlimited";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "point";
+    // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
+    numPoints?: number | "unlimited";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"point"',required:!0}},{key:"numPoints",value:{name:"union",raw:'number | "unlimited"',elements:[{name:"number"},{name:"literal",value:'"unlimited"'}],required:!1}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "polygon";
+    // The number of sides.  default: 3. "unlimited" if no limit
+    numSides?: number | "unlimited";
+    // Whether to the angle measurements.  default: false
+    showAngles?: boolean;
+    // Whether to show side measurements. default: false
+    showSides?: boolean;
+    // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
+    snapTo?: "grid" | "angles" | "sides";
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "similar" | "congruent" | "approx" | "exact";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "polygon";
+    // The number of sides.  default: 3. "unlimited" if no limit
+    numSides?: number | "unlimited";
+    // Whether to the angle measurements.  default: false
+    showAngles?: boolean;
+    // Whether to show side measurements. default: false
+    showSides?: boolean;
+    // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
+    snapTo?: "grid" | "angles" | "sides";
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "similar" | "congruent" | "approx" | "exact";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"polygon"',required:!0}},{key:"numSides",value:{name:"union",raw:'number | "unlimited"',elements:[{name:"number"},{name:"literal",value:'"unlimited"'}],required:!1}},{key:"showAngles",value:{name:"boolean",required:!1}},{key:"showSides",value:{name:"boolean",required:!1}},{key:"snapTo",value:{name:"union",raw:'"grid" | "angles" | "sides"',elements:[{name:"literal",value:'"grid"'},{name:"literal",value:'"angles"'},{name:"literal",value:'"sides"'}],required:!1}},{key:"match",value:{name:"union",raw:'"similar" | "congruent" | "approx" | "exact"',elements:[{name:"literal",value:'"similar"'},{name:"literal",value:'"congruent"'},{name:"literal",value:'"approx"'},{name:"literal",value:'"exact"'}],required:!1}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "quadratic";
+    // expects a list of 3 coords
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "quadratic";
+    // expects a list of 3 coords
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"quadratic"',required:!0}},{key:"coords",value:{name:"union",raw:"[Coord, Coord, Coord] | null",elements:[{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}]},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "ray";
+    // Expects a list of 2 Coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "ray";
+    // Expects a list of 2 Coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"ray"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple | null",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "segment";
+    // The number of segments if a "segment" type. default: 1.  Max: 6
+    numSegments?: number;
+    // Expects a list of Coord tuples. Length should match the \`numSegments\` value.
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "segment";
+    // The number of segments if a "segment" type. default: 1.  Max: 6
+    numSegments?: number;
+    // Expects a list of Coord tuples. Length should match the \`numSegments\` value.
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"segment"',required:!0}},{key:"numSegments",value:{name:"number",required:!1}},{key:"coords",value:{name:"union",raw:"CollinearTuple[] | null",elements:[{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "sinusoid";
+    // Expects a list of 2 Coords
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "sinusoid";
+    // Expects a list of 2 Coords
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"sinusoid"',required:!0}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]}],required:!0}},{key:"lockedFigures",value:{name:"ReadonlyArray",elements:[{name:"union",raw:`| LockedPointType
+| LockedLineType
+| LockedVectorType
+| LockedEllipseType
+| LockedPolygonType
+| LockedFunctionType
+| LockedLabelType`,elements:[{name:"signature",type:"object",raw:`{
+    type: "point";
+    coord: Coord;
+    color: LockedFigureColor;
+    filled: boolean;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"point"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"filled",value:{name:"boolean",required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "line";
+    kind: "line" | "ray" | "segment";
+    points: [point1: LockedPointType, point2: LockedPointType];
+    color: LockedFigureColor;
+    lineStyle: LockedLineStyle;
+    showPoint1: boolean;
+    showPoint2: boolean;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"line"',required:!0}},{key:"kind",value:{name:"union",raw:'"line" | "ray" | "segment"',elements:[{name:"literal",value:'"line"'},{name:"literal",value:'"ray"'},{name:"literal",value:'"segment"'}],required:!0}},{key:"points",value:{name:"tuple",raw:"[point1: LockedPointType, point2: LockedPointType]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"lineStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"showPoint1",value:{name:"boolean",required:!0}},{key:"showPoint2",value:{name:"boolean",required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "vector";
+    points: [tail: Coord, tip: Coord];
+    color: LockedFigureColor;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"vector"',required:!0}},{key:"points",value:{name:"tuple",raw:"[tail: Coord, tip: Coord]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "ellipse";
+    center: Coord;
+    radius: [x: number, y: number];
+    angle: number;
+    color: LockedFigureColor;
+    fillStyle: LockedFigureFillType;
+    strokeStyle: LockedLineStyle;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"ellipse"',required:!0}},{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"radius",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"angle",value:{name:"number",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"fillStyle",value:{name:"union",raw:'"none" | "white" | "translucent" | "solid"',elements:[{name:"literal",value:'"none"'},{name:"literal",value:'"white"'},{name:"literal",value:'"translucent"'},{name:"literal",value:'"solid"'}],required:!0}},{key:"strokeStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "polygon";
+    points: ReadonlyArray<Coord>;
+    color: LockedFigureColor;
+    showVertices: boolean;
+    fillStyle: LockedFigureFillType;
+    strokeStyle: LockedLineStyle;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"polygon"',required:!0}},{key:"points",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"showVertices",value:{name:"boolean",required:!0}},{key:"fillStyle",value:{name:"union",raw:'"none" | "white" | "translucent" | "solid"',elements:[{name:"literal",value:'"none"'},{name:"literal",value:'"white"'},{name:"literal",value:'"translucent"'},{name:"literal",value:'"solid"'}],required:!0}},{key:"strokeStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "function";
+    color: LockedFigureColor;
+    strokeStyle: LockedLineStyle;
+    equation: string; // This is the user-defined equation (as it was typed)
+    directionalAxis: "x" | "y";
+    domain?: Interval;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"function"',required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"strokeStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"equation",value:{name:"string",required:!0}},{key:"directionalAxis",value:{name:"union",raw:'"x" | "y"',elements:[{name:"literal",value:'"x"'},{name:"literal",value:'"y"'}],required:!0}},{key:"domain",value:{name:"tuple",raw:"[min: number, max: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}]}],raw:"ReadonlyArray<LockedFigure>",required:!1}},{key:"fullGraphAriaLabel",value:{name:"string",required:!1}},{key:"fullGraphAriaDescription",value:{name:"string",required:!1}}]}}}},{name:"getSaveWarnings",docblock:null,modifiers:[],params:[],returns:null}],displayName:"InteractiveGraphEditor",props:{apiOptions:{required:!0,tsType:{name:"Readonly",elements:[{name:"intersection",raw:`APIOptions & {
+    GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
+    baseElements: NonNullable<APIOptions["baseElements"]>;
+    canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
+    crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
+    editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
+    groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
+    isArticle: NonNullable<APIOptions["isArticle"]>;
+    isMobile: NonNullable<APIOptions["isMobile"]>;
+    onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
+    readOnly: NonNullable<APIOptions["readOnly"]>;
+    setDrawingAreaAvailable: NonNullable<
+        APIOptions["setDrawingAreaAvailable"]
+    >;
+    showAlignmentOptions: NonNullable<APIOptions["showAlignmentOptions"]>;
+}`,elements:[{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+    isArticle?: boolean;
+    onFocusChange?: (
+        newFocusPath: FocusPath,
+        oldFocusPath: FocusPath,
+        keypadHeight?: number,
+        focusedElement?: HTMLElement,
+    ) => unknown;
+    GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
+    showAlignmentOptions?: boolean;
+    /**
+     * A boolean that indicates whether the associated problem has been
+     * answered correctly and should no longer be interactive.
+     */
+    readOnly?: boolean;
+    answerableCallback?: (arg1: boolean) => unknown;
+    getAnotherHint?: () => unknown;
+    interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
+    /**
+     * A function that takes in the relative problem number (starts at
+     * 0 and is incremented for each group widget), and the ID of the
+     * group widget, then returns a react component that will be added
+     * immediately above the renderer in the group widget. If the
+     * function returns null, no annotation will be added.
+     */
+    groupAnnotator?: (groupNumber: number, widgetId: string) => React.ReactNode;
+    /**
+     * If imagePlaceholder is set, Perseus will render the placeholder instead
+     * of the image node.
+     */
+    imagePlaceholder?: React.ReactNode;
+    /**
+     * If widgetPlaceholder is set, Perseus will render the placeholder instead
+     * of the widget node.
+     */
+    widgetPlaceholder?: React.ReactNode;
+    /**
+     * Base React elements that can be used in place of the standard DOM
+     * DOM elements. For example, when provided, <Link /> will be used
+     * in place of <a />. This allows clients to provide pre-styled
+     * components or components with custom behavior.
+     */
+    baseElements?: {
+        /**
+         * The <Link /> component provided here must adhere to the same
+         * interface as React's base <a /> component.
+         */
+        Link: React.ComponentType<any>;
+    };
+    /**
+     * Function that takes dimensions and returns a React component
+     * to display while an image is loading.
+     */
+    imagePreloader?: (dimensions: Dimensions) => React.ReactNode;
+    /**
+     * A function that is called when the user has interacted with a widget. It
+     * also includes any extra parameters that the originating widget provided.
+     * This is used for keeping track of widget interactions.
+     */
+    trackInteraction?: (args: TrackInteractionArgs) => void;
+    /**
+     * A boolean that indicates whether or not a custom keypad is
+     * being used.  For mobile web this will be the ProvidedKeypad
+     * component.  In this situation we use the MathInput component
+     * from the math-input repo instead of the existing perseus math
+     * input components.
+     */
+    customKeypad?: boolean;
+    /**
+     * If this is provided, it is called instead of appending an instance
+     * of \`math-input\`'s keypad to the body. This is used by the native
+     * apps so they can have the keypad be defined on the native side.
+     * It is called with an function that, when called, blurs the input,
+     * and is expected to return an object of the shape
+     * keypadElementPropType from math-input/src/prop-types.js.
+     */
+    nativeKeypadProxy?: (blur: () => void) => KeypadAPI;
+    /** Indicates whether or not to use mobile styling. */
+    isMobile?: boolean;
+    /** A function, called with a bool indicating whether use of the
+     * drawing area (scratchpad) should be allowed/disallowed.
+     *
+     * Previously handled by \`Khan.scratchpad.enable/disable\`
+     */
+    setDrawingAreaAvailable?: (arg1: boolean) => unknown;
+    /** The color used for the hint progress indicator (eg. 1 / 3) */
+    hintProgressColor?: string;
+    /**
+     * Whether this Renderer is allowed to auto-scroll the rest of the
+     * page. For example, if this is enabled, the most recently used
+     * radio widget will attempt to keep the "selected" answer in view
+     * after entering review mode.
+     *
+     * Defaults to \`false\`.
+     */
+    canScrollPage?: boolean;
+    /**
+     * Whether to enable the cross-out feature on multiple-choice radio
+     * widgets. This allows users to note which answers they believe to
+     * be incorrect, to find the answer by process of elimination.
+     *
+     * We plan to roll this out to all call sites eventually, but for
+     * now we have this flag, to add it to Generalized Test Prep first.
+     */
+    crossOutEnabled?: boolean;
+    /**
+     * The value in milliseconds by which the local state of content
+     * in a editor is delayed before propagated to a prop. For example,
+     * when text is typed in the text area of an Editor component,
+     * there will be a delay equal to the value of \`editorChangeDelay\`
+     * before the change is propagated. This is added for better
+     * responsiveness of the editor when used in certain contexts such
+     * as StructuredItem exercises where constant re-rendering for each
+     * keystroke caused text typed in the text area to appear in it
+     * only after a good few seconds.
+     */
+    editorChangeDelay?: number;
+    /**
+     * This is a callback function that returns all of the Widget props
+     * after they have been transformed by the widget's transform function.
+     * This is useful for when we need to know how a widget has shuffled its
+     * the available choices.
+     */
+    onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
+}`,signature:{properties:[{key:"isArticle",value:{name:"boolean",required:!1}},{key:"onFocusChange",value:{name:"signature",type:"function",raw:`(
+    newFocusPath: FocusPath,
+    oldFocusPath: FocusPath,
+    keypadHeight?: number,
+    focusedElement?: HTMLElement,
+) => unknown`,signature:{arguments:[{type:{name:"union",raw:"ReadonlyArray<string> | null | undefined",elements:[{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>"},{name:"null"},{name:"undefined"}]},name:"newFocusPath"},{type:{name:"union",raw:"ReadonlyArray<string> | null | undefined",elements:[{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>"},{name:"null"},{name:"undefined"}]},name:"oldFocusPath"},{type:{name:"number"},name:"keypadHeight"},{type:{name:"HTMLElement"},name:"focusedElement"}],return:{name:"unknown"}},required:!1}},{key:"GroupMetadataEditor",value:{name:"ReactComponentType",raw:"React.ComponentType<StubTagEditorType>",elements:[{name:"any"}],required:!1}},{key:"showAlignmentOptions",value:{name:"boolean",required:!1}},{key:"readOnly",value:{name:"boolean",required:!1},description:`A boolean that indicates whether the associated problem has been
+answered correctly and should no longer be interactive.`},{key:"answerableCallback",value:{name:"signature",type:"function",raw:"(arg1: boolean) => unknown",signature:{arguments:[{type:{name:"boolean"},name:"arg1"}],return:{name:"unknown"}},required:!1}},{key:"getAnotherHint",value:{name:"signature",type:"function",raw:"() => unknown",signature:{arguments:[],return:{name:"unknown"}},required:!1}},{key:"interactionCallback",value:{name:"signature",type:"function",raw:"(widgetData: {[widgetId: string]: any}) => void",signature:{arguments:[{type:{name:"signature",type:"object",raw:"{[widgetId: string]: any}",signature:{properties:[{key:{name:"string"},value:{name:"any",required:!0}}]}},name:"widgetData"}],return:{name:"void"}},required:!1}},{key:"groupAnnotator",value:{name:"signature",type:"function",raw:"(groupNumber: number, widgetId: string) => React.ReactNode",signature:{arguments:[{type:{name:"number"},name:"groupNumber"},{type:{name:"string"},name:"widgetId"}],return:{name:"ReactReactNode",raw:"React.ReactNode"}},required:!1},description:`A function that takes in the relative problem number (starts at
+0 and is incremented for each group widget), and the ID of the
+group widget, then returns a react component that will be added
+immediately above the renderer in the group widget. If the
+function returns null, no annotation will be added.`},{key:"imagePlaceholder",value:{name:"ReactReactNode",raw:"React.ReactNode",required:!1},description:`If imagePlaceholder is set, Perseus will render the placeholder instead
+of the image node.`},{key:"widgetPlaceholder",value:{name:"ReactReactNode",raw:"React.ReactNode",required:!1},description:`If widgetPlaceholder is set, Perseus will render the placeholder instead
+of the widget node.`},{key:"baseElements",value:{name:"signature",type:"object",raw:`{
+    /**
+     * The <Link /> component provided here must adhere to the same
+     * interface as React's base <a /> component.
+     */
+    Link: React.ComponentType<any>;
+}`,signature:{properties:[{key:"Link",value:{name:"ReactComponentType",raw:"React.ComponentType<any>",elements:[{name:"any"}],required:!0},description:`The <Link /> component provided here must adhere to the same
+interface as React's base <a /> component.`}]},required:!1},description:`Base React elements that can be used in place of the standard DOM
+DOM elements. For example, when provided, <Link /> will be used
+in place of <a />. This allows clients to provide pre-styled
+components or components with custom behavior.`},{key:"imagePreloader",value:{name:"signature",type:"function",raw:"(dimensions: Dimensions) => React.ReactNode",signature:{arguments:[{type:{name:"signature",type:"object",raw:`{
+    width?: number;
+    height?: number;
+}`,signature:{properties:[{key:"width",value:{name:"number",required:!1}},{key:"height",value:{name:"number",required:!1}}]}},name:"dimensions"}],return:{name:"ReactReactNode",raw:"React.ReactNode"}},required:!1},description:`Function that takes dimensions and returns a React component
+to display while an image is loading.`},{key:"trackInteraction",value:{name:"signature",type:"function",raw:"(args: TrackInteractionArgs) => void",signature:{arguments:[{type:{name:"intersection",raw:`{
+    // The widget type that this interaction originates from
+    type: string;
+    // The widget id that this interaction originates from
+    id: string;
+
+    correct?: boolean;
+
+    // Tracking args are all optional here because we don't know which
+    // widgets originated the call, and thus can't know what extra
+    // arguments will be included!
+} & Partial<TrackingGradedGroupExtraArguments> &
+    Partial<TrackingSequenceExtraArguments>`,elements:[{name:"signature",type:"object",raw:`{
+    // The widget type that this interaction originates from
+    type: string;
+    // The widget id that this interaction originates from
+    id: string;
+
+    correct?: boolean;
+
+    // Tracking args are all optional here because we don't know which
+    // widgets originated the call, and thus can't know what extra
+    // arguments will be included!
+}`,signature:{properties:[{key:"type",value:{name:"string",required:!0}},{key:"id",value:{name:"string",required:!0}},{key:"correct",value:{name:"boolean",required:!1}}]}},{name:"Partial",elements:[{name:"signature",type:"object",raw:`{
+    status: "correct" | "incorrect" | "invalid";
+}`,signature:{properties:[{key:"status",value:{name:"union",raw:'"correct" | "incorrect" | "invalid"',elements:[{name:"literal",value:'"correct"'},{name:"literal",value:'"incorrect"'},{name:"literal",value:'"invalid"'}],required:!0}}]}}],raw:"Partial<TrackingGradedGroupExtraArguments>"},{name:"Partial",elements:[{name:"signature",type:"object",raw:`{
+    visible: number;
+}`,signature:{properties:[{key:"visible",value:{name:"number",required:!0}}]}}],raw:"Partial<TrackingSequenceExtraArguments>"}]},name:"args"}],return:{name:"void"}},required:!1},description:`A function that is called when the user has interacted with a widget. It
+also includes any extra parameters that the originating widget provided.
+This is used for keeping track of widget interactions.`},{key:"customKeypad",value:{name:"boolean",required:!1},description:`A boolean that indicates whether or not a custom keypad is
+being used.  For mobile web this will be the ProvidedKeypad
+component.  In this situation we use the MathInput component
+from the math-input repo instead of the existing perseus math
+input components.`},{key:"nativeKeypadProxy",value:{name:"signature",type:"function",raw:"(blur: () => void) => KeypadAPI",signature:{arguments:[{type:{name:"signature",type:"function",raw:"() => void",signature:{arguments:[],return:{name:"void"}}},name:"blur"}],return:{name:"KeypadAPI"}},required:!1},description:`If this is provided, it is called instead of appending an instance
+of \`math-input\`'s keypad to the body. This is used by the native
+apps so they can have the keypad be defined on the native side.
+It is called with an function that, when called, blurs the input,
+and is expected to return an object of the shape
+keypadElementPropType from math-input/src/prop-types.js.`},{key:"isMobile",value:{name:"boolean",required:!1},description:"Indicates whether or not to use mobile styling."},{key:"setDrawingAreaAvailable",value:{name:"signature",type:"function",raw:"(arg1: boolean) => unknown",signature:{arguments:[{type:{name:"boolean"},name:"arg1"}],return:{name:"unknown"}},required:!1},description:`A function, called with a bool indicating whether use of the
+drawing area (scratchpad) should be allowed/disallowed.
+
+Previously handled by \`Khan.scratchpad.enable/disable\``},{key:"hintProgressColor",value:{name:"string",required:!1},description:"The color used for the hint progress indicator (eg. 1 / 3)"},{key:"canScrollPage",value:{name:"boolean",required:!1},description:`Whether this Renderer is allowed to auto-scroll the rest of the
+page. For example, if this is enabled, the most recently used
+radio widget will attempt to keep the "selected" answer in view
+after entering review mode.
+
+Defaults to \`false\`.`},{key:"crossOutEnabled",value:{name:"boolean",required:!1},description:`Whether to enable the cross-out feature on multiple-choice radio
+widgets. This allows users to note which answers they believe to
+be incorrect, to find the answer by process of elimination.
+
+We plan to roll this out to all call sites eventually, but for
+now we have this flag, to add it to Generalized Test Prep first.`},{key:"editorChangeDelay",value:{name:"number",required:!1},description:`The value in milliseconds by which the local state of content
+in a editor is delayed before propagated to a prop. For example,
+when text is typed in the text area of an Editor component,
+there will be a delay equal to the value of \`editorChangeDelay\`
+before the change is propagated. This is added for better
+responsiveness of the editor when used in certain contexts such
+as StructuredItem exercises where constant re-rendering for each
+keystroke caused text typed in the text area to appear in it
+only after a good few seconds.`},{key:"onWidgetStartProps",value:{name:"signature",type:"function",raw:"(widgets: PerseusWidgetsMap) => void",signature:{arguments:[{type:{name:"signature",type:"object",raw:"{\n    [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];\n}",signature:{properties:[{key:{name:"PerseusWidgetTypes",required:!0},value:{name:"PerseusWidgetTypes[Property]",raw:"TRegistry[Property]"}}]}},name:"widgets"}],return:{name:"void"}},required:!1},description:`This is a callback function that returns all of the Widget props
+after they have been transformed by the widget's transform function.
+This is useful for when we need to know how a widget has shuffled its
+the available choices.`}]}}],raw:`Readonly<{
+    isArticle?: boolean;
+    onFocusChange?: (
+        newFocusPath: FocusPath,
+        oldFocusPath: FocusPath,
+        keypadHeight?: number,
+        focusedElement?: HTMLElement,
+    ) => unknown;
+    GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
+    showAlignmentOptions?: boolean;
+    /**
+     * A boolean that indicates whether the associated problem has been
+     * answered correctly and should no longer be interactive.
+     */
+    readOnly?: boolean;
+    answerableCallback?: (arg1: boolean) => unknown;
+    getAnotherHint?: () => unknown;
+    interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
+    /**
+     * A function that takes in the relative problem number (starts at
+     * 0 and is incremented for each group widget), and the ID of the
+     * group widget, then returns a react component that will be added
+     * immediately above the renderer in the group widget. If the
+     * function returns null, no annotation will be added.
+     */
+    groupAnnotator?: (groupNumber: number, widgetId: string) => React.ReactNode;
+    /**
+     * If imagePlaceholder is set, Perseus will render the placeholder instead
+     * of the image node.
+     */
+    imagePlaceholder?: React.ReactNode;
+    /**
+     * If widgetPlaceholder is set, Perseus will render the placeholder instead
+     * of the widget node.
+     */
+    widgetPlaceholder?: React.ReactNode;
+    /**
+     * Base React elements that can be used in place of the standard DOM
+     * DOM elements. For example, when provided, <Link /> will be used
+     * in place of <a />. This allows clients to provide pre-styled
+     * components or components with custom behavior.
+     */
+    baseElements?: {
+        /**
+         * The <Link /> component provided here must adhere to the same
+         * interface as React's base <a /> component.
+         */
+        Link: React.ComponentType<any>;
+    };
+    /**
+     * Function that takes dimensions and returns a React component
+     * to display while an image is loading.
+     */
+    imagePreloader?: (dimensions: Dimensions) => React.ReactNode;
+    /**
+     * A function that is called when the user has interacted with a widget. It
+     * also includes any extra parameters that the originating widget provided.
+     * This is used for keeping track of widget interactions.
+     */
+    trackInteraction?: (args: TrackInteractionArgs) => void;
+    /**
+     * A boolean that indicates whether or not a custom keypad is
+     * being used.  For mobile web this will be the ProvidedKeypad
+     * component.  In this situation we use the MathInput component
+     * from the math-input repo instead of the existing perseus math
+     * input components.
+     */
+    customKeypad?: boolean;
+    /**
+     * If this is provided, it is called instead of appending an instance
+     * of \`math-input\`'s keypad to the body. This is used by the native
+     * apps so they can have the keypad be defined on the native side.
+     * It is called with an function that, when called, blurs the input,
+     * and is expected to return an object of the shape
+     * keypadElementPropType from math-input/src/prop-types.js.
+     */
+    nativeKeypadProxy?: (blur: () => void) => KeypadAPI;
+    /** Indicates whether or not to use mobile styling. */
+    isMobile?: boolean;
+    /** A function, called with a bool indicating whether use of the
+     * drawing area (scratchpad) should be allowed/disallowed.
+     *
+     * Previously handled by \`Khan.scratchpad.enable/disable\`
+     */
+    setDrawingAreaAvailable?: (arg1: boolean) => unknown;
+    /** The color used for the hint progress indicator (eg. 1 / 3) */
+    hintProgressColor?: string;
+    /**
+     * Whether this Renderer is allowed to auto-scroll the rest of the
+     * page. For example, if this is enabled, the most recently used
+     * radio widget will attempt to keep the "selected" answer in view
+     * after entering review mode.
+     *
+     * Defaults to \`false\`.
+     */
+    canScrollPage?: boolean;
+    /**
+     * Whether to enable the cross-out feature on multiple-choice radio
+     * widgets. This allows users to note which answers they believe to
+     * be incorrect, to find the answer by process of elimination.
+     *
+     * We plan to roll this out to all call sites eventually, but for
+     * now we have this flag, to add it to Generalized Test Prep first.
+     */
+    crossOutEnabled?: boolean;
+    /**
+     * The value in milliseconds by which the local state of content
+     * in a editor is delayed before propagated to a prop. For example,
+     * when text is typed in the text area of an Editor component,
+     * there will be a delay equal to the value of \`editorChangeDelay\`
+     * before the change is propagated. This is added for better
+     * responsiveness of the editor when used in certain contexts such
+     * as StructuredItem exercises where constant re-rendering for each
+     * keystroke caused text typed in the text area to appear in it
+     * only after a good few seconds.
+     */
+    editorChangeDelay?: number;
+    /**
+     * This is a callback function that returns all of the Widget props
+     * after they have been transformed by the widget's transform function.
+     * This is useful for when we need to know how a widget has shuffled its
+     * the available choices.
+     */
+    onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
+}>`},{name:"signature",type:"object",raw:`{
+    GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
+    baseElements: NonNullable<APIOptions["baseElements"]>;
+    canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
+    crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
+    editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
+    groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
+    isArticle: NonNullable<APIOptions["isArticle"]>;
+    isMobile: NonNullable<APIOptions["isMobile"]>;
+    onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
+    readOnly: NonNullable<APIOptions["readOnly"]>;
+    setDrawingAreaAvailable: NonNullable<
+        APIOptions["setDrawingAreaAvailable"]
+    >;
+    showAlignmentOptions: NonNullable<APIOptions["showAlignmentOptions"]>;
+}`,signature:{properties:[{key:"GroupMetadataEditor",value:{name:"NonNullable",elements:[{name:'Readonly["GroupMetadataEditor"]',raw:'APIOptions["GroupMetadataEditor"]'}],raw:'NonNullable<APIOptions["GroupMetadataEditor"]>',required:!0}},{key:"baseElements",value:{name:"NonNullable",elements:[{name:'Readonly["baseElements"]',raw:'APIOptions["baseElements"]'}],raw:'NonNullable<APIOptions["baseElements"]>',required:!0}},{key:"canScrollPage",value:{name:"NonNullable",elements:[{name:'Readonly["canScrollPage"]',raw:'APIOptions["canScrollPage"]'}],raw:'NonNullable<APIOptions["canScrollPage"]>',required:!0}},{key:"crossOutEnabled",value:{name:"NonNullable",elements:[{name:'Readonly["crossOutEnabled"]',raw:'APIOptions["crossOutEnabled"]'}],raw:'NonNullable<APIOptions["crossOutEnabled"]>',required:!0}},{key:"editorChangeDelay",value:{name:"NonNullable",elements:[{name:'Readonly["editorChangeDelay"]',raw:'APIOptions["editorChangeDelay"]'}],raw:'NonNullable<APIOptions["editorChangeDelay"]>',required:!0}},{key:"groupAnnotator",value:{name:"NonNullable",elements:[{name:'Readonly["groupAnnotator"]',raw:'APIOptions["groupAnnotator"]'}],raw:'NonNullable<APIOptions["groupAnnotator"]>',required:!0}},{key:"isArticle",value:{name:"NonNullable",elements:[{name:'Readonly["isArticle"]',raw:'APIOptions["isArticle"]'}],raw:'NonNullable<APIOptions["isArticle"]>',required:!0}},{key:"isMobile",value:{name:"NonNullable",elements:[{name:'Readonly["isMobile"]',raw:'APIOptions["isMobile"]'}],raw:'NonNullable<APIOptions["isMobile"]>',required:!0}},{key:"onFocusChange",value:{name:"NonNullable",elements:[{name:'Readonly["onFocusChange"]',raw:'APIOptions["onFocusChange"]'}],raw:'NonNullable<APIOptions["onFocusChange"]>',required:!0}},{key:"readOnly",value:{name:"NonNullable",elements:[{name:'Readonly["readOnly"]',raw:'APIOptions["readOnly"]'}],raw:'NonNullable<APIOptions["readOnly"]>',required:!0}},{key:"setDrawingAreaAvailable",value:{name:"NonNullable",elements:[{name:'Readonly["setDrawingAreaAvailable"]',raw:'APIOptions["setDrawingAreaAvailable"]'}],raw:`NonNullable<
+    APIOptions["setDrawingAreaAvailable"]
+>`,required:!0}},{key:"showAlignmentOptions",value:{name:"NonNullable",elements:[{name:'Readonly["showAlignmentOptions"]',raw:'APIOptions["showAlignmentOptions"]'}],raw:'NonNullable<APIOptions["showAlignmentOptions"]>',required:!0}}]}}]}],raw:`Readonly<
+    APIOptions & {
+        GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
+        baseElements: NonNullable<APIOptions["baseElements"]>;
+        canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
+        crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
+        editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
+        groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
+        isArticle: NonNullable<APIOptions["isArticle"]>;
+        isMobile: NonNullable<APIOptions["isMobile"]>;
+        onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
+        readOnly: NonNullable<APIOptions["readOnly"]>;
+        setDrawingAreaAvailable: NonNullable<
+            APIOptions["setDrawingAreaAvailable"]
+        >;
+        showAlignmentOptions: NonNullable<APIOptions["showAlignmentOptions"]>;
+    }
+>`},description:""},labels:{required:!1,tsType:{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>"},description:"The labels for the x and y axes.",defaultValue:{value:'["x", "y"]',computed:!1}},range:{required:!1,tsType:{name:"tuple",raw:"[x: Range, y: Range]",elements:[{name:"unknown"},{name:"unknown"}]},description:"The range of the graph in the x and y directions.",defaultValue:{value:`[
+    [-10, 10],
+    [-10, 10],
+]`,computed:!1}},step:{required:!1,tsType:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}]},description:`How far apart the tick marks on the axes are in the x and y
+directions.`,defaultValue:{value:"[1, 1]",computed:!1}},gridStep:{required:!0,tsType:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}]},description:"How far apart the grid lines are in the x and y directions."},snapStep:{required:!0,tsType:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}]},description:"How far apart the snap-to points are in the x and y directions."},box:{required:!0,tsType:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}]},description:"The size of the graph in pixels."},valid:{required:!1,tsType:{name:"union",raw:"true | string",elements:[{name:"literal",value:"true"},{name:"string"}]},description:`An error message to display in the graph area, or true if the
+graph is valid.`,defaultValue:{value:"true",computed:!1}},backgroundImage:{required:!1,tsType:{name:"signature",type:"object",raw:`{
+    // The URL of the image
+    url: string | null | undefined;
+    // The width of the image
+    width?: number;
+    // The height of the image
+    height?: number;
+    // The top offset of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    top?: number;
+    // The left offset of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    left?: number;
+    // The scale of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    // Yikes, production data as this as both a number (1) and string ("1")
+    scale?: number | string;
+    // The bottom offset of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    bottom?: number;
+}`,signature:{properties:[{key:"url",value:{name:"union",raw:"string | null | undefined",elements:[{name:"string"},{name:"null"},{name:"undefined"}],required:!0}},{key:"width",value:{name:"number",required:!1}},{key:"height",value:{name:"number",required:!1}},{key:"top",value:{name:"number",required:!1}},{key:"left",value:{name:"number",required:!1}},{key:"scale",value:{name:"union",raw:"number | string",elements:[{name:"number"},{name:"string"}],required:!1}},{key:"bottom",value:{name:"number",required:!1}}]}},description:"The background image to display in the graph area and its properties.",defaultValue:{value:`{
+    url: null,
+}`,computed:!1}},markings:{required:!1,tsType:{name:"union",raw:'"axes" | "graph" | "grid" | "none"',elements:[{name:"literal",value:'"axes"'},{name:"literal",value:'"graph"'},{name:"literal",value:'"grid"'},{name:"literal",value:'"none"'}]},description:`The type of markings to display on the graph.
+- graph: shows the axes and the grid lines
+- grid: shows only the grid lines
+- none: shows no markings`,defaultValue:{value:'"graph"',computed:!1}},showProtractor:{required:!1,tsType:{name:"boolean"},description:"Whether to show the protractor on the graph.",defaultValue:{value:"false",computed:!1}},showTooltips:{required:!1,tsType:{name:"boolean"},description:`Whether to show tooltips on the graph.
+(Currently not used, but will be in the future.)`,defaultValue:{value:"false",computed:!1}},correct:{required:!1,tsType:{name:"union",raw:`| PerseusGraphTypeAngle
+| PerseusGraphTypeCircle
+| PerseusGraphTypeLinear
+| PerseusGraphTypeLinearSystem
+| PerseusGraphTypeNone
+| PerseusGraphTypePoint
+| PerseusGraphTypePolygon
+| PerseusGraphTypeQuadratic
+| PerseusGraphTypeRay
+| PerseusGraphTypeSegment
+| PerseusGraphTypeSinusoid`,elements:[{name:"signature",type:"object",raw:`{
+    type: "angle";
+    // Whether to show the angle measurements.  default: false
+    showAngles?: boolean;
+    // Allow Reflex Angles if an "angle" type.  default: true
+    allowReflexAngles?: boolean;
+    // The angle offset in degrees if an "angle" type. default: 0
+    angleOffsetDeg?: number;
+    // Snap to degree increments if an "angle" type. default: 1
+    snapDegrees?: number;
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "congruent";
+    // must have 3 coords - ie [Coord, Coord, Coord]
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"angle"',required:!0}},{key:"showAngles",value:{name:"boolean",required:!1}},{key:"allowReflexAngles",value:{name:"boolean",required:!1}},{key:"angleOffsetDeg",value:{name:"number",required:!1}},{key:"snapDegrees",value:{name:"number",required:!1}},{key:"match",value:{name:"literal",value:'"congruent"',required:!1}},{key:"coords",value:{name:"union",raw:"[Coord, Coord, Coord] | null",elements:[{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}]},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],required:!1}}]}},{name:"intersection",raw:`{
+    type: "circle";
+    center?: Coord;
+    radius?: number;
+    // The initial coordinates the graph renders with.
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "circle";
+    center?: Coord;
+    radius?: number;
+    // The initial coordinates the graph renders with.
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"circle"',required:!0}},{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}},{key:"radius",value:{name:"number",required:!1}},{key:"startCoords",value:{name:"signature",type:"object",raw:`{
+    center: Coord;
+    radius: number;
+}`,signature:{properties:[{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}},{key:"radius",value:{name:"number",required:!0}}]},required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}}]}}]},{name:"intersection",raw:`{
+    type: "linear";
+    // expects 2 coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "linear";
+    // expects 2 coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"linear"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple | null",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],required:!1},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}}]}}]},{name:"intersection",raw:`{
+    type: "linear-system";
+    // expects 2 sets of 2 coords
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "linear-system";
+    // expects 2 sets of 2 coords
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"linear-system"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple[] | null",elements:[{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],required:!1}],raw:"CollinearTuple[]"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],required:!1}],raw:"CollinearTuple[]",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}}]}}]},{name:"signature",type:"object",raw:`{
+    type: "none";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"none"',required:!0}}]}},{name:"intersection",raw:`{
+    type: "point";
+    // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
+    numPoints?: number | "unlimited";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "point";
+    // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
+    numPoints?: number | "unlimited";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"point"',required:!0}},{key:"numPoints",value:{name:"union",raw:'number | "unlimited"',elements:[{name:"number"},{name:"literal",value:'"unlimited"'}],required:!1}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}}]}}]},{name:"intersection",raw:`{
+    type: "polygon";
+    // The number of sides.  default: 3. "unlimited" if no limit
+    numSides?: number | "unlimited";
+    // Whether to the angle measurements.  default: false
+    showAngles?: boolean;
+    // Whether to show side measurements. default: false
+    showSides?: boolean;
+    // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
+    snapTo?: "grid" | "angles" | "sides";
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "similar" | "congruent" | "approx" | "exact";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "polygon";
+    // The number of sides.  default: 3. "unlimited" if no limit
+    numSides?: number | "unlimited";
+    // Whether to the angle measurements.  default: false
+    showAngles?: boolean;
+    // Whether to show side measurements. default: false
+    showSides?: boolean;
+    // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
+    snapTo?: "grid" | "angles" | "sides";
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "similar" | "congruent" | "approx" | "exact";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"polygon"',required:!0}},{key:"numSides",value:{name:"union",raw:'number | "unlimited"',elements:[{name:"number"},{name:"literal",value:'"unlimited"'}],required:!1}},{key:"showAngles",value:{name:"boolean",required:!1}},{key:"showSides",value:{name:"boolean",required:!1}},{key:"snapTo",value:{name:"union",raw:'"grid" | "angles" | "sides"',elements:[{name:"literal",value:'"grid"'},{name:"literal",value:'"angles"'},{name:"literal",value:'"sides"'}],required:!1}},{key:"match",value:{name:"union",raw:'"similar" | "congruent" | "approx" | "exact"',elements:[{name:"literal",value:'"similar"'},{name:"literal",value:'"congruent"'},{name:"literal",value:'"approx"'},{name:"literal",value:'"exact"'}],required:!1}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}}]}}]},{name:"intersection",raw:`{
+    type: "quadratic";
+    // expects a list of 3 coords
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "quadratic";
+    // expects a list of 3 coords
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"quadratic"',required:!0}},{key:"coords",value:{name:"union",raw:"[Coord, Coord, Coord] | null",elements:[{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}]},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}}]}}]},{name:"intersection",raw:`{
+    type: "ray";
+    // Expects a list of 2 Coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "ray";
+    // Expects a list of 2 Coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"ray"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple | null",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],required:!1},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}}]}}]},{name:"intersection",raw:`{
+    type: "segment";
+    // The number of segments if a "segment" type. default: 1.  Max: 6
+    numSegments?: number;
+    // Expects a list of Coord tuples. Length should match the \`numSegments\` value.
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "segment";
+    // The number of segments if a "segment" type. default: 1.  Max: 6
+    numSegments?: number;
+    // Expects a list of Coord tuples. Length should match the \`numSegments\` value.
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"segment"',required:!0}},{key:"numSegments",value:{name:"number",required:!1}},{key:"coords",value:{name:"union",raw:"CollinearTuple[] | null",elements:[{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],required:!1}],raw:"CollinearTuple[]"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],required:!1}],raw:"CollinearTuple[]",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}}]}}]},{name:"intersection",raw:`{
+    type: "sinusoid";
+    // Expects a list of 2 Coords
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "sinusoid";
+    // Expects a list of 2 Coords
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"sinusoid"',required:!0}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}}]}}]}]},description:`The current correct answer for the graph. Updated by this component
+when the graph is changed.
+
+Note that the "Correct answer:" textbox is not an interactive
+element. Instead, it is a representation of the correct answer based
+on the state of the interactive graph previewed at the bottom of the
+editor page.`,defaultValue:{value:`{
+    type: "linear",
+    coords: null,
+}`,computed:!1}},lockedFigures:{required:!1,tsType:{name:"Array",elements:[{name:"union",raw:`| LockedPointType
+| LockedLineType
+| LockedVectorType
+| LockedEllipseType
+| LockedPolygonType
+| LockedFunctionType
+| LockedLabelType`,elements:[{name:"signature",type:"object",raw:`{
+    type: "point";
+    coord: Coord;
+    color: LockedFigureColor;
+    filled: boolean;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"point"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"filled",value:{name:"boolean",required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "line";
+    kind: "line" | "ray" | "segment";
+    points: [point1: LockedPointType, point2: LockedPointType];
+    color: LockedFigureColor;
+    lineStyle: LockedLineStyle;
+    showPoint1: boolean;
+    showPoint2: boolean;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"line"',required:!0}},{key:"kind",value:{name:"union",raw:'"line" | "ray" | "segment"',elements:[{name:"literal",value:'"line"'},{name:"literal",value:'"ray"'},{name:"literal",value:'"segment"'}],required:!0}},{key:"points",value:{name:"tuple",raw:"[point1: LockedPointType, point2: LockedPointType]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"lineStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"showPoint1",value:{name:"boolean",required:!0}},{key:"showPoint2",value:{name:"boolean",required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "vector";
+    points: [tail: Coord, tip: Coord];
+    color: LockedFigureColor;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"vector"',required:!0}},{key:"points",value:{name:"tuple",raw:"[tail: Coord, tip: Coord]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "ellipse";
+    center: Coord;
+    radius: [x: number, y: number];
+    angle: number;
+    color: LockedFigureColor;
+    fillStyle: LockedFigureFillType;
+    strokeStyle: LockedLineStyle;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"ellipse"',required:!0}},{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"radius",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"angle",value:{name:"number",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"fillStyle",value:{name:"union",raw:'"none" | "white" | "translucent" | "solid"',elements:[{name:"literal",value:'"none"'},{name:"literal",value:'"white"'},{name:"literal",value:'"translucent"'},{name:"literal",value:'"solid"'}],required:!0}},{key:"strokeStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "polygon";
+    points: ReadonlyArray<Coord>;
+    color: LockedFigureColor;
+    showVertices: boolean;
+    fillStyle: LockedFigureFillType;
+    strokeStyle: LockedLineStyle;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"polygon"',required:!0}},{key:"points",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"showVertices",value:{name:"boolean",required:!0}},{key:"fillStyle",value:{name:"union",raw:'"none" | "white" | "translucent" | "solid"',elements:[{name:"literal",value:'"none"'},{name:"literal",value:'"white"'},{name:"literal",value:'"translucent"'},{name:"literal",value:'"solid"'}],required:!0}},{key:"strokeStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "function";
+    color: LockedFigureColor;
+    strokeStyle: LockedLineStyle;
+    equation: string; // This is the user-defined equation (as it was typed)
+    directionalAxis: "x" | "y";
+    domain?: Interval;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"function"',required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"strokeStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"equation",value:{name:"string",required:!0}},{key:"directionalAxis",value:{name:"union",raw:'"x" | "y"',elements:[{name:"literal",value:'"x"'},{name:"literal",value:'"y"'}],required:!0}},{key:"domain",value:{name:"tuple",raw:"[min: number, max: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}]}],raw:"Array<LockedFigure>"},description:`The locked figures to display in the graph area.
+Locked figures are graph elements (points, lines, line segmeents,
+etc.) that are locked in place and not interactive.`},fullGraphAriaLabel:{required:!1,tsType:{name:"string"},description:""},fullGraphAriaDescription:{required:!1,tsType:{name:"string"},description:""},graph:{required:!1,tsType:{name:'PropsFor["graph"]',raw:'InteractiveGraphProps["graph"]'},description:"The graph to display in the graph area.",defaultValue:{value:`{
+    type: "linear",
+}`,computed:!1}},onChange:{required:!0,tsType:{name:"signature",type:"function",raw:"(props: Partial<Props>) => void",signature:{arguments:[{type:{name:"Partial",elements:[{name:"signature",type:"object",raw:`{
+    apiOptions: APIOptionsWithDefaults;
+
+    /**
+     * The labels for the x and y axes.
+     */
+    labels: ReadonlyArray<string>;
+    /**
+     * The range of the graph in the x and y directions.
+     */
+    range: [x: Range, y: Range];
+    /**
+     * How far apart the tick marks on the axes are in the x and y
+     * directions.
+     */
+    step: [x: number, y: number];
+    /**
+     * How far apart the grid lines are in the x and y directions.
+     */
+    gridStep: [x: number, y: number];
+    /**
+     * How far apart the snap-to points are in the x and y directions.
+     */
+    snapStep: [x: number, y: number];
+    /**
+     * The size of the graph in pixels.
+     */
+    box: [x: number, y: number];
+
+    /**
+     * An error message to display in the graph area, or true if the
+     * graph is valid.
+     */
+    valid: true | string;
+    /**
+     * The background image to display in the graph area and its properties.
+     */
+    backgroundImage: PerseusImageBackground;
+    /**
+     * The type of markings to display on the graph.
+     * - graph: shows the axes and the grid lines
+     * - grid: shows only the grid lines
+     * - none: shows no markings
+     */
+    markings: MarkingsType;
+    /**
+     * Whether to show the protractor on the graph.
+     */
+    showProtractor: boolean;
+    /**
+     * Whether to show tooltips on the graph.
+     * (Currently not used, but will be in the future.)
+     */
+    showTooltips: boolean;
+    /**
+     * The current correct answer for the graph. Updated by this component
+     * when the graph is changed.
+     *
+     * Note that the "Correct answer:" textbox is not an interactive
+     * element. Instead, it is a representation of the correct answer based
+     * on the state of the interactive graph previewed at the bottom of the
+     * editor page.
+     */
+    // TODO(LEMS-2344): make the type of \`correct\` more specific
+    correct: PerseusGraphType;
+    /**
+     * The locked figures to display in the graph area.
+     * Locked figures are graph elements (points, lines, line segmeents,
+     * etc.) that are locked in place and not interactive.
+     */
+    lockedFigures?: Array<LockedFigure>;
+    // Aria-label for the full graph area. Short title for the graph.
+    fullGraphAriaLabel?: string;
+    // Aria-description for the graph area. Longer description of the graph.
+    // Note that the \`aria-description\` property is not supported well,
+    // so this description will be hidden in a DOM element whose ID will
+    // then be referenced by the graph's \`aria-describedby\` property.
+    fullGraphAriaDescription?: string;
+
+    /**
+     * The graph to display in the graph area.
+     */
+    graph: InteractiveGraphProps["graph"];
+    onChange: (props: Partial<Props>) => void;
+    // Whether the graph has been set to static mode.
+    // Graphs in static mode are not interactive, and their coords are
+    // set to those of the "correct" graph in the editor.
+    static?: boolean;
+}`,signature:{properties:[{key:"apiOptions",value:{name:"Readonly",elements:[{name:"intersection",raw:`APIOptions & {
+    GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
+    baseElements: NonNullable<APIOptions["baseElements"]>;
+    canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
+    crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
+    editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
+    groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
+    isArticle: NonNullable<APIOptions["isArticle"]>;
+    isMobile: NonNullable<APIOptions["isMobile"]>;
+    onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
+    readOnly: NonNullable<APIOptions["readOnly"]>;
+    setDrawingAreaAvailable: NonNullable<
+        APIOptions["setDrawingAreaAvailable"]
+    >;
+    showAlignmentOptions: NonNullable<APIOptions["showAlignmentOptions"]>;
+}`,elements:[{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+    isArticle?: boolean;
+    onFocusChange?: (
+        newFocusPath: FocusPath,
+        oldFocusPath: FocusPath,
+        keypadHeight?: number,
+        focusedElement?: HTMLElement,
+    ) => unknown;
+    GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
+    showAlignmentOptions?: boolean;
+    /**
+     * A boolean that indicates whether the associated problem has been
+     * answered correctly and should no longer be interactive.
+     */
+    readOnly?: boolean;
+    answerableCallback?: (arg1: boolean) => unknown;
+    getAnotherHint?: () => unknown;
+    interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
+    /**
+     * A function that takes in the relative problem number (starts at
+     * 0 and is incremented for each group widget), and the ID of the
+     * group widget, then returns a react component that will be added
+     * immediately above the renderer in the group widget. If the
+     * function returns null, no annotation will be added.
+     */
+    groupAnnotator?: (groupNumber: number, widgetId: string) => React.ReactNode;
+    /**
+     * If imagePlaceholder is set, Perseus will render the placeholder instead
+     * of the image node.
+     */
+    imagePlaceholder?: React.ReactNode;
+    /**
+     * If widgetPlaceholder is set, Perseus will render the placeholder instead
+     * of the widget node.
+     */
+    widgetPlaceholder?: React.ReactNode;
+    /**
+     * Base React elements that can be used in place of the standard DOM
+     * DOM elements. For example, when provided, <Link /> will be used
+     * in place of <a />. This allows clients to provide pre-styled
+     * components or components with custom behavior.
+     */
+    baseElements?: {
+        /**
+         * The <Link /> component provided here must adhere to the same
+         * interface as React's base <a /> component.
+         */
+        Link: React.ComponentType<any>;
+    };
+    /**
+     * Function that takes dimensions and returns a React component
+     * to display while an image is loading.
+     */
+    imagePreloader?: (dimensions: Dimensions) => React.ReactNode;
+    /**
+     * A function that is called when the user has interacted with a widget. It
+     * also includes any extra parameters that the originating widget provided.
+     * This is used for keeping track of widget interactions.
+     */
+    trackInteraction?: (args: TrackInteractionArgs) => void;
+    /**
+     * A boolean that indicates whether or not a custom keypad is
+     * being used.  For mobile web this will be the ProvidedKeypad
+     * component.  In this situation we use the MathInput component
+     * from the math-input repo instead of the existing perseus math
+     * input components.
+     */
+    customKeypad?: boolean;
+    /**
+     * If this is provided, it is called instead of appending an instance
+     * of \`math-input\`'s keypad to the body. This is used by the native
+     * apps so they can have the keypad be defined on the native side.
+     * It is called with an function that, when called, blurs the input,
+     * and is expected to return an object of the shape
+     * keypadElementPropType from math-input/src/prop-types.js.
+     */
+    nativeKeypadProxy?: (blur: () => void) => KeypadAPI;
+    /** Indicates whether or not to use mobile styling. */
+    isMobile?: boolean;
+    /** A function, called with a bool indicating whether use of the
+     * drawing area (scratchpad) should be allowed/disallowed.
+     *
+     * Previously handled by \`Khan.scratchpad.enable/disable\`
+     */
+    setDrawingAreaAvailable?: (arg1: boolean) => unknown;
+    /** The color used for the hint progress indicator (eg. 1 / 3) */
+    hintProgressColor?: string;
+    /**
+     * Whether this Renderer is allowed to auto-scroll the rest of the
+     * page. For example, if this is enabled, the most recently used
+     * radio widget will attempt to keep the "selected" answer in view
+     * after entering review mode.
+     *
+     * Defaults to \`false\`.
+     */
+    canScrollPage?: boolean;
+    /**
+     * Whether to enable the cross-out feature on multiple-choice radio
+     * widgets. This allows users to note which answers they believe to
+     * be incorrect, to find the answer by process of elimination.
+     *
+     * We plan to roll this out to all call sites eventually, but for
+     * now we have this flag, to add it to Generalized Test Prep first.
+     */
+    crossOutEnabled?: boolean;
+    /**
+     * The value in milliseconds by which the local state of content
+     * in a editor is delayed before propagated to a prop. For example,
+     * when text is typed in the text area of an Editor component,
+     * there will be a delay equal to the value of \`editorChangeDelay\`
+     * before the change is propagated. This is added for better
+     * responsiveness of the editor when used in certain contexts such
+     * as StructuredItem exercises where constant re-rendering for each
+     * keystroke caused text typed in the text area to appear in it
+     * only after a good few seconds.
+     */
+    editorChangeDelay?: number;
+    /**
+     * This is a callback function that returns all of the Widget props
+     * after they have been transformed by the widget's transform function.
+     * This is useful for when we need to know how a widget has shuffled its
+     * the available choices.
+     */
+    onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
+}`,signature:{properties:[{key:"isArticle",value:{name:"boolean",required:!1}},{key:"onFocusChange",value:{name:"signature",type:"function",raw:`(
+    newFocusPath: FocusPath,
+    oldFocusPath: FocusPath,
+    keypadHeight?: number,
+    focusedElement?: HTMLElement,
+) => unknown`,signature:{arguments:[{type:{name:"union",raw:"ReadonlyArray<string> | null | undefined",elements:[{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>"},{name:"null"},{name:"undefined"}]},name:"newFocusPath"},{type:{name:"union",raw:"ReadonlyArray<string> | null | undefined",elements:[{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>"},{name:"null"},{name:"undefined"}]},name:"oldFocusPath"},{type:{name:"number"},name:"keypadHeight"},{type:{name:"HTMLElement"},name:"focusedElement"}],return:{name:"unknown"}},required:!1}},{key:"GroupMetadataEditor",value:{name:"ReactComponentType",raw:"React.ComponentType<StubTagEditorType>",elements:[{name:"any"}],required:!1}},{key:"showAlignmentOptions",value:{name:"boolean",required:!1}},{key:"readOnly",value:{name:"boolean",required:!1},description:`A boolean that indicates whether the associated problem has been
+answered correctly and should no longer be interactive.`},{key:"answerableCallback",value:{name:"signature",type:"function",raw:"(arg1: boolean) => unknown",signature:{arguments:[{type:{name:"boolean"},name:"arg1"}],return:{name:"unknown"}},required:!1}},{key:"getAnotherHint",value:{name:"signature",type:"function",raw:"() => unknown",signature:{arguments:[],return:{name:"unknown"}},required:!1}},{key:"interactionCallback",value:{name:"signature",type:"function",raw:"(widgetData: {[widgetId: string]: any}) => void",signature:{arguments:[{type:{name:"signature",type:"object",raw:"{[widgetId: string]: any}",signature:{properties:[{key:{name:"string"},value:{name:"any",required:!0}}]}},name:"widgetData"}],return:{name:"void"}},required:!1}},{key:"groupAnnotator",value:{name:"signature",type:"function",raw:"(groupNumber: number, widgetId: string) => React.ReactNode",signature:{arguments:[{type:{name:"number"},name:"groupNumber"},{type:{name:"string"},name:"widgetId"}],return:{name:"ReactReactNode",raw:"React.ReactNode"}},required:!1},description:`A function that takes in the relative problem number (starts at
+0 and is incremented for each group widget), and the ID of the
+group widget, then returns a react component that will be added
+immediately above the renderer in the group widget. If the
+function returns null, no annotation will be added.`},{key:"imagePlaceholder",value:{name:"ReactReactNode",raw:"React.ReactNode",required:!1},description:`If imagePlaceholder is set, Perseus will render the placeholder instead
+of the image node.`},{key:"widgetPlaceholder",value:{name:"ReactReactNode",raw:"React.ReactNode",required:!1},description:`If widgetPlaceholder is set, Perseus will render the placeholder instead
+of the widget node.`},{key:"baseElements",value:{name:"signature",type:"object",raw:`{
+    /**
+     * The <Link /> component provided here must adhere to the same
+     * interface as React's base <a /> component.
+     */
+    Link: React.ComponentType<any>;
+}`,signature:{properties:[{key:"Link",value:{name:"ReactComponentType",raw:"React.ComponentType<any>",elements:[{name:"any"}],required:!0},description:`The <Link /> component provided here must adhere to the same
+interface as React's base <a /> component.`}]},required:!1},description:`Base React elements that can be used in place of the standard DOM
+DOM elements. For example, when provided, <Link /> will be used
+in place of <a />. This allows clients to provide pre-styled
+components or components with custom behavior.`},{key:"imagePreloader",value:{name:"signature",type:"function",raw:"(dimensions: Dimensions) => React.ReactNode",signature:{arguments:[{type:{name:"signature",type:"object",raw:`{
+    width?: number;
+    height?: number;
+}`,signature:{properties:[{key:"width",value:{name:"number",required:!1}},{key:"height",value:{name:"number",required:!1}}]}},name:"dimensions"}],return:{name:"ReactReactNode",raw:"React.ReactNode"}},required:!1},description:`Function that takes dimensions and returns a React component
+to display while an image is loading.`},{key:"trackInteraction",value:{name:"signature",type:"function",raw:"(args: TrackInteractionArgs) => void",signature:{arguments:[{type:{name:"intersection",raw:`{
+    // The widget type that this interaction originates from
+    type: string;
+    // The widget id that this interaction originates from
+    id: string;
+
+    correct?: boolean;
+
+    // Tracking args are all optional here because we don't know which
+    // widgets originated the call, and thus can't know what extra
+    // arguments will be included!
+} & Partial<TrackingGradedGroupExtraArguments> &
+    Partial<TrackingSequenceExtraArguments>`,elements:[{name:"signature",type:"object",raw:`{
+    // The widget type that this interaction originates from
+    type: string;
+    // The widget id that this interaction originates from
+    id: string;
+
+    correct?: boolean;
+
+    // Tracking args are all optional here because we don't know which
+    // widgets originated the call, and thus can't know what extra
+    // arguments will be included!
+}`,signature:{properties:[{key:"type",value:{name:"string",required:!0}},{key:"id",value:{name:"string",required:!0}},{key:"correct",value:{name:"boolean",required:!1}}]}},{name:"Partial",elements:[{name:"signature",type:"object",raw:`{
+    status: "correct" | "incorrect" | "invalid";
+}`,signature:{properties:[{key:"status",value:{name:"union",raw:'"correct" | "incorrect" | "invalid"',elements:[{name:"literal",value:'"correct"'},{name:"literal",value:'"incorrect"'},{name:"literal",value:'"invalid"'}],required:!0}}]}}],raw:"Partial<TrackingGradedGroupExtraArguments>"},{name:"Partial",elements:[{name:"signature",type:"object",raw:`{
+    visible: number;
+}`,signature:{properties:[{key:"visible",value:{name:"number",required:!0}}]}}],raw:"Partial<TrackingSequenceExtraArguments>"}]},name:"args"}],return:{name:"void"}},required:!1},description:`A function that is called when the user has interacted with a widget. It
+also includes any extra parameters that the originating widget provided.
+This is used for keeping track of widget interactions.`},{key:"customKeypad",value:{name:"boolean",required:!1},description:`A boolean that indicates whether or not a custom keypad is
+being used.  For mobile web this will be the ProvidedKeypad
+component.  In this situation we use the MathInput component
+from the math-input repo instead of the existing perseus math
+input components.`},{key:"nativeKeypadProxy",value:{name:"signature",type:"function",raw:"(blur: () => void) => KeypadAPI",signature:{arguments:[{type:{name:"signature",type:"function",raw:"() => void",signature:{arguments:[],return:{name:"void"}}},name:"blur"}],return:{name:"KeypadAPI"}},required:!1},description:`If this is provided, it is called instead of appending an instance
+of \`math-input\`'s keypad to the body. This is used by the native
+apps so they can have the keypad be defined on the native side.
+It is called with an function that, when called, blurs the input,
+and is expected to return an object of the shape
+keypadElementPropType from math-input/src/prop-types.js.`},{key:"isMobile",value:{name:"boolean",required:!1},description:"Indicates whether or not to use mobile styling."},{key:"setDrawingAreaAvailable",value:{name:"signature",type:"function",raw:"(arg1: boolean) => unknown",signature:{arguments:[{type:{name:"boolean"},name:"arg1"}],return:{name:"unknown"}},required:!1},description:`A function, called with a bool indicating whether use of the
+drawing area (scratchpad) should be allowed/disallowed.
+
+Previously handled by \`Khan.scratchpad.enable/disable\``},{key:"hintProgressColor",value:{name:"string",required:!1},description:"The color used for the hint progress indicator (eg. 1 / 3)"},{key:"canScrollPage",value:{name:"boolean",required:!1},description:`Whether this Renderer is allowed to auto-scroll the rest of the
+page. For example, if this is enabled, the most recently used
+radio widget will attempt to keep the "selected" answer in view
+after entering review mode.
+
+Defaults to \`false\`.`},{key:"crossOutEnabled",value:{name:"boolean",required:!1},description:`Whether to enable the cross-out feature on multiple-choice radio
+widgets. This allows users to note which answers they believe to
+be incorrect, to find the answer by process of elimination.
+
+We plan to roll this out to all call sites eventually, but for
+now we have this flag, to add it to Generalized Test Prep first.`},{key:"editorChangeDelay",value:{name:"number",required:!1},description:`The value in milliseconds by which the local state of content
+in a editor is delayed before propagated to a prop. For example,
+when text is typed in the text area of an Editor component,
+there will be a delay equal to the value of \`editorChangeDelay\`
+before the change is propagated. This is added for better
+responsiveness of the editor when used in certain contexts such
+as StructuredItem exercises where constant re-rendering for each
+keystroke caused text typed in the text area to appear in it
+only after a good few seconds.`},{key:"onWidgetStartProps",value:{name:"signature",type:"function",raw:"(widgets: PerseusWidgetsMap) => void",signature:{arguments:[{type:{name:"signature",type:"object",raw:"{\n    [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];\n}",signature:{properties:[{key:{name:"PerseusWidgetTypes",required:!0},value:{name:"PerseusWidgetTypes[Property]",raw:"TRegistry[Property]"}}]}},name:"widgets"}],return:{name:"void"}},required:!1},description:`This is a callback function that returns all of the Widget props
+after they have been transformed by the widget's transform function.
+This is useful for when we need to know how a widget has shuffled its
+the available choices.`}]}}],raw:`Readonly<{
+    isArticle?: boolean;
+    onFocusChange?: (
+        newFocusPath: FocusPath,
+        oldFocusPath: FocusPath,
+        keypadHeight?: number,
+        focusedElement?: HTMLElement,
+    ) => unknown;
+    GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
+    showAlignmentOptions?: boolean;
+    /**
+     * A boolean that indicates whether the associated problem has been
+     * answered correctly and should no longer be interactive.
+     */
+    readOnly?: boolean;
+    answerableCallback?: (arg1: boolean) => unknown;
+    getAnotherHint?: () => unknown;
+    interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
+    /**
+     * A function that takes in the relative problem number (starts at
+     * 0 and is incremented for each group widget), and the ID of the
+     * group widget, then returns a react component that will be added
+     * immediately above the renderer in the group widget. If the
+     * function returns null, no annotation will be added.
+     */
+    groupAnnotator?: (groupNumber: number, widgetId: string) => React.ReactNode;
+    /**
+     * If imagePlaceholder is set, Perseus will render the placeholder instead
+     * of the image node.
+     */
+    imagePlaceholder?: React.ReactNode;
+    /**
+     * If widgetPlaceholder is set, Perseus will render the placeholder instead
+     * of the widget node.
+     */
+    widgetPlaceholder?: React.ReactNode;
+    /**
+     * Base React elements that can be used in place of the standard DOM
+     * DOM elements. For example, when provided, <Link /> will be used
+     * in place of <a />. This allows clients to provide pre-styled
+     * components or components with custom behavior.
+     */
+    baseElements?: {
+        /**
+         * The <Link /> component provided here must adhere to the same
+         * interface as React's base <a /> component.
+         */
+        Link: React.ComponentType<any>;
+    };
+    /**
+     * Function that takes dimensions and returns a React component
+     * to display while an image is loading.
+     */
+    imagePreloader?: (dimensions: Dimensions) => React.ReactNode;
+    /**
+     * A function that is called when the user has interacted with a widget. It
+     * also includes any extra parameters that the originating widget provided.
+     * This is used for keeping track of widget interactions.
+     */
+    trackInteraction?: (args: TrackInteractionArgs) => void;
+    /**
+     * A boolean that indicates whether or not a custom keypad is
+     * being used.  For mobile web this will be the ProvidedKeypad
+     * component.  In this situation we use the MathInput component
+     * from the math-input repo instead of the existing perseus math
+     * input components.
+     */
+    customKeypad?: boolean;
+    /**
+     * If this is provided, it is called instead of appending an instance
+     * of \`math-input\`'s keypad to the body. This is used by the native
+     * apps so they can have the keypad be defined on the native side.
+     * It is called with an function that, when called, blurs the input,
+     * and is expected to return an object of the shape
+     * keypadElementPropType from math-input/src/prop-types.js.
+     */
+    nativeKeypadProxy?: (blur: () => void) => KeypadAPI;
+    /** Indicates whether or not to use mobile styling. */
+    isMobile?: boolean;
+    /** A function, called with a bool indicating whether use of the
+     * drawing area (scratchpad) should be allowed/disallowed.
+     *
+     * Previously handled by \`Khan.scratchpad.enable/disable\`
+     */
+    setDrawingAreaAvailable?: (arg1: boolean) => unknown;
+    /** The color used for the hint progress indicator (eg. 1 / 3) */
+    hintProgressColor?: string;
+    /**
+     * Whether this Renderer is allowed to auto-scroll the rest of the
+     * page. For example, if this is enabled, the most recently used
+     * radio widget will attempt to keep the "selected" answer in view
+     * after entering review mode.
+     *
+     * Defaults to \`false\`.
+     */
+    canScrollPage?: boolean;
+    /**
+     * Whether to enable the cross-out feature on multiple-choice radio
+     * widgets. This allows users to note which answers they believe to
+     * be incorrect, to find the answer by process of elimination.
+     *
+     * We plan to roll this out to all call sites eventually, but for
+     * now we have this flag, to add it to Generalized Test Prep first.
+     */
+    crossOutEnabled?: boolean;
+    /**
+     * The value in milliseconds by which the local state of content
+     * in a editor is delayed before propagated to a prop. For example,
+     * when text is typed in the text area of an Editor component,
+     * there will be a delay equal to the value of \`editorChangeDelay\`
+     * before the change is propagated. This is added for better
+     * responsiveness of the editor when used in certain contexts such
+     * as StructuredItem exercises where constant re-rendering for each
+     * keystroke caused text typed in the text area to appear in it
+     * only after a good few seconds.
+     */
+    editorChangeDelay?: number;
+    /**
+     * This is a callback function that returns all of the Widget props
+     * after they have been transformed by the widget's transform function.
+     * This is useful for when we need to know how a widget has shuffled its
+     * the available choices.
+     */
+    onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
+}>`},{name:"signature",type:"object",raw:`{
+    GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
+    baseElements: NonNullable<APIOptions["baseElements"]>;
+    canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
+    crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
+    editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
+    groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
+    isArticle: NonNullable<APIOptions["isArticle"]>;
+    isMobile: NonNullable<APIOptions["isMobile"]>;
+    onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
+    readOnly: NonNullable<APIOptions["readOnly"]>;
+    setDrawingAreaAvailable: NonNullable<
+        APIOptions["setDrawingAreaAvailable"]
+    >;
+    showAlignmentOptions: NonNullable<APIOptions["showAlignmentOptions"]>;
+}`,signature:{properties:[{key:"GroupMetadataEditor",value:{name:"NonNullable",elements:[{name:'Readonly["GroupMetadataEditor"]',raw:'APIOptions["GroupMetadataEditor"]'}],raw:'NonNullable<APIOptions["GroupMetadataEditor"]>',required:!0}},{key:"baseElements",value:{name:"NonNullable",elements:[{name:'Readonly["baseElements"]',raw:'APIOptions["baseElements"]'}],raw:'NonNullable<APIOptions["baseElements"]>',required:!0}},{key:"canScrollPage",value:{name:"NonNullable",elements:[{name:'Readonly["canScrollPage"]',raw:'APIOptions["canScrollPage"]'}],raw:'NonNullable<APIOptions["canScrollPage"]>',required:!0}},{key:"crossOutEnabled",value:{name:"NonNullable",elements:[{name:'Readonly["crossOutEnabled"]',raw:'APIOptions["crossOutEnabled"]'}],raw:'NonNullable<APIOptions["crossOutEnabled"]>',required:!0}},{key:"editorChangeDelay",value:{name:"NonNullable",elements:[{name:'Readonly["editorChangeDelay"]',raw:'APIOptions["editorChangeDelay"]'}],raw:'NonNullable<APIOptions["editorChangeDelay"]>',required:!0}},{key:"groupAnnotator",value:{name:"NonNullable",elements:[{name:'Readonly["groupAnnotator"]',raw:'APIOptions["groupAnnotator"]'}],raw:'NonNullable<APIOptions["groupAnnotator"]>',required:!0}},{key:"isArticle",value:{name:"NonNullable",elements:[{name:'Readonly["isArticle"]',raw:'APIOptions["isArticle"]'}],raw:'NonNullable<APIOptions["isArticle"]>',required:!0}},{key:"isMobile",value:{name:"NonNullable",elements:[{name:'Readonly["isMobile"]',raw:'APIOptions["isMobile"]'}],raw:'NonNullable<APIOptions["isMobile"]>',required:!0}},{key:"onFocusChange",value:{name:"NonNullable",elements:[{name:'Readonly["onFocusChange"]',raw:'APIOptions["onFocusChange"]'}],raw:'NonNullable<APIOptions["onFocusChange"]>',required:!0}},{key:"readOnly",value:{name:"NonNullable",elements:[{name:'Readonly["readOnly"]',raw:'APIOptions["readOnly"]'}],raw:'NonNullable<APIOptions["readOnly"]>',required:!0}},{key:"setDrawingAreaAvailable",value:{name:"NonNullable",elements:[{name:'Readonly["setDrawingAreaAvailable"]',raw:'APIOptions["setDrawingAreaAvailable"]'}],raw:`NonNullable<
+    APIOptions["setDrawingAreaAvailable"]
+>`,required:!0}},{key:"showAlignmentOptions",value:{name:"NonNullable",elements:[{name:'Readonly["showAlignmentOptions"]',raw:'APIOptions["showAlignmentOptions"]'}],raw:'NonNullable<APIOptions["showAlignmentOptions"]>',required:!0}}]}}]}],raw:`Readonly<
+    APIOptions & {
+        GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
+        baseElements: NonNullable<APIOptions["baseElements"]>;
+        canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
+        crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
+        editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
+        groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
+        isArticle: NonNullable<APIOptions["isArticle"]>;
+        isMobile: NonNullable<APIOptions["isMobile"]>;
+        onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
+        readOnly: NonNullable<APIOptions["readOnly"]>;
+        setDrawingAreaAvailable: NonNullable<
+            APIOptions["setDrawingAreaAvailable"]
+        >;
+        showAlignmentOptions: NonNullable<APIOptions["showAlignmentOptions"]>;
+    }
+>`,required:!0}},{key:"labels",value:{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>",required:!0},description:"The labels for the x and y axes."},{key:"range",value:{name:"tuple",raw:"[x: Range, y: Range]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},description:"The range of the graph in the x and y directions."},{key:"step",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},description:`How far apart the tick marks on the axes are in the x and y
+directions.`},{key:"gridStep",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},description:"How far apart the grid lines are in the x and y directions."},{key:"snapStep",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},description:"How far apart the snap-to points are in the x and y directions."},{key:"box",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},description:"The size of the graph in pixels."},{key:"valid",value:{name:"union",raw:"true | string",elements:[{name:"literal",value:"true"},{name:"string"}],required:!0},description:`An error message to display in the graph area, or true if the
+graph is valid.`},{key:"backgroundImage",value:{name:"signature",type:"object",raw:`{
+    // The URL of the image
+    url: string | null | undefined;
+    // The width of the image
+    width?: number;
+    // The height of the image
+    height?: number;
+    // The top offset of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    top?: number;
+    // The left offset of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    left?: number;
+    // The scale of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    // Yikes, production data as this as both a number (1) and string ("1")
+    scale?: number | string;
+    // The bottom offset of the image
+    // NOTE: perseus_data.go says this is required, but nullable, even though
+    // it isn't necessary at all.
+    bottom?: number;
+}`,signature:{properties:[{key:"url",value:{name:"union",raw:"string | null | undefined",elements:[{name:"string"},{name:"null"},{name:"undefined"}],required:!0}},{key:"width",value:{name:"number",required:!1}},{key:"height",value:{name:"number",required:!1}},{key:"top",value:{name:"number",required:!1}},{key:"left",value:{name:"number",required:!1}},{key:"scale",value:{name:"union",raw:"number | string",elements:[{name:"number"},{name:"string"}],required:!1}},{key:"bottom",value:{name:"number",required:!1}}]},required:!0},description:"The background image to display in the graph area and its properties."},{key:"markings",value:{name:"union",raw:'"axes" | "graph" | "grid" | "none"',elements:[{name:"literal",value:'"axes"'},{name:"literal",value:'"graph"'},{name:"literal",value:'"grid"'},{name:"literal",value:'"none"'}],required:!0},description:`The type of markings to display on the graph.
+- graph: shows the axes and the grid lines
+- grid: shows only the grid lines
+- none: shows no markings`},{key:"showProtractor",value:{name:"boolean",required:!0},description:"Whether to show the protractor on the graph."},{key:"showTooltips",value:{name:"boolean",required:!0},description:`Whether to show tooltips on the graph.
+(Currently not used, but will be in the future.)`},{key:"correct",value:{name:"union",raw:`| PerseusGraphTypeAngle
+| PerseusGraphTypeCircle
+| PerseusGraphTypeLinear
+| PerseusGraphTypeLinearSystem
+| PerseusGraphTypeNone
+| PerseusGraphTypePoint
+| PerseusGraphTypePolygon
+| PerseusGraphTypeQuadratic
+| PerseusGraphTypeRay
+| PerseusGraphTypeSegment
+| PerseusGraphTypeSinusoid`,elements:[{name:"signature",type:"object",raw:`{
+    type: "angle";
+    // Whether to show the angle measurements.  default: false
+    showAngles?: boolean;
+    // Allow Reflex Angles if an "angle" type.  default: true
+    allowReflexAngles?: boolean;
+    // The angle offset in degrees if an "angle" type. default: 0
+    angleOffsetDeg?: number;
+    // Snap to degree increments if an "angle" type. default: 1
+    snapDegrees?: number;
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "congruent";
+    // must have 3 coords - ie [Coord, Coord, Coord]
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"angle"',required:!0}},{key:"showAngles",value:{name:"boolean",required:!1}},{key:"allowReflexAngles",value:{name:"boolean",required:!1}},{key:"angleOffsetDeg",value:{name:"number",required:!1}},{key:"snapDegrees",value:{name:"number",required:!1}},{key:"match",value:{name:"literal",value:'"congruent"',required:!1}},{key:"coords",value:{name:"union",raw:"[Coord, Coord, Coord] | null",elements:[{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}]},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"intersection",raw:`{
+    type: "circle";
+    center?: Coord;
+    radius?: number;
+    // The initial coordinates the graph renders with.
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "circle";
+    center?: Coord;
+    radius?: number;
+    // The initial coordinates the graph renders with.
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"circle"',required:!0}},{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"radius",value:{name:"number",required:!1}},{key:"startCoords",value:{name:"signature",type:"object",raw:`{
+    center: Coord;
+    radius: number;
+}`,signature:{properties:[{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"radius",value:{name:"number",required:!0}}]},required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "linear";
+    // expects 2 coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "linear";
+    // expects 2 coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"linear"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple | null",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "linear-system";
+    // expects 2 sets of 2 coords
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "linear-system";
+    // expects 2 sets of 2 coords
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"linear-system"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple[] | null",elements:[{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"signature",type:"object",raw:`{
+    type: "none";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"none"',required:!0}}]}},{name:"intersection",raw:`{
+    type: "point";
+    // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
+    numPoints?: number | "unlimited";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "point";
+    // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
+    numPoints?: number | "unlimited";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"point"',required:!0}},{key:"numPoints",value:{name:"union",raw:'number | "unlimited"',elements:[{name:"number"},{name:"literal",value:'"unlimited"'}],required:!1}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "polygon";
+    // The number of sides.  default: 3. "unlimited" if no limit
+    numSides?: number | "unlimited";
+    // Whether to the angle measurements.  default: false
+    showAngles?: boolean;
+    // Whether to show side measurements. default: false
+    showSides?: boolean;
+    // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
+    snapTo?: "grid" | "angles" | "sides";
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "similar" | "congruent" | "approx" | "exact";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "polygon";
+    // The number of sides.  default: 3. "unlimited" if no limit
+    numSides?: number | "unlimited";
+    // Whether to the angle measurements.  default: false
+    showAngles?: boolean;
+    // Whether to show side measurements. default: false
+    showSides?: boolean;
+    // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
+    snapTo?: "grid" | "angles" | "sides";
+    // How to match the answer. If missing, defaults to exact matching.
+    match?: "similar" | "congruent" | "approx" | "exact";
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"polygon"',required:!0}},{key:"numSides",value:{name:"union",raw:'number | "unlimited"',elements:[{name:"number"},{name:"literal",value:'"unlimited"'}],required:!1}},{key:"showAngles",value:{name:"boolean",required:!1}},{key:"showSides",value:{name:"boolean",required:!1}},{key:"snapTo",value:{name:"union",raw:'"grid" | "angles" | "sides"',elements:[{name:"literal",value:'"grid"'},{name:"literal",value:'"angles"'},{name:"literal",value:'"sides"'}],required:!1}},{key:"match",value:{name:"union",raw:'"similar" | "congruent" | "approx" | "exact"',elements:[{name:"literal",value:'"similar"'},{name:"literal",value:'"congruent"'},{name:"literal",value:'"approx"'},{name:"literal",value:'"exact"'}],required:!1}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "quadratic";
+    // expects a list of 3 coords
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "quadratic";
+    // expects a list of 3 coords
+    coords?: [Coord, Coord, Coord] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"quadratic"',required:!0}},{key:"coords",value:{name:"union",raw:"[Coord, Coord, Coord] | null",elements:[{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}]},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Coord, Coord, Coord]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "ray";
+    // Expects a list of 2 Coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "ray";
+    // Expects a list of 2 Coords
+    coords?: CollinearTuple | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"ray"',required:!0}},{key:"coords",value:{name:"union",raw:"CollinearTuple | null",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "segment";
+    // The number of segments if a "segment" type. default: 1.  Max: 6
+    numSegments?: number;
+    // Expects a list of Coord tuples. Length should match the \`numSegments\` value.
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "segment";
+    // The number of segments if a "segment" type. default: 1.  Max: 6
+    numSegments?: number;
+    // Expects a list of Coord tuples. Length should match the \`numSegments\` value.
+    coords?: CollinearTuple[] | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"segment"',required:!0}},{key:"numSegments",value:{name:"number",required:!1}},{key:"coords",value:{name:"union",raw:"CollinearTuple[] | null",elements:[{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"Array",elements:[{name:"tuple",raw:"[Vector2, Vector2]",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0},{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],required:!1}],raw:"CollinearTuple[]",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]},{name:"intersection",raw:`{
+    type: "sinusoid";
+    // Expects a list of 2 Coords
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+} & PerseusGraphTypeCommon`,elements:[{name:"signature",type:"object",raw:`{
+    type: "sinusoid";
+    // Expects a list of 2 Coords
+    coords?: ReadonlyArray<Coord> | null;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"sinusoid"',required:!0}},{key:"coords",value:{name:"union",raw:"ReadonlyArray<Coord> | null",elements:[{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>"},{name:"null"}],required:!1}},{key:"startCoords",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    // NOTE(jeremy): This is referenced in the component. Verify if there's any
+    // production data that still has this.
+    coord?: Coord; // Legacy!
+}`,signature:{properties:[{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}}]}}]}],required:!0},description:`The current correct answer for the graph. Updated by this component
+when the graph is changed.
+
+Note that the "Correct answer:" textbox is not an interactive
+element. Instead, it is a representation of the correct answer based
+on the state of the interactive graph previewed at the bottom of the
+editor page.`},{key:"lockedFigures",value:{name:"Array",elements:[{name:"union",raw:`| LockedPointType
+| LockedLineType
+| LockedVectorType
+| LockedEllipseType
+| LockedPolygonType
+| LockedFunctionType
+| LockedLabelType`,elements:[{name:"signature",type:"object",raw:`{
+    type: "point";
+    coord: Coord;
+    color: LockedFigureColor;
+    filled: boolean;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"point"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"filled",value:{name:"boolean",required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "line";
+    kind: "line" | "ray" | "segment";
+    points: [point1: LockedPointType, point2: LockedPointType];
+    color: LockedFigureColor;
+    lineStyle: LockedLineStyle;
+    showPoint1: boolean;
+    showPoint2: boolean;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"line"',required:!0}},{key:"kind",value:{name:"union",raw:'"line" | "ray" | "segment"',elements:[{name:"literal",value:'"line"'},{name:"literal",value:'"ray"'},{name:"literal",value:'"segment"'}],required:!0}},{key:"points",value:{name:"tuple",raw:"[point1: LockedPointType, point2: LockedPointType]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"lineStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"showPoint1",value:{name:"boolean",required:!0}},{key:"showPoint2",value:{name:"boolean",required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "vector";
+    points: [tail: Coord, tip: Coord];
+    color: LockedFigureColor;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"vector"',required:!0}},{key:"points",value:{name:"tuple",raw:"[tail: Coord, tip: Coord]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "ellipse";
+    center: Coord;
+    radius: [x: number, y: number];
+    angle: number;
+    color: LockedFigureColor;
+    fillStyle: LockedFigureFillType;
+    strokeStyle: LockedLineStyle;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"ellipse"',required:!0}},{key:"center",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"radius",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"angle",value:{name:"number",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"fillStyle",value:{name:"union",raw:'"none" | "white" | "translucent" | "solid"',elements:[{name:"literal",value:'"none"'},{name:"literal",value:'"white"'},{name:"literal",value:'"translucent"'},{name:"literal",value:'"solid"'}],required:!0}},{key:"strokeStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "polygon";
+    points: ReadonlyArray<Coord>;
+    color: LockedFigureColor;
+    showVertices: boolean;
+    fillStyle: LockedFigureFillType;
+    strokeStyle: LockedLineStyle;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"polygon"',required:!0}},{key:"points",value:{name:"ReadonlyArray",elements:[{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}],raw:"ReadonlyArray<Coord>",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"showVertices",value:{name:"boolean",required:!0}},{key:"fillStyle",value:{name:"union",raw:'"none" | "white" | "translucent" | "solid"',elements:[{name:"literal",value:'"none"'},{name:"literal",value:'"white"'},{name:"literal",value:'"translucent"'},{name:"literal",value:'"solid"'}],required:!0}},{key:"strokeStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "function";
+    color: LockedFigureColor;
+    strokeStyle: LockedLineStyle;
+    equation: string; // This is the user-defined equation (as it was typed)
+    directionalAxis: "x" | "y";
+    domain?: Interval;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"function"',required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"strokeStyle",value:{name:"union",raw:'"solid" | "dashed"',elements:[{name:"literal",value:'"solid"'},{name:"literal",value:'"dashed"'}],required:!0}},{key:"equation",value:{name:"string",required:!0}},{key:"directionalAxis",value:{name:"union",raw:'"x" | "y"',elements:[{name:"literal",value:'"x"'},{name:"literal",value:'"y"'}],required:!0}},{key:"domain",value:{name:"tuple",raw:"[min: number, max: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!1}},{key:"labels",value:{name:"Array",elements:[{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}],raw:"LockedLabelType[]",required:!1}},{key:"ariaLabel",value:{name:"string",required:!1}}]}},{name:"signature",type:"object",raw:`{
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
+}`,signature:{properties:[{key:"type",value:{name:"literal",value:'"label"',required:!0}},{key:"coord",value:{name:"tuple",raw:"[x: number, y: number]",elements:[{name:"unknown"},{name:"unknown"}],required:!0}},{key:"text",value:{name:"string",required:!0}},{key:"color",value:{name:"unknown[number]",raw:"(typeof lockedFigureColorNames)[number]",required:!0}},{key:"size",value:{name:"union",raw:'"small" | "medium" | "large"',elements:[{name:"literal",value:'"small"'},{name:"literal",value:'"medium"'},{name:"literal",value:'"large"'}],required:!0}}]}}]}],raw:"Array<LockedFigure>",required:!1},description:`The locked figures to display in the graph area.
+Locked figures are graph elements (points, lines, line segmeents,
+etc.) that are locked in place and not interactive.`},{key:"fullGraphAriaLabel",value:{name:"string",required:!1}},{key:"fullGraphAriaDescription",value:{name:"string",required:!1}},{key:"graph",value:{name:'PropsFor["graph"]',raw:'InteractiveGraphProps["graph"]',required:!0},description:"The graph to display in the graph area."},{key:"onChange",value:{name:"signature",type:"function",raw:"(props: Partial<Props>) => void",signature:{arguments:[{type:{name:"Partial",elements:[{name:"Props"}],raw:"Partial<Props>"},name:"props"}],return:{name:"void"}},required:!0}},{key:"static",value:{name:"boolean",required:!1}}]}}],raw:"Partial<Props>"},name:"props"}],return:{name:"void"}}},description:""},static:{required:!1,tsType:{name:"boolean"},description:""}}};export{K as I};
