@@ -254,6 +254,8 @@ function scoreInteractiveGraph(
 
             // While the angle graph should always have 3 points, our types
             // technically allow for null values. We'll check for that here.
+            // TODO: (LEMS-2857) We would like to update the type of coords
+            // to be non-nullable, as the graph should always have 3 points.
             if (!coords) {
                 return {
                     type: "invalid",
