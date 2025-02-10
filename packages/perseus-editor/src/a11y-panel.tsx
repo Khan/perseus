@@ -234,9 +234,9 @@ const IssueDetails = (props: IssueProps) => {
 
 const ShowMe = ({issue}: {issue: axe.Result}) => {
     const [showMe, setShowMe] = useState(false);
-    const issueElements = getIssueElements(issue.nodes);
     // eslint-disable-next-line no-console
     console.log(`\nShow Me`);
+    const issueElements = getIssueElements(issue.nodes);
     // eslint-disable-next-line no-console
     console.log(`   Issue Elements: `, issueElements);
     const issueBoundary = issueElements.reduce(
@@ -316,19 +316,27 @@ const getIssueElements = (nodes: axe.NodeResult[]): Element[] => {
     return nodeToCheck.flatMap((node) => {
         // @ts-expect-error TS2769: No overload matches this call.
         return node.target.reduce((elements: Element[], target: string) => {
+            // eslint-disable-next-line no-console
+            console.log(`   Issue Target: `, target);
             let element: Element | null;
             if (
                 elements.length > 0 &&
-                elements[elements.length - 1].tagName === "iframe"
+                elements[elements.length - 1].tagName.toLowerCase() === "iframe"
             ) {
+                // eslint-disable-next-line no-console
+                console.log(`   Prior target is iFrame`);
                 element =
                     // @ts-expect-error TS2551: Property 'contentDocument' does not exist on type 'Element'
                     elements[elements.length - 1].contentDocument.querySelector(
                         target,
                     );
             } else {
+                // eslint-disable-next-line no-console
+                console.log(`   Prior target is NOT iFrame`);
                 element = document.querySelector(target);
             }
+            // eslint-disable-next-line no-console
+            console.log(`   Element: `, element);
             if (element) {
                 elements.push(element);
             }
