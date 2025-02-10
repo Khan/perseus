@@ -1,4 +1,7 @@
-import {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
+import {
+    ExpressionPublicWidgetOptions,
+    PerseusExpressionWidgetOptions,
+} from "@khanacademy/perseus-core";
 import deriveExtraKeys from "./derive-extra-keys";
 
 describe("deriveExtraKeys", () => {
@@ -127,6 +130,26 @@ describe("deriveExtraKeys", () => {
                 times: false,
                 functions: [],
             }),
+        ).toEqual(["PI"]);
+    });
+
+    it("can handle an absense of answerForms", async () => {
+        // Arrange
+
+        // this is an extreme case (maybe being overly cautious to a fault)
+        // but checking that *something* gets returned if there are no answerForms
+        const answerlessWidgetOptions: ExpressionPublicWidgetOptions = {
+            buttonSets: [],
+            times: false,
+            functions: [],
+        };
+
+        // Act
+        // Assert
+        expect(
+            deriveExtraKeys(
+                answerlessWidgetOptions as PerseusExpressionWidgetOptions,
+            ),
         ).toEqual(["PI"]);
     });
 });

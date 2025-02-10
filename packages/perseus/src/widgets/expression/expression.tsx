@@ -459,7 +459,7 @@ export default {
                     deriveExtraKeys(
                         widgetOptions as PerseusExpressionWidgetOptions,
                     ),
-                times: widgetOptions.times,
+                times,
             },
             times,
             functions,
