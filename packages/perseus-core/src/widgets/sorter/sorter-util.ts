@@ -38,6 +38,9 @@ function getSorterPublicWidgetOptions(
         // To maintain compatibility with the original widget options, we are
         // keeping the key the same. Represents initial state of the cards here.
         correct: shuffledCorrect,
+        // Note(Tamara): This new key is only added here with "true". There isn't
+        // a place where it is set to false. It indicates that the correct field
+        // has been shuffled and no longer contains correct answer info.
         isCorrectShuffled: true,
     };
 }
