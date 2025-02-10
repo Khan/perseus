@@ -91,7 +91,7 @@ jobs:
 
             - name: Check formatting
               run: |
-                  pnpm -s prettier --check .
+                  pnpm prettier --check .
 
             - id: js-files
               name: Find .js(x)/.ts(x) changed files
