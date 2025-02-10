@@ -235,10 +235,19 @@ const IssueDetails = (props: IssueProps) => {
 const ShowMe = ({issue}: {issue: axe.Result}) => {
     const [showMe, setShowMe] = useState(false);
     const issueElements = getIssueElements(issue.nodes);
-    const issueBoundary =
-        Array.isArray(issueElements) && issueElements.length > 0
-            ? issueElements[0].getBoundingClientRect()
-            : null;
+    const issueBoundary = issueElements.reduce(
+        (boundary, element, index) => {
+            const elementBoundary = element.getBoundingClientRect();
+            boundary.top += elementBoundary.top;
+            boundary.left += elementBoundary.left;
+            if (index === issueElements.length - 1) {
+                boundary.height = elementBoundary.height;
+                boundary.width = elementBoundary.width;
+            }
+            return boundary;
+        },
+        {top: 0, left: 0, height: 0, width: 0},
+    );
     const showMeStyle = {
         marginTop: "1em",
         fontWeight: "bold",
@@ -246,7 +255,7 @@ const ShowMe = ({issue}: {issue: axe.Result}) => {
         alignItems: "center",
     };
     const showMeOutlineStyle: CSSProperties =
-        showMe && issueBoundary !== null
+        showMe && issueBoundary.width !== 0
             ? {
                   display: "block",
                   border: "2px solid red",
@@ -288,17 +297,29 @@ const getIssueMessage = (nodes: axe.NodeResult[]): string => {
 };
 
 const getIssueElements = (nodes: axe.NodeResult[]): Element[] => {
+    const nodeToCheck = nodes.length > 0 ? [nodes[0]] : [];
     // @ts-expect-error TS2322: Type 'string[]' is not assignable to type 'Element[]'.
-    return nodes.map((node) => {
+    return nodeToCheck.flatMap((node) => {
         // @ts-expect-error TS2769: No overload matches this call.
-        return node.target.reduce((context: Element | null, target: string) => {
-            if (context?.tagName === "iframe") {
-                // @ts-expect-error TS2551: Property 'contentDocument' does not exist on type 'Element'
-                return context.contentDocument.querySelector(target);
+        return node.target.reduce((elements: Element[], target: string) => {
+            let element: Element | null;
+            if (
+                elements.length > 0 &&
+                elements[elements.length - 1].tagName === "iframe"
+            ) {
+                element =
+                    // @ts-expect-error TS2551: Property 'contentDocument' does not exist on type 'Element'
+                    elements[elements.length - 1].contentDocument.querySelector(
+                        target,
+                    );
             } else {
-                return context?.querySelector(target);
+                element = document.querySelector(target);
             }
-        }, document);
+            if (element) {
+                elements.push(element);
+            }
+            return elements;
+        }, []);
     });
 };
 

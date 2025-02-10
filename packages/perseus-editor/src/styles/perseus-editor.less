@@ -404,6 +404,9 @@
     width: @leftCellWidth;
     max-width: @leftCellWidth;
     min-width: @leftCellWidth;
+    /* Next 2 lines here to enable a11y "Show Me" outline to appear above element in iframe */
+    position: relative;
+    z-index: 1;
 }
 
 .perseus-editor-right-cell {
