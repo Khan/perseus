@@ -66,7 +66,7 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Act
-        const dropdown = screen.getByRole("button", {name: "Answer type:"});
+        const dropdown = await screen.findByLabelText("Answer type:");
         await userEvent.click(dropdown);
         await userEvent.click(screen.getByRole("option", {name: "Polygon"}));
 
@@ -248,9 +248,7 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Act
-        const input = screen.getByRole("button", {
-            name: "Number of Points:",
-        });
+        const input = await screen.findByLabelText("Number of Points:");
         await userEvent.click(input);
         const pointsSelection = screen.getByText("5 points");
         await userEvent.click(pointsSelection);
@@ -281,9 +279,7 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Act
-        const input = screen.getByRole("button", {
-            name: "Number of sides:",
-        });
+        const input = await screen.findByLabelText("Number of sides:");
         await userEvent.click(input);
         const sidesSelection = screen.getByText("5 sides");
         await userEvent.click(sidesSelection);
@@ -326,9 +322,7 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Act
-        const input = screen.getByRole("button", {
-            name: "Snap to:",
-        });
+        const input = await screen.findByLabelText("Snap to:");
         await userEvent.click(input);
         const snapToSelection = screen.getByText("interior angles");
         await userEvent.click(snapToSelection);
@@ -442,9 +436,7 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Act
-        const input = screen.getByRole("button", {
-            name: "Number of segments:",
-        });
+        const input = await screen.findByLabelText("Number of segments:");
         await userEvent.click(input);
         const segmentsSelection = screen.getByText("5 segments");
         await userEvent.click(segmentsSelection);
@@ -484,9 +476,7 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Act
-        const input = screen.getByRole("button", {
-            name: "Student answer must",
-        });
+        const input = await screen.findByLabelText("Student answer must");
         await userEvent.click(input);
         const answerMustSelection = screen.getByText("be similar");
         await userEvent.click(answerMustSelection);
@@ -521,9 +511,7 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Act
-        const input = screen.getByRole("button", {
-            name: "Student answer must",
-        });
+        const input = await screen.findByLabelText("Student answer must");
         await userEvent.click(input);
         const answerMustSelection = screen.getByText("be congruent");
         await userEvent.click(answerMustSelection);
@@ -816,7 +804,7 @@ describe("InteractiveGraphEditor", () => {
             },
         );
 
-        const dropdown = screen.getByRole("button", {name: "Answer type:"});
+        const dropdown = await screen.findByLabelText("Answer type:");
         await userEvent.click(dropdown);
         expect(screen.getByRole("option", {name: "None"})).toBeInTheDocument();
     });
