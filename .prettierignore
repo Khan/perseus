@@ -28,6 +28,7 @@
 .prettierignore
 LICENSE
 pnpm-lock.yaml
+pnpm-workspace.yaml
 
 coverage/
 docs/
