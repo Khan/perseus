@@ -3,7 +3,7 @@ import getSorterPublicWidgetOptions from "./sorter-util";
 import type {PerseusSorterWidgetOptions} from "../../data-schema";
 
 describe("getSorterPublicWidgetOptions", () => {
-    it("should return the correct public options without any answer data, in a shuffled state", () => {
+    it("should return options without any answer data due to the shuffled state of the correct field", () => {
         // Arrange
         const options: PerseusSorterWidgetOptions = {
             correct: ["$15$ grams", "$55$ grams", "$0.005$ kilograms"],
