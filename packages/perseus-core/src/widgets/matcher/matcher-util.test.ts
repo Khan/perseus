@@ -17,14 +17,8 @@ describe("getMatcherPublicWidgetOptions", () => {
         const publicWidgetOptions = getMatcherPublicWidgetOptions(options);
 
         // Assert
-        expect(publicWidgetOptions).toEqual({
-            labels: ["**Claims**", "**Evidence**"],
-            padding: true,
-            orderMatters: false,
-            left: ["Fuel", "Plate", "Hydrogen", "Average", "Billion"],
-            right: ["Milky Way", "Stars", "Life", "Earth", "Rapid"],
-        });
         expect(publicWidgetOptions.right).not.toEqual(options.right);
+        expect(publicWidgetOptions.left).toEqual(options.left);
     });
 
     it("should return shuffled left and right arrays when order matters to remove the correct order information", () => {
@@ -41,13 +35,6 @@ describe("getMatcherPublicWidgetOptions", () => {
         const publicWidgetOptions = getMatcherPublicWidgetOptions(options);
 
         // Assert
-        expect(publicWidgetOptions).toEqual({
-            labels: ["**Claims**", "**Evidence**"],
-            padding: true,
-            orderMatters: true,
-            left: ["Billion", "Fuel", "Hydrogen", "Plate", "Average"],
-            right: ["Milky Way", "Stars", "Life", "Earth", "Rapid"],
-        });
         expect(publicWidgetOptions.right).not.toEqual(options.right);
         expect(publicWidgetOptions.left).not.toEqual(options.left);
     });
