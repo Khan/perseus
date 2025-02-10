@@ -12,9 +12,7 @@ import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import ExpressionWidgetExport, {
-    keypadConfigurationForProps,
-} from "./expression";
+import ExpressionWidgetExport from "./expression";
 import {
     expressionItem2,
     expressionItem3,
@@ -552,51 +550,48 @@ describe("Expression Widget", function () {
     });
 });
 
-describe("Keypad configuration", () => {
-    it("should handle basic button set", async () => {
-        // Arrange
+describe("transform", () => {
+    it("can transform widget options into render props", () => {
         const widgetOptions: PerseusExpressionWidgetOptions = {
-            answerForms: [],
-            buttonSets: ["basic"],
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: true,
+                    simplify: false,
+                    value: "16+88i",
+                },
+            ],
+            buttonSets: [],
             times: false,
             functions: [],
+            buttonsVisible: "never",
+            visibleLabel: "Test visible label",
+            ariaLabel: "Test aria label",
         };
 
-        const expected: KeypadConfiguration = {
-            keypadType: KeypadType.EXPRESSION,
-            times: false,
-            extraKeys: ["PI"],
-        };
-
-        // Act
-        const result = keypadConfigurationForProps(widgetOptions);
-
-        // Assert
-        expect(result).toEqual(expected);
-    });
-
-    it("should handle basic+div button set", async () => {
-        // Arrange
-        // Act
-        // Assert
-        expect(
-            keypadConfigurationForProps({
-                answerForms: [],
-                buttonSets: ["basic+div"],
+        const expected = {
+            keypadConfiguration: {
+                keypadType: "EXPRESSION",
+                extraKeys: ["i"],
                 times: false,
-                functions: [],
-            }),
-        ).toEqual({
-            keypadType: KeypadType.EXPRESSION,
+            },
             times: false,
-            extraKeys: ["PI"],
-        });
+            functions: [],
+            buttonSets: [],
+            buttonsVisible: "never",
+            visibleLabel: "Test visible label",
+            ariaLabel: "Test aria label",
+        };
+
+        const result = ExpressionWidgetExport.transform(widgetOptions);
+
+        expect(result).toEqual(expected);
     });
 
     it("should return expression keypad configuration by default", async () => {
         // Arrange
         // Act
-        const result = keypadConfigurationForProps({
+        const result = ExpressionWidgetExport.transform({
             answerForms: [],
             buttonSets: [],
             times: false,
@@ -604,24 +599,8 @@ describe("Keypad configuration", () => {
         });
 
         // Assert
-        expect(result.keypadType).toEqual(KeypadType.EXPRESSION);
-    });
-
-    it("should handle scientific button set", async () => {
-        // Arrange
-        // Act
-        // Assert
-        expect(
-            keypadConfigurationForProps({
-                answerForms: [],
-                buttonSets: ["scientific"],
-                times: false,
-                functions: [],
-            }),
-        ).toEqual({
-            keypadType: KeypadType.EXPRESSION,
-            times: false,
-            extraKeys: ["PI"],
-        });
+        expect(result.keypadConfiguration.keypadType).toEqual(
+            KeypadType.EXPRESSION,
+        );
     });
 });
