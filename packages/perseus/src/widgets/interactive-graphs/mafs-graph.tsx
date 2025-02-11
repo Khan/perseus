@@ -708,7 +708,7 @@ const renderGraphElements = (props: {
         case "quadratic":
             return renderQuadraticGraph(state, dispatch, i18n);
         case "sinusoid":
-            return renderSinusoidGraph(state, dispatch);
+            return renderSinusoidGraph(state, dispatch, i18n);
         case "none":
             return {graph: null, interactiveElementsDescription: null};
         default:

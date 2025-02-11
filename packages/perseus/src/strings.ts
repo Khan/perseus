@@ -462,6 +462,31 @@ export type PerseusStrings = {
         length: string;
     }) => string;
     srUnlimitedPolygonEmpty: string;
+    srSinusoidGraph: string;
+    srSinusoidRootPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidPeakPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidDescription: ({
+        minValue,
+        maxValue,
+        cycleStart,
+        cycleEnd,
+    }: {
+        minValue: string;
+        maxValue: string;
+        cycleStart: string;
+        cycleEnd: string;
+    }) => string;
+    srSinusoidInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -737,6 +762,13 @@ export const strings = {
     srPolygonSideLengthApprox:
         "A line segment, length approximately equal to %(length)s units, connects to point %(pointNum)s.",
     srUnlimitedPolygonEmpty: "An empty coordinate plane.",
+    srSinusoidGraph: "A sinusoid function on a coordinate plane.",
+    srSinusoidRootPoint: "Midline intersection at %(x)s comma %(y)s.",
+    srSinusoidPeakPoint: "Extremum point at %(x)s comma %(y)s.",
+    srSinusoidDescription:
+        "The graph shows a wave with a minimum value of %(minValue)s and a maximum value of %(maxValue)s. The wave completes a full cycle from %(cycleStart)s to %(cycleEnd)s.",
+    srSinusoidInteractiveElements:
+        "Sinusoid graph with midline intersection point at %(point1X)s comma %(point1Y)s and extremum point at %(point2X)s comma %(point2Y)s.",
     // The above strings are used for interactive graph SR descriptions.
 } satisfies {
     [key in keyof PerseusStrings]:
@@ -1048,6 +1080,13 @@ export const mockStrings: PerseusStrings = {
     srPolygonSideLengthApprox: ({pointNum, length}) =>
         `A line segment, length approximately equal to ${length} units, connects to point ${pointNum}.`,
     srUnlimitedPolygonEmpty: "An empty coordinate plane.",
+    srSinusoidGraph: "A sinusoid function on a coordinate plane.",
+    srSinusoidRootPoint: ({x, y}) => `Midline intersection at ${x} comma ${y}.`,
+    srSinusoidPeakPoint: ({x, y}) => `Extremum point at ${x} comma ${y}.`,
+    srSinusoidDescription: ({minValue, maxValue, cycleStart, cycleEnd}) =>
+        `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${cycleStart} to ${cycleEnd}.`,
+    srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
+        `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
 

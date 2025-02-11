@@ -368,8 +368,13 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expectLabelInDoc("Point 1 at -1 comma 1.");
-        expectLabelInDoc("Point 2 at 0 comma 0.");
+        const points = screen.getAllByRole("button");
+        const [point1, point2] = points;
+
+        expect(point1).toHaveAccessibleName(
+            "Midline intersection at -1 comma 1.",
+        );
+        expect(point2).toHaveAccessibleName("Extremum point at 0 comma 0.");
     });
 
     it("renders ARIA labels for each point (point)", () => {
