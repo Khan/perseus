@@ -1,11 +1,8 @@
 import * as React from "react"
-import {render, screen} from "@testing-library/react"
-import {LabelImage} from "./label-image";
+import {act, screen} from "@testing-library/react"
 import * as Dependencies from "../../dependencies"
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
-import Renderer from "../../renderer";
-import {mockStrings} from "../../strings";
+import {PerseusRenderer} from "@khanacademy/perseus-core";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 describe("a LabelImage widget", () => {
@@ -67,75 +64,32 @@ describe("a LabelImage widget", () => {
     });
 
     it("shows the options when you click a marker", async () => {
+        // Arrange
         renderQuestion(questionWithLabelImage);
 
-        screen.getByLabelText("Marker 1").click();
+        // Act
+        act(() => screen.getByRole("button", {name: "Marker 1"}).click());
 
-        expect(await screen.findByLabelText("right")).toBeInTheDocument();
-        // expect(screen.queryByLabelText("wrong")).toBeInTheDocument();
+        // Assert
+        expect(screen.queryByText("right")).toBeInTheDocument();
+        expect(screen.queryByText("wrong")).toBeInTheDocument();
     });
 
     it("shows the answers when showRationalesForCurrentlySelectedChoices is called", async () => {
+        // Arrange
         const {renderer} = renderQuestion(questionWithLabelImage);
+        act(() => screen.getByRole("button", {name: "Marker 1"}).click());
+        act(() => screen.getByText("right").click());
 
-        screen.getByText("right").click();
+        // Pre-assert
+        expect(screen.queryByLabelText("Correct!")).not.toBeInTheDocument();
 
-        renderer.showRationalesForCurrentlySelectedChoices();
+        // Act
+        act(() => renderer.showRationalesForCurrentlySelectedChoices());
 
-        expect(await screen.findByLabelText("Correct!")).toBeInTheDocument();
+        // Assert
+        expect(screen.queryByLabelText("Correct!")).toBeInTheDocument();
     })
-    //
-    // it("shows which answers are correct when showRationalesForCurrentlySelectedChoices is called", () => {
-    //     let component: LabelImage
-    //     render(
-    //         <LabelImage
-    //             ref={(_component) => component = _component}
-    //             apiOptions={{}}
-    //             choices={["a", "b"]}
-    //             imageUrl={""}
-    //             imageAlt={""}
-    //             imageHeight={100}
-    //             imageWidth={100}
-    //             markers={[{answers: ["a"]}]}
-    //         />
-    //     )
-    //
-    //     component.showRationalesForCurrentlySelectedChoices();
-    //
-    //     expect(screen.queryByLabelText("Correct!")).toBeInTheDocument();
-    // });
-    //
-    // it("shows the correctness of each answer when showSolutions is true", () => {
-    //     render(
-    //         <LabelImage
-    //             apiOptions={{}}
-    //             choices={["a", "b"]}
-    //             imageUrl={""}
-    //             imageAlt={""}
-    //             imageHeight={100}
-    //             imageWidth={100}
-    //             markers={[{answers: ["a"]}]}
-    //             showSolutions={true}
-    //         />
-    //     )
-    //
-    //     expect(screen.getByLabelText("Correct!")).toBeInTheDocument();
-    // });
-    //
-    // it("does not show correctness when showSolutions is false", () => {
-    //     render(
-    //         <LabelImage
-    //             apiOptions={{}}
-    //             choices={["a", "b"]}
-    //             imageUrl={""}
-    //             imageAlt={""}
-    //             imageHeight={100}
-    //             imageWidth={100}
-    //             markers={[{answers: ["a"]}]}
-    //             showSolutions={false}
-    //         />
-    //     )
-    //
-    //     expect(screen.getByLabelText("Correct!")).not.toBeInTheDocument();
-    // })
+
+    it.todo("does not update the display of correctness if answers are changed after being shown")
 })
