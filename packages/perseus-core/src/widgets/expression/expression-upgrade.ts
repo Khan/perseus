@@ -1,8 +1,21 @@
+import deriveExtraKeys from "./derive-extra-keys";
+
 import type {PerseusExpressionWidgetOptions} from "../../data-schema";
 
-export const currentVersion = {major: 1, minor: 0};
+export const currentVersion = {major: 2, minor: 0};
 
 export const widgetOptionsUpgrades = {
+    "2": (v1options: any): PerseusExpressionWidgetOptions => ({
+        times: v1options.times,
+        buttonSets: v1options.buttonSets,
+        functions: v1options.functions,
+        buttonsVisible: v1options.buttonsVisible,
+        visibleLabel: v1options.visibleLabel,
+        ariaLabel: v1options.ariaLabel,
+        answerForms: v1options.answerForms,
+        extraKeys:
+            v1options.extraKeys || deriveExtraKeys(v1options.answerForms),
+    }),
     "1": (v0options: any): PerseusExpressionWidgetOptions => ({
         times: v0options.times,
         buttonSets: v0options.buttonSets,

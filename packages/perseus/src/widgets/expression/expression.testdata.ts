@@ -88,6 +88,7 @@ export const expressionItem2: PerseusItem = createItemJson(
         buttonSets: ["basic"],
         functions: ["f", "g", "h"],
         buttonsVisible: "always",
+        extraKeys: ["x"],
     },
     {major: 1, minor: 0},
 );

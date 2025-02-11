@@ -511,6 +511,8 @@ export type PerseusExpressionWidgetOptions = {
     functions: ReadonlyArray<string>;
     // Use x for rendering multiplication instead of a center dot.
     times: boolean;
+    // TODO this is really ReadonlyArray<Key>
+    extraKeys?: ReadonlyArray<string>;
     // visible label associated with the MathQuill field
     visibleLabel?: string;
     // aria label for screen readers attached to MathQuill field
@@ -520,8 +522,6 @@ export type PerseusExpressionWidgetOptions = {
     // NOTE: This isn't listed in perseus-format.js or perseus_data.go, but
     // appears in item data in the datastore.
     buttonsVisible?: "always" | "never" | "focused";
-    // TODO this is really ReadonlyArray<Key>
-    extraKeys?: ReadonlyArray<string>;
 };
 
 export const PerseusExpressionAnswerFormConsidered = [

@@ -23,8 +23,6 @@ import {ApiOptions} from "../../perseus-api";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
-import deriveExtraKeys from "./derive-extra-keys";
-
 import type {DependenciesContext} from "../../dependencies";
 import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
@@ -457,11 +455,7 @@ export default {
         return {
             keypadConfiguration: {
                 keypadType: KeypadType.EXPRESSION,
-                extraKeys:
-                    (extraKeys as ReadonlyArray<Key>) ||
-                    deriveExtraKeys(
-                        widgetOptions as PerseusExpressionWidgetOptions,
-                    ),
+                extraKeys: extraKeys as ReadonlyArray<Key>,
                 times,
             },
             times,

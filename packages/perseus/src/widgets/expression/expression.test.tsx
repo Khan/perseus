@@ -565,6 +565,7 @@ describe("Expression Widget", function () {
                 buttonsVisible: "never",
                 visibleLabel: "Test visible label",
                 ariaLabel: "Test aria label",
+                extraKeys: ["i"],
             };
 
             const expected = {
@@ -602,28 +603,7 @@ describe("Expression Widget", function () {
             );
         });
 
-        it("should extract extraKeys from answerForms if not already present", async () => {
-            // Arrange
-            // Act
-            const result = ExpressionWidgetExport.transform({
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: true,
-                        simplify: false,
-                        value: "16+88i",
-                    },
-                ],
-                buttonSets: [],
-                times: false,
-                functions: [],
-            });
-
-            // Assert
-            expect(result.keypadConfiguration.extraKeys).toEqual(["i"]);
-        });
-
-        it("should forward extraKeys if present present", async () => {
+        it("should forward extraKeys if present", async () => {
             // Arrange
             // Act
             const result = ExpressionWidgetExport.transform({
