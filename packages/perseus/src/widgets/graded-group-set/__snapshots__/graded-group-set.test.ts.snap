@@ -136,7 +136,7 @@ exports[`graded group widget should snapshot 1`] = `
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
-                            class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-input_1y6ajxo"
+                            class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-defaultFocus_9n1kv3-o_O-input_1y6ajxo"
                             id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
                             type="text"
                             value=""
@@ -318,7 +318,7 @@ exports[`graded group widget should snapshot 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_ggcqzw"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_pxdq54"
                 role="button"
                 type="button"
               >
