@@ -38,7 +38,7 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Select an answer"
-                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_13mg2xx"
                 id=":r3:"
                 role="combobox"
                 type="button"
@@ -63,7 +63,7 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_eocf2p-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_wnyn4t-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -124,7 +124,7 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Select an answer"
-                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_13mg2xx"
                 id=":r0:"
                 role="combobox"
                 type="button"
@@ -149,7 +149,7 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_eocf2p-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_wnyn4t-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
