@@ -11,9 +11,13 @@ import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
 function deriveExtraKeys(
     widgetOptions: PerseusExpressionWidgetOptions,
 ): KeypadConfiguration["extraKeys"] {
+    console.log(widgetOptions);
+
     if (widgetOptions.extraKeys) {
         return widgetOptions.extraKeys as ReadonlyArray<Key>;
     }
+
+    console.log("here");
 
     // If there are no extra symbols available, we include Pi anyway, so
     // that the "extra symbols" button doesn't appear empty.
@@ -22,6 +26,8 @@ function deriveExtraKeys(
     if (widgetOptions.answerForms == null) {
         return defaultKeys;
     }
+
+    console.log("there");
 
     // Extract any and all variables and constants from the answer forms.
     const uniqueExtraVariables: Partial<Record<Key, boolean>> = {};
@@ -67,6 +73,7 @@ function deriveExtraKeys(
     ).sort() as ReadonlyArray<Key>;
 
     const extraKeys = [...extraVariables, ...extraConstants];
+    console.log(extraKeys);
     if (!extraKeys.length) {
         return defaultKeys;
     }
