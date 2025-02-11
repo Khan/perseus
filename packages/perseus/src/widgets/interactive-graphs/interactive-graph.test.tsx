@@ -1046,100 +1046,177 @@ describe("Interactive Graph", function () {
             expect(polygon).not.toHaveAttribute("aria-label");
         });
 
-        it("should render locked function with style", () => {
-            // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedFunction("x^2", {
-                    color: "green",
-                    strokeStyle: "dashed",
-                }),
-                blankOptions,
-            );
+        describe("Locked Functions", () => {
+            it("should NOT render when an invalid equation is specified", () => {
+                // Arrange
+                const {container} = renderQuestion(
+                    segmentWithLockedFunction("x^"),
+                    blankOptions,
+                );
 
-            // Act
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const functionPlots = container.querySelectorAll(
-                ".locked-function path",
-            );
+                // Act
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const functionPlots = container.querySelectorAll(
+                    ".locked-function path",
+                );
 
-            // Assert
-            expect(functionPlots).toHaveLength(1);
-            expect(functionPlots[0]).toHaveStyle({
-                "stroke-dasharray": "var(--mafs-line-stroke-dash-style)",
-                stroke: lockedFigureColors["green"],
+                // Assert
+                expect(functionPlots).toHaveLength(0);
             });
-        });
 
-        it("plots the supplied equation on the axis specified", () => {
-            // Arrange
-            const PlotOfXMock = jest
-                .spyOn(Plot, "OfX")
-                .mockReturnValue(<div>OfX</div>);
-            const PlotOfYMock = jest
-                .spyOn(Plot, "OfY")
-                .mockReturnValue(<div>OfY</div>);
+            it("should render locked function with style", () => {
+                // Arrange
+                const {container} = renderQuestion(
+                    segmentWithLockedFunction("x^2", {
+                        color: "green",
+                        strokeStyle: "dashed",
+                    }),
+                    blankOptions,
+                );
 
-            // Act - Render f(x)
-            renderQuestion(segmentWithLockedFunction("x^2"), blankOptions);
+                // Act
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const functionPlots = container.querySelectorAll(
+                    ".locked-function path",
+                );
 
-            // Assert
-            expect(PlotOfXMock).toHaveBeenCalledTimes(1);
-            expect(PlotOfYMock).toHaveBeenCalledTimes(0);
+                // Assert
+                expect(functionPlots).toHaveLength(1);
+                expect(functionPlots[0]).toHaveStyle({
+                    "stroke-dasharray": "var(--mafs-line-stroke-dash-style)",
+                    stroke: lockedFigureColors["green"],
+                });
+            });
 
-            // Arrange - reset mocks
-            PlotOfXMock.mockClear();
+            it("plots the supplied equation on the axis specified", () => {
+                // Arrange
+                const PlotOfXMock = jest
+                    .spyOn(Plot, "OfX")
+                    .mockReturnValue(<div>OfX</div>);
+                const PlotOfYMock = jest
+                    .spyOn(Plot, "OfY")
+                    .mockReturnValue(<div>OfY</div>);
 
-            // Act - Render f(y)
-            renderQuestion(
-                segmentWithLockedFunction("x^2", {
-                    directionalAxis: "y",
-                }),
-                blankOptions,
-            );
+                // Act - Render f(x)
+                renderQuestion(segmentWithLockedFunction("x^2"), blankOptions);
 
-            // Assert
-            expect(PlotOfXMock).toHaveBeenCalledTimes(0);
-            expect(PlotOfYMock).toHaveBeenCalledTimes(1);
-        });
+                // Assert
+                expect(PlotOfXMock).toHaveBeenCalledTimes(1);
+                expect(PlotOfYMock).toHaveBeenCalledTimes(0);
 
-        it("should render locked function with aria label when one is provided", () => {
-            // Arrange
-            const lockedFunctionWithAriaLabelQuestion =
-                interactiveGraphQuestionBuilder()
-                    .addLockedFunction("x^2", {
-                        ariaLabel: "Function A",
-                    })
-                    .build();
-            const {container} = renderQuestion(
-                lockedFunctionWithAriaLabelQuestion,
-                blankOptions,
-            );
+                // Arrange - reset mocks
+                PlotOfXMock.mockClear();
 
-            // Act
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const point = container.querySelector(".locked-function");
+                // Act - Render f(y)
+                renderQuestion(
+                    segmentWithLockedFunction("x^2", {
+                        directionalAxis: "y",
+                    }),
+                    blankOptions,
+                );
 
-            // Assert
-            expect(point).toHaveAttribute("aria-label", "Function A");
-        });
+                // Assert
+                expect(PlotOfXMock).toHaveBeenCalledTimes(0);
+                expect(PlotOfYMock).toHaveBeenCalledTimes(1);
+            });
 
-        it("should render locked function without aria label by default", () => {
-            // Arrange
-            const simpleLockedFunctionquestion =
-                interactiveGraphQuestionBuilder()
-                    .addLockedFunction("x^2")
-                    .build();
-            const {container} = renderQuestion(
-                simpleLockedFunctionquestion,
-                blankOptions,
-            );
+            it("plots the equation with any supplied domain", () => {
+                // Arrange
+                const PlotOfXMock = jest
+                    .spyOn(Plot, "OfX")
+                    .mockReturnValue(<div>OfX</div>);
+                const expectedParameters = {
+                    color: "#3B3D45",
+                    domain: [-2, 3],
+                    style: "solid",
+                };
 
-            // Act
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const point = container.querySelector(".locked-function");
+                // Act
+                renderQuestion(segmentWithLockedFunction("x^2", {domain: [-2, 3]}), blankOptions);
 
-            // Assert
-            expect(point).not.toHaveAttribute("aria-label");
+                // Assert
+                expect(PlotOfXMock).toHaveBeenCalledTimes(1);
+                expect(PlotOfXMock).toHaveBeenCalledWith(
+                    expect.objectContaining(expectedParameters),
+                    {},
+                );
+            });
+
+            it("plots the equation with partially supplied domains", () => {
+                // Arrange
+                const PlotOfXMock = jest
+                    .spyOn(Plot, "OfX")
+                    .mockReturnValue(<div>OfX</div>);
+                const expectedParameters = {
+                    color: "#3B3D45",
+                    style: "solid",
+                };
+
+                // Act - no upper limit specified
+                renderQuestion(segmentWithLockedFunction("x^2", {domain: [null, 3]}), blankOptions);
+
+                // Assert
+                expect(PlotOfXMock).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                        ...expectedParameters,
+                        domain: [-Infinity, 3],
+                    }),
+                    {},
+                );
+
+                // Act - no lower limit specified
+                PlotOfXMock.mockReset();
+                renderQuestion(segmentWithLockedFunction("x^2", {domain: [-2, null]}), blankOptions);
+
+                // Assert
+                expect(PlotOfXMock).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                        ...expectedParameters,
+                        domain: [-2, Infinity],
+                    }),
+                    {},
+                );
+            });
+
+            it("should render locked function with aria label when one is provided", () => {
+                // Arrange
+                const lockedFunctionWithAriaLabelQuestion =
+                    interactiveGraphQuestionBuilder()
+                        .addLockedFunction("x^2", {
+                            ariaLabel: "Function A",
+                        })
+                        .build();
+                const {container} = renderQuestion(
+                    lockedFunctionWithAriaLabelQuestion,
+                    blankOptions,
+                );
+
+                // Act
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const point = container.querySelector(".locked-function");
+
+                // Assert
+                expect(point).toHaveAttribute("aria-label", "Function A");
+            });
+
+            it("should render locked function without aria label by default", () => {
+                // Arrange
+                const simpleLockedFunctionquestion =
+                    interactiveGraphQuestionBuilder()
+                        .addLockedFunction("x^2")
+                        .build();
+                const {container} = renderQuestion(
+                    simpleLockedFunctionquestion,
+                    blankOptions,
+                );
+
+                // Act
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const point = container.querySelector(".locked-function");
+
+                // Assert
+                expect(point).not.toHaveAttribute("aria-label");
+            });
         });
 
         it("should render locked labels", async () => {

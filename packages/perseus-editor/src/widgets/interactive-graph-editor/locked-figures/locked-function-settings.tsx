@@ -40,7 +40,6 @@ import type {
     LockedFunctionType,
     LockedLabelType,
 } from "@khanacademy/perseus-core";
-import type {Interval} from "mafs";
 
 export type Props = LockedFunctionType &
     LockedFigureSettingsCommonProps & {
@@ -57,12 +56,12 @@ const LockedFunctionSettings = (props: Props) => {
         equation,
         directionalAxis,
         domain,
-        labels,
         ariaLabel,
         onChangeProps,
         onMove,
         onRemove,
     } = props;
+    const labels = props.labels ?? [];
     const equationPrefix = directionalAxis === "x" ? "y=" : "x=";
     const lineLabel = `Function (${equationPrefix}${equation})`;
 
@@ -71,12 +70,8 @@ const LockedFunctionSettings = (props: Props) => {
     // This variable is used when specifying the values of the input fields.
     const getDomainStringValues = (domain): [string, string] => {
         return [
-            domain && domain[0] && domain[0] !== -Infinity
-                ? domain[0].toString()
-                : "",
-            domain && domain[1] && domain[1] !== Infinity
-                ? domain[1].toString()
-                : "",
+            domain && Number.isFinite(domain[0]) ? domain[0].toString() : "",
+            domain && Number.isFinite(domain[1]) ? domain[1].toString() : "",
         ];
     };
 
@@ -92,7 +87,7 @@ const LockedFunctionSettings = (props: Props) => {
     }, [domain]);
 
     /**
-     * Generate the prepopulated aria label for the polygon,
+     * Generate the prepopulated aria label for the function,
      * with the math details converted into spoken words.
      */
     async function getPrepopulatedAriaLabel() {
@@ -102,8 +97,15 @@ const LockedFunctionSettings = (props: Props) => {
 
         // Add the domain/range constraints to the aria label
         // if they are not the default values.
-        if (domain && !(domain[0] === -Infinity && domain[1] === Infinity)) {
-            str += `, domain from ${domain[0]} to ${domain[1]}`;
+        const domainMin =
+            domain && Number.isFinite(domain[0]) ? domain[0] : "-Infinity";
+        const domainMax =
+            domain && Number.isFinite(domain[1]) ? domain[1] : "Infinity";
+        if (
+            domain &&
+            (Number.isFinite(domain[0]) || Number.isFinite(domain[1]))
+        ) {
+            str += `, domain from ${domainMin} to ${domainMax}`;
         }
 
         const functionAppearance = generateLockedFigureAppearanceDescription(
@@ -129,10 +131,10 @@ const LockedFunctionSettings = (props: Props) => {
             dedicated code to convert empty to Infinity.
      */
     function handleDomainChange(limitIndex: number, newValueString: string) {
-        const newDomainEntries = [...domainEntries] satisfies [string, string];
+        const newDomainEntries: [string, string] = [...domainEntries];
         newDomainEntries[limitIndex] = newValueString;
         setDomainEntries(newDomainEntries);
-        const newDomain: Interval = domain
+        const newDomain: [min: number | null, max: number | null] = domain
             ? [...domain]
             : [-Infinity, Infinity];
 
@@ -157,8 +159,8 @@ const LockedFunctionSettings = (props: Props) => {
             color: newValue,
         };
 
-        // Update the color of the all labels to match the point
-        newProps.labels = labels?.map((label) => ({
+        // Update the color of all the labels to match the point
+        newProps.labels = labels.map((label) => ({
             ...label,
             color: newValue,
         }));
@@ -170,10 +172,6 @@ const LockedFunctionSettings = (props: Props) => {
         updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
-        if (!labels) {
-            return;
-        }
-
         const updatedLabels = [...labels];
         updatedLabels[labelIndex] = {
             ...labels[labelIndex],
@@ -184,10 +182,6 @@ const LockedFunctionSettings = (props: Props) => {
     }
 
     function handleLabelRemove(labelIndex: number) {
-        if (!labels) {
-            return;
-        }
-
         const updatedLabels = labels.filter((_, index) => index !== labelIndex);
 
         onChangeProps({labels: updatedLabels});
@@ -347,7 +341,7 @@ const LockedFunctionSettings = (props: Props) => {
             <View style={styles.horizontalRule} />
             <Strut size={spacing.small_12} />
             <LabelMedium>Visible labels</LabelMedium>
-            {labels?.map((label, labelIndex) => (
+            {labels.map((label, labelIndex, allLabels) => (
                 <LockedLabelSettings
                     key={labelIndex}
                     {...label}
@@ -369,13 +363,13 @@ const LockedFunctionSettings = (props: Props) => {
                         ...getDefaultFigureForType("label"),
                         // Vertical offset for each label so they
                         // don't overlap.
-                        coord: [0, -(labels?.length ?? 0)],
+                        coord: [0, -labels.length],
                         // Default to the same color as the function
                         color: lineColor,
                     } satisfies LockedLabelType;
 
                     onChangeProps({
-                        labels: [...(labels ?? []), newLabel],
+                        labels: [...labels, newLabel],
                     });
                 }}
                 style={styles.addButton}
