@@ -1019,7 +1019,7 @@ export type PerseusGraphTypeRay = {
 type AngleGraphCorrect = {
     type: "angle";
     allowReflexAngles: boolean;
-    match: "congruent";
+    match?: "congruent";
     coords: [Coord, Coord, Coord];
 };
 

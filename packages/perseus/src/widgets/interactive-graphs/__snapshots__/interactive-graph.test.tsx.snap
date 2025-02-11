@@ -2031,7 +2031,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             >
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1rnqd7l-o_O-inlineStyles_16y2sco"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1m2y2k0-o_O-inlineStyles_16y2sco"
                 id="perseus_mafs_remove_button"
                 role="button"
                 tabindex="-1"
@@ -2288,7 +2288,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             >
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-disabled_mqm918-o_O-default_1rnqd7l-o_O-disabled_1ocn25h-o_O-inlineStyles_1kc2paq"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-disabled_mqm918-o_O-default_1m2y2k0-o_O-disabled_oj20kr-o_O-inlineStyles_1kc2paq"
                 id="perseus_mafs_remove_button"
                 role="button"
                 tabindex="-1"
@@ -2302,7 +2302,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
               </button>
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-disabled_mqm918-o_O-default_pxdq54-o_O-disabled_1ocn25h-o_O-inlineStyles_1kc2paq"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-disabled_mqm918-o_O-default_ggcqzw-o_O-disabled_oj20kr-o_O-inlineStyles_1kc2paq"
                 role="button"
                 tabindex="-1"
                 type="button"
@@ -3317,7 +3317,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             >
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1rnqd7l-o_O-inlineStyles_16y2sco"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1m2y2k0-o_O-inlineStyles_16y2sco"
                 id="perseus_mafs_remove_button"
                 role="button"
                 tabindex="-1"
@@ -3574,7 +3574,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             >
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-disabled_mqm918-o_O-default_1rnqd7l-o_O-disabled_1ocn25h-o_O-inlineStyles_1kc2paq"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-disabled_mqm918-o_O-default_1m2y2k0-o_O-disabled_oj20kr-o_O-inlineStyles_1kc2paq"
                 id="perseus_mafs_remove_button"
                 role="button"
                 tabindex="-1"
@@ -3588,7 +3588,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
               </button>
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-disabled_mqm918-o_O-default_pxdq54-o_O-disabled_1ocn25h-o_O-inlineStyles_1kc2paq"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-disabled_mqm918-o_O-default_ggcqzw-o_O-disabled_oj20kr-o_O-inlineStyles_1kc2paq"
                 role="button"
                 tabindex="-1"
                 type="button"

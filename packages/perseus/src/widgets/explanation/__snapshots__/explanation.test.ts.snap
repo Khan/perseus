@@ -21,7 +21,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             aria-controls=":r1:"
             aria-disabled="false"
             aria-expanded="true"
-            class="button_vr44p2-o_O-shared_lwskrm-o_O-default_qjb97o-o_O-small_14crccx-o_O-inlineStyles_1s8anjv"
+            class="button_vr44p2-o_O-shared_lwskrm-o_O-default_vhqsj0-o_O-small_14crccx-o_O-inlineStyles_1s8anjv"
             role="button"
             type="button"
           >
@@ -31,7 +31,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
               Hide explanation!
             </span>
             <div
-              class="default_xu2jcg-o_O-iconWrapper_1nxzm3x-o_O-endIconWrapper_l32m71-o_O-endIconWrapperTertiary_10fyztj-o_O-iconWrapperSecondaryHovered_klcp8i"
+              class="default_xu2jcg-o_O-iconWrapper_1nxzm3x-o_O-endIconWrapper_l32m71-o_O-endIconWrapperTertiary_10fyztj"
             >
               <span
                 aria-hidden="true"
@@ -94,7 +94,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
             aria-controls=":r0:"
             aria-disabled="false"
             aria-expanded="false"
-            class="button_vr44p2-o_O-shared_lwskrm-o_O-default_qjb97o-o_O-small_14crccx-o_O-inlineStyles_1s8anjv"
+            class="button_vr44p2-o_O-shared_lwskrm-o_O-default_vhqsj0-o_O-small_14crccx-o_O-inlineStyles_1s8anjv"
             role="button"
             type="button"
           >

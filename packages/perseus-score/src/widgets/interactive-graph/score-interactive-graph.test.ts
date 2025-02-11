@@ -358,3 +358,131 @@ describe("InteractiveGraph scoring on a point question", () => {
         expect(rubric).toEqual(rubricClone);
     });
 });
+
+describe("InteractiveGraph scoring on an angle question", () => {
+    it("marks the answer invalid if guess.coords is missing", () => {
+        // Arrange
+        const guess: PerseusGraphType = {type: "angle"};
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {
+                type: "angle",
+            },
+            correct: {
+                type: "angle",
+                allowReflexAngles: false,
+                coords: [
+                    [-5, 0],
+                    [0, 0],
+                    [5, 5],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("properly reverses coordinates if angle graph is reflexive when not allowed", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "angle",
+            coords: [
+                [-5, 0],
+                [0, 0],
+                [5, 5],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {
+                type: "angle",
+            },
+            correct: {
+                type: "angle",
+                allowReflexAngles: false,
+                coords: [
+                    [5, 5],
+                    [0, 0],
+                    [-5, 0],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("does not reverse coordinates when angle is not reflexive", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "angle",
+            coords: [
+                [5, 0],
+                [0, 0],
+                [5, 5],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {
+                type: "angle",
+            },
+            correct: {
+                type: "angle",
+                allowReflexAngles: false,
+                coords: [
+                    [5, 0],
+                    [0, 0],
+                    [5, 5],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("does not reverse coordinates if the angle graph is allowed to be reflexive", () => {
+        // Arrange
+        const guess: PerseusGraphType = {
+            type: "angle",
+            coords: [
+                [5, 0],
+                [0, 0],
+                [-5, -5],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {
+                type: "angle",
+                coords: [
+                    [5, 0],
+                    [0, 0],
+                    [-5, -5],
+                ],
+            },
+            correct: {
+                type: "angle",
+                allowReflexAngles: true,
+                coords: [
+                    [5, 0],
+                    [0, 0],
+                    [-5, -5],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+});
