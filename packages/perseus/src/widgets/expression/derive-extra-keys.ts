@@ -1,10 +1,8 @@
 import * as KAS from "@khanacademy/kas";
-import {
-    Keys as Key,
-    KeyArray,
-    KeypadConfiguration,
-} from "@khanacademy/math-input";
-import {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
+import {KeyArray} from "@khanacademy/math-input";
+
+import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
+import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
 
 /**
  * Scrape the answer forms for any variables or contants (like Pi)
@@ -64,7 +62,7 @@ function deriveExtraKeys(
         uniqueExtraConstants,
     ).sort() as ReadonlyArray<Key>;
 
-    let extraKeys = [...extraVariables, ...extraConstants];
+    const extraKeys = [...extraVariables, ...extraConstants];
     if (!extraKeys.length) {
         return defaultKeys;
     }

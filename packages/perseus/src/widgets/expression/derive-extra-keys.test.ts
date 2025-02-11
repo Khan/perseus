@@ -1,8 +1,9 @@
-import {
+import deriveExtraKeys from "./derive-extra-keys";
+
+import type {
     ExpressionPublicWidgetOptions,
     PerseusExpressionWidgetOptions,
 } from "@khanacademy/perseus-core";
-import deriveExtraKeys from "./derive-extra-keys";
 
 describe("deriveExtraKeys", () => {
     it("should handle basic button set", async () => {
