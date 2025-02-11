@@ -22,6 +22,7 @@ import {
     angleQuestionWithDefaultCorrect,
     circleQuestion,
     circleQuestionWithDefaultCorrect,
+    finitePointQuestion,
     graphWithLabeledEllipse,
     graphWithLabeledFunction,
     graphWithLabeledLine,
@@ -57,6 +58,8 @@ import {
     segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
     sinusoidWithPiTicks,
+    unlimitedPointQuestion,
+    unlimitedPolygonQuestion,
 } from "./interactive-graph.testdata";
 
 import type {Coord} from "../../interactive2/types";
@@ -73,6 +76,10 @@ const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     update(state[widgetId]);
     renderer.restoreSerializedState(state);
 };
+const commonInstructions =
+    "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.";
+const unlimitedInstructions =
+    "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.";
 
 const blankOptions: APIOptions = Object.freeze(ApiOptions.defaults);
 
@@ -1367,6 +1374,65 @@ describe("Interactive Graph", function () {
             // Assert
             expect(graph).not.toHaveAttribute("aria-label");
             expect(graph).not.toHaveAttribute("aria-describedby");
+        });
+    });
+
+    describe("interactive graph screen reader", () => {
+        const limitedGraphQuestionRenderers: {
+            [K in PerseusGraphType["type"][number]]: PerseusRenderer;
+        } = {
+            angle: angleQuestion,
+            segment: segmentQuestion,
+            linear: linearQuestion,
+            "linear-system": linearSystemQuestion,
+            ray: rayQuestion,
+            polygon: polygonQuestion,
+            point: finitePointQuestion,
+            circle: circleQuestion,
+            quadratic: quadraticQuestion,
+            // TODO(LEMS-2484): Uncomment this when sinusoid graph has
+            // screen reader support is finished.
+            // sinusoid: sinusoidQuestion,
+        };
+        const unlimitedGraphQuestionRenderers: {
+            [K in PerseusGraphType["type"][number]]: PerseusRenderer;
+        } = {
+            "unlimited-point": unlimitedPointQuestion,
+            "unlimited-polygon": unlimitedPolygonQuestion,
+        };
+
+        it.each(Object.entries(limitedGraphQuestionRenderers))(
+            "graph type %s has SR instructions for interacting with the graph",
+            (_type, question) => {
+                const {container} = renderQuestion(question, blankOptions);
+
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const graph = container.querySelector(".mafs-graph");
+
+                expect(graph).toHaveTextContent(commonInstructions);
+            },
+        );
+
+        it.each(Object.entries(unlimitedGraphQuestionRenderers))(
+            "graph type %s has SR instructions for interacting with the graph",
+            (_type, question) => {
+                const {container} = renderQuestion(question, blankOptions);
+
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const graph = container.querySelector(".mafs-graph");
+
+                expect(graph).toHaveTextContent(unlimitedInstructions);
+            },
+        );
+
+        it("none graph type should not include instructions for interacting with the graph", () => {
+            const {container} = renderQuestion(noneQuestion, blankOptions);
+
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const graph = container.querySelector(".mafs-graph");
+
+            expect(graph).not.toHaveTextContent(commonInstructions);
+            expect(graph).not.toHaveTextContent(unlimitedInstructions);
         });
     });
 

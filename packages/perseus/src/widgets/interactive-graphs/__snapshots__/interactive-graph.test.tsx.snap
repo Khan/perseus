@@ -1096,7 +1096,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             class="default_xu2jcg mafs-graph-container"
           >
             <div
-              aria-describedby="interactive-graph-interactive-elements-description-:r2:"
+              aria-describedby="interactive-graph-interactive-elements-description-:r2: instructions-:r2:"
               class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
               tabindex="0"
             >
@@ -1106,6 +1106,13 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                 tabindex="-1"
               >
                 Interactive elements: A polygon with 3 points. 
+              </div>
+              <div
+                class="default_xu2jcg mafs-sr-only"
+                id="instructions-:r2:"
+                tabindex="-1"
+              >
+                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -1496,7 +1503,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             class="default_xu2jcg mafs-graph-container"
           >
             <div
-              aria-describedby="interactive-graph-interactive-elements-description-:ra:"
+              aria-describedby="interactive-graph-interactive-elements-description-:ra: instructions-:ra:"
               class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
               tabindex="0"
             >
@@ -1506,6 +1513,13 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                 tabindex="-1"
               >
                 Interactive elements: A polygon with 3 points. 
+              </div>
+              <div
+                class="default_xu2jcg mafs-sr-only"
+                id="instructions-:ra:"
+                tabindex="-1"
+              >
+                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -1902,7 +1916,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             class="default_xu2jcg mafs-graph-container"
           >
             <div
-              aria-describedby="interactive-graph-interactive-elements-description-:rh: unlimited-graph-keyboard-prompt-:rh:"
+              aria-describedby="interactive-graph-interactive-elements-description-:rh: unlimited-graph-keyboard-prompt-:rh: instructions-:rh:"
               class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
               tabindex="0"
             >
@@ -1912,6 +1926,13 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                 tabindex="-1"
               >
                 No interactive elements
+              </div>
+              <div
+                class="default_xu2jcg mafs-sr-only"
+                id="instructions-:rh:"
+                tabindex="-1"
+              >
+                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -2154,10 +2175,17 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             class="default_xu2jcg mafs-graph-container"
           >
             <div
-              aria-describedby="unlimited-graph-keyboard-prompt-:rm:"
+              aria-describedby="unlimited-graph-keyboard-prompt-:rm: instructions-:rm:"
               class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
               tabindex="0"
             >
+              <div
+                class="default_xu2jcg mafs-sr-only"
+                id="instructions-:rm:"
+                tabindex="-1"
+              >
+                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
+              </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
               >
@@ -2382,7 +2410,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             class="default_xu2jcg mafs-graph-container"
           >
             <div
-              aria-describedby="interactive-graph-interactive-elements-description-:r2:"
+              aria-describedby="interactive-graph-interactive-elements-description-:r2: instructions-:r2:"
               class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
               tabindex="0"
             >
@@ -2392,6 +2420,13 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                 tabindex="-1"
               >
                 Interactive elements: A polygon with 3 points. 
+              </div>
+              <div
+                class="default_xu2jcg mafs-sr-only"
+                id="instructions-:r2:"
+                tabindex="-1"
+              >
+                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -2782,7 +2817,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             class="default_xu2jcg mafs-graph-container"
           >
             <div
-              aria-describedby="interactive-graph-interactive-elements-description-:ra:"
+              aria-describedby="interactive-graph-interactive-elements-description-:ra: instructions-:ra:"
               class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
               tabindex="0"
             >
@@ -2792,6 +2827,13 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                 tabindex="-1"
               >
                 Interactive elements: A polygon with 3 points. 
+              </div>
+              <div
+                class="default_xu2jcg mafs-sr-only"
+                id="instructions-:ra:"
+                tabindex="-1"
+              >
+                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -3188,7 +3230,7 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             class="default_xu2jcg mafs-graph-container"
           >
             <div
-              aria-describedby="interactive-graph-interactive-elements-description-:rh: unlimited-graph-keyboard-prompt-:rh:"
+              aria-describedby="interactive-graph-interactive-elements-description-:rh: unlimited-graph-keyboard-prompt-:rh: instructions-:rh:"
               class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
               tabindex="0"
             >
@@ -3198,6 +3240,13 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
                 tabindex="-1"
               >
                 No interactive elements
+              </div>
+              <div
+                class="default_xu2jcg mafs-sr-only"
+                id="instructions-:rh:"
+                tabindex="-1"
+              >
+                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -3440,10 +3489,17 @@ exports[`Interactive Graph interactive-graph widget question Should render predi
             class="default_xu2jcg mafs-graph-container"
           >
             <div
-              aria-describedby="unlimited-graph-keyboard-prompt-:rm:"
+              aria-describedby="unlimited-graph-keyboard-prompt-:rm: instructions-:rm:"
               class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
               tabindex="0"
             >
+              <div
+                class="default_xu2jcg mafs-sr-only"
+                id="instructions-:rm:"
+                tabindex="-1"
+              >
+                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
+              </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
               >

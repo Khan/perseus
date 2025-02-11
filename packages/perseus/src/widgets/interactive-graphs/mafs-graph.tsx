@@ -95,6 +95,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const descriptionId = `interactive-graph-description-${uniqueId}`;
     const interactiveElementsDescriptionId = `interactive-graph-interactive-elements-description-${uniqueId}`;
     const unlimitedGraphKeyboardPromptId = `unlimited-graph-keyboard-prompt-${uniqueId}`;
+    const instructionsId = `instructions-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
     const {analytics} = useDependencies();
 
@@ -179,6 +180,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             interactiveElementsDescriptionId,
                         isUnlimitedGraphState(state) &&
                             unlimitedGraphKeyboardPromptId,
+                        state.type !== "none" && instructionsId,
                     )}
                     ref={graphRef}
                     tabIndex={0}
@@ -207,6 +209,18 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             {interactiveElementsDescription}
                         </View>
                     )}
+                    {state.type !== "none" && (
+                        <View
+                            id={instructionsId}
+                            tabIndex={-1}
+                            className="mafs-sr-only"
+                        >
+                            {isUnlimitedGraphState(state)
+                                ? strings.srUnlimitedGraphInstructions
+                                : strings.srGraphInstructions}
+                        </View>
+                    )}
+
                     <LegacyGrid
                         box={props.box}
                         backgroundImage={props.backgroundImage}
