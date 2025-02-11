@@ -8,6 +8,9 @@ describe("parseExpressionWidget", () => {
         const widget = {
             type: "expression",
             graded: true,
+            static: undefined,
+            alignment: undefined,
+            key: undefined,
             options: {
                 times: false,
                 buttonsVisible: "never",
@@ -47,6 +50,7 @@ describe("parseExpressionWidget", () => {
                         {
                             considered: "correct",
                             form: true,
+                            key: "undefined",
                             simplify: false,
                             value: "88x",
                         },

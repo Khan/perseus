@@ -187,8 +187,9 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "expression 1": {
                 type: "expression",
-                version: {major: 1, minor: 0},
+                version: {major: 2, minor: 0},
                 options: {
+                    extraKeys: ["PI"],
                     answerForms: [],
                     buttonSets: [],
                     functions: [],

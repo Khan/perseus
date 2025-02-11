@@ -114,7 +114,7 @@ function migrateV1ToV2(
     const {options} = widget;
     return {
         ...widget,
-        version: {major: 1, minor: 0},
+        version: {major: 2, minor: 0},
         options: {
             times: options.times,
             buttonSets: options.buttonSets,
