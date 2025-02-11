@@ -712,7 +712,7 @@ describe("Expression Widget", function () {
                 extraKeys: ["x"],
             };
 
-            const fullItem: PerseusRenderer = {
+            const strippedItem: PerseusRenderer = {
                 content: "[[☃ expression 1]]",
                 images: {},
                 widgets: {
@@ -724,7 +724,7 @@ describe("Expression Widget", function () {
                 },
             };
 
-            renderQuestion(fullItem);
+            renderQuestion(strippedItem);
 
             await userEvent.click(
                 screen.getByRole("button", {name: "open math keypad"}),
