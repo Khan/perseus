@@ -15,6 +15,9 @@ describe("parseAndTypecheckPerseusItem", () => {
 
         // This strange-looking assertion style results in the failure message
         // being printed if parsing fails, so the test is easier to debug.
+        expect((result as any).detail?.message).toBe(undefined);
+        // Backstop assertion in case the format of failures changes so
+        // `detail.message` doesn't exist anymore.
         expect(result).toEqual(expect.objectContaining({type: "success"}));
     });
 });

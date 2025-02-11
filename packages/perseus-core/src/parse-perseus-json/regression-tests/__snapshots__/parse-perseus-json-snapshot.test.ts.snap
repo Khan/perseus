@@ -931,6 +931,217 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/expression-with-scientific-notation.json 1`] = `
+{
+  "answerArea": {
+    "calculator": true,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": true,
+    "periodicTableWithKey": true,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "To solve this problem, we need to identify the connection between what we’re given and what we want to find. We’re given the amount of tungsten in *grams*, and we’re asked to find how many *atoms* that represents.
+
+There’s no single quantity that converts from grams to the number of atoms, so we must use multiple conversion factors. ",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "Let’s start with our known: $0.0176\\text{ g}$ of tungsten. We can’t convert that directly to the number of atoms, but we can change that to moles using the molar mass.
+
+The molar mass of an element is the mass of one mole of atoms of that element. We can determine an element’s molar mass by looking at the periodic table. The molar mass of an element is the exact same number as its average atomic mass, but expressed in grams/mole.
+
+The molar mass of tungsten is $183.84\\text{ g/mol}$.
+",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "Using this value, let’s convert grams of tungsten to moles of tungsten. We start with our known, and set up conversion factors so the units cancel:
+ 
+$0.0176\\bcancel{\\text{ g }\\ce{W}}\\times \\dfrac{1\\text{ mol }\\ce{W}}{183.84\\bcancel{\\text{ g }\\ce{W}}}$
+
+This gives us our first “step” in the chain of conversion factors. Now we need to convert moles of tungsten to the number of atoms of tungsten.
+",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "We can make this conversion using Avogadro’s number, which tells us how many things are in one mole of that thing. Avogadro’s number is \${6.022\\times 10^{23}}.$ So one mole of tungsten contains \${6.022\\times 10^{23}}$ atoms of tungsten.
+
+Using this value, let’s convert moles of tungsten to the number of atoms of tungsten. We add it to the chain as another conversion factor, making sure to arrange it so the units cancel:
+ 
+$0.0176\\bcancel{\\text{ g }\\ce{W}}\\times \\dfrac{1\\bcancel{\\text{ mol }\\ce{W}}}{183.84\\bcancel{\\text{ g }\\ce{W}}}\\times \\dfrac{6.022\\times 10^{23}\\text{ atoms }\\ce{W}}{1\\bcancel{\\text{ mol }\\ce{W}}}=5.7652\\times 10^{19}\\text{ atoms }\\ce{W}$
+
+Rounding the answer correctly to three significant figures gives us $5.77\\times 10^{19}$ atoms.
+",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "There are $5.77\\times 10^{19}$ atoms of tungsten in the light bulb filament. ",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "Incandescent light bulbs produce light by heating a metal filament until it glows. The most common filament is tungsten, a grayish metal with atomic number $74$. 
+
+[[☃ image 1]]
+
+A certain tungsten filament has a mass of $0.0176\\text{ g}$. 
+
+**How many tungsten atoms make up the filament?**  
+*Express your answer in scientific notation with two decimal places.*
+
+[[☃ explanation 2]]
+
+[[☃ expression 1]] atoms of tungsten",
+    "images": {
+      "https://cdn.kastatic.org/ka-content-images/d541931875bede1ddddb66e9f7622b093b7d8cc8.png": {
+        "height": 233,
+        "width": 350,
+      },
+    },
+    "widgets": {
+      "explanation 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "explanation": "explanation goes here
+
+more explanation",
+          "hidePrompt": "$6.022\\times 10^{23}$",
+          "showPrompt": "Show Avogadro's number",
+          "static": false,
+          "widgets": {},
+        },
+        "static": false,
+        "type": "explanation",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "explanation 2": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "explanation": "Avogadro's number $= 6.022\\times 10^{23}$",
+          "hidePrompt": "Hide Avogadro's number",
+          "showPrompt": "Show Avogadro's number",
+          "static": false,
+          "widgets": {},
+        },
+        "static": false,
+        "type": "explanation",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "expression 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "answerForms": [
+            {
+              "considered": "correct",
+              "form": true,
+              "key": "0",
+              "simplify": false,
+              "value": "5.77\\times10^{19}",
+            },
+            {
+              "considered": "correct",
+              "form": false,
+              "key": "1",
+              "simplify": false,
+              "value": "5.76\\times10^{19}",
+            },
+            {
+              "considered": "correct",
+              "form": false,
+              "key": "2",
+              "simplify": false,
+              "value": "5.78\\times10^{19}",
+            },
+          ],
+          "buttonSets": [
+            "basic",
+            "prealgebra",
+            "scientific",
+          ],
+          "functions": [
+            "f",
+            "g",
+            "h",
+          ],
+          "times": true,
+        },
+        "static": false,
+        "type": "expression",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+      "image 1": {
+        "alignment": "block",
+        "graded": true,
+        "options": {
+          "alt": "A photograph of several incandescent light bulbs",
+          "backgroundImage": {
+            "height": 233,
+            "url": "https://cdn.kastatic.org/ka-content-images/d541931875bede1ddddb66e9f7622b093b7d8cc8.png",
+            "width": 350,
+          },
+          "box": [
+            350,
+            233,
+          ],
+          "caption": "*Incandescent light bulbs with tungsten filaments*",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/graded-group-with-false-hint.json 1`] = `
 {
   "answerArea": {
