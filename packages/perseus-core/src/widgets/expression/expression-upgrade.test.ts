@@ -13,7 +13,7 @@ describe("widgetOptionsUpgrades", () => {
             value: "42",
         };
 
-        const expected: PerseusExpressionWidgetOptions = {
+        const v1options: PerseusExpressionWidgetOptions = {
             times: false,
             buttonSets: ["basic"],
             functions: [],
@@ -30,6 +30,42 @@ describe("widgetOptionsUpgrades", () => {
         const result: PerseusExpressionWidgetOptions =
             widgetOptionsUpgrades["1"](v0options);
 
-        expect(result).toEqual(expected);
+        expect(result).toEqual(v1options);
+    });
+
+    it("can upgrade from v1 to v2", () => {
+        const v1options = {
+            times: false,
+            buttonSets: ["basic"],
+            functions: [],
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: false,
+                    simplify: false,
+                    value: "42i",
+                },
+            ],
+        };
+
+        const v2options: PerseusExpressionWidgetOptions = {
+            times: false,
+            buttonSets: ["basic"],
+            functions: [],
+            extraKeys: ["i"],
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: false,
+                    simplify: false,
+                    value: "42i",
+                },
+            ],
+        };
+
+        const result: PerseusExpressionWidgetOptions =
+            widgetOptionsUpgrades["2"](v1options);
+
+        expect(result).toEqual(v2options);
     });
 });

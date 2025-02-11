@@ -9,6 +9,7 @@ import {
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -23,6 +24,8 @@ import {
 import type {
     PerseusItem,
     PerseusExpressionWidgetOptions,
+    PerseusRenderer,
+    ExpressionPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -637,6 +640,98 @@ describe("Expression Widget", function () {
 
             // Assert
             expect(result.keypadConfiguration.extraKeys).toEqual(["x"]);
+        });
+    });
+
+    describe("interactive: full vs answerless", () => {
+        beforeAll(() => {
+            registerAllWidgetsForTesting();
+        });
+
+        let userEvent: UserEvent;
+        beforeEach(() => {
+            userEvent = userEventLib.setup({
+                advanceTimers: jest.advanceTimersByTime,
+            });
+
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+
+            // Mocked for loading graphie in svg-image
+            global.fetch = jest.fn(() =>
+                Promise.resolve({
+                    text: () => "",
+                    ok: true,
+                }),
+            ) as jest.Mock;
+        });
+
+        it("is interactive with full widget options", async () => {
+            const expressionOptions: PerseusExpressionWidgetOptions = {
+                answerForms: [
+                    {
+                        considered: "correct",
+                        form: true,
+                        simplify: false,
+                        value: "16+88x",
+                    },
+                ],
+                buttonSets: [],
+                times: false,
+                functions: [],
+                extraKeys: ["x"],
+            };
+
+            const fullItem: PerseusRenderer = {
+                content: "[[☃ expression 1]]",
+                images: {},
+                widgets: {
+                    "expression 1": {
+                        type: "expression",
+                        options: expressionOptions,
+                    },
+                },
+            };
+
+            renderQuestion(fullItem);
+
+            await userEvent.click(
+                screen.getByRole("button", {name: "open math keypad"}),
+            );
+            await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+
+            expect(screen.getByRole("button", {name: "x"})).toBeInTheDocument();
+        });
+
+        it("is interactive with answerless widget options", async () => {
+            const expressionOptions: ExpressionPublicWidgetOptions = {
+                buttonSets: [],
+                times: false,
+                functions: [],
+                extraKeys: ["x"],
+            };
+
+            const fullItem: PerseusRenderer = {
+                content: "[[☃ expression 1]]",
+                images: {},
+                widgets: {
+                    "expression 1": {
+                        type: "expression",
+                        options:
+                            expressionOptions as PerseusExpressionWidgetOptions,
+                    },
+                },
+            };
+
+            renderQuestion(fullItem);
+
+            await userEvent.click(
+                screen.getByRole("button", {name: "open math keypad"}),
+            );
+            await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+
+            expect(screen.getByRole("button", {name: "x"})).toBeInTheDocument();
         });
     });
 });

@@ -11,6 +11,10 @@ import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
 function deriveExtraKeys(
     widgetOptions: PerseusExpressionWidgetOptions,
 ): KeypadConfiguration["extraKeys"] {
+    if (widgetOptions.extraKeys) {
+        return widgetOptions.extraKeys as ReadonlyArray<Key>;
+    }
+
     // If there are no extra symbols available, we include Pi anyway, so
     // that the "extra symbols" button doesn't appear empty.
     const defaultKeys: ReadonlyArray<Key> = ["PI"];
