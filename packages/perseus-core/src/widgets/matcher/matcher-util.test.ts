@@ -42,9 +42,10 @@ describe("getMatcherPublicWidgetOptions", () => {
             new Set(options.left),
         );
         expect(publicWidgetOptions.left).not.toEqual(options.left);
-        expect(publicWidgetOptions.right).not.toEqual(options.right);
+
         expect(new Set(publicWidgetOptions.right)).toEqual(
             new Set(options.right),
         );
+        expect(publicWidgetOptions.right).not.toEqual(options.right);
     });
 });
