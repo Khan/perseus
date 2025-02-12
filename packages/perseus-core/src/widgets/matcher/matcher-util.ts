@@ -1,4 +1,4 @@
-import {RandomUtil} from "@khanacademy/perseus-core";
+import {seededRNG, shuffle} from "@khanacademy/perseus-core";
 
 import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
 
@@ -21,21 +21,17 @@ export const shuffleMatcher = (
     props: MatcherInfo,
 ): {left: ReadonlyArray<string>; right: ReadonlyArray<string>} => {
     // Use the same random() function to shuffle both columns sequentially
-    const rng = RandomUtil.seededRNG(props.problemNum as number);
+    const rng = seededRNG(props.problemNum as number);
 
     let left;
     if (!props.orderMatters) {
         // If the order doesn't matter, don't shuffle the left column
         left = props.left;
     } else {
-        left = RandomUtil.shuffle(props.left, rng, /* ensurePermuted */ true);
+        left = shuffle(props.left, rng, /* ensurePermuted */ true);
     }
 
-    const right = RandomUtil.shuffle(
-        props.right,
-        rng,
-        /* ensurePermuted */ true,
-    );
+    const right = shuffle(props.right, rng, /* ensurePermuted */ true);
 
     return {left, right};
 };
@@ -51,18 +47,10 @@ function shuffleMatcherWithRandom(data: MatcherShuffleInfo): {
         // If the order doesn't matter, don't shuffle the left column
         left = data.left;
     } else {
-        left = RandomUtil.shuffle(
-            data.left,
-            Math.random,
-            /* ensurePermuted */ true,
-        );
+        left = shuffle(data.left, Math.random, /* ensurePermuted */ true);
     }
 
-    const right = RandomUtil.shuffle(
-        data.right,
-        Math.random,
-        /* ensurePermuted */ true,
-    );
+    const right = shuffle(data.right, Math.random, /* ensurePermuted */ true);
 
     return {left, right};
 }

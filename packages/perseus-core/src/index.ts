@@ -143,3 +143,4 @@ export {
     shuffleMatcher,
 } from "./widgets/matcher/matcher-util";
 export {default as RandomUtil} from "./utils/random-util";
+export {shuffle, seededRNG, random} from "./utils/random-util";
