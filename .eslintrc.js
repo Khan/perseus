@@ -102,7 +102,10 @@ module.exports = {
             version: "detect",
         },
         "jsx-a11y": {
-            // Map perseus components to their corresponding DOM elements
+            // Map perseus components to their corresponding DOM elements. This
+            // helps eslint-plugin-jsx-a11y understand what the underlying
+            // elements are. For more details, see
+            // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y?tab=readme-ov-file#component-mapping
             components: {
                 NumericInput: "input",
                 ScrolllessNumberTextField: "input",
