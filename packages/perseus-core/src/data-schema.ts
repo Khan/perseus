@@ -1340,6 +1340,7 @@ export type PerseusRadioWidgetOptions = {
     // If multipleSelect is enabled, Specify the number expected to be correct.
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     countChoices?: boolean;
+    numCorrect?: number;
     // Randomize the order of the options or keep them as defined
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     randomize?: boolean;
