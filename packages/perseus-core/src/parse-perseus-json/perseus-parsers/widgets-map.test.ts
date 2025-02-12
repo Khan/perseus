@@ -676,9 +676,10 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "radio 1": {
                 type: "radio",
-                version: {major: 0, minor: 0},
+                version: {major: 2, minor: 0},
                 options: {
                     choices: [],
+                    numCorrect: 0,
                     noneOfTheAbove: false,
                 },
             },

@@ -102,6 +102,7 @@ const sampleOptions2Upgraded = {
             graded: true,
             static: false,
             options: {
+                numCorrect: 1,
                 choices: [
                     {
                         content: "A",
@@ -120,7 +121,7 @@ const sampleOptions2Upgraded = {
                 countChoices: false,
             },
             version: {
-                major: 1,
+                major: 2,
                 minor: 0,
             },
             alignment: "default",
@@ -212,9 +213,10 @@ const sampleGroupUpgraded = {
                             hasNoneOfTheAbove: false,
                             deselectEnabled: false,
                             countChoices: false,
+                            numCorrect: 1,
                         },
                         version: {
-                            major: 1,
+                            major: 2,
                             minor: 0,
                         },
                         alignment: "default",

@@ -38,6 +38,8 @@ function getRadioWidgetOptions(
             },
         ],
 
+        numCorrect: 2,
+
         /*
         Radio derives `numCorrect` from answers
         and uses `numCorrect` for instruction text if both:
@@ -137,6 +139,7 @@ describe("interactive: full vs answerless", () => {
                 "radio 1": {
                     type: "radio",
                     options: fullWidgetOptions,
+                    version: {major: 2, minor: 0},
                 },
             },
         };

@@ -5,22 +5,26 @@ import type {
 
 export const currentVersion = {major: 2, minor: 0};
 
+export function deriveNumCorrect(options: PerseusRadioWidgetOptions) {
+    const {choices, numCorrect} = options;
+
+    return (
+        numCorrect ??
+        choices.reduce(
+            (acc: number, curr: PerseusRadioChoice) =>
+                curr.correct ? acc + 1 : acc,
+            0,
+        )
+    );
+}
+
 export const widgetOptionsUpgrades = {
     "2": (v1props: any): PerseusRadioWidgetOptions => {
-        const {choices, numCorrect, ...rest} = v1props;
-
-        return {
-            ...rest,
-            choices,
-            hasNoneOfTheAbove: false,
-            numCorrect:
-                numCorrect ??
-                choices.reduce(
-                    (acc: number, curr: PerseusRadioChoice) =>
-                        curr.correct ? acc + 1 : acc,
-                    0,
-                ),
+        const upgraded = {
+            ...v1props,
+            numCorrect: deriveNumCorrect(v1props),
         };
+        return upgraded;
     },
     "1": (v0props: any): PerseusRadioWidgetOptions => {
         const {noneOfTheAbove, ...rest} = v0props;
