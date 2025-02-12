@@ -53,14 +53,14 @@ function shuffleMatcherWithRandom(data: MatcherShuffleInfo): {
     } else {
         left = RandomUtil.shuffle(
             data.left,
-            Math.random() * 100,
+            Math.random,
             /* ensurePermuted */ true,
         );
     }
 
     const right = RandomUtil.shuffle(
         data.right,
-        Math.random() * 100,
+        Math.random,
         /* ensurePermuted */ true,
     );
 
