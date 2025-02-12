@@ -40,12 +40,7 @@ import type {PerseusLabelImageUserInput} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
-export type PreferredPopoverDirection =
-    | "NONE"
-    | "UP"
-    | "DOWN"
-    | "LEFT"
-    | "RIGHT";
+type PreferredPopoverDirection = "NONE" | "UP" | "DOWN" | "LEFT" | "RIGHT";
 
 /**
  * Represents a direction vector.
