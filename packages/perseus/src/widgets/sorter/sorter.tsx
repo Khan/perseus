@@ -1,7 +1,4 @@
-import {
-    type PerseusSorterWidgetOptions,
-    getSorterPublicWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {type PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
@@ -134,5 +131,4 @@ export default {
     displayName: "Sorter",
     widget: Sorter,
     isLintable: true,
-    getPublicWidgetOptions: getSorterPublicWidgetOptions,
 } satisfies WidgetExports<typeof Sorter>;

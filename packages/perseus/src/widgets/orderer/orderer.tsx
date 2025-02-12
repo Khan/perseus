@@ -1,6 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe */
-import {Errors, getOrdererPublicWidgetOptions} from "@khanacademy/perseus-core";
+import {Errors} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import $ from "jquery";
 import * as React from "react";
@@ -778,5 +778,4 @@ export default {
     hidden: true,
     widget: Orderer,
     isLintable: true,
-    getPublicWidgetOptions: getOrdererPublicWidgetOptions,
 } satisfies WidgetExports<typeof Orderer>;

@@ -7,10 +7,7 @@
  *  but could also be used for embedding viz's hosted elsewhere.
  */
 
-import {
-    type PerseusIFrameWidgetOptions,
-    getIFramePublicWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {type PerseusIFrameWidgetOptions} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
@@ -172,5 +169,4 @@ export default {
     widget: Iframe,
     // Let's not expose it to all content creators yet
     hidden: true,
-    getPublicWidgetOptions: getIFramePublicWidgetOptions,
 } satisfies WidgetExports<typeof Iframe>;

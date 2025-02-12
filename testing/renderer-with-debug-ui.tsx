@@ -21,6 +21,7 @@ import type {ComponentProps} from "react";
 
 type Props = {
     question: PerseusRenderer;
+    publicQuestion?: PerseusRenderer;
 } & Partial<
     Omit<
         ComponentProps<typeof Renderer>,
@@ -32,6 +33,7 @@ export const RendererWithDebugUI = ({
     question,
     apiOptions,
     reviewMode = false,
+    publicQuestion,
     ...rest
 }: Props): React.ReactElement => {
     registerAllWidgetsForTesting();
@@ -39,6 +41,8 @@ export const RendererWithDebugUI = ({
     const [state, setState] = React.useState<any>(null);
     const [isMobile, setIsMobile] = React.useState(false);
     const {strings} = usePerseusI18n();
+
+    const renderedItem = publicQuestion ?? question;
 
     return (
         <SideBySide
@@ -66,9 +70,9 @@ export const RendererWithDebugUI = ({
                         <Renderer
                             // @ts-expect-error - TS2322 - Type 'MutableRefObject<Renderer | null | undefined>' is not assignable to type 'LegacyRef<Renderer> | undefined'.
                             ref={ref}
-                            content={question.content}
-                            images={question.images}
-                            widgets={question.widgets}
+                            content={renderedItem.content}
+                            images={renderedItem.images}
+                            widgets={renderedItem.widgets}
                             problemNum={0}
                             apiOptions={{...apiOptions, isMobile}}
                             reviewMode={reviewMode}

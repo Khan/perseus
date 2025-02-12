@@ -1,3 +1,5 @@
+import getGrapherPublicWidgetOptions from "./grapher-util";
+
 import type {PerseusGrapherWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -33,6 +35,7 @@ const defaultWidgetOptions: GrapherDefaultWidgetOptions = {
 const grapherWidgetLogic: WidgetLogic = {
     name: "grapher",
     defaultWidgetOptions,
+    getPublicWidgetOptions: getGrapherPublicWidgetOptions,
 };
 
 export default grapherWidgetLogic;
