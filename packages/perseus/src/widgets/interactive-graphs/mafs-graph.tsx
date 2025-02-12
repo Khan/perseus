@@ -125,7 +125,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
-            // LEMS-2827 deprecate event in favor of ti below.
+            // TODO(catjohnson): Remove analytics event in LEMS-2827 in favor of ti below.
             type: "perseus:interactive-graph-widget:rendered",
             payload: {
                 type,

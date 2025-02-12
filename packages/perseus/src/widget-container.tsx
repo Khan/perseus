@@ -184,7 +184,7 @@ class WidgetContainer extends React.Component<Props, State> {
                                 widget_id: this.props.id,
                             }}
                             onError={(error: Error) => {
-                                // LEMS-2826
+                                // TODO(catjohnson): Remove analytics event in LEMS-2826 in favor of ti below.
                                 analytics.onAnalyticsEvent({
                                     type: "perseus:widget-rendering-error",
                                     payload: {
