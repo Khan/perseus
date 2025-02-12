@@ -23,7 +23,7 @@ function getSorterPublicWidgetOptions(
 ): SorterPublicWidgetOptions {
     const shuffledCorrect = CoreUtil.shuffle(
         options.correct,
-        Math.random() * 100,
+        Math.random,
         /* ensurePermuted */ true,
     );
 
