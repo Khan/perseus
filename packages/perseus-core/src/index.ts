@@ -142,4 +142,4 @@ export {
     default as getMatcherPublicWidgetOptions,
     shuffleMatcher,
 } from "./widgets/matcher/matcher-util";
-export {default as CoreUtil} from "./utils/random_utils";
+export {default as RandomUtil} from "./utils/random-util";

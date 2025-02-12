@@ -2,7 +2,7 @@ import {
     type PerseusSorterWidgetOptions,
     getSorterPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
-import {CoreUtil} from "@khanacademy/perseus-core";
+import {RandomUtil} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
@@ -17,7 +17,7 @@ import type {
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-score";
 
-const {shuffle} = CoreUtil;
+const {shuffle} = RandomUtil;
 
 type RenderProps = PerseusSorterWidgetOptions;
 

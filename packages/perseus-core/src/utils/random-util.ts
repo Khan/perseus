@@ -68,10 +68,10 @@ function shuffle<T>(
 
 const random: RNG = seededRNG(new Date().getTime() & 0xffffffff);
 
-export const CoreUtil = {
+export const RandomUtil = {
     seededRNG,
     shuffle,
     random,
 } as const;
 
-export default CoreUtil;
+export default RandomUtil;

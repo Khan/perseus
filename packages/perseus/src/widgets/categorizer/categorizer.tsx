@@ -2,7 +2,7 @@
 import {
     type PerseusCategorizerWidgetOptions,
     getCategorizerPublicWidgetOptions,
-    CoreUtil,
+    RandomUtil,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
@@ -93,7 +93,7 @@ export class Categorizer
         let indexedItems = this.props.items.map((item, n) => [item, n]);
         if (this.props.randomizeItems) {
             // @ts-expect-error - TS4104 - The type 'readonly (string | number)[][]' is 'readonly' and cannot be assigned to the mutable type '(string | number)[][]'.
-            indexedItems = CoreUtil.shuffle(
+            indexedItems = RandomUtil.shuffle(
                 indexedItems,
                 this.props.problemNum as any,
             );
