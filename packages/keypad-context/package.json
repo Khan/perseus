@@ -3,7 +3,7 @@
     "description": "Perseus keypad context",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "1.0.16",
+    "version": "1.0.17",
     "publishConfig": {
         "access": "public"
     },
@@ -26,7 +26,7 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/perseus-core": "3.4.0"
+        "@khanacademy/perseus-core": "3.5.0"
     },
     "devDependencies": {
         "react": "^18.2.0"
