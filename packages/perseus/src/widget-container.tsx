@@ -208,8 +208,7 @@ class WidgetContainer extends React.Component<Props, State> {
                             }}
                         >
                             <WidgetType
-                                // Removing parameters to trigger render errors.
-                                // Add back once confirmed.
+                                {...this.state.widgetProps}
                                 linterContext={linterContext}
                                 containerSizeClass={this.state.sizeClass}
                                 ref={this.widgetRef}
