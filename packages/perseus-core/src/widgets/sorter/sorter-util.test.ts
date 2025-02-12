@@ -15,6 +15,9 @@ describe("getSorterPublicWidgetOptions", () => {
         const publicWidgetOptions = getSorterPublicWidgetOptions(options);
 
         // Assert
+        expect(new Set(publicWidgetOptions.correct)).toEqual(
+            new Set(options.correct),
+        );
         expect(publicWidgetOptions.correct).not.toEqual(options.correct);
     });
 });
