@@ -862,106 +862,39 @@ describe("Locked Function Settings", () => {
                 });
             });
 
-            test("aria label auto-generates with partial domain information", async () => {
-                // Arrange (max domain is Infinity)
-                const onChangeProps = jest.fn();
-                render(
-                    <LockedFunctionSettings
-                        {...defaultProps}
-                        ariaLabel={undefined}
-                        onChangeProps={onChangeProps}
-                        domain={[1, Infinity]}
-                    />,
-                    {wrapper: RenderStateRoot},
-                );
+            test.each`
+                domainValue       | domainAria
+                ${[1, Infinity]}  | ${"1 to Infinity"}
+                ${[-Infinity, 2]} | ${"-Infinity to 2"}
+                ${[1, null]}      | ${"1 to Infinity"}
+                ${[null, 2]}      | ${"-Infinity to 2"}
+            `(
+                "aria label auto-generates with partial domain info: $domainValue",
+                async ({domainValue, domainAria}) => {
+                    // Arrange
+                    const onChangeProps = jest.fn();
+                    render(
+                        <LockedFunctionSettings
+                            {...defaultProps}
+                            ariaLabel={undefined}
+                            onChangeProps={onChangeProps}
+                            domain={domainValue}
+                        />,
+                        {wrapper: RenderStateRoot},
+                    );
 
-                // Act
-                let autoGenButton = screen.getByRole("button", {
-                    name: "Auto-generate",
-                });
-                await userEvent.click(autoGenButton);
+                    // Act
+                    let autoGenButton = screen.getByRole("button", {
+                        name: "Auto-generate",
+                    });
+                    await userEvent.click(autoGenButton);
 
-                // Assert (max domain is Infinity)
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Function with equation y=x^2, domain from 1 to Infinity. Appearance solid gray.",
-                });
-
-                // Arrange (min domain is -Infinity)
-                cleanup();
-                onChangeProps.mockReset();
-                render(
-                    <LockedFunctionSettings
-                        {...defaultProps}
-                        ariaLabel={undefined}
-                        onChangeProps={onChangeProps}
-                        domain={[-Infinity, 2]}
-                    />,
-                    {wrapper: RenderStateRoot},
-                );
-
-                // Act
-                autoGenButton = screen.getByRole("button", {
-                    name: "Auto-generate",
-                });
-                await userEvent.click(autoGenButton);
-
-                // Assert (min domain is -Infinity)
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Function with equation y=x^2, domain from -Infinity to 2. Appearance solid gray.",
-                });
-
-                // Arrange (max domain is Null)
-                cleanup();
-                onChangeProps.mockReset();
-                render(
-                    <LockedFunctionSettings
-                        {...defaultProps}
-                        ariaLabel={undefined}
-                        onChangeProps={onChangeProps}
-                        domain={[1, null]}
-                    />,
-                    {wrapper: RenderStateRoot},
-                );
-
-                // Act
-                autoGenButton = screen.getByRole("button", {
-                    name: "Auto-generate",
-                });
-                await userEvent.click(autoGenButton);
-
-                // Assert (max domain is Infinity)
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Function with equation y=x^2, domain from 1 to Infinity. Appearance solid gray.",
-                });
-
-                // Arrange (min domain is Null)
-                cleanup();
-                onChangeProps.mockReset();
-                render(
-                    <LockedFunctionSettings
-                        {...defaultProps}
-                        ariaLabel={undefined}
-                        onChangeProps={onChangeProps}
-                        domain={[null, 2]}
-                    />,
-                    {wrapper: RenderStateRoot},
-                );
-
-                // Act
-                autoGenButton = screen.getByRole("button", {
-                    name: "Auto-generate",
-                });
-                await userEvent.click(autoGenButton);
-
-                // Assert (min domain is -Infinity)
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Function with equation y=x^2, domain from -Infinity to 2. Appearance solid gray.",
-                });
-            });
+                    // Assert
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel: `Function with equation y=x^2, domain from ${domainAria}. Appearance solid gray.`,
+                    });
+                },
+            );
 
             test("aria label auto-generates (one label)", async () => {
                 // Arrange
