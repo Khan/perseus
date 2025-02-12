@@ -1,4 +1,4 @@
-import {srFormatNumber} from "./screenreader-text";
+import {getPiMultiple, srFormatNumber} from "./screenreader-text";
 
 describe("srFormatNumber", () => {
     it("trivially converts small integers to strings", () => {
@@ -28,4 +28,61 @@ describe("srFormatNumber", () => {
     it("uses a locale-appropriate decimal separator", () => {
         expect(srFormatNumber(1.5, "de")).toBe("1,5");
     });
+
+    it("uses pi format when the number is a multiple of pi", () => {
+        expect(srFormatNumber(Math.PI, "en")).toBe("π");
+    });
+});
+
+describe("getPiMultiple", () => {
+    test.each`
+        num
+        ${0}
+        ${1e12}
+        ${1e27}
+        ${3.14}
+        ${3.14159265}
+        ${2 * 3.14159265}
+        ${1}
+        ${-1}
+        ${-3.14}
+        ${Math.PI / 7}
+        ${Math.PI / 8}
+    `(
+        "returns null for non-pi-based numbers or non-approved divisors: $num",
+        ({num}) => {
+            expect(getPiMultiple(num)).toBe(null);
+        },
+    );
+
+    test.each`
+        num                   | expectedString
+        ${Math.PI}            | ${"π"}
+        ${-Math.PI}           | ${"-π"}
+        ${2 * Math.PI}        | ${"2π"}
+        ${-2 * Math.PI}       | ${"-2π"}
+        ${10 * Math.PI}       | ${"10π"}
+        ${-10 * Math.PI}      | ${"-10π"}
+        ${Math.PI / 2}        | ${"π/2"}
+        ${Math.PI / 3}        | ${"π/3"}
+        ${Math.PI / 4}        | ${"π/4"}
+        ${Math.PI / 6}        | ${"π/6"}
+        ${Math.PI / -2}       | ${"-π/2"}
+        ${Math.PI / -3}       | ${"-π/3"}
+        ${Math.PI / -4}       | ${"-π/4"}
+        ${Math.PI / -6}       | ${"-π/6"}
+        ${(7 * Math.PI) / 2}  | ${"7π/2"}
+        ${(2 * Math.PI) / 3}  | ${"2π/3"}
+        ${(3 * Math.PI) / 4}  | ${"3π/4"}
+        ${(5 * Math.PI) / 6}  | ${"5π/6"}
+        ${(-7 * Math.PI) / 2} | ${"-7π/2"}
+        ${(-2 * Math.PI) / 3} | ${"-2π/3"}
+        ${(-3 * Math.PI) / 4} | ${"-3π/4"}
+        ${(-5 * Math.PI) / 6} | ${"-5π/6"}
+    `(
+        "returns a string showing the number as a multiple of pi: $expectedString",
+        ({num, expectedString}) => {
+            expect(getPiMultiple(num)).toBe(expectedString);
+        },
+    );
 });
