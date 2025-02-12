@@ -4,7 +4,7 @@ import {getPublicWidgetOptionsFunction} from "../widgets/core-widget-registry";
 
 import type {PerseusRenderer} from "../data-schema";
 
-export function splitPerseusItem(
+export default function splitPerseusItem(
     originalItem: PerseusRenderer,
 ): PerseusRenderer {
     const item = _.clone(originalItem);

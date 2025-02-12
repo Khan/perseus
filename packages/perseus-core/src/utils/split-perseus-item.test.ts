@@ -1,4 +1,4 @@
-import {splitPerseusItem} from "./split-perseus-item";
+import splitPerseusItem from "./split-perseus-item";
 
 import type {PerseusRenderer} from "../data-schema";
 
