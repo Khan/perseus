@@ -4,7 +4,6 @@ import {
     getDecimalSeparator,
     expressionLogic,
     type PerseusExpressionWidgetOptions,
-    getExpressionPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -534,7 +533,6 @@ export default {
 
     // For use by the editor
     isLintable: true,
-    getPublicWidgetOptions: getExpressionPublicWidgetOptions,
 
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.
