@@ -27,7 +27,7 @@
         "@cypress/code-coverage": "^3.12.24",
         "@cypress/react": "^8.0.0",
         "@jest/globals": "^29.7.0",
-        "@khanacademy/eslint-config": "^5.1.0",
+        "@khanacademy/eslint-config": "^5.2.0",
         "@khanacademy/eslint-plugin": "^3.1.1",
         "@khanacademy/mathjax-renderer": "^2.1.1",
         "@khanacademy/wonder-blocks-button": "7.1.1",
