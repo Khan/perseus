@@ -48,6 +48,8 @@ describe("getPiMultiple", () => {
         ${-3.14}
         ${Math.PI / 7}
         ${Math.PI / 8}
+        ${3.6 * Math.PI}
+        ${-3.51 * Math.PI}
     `(
         "returns null for non-pi-based numbers or non-approved divisors: $num",
         ({num}) => {
@@ -72,6 +74,7 @@ describe("getPiMultiple", () => {
         ${Math.PI / -4}       | ${"-π/4"}
         ${Math.PI / -6}       | ${"-π/6"}
         ${(7 * Math.PI) / 2}  | ${"7π/2"}
+        ${3.5 * Math.PI}      | ${"7π/2"}
         ${(2 * Math.PI) / 3}  | ${"2π/3"}
         ${(3 * Math.PI) / 4}  | ${"3π/4"}
         ${(5 * Math.PI) / 6}  | ${"5π/6"}
