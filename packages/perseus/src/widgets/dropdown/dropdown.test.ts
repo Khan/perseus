@@ -1,8 +1,15 @@
+import {
+    getDropdownPublicWidgetOptions,
+    type PerseusDropdownWidgetOptions,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -126,5 +133,145 @@ describe("Dropdown widget", () => {
 
         // Assert
         expect(screen.getByLabelText("Select an answer")).toBeInTheDocument();
+    });
+
+    describe("interactive: full vs answerless", () => {
+        beforeAll(() => {
+            registerAllWidgetsForTesting();
+        });
+
+        let userEvent: UserEvent;
+        beforeEach(() => {
+            userEvent = userEventLib.setup({
+                advanceTimers: jest.advanceTimersByTime,
+            });
+
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+
+            // Mocked for loading graphie in svg-image
+            global.fetch = jest.fn(() =>
+                Promise.resolve({
+                    text: () => "",
+                    ok: true,
+                }),
+            ) as jest.Mock;
+        });
+
+        it("is interactive with full widget options", async () => {
+            // Arrange
+            const dropdownOptions: PerseusDropdownWidgetOptions = {
+                static: false,
+                placeholder: "Choose an answer",
+                choices: [
+                    {
+                        content: "Correct",
+                        correct: true,
+                    },
+                    {
+                        content: "Incorrect",
+                        correct: false,
+                    },
+                ],
+            };
+
+            const fullItem: PerseusRenderer = {
+                content: "[[☃ dropdown 1]]",
+                images: {},
+                widgets: {
+                    "dropdown 1": {
+                        type: "dropdown",
+                        options: dropdownOptions,
+                    },
+                },
+            };
+
+            // Act
+            const {renderer} = renderQuestion(fullItem);
+
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Select an answer"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Correct"}),
+            );
+
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(fullItem, userInput, "en");
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
+
+        it("is interactive with stripped widget options", async () => {
+            // Arrange
+            const dropdownOptions: PerseusDropdownWidgetOptions = {
+                static: false,
+                placeholder: "Choose an answer",
+                choices: [
+                    {
+                        content: "Correct",
+                        correct: true,
+                    },
+                    {
+                        content: "Incorrect",
+                        correct: false,
+                    },
+                ],
+            };
+
+            const strippedDropdownOptions =
+                getDropdownPublicWidgetOptions(dropdownOptions);
+
+            // assert that splitting worked as expected
+            expect(
+                (strippedDropdownOptions.choices[0] as any).correct,
+            ).toBeUndefined();
+            expect(
+                (strippedDropdownOptions.choices[1] as any).correct,
+            ).toBeUndefined();
+
+            // for scoring
+            const fullItem: PerseusRenderer = {
+                content: "[[☃ dropdown 1]]",
+                images: {},
+                widgets: {
+                    "dropdown 1": {
+                        type: "dropdown",
+                        options: dropdownOptions,
+                    },
+                },
+            };
+
+            // for rendering
+            const strippedItem: PerseusRenderer = {
+                content: "[[☃ dropdown 1]]",
+                images: {},
+                widgets: {
+                    "dropdown 1": {
+                        type: "dropdown",
+                        options:
+                            strippedDropdownOptions as PerseusDropdownWidgetOptions,
+                    },
+                },
+            };
+
+            // Act
+            const {renderer} = renderQuestion(strippedItem);
+
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Select an answer"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Correct"}),
+            );
+
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(fullItem, userInput, "en");
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
     });
 });
