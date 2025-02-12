@@ -1132,7 +1132,10 @@ describe("Interactive Graph", function () {
                 };
 
                 // Act
-                renderQuestion(segmentWithLockedFunction("x^2", {domain: [-2, 3]}), blankOptions);
+                renderQuestion(
+                    segmentWithLockedFunction("x^2", {domain: [-2, 3]}),
+                    blankOptions,
+                );
 
                 // Assert
                 expect(PlotOfXMock).toHaveBeenCalledTimes(1);
@@ -1153,7 +1156,10 @@ describe("Interactive Graph", function () {
                 };
 
                 // Act - no upper limit specified
-                renderQuestion(segmentWithLockedFunction("x^2", {domain: [null, 3]}), blankOptions);
+                renderQuestion(
+                    segmentWithLockedFunction("x^2", {domain: [null, 3]}),
+                    blankOptions,
+                );
 
                 // Assert
                 expect(PlotOfXMock).toHaveBeenCalledWith(
@@ -1166,7 +1172,10 @@ describe("Interactive Graph", function () {
 
                 // Act - no lower limit specified
                 PlotOfXMock.mockReset();
-                renderQuestion(segmentWithLockedFunction("x^2", {domain: [-2, null]}), blankOptions);
+                renderQuestion(
+                    segmentWithLockedFunction("x^2", {domain: [-2, null]}),
+                    blankOptions,
+                );
 
                 // Assert
                 expect(PlotOfXMock).toHaveBeenCalledWith(
