@@ -23,10 +23,10 @@ export function getWidgetTypeByWidgetId(
 }
 
 export function getWidgetSubTypeByWidgetId(
-    WidgetId: string,
+    widgetId: string,
     widgetMap: PerseusWidgetsMap,
 ): string | null {
-    const widget = widgetMap[WidgetId];
+    const widget = widgetMap[widgetId];
     const widgetType = widget?.type ?? null;
 
     switch (widgetType) {
