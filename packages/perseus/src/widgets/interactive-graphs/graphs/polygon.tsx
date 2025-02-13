@@ -122,7 +122,12 @@ const PolygonGraph = (props: Props) => {
         if (focusedIndex != null) {
             pointsRef.current[focusedIndex]?.focus();
         }
-    }, [props.graphState.focusedPointIndex, pointsRef]);
+    }, [
+        props.graphState.focusedPointIndex,
+        // Ensure that we re-focus if a point is deleted.
+        props.graphState.coords.length,
+        pointsRef,
+    ]);
 
     // If the unlimited polygon is rendered with 3 or more coordinates
     // Close the polygon, but only on first render.

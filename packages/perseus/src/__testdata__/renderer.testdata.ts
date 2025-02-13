@@ -2,27 +2,9 @@ import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
 import type {RenderProps} from "../widgets/radio";
 import type {
     DropdownWidget,
-    ExpressionWidget,
     ImageWidget,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
-
-export const expressionWidget: ExpressionWidget = {
-    type: "expression",
-    options: {
-        answerForms: [
-            {
-                considered: "correct",
-                form: true,
-                simplify: true,
-                value: "1.0",
-            },
-        ],
-        buttonSets: ["basic"],
-        functions: [],
-        times: true,
-    },
-};
 
 export const dropdownWidget: DropdownWidget = {
     type: "dropdown",

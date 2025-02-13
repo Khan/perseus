@@ -69,7 +69,7 @@ export type TreeNode = {
 // TraversalCallback is the type of the callback function passed to the
 // traverse() method. It is invoked with node, state, and content arguments
 // and is expected to return nothing.
-export type TraversalCallback = (
+type TraversalCallback = (
     node: TreeNode,
     state: TraversalState,
     content: string,

@@ -2,7 +2,7 @@ import type radio from "../../widgets/radio/radio";
 import type {PerseusRadioUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
 
-export type BasicOption = {
+type BasicOption = {
     value: string;
 };
 

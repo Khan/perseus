@@ -1,5 +1,25 @@
 # @khanacademy/perseus-core
 
+## 3.5.0
+
+### Minor Changes
+
+-   [#2194](https://github.com/Khan/perseus/pull/2194) [`fd606f43d`](https://github.com/Khan/perseus/commit/fd606f43d7687a15d6dc2cabd0e85fc71b5ed878) Thanks [@benchristel](https://github.com/benchristel)! - Create a function to get the public options for an interactive graph widget
+
+*   [#2189](https://github.com/Khan/perseus/pull/2189) [`3ba74d173`](https://github.com/Khan/perseus/commit/3ba74d1731ceff13c9794a3aeaf79f1735b5fb86) Thanks [@benchristel](https://github.com/benchristel)! - Create a function to get the public options for a Table widget
+
+-   [#2207](https://github.com/Khan/perseus/pull/2207) [`097176a26`](https://github.com/Khan/perseus/commit/097176a26db7b0c80b3be5e6fe469539f65de0ea) Thanks [@benchristel](https://github.com/benchristel)! - Create a function to get the public options for a Matrix widget
+
+*   [#2216](https://github.com/Khan/perseus/pull/2216) [`b3c562ac2`](https://github.com/Khan/perseus/commit/b3c562ac2cc6d02c433bf0587379c09a49080795) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Plotter widget
+
+-   [#2198](https://github.com/Khan/perseus/pull/2198) [`649e6b16a`](https://github.com/Khan/perseus/commit/649e6b16ab67fad694cde5473bcfb3abb719a57d) Thanks [@benchristel](https://github.com/benchristel)! - Create a function to get the public options for a Grapher widget
+
+*   [#2217](https://github.com/Khan/perseus/pull/2217) [`07779783a`](https://github.com/Khan/perseus/commit/07779783ae0e3a19c0c72e95a8eaa0b58a9cc968) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Move coord reverse logic for Angle graphs into scoring logic
+
+-   [#2183](https://github.com/Khan/perseus/pull/2183) [`cac39013b`](https://github.com/Khan/perseus/commit/cac39013bd59a5ef73f151e1170dec83b463f076) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Radio widget
+
+*   [#2188](https://github.com/Khan/perseus/pull/2188) [`163dd67d2`](https://github.com/Khan/perseus/commit/163dd67d2a8e119bc18191816668352e43292da2) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to retrieve public widget options for the IFrame widget
+
 ## 3.4.0
 
 ### Minor Changes

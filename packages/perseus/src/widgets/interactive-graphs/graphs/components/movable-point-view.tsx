@@ -15,6 +15,7 @@ type Props = {
     point: vec.Vector2;
     color?: string | undefined;
     dragging: boolean;
+    focused: boolean;
     showFocusRing: boolean;
     cursor?: CSSCursor | undefined;
     onClick?: () => unknown;
@@ -34,6 +35,7 @@ export const MovablePointView = forwardRef(
             point,
             color = WBColor.blue,
             dragging,
+            focused,
             cursor,
             showFocusRing,
             onClick = () => {},
@@ -60,7 +62,7 @@ export const MovablePointView = forwardRef(
         const [[_, horizontalStartY]] = useTransformVectorsToPixels([0, yMin]);
         const [[__, horizontalEndY]] = useTransformVectorsToPixels([0, yMax]);
 
-        const showHairlines = dragging && markings !== "none";
+        const showHairlines = (dragging || focused) && markings !== "none";
         const hairlines = (
             <g>
                 <line

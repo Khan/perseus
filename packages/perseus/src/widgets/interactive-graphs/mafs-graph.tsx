@@ -124,9 +124,18 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
+            // TODO(LEMS-2827): Remove analytics event in LEMS-2827 in favor of ti below.
             type: "perseus:interactive-graph-widget:rendered",
             payload: {
                 type,
+                widgetType: "INTERACTIVE_GRAPH",
+                widgetId: "interactive-graph",
+            },
+        });
+        analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: type,
                 widgetType: "INTERACTIVE_GRAPH",
                 widgetId: "interactive-graph",
             },
@@ -235,7 +244,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         {(props.markings === "graph" ||
                             props.markings === "axes") && (
                             <>
-                                <AxisLabels />
+                                <AxisLabels i18n={i18n} />
                             </>
                         )}
                         <View
@@ -722,21 +731,21 @@ const renderGraphElements = (props: {
     const {type} = state;
     switch (type) {
         case "angle":
-            return renderAngleGraph(state, dispatch);
+            return renderAngleGraph(state, dispatch, i18n);
         case "segment":
-            return renderSegmentGraph(state, dispatch);
+            return renderSegmentGraph(state, dispatch, i18n);
         case "linear-system":
-            return renderLinearSystemGraph(state, dispatch);
+            return renderLinearSystemGraph(state, dispatch, i18n);
         case "linear":
-            return renderLinearGraph(state, dispatch);
+            return renderLinearGraph(state, dispatch, i18n);
         case "ray":
-            return renderRayGraph(state, dispatch);
+            return renderRayGraph(state, dispatch, i18n);
         case "polygon":
             return renderPolygonGraph(state, dispatch, i18n, markings);
         case "point":
-            return renderPointGraph(state, dispatch);
+            return renderPointGraph(state, dispatch, i18n);
         case "circle":
-            return renderCircleGraph(state, dispatch);
+            return renderCircleGraph(state, dispatch, i18n);
         case "quadratic":
             return renderQuadraticGraph(state, dispatch, i18n);
         case "sinusoid":

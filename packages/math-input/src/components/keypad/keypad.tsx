@@ -20,7 +20,7 @@ import type {ClickKeyCallback, KeypadPageType} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 
-export type Props = {
+type Props = {
     extraKeys?: ReadonlyArray<Key>;
     cursorContext?: (typeof CursorContext)[keyof typeof CursorContext];
     showDismiss?: boolean;

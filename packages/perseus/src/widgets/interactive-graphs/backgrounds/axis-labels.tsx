@@ -7,10 +7,12 @@ import {MAX, X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 import {replaceOutsideTeX} from "../utils";
 
+import type {I18nContextType} from "../../../components/i18n-context";
 import type {GraphDimensions} from "../types";
 
-export default function AxisLabels() {
+export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
     const {range, labels, width, height} = useGraphConfig();
+    const {strings} = i18n;
 
     const yAxisLabelLocation: vec.Vector2 = [0, range[Y][MAX]];
     const xAxisLabelLocation: vec.Vector2 = [range[X][MAX], 0];
@@ -35,6 +37,7 @@ export default function AxisLabels() {
     return (
         <>
             <span
+                aria-label={strings.xAxis}
                 style={{
                     position: "absolute",
                     left: x1,
@@ -46,6 +49,7 @@ export default function AxisLabels() {
                 <TeX>{replaceOutsideTeX(xAxisLabelText)}</TeX>
             </span>
             <span
+                aria-label={strings.yAxis}
                 style={{
                     position: "absolute",
                     left: x2,

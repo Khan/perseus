@@ -3,7 +3,7 @@
     "description": "Perseus score",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "publishConfig": {
         "access": "public"
     },
@@ -26,9 +26,9 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/kas": "^0.4.13",
-        "@khanacademy/kmath": "^0.3.2",
-        "@khanacademy/perseus-core": "3.4.0"
+        "@khanacademy/kas": "^0.4.14",
+        "@khanacademy/kmath": "^0.3.3",
+        "@khanacademy/perseus-core": "3.5.0"
     },
     "devDependencies": {},
     "peerDependencies": {},
