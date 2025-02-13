@@ -2,7 +2,6 @@ import {
     ItemExtras,
     type LabelImageWidget,
     type PerseusItem,
-    type PerseusRenderer,
     type PerseusAnswerArea,
     type ExpressionWidget,
     type RadioWidget,
@@ -334,71 +333,6 @@ export const labelImageItem: PerseusItem = {
             } as LabelImageWidget,
         },
     },
-};
-
-export const definitionItem: PerseusItem = {
-    // The mock widget type is not part of the PerseusWidget type union (and
-    // we don't want to make it such to avoid polluting our production types
-    // for test purposes) so we force TypeScript to accept it here.
-    question: {
-        content:
-            "Mock widget ==> [[\u2603 definition 1]] [[\u2603 definition 2]] [[\u2603 definition 3]] [[\u2603 definition 4]]",
-        images: {},
-        widgets: {
-            "definition 1": {
-                graded: true,
-                version: {major: 0, minor: 0},
-                static: false,
-                type: "definition",
-                options: {
-                    togglePrompt: "word",
-                    definition: "",
-                    static: false,
-                },
-                alignment: "default",
-            },
-            "definition 2": {
-                graded: true,
-                version: {major: 0, minor: 0},
-                static: false,
-                type: "definition",
-                options: {
-                    togglePrompt: "word",
-                    definition: "",
-                    static: false,
-                },
-                alignment: "default",
-            },
-            "definition 3": {
-                graded: true,
-                version: {major: 0, minor: 0},
-                static: false,
-                type: "definition",
-                options: {
-                    togglePrompt: "word",
-                    definition: "",
-                    static: false,
-                },
-                alignment: "default",
-            },
-            "definition 4": {
-                graded: true,
-                version: {major: 0, minor: 0},
-                static: false,
-                type: "definition",
-                options: {
-                    togglePrompt: "word",
-                    definition: "",
-                    static: false,
-                },
-                alignment: "default",
-            },
-        },
-    } as PerseusRenderer,
-    hints: [],
-    answerArea: null,
-    itemDataVersion: {major: 0, minor: 0},
-    answer: null,
 };
 
 export const itemWithLintingError: PerseusItem = {

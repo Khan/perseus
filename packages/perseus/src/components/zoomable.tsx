@@ -186,9 +186,29 @@ class Zoomable extends React.Component<Props, State> {
         if (!this._isMounted) {
             return;
         }
+
+        // When a zoomable item is contained within a collapsed parent (such as an Explanation widget),
+        //      the parent node has zero width, which causes the scale to be miscalculated.
+        // Therefore, we check to see if the node has a valid width, and if it doesn't,
+        //      then we traverse up the DOM tree and look for the closest "perseus-renderer"
+        //      (which should have a width).
+        // To be cautious, we also account for the possibility that we can't find any parents with a valid width
+        //      (not that they don't exist, just that we can't find them).
+        let parentNode = this._node;
+        let currentNode: HTMLElement | null = parentNode;
+        while (currentNode && currentNode.offsetWidth === 0) {
+            // When traversing up the DOM tree, we need to start at the "parentElement"
+            //      because "closest()" can match the current element,
+            //      and if it does so, then we are stuck in an infinite loop.
+            currentNode =
+                currentNode.parentElement?.closest(".perseus-renderer") ?? null;
+        }
+        if (currentNode) {
+            parentNode = currentNode;
+        }
         const parentBounds = {
-            width: this._node.offsetWidth,
-            height: this._node.offsetHeight,
+            width: parentNode.offsetWidth,
+            height: parentNode.offsetHeight,
         } as const;
         const childBounds = this.props.computeChildBounds(
             this._node,
@@ -286,6 +306,7 @@ class Zoomable extends React.Component<Props, State> {
         } as const;
 
         return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error
             <span
                 onClick={this.handleClick}
                 onClickCapture={this.handleClickIfZoomed}

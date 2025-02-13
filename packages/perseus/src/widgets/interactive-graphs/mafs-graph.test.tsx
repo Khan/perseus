@@ -4,7 +4,10 @@ import {vec} from "mafs";
 import React from "react";
 import invariant from "tiny-invariant";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 
 import {calculateNestedSVGCoords, MafsGraph} from "./mafs-graph";
@@ -14,8 +17,11 @@ import {getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
+import type {PerseusDependenciesV2} from "@khanacademy/perseus";
 import type {GraphRange} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+
+const baseMafsProps = getBaseMafsGraphPropsForTests();
 
 function expectLabelInDoc(label: string) {
     expect(screen.getByLabelText(label)).toBeInTheDocument();
@@ -84,7 +90,7 @@ describe("MafsGraph", () => {
             ],
         };
 
-        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
+        const baseMafsGraphProps = baseMafsProps;
 
         render(
             <MafsGraph
@@ -107,9 +113,64 @@ describe("MafsGraph", () => {
         expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
     });
 
+    it("should send analytics even when widget is rendered", () => {
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+            ],
+        };
+
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
+
+        render(
+            <Dependencies.DependenciesContext.Provider value={depsV2}>
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />
+            </Dependencies.DependenciesContext.Provider>,
+        );
+
+        // Assert
+        expect(onAnalyticsEventSpy).toHaveBeenNthCalledWith(1, {
+            type: "perseus:interactive-graph-widget:rendered",
+            payload: {
+                type: "segment",
+                widgetType: "INTERACTIVE_GRAPH",
+                widgetId: "interactive-graph",
+            },
+        });
+        expect(onAnalyticsEventSpy).toHaveBeenNthCalledWith(2, {
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "segment",
+                widgetType: "INTERACTIVE_GRAPH",
+                widgetId: "interactive-graph",
+            },
+        });
+    });
+
     it("renders TeX in axis Labels", () => {
         const basePropsWithTexLabels = {
-            ...getBaseMafsGraphPropsForTests(),
+            ...baseMafsProps,
             labels: ["$1/2$", "$3/4$"],
         };
 
@@ -120,13 +181,27 @@ describe("MafsGraph", () => {
 
     it("renders plain text in axis Labels", () => {
         const basePropsWithTexLabels = {
-            ...getBaseMafsGraphPropsForTests(),
+            ...baseMafsProps,
             labels: ["4/5", "5/6"],
         };
 
         render(<MafsGraph {...basePropsWithTexLabels} />);
         expect(screen.getByText("\\text{4/5}")).toBeInTheDocument();
         expect(screen.getByText("\\text{5/6}")).toBeInTheDocument();
+    });
+
+    it("includes aria-labels for the axes labels", () => {
+        const basePropsWithTexLabels = {
+            ...baseMafsProps,
+        };
+
+        render(<MafsGraph {...basePropsWithTexLabels} />);
+
+        const xAxisLabel = screen.getByLabelText("X-axis");
+        const yAxisLabel = screen.getByLabelText("Y-axis");
+
+        expect(xAxisLabel).toBeInTheDocument();
+        expect(yAxisLabel).toBeInTheDocument();
     });
 
     it("renders ARIA labels for each point (segment)", () => {
@@ -147,11 +222,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
         expectLabelInDoc("Endpoint 1 at 0 comma 0.");
@@ -180,11 +251,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
         expectLabelInDoc("Endpoint 1 on segment 1 at 0 comma 0.");
@@ -209,11 +276,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
         expectLabelInDoc("Point 1 at 0 comma 0.");
@@ -242,11 +305,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
         expectLabelInDoc("Point 1 on line 1 at 0 comma 0.");
@@ -271,11 +330,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
         expectLabelInDoc("Endpoint at 0 comma 0.");
@@ -296,11 +351,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
         // Circle's radius point has a special label
@@ -324,11 +375,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
         const points = screen.getAllByRole("button");
@@ -361,11 +408,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
         const points = screen.getAllByRole("button");
@@ -398,11 +441,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
         expectLabelInDoc("Point 1 at -1 comma 1.");
@@ -434,11 +473,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
         expectLabelInDoc("Point 1 at -1 comma 1.");
@@ -468,11 +503,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
         expectLabelInDoc("Point 1, terminal side at -1 comma 1");
@@ -503,6 +534,33 @@ describe("MafsGraph", () => {
         };
 
         render(
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
+        );
+
+        expectLabelInDoc("Point 1, terminal side at 7 comma 0");
+        expectLabelInDoc("Point 2, vertex at 0 comma 0. Angle 90 degrees");
+        expectLabelInDoc("Point 3, initial side at 0 comma 6");
+    });
+
+    it("renders ARIA label for the interactive elements on an angle graph", () => {
+        const state: InteractiveGraphState = {
+            type: "angle",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+            allowReflexAngles: true,
+            showAngles: true,
+        };
+
+        const {container} = render(
             <MafsGraph
                 {...getBaseMafsGraphPropsForTests()}
                 state={state}
@@ -510,9 +568,11 @@ describe("MafsGraph", () => {
             />,
         );
 
-        expectLabelInDoc("Point 1, terminal side at 7 comma 0");
-        expectLabelInDoc("Point 2, vertex at 0 comma 0. Angle 90 degrees");
-        expectLabelInDoc("Point 3, initial side at 0 comma 6");
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const angleGraph = container.querySelector(".mafs-graph");
+        const expectedDescription =
+            "Interactive elements: An angle formed by 3 points. The vertex is at 0 comma 0. The starting side point is at 1 comma 1. The ending side point is at -1 comma 1.";
+        expect(angleGraph).toHaveAccessibleDescription(expectedDescription);
     });
 
     it("renders ARIA label for the interactive elements on an angle graph", () => {
@@ -567,11 +627,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
         const angleGraph = screen.getByLabelText(
             "An angle on a coordinate plane.",
@@ -601,11 +657,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
         const angleGraph = screen.getByLabelText(
@@ -637,11 +689,7 @@ describe("MafsGraph", () => {
         };
 
         render(
-            <MafsGraph
-                {...getBaseMafsGraphPropsForTests()}
-                state={state}
-                dispatch={() => {}}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
         expect(
@@ -673,7 +721,7 @@ describe("MafsGraph", () => {
             coords: [[2, 2]],
         };
 
-        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
+        const baseMafsGraphProps = baseMafsProps;
 
         const {rerender} = render(
             <MafsGraph
@@ -736,7 +784,7 @@ describe("MafsGraph", () => {
             initialState,
         );
 
-        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
+        const baseMafsGraphProps = baseMafsProps;
 
         render(
             <MafsGraph
@@ -787,7 +835,7 @@ describe("MafsGraph", () => {
             initialState,
         );
 
-        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
+        const baseMafsGraphProps = baseMafsProps;
 
         render(
             <MafsGraph
@@ -838,7 +886,7 @@ describe("MafsGraph", () => {
             initialState,
         );
 
-        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
+        const baseMafsGraphProps = baseMafsProps;
 
         render(
             <MafsGraph
@@ -889,7 +937,7 @@ describe("MafsGraph", () => {
             initialState,
         );
 
-        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
+        const baseMafsGraphProps = baseMafsProps;
 
         render(
             <MafsGraph
@@ -933,7 +981,7 @@ describe("MafsGraph", () => {
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
-                ...getBaseMafsGraphPropsForTests(),
+                ...baseMafsProps,
                 markings: "none",
             };
 
@@ -975,7 +1023,7 @@ describe("MafsGraph", () => {
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
-                ...getBaseMafsGraphPropsForTests(),
+                ...baseMafsProps,
                 markings: "none",
             };
 
@@ -1013,7 +1061,7 @@ describe("MafsGraph", () => {
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
-                ...getBaseMafsGraphPropsForTests(),
+                ...baseMafsProps,
                 markings: "none",
             };
 
@@ -1059,7 +1107,7 @@ describe("MafsGraph", () => {
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
-                ...getBaseMafsGraphPropsForTests(),
+                ...baseMafsProps,
                 markings: "none",
             };
 
@@ -1109,7 +1157,7 @@ describe("MafsGraph", () => {
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
-                ...getBaseMafsGraphPropsForTests(),
+                ...baseMafsProps,
                 markings: "none",
             };
 
@@ -1160,7 +1208,7 @@ describe("MafsGraph", () => {
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
-                ...getBaseMafsGraphPropsForTests(),
+                ...baseMafsProps,
                 markings: "none",
             };
 

@@ -29,6 +29,7 @@ export {
     parsePerseusItem,
     parseAndMigratePerseusItem,
     parseAndMigratePerseusArticle,
+    type ParseFailureDetail,
 } from "./parse-perseus-json";
 
 export {
@@ -126,6 +127,7 @@ export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/ordere
 export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export {default as getCSProgramPublicWidgetOptions} from "./widgets/cs-program/cs-program-util";
 export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
+export {default as getGrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
 export {default as getInteractiveGraphPublicWidgetOptions} from "./widgets/interactive-graph/interactive-graph-util";
 export {default as getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
 export {default as getSorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
@@ -135,3 +137,5 @@ export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line
 export {default as getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";
 export {default as getTablePublicWidgetOptions} from "./widgets/table/table-util";
 export {default as getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-util";
+export {default as getMatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
+export {default as getPlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";

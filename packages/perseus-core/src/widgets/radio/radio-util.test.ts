@@ -24,6 +24,10 @@ describe("getRadioPublicWidgetOptions", () => {
                     isNoneOfTheAbove: true,
                     correct: true,
                     clue: "This is a none of the above option.",
+                    // Note(tamara): Choices in a Radio don't use the widgets key, but
+                    // the key exists in prod so we want to make sure we don't
+                    // break things (unknown things) by confirming it passes
+                    // through the getPulicWidgetOptions function unchanged.
                     widgets: {
                         "sorter 1": {
                             type: "sorter",

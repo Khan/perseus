@@ -3,7 +3,10 @@ import {
     vector as kvector,
     point as kpoint,
 } from "@khanacademy/kmath";
-import {GrapherUtil} from "@khanacademy/perseus-core";
+import {
+    getGrapherPublicWidgetOptions,
+    GrapherUtil,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -658,4 +661,5 @@ export default {
     widget: Grapher,
     transform: propTransform,
     staticTransform: staticTransform,
+    getPublicWidgetOptions: getGrapherPublicWidgetOptions,
 } satisfies WidgetExports<typeof Grapher>;

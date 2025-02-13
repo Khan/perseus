@@ -56,7 +56,7 @@ type HintEditorProps = {
  *  ~ the "remove this hint" box
  *  ~ the move hint up/down arrows
  */
-export class HintEditor extends React.Component<HintEditorProps> {
+class HintEditor extends React.Component<HintEditorProps> {
     static defaultProps: {
         className: string;
         content: string;

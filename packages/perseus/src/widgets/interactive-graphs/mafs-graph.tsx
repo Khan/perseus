@@ -54,14 +54,12 @@ import type {
 } from "./types";
 import type {I18nContextType} from "../../components/i18n-context";
 import type {PerseusStrings} from "../../strings";
-import type {APIOptions} from "../../types";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
 
 export type MafsGraphProps = {
-    flags?: APIOptions["flags"];
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
@@ -125,9 +123,18 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
+            // TODO(LEMS-2827): Remove analytics event in LEMS-2827 in favor of ti below.
             type: "perseus:interactive-graph-widget:rendered",
             payload: {
                 type,
+                widgetType: "INTERACTIVE_GRAPH",
+                widgetId: "interactive-graph",
+            },
+        });
+        analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: type,
                 widgetType: "INTERACTIVE_GRAPH",
                 widgetId: "interactive-graph",
             },
@@ -223,58 +230,78 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         {(props.markings === "graph" ||
                             props.markings === "axes") && (
                             <>
-                                <AxisLabels />
+                                <AxisLabels i18n={i18n} />
                             </>
                         )}
-                        <Mafs
-                            preserveAspectRatio={false}
-                            viewBox={{
-                                x: state.range[X],
-                                y: state.range[Y],
-                                padding: 0,
-                            }}
-                            pan={false}
-                            zoom={false}
-                            width={width}
-                            height={height}
-                        >
-                            {/* Svg definitions to render only once */}
-                            <SvgDefs />
-                            {/* Cartesian grid nested in an SVG to lock to graph bounds */}
-                            <svg {...nestedSVGAttributes}>
-                                <Grid
-                                    gridStep={props.gridStep}
-                                    range={state.range}
-                                    containerSizeClass={
-                                        props.containerSizeClass
-                                    }
-                                    markings={props.markings}
-                                    width={width}
-                                    height={height}
-                                />
-                            </svg>
-                            {/* Axis Ticks, Labels, and Arrows */}
-                            {
-                                // Only render the axis ticks and arrows if the markings are set to a full "graph"
-                                (props.markings === "graph" ||
-                                    props.markings === "axes") && (
-                                    <>
-                                        <AxisTicks />
-                                        <AxisArrows />
-                                    </>
-                                )
+                        <View
+                            // If we have locked figures, we set aria-hidden
+                            // to false so that screen readers can read the
+                            // locked figures. If we don't have any locked
+                            // figures, we need to set aria-hidden to true so
+                            // that screen readers don't read this Mafs element
+                            // as an empty image.
+                            // Note: Adding this in a wrapping View element
+                            // so that `aria-hidden` is a valid property.
+                            // It does not work on `Mafs` or svg elements.
+                            aria-hidden={
+                                props.lockedFigures &&
+                                props.lockedFigures.length > 0
+                                    ? false
+                                    : true
                             }
-                            {/* Locked & Interactive elements nested an SVG to lock to graph bounds*/}
-                            <svg {...nestedSVGAttributes}>
-                                {/* Locked figures layer */}
-                                {props.lockedFigures && (
-                                    <GraphLockedLayer
-                                        lockedFigures={props.lockedFigures}
+                        >
+                            <Mafs
+                                preserveAspectRatio={false}
+                                viewBox={{
+                                    x: state.range[X],
+                                    y: state.range[Y],
+                                    padding: 0,
+                                }}
+                                pan={false}
+                                zoom={false}
+                                width={width}
+                                height={height}
+                            >
+                                {/* Svg definitions to render only once */}
+                                <SvgDefs />
+                                {/* Cartesian grid nested in an SVG to lock to graph bounds */}
+                                <svg {...nestedSVGAttributes}>
+                                    <Grid
+                                        gridStep={props.gridStep}
                                         range={state.range}
+                                        containerSizeClass={
+                                            props.containerSizeClass
+                                        }
+                                        markings={props.markings}
+                                        width={width}
+                                        height={height}
                                     />
-                                )}
-                            </svg>
-                        </Mafs>
+                                </svg>
+                                {/* Axis Ticks, Labels, and Arrows */}
+                                {
+                                    // Only render the axis ticks and arrows if the markings are set to a full "graph"
+                                    (props.markings === "graph" ||
+                                        props.markings === "axes") && (
+                                        <>
+                                            <AxisTicks />
+                                            <AxisArrows />
+                                        </>
+                                    )
+                                }
+                                {/* Locked figures layer nested in SVG to lock to graph bounds*/}
+                                {props.lockedFigures &&
+                                    props.lockedFigures.length > 0 && (
+                                        <svg {...nestedSVGAttributes}>
+                                            <GraphLockedLayer
+                                                lockedFigures={
+                                                    props.lockedFigures
+                                                }
+                                                range={state.range}
+                                            />
+                                        </svg>
+                                    )}
+                            </Mafs>
+                        </View>
                         {props.lockedFigures && (
                             <GraphLockedLabelsLayer
                                 lockedFigures={props.lockedFigures}
