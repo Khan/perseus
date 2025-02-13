@@ -226,18 +226,10 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
-    srAngleSideAtCoordinates: ({
-        point,
-        side,
-        x,
-        y,
-    }: {
-        point: number;
-        side: string;
-        x: string;
-        y: string;
-    }) => string;
-    srAngleVertexAtCoordinatesWithAngleMeasure: ({
+    srAngleStartingSide: ({x, y}: {x: string; y: string}) => string;
+    srAngleEndingSide: ({x, y}: {x: string; y: string}) => string;
+    srAngleVertex: ({x, y}: {x: string; y: string}) => string;
+    srAngleVertexWithAngleMeasure: ({
         x,
         y,
         angleMeasure,
@@ -706,9 +698,11 @@ export const strings = {
         "The line crosses the x and y axes at the graph's origin.",
     srLinearGrabHandle:
         "Line from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
-    srAngleSideAtCoordinates: "Point %(point)s, %(side)s at %(x)s comma %(y)s",
-    srAngleVertexAtCoordinatesWithAngleMeasure:
-        "Point 2, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees",
+    srAngleStartingSide: "Point 3, starting side at %(x)s comma %(y)s.",
+    srAngleEndingSide: "Point 2, ending side at %(x)s comma %(y)s.",
+    srAngleVertex: "Point 1, vertex at %(x)s comma %(y)s.",
+    srAngleVertexWithAngleMeasure:
+        "Point 1, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees.",
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
     srAngleGraphAriaDescription:
         "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
@@ -992,10 +986,12 @@ export const mockStrings: PerseusStrings = {
         "The line crosses the x and y axes at the graph's origin.",
     srLinearGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
         `Line from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
-    srAngleSideAtCoordinates: ({point, side, x, y}) =>
-        `Point ${point}, ${side} at ${x} comma ${y}`,
-    srAngleVertexAtCoordinatesWithAngleMeasure: ({x, y, angleMeasure}) =>
-        `Point 2, vertex at ${x} comma ${y}. Angle ${angleMeasure} degrees`,
+    srAngleStartingSide: ({x, y}) =>
+        `Point 3, starting side at ${x} comma ${y}.`,
+    srAngleEndingSide: ({x, y}) => `Point 2, ending side at ${x} comma ${y}.`,
+    srAngleVertex: ({x, y}) => `Point 1, vertex at ${x} comma ${y}.`,
+    srAngleVertexWithAngleMeasure: ({x, y, angleMeasure}) =>
+        `Point 1, vertex at ${x} comma ${y}. Angle ${angleMeasure} degrees.`,
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
     srAngleGraphAriaDescription: ({
         angleMeasure,
