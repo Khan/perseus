@@ -6,7 +6,7 @@ import _ from "underscore";
 
 type RNG = () => number;
 
-const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
+export const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
     let randomSeed = seed;
 
     return function () {
@@ -25,7 +25,7 @@ const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
 // Shuffle an array using a given random seed or function.
 // If `ensurePermuted` is true, the input and output are guaranteed to be
 // distinct permutations.
-function shuffle<T>(
+export function shuffle<T>(
     array: ReadonlyArray<T>,
     randomSeed: number | RNG,
     ensurePermuted = false,
@@ -66,12 +66,4 @@ function shuffle<T>(
     return shuffled;
 }
 
-const random: RNG = seededRNG(new Date().getTime() & 0xffffffff);
-
-export const CoreUtil = {
-    seededRNG,
-    shuffle,
-    random,
-} as const;
-
-export default CoreUtil;
+export const random: RNG = seededRNG(new Date().getTime() & 0xffffffff);

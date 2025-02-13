@@ -18,6 +18,9 @@ describe("getMatcherPublicWidgetOptions", () => {
 
         // Assert
         expect(publicWidgetOptions.left).toEqual(options.left);
+        expect(new Set(publicWidgetOptions.right)).toEqual(
+            new Set(options.right),
+        );
         expect(publicWidgetOptions.right).not.toEqual(options.right);
     });
 
@@ -35,7 +38,14 @@ describe("getMatcherPublicWidgetOptions", () => {
         const publicWidgetOptions = getMatcherPublicWidgetOptions(options);
 
         // Assert
+        expect(new Set(publicWidgetOptions.left)).toEqual(
+            new Set(options.left),
+        );
         expect(publicWidgetOptions.left).not.toEqual(options.left);
+
+        expect(new Set(publicWidgetOptions.right)).toEqual(
+            new Set(options.right),
+        );
         expect(publicWidgetOptions.right).not.toEqual(options.right);
     });
 });

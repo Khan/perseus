@@ -2,7 +2,8 @@ import {
     radioLogic,
     type PerseusRadioWidgetOptions,
     getRadioPublicWidgetOptions,
-    CoreUtil,
+    random,
+    shuffle,
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
@@ -11,8 +12,6 @@ import Radio from "./radio-component";
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports} from "../../types";
-
-const {shuffle, random} = CoreUtil;
 
 // Transforms the choices for display.
 const _choiceTransform = (

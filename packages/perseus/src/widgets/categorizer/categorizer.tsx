@@ -2,7 +2,7 @@
 import {
     type PerseusCategorizerWidgetOptions,
     getCategorizerPublicWidgetOptions,
-    CoreUtil,
+    shuffle,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
@@ -90,12 +90,12 @@ export class Categorizer
         // In this context, isMobile is used to differentiate mobile from
         // desktop.
         const isMobile = this.props.apiOptions.isMobile;
-        let indexedItems = this.props.items.map((item, n) => [item, n]);
+        let indexedItems: ReadonlyArray<Readonly<[string, number]>> =
+            this.props.items.map((item, n) => [item, n]);
         if (this.props.randomizeItems) {
-            // @ts-expect-error - TS4104 - The type 'readonly (string | number)[][]' is 'readonly' and cannot be assigned to the mutable type '(string | number)[][]'.
-            indexedItems = CoreUtil.shuffle(
+            indexedItems = shuffle(
                 indexedItems,
-                this.props.problemNum as any,
+                this.props.problemNum as number,
             );
         }
 
@@ -131,7 +131,6 @@ export class Categorizer
                             <tr key={itemNum}>
                                 <td>
                                     <Renderer
-                                        // @ts-expect-error - TS2322 - Type 'string | number' is not assignable to type 'string | undefined'.
                                         content={item}
                                         linterContext={this.props.linterContext}
                                         strings={this.context.strings}
