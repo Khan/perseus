@@ -172,7 +172,7 @@ class CSProgram extends React.Component<Props> implements Widget {
                     styleContainer && styles.container,
                 )}
             >
-                {/* eslint-disable-next-line jsx-a11y/iframe-has-title -- TODO: Address a11y error */}
+                {/* eslint-disable-next-line jsx-a11y/iframe-has-title -- TODO(LEMS-2871): Address a11y error */}
                 <iframe
                     sandbox={sandboxOptions}
                     src={url}

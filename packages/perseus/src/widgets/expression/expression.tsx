@@ -347,7 +347,7 @@ export class Expression
                         {this.props.visibleLabel}
                     </LabelSmall>
                 )}
-                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO: Address a11y error */}
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
                 <div
                     className={className}
                     onBlur={() =>

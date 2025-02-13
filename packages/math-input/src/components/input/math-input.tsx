@@ -992,11 +992,11 @@ class MathInput extends React.Component<Props, State> {
                     >
                         {/* NOTE(charlie): This is used purely to namespace the styles in
                 overrides.css. */}
-                        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO: Address a11y error */}
+                        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
                         <div
                             className="keypad-input"
                             // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
-                            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- TODO: Address a11y error
+                            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- TODO(LEMS-2871): Address a11y error
                             tabIndex={"0"}
                             ref={(node) => {
                                 this.inputRef = node;

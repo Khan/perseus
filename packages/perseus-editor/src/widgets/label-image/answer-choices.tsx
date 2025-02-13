@@ -90,7 +90,7 @@ const DraggableGripIcon = () => (
  * A button link to add a new answer.
  */
 const AddAnswer = ({onClick}: AddAnswerProps): React.ReactElement => (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid -- TODO: Address a11y error
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid -- TODO(LEMS-2871): Address a11y error
     <Link
         className={css(styles.addAnswer, editorStyles.addAnswer)}
         onClick={onClick}
@@ -112,7 +112,7 @@ const Answer = ({
     onRemove,
 }: AnswerProps): React.ReactElement => (
     <li className={css(styles.answer)}>
-        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid -- TODO: Address a11y error, TODO: Address a11y error */}
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid -- TODO(LEMS-2871): Address a11y error, TODO(LEMS-2871): Address a11y error */}
         <Link onClick={onRemove}>
             <Icon icon={removeIcon} size={24} color="#D92916" />
         </Link>
@@ -127,7 +127,7 @@ const Answer = ({
 
         <div className={css(styles.spacer)} />
 
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid -- TODO: Address a11y error */}
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid -- TODO(LEMS-2871): Address a11y error */}
         <Link
             style={[styles.disabled]}
             title="Answer reordering is not implemented."

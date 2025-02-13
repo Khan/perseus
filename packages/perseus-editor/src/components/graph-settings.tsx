@@ -554,7 +554,7 @@ class GraphSettings extends React.Component<Props, State> {
                             </div>
                         )}
                         <div className="perseus-widget-row">
-                            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
+                            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
                             <label>Markings: </label>
                             <ButtonGroup
                                 value={this.props.markings}

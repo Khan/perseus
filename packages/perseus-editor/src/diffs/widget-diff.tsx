@@ -65,7 +65,7 @@ class CollapsedRow extends React.Component<any> {
     render(): React.ReactNode {
         const self = this;
         return (
-            // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO: Address a11y error
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error
             <div onClick={self.props.onClick} style={{clear: "both"}}>
                 {_.map([BEFORE, AFTER], function (side) {
                     return (

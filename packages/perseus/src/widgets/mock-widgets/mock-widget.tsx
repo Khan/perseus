@@ -101,7 +101,7 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
     render(): React.ReactNode {
         return (
             <View style={styles.widgetContainer}>
-                {/* eslint-disable-next-line jsx-a11y/no-redundant-roles -- TODO: Address a11y error */}
+                {/* eslint-disable-next-line jsx-a11y/no-redundant-roles -- TODO(LEMS-2871): Address a11y error */}
                 <TextField
                     ref={(ref) => (this.inputRef = ref)}
                     aria-label="Mock Widget"

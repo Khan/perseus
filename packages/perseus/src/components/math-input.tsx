@@ -310,7 +310,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                     this.props.hasError && styles.wrapperError,
                 ]}
             >
-                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO: Address a11y error */}
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error */}
                 <div
                     style={{
                         display: "flex",
@@ -331,7 +331,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         });
                     }}
                 >
-                    {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO: Address a11y error */}
+                    {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
                     <span
                         className={className}
                         ref={(ref) => (this.__mathFieldWrapperRef = ref)}

@@ -376,7 +376,7 @@ const BaseRadio = function ({
                     // somehow break something happening inside a choice's
                     // child Renderers, by changing when we mount/unmount?
                     return (
-                        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO: Address a11y error
+                        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
                         <li
                             key={i}
                             ref={(e) => (listElem = e)}

@@ -134,7 +134,7 @@ class GrapherEditor extends React.Component<Props> {
                     onChange={this.change("graph")}
                 />
                 <div className="perseus-widget-row">
-                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO: Address a11y error */}
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
                     <label>Available functions: </label>
                     <MultiButtonGroup
                         allowEmpty={false}
