@@ -153,4 +153,5 @@
     "nyc": {
         "report-dir": "coverage/cypress/"
     },
-    "dependencies": {}}
+    "dependencies": {}
+}
