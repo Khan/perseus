@@ -20,7 +20,6 @@ import mathAdjacentRule from "../rules/math-adjacent";
 import mathAlignExtraBreakRule from "../rules/math-align-extra-break";
 import mathAlignLinebreaksRule from "../rules/math-align-linebreaks";
 import mathEmptyRule from "../rules/math-empty";
-import mathFontSizeRule from "../rules/math-font-size";
 import mathFracRule from "../rules/math-frac";
 import mathNestedRule from "../rules/math-nested";
 import mathStartsWithSpaceRule from "../rules/math-starts-with-space";
@@ -374,22 +373,6 @@ describe("Individual lint rules tests", () => {
     ]);
     // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
     expectPass(mathNestedRule, ["$\\text{4}x$", "inline $\\text{4}x$ math"]);
-
-    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-    expectWarning(mathFontSizeRule, [
-        "$\\tiny{x}$",
-        "inline $\\Tiny{x}$ math",
-        "$a \\small{x} b$",
-        "$\\large{ xyz }$",
-        "$ \\Large { x } $",
-        "$\\LARGE{x}$",
-        "$\\huge{x}$",
-        "$\\Huge{x}$",
-        "$\\normalsize{x}$",
-        "$\\scriptsize{x}$",
-    ]);
-    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-    expectPass(mathFontSizeRule, ["$\\sqrt{x}$", "inline $\\sqrt{x}$ math"]);
 
     // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
     expectWarning(mathWithoutDollarsRule, [
