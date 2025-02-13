@@ -1047,6 +1047,15 @@ describe("Interactive Graph", function () {
         });
 
         describe("Locked Functions", () => {
+            // const domain = (
+            //     min: number | null,
+            //     max: number | null,
+            // ): [number | null, number | null] => {
+            //     return [min, max];
+            // };
+
+            // type domain = [min: number | null, max: number | null];
+
             it("should NOT render when an invalid equation is specified", () => {
                 // Arrange
                 const {container} = renderQuestion(
@@ -1146,9 +1155,9 @@ describe("Interactive Graph", function () {
             });
 
             it.each`
-                domainSupplied | domainExpected
-                ${[-2, null]}  | ${[-2, Infinity]}
-                ${[null, 3]}   | ${[-Infinity, 3]}
+                domainSupplied                                            | domainExpected
+                ${[-2, null] as [min: number | null, max: number | null]} | ${[-2, Infinity]}
+                ${[null, 3] as [min: number | null, max: number | null]}  | ${[-Infinity, 3]}
             `(
                 "plots the equation with partially supplied domain: $domainSupplied",
                 ({domainSupplied, domainExpected}) => {
@@ -1164,10 +1173,7 @@ describe("Interactive Graph", function () {
                     // Act - no upper limit specified
                     renderQuestion(
                         segmentWithLockedFunction("x^2", {
-                            domain: domainSupplied as [
-                                min: number | null,
-                                max: number | null,
-                            ],
+                            domain: domainSupplied,
                         }),
                         blankOptions,
                     );
