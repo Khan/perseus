@@ -272,6 +272,7 @@ class Card extends React.Component<CardProps, CardState> {
         const onMouseDown = this.props.animating ? $.noop : this.onMouseDown;
 
         return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error
             <div
                 className={"card-wrap"}
                 style={style}

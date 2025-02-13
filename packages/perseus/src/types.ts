@@ -332,7 +332,7 @@ export type DomInsertCheckFn = (
     jiptString?: string,
 ) => string | false;
 
-export type JIPT = {
+type JIPT = {
     useJIPT: boolean;
 };
 
@@ -344,7 +344,7 @@ export interface JiptRenderer {
     replaceJiptContent: (content: string, paragraphIndex: number) => void;
 }
 
-export type JiptTranslationComponents = {
+type JiptTranslationComponents = {
     addComponent: (renderer: JiptRenderer) => number;
     removeComponentAtIndex: (index: number) => void;
 };

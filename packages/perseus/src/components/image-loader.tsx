@@ -143,7 +143,9 @@ class ImageLoader extends React.Component<Props, State> {
         const staticUrl = getDependencies().staticUrl;
 
         return (
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
             <img
+                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- TODO(LEMS-2871): Address a11y error
                 tabIndex={0}
                 src={staticUrl(src)}
                 onKeyUp={onKeyUp}

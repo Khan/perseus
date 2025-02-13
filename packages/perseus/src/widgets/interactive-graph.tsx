@@ -201,7 +201,7 @@ type DefaultProps = {
 
 // TODO: there's another, very similar getSinusoidCoefficients function
 // they should probably be merged
-export function getSinusoidCoefficients(
+function getSinusoidCoefficients(
     coords: ReadonlyArray<Coord>,
 ): SineCoefficient {
     // It's assumed that p1 is the root and p2 is the first peak
@@ -219,7 +219,7 @@ export function getSinusoidCoefficients(
 
 // TODO: there's another, very similar getQuadraticCoefficients function
 // they should probably be merged
-export function getQuadraticCoefficients(
+function getQuadraticCoefficients(
     coords: ReadonlyArray<Coord>,
 ): QuadraticCoefficient {
     const p1 = coords[0];
