@@ -1,6 +1,7 @@
 import _ from "underscore";
 
 import {getPublicWidgetOptionsFunction} from "../widgets/core-widget-registry";
+import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
 import type {PerseusRenderer} from "../data-schema";
 
@@ -13,9 +14,10 @@ export default function splitPerseusItem(
         return item;
     }
 
+    const upgradedWidgets = getUpgradedWidgetOptions(item.widgets);
     const splitWidgets = {};
 
-    for (const [id, widget] of Object.entries(item.widgets)) {
+    for (const [id, widget] of Object.entries(upgradedWidgets)) {
         const publicWidgetOptionsFun = getPublicWidgetOptionsFunction(
             widget.type,
         );
