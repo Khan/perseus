@@ -29,12 +29,11 @@ import type {
 export function renderCircleGraph(
     state: CircleGraphState,
     dispatch: Dispatch,
+    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <CircleGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: (
-            <CircleGraphDescription state={state} />
-        ),
+        interactiveElementsDescription: getCircleGraphDescription(state, i18n),
     };
 }
 
@@ -211,13 +210,11 @@ function crossProduct<A, B>(as: A[], bs: B[]): [A, B][] {
     return result;
 }
 
-function CircleGraphDescription({state}: {state: CircleGraphState}) {
-    // The reason that CircleGraphDescription is a component (rather than a
-    // function that returns a string) is because it needs to use a
-    // hook: `usePerseusI18n`.
-    const i18n = usePerseusI18n();
+function getCircleGraphDescription(
+    state: CircleGraphState,
+    i18n: I18nContextType,
+) {
     const strings = describeCircleGraph(state, i18n);
-
     return strings.srCircleInteractiveElement;
 }
 

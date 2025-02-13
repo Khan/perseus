@@ -26,6 +26,7 @@ exports[`Interactive Graph interactive-graph widget A none-type graph renders pr
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
               >
                 <span
+                  aria-label="X-axis"
                   style="position: absolute; left: 400px; top: 200px; font-size: 14px; transform: translate(7px, -50%);"
                 >
                   <span
@@ -35,6 +36,7 @@ exports[`Interactive Graph interactive-graph widget A none-type graph renders pr
                   </span>
                 </span>
                 <span
+                  aria-label="Y-axis"
                   style="position: absolute; left: 200px; top: -24px; font-size: 14px; transform: translate(-50%, 0px);"
                 >
                   <span

@@ -20,11 +20,13 @@ import type {vec} from "mafs";
 export function renderLinearSystemGraph(
     state: LinearSystemGraphState,
     dispatch: Dispatch,
+    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <LinearSystemGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: (
-            <LinearSystemGraphDescription state={state} />
+        interactiveElementsDescription: getLinearSystemGraphDescription(
+            state,
+            i18n,
         ),
     };
 }
@@ -153,21 +155,8 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
     );
 };
 
-function LinearSystemGraphDescription({
-    state,
-}: {
-    state: LinearSystemGraphState;
-}) {
-    // The reason that LinearSystemGraphDescription is a component (rather
-    // than a function that returns a string) is because it needs to use a
-    // hook: `usePerseusI18n`.
-    const i18n = usePerseusI18n();
-
-    return describeLinearSystemGraph(state, i18n);
-}
-
 // Exported for testing
-export function describeLinearSystemGraph(
+export function getLinearSystemGraphDescription(
     state: LinearSystemGraphState,
     i18n: I18nContextType,
 ): string {

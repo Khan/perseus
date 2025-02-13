@@ -367,8 +367,14 @@ export class LabelImage
     }
 
     activateMarker(index: number, opened: boolean) {
+        // TODO(LEMS-2830): Remove analytics event in LEMS-2830 in favor of ti below.
         this.props.analytics?.onAnalyticsEvent({
             type: "perseus:label-image:marker-interacted-with",
+            payload: null,
+        });
+
+        this.props.analytics?.onAnalyticsEvent({
+            type: "perseus:label-image:marker-interacted-with:ti",
             payload: null,
         });
 
@@ -531,8 +537,13 @@ export class LabelImage
                         }))}
                         multipleSelect={this.props.multipleAnswers}
                         onChange={(selection) => {
+                            // TODO(LEMS-2829): Remove analytics event in LEMS-2829 in favor of ti below.
                             this.props.analytics?.onAnalyticsEvent({
                                 type: "perseus:label-image:choiced-interacted-with",
+                                payload: null,
+                            });
+                            this.props.analytics?.onAnalyticsEvent({
+                                type: "perseus:label-image:choiced-interacted-with:ti",
                                 payload: null,
                             });
                             this.handleAnswerChoicesChangeForMarker(
@@ -667,8 +678,13 @@ export class LabelImage
                 <HideAnswersToggle
                     areAnswersHidden={this.state.hideAnswers}
                     onChange={(hideAnswers) => {
+                        // TODO(LEMS-2831): Remove analytics event in LEMS-2831 in favor of ti below.
                         this.props.analytics?.onAnalyticsEvent({
                             type: "perseus:label-image:toggle-answers-hidden",
+                            payload: null,
+                        });
+                        this.props.analytics?.onAnalyticsEvent({
+                            type: "perseus:label-image:toggle-answers-hidden:ti",
                             payload: null,
                         });
                         this.setState({hideAnswers});

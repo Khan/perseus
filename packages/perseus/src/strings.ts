@@ -134,6 +134,8 @@ export type PerseusStrings = {
     simulationLocaleWarning: string;
     selectAnAnswer: string;
     // The following strings are used for interactive graph SR descriptions.
+    xAxis: string;
+    yAxis: string;
     addPoint: string;
     removePoint: string;
     graphKeyboardPrompt: string;
@@ -253,6 +255,21 @@ export type PerseusStrings = {
         endingSideY,
     }: {
         angleMeasure: string;
+        vertexX: string;
+        vertexY: string;
+        startingSideX: string;
+        startingSideY: string;
+        endingSideX: string;
+        endingSideY: string;
+    }) => string;
+    srAngleInteractiveElements: ({
+        vertexX,
+        vertexY,
+        startingSideX,
+        startingSideY,
+        endingSideX,
+        endingSideY,
+    }: {
         vertexX: string;
         vertexY: string;
         startingSideX: string;
@@ -630,6 +647,8 @@ export const strings = {
     // translation tickets after all interactive graph SR strings have
     // been finalized. Remove this comment after the tickets have been
     // created.
+    xAxis: "X-axis",
+    yAxis: "Y-axis",
     srPointAtCoordinates: "Point %(num)s at %(x)s comma %(y)s.",
     srCircleGraph: "A circle on a coordinate plane.",
     srCircleShape:
@@ -662,6 +681,8 @@ export const strings = {
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
     srAngleGraphAriaDescription:
         "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
+    srAngleInteractiveElements:
+        "An angle formed by 3 points. The vertex is at %(vertexX)s comma %(vertexY)s. The starting side point is at %(startingSideX)s comma %(startingSideY)s. The ending side point is at %(endingSideX)s comma %(endingSideY)s.",
     srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
     srMultipleSegmentGraphAriaLabel:
         "%(countOfSegments)s line segments on a coordinate plane.",
@@ -885,6 +906,8 @@ export const mockStrings: PerseusStrings = {
     selectAnAnswer: "Select an answer",
 
     // The following strings are used for interactive graph SR descriptions.
+    xAxis: "X-axis",
+    yAxis: "Y-axis",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     addPoint: "Add Point",
     removePoint: "Remove Point",
@@ -942,6 +965,15 @@ export const mockStrings: PerseusStrings = {
         endingSideY,
     }) =>
         `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the starting side at ${startingSideX} comma ${startingSideY} and a point on the ending side at ${endingSideX} comma ${endingSideY}.`,
+    srAngleInteractiveElements: ({
+        vertexX,
+        vertexY,
+        startingSideX,
+        startingSideY,
+        endingSideX,
+        endingSideY,
+    }) =>
+        `An angle formed by 3 points. The vertex is at ${vertexX} comma ${vertexY}. The starting side point is at ${startingSideX} comma ${startingSideY}. The ending side point is at ${endingSideX} comma ${endingSideY}.`,
     srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
     srMultipleSegmentGraphAriaLabel: ({countOfSegments}) =>
         `${countOfSegments} segments on a coordinate plane.`,
