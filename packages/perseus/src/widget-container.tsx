@@ -108,6 +108,8 @@ class WidgetContainer extends React.Component<Props, State> {
         });
 
         const type = this.props.type;
+        const userAgent = navigator.userAgent;
+
         const WidgetType = Widgets.getWidget(type);
         if (WidgetType == null) {
             // This is for the good of all people!!
@@ -115,6 +117,13 @@ class WidgetContainer extends React.Component<Props, State> {
             console.warn(`Widget type '${type}' not found!`);
             // Just give up on invalid widget types
             return <div className={className} />;
+        }
+
+        let subType = "null";
+        if (type === "interactive-graph") {
+            const props = this.state.widgetProps;
+
+            subType = props.graph?.type ?? "null";
         }
 
         let alignment = this.state.widgetProps.alignment;
@@ -174,12 +183,26 @@ class WidgetContainer extends React.Component<Props, State> {
                                 widget_type: type,
                                 widget_id: this.props.id,
                             }}
-                            onError={() => {
+                            onError={(error: Error) => {
+                                // TODO(LEMS-2826): Remove analytics event in LEMS-2826 in favor of ti below.
                                 analytics.onAnalyticsEvent({
                                     type: "perseus:widget-rendering-error",
                                     payload: {
+                                        widgetSubType: subType,
                                         widgetType: type,
                                         widgetId: this.props.id,
+                                        message: error.message,
+                                        userAgent: userAgent,
+                                    },
+                                });
+                                analytics.onAnalyticsEvent({
+                                    type: "perseus:widget-rendering-error:ti",
+                                    payload: {
+                                        widgetSubType: subType,
+                                        widgetType: type,
+                                        widgetId: this.props.id,
+                                        message: error.message,
+                                        userAgent: userAgent,
                                     },
                                 });
                             }}
