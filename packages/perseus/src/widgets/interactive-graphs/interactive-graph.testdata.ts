@@ -460,12 +460,12 @@ export const quadraticWithStartingCoordsQuestion: PerseusRenderer =
         })
         .build();
 
-export const sinusoidWithStartingCoordsQuestion: PerseusRenderer =
+export const sinusoidWithStartingCoordsAndPiTicksQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .withXRange(-6 * Math.PI, 6 * Math.PI)
+        .withXRange(-5 * Math.PI, 5 * Math.PI)
         .withTickStep(Math.PI, 1)
-        .withGridStep(Math.PI, 1)
-        .withSnapStep(Math.PI / 2, 1)
+        .withGridStep(Math.PI / 2, 1)
+        .withSnapStep(Math.PI / 4, 1)
         .withSinusoid({
             startCoords: [
                 [0, 0],
@@ -538,6 +538,9 @@ export const sinusoidQuestion: PerseusRenderer =
             ],
         })
         .build();
+
+export const sinusoidMinimalQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder().withSinusoid().build();
 
 export const noneQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
     .withContent("This graph isn't interactive.\n\n[[☃ interactive-graph 1]]")

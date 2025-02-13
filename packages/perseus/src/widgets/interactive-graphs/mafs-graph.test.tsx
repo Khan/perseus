@@ -411,8 +411,13 @@ describe("MafsGraph", () => {
             <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
-        expectLabelInDoc("Point 1 at -1 comma 1.");
-        expectLabelInDoc("Point 2 at 0 comma 0.");
+        const points = screen.getAllByRole("button");
+        const [point1, point2] = points;
+
+        expect(point1).toHaveAccessibleName(
+            "Midline intersection at -1 comma 1.",
+        );
+        expect(point2).toHaveAccessibleName("Extremum point at 0 comma 0.");
     });
 
     it("renders ARIA labels for each point (point)", () => {
@@ -535,6 +540,72 @@ describe("MafsGraph", () => {
         expectLabelInDoc("Point 1, terminal side at 7 comma 0");
         expectLabelInDoc("Point 2, vertex at 0 comma 0. Angle 90 degrees");
         expectLabelInDoc("Point 3, initial side at 0 comma 6");
+    });
+
+    it("renders ARIA label for the interactive elements on an angle graph", () => {
+        const state: InteractiveGraphState = {
+            type: "angle",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+            allowReflexAngles: true,
+            showAngles: true,
+        };
+
+        const {container} = render(
+            <MafsGraph
+                {...getBaseMafsGraphPropsForTests()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const angleGraph = container.querySelector(".mafs-graph");
+        const expectedDescription =
+            "Interactive elements: An angle formed by 3 points. The vertex is at 0 comma 0. The starting side point is at 1 comma 1. The ending side point is at -1 comma 1.";
+        expect(angleGraph).toHaveAccessibleDescription(expectedDescription);
+    });
+
+    it("renders ARIA label for the interactive elements on an angle graph", () => {
+        const state: InteractiveGraphState = {
+            type: "angle",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+            allowReflexAngles: true,
+            showAngles: true,
+        };
+
+        const {container} = render(
+            <MafsGraph
+                {...getBaseMafsGraphPropsForTests()}
+                state={state}
+                dispatch={() => {}}
+            />,
+        );
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const angleGraph = container.querySelector(".mafs-graph");
+        const expectedDescription =
+            "Interactive elements: An angle formed by 3 points. The vertex is at 0 comma 0. The starting side point is at 1 comma 1. The ending side point is at -1 comma 1.";
+        expect(angleGraph).toHaveAccessibleDescription(expectedDescription);
     });
 
     it("renders ARIA label for the interactive elements on an angle graph", () => {
