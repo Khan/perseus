@@ -709,7 +709,7 @@ function doAddPoint(
         ...state,
         hasBeenInteractedWith: true,
         coords: newCoords,
-        showRemovePointButton: false,
+        showRemovePointButton: true,
         focusedPointIndex: newCoords.length - 1,
     };
 }
