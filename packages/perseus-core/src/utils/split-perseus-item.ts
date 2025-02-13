@@ -26,6 +26,7 @@ export default function splitPerseusItem(
             ...widget,
             // Not all widgets have a splitting function
             // so just pass options through for those that don't
+            // TODO(LEMS-2870): make publicWidgetOptionsFun generic
             options: publicWidgetOptionsFun
                 ? publicWidgetOptionsFun(widget.options as any)
                 : widget.options,

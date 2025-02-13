@@ -25,7 +25,7 @@ export type WidgetOptionsUpgradeMap = {
 /**
  * A union type of all the functions that provide public widget options.
  *
- * TODO: figure out how to make this generic so we don't need to be
+ * TODO(LEMS-2870): figure out how to make this generic so we don't need to be
  * so reliant on a set group of widgets
  */
 export type PublicWidgetOptionsFunction =

@@ -53,6 +53,8 @@ export function getCurrentVersion(type: string) {
     return widgetLogic?.version || {major: 0, minor: 0};
 }
 
+// TODO(LEMS-2870): getPublicWidgetOptionsFunction/PublicWidgetOptionsFunction
+// need better types
 export const getPublicWidgetOptionsFunction = (
     name: string,
 ): PublicWidgetOptionsFunction => {
