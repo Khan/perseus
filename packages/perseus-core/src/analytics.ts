@@ -18,7 +18,7 @@ export type PerseusAnalyticsEvent =
           type: "perseus:expression-focused";
           payload: null;
       }
-    // TODO(catjohnson): Remove this error type in LEMS-2826
+    // TODO(LEMS-2826): Remove this error type in LEMS-2826
     | {
           type: "perseus:widget-rendering-error";
           payload: {
@@ -39,7 +39,7 @@ export type PerseusAnalyticsEvent =
               userAgent: string;
           };
       }
-    // TODO(catjohnson): Remove this error type in LEMS-
+    // TODO(LEMS-2827): Remove this error type in LEMS-2827
     | {
           type: "perseus:interactive-graph-widget:rendered";
           payload: {
@@ -56,17 +56,17 @@ export type PerseusAnalyticsEvent =
               widgetId: string;
           };
       }
-    // TODO(catjohnson): Remove this error type in LEMS-
+    // TODO(LEMS-2831): Remove this error type in LEMS-2831
     | {
           type: "perseus:label-image:toggle-answers-hidden";
           payload: null;
       }
-    // TODO(catjohnson): Remove this error type in LEMS-
+    // TODO(LEMS-2830): Remove this error type in LEMS-2830
     | {
           type: "perseus:label-image:marker-interacted-with";
           payload: null;
       }
-    // TODO(catjohnson): Remove this error type in LEMS-
+    // TODO(LEMS-2829): Remove this error type in LEMS-2829
     | {
           type: "perseus:label-image:choiced-interacted-with";
           payload: null;

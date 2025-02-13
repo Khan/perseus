@@ -372,7 +372,7 @@ export class LabelImage
     }
 
     activateMarker(index: number, opened: boolean) {
-        // TODO(catjohnson): Remove analytics event in LEMS-2830 in favor of ti below.
+        // TODO(LEMS-2830): Remove analytics event in LEMS-2830 in favor of ti below.
         this.props.analytics?.onAnalyticsEvent({
             type: "perseus:label-image:marker-interacted-with",
             payload: null,
@@ -542,7 +542,7 @@ export class LabelImage
                         }))}
                         multipleSelect={this.props.multipleAnswers}
                         onChange={(selection) => {
-                            // TODO(catjohnson): Remove analytics event in LEMS-2829 in favor of ti below.
+                            // TODO(LEMS-2829): Remove analytics event in LEMS-2829 in favor of ti below.
                             this.props.analytics?.onAnalyticsEvent({
                                 type: "perseus:label-image:choiced-interacted-with",
                                 payload: null,
@@ -683,7 +683,7 @@ export class LabelImage
                 <HideAnswersToggle
                     areAnswersHidden={this.state.hideAnswers}
                     onChange={(hideAnswers) => {
-                        // TODO(catjohnson): Remove analytics event in LEMS-2831 in favor of ti below.
+                        // TODO(LEMS-2831): Remove analytics event in LEMS-2831 in favor of ti below.
                         this.props.analytics?.onAnalyticsEvent({
                             type: "perseus:label-image:toggle-answers-hidden",
                             payload: null,
