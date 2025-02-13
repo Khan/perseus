@@ -200,6 +200,9 @@ export type APIOptions = Readonly<{
         keypadHeight?: number,
         focusedElement?: HTMLElement,
     ) => unknown;
+    /**
+     * @deprecated - metadata is no longer used by the Group widget
+     */
     GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
     showAlignmentOptions?: boolean;
     /**
@@ -441,7 +444,6 @@ export interface PerseusDependenciesV2 {
  */
 export type APIOptionsWithDefaults = Readonly<
     APIOptions & {
-        GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
         baseElements: NonNullable<APIOptions["baseElements"]>;
         canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
         crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;

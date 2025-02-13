@@ -1,4 +1,4 @@
-import {array, object, optional, string} from "../general-purpose-parsers";
+import {any, object, string} from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseImages} from "./images-map";
@@ -20,8 +20,9 @@ export const parsePerseusRenderer: Parser<PerseusRenderer> = defaulted(
             (rawVal, ctx) => parseWidgetsMap(rawVal, ctx),
             () => ({}),
         ),
-        metadata: optional(array(string)),
         images: parseImages,
+        // deprecated
+        metadata: any,
     }),
     // Default value
     () => ({
