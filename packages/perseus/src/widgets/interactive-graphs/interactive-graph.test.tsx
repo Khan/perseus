@@ -1,5 +1,8 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {lockedFigureColors} from "@khanacademy/perseus-core";
+import {
+    getInteractiveGraphPublicWidgetOptions,
+    lockedFigureColors
+} from "@khanacademy/perseus-core";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -262,6 +265,18 @@ describe("Interactive Graph", function () {
             it("should render", () => {
                 renderQuestion(question, blankOptions);
             });
+
+            it("should render when the correct answer is not present", () => {
+                // As part of implementing server-side scoring (Q1 2025) we are
+                // removing answers from the widget data that's initially sent
+                // to the frontend. This test ensures that interactive graphs
+                // can render when the answers have been stripped out of the
+                // data.
+
+                const answerlessQuestion = getRendererPublicData(question);
+
+                renderQuestion(answerlessQuestion, blankOptions);
+            })
 
             it("should reject when has not been interacted with", () => {
                 // Arrange
