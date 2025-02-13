@@ -102,310 +102,306 @@ describe("Interactive Graph", function () {
         ) as jest.Mock;
     });
 
-    describe("interactive-graph widget", function () {
-        describe.each(questionsAndAnswers)(
-            "question",
-            (
-                question: PerseusRenderer,
-                correct: ReadonlyArray<Coord>,
-                incorrect: ReadonlyArray<Coord>,
-            ) => {
-                it("Should accept the right answer", async () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, blankOptions);
-
-                    // Act
-                    // NOTE: This isn't acting on the UI as a user would, which is
-                    // a weakness of these tests. Because this widget is designed for
-                    // pointer-dragging, jsdom (which doesn't support getBoundingClientRect
-                    // or other position-based node attributes) is insufficient to model
-                    // drag & drop behavior.
-                    // We'll want to use cypress tests or similar to ensure this widget
-                    // works as expected.
-                    act(() =>
-                        updateWidgetState(
-                            renderer,
-                            "interactive-graph 1",
-                            (state) => (state.graph.coords = correct),
-                        ),
-                    );
-                    const score = scorePerseusItemTesting(
-                        question,
-                        renderer.getUserInputMap(),
-                    );
-
-                    // Assert
-                    expect(score).toHaveBeenAnsweredCorrectly();
-                });
-
-                it("Should render predictably", async () => {
-                    // Arrange
-                    const {renderer, container} = renderQuestion(
-                        question,
-                        blankOptions,
-                    );
-                    expect(container).toMatchSnapshot("first render");
-
-                    // Act
-                    act(() =>
-                        updateWidgetState(
-                            renderer,
-                            "interactive-graph 1",
-                            (state) => (state.graph.coords = correct),
-                        ),
-                    );
-
-                    // Assert
-                    expect(container).toMatchSnapshot("after interaction");
-                });
-
-                it("should reject no interaction", async () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, blankOptions);
-
-                    // Act
-                    const score = scorePerseusItemTesting(
-                        question,
-                        renderer.getUserInputMap(),
-                    );
-
-                    // Assert
-                    expect(score).toHaveInvalidInput();
-                });
-
-                it("should reject an incorrect answer", async () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, blankOptions);
-
-                    // Act
-                    act(() =>
-                        updateWidgetState(
-                            renderer,
-                            "interactive-graph 1",
-                            (state) => (state.graph.coords = incorrect),
-                        ),
-                    );
-
-                    const score = scorePerseusItemTesting(
-                        question,
-                        renderer.getUserInputMap(),
-                    );
-
-                    // Assert
-                    expect(score).toHaveBeenAnsweredIncorrectly();
-                });
-            },
-        );
-
-        describe("A none-type graph", () => {
-            it("renders predictably", () => {
-                const question = interactiveGraphQuestionBuilder()
-                    .withNoInteractiveFigure()
-                    .build();
-                const {container} = renderQuestion(question, blankOptions);
-
-                expect(container).toMatchSnapshot("first render");
-            });
-
-            it("treats no interaction as a correct answer", async () => {
-                const question = interactiveGraphQuestionBuilder()
-                    .withNoInteractiveFigure()
-                    .build();
+    describe.each(questionsAndAnswers)(
+        "question",
+        (
+            question: PerseusRenderer,
+            correct: ReadonlyArray<Coord>,
+            incorrect: ReadonlyArray<Coord>,
+        ) => {
+            it("Should accept the right answer", async () => {
+                // Arrange
                 const {renderer} = renderQuestion(question, blankOptions);
+
+                // Act
+                // NOTE: This isn't acting on the UI as a user would, which is
+                // a weakness of these tests. Because this widget is designed for
+                // pointer-dragging, jsdom (which doesn't support getBoundingClientRect
+                // or other position-based node attributes) is insufficient to model
+                // drag & drop behavior.
+                // We'll want to use cypress tests or similar to ensure this widget
+                // works as expected.
+                act(() =>
+                    updateWidgetState(
+                        renderer,
+                        "interactive-graph 1",
+                        (state) => (state.graph.coords = correct),
+                    ),
+                );
                 const score = scorePerseusItemTesting(
                     question,
                     renderer.getUserInputMap(),
                 );
 
-                expect(score).toHaveBeenAnsweredCorrectly({
-                    shouldHavePoints: false,
-                });
+                // Assert
+                expect(score).toHaveBeenAnsweredCorrectly();
+            });
+
+            it("Should render predictably", async () => {
+                // Arrange
+                const {renderer, container} = renderQuestion(
+                    question,
+                    blankOptions,
+                );
+                expect(container).toMatchSnapshot("first render");
+
+                // Act
+                act(() =>
+                    updateWidgetState(
+                        renderer,
+                        "interactive-graph 1",
+                        (state) => (state.graph.coords = correct),
+                    ),
+                );
+
+                // Assert
+                expect(container).toMatchSnapshot("after interaction");
+            });
+
+            it("should reject no interaction", async () => {
+                // Arrange
+                const {renderer} = renderQuestion(question, blankOptions);
+
+                // Act
+                const score = scorePerseusItemTesting(
+                    question,
+                    renderer.getUserInputMap(),
+                );
+
+                // Assert
+                expect(score).toHaveInvalidInput();
+            });
+
+            it("should reject an incorrect answer", async () => {
+                // Arrange
+                const {renderer} = renderQuestion(question, blankOptions);
+
+                // Act
+                act(() =>
+                    updateWidgetState(
+                        renderer,
+                        "interactive-graph 1",
+                        (state) => (state.graph.coords = incorrect),
+                    ),
+                );
+
+                const score = scorePerseusItemTesting(
+                    question,
+                    renderer.getUserInputMap(),
+                );
+
+                // Assert
+                expect(score).toHaveBeenAnsweredIncorrectly();
+            });
+        },
+    );
+
+    describe("A none-type graph", () => {
+        it("renders predictably", () => {
+            const question = interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .build();
+            const {container} = renderQuestion(question, blankOptions);
+
+            expect(container).toMatchSnapshot("first render");
+        });
+
+        it("treats no interaction as a correct answer", async () => {
+            const question = interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .build();
+            const {renderer} = renderQuestion(question, blankOptions);
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
+
+            expect(score).toHaveBeenAnsweredCorrectly({
+                shouldHavePoints: false,
             });
         });
     });
 
-    describe("an interactive graph", () => {
-        const graphQuestionRenderers: {
-            [K in PerseusGraphType["type"][number]]: PerseusRenderer;
-        } = {
-            angle: angleQuestion,
-            segment: segmentQuestion,
-            linear: linearQuestion,
-            "linear-system": linearSystemQuestion,
-            ray: rayQuestion,
-            polygon: polygonQuestion,
-            point: pointQuestion,
-            circle: circleQuestion,
-            quadratic: quadraticQuestion,
-            sinusoid: sinusoidQuestion,
-            "unlimited-point": pointQuestion,
-            "unlimited-polygon": polygonQuestion,
-        };
+    const graphQuestionRenderers: {
+        [K in PerseusGraphType["type"][number]]: PerseusRenderer;
+    } = {
+        angle: angleQuestion,
+        segment: segmentQuestion,
+        linear: linearQuestion,
+        "linear-system": linearSystemQuestion,
+        ray: rayQuestion,
+        polygon: polygonQuestion,
+        point: pointQuestion,
+        circle: circleQuestion,
+        quadratic: quadraticQuestion,
+        sinusoid: sinusoidQuestion,
+        "unlimited-point": pointQuestion,
+        "unlimited-polygon": polygonQuestion,
+    };
 
-        const graphQuestionRenderersCorrect: {
-            [K in PerseusGraphType["type"][number]]: PerseusRenderer;
-        } = {
-            angle: angleQuestionWithDefaultCorrect,
-            segment: segmentQuestionDefaultCorrect,
-            linear: linearQuestionWithDefaultCorrect,
-            "linear-system": linearSystemQuestionWithDefaultCorrect,
-            ray: rayQuestionWithDefaultCorrect,
-            polygon: polygonQuestionDefaultCorrect,
-            point: pointQuestionWithDefaultCorrect,
-            circle: circleQuestionWithDefaultCorrect,
-            quadratic: quadraticQuestionWithDefaultCorrect,
-            sinusoid: sinusoidQuestionWithDefaultCorrect,
-            "unlimited-point": pointQuestionWithDefaultCorrect,
-            "unlimited-polygon": polygonQuestionDefaultCorrect,
-        };
+    const graphQuestionRenderersCorrect: {
+        [K in PerseusGraphType["type"][number]]: PerseusRenderer;
+    } = {
+        angle: angleQuestionWithDefaultCorrect,
+        segment: segmentQuestionDefaultCorrect,
+        linear: linearQuestionWithDefaultCorrect,
+        "linear-system": linearSystemQuestionWithDefaultCorrect,
+        ray: rayQuestionWithDefaultCorrect,
+        polygon: polygonQuestionDefaultCorrect,
+        point: pointQuestionWithDefaultCorrect,
+        circle: circleQuestionWithDefaultCorrect,
+        quadratic: quadraticQuestionWithDefaultCorrect,
+        sinusoid: sinusoidQuestionWithDefaultCorrect,
+        "unlimited-point": pointQuestionWithDefaultCorrect,
+        "unlimited-polygon": polygonQuestionDefaultCorrect,
+    };
 
-        describe.each(Object.entries(graphQuestionRenderers))(
-            "graph type %s",
-            (_type, question) => {
-                it("should render", () => {
-                    renderQuestion(question, blankOptions);
-                });
-
-                it("should reject when has not been interacted with", () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, blankOptions);
-
-                    // Act
-                    const score = scorePerseusItemTesting(
-                        question,
-                        renderer.getUserInputMap(),
-                    );
-
-                    // Assert
-                    expect(score).toHaveInvalidInput();
-                });
-            },
-        );
-
-        describe.each(Object.entries(graphQuestionRenderersCorrect))(
-            "graph type %s: default correct",
-            (_type, question) => {
-                it("should render", () => {
-                    renderQuestion(question, blankOptions);
-                });
-
-                // TODO(jeremy): This test is disabled because it fails
-                // sporadically (especially on slower/lower-end computers, like
-                // CI). Will work on a fix after the React 18 release.
-                it.skip("rejects incorrect answer", async () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, blankOptions);
-
-                    await userEvent.tab();
-
-                    // Act
-                    await userEvent.keyboard("{arrowup}{arrowright}");
-
-                    // Assert
-                    await waitFor(
-                        () => {
-                            const score = scorePerseusItemTesting(
-                                question,
-                                renderer.getUserInputMap(),
-                            );
-                            expect(score).toHaveBeenAnsweredIncorrectly();
-                        },
-                        {timeout: 5000},
-                    );
-                });
-
-                // TODO(jeremy): This test is disabled because it fails
-                // sporadically (especially on slower/lower-end computers, like
-                // CI). Will work on a fix after the React 18 release.
-                it.skip("accepts correct answer", async () => {
-                    const {renderer} = renderQuestion(question, blankOptions);
-
-                    await userEvent.tab();
-
-                    // Act
-                    await userEvent.keyboard("{arrowup}{arrowdown}");
-
-                    // Assert
-                    await waitFor(
-                        () => {
-                            const score = scorePerseusItemTesting(
-                                question,
-                                renderer.getUserInputMap(),
-                            );
-                            expect(score).toHaveBeenAnsweredCorrectly();
-                        },
-                        {timeout: 5000},
-                    );
-                });
-
-                it("is marked invalid when readOnly set to true", async () => {
-                    const {renderer} = renderQuestion(question, {
-                        ...blankOptions,
-                        readOnly: true,
-                    });
-
-                    await userEvent.tab();
-
-                    // Act
-                    await userEvent.keyboard("{arrowup}{arrowdown}");
-
-                    // Assert
-                    await waitFor(
-                        () => {
-                            const score = scorePerseusItemTesting(
-                                question,
-                                renderer.getUserInputMap(),
-                            );
-                            expect(score).toHaveInvalidInput();
-                        },
-                        {timeout: 5000},
-                    );
-                });
-            },
-        );
-
-        describe("locked layer", () => {
-            it("should render locked points", async () => {
-                // Arrange
-                const {container} = renderQuestion(
-                    segmentWithLockedPointsQuestion,
-                    blankOptions,
-                );
-
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                const points = container.querySelectorAll(
-                    // Filter out the interactive points' circles
-                    "circle:not([class*='movable-point'])",
-                );
-
-                // Act
-
-                // Assert
-                expect(points).toHaveLength(2);
+    describe.each(Object.entries(graphQuestionRenderers))(
+        "graph type %s",
+        (_type, question) => {
+            it("should render", () => {
+                renderQuestion(question, blankOptions);
             });
 
-            it("should render locked points with styles", async () => {
+            it("should reject when has not been interacted with", () => {
                 // Arrange
-                const {container} = renderQuestion(
-                    segmentWithLockedPointsQuestion,
-                    blankOptions,
-                );
+                const {renderer} = renderQuestion(question, blankOptions);
 
                 // Act
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                const points = container.querySelectorAll(
-                    "circle:not([class*='movable-point'])",
+                const score = scorePerseusItemTesting(
+                    question,
+                    renderer.getUserInputMap(),
                 );
 
                 // Assert
-                expect(points[0]).toHaveStyle({
-                    fill: lockedFigureColors.grayH,
-                    stroke: lockedFigureColors.grayH,
+                expect(score).toHaveInvalidInput();
+            });
+        },
+    );
+
+    describe.each(Object.entries(graphQuestionRenderersCorrect))(
+        "graph type %s: default correct",
+        (_type, question) => {
+            it("should render", () => {
+                renderQuestion(question, blankOptions);
+            });
+
+            // TODO(jeremy): This test is disabled because it fails
+            // sporadically (especially on slower/lower-end computers, like
+            // CI). Will work on a fix after the React 18 release.
+            it.skip("rejects incorrect answer", async () => {
+                // Arrange
+                const {renderer} = renderQuestion(question, blankOptions);
+
+                await userEvent.tab();
+
+                // Act
+                await userEvent.keyboard("{arrowup}{arrowright}");
+
+                // Assert
+                await waitFor(
+                    () => {
+                        const score = scorePerseusItemTesting(
+                            question,
+                            renderer.getUserInputMap(),
+                        );
+                        expect(score).toHaveBeenAnsweredIncorrectly();
+                    },
+                    {timeout: 5000},
+                );
+            });
+
+            // TODO(jeremy): This test is disabled because it fails
+            // sporadically (especially on slower/lower-end computers, like
+            // CI). Will work on a fix after the React 18 release.
+            it.skip("accepts correct answer", async () => {
+                const {renderer} = renderQuestion(question, blankOptions);
+
+                await userEvent.tab();
+
+                // Act
+                await userEvent.keyboard("{arrowup}{arrowdown}");
+
+                // Assert
+                await waitFor(
+                    () => {
+                        const score = scorePerseusItemTesting(
+                            question,
+                            renderer.getUserInputMap(),
+                        );
+                        expect(score).toHaveBeenAnsweredCorrectly();
+                    },
+                    {timeout: 5000},
+                );
+            });
+
+            it("is marked invalid when readOnly set to true", async () => {
+                const {renderer} = renderQuestion(question, {
+                    ...blankOptions,
+                    readOnly: true,
                 });
-                expect(points[1]).toHaveStyle({
-                    fill: wbColor.white,
-                    stroke: lockedFigureColors.grayH,
-                });
+
+                await userEvent.tab();
+
+                // Act
+                await userEvent.keyboard("{arrowup}{arrowdown}");
+
+                // Assert
+                await waitFor(
+                    () => {
+                        const score = scorePerseusItemTesting(
+                            question,
+                            renderer.getUserInputMap(),
+                        );
+                        expect(score).toHaveInvalidInput();
+                    },
+                    {timeout: 5000},
+                );
+            });
+        },
+    );
+
+    describe("locked layer", () => {
+        it("should render locked points", async () => {
+            // Arrange
+            const {container} = renderQuestion(
+                segmentWithLockedPointsQuestion,
+                blankOptions,
+            );
+
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const points = container.querySelectorAll(
+                // Filter out the interactive points' circles
+                "circle:not([class*='movable-point'])",
+            );
+
+            // Act
+
+            // Assert
+            expect(points).toHaveLength(2);
+        });
+
+        it("should render locked points with styles", async () => {
+            // Arrange
+            const {container} = renderQuestion(
+                segmentWithLockedPointsQuestion,
+                blankOptions,
+            );
+
+            // Act
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const points = container.querySelectorAll(
+                "circle:not([class*='movable-point'])",
+            );
+
+            // Assert
+            expect(points[0]).toHaveStyle({
+                fill: lockedFigureColors.grayH,
+                stroke: lockedFigureColors.grayH,
+            });
+            expect(points[1]).toHaveStyle({
+                fill: wbColor.white,
+                stroke: lockedFigureColors.grayH,
             });
         });
     });
