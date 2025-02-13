@@ -1,6 +1,4 @@
-export type VirtualKeypadVersion =
-    | "MATH_INPUT_KEYPAD_V2"
-    | "REACT_NATIVE_KEYPAD";
+type VirtualKeypadVersion = "MATH_INPUT_KEYPAD_V2" | "REACT_NATIVE_KEYPAD";
 
 /**
  * A type union of all the events that any package in the Perseus ecosystem can
