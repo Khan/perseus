@@ -29,6 +29,7 @@ export {
     parsePerseusItem,
     parseAndMigratePerseusItem,
     parseAndMigratePerseusArticle,
+    type ParseFailureDetail,
 } from "./parse-perseus-json";
 
 export {
