@@ -18,7 +18,10 @@ import {
     correctAndWrongAnswers,
 } from "./numeric-input.testdata";
 
-import type {PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusNumericInputWidgetOptions,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import type {PerseusNumericInputRubric} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -99,6 +102,51 @@ describe("numeric-input widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("render with format tooltip");
+    });
+
+    it("Should render a visible tooltip when format options are given", async () => {
+        // Arrange
+        const item: PerseusRenderer = {
+            content: "[[☃ numeric-input 1]] ",
+            images: {},
+            widgets: {
+                "numeric-input 1": {
+                    type: "numeric-input",
+                    options: {
+                        coefficient: false,
+                        static: false,
+                        answers: [
+                            {
+                                status: "correct",
+                                maxError: null,
+                                strict: false,
+                                value: 1252,
+                                simplify: "required",
+                                message: "",
+                                answerForms: ["proper", "improper", "mixed"],
+                            },
+                        ],
+                        size: "normal",
+                    },
+                },
+            },
+        };
+
+        // Act
+        renderQuestion(item);
+        await userEvent.tab();
+        expect(screen.getByRole("textbox")).toHaveFocus();
+
+        // Assert
+        expect(
+            screen.getByText(/a simplified proper fraction, like 3\/5, or/),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(/a simplified improper fraction, like 7\/4, or/),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(/a mixed number, like 1 and 3\/4/),
+        ).toBeInTheDocument();
     });
 
     it("Should render tooltip as list when multiple format options are given", async () => {
