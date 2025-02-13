@@ -717,7 +717,7 @@ const renderGraphElements = (props: {
     const {type} = state;
     switch (type) {
         case "angle":
-            return renderAngleGraph(state, dispatch);
+            return renderAngleGraph(state, dispatch, i18n);
         case "segment":
             return renderSegmentGraph(state, dispatch, i18n);
         case "linear-system":
