@@ -169,6 +169,7 @@ class TextDiff extends React.Component<any, any> {
                 </div>
                 {_.map([BEFORE, AFTER], (side, index) => {
                     return (
+                        // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error
                         <div
                             className={className + " " + side}
                             key={index}
