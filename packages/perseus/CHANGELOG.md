@@ -1,5 +1,55 @@
 # @khanacademy/perseus
 
+## 53.1.0
+
+### Minor Changes
+
+-   [#2194](https://github.com/Khan/perseus/pull/2194) [`fd606f43d`](https://github.com/Khan/perseus/commit/fd606f43d7687a15d6dc2cabd0e85fc71b5ed878) Thanks [@benchristel](https://github.com/benchristel)! - Create a function to get the public options for an interactive graph widget
+
+*   [#2189](https://github.com/Khan/perseus/pull/2189) [`3ba74d173`](https://github.com/Khan/perseus/commit/3ba74d1731ceff13c9794a3aeaf79f1735b5fb86) Thanks [@benchristel](https://github.com/benchristel)! - Create a function to get the public options for a Table widget
+
+-   [#2200](https://github.com/Khan/perseus/pull/2200) [`47cebd20f`](https://github.com/Khan/perseus/commit/47cebd20fdcf1f47c50f30901f0a1e1654ae4790) Thanks [@nishasy](https://github.com/nishasy)! - [Mafs] Remove mafs flag from Interactive Graph code
+
+*   [#2207](https://github.com/Khan/perseus/pull/2207) [`097176a26`](https://github.com/Khan/perseus/commit/097176a26db7b0c80b3be5e6fe469539f65de0ea) Thanks [@benchristel](https://github.com/benchristel)! - Create a function to get the public options for a Matrix widget
+
+-   [#2216](https://github.com/Khan/perseus/pull/2216) [`b3c562ac2`](https://github.com/Khan/perseus/commit/b3c562ac2cc6d02c433bf0587379c09a49080795) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Plotter widget
+
+*   [#2198](https://github.com/Khan/perseus/pull/2198) [`649e6b16a`](https://github.com/Khan/perseus/commit/649e6b16ab67fad694cde5473bcfb3abb719a57d) Thanks [@benchristel](https://github.com/benchristel)! - Create a function to get the public options for a Grapher widget
+
+-   [#2217](https://github.com/Khan/perseus/pull/2217) [`07779783a`](https://github.com/Khan/perseus/commit/07779783ae0e3a19c0c72e95a8eaa0b58a9cc968) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Move coord reverse logic for Angle graphs into scoring logic
+
+*   [#2183](https://github.com/Khan/perseus/pull/2183) [`cac39013b`](https://github.com/Khan/perseus/commit/cac39013bd59a5ef73f151e1170dec83b463f076) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Radio widget
+
+-   [#2188](https://github.com/Khan/perseus/pull/2188) [`163dd67d2`](https://github.com/Khan/perseus/commit/163dd67d2a8e119bc18191816668352e43292da2) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to retrieve public widget options for the IFrame widget
+
+### Patch Changes
+
+-   [#2107](https://github.com/Khan/perseus/pull/2107) [`b44c8cb0a`](https://github.com/Khan/perseus/commit/b44c8cb0a54756b949b208d6fe4470aa23da4e8d) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Storybook] Configure Aphrodite to Not Append !important to Styles
+    [Radio] Bugfix - Incorrect choice showing as blue instead of red
+
+*   [#2191](https://github.com/Khan/perseus/pull/2191) [`55317d65e`](https://github.com/Khan/perseus/commit/55317d65e4cd859784aa9bacb7b5a550a54045f1) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Polygon (unlimited) - Add screen reader experience
+
+-   [#2220](https://github.com/Khan/perseus/pull/2220) [`6b8185885`](https://github.com/Khan/perseus/commit/6b8185885dc1836ee736fb52b10394ebf55edaee) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Stop graph from exposing random empty image to screen readers
+
+*   [#2185](https://github.com/Khan/perseus/pull/2185) [`f83a1fb03`](https://github.com/Khan/perseus/commit/f83a1fb03185645d636b102cf15e0366b9cf84b1) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Bugfix] Zoomable content within a collapsed parent not showing when expanded (Mobile only)
+
+-   [#2222](https://github.com/Khan/perseus/pull/2222) [`55be8a775`](https://github.com/Khan/perseus/commit/55be8a7751b92ea5192bc657ecb459a447373659) Thanks [@dependabot](https://github.com/apps/dependabot)! - Updating wonderblocks package versions.
+
+*   [#2173](https://github.com/Khan/perseus/pull/2173) [`10ee67a9c`](https://github.com/Khan/perseus/commit/10ee67a9ce1584b994f50aad007e686ad54d294e) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Polygon - Add screen reader experience
+
+-   [#2196](https://github.com/Khan/perseus/pull/2196) [`b07f2936f`](https://github.com/Khan/perseus/commit/b07f2936fccb94cde5cd34ce258973581611416a) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Segment - fix 2 strings with typos
+
+-   Updated dependencies [[`fd606f43d`](https://github.com/Khan/perseus/commit/fd606f43d7687a15d6dc2cabd0e85fc71b5ed878), [`3ba74d173`](https://github.com/Khan/perseus/commit/3ba74d1731ceff13c9794a3aeaf79f1735b5fb86), [`7ec6c2fbc`](https://github.com/Khan/perseus/commit/7ec6c2fbc21d3d7d4ef98a58e021da4684561447), [`097176a26`](https://github.com/Khan/perseus/commit/097176a26db7b0c80b3be5e6fe469539f65de0ea), [`b3c562ac2`](https://github.com/Khan/perseus/commit/b3c562ac2cc6d02c433bf0587379c09a49080795), [`55be8a775`](https://github.com/Khan/perseus/commit/55be8a7751b92ea5192bc657ecb459a447373659), [`649e6b16a`](https://github.com/Khan/perseus/commit/649e6b16ab67fad694cde5473bcfb3abb719a57d), [`07779783a`](https://github.com/Khan/perseus/commit/07779783ae0e3a19c0c72e95a8eaa0b58a9cc968), [`cac39013b`](https://github.com/Khan/perseus/commit/cac39013bd59a5ef73f151e1170dec83b463f076), [`163dd67d2`](https://github.com/Khan/perseus/commit/163dd67d2a8e119bc18191816668352e43292da2)]:
+    -   @khanacademy/perseus-core@3.5.0
+    -   @khanacademy/kmath@0.3.3
+    -   @khanacademy/math-input@22.2.4
+    -   @khanacademy/perseus-score@2.2.0
+    -   @khanacademy/kas@0.4.14
+    -   @khanacademy/keypad-context@1.0.17
+    -   @khanacademy/perseus-linter@1.2.16
+    -   @khanacademy/pure-markdown@0.3.25
+    -   @khanacademy/simple-markdown@0.13.18
+
 ## 53.0.0
 
 ### Major Changes

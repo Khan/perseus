@@ -141,6 +141,7 @@ export {
 } from "./util/test-utils";
 export {
     getWidgetTypeByWidgetId,
+    getWidgetSubTypeByWidgetId,
     contentHasWidgetType,
     getWidgetsMapFromItemData,
     getWidgetFromWidgetMap,

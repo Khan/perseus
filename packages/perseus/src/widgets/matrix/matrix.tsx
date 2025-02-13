@@ -1,4 +1,5 @@
 import {
+    getMatrixPublicWidgetOptions,
     getMatrixSize,
     type PerseusMatrixWidgetAnswers,
     type PerseusMatrixWidgetOptions,
@@ -572,4 +573,5 @@ export default {
     transform: propTransform,
     staticTransform: staticTransform,
     isLintable: true,
+    getPublicWidgetOptions: getMatrixPublicWidgetOptions,
 } satisfies WidgetExports<typeof Matrix>;

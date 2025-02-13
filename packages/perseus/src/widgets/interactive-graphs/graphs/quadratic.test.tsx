@@ -4,7 +4,6 @@ import * as React from "react";
 import {Dependencies} from "@khanacademy/perseus";
 
 import {testDependencies} from "../../../../../../testing/test-dependencies";
-// import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";

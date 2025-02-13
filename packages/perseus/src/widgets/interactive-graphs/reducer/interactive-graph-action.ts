@@ -194,7 +194,7 @@ function changeKeyboardInvitationVisibility(
 }
 
 export const CLOSE_POLYGON = "close-polygon";
-export interface ClosePolygon {
+interface ClosePolygon {
     type: typeof CLOSE_POLYGON;
 }
 function closePolygon(): ClosePolygon {
@@ -204,7 +204,7 @@ function closePolygon(): ClosePolygon {
 }
 
 export const OPEN_POLYGON = "open-polygon";
-export interface OpenPolygon {
+interface OpenPolygon {
     type: typeof OPEN_POLYGON;
 }
 function openPolygon(): OpenPolygon {
@@ -310,7 +310,7 @@ export function changeRange(range: [x: Interval, y: Interval]): ChangeRange {
 }
 
 export const REINITIALIZE = "reinitialize";
-export interface Reinitialize {
+interface Reinitialize {
     type: typeof REINITIALIZE;
     params: InitializeGraphStateParams;
 }

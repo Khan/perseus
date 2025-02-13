@@ -134,6 +134,8 @@ export type PerseusStrings = {
     simulationLocaleWarning: string;
     selectAnAnswer: string;
     // The following strings are used for interactive graph SR descriptions.
+    xAxis: string;
+    yAxis: string;
     addPoint: string;
     removePoint: string;
     graphKeyboardPrompt: string;
@@ -253,6 +255,21 @@ export type PerseusStrings = {
         endingSideY,
     }: {
         angleMeasure: string;
+        vertexX: string;
+        vertexY: string;
+        startingSideX: string;
+        startingSideY: string;
+        endingSideX: string;
+        endingSideY: string;
+    }) => string;
+    srAngleInteractiveElements: ({
+        vertexX,
+        vertexY,
+        startingSideX,
+        startingSideY,
+        endingSideX,
+        endingSideY,
+    }: {
         vertexX: string;
         vertexY: string;
         startingSideX: string;
@@ -447,6 +464,31 @@ export type PerseusStrings = {
         length: string;
     }) => string;
     srUnlimitedPolygonEmpty: string;
+    srSinusoidGraph: string;
+    srSinusoidRootPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidPeakPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidDescription: ({
+        minValue,
+        maxValue,
+        cycleStart,
+        cycleEnd,
+    }: {
+        minValue: string;
+        maxValue: string;
+        cycleStart: string;
+        cycleEnd: string;
+    }) => string;
+    srSinusoidInteractiveElements: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }) => string;
     // The above strings are used for interactive graph SR descriptions.
 };
 
@@ -630,6 +672,8 @@ export const strings = {
     // translation tickets after all interactive graph SR strings have
     // been finalized. Remove this comment after the tickets have been
     // created.
+    xAxis: "X-axis",
+    yAxis: "Y-axis",
     srPointAtCoordinates: "Point %(num)s at %(x)s comma %(y)s.",
     srCircleGraph: "A circle on a coordinate plane.",
     srCircleShape:
@@ -662,6 +706,8 @@ export const strings = {
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
     srAngleGraphAriaDescription:
         "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
+    srAngleInteractiveElements:
+        "An angle formed by 3 points. The vertex is at %(vertexX)s comma %(vertexY)s. The starting side point is at %(startingSideX)s comma %(startingSideY)s. The ending side point is at %(endingSideX)s comma %(endingSideY)s.",
     srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
     srMultipleSegmentGraphAriaLabel:
         "%(countOfSegments)s line segments on a coordinate plane.",
@@ -720,6 +766,13 @@ export const strings = {
     srPolygonSideLengthApprox:
         "A line segment, length approximately equal to %(length)s units, connects to point %(pointNum)s.",
     srUnlimitedPolygonEmpty: "An empty coordinate plane.",
+    srSinusoidGraph: "A sinusoid function on a coordinate plane.",
+    srSinusoidRootPoint: "Midline intersection at %(x)s comma %(y)s.",
+    srSinusoidPeakPoint: "Extremum point at %(x)s comma %(y)s.",
+    srSinusoidDescription:
+        "The graph shows a wave with a minimum value of %(minValue)s and a maximum value of %(maxValue)s. The wave completes a full cycle from %(cycleStart)s to %(cycleEnd)s.",
+    srSinusoidInteractiveElements:
+        "Sinusoid graph with midline intersection point at %(point1X)s comma %(point1Y)s and extremum point at %(point2X)s comma %(point2Y)s.",
     // The above strings are used for interactive graph SR descriptions.
 } satisfies {
     [key in keyof PerseusStrings]:
@@ -885,6 +938,8 @@ export const mockStrings: PerseusStrings = {
     selectAnAnswer: "Select an answer",
 
     // The following strings are used for interactive graph SR descriptions.
+    xAxis: "X-axis",
+    yAxis: "Y-axis",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     addPoint: "Add Point",
     removePoint: "Remove Point",
@@ -942,6 +997,15 @@ export const mockStrings: PerseusStrings = {
         endingSideY,
     }) =>
         `The angle measure is ${angleMeasure} degrees with a vertex at ${vertexX} comma ${vertexY}, a point on the starting side at ${startingSideX} comma ${startingSideY} and a point on the ending side at ${endingSideX} comma ${endingSideY}.`,
+    srAngleInteractiveElements: ({
+        vertexX,
+        vertexY,
+        startingSideX,
+        startingSideY,
+        endingSideX,
+        endingSideY,
+    }) =>
+        `An angle formed by 3 points. The vertex is at ${vertexX} comma ${vertexY}. The starting side point is at ${startingSideX} comma ${startingSideY}. The ending side point is at ${endingSideX} comma ${endingSideY}.`,
     srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
     srMultipleSegmentGraphAriaLabel: ({countOfSegments}) =>
         `${countOfSegments} segments on a coordinate plane.`,
@@ -1022,6 +1086,13 @@ export const mockStrings: PerseusStrings = {
     srPolygonSideLengthApprox: ({pointNum, length}) =>
         `A line segment, length approximately equal to ${length} units, connects to point ${pointNum}.`,
     srUnlimitedPolygonEmpty: "An empty coordinate plane.",
+    srSinusoidGraph: "A sinusoid function on a coordinate plane.",
+    srSinusoidRootPoint: ({x, y}) => `Midline intersection at ${x} comma ${y}.`,
+    srSinusoidPeakPoint: ({x, y}) => `Extremum point at ${x} comma ${y}.`,
+    srSinusoidDescription: ({minValue, maxValue, cycleStart, cycleEnd}) =>
+        `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${cycleStart} to ${cycleEnd}.`,
+    srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
+        `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
     // The above strings are used for interactive graph SR descriptions.
 };
 
