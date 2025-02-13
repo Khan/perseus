@@ -47,7 +47,7 @@ interface RaphaelElement {
 
 type PositionedShape = {wrapper: HTMLDivElement; visibleShape: RaphaelElement};
 
-export type StyleParams = {
+type StyleParams = {
     fill?: string;
     labelDistance?: number;
     opacity?: number;

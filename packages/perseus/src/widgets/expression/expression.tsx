@@ -73,7 +73,7 @@ type RenderProps = {
 
 type ExternalProps = WidgetProps<RenderProps, PerseusExpressionRubric>;
 
-export type Props = ExternalProps &
+type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
         apiOptions: NonNullable<ExternalProps["apiOptions"]>;
         buttonSets: NonNullable<ExternalProps["buttonSets"]>;
@@ -87,7 +87,7 @@ export type Props = ExternalProps &
         value: string;
     };
 
-export type ExpressionState = {
+type ExpressionState = {
     invalid: boolean;
     showErrorTooltip: boolean;
     showErrorStyle: boolean;
