@@ -1,6 +1,6 @@
 import {
-    CoreUtil,
     type PerseusSorterWidgetOptions,
+    shuffle,
 } from "@khanacademy/perseus-core";
 
 /**
@@ -21,7 +21,7 @@ type SorterPublicWidgetOptions = {
 function getSorterPublicWidgetOptions(
     options: PerseusSorterWidgetOptions,
 ): SorterPublicWidgetOptions {
-    const shuffledCorrect = CoreUtil.shuffle(
+    const shuffledCorrect = shuffle(
         options.correct,
         Math.random,
         /* ensurePermuted */ true,
