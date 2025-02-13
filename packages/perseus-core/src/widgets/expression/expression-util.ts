@@ -28,6 +28,7 @@ function getExpressionPublicWidgetOptions(
         visibleLabel: options.visibleLabel,
         ariaLabel: options.ariaLabel,
         buttonsVisible: options.buttonsVisible,
+        extraKeys: options.extraKeys,
     };
 }
 

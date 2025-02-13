@@ -511,7 +511,9 @@ export type PerseusExpressionWidgetOptions = {
     functions: ReadonlyArray<string>;
     // Use x for rendering multiplication instead of a center dot.
     times: boolean;
-    // TODO this is really ReadonlyArray<Key>
+    // What extra keys need to be displayed on the keypad so that the
+    // question can be answerable without a keyboard (ie mobile)
+    // TODO: this is really ReadonlyArray<Key>
     extraKeys?: ReadonlyArray<string>;
     // visible label associated with the MathQuill field
     visibleLabel?: string;

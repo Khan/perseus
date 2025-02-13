@@ -1,5 +1,11 @@
 import {it, describe, beforeEach} from "@jest/globals";
 import {KeypadType} from "@khanacademy/math-input";
+import {
+    type PerseusItem,
+    type PerseusExpressionWidgetOptions,
+    type PerseusRenderer,
+    getExpressionPublicWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -21,12 +27,6 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
-import type {
-    PerseusItem,
-    PerseusExpressionWidgetOptions,
-    PerseusRenderer,
-    ExpressionPublicWidgetOptions,
-} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
@@ -667,20 +667,21 @@ describe("Expression Widget", function () {
             ) as jest.Mock;
         });
 
-        it("is interactive with full widget options", async () => {
+        it("is answerable with full widget options", async () => {
+            // Arrange
             const expressionOptions: PerseusExpressionWidgetOptions = {
                 answerForms: [
                     {
                         considered: "correct",
                         form: true,
                         simplify: false,
-                        value: "16+88x",
+                        value: "1i",
                     },
                 ],
                 buttonSets: [],
                 times: false,
                 functions: [],
-                extraKeys: ["x"],
+                extraKeys: ["i"],
             };
 
             const fullItem: PerseusRenderer = {
@@ -689,49 +690,91 @@ describe("Expression Widget", function () {
                 widgets: {
                     "expression 1": {
                         type: "expression",
+                        version: {major: 2, minor: 0},
                         options: expressionOptions,
                     },
                 },
             };
 
-            renderQuestion(fullItem);
+            // Act
+            const {renderer} = renderQuestion(fullItem);
 
             await userEvent.click(
                 screen.getByRole("button", {name: "open math keypad"}),
             );
+            await userEvent.click(screen.getByRole("button", {name: "1"}));
             await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+            await userEvent.click(screen.getByRole("button", {name: "i"}));
+            act(() => jest.runOnlyPendingTimers());
 
-            expect(screen.getByRole("button", {name: "x"})).toBeInTheDocument();
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(fullItem, userInput, "en");
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
         });
 
         it("is interactive with answerless widget options", async () => {
-            const expressionOptions: ExpressionPublicWidgetOptions = {
+            // Arrange
+            const fullExpressionOptions: PerseusExpressionWidgetOptions = {
+                answerForms: [
+                    {
+                        considered: "correct",
+                        form: true,
+                        simplify: false,
+                        value: "1i",
+                    },
+                ],
                 buttonSets: [],
                 times: false,
                 functions: [],
-                extraKeys: ["x"],
+                extraKeys: ["i"],
             };
 
-            const strippedItem: PerseusRenderer = {
+            const strippedExpressionOptions = getExpressionPublicWidgetOptions(
+                fullExpressionOptions,
+            );
+
+            const fullItem: PerseusRenderer = {
                 content: "[[☃ expression 1]]",
                 images: {},
                 widgets: {
                     "expression 1": {
                         type: "expression",
-                        options:
-                            expressionOptions as PerseusExpressionWidgetOptions,
+                        version: {major: 2, minor: 0},
+                        options: fullExpressionOptions,
                     },
                 },
             };
 
-            renderQuestion(strippedItem);
+            const strippedItem = {
+                content: "[[☃ expression 1]]",
+                images: {},
+                widgets: {
+                    "expression 1": {
+                        type: "expression",
+                        version: {major: 2, minor: 0},
+                        options: strippedExpressionOptions,
+                    },
+                },
+            };
+
+            // Act
+            const {renderer} = renderQuestion(strippedItem as any);
 
             await userEvent.click(
                 screen.getByRole("button", {name: "open math keypad"}),
             );
+            await userEvent.click(screen.getByRole("button", {name: "1"}));
             await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+            await userEvent.click(screen.getByRole("button", {name: "i"}));
+            act(() => jest.runOnlyPendingTimers());
 
-            expect(screen.getByRole("button", {name: "x"})).toBeInTheDocument();
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(fullItem, userInput, "en");
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
         });
     });
 });
