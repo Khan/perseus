@@ -871,7 +871,7 @@ export type LockedFunctionType = {
     strokeStyle: LockedLineStyle;
     equation: string; // This is the user-defined equation (as it was typed)
     directionalAxis: "x" | "y";
-    domain?: Interval;
+    domain?: [min: number | null, max: number | null];
     labels?: LockedLabelType[];
     ariaLabel?: string;
 };
