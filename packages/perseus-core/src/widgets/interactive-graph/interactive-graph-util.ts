@@ -1,6 +1,6 @@
 import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 
-type InteractiveGraphPublicWidgetOptions = Pick<
+export type InteractiveGraphPublicWidgetOptions = Pick<
     PerseusInteractiveGraphWidgetOptions,
     | "step"
     | "gridStep"

@@ -42,6 +42,9 @@ import type {
     PerseusInteractiveGraphUserInput,
 } from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {
+    InteractiveGraphPublicWidgetOptions
+} from "@khanacademy/perseus-core/src/widgets/interactive-graph/interactive-graph-util";
 
 const {getClockwiseAngle} = angles;
 
@@ -154,7 +157,7 @@ type RenderProps = {
      * The correct kind of graph, if being used to select function type
      */
     // TODO(LEMS-2344): make the type of `correct` more specific
-    correct: PerseusGraphType;
+    correct?: PerseusGraphType;
     /**
      * Shapes (points, chords, etc) displayed on the graph that cannot be moved
      * by the user.
@@ -190,6 +193,11 @@ type DefaultProps = {
 // which receive defaults via defaultProps.
 0 as any as WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
+    PerseusInteractiveGraphRubric
+> satisfies PropsFor<typeof InteractiveGraph>;
+
+0 as any as WidgetProps<
+    InteractiveGraphPublicWidgetOptions,
     PerseusInteractiveGraphRubric
 > satisfies PropsFor<typeof InteractiveGraph>;
 

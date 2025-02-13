@@ -22,7 +22,7 @@ export type StatefulMafsGraphProps = {
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: PerseusGraphType;
     // TODO(LEMS-2344): make the type of `correct` more specific
-    correct: PerseusGraphType;
+    correct?: PerseusGraphType;
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
     range: InteractiveGraphProps["range"];
     snapStep: [x: number, y: number];
@@ -127,7 +127,7 @@ export const StatefulMafsGraph = React.forwardRef<
 
     // If the graph is static, it always displays the correct answer. This is
     // standard behavior for Perseus widgets (e.g. compare the Radio widget).
-    if (props.static) {
+    if (props.static && props.correct) {
         return (
             <MafsGraph
                 {...props}
