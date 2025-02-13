@@ -884,7 +884,7 @@ describe("Locked Function Settings", () => {
                     );
 
                     // Act
-                    let autoGenButton = screen.getByRole("button", {
+                    const autoGenButton = screen.getByRole("button", {
                         name: "Auto-generate",
                     });
                     await userEvent.click(autoGenButton);

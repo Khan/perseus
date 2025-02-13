@@ -1164,7 +1164,10 @@ describe("Interactive Graph", function () {
                     // Act - no upper limit specified
                     renderQuestion(
                         segmentWithLockedFunction("x^2", {
-                            domain: domainSupplied,
+                            domain: domainSupplied as [
+                                min: number | null,
+                                max: number | null,
+                            ],
                         }),
                         blankOptions,
                     );
