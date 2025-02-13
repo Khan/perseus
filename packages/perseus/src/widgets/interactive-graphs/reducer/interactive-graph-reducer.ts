@@ -722,19 +722,14 @@ function doRemovePoint(
         return state;
     }
 
-    let nextFocusedPointIndex: number | null;
-    if (state.interactionMode === "mouse") {
-        nextFocusedPointIndex = null;
-    } else {
-        nextFocusedPointIndex =
-            state.coords.length > 1 ? state.coords.length - 2 : null;
-    }
+    const nextFocusedPointIndex: number | null =
+        state.coords.length > 1 ? state.coords.length - 2 : null;
 
     return {
         ...state,
         coords: state.coords.filter((_, i) => i !== action.index),
         focusedPointIndex: nextFocusedPointIndex,
-        showRemovePointButton: false,
+        showRemovePointButton: nextFocusedPointIndex !== null ? true : false,
     };
 }
 

@@ -52,7 +52,12 @@ function PointGraph(props: Props) {
         if (focusedIndex != null) {
             pointsRef.current[focusedIndex]?.focus();
         }
-    }, [props.graphState.focusedPointIndex, pointsRef]);
+    }, [
+        props.graphState.focusedPointIndex,
+        // Ensure that we re-focus if a point is deleted.
+        props.graphState.coords.length,
+        pointsRef,
+    ]);
 
     const statefulProps = {
         ...props,
