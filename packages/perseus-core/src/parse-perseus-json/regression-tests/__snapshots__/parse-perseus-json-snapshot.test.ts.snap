@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-randomizeItems.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/categorizer-missing-randomizeItems.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -63,7 +63,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/categorizer-missing-static.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -115,7 +115,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-with-null-value.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/categorizer-with-null-value.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -185,7 +185,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-with-nul
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/cs-program-missing-static.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -271,7 +271,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-s
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-with-null-width.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/cs-program-with-null-width.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -307,7 +307,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-with-null
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/definition-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/definition-missing-static.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -385,7 +385,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/definition-missing-s
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-placeholder.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/dropdown-missing-placeholder.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -452,7 +452,7 @@ $\\qquad(x-x)$ [[☃ dropdown 1]] $0$
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-version.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/dropdown-missing-version.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -503,7 +503,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-ver
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/explanation-missing-widgets-map.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/explanation-missing-widgets-map.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -598,7 +598,7 @@ $r =  $ [[☃ numeric-input 1]] ",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/expression-answerForm-missing-form.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/expression-answerForm-missing-form.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -660,7 +660,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-answerFor
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/expression-missing-buttonSets.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/expression-missing-buttonSets.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -725,7 +725,7 @@ $y=$ [[☃ expression 1]]",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-missing-value.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/expression-option-missing-value.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -777,7 +777,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-mi
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/expression-with-null-answer-key.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/expression-with-null-answer-key.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1022,7 +1022,7 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/expression-with-scientific-notation.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/expression-with-scientific-notation.json 1`] = `
 {
   "answerArea": {
     "calculator": true,
@@ -1233,7 +1233,7 @@ more explanation",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/graded-group-with-false-hint.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/graded-group-with-false-hint.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1432,7 +1432,7 @@ $ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-coords.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/grapher-with-null-coords.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1533,7 +1533,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-co
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/hint-missing-images.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/hint-missing-images.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1828,7 +1828,7 @@ In case you would like a fuller experience, here is a taste of a skill you can l
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-allowFullScreen.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/iframe-missing-allowFullScreen.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1929,7 +1929,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-allow
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-settings.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/iframe-missing-settings.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -1963,7 +1963,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-setti
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/iframe-missing-static.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -2019,7 +2019,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-stati
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/image-with-null-dimensions.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/image-with-null-dimensions.json 1`] = `
 {
   "_multi": null,
   "answer": null,
@@ -2309,7 +2309,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/image-with-null-dime
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-boolean-value.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/input-number-with-boolean-value.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -2440,7 +2440,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-bo
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-missing-constraints.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/interaction-element-missing-constraints.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -2645,7 +2645,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-missing-key.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/interaction-element-missing-key.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -3151,7 +3151,7 @@ Next, we'll look at some other representations of functions!",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-backgroundImage-with-empty-string-coordinates.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/interactive-graph-backgroundImage-with-empty-string-coordinates.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -3296,7 +3296,7 @@ $3$ | $8$
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-locked-line-missing-showPoint1.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/interactive-graph-locked-line-missing-showPoint1.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4058,7 +4058,7 @@ Locked figures:
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-missing-graph.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/interactive-graph-missing-graph.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4333,7 +4333,7 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-missing-gridStep.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/interactive-graph-missing-gridStep.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4553,7 +4553,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-mi
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-missing-labels.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/interactive-graph-missing-labels.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4656,7 +4656,7 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-polygon-with-exact-match.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/interactive-graph-polygon-with-exact-match.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4807,7 +4807,7 @@ Draw the rhombus in the first quadrant.
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-with-string-backgroundImage-left.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/interactive-graph-with-string-backgroundImage-left.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4946,7 +4946,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-wi
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/label-image-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/label-image-missing-static.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -5103,7 +5103,7 @@ Non-renewable source can be exhausted with continuous use",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/lights-puzzle.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/lights-puzzle.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -5152,7 +5152,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/lights-puzzle.json 1
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-version.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/matrix-missing-version.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -5261,7 +5261,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-nulls-in-answer.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/matrix-with-nulls-in-answer.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -5330,7 +5330,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-nulls-in
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-string-answer-element.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/matrix-with-string-answer-element.json 1`] = `
 {
   "answerArea": {
     "calculator": true,
@@ -5599,7 +5599,7 @@ $\\left[\\begin{array}{c}
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-image.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/measurer-missing-image.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -5701,7 +5701,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-ima
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/measurer-missing-static.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -5752,7 +5752,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-sta
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-snapDivisions.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/number-line-missing-snapDivisions.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -5976,7 +5976,7 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/number-line-missing-static.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -6038,7 +6038,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-empty-strings-in-label-range.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/number-line-with-empty-strings-in-label-range.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -6165,7 +6165,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-emp
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-null-correctX.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/number-line-with-null-correctX.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -6267,7 +6267,7 @@ $=(31-31) -8$",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer-with-null-value.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/numeric-input-answer-with-null-value.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -6320,7 +6320,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer-with-simplify-true.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/numeric-input-answer-with-simplify-true.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -6385,7 +6385,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer-without-value.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/numeric-input-answer-without-value.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -6507,7 +6507,7 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missing-coefficient.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/numeric-input-missing-coefficient.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -6564,7 +6564,7 @@ What is the radius of the mattress when it is rolled up into a cylinder.
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missing-labelText.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/numeric-input-missing-labelText.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -6846,7 +6846,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-with-simplify-false.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/numeric-input-with-simplify-false.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -6911,7 +6911,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-with-s
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missing-images.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/orderer-option-missing-images.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -7680,7 +7680,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missing-widgets.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/orderer-option-missing-widgets.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -7801,7 +7801,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missi
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-invalid-height.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/orderer-with-invalid-height.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -7881,7 +7881,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-invalid
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-undefined-options.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/orderer-with-undefined-options.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -8082,7 +8082,7 @@ A free body diagram of the **box** is shown below.
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/passage-missing-footnotes-and-title.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/passage-missing-footnotes-and-title.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -8140,7 +8140,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/passage-missing-foot
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/passage-ref-missing-summaryText.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/passage-ref-missing-summaryText.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -8368,7 +8368,7 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-missing-scaleY-and-snapsPerLine.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/plotter-missing-scaleY-and-snapsPerLine.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -8483,7 +8483,7 @@ $\\green5 - \\red3= \\purple{2}$",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefined-plotDimensions.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/plotter-with-undefined-plotDimensions.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -8595,7 +8595,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefin
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/question-missing-content.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/question-missing-content.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -8617,7 +8617,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/question-missing-con
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing-content.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/radio-choice-missing-content.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -8836,7 +8836,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/radio-missing-noneOfTheAbove.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/radio-missing-noneOfTheAbove.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -8899,7 +8899,7 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/simulator-widget.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/simulator-widget.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -8960,7 +8960,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/simulator-widget.jso
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/transformer-widget.json 1`] = `
+exports[`parseAndMigratePerseusItem correctly parses item-data/transformer-widget.json 1`] = `
 {
   "answerArea": {
     "calculator": false,

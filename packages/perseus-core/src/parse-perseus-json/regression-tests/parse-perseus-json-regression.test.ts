@@ -5,12 +5,12 @@ import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {parseAndMigratePerseusItem} from "../index";
 import {mapFailure} from "../result";
 
-const dataFiles = fs.readdirSync(join(__dirname, "data"));
+const dataFiles = fs.readdirSync(join(__dirname, "item-data"));
 
-describe("parseAndTypecheckPerseusItem", () => {
+describe("parseAndMigratePerseusItem", () => {
     it.each(dataFiles)("accepts data/%s", (filename) => {
         const json = fs.readFileSync(
-            join(__dirname, "data", filename),
+            join(__dirname, "item-data", filename),
             "utf-8",
         );
 
