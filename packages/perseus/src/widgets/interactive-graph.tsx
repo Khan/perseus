@@ -6,6 +6,7 @@ import {
     getInteractiveGraphPublicWidgetOptions,
     PerseusError,
 } from "@khanacademy/perseus-core";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -55,12 +56,6 @@ const UNLIMITED = "unlimited" as const;
 
 // Sample background image:
 // https://ka-perseus-graphie.s3.amazonaws.com/29c1b0fcd17fe63df0f148fe357044d5d5c7d0bb.png
-
-function capitalize(str) {
-    return str.replace(/(?:^|-)(.)/g, function (match, letter) {
-        return letter.toUpperCase();
-    });
-}
 
 function numSteps(range: Range, step: number) {
     return Math.floor((range[1] - range[0]) / step);
@@ -586,8 +581,32 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static getEquationString(props: Props): string {
         const type = props.graph.type;
-        const funcName = "get" + capitalize(type) + "EquationString";
-        return InteractiveGraph[funcName](props);
+        switch (type) {
+            case "none":
+                return InteractiveGraph.getNoneEquationString();
+            case "linear":
+                return InteractiveGraph.getLinearEquationString(props);
+            case "quadratic":
+                return InteractiveGraph.getQuadraticEquationString(props);
+            case "sinusoid":
+                return InteractiveGraph.getSinusoidEquationString(props);
+            case "circle":
+                return InteractiveGraph.getCircleEquationString(props);
+            case "linear-system":
+                return InteractiveGraph.getLinearSystemEquationString(props);
+            case "point":
+                return InteractiveGraph.getPointEquationString(props);
+            case "segment":
+                return InteractiveGraph.getSegmentEquationString(props);
+            case "ray":
+                return InteractiveGraph.getRayEquationString(props);
+            case "polygon":
+                return InteractiveGraph.getPolygonEquationString(props);
+            case "angle":
+                return InteractiveGraph.getAngleEquationString(props);
+            default:
+                throw new UnreachableCaseError(type);
+        }
     }
 
     static pointsFromNormalized(
