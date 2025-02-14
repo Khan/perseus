@@ -318,7 +318,7 @@ export type WidgetOptions<Type extends string, Options> = {
     options: Options;
     // Only used by interactive child widgets (line, point, etc) to identify the components
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    key?: number;
+    key?: number | null;
     // The version of the widget data spec.  Used to differentiate between newer and older content data.
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     version?: Version;
@@ -414,8 +414,7 @@ export type PerseusImageBackground = {
     // The scale of the image
     // NOTE: perseus_data.go says this is required, but nullable, even though
     // it isn't necessary at all.
-    // Yikes, production data as this as both a number (1) and string ("1")
-    scale?: number | string;
+    scale?: number;
     // The bottom offset of the image
     // NOTE: perseus_data.go says this is required, but nullable, even though
     // it isn't necessary at all.

@@ -4,6 +4,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -59,6 +67,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -104,7 +120,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-with-nul
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -169,7 +189,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-s
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -246,7 +273,17 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-s
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-with-null-width.json 1`] = `
 {
-  "answerArea": {},
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
   "hints": [],
   "question": {
     "content": "[[☃ cs-program 1]]",
@@ -275,7 +312,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/definition-missing-s
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -348,6 +389,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-pla
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -407,6 +456,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-ver
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -450,7 +507,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/explanation-missing-
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -539,7 +603,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-answerFor
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -596,6 +664,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-missing-b
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -653,7 +729,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-mi
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -698,6 +781,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-with-null
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -1147,7 +1238,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/graded-group-with-fa
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -1341,6 +1436,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-co
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -1435,7 +1538,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/hint-missing-images.
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -1725,6 +1832,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-allow
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -1816,7 +1931,17 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-allow
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-settings.json 1`] = `
 {
-  "answerArea": {},
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
   "hints": [],
   "question": {
     "content": "[[☃ iframe 1]]",
@@ -1842,7 +1967,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-stati
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -1887,10 +2019,308 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-stati
 }
 `;
 
+exports[`parseAndTypecheckPerseusItem correctly parses data/image-with-null-dimensions.json 1`] = `
+{
+  "_multi": null,
+  "answer": null,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "crwdns7184011:0{x}crwdnd7184011:0{y}crwdnd7184011:0{x}crwdnd7184011:0{horizontal}crwdnd7184011:0{y}crwdnd7184011:0{vertical}crwdne7184011:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns7188017:0{origin}crwdnd7188017:0{left}crwdne7188017:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {
+        "image 2": {
+          "alignment": "block",
+          "graded": true,
+          "id": null,
+          "key": null,
+          "options": {
+            "alt": "crwdns8172348:0crwdne8172348:0",
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 325,
+              "left": undefined,
+              "scale": undefined,
+              "top": 0,
+              "url": "crwdns7182513:0crwdne7182513:0",
+              "width": 325,
+            },
+            "box": [
+              325,
+              325,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "crwdns7237627:0{horizontal}crwdnd7237627:0{x}crwdnd7237627:0$B$crwdnd7237627:0{4}crwdnd7237627:0{left}crwdnd7237627:0{x}crwdnd7237627:0{-4}crwdnd7237627:0{-4}crwdnd7237627:0{y}crwdne7237627:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {
+        "image 1": {
+          "alignment": "block",
+          "graded": true,
+          "id": null,
+          "key": null,
+          "options": {
+            "alt": "crwdns8172402:0crwdne8172402:0",
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 325,
+              "left": undefined,
+              "scale": undefined,
+              "top": 0,
+              "url": "crwdns7182255:0crwdne7182255:0",
+              "width": 325,
+            },
+            "box": [
+              325,
+              325,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "crwdns7192457:0{vertical}crwdnd7192457:0{y}crwdnd7192457:0$B$crwdnd7192457:0{on}crwdnd7192457:0$x$crwdnd7192457:0$x$crwdnd7192457:0{y}crwdnd7192457:0{0}crwdnd7192457:0{-4}crwdnd7192457:0{0}crwdne7192457:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {
+        "image 1": {
+          "alignment": "block",
+          "graded": true,
+          "id": null,
+          "key": null,
+          "options": {
+            "alt": "crwdns8172402:0crwdne8172402:0",
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 325,
+              "left": undefined,
+              "scale": undefined,
+              "top": 0,
+              "url": "crwdns7182255:0crwdne7182255:0",
+              "width": 325,
+            },
+            "box": [
+              325,
+              325,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "crwdns7192819:0$B$crwdne7192819:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "crwdns7183087:0$B$crwdnd7183087:0$B$crwdne7183087:0",
+    "images": {},
+    "metadata": null,
+    "replace": null,
+    "widgets": {
+      "image 2": {
+        "alignment": "block",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "alt": "crwdns8172264:0crwdne8172264:0",
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": 325,
+            "left": undefined,
+            "scale": undefined,
+            "top": 0,
+            "url": "crwdns7191255:0crwdne7191255:0",
+            "width": 325,
+          },
+          "box": [
+            325,
+            325,
+          ],
+          "caption": "",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "choices": [
+            {
+              "clue": "",
+              "content": "crwdns7184273:0crwdne7184273:0",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+            {
+              "clue": "",
+              "content": "crwdns3077510:0crwdne3077510:0",
+              "correct": true,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+            {
+              "clue": "",
+              "content": "crwdns4204212:0crwdne4204212:0",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+            {
+              "clue": "",
+              "content": "crwdns4204218:0crwdne4204218:0",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "noneOfTheAbove": false,
+          "onePerLine": false,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-boolean-value.json 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -2014,6 +2444,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -2209,7 +2647,17 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-missing-key.json 1`] = `
 {
-  "answerArea": {},
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
   "hints": [],
   "question": {
     "content": "# Functions introduction
@@ -2707,7 +3155,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-ba
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -2843,7 +3298,17 @@ $3$ | $8$
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-locked-line-missing-showPoint1.json 1`] = `
 {
-  "answerArea": {},
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
   "hints": [],
   "question": {
     "content": "Custom Axis Labels:
@@ -3598,7 +4063,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-mi
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -4088,6 +4557,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-mi
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -4183,6 +4660,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-po
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -4327,7 +4812,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-wi
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -4618,6 +5107,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/lights-puzzle.json 1
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -4659,6 +5156,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -4761,7 +5266,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-nulls-in
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -4826,7 +5335,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-string-a
   "answerArea": {
     "calculator": true,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -5090,6 +5603,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-ima
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -5184,6 +5705,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-sta
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -5228,7 +5757,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -5447,6 +5980,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -5501,6 +6042,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-emp
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -5620,6 +6169,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-nul
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -5714,6 +6271,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -5759,6 +6324,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -5938,6 +6511,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -5987,6 +6568,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -6262,7 +6851,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-with-s
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -6323,7 +6916,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missi
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -7087,6 +7684,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missi
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -7200,6 +7805,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-invalid
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -7273,7 +7886,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-undefin
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -7469,6 +8086,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/passage-missing-foot
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -7519,6 +8144,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/passage-ref-missing-
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -7739,6 +8372,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-missing-scal
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -7846,6 +8487,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefin
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -7948,7 +8597,17 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefin
 
 exports[`parseAndTypecheckPerseusItem correctly parses data/question-missing-content.json 1`] = `
 {
-  "answerArea": {},
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
   "hints": [],
   "question": {
     "content": "",
@@ -7962,6 +8621,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -8174,7 +8841,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-missing-noneOf
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -8232,6 +8903,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/simulator-widget.jso
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -8285,6 +8964,14 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/transformer-widget.j
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {

@@ -1,5 +1,6 @@
 import {
     boolean,
+    nullable,
     number,
     object,
     optional,
@@ -19,7 +20,7 @@ export function parseWidget<Type extends string, Options>(
         graded: optional(boolean),
         alignment: optional(string),
         options: parseOptions,
-        key: optional(number),
+        key: optional(nullable(number)),
         version: optional(
             object({
                 major: number,
