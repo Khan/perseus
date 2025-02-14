@@ -1,5 +1,17 @@
 # @khanacademy/math-input
 
+## 22.2.5
+
+### Patch Changes
+
+-   [#2232](https://github.com/Khan/perseus/pull/2232) [`dc9989893`](https://github.com/Khan/perseus/commit/dc9989893a58b9ca758554606ada51441e0190fa) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Tooling: Enabled jsx-a11y lint rules and disabled existing errors that were found
+
+*   [#2235](https://github.com/Khan/perseus/pull/2235) [`ab2041897`](https://github.com/Khan/perseus/commit/ab2041897dff393e2e86d4d4a6e5ad278eff17bd) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused code, and export the `ParseFailureDetail` type from `@khanacademy/perseus-core`
+
+*   Updated dependencies [[`f8a4becb0`](https://github.com/Khan/perseus/commit/f8a4becb03c543b034cc47d91d3335078bce76c0), [`ae29e2b2f`](https://github.com/Khan/perseus/commit/ae29e2b2fd3b4ec9533b3a1845d2ca94d05d4ed7), [`ab2041897`](https://github.com/Khan/perseus/commit/ab2041897dff393e2e86d4d4a6e5ad278eff17bd), [`1ade12c18`](https://github.com/Khan/perseus/commit/1ade12c184ba9ef657a7c7d53b81da70fe85de31), [`ce320b496`](https://github.com/Khan/perseus/commit/ce320b496bdc9580c194f878674773b845bb27b3)]:
+    -   @khanacademy/perseus-core@3.6.0
+    -   @khanacademy/keypad-context@1.0.18
+
 ## 22.2.4
 
 ### Patch Changes
