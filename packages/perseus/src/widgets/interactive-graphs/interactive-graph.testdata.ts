@@ -139,6 +139,9 @@ export const finitePointQuestion: PerseusRenderer =
         })
         .build();
 
+export const unlimitedPointQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder().withPoints("unlimited").build();
+
 export const polygonQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withContent(
@@ -1017,6 +1020,7 @@ export const staticGraphQuestionWithAnotherWidget: () => PerseusRenderer =
 
 export const interactiveGraphWithAriaLabel: PerseusRenderer =
     interactiveGraphQuestionBuilder()
+        .withNoInteractiveFigure()
         .withFullGraphAriaLabel("Segment Graph Title")
         .withFullGraphAriaDescription(
             "There is a segment on the graph that runs from five units left and five units up to five units right and five units up.",
