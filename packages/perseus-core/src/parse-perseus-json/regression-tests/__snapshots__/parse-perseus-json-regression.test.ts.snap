@@ -7274,6 +7274,396 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
 }
 `;
 
+exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.json returns the same result as before 1`] = `
+{
+  "_multi": null,
+  "answer": null,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "crwdns6520515:0{y}crwdnd6520515:0$x$crwdnd6520515:0$y$crwdnd6520515:0:-:crwdne6520515:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns7005730:0{x}crwdnd7005730:0{2}crwdnd7005730:0{y}crwdnd7005730:0{6}crwdne7005730:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {
+        "image 1": {
+          "alignment": "block",
+          "graded": true,
+          "id": null,
+          "key": null,
+          "options": {
+            "alt": "crwdns7006580:0crwdne7006580:0",
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 275,
+              "left": undefined,
+              "scale": undefined,
+              "top": 0,
+              "url": "crwdns6995774:0crwdne6995774:0",
+              "width": 275,
+            },
+            "box": [
+              275,
+              275,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "crwdns7006926:0{x}crwdnd7006926:0{3}crwdnd7006926:0{y}crwdnd7006926:0{4}crwdne7006926:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {
+        "image 1": {
+          "alignment": "block",
+          "graded": true,
+          "id": null,
+          "key": null,
+          "options": {
+            "alt": "crwdns6998968:0crwdne6998968:0",
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 275,
+              "left": undefined,
+              "scale": undefined,
+              "top": 0,
+              "url": "crwdns7002052:0crwdne7002052:0",
+              "width": 275,
+            },
+            "box": [
+              275,
+              275,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "crwdns7004342:0{x}crwdnd7004342:0{4}crwdnd7004342:0{y}crwdnd7004342:0{2}crwdne7004342:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {
+        "image 1": {
+          "alignment": "block",
+          "graded": true,
+          "id": null,
+          "key": null,
+          "options": {
+            "alt": "crwdns6996978:0crwdne6996978:0",
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 275,
+              "left": undefined,
+              "scale": undefined,
+              "top": 0,
+              "url": "crwdns7003786:0crwdne7003786:0",
+              "width": 275,
+            },
+            "box": [
+              275,
+              275,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "crwdns6520827:0$x$crwdnd6520827:0$y$crwdnd6520827:0:-:crwdnd6520827:0{6}crwdnd6520827:0{4}crwdnd6520827:0{2}crwdnd6520827:0$3$crwdne6520827:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns6520744:0$x$crwdnd6520744:0$2$crwdnd6520744:0$2$crwdnd6520744:0$y$crwdnd6520744:0$x$crwdnd6520744:0$y$crwdnd6520744:0:-:crwdnd6520744:0:-:crwdnd6520744:0{2}crwdnd6520744:0{2}crwdnd6520744:0{6}crwdnd6520744:0{3}crwdnd6520744:0{3}crwdnd6520744:0{8}crwdnd6520744:0{4}crwdnd6520744:0{4}crwdnd6520744:0{10}crwdne6520744:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns6520679:0$x$crwdnd6520679:0$2$crwdnd6520679:0$10$crwdnd6520679:0$y$crwdnd6520679:0$x$crwdnd6520679:0$y$crwdnd6520679:0:-:crwdnd6520679:0:-:crwdnd6520679:0{2}crwdnd6520679:0{2}crwdnd6520679:0{6}crwdnd6520679:0{3}crwdnd6520679:0{3}crwdnd6520679:0{4}crwdnd6520679:0{4}crwdnd6520679:0{4}crwdnd6520679:0{2}crwdne6520679:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns6521230:0$x$crwdnd6521230:0$y$crwdnd6521230:0:-:crwdnd6521230:0$2$crwdnd6521230:0$6$crwdnd6521230:0$3$crwdnd6521230:0$4$crwdnd6521230:0$4$crwdnd6521230:0$2$crwdnd6521230:0$x$crwdnd6521230:0$y$crwdnd6521230:0$x$crwdnd6521230:0$2$crwdnd6521230:0$10$crwdnd6521230:0$y$crwdne6521230:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "crwdns6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0:-:crwdnd6996888:0$2$crwdnd6996888:0$3$crwdnd6996888:0$4$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdne6996888:0",
+    "images": {},
+    "metadata": null,
+    "replace": null,
+    "widgets": {
+      "image 1": {
+        "alignment": "block",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "alt": "crwdns6998746:0crwdne6998746:0",
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": 275,
+            "left": undefined,
+            "scale": undefined,
+            "top": 0,
+            "url": "crwdns7006740:0crwdne7006740:0",
+            "width": 275,
+          },
+          "box": [
+            275,
+            275,
+          ],
+          "caption": "",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "answers": [
+            {
+              "answerForms": undefined,
+              "maxError": null,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 6,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "multipleNumberInput": false,
+          "rightAlign": false,
+          "size": "normal",
+          "static": false,
+        },
+        "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "numeric-input 2": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "answers": [
+            {
+              "answerForms": undefined,
+              "maxError": null,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 4,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "multipleNumberInput": false,
+          "rightAlign": false,
+          "size": "normal",
+          "static": false,
+        },
+        "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "numeric-input 3": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "answers": [
+            {
+              "answerForms": undefined,
+              "maxError": null,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 2,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "multipleNumberInput": false,
+          "rightAlign": false,
+          "size": "normal",
+          "static": false,
+        },
+        "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "choices": [
+            {
+              "clue": "",
+              "content": "crwdns6520529:0$x$crwdnd6520529:0$2$crwdnd6520529:0$2$crwdnd6520529:0$y$crwdne6520529:0",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+            {
+              "clue": "",
+              "content": "crwdns6520777:0$x$crwdnd6520777:0$2$crwdnd6520777:0$10$crwdnd6520777:0$y$crwdne6520777:0",
+              "correct": true,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "noneOfTheAbove": false,
+          "onePerLine": false,
+          "randomize": true,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.json returns the same result as before 1`] = `
 {
   "answerArea": {
