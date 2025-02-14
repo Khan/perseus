@@ -9717,6 +9717,195 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
 }
 `;
 
+exports[`parseAndMigratePerseusItem given radio-with-null-widgets.json returns the same result as before 1`] = `
+{
+  "_multi": null,
+  "answer": null,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "
+[[☃ image 1]]
+
+##A history of conformity in American schools
+
+*By Heather M. Meston*
+
+___
+
+1. Ever wondered why you sit in rows of desks, stand in silent lines, or follow dozens of other rules during the school day? American public schools are often accused of teaching *conformity.* But what is conformity? It’s when people think and act the same. And, in fact, teaching conformity was a huge part of why American public schools were created! 
+
+###The Prussian Model of Education comes to the United States
+
+2. Where did the idea that schools should teach conformity come from?
+
+3. Prussia, it turns out. No, not Russia: Prussia, which today is Germany. After France defeated Prussia in 1807, Prussian leaders blamed the loss on their soldiers. They thought the soldiers were doing too much independent thinking and not enough following orders. So, to eliminate this independence, they imposed required schooling. They designed schools to teach values like duty, obedience, and love of their country, as well as math and reading. The government used taxes to pay for all Prussian children to go to school through 8th grade.
+
+4. 	In the United States, schools did exist prior to the 1800s, but they often cost money and were open mostly only to White boys. Then in 1843, Horace Mann, often called the Father of American Education, traveled to Prussia to study their schools. He was very impressed by Prussian schools. So, he began fighting for the United States to align its schools with Prussia’s. 
+
+5.	Mann called his free, required schools “common schools.” He wanted them to focus on both academics and values, like the Prussian schools. The arrival of large populations of immigrants from Southern and Eastern Europe further shaped the idea that schools should teach values. Common schools were viewed as a way to make immigrants “more American.” Schools would teach immigrants English, democratic values like voting, and how to be productive workers. Common schools became one way to make sure that all people conformed to morals that American leaders valued.
+
+###Who gets to be “normal” in schools today?
+
+6. 	Today, many American public schools still expect students to learn the same skills, at the same time, in the same ways. They also often teach certain kinds of values, like being quiet and following directions. But studies show that this focus on conformity can cause particular problems for certain students, such as those with disabilities or those who don’t speak English as their first language.
+
+7. 	Take, for example, students with Attention Deficit Hyperactivity Disorder, or ADHD. People with ADHD can have incredible talents: many of them have high levels of energy, creativity, and hyperfocus. Hyperfocus is when a person can tune out distractions and focus on one task for a long time. These talents can help people with ADHD do amazing things. Walt Disney, Leonardo Da Vinci, and Albert Einstein are all believed to have had ADHD. The creativity, energy, and hyperfocus they brought to their passions helped them achieve their extraordinary levels of success 
+	
+8. Yet, despite these talents, students with ADHD often struggle in school. They may have trouble conforming to school rules. Sitting for long periods of time can be hard for all students, but particularly for students with ADHD. Students with ADHD may also find it hard to have to learn the same material at the same speed as everyone else. Researchers have shown that students with ADHD learn best in schools that focus on movement, choice, and creativity. In schools like these, students with ADHD can often be very successful. However, because of standardized tests, required lessons, and rules that teachers have to follow, it can be hard for schools to create these kinds of experiences for students.
+
+
+[[☃ explanation 1]]=====
+**Based on the text, which of the following statements is likely true?**
+
+
+[[☃ radio 1]]
+
+
+
+
+",
+    "images": {},
+    "metadata": null,
+    "replace": null,
+    "widgets": {
+      "explanation 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "explanation": "Public domain image provided by the Boston Public Library",
+          "hidePrompt": "Hide attribution",
+          "showPrompt": "Attribution",
+          "static": false,
+          "widgets": {},
+        },
+        "static": false,
+        "type": "explanation",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "image 1": {
+        "alignment": "block",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "alt": "A class in 1895",
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": 782,
+            "left": undefined,
+            "scale": undefined,
+            "top": 0,
+            "url": "https://cdn.kastatic.org/ka-content-images/2cd757f8be2af8caa65c5e9c2c8e491f38a504a4.jpg",
+            "width": 1024,
+          },
+          "box": [
+            1024,
+            782,
+          ],
+          "caption": "",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "choices": [
+            {
+              "clue": "**This statement **is** likely true, making it the best choice.** The text first explains how the idea of conformity in schools came from Prussia. Then, the text points out how “today, many American public schools still expect students to learn the same skills, at the same time, in the same ways.” From this, you can infer that the Prussian model continues to influence American public schools today. ",
+              "content": "The Prussian Model of Education continues to influence how many American public schools are run today.
+",
+              "correct": true,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+            {
+              "clue": "This statement isn’t likely true. After explaining how the idea of conformity in schools came from Prussia, the text points out how “today, many American public schools still expect students to learn the same skills, at the same time, in the same ways.” So, you can infer that the Prussian focus on conformity still influences American public schools.
+",
+              "content": "The Prussian Model of Education has little influence on the way that American public schools are run today.
+",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+            {
+              "clue": "This statement isn’t likely true. The text discusses how American schools focus on conformity, and points out how “studies show that this focus on conformity can cause particular problems for certain students.” But the text doesn’t mention many people fighting to eliminate schools’ focus on conformity.
+",
+              "content": "There have been many people fighting to eliminate the focus on conformity in American public schools.
+",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+            {
+              "clue": "This statement isn’t likely true. The text doesn’t mention people fighting to impose new rules. 
+",
+              "content": "There have been many people fighting to impose new rules within the American public school system.",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "noneOfTheAbove": false,
+          "onePerLine": false,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given simulator-widget.json returns the same result as before 1`] = `
 {
   "answerArea": {
