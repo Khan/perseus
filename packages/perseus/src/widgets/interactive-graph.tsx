@@ -3,7 +3,6 @@ import {angles, geometry} from "@khanacademy/kmath";
 import {
     approximateEqual,
     Errors,
-    getInteractiveGraphPublicWidgetOptions,
     PerseusError,
 } from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
@@ -827,5 +826,4 @@ export default {
     displayName: "Interactive graph (Assessments only)",
     widget: InteractiveGraph,
     staticTransform: staticTransform,
-    getPublicWidgetOptions: getInteractiveGraphPublicWidgetOptions,
 } satisfies WidgetExports<typeof InteractiveGraph>;

@@ -1,8 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {
-    type PerseusCategorizerWidgetOptions,
-    getCategorizerPublicWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {type PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
@@ -320,5 +317,4 @@ export default {
         );
     },
     isLintable: true,
-    getPublicWidgetOptions: getCategorizerPublicWidgetOptions,
 } satisfies WidgetExports<typeof Categorizer>;
