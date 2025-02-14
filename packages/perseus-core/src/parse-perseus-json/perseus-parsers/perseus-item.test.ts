@@ -1,5 +1,5 @@
 import {parse} from "../parse";
-import {assertFailure, assertSuccess} from "../result";
+import {assertSuccess} from "../result";
 
 import {parsePerseusItem} from "./perseus-item";
 

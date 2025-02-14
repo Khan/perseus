@@ -4,7 +4,7 @@ import {join} from "path";
 import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {
     parseAndMigratePerseusArticle,
-    parseAndMigratePerseusItem
+    parseAndMigratePerseusItem,
 } from "../index";
 import {assertSuccess, mapFailure} from "../result";
 
@@ -13,7 +13,6 @@ const itemDataFiles = fs.readdirSync(itemDataDir);
 
 const articleDataDir = join(__dirname, "article-data");
 const articleDataFiles = fs.readdirSync(articleDataDir);
-
 
 describe("parseAndMigratePerseusItem", () => {
     describe.each(itemDataFiles)("given %s", (filename) => {
@@ -32,7 +31,7 @@ describe("parseAndMigratePerseusItem", () => {
         it("returns the same result as before", () => {
             assertSuccess(result);
             expect(result.value).toMatchSnapshot();
-        })
+        });
     });
 });
 
@@ -53,7 +52,7 @@ describe("parseAndMigratePerseusArticle", () => {
         it("returns the same result as before", () => {
             assertSuccess(result);
             expect(result.value).toMatchSnapshot();
-        })
+        });
     });
 });
 
