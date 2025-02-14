@@ -9,12 +9,9 @@ export default function splitPerseusItem(
     originalItem: PerseusRenderer,
 ): PerseusRenderer {
     const item = _.clone(originalItem);
+    const originalWidgets = item.widgets ?? {};
 
-    if (!item.widgets || Object.keys(item.widgets).length === 0) {
-        return item;
-    }
-
-    const upgradedWidgets = getUpgradedWidgetOptions(item.widgets);
+    const upgradedWidgets = getUpgradedWidgetOptions(originalWidgets);
     const splitWidgets = {};
 
     for (const [id, widget] of Object.entries(upgradedWidgets)) {
@@ -24,16 +21,12 @@ export default function splitPerseusItem(
 
         splitWidgets[id] = {
             ...widget,
-            // Not all widgets have a splitting function
-            // so just pass options through for those that don't
-            // TODO(LEMS-2870): make publicWidgetOptionsFun generic
-            options: publicWidgetOptionsFun
-                ? publicWidgetOptionsFun(widget.options as any)
-                : widget.options,
+            options: publicWidgetOptionsFun(widget.options as any),
         };
     }
 
-    item.widgets = splitWidgets;
-
-    return item;
+    return {
+        ...item,
+        widgets: splitWidgets,
+    };
 }
