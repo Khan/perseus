@@ -35,7 +35,7 @@ export function getWidgetSubTypeByWidgetId(
 
             return graph?.type ?? null;
         default:
-            return widgetType;
+            return null;
     }
 }
 
