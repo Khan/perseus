@@ -1,5 +1,11 @@
 import * as Result from "./result";
-import {assertFailure, assertSuccess, failure, success} from "./result";
+import {
+    assertFailure,
+    assertSuccess,
+    failure,
+    mapFailure,
+    success,
+} from "./result";
 
 describe("Result.all", () => {
     it("returns success given an empty array", () => {
@@ -73,5 +79,19 @@ describe("Result.assertSuccess", () => {
         expect(result.value).toBe(42);
         assertSuccess(result);
         expect(result.value).toBe(42);
+    });
+});
+
+describe("Result.mapFailure", () => {
+    const increment = (x: number) => x + 1;
+
+    it("does nothing to a success", () => {
+        const result = mapFailure(increment)(success(0));
+        expect(result).toEqual(success(0));
+    });
+
+    it("transforms a failure's `detail` using the provided function", () => {
+        const result = mapFailure(increment)(failure(0));
+        expect(result).toEqual(failure(1));
     });
 });
