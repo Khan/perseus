@@ -18,16 +18,21 @@ import "./protractor.css";
 
 const {calculateAngleInDegrees, convertDegreesToRadians} = angles;
 
+// Old URL
+// "https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png";
+// New URL
+// "web+graphie://ka-perseus-graphie.s3.amazonaws.com/0d3b48031a08169cb2060ac298d25da4ef98ecf7";
+// "web+graphie://ka-perseus-graphie.s3.amazonaws.com/d1dae7a264e80361a370962ecd19f6874f2ede6b"
 const protractorImage =
-    "https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png";
+    "https://ka-perseus-graphie.s3.amazonaws.com/d1dae7a264e80361a370962ecd19f6874f2ede6b.svg";
 
 // The vector from the center of the protractor to the top left corner of the
 // protractor image, in pixels. Used for positioning.
-const centerToTopLeft: vec.Vector2 = [-180, -170];
+const centerToTopLeft: vec.Vector2 = [-195, -190];
 
 // The vector from the center of the protractor to the center of the rotation
 // handle.
-const centerToRotationHandle: vec.Vector2 = [-176, -15];
+const centerToRotationHandle: vec.Vector2 = [-201, -15];
 
 export function Protractor() {
     const {range, snapStep} = useGraphConfig();
