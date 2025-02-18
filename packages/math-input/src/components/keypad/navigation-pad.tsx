@@ -10,7 +10,7 @@ import NavigationButton from "./navigation-button";
 
 import type {ClickKeyCallback} from "../../types";
 
-export type Props = {
+type Props = {
     onClickKey: ClickKeyCallback;
 };
 

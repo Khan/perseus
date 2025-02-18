@@ -1,5 +1,60 @@
 # @khanacademy/perseus
 
+## 54.0.0
+
+### Major Changes
+
+-   [#2234](https://github.com/Khan/perseus/pull/2234) [`1ade12c18`](https://github.com/Khan/perseus/commit/1ade12c184ba9ef657a7c7d53b81da70fe85de31) Thanks [@handeyeco](https://github.com/handeyeco)! - Move splitters into perseus-core, add splitPerseusItem
+
+### Minor Changes
+
+-   [#2228](https://github.com/Khan/perseus/pull/2228) [`edd34241e`](https://github.com/Khan/perseus/commit/edd34241ea54bab011a7b66789c115850e2ae7a4) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Remove legacy graph
+
+*   [#2238](https://github.com/Khan/perseus/pull/2238) [`8e4cb7f53`](https://github.com/Khan/perseus/commit/8e4cb7f53efafed365ca5fa321dad14cb5ce2d30) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bugfixes to ensure that focus is handled correctly on unlimited point/polygon graphs.
+
+### Patch Changes
+
+-   [#2223](https://github.com/Khan/perseus/pull/2223) [`f8a4becb0`](https://github.com/Khan/perseus/commit/f8a4becb03c543b034cc47d91d3335078bce76c0) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Bugfix] Interactive Graph crashes in editor when setting domain for locked function
+
+*   [#2201](https://github.com/Khan/perseus/pull/2201) [`91cede41f`](https://github.com/Khan/perseus/commit/91cede41fa6ef2744709e82d651d9bf3ba4c928a) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Refactor - Update graphs to pass in i18n context
+
+-   [#2230](https://github.com/Khan/perseus/pull/2230) [`5fd3aa351`](https://github.com/Khan/perseus/commit/5fd3aa35123d1bcbc64dd8b63c914396a1ad9f06) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Add screen reader support for pi-based numbers
+
+*   [#2224](https://github.com/Khan/perseus/pull/2224) [`639eb089d`](https://github.com/Khan/perseus/commit/639eb089d120b01bd9cb87b5d1e0ba2b34772846) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Add minimal instructions for how to interact with graph
+
+-   [#2205](https://github.com/Khan/perseus/pull/2205) [`ae29e2b2f`](https://github.com/Khan/perseus/commit/ae29e2b2fd3b4ec9533b3a1845d2ca94d05d4ed7) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating perseus analytics and events for better metrics.
+
+*   [#2232](https://github.com/Khan/perseus/pull/2232) [`dc9989893`](https://github.com/Khan/perseus/commit/dc9989893a58b9ca758554606ada51441e0190fa) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Tooling: Enabled jsx-a11y lint rules and disabled existing errors that were found
+
+-   [#2229](https://github.com/Khan/perseus/pull/2229) [`91cd0c937`](https://github.com/Khan/perseus/commit/91cd0c9370447b9f8ffb4ae32c957649a3709ba9) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Sinusoid - add screen reader support
+
+*   [#2236](https://github.com/Khan/perseus/pull/2236) [`df75123e5`](https://github.com/Khan/perseus/commit/df75123e59f0423b807a101d054a7a297e316d1c) Thanks [@nishasy](https://github.com/nishasy)! - [LX] Add hairlines when Circle center has focus
+
+-   [#2243](https://github.com/Khan/perseus/pull/2243) [`43005350f`](https://github.com/Khan/perseus/commit/43005350f5dfb4f4a00badb442e2cfb8dca18014) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Angle - Update strings to reflect changes to SRUX specs
+
+*   [#2245](https://github.com/Khan/perseus/pull/2245) [`037aaa2f4`](https://github.com/Khan/perseus/commit/037aaa2f486802926abbe4e754fef5e329c9526b) Thanks [@catandthemachines](https://github.com/catandthemachines)! - fixing bug in getWidgetSubTypeByWidgetId function.
+
+-   [#2213](https://github.com/Khan/perseus/pull/2213) [`db9bc4fb6`](https://github.com/Khan/perseus/commit/db9bc4fb6b3929b6f727fc5b549a20d997b2a00a) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Angle - Add the "interactive elements" overall graph description
+
+*   [#2212](https://github.com/Khan/perseus/pull/2212) [`3ec6ec179`](https://github.com/Khan/perseus/commit/3ec6ec1799b9dec7f8e8a5ae025abcfc3a068822) Thanks [@nishasy](https://github.com/nishasy)! - [LX] Add hairlines when point has focus
+
+-   [#2235](https://github.com/Khan/perseus/pull/2235) [`ab2041897`](https://github.com/Khan/perseus/commit/ab2041897dff393e2e86d4d4a6e5ad278eff17bd) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused code, and export the `ParseFailureDetail` type from `@khanacademy/perseus-core`
+
+*   [#2221](https://github.com/Khan/perseus/pull/2221) [`71329fe35`](https://github.com/Khan/perseus/commit/71329fe353212e92411fdbbea7efd62f70068151) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Add aria-labels for x- and y-axis labels
+
+-   [#2244](https://github.com/Khan/perseus/pull/2244) [`c565e26d4`](https://github.com/Khan/perseus/commit/c565e26d4cb56ec7114beb5a563f82a2993751b6) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Replace string-based function call with switch statement
+
+-   Updated dependencies [[`f8a4becb0`](https://github.com/Khan/perseus/commit/f8a4becb03c543b034cc47d91d3335078bce76c0), [`ae29e2b2f`](https://github.com/Khan/perseus/commit/ae29e2b2fd3b4ec9533b3a1845d2ca94d05d4ed7), [`dc9989893`](https://github.com/Khan/perseus/commit/dc9989893a58b9ca758554606ada51441e0190fa), [`ab2041897`](https://github.com/Khan/perseus/commit/ab2041897dff393e2e86d4d4a6e5ad278eff17bd), [`1ade12c18`](https://github.com/Khan/perseus/commit/1ade12c184ba9ef657a7c7d53b81da70fe85de31), [`ce320b496`](https://github.com/Khan/perseus/commit/ce320b496bdc9580c194f878674773b845bb27b3)]:
+    -   @khanacademy/perseus-core@3.6.0
+    -   @khanacademy/math-input@22.2.5
+    -   @khanacademy/perseus-linter@1.2.17
+    -   @khanacademy/perseus-score@2.2.1
+    -   @khanacademy/kas@0.4.15
+    -   @khanacademy/keypad-context@1.0.18
+    -   @khanacademy/kmath@0.3.4
+    -   @khanacademy/pure-markdown@0.3.26
+    -   @khanacademy/simple-markdown@0.13.19
+
 ## 53.1.0
 
 ### Minor Changes

@@ -1,3 +1,5 @@
+import getMatrixPublicWidgetOptions from "./matrix-util";
+
 import type {PerseusMatrixWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -17,6 +19,7 @@ const defaultWidgetOptions: MatrixDefaultWidgetOptions = {
 const matrixWidgetLogic: WidgetLogic = {
     name: "matrix",
     defaultWidgetOptions,
+    getPublicWidgetOptions: getMatrixPublicWidgetOptions,
 };
 
 export default matrixWidgetLogic;

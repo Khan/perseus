@@ -9,6 +9,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import Hairlines from "./components/hairlines";
 import {MovablePoint} from "./components/movable-point";
 import {srFormatNumber} from "./screenreader-text";
 import {useDraggable} from "./use-draggable";
@@ -29,18 +30,18 @@ import type {
 export function renderCircleGraph(
     state: CircleGraphState,
     dispatch: Dispatch,
+    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <CircleGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: (
-            <CircleGraphDescription state={state} />
-        ),
+        interactiveElementsDescription: getCircleGraphDescription(state, i18n),
     };
 }
 
 type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 
-function CircleGraph(props: CircleGraphProps) {
+// Exported for testing
+export function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
     const {center, radiusPoint} = graphState;
 
@@ -124,6 +125,7 @@ function MovableCircle(props: {
 }) {
     const {id, ariaLabel, ariaDescribedBy, center, radius, onMove} = props;
     const {snapStep, disableKeyboardInteraction} = useGraphConfig();
+    const [focused, setFocused] = React.useState(false);
 
     const draggableRef = useRef<SVGGElement>(null);
 
@@ -146,6 +148,8 @@ function MovableCircle(props: {
             role="button"
             tabIndex={disableKeyboardInteraction ? -1 : 0}
             className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
         >
             <ellipse
                 className="focus-ring"
@@ -162,21 +166,31 @@ function MovableCircle(props: {
                 rx={radiiPx[X]}
                 ry={radiiPx[Y]}
             />
-            <DragHandle center={center} />
+            <DragHandle center={center} dragging={dragging} focused={focused} />
         </g>
     );
 }
 
 const dragHandleDimensions: vec.Vector2 = [24, 14];
 const dragHandleDotPositions = crossProduct([-4.4, 0, 4.4], [-2.1, 2.1]);
-function DragHandle(props: {center: [x: number, y: number]}) {
-    const {center} = props;
-    const cornerRadius = Math.min(...dragHandleDimensions) / 2;
+function DragHandle(props: {
+    center: [x: number, y: number];
+    dragging: boolean;
+    focused: boolean;
+}) {
+    const {center, dragging, focused} = props;
+
     const [centerPx] = useTransformVectorsToPixels(center);
+    const {markings} = useGraphConfig();
+
+    const cornerRadius = Math.min(...dragHandleDimensions) / 2;
     const topLeft = vec.sub(centerPx, vec.scale(dragHandleDimensions, 0.5));
+
+    const showHairlines = (dragging || focused) && markings !== "none";
 
     return (
         <>
+            {showHairlines && <Hairlines point={center} />}
             <rect
                 className="movable-circle-handle"
                 x={topLeft[X]}
@@ -211,13 +225,11 @@ function crossProduct<A, B>(as: A[], bs: B[]): [A, B][] {
     return result;
 }
 
-function CircleGraphDescription({state}: {state: CircleGraphState}) {
-    // The reason that CircleGraphDescription is a component (rather than a
-    // function that returns a string) is because it needs to use a
-    // hook: `usePerseusI18n`.
-    const i18n = usePerseusI18n();
+function getCircleGraphDescription(
+    state: CircleGraphState,
+    i18n: I18nContextType,
+) {
     const strings = describeCircleGraph(state, i18n);
-
     return strings.srCircleInteractiveElement;
 }
 

@@ -22,12 +22,11 @@ import type {vec} from "mafs";
 export function renderSegmentGraph(
     state: SegmentGraphState,
     dispatch: Dispatch,
+    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <SegmentGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: (
-            <SegmentGraphDescription state={state} />
-        ),
+        interactiveElementsDescription: getSegmentGraphDescription(state, i18n),
     };
 }
 
@@ -171,16 +170,8 @@ function getLengthOfSegment(segment: PairOfPoints) {
     return kpoint.distanceToPoint(...segment);
 }
 
-function SegmentGraphDescription({state}: {state: SegmentGraphState}) {
-    // The reason that SegmentGraphDescription is a component (rather than a
-    // function that returns a string) is because it needs to use a
-    // hook: `usePerseusI18n`.
-    const i18n = usePerseusI18n();
-    return describeSegmentGraph(state, i18n);
-}
-
 // Exported for testing
-export function describeSegmentGraph(
+export function getSegmentGraphDescription(
     state: SegmentGraphState,
     i18n: I18nContextType,
 ): string {

@@ -1,3 +1,5 @@
+import getCategorizerPublicWidgetOptions from "./categorizer-util";
+
 import type {PerseusCategorizerWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -16,6 +18,7 @@ const defaultWidgetOptions: CategorizerDefaultWidgetOptions = {
 const categorizerWidgetLogic: WidgetLogic = {
     name: "categorizer",
     defaultWidgetOptions,
+    getPublicWidgetOptions: getCategorizerPublicWidgetOptions,
 };
 
 export default categorizerWidgetLogic;

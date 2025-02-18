@@ -1,7 +1,6 @@
 import {
     radioLogic,
     type PerseusRadioWidgetOptions,
-    getRadioPublicWidgetOptions,
     random,
     shuffle,
 } from "@khanacademy/perseus-core";
@@ -136,5 +135,4 @@ export default {
     version: radioLogic.version,
     propUpgrades: radioLogic.widgetOptionsUpgrades,
     isLintable: true,
-    getPublicWidgetOptions: getRadioPublicWidgetOptions,
 } satisfies WidgetExports<typeof Radio>;

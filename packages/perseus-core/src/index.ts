@@ -29,6 +29,7 @@ export {
     parsePerseusItem,
     parseAndMigratePerseusItem,
     parseAndMigratePerseusArticle,
+    type ParseFailureDetail,
 } from "./parse-perseus-json";
 
 export {
@@ -117,6 +118,8 @@ export {
     getUpgradedWidgetOptions,
     upgradeWidgetInfoToLatestVersion,
 } from "./widgets/upgrade";
+
+export {default as splitPerseusItem} from "./utils/split-perseus-item";
 
 export type * from "./widgets/logic-export.types";
 

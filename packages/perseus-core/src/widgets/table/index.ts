@@ -1,3 +1,5 @@
+import getTablePublicWidgetOptions from "./table-util";
+
 import type {PerseusTableWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -25,6 +27,7 @@ const defaultWidgetOptions: TableDefaultWidgetOptions = {
 const tableWidgetLogic: WidgetLogic = {
     name: "table",
     defaultWidgetOptions,
+    getPublicWidgetOptions: getTablePublicWidgetOptions,
 };
 
 export default tableWidgetLogic;

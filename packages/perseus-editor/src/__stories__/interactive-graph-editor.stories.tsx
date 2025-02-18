@@ -21,7 +21,8 @@ import {
     segmentWithLockedFigures,
     segmentWithStartingCoordsQuestion,
     segmentsWithStartingCoordsQuestion,
-    sinusoidWithStartingCoordsQuestion,
+    sinusoidMinimalQuestion,
+    sinusoidWithStartingCoordsAndPiTicksQuestion,
     unlimitedPolygonWithCorrectAnswerQuestion,
 } from "../../../perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
@@ -105,8 +106,14 @@ export const InteractiveGraphQuadratic = (): React.ReactElement => {
 
 export const InteractiveGraphSinusoid = (): React.ReactElement => {
     return (
+        <EditorPageWithStorybookPreview question={sinusoidMinimalQuestion} />
+    );
+};
+
+export const InteractiveGraphSinusoidWithPiTicks = (): React.ReactElement => {
+    return (
         <EditorPageWithStorybookPreview
-            question={sinusoidWithStartingCoordsQuestion}
+            question={sinusoidWithStartingCoordsAndPiTicksQuestion}
         />
     );
 };

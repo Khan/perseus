@@ -12,9 +12,6 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 // For more information, see:
 // https://khanacademy.slack.com/archives/C01AZ9H8TTQ/p1738883377389969
 import type {
-    getGrapherPublicWidgetOptions,
-    getInteractiveGraphPublicWidgetOptions,
-    getLabelImagePublicWidgetOptions,
     Hint,
     PerseusAnswerArea,
     PerseusGraphType,
@@ -23,19 +20,6 @@ import type {
     AnalyticsEventHandlerFn,
     Version,
     WidgetOptionsUpgradeMap,
-    getOrdererPublicWidgetOptions,
-    getCategorizerPublicWidgetOptions,
-    getCSProgramPublicWidgetOptions,
-    getExpressionPublicWidgetOptions,
-    getSorterPublicWidgetOptions,
-    getDropdownPublicWidgetOptions,
-    getNumericInputPublicWidgetOptions,
-    getNumberLinePublicWidgetOptions,
-    getRadioPublicWidgetOptions,
-    getTablePublicWidgetOptions,
-    getIFramePublicWidgetOptions,
-    getMatrixPublicWidgetOptions,
-    getPlotterPublicWidgetOptions,
     getMatcherPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -333,7 +317,7 @@ export type DomInsertCheckFn = (
     jiptString?: string,
 ) => string | false;
 
-export type JIPT = {
+type JIPT = {
     useJIPT: boolean;
 };
 
@@ -345,7 +329,7 @@ export interface JiptRenderer {
     replaceJiptContent: (content: string, paragraphIndex: number) => void;
 }
 
-export type JiptTranslationComponents = {
+type JiptTranslationComponents = {
     addComponent: (renderer: JiptRenderer) => number;
     removeComponentAtIndex: (index: number) => void;
 };
@@ -493,24 +477,7 @@ export type WidgetTransform = (
 /**
  * A union type of all the functions that provide public widget options.
  */
-export type PublicWidgetOptionsFunction =
-    | typeof getPlotterPublicWidgetOptions
-    | typeof getIFramePublicWidgetOptions
-    | typeof getRadioPublicWidgetOptions
-    | typeof getMatcherPublicWidgetOptions
-    | typeof getNumericInputPublicWidgetOptions
-    | typeof getDropdownPublicWidgetOptions
-    | typeof getCategorizerPublicWidgetOptions
-    | typeof getOrdererPublicWidgetOptions
-    | typeof getExpressionPublicWidgetOptions
-    | typeof getInteractiveGraphPublicWidgetOptions
-    | typeof getLabelImagePublicWidgetOptions
-    | typeof getSorterPublicWidgetOptions
-    | typeof getCSProgramPublicWidgetOptions
-    | typeof getNumberLinePublicWidgetOptions
-    | typeof getTablePublicWidgetOptions
-    | typeof getGrapherPublicWidgetOptions
-    | typeof getMatrixPublicWidgetOptions;
+export type PublicWidgetOptionsFunction = typeof getMatcherPublicWidgetOptions;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,

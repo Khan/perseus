@@ -9,7 +9,7 @@ import ButtonAsset from "./button-assets";
 import type Key from "../../data/keys";
 import type {KeyConfig, ClickKeyCallback} from "../../types";
 
-export type KeypadButtonProps = {
+type KeypadButtonProps = {
     // 0 indexed [x, y] position in keypad CSS grid
     coord: readonly [number, number];
     keyConfig: KeyConfig;
