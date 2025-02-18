@@ -1,8 +1,18 @@
+import {
+    getNumericInputPublicWidgetOptions,
+    type PerseusNumericInputWidgetOptions,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
+import {
+    scorePerseusItem,
+    type PerseusNumericInputRubric,
+} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -18,11 +28,6 @@ import {
     correctAndWrongAnswers,
 } from "./numeric-input.testdata";
 
-import type {
-    PerseusNumericInputWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
-import type {PerseusNumericInputRubric} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
@@ -472,5 +477,163 @@ describe("transform", () => {
                 },
             ],
         });
+    });
+});
+
+describe("interactive: full vs answerless", () => {
+    beforeAll(() => {
+        registerAllWidgetsForTesting();
+    });
+
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("is answerable with full widget options", async () => {
+        // Arrange
+        const fullNumericInputOptions: PerseusNumericInputWidgetOptions = {
+            coefficient: false,
+            static: false,
+            size: "normal",
+            answers: [
+                {
+                    status: "correct",
+                    maxError: null,
+                    strict: false,
+                    value: 42,
+                    simplify: "required",
+                    message: "",
+                    answerForms: ["proper", "improper", "mixed"],
+                },
+            ],
+        };
+
+        const fullItem: PerseusRenderer = {
+            content: "[[☃ numeric-input 1]] ",
+            images: {},
+            widgets: {
+                "numeric-input 1": {
+                    type: "numeric-input",
+                    options: fullNumericInputOptions,
+                },
+            },
+        };
+
+        // Act
+        const {renderer} = renderQuestion(fullItem);
+        await userEvent.tab();
+        expect(screen.getByRole("textbox")).toHaveFocus();
+
+        // Assert
+        expect(
+            screen.getByText(/a simplified proper fraction, like 3\/5, or/),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(/a simplified improper fraction, like 7\/4, or/),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(/a mixed number, like 1 and 3\/4/),
+        ).toBeInTheDocument();
+
+        await userEvent.type(screen.getByRole("textbox", {hidden: true}), "42");
+
+        const userInput = renderer.getUserInputMap();
+        const score = scorePerseusItem(fullItem, userInput, "en");
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("is interactive with answerless widget options", async () => {
+        // Arrange
+        const fullNumericInputOptions: PerseusNumericInputWidgetOptions = {
+            coefficient: false,
+            static: false,
+            size: "normal",
+            answers: [
+                {
+                    status: "correct",
+                    maxError: null,
+                    strict: false,
+                    value: 42,
+                    simplify: "required",
+                    message: "",
+                    answerForms: ["proper", "improper", "mixed"],
+                },
+            ],
+            fullAnswerForms: [
+                {
+                    name: "proper",
+                    simplify: "required",
+                },
+                {
+                    name: "improper",
+                    simplify: "required",
+                },
+                {
+                    name: "mixed",
+                    simplify: "required",
+                },
+            ],
+        };
+
+        const strippedNumericInputOptions = getNumericInputPublicWidgetOptions(
+            fullNumericInputOptions,
+        );
+
+        const fullItem: PerseusRenderer = {
+            content: "[[☃ numeric-input 1]]",
+            images: {},
+            widgets: {
+                "numeric-input 1": {
+                    type: "numeric-input",
+                    version: {major: 1, minor: 0},
+                    options: fullNumericInputOptions,
+                },
+            },
+        };
+
+        const strippedItem = {
+            content: "[[☃ numeric-input 1]]",
+            images: {},
+            widgets: {
+                "numeric-input 1": {
+                    type: "numeric-input",
+                    version: {major: 1, minor: 0},
+                    options: strippedNumericInputOptions,
+                },
+            },
+        };
+
+        // Act
+        const {renderer} = renderQuestion(strippedItem as any);
+        await userEvent.tab();
+        expect(screen.getByRole("textbox")).toHaveFocus();
+
+        // Assert
+        expect(
+            screen.getByText(/a simplified proper fraction, like 3\/5, or/),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(/a simplified improper fraction, like 7\/4, or/),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(/a mixed number, like 1 and 3\/4/),
+        ).toBeInTheDocument();
+
+        await userEvent.type(screen.getByRole("textbox", {hidden: true}), "42");
+
+        const userInput = renderer.getUserInputMap();
+        const score = scorePerseusItem(fullItem, userInput, "en");
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 });
