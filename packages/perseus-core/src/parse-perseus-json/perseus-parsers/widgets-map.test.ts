@@ -540,9 +540,10 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "numeric-input 1": {
                 type: "numeric-input",
-                version: {major: 0, minor: 0},
+                version: {major: 1, minor: 0},
                 options: {
                     answers: [],
+                    fullAnswerForms: [],
                     labelText: "",
                     size: "",
                     coefficient: false,
