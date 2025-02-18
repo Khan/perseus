@@ -23,7 +23,9 @@ describe("parseAndMigratePerseusItem", () => {
             // If the parse fails, get just the error message. This makes the test
             // failure easier to read, since otherwise the entire `invalidObject`
             // from the ParseFailureDetail would be printed.
-            const result = mapFailure(getMessage)(parseAndMigratePerseusItem(json));
+            const result = mapFailure(getMessage)(
+                parseAndMigratePerseusItem(json),
+            );
 
             expect(result).toEqual(anySuccess);
         });
@@ -44,7 +46,9 @@ describe("parseAndMigratePerseusArticle", () => {
             // If the parse fails, get just the error message. This makes the test
             // failure easier to read, since otherwise the entire `invalidObject`
             // from the ParseFailureDetail would be printed.
-            const result = mapFailure(getMessage)(parseAndMigratePerseusArticle(json));
+            const result = mapFailure(getMessage)(
+                parseAndMigratePerseusArticle(json),
+            );
 
             expect(result).toEqual(anySuccess);
         });
