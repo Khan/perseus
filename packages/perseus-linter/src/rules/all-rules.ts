@@ -24,7 +24,6 @@ import MathAdjacent from "./math-adjacent";
 import MathAlignExtraBreak from "./math-align-extra-break";
 import MathAlignLinebreaks from "./math-align-linebreaks";
 import MathEmpty from "./math-empty";
-import MathFontSize from "./math-font-size";
 import MathFrac from "./math-frac";
 import MathNested from "./math-nested";
 import MathStartsWithSpace from "./math-starts-with-space";
@@ -56,7 +55,6 @@ export default [
     MathAlignExtraBreak,
     MathAlignLinebreaks,
     MathEmpty,
-    MathFontSize,
     MathFrac,
     MathNested,
     MathStartsWithSpace,

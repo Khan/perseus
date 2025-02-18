@@ -1,7 +1,3 @@
-import {
-    type PerseusSorterWidgetOptions,
-    getSorterPublicWidgetOptions,
-} from "@khanacademy/perseus-core";
 import {shuffle} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
@@ -12,6 +8,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sort
 import type {SortableOption} from "../../components/sortable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
+import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusSorterRubric,
     PerseusSorterUserInput,
@@ -136,5 +133,4 @@ export default {
     displayName: "Sorter",
     widget: Sorter,
     isLintable: true,
-    getPublicWidgetOptions: getSorterPublicWidgetOptions,
 } satisfies WidgetExports<typeof Sorter>;

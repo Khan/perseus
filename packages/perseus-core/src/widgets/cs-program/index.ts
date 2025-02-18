@@ -1,3 +1,5 @@
+import getCSProgramPublicWidgetOptions from "./cs-program-util";
+
 import type {PerseusCSProgramWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -26,6 +28,7 @@ const csProgramWidgetLogic: WidgetLogic = {
     name: "cs-program",
     defaultWidgetOptions,
     supportedAlignments: ["block", "full-width"],
+    getPublicWidgetOptions: getCSProgramPublicWidgetOptions,
 };
 
 export default csProgramWidgetLogic;

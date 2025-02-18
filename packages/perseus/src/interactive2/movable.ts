@@ -39,7 +39,7 @@ const DEFAULT_STATE = {
     mouseTarget: null,
 } as const;
 
-export interface State {
+interface State {
     added?: boolean;
     isHovering?: boolean;
     isMouseOver?: boolean;

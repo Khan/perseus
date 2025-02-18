@@ -1,5 +1,6 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+// eslint-disable-next-line testing-library/no-manual-cleanup
+import {render, screen, cleanup} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -55,6 +56,74 @@ describe("Locked Function Settings", () => {
         // Assert
         const titleText = screen.getByText("Function (y=x^2)");
         expect(titleText).toBeInTheDocument();
+    });
+
+    test("renders as expected with partial domain information", () => {
+        // Act (max domain is Infinity)
+        render(
+            <LockedFunctionSettings {...defaultProps} domain={[0, Infinity]} />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        let inputField = screen
+            .getByLabelText("domain max")
+            // eslint-disable-next-line testing-library/no-node-access
+            .querySelector("input");
+        expect(inputField?.value).toEqual("");
+
+        // Act (min domain is -Infinity)
+        cleanup();
+        render(
+            <LockedFunctionSettings
+                {...defaultProps}
+                domain={[-Infinity, 0]}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        inputField = screen
+            .getByText("domain min")
+            // eslint-disable-next-line testing-library/no-node-access
+            .querySelector("input");
+        expect(inputField?.value).toEqual("");
+
+        // Act (max domain not defined)
+        cleanup();
+        render(
+            <LockedFunctionSettings {...defaultProps} domain={[0, null]} />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        inputField = screen
+            .getByLabelText("domain max")
+            // eslint-disable-next-line testing-library/no-node-access
+            .querySelector("input");
+        expect(inputField?.value).toEqual("");
+
+        // Act (min domain not defined)
+        cleanup();
+        render(
+            <LockedFunctionSettings {...defaultProps} domain={[null, 0]} />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        inputField = screen
+            .getByText("domain min")
+            // eslint-disable-next-line testing-library/no-node-access
+            .querySelector("input");
+        expect(inputField?.value).toEqual("");
     });
 
     describe("Header interactions", () => {
@@ -189,6 +258,7 @@ describe("Locked Function Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 color: "green",
+                labels: [],
             });
         });
 
@@ -765,6 +835,66 @@ describe("Locked Function Settings", () => {
                         "Function with equation y=x^2. Appearance solid gray.",
                 });
             });
+
+            test("aria label does not auto-generate with domain when both values are null", async () => {
+                // Arrange
+                const onChangeProps = jest.fn();
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        ariaLabel={undefined}
+                        onChangeProps={onChangeProps}
+                        domain={[null, null]}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act
+                const autoGenButton = screen.getByRole("button", {
+                    name: "Auto-generate",
+                });
+                await userEvent.click(autoGenButton);
+
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Function with equation y=x^2. Appearance solid gray.",
+                });
+            });
+
+            test.each`
+                domainValue       | domainAria
+                ${[1, Infinity]}  | ${"1 to Infinity"}
+                ${[-Infinity, 2]} | ${"-Infinity to 2"}
+                ${[1, null]}      | ${"1 to Infinity"}
+                ${[null, 2]}      | ${"-Infinity to 2"}
+            `(
+                "aria label auto-generates with partial domain info: $domainValue",
+                async ({domainValue, domainAria}) => {
+                    // Arrange
+                    const onChangeProps = jest.fn();
+                    render(
+                        <LockedFunctionSettings
+                            {...defaultProps}
+                            ariaLabel={undefined}
+                            onChangeProps={onChangeProps}
+                            domain={domainValue}
+                        />,
+                        {wrapper: RenderStateRoot},
+                    );
+
+                    // Act
+                    const autoGenButton = screen.getByRole("button", {
+                        name: "Auto-generate",
+                    });
+                    await userEvent.click(autoGenButton);
+
+                    // Assert
+                    expect(onChangeProps).toHaveBeenCalledWith({
+                        ariaLabel: `Function with equation y=x^2, domain from ${domainAria}. Appearance solid gray.`,
+                    });
+                },
+            );
 
             test("aria label auto-generates (one label)", async () => {
                 // Arrange

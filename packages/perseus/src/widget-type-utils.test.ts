@@ -2,6 +2,7 @@ import {
     generateTestCategorizerWidget,
     generateTestPerseusItem,
     generateTestRadioWidget,
+    generateTestInteractiveGraphWidget,
 } from "./util/test-utils";
 import {
     getWidgetTypeByWidgetId,
@@ -9,6 +10,7 @@ import {
     getWidgetsMapFromItemData,
     getWidgetFromWidgetMap,
     getWidgetsFromWidgetMap,
+    getWidgetSubTypeByWidgetId,
 } from "./widget-type-utils";
 
 describe("widget-type-utils", () => {
@@ -34,6 +36,51 @@ describe("widget-type-utils", () => {
 
             // Act
             const widgetType = getWidgetTypeByWidgetId(widgetId, widgetMap);
+
+            // Assert
+            expect(widgetType).toBeNull();
+        });
+    });
+
+    describe("getWidgetSubTypeByWidgetId", () => {
+        it("returns widget subtype when found", () => {
+            // Assemble
+            const widgetId = "dont-look-for-type-in-id";
+            const widgetMap = {
+                [widgetId]: generateTestInteractiveGraphWidget(),
+            };
+
+            // Act
+            const widgetSubType = getWidgetSubTypeByWidgetId(
+                widgetId,
+                widgetMap,
+            );
+
+            // Assert
+            expect(widgetSubType).toBe("angle");
+        });
+
+        it("returns null when widget does not have a subtype", () => {
+            // Assemble
+            const widgetId = "dont-look-for-type-in-id";
+            const widgetMap = {
+                [widgetId]: generateTestRadioWidget(),
+            };
+
+            // Act
+            const widgetType = getWidgetSubTypeByWidgetId(widgetId, widgetMap);
+
+            // Assert
+            expect(widgetType).toBeNull();
+        });
+
+        it("returns null when not found", () => {
+            // Assemble
+            const widgetId = "dont-look-for-type-in-id";
+            const widgetMap = {};
+
+            // Act
+            const widgetType = getWidgetSubTypeByWidgetId(widgetId, widgetMap);
 
             // Assert
             expect(widgetType).toBeNull();

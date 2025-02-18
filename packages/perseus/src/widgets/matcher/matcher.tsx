@@ -1,7 +1,4 @@
-import {
-    getMatcherPublicWidgetOptions,
-    shuffleMatcher,
-} from "@khanacademy/perseus-core";
+import {shuffleMatcher} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
@@ -283,5 +280,4 @@ export default {
     displayName: "Matcher (two column)",
     widget: Matcher,
     isLintable: true,
-    getPublicWidgetOptions: getMatcherPublicWidgetOptions,
 } satisfies WidgetExports<typeof Matcher>;

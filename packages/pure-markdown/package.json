@@ -3,7 +3,7 @@
     "description": "SimpleMarkdown instance with non-react Perseus rules",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.3.25",
+    "version": "0.3.26",
     "publishConfig": {
         "access": "public"
     },
@@ -26,8 +26,8 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/perseus-core": "3.5.0",
-        "@khanacademy/simple-markdown": "^0.13.18"
+        "@khanacademy/perseus-core": "3.6.0",
+        "@khanacademy/simple-markdown": "^0.13.19"
     },
     "devDependencies": {},
     "peerDependencies": {},

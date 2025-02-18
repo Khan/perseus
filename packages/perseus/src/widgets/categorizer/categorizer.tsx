@@ -1,7 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     type PerseusCategorizerWidgetOptions,
-    getCategorizerPublicWidgetOptions,
     shuffle,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
@@ -149,6 +148,7 @@ export class Categorizer
                                                 }
                                                 key={catNum}
                                             >
+                                                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus -- TODO(LEMS-2871): Address a11y error */}
                                                 <div
                                                     role="button"
                                                     aria-label={catName}
@@ -321,5 +321,4 @@ export default {
         );
     },
     isLintable: true,
-    getPublicWidgetOptions: getCategorizerPublicWidgetOptions,
 } satisfies WidgetExports<typeof Categorizer>;
