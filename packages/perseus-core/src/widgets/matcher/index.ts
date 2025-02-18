@@ -1,4 +1,4 @@
-import {getMatcherPublicWidgetOptions} from "@khanacademy/perseus-core";
+import getMatcherPublicWidgetOptions from "./matcher-util";
 
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";

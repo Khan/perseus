@@ -1,8 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {
-    type PerseusCategorizerWidgetOptions,
-    shuffle,
-} from "@khanacademy/perseus-core";
+import {shuffle} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
@@ -20,6 +17,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
+import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusCategorizerRubric,
     PerseusCategorizerUserInput,
