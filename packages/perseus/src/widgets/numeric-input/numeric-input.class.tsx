@@ -7,7 +7,7 @@ import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 import {NumericInputComponent} from "./numeric-input";
-import {unionAnswerForms} from "./utils";
+import {deriveAnswerForms} from "./utils";
 
 import type InputWithExamples from "./input-with-examples";
 import type SimpleKeypadInput from "../../components/simple-keypad-input";
@@ -171,25 +171,12 @@ const propsTransform = function (
 ): RenderProps {
     // Omit the answers from the widget options since they are
     // not needed for rendering the widget.
-    const {answers: _, ...rendererProps} = {
-        ...widgetOptions,
-        answerForms: unionAnswerForms(
-            // Filter out the correct answers and map them to the answer forms
-            // so that we can generate the examples for the widget.
-            widgetOptions.answers
-                .filter((answer) => answer.status === "correct")
-                .map((answer) => {
-                    return (answer.answerForms || []).map((form) => {
-                        return {
-                            simplify: answer.simplify,
-                            name: form,
-                        };
-                    });
-                }),
-        ),
-    };
+    const {answers: _, ...rendererProps} = widgetOptions;
 
-    return rendererProps;
+    return {
+        ...rendererProps,
+        answerForms: deriveAnswerForms(widgetOptions),
+    };
 };
 
 export default {
