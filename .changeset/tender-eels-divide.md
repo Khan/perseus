@@ -3,4 +3,4 @@
 "@khanacademy/perseus-core": minor
 ---
 
-Update Sorter's public widget option function to use Math.random for shuffle
+Update Sorter's public widget option function to use Math.random and shuffle
