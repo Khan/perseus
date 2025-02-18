@@ -69,7 +69,6 @@ describe("parseAndMigratePerseusArticle", () => {
                 content: "",
                 widgets: {},
                 images: {},
-                metadata: undefined,
             }),
         );
     });
@@ -80,8 +79,8 @@ describe("parseAndMigratePerseusArticle", () => {
         );
         expect(result).toEqual(
             success([
-                {content: "one", widgets: {}, images: {}, metadata: undefined},
-                {content: "two", widgets: {}, images: {}, metadata: undefined},
+                {content: "one", widgets: {}, images: {}},
+                {content: "two", widgets: {}, images: {}},
             ]),
         );
     });

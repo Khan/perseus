@@ -272,7 +272,6 @@ describe("parseWidgetsMap", () => {
                 options: {
                     content: "",
                     widgets: {},
-                    metadata: [],
                     images: {},
                 },
             },

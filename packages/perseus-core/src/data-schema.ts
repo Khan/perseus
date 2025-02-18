@@ -244,10 +244,14 @@ export type PerseusRenderer = {
      * field.
      */
     widgets: PerseusWidgetsMap;
-    // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys
-    // that represent other content in the system.  Not rendered to the user.
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    metadata?: ReadonlyArray<string>;
+    /**
+     * Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
+     * are keys that represent other content in the system.  Not rendered to
+     * the user. NOTE: perseus_data.go says this is required even though it
+     * isn't necessary.
+     * @deprecated
+     */
+    metadata?: any;
     /**
      * A dictionary of {[imageUrl]: PerseusImageDetail}.
      */
