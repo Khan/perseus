@@ -1,7 +1,7 @@
 ---
 "@khanacademy/perseus": minor
-"@khanacademy/perseus-core": patch
-"@khanacademy/perseus-editor": patch
+"@khanacademy/perseus-core": minor
+"@khanacademy/perseus-editor": minor
 ---
 
-Delete 'metadata' from renderer, hint, and Group widget data schemas
+Deprecate the `metadata` field in renderer, hint, and Group widget data schemas.
