@@ -45,8 +45,16 @@ export const generateExamples = (
     // Generate a list of the unique answer forms.
     const uniqueForms = getUniqueAnswerForms(answerForms);
 
+    // Sort them by the order they appear in the `formExamples` list.
+    const formExampleKeys = Object.keys(NumericExampleStrings);
+    const sortedForms = uniqueForms.sort((a, b) => {
+        return (
+            formExampleKeys.indexOf(a.name) - formExampleKeys.indexOf(b.name)
+        );
+    });
+
     // Generate the example strings for each unique form.
-    const examples = uniqueForms.map((form) => {
+    const examples = sortedForms.map((form) => {
         return NumericExampleStrings[form.name](form, strings);
     });
 
@@ -113,14 +121,7 @@ export const unionAnswerForms: (
     // Pull out all of the forms from the different lists.
     const allForms = answerFormsList.flat();
     // Pull out the unique forms using getUniqueAnswerForms.
-    const uniqueForms = getUniqueAnswerForms(allForms);
-    // Sort them by the order they appear in the `formExamples` list.
-    const formExampleKeys = Object.keys(NumericExampleStrings);
-    return uniqueForms.sort((a, b) => {
-        return (
-            formExampleKeys.indexOf(a.name) - formExampleKeys.indexOf(b.name)
-        );
-    });
+    return getUniqueAnswerForms(allForms);
 };
 
 export const deriveAnswerForms = (

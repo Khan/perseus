@@ -39,6 +39,36 @@ describe("generateExamples", () => {
         expect(result).toEqual(expected);
     });
 
+    it("sorts examples based on NumericExampleStrings", () => {
+        // Arrange
+        // The order here matters!
+        // We're testing that things will sorted correctly!
+        const answerForms: readonly PerseusNumericInputAnswerForm[] = [
+            {
+                name: "proper",
+                simplify: "required",
+            },
+            {
+                name: "integer",
+                simplify: "optional",
+            },
+        ];
+
+        // The order here matters!
+        // We're testing that things will sorted correctly!
+        const expected = [
+            "**Your answer should be** ",
+            "an integer, like $6$",
+            "a *simplified proper* fraction, like $3/5$",
+        ];
+
+        // Act
+        const result = generateExamples(answerForms, mockStrings);
+
+        // Assert
+        expect(result).toEqual(expected);
+    });
+
     it("returns only unique entries in an array of examples", () => {
         // Arrange
         const answerForms: readonly PerseusNumericInputAnswerForm[] = [
