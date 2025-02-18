@@ -130,7 +130,10 @@ export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorize
 export {default as getCSProgramPublicWidgetOptions} from "./widgets/cs-program/cs-program-util";
 export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
 export {default as getGrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
-export {default as getInteractiveGraphPublicWidgetOptions} from "./widgets/interactive-graph/interactive-graph-util";
+export {
+    default as getInteractiveGraphPublicWidgetOptions,
+    InteractiveGraphPublicWidgetOptions,
+} from "./widgets/interactive-graph/interactive-graph-util";
 export {default as getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
 export {default as getSorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";

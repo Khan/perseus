@@ -1,8 +1,5 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {
-    getInteractiveGraphPublicWidgetOptions,
-    lockedFigureColors
-} from "@khanacademy/perseus-core";
+import {lockedFigureColors, splitPerseusItem} from "@khanacademy/perseus-core";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -273,10 +270,10 @@ describe("Interactive Graph", function () {
                 // can render when the answers have been stripped out of the
                 // data.
 
-                const answerlessQuestion = getRendererPublicData(question);
+                const answerlessQuestion = splitPerseusItem(question);
 
                 renderQuestion(answerlessQuestion, blankOptions);
-            })
+            });
 
             it("should reject when has not been interacted with", () => {
                 // Arrange

@@ -33,6 +33,7 @@ import type {
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
     GraphRange,
+    InteractiveGraphPublicWidgetOptions,
     LockedFigure,
     PerseusImageBackground,
     MarkingsType,
@@ -42,9 +43,6 @@ import type {
     PerseusInteractiveGraphUserInput,
 } from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-import {
-    InteractiveGraphPublicWidgetOptions
-} from "@khanacademy/perseus-core/src/widgets/interactive-graph/interactive-graph-util";
 
 const {getClockwiseAngle} = angles;
 
