@@ -1,7 +1,6 @@
-import {
-    type PerseusSorterWidgetOptions,
-    shuffle,
-} from "@khanacademy/perseus-core";
+import {shuffle} from "@khanacademy/perseus-core";
+
+import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 
 /**
  * For details on the individual options, see the
