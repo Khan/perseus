@@ -1,3 +1,5 @@
+import getMatcherPublicWidgetOptions from "./matcher-util";
+
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -17,6 +19,7 @@ const defaultWidgetOptions: MatcherDefaultWidgetOptions = {
 const matcherWidgetLogic: WidgetLogic = {
     name: "matcher",
     defaultWidgetOptions,
+    getPublicWidgetOptions: getMatcherPublicWidgetOptions,
 };
 
 export default matcherWidgetLogic;

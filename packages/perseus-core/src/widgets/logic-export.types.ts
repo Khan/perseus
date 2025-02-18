@@ -6,6 +6,7 @@ import type getGrapherPublicWidgetOptions from "./grapher/grapher-util";
 import type getIFramePublicWidgetOptions from "./iframe/iframe-util";
 import type getInteractiveGraphPublicWidgetOptions from "./interactive-graph/interactive-graph-util";
 import type getLabelImagePublicWidgetOptions from "./label-image/label-image-util";
+import type getMatcherPublicWidgetOptions from "./matcher/matcher-util";
 import type getMatrixPublicWidgetOptions from "./matrix/matrix-util";
 import type getNumberLinePublicWidgetOptions from "./number-line/number-line-util";
 import type getNumericInputPublicWidgetOptions from "./numeric-input/numeric-input-util";
@@ -29,6 +30,7 @@ export type WidgetOptionsUpgradeMap = {
  * so reliant on a set group of widgets
  */
 export type PublicWidgetOptionsFunction =
+    | typeof getMatcherPublicWidgetOptions
     | typeof getPlotterPublicWidgetOptions
     | typeof getIFramePublicWidgetOptions
     | typeof getRadioPublicWidgetOptions

@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {type PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
+import {shuffle} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
@@ -13,11 +13,11 @@ import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
-import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
+import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusCategorizerRubric,
     PerseusCategorizerUserInput,
@@ -87,10 +87,13 @@ export class Categorizer
         // In this context, isMobile is used to differentiate mobile from
         // desktop.
         const isMobile = this.props.apiOptions.isMobile;
-        let indexedItems = this.props.items.map((item, n) => [item, n]);
+        let indexedItems: ReadonlyArray<Readonly<[string, number]>> =
+            this.props.items.map((item, n) => [item, n]);
         if (this.props.randomizeItems) {
-            // @ts-expect-error - TS4104 - The type 'readonly (string | number)[][]' is 'readonly' and cannot be assigned to the mutable type '(string | number)[][]'. | TS2345 - Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | RNG'.
-            indexedItems = Util.shuffle(indexedItems, this.props.problemNum);
+            indexedItems = shuffle(
+                indexedItems,
+                this.props.problemNum as number,
+            );
         }
 
         const table = (
@@ -125,7 +128,6 @@ export class Categorizer
                             <tr key={itemNum}>
                                 <td>
                                     <Renderer
-                                        // @ts-expect-error - TS2322 - Type 'string | number' is not assignable to type 'string | undefined'.
                                         content={item}
                                         linterContext={this.props.linterContext}
                                         strings={this.context.strings}
