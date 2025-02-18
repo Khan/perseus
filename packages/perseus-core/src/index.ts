@@ -91,6 +91,11 @@ export {default as numberLineLogic} from "./widgets/number-line";
 export type {NumberLineDefaultWidgetOptions} from "./widgets/number-line";
 export {default as numericInputLogic} from "./widgets/numeric-input";
 export type {NumericInputDefaultWidgetOptions} from "./widgets/numeric-input";
+// STOPSHIP remove deriveAnswerForms as an export
+export {
+    getUniqueAnswerForms,
+    deriveAnswerForms,
+} from "./widgets/numeric-input/util";
 export {default as ordererLogic} from "./widgets/orderer";
 export type {OrdererDefaultWidgetOptions} from "./widgets/orderer";
 export {default as passageLogic} from "./widgets/passage";
