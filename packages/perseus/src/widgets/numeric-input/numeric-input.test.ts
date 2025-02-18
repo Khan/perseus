@@ -436,7 +436,7 @@ describe("Numeric input widget", () => {
 });
 
 describe("transform", () => {
-    it("removes the answers and extracts the answer forms", () => {
+    it("removes the answers", () => {
         const transform = NumericInputWidgetExport.transform;
         const widgetOptions: PerseusNumericInputWidgetOptions = {
             coefficient: false,
@@ -453,45 +453,10 @@ describe("transform", () => {
                     message: "",
                 },
             ],
-        };
-        const renderProps = transform(widgetOptions);
-        expect(renderProps).toEqual({
-            coefficient: false,
-            static: false,
-            size: "normal",
-            answerForms: [
+            fullAnswerForms: [
                 {
                     simplify: "required",
                     name: "proper",
-                },
-            ],
-        });
-    });
-
-    it("only uses answer forms from correct answers", () => {
-        const transform = NumericInputWidgetExport.transform;
-        const widgetOptions: PerseusNumericInputWidgetOptions = {
-            coefficient: false,
-            static: false,
-            size: "normal",
-            answers: [
-                {
-                    status: "correct",
-                    maxError: null,
-                    strict: true,
-                    value: 0.5,
-                    simplify: "required",
-                    answerForms: ["proper"],
-                    message: "",
-                },
-                {
-                    status: "wrong",
-                    maxError: null,
-                    strict: true,
-                    value: 0.5,
-                    simplify: "required",
-                    answerForms: ["decimal"],
-                    message: "",
                 },
             ],
         };

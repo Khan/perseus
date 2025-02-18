@@ -1,33 +1,21 @@
-import type {PerseusNumericInputWidgetOptions} from "../../data-schema";
+import {
+    currentVersion,
+    defaultWidgetOptions,
+    widgetOptionsUpgrades,
+} from "./numeric-input-upgrade";
+
 import type {WidgetLogic} from "../logic-export.types";
 
-export type NumericInputDefaultWidgetOptions = Pick<
-    PerseusNumericInputWidgetOptions,
-    "answers" | "size" | "coefficient" | "labelText" | "rightAlign"
->;
-
-const defaultWidgetOptions: NumericInputDefaultWidgetOptions = {
-    answers: [
-        {
-            value: null,
-            status: "correct",
-            message: "",
-            simplify: "required",
-            answerForms: [],
-            strict: false,
-            maxError: null,
-        },
-    ],
-    size: "normal",
-    coefficient: false,
-    labelText: "",
-    rightAlign: false,
-};
+export type {NumericInputDefaultWidgetOptions} from "./numeric-input-upgrade";
 
 const numericInputWidgetLogic: WidgetLogic = {
     name: "numeric-input",
-    defaultWidgetOptions,
+    version: currentVersion,
+    widgetOptionsUpgrades: widgetOptionsUpgrades,
+    defaultWidgetOptions: defaultWidgetOptions,
     defaultAlignment: "inline-block",
 };
+
+export {getUniqueAnswerForms} from "./util";
 
 export default numericInputWidgetLogic;

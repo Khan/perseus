@@ -89,13 +89,11 @@ export {default as measurerLogic} from "./widgets/measurer";
 export type {MeasurerDefaultWidgetOptions} from "./widgets/measurer";
 export {default as numberLineLogic} from "./widgets/number-line";
 export type {NumberLineDefaultWidgetOptions} from "./widgets/number-line";
-export {default as numericInputLogic} from "./widgets/numeric-input";
-export type {NumericInputDefaultWidgetOptions} from "./widgets/numeric-input";
-// STOPSHIP remove deriveAnswerForms as an export
 export {
+    default as numericInputLogic,
     getUniqueAnswerForms,
-    deriveAnswerForms,
-} from "./widgets/numeric-input/util";
+} from "./widgets/numeric-input";
+export type {NumericInputDefaultWidgetOptions} from "./widgets/numeric-input";
 export {default as ordererLogic} from "./widgets/orderer";
 export type {OrdererDefaultWidgetOptions} from "./widgets/orderer";
 export {default as passageLogic} from "./widgets/passage";

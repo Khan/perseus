@@ -1,8 +1,5 @@
 import {KhanMath} from "@khanacademy/kmath";
-import {
-    deriveAnswerForms,
-    getNumericInputPublicWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {getNumericInputPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
@@ -173,11 +170,11 @@ const propsTransform = function (
 ): RenderProps {
     // Omit the answers from the widget options since they are
     // not needed for rendering the widget.
-    const {answers: _, ...rendererProps} = widgetOptions;
+    const {answers: _, fullAnswerForms = [], ...rendererProps} = widgetOptions;
 
     return {
         ...rendererProps,
-        answerForms: deriveAnswerForms(widgetOptions),
+        answerForms: fullAnswerForms,
     };
 };
 
