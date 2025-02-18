@@ -1,5 +1,5 @@
 ---
-"@khanacademy/perseus": minor
+"@khanacademy/perseus": patch
 "@khanacademy/perseus-core": minor
 ---
 
