@@ -20,7 +20,6 @@ import type {
     AnalyticsEventHandlerFn,
     Version,
     WidgetOptionsUpgradeMap,
-    getMatcherPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -474,11 +473,6 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
-/**
- * A union type of all the functions that provide public widget options.
- */
-export type PublicWidgetOptionsFunction = typeof getMatcherPublicWidgetOptions;
-
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
 > = Readonly<{
@@ -517,12 +511,6 @@ export type WidgetExports<
      * static renders.
      */
     staticTransform?: WidgetTransform; // this is a function of some sort,
-
-    /**
-     * A function that provides a public version of the widget options that can
-     * be shared with the client.
-     */
-    getPublicWidgetOptions?: PublicWidgetOptionsFunction;
 
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,
