@@ -132,7 +132,7 @@ export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/
 export {default as getGrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
 export {
     default as getInteractiveGraphPublicWidgetOptions,
-    InteractiveGraphPublicWidgetOptions,
+    type InteractiveGraphPublicWidgetOptions,
 } from "./widgets/interactive-graph/interactive-graph-util";
 export {default as getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
 export {default as getSorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
