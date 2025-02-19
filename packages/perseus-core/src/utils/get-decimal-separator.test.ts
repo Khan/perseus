@@ -16,7 +16,7 @@ describe("getDecimalSeparator", () => {
     it("gets the decimal separator for the mr locale", () => {
         expect(getDecimalSeparator("mr")).toBe(".");
     });
-    // Edge case: Bangala returns non-Arabic numerals.
+    // Edge case: Bengali/Bangla returns non-Arabic numerals.
     it("gets the decimal separator for the bn locale", () => {
         expect(getDecimalSeparator("bn")).toBe(".");
     });
