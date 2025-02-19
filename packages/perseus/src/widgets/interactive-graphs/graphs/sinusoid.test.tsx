@@ -86,7 +86,7 @@ describe("Sinusoid graph screen reader", () => {
 
         // Assert
         expect(root).toHaveAccessibleName("Midline intersection at 0 comma 0.");
-        expect(peak).toHaveAccessibleName("Extremum point at 2 comma 2.");
+        expect(peak).toHaveAccessibleName("Maximum point at 2 comma 2.");
     });
 
     test("should have aria labels for sinusoid graph points with updated values", () => {
@@ -112,8 +112,40 @@ describe("Sinusoid graph screen reader", () => {
         expect(root).toHaveAccessibleName(
             "Midline intersection at -1 comma -1.",
         );
-        expect(peak).toHaveAccessibleName("Extremum point at 3 comma 2.");
+        expect(peak).toHaveAccessibleName("Maximum point at 3 comma 2.");
     });
+
+    test.each`
+        case               | extremum    | expectedLabel
+        ${"max on right"}  | ${[2, 2]}   | ${"Maximum point at 2 comma 2."}
+        ${"max on left"}   | ${[-2, 2]}  | ${"Maximum point at -2 comma 2."}
+        ${"min on right"}  | ${[2, -2]}  | ${"Minimum point at 2 comma -2."}
+        ${"min on left"}   | ${[-2, -2]} | ${"Minimum point at -2 comma -2."}
+        ${"flat on right"} | ${[2, 0]}   | ${"Line through point at 2 comma 0."}
+        ${"flat on left"}  | ${[-2, 0]}  | ${"Line through point at -2 comma 0."}
+    `(
+        "Should have aria label reflecting where the extremum point is relative to the midline ($case)",
+        ({extremum, expectedLabel}) => {
+            // Arrange
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={{
+                        ...baseSinusoidState,
+                        coords: [[0, 0], extremum],
+                    }}
+                />,
+            );
+
+            // Act
+            const buttons = screen.getAllByRole("button");
+            // First button is the midline intersection, second is the extremum.
+            const extremumPoint = buttons[1];
+
+            // Assert
+            expect(extremumPoint).toHaveAccessibleName(expectedLabel);
+        },
+    );
 
     test("overall graph description should include interactive elements", () => {
         // Arrange

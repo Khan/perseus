@@ -154,6 +154,15 @@ function describeSinusoidGraph(
     const diffX = Math.abs(peak[X] - root[X]);
     const diffY = Math.abs(peak[Y] - root[Y]);
 
+    const formattedRoot = {
+        x: srFormatNumber(root[X], locale),
+        y: srFormatNumber(root[Y], locale),
+    };
+    const formattedPeak = {
+        x: srFormatNumber(peak[X], locale),
+        y: srFormatNumber(peak[Y], locale),
+    };
+
     const srSinusoidGraph = strings.srSinusoidGraph;
     const srSinusoidDescription = strings.srSinusoidDescription({
         minValue: srFormatNumber(root[Y] - diffY, locale),
@@ -161,14 +170,13 @@ function describeSinusoidGraph(
         cycleStart: srFormatNumber(root[X] - 2 * diffX, locale),
         cycleEnd: srFormatNumber(root[X] + 2 * diffX, locale),
     });
-    const srSinusoidRootPoint = strings.srSinusoidRootPoint({
-        x: srFormatNumber(root[X], locale),
-        y: srFormatNumber(root[Y], locale),
-    });
-    const srSinusoidPeakPoint = strings.srSinusoidPeakPoint({
-        x: srFormatNumber(peak[X], locale),
-        y: srFormatNumber(peak[Y], locale),
-    });
+    const srSinusoidRootPoint = strings.srSinusoidRootPoint(formattedRoot);
+    const srSinusoidPeakPoint =
+        peak[Y] === root[Y]
+            ? strings.srSinusoidFlatPoint(formattedPeak)
+            : peak[Y] > root[Y]
+              ? strings.srSinusoidMaxPoint(formattedPeak)
+              : strings.srSinusoidMinPoint(formattedPeak);
     const srSinusoidInteractiveElements = strings.srInteractiveElements({
         elements: strings.srSinusoidInteractiveElements({
             point1X: srFormatNumber(root[X], locale),
