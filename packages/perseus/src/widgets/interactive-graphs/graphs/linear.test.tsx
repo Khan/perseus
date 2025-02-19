@@ -61,7 +61,7 @@ describe("Linear graph screen reader", () => {
     test.each`
         element         | index | expectedValue
         ${"point1"}     | ${0}  | ${"Point 1 at -5 comma 5."}
-        ${"grabHandle"} | ${1}  | ${"Line from -5 comma 5 to 5 comma 5."}
+        ${"grabHandle"} | ${1}  | ${"Line going through point -5 comma 5 and point 5 comma 5."}
         ${"point2"}     | ${2}  | ${"Point 2 at 5 comma 5."}
     `(
         "should have aria label for $element on the line",
@@ -203,7 +203,7 @@ describe("Linear graph screen reader", () => {
         expect(point1).toHaveAttribute("aria-label", "Point 1 at -2 comma 3.");
         expect(grabHandle).toHaveAttribute(
             "aria-label",
-            "Line from -2 comma 3 to 3 comma 3.",
+            "Line going through point -2 comma 3 and point 3 comma 3.",
         );
         expect(point2).toHaveAttribute("aria-label", "Point 2 at 3 comma 3.");
     });
@@ -258,7 +258,7 @@ describe("describeLinearGraph", () => {
             "The line has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5.",
         );
         expect(strings.srLinearGrabHandle).toBe(
-            "Line from -5 comma 5 to 5 comma 5.",
+            "Line going through point -5 comma 5 and point 5 comma 5.",
         );
         expect(strings.slopeString).toBe("Its slope is zero.");
         expect(strings.interceptString).toBe(
@@ -290,7 +290,7 @@ describe("describeLinearGraph", () => {
             "The line has two points, point 1 at -1 comma 2 and point 2 at 3 comma 4.",
         );
         expect(strings.srLinearGrabHandle).toBe(
-            "Line from -1 comma 2 to 3 comma 4.",
+            "Line going through point -1 comma 2 and point 3 comma 4.",
         );
         expect(strings.slopeString).toBe(
             "Its slope increases from left to right.",

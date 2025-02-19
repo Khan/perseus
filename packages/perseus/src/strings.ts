@@ -697,7 +697,7 @@ export const strings = {
     srLinearGraphOriginIntercept:
         "The line crosses the x and y axes at the graph's origin.",
     srLinearGrabHandle:
-        "Line from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
+        "Line going through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s.",
     srAngleStartingSide: "Point 3, starting side at %(x)s comma %(y)s.",
     srAngleEndingSide: "Point 2, ending side at %(x)s comma %(y)s.",
     srAngleVertex: "Point 1, vertex at %(x)s comma %(y)s.",
@@ -985,7 +985,7 @@ export const mockStrings: PerseusStrings = {
     srLinearGraphOriginIntercept:
         "The line crosses the x and y axes at the graph's origin.",
     srLinearGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
-        `Line from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
+        `Line going through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y}.`,
     srAngleStartingSide: ({x, y}) =>
         `Point 3, starting side at ${x} comma ${y}.`,
     srAngleEndingSide: ({x, y}) => `Point 2, ending side at ${x} comma ${y}.`,
