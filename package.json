@@ -32,6 +32,7 @@
         "@khanacademy/wonder-blocks-switch": "catalog:",
         "@khanacademy/wonder-blocks-tokens": "catalog:",
         "@khanacademy/wonder-blocks-typography": "catalog:",
+        "@phosphor-icons/core": "catalog:",
         "@rollup/plugin-alias": "^3.1.9",
         "@rollup/plugin-babel": "^5.3.0",
         "@rollup/plugin-commonjs": "^22.0.0",
