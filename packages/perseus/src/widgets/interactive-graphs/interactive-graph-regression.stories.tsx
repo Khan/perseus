@@ -9,6 +9,7 @@ import {sinusoidWithPiTicks} from "./interactive-graph.testdata";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react";
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 
 type Story = StoryObj<typeof MafsQuestionRenderer>;
 
@@ -256,6 +257,12 @@ export const MafsWithPiTicks: Story = {
         question: sinusoidWithPiTicks,
     },
 };
+
+export const MafsWithAnswerlessData: Story = {
+    args: {
+        question: splitPerseusItem(interactiveGraphQuestionBuilder().build())
+    }
+}
 
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
