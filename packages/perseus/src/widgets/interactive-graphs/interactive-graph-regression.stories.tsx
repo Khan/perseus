@@ -1,3 +1,4 @@
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ApiOptions} from "../../perseus-api";
@@ -9,7 +10,6 @@ import {sinusoidWithPiTicks} from "./interactive-graph.testdata";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react";
-import {splitPerseusItem} from "@khanacademy/perseus-core";
 
 type Story = StoryObj<typeof MafsQuestionRenderer>;
 
@@ -260,9 +260,9 @@ export const MafsWithPiTicks: Story = {
 
 export const MafsWithAnswerlessData: Story = {
     args: {
-        question: splitPerseusItem(interactiveGraphQuestionBuilder().build())
-    }
-}
+        question: splitPerseusItem(interactiveGraphQuestionBuilder().build()),
+    },
+};
 
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
