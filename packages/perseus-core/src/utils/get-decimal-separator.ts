@@ -21,7 +21,7 @@ const getDecimalSeparator = (locale: string): string => {
                 // 0x661 is ARABIC-INDIC DIGIT ONE
                 // 0x6F1 is EXTENDED ARABIC-INDIC DIGIT ONE
                 // 0x967 is DEVANAGARI DIGIT ONE
-                .match(/[^\d\u0661\u06F1\u0967]/);
+                .match(/[^\d\u0661\u06F1\u0967\u09e7]/);
             return match?.[0] ?? ".";
     }
 };
