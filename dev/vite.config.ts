@@ -8,7 +8,7 @@ export default mergeConfig(viteConfig, {
     define: {
         // This is used to determine if we are running in a
         // Dev/Storybook environment.
-        "process.env.STORYBOOK": JSON.stringify(true),
+        "process.env.STORYBOOK": "true",
     },
     plugins: [react({jsxRuntime: "automatic"})],
 });
