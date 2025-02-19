@@ -21,6 +21,11 @@ export type StatefulMafsGraphProps = {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: PerseusGraphType;
+    /**
+     * The correct answer for this widget. Will be undefined if the graph is
+     * being provided answerless data (e.g. because the learner has not yet
+     * submitted their guess).
+     */
     // TODO(LEMS-2344): make the type of `correct` more specific
     correct?: PerseusGraphType;
     lockedFigures?: InteractiveGraphProps["lockedFigures"];

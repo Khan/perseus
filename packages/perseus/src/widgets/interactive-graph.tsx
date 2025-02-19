@@ -152,7 +152,9 @@ type RenderProps = {
      */
     graph: PerseusGraphType;
     /**
-     * The correct kind of graph, if being used to select function type
+     * The correct answer for this widget. Will be undefined if the graph is
+     * being provided answerless data (e.g. because the learner has not yet
+     * submitted their guess).
      */
     // TODO(LEMS-2344): make the type of `correct` more specific
     correct?: PerseusGraphType;
