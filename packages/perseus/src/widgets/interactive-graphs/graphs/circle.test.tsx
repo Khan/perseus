@@ -210,7 +210,7 @@ describe("Circle graph screen reader", () => {
 
         expect(radiusPoint).toHaveAttribute(
             "aria-label",
-            "Radius point at 1 comma 0. Circle radius is 1.",
+            "Right radius endpoint at 1 comma 0. Circle radius is 1.",
         );
         expect(radiusPoint).toHaveAccessibleDescription(
             "Points on the circle at 1 comma 0, 0 comma 1, -1 comma 0, 0 comma -1.",
@@ -251,9 +251,41 @@ describe("Circle graph screen reader", () => {
         );
         expect(radiusPoint).toHaveAttribute(
             "aria-label",
-            "Radius point at 7 comma 3. Circle radius is 5.",
+            "Right radius endpoint at 7 comma 3. Circle radius is 5.",
         );
     });
+
+    test.each`
+        side       | point
+        ${"Right"} | ${[2, 0]}
+        ${"Left"}  | ${[-2, 0]}
+    `(
+        "radius aria-label reflects its side relative to the center",
+        ({side, point}) => {
+            // Arrange
+
+            // Act
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={{
+                        ...baseCircleState,
+                        center: [0, 0],
+                        radiusPoint: point,
+                    }}
+                />,
+            );
+            const radiusPoint = screen.getByTestId(
+                "movable-point__focusable-handle",
+            );
+
+            // Assert
+            expect(radiusPoint).toHaveAttribute(
+                "aria-label",
+                `${side} radius endpoint at ${point[0]} comma ${point[1]}. Circle radius is 2.`,
+            );
+        },
+    );
 
     test("radius point has aria-live off by default", async () => {
         // Arrange
@@ -325,7 +357,9 @@ describe("describeCircleGraph", () => {
         expect(strings.srCircleShape).toBe(
             "Circle. The center point is at 0 comma 0.",
         );
-        expect(strings.srCircleRadiusPoint).toBe("Radius point at 1 comma 0.");
+        expect(strings.srCircleRadiusPoint).toBe(
+            "Right radius endpoint at 1 comma 0.",
+        );
         expect(strings.srCircleRadius).toBe("Circle radius is 1.");
         expect(strings.srCircleOuterPoints).toBe(
             "Points on the circle at 1 comma 0, 0 comma 1, -1 comma 0, 0 comma -1.",
@@ -353,7 +387,9 @@ describe("describeCircleGraph", () => {
         expect(strings.srCircleShape).toBe(
             "Circle. The center point is at 2 comma 3.",
         );
-        expect(strings.srCircleRadiusPoint).toBe("Radius point at 7 comma 3.");
+        expect(strings.srCircleRadiusPoint).toBe(
+            "Right radius endpoint at 7 comma 3.",
+        );
         expect(strings.srCircleRadius).toBe("Circle radius is 5.");
         expect(strings.srCircleOuterPoints).toBe(
             "Points on the circle at 7 comma 3, 2 comma 8, -3 comma 3, 2 comma -2.",

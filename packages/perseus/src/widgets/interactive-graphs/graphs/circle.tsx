@@ -241,6 +241,7 @@ export function describeCircleGraph(
     const {strings, locale} = i18n;
     const {center, radiusPoint} = state;
     const radius = getRadius(state);
+    const isRadiusOnRight = radiusPoint[X] >= center[X];
 
     // Aria label strings
     const srCircleGraph = strings.srCircleGraph;
@@ -248,10 +249,15 @@ export function describeCircleGraph(
         centerX: srFormatNumber(center[0], locale),
         centerY: srFormatNumber(center[1], locale),
     });
-    const srCircleRadiusPoint = strings.srCircleRadiusPoint({
-        radiusPointX: srFormatNumber(radiusPoint[0], locale),
-        radiusPointY: srFormatNumber(radiusPoint[1], locale),
-    });
+    const srCircleRadiusPoint = isRadiusOnRight
+        ? strings.srCircleRadiusPointRight({
+              radiusPointX: srFormatNumber(radiusPoint[0], locale),
+              radiusPointY: srFormatNumber(radiusPoint[1], locale),
+          })
+        : strings.srCircleRadiusPointLeft({
+              radiusPointX: srFormatNumber(radiusPoint[0], locale),
+              radiusPointY: srFormatNumber(radiusPoint[1], locale),
+          });
     const srCircleRadius = strings.srCircleRadius({
         radius,
     });
