@@ -52,7 +52,7 @@ export default defineConfig({
                     define: {
                         // This is used to determine if we are running in a
                         // Storybook environment.
-                        "process.env.STORYBOOK": JSON.stringify(true),
+                        "process.env.STORYBOOK": "true",
                     },
                 });
             },

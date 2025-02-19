@@ -106,8 +106,7 @@ const createConfig = (
 
         // If we're doing a prod build we want to disable Storybook.
         if (commandLineArgs.configEnvironment === "production") {
-            valueReplacementMappings["process.env.STORYBOOK"] =
-                JSON.stringify(false);
+            valueReplacementMappings["process.env.STORYBOOK"] = "false";
         }
     }
 
