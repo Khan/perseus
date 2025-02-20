@@ -175,13 +175,13 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
+            # We _should_ have a valid Cypress binary in place at this point,
+            # but we _could_ have had a cache miss on `~/.cache/Cypress` but a
+            # cache hit on `node_modules` leaving us in a state where the
+            # Cypress binary isn't available. This step ensures that the
+            # Cypress binary is in place
             - name: Install Cypress
-              shell: bash
-              working-directory: services/static
-              run: |
-                if [ ! -d "$HOME/.cache/Cypress" ]; then
-                  pnpm exec cypress install
-                fi
+              run: pnpm exec cypress install
 
             - name: Run tests
               run: pnpm cypress:ci
