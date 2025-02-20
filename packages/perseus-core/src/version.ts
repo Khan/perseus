@@ -2,7 +2,11 @@
 // version number during the release build.
 // In dev, you'll never see the version number.
 
-import {addLibraryVersionToPerseusDebug} from "./utils/add-library-version-to-perseus-debug";
+// Relative export so we bundle this in instead of needing this in the
+// perseus-core package (which leads to many packages depending on it, which is
+// problematic).
+// eslint-disable-next-line import/no-relative-packages
+import {addLibraryVersionToPerseusDebug} from "../../../utils/internal/add-library-version-to-perseus-debug";
 
 const libName = "@khanacademy/perseus-core";
 export const libVersion = "__lib_version__";
