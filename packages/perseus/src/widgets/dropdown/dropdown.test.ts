@@ -1,6 +1,5 @@
 import {
-    getDropdownPublicWidgetOptions,
-    type PerseusDropdownWidgetOptions,
+    splitPerseusItem,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
@@ -159,119 +158,67 @@ describe("Dropdown widget", () => {
             ) as jest.Mock;
         });
 
-        it("is interactive with full widget options", async () => {
-            // Arrange
-            const dropdownOptions: PerseusDropdownWidgetOptions = {
-                static: false,
-                placeholder: "Choose an answer",
-                choices: [
-                    {
-                        content: "Correct",
-                        correct: true,
-                    },
-                    {
-                        content: "Incorrect",
-                        correct: false,
-                    },
-                ],
-            };
-
-            const fullItem: PerseusRenderer = {
-                content: "[[☃ dropdown 1]]",
-                images: {},
-                widgets: {
-                    "dropdown 1": {
-                        type: "dropdown",
-                        options: dropdownOptions,
+        const answerful: PerseusRenderer = {
+            content: "[[☃ dropdown 1]]",
+            images: {},
+            widgets: {
+                "dropdown 1": {
+                    type: "dropdown",
+                    options: {
+                        static: false,
+                        placeholder: "Choose an answer",
+                        choices: [
+                            {
+                                content: "Correct",
+                                correct: true,
+                            },
+                            {
+                                content: "Incorrect",
+                                correct: false,
+                            },
+                        ],
                     },
                 },
-            };
+            },
+        };
 
-            // Act
-            const {renderer} = renderQuestion(fullItem);
+        const answerless = splitPerseusItem(answerful);
 
-            await userEvent.click(
-                screen.getByRole("combobox", {name: "Select an answer"}),
-            );
-            await userEvent.click(
-                screen.getByRole("option", {name: "Correct"}),
-            );
+        test.each(["answerless", "answerful"])(
+            "is interactive with widget options: %p",
+            async (e) => {
+                // Arrange
+                const useAnswerless = e === "answerless";
+                const renderItem = useAnswerless ? answerless : answerful;
 
-            const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(fullItem, userInput, "en");
+                // assert that splitting worked as expected
+                if (useAnswerless) {
+                    expect(
+                        renderItem.widgets["dropdown 1"].options.choices[0]
+                            .correct,
+                    ).toBeUndefined();
+                    expect(
+                        renderItem.widgets["dropdown 1"].options.choices[1]
+                            .correct,
+                    ).toBeUndefined();
+                }
 
-            // Assert
-            expect(score).toHaveBeenAnsweredCorrectly();
-        });
+                // Act
+                const {renderer} = renderQuestion(renderItem);
 
-        it("is interactive with stripped widget options", async () => {
-            // Arrange
-            const dropdownOptions: PerseusDropdownWidgetOptions = {
-                static: false,
-                placeholder: "Choose an answer",
-                choices: [
-                    {
-                        content: "Correct",
-                        correct: true,
-                    },
-                    {
-                        content: "Incorrect",
-                        correct: false,
-                    },
-                ],
-            };
+                await userEvent.click(
+                    screen.getByRole("combobox", {name: "Select an answer"}),
+                );
+                await userEvent.click(
+                    screen.getByRole("option", {name: "Correct"}),
+                );
 
-            const strippedDropdownOptions =
-                getDropdownPublicWidgetOptions(dropdownOptions);
+                const userInput = renderer.getUserInputMap();
+                const score = scorePerseusItem(answerful, userInput, "en");
 
-            // assert that splitting worked as expected
-            expect(
-                (strippedDropdownOptions.choices[0] as any).correct,
-            ).toBeUndefined();
-            expect(
-                (strippedDropdownOptions.choices[1] as any).correct,
-            ).toBeUndefined();
-
-            // for scoring
-            const fullItem: PerseusRenderer = {
-                content: "[[☃ dropdown 1]]",
-                images: {},
-                widgets: {
-                    "dropdown 1": {
-                        type: "dropdown",
-                        options: dropdownOptions,
-                    },
-                },
-            };
-
-            // for rendering
-            const strippedItem: PerseusRenderer = {
-                content: "[[☃ dropdown 1]]",
-                images: {},
-                widgets: {
-                    "dropdown 1": {
-                        type: "dropdown",
-                        options:
-                            strippedDropdownOptions as PerseusDropdownWidgetOptions,
-                    },
-                },
-            };
-
-            // Act
-            const {renderer} = renderQuestion(strippedItem);
-
-            await userEvent.click(
-                screen.getByRole("combobox", {name: "Select an answer"}),
-            );
-            await userEvent.click(
-                screen.getByRole("option", {name: "Correct"}),
-            );
-
-            const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(fullItem, userInput, "en");
-
-            // Assert
-            expect(score).toHaveBeenAnsweredCorrectly();
-        });
+                // Assert
+                expect(score).toHaveBeenAnsweredCorrectly();
+            },
+        );
     });
 });
