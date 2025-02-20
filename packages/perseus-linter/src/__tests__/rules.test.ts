@@ -13,6 +13,7 @@ import headingTitleCaseRule from "../rules/heading-title-case";
 import imageAltTextRule from "../rules/image-alt-text";
 import imageInTableRule from "../rules/image-in-table";
 import imageSpacesAroundUrlsRule from "../rules/image-spaces-around-urls";
+import imageUrlEmptyRule from "../rules/image-url-empty";
 import imageWidgetRule from "../rules/image-widget";
 import linkClickHereRule from "../rules/link-click-here";
 import longParagraphRule from "../rules/long-paragraph";
@@ -495,6 +496,19 @@ describe("Individual lint rules tests", () => {
             },
         },
     });
+
+    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
+    expectWarning(imageUrlEmptyRule, [
+        "![alt-text]()", // empty URL
+        "![alt-text](  )", // empty URL with spaces
+        "![alt-text](\n)", // empty URL with newline
+    ]);
+    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
+    expectPass(imageUrlEmptyRule, [
+        "![alt-text]('something')", // text should pass, though not a valid URL
+        "![alt-text]('www.test.com')", // example URL
+        "![alt-text](56)", // example number should pass, though not a valid URL
+    ]);
 
     expectWarning(expressionWidgetRule, "[[☃ expression 1]]", {
         widgets: {
