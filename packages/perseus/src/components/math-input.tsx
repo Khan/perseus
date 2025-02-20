@@ -26,19 +26,22 @@ import {debounce} from "../util/debounce";
 
 import {PerseusI18nContext} from "./i18n-context";
 
-import type {LegacyButtonSets} from "../perseus-types";
-import type {PerseusDependenciesV2} from "../types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
+import type {
+    AnalyticsEventHandlerFn,
+    LegacyButtonSets,
+} from "@khanacademy/perseus-core";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
-type KeypadButtonSets = {
+export type KeypadButtonSets = {
     advancedRelations?: boolean;
     basicRelations?: boolean;
     divisionKey?: boolean;
     logarithms?: boolean;
     preAlgebra?: boolean;
     trigonometry?: boolean;
+    scientific?: boolean;
 };
 
 type Props = {
@@ -68,7 +71,7 @@ type Props = {
      * - `never` means that the keypad is **never shown**.
      */
     buttonsVisible?: ButtonsVisibleType;
-    analytics: PerseusDependenciesV2["analytics"];
+    onAnalyticsEvent: AnalyticsEventHandlerFn;
 };
 
 type InnerProps = Props & {
@@ -132,7 +135,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         const input = this.mathField();
         const {locale} = this.context;
         const customKeyTranslator = {
-            ...getKeyTranslator(locale),
+            ...getKeyTranslator(locale, this.context.strings),
             // If there's something in the input that can become part of a
             // fraction, typing "/" puts it in the numerator. If not, typing
             // "/" does nothing. In that case, enter a \frac.
@@ -173,6 +176,8 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                 this.__mathFieldWrapperRef,
                 locale,
                 this.props.mathInputStrings,
+                // TODO(LEMS-2656): remove TS suppression
+                // @ts-expect-error: Type 'EditableMathQuill' is not assignable to type 'MathFieldInterface'.
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
@@ -259,7 +264,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 
     handleKeypadPress: (key: Keys, e: any) => void = (key, e) => {
         const {locale} = this.context;
-        const translator = getKeyTranslator(locale)[key];
+        const translator = getKeyTranslator(locale, this.context.strings)[key];
         const mathField = this.mathField();
 
         if (mathField) {
@@ -305,6 +310,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                     this.props.hasError && styles.wrapperError,
                 ]}
             >
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error */}
                 <div
                     style={{
                         display: "flex",
@@ -325,6 +331,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         });
                     }}
                 >
+                    {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
                     <span
                         className={className}
                         ref={(ref) => (this.__mathFieldWrapperRef = ref)}
@@ -332,6 +339,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         onBlur={() => this.blur()}
                     />
                     <Popover
+                        rootBoundary="document"
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}
                         dismissEnabled
@@ -351,8 +359,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 >
                                     <DesktopKeypad
                                         onAnalyticsEvent={
-                                            this.props.analytics
-                                                .onAnalyticsEvent
+                                            this.props.onAnalyticsEvent
                                         }
                                         extraKeys={this.props.extraKeys}
                                         onClickKey={this.handleKeypadPress}
@@ -493,6 +500,9 @@ const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
                 break;
             case "trig":
                 keypadButtonSets.trigonometry = true;
+                break;
+            case "scientific":
+                keypadButtonSets.scientific = true;
                 break;
             case "basic":
             default:

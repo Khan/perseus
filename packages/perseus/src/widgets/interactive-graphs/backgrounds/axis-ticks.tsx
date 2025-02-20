@@ -4,40 +4,40 @@ import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {MAX, MIN, X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import type {GraphDimensions} from "../types";
-import type {vec} from "mafs";
+import type {Interval, vec} from "mafs";
 
+// The size of the ticks and labels in pixels
 const tickSize = 10;
+const tickLabelSize = 14;
 
-const tickStyle: React.CSSProperties = {
-    stroke: "black",
-    strokeWidth: 1,
-};
-
-const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
+const YGridTick = ({
+    y,
+    range,
+    tickStep,
+    showPi,
+}: {
+    y: number;
+    range: [Interval, Interval];
+    tickStep: number;
+    // Whether to show the tick label as a multiple of pi
+    showPi: boolean;
+}) => {
+    // If the graph requires out-of-bounds labels, we want to make sure to set the
+    // coordinates to the edge of the visible range of the graph. Otherwise,
+    // the ticks and labels would render outside of the clipping-mask.
     let xPointOnAxis = 0;
-
-    // If the graph is zoomed in, we want to make sure the ticks are still visible
-    // even if they are outside the graph's range.
-    if (graphInfo.range[X][MIN] > 0) {
+    if (range[X][MIN] > 0) {
         // If the graph is on the positive side of the x-axis, lock the ticks to the left side of the graph
-        xPointOnAxis = graphInfo.range[X][MIN];
+        xPointOnAxis = range[X][MIN];
     }
-    if (graphInfo.range[X][MAX] < 0) {
+    if (range[X][MAX] < 0) {
         // If the graph is on the negative side of the x-axis, lock the ticks to the right side of the graph
-        xPointOnAxis = graphInfo.range[X][MAX];
+        xPointOnAxis = range[X][MAX];
     }
 
+    // Convert the Vector2 coordinates to pixel coordinates
     const pointOnAxis: vec.Vector2 = [xPointOnAxis, y];
     const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
-
-    // If the tick is on the edge of the graph's range, don't render it
-    if (
-        yPosition === -graphInfo.height ||
-        yPosition === graphInfo.height + 20
-    ) {
-        return null;
-    }
 
     // Position of the start of the tick
     const x1 = xPosition - tickSize / 2;
@@ -47,33 +47,63 @@ const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
     const x2 = xPosition + tickSize / 2;
     const y2 = yPosition;
 
+    // Adjust the y position of the x-axis labels based on
+    // whether the x-axis is above, within, or below the graph
+    const xAdjustment =
+        range[X][MAX] <= 0 ? tickLabelSize * 1.5 : -tickLabelSize * 1.1;
+    const xPositionText = xPosition + xAdjustment;
+    const yPositionText = yPosition + tickLabelSize * 0.25; // Center the text vertically on the tick
+
+    // If the graph displays both the y and x axis lines within the graph, we want
+    // to hide the label at -1 on the y-axis to prevent overlap with the x-axis label
+    const showLabel = shouldShowLabel(y, range, tickStep);
+
+    const yLabel = showPi ? divideByAndShowPi(y) : y.toString();
+
     return (
-        <g className="y-axis-ticks">
-            <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
+        <g className="tick" aria-hidden={true}>
+            <line x1={x1} y1={y1} x2={x2} y2={y2} className="axis-tick" />
+            {showLabel && (
+                <text
+                    className="axis-tick-label"
+                    style={{fontSize: tickLabelSize}}
+                    textAnchor={"end"}
+                    x={xPositionText}
+                    y={yPositionText}
+                >
+                    {yLabel}
+                </text>
+            )}
         </g>
     );
 };
 
-const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
+const XGridTick = ({
+    x,
+    range,
+    showPi,
+}: {
+    x: number;
+    range: [Interval, Interval];
+    // Whether to show the tick label as a multiple of pi
+    showPi: boolean;
+}) => {
+    // If the graph requires out-of-bounds labels, we want to make sure to set the
+    // coordinates to the edge of the visible range of the graph. Otherwise,
+    // the ticks and labels would render outside of the clipping-mask.
     let yPointOnAxis = 0;
-    // If the graph is zoomed in, we want to make sure the ticks are still visible
-    // even if they are outside the graph's range.
-    if (graphInfo.range[Y][MIN] > 0) {
+    if (range[Y][MIN] > 0) {
         // If the graph is on the positive side of the y-axis, lock the ticks to the top of the graph
-        yPointOnAxis = graphInfo.range[Y][MIN];
+        yPointOnAxis = range[Y][MIN];
     }
-    if (graphInfo.range[Y][MAX] < 0) {
+    if (range[Y][MAX] < 0) {
         // If the graph is on the negative side of the x-axis, lock the ticks to the bottom of the graph
-        yPointOnAxis = graphInfo.range[Y][MAX];
+        yPointOnAxis = range[Y][MAX];
     }
 
+    // Convert the Vector2 coordinates to pixel coordinates
     const pointOnAxis: vec.Vector2 = [x, yPointOnAxis];
     const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
-
-    // If the tick is on the edge of the graph's range, don't render it
-    if (xPosition === -graphInfo.width / 2 || xPosition === graphInfo.width) {
-        return null;
-    }
 
     // Position of the start of the tick
     const x1 = xPosition;
@@ -83,11 +113,60 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
     const x2 = xPosition;
     const y2 = yPosition - tickSize / 2;
 
+    // Adjust the Y position of the x-axis labels based on
+    // whether the x-axis is above, within, or below the graph
+    const yAdjustment =
+        range[Y][MAX] < 0 ? -tickLabelSize : tickLabelSize * 1.75;
+
+    // Adjust the X position of the x-axis labels based on
+    // whether the label is positive or negative, in order to
+    // account for the width of the negative sign
+    const xAdjustment = x < 0 ? -2 : 0;
+
+    // Apply the adjustments to the x and y positions for the text
+    const xPositionText = xPosition + xAdjustment;
+    const yPositionText = yPosition + yAdjustment;
+
+    const xLabel = showPi ? divideByAndShowPi(x) : x.toString();
+
     return (
-        <g className="x-axis-ticks">
-            <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
+        <g className="tick" aria-hidden={true}>
+            <line x1={x1} y1={y1} x2={x2} y2={y2} className="axis-tick" />
+            {
+                <text
+                    className="axis-tick-label"
+                    style={{fontSize: tickLabelSize}}
+                    textAnchor="middle"
+                    x={xPositionText}
+                    y={yPositionText}
+                >
+                    {xLabel}
+                </text>
+            }
         </g>
     );
+};
+
+// Determines whether to show the label for the given tick
+// Currently, the only condition is to hide the label at -tickStep
+// on the y-axis when the y-axis is within the graph bounds
+export const shouldShowLabel = (
+    currentTick: number,
+    range: [Interval, Interval],
+    tickStep: number,
+) => {
+    let showLabel = true;
+
+    // If the y-axis is within the graph and currentTick equals -tickStep, hide the label
+    if (
+        range[X][MIN] < -tickStep &&
+        range[X][MAX] > 0 &&
+        currentTick === -tickStep
+    ) {
+        showLabel = false;
+    }
+
+    return showLabel;
 };
 
 export function generateTickLocations(
@@ -97,9 +176,16 @@ export function generateTickLocations(
 ): number[] {
     const ticks: number[] = [];
 
+    // Calculate the number of significant decimals in the tick step so
+    // that we can match the desired precision when generating ticks.
+    const decimalSigFigs: number = countSignificantDecimals(tickStep);
+
     // Add ticks in the positive direction
-    for (let i = 0 + tickStep; i < max; i += tickStep) {
-        ticks.push(i);
+    const start = Math.max(min, 0);
+    for (let i = start + tickStep; i < max; i += tickStep) {
+        // Match to the same number of decimal places as the tick step
+        // to avoid floating point errors when working with small numbers
+        ticks.push(parseFloat(i.toFixed(decimalSigFigs)));
     }
 
     // Add ticks in the negative direction
@@ -111,41 +197,72 @@ export function generateTickLocations(
     return ticks;
 }
 
+// Count the number of significant digits after the decimal point
+export const countSignificantDecimals = (number: number): number => {
+    const numStr = number.toString();
+    if (!numStr.includes(".")) {
+        return 0;
+    }
+    return numStr.split(".")[1].length;
+};
+
+// Show the given value as a multiple of pi (already assumed to be
+// a multiple of pi). Exported for testing
+export function divideByAndShowPi(value: number): string {
+    const dividedValue = value / Math.PI;
+
+    switch (dividedValue) {
+        case 1:
+            return "π";
+        case -1:
+            return "-π";
+        case 0:
+            return "0";
+        default:
+            return dividedValue + "π";
+    }
+}
+
 export const AxisTicks = () => {
-    const {tickStep, range, width, height} = useGraphConfig();
-
-    const graphInfo = {
-        range,
-        width,
-        height,
-    };
-
+    const {tickStep, range} = useGraphConfig();
     const [[xMin, xMax], [yMin, yMax]] = range;
     const [xTickStep, yTickStep] = tickStep;
 
+    // Generate the tick locations & labels for the x and y axes
     const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
     const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
 
     return (
-        <g className="axis-ticks">
-            {yGridTicks.map((y) => {
-                return (
-                    <YGridTick
-                        y={y}
-                        key={`y-grid-tick-${y}`}
-                        graphInfo={graphInfo}
-                    />
-                );
-            })}
-            {xGridTicks.map((x) => {
-                return (
-                    <XGridTick
-                        x={x}
-                        key={`x-grid-tick-${x}`}
-                        graphInfo={graphInfo}
-                    />
-                );
-            })}
+        <g className="axis-ticks" role="presentation">
+            <g className="y-axis-ticks">
+                {yGridTicks.map((y) => {
+                    return (
+                        <YGridTick
+                            y={y}
+                            key={`y-grid-tick-${y}`}
+                            range={range}
+                            tickStep={tickStep[Y]}
+                            // Show the tick labels as multiples of pi
+                            // if the tick step is a multiple of pi.
+                            showPi={tickStep[Y] % Math.PI === 0}
+                        />
+                    );
+                })}
+            </g>
+            <g className="x-axis-ticks">
+                {xGridTicks.map((x) => {
+                    return (
+                        <XGridTick
+                            x={x}
+                            key={`x-grid-tick-${x}`}
+                            range={range}
+                            // Show the tick labels as multiples of pi
+                            // if the tick step is a multiple of pi.
+                            showPi={tickStep[X] % Math.PI === 0}
+                        />
+                    );
+                })}
+            </g>
         </g>
     );
 };

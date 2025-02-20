@@ -63,7 +63,7 @@ class MathWrapper {
         this.callbacks = callbacks;
 
         this.mobileKeyTranslator = {
-            ...getKeyTranslator(locale),
+            ...getKeyTranslator(locale, strings),
             // note(Matthew): our mobile backspace logic is really complicated
             // and for some reason doesn't really work in the desktop experience.
             // So we default to the basic backspace functionality in the

@@ -6,7 +6,7 @@
 
 if ! command -v jq &> /dev/null
 then
-    echo "jq not be found in PATH (you can install using 'brew install jq'"
+    echo "jq not be found in PATH (you can install using 'brew install jq')"
     exit
 fi
 

@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Definition widget should have a default snapshot: first render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        Read the excerpt and answer the question below. 
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="paragraph"
+      >
+        The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
+        <div
+          class="perseus-widget-container widget-nohighlight perseus-widget__definition widget-inline"
+        >
+          <button
+            aria-controls=":r0:"
+            aria-disabled="false"
+            aria-expanded="false"
+            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
+            id=":r0:-anchor"
+            type="button"
+          >
+            <span
+              style="color: rgb(24, 101, 242);"
+            >
+              the Pequots
+            </span>
+          </button>
+        </div>
+        , upon these conditions.
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Definition widget should have an open state snapshot: open state 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        Read the excerpt and answer the question below. 
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="paragraph"
+      >
+        The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
+        <div
+          class="perseus-widget-container widget-nohighlight perseus-widget__definition widget-inline"
+        >
+          <button
+            aria-controls=":r1:"
+            aria-disabled="false"
+            aria-expanded="true"
+            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
+            id=":r1:-anchor"
+            type="button"
+          >
+            <span
+              style="color: rgb(24, 101, 242); border-bottom: 2px solid #1865f2;"
+            >
+              the Pequots
+            </span>
+          </button>
+        </div>
+        , upon these conditions.
+      </div>
+    </div>
+  </div>
+</div>
+`;

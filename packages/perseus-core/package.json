@@ -3,7 +3,7 @@
     "description": "Shared Perseus infrastructure",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "1.5.0",
+    "version": "3.7.0",
     "publishConfig": {
         "access": "public"
     },
@@ -22,10 +22,16 @@
         "dist"
     ],
     "scripts": {
-        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
+        "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {},
-    "devDependencies": {},
-    "peerDependencies": {},
+    "devDependencies": {
+        "@khanacademy/wonder-stuff-core": "catalog:",
+        "underscore":"catalog:"
+    },
+    "peerDependencies": {
+        "@khanacademy/wonder-stuff-core": "catalog:",
+        "underscore":"catalog:"
+    },
     "keywords": []
 }

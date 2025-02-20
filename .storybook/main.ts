@@ -1,8 +1,26 @@
-import turbosnap from "vite-plugin-turbosnap";
-import viteConfig from "../dev/vite.config";
+import viteConfig from "../vite.config";
 import {mergeConfig} from "vite";
 
 import type {StorybookConfig} from "@storybook/react-vite";
+
+// This is a temporary plugin option to mimic what is in PROD in regard to cascade layers.
+// Perseus LESS files are wrapped in the 'shared' layer in Webapp.
+// To get the same ordering of precedence in Storybook, the imported LESS files need to be wrapped accordingly.
+// Once the LESS files have cascade layers included (LEMS-2801),
+//     then the following plugin option should be removed.
+const lessWrapper = {
+    name: "wrap-less-in-layer",
+    transform: (code: string, pathname: string) => {
+        if (pathname.endsWith(".less")) {
+            const layerStatements =
+                "@layer reset, shared, legacy;\n@layer shared";
+            return {
+                code: `${layerStatements} { ${code} }`,
+                map: null,
+            };
+        }
+    },
+};
 
 const config: StorybookConfig = {
     framework: "@storybook/react-vite",
@@ -41,6 +59,11 @@ const config: StorybookConfig = {
     viteFinal: async (config, {configType}) => {
         return mergeConfig(config, {
             ...viteConfig,
+            define: {
+                // This is used to determine if we are running in a
+                // Dev/Storybook environment.
+                "process.env.STORYBOOK": "true",
+            },
             build: {
                 // Vite 5 has a bug with how it builds `url(data: )` urls when
                 // it inlines SVGs. Given this is mostly used for static
@@ -54,23 +77,8 @@ const config: StorybookConfig = {
             },
             // Fix from: https://github.com/storybookjs/storybook/issues/25256#issuecomment-1866441206
             assetsInclude: ["/sb-preview/runtime.js"],
-            plugins:
-                configType === "PRODUCTION"
-                    ? [
-                          turbosnap({
-                              // This should be the base path of your storybook.  In monorepos, you may only need process.cwd().
-                              rootDir: config.root ?? process.cwd(),
-                          }),
-                      ]
-                    : [],
+            plugins: [...(viteConfig.plugins ?? []), lessWrapper],
         });
-    },
-
-    typescript: {
-        reactDocgen: "react-docgen",
-    },
-    docs: {
-        autodocs: true,
     },
     staticDirs: ["../static"],
 };

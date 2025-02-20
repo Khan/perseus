@@ -8,6 +8,7 @@ import AbsoluteUrl from "./absolute-url";
 import BlockquotedMath from "./blockquoted-math";
 import BlockquotedWidget from "./blockquoted-widget";
 import DoubleSpacingAfterTerminal from "./double-spacing-after-terminal";
+import ExpressionWidget from "./expression-widget";
 import ExtraContentSpacing from "./extra-content-spacing";
 import HeadingLevel1 from "./heading-level-1";
 import HeadingLevelSkip from "./heading-level-skip";
@@ -23,7 +24,6 @@ import MathAdjacent from "./math-adjacent";
 import MathAlignExtraBreak from "./math-align-extra-break";
 import MathAlignLinebreaks from "./math-align-linebreaks";
 import MathEmpty from "./math-empty";
-import MathFontSize from "./math-font-size";
 import MathFrac from "./math-frac";
 import MathNested from "./math-nested";
 import MathStartsWithSpace from "./math-starts-with-space";
@@ -41,6 +41,7 @@ export default [
     BlockquotedMath,
     BlockquotedWidget,
     DoubleSpacingAfterTerminal,
+    ExpressionWidget,
     ExtraContentSpacing,
     HeadingLevel1,
     HeadingLevelSkip,
@@ -54,7 +55,6 @@ export default [
     MathAlignExtraBreak,
     MathAlignLinebreaks,
     MathEmpty,
-    MathFontSize,
     MathFrac,
     MathNested,
     MathStartsWithSpace,

@@ -3,7 +3,7 @@
 
 import {cache} from "./cache";
 
-import type {PerseusRenderer} from "@khanacademy/perseus";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export type FlipbookModel = {
     questions: string;
@@ -13,7 +13,7 @@ export type FlipbookModel = {
 // Actions
 // ---------------------------------------------------------------------------
 
-export type Action =
+type Action =
     | {type: "noop"}
     | {type: "next"}
     | {type: "previous"}
@@ -120,7 +120,7 @@ function clampIndex(index: number, array: unknown[]): number {
 // Selectors
 // ---------------------------------------------------------------------------
 
-export const selectQuestionsAsJSON = cache((state: FlipbookModel): string[] => {
+const selectQuestionsAsJSON = cache((state: FlipbookModel): string[] => {
     return state.questions
         .split("\n")
         .map((s) => s.trim())

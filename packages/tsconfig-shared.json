@@ -1,4 +1,4 @@
-// This file is used by the tsconfig.json files in each package.
+// This file is used by the tsconfig-build.json files in each package.
 /* Visit https://aka.ms/tsconfig to read more about this file */
 {
     "exclude": [
@@ -7,6 +7,7 @@
         "**/__tests__/**",
         "**/*.testdata.*",
         "**/__testdata__/**",
+        "**/__testutils__/**",
         "**/*.stories.*",
         "**/__stories__/**",
         "**/*.cypress.*"

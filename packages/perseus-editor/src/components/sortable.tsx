@@ -1,59 +1,84 @@
 import {css, StyleSheet} from "aphrodite";
-import createReactClass from "create-react-class";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-const PT = PropTypes;
+type Props = {
+    className?: string;
+    components: React.ReactElement[];
+    onReorder: (i: any[]) => void;
+    style?: any;
+    verify: (i: any) => boolean;
+};
+
+type DefaultProps = {
+    verify: Props["verify"];
+};
+
+type State = {
+    dragging: number;
+    components: React.ReactElement[];
+};
 
 /**
+ * TODO(LEMS-2667): 11/26/24, at the time of writing this comment
+ * it has been identified that this file has been broken long before
+ * the refactoring of createReactClass. Future implementation need
+ * to determine how to fix this functionality or deprecate it.
+ * *
  * Takes an array of components to sort.
  * As of 08/05/24, there are two sortable components
  * (one in perseus and one in perseus-editor).
  * As far as I can tell, this one is only used in ExpressionEditor.
  */
 // eslint-disable-next-line react/no-unsafe
-const SortableArea = createReactClass({
-    propTypes: {
-        className: PT.string,
-        components: PT.arrayOf(PT.node).isRequired,
-        onReorder: PT.func.isRequired,
-        style: PT.any,
-        verify: PT.func,
-    },
-    getDefaultProps: function () {
-        return {verify: () => true};
-    },
-    getInitialState: function () {
-        return {
+class SortableArea extends React.Component<Props, State> {
+    _dragItems: any;
+
+    static defaultProps: DefaultProps = {
+        verify: () => true,
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
             // index of the component being dragged
-            dragging: null,
+            dragging: -1,
             components: this.props.components,
         };
-    },
+
+        this.onDrop = this.onDrop.bind(this);
+        this.onDragStart = this.onDragStart.bind(this);
+        this.onDragEnter = this.onDragEnter.bind(this);
+    }
+
     // Firefox refuses to drag an element unless you set data on it. Hackily
     // add data each time an item is dragged.
-    componentDidMount: function () {
+    componentDidMount() {
         this._setDragEvents();
-    },
+    }
+
     // eslint-disable-next-line react/no-unsafe
-    UNSAFE_componentWillReceiveProps: function (nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({components: nextProps.components});
-    },
-    componentDidUpdate: function () {
+    }
+
+    componentDidUpdate() {
         this._setDragEvents();
-    },
+    }
+
     // Alternatively send each handler to each component individually,
     // partially applied
-    onDragStart: function (startIndex) {
+    onDragStart(startIndex) {
         this.setState({dragging: startIndex});
-    },
-    onDrop: function () {
+    }
+
+    onDrop() {
         // tell the parent component
-        this.setState({dragging: null});
+        this.setState({dragging: -1});
         this.props.onReorder(this.state.components);
-    },
-    onDragEnter: function (enterIndex) {
+    }
+
+    onDragEnter(enterIndex) {
         // When a label is first dragged it triggers a dragEnter with itself,
         // which we don't care about.
         if (this.state.dragging === enterIndex) {
@@ -75,15 +100,18 @@ const SortableArea = createReactClass({
             });
         }
         return verified;
-    },
-    _listenEvent: function (e) {
+    }
+
+    _listenEvent(e) {
         e.dataTransfer.setData("hackhackhack", "because browsers!");
-    },
-    _cancelEvent: function (e) {
+    }
+
+    _cancelEvent(e) {
         // prevent the browser from redirecting to 'because browsers!'
         e.preventDefault();
-    },
-    _setDragEvents: function () {
+    }
+
+    _setDragEvents() {
         this._dragItems = this._dragItems || [];
         const items =
             // @ts-expect-error - TS2531 - Object is possibly 'null'
@@ -117,8 +145,9 @@ const SortableArea = createReactClass({
             dragItem.removeEventListener("dragstart", this._listenEvent);
             dragItem.removeEventListener("drop", this._cancelEvent);
         }
-    },
-    render: function () {
+    }
+
+    render() {
         const sortables = this.state.components.map((component, index) => (
             <SortableItem
                 index={index}
@@ -134,40 +163,41 @@ const SortableArea = createReactClass({
                 {sortables}
             </ol>
         );
-    },
-});
+    }
+}
+
+type ItemProps = {
+    area: any;
+    component: React.ReactNode;
+    dragging: boolean;
+    draggable: boolean;
+    index: number;
+};
 
 // An individual sortable item
-const SortableItem = createReactClass({
-    propTypes: {
-        area: PT.shape({
-            onDragEnter: PT.func.isRequired,
-            onDragStart: PT.func.isRequired,
-            onDrop: PT.func.isRequired,
-        }),
-        component: PT.node.isRequired,
-        dragging: PT.bool.isRequired,
-        draggable: PT.bool.isRequired,
-        index: PT.number.isRequired,
-    },
-    handleDragStart: function (e) {
+class SortableItem extends React.Component<ItemProps> {
+    handleDragStart(e) {
         e.nativeEvent.dataTransfer.effectAllowed = "move";
         this.props.area.onDragStart(this.props.index);
-    },
-    handleDrop: function () {
+    }
+
+    handleDrop() {
         this.props.area.onDrop(this.props.index);
-    },
-    handleDragEnter: function (e) {
+    }
+
+    handleDragEnter(e) {
         const verified = this.props.area.onDragEnter(this.props.index);
         // Ideally this would change the cursor based on whether this is a
         // valid place to drop.
         e.nativeEvent.dataTransfer.effectAllowed = verified ? "move" : "none";
-    },
-    handleDragOver: function (e) {
+    }
+
+    handleDragOver(e) {
         // allow a drop by preventing default handling
         e.preventDefault();
-    },
-    render: function () {
+    }
+
+    render() {
         // I think these might be getting styles from Webapp
         let dragState = "sortable-disabled";
         if (this.props.dragging) {
@@ -177,6 +207,7 @@ const SortableItem = createReactClass({
         }
 
         return (
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
             <li
                 draggable={this.props.draggable}
                 className={[dragState, css(styles.sortableListItem)].join(" ")}
@@ -188,8 +219,8 @@ const SortableItem = createReactClass({
                 {this.props.component}
             </li>
         );
-    },
-});
+    }
+}
 
 const styles = StyleSheet.create({
     sortableListItem: {

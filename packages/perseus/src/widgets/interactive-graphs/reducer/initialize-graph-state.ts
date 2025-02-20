@@ -1,9 +1,11 @@
+import {geometry} from "@khanacademy/kmath";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 
-import {magnitude, vector} from "../../../util/geometry";
 import {normalizeCoords, normalizePoints} from "../utils";
 
+import type {Coord} from "../../../interactive2/types";
+import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {
     PerseusGraphType,
     PerseusGraphTypeAngle,
@@ -16,10 +18,10 @@ import type {
     PerseusGraphTypeRay,
     PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
-} from "../../../perseus-types";
-import type {InteractiveGraphState, PairOfPoints} from "../types";
-import type {Coord} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
+
+const {magnitude, vector} = geometry;
 
 export type InitializeGraphStateParams = {
     range: [x: Interval, y: Interval];
@@ -66,16 +68,27 @@ export function initializeGraphState(
             return {
                 ...shared,
                 type: "polygon",
+                numSides: graph.numSides || 0,
                 showAngles: Boolean(graph.showAngles),
                 showSides: Boolean(graph.showSides),
                 coords: getPolygonCoords(graph, range, step),
                 snapTo: graph.snapTo ?? "grid",
+                focusedPointIndex: null,
+                showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                closedPolygon: false,
             };
         case "point":
             return {
                 ...shared,
                 type: graph.type,
                 coords: getPointCoords(graph, range, step),
+                numPoints: graph.numPoints || 0,
+                focusedPointIndex: null,
+                showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
             };
         case "circle":
             return {
@@ -104,6 +117,11 @@ export function initializeGraphState(
                 angleOffsetDeg: Number(graph.angleOffsetDeg),
                 allowReflexAngles: Boolean(graph.allowReflexAngles),
                 snapDegrees: Number(graph.snapDegrees),
+            };
+        case "none":
+            return {
+                ...shared,
+                type: "none",
             };
         default:
             throw new UnreachableCaseError(graph);

@@ -1,16 +1,15 @@
 /* eslint-disable react/prop-types */
+import {ApiOptions} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import {Editor} from "..";
 import SideBySide from "../../../../testing/side-by-side";
-import {question1} from "../__testdata__/input-number.testdata";
+import {question1} from "../__testdata__/numeric-input.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
-import {apiOptionsWithDefaults} from "./flags-for-api-options";
-
-import type {PerseusRenderer} from "@khanacademy/perseus";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
@@ -21,7 +20,7 @@ export default {
 export const Demo = (): React.ReactElement => {
     return (
         <Editor
-            apiOptions={apiOptionsWithDefaults}
+            apiOptions={ApiOptions.defaults}
             content={question1.content}
             placeholder=""
             widgets={question1.widgets}
@@ -91,7 +90,7 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                     <View style={{width: "360px", margin: "20px"}}>
                         <Editor
                             ref={editorRef}
-                            apiOptions={apiOptionsWithDefaults}
+                            apiOptions={ApiOptions.defaults}
                             content={content}
                             placeholder=""
                             widgets={widgets}
@@ -102,25 +101,29 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                             showWordCount={true}
                             warnNoPrompt={false}
                             warnNoWidgets={true}
-                            onChange={(props: Partial<PerseusRenderer>) => {
-                                action("onChange")(props);
-                                if (props.content) {
-                                    setContent(props.content);
-                                } else if (props.widgets) {
-                                    setWidgets(props.widgets);
-                                } else if (props.images) {
-                                    setImages(props.images);
-                                }
-                                // We need to wait for one tick so that the editor
-                                // has been re-rendered with the changed props. If
-                                // we don't wait, we get the values from the n-1
-                                // render and miss the latest change.
-                                setTimeout(() => {
-                                    setOptions(
-                                        editorRef.current?.serialize() || {},
-                                    );
-                                }, 0);
-                            }}
+                            // TODO(LEMS-2656): remove TS suppression
+                            onChange={
+                                ((props: Partial<PerseusRenderer>) => {
+                                    action("onChange")(props);
+                                    if (props.content) {
+                                        setContent(props.content);
+                                    } else if (props.widgets) {
+                                        setWidgets(props.widgets);
+                                    } else if (props.images) {
+                                        setImages(props.images);
+                                    }
+                                    // We need to wait for one tick so that the editor
+                                    // has been re-rendered with the changed props. If
+                                    // we don't wait, we get the values from the n-1
+                                    // render and miss the latest change.
+                                    setTimeout(() => {
+                                        setOptions(
+                                            editorRef.current?.serialize() ||
+                                                {},
+                                        );
+                                    }, 0);
+                                }) as any
+                            }
                         />
                     </View>
                 }

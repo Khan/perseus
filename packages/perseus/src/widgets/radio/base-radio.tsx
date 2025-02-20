@@ -10,16 +10,15 @@ import {usePerseusI18n} from "../../components/i18n-context";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import * as styleConstants from "../../styles/constants";
 import mediaQueries from "../../styles/media-queries";
-import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 import {scrollElementIntoView} from "../../util/scroll-utils";
 
 import Choice from "./choice";
 import ChoiceNoneAbove from "./choice-none-above";
 
-import type {PerseusRadioWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
+import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
 import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;
@@ -49,14 +48,15 @@ type Props = {
     apiOptions: APIOptions;
     choices: ReadonlyArray<ChoiceType>;
     deselectEnabled?: boolean;
-    editMode: boolean;
+    editMode?: boolean;
     labelWrap: boolean;
     countChoices: boolean | null | undefined;
     numCorrect: number;
-    multipleSelect: boolean;
+    multipleSelect?: boolean;
     // the logic checks whether this exists,
     // so it must be optional
-    reviewModeRubric?: PerseusRadioWidgetOptions;
+    reviewModeRubric?: PerseusRadioWidgetOptions | null;
+    reviewMode: boolean;
     // A callback indicating that this choice has changed. Its argument is
     // an object with two keys: `checked` and `crossedOut`. Each contains
     // an array of boolean values, specifying the new checked and
@@ -89,20 +89,20 @@ function getInstructionsText(
     return strings.chooseOneAnswer;
 }
 
-const BaseRadio = function (props: Props): React.ReactElement {
-    const {
-        apiOptions,
-        reviewModeRubric,
-        choices,
-        editMode,
-        multipleSelect,
-        labelWrap,
-        countChoices,
-        numCorrect,
-        isLastUsedWidget,
-        registerFocusFunction,
-    } = props;
-
+const BaseRadio = function ({
+    apiOptions,
+    reviewModeRubric,
+    reviewMode,
+    choices,
+    editMode = false,
+    multipleSelect = false,
+    labelWrap,
+    countChoices,
+    numCorrect,
+    isLastUsedWidget,
+    onChange,
+    registerFocusFunction,
+}: Props): React.ReactElement {
     const {strings} = usePerseusI18n();
 
     // useEffect doesn't have previous props
@@ -172,8 +172,6 @@ const BaseRadio = function (props: Props): React.ReactElement {
             crossedOut: boolean;
         }>,
     ): void {
-        const {multipleSelect, choices, onChange} = props;
-
         // Get the baseline `checked` values. If we're checking a new answer
         // and multiple-select is not on, we should clear all choices to be
         // unchecked. Otherwise, we should copy the old checked values.
@@ -217,13 +215,12 @@ const BaseRadio = function (props: Props): React.ReactElement {
     });
 
     // some commonly used shorthands
-    const reviewMode = !!reviewModeRubric;
     const isMobile = apiOptions.isMobile;
 
     const firstChoiceHighlighted = choices[0].highlighted;
     const lastChoiceHighlighted = choices[choices.length - 1].highlighted;
 
-    const className: ReadonlyArray<string> = classNames(
+    const className = classNames(
         "perseus-widget-radio",
         !editMode && "perseus-rendered-radio",
         css(
@@ -238,7 +235,7 @@ const BaseRadio = function (props: Props): React.ReactElement {
         ),
     );
 
-    const instructionsClassName: ReadonlyArray<string> = classNames(
+    const instructionsClassName = classNames(
         "instructions",
         css(styles.instructions, isMobile && styles.instructionsMobile),
     );
@@ -255,11 +252,9 @@ const BaseRadio = function (props: Props): React.ReactElement {
             className={`perseus-widget-radio-fieldset ${responsiveClassName}`}
         >
             <legend className="perseus-sr-only">{instructions}</legend>
-            {/* @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'string'. */}
             <div className={instructionsClassName} aria-hidden="true">
                 {instructions}
             </div>
-            {/* @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'string'. */}
             <ul className={className} style={{listStyle: "none"}}>
                 {choices.map((choice, i) => {
                     let Element = Choice;
@@ -307,7 +302,6 @@ const BaseRadio = function (props: Props): React.ReactElement {
                         // Whether or not to show correctness borders
                         // for this choice and the next choice.
                         return css(
-                            sharedStyles.aboveScratchpad,
                             styles.item,
                             styles.responsiveItem,
                             checked && styles.selectedItem,
@@ -337,7 +331,7 @@ const BaseRadio = function (props: Props): React.ReactElement {
                             ? ApiClassNames.CORRECT
                             : ApiClassNames.INCORRECT;
                     }
-                    const className: ReadonlyArray<string> = classNames(
+                    const className = classNames(
                         aphroditeClassName(choice.checked),
                         // TODO(aria): Make test case for these API
                         // classNames
@@ -351,10 +345,11 @@ const BaseRadio = function (props: Props): React.ReactElement {
                     // (label forces any clicks inside to select the input
                     // element) We have to add some extra behavior to make
                     // sure that we can still check the choice.
-                    let listElem = null;
-                    let clickHandler = null;
+                    let listElem: HTMLLIElement | null = null;
+                    let clickHandler:
+                        | React.MouseEventHandler<HTMLLIElement>
+                        | undefined;
                     if (editMode) {
-                        // @ts-expect-error - TS2322 - Type '(e: any) => void' is not assignable to type 'null'.
                         clickHandler = (e: any) => {
                             // Traverse the parent nodes of the clicked
                             // element.
@@ -381,17 +376,16 @@ const BaseRadio = function (props: Props): React.ReactElement {
                     // somehow break something happening inside a choice's
                     // child Renderers, by changing when we mount/unmount?
                     return (
+                        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
                         <li
                             key={i}
-                            // @ts-expect-error - TS2322 - Type 'HTMLLIElement | null' is not assignable to type 'null'.
                             ref={(e) => (listElem = e)}
-                            // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'string'.
                             className={className}
-                            // @ts-expect-error - TS2322 - Type 'null' is not assignable to type 'MouseEventHandler<HTMLLIElement> | undefined'.
                             onClick={clickHandler}
-                            // @ts-expect-error - TS2322 - Type '((e: TouchEvent) => void) | null' is not assignable to type 'TouchEventHandler<HTMLLIElement> | undefined'.
                             onTouchStart={
-                                !labelWrap ? null : captureScratchpadTouchStart
+                                labelWrap
+                                    ? undefined
+                                    : captureScratchpadTouchStart
                             }
                         >
                             <Element {...elementProps} ref={ref} />
@@ -405,11 +399,6 @@ const BaseRadio = function (props: Props): React.ReactElement {
     // Allow for horizontal scrolling if content is too wide, which may be
     // an issue especially on phones.
     return <div className={css(styles.responsiveContainer)}>{fieldset}</div>;
-};
-
-BaseRadio.defaultProps = {
-    editMode: false,
-    multipleSelect: false,
 };
 
 const styles: StyleDeclaration = StyleSheet.create({

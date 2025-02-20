@@ -1,60 +1,48 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import * as React from "react";
 
-type StoryArgs = Record<any, any>;
-
-type Story = {
-    title: string;
-};
-
 import ImageLoader from "../image-loader";
+
+import type {Meta, StoryObj} from "@storybook/react";
 
 const svgUrl = "http://www.khanacademy.org/images/ohnoes-concerned.svg";
 const imgUrl = "https://www.khanacademy.org/images/hand-tree.new.png";
 
-export default {
+const meta: Meta = {
     title: "Perseus/Components/Image Loader",
-} as Story;
+    component: ImageLoader,
+    args: {
+        preloader: null,
+        imgProps: {
+            alt: "ALT",
+        },
+        onUpdate: () => {},
+    },
+    parameters: {
+        chromatic: {
+            // This component only deals with loading images and providing a
+            // fallback if it fails. This is not very useful to snapshot so
+            // we're disabling it.
+            disableSnapshot: true,
+        },
+    },
+};
+export default meta;
 
-export const SvgImage = (args: StoryArgs): React.ReactElement => {
-    return (
-        <ImageLoader
-            src={svgUrl}
-            preloader={null}
-            imgProps={{
-                alt: "ALT",
-            }}
-            onUpdate={() => {}}
-        />
-    );
+type Story = StoryObj<typeof ImageLoader>;
+
+export const SvgImage: Story = {
+    args: {
+        src: svgUrl,
+    },
 };
 
-export const PngImage = (args: StoryArgs): React.ReactElement => {
-    return (
-        <ImageLoader
-            src={imgUrl}
-            preloader={null}
-            imgProps={{
-                alt: "ALT",
-            }}
-            onUpdate={() => {}}
-        />
-    );
+export const PngImage: Story = {
+    args: {src: imgUrl},
 };
 
-export const InvalidImageWithChildrenForFailedLoading = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <ImageLoader
-            src="http://abcdefiahofshiaof.noway.badimage.com"
-            preloader={null}
-            imgProps={{
-                alt: "ALT",
-            }}
-            onUpdate={() => {}}
-        >
-            <span>You can see me! The image failed to load.</span>
-        </ImageLoader>
-    );
+export const InvalidImageWithChildrenForFailedLoading: Story = {
+    args: {
+        src: "http://abcdefiahofshiaof.noway.badimage.com",
+        children: <span>You can see me! The image failed to load.</span>,
+    },
 };

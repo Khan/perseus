@@ -3,8 +3,8 @@ import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import LockedFiguresSection from "../graph-locked-figures/locked-figures-section";
-import {getDefaultFigureForType} from "../util";
+import LockedFiguresSection from "../../widgets/interactive-graph-editor/locked-figures/locked-figures-section";
+import {getDefaultFigureForType} from "../../widgets/interactive-graph-editor/locked-figures/util";
 
 import type {Meta, StoryObj} from "@storybook/react";
 
@@ -32,7 +32,6 @@ export const Controlled: StoryComponentType = {
 
         return (
             <LockedFiguresSection
-                showM2bFeatures={true}
                 figures={figures}
                 onChange={handlePropsUpdate}
             />
@@ -54,7 +53,6 @@ export const WithProdWidth: StoryComponentType = {
         return (
             <View style={styles.prodSizeContainer}>
                 <LockedFiguresSection
-                    showM2bFeatures={true}
                     figures={figures}
                     onChange={handlePropsUpdate}
                 />

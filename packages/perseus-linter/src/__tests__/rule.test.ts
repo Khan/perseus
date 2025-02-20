@@ -3,6 +3,8 @@ import * as PureMarkdown from "@khanacademy/pure-markdown";
 import Rule from "../rule";
 import TreeTransformer from "../tree-transformer";
 
+import type {MakeRuleOptions} from "../rule";
+
 describe("PerseusLinter lint Rules class", () => {
     const markdown = `
 ## This Heading is in Title Case
@@ -12,11 +14,11 @@ This paragraph contains an unescaped $ sign.
 #### This heading skipped a level
 `;
 
-    const ruleDescriptions = [
+    const ruleDescriptions: MakeRuleOptions[] = [
         {
             name: "heading-title-case",
             selector: "heading",
-            pattern: "\\s[A-Z][a-z]",
+            pattern: /\s[A-Z][a-z]/,
             message: `Title case in heading:
 Only capitalize the first word of headings.`,
         },
@@ -45,24 +47,17 @@ Otherwise escape it by writing \\$.`,
 this heading is level ${currentHeading.level} but
 the previous heading was level ${previousHeading.level}`;
                 }
-                return false;
+                return;
             },
         },
     ];
-
-    let rules: Array<never> | Array<Rule | any> = [];
 
     function parseTree() {
         return PureMarkdown.parse(markdown);
     }
 
-    it("makeRules() factory method", () => {
-        rules = ruleDescriptions.map((r) => Rule.makeRule(r));
-        expect(rules).toHaveLength(ruleDescriptions.length);
-        rules.forEach((r) => expect(r instanceof Rule).toBeTruthy());
-    });
-
     it("check() method", () => {
+        const rules = ruleDescriptions.map((r) => Rule.makeRule(r));
         const tree = parseTree();
         const tt = new TreeTransformer(tree);
         const warnings: Array<
@@ -78,7 +73,7 @@ the previous heading was level ${previousHeading.level}`;
 
         tt.traverse((node, state, content) => {
             rules.forEach((r) => {
-                const lint = r.check(node, state, content);
+                const lint = r.check(node, state, content, undefined);
                 if (lint) {
                     warnings.push(lint);
                 }

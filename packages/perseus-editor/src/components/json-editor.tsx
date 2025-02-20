@@ -1,46 +1,62 @@
 /* eslint-disable @babel/no-invalid-this */
 /* eslint-disable react/no-unsafe */
-/* eslint-disable react/sort-comp */
-import createReactClass from "create-react-class";
 import * as React from "react";
 import _ from "underscore";
 
-const JsonEditor: any = createReactClass({
-    displayName: "JsonEditor",
+type Props = {
+    multiLine: boolean;
+    value: any;
+    onChange: (newJson: any) => void;
+};
 
-    getInitialState: function () {
+type DefaultProps = {
+    value: Props["value"];
+};
+
+type State = {
+    currentValue: string | undefined;
+    valid: boolean | undefined;
+};
+
+class JsonEditor extends React.Component<Props, State> {
+    static displayName: "JsonEditor";
+
+    static defaultProps: DefaultProps = {
+        value: {},
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = this.getInitialState();
+
+        this.handleBlur = this.handleBlur.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
+    }
+
+    getInitialState() {
         return {
             currentValue: JSON.stringify(this.props.value, null, 4),
             valid: true,
         };
-    },
+    }
 
-    UNSAFE_componentWillReceiveProps: function (nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         const shouldReplaceContent =
             !this.state.valid ||
-            !_.isEqual(nextProps.value, JSON.parse(this.state.currentValue));
+            !_.isEqual(
+                nextProps.value,
+                JSON.parse(
+                    this.state.currentValue ? this.state.currentValue : "",
+                ),
+            );
 
         if (shouldReplaceContent) {
             this.setState(this.getInitialState());
         }
-    },
+    }
 
-    render: function () {
-        const classes =
-            "perseus-json-editor " + (this.state.valid ? "valid" : "invalid");
-
-        return (
-            <textarea
-                className={classes}
-                value={this.state.currentValue}
-                onChange={this.handleChange}
-                onKeyDown={this.handleKeyDown}
-                onBlur={this.handleBlur}
-            />
-        );
-    },
-
-    handleKeyDown: function (e) {
+    handleKeyDown(e) {
         // This handler allows the tab character to be entered by pressing
         // tab, instead of jumping to the next (non-existant) field
         if (e.key === "Tab") {
@@ -55,9 +71,9 @@ const JsonEditor: any = createReactClass({
             e.preventDefault();
             this.handleChange(e);
         }
-    },
+    }
 
-    handleChange: function (e) {
+    handleChange(e) {
         const nextString = e.target.value;
         try {
             let json = JSON.parse(nextString);
@@ -78,17 +94,17 @@ const JsonEditor: any = createReactClass({
                     this.props.onChange(json);
                 },
             );
-        } catch (ex: any) {
+        } catch {
             this.setState({
                 currentValue: nextString,
                 valid: false,
             });
         }
-    },
+    }
 
     // You can type whatever you want as you're typing, but if it's not valid
     // when you blur, it will revert to the last valid value.
-    handleBlur: function (e) {
+    handleBlur(e) {
         const nextString = e.target.value;
         try {
             let json = JSON.parse(nextString);
@@ -109,13 +125,28 @@ const JsonEditor: any = createReactClass({
                     this.props.onChange(json);
                 },
             );
-        } catch (ex: any) {
+        } catch {
             this.setState({
                 currentValue: JSON.stringify(this.props.value, null, 4),
                 valid: true,
             });
         }
-    },
-});
+    }
+
+    render() {
+        const classes =
+            "perseus-json-editor " + (this.state.valid ? "valid" : "invalid");
+
+        return (
+            <textarea
+                className={classes}
+                value={this.state.currentValue}
+                onChange={this.handleChange}
+                onKeyDown={this.handleKeyDown}
+                onBlur={this.handleBlur}
+            />
+        );
+    }
+}
 
 export default JsonEditor;

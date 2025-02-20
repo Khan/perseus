@@ -35,21 +35,15 @@ const missingOptions = {
 const clonedMissingOptions = JSON.parse(JSON.stringify(missingOptions));
 
 const sampleOptions = {
-    content: "[[☃ input-number 1]]",
+    content: "[[☃ mock-widget 1]]",
     images: {},
     widgets: {
-        "input-number 1": {
-            type: "input-number",
+        "mock-widget 1": {
+            type: "mock-widget",
             graded: true,
             static: false,
             options: {
                 value: "0",
-                simplify: "required",
-                size: "normal",
-                inexact: false,
-                maxError: 0.1,
-                answerType: "number",
-                rightAlign: false,
             },
             version: {
                 major: 0,
@@ -226,7 +220,6 @@ const sampleGroupUpgraded = {
                         alignment: "default",
                     },
                 },
-                metadata: undefined,
             },
             version: {
                 major: 0,
@@ -258,7 +251,7 @@ describe("Traversal", () => {
             readContent = content;
         });
 
-        expect(readContent).toBe("[[☃ input-number 1]]");
+        expect(readContent).toBe("[[☃ mock-widget 1]]");
         assertNonMutative();
     });
 
@@ -280,7 +273,7 @@ describe("Traversal", () => {
             widgetMap[widgetInfo.type] = (widgetMap[widgetInfo.type] || 0) + 1;
         });
         expect(widgetMap).toEqual({
-            "input-number": 1,
+            "mock-widget": 1,
         });
         assertNonMutative();
     });
@@ -294,9 +287,9 @@ describe("Traversal", () => {
         expect(newOptions).toEqual(
             _.extend({}, sampleOptions, {
                 widgets: {
-                    "input-number 1": _.extend(
+                    "mock-widget 1": _.extend(
                         {},
-                        sampleOptions.widgets["input-number 1"],
+                        sampleOptions.widgets["mock-widget 1"],
                         {graded: false},
                     ),
                 },
@@ -311,9 +304,7 @@ describe("Traversal", () => {
                 content: `${options.content}\n\nnew content!`,
             });
         });
-        expect(newOptions.content).toBe(
-            "[[☃ input-number 1]]\n\nnew content!",
-        );
+        expect(newOptions.content).toBe("[[☃ mock-widget 1]]\n\nnew content!");
         expect(newOptions.widgets).toEqual(sampleOptions.widgets);
         assertNonMutative();
     });

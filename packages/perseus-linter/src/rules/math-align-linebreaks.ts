@@ -18,7 +18,7 @@ export default Rule.makeRule({
             const index = text.indexOf("\\\\");
             if (index === -1) {
                 // No more backslash pairs, so we found no lint
-                return null;
+                return;
             }
             text = text.substring(index + 2);
 

@@ -77,7 +77,15 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({times: true});
+        expect(onChangeMock).toBeCalledWith(
+            {
+                answerForms: [],
+                buttonSets: ["basic"],
+                functions: ["f", "g", "h"],
+                times: true,
+            },
+            undefined,
+        );
     });
 
     it("should be possible to change function variables", async () => {
@@ -209,6 +217,23 @@ describe("expression-editor", () => {
         });
     });
 
+    it("should toggle scientific checkbox", async () => {
+        const onChangeMock = jest.fn();
+
+        render(<ExpressionEditor onChange={onChangeMock} />);
+        act(() => jest.runOnlyPendingTimers());
+
+        await userEvent.click(
+            screen.getByRole("checkbox", {
+                name: "scientific",
+            }),
+        );
+
+        expect(onChangeMock).toBeCalledWith({
+            buttonSets: ["basic", "scientific"],
+        });
+    });
+
     it("should be possible to add an answer", async () => {
         const onChangeMock = jest.fn();
 
@@ -227,7 +252,7 @@ describe("expression-editor", () => {
                     {
                         considered: "correct",
                         form: false,
-                        key: 0,
+                        key: "0",
                         simplify: false,
                         value: "",
                     },
@@ -276,20 +301,10 @@ describe("expression-editor", () => {
             {
                 answerForms: [
                     {
-                        buttonSets: ["basic"],
-                        buttonsVisible: "focused",
                         considered: "correct",
                         form: false,
-                        functions: ["f", "g", "h"],
                         key: "0",
-                        linterContext: {
-                            contentType: "",
-                            highlightLint: false,
-                            paths: [],
-                            stack: [],
-                        },
                         simplify: false,
-                        times: false,
                         value: "9",
                     },
                 ],

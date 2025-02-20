@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-prop-types, react/sort-comp */
+/* eslint-disable react/forbid-prop-types */
 import PropTypes from "prop-types";
 import * as React from "react";
 
@@ -6,8 +6,8 @@ import NumberInput from "./number-input";
 
 const truth = () => true;
 
-/* A minor abstraction on top of NumberInput for ranges
- *
+/**
+ * A minor abstraction on top of `NumberInput` for ranges
  */
 class RangeInput extends React.Component<any> {
     static propTypes = {
@@ -15,10 +15,20 @@ class RangeInput extends React.Component<any> {
         onChange: PropTypes.func.isRequired,
         placeholder: PropTypes.array,
         checkValidity: PropTypes.func,
+        allowPiTruncation: PropTypes.bool,
     };
 
     static defaultProps: any = {
         placeholder: [null, null],
+    };
+
+    onChange: (arg1: number, arg2: string) => void = (i, newVal) => {
+        const value = this.props.value;
+        if (i === 0) {
+            this.props.onChange([newVal, value[1]]);
+        } else {
+            this.props.onChange([value[0], newVal]);
+        }
     };
 
     render(): React.ReactNode {
@@ -34,6 +44,7 @@ class RangeInput extends React.Component<any> {
                     // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onChange.bind(this, 0)}
                     placeholder={this.props.placeholder[0]}
+                    allowPiTruncation={this.props.allowPiTruncation}
                 />
                 <NumberInput
                     {...this.props}
@@ -42,19 +53,11 @@ class RangeInput extends React.Component<any> {
                     // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onChange.bind(this, 1)}
                     placeholder={this.props.placeholder[1]}
+                    allowPiTruncation={this.props.allowPiTruncation}
                 />
             </div>
         );
     }
-
-    onChange: (arg1: number, arg2: string) => void = (i, newVal) => {
-        const value = this.props.value;
-        if (i === 0) {
-            this.props.onChange([newVal, value[1]]);
-        } else {
-            this.props.onChange([value[0], newVal]);
-        }
-    };
 }
 
 export default RangeInput;

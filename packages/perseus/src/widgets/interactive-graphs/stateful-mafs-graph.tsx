@@ -3,6 +3,7 @@ import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
 
 import {MafsGraph} from "./mafs-graph";
+import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
 import {
     changeRange,
@@ -10,52 +11,46 @@ import {
     reinitialize,
 } from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
-import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
+import {getGradableGraph} from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
-import type {Widget} from "../../renderer";
-import type {PerseusGraphType} from "@khanacademy/perseus";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
+import type {PerseusInteractiveGraphUserInput} from "@khanacademy/perseus-score";
 
 export type StatefulMafsGraphProps = {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: PerseusGraphType;
+    /**
+     * The correct answer for this widget. Will be undefined if the graph is
+     * being provided answerless data (e.g. because the learner has not yet
+     * submitted their guess).
+     */
+    // TODO(LEMS-2344): make the type of `correct` more specific
+    correct?: PerseusGraphType;
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
     range: InteractiveGraphProps["range"];
-    snapStep: InteractiveGraphProps["snapStep"];
+    snapStep: [x: number, y: number];
     step: InteractiveGraphProps["step"];
-    gridStep: InteractiveGraphProps["gridStep"];
+    gridStep: [x: number, y: number];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
-    labels: InteractiveGraphProps["labels"];
-    hintMode: boolean;
+    labels: ReadonlyArray<string>;
+    fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
+    fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     readOnly: boolean;
+    static: InteractiveGraphProps["static"];
 };
 
-// Rather than be tightly bound to how data was structured in
-// the legacy interactive graph, this lets us store state
-// however we want and we just transform it before handing it off
-// the the parent InteractiveGraph
-function mafsStateToInteractiveGraph(state: {graph: InteractiveGraphState}) {
-    if (state.graph.type === "circle") {
-        return {
-            ...state,
-            graph: {
-                ...state.graph,
-                radius: getRadius(state.graph),
-            },
-        };
-    }
-    return {
-        ...state,
-    };
-}
+export type StatefulMafsGraphType = {
+    getUserInput: () => PerseusInteractiveGraphUserInput;
+};
 
 export const StatefulMafsGraph = React.forwardRef<
-    Partial<Widget>,
+    StatefulMafsGraphType,
     StatefulMafsGraphProps
 >((props, ref) => {
     const {onChange, graph} = props;
@@ -74,10 +69,10 @@ export const StatefulMafsGraph = React.forwardRef<
 
     useEffect(() => {
         if (prevState.current !== state) {
-            onChange(mafsStateToInteractiveGraph({graph: state}));
+            onChange({graph: mafsStateToInteractiveGraph(state, graph)});
         }
         prevState.current = state;
-    }, [onChange, state]);
+    }, [onChange, state, graph]);
 
     // Destructuring first to keep useEffect from making excess calls
     const [xSnap, ySnap] = props.snapStep;
@@ -103,8 +98,14 @@ export const StatefulMafsGraph = React.forwardRef<
     const numPoints = graph.type === "point" ? graph.numPoints : null;
     const numSides = graph.type === "polygon" ? graph.numSides : null;
     const snapTo = graph.type === "polygon" ? graph.snapTo : null;
-    const showAngles = graph.type === "polygon" ? graph.showAngles : null;
+    const showAngles =
+        graph.type === "polygon" || graph.type === "angle"
+            ? graph.showAngles
+            : null;
+    const allowReflexAngles =
+        graph.type === "angle" ? graph.allowReflexAngles : null;
     const showSides = graph.type === "polygon" ? graph.showSides : null;
+    const startCoords = "startCoords" in graph ? graph.startCoords : undefined;
 
     const originalPropsRef = useRef(props);
     const latestPropsRef = useLatestRef(props);
@@ -125,8 +126,21 @@ export const StatefulMafsGraph = React.forwardRef<
         showAngles,
         showSides,
         latestPropsRef,
-        graph.startCoords,
+        startCoords,
+        allowReflexAngles,
     ]);
+
+    // If the graph is static, it always displays the correct answer. This is
+    // standard behavior for Perseus widgets (e.g. compare the Radio widget).
+    if (props.static && props.correct) {
+        return (
+            <MafsGraph
+                {...props}
+                state={initializeGraphState({...props, graph: props.correct})}
+                dispatch={dispatch}
+            />
+        );
+    }
 
     return <MafsGraph {...props} state={state} dispatch={dispatch} />;
 });

@@ -5,11 +5,10 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import {flags} from "../../__stories__/flags-for-api-options";
-import {getDefaultFigureForType} from "../../components/util";
-import InteractiveGraphEditor from "../interactive-graph-editor";
+import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
+import {getDefaultFigureForType} from "../interactive-graph-editor/locked-figures/util";
 
-import type {PerseusGraphType} from "@khanacademy/perseus";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultPoint = getDefaultFigureForType("point");
@@ -25,19 +24,15 @@ const baseProps = {
     graph: undefined,
 };
 
-const mafsProps = {
+const segmentProps = {
     ...baseProps,
-    apiOptions: {
-        ...ApiOptions.defaults,
-        flags,
-    },
     graph: {type: "segment"} as PerseusGraphType,
 };
 
 // Breaking this out into its own function, because the RenderStateRoot
 // wrapper was making it take up a lot of space.
 const renderEditor = (props) => {
-    render(<InteractiveGraphEditor {...mafsProps} {...props} />, {
+    render(<InteractiveGraphEditor {...segmentProps} {...props} />, {
         wrapper: RenderStateRoot,
     });
 };
@@ -365,9 +360,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             });
 
             // Act
-            const colorInput = screen.getByRole("button", {
-                name: "color",
-            });
+            const colorInput = await screen.findByLabelText("color");
             await userEvent.click(colorInput);
             const colorSelection = screen.getByText("purple");
             await userEvent.click(colorSelection);
@@ -558,9 +551,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await assertAndCloseStartCoordsSection();
 
             // Act
-            const styleInput = screen.getByRole("button", {
-                name: "stroke",
-            });
+            const styleInput = await screen.findByLabelText("stroke");
             await userEvent.click(styleInput);
             const styleSelection = screen.getByText("dashed");
             await userEvent.click(styleSelection);
@@ -724,9 +715,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             });
 
             // Act
-            const kindInput = screen.getByRole("button", {
-                name: "kind",
-            });
+            const kindInput = await screen.findByLabelText("kind");
             await userEvent.click(kindInput);
             const kindSelection = screen.getByText("segment");
             await userEvent.click(kindSelection);
@@ -934,9 +923,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             });
 
             // Act
-            const strokeInput = screen.getByRole("button", {
-                name: "stroke",
-            });
+            const strokeInput = await screen.findByLabelText("stroke");
             await userEvent.click(strokeInput);
             const strokeSelection = screen.getByText("dashed");
             await userEvent.click(strokeSelection);
@@ -964,9 +951,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             });
 
             // Act
-            const fillInput = screen.getByRole("button", {
-                name: "fill",
-            });
+            const fillInput = await screen.findByLabelText("fill");
             await userEvent.click(fillInput);
             const fillSelection = screen.getByText("translucent");
             await userEvent.click(fillSelection);
@@ -996,9 +981,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             });
 
             // Act
-            const fillInput = screen.getByRole("button", {
-                name: "fill",
-            });
+            const fillInput = await screen.findByLabelText("fill");
             await userEvent.click(fillInput);
             const fillSelection = screen.getByText("translucent");
             await userEvent.click(fillSelection);
@@ -1026,9 +1009,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             });
 
             // Act
-            const strokeInput = screen.getByRole("button", {
-                name: "stroke",
-            });
+            const strokeInput = await screen.findByLabelText("stroke");
             await userEvent.click(strokeInput);
             const strokeSelection = screen.getByText("dashed");
             await userEvent.click(strokeSelection);

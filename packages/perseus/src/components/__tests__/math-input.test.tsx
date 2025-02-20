@@ -6,15 +6,17 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import MathInput from "../math-input";
 
+import type {KeypadButtonSets} from "../math-input";
 import type {UserEvent} from "@testing-library/user-event";
 
-const allButtonSets = {
+const allButtonSets: KeypadButtonSets = {
     advancedRelations: true,
     basicRelations: true,
     divisionKey: true,
     logarithms: true,
     preAlgebra: true,
     trigonometry: true,
+    scientific: true,
 };
 
 describe("Perseus' MathInput", () => {
@@ -31,12 +33,12 @@ describe("Perseus' MathInput", () => {
     });
 
     it("renders", () => {
-        // Assemble
+        // Arrange
         render(
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -50,12 +52,12 @@ describe("Perseus' MathInput", () => {
     });
 
     it("provides a default aria label", () => {
-        // Assemble
+        // Arrange
         render(
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -69,12 +71,12 @@ describe("Perseus' MathInput", () => {
     });
 
     it("is possible to overwrite the aria label", () => {
-        // Assemble
+        // Arrange
         render(
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
                 ariaLabel="Hello world"
@@ -89,13 +91,13 @@ describe("Perseus' MathInput", () => {
     });
 
     it("is possible to type in the input", async () => {
-        // Assemble
+        // Arrange
         const mockOnChange = jest.fn();
         render(
             <MathInput
                 onChange={mockOnChange}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -114,13 +116,13 @@ describe("Perseus' MathInput", () => {
     });
 
     it("is possible to use buttons", async () => {
-        // Assemble
+        // Arrange
         const mockOnChange = jest.fn();
         render(
             <MathInput
                 onChange={mockOnChange}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -142,14 +144,43 @@ describe("Perseus' MathInput", () => {
         expect(mockOnChange).toHaveBeenLastCalledWith("1+2-3");
     });
 
+    it("is possible to use the scientific keypad", async () => {
+        // Arrange
+        const mockOnChange = jest.fn();
+        render(
+            <MathInput
+                onChange={mockOnChange}
+                keypadButtonSets={{scientific: true}}
+                onAnalyticsEvent={() => Promise.resolve()}
+                convertDotToTimes={false}
+                value=""
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {name: /open math keypad/}),
+        );
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Custom exponent"}),
+        );
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+        act(() => jest.runOnlyPendingTimers());
+
+        // Assert
+        expect(mockOnChange).toHaveBeenLastCalledWith("2^{2}");
+    });
+
     it("is possible to use buttons with legacy props", async () => {
-        // Assemble
+        // Arrange
         const mockOnChange = jest.fn();
         render(
             <MathInput
                 onChange={mockOnChange}
                 buttonSets={["basic+div"]}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -173,12 +204,12 @@ describe("Perseus' MathInput", () => {
     });
 
     it("returns focus to input after button click", async () => {
-        // Assemble
+        // Arrange
         render(
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -197,12 +228,12 @@ describe("Perseus' MathInput", () => {
     });
 
     it("does not return focus to input after button press via keyboard", async () => {
-        // Assemble
+        // Arrange
         render(
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,
@@ -226,12 +257,12 @@ describe("Perseus' MathInput", () => {
     });
 
     it("does not focus on the keypad button when it is clicked with the mouse", async () => {
-        // Assemble
+        // Arrange
         render(
             <MathInput
                 onChange={() => {}}
                 buttonsVisible="always"
-                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                onAnalyticsEvent={() => Promise.resolve()}
                 convertDotToTimes={false}
                 value=""
             />,

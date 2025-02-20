@@ -4,42 +4,27 @@ import {vec} from "mafs";
 import React from "react";
 import invariant from "tiny-invariant";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 
-import {MafsGraph} from "./mafs-graph";
-import {actions} from "./reducer/interactive-graph-action";
+import {calculateNestedSVGCoords, MafsGraph} from "./mafs-graph";
+import {actions, REMOVE_POINT} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
+import {getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
-import type {GraphRange} from "../../perseus-types";
+import type {PerseusDependenciesV2} from "@khanacademy/perseus";
+import type {GraphRange} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-function getBaseMafsGraphProps(): MafsGraphProps {
-    return {
-        box: [400, 400],
-        step: [1, 1],
-        gridStep: [1, 1],
-        markings: "graph",
-        containerSizeClass: "small",
-        showTooltips: false,
-        showProtractor: false,
-        hintMode: false,
-        readOnly: false,
-        labels: ["x", "y"],
-        dispatch: () => {},
-        state: {
-            type: "segment",
-            hasBeenInteractedWith: false,
-            coords: [],
-            snapStep: [1, 1],
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-        },
-    };
+const baseMafsProps = getBaseMafsGraphPropsForTests();
+
+function expectLabelInDoc(label: string) {
+    expect(screen.getByLabelText(label)).toBeInTheDocument();
 }
 
 function createFakeStore<S, A>(reducer: (state: S, action: A) => S, state: S) {
@@ -105,7 +90,7 @@ describe("MafsGraph", () => {
             ],
         };
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const baseMafsGraphProps = baseMafsProps;
 
         render(
             <MafsGraph
@@ -128,8 +113,7 @@ describe("MafsGraph", () => {
         expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
     });
 
-    it("renders the axis ticks if the graph markings are set to graph", () => {
-        // Arrange
+    it("should send analytics even when widget is rendered", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
@@ -147,28 +131,80 @@ describe("MafsGraph", () => {
             ],
         };
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const onAnalyticsEventSpy = jest.fn();
+        const depsV2: PerseusDependenciesV2 = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
 
-        // Act
+        const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
+
         render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={state}
-                dispatch={mockDispatch}
-            />,
+            <Dependencies.DependenciesContext.Provider value={depsV2}>
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />
+            </Dependencies.DependenciesContext.Provider>,
         );
 
         // Assert
-        const axisLabel = screen.queryAllByText("2");
-
-        // There are two axis labels, one for each axis
-        expect(axisLabel[0]).toBeInTheDocument();
-        expect(axisLabel[1]).toBeInTheDocument();
+        expect(onAnalyticsEventSpy).toHaveBeenNthCalledWith(1, {
+            type: "perseus:interactive-graph-widget:rendered",
+            payload: {
+                type: "segment",
+                widgetType: "INTERACTIVE_GRAPH",
+                widgetId: "interactive-graph",
+            },
+        });
+        expect(onAnalyticsEventSpy).toHaveBeenNthCalledWith(2, {
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "segment",
+                widgetType: "INTERACTIVE_GRAPH",
+                widgetId: "interactive-graph",
+            },
+        });
     });
 
-    it("does not render axis ticks if the graph markings are not set to graph", () => {
-        // Arrange
-        const mockDispatch = jest.fn();
+    it("renders TeX in axis Labels", () => {
+        const basePropsWithTexLabels = {
+            ...baseMafsProps,
+            labels: ["$1/2$", "$3/4$"],
+        };
+
+        render(<MafsGraph {...basePropsWithTexLabels} />);
+        expect(screen.getByText("\\text{$1/2$}")).toBeInTheDocument();
+        expect(screen.getByText("\\text{$3/4$}")).toBeInTheDocument();
+    });
+
+    it("renders plain text in axis Labels", () => {
+        const basePropsWithTexLabels = {
+            ...baseMafsProps,
+            labels: ["4/5", "5/6"],
+        };
+
+        render(<MafsGraph {...basePropsWithTexLabels} />);
+        expect(screen.getByText("\\text{4/5}")).toBeInTheDocument();
+        expect(screen.getByText("\\text{5/6}")).toBeInTheDocument();
+    });
+
+    it("includes aria-labels for the axes labels", () => {
+        const basePropsWithTexLabels = {
+            ...baseMafsProps,
+        };
+
+        render(<MafsGraph {...basePropsWithTexLabels} />);
+
+        const xAxisLabel = screen.getByLabelText("X-axis");
+        const yAxisLabel = screen.getByLabelText("Y-axis");
+
+        expect(xAxisLabel).toBeInTheDocument();
+        expect(yAxisLabel).toBeInTheDocument();
+    });
+
+    it("renders ARIA labels for each point (segment)", () => {
         const state: InteractiveGraphState = {
             type: "segment",
             hasBeenInteractedWith: true,
@@ -185,113 +221,21 @@ describe("MafsGraph", () => {
             ],
         };
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
-
-        // Act
         render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={state}
-                dispatch={mockDispatch}
-                markings="none"
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
-        // Assert
-        const axisLabel = screen.queryByText("2");
-        expect(axisLabel).not.toBeInTheDocument();
+        expectLabelInDoc("Endpoint 1 at 0 comma 0.");
+        expectLabelInDoc("Endpoint 2 at -7 comma 0.5.");
     });
 
-    it("should render the y-axis tick labels to the left of the graph when the xMin > 0", () => {
-        // Arrange
-        const mockDispatch = jest.fn();
+    it("renders ARIA labels for each point (multiple segments)", () => {
         const state: InteractiveGraphState = {
             type: "segment",
             hasBeenInteractedWith: true,
             range: [
-                [5, 15],
-                [1, 20],
-            ],
-            snapStep: [0.5, 0.5],
-            coords: [
-                [
-                    [0, 0],
-                    [7, 0.5],
-                ],
-            ],
-        };
-
-        const baseMafsGraphProps = getBaseMafsGraphProps();
-
-        // Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={state}
-                dispatch={mockDispatch}
-            />,
-        );
-
-        // Assert
-        const yAxis = screen.getByTestId("y-axis-tick-labels");
-        const axisLabelStyle = getComputedStyle(yAxis);
-        expect(yAxis).not.toHaveClass("y-axis-right-of-grid");
-        // The left position of the left-sided axis label calculates to 0px
-        expect(axisLabelStyle.getPropertyValue("left")).toEqual(
-            "calc(0px - 0em)",
-        );
-    });
-
-    it("should render the y-axis tick labels to the right of the graph when the xMax < 0", () => {
-        // Arrange
-        const mockDispatch = jest.fn();
-        const state: InteractiveGraphState = {
-            type: "segment",
-            hasBeenInteractedWith: true,
-            range: [
-                [-15, -5],
-                [1, 20],
-            ],
-            snapStep: [0.5, 0.5],
-            coords: [
-                [
-                    [0, 0],
-                    [7, 0.5],
-                ],
-            ],
-        };
-
-        const baseMafsGraphProps = getBaseMafsGraphProps();
-
-        // Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={state}
-                dispatch={mockDispatch}
-            />,
-        );
-
-        // Assert
-        const yAxis = screen.getByTestId("y-axis-tick-labels");
-        const axisLabelStyle = getComputedStyle(yAxis);
-        expect(yAxis).toHaveClass("y-axis-right-of-grid");
-        // The left position of the right-sided axis label is the width
-        // of the graph minus the width of the label
-        expect(axisLabelStyle.getPropertyValue("left")).toEqual(
-            "calc(400px - 1em)",
-        );
-    });
-
-    it("should align x-axis labels below the graph when yMin > 0", () => {
-        // Arrange
-        const mockDispatch = jest.fn();
-        const state: InteractiveGraphState = {
-            type: "segment",
-            hasBeenInteractedWith: true,
-            range: [
-                [1, 20],
-                [5, 15],
+                [-10, 10],
+                [-10, 10],
             ],
             snapStep: [0.5, 0.5],
             coords: [
@@ -299,38 +243,53 @@ describe("MafsGraph", () => {
                     [0, 0],
                     [-7, 0.5],
                 ],
+                [
+                    [1, 1],
+                    [7, 0.5],
+                ],
             ],
         };
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
-
-        // Act
         render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={state}
-                dispatch={mockDispatch}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
-        // Assert
-        const yAxis = screen.getByTestId("x-axis-tick-labels");
-        const axisLabelStyle = getComputedStyle(yAxis);
-        expect(yAxis).not.toHaveClass("x-axis-top-of-grid");
-        // The left position of the right-sided axis label is the width
-        // of the graph minus the width of the label
-        expect(axisLabelStyle.getPropertyValue("top")).toEqual("400px");
+        expectLabelInDoc("Endpoint 1 on segment 1 at 0 comma 0.");
+        expectLabelInDoc("Endpoint 2 on segment 1 at -7 comma 0.5.");
+        expectLabelInDoc("Endpoint 1 on segment 2 at 1 comma 1.");
+        expectLabelInDoc("Endpoint 2 on segment 2 at 7 comma 0.5.");
     });
 
-    it("should align x-axis labels above the graph when yMax < 0", () => {
-        // Arrange
-        const mockDispatch = jest.fn();
+    it("renders ARIA labels for each point (linear)", () => {
         const state: InteractiveGraphState = {
-            type: "segment",
+            type: "linear",
             hasBeenInteractedWith: true,
             range: [
-                [-20, -1],
-                [-15, -5],
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [0, 0],
+                [-7, 0.5],
+            ],
+        };
+
+        render(
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
+        );
+
+        expectLabelInDoc("Point 1 at 0 comma 0.");
+        expectLabelInDoc("Point 2 at -7 comma 0.5.");
+    });
+
+    it("renders ARIA labels for each point (linear system)", () => {
+        const state: InteractiveGraphState = {
+            type: "linear-system",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
             ],
             snapStep: [0.5, 0.5],
             coords: [
@@ -338,98 +297,213 @@ describe("MafsGraph", () => {
                     [0, 0],
                     [-7, 0.5],
                 ],
-            ],
-        };
-
-        const baseMafsGraphProps = getBaseMafsGraphProps();
-
-        // Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={state}
-                dispatch={mockDispatch}
-            />,
-        );
-
-        // Assert
-        const yAxis = screen.getByTestId("x-axis-tick-labels");
-        const axisLabelStyle = getComputedStyle(yAxis);
-        expect(yAxis).toHaveClass("x-axis-top-of-grid");
-        // The left position of the right-sided axis label is the width
-        // of the graph minus the width of the label
-        expect(axisLabelStyle.getPropertyValue("top")).toEqual("0px");
-    });
-
-    it("should render 0 label when the y-axis is to the left of the graph", () => {
-        // Arrange
-        const mockDispatch = jest.fn();
-        const state: InteractiveGraphState = {
-            type: "segment",
-            hasBeenInteractedWith: true,
-            range: [
-                [5, 15],
-                [-5, 20],
-            ],
-            snapStep: [0.5, 0.5],
-            coords: [
                 [
-                    [0, 0],
+                    [1, 1],
                     [7, 0.5],
                 ],
             ],
         };
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
-
-        // Act
         render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={state}
-                dispatch={mockDispatch}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
-        // Assert
-        // Assert
-        const zeroLabel = screen.queryByText("0");
-        expect(zeroLabel).toBeInTheDocument();
+        expectLabelInDoc("Point 1 on line 1 at 0 comma 0.");
+        expectLabelInDoc("Point 2 on line 1 at -7 comma 0.5.");
+        expectLabelInDoc("Point 1 on line 2 at 1 comma 1.");
+        expectLabelInDoc("Point 2 on line 2 at 7 comma 0.5.");
     });
 
-    it("should not render the 0 label when the y-axis is right of the graph", () => {
-        // Arrange
-        const mockDispatch = jest.fn();
+    it("renders ARIA labels for each point (ray)", () => {
         const state: InteractiveGraphState = {
-            type: "segment",
+            type: "ray",
             hasBeenInteractedWith: true,
             range: [
-                [-15, -5],
-                [1, 20],
+                [-10, 10],
+                [-10, 10],
             ],
             snapStep: [0.5, 0.5],
             coords: [
-                [
-                    [0, 0],
-                    [7, 0.5],
-                ],
+                [0, 0],
+                [-7, 0.5],
             ],
         };
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
-
-        // Act
         render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={state}
-                dispatch={mockDispatch}
-            />,
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
         );
 
-        // Assert
-        const zeroLabel = screen.queryByText("0");
-        expect(zeroLabel).not.toBeInTheDocument();
+        expectLabelInDoc("Endpoint at 0 comma 0.");
+        expectLabelInDoc("Through point at -7 comma 0.5.");
+    });
+
+    it("renders ARIA labels for each point (circle)", () => {
+        const state: InteractiveGraphState = {
+            type: "circle",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            center: [0, 0],
+            radiusPoint: [2, 0],
+        };
+
+        render(
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
+        );
+
+        // Circle's radius point has a special label
+        expectLabelInDoc("Radius point at 2 comma 0. Circle radius is 2.");
+    });
+
+    it("renders ARIA labels for each point (quadratic)", () => {
+        const state: InteractiveGraphState = {
+            type: "quadratic",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
+        render(
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
+        );
+
+        const points = screen.getAllByRole("button");
+        const [point1, point2, point3] = points;
+
+        expect(point1).toHaveAccessibleName(
+            "Point 1 on parabola in quadrant 2 at -1 comma 1. Vertex is at the origin.",
+        );
+        expect(point2).toHaveAccessibleName(
+            "Point 2 on parabola at the origin. Vertex is at the origin.",
+        );
+        expect(point3).toHaveAccessibleName(
+            "Point 3 on parabola in quadrant 1 at 1 comma 1. Vertex is at the origin.",
+        );
+    });
+
+    it("renders ARIA labels for each point (sinusoid)", () => {
+        const state: InteractiveGraphState = {
+            type: "sinusoid",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [-1, 1],
+                [0, 0],
+            ],
+        };
+
+        render(
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
+        );
+
+        const points = screen.getAllByRole("button");
+        const [point1, point2] = points;
+
+        expect(point1).toHaveAccessibleName(
+            "Midline intersection at -1 comma 1.",
+        );
+        expect(point2).toHaveAccessibleName("Extremum point at 0 comma 0.");
+    });
+
+    it("renders ARIA labels for each point (point)", () => {
+        const state: InteractiveGraphState = {
+            type: "point",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            focusedPointIndex: null,
+            showRemovePointButton: false,
+            interactionMode: "mouse",
+            showKeyboardInteractionInvitation: false,
+            // 2 points
+            coords: [
+                [-1, 1],
+                [0, 0],
+            ],
+        };
+
+        render(
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
+        );
+
+        expectLabelInDoc("Point 1 at -1 comma 1.");
+        expectLabelInDoc("Point 2 at 0 comma 0.");
+    });
+
+    it("renders ARIA labels for each point (polygon)", () => {
+        const state: InteractiveGraphState = {
+            type: "polygon",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            showAngles: false,
+            showSides: false,
+            snapTo: "grid",
+            focusedPointIndex: null,
+            showRemovePointButton: false,
+            interactionMode: "mouse",
+            showKeyboardInteractionInvitation: false,
+            closedPolygon: false,
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
+        render(
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
+        );
+
+        expectLabelInDoc("Point 1 at -1 comma 1.");
+        expectLabelInDoc("Point 2 at 0 comma 0.");
+        expectLabelInDoc("Point 3 at 1 comma 1.");
+    });
+
+    it("renders a screenreader description summarizing the interactive elements on the graph", () => {
+        const state: InteractiveGraphState = {
+            type: "point",
+            hasBeenInteractedWith: true,
+            focusedPointIndex: null,
+            showRemovePointButton: false,
+            interactionMode: "keyboard",
+            showKeyboardInteractionInvitation: false,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [[-7, 0.5]],
+        };
+
+        render(
+            <MafsGraph {...baseMafsProps} state={state} dispatch={() => {}} />,
+        );
+
+        expect(
+            screen.getByText("Interactive elements: Point 1 at -7 comma 0.5."),
+        ).toBeInTheDocument();
     });
 
     /**
@@ -442,7 +516,12 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "point",
+            numPoints: 2,
+            focusedPointIndex: null,
             hasBeenInteractedWith: true,
+            showRemovePointButton: false,
+            interactionMode: "mouse",
+            showKeyboardInteractionInvitation: false,
             range: [
                 [-10, 10],
                 [-10, 10],
@@ -451,7 +530,7 @@ describe("MafsGraph", () => {
             coords: [[2, 2]],
         };
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const baseMafsGraphProps = baseMafsProps;
 
         const {rerender} = render(
             <MafsGraph
@@ -461,7 +540,7 @@ describe("MafsGraph", () => {
             />,
         );
 
-        const group = screen.getByTestId("movable-point");
+        const group = screen.getByTestId("movable-point__focusable-handle");
         group.focus();
         await userEvent.keyboard("[ArrowRight]");
         const action = actions.pointGraph.movePoint(0, [4, 2]);
@@ -514,7 +593,7 @@ describe("MafsGraph", () => {
             initialState,
         );
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const baseMafsGraphProps = baseMafsProps;
 
         render(
             <MafsGraph
@@ -565,7 +644,7 @@ describe("MafsGraph", () => {
             initialState,
         );
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const baseMafsGraphProps = baseMafsProps;
 
         render(
             <MafsGraph
@@ -616,7 +695,7 @@ describe("MafsGraph", () => {
             initialState,
         );
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const baseMafsGraphProps = baseMafsProps;
 
         render(
             <MafsGraph
@@ -667,7 +746,7 @@ describe("MafsGraph", () => {
             initialState,
         );
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const baseMafsGraphProps = baseMafsProps;
 
         render(
             <MafsGraph
@@ -687,5 +766,315 @@ describe("MafsGraph", () => {
             `state type must be segment but was ${state.type}`,
         );
         expect(state.coords).toEqual(expectedCoords);
+    });
+
+    describe("with an unlimited graph", () => {
+        it("point - shows a remove point button when a point is focused", async () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "point",
+                numPoints: "unlimited",
+                focusedPointIndex: 0,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: true,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                coords: [[4, 5]],
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...baseMafsProps,
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Assert: Find the button
+            const addPointButton = await screen.findByText("Remove Point");
+            expect(addPointButton).not.toBe(null);
+        });
+
+        it("polygon - shows a remove point button when a point is focused", async () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "polygon",
+                numSides: "unlimited",
+                focusedPointIndex: 0,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: true,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                showAngles: false,
+                showSides: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                snapTo: "grid",
+                coords: [[4, 5]],
+                closedPolygon: false,
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...baseMafsProps,
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Assert: Find the button
+            const addPointButton = await screen.findByText("Remove Point");
+            expect(addPointButton).not.toBe(null);
+        });
+
+        it("point - removes a point when the remove point button is clicked", async () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "point",
+                numPoints: "unlimited",
+                focusedPointIndex: 0,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: true,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                coords: [[9, 9]],
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...baseMafsProps,
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Act: Click the button
+            const removePointButton = await screen.findByText("Remove Point");
+            await userEvent.click(removePointButton);
+
+            expect(mockDispatch.mock.calls).toContainEqual([
+                {type: REMOVE_POINT, index: 0},
+            ]);
+        });
+
+        it("polygon - removes a point when the remove point button is clicked", async () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "polygon",
+                numSides: "unlimited",
+                focusedPointIndex: 0,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: true,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                showAngles: false,
+                showSides: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                snapTo: "grid",
+                coords: [[9, 9]],
+                closedPolygon: false,
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...baseMafsProps,
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Act: Click the button
+            const removePointButton = await screen.findByText("Remove Point");
+            await userEvent.click(removePointButton);
+
+            expect(mockDispatch.mock.calls).toContainEqual([
+                {type: REMOVE_POINT, index: 0},
+            ]);
+        });
+
+        it("polygon - enables the 'Close shape' button when the polygon has 3 or more unique points", () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "polygon",
+                numSides: "unlimited",
+                focusedPointIndex: null,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                showAngles: false,
+                showSides: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                snapTo: "grid",
+                coords: [
+                    [4, 5],
+                    [5, 6],
+                    [6, 7],
+                ],
+                closedPolygon: false,
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...baseMafsProps,
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Assert
+            // Find the button
+            const closeShapeButton = screen.getByRole("button", {
+                name: "Close shape",
+            });
+            // Make sure the button is enabled
+            expect(closeShapeButton).toHaveAttribute("aria-disabled", "false");
+        });
+
+        it("polygon - disables the 'Close shape' button when the polygon has fewer than 3 unique points", () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "polygon",
+                numSides: "unlimited",
+                focusedPointIndex: null,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                showAngles: false,
+                showSides: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                snapTo: "grid",
+                coords: [
+                    [4, 5],
+                    [5, 6],
+                    // not unique
+                    [5, 6],
+                ],
+                closedPolygon: false,
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...baseMafsProps,
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Assert
+            // Find the button
+            const closeShapeButton = screen.getByRole("button", {
+                name: "Close shape",
+            });
+            // Make sure the button is disabled
+            expect(closeShapeButton).toHaveAttribute("aria-disabled", "true");
+        });
+    });
+});
+
+describe("calculateNestedSVGCoords", () => {
+    it("calculates nested SVG coordinates for a centered graph", () => {
+        const range: GraphRange = [
+            [-10, 10],
+            [-10, 10],
+        ];
+        const graphSize: vec.Vector2 = [400, 400];
+
+        const result = calculateNestedSVGCoords(
+            range,
+            graphSize[0],
+            graphSize[1],
+        );
+
+        expect(result).toEqual({
+            viewboxX: -200,
+            viewboxY: -200,
+        });
+    });
+    it("calculates nested SVG coordinates for an off center graph", () => {
+        const range: GraphRange = [
+            [5, 10], // the x range is wholly positive
+            [-10, 10],
+        ];
+        const graphSize: vec.Vector2 = [400, 400];
+
+        const result = calculateNestedSVGCoords(
+            range,
+            graphSize[0],
+            graphSize[1],
+        );
+
+        expect(result).toEqual({
+            viewboxX: 400,
+            viewboxY: -200,
+        });
     });
 });

@@ -1,5 +1,5 @@
+import {MathFieldActionType} from "../../types";
 import {mathQuillInstance} from "../input/mathquill-instance";
-import {MathFieldActionType} from "../input/mathquill-types";
 
 import type Key from "../../data/keys";
 import type {MathFieldInterface} from "../input/mathquill-types";

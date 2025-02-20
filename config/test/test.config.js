@@ -50,7 +50,7 @@ module.exports = {
     },
     // Allow transforming files imported from @phosphor-icons/core.
     // This is required by the .svg transform above.
-    transformIgnorePatterns: ["/node_modules/(?!(@phosphor-icons/core)/)"],
+    transformIgnorePatterns: ["/node_modules/.pnpm/(?!@phosphor-icons.core@)"],
     restoreMocks: true,
     resetMocks: true,
     testEnvironment: "jsdom",
@@ -70,6 +70,7 @@ module.exports = {
         // Load a .js file with no exports whenever a .css or .less file is requested.
         "\\.(css|less)$": "<rootDir>/config/test/style-mock.js",
     },
+    coverageDirectory: "<rootDir>/coverage/jest/",
     collectCoverageFrom: [
         "packages/*/src/**/*.js",
         "packages/*/src/**/*.jsx",
@@ -85,4 +86,9 @@ module.exports = {
     // Only output log messages on test failure. From:
     // https://github.com/facebook/jest/issues/4156#issuecomment-490764080
     // reporters: ["<rootDir>/config/test/log-on-fail-reporter.js"],
+
+    // TODO(LEMS-2858) We turn off Prettier as Prettier v3 is incompatible with
+    // Jest v29. Once they release Jest v30 we can switch to that:
+    // https://github.com/jestjs/jest/issues/14305
+    prettierPath: null,
 };

@@ -3,23 +3,42 @@ import invariant from "tiny-invariant";
 import {getGradableGraph} from "./interactive-graph-state";
 
 import type {InteractiveGraphState} from "../types";
-import type {PerseusGraphType} from "@khanacademy/perseus";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
-const defaultAngleState: InteractiveGraphState = {
-    type: "angle",
-    coords: [
-        [5, 0],
-        [0, 0],
-        [5, 5],
-    ],
+const defaultUnlimitedPointState: InteractiveGraphState = {
+    type: "point",
+    focusedPointIndex: 0,
+    coords: [[5, 0]],
+    numPoints: "unlimited",
     hasBeenInteractedWith: true,
+    showRemovePointButton: false,
+    showKeyboardInteractionInvitation: false,
+    interactionMode: "mouse",
     range: [
         [-10, 10],
         [-10, 10],
     ],
     snapStep: [1, 1],
+};
+
+const defaultUnlimitedPolygonState: InteractiveGraphState = {
+    type: "polygon",
+    closedPolygon: false,
+    focusedPointIndex: 0,
+    coords: [[5, 0]],
+    numSides: "unlimited",
+    hasBeenInteractedWith: true,
+    showRemovePointButton: false,
+    showKeyboardInteractionInvitation: false,
+    interactionMode: "mouse",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    snapTo: "grid",
+    showSides: true,
     showAngles: true,
-    allowReflexAngles: false,
 };
 
 describe("getGradableGraph", () => {
@@ -48,73 +67,55 @@ describe("getGradableGraph", () => {
         expect(result).toEqual(initialGraph);
     });
 
-    // (LEMS-2190): This test is to ensure that the new Mafs graph is reversing coordinates when the angle graph
-    // is reflexive in a clockwise direction in order to temporarily maintain the same angle scoring with the
-    // legacy graph. This logic (& the tests) should be moved to the scoring function after removing the legacy graph.
-    it("returns reversed coordinates if the angle graph is reflexive when not allowed", () => {
+    it("returns null coordinates if the unlimited point graph has an empty array of coordinates", () => {
         const state: InteractiveGraphState = {
-            ...defaultAngleState,
-            coords: [
-                [-5, 0],
-                [0, 0],
-                [5, 5],
-            ],
-            hasBeenInteractedWith: true,
+            ...defaultUnlimitedPointState,
+            coords: [],
         };
         const initialGraph: PerseusGraphType = {
-            type: "angle",
+            type: "point",
         };
         const result = getGradableGraph(state, initialGraph);
-        invariant(result.type === "angle");
-        expect(result.coords).toEqual([
-            [5, 5],
-            [0, 0],
-            [-5, 0],
-        ]);
+        invariant(result.type === "point");
+        expect(result.coords).toEqual(null);
     });
 
-    it("does not reverse coordinates if the angle graph is not reflexive", () => {
+    it("returns coordinates if the unlimited point graph is has at least one coordinate", () => {
         const state: InteractiveGraphState = {
-            ...defaultAngleState,
-            coords: [
-                [5, 0],
-                [0, 0],
-                [5, 5],
-            ],
-            hasBeenInteractedWith: true,
+            ...defaultUnlimitedPointState,
+            coords: [[1, 0]],
         };
         const initialGraph: PerseusGraphType = {
-            type: "angle",
+            type: "point",
         };
         const result = getGradableGraph(state, initialGraph);
-        invariant(result.type === "angle");
-        expect(result.coords).toEqual([
-            [5, 0],
-            [0, 0],
-            [5, 5],
-        ]);
+        invariant(result.type === "point");
+        expect(result.coords).toEqual([[1, 0]]);
     });
 
-    it("does not reverse coordinates if the angle graph is allowed to be reflexive", () => {
+    it("returns null coordinates if the unlimited polygon graph is open", () => {
         const state: InteractiveGraphState = {
-            ...defaultAngleState,
-            coords: [
-                [5, 0],
-                [0, 0],
-                [-5, -5],
-            ],
-            hasBeenInteractedWith: true,
-            allowReflexAngles: true,
+            ...defaultUnlimitedPolygonState,
+            closedPolygon: false,
         };
         const initialGraph: PerseusGraphType = {
-            type: "angle",
+            type: "polygon",
         };
         const result = getGradableGraph(state, initialGraph);
-        invariant(result.type === "angle");
-        expect(result.coords).toEqual([
-            [5, 0],
-            [0, 0],
-            [-5, -5],
-        ]);
+        invariant(result.type === "polygon");
+        expect(result.coords).toEqual(null);
+    });
+
+    it("returns coordinates if the unlimited polygon graph is closed", () => {
+        const state: InteractiveGraphState = {
+            ...defaultUnlimitedPolygonState,
+            closedPolygon: true,
+        };
+        const initialGraph: PerseusGraphType = {
+            type: "polygon",
+        };
+        const result = getGradableGraph(state, initialGraph);
+        invariant(result.type === "polygon");
+        expect(result.coords).toEqual([[5, 0]]);
     });
 });

@@ -1,12 +1,19 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components, icons, EditorJsonify} from "@khanacademy/perseus";
+import {components, EditorJsonify, iconTrash} from "@khanacademy/perseus";
+import {
+    dropdownLogic,
+    type DropdownDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
+import {TextField} from "@khanacademy/wonder-blocks-form";
+import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import {iconPlus} from "../styles/icon-paths";
+
 const {InfoTip, InlineIcon} = components;
-const {iconPlus, iconTrash} = icons;
 
 type Props = any;
 
@@ -23,21 +30,19 @@ class DropdownEditor extends React.Component<Props> {
 
     static widgetName = "dropdown" as const;
 
-    static defaultProps: Props = {
-        placeholder: "",
-        choices: [
-            {
-                content: "",
-                correct: false,
-            },
-        ],
+    static defaultProps: DropdownDefaultWidgetOptions =
+        dropdownLogic.defaultWidgetOptions;
+
+    onVisibleLabelChange: (arg1: string) => void = (visibleLabel) => {
+        this.props.onChange({visibleLabel});
     };
 
-    onPlaceholderChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
-    ) => {
-        const placeholder = e.target.value;
-        this.props.onChange({placeholder: placeholder});
+    onAriaLabelChange: (arg1: string) => void = (ariaLabel) => {
+        this.props.onChange({ariaLabel});
+    };
+
+    onPlaceholderChange: (arg1: string) => void = (placeholder) => {
+        this.props.onChange({placeholder});
     };
 
     onCorrectChange: (
@@ -103,24 +108,65 @@ class DropdownEditor extends React.Component<Props> {
         return (
             <div className="perseus-widget-dropdown">
                 <div className="dropdown-info">
-                    Dropdown
+                    <LabelLarge>Dropdown</LabelLarge>
                     <InfoTip>
                         <p>
                             The drop down is useful for making inequalities in a
                             custom format. We normally use the symbols {"<"},{" "}
                             {">"}, ≤, ≥ (in that order) which you can copy into
-                            the choices. When possible, use the "multiple
-                            choice" answer type instead.
+                            the choices. When possible, use the &quot;multiple
+                            choice&quot; answer type instead.
                         </p>
                     </InfoTip>
                 </div>
-                <div className="dropdown-placeholder">
-                    <input
-                        type="text"
-                        placeholder="Placeholder value"
-                        value={this.props.placeholder}
-                        onChange={this.onPlaceholderChange}
-                    />
+                <div className="dropdown-field">
+                    <LabelMedium>
+                        Visible label
+                        <TextField
+                            value={this.props.visibleLabel}
+                            onChange={this.onVisibleLabelChange}
+                        />
+                    </LabelMedium>
+                    <InfoTip>
+                        <p>Optional visible label</p>
+                    </InfoTip>
+                </div>
+                <div className="dropdown-field">
+                    <LabelMedium>
+                        Aria label
+                        <TextField
+                            value={this.props.ariaLabel}
+                            onChange={this.onAriaLabelChange}
+                            type={"text"}
+                        />
+                    </LabelMedium>
+                    <InfoTip>
+                        <p>
+                            Label text that&apos;s read by screen readers.
+                            Highly recommend adding a label here to ensure your
+                            exercise is accessible. For more information on
+                            writing accessible labels, please see{" "}
+                            <a
+                                href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                this article.
+                            </a>{" "}
+                            If left blank, the value will default to
+                            &quot;Select an answer&quot;.
+                        </p>
+                    </InfoTip>
+                </div>
+                <div className="dropdown-field">
+                    <LabelMedium>
+                        Placeholder
+                        <TextField
+                            value={this.props.placeholder}
+                            onChange={this.onPlaceholderChange}
+                            placeholder={"Placeholder value"}
+                        />
+                    </LabelMedium>
                     <InfoTip>
                         <p>
                             This value will appear as the drop down default. It
@@ -131,6 +177,7 @@ class DropdownEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <div className="clearfix" />
+                <LabelMedium>Choices</LabelMedium>
                 <ul className="dropdown-choices">
                     {this.props.choices.map(function (choice, i) {
                         const checkedClass = choice.correct

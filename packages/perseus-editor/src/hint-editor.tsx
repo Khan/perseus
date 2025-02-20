@@ -4,26 +4,29 @@
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
-import {components, icons} from "@khanacademy/perseus";
+import {components, iconTrash} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
+import {
+    iconCircleArrowDown,
+    iconCircleArrowUp,
+    iconPlus,
+} from "./styles/icon-paths";
 
 import type {
     APIOptions,
-    WidgetDict,
     ImageDict,
-    Hint,
     ChangeHandler,
     DeviceType,
     ImageUploader,
 } from "@khanacademy/perseus";
+import type {Hint, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 const {InfoTip, InlineIcon} = components;
-const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} = icons;
 
 type HintEditorProps = {
     itemId?: string;
@@ -35,7 +38,7 @@ type HintEditorProps = {
     showTitle?: boolean;
     content?: string | null | undefined;
     replace?: boolean | null | undefined;
-    widgets?: WidgetDict | null | undefined;
+    widgets?: PerseusWidgetsMap | null | undefined;
     images?: ImageDict | null | undefined;
     isLast: boolean;
     isFirst: boolean;
@@ -53,7 +56,7 @@ type HintEditorProps = {
  *  ~ the "remove this hint" box
  *  ~ the move hint up/down arrows
  */
-export class HintEditor extends React.Component<HintEditorProps> {
+class HintEditor extends React.Component<HintEditorProps> {
     static defaultProps: {
         className: string;
         content: string;

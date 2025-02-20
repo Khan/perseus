@@ -10,19 +10,21 @@ import {mockStrings} from "../strings";
 
 import type {PerseusStrings} from "../strings";
 
-type I18nContextType = {
+export type I18nContextType = {
     strings: PerseusStrings;
     locale: string;
+};
+
+export const mockPerseusI18nContext = {
+    strings: mockStrings,
+    locale: "en",
 };
 
 // @ts-expect-error - TS2322 - Type 'Context<{ strings: {}; locale: string; }>' is not assignable to type 'Context<I18nContextType>'.
 export const PerseusI18nContext: React.Context<I18nContextType> =
     React.createContext(
         process.env.NODE_ENV === "test" || process.env.STORYBOOK
-            ? {
-                  strings: mockStrings,
-                  locale: "en",
-              }
+            ? mockPerseusI18nContext
             : // We want to return null here, not an empty object, so that we
               // are will throw an error when attempting to access the
               // undefined locale or strings, making it easier to debug.

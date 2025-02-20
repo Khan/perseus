@@ -7,9 +7,11 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {EditorPage} from "..";
+import {interactiveGraphQuestionBuilder} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
+    interactiveGraphWithAriaLabel,
     linearSystemWithStartingCoordsQuestion,
     linearWithStartingCoordsQuestion,
     pointQuestionWithStartingCoords,
@@ -19,19 +21,20 @@ import {
     segmentWithLockedFigures,
     segmentWithStartingCoordsQuestion,
     segmentsWithStartingCoordsQuestion,
-    sinusoidWithStartingCoordsQuestion,
-} from "../../../perseus/src/widgets/__testdata__/interactive-graph.testdata";
+    sinusoidMinimalQuestion,
+    sinusoidWithStartingCoordsAndPiTicksQuestion,
+    unlimitedPolygonWithCorrectAnswerQuestion,
+} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
-import {flags} from "./flags-for-api-options";
 
+import type {DeviceType} from "@khanacademy/perseus";
 import type {
-    DeviceType,
     Hint,
     PerseusAnswerArea,
     PerseusRenderer,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
@@ -40,6 +43,10 @@ export default {
 };
 
 const onChangeAction = action("onChange");
+
+export const InteractiveGraphWithAriaLabel = (): React.ReactElement => (
+    <EditorPageWithStorybookPreview question={interactiveGraphWithAriaLabel} />
+);
 
 export const InteractiveGraphSegment = (): React.ReactElement => {
     return (
@@ -99,8 +106,14 @@ export const InteractiveGraphQuadratic = (): React.ReactElement => {
 
 export const InteractiveGraphSinusoid = (): React.ReactElement => {
     return (
+        <EditorPageWithStorybookPreview question={sinusoidMinimalQuestion} />
+    );
+};
+
+export const InteractiveGraphSinusoidWithPiTicks = (): React.ReactElement => {
+    return (
         <EditorPageWithStorybookPreview
-            question={sinusoidWithStartingCoordsQuestion}
+            question={sinusoidWithStartingCoordsAndPiTicksQuestion}
         />
     );
 };
@@ -119,6 +132,14 @@ export const InteractiveGraphPolygon = (): React.ReactElement => {
     );
 };
 
+export const InteractiveGraphUnlimitedPolygon = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={unlimitedPolygonWithCorrectAnswerQuestion}
+        />
+    );
+};
+
 export const InteractiveGraphAngle = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview
@@ -127,43 +148,21 @@ export const InteractiveGraphAngle = (): React.ReactElement => {
     );
 };
 
-export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
+export const InteractiveGraphNone = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview
-            apiOptions={{
-                isMobile: false,
-                flags: {
-                    mafs: {
-                        ...flags.mafs,
-                        "interactive-graph-locked-features-m2b": false,
-                    },
-                },
-            }}
-            question={segmentWithLockedFigures}
+            question={interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .addLockedFunction("5*sin(x)", {color: "red"})
+                .build()}
         />
     );
 };
 
-MafsWithLockedFiguresCurrent.parameters = {
-    chromatic: {
-        // Disabling because this isn't visually testing anything on the
-        // initial load of the editor page.
-        disable: true,
-    },
-};
-
-export const MafsWithLockedFiguresM2bFlag = (): React.ReactElement => {
+export const LockedFigures = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview question={segmentWithLockedFigures} />
     );
-};
-
-MafsWithLockedFiguresM2bFlag.parameters = {
-    chromatic: {
-        // Disabling because this isn't visually testing anything on the
-        // initial load of the editor page.
-        disable: true,
-    },
 };
 
 export const WithSaveWarnings = (): React.ReactElement => {
@@ -194,7 +193,6 @@ export const WithSaveWarnings = (): React.ReactElement => {
                 ref={editorPageRef}
                 apiOptions={{
                     isMobile: false,
-                    flags,
                 }}
                 previewDevice={previewDevice}
                 onPreviewDeviceChange={(newDevice) =>
@@ -243,7 +241,7 @@ WithSaveWarnings.parameters = {
         // Disabling because this isn't testing anything visually on the
         // editor page. It's testing the error message, which don't
         // even show up on the initial load.
-        disable: true,
+        disableSnapshot: true,
     },
 };
 

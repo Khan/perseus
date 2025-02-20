@@ -9,23 +9,21 @@ import {testDependencies} from "../../../../testing/test-dependencies";
 import {
     dropdownWidget,
     imageWidget,
-    inputNumberWidget,
+    mockWidget,
     question1,
     question2,
-    mockedItem,
+    definitionItem,
     mockedRandomItem,
     mockedShuffledRadioProps,
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
 import {registerWidget} from "../widgets";
-import {renderQuestion} from "../widgets/__tests__/renderQuestion";
-import InputNumberExport from "../widgets/input-number";
-import RadioWidgetExport from "../widgets/radio";
+import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
+import {simpleGroupQuestion} from "../widgets/group/group.testdata";
+import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
 
-import MockWidgetExport from "./mock-widget";
-
-import type {DropdownWidget} from "../perseus-types";
 import type {APIOptions} from "../types";
+import type {PerseusRenderer, DropdownWidget} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 // NOTE(jeremy): We can't use an automatic mock for the translation linter,
@@ -47,8 +45,6 @@ jest.mock("../translation-linter", () => {
 
 describe("renderer", () => {
     beforeAll(() => {
-        registerWidget("input-number", InputNumberExport);
-        registerWidget("radio", RadioWidgetExport);
         registerWidget("mock-widget", MockWidgetExport);
     });
 
@@ -61,14 +57,14 @@ describe("renderer", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-    });
 
-    afterEach(() => {
-        // The Renderer uses a timer to wait for widgets to complete rendering.
-        // If we don't spin the timers here, then the timer fires in the test
-        // _after_ and breaks it because we do setState() in the callback,
-        // and by that point the component has been unmounted.
-        act(() => jest.runOnlyPendingTimers());
+        // Mocked for loading graphie in svg-image
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                text: () => "",
+                ok: true,
+            }),
+        ) as jest.Mock;
     });
 
     describe("snapshots", () => {
@@ -85,9 +81,8 @@ describe("renderer", () => {
             const {container} = renderQuestion(question1);
 
             // Act
-            await userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getByRole("combobox"));
             await userEvent.click(screen.getAllByRole("option")[2]);
-            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot("correct answer");
@@ -98,12 +93,41 @@ describe("renderer", () => {
             const {container} = renderQuestion(question1);
 
             // Act
-            await userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getByRole("combobox"));
             await userEvent.click(screen.getAllByRole("option")[1]);
-            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot("incorrect answer");
+        });
+
+        it("renders a placeholder for a deprecated widget", () => {
+            // Arrange
+            const question: PerseusRenderer = {
+                content: "[[☃ sequence 1]]",
+                images: {},
+                widgets: {
+                    "sequence 1": {
+                        type: "deprecated-standin",
+                        version: {major: 0, minor: 0},
+                        graded: true,
+                        options: {
+                            json: [
+                                {
+                                    content: "",
+                                    images: {},
+                                    widgets: {},
+                                },
+                            ],
+                        },
+                    },
+                },
+            };
+
+            // Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            expect(container).toMatchSnapshot("deprecated widget");
         });
     });
 
@@ -173,11 +197,13 @@ describe("renderer", () => {
             expect(renderer.state.widgetProps).toMatchInlineSnapshot(`
                 {
                   "dropdown 1": {
+                    "ariaLabel": "Test ARIA label",
                     "choices": [
                       "greater than or equal to",
                       "less than or equal to",
                     ],
                     "placeholder": "greater/less than or equal to",
+                    "visibleLabel": "Test visible label",
                   },
                 }
             `);
@@ -284,7 +310,7 @@ describe("renderer", () => {
             );
 
             // Assert
-            expect(screen.getByRole("button")).toHaveTextContent(
+            expect(screen.getByRole("combobox")).toHaveTextContent(
                 /^less than or equal to$/,
             );
         });
@@ -519,7 +545,7 @@ describe("renderer", () => {
                 screen.getByText("This is a placeholder"),
             ).toBeInTheDocument();
             // Make sure the 'dropdown' widget wasn't rendered!
-            expect(screen.queryAllByRole("button")).toHaveLength(0);
+            expect(screen.queryAllByRole("combobox")).toHaveLength(0);
         });
 
         it("should render columns", () => {
@@ -773,8 +799,7 @@ describe("renderer", () => {
             originalWidgetProps = clone(renderer.state.widgetProps);
 
             // Poke the renderer so it's not in it's initial-render state
-            await userEvent.click(screen.getByRole("button"));
-            act(() => jest.runOnlyPendingTimers()); // There's a setTimeout to open the dropdown
+            await userEvent.click(screen.getByRole("combobox"));
             await userEvent.click(screen.getAllByRole("option")[1]);
         });
 
@@ -842,11 +867,11 @@ describe("renderer", () => {
             // Arrange
             const question = {
                 content:
-                    "A dropdown [[☃ dropdown 1]]\nAn input [[☃ input-number 1]]\n\nAnd an image [[☃ image 1]].",
+                    "A dropdown [[☃ dropdown 1]]\nAn input [[☃ mock-widget 1]]\n\nAnd an image [[☃ image 1]].",
                 images: {},
                 widgets: {
                     "dropdown 1": dropdownWidget,
-                    "input-number 1": inputNumberWidget,
+                    "mock-widget 1": mockWidget,
                     "image 1": imageWidget,
                 },
             } as const;
@@ -908,11 +933,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Enter 1 in this field: [[☃ input-number 1]].\n\n" +
-                        "Enter 2 in this field: [[☃ input-number 2]] $60$.",
+                        "Enter 1 in this field: [[☃ mock-widget 1]].\n\n" +
+                        "Enter 2 in this field: [[☃ mock-widget 2]] $60$.",
                     widgets: {
-                        "input-number 1": question2.widgets["input-number 1"],
-                        "input-number 2": question2.widgets["input-number 1"],
+                        "mock-widget 1": question2.widgets["mock-widget 1"],
+                        "mock-widget 2": question2.widgets["mock-widget 1"],
                     },
                 },
                 {onFocusChange},
@@ -923,7 +948,7 @@ describe("renderer", () => {
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
-                /* new focus path */ ["input-number 2"],
+                /* new focus path */ ["mock-widget 2"],
                 /* old focus path */ null,
             );
         });
@@ -935,11 +960,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Enter 1 in this field: [[☃ input-number 1]].\n\n" +
-                        "Enter 2 in this field: [[☃ input-number 2]] $60$.",
+                        "Enter 1 in this field: [[☃ mock-widget 1]].\n\n" +
+                        "Enter 2 in this field: [[☃ mock-widget 2]] $60$.",
                     widgets: {
-                        "input-number 1": question2.widgets["input-number 1"],
-                        "input-number 2": question2.widgets["input-number 1"],
+                        "mock-widget 1": question2.widgets["mock-widget 1"],
+                        "mock-widget 2": question2.widgets["mock-widget 1"],
                     },
                 },
                 {onFocusChange},
@@ -955,14 +980,14 @@ describe("renderer", () => {
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
                 /* new focus path */ null,
-                /* old focus path */ ["input-number 2"],
+                /* old focus path */ ["mock-widget 2"],
             );
         });
 
         it("should throw if widget provides invalid focus path", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
-            const [widget2] = renderer.findWidgets("mock-widget 2");
+            const {renderer} = renderQuestion(definitionItem);
+            const [widget2] = renderer.findWidgets("definition 2");
 
             // Act and Assert
             expect(() => {
@@ -978,7 +1003,7 @@ describe("renderer", () => {
             const {renderer} = renderQuestion(question2);
 
             // Act
-            act(() => renderer.focusPath(["input-number 1"]));
+            act(() => renderer.focusPath(["mock-widget 1"]));
 
             // Assert
             expect(screen.getByRole("textbox")).toHaveFocus();
@@ -990,11 +1015,11 @@ describe("renderer", () => {
             const {renderer} = renderQuestion(question2, {
                 onFocusChange,
             });
-            act(() => renderer.focusPath(["input-number 1"]));
+            act(() => renderer.focusPath(["mock-widget 1"]));
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.focusPath(["input-number 1"]));
+            act(() => renderer.focusPath(["mock-widget 1"]));
 
             // Assert
             expect(onFocusChange).not.toHaveBeenCalled();
@@ -1007,25 +1032,25 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Input 1: [[☃ input-number 1]]\n\n" +
-                        "Input 2: [[☃ input-number 2]]",
+                        "Input 1: [[☃ mock-widget 1]]\n\n" +
+                        "Input 2: [[☃ mock-widget 2]]",
                     widgets: {
                         ...question2.widgets,
-                        "input-number 2": question2.widgets["input-number 1"],
+                        "mock-widget 2": question2.widgets["mock-widget 1"],
                     },
                 },
                 {onFocusChange},
             );
-            act(() => renderer.focusPath(["input-number 1"]));
+            act(() => renderer.focusPath(["mock-widget 1"]));
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.focusPath(["input-number 2"]));
+            act(() => renderer.focusPath(["mock-widget 2"]));
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
-                ["input-number 2"], // New focus
-                ["input-number 1"], // Old focus
+                ["mock-widget 2"], // New focus
+                ["mock-widget 1"], // Old focus
             );
         });
 
@@ -1036,11 +1061,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Input 1: [[☃ input-number 1]]\n\n" +
-                        "Input 2: [[☃ input-number 2]]",
+                        "Input 1: [[☃ mock-widget 1]]\n\n" +
+                        "Input 2: [[☃ mock-widget 2]]",
                     widgets: {
                         ...question2.widgets,
-                        "input-number 2": question2.widgets["input-number 1"],
+                        "mock-widget 2": question2.widgets["mock-widget 1"],
                     },
                 },
                 {onFocusChange},
@@ -1050,7 +1075,7 @@ describe("renderer", () => {
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.blurPath(["input-number 1"]));
+            act(() => renderer.blurPath(["mock-widget 1"]));
 
             // Assert
             expect(onFocusChange).not.toHaveBeenCalled();
@@ -1063,11 +1088,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Input 1: [[☃ input-number 1]]\n\n" +
-                        "Input 2: [[☃ input-number 2]]",
+                        "Input 1: [[☃ mock-widget 1]]\n\n" +
+                        "Input 2: [[☃ mock-widget 2]]",
                     widgets: {
                         ...question2.widgets,
-                        "input-number 2": question2.widgets["input-number 1"],
+                        "mock-widget 2": question2.widgets["mock-widget 1"],
                     },
                 },
                 {onFocusChange},
@@ -1083,7 +1108,7 @@ describe("renderer", () => {
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
                 null, // New focus
-                ["input-number 2"], // Old focus
+                ["mock-widget 2"], // Old focus
             );
         });
 
@@ -1094,11 +1119,11 @@ describe("renderer", () => {
                 {
                     ...question2,
                     content:
-                        "Input 1: [[☃ input-number 1]]\n\n" +
-                        "Input 2: [[☃ input-number 2]]",
+                        "Input 1: [[☃ mock-widget 1]]\n\n" +
+                        "Input 2: [[☃ mock-widget 2]]",
                     widgets: {
                         ...question2.widgets,
-                        "input-number 2": question2.widgets["input-number 1"],
+                        "mock-widget 2": question2.widgets["mock-widget 1"],
                     },
                 },
                 {onFocusChange},
@@ -1116,9 +1141,9 @@ describe("renderer", () => {
     describe("state serialization", () => {
         it("should request widget's serialized state if implemented", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
+            const {renderer} = renderQuestion(definitionItem);
 
-            const [widget2] = renderer.findWidgets("mock-widget 2");
+            const [widget2] = renderer.findWidgets("definition 2");
             expect(widget2).not.toBeUndefined();
             widget2.getSerializedState = jest.fn();
 
@@ -1163,10 +1188,9 @@ describe("renderer", () => {
                 .fn()
                 .mockImplementation((props, callback) => callback());
 
-            const {renderer} = renderQuestion(mockedItem);
+            const {renderer} = renderQuestion(definitionItem);
             const [widget1, widget2, widget3] = renderer.findWidgets(
-                // @ts-expect-error - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
-                (_, info) => info.type === "mock-widget",
+                (_, info) => info.type === "definition",
             );
             widget1.restoreSerializedState = makeRestoreSerializedStateMock;
             widget2.restoreSerializedState = makeRestoreSerializedStateMock;
@@ -1178,9 +1202,9 @@ describe("renderer", () => {
             act(() =>
                 renderer.restoreSerializedState(
                     {
-                        "mock-widget 1": {},
-                        "mock-widget 2": {},
-                        "mock-widget 3": {},
+                        "definition 1": {},
+                        "definition 2": {},
+                        "definition 3": {},
                     },
                     restorationCallback,
                 ),
@@ -1193,27 +1217,22 @@ describe("renderer", () => {
 
         it("should return each widget's state from serialize()", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
+            const {renderer} = renderQuestion(definitionItem);
             const widgets = renderer.findWidgets((id) =>
-                ["mock-widget 1", "mock-widget 2", "mock-widget 3"].includes(
-                    id,
-                ),
+                ["definition 1", "definition 2", "definition 3"].includes(id),
             );
             widgets.forEach((w) => {
                 w.serialize = jest.fn(() => `State: ${w.props.widgetId}`);
             });
-            // It takes a clock tick after rendering for widgetInfo to be
-            // populated (which renderer uses during serialize()).
-            act(() => jest.runOnlyPendingTimers());
 
             // Act
             const state = renderer.serialize();
 
             // Assert
             expect(state).toStrictEqual({
-                "mock-widget 1": "State: mock-widget 1",
-                "mock-widget 2": "State: mock-widget 2",
-                "mock-widget 3": "State: mock-widget 3",
+                "definition 1": "State: definition 1",
+                "definition 2": "State: definition 2",
+                "definition 3": "State: definition 3",
             });
         });
     });
@@ -1318,7 +1337,7 @@ describe("renderer", () => {
                 },
             });
 
-            expect(screen.getByRole("button")).toHaveTextContent(
+            expect(screen.getByRole("combobox")).toHaveTextContent(
                 /greater than or equal to/,
             );
         });
@@ -1337,7 +1356,7 @@ describe("renderer", () => {
             });
 
             // Assert
-            let el = screen.getByRole("button");
+            let el = screen.getByRole("combobox");
             while (el != null) {
                 if (el.classList.contains("widget-full-width")) {
                     break;
@@ -1352,36 +1371,11 @@ describe("renderer", () => {
             expect(el).not.toBeNull();
         });
 
-        it("should force the widget to be non-static if it has a problem number", () => {
-            // Arrange/Act
-            const {renderer} = renderQuestion(
-                {
-                    ...question1,
-                    widgets: {
-                        ...question1.widgets,
-                        "dropdown 1": {
-                            ...question1.widgets["dropdown 1"],
-                            static: true,
-                        },
-                    },
-                },
-                {},
-                {problemNum: 1},
-            );
-
-            // Assert
-            const [dropdownWidget] = renderer.findWidgets("dropdown 1");
-
-            // Act
-            expect(dropdownWidget.props.static).toBe(false);
-        });
-
         it("should ask each widget to show rationales", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
+            const {renderer} = renderQuestion(definitionItem);
             const widgets = renderer.findWidgets(
-                // @ts-expect-error - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
-                (_, info) => info.type === "mock-widget",
+                (_, info) => info.type === "definition",
             );
             widgets.forEach(
                 (w) =>
@@ -1405,10 +1399,9 @@ describe("renderer", () => {
 
         it("should ask each widget to deselect incorrect choices", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
+            const {renderer} = renderQuestion(definitionItem);
             const widgets = renderer.findWidgets(
-                // @ts-expect-error - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
-                (_, info) => info.type === "mock-widget",
+                (_, info) => info.type === "definition",
             );
             widgets.forEach(
                 (w) => (w.deselectIncorrectSelectedChoices = jest.fn()),
@@ -1427,18 +1420,18 @@ describe("renderer", () => {
             );
         });
 
-        it("should return user input", async () => {
+        it("[DEPRECATED] should return user input array", async () => {
             // Arrange
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]\n\n" +
+                    "Input 1: [[☃ mock-widget 1]]\n\n" +
+                    "Input 2: [[☃ mock-widget 2]]\n\n" +
                     "A widget that doesn't implement getUserInput: [[☃ image 1]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": {
-                        ...question2.widgets["input-number 1"],
+                    "mock-widget 2": {
+                        ...question2.widgets["mock-widget 1"],
                         static: true,
                     },
                     "image 1": {
@@ -1467,7 +1460,7 @@ describe("renderer", () => {
             expect(input).toStrictEqual([
                 {currentValue: "0"},
                 {currentValue: "1"},
-                null, // image widget doesn't implement getUserinput
+                undefined, // image widget doesn't implement getUserinput
             ]);
         });
 
@@ -1476,13 +1469,13 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]\n\n" +
+                    "Input 1: [[☃ mock-widget 1]]\n\n" +
+                    "Input 2: [[☃ mock-widget 2]]\n\n" +
                     "A widget that doesn't implement getUserInput: [[☃ image 1]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": {
-                        ...question2.widgets["input-number 1"],
+                    "mock-widget 2": {
+                        ...question2.widgets["mock-widget 1"],
                         static: true,
                     },
                     "image 1": {
@@ -1504,8 +1497,8 @@ describe("renderer", () => {
 
             // Assert
             expect(widgetIds).toStrictEqual([
-                "input-number 1",
-                "input-number 2",
+                "mock-widget 1",
+                "mock-widget 2",
                 "image 1",
             ]);
         });
@@ -1520,67 +1513,38 @@ describe("renderer", () => {
             const node = renderer.getDOMNodeForPath(["dropdown 1"]);
 
             // Assert
-            // "button" role is the WB dropdown's "opener" element
             // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
-            expect(within(node).queryAllByRole("button")).toHaveLength(1);
+            expect(within(node).queryAllByRole("combobox")).toHaveLength(1);
         });
 
         it("should return the widget's getDOMNodeForPath() result for the widget at requested FocusPath", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
+            const {renderer} = renderQuestion(definitionItem);
             const widget2DOMNode = <span />;
-            const [widget2] = renderer.findWidgets("mock-widget 2");
+            const [widget2] = renderer.findWidgets("definition 2");
             widget2.getDOMNodeForPath = jest.fn(() => widget2DOMNode);
 
             // Act
-            const node = renderer.getDOMNodeForPath(["mock-widget 2"]);
+            const node = renderer.getDOMNodeForPath(["definition 2"]);
 
             // Assert
             expect(node).toBe(widget2DOMNode);
         });
     });
 
-    describe("getGrammarTypeForPath", () => {
-        it("should return undefined if matching widget doesn't implement getGrammarTypeForPath", () => {
-            // Arrange
-            const {renderer} = renderQuestion(question1);
-
-            // Act
-            const grammarType = renderer.getGrammarTypeForPath(["dropdown 1"]);
-
-            // Assert
-            expect(grammarType).toBeUndefined();
-        });
-
-        it("should return widget result if matching widget implements getGrammarTypeForPath", () => {
-            // Arrange
-            const {renderer} = renderQuestion(question2);
-
-            // Act
-            const grammarType = renderer.getGrammarTypeForPath([
-                "input-number 1",
-            ]);
-
-            // Assert
-            expect(grammarType).toBe("number");
-        });
-    });
-
     describe("getInputPaths", () => {
         it("should return all input paths for all rendererd widgets", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
-            const [mockWidget1, mockWidget2, mockWidget3] =
+            const {renderer} = renderQuestion(definitionItem);
+            const [definition1, definition2, definition3] =
                 renderer.findWidgets((id) =>
-                    [
-                        "mock-widget 1",
-                        "mock-widget 2",
-                        "mock-widget 3",
-                    ].includes(id),
+                    ["definition 1", "definition 2", "definition 3"].includes(
+                        id,
+                    ),
                 );
-            mockWidget1.getInputPaths = jest.fn(() => ["input 1"]);
-            mockWidget2.getInputPaths = jest.fn(() => ["input 2", "input 3"]);
-            mockWidget3.getInputPaths = jest.fn(() => [
+            definition1.getInputPaths = jest.fn(() => ["input 1"]);
+            definition2.getInputPaths = jest.fn(() => ["input 2", "input 3"]);
+            definition3.getInputPaths = jest.fn(() => [
                 ["input 4", "sub-input 4.1"],
                 "input 5",
             ]);
@@ -1592,24 +1556,24 @@ describe("renderer", () => {
             expect(inputPaths).toMatchInlineSnapshot(`
                 [
                   [
-                    "mock-widget 1",
+                    "definition 1",
                     "input 1",
                   ],
                   [
-                    "mock-widget 2",
+                    "definition 2",
                     "input 2",
                   ],
                   [
-                    "mock-widget 2",
+                    "definition 2",
                     "input 3",
                   ],
                   [
-                    "mock-widget 3",
+                    "definition 3",
                     "input 4",
                     "sub-input 4.1",
                   ],
                   [
-                    "mock-widget 3",
+                    "definition 3",
                     "input 5",
                   ],
                 ]
@@ -1623,20 +1587,21 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]",
+                    "Input 1: [[☃ mock-widget 1]]\n\n" +
+                    "Input 2: [[☃ mock-widget 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": question2.widgets["input-number 1"],
+                    "mock-widget 2": question2.widgets["mock-widget 1"],
                 },
             });
             await userEvent.type(screen.getAllByRole("textbox")[0], "150");
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             const emptyWidgets = renderer.emptyWidgets();
 
             // Assert
-            expect(emptyWidgets).toStrictEqual(["input-number 2"]);
+            expect(emptyWidgets).toStrictEqual(["mock-widget 2"]);
         });
 
         it("should not return static widgets even if empty", () => {
@@ -1644,12 +1609,12 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]",
+                    "Input 1: [[☃ mock-widget 1]]\n\n" +
+                    "Input 2: [[☃ mock-widget 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": {
-                        ...question2.widgets["input-number 1"],
+                    "mock-widget 2": {
+                        ...question2.widgets["mock-widget 1"],
                         static: true,
                     },
                 },
@@ -1659,7 +1624,48 @@ describe("renderer", () => {
             const emptyWidgets = renderer.emptyWidgets();
 
             // Assert
-            expect(emptyWidgets).toStrictEqual(["input-number 1"]);
+            expect(emptyWidgets).toStrictEqual(["mock-widget 1"]);
+        });
+
+        it("should return widget ID for group with empty widget", () => {
+            // Arrange
+            const {renderer} = renderQuestion(simpleGroupQuestion);
+
+            // Act
+            const emptyWidgets = renderer.emptyWidgets();
+
+            // Assert
+            expect(emptyWidgets).toStrictEqual(["group 1"]);
+        });
+
+        it("should not return ID for group with empty static widget", () => {
+            // Arrange
+            const simpleGroupQuestionCopy = JSON.parse(
+                JSON.stringify(simpleGroupQuestion),
+            );
+            simpleGroupQuestionCopy.widgets["group 1"].options.widgets[
+                "expression 1"
+            ].static = true;
+            const {renderer} = renderQuestion(simpleGroupQuestionCopy);
+
+            // Act
+            const emptyWidgets = renderer.emptyWidgets();
+
+            // Assert
+            expect(emptyWidgets).toStrictEqual([]);
+        });
+
+        it("should not return ID for group with non-empty widget", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(simpleGroupQuestion);
+            await userEvent.type(screen.getByRole("textbox"), "99");
+            act(() => jest.runOnlyPendingTimers());
+
+            // Act
+            const emptyWidgets = renderer.emptyWidgets();
+
+            // Assert
+            expect(emptyWidgets).toStrictEqual([]);
         });
     });
 
@@ -1669,12 +1675,12 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]",
+                    "Input 1: [[☃ mock-widget 1]]\n\n" +
+                    "Input 2: [[☃ mock-widget 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": {
-                        ...question2.widgets["input-number 1"],
+                    "mock-widget 2": {
+                        ...question2.widgets["mock-widget 1"],
                         static: true,
                     },
                 },
@@ -1682,7 +1688,7 @@ describe("renderer", () => {
             const cb = jest.fn();
 
             // Act
-            act(() => renderer.setInputValue(["input-number 2"], "1000", cb));
+            act(() => renderer.setInputValue(["mock-widget 2"], "1000", cb));
 
             // Assert
             expect(screen.getAllByRole("textbox")[0]).toHaveValue("");
@@ -1694,12 +1700,12 @@ describe("renderer", () => {
             const {renderer} = renderQuestion({
                 ...question2,
                 content:
-                    "Input 1: [[☃ input-number 1]]\n\n" +
-                    "Input 2: [[☃ input-number 2]]",
+                    "Input 1: [[☃ mock-widget 1]]\n\n" +
+                    "Input 2: [[☃ mock-widget 2]]",
                 widgets: {
                     ...question2.widgets,
-                    "input-number 2": {
-                        ...question2.widgets["input-number 1"],
+                    "mock-widget 2": {
+                        ...question2.widgets["mock-widget 1"],
                         static: true,
                     },
                 },
@@ -1707,7 +1713,7 @@ describe("renderer", () => {
             const cb = jest.fn();
 
             // Act
-            act(() => renderer.setInputValue(["input-number 2"], "1000", cb));
+            act(() => renderer.setInputValue(["mock-widget 2"], "1000", cb));
             act(() => jest.runOnlyPendingTimers());
 
             // Assert
@@ -1715,19 +1721,19 @@ describe("renderer", () => {
         });
     });
 
-    describe("getUserInputForWidgets", () => {
+    describe("getUserInputMap", () => {
         it("should return user input for all rendered widgets", async () => {
             // Arrange
             const {renderer} = renderQuestion({
                 content:
-                    "Input widget: [[\u2603 input-number 1]]\n\n" +
+                    "Input widget: [[\u2603 mock-widget 1]]\n\n" +
                     "Dropdown widget: [[\u2603 dropdown 1]]\n\n" +
                     "Image widget (won't have user input): [[\u2603 image 1]]\n\n" +
-                    "Another input widget: [[\u2603 input-number 2]]",
+                    "Another input widget: [[\u2603 mock-widget 2]]",
                 widgets: {
                     "image 1": imageWidget,
-                    "input-number 1": inputNumberWidget,
-                    "input-number 2": inputNumberWidget,
+                    "mock-widget 1": mockWidget,
+                    "mock-widget 2": mockWidget,
                     "dropdown 1": dropdownWidget,
                 },
                 images: {},
@@ -1737,13 +1743,11 @@ describe("renderer", () => {
             await userEvent.type(screen.getAllByRole("textbox")[1], "200");
 
             // Open the dropdown and select the second (idx: 1) item
-            await userEvent.click(screen.getByRole("button"));
-            act(() => jest.runOnlyPendingTimers());
+            await userEvent.click(screen.getByRole("combobox"));
             await userEvent.click(screen.getAllByRole("option")[1]);
-            act(() => jest.runOnlyPendingTimers());
 
             // Act
-            const userInput = renderer.getUserInputForWidgets();
+            const userInput = renderer.getUserInputMap();
 
             // Assert
             expect(userInput).toMatchInlineSnapshot(`
@@ -1751,11 +1755,10 @@ describe("renderer", () => {
                   "dropdown 1": {
                     "value": 1,
                   },
-                  "image 1": null,
-                  "input-number 1": {
+                  "mock-widget 1": {
                     "currentValue": "100",
                   },
-                  "input-number 2": {
+                  "mock-widget 2": {
                     "currentValue": "200",
                   },
                 }
@@ -1763,71 +1766,19 @@ describe("renderer", () => {
         });
     });
 
-    describe("examples", () => {
-        it("should return examples if all widgets return the same examples (or null)", () => {
-            // Arrange
-            const {renderer} = renderQuestion({
-                content:
-                    "Input widget: [[\u2603 input-number 1]]\n\n" +
-                    "Dropdown widget: [[\u2603 dropdown 1]]\n\n" +
-                    "Image widget (won't have user input): [[\u2603 image 1]]\n\n" +
-                    "Another input widget: [[\u2603 input-number 2]]",
-                widgets: {
-                    "image 1": imageWidget,
-                    "input-number 1": inputNumberWidget,
-                    "input-number 2": inputNumberWidget,
-                    "dropdown 1": dropdownWidget,
-                },
-                images: {},
-            });
-
+    describe("getPromptJSON", () => {
+        it("should return prompt JSON with the correct content and widgets", () => {
             // Act
-            const examples = renderer.examples();
+            const {renderer} = renderQuestion(mockedRandomItem);
+
+            const json = renderer.getPromptJSON();
 
             // Assert
-            expect(examples).toMatchInlineSnapshot(`
-                [
-                  "**Your answer should be** ",
-                  "an integer, like $6$",
-                  "a *proper* fraction, like $1/2$ or $6/10$",
-                  "an *improper* fraction, like $10/7$ or $14/8$",
-                  "a mixed number, like $1\\ 3/4$",
-                ]
-            `);
-        });
+            expect(json.content).toBe(mockedRandomItem.content);
 
-        it("should return nothing if widgets return the different examples", () => {
-            // NOTE(jeremy): I'm unsure why we don't return examples if the
-            // examples aren't the same, but this is current functionality so
-            // I'm adding this test to verify the current behaviour.
+            const widgetKeys = Object.keys(mockedRandomItem.widgets);
 
-            // Arrange
-            const {renderer} = renderQuestion({
-                content:
-                    "Input widget: [[\u2603 input-number 1]]\n\n" +
-                    "Dropdown widget: [[\u2603 dropdown 1]]\n\n" +
-                    "Image widget (won't have user input): [[\u2603 image 1]]\n\n" +
-                    "Another input widget: [[\u2603 input-number 2]]",
-                widgets: {
-                    "image 1": imageWidget,
-                    "input-number 1": inputNumberWidget,
-                    "input-number 2": {
-                        ...inputNumberWidget,
-                        options: {
-                            ...inputNumberWidget.options,
-                            answerType: "percent",
-                        },
-                    },
-                    "dropdown 1": dropdownWidget,
-                },
-                images: {},
-            });
-
-            // Act
-            const examples = renderer.examples();
-
-            // Assert
-            expect(examples).toBeNull();
+            expect(Object.keys(json.widgets)).toEqual(widgetKeys);
         });
     });
 });

@@ -41,7 +41,7 @@ function ChoiceInner(props: ChoiceInnerProps) {
     const letter = getChoiceLetter(pos, strings);
 
     if (!showCorrectness) {
-        return letter;
+        return <span>{letter}</span>;
     }
     if (correct) {
         return (
@@ -57,50 +57,6 @@ function ChoiceInner(props: ChoiceInnerProps) {
     return <InlineIcon {...iconMinus} />;
 }
 
-// Handle dynamic styling of the multiple choice icon. Most
-// MC icon styles are constant, but we do allow the caller
-// to specify the selected color, and thus must control styles
-// related to the selected state dynamically.
-function getDynamicStyles(
-    checked: boolean,
-    showCorrectness: boolean,
-    pressed: boolean,
-    multipleSelect: boolean,
-    correct?: boolean | null,
-): {
-    backgroundColor: string | null | undefined;
-    borderColor: string;
-    color: string;
-    borderRadius: number;
-} {
-    let backgroundColor;
-    let borderColor;
-    let color;
-    if (!showCorrectness && pressed) {
-        borderColor = WBColor.blue;
-        color = WBColor.blue;
-        backgroundColor = "transparent";
-    } else if (checked) {
-        const bg = showCorrectness && correct ? WBColor.green : WBColor.blue;
-        color = styleConstants.white;
-        backgroundColor = bg;
-        borderColor = bg;
-    } else {
-        borderColor = WBColor.offBlack64;
-        color = WBColor.offBlack64;
-    }
-
-    // define shape
-    let borderRadius;
-    if (multipleSelect) {
-        borderRadius = 3;
-    } else {
-        borderRadius = CHOICE_ICON_SIZE;
-    }
-
-    return {backgroundColor, borderColor, color, borderRadius};
-}
-
 const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
     const {
         checked,
@@ -111,17 +67,47 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
         hovered,
         multipleSelect,
         pos,
-        previouslyAnswered,
+        previouslyAnswered, // Used in "review mode"/"show rationale" to show that option was previously chosen
         pressed,
     } = props;
 
-    const dynamicStyles = getDynamicStyles(
-        checked,
-        showCorrectness,
-        pressed,
-        multipleSelect,
-        correct,
-    );
+    // Accounts for incorrect choice still displaying as learner tries again
+    const choiceIsChecked =
+        checked || (showCorrectness && !correct && previouslyAnswered);
+
+    // Core styling
+    const choiceStyling = [
+        styles.choiceBase,
+        multipleSelect ? styles.multiSelectShape : styles.singleSelectShape,
+        showCorrectness ? styles.choiceHasIcon : styles.choiceHasLetter,
+        choiceIsChecked ? styles.choiceIsChecked : styles.choiceIsUnchecked,
+    ];
+
+    // Color styling
+    // Handle dynamic styling of the multiple choice icon. Most
+    // MC icon styles are constant, but we do allow the caller
+    // to specify the selected color, and thus must control styles
+    // related to the selected state dynamically.
+    let crossOutColor: string;
+    if (showCorrectness && correct && checked) {
+        choiceStyling.push(styles.choiceCorrect);
+        crossOutColor = WBColor.green;
+    } else if (showCorrectness && !correct && (checked || previouslyAnswered)) {
+        choiceStyling.push(styles.choiceIncorrect);
+        crossOutColor = WBColor.red;
+    } else if (checked) {
+        // Show filled neutral blue color (showCorrectness is false)
+        choiceStyling.push(styles.choiceNeutral);
+        crossOutColor = WBColor.blue;
+    } else if (pressed) {
+        // Show outlined neutral blue color (showCorrectness is false)
+        choiceStyling.push(styles.activeNeutral);
+        crossOutColor = WBColor.blue;
+    } else {
+        // choice is not checked
+        choiceStyling.push(styles.uncheckedColors);
+        crossOutColor = WBColor.offBlack64;
+    }
 
     return (
         <div className={css(sharedStyles.iconWrapper)}>
@@ -131,18 +117,8 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
                 multipleSelect={multipleSelect}
             >
                 <div
-                    // @ts-expect-error - TS2322 - Type '{ backgroundColor: string | null | undefined; borderColor: string; color: string; borderRadius: number; }' is not assignable to type 'Properties<string | number, string & {}>'.
-                    style={dynamicStyles}
                     data-testid="choice-icon__library-choice-icon"
-                    className={css(
-                        styles.circle,
-                        showCorrectness && correct && styles.circleCorrect,
-                        showCorrectness && !correct && styles.circleIncorrect,
-                        showCorrectness &&
-                            !correct &&
-                            (checked || previouslyAnswered) &&
-                            styles.circleIncorrectAnswered,
-                    )}
+                    className={css(...choiceStyling)}
                     // used in BaseRadio editMode to check
                     // if we actually clicked on the radio icon
                     data-is-radio-icon={true}
@@ -156,7 +132,7 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
                     </div>
                 </div>
             </FocusRing>
-            {crossedOut && <CrossOutLine color={dynamicStyles.borderColor} />}
+            {crossedOut && <CrossOutLine color={crossOutColor} />}
         </div>
     );
 };
@@ -171,8 +147,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
-    circle: {
-        // Make the circle
+    choiceBase: {
         width: CHOICE_ICON_SIZE,
         height: CHOICE_ICON_SIZE,
         boxSizing: "border-box",
@@ -185,34 +160,60 @@ const styles = StyleSheet.create({
         // "bold font family" so that characters which fall back to the default
         // font get bolded too.
         fontWeight: "bold",
-        fontSize: 12,
 
         // Center the icon wrapper.
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        // HACK(emily): I don't know why adding this line height makes the text
-        // appear centered better than any other value, but it does. In
-        // particular, at large zoom levels this line height does almost
-        // nothing, but at the default size this shifts the letter down one
-        // pixel so it is much better centered.
-        lineHeight: "1px",
     },
 
-    circleCorrect: {
+    choiceHasLetter: {
+        fontSize: 12,
+    },
+
+    choiceHasIcon: {
         fontSize: CHOICE_ICON_SIZE,
     },
 
-    circleIncorrect: {
-        fontSize: CHOICE_ICON_SIZE,
-        borderColor: styleConstants.gray68,
-        color: styleConstants.gray68,
+    choiceIsChecked: {
+        color: WBColor.white,
     },
 
-    circleIncorrectAnswered: {
+    choiceIsUnchecked: {
+        color: WBColor.offBlack64,
+    },
+
+    choiceCorrect: {
+        backgroundColor: WBColor.green,
+        borderColor: WBColor.green,
+    },
+
+    choiceIncorrect: {
         backgroundColor: WBColor.red,
         borderColor: WBColor.red,
-        color: WBColor.white,
+    },
+
+    choiceNeutral: {
+        backgroundColor: WBColor.blue,
+        borderColor: WBColor.blue,
+    },
+
+    activeNeutral: {
+        color: WBColor.blue,
+        borderColor: WBColor.blue,
+        backgroundColor: "transparent",
+    },
+
+    multiSelectShape: {
+        borderRadius: 3,
+    },
+
+    singleSelectShape: {
+        borderRadius: CHOICE_ICON_SIZE,
+    },
+
+    uncheckedColors: {
+        borderColor: WBColor.offBlack64,
     },
 });
 

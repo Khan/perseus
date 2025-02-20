@@ -4,7 +4,8 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {wait} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
-import {renderQuestion} from "../../widgets/__tests__/renderQuestion";
+import {scorePerseusItemTesting} from "../../util/test-utils";
+import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {question1} from "../__testdata__/sorter.testdata";
 
 import type {APIOptions} from "../../types";
@@ -23,7 +24,6 @@ describe("sorter widget", () => {
             ...testDependencies,
             TeX: ({
                 children,
-                // alias onRender to onLoad to quiet the overzealous testing-library linter
                 onRender: onLoad,
             }: {
                 children: React.ReactNode;
@@ -77,16 +77,19 @@ describe("sorter widget", () => {
         const {renderer} = renderQuestion(question1, apiOptions);
         const sorter = renderer.findWidgets("sorter 1")[0];
 
+        // Act
         // Put the options in the correct order
-
         ["$0.005$ kilograms", "$15$ grams", "$55$ grams"].forEach((option) => {
             act(() => sorter.moveOptionToIndex(option, 3));
         });
-        // Act
-        renderer.guessAndScore();
 
-        // assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
     it("can be answered incorrectly", () => {
         // Arrange
@@ -96,6 +99,7 @@ describe("sorter widget", () => {
         const {renderer} = renderQuestion(question1, apiOptions);
         const sorter = renderer.findWidgets("sorter 1")[0];
 
+        // Act
         // Put the options in the reverse order
         ["$0.005$ kilograms", "$15$ grams", "$55$ grams"].forEach(
             (option, index) => {
@@ -103,10 +107,12 @@ describe("sorter widget", () => {
             },
         );
 
-        // Act
-        renderer.guessAndScore();
+        const score = scorePerseusItemTesting(
+            question1,
+            renderer.getUserInputMap(),
+        );
 
-        // assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
+        // Assert
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 });

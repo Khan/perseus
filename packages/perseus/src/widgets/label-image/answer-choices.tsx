@@ -1,7 +1,6 @@
 /**
  * Enables single or multiple answers selection using WonderBlocks dropdowns.
  */
-
 import {
     MultiSelect,
     SingleSelect,
@@ -13,7 +12,9 @@ import _ from "underscore";
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
-export type AnswerType = {
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
+type AnswerType = {
     // The answer string, can be plain text or a TeX expression.
     content: string;
     // Whether the answer is selected.
@@ -28,7 +29,7 @@ type AnswerChoicesProps = {
     // Callback to handle change to answer choices selection.
     onChange: (selection: ReadonlyArray<boolean>) => void;
     // Callback to define custom opener.
-    opener: SingleSelect["props"]["opener"];
+    opener: PropsFor<typeof SingleSelect>["opener"];
     // Callback to handle toggle of dropdown.
     onToggle: (opened: boolean) => unknown;
     // Whether the answer choices are disabled.

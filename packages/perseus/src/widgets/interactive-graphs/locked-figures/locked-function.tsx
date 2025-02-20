@@ -1,11 +1,10 @@
 import * as KAS from "@khanacademy/kas";
+import {lockedFigureColors} from "@khanacademy/perseus-core";
 import {Plot} from "mafs";
 import * as React from "react";
 import {useState, useEffect} from "react";
 
-import {lockedFigureColors} from "../../../perseus-types";
-
-import type {LockedFunctionType} from "../../../perseus-types";
+import type {LockedFunctionType} from "@khanacademy/perseus-core";
 
 const LockedFunction = (props: LockedFunctionType) => {
     type Equation = {
@@ -16,12 +15,24 @@ const LockedFunction = (props: LockedFunctionType) => {
         Equation | undefined,
         React.Dispatch<React.SetStateAction<Equation | undefined>>,
     ] = useState();
-    const {color, strokeStyle, directionalAxis, domain} = props;
+    const {color, strokeStyle, directionalAxis} = props;
+    const domain: [min: number, max: number] | undefined = props.domain
+        ? [
+              Number.isFinite(props.domain[0])
+                  ? (props.domain[0] as number)
+                  : -Infinity,
+              Number.isFinite(props.domain[1])
+                  ? (props.domain[1] as number)
+                  : Infinity,
+          ]
+        : undefined;
     const plotProps = {
         color: lockedFigureColors[color],
         style: strokeStyle,
         domain,
     };
+
+    const hasAria = !!props.ariaLabel;
 
     useEffect(() => {
         // Parsing the equation in a "useEffect" hook saves about 2ms each frame
@@ -34,7 +45,12 @@ const LockedFunction = (props: LockedFunctionType) => {
     }
 
     return (
-        <g className="locked-function">
+        <g
+            className="locked-function"
+            aria-label={hasAria ? props.ariaLabel : undefined}
+            aria-hidden={!hasAria}
+            role="img"
+        >
             {directionalAxis === "x" && (
                 <Plot.OfX y={(x) => equation.eval({x})} {...plotProps} />
             )}

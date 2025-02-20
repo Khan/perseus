@@ -1,4 +1,4 @@
-import type {PerseusItem} from "@khanacademy/perseus";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 
 export const basicObject: PerseusItem = {
     question: {
@@ -22,7 +22,6 @@ export const basicObject: PerseusItem = {
         minor: 1,
     },
     hints: [],
-    _multi: null,
     answer: null,
 };
 
@@ -31,16 +30,11 @@ export const customQuestionInfo: Partial<PerseusItem> = {
         content: "Test content string",
         images: {"Test image string": {width: 200, height: 200}},
         widgets: {
-            "input-number 1": {
-                type: "input-number",
+            "mock-widget 1": {
+                type: "mock-widget",
                 graded: true,
                 options: {
-                    value: 123,
-                    simplify: "required",
-                    size: "small",
-                    inexact: false,
-                    maxError: 0.123,
-                    answerType: "number",
+                    value: "123",
                 },
             },
         },
@@ -52,16 +46,11 @@ export const expectedQuestionInfoAdded: PerseusItem = {
         content: "Test content string",
         images: {"Test image string": {width: 200, height: 200}},
         widgets: {
-            "input-number 1": {
-                type: "input-number",
+            "mock-widget 1": {
+                type: "mock-widget",
                 graded: true,
                 options: {
-                    value: 123,
-                    simplify: "required",
-                    size: "small",
-                    inexact: false,
-                    maxError: 0.123,
-                    answerType: "number",
+                    value: "123",
                 },
             },
         },
@@ -82,7 +71,6 @@ export const expectedQuestionInfoAdded: PerseusItem = {
         minor: 1,
     },
     hints: [],
-    _multi: null,
     answer: null,
 };
 
@@ -122,7 +110,6 @@ export const expectedAnswerAreaInfoAdded: PerseusItem = {
         minor: 1,
     },
     hints: [],
-    _multi: null,
     answer: null,
 };
 
@@ -134,27 +121,12 @@ export const customHintsInfo: Partial<PerseusItem> = {
                 "Test images string": {height: 200, width: 200},
             },
             widgets: {
-                "radio 1": {
+                "mock-widget 1": {
                     graded: true,
                     options: {
-                        choices: [
-                            {
-                                content: "Test content string",
-                                correct: true,
-                            },
-                            {
-                                content: "Test content string 2",
-                                correct: false,
-                            },
-                        ],
-                        deselectEnabled: false,
-                        displayCount: null,
-                        multipleSelect: false,
-                        noneOfTheAbove: false,
-                        onePerLine: true,
-                        randomize: true,
+                        value: "123",
                     },
-                    type: "radio",
+                    type: "mock-widget",
                 },
             },
         },
@@ -189,31 +161,15 @@ export const expectedHintsInfoAdded: PerseusItem = {
                 "Test images string": {height: 200, width: 200},
             },
             widgets: {
-                "radio 1": {
+                "mock-widget 1": {
                     graded: true,
                     options: {
-                        choices: [
-                            {
-                                content: "Test content string",
-                                correct: true,
-                            },
-                            {
-                                content: "Test content string 2",
-                                correct: false,
-                            },
-                        ],
-                        deselectEnabled: false,
-                        displayCount: null,
-                        multipleSelect: false,
-                        noneOfTheAbove: false,
-                        onePerLine: true,
-                        randomize: true,
+                        value: "123",
                     },
-                    type: "radio",
+                    type: "mock-widget",
                 },
             },
         },
     ],
-    _multi: null,
     answer: null,
 };

@@ -16,30 +16,35 @@ import AssetContext from "./asset-context";
 import {PerseusI18nContext} from "./components/i18n-context";
 import {DependenciesContext} from "./dependencies";
 import HintsRenderer from "./hints-renderer";
-import Objective from "./interactive2/objective_";
 import LoadingContext from "./loading-context";
 import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import Util from "./util";
 
-import type {PerseusItem, ShowSolutions} from "./perseus-types";
-import type {APIOptions, FocusPath, PerseusDependenciesV2} from "./types";
+import type {
+    FocusPath,
+    PerseusDependenciesV2,
+    SharedRendererProps,
+} from "./types";
+import type {
+    GetPromptJSONInterface,
+    RendererPromptJSON,
+} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
+    PerseusItem,
+    ShowSolutions,
     KeypadContextRendererInterface,
     RendererInterface,
     KEScore,
 } from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {UserInputArray, UserInputMap} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-const {mapObject} = Objective;
-
 type OwnProps = {
-    apiOptions: APIOptions;
     hintsVisible?: number;
     item: PerseusItem;
-    linterContext: LinterContextProps;
+    score?: KEScore | null;
     problemNum?: number;
     reviewMode?: boolean;
     keypadElement?: KeypadAPI | null | undefined;
@@ -51,17 +56,30 @@ type HOCProps = {
     onRendered: (isRendered: boolean) => void;
 };
 
-type Props = OwnProps & HOCProps;
+type Props = SharedRendererProps & OwnProps & HOCProps;
 
 type DefaultProps = Required<
     Pick<Props, "apiOptions" | "onRendered" | "linterContext">
 >;
 
 type State = {
+    /**
+     * questionCompleted is used to signal that a learner has attempted
+     * the exercise. This is used when widgets want to show things like
+     * rationale or partial correctness.
+     */
     questionCompleted: boolean;
-    questionHighlightedWidgets: ReadonlyArray<any>;
-    // Keeps track of whether each asset (SvgImage or TeX) rendered by
-    // the questionRenderer has finished loading or rendering.
+    /**
+     * As far as I can tell, this is used to highlight empty widgets
+     * after a learner has clicked the "check" button. I don't think this could
+     * still be used though, because the "check" button is disabled while there
+     * are empty widgets.
+     */
+    questionHighlightedWidgets: ReadonlyArray<string>;
+    /**
+     * Keeps track of whether each asset (SvgImage or TeX) rendered by
+     * the questionRenderer has finished loading or rendering.
+     */
     assetStatuses: {
         [assetKey: string]: boolean;
     };
@@ -74,7 +92,10 @@ type SerializedState = {
 
 export class ServerItemRenderer
     extends React.Component<Props, State>
-    implements RendererInterface, KeypadContextRendererInterface
+    implements
+        RendererInterface,
+        KeypadContextRendererInterface,
+        GetPromptJSONInterface
 {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -116,13 +137,11 @@ export class ServerItemRenderer
     }
 
     componentDidUpdate(prevProps: Props, prevState: State) {
-        if (this.props.apiOptions.answerableCallback) {
+        const answerableCallback = this.props.apiOptions.answerableCallback;
+        if (answerableCallback != null) {
             const isAnswerable =
                 this.questionRenderer.emptyWidgets().length === 0;
-            const {answerableCallback} = this.props.apiOptions;
-            if (answerableCallback) {
-                answerableCallback(isAnswerable);
-            }
+            answerableCallback(isAnswerable);
         }
 
         if (!this._fullyRendered) {
@@ -133,6 +152,16 @@ export class ServerItemRenderer
                 this._fullyRendered = true;
                 this.props.onRendered(true);
             }
+        }
+
+        if (this.props.score && this.props.score !== prevProps.score) {
+            const emptyQuestionAreaWidgets =
+                this.questionRenderer.emptyWidgets();
+
+            this.setState({
+                questionCompleted: this.props.score.correct,
+                questionHighlightedWidgets: emptyQuestionAreaWidgets,
+            });
         }
     }
 
@@ -261,10 +290,6 @@ export class ServerItemRenderer
         return this.questionRenderer.getDOMNodeForPath(path);
     }
 
-    getGrammarTypeForPath(path: FocusPath): string | null | undefined {
-        return this.questionRenderer.getGrammarTypeForPath(path);
-    }
-
     getInputPaths(): ReadonlyArray<FocusPath> {
         const questionAreaInputPaths = this.questionRenderer.getInputPaths();
         return questionAreaInputPaths;
@@ -282,7 +307,7 @@ export class ServerItemRenderer
 
         // Call the interactionCallback, if it exists, with the current user input data
         this.props.apiOptions?.interactionCallback?.(
-            this.questionRenderer.getUserInputForWidgets(),
+            this.questionRenderer.getUserInputMap(),
         );
     };
 
@@ -300,33 +325,26 @@ export class ServerItemRenderer
         return this.props.item.hints.length;
     }
 
+    getPromptJSON(): RendererPromptJSON {
+        return this.questionRenderer.getPromptJSON();
+    }
+
     /**
-     * Grades the item.
+     * Returns an array of the widget `.getUserInput()` results
+     *
+     * TODO: can we remove this? Seems to be just for backwards
+     * compatibility with old Perseus Chrome logging
+     * @deprecated use getUserInput
      */
-    scoreInput(): KEScore {
-        const guessAndScore = this.questionRenderer.guessAndScore();
-        const guess = guessAndScore[0];
-        const score = guessAndScore[1];
+    getUserInputLegacy(): UserInputArray {
+        return this.questionRenderer.getUserInput();
+    }
 
-        // Continue to include an empty guess for the now defunct answer area.
-        // TODO(alex): Check whether we rely on the format here for
-        //             analyzing ProblemLogs. If not, remove this layer.
-        const maxCompatGuess = [guess, []];
-
-        const keScore = Util.keScoreFromPerseusScore(
-            score,
-            maxCompatGuess,
-            this.questionRenderer.getSerializedState(),
-        );
-
-        const emptyQuestionAreaWidgets = this.questionRenderer.emptyWidgets();
-
-        this.setState({
-            questionCompleted: keScore.correct,
-            questionHighlightedWidgets: emptyQuestionAreaWidgets,
-        });
-
-        return keScore;
+    /**
+     * Returns an object of the widget `.getUserInput()` results
+     */
+    getUserInput(): UserInputMap {
+        return this.questionRenderer.getUserInputMap();
     }
 
     /**
@@ -335,22 +353,6 @@ export class ServerItemRenderer
      */
     getWidgetIds(): ReadonlyArray<string> {
         return this.questionRenderer.getWidgetIds();
-    }
-
-    /**
-     * Returns an object mapping from widget ID to KE-style score.
-     * The keys of this object are the values of the array returned
-     * from `getWidgetIds`.
-     */
-    scoreWidgets(): {
-        [key: string]: KEScore;
-    } {
-        const qScore = this.questionRenderer.scoreWidgets();
-        const qGuess = this.questionRenderer.getUserInputForWidgets();
-        const state = this.questionRenderer.getSerializedState();
-        return mapObject(qScore, (score, id) => {
-            return Util.keScoreFromPerseusScore(score, qGuess[id], state);
-        });
     }
 
     /**

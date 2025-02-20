@@ -1,25 +1,21 @@
-import {vector as kvector} from "@khanacademy/kmath";
+import {
+    angles,
+    coefficients,
+    geometry,
+    vector as kvector,
+} from "@khanacademy/kmath";
+import {approximateEqual} from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
-import Util from "../../../util";
-import {
-    angleMeasures,
-    ccw,
-    lawOfCosines,
-    magnitude,
-    polygonSidesIntersect,
-    reverseVector,
-    sign,
-    vector,
-} from "../../../util/geometry";
-import {getQuadraticCoefficients} from "../graphs/quadratic";
-import {clamp, clampToBox, findAngle, inset, polar, snap, X, Y} from "../math";
-import {bound} from "../utils";
+import {getArrayWithoutDuplicates} from "../graphs/utils";
+import {clamp, clampToBox, inset, snap, X, Y} from "../math";
+import {bound, isUnlimitedGraphState} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
 import {
+    actions,
     CHANGE_RANGE,
     CHANGE_SNAP_STEP,
     type ChangeRange,
@@ -38,16 +34,47 @@ import {
     type MovePoint,
     type MoveRadiusPoint,
     REINITIALIZE,
+    ADD_POINT,
+    type AddPoint,
+    REMOVE_POINT,
+    type RemovePoint,
+    DELETE_INTENT,
+    type DeleteIntent,
+    FOCUS_POINT,
+    type FocusPoint,
+    BLUR_POINT,
+    type BlurPoint,
+    CLICK_POINT,
+    type ClickPoint,
+    CHANGE_INTERACTION_MODE,
+    type ChangeInteractionMode,
+    CHANGE_KEYBOARD_INVITATION_VISIBILITY,
+    type ChangeKeyboardInvitationVisibility,
+    CLOSE_POLYGON,
+    OPEN_POLYGON,
 } from "./interactive-graph-action";
 
-import type {QuadraticCoords} from "../graphs/quadratic";
+import type {Coord} from "../../../interactive2/types";
 import type {
     AngleGraphState,
     InteractiveGraphState,
     PairOfPoints,
 } from "../types";
-import type {Coord} from "@khanacademy/perseus";
+import type {QuadraticCoords} from "@khanacademy/kmath";
 import type {Interval} from "mafs";
+
+const {getAngleFromVertex, getClockwiseAngle, polar} = angles;
+const {
+    angleMeasures,
+    ccw,
+    lawOfCosines,
+    magnitude,
+    polygonSidesIntersect,
+    reverseVector,
+    sign,
+    vector,
+} = geometry;
+const {getQuadraticCoefficients} = coefficients;
 
 const minDistanceBetweenAngleVertexAndSidePoint = 2;
 
@@ -74,9 +101,162 @@ export function interactiveGraphReducer(
             return doChangeSnapStep(state, action);
         case CHANGE_RANGE:
             return doChangeRange(state, action);
+        case ADD_POINT:
+            return doAddPoint(state, action);
+        case REMOVE_POINT:
+            return doRemovePoint(state, action);
+        case FOCUS_POINT:
+            return doFocusPoint(state, action);
+        case BLUR_POINT:
+            return doBlurPoint(state, action);
+        case DELETE_INTENT:
+            return doDeleteIntent(state, action);
+        case CLICK_POINT:
+            return doClickPoint(state, action);
+        case CLOSE_POLYGON:
+            return doClosePolygon(state);
+        case OPEN_POLYGON:
+            return doOpenPolygon(state);
+        case CHANGE_INTERACTION_MODE:
+            return doChangeInteractionMode(state, action);
+        case CHANGE_KEYBOARD_INVITATION_VISIBILITY:
+            return doChangeKeyboardInvitationVisibility(state, action);
         default:
             throw new UnreachableCaseError(action);
     }
+}
+
+function doDeleteIntent(
+    state: InteractiveGraphState,
+    action: DeleteIntent,
+): InteractiveGraphState {
+    // For unlimited point graphs
+    if (isUnlimitedGraphState(state)) {
+        // Remove the last point that was focused, if any
+        if (state.focusedPointIndex !== null) {
+            return doRemovePoint(
+                state,
+                actions.pointGraph.removePoint(state.focusedPointIndex),
+            );
+        }
+    }
+    return state;
+}
+
+function doFocusPoint(
+    state: InteractiveGraphState,
+    action: FocusPoint,
+): InteractiveGraphState {
+    switch (state.type) {
+        case "polygon":
+        case "point":
+            return {
+                ...state,
+                focusedPointIndex: action.index,
+            };
+        default:
+            return state;
+    }
+}
+
+function doBlurPoint(
+    state: InteractiveGraphState,
+    action: BlurPoint,
+): InteractiveGraphState {
+    switch (state.type) {
+        case "polygon":
+        case "point":
+            const nextState = {
+                ...state,
+                showRemovePointButton: false,
+            };
+
+            if (state.interactionMode === "mouse") {
+                nextState.focusedPointIndex = null;
+            }
+
+            return nextState;
+        default:
+            return state;
+    }
+}
+
+function doClickPoint(
+    state: InteractiveGraphState,
+    action: ClickPoint,
+): InteractiveGraphState {
+    if (isUnlimitedGraphState(state)) {
+        return {
+            ...state,
+            focusedPointIndex: action.index,
+            showRemovePointButton: true,
+        };
+    }
+
+    return state;
+}
+
+function doClosePolygon(state: InteractiveGraphState): InteractiveGraphState {
+    if (isUnlimitedGraphState(state) && state.type === "polygon") {
+        // We want to remove any duplicate points when closing the polygon to
+        // (1) prevent the polygon from sides with length zero, and
+        // (2) make sure the question is can be marked correct if the polygon
+        //     LOOKS correct, even if two of the points are at the same coords.
+        const noDupedPoints = getArrayWithoutDuplicates(state.coords);
+
+        return {
+            ...state,
+            coords: noDupedPoints,
+            closedPolygon: true,
+        };
+    }
+
+    return state;
+}
+
+function doOpenPolygon(state: InteractiveGraphState): InteractiveGraphState {
+    if (isUnlimitedGraphState(state) && state.type === "polygon") {
+        return {
+            ...state,
+            closedPolygon: false,
+        };
+    }
+
+    return state;
+}
+
+function doChangeInteractionMode(
+    state: InteractiveGraphState,
+    action: ChangeInteractionMode,
+): InteractiveGraphState {
+    if (isUnlimitedGraphState(state)) {
+        const nextKeyboardInvitation =
+            action.mode === "keyboard"
+                ? false
+                : state.showKeyboardInteractionInvitation;
+        return {
+            ...state,
+            interactionMode: action.mode,
+            showKeyboardInteractionInvitation: nextKeyboardInvitation,
+        };
+    }
+
+    return state;
+}
+
+function doChangeKeyboardInvitationVisibility(
+    state: InteractiveGraphState,
+    action: ChangeKeyboardInvitationVisibility,
+): InteractiveGraphState {
+    if (isUnlimitedGraphState(state)) {
+        return {
+            ...state,
+            showKeyboardInteractionInvitation: action.shouldShow,
+            hasBeenInteractedWith: true,
+        };
+    }
+
+    return state;
 }
 
 function doMovePointInFigure(
@@ -124,6 +304,7 @@ function doMovePointInFigure(
         case "angle":
         case "circle":
             throw new Error("FIXME implement circle reducer");
+        case "none":
         case "point":
         case "polygon":
         case "quadratic":
@@ -307,8 +488,13 @@ function doMovePoint(
                 newValue: newValue,
             });
 
-            // Reject the move if it would cause the sides of the polygon to cross
-            if (polygonSidesIntersect(newCoords)) {
+            // Boolean value to track whether we can let the polygon sides interact.
+            // They can interact if it's an unlimited polygon that is open.
+            const polygonSidesCanIntersect =
+                state.numSides === "unlimited" && !state.closedPolygon;
+
+            // Reject the move if it would cause the sides of the polygon to cross.
+            if (!polygonSidesCanIntersect && polygonSidesIntersect(newCoords)) {
                 return state;
             }
 
@@ -499,6 +685,54 @@ function doChangeRange(
     };
 }
 
+function doAddPoint(
+    state: InteractiveGraphState,
+    action: AddPoint,
+): InteractiveGraphState {
+    if (!isUnlimitedGraphState(state)) {
+        return state;
+    }
+    const {snapStep} = state;
+    const snappedPoint = snap(snapStep, action.location);
+
+    // Check if there's already a point in that spot
+    for (const point of state.coords) {
+        if (point[X] === snappedPoint[X] && point[Y] === snappedPoint[Y]) {
+            return state;
+        }
+    }
+
+    const newCoords = [...state.coords, snappedPoint];
+
+    // If there's no point in spot where we want the new point to go we add it there
+    return {
+        ...state,
+        hasBeenInteractedWith: true,
+        coords: newCoords,
+        showRemovePointButton: true,
+        focusedPointIndex: newCoords.length - 1,
+    };
+}
+
+function doRemovePoint(
+    state: InteractiveGraphState,
+    action: RemovePoint,
+): InteractiveGraphState {
+    if (!isUnlimitedGraphState(state)) {
+        return state;
+    }
+
+    const nextFocusedPointIndex: number | null =
+        state.coords.length > 1 ? state.coords.length - 2 : null;
+
+    return {
+        ...state,
+        coords: state.coords.filter((_, i) => i !== action.index),
+        focusedPointIndex: nextFocusedPointIndex,
+        showRemovePointButton: nextFocusedPointIndex !== null ? true : false,
+    };
+}
+
 const getDeltaVertex = (
     maxMoves: vec.Vector2[],
     minMoves: vec.Vector2[],
@@ -535,11 +769,9 @@ interface ConstraintArgs {
     point: vec.Vector2;
 }
 
-const eq = Util.eq;
-
 // Less than or approximately equal
 function leq(a: any, b) {
-    return a < b || eq(a, b);
+    return a < b || approximateEqual(a, b);
 }
 
 function boundAndSnapToGrid(
@@ -588,7 +820,7 @@ function boundAndSnapAngleVertex(
         const oldPoint = coordsCopy[i];
         let newPoint = vec.add(oldPoint, delta);
 
-        let angle = findAngle(newVertex, newPoint);
+        let angle = getAngleFromVertex(newVertex, newPoint);
         angle *= Math.PI / 180;
 
         newPoint = constrainToBoundsOnAngle(newPoint, angle, range, snapStep);
@@ -706,7 +938,7 @@ function boundAndSnapAngleEndPoints(
     const vertex = coords[1];
 
     // Gets the angle between the coords and the vertex
-    let angle = findAngle(coordsCopy[index], vertex);
+    let angle = getAngleFromVertex(coordsCopy[index], vertex);
 
     // Snap the angle to the nearest multiple of snapDegrees (if provided)
     angle = Math.round((angle - offsetDegrees) / snap) * snap + offsetDegrees;
@@ -768,12 +1000,12 @@ function boundAndSnapToPolygonAngle(
     });
 
     const getAngle = function (a: number, vertex, b: number) {
-        const angle = findAngle(
+        const angle = getClockwiseAngle([
             coordsCopy[rel(a)],
-            coordsCopy[rel(b)],
             coordsCopy[rel(vertex)],
-        );
-        return (angle + 360) % 360;
+            coordsCopy[rel(b)],
+        ]);
+        return angle;
     };
 
     const innerAngles = [
@@ -815,7 +1047,10 @@ function boundAndSnapToPolygonAngle(
         knownSide;
 
     // Angle at the second vertex of the polygon
-    const outerAngle = findAngle(coordsCopy[rel(1)], coordsCopy[rel(-1)]);
+    const outerAngle = getAngleFromVertex(
+        coordsCopy[rel(1)],
+        coordsCopy[rel(-1)],
+    );
 
     // Uses the length of the side of the polygon (radial coordinate)
     // and the angle between the first and second sides of the
@@ -878,7 +1113,10 @@ function boundAndSnapToSides(
     const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
 
     // Angle at the second vertex of the polygon
-    const outerAngle = findAngle(coordsCopy[rel(1)], coordsCopy[rel(-1)]);
+    const outerAngle = getAngleFromVertex(
+        coordsCopy[rel(1)],
+        coordsCopy[rel(-1)],
+    );
 
     // Returns true if the points form a counter-clockwise turn;
     // a.k.a if the point is on the left or right of the polygon.

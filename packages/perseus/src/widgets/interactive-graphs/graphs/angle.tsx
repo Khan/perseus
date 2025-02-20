@@ -1,7 +1,10 @@
+import {angles} from "@khanacademy/kmath";
 import {vec} from "mafs";
 import * as React from "react";
 
-import {calculateAngleInDegrees, polar} from "../math";
+import {usePerseusI18n} from "../../../components/i18n-context";
+import a11y from "../../../util/a11y";
+import {X, Y} from "../math";
 import {findIntersectionOfRays} from "../math/geometry";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
@@ -11,18 +14,41 @@ import {trimRange} from "./components/movable-line";
 import {MovablePoint} from "./components/movable-point";
 import {SVGLine} from "./components/svg-line";
 import {Vector} from "./components/vector";
+import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {getIntersectionOfRayWithBox} from "./utils";
 
-import type {CollinearTuple} from "../../../perseus-types";
+import type {I18nContextType} from "../../../components/i18n-context";
 import type {Segment} from "../math/geometry";
-import type {AngleGraphState, MafsGraphProps} from "../types";
+import type {
+    AngleGraphState,
+    Dispatch,
+    InteractiveGraphElementSuite,
+    MafsGraphProps,
+} from "../types";
+import type {CollinearTuple} from "@khanacademy/perseus-core";
+
+const {calculateAngleInDegrees, getClockwiseAngle, polar} = angles;
 
 type AngleGraphProps = MafsGraphProps<AngleGraphState>;
 
-export function AngleGraph(props: AngleGraphProps) {
+export function renderAngleGraph(
+    state: AngleGraphState,
+    dispatch: Dispatch,
+    i18n: I18nContextType,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <AngleGraph graphState={state} dispatch={dispatch} />,
+        interactiveElementsDescription: getAngleGraphDescription(state, i18n),
+    };
+}
+
+function AngleGraph(props: AngleGraphProps) {
     const {dispatch, graphState} = props;
     const {graphDimensionsInPixels} = useGraphConfig();
+    const i18n = usePerseusI18n();
+    const id = React.useId();
+    const descriptionId = id + "-description";
 
     const {coords, showAngles, range, allowReflexAngles, snapDegrees} =
         graphState;
@@ -80,22 +106,34 @@ export function AngleGraph(props: AngleGraphProps) {
         showAngles: showAngles || false, // Whether to show the angle or not
     };
 
+    // Aria strings
+    const {
+        srAngleGraphAriaLabel,
+        srAngleGraphAriaDescription,
+        srAngleStartingSide,
+        srAngleEndingSide,
+        srAngleVertex,
+    } = describeAngleGraph(graphState, i18n);
+
     // Render the lines, angle, and then movable points
     return (
-        <>
+        <g aria-label={srAngleGraphAriaLabel} aria-describedby={descriptionId}>
             {svgLines}
             <Angle {...angleParams} />
             {/* vertex */}
             <MovablePoint
                 point={coords[1]}
+                sequenceNumber={1}
                 constrain={(p) => p}
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(1, destination))
                 }
+                ariaLabel={srAngleVertex}
             />
             {/* side 1 */}
             <MovablePoint
                 point={coords[0]}
+                sequenceNumber={2}
                 constrain={getAngleSideConstraint(
                     coords[0],
                     coords[1],
@@ -104,10 +142,12 @@ export function AngleGraph(props: AngleGraphProps) {
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(0, destination))
                 }
+                ariaLabel={srAngleEndingSide}
             />
             {/* side 2 */}
             <MovablePoint
                 point={coords[2]}
+                sequenceNumber={3}
                 constrain={getAngleSideConstraint(
                     coords[2],
                     coords[1],
@@ -116,9 +156,83 @@ export function AngleGraph(props: AngleGraphProps) {
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(2, destination))
                 }
+                ariaLabel={srAngleStartingSide}
             />
-        </>
+            <g id={descriptionId} style={a11y.srOnly}>
+                {srAngleGraphAriaDescription}
+            </g>
+        </g>
     );
+}
+
+function getAngleGraphDescription(
+    state: AngleGraphState,
+    i18n: I18nContextType,
+): string {
+    const {strings, locale} = i18n;
+    const {coords} = state;
+
+    return strings.srInteractiveElements({
+        elements: strings.srAngleInteractiveElements({
+            vertexX: srFormatNumber(coords[1][X], locale),
+            vertexY: srFormatNumber(coords[1][Y], locale),
+            startingSideX: srFormatNumber(coords[2][X], locale),
+            startingSideY: srFormatNumber(coords[2][Y], locale),
+            endingSideX: srFormatNumber(coords[0][X], locale),
+            endingSideY: srFormatNumber(coords[0][Y], locale),
+        }),
+    });
+}
+
+function describeAngleGraph(
+    state: AngleGraphState,
+    i18n: I18nContextType,
+): Record<string, string> {
+    const {strings, locale} = i18n;
+    const {coords, allowReflexAngles, showAngles} = state;
+    const [endingSide, vertex, startingSide] = coords;
+
+    const angleMeasure = srFormatNumber(
+        getClockwiseAngle(coords, allowReflexAngles),
+        locale,
+    );
+
+    const srAngleGraphAriaLabel = strings.srAngleGraphAriaLabel;
+    const srAngleGraphAriaDescription = strings.srAngleGraphAriaDescription({
+        angleMeasure,
+        vertexX: srFormatNumber(vertex[X], locale),
+        vertexY: srFormatNumber(vertex[Y], locale),
+        startingSideX: srFormatNumber(startingSide[X], locale),
+        startingSideY: srFormatNumber(startingSide[Y], locale),
+        endingSideX: srFormatNumber(endingSide[X], locale),
+        endingSideY: srFormatNumber(endingSide[Y], locale),
+    });
+    const srAngleStartingSide = strings.srAngleStartingSide({
+        x: srFormatNumber(startingSide[X], locale),
+        y: srFormatNumber(startingSide[Y], locale),
+    });
+    const srAngleEndingSide = strings.srAngleEndingSide({
+        x: srFormatNumber(endingSide[X], locale),
+        y: srFormatNumber(endingSide[Y], locale),
+    });
+    const srAngleVertex = showAngles
+        ? strings.srAngleVertexWithAngleMeasure({
+              x: srFormatNumber(vertex[X], locale),
+              y: srFormatNumber(vertex[Y], locale),
+              angleMeasure,
+          })
+        : strings.srAngleVertex({
+              x: srFormatNumber(vertex[X], locale),
+              y: srFormatNumber(vertex[Y], locale),
+          });
+
+    return {
+        srAngleGraphAriaLabel,
+        srAngleGraphAriaDescription,
+        srAngleStartingSide,
+        srAngleEndingSide,
+        srAngleVertex,
+    };
 }
 
 const positiveX: vec.Vector2 = [1, 0];

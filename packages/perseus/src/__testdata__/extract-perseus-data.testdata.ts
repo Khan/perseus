@@ -80,7 +80,6 @@ export const PerseusItemWithRadioWidget = generateTestPerseusItem({
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 });

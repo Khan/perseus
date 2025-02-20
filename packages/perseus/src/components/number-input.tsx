@@ -1,40 +1,44 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/sort-comp */
-import {number as knumber} from "@khanacademy/kmath";
+import {number as knumber, KhanMath} from "@khanacademy/kmath";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import classNames from "classnames";
-import $ from "jquery";
 import PropTypes from "prop-types";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import Util from "../util";
-import KhanMath from "../util/math";
+import {isPiMultiple} from "../util/math-utils";
 
 import {PerseusI18nContext} from "./i18n-context";
 
-import type {MathFormat} from "../perseus-types";
+import type {MathFormat} from "@khanacademy/perseus-core";
 
 const {firstNumericalParse, captureScratchpadTouchStart} = Util;
 const toNumericString = KhanMath.toNumericString;
 const getNumericFormat = KhanMath.getNumericFormat;
 
-/* An input box that accepts only numeric strings
+/**
+ * An input box that accepts only numeric strings
  *
- * Calls onChange(value, format) for valid numbers.
- * Reverts to the current value onBlur or on [ENTER],
+ * Calls `onChange(value, format)` for valid numbers.
+ *
+ * Reverts to the current value `onBlur` or on [ENTER],
  *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
- * Accepts empty input and sends it to onChange as null
- *   if no numeric placeholder is set.
- * If given a checkValidity function, will turn
- *   the background/outline red when invalid
- * If useArrowKeys is set to true, up/down arrows will
- *   increment/decrement integers
- * Optionally takes a size ("mini", "small", "normal")
+ *
+ * Accepts empty input and sends it to `onChange` as `null` if no numeric
+ * placeholder is set.
+ *
+ * If given a `checkValidity` function, will turn the background/outline red
+ * when invalid.
+ *
+ * If `useArrowKeys` is set to `true`, up/down arrows will increment/decrement
+ * integers.
+ *
+ * Optionally takes a `size` (`"mini"`, `"small"`,` `"normal"`)
  */
 class NumberInput extends React.Component<any, any> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
+    inputRef = React.createRef<HTMLInputElement>();
 
     static propTypes = {
         value: PropTypes.number,
@@ -43,8 +47,9 @@ class NumberInput extends React.Component<any, any> {
         onChange: PropTypes.func.isRequired,
         onFormatChange: PropTypes.func,
         checkValidity: PropTypes.func,
-        size: PropTypes.string,
+        size: PropTypes.oneOf(["mini", "small", "normal"]),
         label: PropTypes.oneOf(["put your labels outside your inputs!"]),
+        allowPiTruncation: PropTypes.bool,
     };
 
     static defaultProps: any = {
@@ -60,49 +65,16 @@ class NumberInput extends React.Component<any, any> {
         format: this.props.format,
     };
 
-    render(): React.ReactNode {
-        let classes = classNames({
-            "number-input": true,
-            "invalid-input": !this._checkValidity(this.props.value),
-            mini: this.props.size === "mini",
-            small: this.props.size === "small",
-            normal: this.props.size === "normal",
-        });
-        if (this.props.className != null) {
-            classes = classes + " " + this.props.className;
+    componentDidMount() {
+        // If the value is a multiple of pi, but it is not in the pi format,
+        // then convert it to the pi format and show it as a multiple of pi.
+        const value = this.getValue();
+        if (this.props.allowPiTruncation && value !== null && value !== 0) {
+            if (this.state.format !== "pi" && isPiMultiple(value)) {
+                this._setValue(value / Math.PI, "pi");
+                this.setState({format: "pi"});
+            }
         }
-
-        const {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            onFormatChange,
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            checkValidity,
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            useArrowKeys,
-            ...restProps
-        } = this.props;
-
-        return (
-            <input
-                {...restProps}
-                className={classes}
-                type="text"
-                // eslint-disable-next-line react/no-string-refs
-                ref="input"
-                onChange={this._handleChange}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                onKeyPress={this._handleBlur}
-                onKeyDown={this._onKeyDown}
-                // @ts-expect-error - TS2322 - Type '(e: TouchEvent) => void' is not assignable to type 'TouchEventHandler<HTMLInputElement>'.
-                onTouchStart={captureScratchpadTouchStart}
-                defaultValue={toNumericString(
-                    this.props.value,
-                    this.state.format,
-                )}
-                value={undefined}
-            />
-        );
     }
 
     componentDidUpdate(prevProps: any) {
@@ -111,20 +83,27 @@ class NumberInput extends React.Component<any, any> {
         }
     }
 
+    _getInput: () => HTMLInputElement = () => {
+        if (!this.inputRef.current) {
+            throw new PerseusError(
+                "Input ref accessed before set",
+                Errors.Internal,
+            );
+        }
+
+        return this.inputRef.current;
+    };
+
     /* Return the current "value" of this input
      * If empty, it returns the placeholder (if it is a number) or null
      */
     getValue: () => any = () => {
-        return this.parseInputValue(
-            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-            ReactDOM.findDOMNode(this.refs.input).value, // eslint-disable-line react/no-string-refs
-        );
+        return this.parseInputValue(this._getInput().value);
     };
 
     /* Return the current string value of this input */
     getStringValue: () => string = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-        return ReactDOM.findDOMNode(this.refs.input).value.toString(); // eslint-disable-line react/no-string-refs
+        return this._getInput().toString();
     };
 
     parseInputValue: (arg1: any) => any = (value) => {
@@ -138,36 +117,28 @@ class NumberInput extends React.Component<any, any> {
 
     /* Set text input focus to this input */
     focus: () => void = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this.refs.input).focus(); // eslint-disable-line react/no-string-refs
+        this._getInput().focus();
         this._handleFocus();
     };
 
     blur: () => void = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'blur' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this.refs.input).blur(); // eslint-disable-line react/no-string-refs
+        this._getInput().blur();
         this._handleBlur();
     };
 
-    setSelectionRange: (arg1: number, arg2: number) => any = (
+    setSelectionRange: (arg1: number, arg2: number) => void = (
         selectionStart,
         selectionEnd,
     ) => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'setSelectionRange' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this).setSelectionRange(
-            selectionStart,
-            selectionEnd,
-        );
+        this._getInput().setSelectionRange(selectionStart, selectionEnd);
     };
 
-    getSelectionStart: () => number = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'.
-        return ReactDOM.findDOMNode(this).selectionStart;
+    getSelectionStart: () => number | null = () => {
+        return this._getInput().selectionStart;
     };
 
-    getSelectionEnd: () => number = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'selectionEnd' does not exist on type 'Element | Text'.
-        return ReactDOM.findDOMNode(this).selectionEnd;
+    getSelectionEnd: () => number | null = () => {
+        return this._getInput().selectionEnd;
     };
 
     _checkValidity: (arg1: any) => boolean = (value) => {
@@ -243,12 +214,51 @@ class NumberInput extends React.Component<any, any> {
     };
 
     _setValue: (arg1: number, arg2: MathFormat) => void = (val, format) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'val' does not exist on type 'JQueryStatic'.
-        $(ReactDOM.findDOMNode(this.refs.input)).val(
-            toNumericString(val, format),
-        );
+        this._getInput().value = toNumericString(val, format);
     };
+
+    render(): React.ReactNode {
+        let classes = classNames({
+            "number-input": true,
+            "invalid-input": !this._checkValidity(this.props.value),
+            mini: this.props.size === "mini",
+            small: this.props.size === "small",
+            normal: this.props.size === "normal",
+        });
+        if (this.props.className != null) {
+            classes = classes + " " + this.props.className;
+        }
+
+        const {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            onFormatChange,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            checkValidity,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            useArrowKeys,
+            ...restProps
+        } = this.props;
+
+        return (
+            <input
+                {...restProps}
+                className={classes}
+                type="text"
+                ref={this.inputRef}
+                onChange={this._handleChange}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                onKeyPress={this._handleBlur}
+                onKeyDown={this._onKeyDown}
+                onTouchStart={captureScratchpadTouchStart}
+                defaultValue={toNumericString(
+                    this.props.value,
+                    this.state.format,
+                )}
+                value={undefined}
+            />
+        );
+    }
 }
 
 export default NumberInput;

@@ -84,16 +84,6 @@ export const wait: (options?: WaitOptions) => Promise<void> = ({
     return unverifiedWait(normalizedDelay, normalizedCount);
 };
 
-const FRAME_DURATION = 17;
-
-/**
- * Wait for the given delay.
- *
- * This will throw if jest.useRealTimers() is not used.
- */
-export const waitForAnimationFrame: () => Promise<void> = () =>
-    wait({delay: FRAME_DURATION});
-
 /**
  * Waits for the initial Graphie render.
  *

@@ -10,9 +10,9 @@ asset.
 In the future it would be great if these were included from files so that
 no copying and pasting is necessary.
 */
+import {getDecimalSeparator} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {DecimalSeparator, getDecimalSeparator} from "../../utils";
 import {useMathInputI18n} from "../i18n-context";
 
 import type Key from "../../data/keys";
@@ -176,10 +176,7 @@ export default function ButtonAsset({id}: Props): React.ReactNode {
         case "PERIOD":
             // Different locales use different symbols for the decimal separator
             // (, vs .)
-            if (
-                id === "DECIMAL" &&
-                getDecimalSeparator(locale) === DecimalSeparator.COMMA
-            ) {
+            if (id === "DECIMAL" && getDecimalSeparator(locale) !== ".") {
                 // comma decimal separator
                 return (
                     <svg

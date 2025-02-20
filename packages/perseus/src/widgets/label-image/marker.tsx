@@ -16,9 +16,11 @@ import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 
 import {AnswerPill} from "./answer-pill";
 
-import type {InteractiveMarkerType} from "./types";
 import type {IconType} from "../../components/icon";
-import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+import type {
+    AnalyticsEventHandlerFn,
+    InteractiveMarkerType,
+} from "@khanacademy/perseus-core";
 import type {CSSProperties} from "aphrodite";
 
 type Props = InteractiveMarkerType & {

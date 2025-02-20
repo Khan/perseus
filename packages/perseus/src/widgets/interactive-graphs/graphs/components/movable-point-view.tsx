@@ -7,6 +7,8 @@ import {X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useTransformVectorsToPixels} from "../use-transform";
 
+import Hairlines from "./hairlines";
+
 import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
 import type {ForwardedRef} from "react";
@@ -15,13 +17,11 @@ type Props = {
     point: vec.Vector2;
     color?: string | undefined;
     dragging: boolean;
-    focusBehavior: FocusBehaviorConfig;
+    focused: boolean;
+    showFocusRing: boolean;
     cursor?: CSSCursor | undefined;
+    onClick?: () => unknown;
 };
-
-type FocusBehaviorConfig =
-    | {type: "uncontrolled"; tabIndex: number}
-    | {type: "controlled"; showFocusRing: boolean};
 
 // The hitbox size of 48px by 48px is preserved from the legacy interactive
 // graph.
@@ -30,22 +30,17 @@ const hitboxSizePx = 48;
 // MovablePointView is a purely presentational component (i.e. it is a pure
 // function with no state or effects) that renders the SVG for a movable point
 // on an interactive graph.
-//
-// It has two modes for managing tabbing / focus: "controlled" (where the caller
-// manages the display of the focus ring, and the point itself cannot be
-// focused) and "uncontrolled" (where the point is focusable, and the browser
-// manages the focus state and styling). For context on why we did this, see
-// the description of https://github.com/Khan/perseus/pull/1240
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
-        const {range, markings, showTooltips, disableKeyboardInteraction} =
-            useGraphConfig();
+        const {markings, showTooltips} = useGraphConfig();
         const {
             point,
             color = WBColor.blue,
             dragging,
-            focusBehavior,
+            focused,
             cursor,
+            showFocusRing,
+            onClick = () => {},
         } = props;
 
         // WB Tooltip requires a color name for the background color.
@@ -54,36 +49,15 @@ export const MovablePointView = forwardRef(
             ([_, value]) => value === color,
         )?.[0] ?? "blue") as keyof typeof WBColor;
 
-        const pointClasses = `movable-point ${dragging ? "movable-point--dragging" : ""} ${focusClass(focusBehavior)}`;
+        const pointClasses = classNames(
+            "movable-point",
+            dragging && "movable-point--dragging",
+            showFocusRing && "movable-point--focus",
+        );
 
         const [[x, y]] = useTransformVectorsToPixels(point);
 
-        const [[xMin, xMax], [yMin, yMax]] = range;
-
-        const [[verticalStartX]] = useTransformVectorsToPixels([xMin, 0]);
-        const [[verticalEndX]] = useTransformVectorsToPixels([xMax, 0]);
-        const [[_, horizontalStartY]] = useTransformVectorsToPixels([0, yMin]);
-        const [[__, horizontalEndY]] = useTransformVectorsToPixels([0, yMax]);
-
-        const showHairlines = dragging && markings !== "none";
-        const hairlines = (
-            <g>
-                <line
-                    x1={verticalStartX}
-                    y1={y}
-                    x2={verticalEndX}
-                    y2={y}
-                    stroke={color}
-                />
-                <line
-                    x1={x}
-                    y1={horizontalStartY}
-                    x2={x}
-                    y2={horizontalEndY}
-                    stroke={color}
-                />
-            </g>
-        );
+        const showHairlines = (dragging || focused) && markings !== "none";
 
         const svgForPoint = (
             <g
@@ -91,9 +65,7 @@ export const MovablePointView = forwardRef(
                 className={pointClasses}
                 style={{"--movable-point-color": color, cursor} as any}
                 data-testid="movable-point"
-                tabIndex={
-                    disableKeyboardInteraction ? -1 : tabIndex(focusBehavior)
-                }
+                onClick={onClick}
             >
                 <circle
                     className="movable-point-hitbox"
@@ -116,7 +88,7 @@ export const MovablePointView = forwardRef(
 
         return (
             <>
-                {showHairlines && hairlines}
+                {showHairlines && <Hairlines point={point} />}
 
                 {showTooltips ? (
                     <Tooltip
@@ -135,16 +107,10 @@ export const MovablePointView = forwardRef(
     },
 );
 
-function focusClass(config: FocusBehaviorConfig) {
-    if (config.type === "controlled" && config.showFocusRing) {
-        return "movable-point--focus";
-    }
-    return "";
-}
-
-function tabIndex(config: FocusBehaviorConfig) {
-    if (config.type === "uncontrolled") {
-        return config.tabIndex;
-    }
-    return undefined;
+// TODO(benchristel): Move this to a more central location if it's reused.
+// Or install the library.
+function classNames(
+    ...names: Array<string | false | null | undefined>
+): string {
+    return names.filter(Boolean).join(" ");
 }

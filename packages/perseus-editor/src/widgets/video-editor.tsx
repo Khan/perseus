@@ -1,4 +1,8 @@
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {
+    videoLogic,
+    type VideoDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -35,9 +39,8 @@ class VideoEditor extends React.Component<Props> {
 
     static widgetName = "video" as const;
 
-    static defaultProps: Props = {
-        location: "",
-    };
+    static defaultProps: VideoDefaultWidgetOptions =
+        videoLogic.defaultWidgetOptions;
 
     _handleUrlChange: (arg1: string) => void = (url) => {
         this.props.onChange({location: getSlugFromUrl(url)});

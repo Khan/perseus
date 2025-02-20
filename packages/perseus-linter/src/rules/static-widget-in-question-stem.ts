@@ -5,7 +5,7 @@ export default Rule.makeRule({
     severity: Rule.Severity.WARNING,
     selector: "widget",
     lint: (state, content, nodes, match, context) => {
-        if (context.contentType !== "exercise") {
+        if (context?.contentType !== "exercise") {
             return;
         }
 
@@ -13,7 +13,12 @@ export default Rule.makeRule({
             return;
         }
 
-        const widget = context?.widgets?.[state.currentNode().id];
+        const nodeId = state.currentNode().id;
+        if (!nodeId) {
+            return;
+        }
+
+        const widget = context?.widgets?.[nodeId];
         if (!widget) {
             return;
         }

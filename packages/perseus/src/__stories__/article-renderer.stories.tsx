@@ -1,4 +1,4 @@
-import {KeypadContext} from "@khanacademy/math-input";
+import {KeypadContext} from "@khanacademy/keypad-context";
 import {action} from "@storybook/addon-actions";
 import React from "react";
 
@@ -11,7 +11,7 @@ import {
     multiSectionArticleWithExpression,
 } from "../__testdata__/article-renderer.testdata";
 import ArticleRenderer from "../article-renderer";
-import TestKeypadContextWrapper from "../widgets/__stories__/test-keypad-context-wrapper";
+import TestKeypadContextWrapper from "../widgets/__shared__/test-keypad-context-wrapper";
 
 export default {
     title: "Perseus/Renderers/Article Renderer",

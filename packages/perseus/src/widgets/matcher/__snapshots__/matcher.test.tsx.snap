@@ -1,0 +1,883 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matcher widget can reorder options: moved items 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <strong>
+          Match each claim with its supporting evidence.
+        </strong>
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <table
+            class="widget_lf609f perseus-widget-matcher"
+          >
+            <tbody>
+              <tr
+                class="row_tykfnp"
+              >
+                <th
+                  class="column_4at8du-o_O-columnLabel_1wdbfym"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <strong>
+                          Claims
+                        </strong>
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <th
+                  class="column_4at8du-o_O-columnRight_1wcmc4d-o_O-columnLabel_1wdbfym"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <strong>
+                          Evidence
+                        </strong>
+                      </div>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+              <tr
+                class="row_tykfnp"
+              >
+                <td
+                  class="column_4at8du"
+                >
+                  <ul
+                    class="sortable_13d4756 perseus-sortable"
+                  >
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Average global temperatures will rise 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Our Sun will run out of fuel and die in around 5 billion years 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </td>
+                <td
+                  class="column_4at8du-o_O-columnRight_1wcmc4d"
+                >
+                  <ul
+                    class="sortable_13d4756 perseus-sortable"
+                  >
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Rapid escalation of greenhouse gas emissions
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            The current trajectory of the Milky Way galaxy and those in its immediate proximity
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Medium-sized stars typically exist for roughly 10 billion years
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            The life cycle of medium-sized stars includes a red giant stage and ends in a whimper as a white dwarf
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            The current trajectory of the Earth’s tectonic plate movement
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <strong>
+          Match each claim with its supporting evidence.
+        </strong>
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <table
+            class="widget_lf609f perseus-widget-matcher"
+          >
+            <tbody>
+              <tr
+                class="row_tykfnp"
+              >
+                <th
+                  class="column_4at8du-o_O-columnLabel_1wdbfym"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <strong>
+                          Claims
+                        </strong>
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <th
+                  class="column_4at8du-o_O-columnRight_1wcmc4d-o_O-columnLabel_1wdbfym"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <strong>
+                          Evidence
+                        </strong>
+                      </div>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+              <tr
+                class="row_tykfnp"
+              >
+                <td
+                  class="column_4at8du"
+                >
+                  <ul
+                    class="sortable_13d4756 perseus-sortable"
+                  >
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 8px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Our Sun will run out of fuel and die in around 5 billion years 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 8px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 8px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 8px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Average global temperatures will rise 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </td>
+                <td
+                  class="column_4at8du-o_O-columnRight_1wcmc4d"
+                >
+                  <ul
+                    class="sortable_13d4756 perseus-sortable"
+                  >
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 8px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            The current trajectory of the Milky Way galaxy and those in its immediate proximity
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 8px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Medium-sized stars typically exist for roughly 10 billion years
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 8px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            The life cycle of medium-sized stars includes a red giant stage and ends in a whimper as a white dwarf
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 8px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            The current trajectory of the Earth’s tectonic plate movement
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Rapid escalation of greenhouse gas emissions
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`matcher widget should snapshot: first render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <strong>
+          Match each claim with its supporting evidence.
+        </strong>
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <table
+            class="widget_lf609f perseus-widget-matcher"
+          >
+            <tbody>
+              <tr
+                class="row_tykfnp"
+              >
+                <th
+                  class="column_4at8du-o_O-columnLabel_1wdbfym"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <strong>
+                          Claims
+                        </strong>
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <th
+                  class="column_4at8du-o_O-columnRight_1wcmc4d-o_O-columnLabel_1wdbfym"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <strong>
+                          Evidence
+                        </strong>
+                      </div>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+              <tr
+                class="row_tykfnp"
+              >
+                <td
+                  class="column_4at8du"
+                >
+                  <ul
+                    class="sortable_13d4756 perseus-sortable"
+                  >
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Our Sun will run out of fuel and die in around 5 billion years 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Average global temperatures will rise 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_u0qq3k perseus-sortable-draggable"
+                      style="position: static; margin: 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </td>
+                <td
+                  class="column_4at8du-o_O-columnRight_1wcmc4d"
+                >
+                  <ul
+                    class="sortable_13d4756 perseus-sortable"
+                  >
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            The current trajectory of the Milky Way galaxy and those in its immediate proximity
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Medium-sized stars typically exist for roughly 10 billion years
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            The life cycle of medium-sized stars includes a red giant stage and ends in a whimper as a white dwarf
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px 0px 5px 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            The current trajectory of the Earth’s tectonic plate movement
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="card_1s6cuhy-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      style="position: static; margin: 0px;"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            Rapid escalation of greenhouse gas emissions
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

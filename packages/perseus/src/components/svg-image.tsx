@@ -8,8 +8,8 @@ import * as React from "react";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
-import {Log} from "../logging/log";
 import Util from "../util";
+import {loadGraphie} from "../util/graphie-utils";
 import * as Zoom from "../zoom";
 
 import FixedToResponsive from "./fixed-to-responsive";
@@ -18,105 +18,16 @@ import ImageLoader from "./image-loader";
 
 import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
-import type {Size} from "../perseus-types";
-import type {Alignment, Dimensions} from "../types";
+import type {Dimensions} from "../types";
+import type {Alignment, Size} from "@khanacademy/perseus-core";
 
 // Minimum image width to make an image appear as zoomable.
 const ZOOMABLE_THRESHOLD = 700;
-
-// The global cache of label data. Its format is:
-// {
-//   hash (e.g. "c21435944d2cf0c8f39d9059cb35836aa701d04a"): {
-//     loaded: a boolean of whether the data has been loaded or not
-//     dataCallbacks: a list of callbacks to call with the data when the data
-//                    is loaded
-//     data: the other data for this hash
-//   },
-//   ...
-// }
-const labelDataCache: Record<string, any> = {};
-
-// Write our own JSONP handler because all the other ones don't do things we
-// need.
-const doJSONP = function (url: string, options) {
-    options = {
-        callbackName: "callback",
-        success: $.noop,
-        error: $.noop,
-        ...options,
-    };
-
-    // Create the script
-    const script = document.createElement("script");
-    script.setAttribute("async", "");
-    script.setAttribute("src", url);
-
-    // A cleanup function to run when we're done.
-    function cleanup() {
-        document.head && document.head.removeChild(script);
-        delete window[options.callbackName];
-    }
-
-    // Add the global callback.
-    // @ts-expect-error - TS2740 - Type '() => void' is missing the following properties from type 'Window': clientInformation, closed, customElements, devicePixelRatio, and 206 more.
-    window[options.callbackName] = function (...args) {
-        cleanup();
-        options.success.apply(null, args);
-    };
-
-    // Add the error handler.
-    script.addEventListener("error", function (...args) {
-        cleanup();
-        options.error.apply(null, args);
-    });
-
-    // Insert the script to start the download.
-    document.head && document.head.appendChild(script);
-};
-
-// For offline exercises in the mobile app, we download the graphie data
-// (svgs and localized data files) and serve them from the local file
-// system (with file://). We replace urls that start with `web+graphie`
-// in the perseus json with this `file+graphie` prefix to indicate that
-// they should have the `file://` protocol instead of `https://`.
-const svgLocalLabelsRegex = /^file\+graphie:/;
-const hashRegex = /\/([^/]+)$/;
 
 function isImageProbablyPhotograph(imageUrl) {
     // TODO(david): Do an inventory to refine this heuristic. For example, what
     //     % of .png images are illustrations?
     return /\.(jpg|jpeg)$/i.test(imageUrl);
-}
-
-function getLocale() {
-    const {JIPT, kaLocale} = getDependencies();
-    return JIPT.useJIPT ? "en-pt" : kaLocale;
-}
-
-function shouldUseLocalizedData() {
-    return getLocale() !== "en";
-}
-
-// A regex to split at the last / of a URL, separating the base part from the
-// hash. This is used to create the localized label data URLs.
-const splitHashRegex = /\/(?=[^/]+$)/;
-
-function getLocalizedDataUrl(url: string) {
-    // For local (cached) graphie images, they are already localized.
-    if (svgLocalLabelsRegex.test(url)) {
-        return Util.getDataUrl(url);
-    }
-    const [base, hash] = Util.getBaseUrl(url).split(splitHashRegex);
-    return `${base}/${getLocale()}/${hash}-data.json`;
-}
-
-// Get the hash from the url, which is just the filename
-function getUrlHash(url: string) {
-    const match = url.match(hashRegex);
-    if (match == null) {
-        throw new PerseusError("not a valid URL", Errors.InvalidInput);
-    }
-    return match && match[1];
 }
 
 function defaultPreloader(dimensions: Dimensions) {
@@ -149,34 +60,46 @@ type Props = {
         labels: ReadonlyArray<any>;
     };
     height?: number;
-    // When the DOM updates to replace the preloader with the image, or
-    // vice-versa, we trigger this callback.
+    /**
+     * When the DOM updates to replace the preloader with the image, or
+     * vice-versa, we trigger this callback.
+     */
     onUpdate: () => void;
-    // If alt is provided, DO NOT set aria-hidden=true unless this override flag
-    // is set.
+    /**
+     * If alt is provided, DO NOT set aria-hidden=true unless this override flag
+     * is set.
+     */
     overrideAriaHidden?: boolean;
     preloader?: (dimensions: Dimensions) => React.ReactNode;
-    // By default, this component attempts to be responsive whenever
-    // possible (specifically, when width and height are passed in).
-    // You can expliclty force unresponsive behavior by *either*
-    // not passing in width/height *or* setting this prop to false.
-    // The difference is that forcing via this prop will result in
-    // explicit width and height styles being set on the rendered
-    // component.
+    /**
+     * By default, this component attempts to be responsive whenever
+     * possible (specifically, when width and height are passed in).
+     *
+     * You can expliclty force unresponsive behavior by *either*
+     * not passing in width/height *or* setting this prop to false.
+     *
+     * The difference is that forcing via this prop will result in
+     * explicit width and height styles being set on the rendered
+     * component.
+     */
     responsive: boolean;
     scale: number;
     src: string;
     title?: string;
     trackInteraction?: () => void;
     width?: number;
-    // Whether clicking this image will allow it to be fully zoomed in to
-    // its original size on click, and allow the user to scroll in that
-    // state. This also does some hacky viewport meta tag changing to
-    // ensure this works on mobile devices, so I (david@) don't recommend
-    // enabling this on desktop yet.
+    /**
+     * Whether clicking this image will allow it to be fully zoomed in to
+     * its original size on click, and allow the user to scroll in that
+     * state. This also does some hacky viewport meta tag changing to
+     * ensure this works on mobile devices, so I (david@) don't recommend
+     * enabling this on desktop yet.
+     */
     zoomToFullSizeOnMobile?: boolean;
-    // If provided, use AssetContext.Consumer, see renderer.jsx.
-    // If not, it defaults to a no-op.
+    /**
+     * If provided, use AssetContext.Consumer, see renderer.jsx.
+     * If not, it defaults to a no-op.
+     */
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
 };
 
@@ -305,132 +228,23 @@ class SvgImage extends React.Component<Props, State> {
     }
 
     loadResources() {
-        const hash = getUrlHash(this.props.src);
-
-        // We can't make multiple jsonp calls to the same file because their
-        // callbacks will collide with each other. Instead, we cache the data
-        // and only make the jsonp calls once.
-        if (labelDataCache[hash]) {
-            if (labelDataCache[hash].loaded) {
-                const {data, localized} = labelDataCache[hash];
-                this.onDataLoaded(data, localized);
-            } else {
-                labelDataCache[hash].dataCallbacks.push(this.onDataLoaded);
-            }
-        } else {
-            const cacheData = {
-                loaded: false,
-                dataCallbacks: [this.onDataLoaded],
-                data: null,
-                localized: shouldUseLocalizedData(),
-            } as const;
-
-            labelDataCache[hash] = cacheData;
-
-            const retrieveData = (
-                url: string,
-                errorCallback: (x?: any, status?: any, error?: any) => void,
-            ) => {
-                doJSONP(url, {
-                    callbackName: "svgData" + hash,
-                    success: (data) => {
-                        // @ts-expect-error - TS2540 - Cannot assign to 'data' because it is a read-only property.
-                        cacheData.data = data;
-                        // @ts-expect-error - TS2540 - Cannot assign to 'loaded' because it is a read-only property.
-                        cacheData.loaded = true;
-
-                        _.each(cacheData.dataCallbacks, (callback) => {
-                            // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '{ labels: readonly any[]; range: readonly any[]; }'.
-                            callback(cacheData.data, cacheData.localized);
-                        });
-                    },
-                    error: errorCallback,
+        loadGraphie(this.props.src, (data, localized) => {
+            if (this._isMounted && data.labels && data.range) {
+                const labelsRendered: LabelsRenderedMap = {};
+                data.labels.forEach((label) => {
+                    labelsRendered[label.content] = false;
                 });
-            };
 
-            if (shouldUseLocalizedData()) {
-                retrieveData(
-                    getLocalizedDataUrl(this.props.src),
-                    (x, status, error) => {
-                        // @ts-expect-error - TS2540 - Cannot assign to 'localized' because it is a read-only property.
-                        cacheData.localized = false;
-
-                        // If there is isn't any localized data, fall back to
-                        // the original, unlocalized data
-                        retrieveData(
-                            Util.getDataUrl(this.props.src),
-                            (x, status, error) => {
-                                Log.error(
-                                    "Data load failed for svg-image",
-                                    Errors.Service,
-                                    {
-                                        cause: error,
-                                        loggedMetadata: {
-                                            dataUrl: Util.getDataUrl(
-                                                this.props.src,
-                                            ),
-                                            status,
-                                        },
-                                    },
-                                );
-                            },
-                        );
-                    },
-                );
-            } else {
-                retrieveData(
-                    Util.getDataUrl(this.props.src),
-                    (x, status, error) => {
-                        Log.error(
-                            "Data load failed for svg-image",
-                            Errors.Service,
-                            {
-                                cause: error,
-                                loggedMetadata: {
-                                    dataUrl: Util.getDataUrl(this.props.src),
-                                    status,
-                                },
-                            },
-                        );
-                    },
-                );
+                this.setState({
+                    dataLoaded: true,
+                    labelDataIsLocalized: localized,
+                    labelsRendered,
+                    labels: data.labels,
+                    range: data.range,
+                });
             }
-        }
+        });
     }
-
-    onDataLoaded: (
-        data: {
-            labels: ReadonlyArray<any>;
-            range: ReadonlyArray<any>;
-        },
-        localized: boolean,
-    ) => void = (
-        data: {
-            labels: ReadonlyArray<any>;
-            range: [Coord, Coord];
-        },
-        localized: boolean,
-    ) => {
-        if (this._isMounted && data.labels && data.range) {
-            const labelsRendered: LabelsRenderedMap = data.labels.reduce<
-                Record<string, any>
-            >(
-                (dict: LabelsRenderedMap, label) => ({
-                    ...dict,
-                    [label.content]: false,
-                }),
-                {},
-            );
-
-            this.setState({
-                dataLoaded: true,
-                labelDataIsLocalized: localized,
-                labelsRendered,
-                labels: data.labels,
-                range: data.range,
-            });
-        }
-    };
 
     sizeProvided(): boolean {
         return this.props.width != null && this.props.height != null;
@@ -485,12 +299,22 @@ class SvgImage extends React.Component<Props, State> {
                 // without coordinates. They don't seem to have any content, so
                 // it seems fine to just ignore them (rather than error), but
                 // we should figure out why this is happening.
+
+                // 'styling' - When a default scale (1) is used,
+                //     setting the font size to 100% is redundant.
+                // Also, setting the font size to 100% can counteract other scale-based styling.
+                // Therefore, when the scale is not applicable,
+                //     we set the value to 'null' so that no additional styling will be set.
+                const styling =
+                    this.props.scale !== 1
+                        ? {"font-size": 100 * this.props.scale + "%"}
+                        : null;
                 const label = graphie.label(
                     labelData.coordinates,
                     labelData.content,
                     labelData.alignment,
                     labelData.typesetAsMath,
-                    {"font-size": 100 * this.props.scale + "%"},
+                    styling,
                 );
 
                 // Convert absolute positioning css from pixels to percentages
@@ -572,7 +396,7 @@ class SvgImage extends React.Component<Props, State> {
                 this.props.zoomToFullSizeOnMobile,
             );
         }
-        this.props.trackInteraction && this.props.trackInteraction();
+        this.props.trackInteraction?.();
     };
 
     handleUpdate: (status: string) => void = (status: string) => {

@@ -1,6 +1,7 @@
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
-import {renderQuestion} from "../../__tests__/renderQuestion";
+import {scorePerseusItemTesting} from "../../../util/test-utils";
+import {renderQuestion} from "../../__testutils__/renderQuestion";
 
 const question = {
     content:
@@ -41,51 +42,16 @@ describe("Deprecated Standin widget", () => {
     });
 
     it("should be scorable and always give points", () => {
-        // Arrange and act
-        const {renderer} = renderQuestion(question);
-        const result = renderer.scoreWidgets();
-
-        // Assert
-        expect(result["widget 1"]).toMatchObject({
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        });
-    });
-
-    it("should return an empty object for getUserInput()", () => {
         // Arrange
         const {renderer} = renderQuestion(question);
 
         // Act
-        const userInput = renderer.getUserInput();
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
 
         // Assert
-        expect(userInput).toMatchInlineSnapshot(`
-            [
-              {},
-            ]
-        `);
-    });
-
-    it("should return a correct answer score for simpleValidate()", () => {
-        // Arrange
-        const {renderer} = renderQuestion(question);
-
-        // Act
-        const score = renderer.scoreWidgets();
-
-        // Assert
-        expect(score).toMatchInlineSnapshot(`
-            {
-              "widget 1": {
-                "earned": 1,
-                "message": null,
-                "total": 1,
-                "type": "points",
-              },
-            }
-        `);
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 });

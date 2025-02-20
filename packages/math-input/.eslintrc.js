@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable import/no-commonjs */
 const path = require("path");
 
@@ -12,6 +12,7 @@ module.exports = {
                 // it's right so I made a ticket to circle back to it
                 // https://khanacademy.atlassian.net/browse/LC-864
                 devDependencies: ["**/*.stories.tsx", "**/*.test.tsx"],
+                includeTypes: true,
             },
         ],
     },

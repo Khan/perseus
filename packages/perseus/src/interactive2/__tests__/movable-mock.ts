@@ -7,7 +7,7 @@ import _ from "underscore";
 import {Graphie} from "../../util/graphie";
 import {Movable} from "../movable";
 
-import type {Coord} from "@khanacademy/perseus";
+import type {Coord} from "../types";
 
 const createMock = function (): any {
     return new MovableMock(new Graphie(document.createElement("div")), {});

@@ -1,3 +1,4 @@
+import {angles} from "@khanacademy/kmath";
 import {useDrag} from "@use-gesture/react";
 import {vec} from "mafs";
 import * as React from "react";
@@ -7,19 +8,15 @@ import {pathBuilder} from "../../util/svg";
 
 import {useDraggable} from "./graphs/use-draggable";
 import {useTransformVectorsToPixels} from "./graphs/use-transform";
-import {
-    calculateAngleInDegrees,
-    convertDegreesToRadians,
-    lerp,
-    X,
-    Y,
-} from "./math";
+import {lerp, X, Y} from "./math";
 import useGraphConfig from "./reducer/use-graph-config";
 import {bound, TARGET_SIZE} from "./utils";
 
 import type {RefObject} from "react";
 
 import "./protractor.css";
+
+const {calculateAngleInDegrees, convertDegreesToRadians} = angles;
 
 const protractorImage =
     "https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png";
@@ -30,7 +27,7 @@ const centerToTopLeft: vec.Vector2 = [-180, -170];
 
 // The vector from the center of the protractor to the center of the rotation
 // handle.
-export const centerToRotationHandle: vec.Vector2 = [-176, -15];
+const centerToRotationHandle: vec.Vector2 = [-176, -15];
 
 export function Protractor() {
     const {range, snapStep} = useGraphConfig();
@@ -39,7 +36,7 @@ export function Protractor() {
     // 95% of the way to the bottom of the graph (vertically).
     const initialCenter: vec.Vector2 = [
         lerp(xMin, xMax, 0.5),
-        lerp(yMin, yMax, 0.05),
+        lerp(yMin, yMax, 0.25),
     ];
     const [center, setCenter] = useState<vec.Vector2>(initialCenter);
     const [rotationHandleOffset, setRotationHandleOffset] =

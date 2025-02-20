@@ -3,13 +3,14 @@
     "description": "Khan Academy's Javascript Numeric Math Utilities",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.1.13",
+    "version": "0.3.5",
     "publishConfig": {
         "access": "public"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Khan/kmath.git"
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/kmath"
     },
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
@@ -21,17 +22,19 @@
         "dist"
     ],
     "scripts": {
-        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
+        "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
-        "@khanacademy/perseus-core": "1.5.0"
+        "@khanacademy/perseus-core": "workspace:*"
     },
     "devDependencies": {
-        "perseus-build-settings": "^0.4.1",
-        "underscore": "1.4.4"
+        "perseus-build-settings": "workspace:*",
+        "jquery": "catalog:",
+        "underscore": "catalog:"
     },
     "peerDependencies": {
-        "underscore": "1.4.4"
+        "jquery": "catalog:",
+        "underscore": "catalog:"
     },
     "keywords": []
 }

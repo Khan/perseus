@@ -36,7 +36,6 @@ jobs:
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Publish to Chromatic for visual testing
               uses: chromaui/action@v11
@@ -44,4 +43,7 @@ jobs:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
                   autoAcceptChanges: "main"
-                  onlyStoryFiles: "**/*regression.stories.tsx"
+                  onlyStoryFiles: "**/*-regression.stories.tsx"
+                  # NOTE: We cannot enable `onlyChanged` because it is
+                  # incompatible with `onlyStoryFiles` which we use above.
+                  # onlyChanged: true # Enable TurboSnap!

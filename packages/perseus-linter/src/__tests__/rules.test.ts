@@ -4,6 +4,7 @@ import absoluteUrlRule from "../rules/absolute-url";
 import blockquotedMathRule from "../rules/blockquoted-math";
 import blockquotedWidgetRule from "../rules/blockquoted-widget";
 import doubleSpacingAfterTerminalRule from "../rules/double-spacing-after-terminal";
+import expressionWidgetRule from "../rules/expression-widget";
 import extraContentSpacingRule from "../rules/extra-content-spacing";
 import headingLevel1Rule from "../rules/heading-level-1";
 import headingLevelSkipRule from "../rules/heading-level-skip";
@@ -19,7 +20,6 @@ import mathAdjacentRule from "../rules/math-adjacent";
 import mathAlignExtraBreakRule from "../rules/math-align-extra-break";
 import mathAlignLinebreaksRule from "../rules/math-align-linebreaks";
 import mathEmptyRule from "../rules/math-empty";
-import mathFontSizeRule from "../rules/math-font-size";
 import mathFracRule from "../rules/math-frac";
 import mathNestedRule from "../rules/math-nested";
 import mathStartsWithSpaceRule from "../rules/math-starts-with-space";
@@ -375,22 +375,6 @@ describe("Individual lint rules tests", () => {
     expectPass(mathNestedRule, ["$\\text{4}x$", "inline $\\text{4}x$ math"]);
 
     // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-    expectWarning(mathFontSizeRule, [
-        "$\\tiny{x}$",
-        "inline $\\Tiny{x}$ math",
-        "$a \\small{x} b$",
-        "$\\large{ xyz }$",
-        "$ \\Large { x } $",
-        "$\\LARGE{x}$",
-        "$\\huge{x}$",
-        "$\\Huge{x}$",
-        "$\\normalsize{x}$",
-        "$\\scriptsize{x}$",
-    ]);
-    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-    expectPass(mathFontSizeRule, ["$\\sqrt{x}$", "inline $\\sqrt{x}$ math"]);
-
-    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
     expectWarning(mathWithoutDollarsRule, [
         "One half: \\frac{1}{2}!",
         "\\Large{BIG}!",
@@ -507,6 +491,120 @@ describe("Individual lint rules tests", () => {
                 options: {
                     alt: "1234567890",
                     caption: "Test: \\$10",
+                },
+            },
+        },
+    });
+
+    expectWarning(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\sqrt{42}",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic"],
+                },
+            },
+        },
+    });
+
+    expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\sqrt{42}",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic", "prealgebra"],
+                },
+            },
+        },
+    });
+
+    expectWarning(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\sin\\left(42\\right)",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic"],
+                },
+            },
+        },
+    });
+
+    expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\sin\\left(42\\right)",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic", "trig"],
+                },
+            },
+        },
+    });
+
+    expectWarning(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\log\\left(5\\right)",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic"],
+                },
+            },
+        },
+    });
+
+    expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\log\\left(5\\right)",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic", "logarithms"],
                 },
             },
         },

@@ -52,7 +52,6 @@ class HighlightSetRenderer extends React.PureComponent<Props, State> {
         hoveringTooltipFor: null,
     };
 
-    // eslint-disable-next-line react/sort-comp
     _highlightRenderers: {
         [highlightKey: string]: HighlightRenderer;
     } = {};

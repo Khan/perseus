@@ -8,16 +8,16 @@
  * group or sequence widgets.
  */
 
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {
+    Errors,
+    PerseusError,
+    upgradeWidgetInfoToLatestVersion,
+} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import MultiItems from "./multi-items";
 import {traverse} from "./traversal";
-import * as Widgets from "./widgets";
 
-import type {PerseusWidget} from "./perseus-types";
-
-const {findContentNodesInItem, inferItemShape} = MultiItems;
+import type {PerseusWidget} from "@khanacademy/perseus-core";
 
 const isUpgradedWidgetInfoRenderableBy = function (
     widgetInfo: PerseusWidget,
@@ -55,8 +55,7 @@ const isRawWidgetInfoRenderableBy = function (
 
     // NOTE: This doesn't modify the widget info if the widget info
     // is at a later version than is supported.
-    const upgradedWidgetInfo =
-        Widgets.upgradeWidgetInfoToLatestVersion(widgetInfo);
+    const upgradedWidgetInfo = upgradeWidgetInfoToLatestVersion(widgetInfo);
     return isUpgradedWidgetInfoRenderableBy(
         upgradedWidgetInfo,
         rendererContentVersion[upgradedWidgetInfo.type],
@@ -85,21 +84,6 @@ export const isItemRenderableByVersion = function (
             "missing parameter to Perseus.isRenderable.item",
             Errors.InvalidInput,
         );
-    }
-    if (itemData._multi) {
-        const shape = inferItemShape(itemData);
-
-        let isRenderable = true;
-        findContentNodesInItem(itemData, shape, (node) => {
-            const nodeIsRenderable = isRendererContentRenderableBy(
-                node,
-                rendererContentVersion,
-            );
-            if (!nodeIsRenderable) {
-                isRenderable = false;
-            }
-        });
-        return isRenderable;
     }
     return isRendererContentRenderableBy(
         itemData.question,

@@ -25,10 +25,11 @@ function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
         onChange: () => {},
         showTooltips: false,
         showProtractor: false,
-        hintMode: false,
         readOnly: false,
         labels: ["x", "y"],
         graph: {type: "segment"},
+        correct: {type: "segment"},
+        static: false,
     };
 }
 
@@ -66,6 +67,7 @@ describe("StatefulMafsGraph", () => {
             />,
         );
 
+        await userEvent.tab();
         await userEvent.tab();
         await userEvent.keyboard("{arrowup}");
 

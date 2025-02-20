@@ -1,11 +1,18 @@
+import {
+    scorePerseusItem,
+    type PerseusScore,
+    type UserInputMap,
+} from "@khanacademy/perseus-score";
+
 import type {
     CategorizerWidget,
     ExpressionWidget,
     InteractiveGraphWidget,
     NumericInputWidget,
     PerseusItem,
+    PerseusRenderer,
     RadioWidget,
-} from "../perseus-types";
+} from "@khanacademy/perseus-core";
 
 export const genericPerseusItemData: PerseusItem = {
     question: {
@@ -29,9 +36,18 @@ export const genericPerseusItemData: PerseusItem = {
         minor: 1,
     },
     hints: [],
-    _multi: null,
     answer: null,
 } as const;
+
+/**
+ * Thin wrapper around scorePerseusItem for internal testing
+ */
+export function scorePerseusItemTesting(
+    perseusRenderData: PerseusRenderer,
+    userInputMap: UserInputMap,
+): PerseusScore {
+    return scorePerseusItem(perseusRenderData, userInputMap, "en");
+}
 
 /**
  * Generate a Perseus item object for testing purposes.

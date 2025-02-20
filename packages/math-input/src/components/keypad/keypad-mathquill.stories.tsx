@@ -31,6 +31,8 @@ export function V2KeypadWithMathquill() {
                 mathFieldWrapperRef.current,
                 "en",
                 mockStrings,
+                // TODO(LEMS-2656): remove TS suppression
+                // @ts-expect-error: Type 'EditableMathQuill' is not assignable to type 'MathFieldInterface'.
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
@@ -44,7 +46,11 @@ export function V2KeypadWithMathquill() {
         }
     }, [mathField]);
 
-    const keyTranslator = getKeyTranslator("en");
+    const keyTranslator = getKeyTranslator("en", {
+        sin: "sin",
+        cos: "cos",
+        tan: "tan",
+    });
 
     function handleClickKey(key: Key) {
         if (!mathField) {
@@ -86,10 +92,7 @@ export function V2KeypadWithMathquill() {
                             convertDotToTimes
                             preAlgebra
                             trigonometry
-                            onAnalyticsEvent={async (event) => {
-                                // eslint-disable-next-line no-console
-                                console.log("Send Event:", event);
-                            }}
+                            onAnalyticsEvent={async () => {}}
                             showDismiss
                         />
                     </PopoverContentCore>

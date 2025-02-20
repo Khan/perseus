@@ -1,6 +1,5 @@
 # Perseus
 
-[![codecov](https://codecov.io/gh/Khan/perseus/branch/main/graph/badge.svg)](https://codecov.io/gh/Khan/perseus)
 ![npm Version](https://img.shields.io/npm/v/@khanacademy/perseus)
 ![License](https://img.shields.io/github/license/Khan/perseus)
 
@@ -19,23 +18,23 @@ This repo is a constellation of sub-repos for showing exercise content. Please s
 ### Prerequisites
 
 - [Node.js v20](https://nodejs.org/en/blog/announcements/v20-release-announce)
-- [Yarn](https://yarnpkg.com/lang/en/docs/install/)
+- [pnpm](https://pnpm.io/)
 
 ### Installation
 
 To install Perseus, you need to run the following commands:
 
-#### `yarn`
+#### `pnpm install`
 
 Installs project dependencies and tooling
 
 ### Using Storybook
 
-The components and widgets of Perseus are developed using [Storybook](https://github.com/storybookjs/storybook). After you clone the project and get dependencies installed, the next step is to start storybook by running `yarn storybook`. This will start a server and give you a playground to use each component.
+The components and widgets of Perseus are developed using [Storybook](https://github.com/storybookjs/storybook). After you clone the project and get dependencies installed, the next step is to start storybook by running `pnpm storybook`. This will start a server and give you a playground to use each component.
 
 ### Using Changesets
 
-We use [changesets](https://github.com/changesets/changesets) to help manage our versioning/releases. Before pushing a new PR, add a changeset by running `yarn changeset`. Commit and submit that with the PR.
+We use [changesets](https://github.com/changesets/changesets) to help manage our versioning/releases. Before pushing a new PR, add a changeset by running `pnpm changeset`. Commit and submit that with the PR.
 
 ### Updating Dependencies
 
@@ -54,13 +53,13 @@ cd packages/perseus-editor
 2. Run the following command to update the dev dependencies and the peer dependencies.
 ```
 // All dependencies
-yarn add --dev [dependency name]
+pnpm add --dev [dependency name]
 // Include this too if webapp is using this dependency
-yarn add --peer [dependency name]
+pnpm add --peer [dependency name]
 
 // Example
-yarn add --dev @khanacademy/wonder-blocks-button
-yarn add --peer @khanacademy/wonder-blocks-button
+pnpm add --dev @khanacademy/wonder-blocks-button
+pnpm add --peer @khanacademy/wonder-blocks-button
 ```
 
 ## Contributing
@@ -80,14 +79,14 @@ Perseus is a monorepo - a single repository that ships multiple npm packages. Ge
 3. ☢️ We don’t use deploy branches in Perseus
 4. Start a dev server
 
-    a. `yarn start` will start [Storybook](https://storybook.js.org/) on [localhost:6006](http://localhost:6006)
+    a. `pnpm start` will start [Storybook](https://storybook.js.org/) on [localhost:6006](http://localhost:6006)
 
-    b. `yarn dev` will start the custom Dev UI on
+    b. `pnpm dev` will start the custom Dev UI on
     [localhost:5173](http://localhost:5173/)
 
 5. Do stuff
-6. `yarn test` will run [Jest](https://jestjs.io/)/[RTL](https://testing-library.com/docs/react-testing-library/intro/) tests; `yarn cypress` will run [Cypress](https://www.cypress.io/) tests
-7. `yarn changeset` will walk you through creating a [changeset](https://github.com/changesets/changesets) (we generally stick to [semver](https://semver.org/))
+6. `pnpm test` will run [Jest](https://jestjs.io/)/[RTL](https://testing-library.com/docs/react-testing-library/intro/) tests; `pnpm cypress` will run [Cypress](https://www.cypress.io/) tests
+7. `pnpm changeset` will walk you through creating a [changeset](https://github.com/changesets/changesets) (we generally stick to [semver](https://semver.org/))
 8. ☢️ Empty changesets should be considered an exception to the rule and should generally be avoided
 9. `git add` and `git commit`
 10. `git pull-request` will walk you through creating a pull request
@@ -110,6 +109,10 @@ Perseus is a monorepo - a single repository that ships multiple npm packages. Ge
    (typically with `git land`)
 3. ☢️ If the CI/CD checks aren’t running, you might need to close and reopen the PR
 4. After the release script runs, you should see the new releases on the [release page](https://github.com/Khan/perseus/releases)
+
+## Random notes
+
+- We use `v8` to track Jest coverage. There's some old legacy code that we don't want coverage for, so we ignore that with `c8 ignore`. It might look like `c8` isn't be used, but it's used by the `v8` `coverageProvider` (defined in config/test/test.config.js).
 
 ## License
 

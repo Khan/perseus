@@ -2,20 +2,14 @@
  * Controlled component to display and change widget options.
  */
 
-import {globalStyles} from "@khanacademy/perseus";
+import {bodyXsmallBold} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import Checkbox from "../../components/checkbox";
+import {gray17} from "../../styles/global-colors";
 
-const {colors, typography} = globalStyles;
-
-export type PreferredPopoverDirection =
-    | "NONE"
-    | "UP"
-    | "DOWN"
-    | "LEFT"
-    | "RIGHT";
+type PreferredPopoverDirection = "NONE" | "UP" | "DOWN" | "LEFT" | "RIGHT";
 
 type Props = {
     // Whether multiple answer choices may be selected for markers.
@@ -97,11 +91,11 @@ const Behavior = ({
 
 const styles = StyleSheet.create({
     title: {
-        ...typography.bodyXsmallBold,
+        ...bodyXsmallBold,
 
         marginBottom: 6,
 
-        color: colors.gray17,
+        color: gray17,
     },
 
     option: {
@@ -111,11 +105,14 @@ const styles = StyleSheet.create({
     },
 
     label: {
-        ...typography.smallSubheadingMobile,
+        // TODO: could we use WB typography?
+        fontFamily: "inherit",
+        fontSize: 15,
+        lineHeight: 1.25,
 
         marginLeft: 16,
 
-        color: colors.gray17,
+        color: gray17,
     },
 });
 

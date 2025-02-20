@@ -1,17 +1,33 @@
 import type {ILogger} from "./logging/log";
-import type {Item} from "./multi-items/item-types";
+import type {PerseusStrings} from "./strings";
+import type {SizeClass} from "./util/sizing-utils";
+import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
+import type {KeypadAPI} from "@khanacademy/math-input";
+// MAGIC: Removal of this comment may cause `tsc --build` to output a syntax
+// error in packages/perseus/dist/server-item-renderer.d.ts and then fail. This
+// appears to be a bug introduced in TS 5.6. If you are curious about this, try
+// deleting this comment and running:
+//     rm -rf packages/*/{dist,tsconfig-build.tsbuildinfo} && yarn build:types
+// If that succeeds, maybe the bug has been fixed.
+// For more information, see:
+// https://khanacademy.slack.com/archives/C01AZ9H8TTQ/p1738883377389969
 import type {
     Hint,
     PerseusAnswerArea,
+    PerseusGraphType,
     PerseusWidget,
     PerseusWidgetsMap,
-} from "./perseus-types";
-import type {PerseusStrings} from "./strings";
-import type {SizeClass} from "./util/sizing-utils";
-import type {InteractiveGraphState} from "./widgets/interactive-graphs/types";
-import type {KeypadAPI} from "@khanacademy/math-input";
-import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+    AnalyticsEventHandlerFn,
+    Version,
+    WidgetOptionsUpgradeMap,
+} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {
+    Rubric,
+    UserInput,
+    UserInputArray,
+    UserInputMap,
+} from "@khanacademy/perseus-score";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
 
@@ -24,32 +40,70 @@ export type Dimensions = {
 
 export type DeviceType = "phone" | "tablet" | "desktop";
 
-// TODO(CP-4839): Create a proper type for Widget
-// Is this the same as the Widget type in `renderer.jsx`?
-export type Widget = any;
-export type WidgetDict = {
-    [name: string]: Widget;
-};
+/**
+ * This is the type returned by a widget's `getSerializedState` function (and
+ * provided to the same widget's `restoreSerializedState` function). However,
+ * note that in most cases the widgets do _not_ implement these functions.
+ * In that case, the `Renderer` just returns the widget's render props as the
+ * serialized state.
+ */
+export type SerializedState = Record<string, any>;
+
+/**
+ * The Widget type represents the common API that the Renderer uses to interact
+ * with all widgets. All widgets must implement the methods in this API, unless
+ * they are marked as optional (?: ...).
+ *
+ * These methods are called on the widget ref and allow the renderer to
+ * communicate with the individual widgets to coordinate actions such as
+ * scoring, state serialization/deserialization, and focus management.
+ */
+export interface Widget {
+    /**
+     * don't use isWidget; it's just a dummy property to help TypeScript's weak
+     * typing to recognize non-interactive widgets as Widgets
+     * @deprecated
+     */
+    isWidget?: true;
+    focus?: () =>
+        | {
+              id: string;
+              path: FocusPath;
+          }
+        | boolean;
+    getDOMNodeForPath?: (path: FocusPath) => Element | Text | null;
+    deselectIncorrectSelectedChoices?: () => void;
+
+    /**
+     * Returns widget state that can be passed back to `restoreSerializedState`
+     * to put the widget back into exactly the same state. If the widget does
+     * not implement this function, the renderer simply returns all of the
+     * widget's props.
+     */
+    // TODO(jeremy): I think this return value is wrong. The widget
+    // getSerializedState should just return _its_ serialized state, not a
+    // key/value list of all widget states (i think!)
+    getSerializedState?: () => SerializedState; // SUSPECT,
+    restoreSerializedState?: (props: any, callback: () => void) => any;
+
+    blurInputPath?: (path: FocusPath) => void;
+    focusInputPath?: (path: FocusPath) => void;
+    getInputPaths?: () => ReadonlyArray<FocusPath>;
+    setInputValue?: (
+        path: FocusPath,
+        newValue: string,
+        // TODO(jeremy): I think this is actually a callback
+        focus?: () => unknown,
+    ) => void;
+    getUserInputMap?: () => UserInputMap | undefined;
+    getUserInput?: () => UserInputArray | UserInput | undefined;
+
+    showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
+    getPromptJSON?: () => WidgetPromptJSON;
+}
+
 export type ImageDict = {
     [url: string]: Dimensions;
-};
-
-export type PerseusScore =
-    | {
-          type: "invalid";
-          message?: string | null | undefined;
-          suppressAlmostThere?: boolean | null | undefined;
-      }
-    | {
-          type: "points";
-          earned: number;
-          total: number;
-          message?: string | null | undefined;
-      };
-
-export type Version = {
-    major: number;
-    minor: number;
 };
 
 export type EditorMode = "edit" | "preview" | "json";
@@ -69,14 +123,12 @@ export type ChangeHandler = (
         hints?: ReadonlyArray<Hint>;
         replace?: boolean;
         content?: string;
-        widgets?: WidgetDict;
+        widgets?: PerseusWidgetsMap;
         images?: ImageDict;
         // used only in EditorPage
         question?: any;
         answerArea?: PerseusAnswerArea | null;
         itemDataVersion?: Version;
-        // used in MutirenderEditor
-        item?: Item;
         editorMode?: EditorMode;
         jsonMode?: boolean;
         // perseus-all-package/widgets/unit.jsx
@@ -90,9 +142,9 @@ export type ChangeHandler = (
         // perseus-all-package/widgets/grapher.jsx
         plot?: any;
         // Interactive Graph callback (see legacy: interactive-graph.tsx)
-        graph?: InteractiveGraphState;
+        graph?: PerseusGraphType;
     },
-    callback?: () => unknown | null | undefined,
+    callback?: () => void,
     silent?: boolean,
 ) => unknown;
 
@@ -100,8 +152,6 @@ export type ImageUploader = (
     file: File,
     callback: (url: string) => unknown,
 ) => unknown;
-
-export type WidgetSize = "normal" | "small" | "mini";
 
 export type Path = ReadonlyArray<string>;
 
@@ -121,83 +171,22 @@ type TrackInteractionArgs = {
 } & Partial<TrackingGradedGroupExtraArguments> &
     Partial<TrackingSequenceExtraArguments>;
 
-export const MafsGraphTypeFlags = [
-    /** Enables the `angle` interactive-graph type.  */
-    "angle",
-    /** Enables the `segment` interactive-graph type.  */
-    "segment",
-    /** Enables the `linear` interactive-graph type.  */
-    "linear",
-    /** Enables the `linear-system` interactive-graph type.  */
-    "linear-system",
-    /** Enables the `ray` interactive-graph type.  */
-    "ray",
-    /** Enables the `polygon` interactive-graph type a fixed number of sides. */
-    "polygon",
-    /** Enables the `circle` interactive-graph type.  */
-    "circle",
-    /** Enables the `quadratic` interactive-graph type.  */
-    "quadratic",
-    /** Enables the `sinusoid` interactive-graph type.  */
-    "sinusoid",
-    /** Enables the `point` interactive-graph type with a fixed number of points. */
-    "point",
-] as const;
-
-export const InteractiveGraphLockedFeaturesFlags = [
-    /**
-     * Enables/Disables Milestone 2 phase b locked features in the
-     * new Mafs interactive-graph widget (locked functions).
-     */
-    "interactive-graph-locked-features-m2b",
-] as const;
-
-export const InteractiveGraphEditorFlags = [
-    /**
-     * Enables the UI for setting the start coordinates of a graph.
-     * Includes linear, linear-system, ray, segment, and circle graphs.
-     */
-    "start-coords-ui-phase-1",
-    /**
-     * Enables the UI for setting the start coordinates of a graph.
-     * Includes sinusoid and quadratic graphs.
-     */
-    "start-coords-ui-phase-2",
-    /**
-     * Enables the UI for setting the start coordinates of a graph.
-     * Includes point graph.
-     */
-    "start-coords-ui-point",
-    /**
-     * Enables the UI for setting the start coordinates of a graph.
-     * Includes polygon graph.
-     */
-    "start-coords-ui-polygon",
-    /**
-     * Enables the UI for setting the start coordinates of a graph.
-     * Includes angle graph.
-     */
-    "start-coords-ui-angle",
-] as const;
-
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
- * @see APIOptionsWithDefaults
+ * @see {@link APIOptionsWithDefaults}
  */
 export type APIOptions = Readonly<{
     isArticle?: boolean;
-    onInputError?: (
-        widgetId: any,
-        value: string,
-        message?: string | null | undefined,
-    ) => unknown;
     onFocusChange?: (
         newFocusPath: FocusPath,
         oldFocusPath: FocusPath,
         keypadHeight?: number,
         focusedElement?: HTMLElement,
     ) => unknown;
+    /**
+     * @deprecated - metadata is no longer used by the Group widget
+     */
     GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
     showAlignmentOptions?: boolean;
     /**
@@ -307,21 +296,6 @@ export type APIOptions = Readonly<{
      * only after a good few seconds.
      */
     editorChangeDelay?: number;
-    /** Feature flags that can be passed from consuming application. */
-    flags?: {
-        /**
-         * Flags related to the interactive-graph Mafs migration.
-         *
-         * Add values to the relevant array to create new flags.
-         */
-        mafs?:
-            | false
-            | ({[Key in (typeof MafsGraphTypeFlags)[number]]?: boolean} & {
-                  [Key in (typeof InteractiveGraphLockedFeaturesFlags)[number]]?: boolean;
-              } & {
-                  [Key in (typeof InteractiveGraphEditorFlags)[number]]?: boolean;
-              });
-    };
     /**
      * This is a callback function that returns all of the Widget props
      * after they have been transformed by the widget's transform function.
@@ -345,7 +319,7 @@ export type DomInsertCheckFn = (
     jiptString?: string,
 ) => string | false;
 
-export type JIPT = {
+type JIPT = {
     useJIPT: boolean;
 };
 
@@ -357,7 +331,7 @@ export interface JiptRenderer {
     replaceJiptContent: (content: string, paragraphIndex: number) => void;
 }
 
-export type JiptTranslationComponents = {
+type JiptTranslationComponents = {
     addComponent: (renderer: JiptRenderer) => number;
     removeComponentAtIndex: (index: number) => void;
 };
@@ -392,15 +366,17 @@ type InitialRequestUrlInterface = {
 
 export type VideoKind = "YOUTUBE_ID" | "READABLE_ID";
 
-// An object for dependency injection, to allow different clients
-// to provide different methods for logging, translation, network
-// requests, etc.
-//
-// NOTE: You should avoid adding new dependencies here as this type was added
-// as a quick fix to get around the fact that some of the dependencies Perseus
-// needs are used in places where neither `APIOptions` nor a React Context
-// could be used. Aim to shrink the footprint of PerseusDependencies and try to
-// use alternative methods where possible.
+/**
+ * An object for dependency injection, to allow different clients
+ * to provide different methods for logging, translation, network
+ * requests, etc.
+ *
+ * NOTE: You should avoid adding new dependencies here as this type was added
+ * as a quick fix to get around the fact that some of the dependencies Perseus
+ * needs are used in places where neither `APIOptions` nor a React Context
+ * could be used. Aim to shrink the footprint of PerseusDependencies and try to
+ * use alternative methods where possible.
+ */
 export type PerseusDependencies = {
     // JIPT
     JIPT: JIPT;
@@ -414,6 +390,24 @@ export type PerseusDependencies = {
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
 
+    Log: ILogger;
+
+    // RequestInfo
+    isDevServer: boolean;
+    kaLocale: string;
+};
+
+/**
+ * The modern iteration of Perseus Depedndencies. These dependencies are
+ * provided to Perseus through its entrypoints (for example:
+ * ServerItemRenderer) and then attached to the DependenciesContext so they are
+ * available anywhere down the React render tree.
+ *
+ * Prefer using this type over `PerseusDependencies` when possible.
+ */
+export interface PerseusDependenciesV2 {
+    analytics: {onAnalyticsEvent: AnalyticsEventHandlerFn};
+
     // video widget
     // This is used as a hook to fetch data about a video which is used to
     // add a link to the video transcript.  The return value conforms to
@@ -425,26 +419,7 @@ export type PerseusDependencies = {
     ): Result<{
         video: VideoData | null | undefined;
     }>;
-
-    Log: ILogger;
-
-    // RequestInfo
-    isDevServer: boolean;
-    kaLocale: string;
-    isMobile: boolean;
-};
-
-/**
- * The modern iteration of Perseus Depedndencies. These dependencies are
- * provided to Perseus through its entrypoints (for example:
- * ServerItemRenderer) and then attached to the DependenciesContext so they are
- * available anywhere down the React render tree.
- *
- * Prefer using this type over `PerseusDependencies` when possible.
- */
-export type PerseusDependenciesV2 = {
-    analytics: {onAnalyticsEvent: AnalyticsEventHandlerFn};
-};
+}
 
 /**
  * APIOptionsWithDefaults represents the type that is provided to all widgets.
@@ -453,7 +428,6 @@ export type PerseusDependenciesV2 = {
  */
 export type APIOptionsWithDefaults = Readonly<
     APIOptions & {
-        GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
         baseElements: NonNullable<APIOptions["baseElements"]>;
         canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
         crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
@@ -462,7 +436,6 @@ export type APIOptionsWithDefaults = Readonly<
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
-        onInputError: NonNullable<APIOptions["onInputError"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
         setDrawingAreaAvailable: NonNullable<
             APIOptions["setDrawingAreaAvailable"]
@@ -483,24 +456,17 @@ export type TrackingGradedGroupExtraArguments = {
 };
 
 // See sequence widget
-export type TrackingSequenceExtraArguments = {
+type TrackingSequenceExtraArguments = {
     visible: number;
 };
 
-export type Alignment =
-    | "default"
-    | "block"
-    | "inline-block"
-    | "inline"
-    | "float-left"
-    | "float-right"
-    | "full-width";
-
 type WidgetOptions = any;
 
-// A transform that maps the WidgetOptions (sometimes referred to as
-// EditorProps) to the props used to render the widget. Often this is an
-// identity transform.
+/**
+ * A transform that maps the WidgetOptions (sometimes referred to as
+ * EditorProps) to the props used to render the widget. Often this is an
+ * identity transform.
+ */
 // TODO(jeremy): Make this generic so that the WidgetOptions and output type
 // become strongly typed.
 export type WidgetTransform = (
@@ -510,7 +476,7 @@ export type WidgetTransform = (
 ) => any;
 
 export type WidgetExports<
-    T extends React.ComponentType<any> = React.ComponentType<any>,
+    T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
 > = Readonly<{
     name: string;
     displayName: string;
@@ -525,37 +491,45 @@ export type WidgetExports<
     /** Supresses widget from showing up in the dropdown in the content editor */
     hidden?: boolean;
     /**
-    The widget version. Any time the _major_ version changes, the widget
-    should provide a new entry in the propUpgrades map to migrate from the
-    older version to the current (new) version. Minor version changes must
-    be backwards compatible with previous minor versions widget options.
-    This key defaults to `{major: 0, minor: 0}` if not provided.
+     * The widget version. Any time the _major_ version changes, the widget
+     * should provide a new entry in the propUpgrades map to migrate from the
+     * older version to the current (new) version. Minor version changes must
+     * be backwards compatible with previous minor versions widget options.
+     *
+     * This key defaults to `{major: 0, minor: 0}` if not provided.
      */
     version?: Version;
-    supportedAlignments?: ReadonlyArray<Alignment>;
-    defaultAlignment?: Alignment;
-    getDefaultAlignment?: () => Alignment;
     isLintable?: boolean;
     tracking?: Tracking;
 
     traverseChildWidgets?: any; // (Props, traverseRenderer) => NewProps,
 
-    /** transforms the widget options to the props used to render the widget */
+    /**
+     * Transforms the widget options to the props used to render the widget.
+     */
     transform?: WidgetTransform;
-    /** transforms the widget options to the props used to render the widget for
-    static renders  */
+    /**
+     * Transforms the widget options to the props used to render the widget for
+     * static renders.
+     */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
+    getOneCorrectAnswerFromRubric?: (
+        rubric: Rubric,
+    ) => string | null | undefined;
+
     /**
-    A map of major version numbers (as a string, eg "1") to a function that
-    migrates from the _previous_ major version.
-    Example:
-      propUpgrades: {'1': (options) => ({...options})}
-    would migrate from major version 0 to 1.
-    */
-    propUpgrades?: {
-        [key: string]: (arg1: any) => any;
-    }; // OldProps => NewProps,
+     * A map of major version numbers (as a string, eg "1") to a function that
+     * migrates from the _previous_ major version.
+     *
+     * Example:
+     * ```
+     * propUpgrades: {'1': (options) => ({...options})}
+     * ```
+     *
+     * This configuration would migrate options from major version 0 to 1.
+     */
+    propUpgrades?: WidgetOptionsUpgradeMap;
 }>;
 
 export type FilterCriterion =
@@ -566,10 +540,21 @@ export type FilterCriterion =
           widget?: Widget | null | undefined,
       ) => boolean);
 
+/**
+ * The full set of props provided to all widgets when they are rendered. The
+ * `RenderProps` generic argument are the widget-specific props that originate
+ * from the stored PerseusItem. Note that they may not match the serialized
+ * widget options exactly as they are the result of running the options through
+ * any `propUpgrades` the widget defines as well as its `transform` or
+ * `staticTransform` functions (depending on the options `static` flag).
+ */
 // NOTE: Rubric should always be the corresponding widget options type for the component.
+// TODO: in fact, is it really the rubric? WidgetOptions is what we use to configure the widget
+// (which is what this seems to be for)
+// and Rubric is what we use to score the widgets (which not all widgets need validation)
 export type WidgetProps<
     RenderProps,
-    Rubric,
+    Rubric = Empty,
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
@@ -577,18 +562,21 @@ export type WidgetProps<
     // provided by renderer.jsx#getWidgetProps()
     widgetId: string;
     alignment: string | null | undefined;
-    // When determining if a widget is static, we verify that the widget is not an
-    // exercise question by verifying that it has no problem number.
     static: boolean | null | undefined;
     problemNum: number | null | undefined;
     apiOptions: APIOptionsWithDefaults;
     keypadElement?: any;
+    /**
+     * questionCompleted is used to signal that a learner has attempted
+     * the exercise. This is used when widgets want to show things like
+     * rationale or partial correctness.
+     */
     questionCompleted?: boolean;
     onFocus: (blurPath: FocusPath) => void;
     onBlur: (blurPath: FocusPath) => void;
-    findWidgets: (arg1: FilterCriterion) => ReadonlyArray<Widget>;
-    reviewModeRubric: Rubric;
-    hintMode: boolean;
+    findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
+    reviewModeRubric?: Rubric | null | undefined;
+    reviewMode: boolean;
     onChange: ChangeHandler;
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer
@@ -611,3 +599,8 @@ export type ChangeFn = (
     propValue?: any,
     callback?: () => unknown,
 ) => any | null | undefined;
+
+export type SharedRendererProps = {
+    apiOptions: APIOptions;
+    linterContext: LinterContextProps;
+};

@@ -1,17 +1,29 @@
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
-import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
+import type {Coord} from "../../interactive2/types";
 import type {WidgetProps} from "../../types";
-import type {Coord} from "@khanacademy/perseus";
+import type {QuadraticCoords} from "@khanacademy/kmath";
+import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
+import type {ReactNode} from "react";
 
 export type InteractiveGraphProps = WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
     PerseusInteractiveGraphWidgetOptions
 >;
 
+export type Dispatch = (action: InteractiveGraphAction) => unknown;
+
 export type MafsGraphProps<T extends InteractiveGraphState> = {
     graphState: T;
-    dispatch: (action: InteractiveGraphAction) => unknown;
+    dispatch: Dispatch;
+};
+
+// InteractiveGraphElementSuite contains parts of the graph UI which need to
+// end up in different sections of the DOM.
+export type InteractiveGraphElementSuite = {
+    graph: ReactNode;
+    interactiveElementsDescription: ReactNode;
+    // TODO(benchristel): add actionBar controls here
 };
 
 export type InteractiveGraphState =
@@ -20,11 +32,14 @@ export type InteractiveGraphState =
     | LinearSystemGraphState
     | LinearGraphState
     | RayGraphState
+    | NoneGraphState
     | PolygonGraphState
     | PointGraphState
     | CircleGraphState
     | QuadraticGraphState
     | SinusoidGraphState;
+
+export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
@@ -49,9 +64,20 @@ export interface LinearSystemGraphState extends InteractiveGraphStateCommon {
     coords: PairOfPoints[];
 }
 
+export type InteractionMode = "mouse" | "keyboard";
+
+export interface NoneGraphState extends InteractiveGraphStateCommon {
+    type: "none";
+}
+
 export interface PointGraphState extends InteractiveGraphStateCommon {
     type: "point";
     coords: Coord[];
+    numPoints?: number | "unlimited";
+    focusedPointIndex: number | null;
+    showRemovePointButton: boolean;
+    interactionMode: InteractionMode;
+    showKeyboardInteractionInvitation: boolean;
 }
 
 export interface RayGraphState extends InteractiveGraphStateCommon {
@@ -65,6 +91,12 @@ export interface PolygonGraphState extends InteractiveGraphStateCommon {
     showSides: boolean;
     snapTo: "grid" | "angles" | "sides";
     coords: Coord[];
+    numSides?: number | "unlimited";
+    focusedPointIndex: number | null;
+    showRemovePointButton: boolean;
+    interactionMode: InteractionMode;
+    showKeyboardInteractionInvitation: boolean;
+    closedPolygon: boolean;
 }
 
 export interface CircleGraphState extends InteractiveGraphStateCommon {
@@ -75,7 +107,7 @@ export interface CircleGraphState extends InteractiveGraphStateCommon {
 
 export interface QuadraticGraphState extends InteractiveGraphStateCommon {
     type: "quadratic";
-    coords: [Coord, Coord, Coord];
+    coords: QuadraticCoords;
 }
 
 export interface SinusoidGraphState extends InteractiveGraphStateCommon {
@@ -87,7 +119,7 @@ export interface AngleGraphState extends InteractiveGraphStateCommon {
     type: "angle";
     // Whether to show the angle measurements.  default: false
     showAngles?: boolean;
-    // Allow Reflex Angles if an "angle" type.  default: true
+    // Allow Reflex Angles if an "angle" type.  default: false
     allowReflexAngles?: boolean;
     // The angle offset in degrees if an "angle" type. default: 0
     angleOffsetDeg?: number;
@@ -104,3 +136,5 @@ export type GraphDimensions = {
     width: number; // pixels
     height: number; // pixels
 };
+
+export type AriaLive = "off" | "assertive" | "polite" | undefined;

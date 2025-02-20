@@ -84,6 +84,10 @@ type Props = {
     fixedPosition?: boolean;
 };
 
+/**
+ * A "heads-up display" (HUD) indicator that includes a short message (usually
+ * used for linting errors). The indicator can be disabled.
+ */
 const HUD = ({message, enabled, onClick, fixedPosition = true}: Props) => {
     let state;
     let icon;

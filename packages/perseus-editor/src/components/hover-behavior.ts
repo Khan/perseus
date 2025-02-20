@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 /**
  * Add hover behavior to another component.
  *
@@ -70,6 +69,11 @@ type Props = {
 };
 
 export default class HoverBehavior extends React.Component<Props, State> {
+    // @ts-expect-error - TS2564 - Property 'focusFlag' has no initializer and is not definitely assigned in the constructor.
+    focusFlag: boolean;
+    // @ts-expect-error - TS2564 - Property 'waitingForClick' has no initializer and is not definitely assigned in the constructor.
+    waitingForClick: boolean;
+
     static defaultProps: {
         shouldUpdate: () => boolean;
         startHovered: boolean;
@@ -86,11 +90,6 @@ export default class HoverBehavior extends React.Component<Props, State> {
             hovered: props.startHovered,
         };
     }
-
-    // @ts-expect-error - TS2564 - Property 'focusFlag' has no initializer and is not definitely assigned in the constructor.
-    focusFlag: boolean;
-    // @ts-expect-error - TS2564 - Property 'waitingForClick' has no initializer and is not definitely assigned in the constructor.
-    waitingForClick: boolean;
 
     handleClick: (e: React.MouseEvent) => void = (e: React.MouseEvent) => {
         if (!this.props.disabled) {

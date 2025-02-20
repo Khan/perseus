@@ -7,22 +7,22 @@
  * the dropdown component.
  */
 
-import {globalConstants, globalStyles} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import Option, {OptionGroup} from "../../components/dropdown-option";
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
+import {gray17, gray85, gray98} from "../../styles/global-colors";
 
-import type {MarkerType} from "@khanacademy/perseus";
+import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
-const {colors, borderRadius} = globalStyles;
-
-type Props = MarkerType & {
+type Props = PerseusLabelImageWidgetOptions["markers"][number] & {
     // The list of possible answer choices.
-    choices: ReadonlyArray<string>;
+    choices: PerseusLabelImageWidgetOptions["choices"];
     // Callback for when any of the marker props are changed.
-    onChange: (marker: MarkerType) => void;
+    onChange: (
+        marker: PerseusLabelImageWidgetOptions["markers"][number],
+    ) => void;
     // Callback to remove marker from the question image.
     onRemove: () => void;
 };
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
             left: -16,
             bottom: 8,
 
-            borderRight: `solid 16px ${colors.gray98}`,
+            borderRight: `solid 16px ${gray98}`,
             borderTop: "solid 16px transparent",
             borderBottom: "solid 16px transparent",
         },
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
         height: 0,
         margin: 0,
 
-        border: `solid ${colors.gray85}`,
+        border: `solid ${gray85}`,
         borderWidth: "0 0 1px",
 
         boxShadow: "none",
@@ -280,10 +280,10 @@ const styles = StyleSheet.create({
     dropdownBody: {
         position: "absolute",
         border: "solid 1px rgba(0, 0, 0, 0.1)",
-        zIndex: globalConstants.zindexDropdown,
-        color: colors.gray17,
-        backgroundColor: colors.gray98,
-        borderRadius: borderRadius,
+        zIndex: 1000,
+        color: gray17,
+        backgroundColor: gray98,
+        borderRadius: 4,
         maxHeight: 320,
         cursor: "pointer",
     },

@@ -3,15 +3,15 @@
  * label image with answers from list of choices.
  */
 
-import {Util, Dependencies, globalStyles} from "@khanacademy/perseus";
+import {Util, Dependencies, bodyXsmallBold} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
+import {gray17, gray68} from "../../styles/global-colors";
+
 import Marker from "./marker";
 
-import type {MarkerType} from "@khanacademy/perseus";
-
-const {colors, typography} = globalStyles;
+import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = {
     // The list of possible answers in a specific order.
@@ -21,9 +21,9 @@ type Props = {
     imageWidth: number;
     imageHeight: number;
     // The list of markers placed on the question image.
-    markers: ReadonlyArray<MarkerType>;
+    markers: PerseusLabelImageWidgetOptions["markers"];
     // Callback for when any of markers change.
-    onChange: (markers: ReadonlyArray<MarkerType>) => void;
+    onChange: (markers: PerseusLabelImageWidgetOptions["markers"]) => void;
 };
 
 export default class QuestionMarkers extends React.Component<Props> {
@@ -103,6 +103,7 @@ export default class QuestionMarkers extends React.Component<Props> {
                             maxHeight: imageHeight,
                         }}
                     >
+                        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error */}
                         <img
                             alt=""
                             className={css(styles.image)}
@@ -142,19 +143,22 @@ export default class QuestionMarkers extends React.Component<Props> {
 
 const styles = StyleSheet.create({
     title: {
-        ...typography.bodyXsmallBold,
+        ...bodyXsmallBold,
 
         marginBottom: 6,
 
-        color: colors.gray17,
+        color: gray17,
     },
 
     subtitle: {
-        ...typography.labelSmall,
+        // TODO: can we use WB typography?
+        fontFamily: "inherit",
+        fontSize: 12,
+        lineHeight: "14px",
 
         marginBottom: 12,
 
-        color: colors.gray68,
+        color: gray68,
     },
 
     markersCanvas: {

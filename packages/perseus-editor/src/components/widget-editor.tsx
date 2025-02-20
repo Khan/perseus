@@ -1,20 +1,31 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     components,
-    icons,
     Widgets,
     WIDGET_PROP_DENYLIST,
+    iconChevronDown,
+    iconTrash,
 } from "@khanacademy/perseus";
+import {
+    CoreWidgetRegistry,
+    upgradeWidgetInfoToLatestVersion,
+} from "@khanacademy/perseus-core";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import Switch from "@khanacademy/wonder-blocks-switch";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
+import {useId} from "react";
 import _ from "underscore";
+
+import {iconChevronRight} from "../styles/icon-paths";
 
 import SectionControlButton from "./section-control-button";
 
 import type Editor from "../editor";
-import type {APIOptions, Alignment, PerseusWidget} from "@khanacademy/perseus";
+import type {APIOptions} from "@khanacademy/perseus";
+import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
 const {InlineIcon} = components;
-const {iconChevronDown, iconChevronRight, iconTrash} = icons;
 
 type WidgetEditorProps = {
     // Unserialized props
@@ -26,6 +37,7 @@ type WidgetEditorProps = {
     ) => unknown;
     onRemove: () => unknown;
     apiOptions: APIOptions;
+    widgetIsOpen?: boolean;
 } & Omit<PerseusWidget, "key">;
 
 type WidgetEditorState = {
@@ -37,8 +49,7 @@ const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = _.omit(props, WIDGET_PROP_DENYLIST);
-    // @ts-expect-error TS(2345) Type '"categorizer" | undefined' is not assignable to type '"deprecated-standin"'.
-    return Widgets.upgradeWidgetInfoToLatestVersion(filteredProps);
+    return upgradeWidgetInfoToLatestVersion(filteredProps as any);
 };
 
 // This component handles upgading widget editor props via prop
@@ -55,7 +66,7 @@ class WidgetEditor extends React.Component<
     constructor(props: WidgetEditorProps) {
         super(props);
         this.state = {
-            showWidget: false,
+            showWidget: props.widgetIsOpen ?? true,
             widgetInfo: _upgradeWidgetInfo(props),
         };
         this.widget = React.createRef();
@@ -64,6 +75,13 @@ class WidgetEditor extends React.Component<
     // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(nextProps: WidgetEditorProps) {
         this.setState({widgetInfo: _upgradeWidgetInfo(nextProps)});
+        // user can update internal state while the widget is handled globally
+        if (
+            nextProps.widgetIsOpen != null &&
+            nextProps.widgetIsOpen !== this.props.widgetIsOpen
+        ) {
+            this.setState({showWidget: nextProps.widgetIsOpen});
+        }
     }
 
     _toggleWidget = (e: React.SyntheticEvent) => {
@@ -91,11 +109,11 @@ class WidgetEditor extends React.Component<
         this.props.onChange(newWidgetInfo, cb, silent);
     };
 
-    _toggleStatic = (e: Event) => {
-        e.preventDefault();
-        const newWidgetInfo = Object.assign({}, this.state.widgetInfo, {
-            static: !this.state.widgetInfo.static,
-        }) as PerseusWidget;
+    _setStatic = (value: boolean) => {
+        const newWidgetInfo = {
+            ...this.state.widgetInfo,
+            static: value,
+        } as PerseusWidget;
         this.props.onChange(newWidgetInfo);
     };
 
@@ -137,7 +155,7 @@ class WidgetEditor extends React.Component<
         const Ed = Widgets.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;
         if (this.props.apiOptions.showAlignmentOptions) {
-            supportedAlignments = Widgets.getSupportedAlignments(
+            supportedAlignments = CoreWidgetRegistry.getSupportedAlignments(
                 widgetInfo.type,
             );
         } else {
@@ -170,16 +188,10 @@ class WidgetEditor extends React.Component<
                     </a>
 
                     {supportsStaticMode && (
-                        <input
-                            type="button"
-                            // @ts-expect-error - TS2322 - Type '(e: Event) => void' is not assignable to type 'MouseEventHandler<HTMLInputElement>'.
-                            onClick={this._toggleStatic}
-                            className="simple-button--small"
-                            value={
-                                widgetInfo.static
-                                    ? "Unset as static"
-                                    : "Set as static"
-                            }
+                        <LabeledSwitch
+                            label="Static"
+                            checked={!!widgetInfo.static}
+                            onChange={this._setStatic}
                         />
                     )}
                     {supportedAlignments.length > 1 && (
@@ -220,6 +232,22 @@ class WidgetEditor extends React.Component<
             </div>
         );
     }
+}
+
+function LabeledSwitch(props: {
+    label: string;
+    checked: boolean;
+    onChange: (value: boolean) => unknown;
+}) {
+    const {label, ...switchProps} = props;
+    const id = useId();
+    return (
+        <>
+            <label htmlFor={id}>{label}</label>
+            <Strut size={spacing.xxSmall_6} />
+            <Switch id={id} {...switchProps} />
+        </>
+    );
 }
 
 export default WidgetEditor;

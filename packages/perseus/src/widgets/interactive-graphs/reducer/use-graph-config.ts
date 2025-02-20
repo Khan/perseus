@@ -1,5 +1,6 @@
 import React, {createContext} from "react";
 
+import type {MarkingsType} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 
 export type GraphConfig = {
@@ -7,13 +8,11 @@ export type GraphConfig = {
     tickStep: vec.Vector2;
     gridStep: vec.Vector2;
     snapStep: vec.Vector2;
-    markings: "graph" | "grid" | "none";
+    markings: MarkingsType;
     showTooltips: boolean;
-    // TODO(benchristel): it seems like graphDimensionsInPixels duplicates
-    // width and height. Can we remove one or the other?
     graphDimensionsInPixels: vec.Vector2;
-    width: number; // pixels
-    height: number; // pixels
+    width: number; // in graph units
+    height: number; // in graph units
     labels: readonly string[];
     disableKeyboardInteraction?: boolean;
 };

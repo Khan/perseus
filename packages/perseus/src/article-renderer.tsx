@@ -14,25 +14,26 @@ import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import Util from "./util";
 
-import type {PerseusRenderer} from "./perseus-types";
-import type {APIOptions, PerseusDependenciesV2} from "./types";
+import type {PerseusDependenciesV2, SharedRendererProps} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
-import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {
+    PerseusArticle,
+    PerseusRenderer,
+    KeypadContextRendererInterface,
+} from "@khanacademy/perseus-core";
 
-type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
-    apiOptions: APIOptions;
-    json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
-    // Whether to use the new Bibliotron styles for articles
-    /**
-     * @deprecated Does nothing
-     */
-    useNewStyles: boolean;
-    linterContext: LinterContextProps;
-    legacyPerseusLint?: ReadonlyArray<string>;
-    keypadElement?: KeypadAPI | null | undefined;
-    dependencies: PerseusDependenciesV2;
-};
+type Props = Partial<React.ContextType<typeof DependenciesContext>> &
+    SharedRendererProps & {
+        json: PerseusArticle;
+        // Whether to use the new Bibliotron styles for articles
+        /**
+         * @deprecated Does nothing
+         */
+        useNewStyles: boolean;
+        legacyPerseusLint?: ReadonlyArray<string>;
+        keypadElement?: KeypadAPI | null | undefined;
+        dependencies: PerseusDependenciesV2;
+    };
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];

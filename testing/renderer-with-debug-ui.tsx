@@ -9,12 +9,14 @@ import deviceMobile from "@phosphor-icons/core/regular/device-mobile.svg";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
+import {scorePerseusItem} from "@khanacademy/perseus-score";
+
 import {Renderer, usePerseusI18n} from "../packages/perseus/src/index";
 import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
 
 import SideBySide from "./side-by-side";
 
-import type {PerseusRenderer} from "../packages/perseus/src/perseus-types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {ComponentProps} from "react";
 
 type Props = {
@@ -80,7 +82,13 @@ export const RendererWithDebugUI = ({
                                 if (!ref.current) {
                                     return;
                                 }
-                                setState(ref.current.guessAndScore());
+                                const guess = ref.current.getUserInputMap();
+                                const score = scorePerseusItem(
+                                    question,
+                                    ref.current.getUserInputMap(),
+                                    "en",
+                                );
+                                setState([guess, score]);
                             }}
                         >
                             Check

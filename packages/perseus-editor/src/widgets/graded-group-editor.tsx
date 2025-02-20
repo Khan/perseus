@@ -1,15 +1,23 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types, react/sort-comp */
-import {components, icons, ApiOptions, Changeable} from "@khanacademy/perseus";
+/* eslint-disable react/forbid-prop-types */
+import {
+    components,
+    ApiOptions,
+    Changeable,
+    iconTrash,
+} from "@khanacademy/perseus";
+import {gradedGroupLogic} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../editor";
+import {iconPlus} from "../styles/icon-paths";
+
+import type {GradedGroupDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {InlineIcon, TextInput} = components;
-const {iconPlus, iconTrash} = icons;
 
 type Props = any;
 
@@ -25,13 +33,8 @@ class GradedGroupEditor extends React.Component<Props> {
 
     static widgetName = "graded-group" as const;
 
-    static defaultProps: Props = {
-        title: "",
-        content: "",
-        widgets: {},
-        images: {},
-        hint: null,
-    };
+    static defaultProps: GradedGroupDefaultWidgetOptions =
+        gradedGroupLogic.defaultWidgetOptions;
 
     editor = React.createRef<Editor>();
     hintEditor = React.createRef<Editor>();
@@ -49,6 +52,21 @@ class GradedGroupEditor extends React.Component<Props> {
 
     handleRemoveHint: (arg1: React.MouseEvent) => void = (e) => {
         this.props.onChange({hint: null});
+    };
+
+    getSaveWarnings: () => any = () => {
+        return this.editor.current?.getSaveWarnings();
+    };
+
+    serialize: () => {
+        title: string;
+        hint: any | null | undefined;
+    } = () => {
+        return {
+            title: this.props.title,
+            ...this.editor.current?.serialize(),
+            hint: this.hintEditor.current?.serialize(),
+        };
     };
 
     render(): React.ReactNode {
@@ -124,21 +142,6 @@ class GradedGroupEditor extends React.Component<Props> {
             </div>
         );
     }
-
-    getSaveWarnings: () => any = () => {
-        return this.editor.current?.getSaveWarnings();
-    };
-
-    serialize: () => {
-        title: string;
-        hint: any | null | undefined;
-    } = () => {
-        return {
-            title: this.props.title,
-            ...this.editor.current?.serialize(),
-            hint: this.hintEditor.current?.serialize(),
-        };
-    };
 }
 
 const styles = StyleSheet.create({

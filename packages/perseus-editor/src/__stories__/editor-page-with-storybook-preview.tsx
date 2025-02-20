@@ -1,11 +1,9 @@
+import {Renderer, type APIOptions, type DeviceType} from "@khanacademy/perseus";
 import {
-    Renderer,
-    type APIOptions,
-    type DeviceType,
     type Hint,
     type PerseusAnswerArea,
     type PerseusRenderer,
-} from "@khanacademy/perseus";
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
@@ -20,8 +18,6 @@ import * as React from "react";
 // eslint-disable-next-line import/no-relative-packages
 import {mockStrings} from "../../../perseus/src/strings";
 import EditorPage from "../editor-page";
-
-import {flags} from "./flags-for-api-options";
 
 type Props = {
     apiOptions?: APIOptions;
@@ -49,7 +45,6 @@ function EditorPageWithStorybookPreview(props: Props) {
 
     const apiOptions = props.apiOptions ?? {
         isMobile: false,
-        flags,
     };
 
     return (
@@ -123,7 +118,6 @@ function EditorPageWithStorybookPreview(props: Props) {
                             <Renderer
                                 strings={mockStrings}
                                 apiOptions={apiOptions}
-                                hintMode={true}
                                 {...hint}
                             />
                         </View>
@@ -138,6 +132,7 @@ const styles = StyleSheet.create({
     panel: {
         position: "fixed",
         right: 0,
+        minWidth: 500,
         height: "90vh",
         overflow: "auto",
         flex: "none",

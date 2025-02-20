@@ -6,7 +6,11 @@ import {
     Util,
     Widgets,
 } from "@khanacademy/perseus";
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {
+    CoreWidgetRegistry,
+    Errors,
+    PerseusError,
+} from "@khanacademy/perseus-core";
 import $ from "jquery";
 // eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import katex from "katex";
@@ -24,13 +28,10 @@ import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
 
-import type {
-    ChangeHandler,
-    ImageUploader,
-    PerseusWidget,
-} from "@khanacademy/perseus";
+import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
+import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
-// like [[snowman input-number 1]]
+// like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
 const widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
 const rWidgetSplit = new RegExp(
@@ -116,9 +117,7 @@ type Props = Readonly<{
     content: string;
     replace?: any;
     placeholder: string;
-    widgets: {
-        [name: string]: PerseusWidget;
-    };
+    widgets: PerseusWidgetsMap;
     images: any;
     disabled: boolean;
     widgetEnabled: boolean;
@@ -126,6 +125,7 @@ type Props = Readonly<{
     showWordCount: boolean;
     warnNoPrompt: boolean;
     warnNoWidgets: boolean;
+    widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
     onChange: ChangeHandler;
 }>;
@@ -254,6 +254,11 @@ class Editor extends React.Component<Props, State> {
         }
         return (
             <WidgetEditor
+                // The order of props matters here. We need to spread the
+                // widget data before specifying the `key` prop, to ensure the
+                // key overrides any `key` field on the widget (which might not
+                // be unique.
+                {...this.props.widgets[id]}
                 ref={id}
                 id={id}
                 key={id}
@@ -262,7 +267,7 @@ class Editor extends React.Component<Props, State> {
                 // eslint-disable-next-line react/jsx-no-bind
                 onRemove={this._handleWidgetEditorRemove.bind(this, id)}
                 apiOptions={this.props.apiOptions}
-                {...this.props.widgets[id]}
+                widgetIsOpen={this.props.widgetIsOpen}
             />
         );
     }
@@ -456,7 +461,7 @@ class Editor extends React.Component<Props, State> {
             if (matches != null) {
                 const text = matches[1];
                 const widgets = Widgets.getAllWidgetTypes();
-                const matchingWidgets = _.filter(widgets, (name) => {
+                const matchingWidgets = widgets.filter((name) => {
                     return name.substring(0, text.length) === text;
                 });
 
@@ -633,6 +638,7 @@ class Editor extends React.Component<Props, State> {
         return safeWidgetMapping;
     };
 
+    // @ts-expect-error: Types of parameter 'widgetType' and 'widgetType' are incompatible. Type 'string' is not assignable to type '"cs-program" | "iframe" | "table" | "video" | "image" | "deprecated-standin" | "categorizer" | "definition" | "dropdown" | "explanation" | "expression" | "graded-group" | "graded-group-set" | ... 20 more ... | "radio"'.
     _addWidgetToContent: (
         oldContent: string,
         cursorRange: ReadonlyArray<number>,
@@ -640,7 +646,7 @@ class Editor extends React.Component<Props, State> {
     ) => void = (
         oldContent: string,
         cursorRange: ReadonlyArray<number>,
-        widgetType: string,
+        widgetType: PerseusWidget["type"],
     ) => {
         // Note: we have to use _.map here instead of Array::map
         // because the results of a .match might be null if no
@@ -671,7 +677,8 @@ class Editor extends React.Component<Props, State> {
         const widgetContent = widgetPlaceholder.replace("{id}", id);
 
         // Add newlines before block-display widgets like graphs
-        const isBlock = Widgets.getDefaultAlignment(widgetType) === "block";
+        const isBlock =
+            CoreWidgetRegistry.getDefaultAlignment(widgetType) === "block";
 
         const prelude = oldContent.slice(0, cursorRange[0]);
         const postlude = oldContent.slice(cursorRange[1]);
@@ -685,11 +692,10 @@ class Editor extends React.Component<Props, State> {
 
         const newContent = newPrelude + widgetContent + newPostlude;
 
-        const newWidgets = _.clone(this.props.widgets);
-        // @ts-expect-error TS(2345) Type '"categorizer" | undefined' is not assignable to type '"deprecated-standin"'.
+        const newWidgets = {...this.props.widgets};
         newWidgets[id] = {
             options: Widgets.getEditor(widgetType)?.defaultProps,
-            type: widgetType as PerseusWidget["type"],
+            type: widgetType,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
             // pre-versioning creation time.

@@ -34,6 +34,7 @@ class InteractionTracker<T> {
             this.widgetType = widgetType;
             this.widgetID = widgetID;
             this.setting = setting;
+            // @ts-expect-error: Type 'T | undefined' is not assignable to type 'T'.
             this.track = this._track;
         }
     }

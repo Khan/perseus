@@ -2,14 +2,14 @@
  * Controlled list of answer choices, handles adding and removing answers.
  */
 
-import {components, globalStyles} from "@khanacademy/perseus";
+import {components, bodyXsmallBold} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
 import Link from "../../components/link";
+import {gray17} from "../../styles/global-colors";
 
-const {colors, typography} = globalStyles;
 const {Icon} = components;
 
 type AddAnswerProps = {
@@ -80,7 +80,7 @@ const DraggableGripIcon = () => (
 
         <path
             d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-            fill={colors.gray17}
+            fill={gray17}
             filter="url(#draggable-grip-shadow)"
         />
     </svg>
@@ -90,6 +90,7 @@ const DraggableGripIcon = () => (
  * A button link to add a new answer.
  */
 const AddAnswer = ({onClick}: AddAnswerProps): React.ReactElement => (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid -- TODO(LEMS-2871): Address a11y error
     <Link
         className={css(styles.addAnswer, editorStyles.addAnswer)}
         onClick={onClick}
@@ -111,6 +112,7 @@ const Answer = ({
     onRemove,
 }: AnswerProps): React.ReactElement => (
     <li className={css(styles.answer)}>
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid -- TODO(LEMS-2871): Address a11y error, TODO(LEMS-2871): Address a11y error */}
         <Link onClick={onRemove}>
             <Icon icon={removeIcon} size={24} color="#D92916" />
         </Link>
@@ -125,6 +127,7 @@ const Answer = ({
 
         <div className={css(styles.spacer)} />
 
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid -- TODO(LEMS-2871): Address a11y error */}
         <Link
             style={[styles.disabled]}
             title="Answer reordering is not implemented."
@@ -179,11 +182,11 @@ const AnswerChoices = ({
 
 const styles = StyleSheet.create({
     title: {
-        ...typography.bodyXsmallBold,
+        ...bodyXsmallBold,
 
         marginBottom: 6,
 
-        color: colors.gray17,
+        color: gray17,
     },
 
     answers: {
@@ -202,7 +205,7 @@ const styles = StyleSheet.create({
     },
 
     addAnswer: {
-        ...typography.bodyXsmallBold,
+        ...bodyXsmallBold,
 
         display: "flex",
         flexDirection: "row",

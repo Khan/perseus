@@ -2,25 +2,43 @@ import {color} from "@khanacademy/wonder-blocks-tokens";
 import {Plot} from "mafs";
 import * as React from "react";
 
-import {X, Y} from "../math";
+import {
+    usePerseusI18n,
+    type I18nContextType,
+} from "../../../components/i18n-context";
+import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {MovablePoint} from "./components/movable-point";
+import {srFormatNumber} from "./screenreader-text";
 
-import type {Coord} from "../../../interactive2/types";
-import type {SinusoidGraphState, MafsGraphProps} from "../types";
+import type {
+    SinusoidGraphState,
+    MafsGraphProps,
+    Dispatch,
+    InteractiveGraphElementSuite,
+} from "../types";
+import type {NamedSineCoefficient} from "@khanacademy/kmath";
+import type {Coord} from "@khanacademy/perseus-core";
+
+export function renderSinusoidGraph(
+    state: SinusoidGraphState,
+    dispatch: Dispatch,
+    i18n: I18nContextType,
+): InteractiveGraphElementSuite {
+    return {
+        graph: <SinusoidGraph graphState={state} dispatch={dispatch} />,
+        interactiveElementsDescription: getSinusoidDescription(state, i18n),
+    };
+}
 
 type SinusoidGraphProps = MafsGraphProps<SinusoidGraphState>;
 
-export type SineCoefficient = {
-    amplitude: number;
-    angularFrequency: number;
-    phase: number;
-    verticalOffset: number;
-};
-
-export function SinusoidGraph(props: SinusoidGraphProps) {
+function SinusoidGraph(props: SinusoidGraphProps) {
     const {dispatch, graphState} = props;
+    const i18n = usePerseusI18n();
+    const id = React.useId();
+    const descriptionId = id + "-description";
 
     // Destructure the coordinates from the graph state
     // Note: The order of the coordinates is important:
@@ -31,7 +49,7 @@ export function SinusoidGraph(props: SinusoidGraphProps) {
     // to content creators the currently selected "correct answer" in the Content Editor.
     // While we should technically never have invalid coordinates, we want to ensure that
     // we have a fallback so that the graph can still be plotted without crashing.
-    const coeffRef = React.useRef<SineCoefficient>({
+    const coeffRef = React.useRef<NamedSineCoefficient>({
         amplitude: 1,
         angularFrequency: 1,
         phase: 1,
@@ -44,29 +62,46 @@ export function SinusoidGraph(props: SinusoidGraphProps) {
         coeffRef.current = coeffs;
     }
 
+    // Aria strings
+    const {
+        srSinusoidGraph,
+        srSinusoidDescription,
+        srSinusoidRootPoint,
+        srSinusoidPeakPoint,
+    } = describeSinusoidGraph(graphState, i18n);
+
     return (
-        <>
+        <g
+            // Outer graph minimal description
+            aria-label={srSinusoidGraph}
+            aria-describedby={descriptionId}
+        >
             <Plot.OfX
                 y={(x) => computeSine(x, coeffRef.current)}
                 color={color.blue}
             />
             {coords.map((coord, i) => (
                 <MovablePoint
+                    ariaLabel={
+                        i === 0 ? srSinusoidRootPoint : srSinusoidPeakPoint
+                    }
                     key={"point-" + i}
                     point={coord}
+                    sequenceNumber={i + 1}
                     onMove={(destination) =>
                         dispatch(actions.sinusoid.movePoint(i, destination))
                     }
                 />
             ))}
-        </>
+            <g id={descriptionId}>{srSinusoidDescription}</g>
+        </g>
     );
 }
 
 // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
 export const computeSine = function (
     x: number, // x-coordinate
-    sinusoidCoefficients: SineCoefficient,
+    sinusoidCoefficients: NamedSineCoefficient,
 ) {
     // Break down the coefficients for the sine function to improve readability
     const {
@@ -81,7 +116,7 @@ export const computeSine = function (
 
 export const getSinusoidCoefficients = (
     coords: ReadonlyArray<Coord>,
-): SineCoefficient | undefined => {
+): NamedSineCoefficient | undefined => {
     // It's assumed that p1 is the root and p2 is the first peak
     const p1 = coords[0];
     const p2 = coords[1];
@@ -99,3 +134,55 @@ export const getSinusoidCoefficients = (
 
     return {amplitude, angularFrequency, phase, verticalOffset};
 };
+
+function getSinusoidDescription(
+    state: SinusoidGraphState,
+    i18n: I18nContextType,
+): string {
+    const strings = describeSinusoidGraph(state, i18n);
+    return strings.srSinusoidInteractiveElements;
+}
+
+function describeSinusoidGraph(
+    state: SinusoidGraphState,
+    i18n: I18nContextType,
+): Record<string, string> {
+    const {strings, locale} = i18n;
+    const {coords} = state;
+    const [root, peak] = coords;
+
+    const diffX = Math.abs(peak[X] - root[X]);
+    const diffY = Math.abs(peak[Y] - root[Y]);
+
+    const srSinusoidGraph = strings.srSinusoidGraph;
+    const srSinusoidDescription = strings.srSinusoidDescription({
+        minValue: srFormatNumber(root[Y] - diffY, locale),
+        maxValue: srFormatNumber(root[Y] + diffY, locale),
+        cycleStart: srFormatNumber(root[X] - 2 * diffX, locale),
+        cycleEnd: srFormatNumber(root[X] + 2 * diffX, locale),
+    });
+    const srSinusoidRootPoint = strings.srSinusoidRootPoint({
+        x: srFormatNumber(root[X], locale),
+        y: srFormatNumber(root[Y], locale),
+    });
+    const srSinusoidPeakPoint = strings.srSinusoidPeakPoint({
+        x: srFormatNumber(peak[X], locale),
+        y: srFormatNumber(peak[Y], locale),
+    });
+    const srSinusoidInteractiveElements = strings.srInteractiveElements({
+        elements: strings.srSinusoidInteractiveElements({
+            point1X: srFormatNumber(root[X], locale),
+            point1Y: srFormatNumber(root[Y], locale),
+            point2X: srFormatNumber(peak[X], locale),
+            point2Y: srFormatNumber(peak[Y], locale),
+        }),
+    });
+
+    return {
+        srSinusoidGraph,
+        srSinusoidDescription,
+        srSinusoidRootPoint,
+        srSinusoidPeakPoint,
+        srSinusoidInteractiveElements,
+    };
+}

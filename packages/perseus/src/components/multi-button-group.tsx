@@ -1,25 +1,40 @@
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 type Props = {
-    // the initial values of the buttons selected, defaults to null (no
-    // selection).
+    /**
+     * The initial values of the buttons selected, defaults to null (no
+     * selection).
+     */
     values: ReadonlyArray<any> | null | undefined;
+    /**
+     * The set of buttons to display in this MultiButtonGroup.
+     */
     buttons: ReadonlyArray<{
-        // the value returned when the button is selected
+        /**
+         * the value returned when the button is selected
+         */
         value: any;
-        // the content shown within the button, typically a string that gets
-        // rendered as the button's display text
+        /**
+         * The content shown within the button, typically a string that gets
+         * rendered as the button's display text.
+         */
         content: React.ReactNode;
-        // the title-text shown on hover
+        /**
+         * The title-text shown on hover
+         */
         title?: string;
     }>;
-    // a function that is provided with the updated set of selected value
-    // (which it then is responsible for updating)
+    /**
+     * A function that is provided with the updated set of selected value
+     * (which it then is responsible for updating)
+     */
     onChange: (values?: any) => unknown;
-    // if false, at least one button must be selected at all times.
-    // defaults to true
+    /**
+     * If false, at least one button must be selected at all times.
+     *
+     * Defaults to `true`
+     */
     allowEmpty?: boolean;
 };
 
@@ -36,14 +51,15 @@ type DefaultProps = {
  * this component allows multiple selection!
  */
 class MultiButtonGroup extends React.Component<Props> {
+    buttonContainerRef = React.createRef<HTMLDivElement>();
+
     static defaultProps: DefaultProps = {
         values: [],
         allowEmpty: true,
     };
 
     focus(): boolean {
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this)?.focus();
+        this.buttonContainerRef.current?.focus();
         return true;
     }
 
@@ -92,7 +108,11 @@ class MultiButtonGroup extends React.Component<Props> {
         const outerStyle = {
             display: "inline-block",
         } as const;
-        return <div style={outerStyle}>{buttons}</div>;
+        return (
+            <div style={outerStyle} ref={this.buttonContainerRef}>
+                {buttons}
+            </div>
+        );
     }
 }
 

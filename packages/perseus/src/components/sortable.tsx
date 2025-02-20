@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
+/* eslint-disable @babel/no-invalid-this, react/no-unsafe */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
@@ -9,7 +9,6 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
-import {ClassNames as ApiClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import Util from "../util";
 
@@ -18,10 +17,7 @@ import {PerseusI18nContext} from "./i18n-context";
 import type {Position} from "../util";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-export enum Layout {
-    HORIZONTAL = "horizontal",
-    VERTICAL = "vertical",
-}
+type Layout = "horizontal" | "vertical";
 
 enum ItemState {
     STATIC = "static",
@@ -59,7 +55,7 @@ class Placeholder extends React.Component<PlaceholderProps> {
         const className = css(
             styles.card,
             styles.placeholder,
-            layout === Layout.HORIZONTAL && styles.horizontalCard,
+            layout === "horizontal" && styles.horizontalCard,
         );
         const style: any = {
             width: this.props.width,
@@ -157,103 +153,6 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
         );
     }
 
-    componentWillUnmount() {
-        this._mounted = false;
-        // Event handlers should be unbound before component unmounting, but
-        // just in case...
-        if (this.isMouseMoveUpBound) {
-            this.unbindMouseMoveUp();
-        }
-
-        if (this.animationFrameRequest) {
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-            // eslint-disable-next-line no-restricted-syntax
-            cancelAnimationFrame(this.animationFrameRequest);
-        }
-
-        document.removeEventListener("touchmove", this.onMouseMove);
-    }
-
-    getCurrentPosition = () => {
-        return {
-            left:
-                this.state.startPosition.left +
-                this.state.mouse.left -
-                this.state.startMouse.left,
-            top:
-                this.state.startPosition.top +
-                this.state.mouse.top -
-                this.state.startMouse.top,
-        };
-    };
-
-    render(): React.ReactNode {
-        const {includePadding, layout, state: type} = this.props;
-
-        // We need to keep backwards compatbility with rules specified directly
-        // in CSS. Hence the hacky tacking on of manual classNames.
-        // See sortable.less for details.
-        let className =
-            css(
-                styles.card,
-                styles.draggable,
-                layout === Layout.HORIZONTAL && styles.horizontalCard,
-                layout === Layout.VERTICAL && styles.verticalCard,
-                type === ItemState.DRAGGING && styles.dragging,
-                type === ItemState.DISABLED && styles.disabled,
-                !includePadding && styles.unpaddedCard,
-            ) +
-            " " +
-            ApiClassNames.INTERACTIVE +
-            " perseus-sortable-draggable";
-
-        if (!includePadding) {
-            className += " perseus-sortable-draggable-unpadded";
-        }
-
-        const style: any = {
-            position: "static",
-        };
-
-        if (
-            this.props.state === ItemState.DRAGGING ||
-            this.props.state === ItemState.ANIMATING
-        ) {
-            _.extend(style, {position: "absolute"}, this.getCurrentPosition());
-        }
-
-        if (this.props.width) {
-            style.width = this.props.width + 1; // Fix for non-integer widths
-        }
-        if (this.props.height) {
-            style.height = this.props.height;
-        }
-        if (this.props.margin != null) {
-            style.margin = this.props.margin;
-        }
-        return (
-            <li
-                className={className}
-                style={style}
-                onMouseDown={this.onMouseDown}
-                onTouchStart={this.onMouseDown}
-                onTouchMove={this.onMouseMove}
-                onTouchEnd={this.onMouseUp}
-                onTouchCancel={this.onMouseUp}
-            >
-                <Renderer
-                    content={this.props.content}
-                    linterContext={PerseusLinter.pushContextStack(
-                        this.props.linterContext,
-                        "draggable",
-                    )}
-                    onRender={this.props.onRender}
-                    strings={this.context.strings}
-                />
-            </li>
-        );
-    }
-
     componentDidUpdate(prevProps: DraggableProps) {
         if (this.props.state === prevProps.state) {
             return;
@@ -292,6 +191,36 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             $(ReactDOM.findDOMNode(this)).finish();
         }
     }
+
+    componentWillUnmount() {
+        this._mounted = false;
+        // Event handlers should be unbound before component unmounting, but
+        // just in case...
+        if (this.isMouseMoveUpBound) {
+            this.unbindMouseMoveUp();
+        }
+
+        if (this.animationFrameRequest) {
+            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+            // eslint-disable-next-line no-restricted-syntax
+            cancelAnimationFrame(this.animationFrameRequest);
+        }
+
+        document.removeEventListener("touchmove", this.onMouseMove);
+    }
+
+    getCurrentPosition = () => {
+        return {
+            left:
+                this.state.startPosition.left +
+                this.state.mouse.left -
+                this.state.startMouse.left,
+            top:
+                this.state.startPosition.top +
+                this.state.mouse.top -
+                this.state.startMouse.top,
+        };
+    };
 
     bindMouseMoveUp = () => {
         this.isMouseMoveUpBound = true;
@@ -403,6 +332,73 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             this.props.onMouseUp();
         }
     };
+
+    render(): React.ReactNode {
+        const {includePadding, layout, state: type} = this.props;
+
+        // We need to keep backwards compatbility with rules specified directly
+        // in CSS. Hence the hacky tacking on of manual classNames.
+        // See sortable.less for details.
+        let className =
+            css(
+                styles.card,
+                styles.draggable,
+                layout === "horizontal" && styles.horizontalCard,
+                layout === "vertical" && styles.verticalCard,
+                type === ItemState.DRAGGING && styles.dragging,
+                type === ItemState.DISABLED && styles.disabled,
+                !includePadding && styles.unpaddedCard,
+            ) +
+            " " +
+            "perseus-sortable-draggable";
+
+        if (!includePadding) {
+            className += " perseus-sortable-draggable-unpadded";
+        }
+
+        const style: any = {
+            position: "static",
+        };
+
+        if (
+            this.props.state === ItemState.DRAGGING ||
+            this.props.state === ItemState.ANIMATING
+        ) {
+            _.extend(style, {position: "absolute"}, this.getCurrentPosition());
+        }
+
+        if (this.props.width) {
+            style.width = this.props.width + 1; // Fix for non-integer widths
+        }
+        if (this.props.height) {
+            style.height = this.props.height;
+        }
+        if (this.props.margin != null) {
+            style.margin = this.props.margin;
+        }
+        return (
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
+            <li
+                className={className}
+                style={style}
+                onMouseDown={this.onMouseDown}
+                onTouchStart={this.onMouseDown}
+                onTouchMove={this.onMouseMove}
+                onTouchEnd={this.onMouseUp}
+                onTouchCancel={this.onMouseUp}
+            >
+                <Renderer
+                    content={this.props.content}
+                    linterContext={PerseusLinter.pushContextStack(
+                        this.props.linterContext,
+                        "draggable",
+                    )}
+                    onRender={this.props.onRender}
+                    strings={this.context.strings}
+                />
+            </li>
+        );
+    }
 }
 
 export type SortableOption = string;
@@ -455,7 +451,7 @@ type SortableState = {
 };
 class Sortable extends React.Component<SortableProps, SortableState> {
     static defaultProps: DefaultProps = {
-        layout: Layout.HORIZONTAL,
+        layout: "horizontal",
         padding: true,
         disabled: false,
         constraints: {},
@@ -465,6 +461,43 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         linterContext: PerseusLinter.linterContextDefault,
         waitForTexRendererToLoad: true,
     };
+
+    remeasureItems: () => void = _.debounce(() => {
+        this.setState({
+            // Clear item measurements
+            items: Sortable.clearItemMeasurements(this.state.items),
+        });
+    }, 20);
+
+    static itemsFromProps(props: {
+        disabled: boolean;
+        options: ReadonlyArray<SortableOption>;
+    }): ReadonlyArray<SortableItem> {
+        const state: ItemState = props.disabled
+            ? ItemState.DISABLED
+            : ItemState.STATIC;
+        return props.options.map((option: SortableOption, i) => {
+            return {
+                option: option,
+                key: i,
+                state,
+                width: 0,
+                height: 0,
+            };
+        });
+    }
+
+    static clearItemMeasurements(
+        items: ReadonlyArray<SortableItem>,
+    ): ReadonlyArray<SortableItem> {
+        return items.map((item) => {
+            return {
+                ...item,
+                width: 0,
+                height: 0,
+            };
+        });
+    }
 
     constructor(props: SortableProps) {
         super(props);
@@ -512,36 +545,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         }
     }
 
-    static itemsFromProps(props: {
-        disabled: boolean;
-        options: ReadonlyArray<SortableOption>;
-    }): ReadonlyArray<SortableItem> {
-        const state: ItemState = props.disabled
-            ? ItemState.DISABLED
-            : ItemState.STATIC;
-        return props.options.map((option: SortableOption, i) => {
-            return {
-                option: option,
-                key: i,
-                state,
-                width: 0,
-                height: 0,
-            };
-        });
-    }
-
-    static clearItemMeasurements(
-        items: ReadonlyArray<SortableItem>,
-    ): ReadonlyArray<SortableItem> {
-        return items.map((item) => {
-            return {
-                ...item,
-                width: 0,
-                height: 0,
-            };
-        });
-    }
-
     measureItems() {
         // Measure all items and cache what their dimensions should be, taking
         // into account constraints and the current layout. This allows syncing
@@ -571,7 +574,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         if (constraints?.width) {
             // Items must be at least as wide as the specified constraint
             syncWidth = _.max(widths.concat(constraints.width));
-        } else if (layout === Layout.VERTICAL) {
+        } else if (layout === "vertical") {
             // Sync widths to get a clean column
             syncWidth = _.max(widths);
         }
@@ -580,7 +583,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         if (constraints?.height) {
             // Items must be at least as high as the specified constraint
             syncHeight = _.max(heights.concat(constraints.height));
-        } else if (layout === Layout.HORIZONTAL) {
+        } else if (layout === "horizontal") {
             // Sync widths to get a clean row
             syncHeight = _.max(heights);
         }
@@ -592,17 +595,167 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         });
 
         this.setState({items}, () => {
-            this.props.onMeasure &&
-                this.props.onMeasure({widths: widths, heights: heights});
+            this.props.onMeasure?.({widths: widths, heights: heights});
         });
     }
 
-    remeasureItems: () => void = _.debounce(() => {
-        this.setState({
-            // Clear item measurements
-            items: Sortable.clearItemMeasurements(this.state.items),
+    onMouseDown(key: SortableItem["key"]) {
+        // Static -> Dragging
+        const items = _.map(this.state.items, function (item) {
+            if (item.key === key) {
+                item.state = ItemState.DRAGGING;
+            }
+            return item;
         });
-    }, 20);
+
+        this.setState({items: items});
+    }
+
+    // This is public API and it's ok for components that use
+    // this sortable to call this.
+    // moveOptionToIndex takes an option and a desired index and
+    // will move that item to the desired index. This is useful
+    // for testing and other cases where dragging and dropping may
+    // not be available
+    moveOptionToIndex(option: SortableOption, index: number) {
+        const {items} = this.state;
+
+        if (index < 0 || index > items.length) {
+            throw new Error(`index ${index} out of bounds`);
+        }
+
+        const nextItems = _.clone(items);
+
+        const item = items.filter((item: SortableItem) => {
+            return item.option === option;
+        })[0];
+
+        if (item == null) {
+            throw new Error(`option ${option} not found`);
+        }
+
+        const currentIndex = items.findIndex((i: SortableItem) => {
+            return i.key === item.key;
+        });
+
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
+        nextItems.splice(currentIndex, 1);
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
+        nextItems.splice(index, 0, item);
+
+        this.setState({items: nextItems});
+        this.props.onChange?.({});
+    }
+
+    onMouseMove(key: SortableItem["key"]) {
+        // Dragging: Rearrange items based on draggable's position
+        // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error - TS2769 - No overload matches this call.
+        const $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
+        // @ts-expect-error - TS2769 - No overload matches this call.
+        const $sortable = $(ReactDOM.findDOMNode(this));
+        const items = _.clone(this.state.items);
+        const item = _.findWhere(this.state.items, {key: key});
+        const margin = this.props.margin || 0;
+        // @ts-expect-error - TS2345 - Argument of type 'SortableItem | undefined' is not assignable to parameter of type 'SortableItem'.
+        const currentIndex = _.indexOf(items, item);
+        let newIndex = 0;
+
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
+        items.splice(currentIndex, 1);
+
+        if (this.props.layout === "horizontal") {
+            // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+            const midWidth = $draggable.offset().left - $sortable.offset().left;
+            let sumWidth = 0;
+            let cardWidth;
+
+            _.each(items, function (item) {
+                cardWidth = item.width;
+                if (midWidth > sumWidth + cardWidth / 2) {
+                    newIndex += 1;
+                }
+                sumWidth += cardWidth + margin;
+            });
+        } else {
+            // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+            const midHeight = $draggable.offset().top - $sortable.offset().top;
+            let sumHeight = 0;
+            let cardHeight;
+
+            _.each(items, function (item) {
+                cardHeight = item.height;
+                if (midHeight > sumHeight + cardHeight / 2) {
+                    newIndex += 1;
+                }
+                sumHeight += cardHeight + margin;
+            });
+        }
+
+        if (newIndex !== currentIndex) {
+            // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
+            items.splice(newIndex, 0, item);
+            this.setState({items: items});
+        }
+    }
+
+    onMouseUp(key: SortableItem["key"]) {
+        // Dragging -> Animating
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+        // eslint-disable-next-line no-restricted-syntax
+        const nextAnimationFrame = requestAnimationFrame(() => {
+            const items = _.map(
+                this.state.items,
+                function (item) {
+                    if (item.key === key) {
+                        item.state = ItemState.ANIMATING;
+                        const $placeholder = $(
+                            // @ts-expect-error - TS2769 - No overload matches this call.
+                            ReactDOM.findDOMNode(
+                                // eslint-disable-next-line react/no-string-refs
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                this.refs["placeholder_" + key],
+                            ),
+                        );
+                        // @ts-expect-error - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
+                        const position = $placeholder.position();
+                        const endPosition = addOffsetParentScroll(
+                            $placeholder,
+                            position,
+                        );
+                        item.endPosition = endPosition;
+                    }
+                    return item;
+                },
+                this,
+            );
+
+            this.setState({items: items});
+            // HACK: We need to know *that* the widget changed, but currently it's
+            // not set up in a nice way to tell us *how* it changed, since the
+            // permutation of the items is stored in state.
+            this.props.onChange?.({});
+        });
+
+        // @ts-expect-error - TS2339 - Property 'animationFrameRequest' does not exist on type 'Sortable'.
+        this.animationFrameRequest = nextAnimationFrame;
+    }
+
+    onAnimationEnd(key: SortableItem["key"]) {
+        // Animating -> Static
+        const items = _.map(this.state.items, function (item) {
+            if (item.key === key) {
+                item.state = ItemState.STATIC;
+            }
+            return item;
+        });
+
+        this.setState({items: items});
+    }
+
+    getOptions(): ReadonlyArray<SortableOption> {
+        return _.pluck(this.state.items, "option");
+    }
 
     render(): React.ReactNode {
         // To minimize layout shift, we display a spinner until our math
@@ -648,9 +801,9 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         const className = css(styles.sortable) + " perseus-sortable";
 
         const syncWidth =
-            this.props.constraints?.width || layout === Layout.VERTICAL;
+            this.props.constraints?.width || layout === "vertical";
         const syncHeight =
-            this.props.constraints?.height || layout === Layout.HORIZONTAL;
+            this.props.constraints?.height || layout === "horizontal";
 
         _.each(
             this.state.items,
@@ -662,11 +815,11 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 let margin;
 
                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                if (this.props.layout === Layout.HORIZONTAL) {
+                if (this.props.layout === "horizontal") {
                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     margin = "0 " + this.props.margin + "px 0 0"; // right
                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                } else if (this.props.layout === Layout.VERTICAL) {
+                } else if (this.props.layout === "vertical") {
                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     margin = "0 0 " + this.props.margin + "px 0"; // bottom
                 }
@@ -740,164 +893,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         );
 
         return <ul className={className}>{cards}</ul>;
-    }
-
-    onMouseDown(key: SortableItem["key"]) {
-        // Static -> Dragging
-        const items = _.map(this.state.items, function (item) {
-            if (item.key === key) {
-                item.state = ItemState.DRAGGING;
-            }
-            return item;
-        });
-
-        this.setState({items: items});
-    }
-
-    // This is public API and it's ok for components that use
-    // this sortable to call this.
-    // moveOptionToIndex takes an option and a desired index and
-    // will move that item to the desired index. This is useful
-    // for testing and other cases where dragging and dropping may
-    // not be available
-    moveOptionToIndex(option: SortableOption, index: number) {
-        const {items} = this.state;
-
-        if (index < 0 || index > items.length) {
-            throw new Error(`index ${index} out of bounds`);
-        }
-
-        const nextItems = _.clone(items);
-
-        const item = items.filter((item: SortableItem) => {
-            return item.option === option;
-        })[0];
-
-        if (item == null) {
-            throw new Error(`option ${option} not found`);
-        }
-
-        const currentIndex = items.findIndex((i: SortableItem) => {
-            return i.key === item.key;
-        });
-
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
-        nextItems.splice(currentIndex, 1);
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
-        nextItems.splice(index, 0, item);
-
-        this.setState({items: nextItems});
-        this.props.onChange && this.props.onChange({});
-    }
-
-    onMouseMove(key: SortableItem["key"]) {
-        // Dragging: Rearrange items based on draggable's position
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2769 - No overload matches this call.
-        const $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
-        // @ts-expect-error - TS2769 - No overload matches this call.
-        const $sortable = $(ReactDOM.findDOMNode(this));
-        const items = _.clone(this.state.items);
-        const item = _.findWhere(this.state.items, {key: key});
-        const margin = this.props.margin || 0;
-        // @ts-expect-error - TS2345 - Argument of type 'SortableItem | undefined' is not assignable to parameter of type 'SortableItem'.
-        const currentIndex = _.indexOf(items, item);
-        let newIndex = 0;
-
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
-        items.splice(currentIndex, 1);
-
-        if (this.props.layout === Layout.HORIZONTAL) {
-            // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
-            const midWidth = $draggable.offset().left - $sortable.offset().left;
-            let sumWidth = 0;
-            let cardWidth;
-
-            _.each(items, function (item) {
-                cardWidth = item.width;
-                if (midWidth > sumWidth + cardWidth / 2) {
-                    newIndex += 1;
-                }
-                sumWidth += cardWidth + margin;
-            });
-        } else {
-            // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
-            const midHeight = $draggable.offset().top - $sortable.offset().top;
-            let sumHeight = 0;
-            let cardHeight;
-
-            _.each(items, function (item) {
-                cardHeight = item.height;
-                if (midHeight > sumHeight + cardHeight / 2) {
-                    newIndex += 1;
-                }
-                sumHeight += cardHeight + margin;
-            });
-        }
-
-        if (newIndex !== currentIndex) {
-            // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
-            items.splice(newIndex, 0, item);
-            this.setState({items: items});
-        }
-    }
-
-    onMouseUp(key: SortableItem["key"]) {
-        // Dragging -> Animating
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-        // eslint-disable-next-line no-restricted-syntax
-        const nextAnimationFrame = requestAnimationFrame(() => {
-            const items = _.map(
-                this.state.items,
-                function (item) {
-                    if (item.key === key) {
-                        item.state = ItemState.ANIMATING;
-                        const $placeholder = $(
-                            // @ts-expect-error - TS2769 - No overload matches this call.
-                            ReactDOM.findDOMNode(
-                                // eslint-disable-next-line react/no-string-refs
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this.refs["placeholder_" + key],
-                            ),
-                        );
-                        // @ts-expect-error - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
-                        const position = $placeholder.position();
-                        const endPosition = addOffsetParentScroll(
-                            $placeholder,
-                            position,
-                        );
-                        item.endPosition = endPosition;
-                    }
-                    return item;
-                },
-                this,
-            );
-
-            this.setState({items: items});
-            // HACK: We need to know *that* the widget changed, but currently it's
-            // not set up in a nice way to tell us *how* it changed, since the
-            // permutation of the items is stored in state.
-            this.props.onChange && this.props.onChange({});
-        });
-
-        // @ts-expect-error - TS2339 - Property 'animationFrameRequest' does not exist on type 'Sortable'.
-        this.animationFrameRequest = nextAnimationFrame;
-    }
-
-    onAnimationEnd(key: SortableItem["key"]) {
-        // Animating -> Static
-        const items = _.map(this.state.items, function (item) {
-            if (item.key === key) {
-                item.state = ItemState.STATIC;
-            }
-            return item;
-        });
-
-        this.setState({items: items});
-    }
-
-    getOptions(): ReadonlyArray<SortableOption> {
-        return _.pluck(this.state.items, "option");
     }
 }
 

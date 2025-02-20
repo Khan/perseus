@@ -1,3 +1,4 @@
+import {MathFieldActionType} from "../../types";
 import {
     isFraction,
     isSquareRoot,
@@ -9,7 +10,6 @@ import {
     maybeFindCommandBeforeParens,
 } from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
-import {MathFieldActionType} from "../input/mathquill-types";
 
 import type {MathFieldInterface} from "../input/mathquill-types";
 import type MathQuill from "mathquill";

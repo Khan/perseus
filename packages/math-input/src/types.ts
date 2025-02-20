@@ -5,7 +5,14 @@ import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
 import type * as React from "react";
 import type ReactDOM from "react-dom";
 
-export type IconConfig = {
+export enum MathFieldActionType {
+    WRITE = "write",
+    CMD = "cmd",
+    KEYSTROKE = "keystroke",
+    MQ_END = 0,
+}
+
+type IconConfig = {
     data: string;
 };
 
@@ -20,6 +27,7 @@ export type KeypadConfiguration = {
     keypadType: KeypadType;
     extraKeys?: ReadonlyArray<Key>;
     times?: boolean;
+    scientific?: boolean;
 };
 
 export type KeyHandler = (key: Key) => Cursor;

@@ -27,7 +27,6 @@ type Props = {
 
 class WordIndexer extends React.PureComponent<Props> {
     _container: HTMLElement | null | undefined;
-    /* eslint-enable react/sort-comp */
 
     componentDidMount() {
         this._sendWordsUpdate();

@@ -1,109 +1,27 @@
 import {
     ItemExtras,
-    type InputNumberWidget,
     type LabelImageWidget,
     type PerseusItem,
-    type PerseusRenderer,
     type PerseusAnswerArea,
     type ExpressionWidget,
     type RadioWidget,
     type NumericInputWidget,
-} from "../perseus-types";
+} from "@khanacademy/perseus-core";
 
-export const itemWithInput: PerseusItem = {
+import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
+
+export const itemWithNumericInput: PerseusItem = {
     question: {
         content:
-            "Enter the number $$-42$$ in the box: [[\u2603 input-number 1]]",
+            "Enter the number $$-42$$ in the box: [[\u2603 numeric-input 1]]",
         images: {},
         widgets: {
-            "input-number 1": {
-                type: "input-number",
-                graded: true,
-                options: {
-                    answerType: "number",
-                    value: "-42",
-                    simplify: "required",
-                    size: "normal",
-                    inexact: false,
-                    maxError: 0.1,
-                },
-            } as InputNumberWidget,
-        },
-    },
-    hints: [
-        {content: "Hint #1", images: {}, widgets: {}},
-        {content: "Hint #2", images: {}, widgets: {}},
-        {content: "Hint #3", images: {}, widgets: {}},
-    ],
-    answerArea: null,
-    _multi: null,
-    itemDataVersion: {major: 0, minor: 0},
-    answer: null,
-};
-
-export const itemWithMultipleInputNumbers: PerseusItem = {
-    question: {
-        content:
-            "Enter the number $$1$$ in box one: [[\u2603 input-number 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 input-number 2]]",
-        images: {},
-        widgets: {
-            "input-number 1": {
-                type: "input-number",
-                graded: true,
-                options: {
-                    answerType: "number",
-                    value: "1",
-                    simplify: "required",
-                    size: "normal",
-                    inexact: false,
-                    maxError: 0.1,
-                },
-            } as InputNumberWidget,
-            "input-number 2": {
-                type: "input-number",
-                graded: true,
-                options: {
-                    answerType: "number",
-                    value: "2",
-                    simplify: "required",
-                    size: "normal",
-                    inexact: false,
-                    maxError: 0.1,
-                },
-            } as InputNumberWidget,
-        },
-    },
-    hints: [
-        {content: "Hint #1", images: {}, widgets: {}},
-        {content: "Hint #2", images: {}, widgets: {}},
-        {content: "Hint #3", images: {}, widgets: {}},
-    ],
-    answerArea: null,
-    _multi: null,
-    itemDataVersion: {major: 0, minor: 0},
-    answer: null,
-};
-
-export const itemWithNumericAndNumberInputs: PerseusItem = {
-    question: {
-        content:
-            "Enter the number $$1$$ in box one: [[\u2603 input-number 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 numeric-input 1]]",
-        images: {},
-        widgets: {
-            "input-number 1": {
-                type: "input-number",
-                graded: true,
-                options: {
-                    answerType: "number",
-                    value: "1",
-                    simplify: "required",
-                    size: "normal",
-                    inexact: false,
-                    maxError: 0.1,
-                },
-            } as InputNumberWidget,
             "numeric-input 1": {
                 graded: true,
+                version: {
+                    major: 0,
+                    minor: 0,
+                },
                 static: false,
                 type: "numeric-input",
                 options: {
@@ -114,15 +32,107 @@ export const itemWithNumericAndNumberInputs: PerseusItem = {
                             status: "correct",
                             maxError: null,
                             strict: false,
-                            value: 1252,
+                            value: -42,
                             simplify: "required",
                             message: "",
                         },
                     ],
-                    labelText: "",
+                    labelText: "What's the answer?",
                     size: "normal",
                 },
-                alignment: "default",
+            } satisfies NumericInputWidget,
+        },
+    },
+    hints: [
+        {content: "Hint #1", images: {}, widgets: {}},
+        {content: "Hint #2", images: {}, widgets: {}},
+        {content: "Hint #3", images: {}, widgets: {}},
+    ],
+    answerArea: null,
+    itemDataVersion: {major: 0, minor: 0},
+    answer: null,
+};
+
+export const itemWithMockWidget: PerseusItem = {
+    question: {
+        content: "Enter the number $$3$$ in the box: [[\u2603 mock-widget 1]]",
+        images: {},
+        widgets: {
+            "mock-widget 1": {
+                type: "mock-widget",
+                graded: true,
+                options: {
+                    value: "3",
+                },
+            } satisfies MockWidget,
+        },
+    },
+    hints: [
+        {content: "Hint #1", images: {}, widgets: {}},
+        {content: "Hint #2", images: {}, widgets: {}},
+        {content: "Hint #3", images: {}, widgets: {}},
+    ],
+    answerArea: null,
+    itemDataVersion: {major: 0, minor: 0},
+    answer: null,
+};
+
+// Used for storybook
+export const itemWithMultipleNumericInputs: PerseusItem = {
+    question: {
+        content:
+            "Enter the number $$1$$ in box one: [[\u2603 numeric-input 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 numeric-input 2]]",
+        images: {},
+        widgets: {
+            "numeric-input 1": {
+                graded: true,
+                version: {
+                    major: 0,
+                    minor: 0,
+                },
+                static: false,
+                type: "numeric-input",
+                options: {
+                    coefficient: false,
+                    static: false,
+                    answers: [
+                        {
+                            status: "correct",
+                            maxError: null,
+                            strict: false,
+                            value: 1,
+                            simplify: "required",
+                            message: "",
+                        },
+                    ],
+                    labelText: "What's the answer?",
+                    size: "normal",
+                },
+            } as NumericInputWidget,
+            "numeric-input 2": {
+                graded: true,
+                version: {
+                    major: 0,
+                    minor: 0,
+                },
+                static: false,
+                type: "numeric-input",
+                options: {
+                    coefficient: false,
+                    static: false,
+                    answers: [
+                        {
+                            status: "correct",
+                            maxError: null,
+                            strict: false,
+                            value: 2,
+                            simplify: "required",
+                            message: "",
+                        },
+                    ],
+                    labelText: "What's the answer?",
+                    size: "normal",
+                },
             } as NumericInputWidget,
         },
     },
@@ -132,7 +142,38 @@ export const itemWithNumericAndNumberInputs: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    _multi: null,
+    itemDataVersion: {major: 0, minor: 0},
+    answer: null,
+};
+
+export const itemWithTwoMockWidgets: PerseusItem = {
+    question: {
+        content:
+            "Enter the number $$1$$ in box one: [[\u2603 mock-widget 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 mock-widget 2]]",
+        images: {},
+        widgets: {
+            "mock-widget 1": {
+                type: "mock-widget",
+                graded: true,
+                options: {
+                    value: "3",
+                },
+            } satisfies MockWidget,
+            "mock-widget 2": {
+                type: "mock-widget",
+                graded: true,
+                options: {
+                    value: "3",
+                },
+            } satisfies MockWidget,
+        },
+    },
+    hints: [
+        {content: "Hint #1", images: {}, widgets: {}},
+        {content: "Hint #2", images: {}, widgets: {}},
+        {content: "Hint #3", images: {}, widgets: {}},
+    ],
+    answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
@@ -224,7 +265,6 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
@@ -233,7 +273,6 @@ export const labelImageItem: PerseusItem = {
     answerArea: Object.fromEntries(
         ItemExtras.map((extra) => [extra, false]),
     ) as PerseusAnswerArea,
-    _multi: null,
     answer: null,
     hints: [],
     itemDataVersion: {major: 0, minor: 1},
@@ -296,57 +335,6 @@ export const labelImageItem: PerseusItem = {
     },
 };
 
-// Note that if this item is used, you _must_ first register the MockWidget
-export const mockedItem: PerseusItem = {
-    // The mock widget type is not part of the PerseusWidget type union (and
-    // we don't want to make it such to avoid polluting our production types
-    // for test purposes) so we force TypeScript to accept it here.
-    question: {
-        content:
-            "Mock widget ==> [[\u2603 mock-widget 1]] [[\u2603 mock-widget 2]] [[\u2603 mock-widget 3]] [[\u2603 mock-widget 4]]",
-        images: {},
-        widgets: {
-            "mock-widget 1": {
-                graded: true,
-                version: {major: 0, minor: 0},
-                static: false,
-                type: "mock-widget",
-                options: {static: false, smiling: true},
-                alignment: "default",
-            },
-            "mock-widget 2": {
-                graded: true,
-                version: {major: 0, minor: 0},
-                static: false,
-                type: "mock-widget",
-                options: {static: false, smiling: false},
-                alignment: "default",
-            },
-            "mock-widget 3": {
-                graded: true,
-                version: {major: 0, minor: 0},
-                static: false,
-                type: "mock-widget",
-                options: {static: false, smiling: true},
-                alignment: "default",
-            },
-            "mock-widget 4": {
-                graded: true,
-                version: {major: 0, minor: 0},
-                static: false,
-                type: "mock-widget",
-                options: {static: false, smiling: false},
-                alignment: "default",
-            },
-        },
-    } as PerseusRenderer,
-    hints: [],
-    answerArea: null,
-    _multi: null,
-    itemDataVersion: {major: 0, minor: 0},
-    answer: null,
-};
-
 export const itemWithLintingError: PerseusItem = {
     question: {
         content: "# h1s aren't allowed",
@@ -355,7 +343,6 @@ export const itemWithLintingError: PerseusItem = {
     },
     hints: [],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
@@ -548,7 +535,6 @@ And what follows are _hints_...
         },
     ],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };

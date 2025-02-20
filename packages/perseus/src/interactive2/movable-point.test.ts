@@ -47,13 +47,13 @@ describe("MovablePoint", () => {
             visibleShape: expect.any(WrappedEllipse),
             normalStyle: {
                 scale: 1,
-                fill: "#71B307",
-                stroke: "#71B307",
+                fill: "#00a60e",
+                stroke: "#00a60e",
             },
             highlightStyle: {
                 scale: 2,
-                fill: "#71B307",
-                stroke: "#71B307",
+                fill: "#00a60e",
+                stroke: "#00a60e",
             },
         });
     });
@@ -99,13 +99,13 @@ describe("MovablePoint", () => {
             visibleShape: expect.any(WrappedEllipse),
             normalStyle: {
                 scale: 1,
-                fill: "#71B307",
-                stroke: "#71B307",
+                fill: "#00a60e",
+                stroke: "#00a60e",
             },
             highlightStyle: {
                 scale: 2,
-                fill: "#71B307",
-                stroke: "#71B307",
+                fill: "#00a60e",
+                stroke: "#00a60e",
             },
         });
     });

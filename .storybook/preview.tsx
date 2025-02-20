@@ -1,9 +1,11 @@
 import * as React from "react";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {Dependencies} from "@khanacademy/perseus";
 
-import {DependenciesContext} from "../packages/perseus/src/dependencies";
+import {
+    setDependencies,
+    DependenciesContext,
+} from "../packages/perseus/src/dependencies";
 import {
     storybookTestDependencies,
     storybookDependenciesV2,
@@ -14,7 +16,7 @@ import type {Preview} from "@storybook/react";
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
 
-Dependencies.setDependencies(storybookTestDependencies);
+setDependencies(storybookTestDependencies);
 
 const preview: Preview = {
     // These decorators apply to all stories, both inside and outside the
@@ -23,7 +25,17 @@ const preview: Preview = {
         (Story) => (
             <RenderStateRoot>
                 <DependenciesContext.Provider value={storybookDependenciesV2}>
-                    <Story />
+                    {/* Most of our components have an expectation to be
+                        rendered inside of a .framework-perseus container.
+                        We want to make sure we can include it here, since it
+                        can also affect the styling.
+
+                        Inclue box-sizing-border-box-reset to reflect
+                        the global styles from prod.
+                    */}
+                    <div className="framework-perseus box-sizing-border-box-reset">
+                        <Story />
+                    </div>
                 </DependenciesContext.Provider>
             </RenderStateRoot>
         ),
@@ -31,6 +43,16 @@ const preview: Preview = {
     // These parameters apply to all stories, both inside and outside the fixture
     // framework.
     parameters: {
+        // Disables Chromatic's snapshotting on a global level
+        // We disable snapshotting globally because we have enabled
+        // turbosnaps for `-regression.stories.tsx` files. If we have
+        // snapshots enabled globally, we pay for turbosnaps even for
+        // skipped stories/tests (which is all of them).
+        // We then enable snapshots for `-regression.stories.tsx` files in
+        // each of those files (unfortunately, this is how we have to do
+        // it).
+        chromatic: {disableSnapshot: true},
+
         options: {
             storySort: {
                 order: ["Perseus", "PerseusEditor", "Math-Input", "*"],
@@ -60,6 +82,10 @@ const preview: Preview = {
             })),
         },
     },
+    tags: [
+        //👇 Enables auto-generated documentation for all stories
+        "autodocs",
+    ],
 };
 
 export default preview;

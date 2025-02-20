@@ -1,14 +1,11 @@
-/* eslint-disable @babel/no-invalid-this, getter-return, one-var */
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import _ from "underscore";
 
-import KhanAnswerTypes from "./util/answer-types";
 import * as GraphieUtil from "./util.graphie";
 
-import type {Range} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
-import type {Widget, PerseusScore} from "./types";
-import type {KEScore} from "@khanacademy/perseus-core";
+import type {Range} from "@khanacademy/perseus-core";
+import type * as React from "react";
 
 type WordPosition = {
     start: number;
@@ -19,8 +16,6 @@ type WordAndPosition = {
     string: string;
     pos: WordPosition;
 };
-
-type RNG = () => number;
 
 export type ParsedValue = {
     value: number;
@@ -64,6 +59,8 @@ const nestedMap = function <T, M>(
             return nestedMap(child, func);
         });
     }
+    // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: T | ReadonlyArray<T> is not assignable to T
     return func.call(context, children);
 };
 
@@ -92,72 +89,6 @@ const rTypeFromWidgetId = /^([a-z-]+) ([0-9]+)$/;
 
 const rWidgetParts = new RegExp(rWidgetRule.source + "$");
 const snowman = "\u2603";
-const noScore: PerseusScore = {
-    type: "points",
-    earned: 0,
-    total: 0,
-    message: null,
-};
-
-const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
-    let randomSeed = seed;
-
-    return function () {
-        // Robert Jenkins' 32 bit integer hash function.
-        let seed = randomSeed;
-        seed = (seed + 0x7ed55d16 + (seed << 12)) & 0xffffffff;
-        seed = (seed ^ 0xc761c23c ^ (seed >>> 19)) & 0xffffffff;
-        seed = (seed + 0x165667b1 + (seed << 5)) & 0xffffffff;
-        seed = ((seed + 0xd3a2646c) ^ (seed << 9)) & 0xffffffff;
-        seed = (seed + 0xfd7046c5 + (seed << 3)) & 0xffffffff;
-        seed = (seed ^ 0xb55a4f09 ^ (seed >>> 16)) & 0xffffffff;
-        return (randomSeed = seed & 0xfffffff) / 0x10000000;
-    };
-};
-
-// Shuffle an array using a given random seed or function.
-// If `ensurePermuted` is true, the input and ouput are guaranteed to be
-// distinct permutations.
-function shuffle<T>(
-    array: ReadonlyArray<T>,
-    randomSeed: number | RNG,
-    ensurePermuted = false,
-): ReadonlyArray<T> {
-    // Always return a copy of the input array
-    const shuffled = _.clone(array);
-
-    // Handle edge cases (input array is empty or uniform)
-    if (
-        !shuffled.length ||
-        _.all(shuffled, function (value) {
-            return _.isEqual(value, shuffled[0]);
-        })
-    ) {
-        return shuffled;
-    }
-
-    let random;
-    if (typeof randomSeed === "function") {
-        random = randomSeed;
-    } else {
-        random = seededRNG(randomSeed);
-    }
-
-    do {
-        // Fischer-Yates shuffle
-        for (let top = shuffled.length; top > 0; top--) {
-            const newEnd = Math.floor(random() * top),
-                temp = shuffled[newEnd];
-
-            // @ts-expect-error - TS2542 - Index signature in type 'readonly T[]' only permits reading.
-            shuffled[newEnd] = shuffled[top - 1];
-            // @ts-expect-error - TS2542 - Index signature in type 'readonly T[]' only permits reading.
-            shuffled[top - 1] = temp;
-        }
-    } while (ensurePermuted && _.isEqual(array, shuffled));
-
-    return shuffled;
-}
 
 /**
  * TODO(somewhatabstract, FEI-3463):
@@ -192,119 +123,6 @@ const split: (str: string, r: RegExp) => ReadonlyArray<string> = "x".split(
       };
 
 /**
- * Combine two score objects.
- *
- * Given two score objects for two different widgets, combine them so that
- * if one is wrong, the total score is wrong, etc.
- */
-function combineScores(
-    scoreA: PerseusScore,
-    scoreB: PerseusScore,
-): PerseusScore {
-    let message;
-
-    if (scoreA.type === "points" && scoreB.type === "points") {
-        if (
-            scoreA.message &&
-            scoreB.message &&
-            scoreA.message !== scoreB.message
-        ) {
-            // TODO(alpert): Figure out how to combine messages usefully
-            message = null;
-        } else {
-            message = scoreA.message || scoreB.message;
-        }
-
-        return {
-            type: "points",
-            earned: scoreA.earned + scoreB.earned,
-            total: scoreA.total + scoreB.total,
-            message: message,
-        };
-    }
-    if (scoreA.type === "points" && scoreB.type === "invalid") {
-        return scoreB;
-    }
-    if (scoreA.type === "invalid" && scoreB.type === "points") {
-        return scoreA;
-    }
-    if (scoreA.type === "invalid" && scoreB.type === "invalid") {
-        if (
-            scoreA.message &&
-            scoreB.message &&
-            scoreA.message !== scoreB.message
-        ) {
-            // TODO(alpert): Figure out how to combine messages usefully
-            message = null;
-        } else {
-            message = scoreA.message || scoreB.message;
-        }
-
-        return {
-            type: "invalid",
-            message: message,
-        };
-    }
-
-    /**
-     * The above checks cover all combinations of score type, so if we get here
-     * then something is amiss with our inputs.
-     */
-    throw new PerseusError(
-        "PerseusScore with unknown type encountered",
-        Errors.InvalidInput,
-        {
-            metadata: {
-                scoreA: JSON.stringify(scoreA),
-                scoreB: JSON.stringify(scoreB),
-            },
-        },
-    );
-}
-
-export function isCorrect(score: PerseusScore): boolean {
-    return score.type === "points" && score.earned >= score.total;
-}
-
-function keScoreFromPerseusScore(
-    score: PerseusScore,
-    guess: any,
-    state: any,
-): KEScore {
-    if (score.type === "points") {
-        return {
-            empty: false,
-            correct: isCorrect(score),
-            message: score.message,
-            guess: guess,
-            state: state,
-        };
-    }
-    if (score.type === "invalid") {
-        return {
-            empty: true,
-            correct: false,
-            message: score.message,
-            suppressAlmostThere: score.suppressAlmostThere,
-            guess: guess,
-            state: state,
-        };
-    }
-    throw new PerseusError(
-        // @ts-expect-error - TS2339 - Property 'type' does not exist on type 'never'.
-        "Invalid score type: " + score.type,
-        Errors.InvalidInput,
-        {
-            metadata: {
-                score: JSON.stringify(score),
-                guess: JSON.stringify(guess),
-                state: JSON.stringify(state),
-            },
-        },
-    );
-}
-
-/**
  * Return the first valid interpretation of 'text' as a number, in the form
  * {value: 2.3, exact: true}.
  */
@@ -324,7 +142,6 @@ function firstNumericalParse(
             inexact: true,
             forms: "integer, proper, improper, pi, log, mixed, decimal",
         },
-        strings,
     );
 
     val(text);
@@ -530,105 +347,6 @@ function constrainedTickStepsFromTickSteps(
 }
 
 /**
- * Transparently update deprecated props so that the code to deal
- * with them only lives in one place: (Widget).deprecatedProps
- *
- * For example, if a boolean `foo` was deprecated in favor of a
- * number 'bar':
- *      deprecatedProps: {
- *          foo: function(props) {
- *              return {bar: props.foo ? 1 : 0};
- *          }
- *      }
- */
-const DeprecationMixin: any = {
-    // This lifecycle stage is only called before first render
-    // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
-    UNSAFE_componentWillMount: function () {
-        const newProps: Record<string, any> = {};
-
-        _.each(
-            this.deprecatedProps,
-            function (func, prop) {
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                if (_.has(this.props, prop)) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    _.extend(newProps, func(this.props));
-                }
-            },
-            this,
-        );
-
-        if (!_.isEmpty(newProps)) {
-            // Set new props directly so that widget renders correctly
-            // when it first mounts, even though these will be overwritten
-            // almost immediately afterwards...
-            _.extend(this.props, newProps);
-
-            // ...when we propagate the new props upwards and they come
-            // back down again.
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-            // eslint-disable-next-line no-restricted-syntax
-            setTimeout(this.props.onChange, 0, newProps);
-        }
-    },
-};
-
-/**
- * Approximate equality on numbers and primitives.
- */
-function eq<T>(x: T, y: T): boolean {
-    if (typeof x === "number" && typeof y === "number") {
-        return Math.abs(x - y) < 1e-9;
-    }
-    return x === y;
-}
-
-/**
- * Deep approximate equality on primitives, numbers, arrays, and objects.
- * Recursive.
- */
-function deepEq<T>(x: T, y: T): boolean {
-    if (Array.isArray(x) && Array.isArray(y)) {
-        if (x.length !== y.length) {
-            return false;
-        }
-        for (let i = 0; i < x.length; i++) {
-            if (!deepEq(x[i], y[i])) {
-                return false;
-            }
-        }
-        return true;
-    }
-    if (Array.isArray(x) || Array.isArray(y)) {
-        return false;
-    }
-    if (typeof x === "function" && typeof y === "function") {
-        return eq(x, y);
-    }
-    if (typeof x === "function" || typeof y === "function") {
-        return false;
-    }
-    if (typeof x === "object" && typeof y === "object" && !!x && !!y) {
-        return (
-            x === y ||
-            (_.all(x, function (v, k) {
-                // @ts-expect-error - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
-                return deepEq(y[k], v);
-            }) &&
-                _.all(y, function (v, k) {
-                    // @ts-expect-error - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
-                    return deepEq(x[k], v);
-                }))
-        );
-    }
-    if ((typeof x === "object" && !!x) || (typeof y === "object" && !!y)) {
-        return false;
-    }
-    return eq(x, y);
-}
-
-/**
  * Query String Parser
  *
  * Original from:
@@ -687,59 +405,6 @@ function strongEncodeURIComponent(str: string): string {
             // so we do not need to escape it
             .replace(/['()!]/g, window.escape) // i.e., %27 %28 %29
             .replace(/\*/g, "%2A")
-    );
-}
-
-/**
- * TODO(somewhatabstract, JIRA-XXXX):
- * This does not appear to be used within webapp. Could be dead code.
- * Need to check with mobile.
- */
-// There are certain widgets where we don't want to provide the "answered"
-// highlight indicator.
-// The issue with just using the `graded` flag on questions is that showing
-// that a certain widget is ungraded can sometimes reveal the answer to a
-// question ("is this transformation possible? if so, do it")
-// This is kind of a hack to get around this.
-function widgetShouldHighlight(widget: Widget): boolean {
-    if (!widget) {
-        return false;
-    }
-    switch (widget.type) {
-        /**
-         * Highlight bar denylist
-         */
-        case "measurer":
-        case "protractor":
-            return true;
-
-        default:
-            return false;
-    }
-}
-
-/**
- * If a widget says that it is empty once it is graded.
- * Trying to encapsulate references to the score format.
- */
-function scoreIsEmpty(score: PerseusScore): boolean {
-    // HACK(benkomalo): ugh. this isn't great; the Perseus score objects
-    // overload the type "invalid" for what should probably be three
-    // distinct cases:
-    //  - truly empty or not fully filled out
-    //  - invalid or malformed inputs
-    //  - "almost correct" like inputs where the widget wants to give
-    //  feedback (e.g. a fraction needs to be reduced, or `pi` should
-    //  be used instead of 3.14)
-    //
-    //  Unfortunately the coercion happens all over the place, as these
-    //  Perseus style score objects are created *everywhere* (basically
-    //  in every widget), so it's hard to change now. We assume that
-    //  anything with a "message" is not truly empty, and one of the
-    //  latter two cases for now.
-    return (
-        score.type === "invalid" &&
-        (!score.message || score.message.length === 0)
     );
 }
 
@@ -825,7 +490,7 @@ const supportsPassiveEvents: () => boolean = () => {
         window.addEventListener("testPassive", null, opts);
         // @ts-expect-error - TS2769 - No overload matches this call.
         window.removeEventListener("testPassive", null, opts);
-    } catch (e: any) {
+    } catch {
         // Intentionally left empty!
     }
 
@@ -836,7 +501,7 @@ const supportsPassiveEvents: () => boolean = () => {
  * Pass this function as the touchstart for an element to
  * avoid sending the touch to the mobile scratchpad
  */
-function captureScratchpadTouchStart(e: TouchEvent) {
+function captureScratchpadTouchStart(e: React.TouchEvent) {
     e.stopPropagation();
 }
 
@@ -921,25 +586,6 @@ const textarea = {
 const unescapeMathMode: (label: string) => string = (label) =>
     label.startsWith("$") && label.endsWith("$") ? label.slice(1, -1) : label;
 
-const random: RNG = seededRNG(new Date().getTime() & 0xffffffff);
-
-// TODO(benchristel): in the future, we may want to make deepClone work for
-// Record<string, Cloneable> as well. Currently, it only does arrays.
-type Cloneable =
-    | null
-    | undefined
-    | boolean
-    | string
-    | number
-    | Cloneable[]
-    | readonly Cloneable[];
-function deepClone<T extends Cloneable>(obj: T): T {
-    if (Array.isArray(obj)) {
-        return obj.map(deepClone) as T;
-    }
-    return obj;
-}
-
 const Util = {
     inputPathsEqual,
     nestedMap,
@@ -947,12 +593,7 @@ const Util = {
     rTypeFromWidgetId,
     rWidgetParts,
     snowman,
-    noScore,
-    seededRNG,
-    shuffle,
     split,
-    combineScores,
-    keScoreFromPerseusScore,
     firstNumericalParse,
     stringArrayOfSize,
     gridDimensionConfig,
@@ -963,14 +604,9 @@ const Util = {
     gridStepFromTickStep,
     tickStepFromNumTicks,
     constrainedTickStepsFromTickSteps,
-    DeprecationMixin,
-    eq,
-    deepEq,
     parseQueryString,
     updateQueryString,
     strongEncodeURIComponent,
-    widgetShouldHighlight,
-    scoreIsEmpty,
     touchHandlers,
     resetTouchHandlers,
     extractPointerLocation,
@@ -985,8 +621,6 @@ const Util = {
     getDataUrl: GraphieUtil.getDataUrl,
     textarea,
     unescapeMathMode,
-    random,
-    deepClone,
 } as const;
 
 export default Util;

@@ -1,9 +1,12 @@
-import {findAngle} from "../../math";
+import {angles} from "@khanacademy/kmath";
 
 import {shouldDrawArcOutside} from "./angle-indicators";
 
-import type {CollinearTuple} from "../../../../perseus-types";
+import type {Coord} from "@khanacademy/perseus";
+import type {CollinearTuple} from "@khanacademy/perseus-core";
 import type {vec, Interval} from "mafs";
+
+const {getClockwiseAngle} = angles;
 
 describe("shouldDrawArcOutside", () => {
     const range = [
@@ -94,10 +97,12 @@ describe("shouldDrawArcOutside", () => {
         ).toBe(true);
     });
 
+    // TODO: (third) Move this test to the math package
     it("should correctly calculate the angle for the given coordinates", () => {
         const point1 = [2, 2] as vec.Vector2;
         const point2 = [2, 0] as vec.Vector2;
         const vertex = [0, 0] as vec.Vector2;
-        expect(findAngle(point1, point2, vertex)).toBe(45);
+        const coords: [Coord, Coord, Coord] = [point1, vertex, point2];
+        expect(getClockwiseAngle(coords)).toBe(45);
     });
 });

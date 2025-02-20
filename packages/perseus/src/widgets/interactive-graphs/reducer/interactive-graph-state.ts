@@ -1,7 +1,5 @@
-import {clockwise} from "../../../util/geometry";
-
 import type {CircleGraphState, InteractiveGraphState} from "../types";
-import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
 export function getGradableGraph(
     state: InteractiveGraphState,
@@ -43,6 +41,14 @@ export function getGradableGraph(
     }
 
     if (state.type === "polygon" && initialGraph.type === "polygon") {
+        // Unless the polygon is closed it is not considered score-able.
+        if (state.numSides === "unlimited" && !state.closedPolygon) {
+            return {
+                ...initialGraph,
+                coords: null,
+            };
+        }
+
         return {
             ...initialGraph,
             coords: state.coords,
@@ -50,6 +56,14 @@ export function getGradableGraph(
     }
 
     if (state.type === "point" && initialGraph.type === "point") {
+        // The unlimited point graph must have at least 1 coordinate or else it is not considered score-able.
+        if (state.numPoints === "unlimited" && state.coords.length === 0) {
+            return {
+                ...initialGraph,
+                coords: null,
+            };
+        }
+
         return {
             ...initialGraph,
             coords: state.coords,
@@ -79,26 +93,15 @@ export function getGradableGraph(
     }
 
     if (state.type === "angle" && initialGraph.type === "angle") {
-        // We're going to reverse the coords for scoring if the angle is clockwise and
-        // we don't allow reflex angles. This is because the angle is largely defined
-        // by the order of the points in the coords array, and we want to maintain
-        // the same angle scoring with the legacy graph (which had a bug).
-        // (LEMS-2190): When we remove the legacy graph, move this logic to the scoring function.
-        const areClockwise = clockwise([
-            state.coords[0],
-            state.coords[2],
-            state.coords[1],
-        ]);
-        const shouldReverseCoords = areClockwise && !state.allowReflexAngles;
-        const coords: [Coord, Coord, Coord] = shouldReverseCoords
-            ? (state.coords.slice().reverse() as [Coord, Coord, Coord])
-            : state.coords;
-
         return {
             ...initialGraph,
-            coords,
+            coords: state.coords,
             allowReflexAngles: state.allowReflexAngles,
         };
+    }
+
+    if (state.type === "none" && initialGraph.type === "none") {
+        return {type: "none"};
     }
 
     throw new Error(

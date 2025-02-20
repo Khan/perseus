@@ -1,12 +1,17 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/sort-comp */
 import {Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {
+    iframeLogic,
+    type IFrameDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
+
+type ChangeFn = typeof Changeable.change;
 
 type PairEditorProps = any;
 
@@ -25,8 +30,12 @@ class PairEditor extends React.Component<PairEditorProps> {
         value: "",
     };
 
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
+    };
+
+    serialize = () => {
+        return EditorJsonify.serialize.call(this);
     };
 
     render(): React.ReactNode {
@@ -49,10 +58,6 @@ class PairEditor extends React.Component<PairEditorProps> {
             </fieldset>
         );
     }
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
-    };
 }
 
 type PairsEditorProps = any;
@@ -71,22 +76,7 @@ class PairsEditor extends React.Component<PairsEditorProps> {
         ).isRequired,
     };
 
-    render(): React.ReactNode {
-        const editors = _.map(this.props.pairs, (pair, i) => {
-            return (
-                <PairEditor
-                    key={i}
-                    name={pair.name}
-                    value={pair.value}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onChange={this.handlePairChange.bind(this, i)}
-                />
-            );
-        });
-        return <div>{editors}</div>;
-    }
-
-    change = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -105,6 +95,21 @@ class PairsEditor extends React.Component<PairsEditorProps> {
     serialize = () => {
         return EditorJsonify.serialize.call(this);
     };
+
+    render(): React.ReactNode {
+        const editors = _.map(this.props.pairs, (pair, i) => {
+            return (
+                <PairEditor
+                    key={i}
+                    name={pair.name}
+                    value={pair.value}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onChange={this.handlePairChange.bind(this, i)}
+                />
+            );
+        });
+        return <div>{editors}</div>;
+    }
 }
 
 type IframeEditorProps = any;
@@ -119,17 +124,20 @@ class IframeEditor extends React.Component<IframeEditorProps> {
 
     static widgetName = "iframe" as const;
 
-    static defaultProps: IframeEditorProps = {
-        url: "",
-        settings: [{name: "", value: ""}],
-        width: "400",
-        height: "400",
-        allowFullScreen: false,
-        allowTopNavigation: false,
-    };
+    static defaultProps: IFrameDefaultWidgetOptions =
+        iframeLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
+    };
+
+    handleSettingsChange: (arg1: any) => void = (settings) => {
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
+        this.change({settings: settings.pairs});
+    };
+
+    serialize: () => any = () => {
+        return EditorJsonify.serialize.call(this);
     };
 
     render(): React.ReactNode {
@@ -148,6 +156,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                     />
                 </label>
                 <br />
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
                 <label>
                     Settings:
                     <PairsEditor
@@ -191,15 +200,6 @@ class IframeEditor extends React.Component<IframeEditorProps> {
             </div>
         );
     }
-
-    handleSettingsChange: (arg1: any) => void = (settings) => {
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-        this.change({settings: settings.pairs});
-    };
-
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
 }
 
 export default IframeEditor;

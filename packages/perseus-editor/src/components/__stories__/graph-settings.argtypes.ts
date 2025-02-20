@@ -51,7 +51,7 @@ export default {
         },
         table: {
             type: {
-                summary: '"graph" | "grid" | "none"',
+                summary: '"axes" | "graph" | "grid" | "none"',
             },
         },
         type: {

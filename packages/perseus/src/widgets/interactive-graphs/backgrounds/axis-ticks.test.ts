@@ -1,4 +1,11 @@
-import {generateTickLocations} from "./axis-ticks";
+import {
+    generateTickLocations,
+    shouldShowLabel,
+    countSignificantDecimals,
+    divideByAndShowPi,
+} from "./axis-ticks";
+
+import type {Interval} from "mafs";
 
 describe("generateTickLocations", () => {
     it("should generate ticks from the origin", () => {
@@ -18,5 +25,76 @@ describe("generateTickLocations", () => {
         expect(generateTickLocations(3, -10, 10)).toEqual([
             3, 6, 9, -3, -6, -9,
         ]);
+    });
+});
+
+describe("shouldShowLabel", () => {
+    it("should show label when y-axis is not at -tickStep", () => {
+        const currentTick = 1;
+        const range: [Interval, Interval] = [
+            [-10, 10],
+            [-10, 10],
+        ];
+        const tickStep = 1;
+        expect(shouldShowLabel(currentTick, range, tickStep)).toBe(true);
+    });
+
+    it("should hide label when currentTick equals -tickStep and the y-axis is within the graph bounds", () => {
+        const currentTick = -0.5;
+        const range: [Interval, Interval] = [
+            [-3, 3],
+            [-3, 3],
+        ];
+        const tickStep = 0.5;
+        expect(shouldShowLabel(currentTick, range, tickStep)).toBe(false);
+    });
+
+    it("should show label when currentTick equals -tickStep but y-axis is outside of the graph bounds", () => {
+        const currentTick = 1;
+        const range: [Interval, Interval] = [
+            [1, 10],
+            [-10, 10],
+        ];
+        const tickStep = 1;
+        expect(shouldShowLabel(currentTick, range, tickStep)).toBe(true);
+    });
+});
+describe("countSignificantDecimals", () => {
+    test.each`
+        tickStep   | expected
+        ${0.3}     | ${1}
+        ${0.03}    | ${2}
+        ${0.003}   | ${3}
+        ${0.0003}  | ${4}
+        ${0.00003} | ${5}
+    `(
+        "should correctly calculate the number of decimal places for $tickStep",
+        ({tickStep, expected}) => {
+            // Act
+            const decimalPlaces = countSignificantDecimals(tickStep);
+
+            expect(decimalPlaces).toBe(expected);
+        },
+    );
+});
+
+describe("divideByAndShowPi", () => {
+    it.each`
+        value           | expected
+        ${Math.PI}      | ${"π"}
+        ${-1 * Math.PI} | ${"-π"}
+        ${0}            | ${"0"}
+        ${Math.PI * 2}  | ${"2π"}
+        ${Math.PI * -2} | ${"-2π"}
+        ${Math.PI / 2}  | ${"0.5π"}
+        ${Math.PI / -2} | ${"-0.5π"}
+    `("should display $expected as a multiple of pi", ({value, expected}) => {
+        // Arrange
+
+        // Act
+        const result = divideByAndShowPi(value);
+
+        // Assert
+        expect(result).toBe(expected);
     });
 });

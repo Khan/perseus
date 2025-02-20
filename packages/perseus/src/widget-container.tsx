@@ -1,4 +1,8 @@
-/* eslint-disable react/no-unsafe, react/sort-comp */
+/* eslint-disable react/no-unsafe */
+import {
+    CoreWidgetRegistry,
+    type PerseusWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
@@ -6,11 +10,9 @@ import ReactDOM from "react-dom";
 
 import {DependenciesContext} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
-import {zIndexInteractiveComponent} from "./styles/constants";
 import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
 import * as Widgets from "./widgets";
 
-import type {PerseusWidgetOptions} from "./perseus-types";
 import type {WidgetProps} from "./types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -67,107 +69,6 @@ class WidgetContainer extends React.Component<Props, State> {
         }
     }
 
-    render(): React.ReactNode {
-        let className = classNames({
-            "perseus-widget-container": true,
-            "widget-highlight": this.props.shouldHighlight,
-            "widget-nohighlight": !this.props.shouldHighlight,
-            // HACK(matthewc): perseus-widget-container is setting a font-size
-            // but we want the definition prompt to match the surrounding font
-            // I'm sorry, but there's a time crunch
-            "perseus-widget__definition": this.props.type === "definition",
-        });
-
-        const type = this.props.type;
-        const WidgetType = Widgets.getWidget(type);
-        if (WidgetType == null) {
-            // This is for the good of all people!!
-            // eslint-disable-next-line no-console
-            console.warn(`Widget type '${type}' not found!`);
-            // Just give up on invalid widget types
-            return <div className={className} />;
-        }
-
-        let alignment = this.state.widgetProps.alignment;
-        if (alignment === "default") {
-            alignment = Widgets.getDefaultAlignment(type);
-        }
-
-        className += " widget-" + alignment;
-
-        const apiOptions = this.state.widgetProps.apiOptions;
-
-        // Hack to prevent interaction with static widgets: we overlay a big
-        // div on top of the widget and overflow: hidden the container.
-        // Ideally widgets themselves should know how to prevent interaction.
-        const isStatic = this.state.widgetProps.static || apiOptions.readOnly;
-        const staticContainerStyles = {
-            position: "relative",
-            overflow: "visible",
-        } as const;
-        const staticOverlayStyles = {
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            zIndex: zIndexInteractiveComponent,
-        } as const;
-
-        // Some widgets may include strings of markdown that we may
-        // want to run the linter on. So if the widget is lintable,
-        // and we've been asked to highlight lint, pass that property
-        // on to the widget, and if the content is not lintable, make sure
-        // to default to false.
-        // The linter context might be a constant object (and it isn't owned
-        // by us anyway), so we copy it if we have to modify it.
-        const linterContext = Widgets.isLintable(type)
-            ? this.props.linterContext
-            : {...this.props.linterContext, highlightLint: false};
-
-        // Note: if you add more props here, please consider whether or not
-        // it should be auto-serialized (e.g. used in scoreInput()). See
-        // widget-jsonify-deprecated.jsx and widget-prop-denylist.jsx
-
-        // We default to an empty object for style instead of null
-        // because of a strange bug where the static styles aren't applied
-        // after toggling static mode.
-        return (
-            <div
-                className={className}
-                style={isStatic ? staticContainerStyles : {}}
-            >
-                <DependenciesContext.Consumer>
-                    {({analytics}) => (
-                        <ErrorBoundary
-                            metadata={{
-                                widget_type: type,
-                                widget_id: this.props.id,
-                            }}
-                            onError={() => {
-                                analytics.onAnalyticsEvent({
-                                    type: "perseus:widget-rendering-error",
-                                    payload: {
-                                        widgetType: type,
-                                        widgetId: this.props.id,
-                                    },
-                                });
-                            }}
-                        >
-                            <WidgetType
-                                {...this.state.widgetProps}
-                                linterContext={linterContext}
-                                containerSizeClass={this.state.sizeClass}
-                                ref={this.widgetRef}
-                            />
-                            {isStatic && <div style={staticOverlayStyles} />}
-                        </ErrorBoundary>
-                    )}
-                </DependenciesContext.Consumer>
-            </div>
-        );
-    }
-
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         if (this.props.type !== nextProps.type) {
             throw new Error(
@@ -194,6 +95,131 @@ class WidgetContainer extends React.Component<Props, State> {
         (newWidgetProps) => {
             this.setState({widgetProps: newWidgetProps});
         };
+
+    render(): React.ReactNode {
+        let className = classNames({
+            "perseus-widget-container": true,
+            "widget-highlight": this.props.shouldHighlight,
+            "widget-nohighlight": !this.props.shouldHighlight,
+            // HACK(matthewc): perseus-widget-container is setting a font-size
+            // but we want the definition prompt to match the surrounding font
+            // I'm sorry, but there's a time crunch
+            "perseus-widget__definition": this.props.type === "definition",
+        });
+
+        const type = this.props.type;
+        const userAgent = navigator.userAgent;
+
+        const WidgetType = Widgets.getWidget(type);
+        if (WidgetType == null) {
+            // This is for the good of all people!!
+            // eslint-disable-next-line no-console
+            console.warn(`Widget type '${type}' not found!`);
+            // Just give up on invalid widget types
+            return <div className={className} />;
+        }
+
+        let subType = "null";
+        if (type === "interactive-graph") {
+            const props = this.state.widgetProps;
+
+            subType = props.graph?.type ?? "null";
+        }
+
+        let alignment = this.state.widgetProps.alignment;
+        if (alignment === "default") {
+            alignment = CoreWidgetRegistry.getDefaultAlignment(type);
+        }
+
+        className += " widget-" + alignment;
+
+        const apiOptions = this.state.widgetProps.apiOptions;
+
+        // Hack to prevent interaction with static widgets: we overlay a big
+        // div on top of the widget and overflow: hidden the container.
+        // Ideally widgets themselves should know how to prevent interaction.
+        // UPDATE HTML5: `inert` on the underlying div would be better
+        const isStatic = this.state.widgetProps.static || apiOptions.readOnly;
+        const staticContainerStyles = {
+            position: "relative",
+            overflow: "visible",
+        } as const;
+        const staticOverlayStyles = {
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            zIndex: 3,
+        } as const;
+
+        // Some widgets may include strings of markdown that we may
+        // want to run the linter on. So if the widget is lintable,
+        // and we've been asked to highlight lint, pass that property
+        // on to the widget, and if the content is not lintable, make sure
+        // to default to false.
+        // The linter context might be a constant object (and it isn't owned
+        // by us anyway), so we copy it if we have to modify it.
+        const linterContext = Widgets.isLintable(type)
+            ? this.props.linterContext
+            : {...this.props.linterContext, highlightLint: false};
+
+        // Note: if you add more props here, please consider whether or not
+        // it should be auto-serialized.
+        // See widget-jsonify-deprecated.jsx and widget-prop-denylist.jsx
+
+        // We default to an empty object for style instead of null
+        // because of a strange bug where the static styles aren't applied
+        // after toggling static mode.
+        return (
+            <div
+                className={className}
+                style={isStatic ? staticContainerStyles : {}}
+            >
+                <DependenciesContext.Consumer>
+                    {({analytics}) => (
+                        <ErrorBoundary
+                            metadata={{
+                                widget_type: type,
+                                widget_id: this.props.id,
+                            }}
+                            onError={(error: Error) => {
+                                // TODO(LEMS-2826): Remove analytics event in LEMS-2826 in favor of ti below.
+                                analytics.onAnalyticsEvent({
+                                    type: "perseus:widget-rendering-error",
+                                    payload: {
+                                        widgetSubType: subType,
+                                        widgetType: type,
+                                        widgetId: this.props.id,
+                                        message: error.message,
+                                        userAgent: userAgent,
+                                    },
+                                });
+                                analytics.onAnalyticsEvent({
+                                    type: "perseus:widget-rendering-error:ti",
+                                    payload: {
+                                        widgetSubType: subType,
+                                        widgetType: type,
+                                        widgetId: this.props.id,
+                                        message: error.message,
+                                        userAgent: userAgent,
+                                    },
+                                });
+                            }}
+                        >
+                            <WidgetType
+                                {...this.state.widgetProps}
+                                linterContext={linterContext}
+                                containerSizeClass={this.state.sizeClass}
+                                ref={this.widgetRef}
+                            />
+                            {isStatic && <div style={staticOverlayStyles} />}
+                        </ErrorBoundary>
+                    )}
+                </DependenciesContext.Consumer>
+            </div>
+        );
+    }
 }
 
 export default WidgetContainer;

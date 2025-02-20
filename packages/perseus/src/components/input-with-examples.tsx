@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import * as React from "react";
 import _ from "underscore";
@@ -72,7 +71,7 @@ class InputWithExamples extends React.Component<Props, State> {
 
     _getInputClassName: () => string = () => {
         // Otherwise, we need to add these INPUT and FOCUSED tags here.
-        let className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
+        let className = ApiClassNames.INPUT;
         if (this.state.focused) {
             className += " " + ApiClassNames.FOCUSED;
         }
@@ -84,9 +83,21 @@ class InputWithExamples extends React.Component<Props, State> {
 
     _renderInput: () => any = () => {
         const id = this._getUniqueId();
+        const ariaId = `aria-for-${id}`;
+        // Generate text from a known set of format options that will read well in a screen reader
+        const examplesAria =
+            this.props.examples.length === 7
+                ? ""
+                : `${this.props.examples[0]}
+                   ${this.props.examples.slice(1).join(", or\n")}`
+                      // @ts-expect-error TS2550: Property replaceAll does not exist on type string.
+                      .replaceAll("*", "")
+                      .replaceAll("$", "")
+                      .replaceAll("\\ \\text{pi}", " pi")
+                      .replaceAll("\\ ", " and ");
         const inputProps = {
             id: id,
-            "aria-describedby": id,
+            "aria-describedby": ariaId,
             ref: "input",
             className: this._getInputClassName(),
             labelText: this.props.labelText,
@@ -102,45 +113,15 @@ class InputWithExamples extends React.Component<Props, State> {
             autoCorrect: "off",
             spellCheck: "false",
         };
-        return <TextInput {...inputProps} />;
-    };
-
-    render(): React.ReactNode {
-        const input = this._renderInput();
-
-        const examplesContent = _.map(this.props.examples, (example) => {
-            return "- " + example;
-        }).join("\n");
-
-        const showExamples =
-            this.props.shouldShowExamples && this.state.showExamples;
-
         return (
-            <Tooltip
-                // eslint-disable-next-line react/no-string-refs
-                ref="tooltip"
-                className="perseus-formats-tooltip preview-measure"
-                horizontalPosition={HorizontalDirection.Left}
-                horizontalAlign={HorizontalDirection.Left}
-                verticalPosition={VerticalDirection.Bottom}
-                arrowSize={10}
-                borderColor="#ccc"
-                show={showExamples}
-            >
-                {input}
-                <div id={this._getUniqueId()}>
-                    <Renderer
-                        content={examplesContent}
-                        linterContext={PerseusLinter.pushContextStack(
-                            this.props.linterContext,
-                            "input-with-examples",
-                        )}
-                        strings={this.context.strings}
-                    />
-                </div>
-            </Tooltip>
+            <>
+                <TextInput {...inputProps} />
+                <span id={ariaId} style={{display: "none"}}>
+                    {examplesAria}
+                </span>
+            </>
         );
-    }
+    };
 
     _handleFocus: () => void = () => {
         this.props.onFocus();
@@ -181,6 +162,49 @@ class InputWithExamples extends React.Component<Props, State> {
     handleChange: (arg1: any) => void = (e) => {
         this.props.onChange(e.target.value);
     };
+    render(): React.ReactNode {
+        const input = this._renderInput();
+
+        const examplesContent =
+            this.props.examples.length <= 2
+                ? this.props.examples.join(" ") // A single item (with or without leading text) is not a "list"
+                : this.props.examples // 2 or more items should display as a list
+                      .map((example, index) => {
+                          // If the first example is bold, then it is most likely a heading/leading text.
+                          // So, it shouldn't be part of the list.
+                          return index === 0 && example.startsWith("**")
+                              ? `${example}\n`
+                              : `- ${example}`;
+                      })
+                      .join("\n");
+
+        const showExamples =
+            this.props.shouldShowExamples && this.state.showExamples;
+
+        return (
+            <Tooltip
+                className="perseus-formats-tooltip preview-measure"
+                horizontalPosition={HorizontalDirection.Left}
+                horizontalAlign={HorizontalDirection.Left}
+                verticalPosition={VerticalDirection.Bottom}
+                arrowSize={10}
+                borderColor="#ccc"
+                show={showExamples}
+            >
+                {input}
+                <div id={this._getUniqueId()}>
+                    <Renderer
+                        content={examplesContent}
+                        linterContext={PerseusLinter.pushContextStack(
+                            this.props.linterContext,
+                            "input-with-examples",
+                        )}
+                        strings={this.context.strings}
+                    />
+                </div>
+            </Tooltip>
+        );
+    }
 }
 
 export default InputWithExamples;

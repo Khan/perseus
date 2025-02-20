@@ -1,4 +1,6 @@
-import {getDecimalSeparator} from "../../utils";
+import {getDecimalSeparator} from "@khanacademy/perseus-core";
+
+import {MathFieldActionType} from "../../types";
 import {mathQuillInstance} from "../input/mathquill-instance";
 
 import handleArrow from "./handle-arrow";
@@ -11,32 +13,49 @@ import type {
     MathFieldUpdaterCallback,
 } from "../input/mathquill-types";
 
-enum ActionType {
-    WRITE = "write",
-    CMD = "cmd",
-    KEYSTROKE = "keystroke",
-    MQ_END = 0,
-}
-
 function buildGenericCallback(
     str: string,
-    type: ActionType = ActionType.WRITE,
+    type: MathFieldActionType = MathFieldActionType.WRITE,
 ): MathFieldUpdaterCallback {
     return function (mathQuill: MathFieldInterface) {
         switch (type) {
-            case ActionType.WRITE: {
+            case MathFieldActionType.WRITE: {
                 mathQuill.write(str);
                 return;
             }
-            case ActionType.CMD: {
+            case MathFieldActionType.CMD: {
                 mathQuill.cmd(str);
                 return;
             }
-            case ActionType.KEYSTROKE: {
+            case MathFieldActionType.KEYSTROKE: {
                 mathQuill.keystroke(str);
                 return;
             }
         }
+    };
+}
+
+/**
+ * This lets us use translated functions
+ * (like tg->tan and sen->sin) when we know it's safe to.
+ * This lets us progressively support translations without needing
+ * to support every language all at once.
+ *
+ * @param {string} command - the translated command/function to check
+ * @param {string[]} supportedTranslations - list of translations we support
+ * @param {string} defaultCommand - what to fallback to if the command isn't supported
+ */
+function buildTranslatableFunctionCallback(
+    command: string,
+    supportedTranslations: string[],
+    defaultCommand: string,
+) {
+    const cmd = supportedTranslations.includes(command)
+        ? command
+        : defaultCommand;
+    return function (mathField: MathFieldInterface) {
+        mathField.write(`${cmd}\\left(\\right)`);
+        mathField.keystroke("Left");
     };
 }
 
@@ -47,8 +66,15 @@ function buildNormalFunctionCallback(command: string) {
     };
 }
 
+type KeyTranslatorStrings = {
+    sin: string;
+    cos: string;
+    tan: string;
+};
+
 export const getKeyTranslator = (
     locale: string,
+    strings: KeyTranslatorStrings,
 ): Record<Key, MathFieldUpdaterCallback> => ({
     EXP: handleExponent,
     EXP_2: handleExponent,
@@ -66,9 +92,10 @@ export const getKeyTranslator = (
 
     LOG: buildNormalFunctionCallback("log"),
     LN: buildNormalFunctionCallback("ln"),
-    SIN: buildNormalFunctionCallback("sin"),
-    COS: buildNormalFunctionCallback("cos"),
-    TAN: buildNormalFunctionCallback("tan"),
+
+    COS: buildNormalFunctionCallback(strings.cos),
+    SIN: buildTranslatableFunctionCallback(strings.sin, ["sin", "sen"], "sin"),
+    TAN: buildTranslatableFunctionCallback(strings.tan, ["tan", "tg"], "tan"),
 
     CDOT: buildGenericCallback("\\cdot"),
     DECIMAL: buildGenericCallback(getDecimalSeparator(locale)),
@@ -88,18 +115,18 @@ export const getKeyTranslator = (
 
     // The `FRAC_EXCLUSIVE` variant is handled manually, since we may need to do
     // some additional navigation depending on the cursor position.
-    FRAC_INCLUSIVE: buildGenericCallback("/", ActionType.CMD),
-    FRAC: buildGenericCallback("\\frac", ActionType.CMD),
-    LEFT_PAREN: buildGenericCallback("(", ActionType.CMD),
-    RIGHT_PAREN: buildGenericCallback(")", ActionType.CMD),
-    SQRT: buildGenericCallback("sqrt", ActionType.CMD),
-    PI: buildGenericCallback("pi", ActionType.CMD),
-    THETA: buildGenericCallback("theta", ActionType.CMD),
-    RADICAL: buildGenericCallback("nthroot", ActionType.CMD),
+    FRAC_INCLUSIVE: buildGenericCallback("/", MathFieldActionType.CMD),
+    FRAC: buildGenericCallback("\\frac", MathFieldActionType.CMD),
+    LEFT_PAREN: buildGenericCallback("(", MathFieldActionType.CMD),
+    RIGHT_PAREN: buildGenericCallback(")", MathFieldActionType.CMD),
+    SQRT: buildGenericCallback("sqrt", MathFieldActionType.CMD),
+    PI: buildGenericCallback("pi", MathFieldActionType.CMD),
+    THETA: buildGenericCallback("theta", MathFieldActionType.CMD),
+    RADICAL: buildGenericCallback("nthroot", MathFieldActionType.CMD),
 
-    BACKSPACE: buildGenericCallback("Backspace", ActionType.KEYSTROKE),
-    UP: buildGenericCallback("Up", ActionType.KEYSTROKE),
-    DOWN: buildGenericCallback("Down", ActionType.KEYSTROKE),
+    BACKSPACE: buildGenericCallback("Backspace", MathFieldActionType.KEYSTROKE),
+    UP: buildGenericCallback("Up", MathFieldActionType.KEYSTROKE),
+    DOWN: buildGenericCallback("Down", MathFieldActionType.KEYSTROKE),
 
     CUBE_ROOT: (mathQuill) => {
         mathQuill.write("\\sqrt[3]{}");
@@ -111,7 +138,7 @@ export const getKeyTranslator = (
         // If there's nothing to the left of the cursor, then we want to
         // leave the cursor to the left of the fraction after creating it.
         const shouldNavigateLeft =
-            cursor[mathQuillInstance.L] === ActionType.MQ_END;
+            cursor[mathQuillInstance.L] === MathFieldActionType.MQ_END;
         mathQuill.cmd("\\frac");
         if (shouldNavigateLeft) {
             mathQuill.keystroke("Left");

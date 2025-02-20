@@ -8,8 +8,6 @@
  *  * nothing if it is purely a bug fix.
  *
  * Callbacks passed to Renderer/ItemRenderer:
- *  * onInputError:
- *    Called when there is an error grading a widget
  *  * onFocusChange: (newFocusPath, oldFocusPath, keypadDOMNode)
  *    Called when the user focus changes. The first two parameters are `path`
  *    arrays uniquely identifying the respect inputs. The third parameter,
@@ -40,7 +38,6 @@ export const ApiOptions = {
     propTypes: PropTypes.shape({
         isArticle: PropTypes.bool.isRequired,
 
-        onInputError: PropTypes.func.isRequired,
         onFocusChange: PropTypes.func.isRequired,
         GroupMetadataEditor: PropTypes.func.isRequired,
         showAlignmentOptions: PropTypes.bool.isRequired,
@@ -139,7 +136,6 @@ export const ApiOptions = {
     defaults: {
         isArticle: false,
         isMobile: false,
-        onInputError: function () {},
         onFocusChange: function () {},
         GroupMetadataEditor: StubTagEditor,
         showAlignmentOptions: false,
@@ -151,6 +147,7 @@ export const ApiOptions = {
             Link: (
                 props: any,
             ): React.ReactElement<React.ComponentProps<"a">> => {
+                // eslint-disable-next-line jsx-a11y/anchor-has-content -- TODO(LEMS-2871): Address a11y error
                 return <a {...props} />;
             },
         },
@@ -172,7 +169,6 @@ export const ClassNames = {
         SELECTED: "perseus-radio-selected",
         OPTION_CONTENT: "perseus-radio-option-content",
     },
-    INTERACTIVE: "perseus-interactive",
     CORRECT: "perseus-correct",
     INCORRECT: "perseus-incorrect",
     UNANSWERED: "perseus-unanswered",

@@ -1,5 +1,8 @@
-/* eslint-disable react/sort-comp */
 import {components, TableWidget, Util} from "@khanacademy/perseus";
+import {
+    tableLogic,
+    type TableDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -21,92 +24,14 @@ class TableEditor extends React.Component<Props> {
 
     static widgetName = "table" as const;
 
-    static defaultProps: Props = (function () {
-        const defaultRows = 4;
-        const defaultColumns = 1;
-        const blankAnswers = _(defaultRows).times(function () {
-            return Util.stringArrayOfSize(defaultColumns);
-        });
-        return {
-            headers: [""],
-            rows: defaultRows,
-            columns: defaultColumns,
-            answers: blankAnswers,
-        };
-    })();
+    static defaultProps: TableDefaultWidgetOptions =
+        tableLogic.defaultWidgetOptions;
 
     numberOfColumns = React.createRef<components.NumberInput>();
 
     focus: () => void = () => {
         this.numberOfColumns.current?.focus();
     };
-
-    render(): React.ReactNode {
-        const tableProps = _.pick(
-            this.props,
-            "headers",
-            "answers",
-            "onChange",
-            "apiOptions",
-        );
-        _.extend(tableProps, {
-            editableHeaders: true,
-            Editor,
-            onFocus: () => {},
-            onBlur: () => {},
-            trackInteraction: () => {},
-        });
-
-        return (
-            <div>
-                <div className="perseus-widget-row">
-                    <label>
-                        Number of columns:{" "}
-                        <NumberInput
-                            ref={this.numberOfColumns}
-                            value={this.props.columns}
-                            onChange={(val) => {
-                                if (val) {
-                                    this.onSizeInput(this.props.rows, val);
-                                }
-                            }}
-                            useArrowKeys={true}
-                        />
-                    </label>
-                </div>
-                <div className="perseus-widget-row">
-                    <label>
-                        Number of rows:{" "}
-                        <NumberInput
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="numberOfRows"
-                            value={this.props.rows}
-                            onChange={(val) => {
-                                if (val) {
-                                    this.onSizeInput(val, this.props.columns);
-                                }
-                            }}
-                            useArrowKeys={true}
-                        />
-                    </label>
-                </div>
-                <div>
-                    {" "}
-                    Table of answers:{" "}
-                    <InfoTip>
-                        <p>
-                            The student has to fill out all cells in the table.
-                            For partially filled tables create a table using the
-                            template, and insert text input boxes as desired.
-                        </p>
-                    </InfoTip>
-                </div>
-                <div>
-                    <Table {...tableProps} />
-                </div>
-            </div>
-        );
-    }
 
     onSizeInput: (arg1: number, arg2: number) => void = (
         numRawRows,
@@ -159,6 +84,69 @@ class TableEditor extends React.Component<Props> {
             answers: _.map(this.props.answers, _.clone),
         });
     };
+
+    render(): React.ReactNode {
+        return (
+            <div>
+                <div className="perseus-widget-row">
+                    <label>
+                        Number of columns:{" "}
+                        <NumberInput
+                            ref={this.numberOfColumns}
+                            value={this.props.columns}
+                            onChange={(val) => {
+                                if (val) {
+                                    this.onSizeInput(this.props.rows, val);
+                                }
+                            }}
+                            useArrowKeys={true}
+                        />
+                    </label>
+                </div>
+                <div className="perseus-widget-row">
+                    <label>
+                        Number of rows:{" "}
+                        <NumberInput
+                            // eslint-disable-next-line react/no-string-refs
+                            ref="numberOfRows"
+                            value={this.props.rows}
+                            onChange={(val) => {
+                                if (val) {
+                                    this.onSizeInput(val, this.props.columns);
+                                }
+                            }}
+                            useArrowKeys={true}
+                        />
+                    </label>
+                </div>
+                <div>
+                    {" "}
+                    Table of answers:{" "}
+                    <InfoTip>
+                        <p>
+                            The student has to fill out all cells in the table.
+                            For partially filled tables create a table using the
+                            template, and insert text input boxes as desired.
+                        </p>
+                    </InfoTip>
+                </div>
+                <div>
+                    {/* @ts-expect-error - TS2769 - Type '{ headers: any; answers: any; onChange: any; apiOptions: any; editableHeaders: true; onFocus: () => void; onBlur: () => void; trackInteraction: () => void; Editor: typeof Editor; }' is missing the following properties from type 'Pick<Readonly<Props>, "trackInteraction" | "onChange" | "Editor" | "widgetId" | "alignment" | "static" | "problemNum" | "keypadElement" | "questionCompleted" | ... 5 more ... | "containerSizeClass">': widgetId, alignment, static, problemNum, and 4 more.*/}
+                    <Table
+                        headers={this.props.headers}
+                        answers={this.props.answers}
+                        onChange={this.props.onChange}
+                        apiOptions={this.props.apiOptions}
+                        editableHeaders={true}
+                        onFocus={() => {}}
+                        onBlur={() => {}}
+                        trackInteraction={() => {}}
+                        Editor={Editor}
+                    />
+                </div>
+            </div>
+        );
+    }
 }
 
 export default TableEditor;

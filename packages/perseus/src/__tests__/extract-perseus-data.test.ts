@@ -28,7 +28,7 @@ beforeEach(() => {
     stub.mockClear();
 });
 
-import type {RadioWidget, PerseusWidgetsMap} from "../perseus-types";
+import type {RadioWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 describe("ExtractPerseusData", () => {
     describe("getAnswersFromWidgets", () => {
@@ -292,6 +292,7 @@ describe("ExtractPerseusData", () => {
                 type: "dropdown",
                 options: {
                     placeholder: "Select an option",
+                    ariaLabel: "",
                     static: false,
                     choices: [
                         {
@@ -1036,13 +1037,13 @@ describe("ExtractPerseusData", () => {
 
         it("should inject unsupported statement for widgets that aren't supported", () => {
             const widgets = {
-                "mock-widget 1": {
+                "not-a-real-widget 1": {
                     type: "mock",
                     options: {},
                 },
             } as const;
             const content = injectWidgets(
-                "Content with an unsupported widget [[☃ mock-widget 1]]",
+                "Content with an unsupported widget [[☃ not-a-real-widget 1]]",
                 widgets,
             );
             expect(content).toEqual(

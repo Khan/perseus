@@ -3,13 +3,12 @@
  * in order for them to work. Requiring this file will register all of the
  * widgets and editors.
  */
-import {Widgets} from "@khanacademy/perseus";
+import {Widgets, widgets} from "@khanacademy/perseus";
 
 import allEditors from "../all-editors";
-import allWidgets from "../all-widgets";
 
 export const registerAllWidgetsAndEditorsForTesting = () => {
-    Widgets.registerWidgets(allWidgets);
+    Widgets.registerWidgets(widgets);
     Widgets.registerEditors(allEditors);
 
     Widgets.replaceDeprecatedWidgets();

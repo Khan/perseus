@@ -1,5 +1,6 @@
 @import "./variables.less";
 @import "./util.less";
+@import "./global.less";
 
 @import "./styles.less";
 
@@ -26,7 +27,7 @@
 // counterintuitive, so we simply don't let you see anything you draw under
 // a widget.
 .blank-background {
-    background-color: #fdfdfd; // Keep in sync with KhanUtil._BACKGROUND
+    background-color: #fdfdfd;
 }
 // There is no scratchpad in the answer_area, and it has a different color
 // background, so just make it transparent
@@ -34,31 +35,9 @@
     background-color: transparent;
 }
 
-.above-scratchpad {
-    position: relative;
-    z-index: @zIndexAboveScratchpad;
-}
-
-// All graphie components placed above the scratchpad should have their
-// background wiped out.
-.graphie.above-scratchpad,
-.graphie-container.above-scratchpad {
-    .blank-background;
-}
-
-.perseus-mobile .graphie-container.above-scratchpad {
-    background: #ffffff;
-}
-
 // Selectable graphie components make for awkward touch experiences
 .graphie {
     .no-select;
-}
-
-.perseus-interactive,
-.perseus-interactive.above-scratchpad {
-    position: relative;
-    z-index: @zIndexInteractiveComponent;
 }
 
 &,  // and moar specificity...
@@ -411,6 +390,13 @@
     padding: 25px 25px 0 0;
 }
 
+.perseus-article .perseus-dropdown .perseus-renderer .paragraph,
+.perseus-article .perseus-dropdown .perseus-renderer .perseus-block-math {
+    /* overriding overly broad selectors in .framework-perseus rules */
+    margin-bottom: 0 !important;
+    font-size: 18px !important;
+}
+
 @import "./widgets/categorizer.less";
 @import "./widgets/dropdown.less";
 @import "./widgets/expression.less";
@@ -539,24 +525,20 @@
     }
 }
 
-// TODO(joel) - remove?
-.perseus-tooltip {
+.perseus-formats-tooltip {
     background: #fff;
+    color: @textSecondary;
     padding: 5px 10px;
     width: 240px;
 }
 
-// CSS is evil; let's overwrite some styles. T_T
-.perseus-formats-tooltip {
-    .perseus-tooltip;
-    color: #777;
-}
-.framework-perseus .perseus-formats-tooltip .paragraph > ul {
-    padding: 0;
-    margin: -20px 0 -16px 0;
-    > li {
-        list-style-type: none;
-    }
+/*
+    Extra specificity needed to override other styles that are too broad.
+    Once we get a better framework in place (like CSS Modules), we can fix this selector.
+*/
+.framework-perseus .perseus-formats-tooltip .paragraph,
+.framework-perseus .tooltipContainer .perseus-formats-tooltip .paragraph ul {
+    margin: 0;
 }
 
 .box-shadow(@shadow: 0 1px 3px rgba(0,0,0,0.25)) {

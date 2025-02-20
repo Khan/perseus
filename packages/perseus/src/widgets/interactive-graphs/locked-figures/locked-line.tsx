@@ -1,25 +1,38 @@
+import {angles} from "@khanacademy/kmath";
+import {lockedFigureColors} from "@khanacademy/perseus-core";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Point, Line, vec} from "mafs";
 import * as React from "react";
 
-import {lockedFigureColors} from "../../../perseus-types";
 import {Arrowhead} from "../graphs/components/arrowhead";
 import {Vector} from "../graphs/components/vector";
 import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {getIntersectionOfRayWithBox} from "../graphs/utils";
-import {X, Y, calculateAngleInDegrees} from "../math";
+import {X, Y} from "../math";
 
-import type {LockedLineType} from "../../../perseus-types";
+import type {LockedLineType} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
+
+const {calculateAngleInDegrees} = angles;
 
 type Props = LockedLineType & {
     range: [Interval, Interval];
 };
 
 const LockedLine = (props: Props) => {
-    const {color, lineStyle, kind, points, showPoint1, showPoint2, range} =
-        props;
+    const {
+        color,
+        lineStyle,
+        kind,
+        points,
+        showPoint1,
+        showPoint2,
+        ariaLabel,
+        range,
+    } = props;
     const [point1, point2] = points;
+
+    const hasAria = !!ariaLabel;
 
     let line;
 
@@ -101,7 +114,12 @@ const LockedLine = (props: Props) => {
     }
 
     return (
-        <g className={kind === "ray" ? "locked-ray" : "locked-line"}>
+        <g
+            className={kind === "ray" ? "locked-ray" : "locked-line"}
+            aria-label={hasAria ? ariaLabel : undefined}
+            aria-hidden={!hasAria}
+            role="img"
+        >
             {line}
             {showPoint1 && (
                 <Point

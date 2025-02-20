@@ -8,7 +8,7 @@ import LockedPoint from "./locked-figures/locked-point";
 import LockedPolygon from "./locked-figures/locked-polygon";
 import LockedVector from "./locked-figures/locked-vector";
 
-import type {LockedFigure} from "../../perseus-types";
+import type {LockedFigure} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 type Props = {
@@ -59,6 +59,12 @@ const GraphLockedLayer = (props: Props) => {
                                 {...figure}
                             />
                         );
+                    case "label":
+                        // This is rendered outside the SVG element, since
+                        // TeX cannot be rendered inside an SVG.
+                        // See graph-locked-labels-layer.tsx for
+                        // the component that renders these.
+                        return null;
                     default:
                         /**
                          * Devlopment-time future-proofing: This should
