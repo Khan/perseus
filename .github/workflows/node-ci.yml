@@ -164,12 +164,24 @@ jobs:
             - uses: actions/cache@v4
               with:
                   path: ~/.cache/Cypress
-                  key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+                  # Generate a new cache whenever the lock file changes
+                  key: ${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  # If source files changed, rebuild from a prior cache.
+                  restore-keys: |
+                      ${{ runner.os }}-cypress-
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+
+            # We _should_ have a valid Cypress binary in place at this point,
+            # but we _could_ have had a cache miss on `~/.cache/Cypress` but a
+            # cache hit on `node_modules` leaving us in a state where the
+            # Cypress binary isn't available. This step ensures that the
+            # Cypress binary is in place
+            - name: Install Cypress
+              run: pnpm exec cypress install
 
             - name: Run tests
               run: pnpm cypress:ci
