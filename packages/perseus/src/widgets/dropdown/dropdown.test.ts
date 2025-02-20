@@ -158,38 +158,44 @@ describe("Dropdown widget", () => {
             ) as jest.Mock;
         });
 
-        const answerful: PerseusRenderer = {
-            content: "[[☃ dropdown 1]]",
-            images: {},
-            widgets: {
-                "dropdown 1": {
-                    type: "dropdown",
-                    options: {
-                        static: false,
-                        placeholder: "Choose an answer",
-                        choices: [
-                            {
-                                content: "Correct",
-                                correct: true,
-                            },
-                            {
-                                content: "Incorrect",
-                                correct: false,
-                            },
-                        ],
+        function getAnswerfulItem(): PerseusRenderer {
+            return {
+                content: "[[☃ dropdown 1]]",
+                images: {},
+                widgets: {
+                    "dropdown 1": {
+                        type: "dropdown",
+                        options: {
+                            static: false,
+                            placeholder: "Choose an answer",
+                            choices: [
+                                {
+                                    content: "Correct",
+                                    correct: true,
+                                },
+                                {
+                                    content: "Incorrect",
+                                    correct: false,
+                                },
+                            ],
+                        },
                     },
                 },
-            },
-        };
+            };
+        }
 
-        const answerless = splitPerseusItem(answerful);
+        function getAnswerlessItem(): PerseusRenderer {
+            return splitPerseusItem(getAnswerfulItem());
+        }
 
         test.each(["answerless", "answerful"])(
             "is interactive with widget options: %p",
             async (e) => {
                 // Arrange
                 const useAnswerless = e === "answerless";
-                const renderItem = useAnswerless ? answerless : answerful;
+                const renderItem = useAnswerless
+                    ? getAnswerlessItem()
+                    : getAnswerfulItem();
 
                 // assert that splitting worked as expected
                 if (useAnswerless) {
@@ -214,7 +220,11 @@ describe("Dropdown widget", () => {
                 );
 
                 const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItem(answerful, userInput, "en");
+                const score = scorePerseusItem(
+                    getAnswerfulItem(),
+                    userInput,
+                    "en",
+                );
 
                 // Assert
                 expect(score).toHaveBeenAnsweredCorrectly();
