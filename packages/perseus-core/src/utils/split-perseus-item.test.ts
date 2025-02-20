@@ -2,7 +2,7 @@ import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
 import splitPerseusItem from "./split-perseus-item";
 
-import type {PerseusRadioWidgetOptions, PerseusRenderer} from "../data-schema";
+import type {PerseusRenderer, RadioWidget} from "../data-schema";
 
 describe("splitPerseusItem", () => {
     it("doesn't do anything with an empty item", () => {
@@ -72,33 +72,20 @@ describe("splitPerseusItem", () => {
             images: {},
         };
 
-        const expected = {
-            content: "[[☃ radio 1]]",
-            // calling the upgrader here so I don't
-            // bog down the test with default properties
-            widgets: getUpgradedWidgetOptions({
-                "radio 1": {
-                    type: "radio",
-                    options: {
-                        choices: [
-                            {
-                                content: "Correct",
-                            },
-                            {
-                                content: "Incorrect",
-                            },
-                        ],
-                    },
-                },
-            }),
-            images: {},
-        };
-
         // Act
         const rv = splitPerseusItem(item);
 
         // Assert
-        expect(rv).toEqual(expected);
+        // check that we started with "correct" values
+        expect(item.widgets["radio 1"].options.choices[0].correct).toBe(true);
+        expect(item.widgets["radio 1"].options.choices[1].correct).toBe(false);
+        // check that we ended without "correct" values
+        expect(
+            rv.widgets["radio 1"].options.choices[0].correct,
+        ).toBeUndefined();
+        expect(
+            rv.widgets["radio 1"].options.choices[1].correct,
+        ).toBeUndefined();
     });
 
     it("strips NumericInput widgets", () => {
@@ -330,18 +317,21 @@ describe("splitPerseusItem", () => {
     });
 
     it("handles multiple widgets", () => {
-        function getFullOptions(): PerseusRadioWidgetOptions {
+        function getFullRadio(): RadioWidget {
             return {
-                choices: [
-                    {
-                        content: "Correct",
-                        correct: true,
-                    },
-                    {
-                        content: "Incorrect",
-                        correct: false,
-                    },
-                ],
+                type: "radio",
+                options: {
+                    choices: [
+                        {
+                            content: "Correct",
+                            correct: true,
+                        },
+                        {
+                            content: "Incorrect",
+                            correct: false,
+                        },
+                    ],
+                },
             };
         }
 
@@ -352,49 +342,8 @@ describe("splitPerseusItem", () => {
             // calling the upgrader here so I don't
             // bog down the test with default properties
             widgets: getUpgradedWidgetOptions({
-                "radio 1": {
-                    type: "radio",
-                    options: getFullOptions(),
-                },
-                "radio 2": {
-                    type: "radio",
-                    options: getFullOptions(),
-                },
-            }),
-        };
-
-        const expected = {
-            content: "[[☃ radio 1]] [[☃ radio 2]]",
-            images: {},
-            // calling the upgrader here so I don't
-            // bog down the test with default properties
-            widgets: getUpgradedWidgetOptions({
-                "radio 1": {
-                    type: "radio",
-                    options: {
-                        choices: [
-                            {
-                                content: "Correct",
-                            },
-                            {
-                                content: "Incorrect",
-                            },
-                        ],
-                    },
-                },
-                "radio 2": {
-                    type: "radio",
-                    options: {
-                        choices: [
-                            {
-                                content: "Correct",
-                            },
-                            {
-                                content: "Incorrect",
-                            },
-                        ],
-                    },
-                },
+                "radio 1": getFullRadio(),
+                "radio 2": getFullRadio(),
             }),
         };
 
@@ -402,7 +351,14 @@ describe("splitPerseusItem", () => {
         const rv = splitPerseusItem(item);
 
         // Assert
-        expect(rv).toEqual(expected);
+        ["radio 1", "radio 2"].forEach((id) => {
+            // check that we started with "correct" values
+            expect(item.widgets[id].options.choices[0].correct).toBe(true);
+            expect(item.widgets[id].options.choices[1].correct).toBe(false);
+            // check that we ended without "correct" values
+            expect(rv.widgets[id].options.choices[0].correct).toBeUndefined();
+            expect(rv.widgets[id].options.choices[1].correct).toBeUndefined();
+        });
     });
 
     it("upgrades widgets before splitting", () => {
@@ -433,7 +389,7 @@ describe("splitPerseusItem", () => {
                 "radio 1": {
                     type: "radio",
                     version: {
-                        major: 1,
+                        major: 2,
                         minor: 0,
                     },
                     options: {

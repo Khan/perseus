@@ -54,7 +54,19 @@ describe("parseWidgetsMap", () => {
         };
 
         const result = parse(widgetsMap, parseWidgetsMap);
-        expect(result).toEqual(success(widgetsMap));
+        expect(result).toEqual(
+            success({
+                "radio 0": {
+                    type: "radio",
+                    version: {major: 2, minor: 0},
+                    options: {
+                        choices: [],
+                        hasNoneOfTheAbove: false,
+                        numCorrect: 0,
+                    },
+                },
+            }),
+        );
     });
 
     it("rejects a widget ID with no number", () => {

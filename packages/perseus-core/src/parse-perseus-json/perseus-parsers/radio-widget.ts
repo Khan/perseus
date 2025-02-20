@@ -143,11 +143,13 @@ function migrateV0ToV1(
     widget: ParsedValue<typeof parseRadioWidgetV1>,
 ): RadioWidget {
     const {options} = widget;
+    const {noneOfTheAbove: _, ...rest} = options;
     return {
         ...widget,
         version: {major: 1, minor: 0},
         options: {
-            ...options,
+            ...rest,
+            hasNoneOfTheAbove: false,
         },
     };
 }
