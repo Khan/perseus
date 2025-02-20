@@ -40,6 +40,25 @@
     .no-select;
 }
 
+// Pulled over from khan-exercise.css (so that we could delete that file).
+.graphie svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+// Pulled over from khan-exercise.css (so that we could delete that file).
+var,
+div.graphie {
+    white-space: pre;
+    /**
+   * Graphie didn't have a fixed font-size and was just using
+   * the surrounding font-size. However some labels are banking on
+   * specific dimensions, so we need to lock it to a specific size.
+   */
+    font-size: 14px;
+}
+
 &,  // and moar specificity...
 #answercontent input[type=text],
 #answercontent input[type=number],
@@ -397,6 +416,13 @@
     font-size: 18px !important;
 }
 
+// Pulled over from khan-exercise.css (so that we could delete that file).
+.simple-button.disabled {
+    opacity: 0.5;
+    filter: alpha(opacity = 50);
+    cursor: default;
+}
+
 @import "./widgets/categorizer.less";
 @import "./widgets/dropdown.less";
 @import "./widgets/expression.less";
@@ -464,6 +490,13 @@
     }
     &.last-hint {
         margin-bottom: 32px;
+    }
+}
+
+// Pulled over from khan-exercise.css (so that we could delete that file).
+.hint.last-hint {
+    .paragraph {
+        font-weight: bold;
     }
 }
 

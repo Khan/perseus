@@ -32,6 +32,11 @@
 @correctGreen: #aaffaa;
 @ungradedBlue: #d9edf7;
 
+// Pulled over from khan-exercise.css (so that we could delete that file).
+code {
+    font-family: Courier, monospace;
+}
+
 .border-box-sizing() {
     box-sizing: border-box;
 }
@@ -353,6 +358,44 @@
         margin-bottom: 20px;
         text-align: left;
     }
+}
+
+// Pulled over from khan-exercise.css (so that we could delete that file).
+#problemarea {
+    font-size: 14px;
+    position: relative;
+    float: left;
+    padding-bottom: 38px;
+}
+#problemarea a:link,
+#problemarea input,
+#problemarea label,  /* HACK(aria): for radios */
+#problemarea select {
+    /* for dropdowns */
+    position: relative;
+    z-index: 3; /* interactive-content */
+}
+
+// Pulled over from khan-exercise.css (so that we could delete that file).
+#answer_area .answer-buttons input.simple-button,
+#answer_area input.simple-button.full-width {
+    width: 100%;
+}
+#answer_area input.simple-button[disabled="disabled"] {
+    opacity: 0.5;
+    filter: alpha(opacity = 50);
+    cursor: default;
+}
+#answer_area input.simple-button[disabled="disabled"]:hover {
+    color: #fff !important;
+}
+#answer_area input.simple-button.orange[disabled="disabled"]:hover {
+    border-color: #bf4f04 !important;
+    border-bottom-color: #803503 !important;
+}
+#answer_area input.simple-button.green[disabled="disabled"]:hover {
+    border-color: #76a005 !important;
+    border-bottom-color: #557303 !important;
 }
 
 //
