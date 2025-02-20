@@ -183,7 +183,52 @@ describe("MovablePoint", () => {
             expect(hairLines).toHaveLength(2);
         });
 
-        it("Hairlines do NOT show when not dragging", () => {
+        it("Shows hairlines when focused via keyboard and 'markings' are NOT set to 'none'", async () => {
+            useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
+            const {container} = render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
+                </Mafs>,
+            );
+
+            // Tab to the graph first.
+            await userEvent.tab();
+            // Tab to the point to give it focus.
+            await userEvent.tab();
+
+            // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
+            const hairLines = container.querySelectorAll("svg line");
+            expect(hairLines).toHaveLength(2);
+        });
+
+        it("Shows hairlines when focused via click and 'markings' are NOT set to 'none'", async () => {
+            useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
+            const {container} = render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint
+                        ariaLabel="point-label"
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
+                </Mafs>,
+            );
+
+            const point = screen.getByLabelText("point-label");
+            await userEvent.click(point);
+
+            // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
+            const hairLines = container.querySelectorAll("svg line");
+            expect(hairLines).toHaveLength(2);
+        });
+
+        it("Hairlines do NOT show when not dragging and not focused", () => {
             useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
             const {container} = render(
                 <Mafs width={200} height={200}>
@@ -201,7 +246,7 @@ describe("MovablePoint", () => {
             expect(hairLines).toHaveLength(0);
         });
 
-        it("Hairlines do NOT show when 'markings' are set to 'none'", () => {
+        it("Hairlines do NOT show when dragging and 'markings' are set to 'none'", () => {
             const graphStateContext = {...baseGraphConfigContext};
             graphStateContext.markings = "none";
             useGraphConfigMock.mockReturnValue(graphStateContext);
@@ -216,6 +261,31 @@ describe("MovablePoint", () => {
                     ,
                 </Mafs>,
             );
+
+            // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
+            const hairLines = container.querySelectorAll("svg line");
+            expect(hairLines).toHaveLength(0);
+        });
+
+        it("Hairlines do NOT show when focused and 'markings' are set to 'none'", async () => {
+            const graphStateContext = {...baseGraphConfigContext};
+            graphStateContext.markings = "none";
+            useGraphConfigMock.mockReturnValue(graphStateContext);
+            const {container} = render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint
+                        point={[0, 0]}
+                        sequenceNumber={1}
+                        onMove={() => {}}
+                    />
+                    ,
+                </Mafs>,
+            );
+
+            // Tab to the graph first.
+            await userEvent.tab();
+            // Tab to the point to give it focus.
+            await userEvent.tab();
 
             // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
             const hairLines = container.querySelectorAll("svg line");

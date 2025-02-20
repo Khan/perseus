@@ -20,12 +20,11 @@ import type {vec} from "mafs";
 export function renderLinearGraph(
     state: LinearGraphState,
     dispatch: Dispatch,
+    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <LinearGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: (
-            <LinearGraphDescription state={state} />
-        ),
+        interactiveElementsDescription: getLinearGraphDescription(state, i18n),
     };
 }
 
@@ -96,11 +95,10 @@ const LinearGraph = (props: LinearGraphProps, key: number) => {
     );
 };
 
-function LinearGraphDescription({state}: {state: LinearGraphState}) {
-    // The reason that LinearGraphDescription is a component (rather than a
-    // function that returns a string) is because it needs to use a
-    // hook: `usePerseusI18n`.
-    const i18n = usePerseusI18n();
+function getLinearGraphDescription(
+    state: LinearGraphState,
+    i18n: I18nContextType,
+) {
     const strings = describeLinearGraph(state, i18n);
 
     return strings.srLinearInteractiveElement;

@@ -13,6 +13,7 @@ import {
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
+import {parseLegacyButtonSets} from "./legacy-button-sets";
 import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 
@@ -53,24 +54,6 @@ function removeInvalidAnswerForms(
     return valid;
 }
 
-// NOTE(benchristel): I copied the default buttonSets from
-// expression.tsx. See the parse-perseus-json/README.md for
-// an explanation of why we want to duplicate the default here.
-const parseButtonSets = defaulted(
-    array(
-        enumeration(
-            "basic",
-            "basic+div",
-            "trig",
-            "prealgebra",
-            "logarithms",
-            "basic relations",
-            "advanced relations",
-        ),
-    ),
-    () => ["basic", "trig", "prealgebra", "logarithms"] as const,
-);
-
 const version1 = object({major: constant(1), minor: number});
 const parseExpressionWidgetV1: Parser<ExpressionWidget> =
     parseWidgetWithVersion(
@@ -84,7 +67,7 @@ const parseExpressionWidgetV1: Parser<ExpressionWidget> =
             times: boolean,
             visibleLabel: optional(string),
             ariaLabel: optional(string),
-            buttonSets: parseButtonSets,
+            buttonSets: parseLegacyButtonSets,
             buttonsVisible: optional(enumeration("always", "never", "focused")),
         }),
     );
@@ -101,7 +84,7 @@ const parseExpressionWidgetV0 = parseWidgetWithVersion(
         form: boolean,
         simplify: boolean,
         value: string,
-        buttonSets: parseButtonSets,
+        buttonSets: parseLegacyButtonSets,
         buttonsVisible: optional(enumeration("always", "never", "focused")),
     }),
 );

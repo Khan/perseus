@@ -51,7 +51,7 @@ export function scoreIsEmpty(score: PerseusScore): boolean {
  * Given two score objects for two different widgets, combine them so that
  * if one is wrong, the total score is wrong, etc.
  */
-export function combineScores(
+function combineScores(
     scoreA: PerseusScore,
     scoreB: PerseusScore,
 ): PerseusScore {

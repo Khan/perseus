@@ -13,7 +13,7 @@ export type FlipbookModel = {
 // Actions
 // ---------------------------------------------------------------------------
 
-export type Action =
+type Action =
     | {type: "noop"}
     | {type: "next"}
     | {type: "previous"}

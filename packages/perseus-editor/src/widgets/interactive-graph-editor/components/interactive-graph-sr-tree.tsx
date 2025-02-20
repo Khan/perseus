@@ -23,10 +23,12 @@ type AttributeMap = {
 };
 
 // Exported for testing
-export function getAccessibilityAttributes(
-    container?: Element,
-): AttributeMap[] {
+export function getAccessibilityAttributes(graphId: string): AttributeMap[] {
     const elementArias: Array<AttributeMap> = [];
+
+    // TODO(nisha): Change this to use ref after the graph has a non-string
+    // ref and the InteractiveGraph component forwards refs.
+    const container = document.getElementById(graphId);
 
     if (!container) {
         return elementArias;
@@ -135,6 +137,10 @@ function SRTree(props: Props) {
 }
 
 function InteractiveGraphSRTree({
+    // The graph whos accessibility tree we want to display.
+    // This is necessary when there are multiple graphs on the editor
+    // page, such as when there are also hints.
+    graphId,
     correct,
     fullGraphAriaLabel,
     fullGraphAriaDescription,
@@ -145,22 +151,16 @@ function InteractiveGraphSRTree({
     const [elementArias, setElementArias] = React.useState<AttributeMap[]>([]);
     const switchId = React.useId();
 
-    // TODO(nisha): Change this to use ref after the graph has a non-string
-    // ref and the InteractiveGraph component forwards refs.
-    const mafsGraphContainer = document.getElementsByClassName(
-        "mafs-graph-container",
-    )?.[0];
-
     // Update the tree when the graph is updated.
     React.useEffect(() => {
-        setElementArias(getAccessibilityAttributes(mafsGraphContainer));
+        setElementArias(getAccessibilityAttributes(graphId));
     }, [
         // Update the tree when the "correct preview" graph is updated.
         correct,
         fullGraphAriaLabel,
         fullGraphAriaDescription,
+        graphId,
         lockedFigures,
-        mafsGraphContainer,
     ]);
 
     return (

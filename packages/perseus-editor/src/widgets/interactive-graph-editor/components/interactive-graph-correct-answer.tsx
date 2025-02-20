@@ -9,6 +9,7 @@ import * as React from "react";
 import Heading from "../../../components/heading";
 
 type Props = {
+    id: string;
     equationString: string;
     children: React.ReactNode;
 };
@@ -20,7 +21,7 @@ export function InteractiveGraphCorrectAnswer(props: Props) {
                 isOpen={true}
                 isCollapsible={false}
             />
-            <View>
+            <View id={props.id}>
                 <View>
                     <LabelXSmall
                         style={{

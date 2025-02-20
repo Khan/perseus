@@ -4,12 +4,7 @@ import _ from "underscore";
 import {Log} from "./logging/log";
 
 import type {PerseusStrings} from "./strings";
-import type {
-    Tracking,
-    WidgetExports,
-    WidgetTransform,
-    PublicWidgetOptionsFunction,
-} from "./types";
+import type {Tracking, WidgetExports, WidgetTransform} from "./types";
 import type {PerseusWidget, Version} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
@@ -127,12 +122,6 @@ export const getWidget = (
 
 export const getWidgetExport = (name: string): WidgetExports | null => {
     return widgets[name] ?? null;
-};
-
-export const getPublicWidgetOptionsFunction = (
-    name: string,
-): PublicWidgetOptionsFunction => {
-    return widgets[name]?.getPublicWidgetOptions ?? ((i) => i);
 };
 
 export const getEditor = (name: string): Editor | null | undefined => {

@@ -8,6 +8,7 @@ import {
     union,
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 import {stringToNumber} from "../general-purpose-parsers/string-to-number";
 
 import type {PerseusImageBackground} from "../../data-schema";
@@ -24,13 +25,15 @@ const imageDimensionToNumber = pipeParsers(union(number).or(string).parser)
     .then(convert(emptyToZero))
     .then(stringToNumber).parser;
 
+const dimensionOrUndefined = defaulted(imageDimensionToNumber, () => undefined);
+
 export const parsePerseusImageBackground: Parser<PerseusImageBackground> =
     object({
         url: optional(nullable(string)),
-        width: optional(imageDimensionToNumber),
-        height: optional(imageDimensionToNumber),
-        top: optional(imageDimensionToNumber),
-        left: optional(imageDimensionToNumber),
-        bottom: optional(imageDimensionToNumber),
-        scale: optional(imageDimensionToNumber),
+        width: dimensionOrUndefined,
+        height: dimensionOrUndefined,
+        top: dimensionOrUndefined,
+        left: dimensionOrUndefined,
+        bottom: dimensionOrUndefined,
+        scale: dimensionOrUndefined,
     });

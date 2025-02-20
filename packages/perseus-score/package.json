@@ -3,7 +3,7 @@
     "description": "Perseus score",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "2.1.0",
+    "version": "2.2.2",
     "publishConfig": {
         "access": "public"
     },
@@ -22,15 +22,20 @@
         "dist"
     ],
     "scripts": {
-        "prepublishOnly": "../../utils/package-pre-publish-check.sh",
-        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
+        "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
-        "@khanacademy/kas": "^0.4.13",
-        "@khanacademy/kmath": "^0.3.2",
-        "@khanacademy/perseus-core": "3.4.0"
+        "@khanacademy/kas": "workspace:*",
+        "@khanacademy/kmath": "workspace:*",
+        "@khanacademy/perseus-core": "workspace:*"
     },
-    "devDependencies": {},
-    "peerDependencies": {},
+    "devDependencies": {
+        "jquery":"catalog:",
+        "underscore":"catalog:"
+    },
+    "peerDependencies": {
+        "jquery":"catalog:",
+        "underscore":"catalog:"
+    },
     "keywords": []
 }

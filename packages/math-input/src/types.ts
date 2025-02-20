@@ -12,7 +12,7 @@ export enum MathFieldActionType {
     MQ_END = 0,
 }
 
-export type IconConfig = {
+type IconConfig = {
     data: string;
 };
 

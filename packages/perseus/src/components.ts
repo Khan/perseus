@@ -1,5 +1,4 @@
 export {default as ButtonGroup} from "./components/button-group";
-export {default as Graph} from "./components/graph";
 export {default as Graphie} from "./components/graphie";
 export {default as HUD} from "./components/hud";
 export {default as Icon} from "./components/icon";

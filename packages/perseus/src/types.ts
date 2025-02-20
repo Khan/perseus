@@ -3,9 +3,15 @@ import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
+// MAGIC: Removal of this comment may cause `tsc --build` to output a syntax
+// error in packages/perseus/dist/server-item-renderer.d.ts and then fail. This
+// appears to be a bug introduced in TS 5.6. If you are curious about this, try
+// deleting this comment and running:
+//     rm -rf packages/*/{dist,tsconfig-build.tsbuildinfo} && yarn build:types
+// If that succeeds, maybe the bug has been fixed.
+// For more information, see:
+// https://khanacademy.slack.com/archives/C01AZ9H8TTQ/p1738883377389969
 import type {
-    getInteractiveGraphPublicWidgetOptions,
-    getLabelImagePublicWidgetOptions,
     Hint,
     PerseusAnswerArea,
     PerseusGraphType,
@@ -14,17 +20,6 @@ import type {
     AnalyticsEventHandlerFn,
     Version,
     WidgetOptionsUpgradeMap,
-    getOrdererPublicWidgetOptions,
-    getCategorizerPublicWidgetOptions,
-    getCSProgramPublicWidgetOptions,
-    getExpressionPublicWidgetOptions,
-    getSorterPublicWidgetOptions,
-    getDropdownPublicWidgetOptions,
-    getNumericInputPublicWidgetOptions,
-    getNumberLinePublicWidgetOptions,
-    getRadioPublicWidgetOptions,
-    getTablePublicWidgetOptions,
-    getIFramePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
@@ -189,6 +184,9 @@ export type APIOptions = Readonly<{
         keypadHeight?: number,
         focusedElement?: HTMLElement,
     ) => unknown;
+    /**
+     * @deprecated - metadata is no longer used by the Group widget
+     */
     GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
     showAlignmentOptions?: boolean;
     /**
@@ -321,7 +319,7 @@ export type DomInsertCheckFn = (
     jiptString?: string,
 ) => string | false;
 
-export type JIPT = {
+type JIPT = {
     useJIPT: boolean;
 };
 
@@ -333,7 +331,7 @@ export interface JiptRenderer {
     replaceJiptContent: (content: string, paragraphIndex: number) => void;
 }
 
-export type JiptTranslationComponents = {
+type JiptTranslationComponents = {
     addComponent: (renderer: JiptRenderer) => number;
     removeComponentAtIndex: (index: number) => void;
 };
@@ -430,7 +428,6 @@ export interface PerseusDependenciesV2 {
  */
 export type APIOptionsWithDefaults = Readonly<
     APIOptions & {
-        GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
         baseElements: NonNullable<APIOptions["baseElements"]>;
         canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
         crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
@@ -478,24 +475,6 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
-/**
- * A union type of all the functions that provide public widget options.
- */
-export type PublicWidgetOptionsFunction =
-    | typeof getIFramePublicWidgetOptions
-    | typeof getRadioPublicWidgetOptions
-    | typeof getNumericInputPublicWidgetOptions
-    | typeof getDropdownPublicWidgetOptions
-    | typeof getCategorizerPublicWidgetOptions
-    | typeof getOrdererPublicWidgetOptions
-    | typeof getExpressionPublicWidgetOptions
-    | typeof getInteractiveGraphPublicWidgetOptions
-    | typeof getLabelImagePublicWidgetOptions
-    | typeof getSorterPublicWidgetOptions
-    | typeof getCSProgramPublicWidgetOptions
-    | typeof getNumberLinePublicWidgetOptions
-    | typeof getTablePublicWidgetOptions;
-
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
 > = Readonly<{
@@ -534,12 +513,6 @@ export type WidgetExports<
      * static renders.
      */
     staticTransform?: WidgetTransform; // this is a function of some sort,
-
-    /**
-     * A function that provides a public version of the widget options that can
-     * be shared with the client.
-     */
-    getPublicWidgetOptions?: PublicWidgetOptionsFunction;
 
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,

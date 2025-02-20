@@ -775,9 +775,9 @@ describe("LabelImage", function () {
             const {renderer} = renderQuestion(shortTextQuestion);
 
             // Act
-            const markerButton = screen.getByRole("button", {
-                name: "The fourth unlabeled bar line.",
-            });
+            const markerButton = await screen.findByLabelText(
+                "The fourth unlabeled bar line.",
+            );
             await userEvent.click(markerButton);
 
             const choice = screen.getByRole("option", {name: "SUVs"});
@@ -797,9 +797,9 @@ describe("LabelImage", function () {
             const {renderer} = renderQuestion(shortTextQuestion);
 
             // Act
-            const markerButton = screen.getByRole("button", {
-                name: "The fourth unlabeled bar line.",
-            });
+            const markerButton = await screen.findByLabelText(
+                "The fourth unlabeled bar line.",
+            );
             await userEvent.click(markerButton);
 
             const choice = screen.getByRole("option", {name: "Trucks"});
@@ -821,9 +821,9 @@ describe("LabelImage", function () {
             renderQuestion(textWithoutAnswersQuestion);
 
             // Act and Assert
-            const markerButton = screen.getByRole("button", {
-                name: "The fourth unlabeled bar line.",
-            });
+            const markerButton = await screen.findByLabelText(
+                "The fourth unlabeled bar line.",
+            );
             // Confirms the widget renders and that marker buttons are present
             await userEvent.click(markerButton);
         });
