@@ -259,8 +259,10 @@ class ImageEditor extends React.Component<Props> {
             <div className="image-settings">
                 {!Util.isLabeledSVG(backgroundImage.url) && (
                     <div>
+                        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
                         <label>
                             <div>Preview:</div>
+                            {/* eslint-disable-next-line jsx-a11y/img-redundant-alt -- TODO(LEMS-2871): Address a11y error */}
                             <img
                                 alt="Editor preview of image"
                                 src={backgroundImage.url}
@@ -281,6 +283,7 @@ class ImageEditor extends React.Component<Props> {
                 </div>
 
                 <div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
                     <label>
                         <div>
                             Alt text:
@@ -303,6 +306,7 @@ class ImageEditor extends React.Component<Props> {
                     </label>
                 </div>
                 <div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
                     <label>
                         <div>Caption:</div>
                         <Editor

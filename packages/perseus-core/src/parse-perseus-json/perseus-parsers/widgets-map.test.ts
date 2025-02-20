@@ -37,9 +37,10 @@ describe("parseWidgetsMap", () => {
         );
     });
 
-    it("rejects a widget ID numbered 0", () => {
-        // Widget IDs with 0 currently cause a full-page crash when the
-        // exercise is rendered in webapp!
+    it("accepts a widget ID numbered 0", () => {
+        // Widget IDs with 0 cause a full-page crash when an exercise is
+        // rendered in webapp! However, they do not cause a crash in in
+        // articles, so we allow them.
 
         const widgetsMap: unknown = {
             "radio 0": {
@@ -53,11 +54,7 @@ describe("parseWidgetsMap", () => {
         };
 
         const result = parse(widgetsMap, parseWidgetsMap);
-        expect(result).toEqual(
-            failure(
-                `At (root)["radio 0"]["(widget ID)"][1] -- expected a string representing a positive integer, but got "0"`,
-            ),
-        );
+        expect(result).toEqual(success(widgetsMap));
     });
 
     it("rejects a widget ID with no number", () => {
@@ -272,7 +269,6 @@ describe("parseWidgetsMap", () => {
                 options: {
                     content: "",
                     widgets: {},
-                    metadata: [],
                     images: {},
                 },
             },

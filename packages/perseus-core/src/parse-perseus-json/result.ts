@@ -39,6 +39,23 @@ export function assertSuccess<S, F>(
     );
 }
 
+/**
+ * @returns a function that transforms the `detail` value of any Failure result
+ * passed to it, and leaves Success results unchanged. `mapFailure` is curried
+ * for easy composition with Array.map(), mu-lambda's pipe(), etc.
+ * @param f the function to apply to Failure `detail`s.
+ */
+export function mapFailure<S, DetailIn, DetailOut>(
+    f: (detail: DetailIn) => DetailOut,
+): (result: Result<S, DetailIn>) => Result<S, DetailOut> {
+    return (result) => {
+        if (isFailure(result)) {
+            return failure(f(result.detail));
+        }
+        return result;
+    };
+}
+
 // Result's `all` function is similar to Promise.all: given an array of
 // results, it returns success if all succeeded, and failure if any failed.
 export function all<S, F>(

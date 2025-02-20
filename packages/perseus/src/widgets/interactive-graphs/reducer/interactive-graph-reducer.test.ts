@@ -1430,7 +1430,7 @@ describe("doAddPoint", () => {
             [0, 0],
         ]);
         expect(updated.hasBeenInteractedWith).toBeTruthy();
-        expect(updated.showRemovePointButton).toBeFalsy();
+        expect(updated.showRemovePointButton).toBeTruthy();
         expect(updated.focusedPointIndex).toBe(1);
     });
 
@@ -1478,12 +1478,11 @@ describe("doRemovePoint", () => {
 
         invariant(updated.type === "point");
         expect(updated.coords).toMatchObject([[2, -2]]);
-        expect(updated.showRemovePointButton).toBeFalsy();
+        expect(updated.showRemovePointButton).toBeTruthy();
         expect(updated.focusedPointIndex).toBe(0);
-        expect(updated.showRemovePointButton).toBeFalsy();
     });
 
-    it("focusedPointIndex is set to null if interaction mode is in mouse", () => {
+    it("focusedPointIndex is set for mouse interaction mode", () => {
         const state: InteractiveGraphState = {
             ...baseUnlimitedPointGraphState,
             interactionMode: "mouse",
@@ -1501,9 +1500,8 @@ describe("doRemovePoint", () => {
 
         invariant(updated.type === "point");
         expect(updated.coords).toMatchObject([[2, -2]]);
-        expect(updated.showRemovePointButton).toBeFalsy();
-        expect(updated.focusedPointIndex).toBe(null);
-        expect(updated.showRemovePointButton).toBeFalsy();
+        expect(updated.showRemovePointButton).toBeTruthy();
+        expect(updated.focusedPointIndex).toBe(0);
     });
 });
 

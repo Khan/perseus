@@ -1,3 +1,5 @@
+import getIFramePublicWidgetOptions from "./iframe-util";
+
 import type {PerseusIFrameWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -23,6 +25,7 @@ const defaultWidgetOptions: IFrameDefaultWidgetOptions = {
 const iframeWidgetLogic: WidgetLogic = {
     name: "iframe",
     defaultWidgetOptions,
+    getPublicWidgetOptions: getIFramePublicWidgetOptions,
 };
 
 export default iframeWidgetLogic;

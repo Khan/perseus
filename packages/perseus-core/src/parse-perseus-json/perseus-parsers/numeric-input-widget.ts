@@ -40,7 +40,7 @@ export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
                 // the data, simplify this.
                 value: optional(nullable(number)),
                 status: string,
-                answerForms: optional(array(parseMathFormat)),
+                answerForms: defaulted(array(parseMathFormat), () => undefined),
                 strict: boolean,
                 maxError: optional(nullable(number)),
                 // TODO(benchristel): simplify should never be a boolean, but we

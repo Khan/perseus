@@ -1,5 +1,49 @@
 # @khanacademy/perseus-editor
 
+## 17.7.0
+
+### Minor Changes
+
+-   [#2242](https://github.com/Khan/perseus/pull/2242) [`e187c6b67`](https://github.com/Khan/perseus/commit/e187c6b67cb4d83e42907527acfe6562346e92d8) Thanks [@benchristel](https://github.com/benchristel)! - Deprecate the `metadata` field in renderer, hint, and Group widget data schemas.
+
+### Patch Changes
+
+-   Updated dependencies [[`e63f83d0d`](https://github.com/Khan/perseus/commit/e63f83d0d89fd5b8e7aee3ab7248bcb19ec9be8a), [`e187c6b67`](https://github.com/Khan/perseus/commit/e187c6b67cb4d83e42907527acfe6562346e92d8), [`62ed407b8`](https://github.com/Khan/perseus/commit/62ed407b8647472f955467b8ce64261182bb8b59), [`cbd5a6528`](https://github.com/Khan/perseus/commit/cbd5a652818554aa368bcddb0381d4716bc7a8ba)]:
+    -   @khanacademy/perseus-core@3.7.0
+    -   @khanacademy/perseus@54.1.0
+    -   @khanacademy/kas@0.4.16
+    -   @khanacademy/keypad-context@1.0.19
+    -   @khanacademy/kmath@0.3.5
+    -   @khanacademy/math-input@22.2.6
+    -   @khanacademy/perseus-score@2.2.2
+    -   @khanacademy/pure-markdown@0.3.27
+
+## 17.6.1
+
+### Patch Changes
+
+-   [#2223](https://github.com/Khan/perseus/pull/2223) [`f8a4becb0`](https://github.com/Khan/perseus/commit/f8a4becb03c543b034cc47d91d3335078bce76c0) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Bugfix] Interactive Graph crashes in editor when setting domain for locked function
+
+*   [#2230](https://github.com/Khan/perseus/pull/2230) [`5fd3aa351`](https://github.com/Khan/perseus/commit/5fd3aa35123d1bcbc64dd8b63c914396a1ad9f06) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Add screen reader support for pi-based numbers
+
+-   [#2232](https://github.com/Khan/perseus/pull/2232) [`dc9989893`](https://github.com/Khan/perseus/commit/dc9989893a58b9ca758554606ada51441e0190fa) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Tooling: Enabled jsx-a11y lint rules and disabled existing errors that were found
+
+*   [#2229](https://github.com/Khan/perseus/pull/2229) [`91cd0c937`](https://github.com/Khan/perseus/commit/91cd0c9370447b9f8ffb4ae32c957649a3709ba9) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Sinusoid - add screen reader support
+
+-   [#2235](https://github.com/Khan/perseus/pull/2235) [`ab2041897`](https://github.com/Khan/perseus/commit/ab2041897dff393e2e86d4d4a6e5ad278eff17bd) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused code, and export the `ParseFailureDetail` type from `@khanacademy/perseus-core`
+
+*   [#2244](https://github.com/Khan/perseus/pull/2244) [`c565e26d4`](https://github.com/Khan/perseus/commit/c565e26d4cb56ec7114beb5a563f82a2993751b6) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Replace string-based function call with switch statement
+
+*   Updated dependencies [[`f8a4becb0`](https://github.com/Khan/perseus/commit/f8a4becb03c543b034cc47d91d3335078bce76c0), [`91cede41f`](https://github.com/Khan/perseus/commit/91cede41fa6ef2744709e82d651d9bf3ba4c928a), [`5fd3aa351`](https://github.com/Khan/perseus/commit/5fd3aa35123d1bcbc64dd8b63c914396a1ad9f06), [`639eb089d`](https://github.com/Khan/perseus/commit/639eb089d120b01bd9cb87b5d1e0ba2b34772846), [`edd34241e`](https://github.com/Khan/perseus/commit/edd34241ea54bab011a7b66789c115850e2ae7a4), [`ae29e2b2f`](https://github.com/Khan/perseus/commit/ae29e2b2fd3b4ec9533b3a1845d2ca94d05d4ed7), [`dc9989893`](https://github.com/Khan/perseus/commit/dc9989893a58b9ca758554606ada51441e0190fa), [`91cd0c937`](https://github.com/Khan/perseus/commit/91cd0c9370447b9f8ffb4ae32c957649a3709ba9), [`df75123e5`](https://github.com/Khan/perseus/commit/df75123e59f0423b807a101d054a7a297e316d1c), [`43005350f`](https://github.com/Khan/perseus/commit/43005350f5dfb4f4a00badb442e2cfb8dca18014), [`037aaa2f4`](https://github.com/Khan/perseus/commit/037aaa2f486802926abbe4e754fef5e329c9526b), [`db9bc4fb6`](https://github.com/Khan/perseus/commit/db9bc4fb6b3929b6f727fc5b549a20d997b2a00a), [`3ec6ec179`](https://github.com/Khan/perseus/commit/3ec6ec1799b9dec7f8e8a5ae025abcfc3a068822), [`8e4cb7f53`](https://github.com/Khan/perseus/commit/8e4cb7f53efafed365ca5fa321dad14cb5ce2d30), [`ab2041897`](https://github.com/Khan/perseus/commit/ab2041897dff393e2e86d4d4a6e5ad278eff17bd), [`1ade12c18`](https://github.com/Khan/perseus/commit/1ade12c184ba9ef657a7c7d53b81da70fe85de31), [`71329fe35`](https://github.com/Khan/perseus/commit/71329fe353212e92411fdbbea7efd62f70068151), [`c565e26d4`](https://github.com/Khan/perseus/commit/c565e26d4cb56ec7114beb5a563f82a2993751b6), [`ce320b496`](https://github.com/Khan/perseus/commit/ce320b496bdc9580c194f878674773b845bb27b3)]:
+    -   @khanacademy/perseus@54.0.0
+    -   @khanacademy/perseus-core@3.6.0
+    -   @khanacademy/math-input@22.2.5
+    -   @khanacademy/perseus-score@2.2.1
+    -   @khanacademy/kas@0.4.15
+    -   @khanacademy/keypad-context@1.0.18
+    -   @khanacademy/kmath@0.3.4
+    -   @khanacademy/pure-markdown@0.3.26
+
 ## 17.6.0
 
 ### Minor Changes

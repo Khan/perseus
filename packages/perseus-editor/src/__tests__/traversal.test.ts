@@ -222,7 +222,6 @@ const sampleGroupUpgraded = {
                         alignment: "default",
                     },
                 },
-                metadata: undefined,
             },
             version: {
                 major: 0,

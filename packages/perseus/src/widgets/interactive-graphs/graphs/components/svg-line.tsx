@@ -5,7 +5,7 @@ import {X, Y} from "../../math";
 import type {vec} from "mafs";
 import type {SVGProps} from "react";
 
-export type Props = {
+type Props = {
     start: vec.Vector2;
     end: vec.Vector2;
     style?: SVGProps<SVGLineElement>["style"];

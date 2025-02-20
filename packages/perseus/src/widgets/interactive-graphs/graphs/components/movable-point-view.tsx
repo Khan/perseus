@@ -7,6 +7,8 @@ import {X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useTransformVectorsToPixels} from "../use-transform";
 
+import Hairlines from "./hairlines";
+
 import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
 import type {ForwardedRef} from "react";
@@ -15,6 +17,7 @@ type Props = {
     point: vec.Vector2;
     color?: string | undefined;
     dragging: boolean;
+    focused: boolean;
     showFocusRing: boolean;
     cursor?: CSSCursor | undefined;
     onClick?: () => unknown;
@@ -29,11 +32,12 @@ const hitboxSizePx = 48;
 // on an interactive graph.
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
-        const {range, markings, showTooltips} = useGraphConfig();
+        const {markings, showTooltips} = useGraphConfig();
         const {
             point,
             color = WBColor.blue,
             dragging,
+            focused,
             cursor,
             showFocusRing,
             onClick = () => {},
@@ -53,32 +57,7 @@ export const MovablePointView = forwardRef(
 
         const [[x, y]] = useTransformVectorsToPixels(point);
 
-        const [[xMin, xMax], [yMin, yMax]] = range;
-
-        const [[verticalStartX]] = useTransformVectorsToPixels([xMin, 0]);
-        const [[verticalEndX]] = useTransformVectorsToPixels([xMax, 0]);
-        const [[_, horizontalStartY]] = useTransformVectorsToPixels([0, yMin]);
-        const [[__, horizontalEndY]] = useTransformVectorsToPixels([0, yMax]);
-
-        const showHairlines = dragging && markings !== "none";
-        const hairlines = (
-            <g>
-                <line
-                    x1={verticalStartX}
-                    y1={y}
-                    x2={verticalEndX}
-                    y2={y}
-                    stroke={color}
-                />
-                <line
-                    x1={x}
-                    y1={horizontalStartY}
-                    x2={x}
-                    y2={horizontalEndY}
-                    stroke={color}
-                />
-            </g>
-        );
+        const showHairlines = (dragging || focused) && markings !== "none";
 
         const svgForPoint = (
             <g
@@ -109,7 +88,7 @@ export const MovablePointView = forwardRef(
 
         return (
             <>
-                {showHairlines && hairlines}
+                {showHairlines && <Hairlines point={point} />}
 
                 {showTooltips ? (
                     <Tooltip

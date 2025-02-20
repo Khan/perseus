@@ -42,7 +42,7 @@ describe("Linear graph screen reader", () => {
         );
     });
 
-    test("should have aria label and describedby for overall linear graph", () => {
+    test("should have aria label and describedby for overall ray graph", () => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseRayState} />);
 

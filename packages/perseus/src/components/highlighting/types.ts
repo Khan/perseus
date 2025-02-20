@@ -33,7 +33,7 @@ export type DOMRange = Range;
  *     want to hide old highlights altogether if our word definition has
  *     changed sufficiently radically.
  */
-export type SerializedRange = {
+type SerializedRange = {
     type: "word-indexes";
     firstWordIndex: number;
     lastWordIndex: number;

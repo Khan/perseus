@@ -69,8 +69,9 @@ const parseRadioWidgetV1: Parser<RadioWidget> = parseWidgetWithVersion(
                 // There is an import cycle between radio-widget.ts and
                 // widgets-map.ts. The anonymous function below ensures that we
                 // don't refer to parseWidgetsMap before it's defined.
-                widgets: optional((rawVal, ctx) =>
-                    parseWidgetsMap(rawVal, ctx),
+                widgets: defaulted(
+                    (rawVal, ctx) => parseWidgetsMap(rawVal, ctx),
+                    () => undefined,
                 ),
             }),
         ),

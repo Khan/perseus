@@ -9,7 +9,7 @@ import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {describeSegmentGraph} from "./segment";
+import {getSegmentGraphDescription} from "./segment";
 
 import type {InteractiveGraphState} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -338,12 +338,12 @@ describe("Segment graph screen reader", () => {
     );
 });
 
-describe("describeSegmentGraph", () => {
+describe("getSegmentGraphDescription", () => {
     test("describes a single segment", () => {
         // Arrange
 
         // Act
-        const interactiveElementsString = describeSegmentGraph(
+        const interactiveElementsString = getSegmentGraphDescription(
             baseSingleSegmentState,
             mockPerseusI18nContext,
         );
@@ -358,7 +358,7 @@ describe("describeSegmentGraph", () => {
         // Arrange
 
         // Act
-        const interactiveElementsString = describeSegmentGraph(
+        const interactiveElementsString = getSegmentGraphDescription(
             baseMultipleSegmentState,
             mockPerseusI18nContext,
         );
@@ -373,7 +373,7 @@ describe("describeSegmentGraph", () => {
         // Arrange
 
         // Act
-        const interactiveElementsString = describeSegmentGraph(
+        const interactiveElementsString = getSegmentGraphDescription(
             {
                 ...baseSingleSegmentState,
                 coords: [
@@ -396,7 +396,7 @@ describe("describeSegmentGraph", () => {
         // Arrange
 
         // Act
-        const interactiveElementsString = describeSegmentGraph(
+        const interactiveElementsString = getSegmentGraphDescription(
             {
                 ...baseMultipleSegmentState,
                 coords: [

@@ -3,7 +3,7 @@
     "description": "Linter engine for Perseus",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "1.2.16",
+    "version": "1.2.18",
     "publishConfig": {
         "access": "public"
     },
@@ -22,18 +22,17 @@
         "dist"
     ],
     "scripts": {
-        "prepublishOnly": "../../utils/package-pre-publish-check.sh",
-        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
+        "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
-        "@khanacademy/perseus-core": "3.5.0"
+        "@khanacademy/perseus-core": "workspace:*"
     },
     "devDependencies": {
-        "@khanacademy/pure-markdown": "^0.3.25",
-        "prop-types": "15.6.1"
+        "@khanacademy/pure-markdown": "workspace:*",
+        "prop-types": "catalog:"
     },
     "peerDependencies": {
-        "prop-types": "15.6.1"
+        "prop-types": "catalog:"
     },
     "keywords": []
 }
