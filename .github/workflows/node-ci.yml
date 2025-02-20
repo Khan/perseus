@@ -168,7 +168,7 @@ jobs:
                   key: ${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
                   # If source files changed, rebuild from a prior cache.
                   restore-keys: |
-                    ${{ runner.os }}-cypress-
+                      ${{ runner.os }}-cypress-
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
