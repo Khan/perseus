@@ -127,7 +127,7 @@ describe("interactive: full vs answerless", () => {
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
-    it("is interactive with stripped widget options", async () => {
+    it("is interactive with public widget options", async () => {
         // Arrange
         const fullWidgetOptions: PerseusRadioWidgetOptions =
             getRadioWidgetOptions();

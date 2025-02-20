@@ -1,21 +1,11 @@
-import type {
-    PerseusRadioChoice,
-    PerseusRadioWidgetOptions,
-} from "../../data-schema";
+import type {PerseusRadioWidgetOptions} from "../../data-schema";
 
 export const currentVersion = {major: 2, minor: 0};
 
 export function deriveNumCorrect(options: PerseusRadioWidgetOptions) {
     const {choices, numCorrect} = options;
 
-    return (
-        numCorrect ??
-        choices.reduce(
-            (acc: number, curr: PerseusRadioChoice) =>
-                curr.correct ? acc + 1 : acc,
-            0,
-        )
-    );
+    return numCorrect ?? choices.filter((c) => c.correct).length;
 }
 
 export const widgetOptionsUpgrades = {
