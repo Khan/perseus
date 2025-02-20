@@ -74,7 +74,7 @@ type StatefulProps = MafsGraphProps<PolygonGraphState> & {
 
 const PolygonGraph = (props: Props) => {
     const {dispatch} = props;
-    const {numSides, coords, snapStep, snapTo = "grid"} = props.graphState;
+    const {numSides, coords, snapStep} = props.graphState;
     const graphConfig = useGraphConfig();
 
     // Ref to implement the dragging behavior on a Limited/Closed Polygon.
@@ -96,9 +96,7 @@ const PolygonGraph = (props: Props) => {
 
     // Logic to build the dragging experience. Primarily used by Limited Polygon.
     const dragReferencePoint = points[0];
-    const constrain = ["angles", "sides"].includes(snapTo)
-        ? (p) => p
-        : (p) => snap(snapStep, p);
+    const constrain = (p) => snap(snapStep, p);
 
     const {dragging} = useDraggable({
         gestureTarget: polygonRef,
@@ -181,6 +179,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         showSides,
         range,
         snapTo = "grid",
+        coords,
     } = statefulProps.graphState;
     const {disableKeyboardInteraction} = graphConfig;
     const {strings, locale} = usePerseusI18n();
@@ -258,7 +257,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     return (
                         <TextLabel key={"side-" + i} x={x} y={y}>
                             {isApprox
-                                ? `≈ ${length.toFixed(snapTo === "sides" ? 0 : 1)}`
+                                ? `≈ ${length.toFixed(snapTo === "sides" ? 1 : 1)}`
                                 : length}
                         </TextLabel>
                     );
@@ -330,6 +329,9 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             point={point}
                             sequenceNumber={i + 1}
                             onMove={(destination: vec.Vector2) => {
+                                console.log(`current: ${coords[i]}`);
+                                console.log(`destination: ${destination}`);
+
                                 const now = Date.now();
                                 const targetFPS = 40;
                                 const moveThresholdTime = 1000 / targetFPS;
