@@ -1,5 +1,23 @@
 # @khanacademy/perseus-linter
 
+## 1.2.18
+
+### Patch Changes
+
+-   [#2240](https://github.com/Khan/perseus/pull/2240) [`bae77a63c`](https://github.com/Khan/perseus/commit/bae77a63c80c18cdf1f0d6abc631b0dae3b579ba) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Linter] Remove Math Font Size rule from editor linter
+
+-   Updated dependencies [[`e63f83d0d`](https://github.com/Khan/perseus/commit/e63f83d0d89fd5b8e7aee3ab7248bcb19ec9be8a), [`e187c6b67`](https://github.com/Khan/perseus/commit/e187c6b67cb4d83e42907527acfe6562346e92d8), [`62ed407b8`](https://github.com/Khan/perseus/commit/62ed407b8647472f955467b8ce64261182bb8b59), [`cbd5a6528`](https://github.com/Khan/perseus/commit/cbd5a652818554aa368bcddb0381d4716bc7a8ba)]:
+    -   @khanacademy/perseus-core@3.7.0
+
+## 1.2.17
+
+### Patch Changes
+
+-   [#2235](https://github.com/Khan/perseus/pull/2235) [`ab2041897`](https://github.com/Khan/perseus/commit/ab2041897dff393e2e86d4d4a6e5ad278eff17bd) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused code, and export the `ParseFailureDetail` type from `@khanacademy/perseus-core`
+
+-   Updated dependencies [[`f8a4becb0`](https://github.com/Khan/perseus/commit/f8a4becb03c543b034cc47d91d3335078bce76c0), [`ae29e2b2f`](https://github.com/Khan/perseus/commit/ae29e2b2fd3b4ec9533b3a1845d2ca94d05d4ed7), [`ab2041897`](https://github.com/Khan/perseus/commit/ab2041897dff393e2e86d4d4a6e5ad278eff17bd), [`1ade12c18`](https://github.com/Khan/perseus/commit/1ade12c184ba9ef657a7c7d53b81da70fe85de31), [`ce320b496`](https://github.com/Khan/perseus/commit/ce320b496bdc9580c194f878674773b845bb27b3)]:
+    -   @khanacademy/perseus-core@3.6.0
+
 ## 1.2.16
 
 ### Patch Changes

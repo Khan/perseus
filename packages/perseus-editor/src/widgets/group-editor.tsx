@@ -19,7 +19,6 @@ class GroupEditor extends React.Component<Props> {
         content: PropTypes.string,
         widgets: PropTypes.object,
         images: PropTypes.object,
-        metadata: PropTypes.any,
         apiOptions: ApiOptions.propTypes,
     };
 
@@ -30,17 +29,6 @@ class GroupEditor extends React.Component<Props> {
 
     editor = React.createRef<Editor>();
 
-    _renderMetadataEditor: () => React.ReactElement = () => {
-        const GroupMetadataEditor = this.props.apiOptions.GroupMetadataEditor;
-        return (
-            <GroupMetadataEditor
-                value={this.props.metadata}
-                // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                onChange={this.change("metadata")}
-            />
-        );
-    };
-
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
@@ -50,19 +38,12 @@ class GroupEditor extends React.Component<Props> {
     };
 
     serialize: () => any = () => {
-        return _.extend({}, this.editor.current?.serialize(), {
-            metadata: this.props.metadata,
-        });
+        return _.extend({}, this.editor.current?.serialize());
     };
 
     render(): React.ReactNode {
         return (
             <div className="perseus-group-editor">
-                <div>
-                    {/* the metadata editor; used for tags on
-                    khanacademy.org */}
-                    {this._renderMetadataEditor()}
-                </div>
                 <Editor
                     ref={this.editor}
                     content={this.props.content}

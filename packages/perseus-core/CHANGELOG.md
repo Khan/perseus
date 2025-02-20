@@ -1,5 +1,33 @@
 # @khanacademy/perseus-core
 
+## 3.7.0
+
+### Minor Changes
+
+-   [#2246](https://github.com/Khan/perseus/pull/2246) [`e63f83d0d`](https://github.com/Khan/perseus/commit/e63f83d0d89fd5b8e7aee3ab7248bcb19ec9be8a) Thanks [@benchristel](https://github.com/benchristel)! - Update `parseAndMigratePerseusItem` and `parseAndMigratePerseusArticle` to accept legacy data formats observed in production
+
+*   [#2242](https://github.com/Khan/perseus/pull/2242) [`e187c6b67`](https://github.com/Khan/perseus/commit/e187c6b67cb4d83e42907527acfe6562346e92d8) Thanks [@benchristel](https://github.com/benchristel)! - Deprecate the `metadata` field in renderer, hint, and Group widget data schemas.
+
+-   [#2215](https://github.com/Khan/perseus/pull/2215) [`62ed407b8`](https://github.com/Khan/perseus/commit/62ed407b8647472f955467b8ce64261182bb8b59) Thanks [@Myranae](https://github.com/Myranae)! - Update Sorter's public widget option function to use Math.random and shuffle
+
+*   [#2156](https://github.com/Khan/perseus/pull/2156) [`cbd5a6528`](https://github.com/Khan/perseus/commit/cbd5a652818554aa368bcddb0381d4716bc7a8ba) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Matcher widget
+
+## 3.6.0
+
+### Minor Changes
+
+-   [#2235](https://github.com/Khan/perseus/pull/2235) [`ab2041897`](https://github.com/Khan/perseus/commit/ab2041897dff393e2e86d4d4a6e5ad278eff17bd) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused code, and export the `ParseFailureDetail` type from `@khanacademy/perseus-core`
+
+*   [#2234](https://github.com/Khan/perseus/pull/2234) [`1ade12c18`](https://github.com/Khan/perseus/commit/1ade12c184ba9ef657a7c7d53b81da70fe85de31) Thanks [@handeyeco](https://github.com/handeyeco)! - Move splitters into perseus-core, add splitPerseusItem
+
+### Patch Changes
+
+-   [#2223](https://github.com/Khan/perseus/pull/2223) [`f8a4becb0`](https://github.com/Khan/perseus/commit/f8a4becb03c543b034cc47d91d3335078bce76c0) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Bugfix] Interactive Graph crashes in editor when setting domain for locked function
+
+*   [#2205](https://github.com/Khan/perseus/pull/2205) [`ae29e2b2f`](https://github.com/Khan/perseus/commit/ae29e2b2fd3b4ec9533b3a1845d2ca94d05d4ed7) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating perseus analytics and events for better metrics.
+
+-   [#2227](https://github.com/Khan/perseus/pull/2227) [`ce320b496`](https://github.com/Khan/perseus/commit/ce320b496bdc9580c194f878674773b845bb27b3) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: Accept 'scientific' as a buttonSets value when parsing Expression widgets
+
 ## 3.5.0
 
 ### Minor Changes

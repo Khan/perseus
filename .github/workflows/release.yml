@@ -48,7 +48,7 @@ jobs:
 
             - name: Build Storybook
               # Generate a static version of storybook inside "storybook-static/"
-              run: yarn build-storybook
+              run: pnpm build-storybook
 
             - name: Deploy to GitHub pages
               uses: JamesIves/github-pages-deploy-action@v4.5.0
@@ -62,7 +62,7 @@ jobs:
               id: changesets
               uses: changesets/action@v1
               with:
-                  publish: yarn publish:ci
+                  publish: pnpm publish:ci
               env:
                   # We use a Personal Access Token here rather than the GITHUB_TOKEN
                   # so that it will trigger our other actions. The token has to be on

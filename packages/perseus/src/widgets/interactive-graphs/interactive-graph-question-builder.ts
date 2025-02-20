@@ -24,7 +24,7 @@ export type LockedFunctionOptions = {
     color?: LockedFigureColor;
     strokeStyle?: LockedLineStyle;
     directionalAxis?: "x" | "y";
-    domain?: Interval;
+    domain?: [min: number | null, max: number | null];
     labels?: LockedFigureLabelOptions[];
     ariaLabel?: string;
 };
