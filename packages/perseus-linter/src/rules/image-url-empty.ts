@@ -21,5 +21,3 @@ export default Rule.makeRule({
         // cannot do.
     },
 }) as Rule;
-
-// Include screenshots of the error and show it fixed
