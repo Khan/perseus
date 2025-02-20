@@ -164,12 +164,24 @@ jobs:
             - uses: actions/cache@v4
               with:
                   path: ~/.cache/Cypress
-                  key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+                  # Generate a new cache whenever the lock file changes
+                  key: ${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  # If source files changed, rebuild from a prior cache.
+                  restore-keys: |
+                    ${{ runner.os }}-cypress-
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+
+            - name: Install Cypress
+              shell: bash
+              working-directory: services/static
+              run: |
+                if [ ! -d "$HOME/.cache/Cypress" ]; then
+                  pnpm exec cypress install
+                fi
 
             - name: Run tests
               run: pnpm cypress:ci
