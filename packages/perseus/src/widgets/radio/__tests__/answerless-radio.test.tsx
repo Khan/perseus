@@ -1,5 +1,5 @@
 import {
-    getRadioPublicWidgetOptions,
+    splitPerseusItem,
     type PerseusRadioWidgetOptions,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -14,10 +14,8 @@ import {renderQuestion} from "../../__testutils__/renderQuestion";
 
 import type {UserEvent} from "@testing-library/user-event";
 
-function getRadioWidgetOptions(
-    modifier: Partial<PerseusRadioWidgetOptions> = {},
-): PerseusRadioWidgetOptions {
-    const base: PerseusRadioWidgetOptions = {
+function getRadioWidgetOptions(): PerseusRadioWidgetOptions {
+    return {
         choices: [
             {
                 content: "Correct 1",
@@ -60,11 +58,23 @@ function getRadioWidgetOptions(
         displayCount: null,
         noneOfTheAbove: false,
     };
+}
 
+function getAnswerfulItem(): PerseusRenderer {
     return {
-        ...base,
-        ...modifier,
+        content: "[[☃ radio 1]]",
+        images: {},
+        widgets: {
+            "radio 1": {
+                type: "radio",
+                options: getRadioWidgetOptions(),
+            },
+        },
     };
+}
+
+function getAnswerlessItem(): PerseusRenderer {
+    return splitPerseusItem(getAnswerfulItem());
 }
 
 describe("interactive: full vs answerless", () => {
@@ -91,87 +101,33 @@ describe("interactive: full vs answerless", () => {
         ) as jest.Mock;
     });
 
-    it("is interactive with full widget options", async () => {
-        // Arrange
-        const fullWidgetOptions: PerseusRadioWidgetOptions =
-            getRadioWidgetOptions();
+    test.each(["answerless", "answerful"])(
+        "is interactive with widget options: %p",
+        async (e) => {
+            // Arrange
+            const useAnswerless = e === "answerless";
+            const renderItem = useAnswerless
+                ? getAnswerlessItem()
+                : getAnswerfulItem();
 
-        const fullItem: PerseusRenderer = {
-            content: "[[☃ radio 1]]",
-            images: {},
-            widgets: {
-                "radio 1": {
-                    type: "radio",
-                    options: fullWidgetOptions,
-                },
-            },
-        };
+            // Act
+            const {renderer} = renderQuestion(renderItem);
 
-        // Act
-        const {renderer} = renderQuestion(fullItem);
+            await userEvent.click(
+                screen.getByRole("checkbox", {name: "(Choice A) Correct 1"}),
+            );
+            await userEvent.click(
+                screen.getByRole("checkbox", {name: "(Choice B) Correct 2"}),
+            );
 
-        await userEvent.click(
-            screen.getByRole("checkbox", {name: "(Choice A) Correct 1"}),
-        );
-        await userEvent.click(
-            screen.getByRole("checkbox", {name: "(Choice B) Correct 2"}),
-        );
+            // assert that functionality previous based on answers still works
+            expect(screen.getByRole("group", {name: "Choose 2 answers:"}));
 
-        // assert that functionality previous based on answers still works
-        expect(screen.getByRole("group", {name: "Choose 2 answers:"}));
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(getAnswerfulItem(), userInput, "en");
 
-        const userInput = renderer.getUserInputMap();
-        const score = scorePerseusItem(fullItem, userInput, "en");
-
-        // Assert
-        expect(score).toHaveBeenAnsweredCorrectly();
-    });
-
-    it("is interactive with public widget options", async () => {
-        // Arrange
-        const fullWidgetOptions: PerseusRadioWidgetOptions =
-            getRadioWidgetOptions();
-
-        const fullItem: PerseusRenderer = {
-            content: "[[☃ radio 1]]",
-            images: {},
-            widgets: {
-                "radio 1": {
-                    type: "radio",
-                    options: fullWidgetOptions,
-                    version: {major: 2, minor: 0},
-                },
-            },
-        };
-
-        const strippedItem: PerseusRenderer = {
-            content: "[[☃ radio 1]]",
-            images: {},
-            widgets: {
-                "radio 1": {
-                    type: "radio",
-                    options: getRadioPublicWidgetOptions(fullWidgetOptions),
-                },
-            },
-        };
-
-        // Act
-        const {renderer} = renderQuestion(strippedItem);
-
-        await userEvent.click(
-            screen.getByRole("checkbox", {name: "(Choice A) Correct 1"}),
-        );
-        await userEvent.click(
-            screen.getByRole("checkbox", {name: "(Choice B) Correct 2"}),
-        );
-
-        // assert that functionality previous based on answers still works
-        expect(screen.getByRole("group", {name: "Choose 2 answers:"}));
-
-        const userInput = renderer.getUserInputMap();
-        const score = scorePerseusItem(fullItem, userInput, "en");
-
-        // Assert
-        expect(score).toHaveBeenAnsweredCorrectly();
-    });
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        },
+    );
 });
