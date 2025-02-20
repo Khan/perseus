@@ -1,4 +1,12 @@
-import type {PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusNumericInputAnswer,
+    PerseusNumericInputWidgetOptions,
+} from "@khanacademy/perseus-core";
+
+type NumericInputAnswerPublicData = Pick<
+    PerseusNumericInputAnswer,
+    "answerForms" | "simplify" | "status"
+>;
 
 /**
  * For details on the individual options, see the
@@ -10,8 +18,23 @@ type NumericInputPublicWidgetOptions = {
     coefficient: PerseusNumericInputWidgetOptions["coefficient"];
     rightAlign?: PerseusNumericInputWidgetOptions["rightAlign"];
     static: PerseusNumericInputWidgetOptions["static"];
-    answerForms?: PerseusNumericInputWidgetOptions["answerForms"];
+    answers: ReadonlyArray<NumericInputAnswerPublicData>;
 };
+
+/**
+ * This data from `answers` is used pre-scoring to give hints
+ * to the learner regarding the format of accepted answers
+ */
+function getNumericInputAnswerPublicData(
+    answer: PerseusNumericInputAnswer,
+): NumericInputAnswerPublicData {
+    const {answerForms, simplify, status} = answer;
+    return {
+        answerForms,
+        simplify,
+        status,
+    };
+}
 
 /**
  * Given a PerseusNumericInputWidgetOptions object, return a new object with only
@@ -20,8 +43,11 @@ type NumericInputPublicWidgetOptions = {
 function getNumericInputPublicWidgetOptions(
     options: PerseusNumericInputWidgetOptions,
 ): NumericInputPublicWidgetOptions {
-    const {answers: _, ...publicWidgetOptions} = options;
-    return publicWidgetOptions;
+    const {answers, ...publicWidgetOptions} = options;
+    return {
+        ...publicWidgetOptions,
+        answers: answers.map(getNumericInputAnswerPublicData),
+    };
 }
 
 export default getNumericInputPublicWidgetOptions;
