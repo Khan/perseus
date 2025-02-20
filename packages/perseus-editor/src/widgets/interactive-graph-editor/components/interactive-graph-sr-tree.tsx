@@ -1,5 +1,6 @@
+import {components} from "@khanacademy/perseus";
 import {addStyle, View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
+import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -9,6 +10,7 @@ import * as React from "react";
 
 import Heading from "../../../components/heading";
 
+const {InfoTip} = components;
 const StyledUl = addStyle("ul");
 
 type Attribute = {
@@ -183,6 +185,12 @@ function InteractiveGraphSRTree({
                         <LabelSmall tag="label" htmlFor={switchId}>
                             Show HTML roles/tags
                         </LabelSmall>
+                        <Spring />
+                        <InfoTip>
+                            This screen reader tree shows the ARIA labels and
+                            descriptions for elements within the "correct
+                            answer" Interactive Graph widget displayed above.
+                        </InfoTip>
                     </View>
                     <SRTree elementArias={elementArias} showTags={showTags} />
                 </>
