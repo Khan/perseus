@@ -106,6 +106,7 @@ export {default as pythonProgramLogic} from "./widgets/python-program";
 export type {PythonProgramDefaultWidgetOptions} from "./widgets/python-program";
 export {default as radioLogic} from "./widgets/radio";
 export type {RadioDefaultWidgetOptions} from "./widgets/radio";
+export {usesNumCorrect} from "./widgets/radio/radio-util";
 export {default as sorterLogic} from "./widgets/sorter";
 export type {SorterDefaultWidgetOptions} from "./widgets/sorter";
 export {default as tableLogic} from "./widgets/table";
