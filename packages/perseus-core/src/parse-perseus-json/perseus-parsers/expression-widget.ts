@@ -14,6 +14,7 @@ import {
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
+import {parseLegacyButtonSets} from "./legacy-button-sets";
 import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 
@@ -85,7 +86,7 @@ const parseExpressionWidgetV2: Parser<ExpressionWidget> =
             times: boolean,
             visibleLabel: optional(string),
             ariaLabel: optional(string),
-            buttonSets: parseButtonSets,
+            buttonSets: parseLegacyButtonSets,
             buttonsVisible: optional(enumeration("always", "never", "focused")),
             extraKeys: array(string),
         }),
@@ -140,7 +141,7 @@ const parseExpressionWidgetV0 = parseWidgetWithVersion(
         form: boolean,
         simplify: boolean,
         value: string,
-        buttonSets: parseButtonSets,
+        buttonSets: parseLegacyButtonSets,
         buttonsVisible: optional(enumeration("always", "never", "focused")),
     }),
 );
@@ -154,7 +155,7 @@ function migrateV0ToV1(
         version: {major: 1, minor: 0},
         options: {
             times: options.times,
-            buttonSets: options.buttonSets,
+            buttonSets: options.buttonSets as any,
             functions: options.functions,
             buttonsVisible: options.buttonsVisible,
             visibleLabel: options.visibleLabel,

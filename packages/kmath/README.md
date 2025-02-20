@@ -33,7 +33,7 @@ pure and allocates a new array for the return value.
 ## Getting started
 
 After cloning or downloading kmath, you can install it by running
-`yarn` or `make install`.
+`pnpm` or `make install`.
 
 To play around with the available interfaces, you can load kmath
 into a Node repl:

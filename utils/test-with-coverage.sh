@@ -38,11 +38,11 @@ clean() {
 }
 
 run_jest() {
-    yarn cross-env NODE_OPTIONS=--max_old_space_size=8192 jest --coverage
+    pnpm cross-env NODE_OPTIONS=--max_old_space_size=8192 jest --coverage
 }
 
 run_cypress() {
-    yarn cross-env BABEL_COVERAGE=1 cypress run --component --env CYPRESS_COVERAGE=1
+    pnpm cross-env BABEL_COVERAGE=1 cypress run --component --env CYPRESS_COVERAGE=1
 }
 
 merge_reports() {
@@ -53,9 +53,9 @@ merge_reports() {
 
     rm -rf .nyc_output
     mkdir .nyc_output
-    yarn nyc merge coverage/reports/ .nyc_output/out.json
+    pnpm nyc merge coverage/reports/ .nyc_output/out.json
 
-    yarn nyc report --reporter lcov --reporter text-summary --report-dir coverage/final
+    pnpm nyc report --reporter lcov --reporter text-summary --report-dir coverage/final
 }
 
 pushd "$REPO_ROO" >/dev/null 2>&1

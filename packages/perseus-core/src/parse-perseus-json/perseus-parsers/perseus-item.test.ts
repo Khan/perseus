@@ -1,5 +1,5 @@
 import {parse} from "../parse";
-import {assertFailure, assertSuccess} from "../result";
+import {assertSuccess} from "../result";
 
 import {parsePerseusItem} from "./perseus-item";
 
@@ -24,10 +24,10 @@ describe("parsePerseusItem", () => {
         const result = parse(item, parsePerseusItem);
 
         assertSuccess(result);
-        expect(result.value.answerArea).toEqual({calculator: true});
+        expect(result.value.answerArea?.calculator).toBe(true);
     });
 
-    it("rejects invalid keys in answerArea", () => {
+    it("ignores invalid keys in answerArea", () => {
         const item = {
             ...baseItem,
             answerArea: {bork: true},
@@ -35,25 +35,7 @@ describe("parsePerseusItem", () => {
 
         const result = parse(item, parsePerseusItem);
 
-        assertFailure(result);
-        expect(result.detail).toEqual(
-            `At (root).answerArea.bork -- expected "calculator", "chi2Table", "financialCalculatorMonthlyPayment", "financialCalculatorTotalAmount", "financialCalculatorTimeToPayOff", "periodicTable", "periodicTableWithKey", "tTable", or "zTable", but got "bork"`,
-        );
-    });
-
-    it("removes 'type' and 'options' keys from answerArea", () => {
-        const item = {
-            ...baseItem,
-            answerArea: {
-                calculator: true,
-                type: "should get removed",
-                options: {},
-            },
-        };
-
-        const result = parse(item, parsePerseusItem);
-
         assertSuccess(result);
-        expect(result.value.answerArea).toEqual({calculator: true});
+        expect(result.value.answerArea).not.toHaveProperty("bork");
     });
 });

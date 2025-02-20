@@ -1,10 +1,6 @@
 import * as KAS from "@khanacademy/kas";
 import {KeypadInput, KeypadType} from "@khanacademy/math-input";
-import {
-    getDecimalSeparator,
-    expressionLogic,
-    getExpressionPublicWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {getDecimalSeparator, expressionLogic} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
@@ -76,7 +72,7 @@ type RenderProps = {
 
 type ExternalProps = WidgetProps<RenderProps, PerseusExpressionRubric>;
 
-export type Props = ExternalProps &
+type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
         apiOptions: NonNullable<ExternalProps["apiOptions"]>;
         buttonSets: NonNullable<ExternalProps["buttonSets"]>;
@@ -90,7 +86,7 @@ export type Props = ExternalProps &
         value: string;
     };
 
-export type ExpressionState = {
+type ExpressionState = {
     invalid: boolean;
     showErrorTooltip: boolean;
     showErrorStyle: boolean;
@@ -350,6 +346,7 @@ export class Expression
                         {this.props.visibleLabel}
                     </LabelSmall>
                 )}
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
                 <div
                     className={className}
                     onBlur={() =>
@@ -471,7 +468,6 @@ export default {
 
     // For use by the editor
     isLintable: true,
-    getPublicWidgetOptions: getExpressionPublicWidgetOptions,
 
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.

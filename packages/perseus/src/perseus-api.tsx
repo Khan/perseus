@@ -147,6 +147,7 @@ export const ApiOptions = {
             Link: (
                 props: any,
             ): React.ReactElement<React.ComponentProps<"a">> => {
+                // eslint-disable-next-line jsx-a11y/anchor-has-content -- TODO(LEMS-2871): Address a11y error
                 return <a {...props} />;
             },
         },

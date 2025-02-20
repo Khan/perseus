@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
@@ -8,6 +7,7 @@ import {MovablePoint} from "./components/movable-point";
 import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels, pixelsToVectors} from "./use-transform";
 
+import type {I18nContextType} from "../../../components/i18n-context";
 import type {PerseusStrings} from "../../../strings";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
@@ -20,10 +20,11 @@ import type {
 export function renderPointGraph(
     state: PointGraphState,
     dispatch: Dispatch,
+    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <PointGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: <PointGraphDescription state={state} />,
+        interactiveElementsDescription: getPointGraphDescription(state, i18n),
     };
 }
 
@@ -52,7 +53,12 @@ function PointGraph(props: Props) {
         if (focusedIndex != null) {
             pointsRef.current[focusedIndex]?.focus();
         }
-    }, [props.graphState.focusedPointIndex, pointsRef]);
+    }, [
+        props.graphState.focusedPointIndex,
+        // Ensure that we re-focus if a point is deleted.
+        props.graphState.coords.length,
+        pointsRef,
+    ]);
 
     const statefulProps = {
         ...props,
@@ -148,15 +154,8 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
     );
 }
 
-function PointGraphDescription({state}: {state: PointGraphState}) {
-    // PointGraphDescription needs to `usePerseusI18n`, so it has to be a
-    // component rather than a function that simply returns a string.
-    const i18n = usePerseusI18n();
-    return describePointGraph(state, i18n);
-}
-
 // Exported for testing
-export function describePointGraph(
+export function getPointGraphDescription(
     state: PointGraphState,
     i18n: {strings: PerseusStrings; locale: string},
 ): string {

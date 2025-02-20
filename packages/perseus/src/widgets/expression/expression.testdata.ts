@@ -93,7 +93,7 @@ export const expressionItem2: PerseusItem = createItemJson(
     {major: 1, minor: 0},
 );
 
-export const expressionItem3Options: PerseusExpressionWidgetOptions = {
+const expressionItem3Options: PerseusExpressionWidgetOptions = {
     answerForms: [
         {
             considered: "ungraded",

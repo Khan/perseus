@@ -24,3 +24,10 @@ export function parseFailureWith(
 export function summonParsedValue<P extends Parser<any>>(): ParsedValue<P> {
     return "fake summoned value" as any;
 }
+
+// Summons a value of type T out of thin air!*
+// *Terms and conditions apply. Value will not actually be returned.
+// For use in typetests only.
+export function summon<T>(): T {
+    return "fake summoned value" as any;
+}

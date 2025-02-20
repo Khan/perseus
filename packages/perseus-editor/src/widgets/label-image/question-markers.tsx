@@ -103,6 +103,7 @@ export default class QuestionMarkers extends React.Component<Props> {
                             maxHeight: imageHeight,
                         }}
                     >
+                        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error */}
                         <img
                             alt=""
                             className={css(styles.image)}

@@ -1,3 +1,4 @@
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ApiOptions} from "../../perseus-api";
@@ -254,6 +255,12 @@ export const MafsWithProtractor: Story = {
 export const MafsWithPiTicks: Story = {
     args: {
         question: sinusoidWithPiTicks,
+    },
+};
+
+export const MafsWithAnswerlessData: Story = {
+    args: {
+        question: splitPerseusItem(interactiveGraphQuestionBuilder().build()),
     },
 };
 
