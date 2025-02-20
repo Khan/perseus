@@ -44,7 +44,8 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: pnpm
+                  # Note that we don't specify 'cache: pnpm' here because we
+                  # don't install node_modules in this workflow/job!
 
             - name: Get changed files
               uses: Khan/actions@get-changed-files-v2
