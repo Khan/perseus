@@ -329,8 +329,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             point={point}
                             sequenceNumber={i + 1}
                             onMove={(destination: vec.Vector2) => {
-                                console.log(`current: ${coords[i]}`);
-                                console.log(`destination: ${destination}`);
+                                console.log("Movement!");
 
                                 const now = Date.now();
                                 const targetFPS = 40;
