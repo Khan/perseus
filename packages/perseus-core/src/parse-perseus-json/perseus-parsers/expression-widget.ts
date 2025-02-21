@@ -55,24 +55,6 @@ function removeInvalidAnswerForms(
     return valid;
 }
 
-// NOTE(benchristel): I copied the default buttonSets from
-// expression.tsx. See the parse-perseus-json/README.md for
-// an explanation of why we want to duplicate the default here.
-const parseButtonSets = defaulted(
-    array(
-        enumeration(
-            "basic",
-            "basic+div",
-            "trig",
-            "prealgebra",
-            "logarithms",
-            "basic relations",
-            "advanced relations",
-        ),
-    ),
-    () => ["basic", "trig", "prealgebra", "logarithms"] as const,
-);
-
 const version2 = object({major: constant(2), minor: number});
 const parseExpressionWidgetV2: Parser<ExpressionWidget> =
     parseWidgetWithVersion(
@@ -104,7 +86,7 @@ const parseExpressionWidgetV1 = parseWidgetWithVersion(
         times: boolean,
         visibleLabel: optional(string),
         ariaLabel: optional(string),
-        buttonSets: parseButtonSets,
+        buttonSets: parseLegacyButtonSets,
         buttonsVisible: optional(enumeration("always", "never", "focused")),
     }),
 );
