@@ -9,6 +9,7 @@ import {pathBuilder} from "../../util/svg";
 import {useDraggable} from "./graphs/use-draggable";
 import {useTransformVectorsToPixels} from "./graphs/use-transform";
 import {lerp, X, Y} from "./math";
+import {protractorImage} from "./protractor-svg";
 import useGraphConfig from "./reducer/use-graph-config";
 import {bound, TARGET_SIZE} from "./utils";
 
@@ -17,14 +18,6 @@ import type {RefObject} from "react";
 import "./protractor.css";
 
 const {calculateAngleInDegrees, convertDegreesToRadians} = angles;
-
-// Old URL
-// "https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png";
-// New URL
-// "web+graphie://ka-perseus-graphie.s3.amazonaws.com/0d3b48031a08169cb2060ac298d25da4ef98ecf7";
-// "web+graphie://ka-perseus-graphie.s3.amazonaws.com/d1dae7a264e80361a370962ecd19f6874f2ede6b"
-const protractorImage =
-    "https://ka-perseus-graphie.s3.amazonaws.com/d1dae7a264e80361a370962ecd19f6874f2ede6b.svg";
 
 // The vector from the center of the protractor to the top left corner of the
 // protractor image, in pixels. Used for positioning.
@@ -77,7 +70,7 @@ export function Protractor() {
                 transformOrigin: `${-centerToTopLeft[X]}px ${-centerToTopLeft[Y]}px`,
             }}
         >
-            <image href={protractorImage} />
+            {protractorImage}
             <g
                 transform={`translate(5, ${-centerToTopLeft[1]})`}
                 ref={rotationHandleRef}
