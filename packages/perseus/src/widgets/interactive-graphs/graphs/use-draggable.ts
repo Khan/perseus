@@ -77,12 +77,16 @@ export function useDraggable(args: Params): DragState {
     useDrag(
         (state) => {
             const {type, event} = state;
+
             event?.stopPropagation();
 
             const isKeyboard = type.includes("key");
             if (isKeyboard) {
                 invariant(event instanceof KeyboardEvent);
                 event?.preventDefault();
+
+                console.log("event", event); // eslint-disable-line no-console
+                console.log("key", event.key); // eslint-disable-line no-console
 
                 // When a key is held down, we see multiple "keydown" events,
                 // followed by a single "keyup" event.
