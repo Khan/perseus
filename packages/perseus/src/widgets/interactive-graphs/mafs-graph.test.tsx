@@ -191,9 +191,7 @@ describe("MafsGraph", () => {
     });
 
     it("includes aria-labels for the axes labels", () => {
-        const basePropsWithTexLabels = {
-            ...baseMafsProps,
-        };
+        const basePropsWithTexLabels = {...baseMafsProps};
 
         render(<MafsGraph {...basePropsWithTexLabels} />);
 
@@ -768,6 +766,102 @@ describe("MafsGraph", () => {
         expect(state.coords).toEqual(expectedCoords);
     });
 
+    it("Quadratic moves points over invalid locations on keystroke", async () => {
+        const initialState: InteractiveGraphState = {
+            type: "quadratic",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [0, 0],
+                [1, 1],
+                [2, 2],
+            ],
+        };
+
+        const expectedCoords = [
+            [3, 0],
+            [1, 1],
+            [2, 2],
+        ];
+
+        const {dispatch, getState} = createFakeStore(
+            interactiveGraphReducer,
+            initialState,
+        );
+
+        const baseMafsGraphProps = baseMafsProps;
+
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={getState()}
+                dispatch={dispatch}
+            />,
+        );
+
+        const group = screen.getAllByTestId("movable-point__focusable-handle");
+        group[0].focus();
+        await userEvent.keyboard("{arrowright}");
+
+        const state = getState();
+        invariant(
+            state.type === "quadratic",
+            `state type must be quadratic but was ${state.type}`,
+        );
+        expect(state.coords).toEqual(expectedCoords);
+    });
+
+    it("Sinusoid moves points over invalid locations on keystroke", async () => {
+        const initialState: InteractiveGraphState = {
+            type: "sinusoid",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
+        const expectedCoords = [
+            [2, 0],
+            [1, 1],
+        ];
+
+        const {dispatch, getState} = createFakeStore(
+            interactiveGraphReducer,
+            initialState,
+        );
+
+        const baseMafsGraphProps = baseMafsProps;
+
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={getState()}
+                dispatch={dispatch}
+            />,
+        );
+
+        const group = screen.getAllByTestId("movable-point__focusable-handle");
+        group[0].focus();
+        await userEvent.keyboard("{arrowright}");
+
+        const state = getState();
+        invariant(
+            state.type === "sinusoid",
+            `state type must be sinusoid but was ${state.type}`,
+        );
+        expect(state.coords).toEqual(expectedCoords);
+    });
+
     describe("with an unlimited graph", () => {
         it("point - shows a remove point button when a point is focused", async () => {
             // Arrange
@@ -1054,10 +1148,7 @@ describe("calculateNestedSVGCoords", () => {
             graphSize[1],
         );
 
-        expect(result).toEqual({
-            viewboxX: -200,
-            viewboxY: -200,
-        });
+        expect(result).toEqual({viewboxX: -200, viewboxY: -200});
     });
     it("calculates nested SVG coordinates for an off center graph", () => {
         const range: GraphRange = [
@@ -1072,9 +1163,6 @@ describe("calculateNestedSVGCoords", () => {
             graphSize[1],
         );
 
-        expect(result).toEqual({
-            viewboxX: 400,
-            viewboxY: -200,
-        });
+        expect(result).toEqual({viewboxX: 400, viewboxY: -200});
     });
 });

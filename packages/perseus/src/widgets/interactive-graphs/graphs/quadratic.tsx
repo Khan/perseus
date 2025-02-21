@@ -1,5 +1,5 @@
 import {color} from "@khanacademy/wonder-blocks-tokens";
-import {Plot} from "mafs";
+import {Plot, vec} from "mafs";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
@@ -43,7 +43,7 @@ type QuadraticGraphProps = MafsGraphProps<QuadraticGraphState>;
 function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
 
-    const {coords} = graphState;
+    const {coords, snapStep} = graphState;
 
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
@@ -100,6 +100,11 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                         ariaLabel={`${srQuadraticPoint}${srVertex}`}
                         point={coord}
                         sequenceNumber={i + 1}
+                        constrain={getQuadraticKeyboardConstraint(
+                            coords,
+                            snapStep,
+                            i,
+                        )}
                         onMove={(destination) =>
                             dispatch(
                                 actions.quadratic.movePoint(i, destination),
@@ -242,3 +247,77 @@ export function describeQuadraticGraph(
         srQuadraticInteractiveElements,
     };
 }
+
+export const getQuadraticKeyboardConstraint = (
+    coords: ReadonlyArray<Coord>,
+    snapStep: vec.Vector2,
+    pointMoved: number,
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} => {
+    // Make newCoords mutable
+    const newCoords: QuadraticCoords = [coords[0], coords[1], coords[2]];
+
+    // Get the point that is being moved
+    const coordToBeMoved = newCoords[pointMoved];
+
+    // Create a function to validate and adjust the movement of the point
+    const getValidMovement = (moveFunc: (coord: Coord) => Coord): Coord => {
+        // Move the point the desired direction
+        let movedCoord = moveFunc(coordToBeMoved);
+        newCoords[pointMoved] = movedCoord;
+
+        // If these new coordinates are valid, return the moved coord
+        if (areCoordsValid(newCoords)) {
+            return movedCoord;
+        }
+
+        // If the new coordinates are invalid, we need to move the point an additional
+        // snapStep to avoid creating an invalid quadratic graph.
+        movedCoord = moveFunc(movedCoord);
+        newCoords[pointMoved] = movedCoord;
+
+        // If these updated coordinates are valid now, we can return the new coordinates.
+        if (areCoordsValid(newCoords)) {
+            return movedCoord;
+        }
+
+        // Otherwise, if the new coordinates are still invalid, we need to move the point one final snapStep.
+        // This is to support the edge case where all of the points are each exactly one snapStep away
+        // from each other.
+        // Eg. [0, 0], [1, 0], [2, 0] where snapStep = [1, 0] and we're moving point1 to the right.
+        return moveFunc(movedCoord);
+    };
+
+    // Determine the new coord positions for left and right movement
+    const leftCoordMove = getValidMovement((coord) =>
+        vec.sub(coord, [snapStep[0], 0]),
+    );
+    const rightCoordMove = getValidMovement((coord) =>
+        vec.add(coord, [snapStep[0], 0]),
+    );
+
+    return {
+        up: vec.add(coordToBeMoved, [0, snapStep[1]]),
+        down: vec.sub(coordToBeMoved, [0, snapStep[1]]),
+        left: leftCoordMove,
+        right: rightCoordMove,
+    };
+};
+
+const areCoordsValid = (coords: QuadraticCoords): boolean => {
+    const p1 = coords[0];
+    const p2 = coords[1];
+    const p3 = coords[2];
+
+    // If any of the points share the same x-coordinate,
+    // we are unable to calculate the coefficients, and the graph is invalid.
+    if (p1[0] === p2[0] || p2[0] === p3[0] || p1[0] === p3[0]) {
+        return false;
+    }
+
+    return true;
+};

@@ -1,5 +1,5 @@
 import {color} from "@khanacademy/wonder-blocks-tokens";
-import {Plot} from "mafs";
+import {Plot, vec} from "mafs";
 import * as React from "react";
 
 import {
@@ -43,7 +43,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
     // Destructure the coordinates from the graph state
     // Note: The order of the coordinates is important:
     // The coords[0] is the root and the coords[1] is the first peak
-    const {coords} = graphState;
+    const {coords, snapStep} = graphState;
 
     // The coefficients are used to calculate the sinusoid equation, plot the graph, and to indicate
     // to content creators the currently selected "correct answer" in the Content Editor.
@@ -88,6 +88,11 @@ function SinusoidGraph(props: SinusoidGraphProps) {
                     key={"point-" + i}
                     point={coord}
                     sequenceNumber={i + 1}
+                    constrain={getSinusoidKeyboardConstraint(
+                        coords,
+                        snapStep,
+                        i,
+                    )}
                     onMove={(destination) =>
                         dispatch(actions.sinusoid.movePoint(i, destination))
                     }
@@ -97,6 +102,41 @@ function SinusoidGraph(props: SinusoidGraphProps) {
         </g>
     );
 }
+
+export const getSinusoidKeyboardConstraint = (
+    coords: ReadonlyArray<Coord>,
+    snapStep: vec.Vector2,
+    pointIndex: number,
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} => {
+    // Separate the two points into their own variables, and determine which point is being moved
+    const coordToBeMoved = coords[pointIndex];
+    const otherPoint = coords[1 - pointIndex];
+
+    // Determine if left or right movement is allowed
+    const left = vec.sub(coordToBeMoved, [snapStep[0], 0]);
+    const right = vec.add(coordToBeMoved, [snapStep[0], 0]);
+
+    // Check if the new point is on the same vertical line as the other point.
+    // If it is, we need to snap the point to the left or right an additional
+    // snapStep to avoid creating an invalid sine graph.
+    if (left[X] === otherPoint[X]) {
+        left[X] -= snapStep[X];
+    }
+    if (right[X] === otherPoint[X]) {
+        right[X] += snapStep[X];
+    }
+    return {
+        up: vec.add(coordToBeMoved, [0, snapStep[1]]),
+        down: vec.sub(coordToBeMoved, [0, snapStep[1]]),
+        left: left,
+        right: right,
+    };
+};
 
 // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
 export const computeSine = function (

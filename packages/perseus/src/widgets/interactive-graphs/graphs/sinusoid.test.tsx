@@ -7,9 +7,14 @@ import {testDependencies} from "../../../../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {computeSine, getSinusoidCoefficients} from "./sinusoid";
+import {
+    computeSine,
+    getSinusoidCoefficients,
+    getSinusoidKeyboardConstraint,
+} from "./sinusoid";
 
 import type {InteractiveGraphState, SinusoidGraphState} from "../types";
+import type {vec} from "mafs";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseSinusoidState: InteractiveGraphState = {
@@ -193,5 +198,23 @@ describe("SinusoidGraph", () => {
             [0, 0],
         ];
         expect(getSinusoidCoefficients(coords)).toBe(undefined);
+    });
+});
+
+describe("getSinusoidKeyboardConstraint", () => {
+    it("should snap to the grid and avoid putting points on a vertical line", () => {
+        const coords: SinusoidGraphState["coords"] = [
+            [0, 0],
+            [1, 1],
+        ];
+        const snapStep: vec.Vector2 = [1, 1];
+        const constraint = getSinusoidKeyboardConstraint(coords, snapStep, 0);
+
+        expect(constraint).toEqual({
+            up: [0, 1],
+            down: [0, -1],
+            left: [-1, 0],
+            right: [2, 0], // Avoids putting the point on a vertical line
+        });
     });
 });
