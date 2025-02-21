@@ -2,11 +2,11 @@
 // version number during the release build.
 // In dev, you'll never see the version number.
 
-// Relative export so we bundle this in instead of needing this in the
-// perseus-core package (which leads to many packages depending on it, which is
-// problematic).
+// ESLint's import/no-relative-packages doesn't understand symlinks! If this
+// lint suppression is removed, it autofixes the import path to an invalid
+// package+path entry.
 // eslint-disable-next-line import/no-relative-packages
-import {addLibraryVersionToPerseusDebug} from "../../../utils/internal/add-library-version-to-perseus-debug";
+import {addLibraryVersionToPerseusDebug} from "./shared-utils/add-library-version-to-perseus-debug";
 
 const libName = "@khanacademy/perseus-editor";
 export const libVersion = "__lib_version__";
