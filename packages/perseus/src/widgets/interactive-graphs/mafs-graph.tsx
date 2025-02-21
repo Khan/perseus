@@ -192,7 +192,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         state.type !== "none" && instructionsId,
                     )}
                     ref={graphRef}
-                    tabIndex={0}
+                    // tabIndex={0}
                     onFocus={(event) => {
                         handleFocusEvent(event, state, dispatch);
                     }}
