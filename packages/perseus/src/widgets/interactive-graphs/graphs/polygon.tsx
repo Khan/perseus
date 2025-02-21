@@ -179,7 +179,6 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         showSides,
         range,
         snapTo = "grid",
-        coords,
     } = statefulProps.graphState;
     const {disableKeyboardInteraction} = graphConfig;
     const {strings, locale} = usePerseusI18n();
@@ -329,7 +328,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             point={point}
                             sequenceNumber={i + 1}
                             onMove={(destination: vec.Vector2) => {
-                                console.log("Movement!");
+                                //console.log("Movement!");
 
                                 const now = Date.now();
                                 const targetFPS = 40;

@@ -1094,7 +1094,7 @@ function boundAndSnapToSides(
         newPoint[1] === startingPoint[1] &&
         isInBound({range, point: destinationAttempt})
     ) {
-        console.log(`destination attempt: ${destinationAttempt}`);
+        //console.log(`destination attempt: ${destinationAttempt}`);
         // Needed to prevent updating the original coords before the checks for
         // degenerate triangles and overlapping sides
         const coordsCopy = [...coords];
