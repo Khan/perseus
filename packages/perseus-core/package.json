@@ -24,7 +24,10 @@
     "scripts": {
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
-    "dependencies": {},
+    "dependencies": {
+        "@khanacademy/kas": "workspace:*",
+        "@khanacademy/math-input": "workspace:*"
+    },
     "devDependencies": {
         "@khanacademy/wonder-stuff-core": "catalog:",
         "underscore":"catalog:"
