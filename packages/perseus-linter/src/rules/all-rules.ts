@@ -17,6 +17,7 @@ import HeadingTitleCase from "./heading-title-case";
 import ImageAltText from "./image-alt-text";
 import ImageInTable from "./image-in-table";
 import ImageSpacesAroundUrls from "./image-spaces-around-urls";
+import ImageUrlEmpty from "./image-url-empty";
 import ImageWidget from "./image-widget";
 import LinkClickHere from "./link-click-here";
 import LongParagraph from "./long-paragraph";
@@ -41,6 +42,7 @@ export default [
     BlockquotedMath,
     BlockquotedWidget,
     DoubleSpacingAfterTerminal,
+    ImageUrlEmpty,
     ExpressionWidget,
     ExtraContentSpacing,
     HeadingLevel1,

@@ -12,8 +12,6 @@ export type {ErrorKind} from "./error/errors";
 export type {FunctionTypeMappingKeys} from "./utils/grapher-util";
 export type {Coords} from "./utils/grapher-types";
 
-// Careful, `version.ts` uses this function so it _must_ be imported above it
-export {addLibraryVersionToPerseusDebug} from "./utils/add-library-version-to-perseus-debug";
 export {default as getMatrixSize} from "./utils/get-matrix-size";
 export {default as getDecimalSeparator} from "./utils/get-decimal-separator";
 export {approximateEqual, approximateDeepEqual} from "./utils/equality";
@@ -138,6 +136,7 @@ export {
 export {default as getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
 export {default as getSorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
+export type {DropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";
 export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
 export {default as getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";

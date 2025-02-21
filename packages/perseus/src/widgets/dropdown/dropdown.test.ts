@@ -1,8 +1,14 @@
+import {
+    splitPerseusItem,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -126,5 +132,95 @@ describe("Dropdown widget", () => {
 
         // Assert
         expect(screen.getByLabelText("Select an answer")).toBeInTheDocument();
+    });
+
+    describe("interactive: full vs answerless", () => {
+        beforeAll(() => {
+            registerAllWidgetsForTesting();
+        });
+
+        let userEvent: UserEvent;
+        beforeEach(() => {
+            userEvent = userEventLib.setup({
+                advanceTimers: jest.advanceTimersByTime,
+            });
+
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+        });
+
+        function getAnswerfulItem(): PerseusRenderer {
+            return {
+                content: "[[☃ dropdown 1]]",
+                images: {},
+                widgets: {
+                    "dropdown 1": {
+                        type: "dropdown",
+                        options: {
+                            static: false,
+                            placeholder: "Choose an answer",
+                            choices: [
+                                {
+                                    content: "Correct",
+                                    correct: true,
+                                },
+                                {
+                                    content: "Incorrect",
+                                    correct: false,
+                                },
+                            ],
+                        },
+                    },
+                },
+            };
+        }
+
+        function getAnswerlessItem(): PerseusRenderer {
+            return splitPerseusItem(getAnswerfulItem());
+        }
+
+        test.each(["answerless", "answerful"])(
+            "is interactive with widget options: %p",
+            async (e) => {
+                // Arrange
+                const useAnswerless = e === "answerless";
+                const renderItem = useAnswerless
+                    ? getAnswerlessItem()
+                    : getAnswerfulItem();
+
+                // assert that splitting worked as expected
+                if (useAnswerless) {
+                    expect(
+                        renderItem.widgets["dropdown 1"].options.choices[0]
+                            .correct,
+                    ).toBeUndefined();
+                    expect(
+                        renderItem.widgets["dropdown 1"].options.choices[1]
+                            .correct,
+                    ).toBeUndefined();
+                }
+
+                // Act
+                const {renderer} = renderQuestion(renderItem);
+
+                await userEvent.click(
+                    screen.getByRole("combobox", {name: "Select an answer"}),
+                );
+                await userEvent.click(
+                    screen.getByRole("option", {name: "Correct"}),
+                );
+
+                const userInput = renderer.getUserInputMap();
+                const score = scorePerseusItem(
+                    getAnswerfulItem(),
+                    userInput,
+                    "en",
+                );
+
+                // Assert
+                expect(score).toHaveBeenAnsweredCorrectly();
+            },
+        );
     });
 });
