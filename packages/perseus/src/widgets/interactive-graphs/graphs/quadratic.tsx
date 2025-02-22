@@ -290,7 +290,7 @@ export const getQuadraticKeyboardConstraint = (
         // Otherwise, if the new coordinates are still invalid, we need to move the point one final snapStep.
         // This is to support the edge case where all of the points are each exactly one snapStep away
         // from each other.
-        // Eg. [0, 0], [1, 0], [2, 0] where snapStep = [1, 0] and we're moving point1 to the right.
+        // Eg. When coords = [[0, 0], [1, 0], [2, 0]], snapStep = [1, 1], and we're moving coords[0] to the right.
         return moveFunc(movedCoord);
     };
 
