@@ -150,7 +150,10 @@ function doFocusPoint(
     switch (state.type) {
         case "polygon":
         case "point":
-            return {...state, focusedPointIndex: action.index};
+            return {
+                ...state,
+                focusedPointIndex: action.index,
+            };
         default:
             return state;
     }
@@ -163,7 +166,10 @@ function doBlurPoint(
     switch (state.type) {
         case "polygon":
         case "point":
-            const nextState = {...state, showRemovePointButton: false};
+            const nextState = {
+                ...state,
+                showRemovePointButton: false,
+            };
 
             if (state.interactionMode === "mouse") {
                 nextState.focusedPointIndex = null;
@@ -198,7 +204,11 @@ function doClosePolygon(state: InteractiveGraphState): InteractiveGraphState {
         //     LOOKS correct, even if two of the points are at the same coords.
         const noDupedPoints = getArrayWithoutDuplicates(state.coords);
 
-        return {...state, coords: noDupedPoints, closedPolygon: true};
+        return {
+            ...state,
+            coords: noDupedPoints,
+            closedPolygon: true,
+        };
     }
 
     return state;
@@ -206,7 +216,10 @@ function doClosePolygon(state: InteractiveGraphState): InteractiveGraphState {
 
 function doOpenPolygon(state: InteractiveGraphState): InteractiveGraphState {
     if (isUnlimitedGraphState(state) && state.type === "polygon") {
-        return {...state, closedPolygon: false};
+        return {
+            ...state,
+            closedPolygon: false,
+        };
     }
 
     return state;
@@ -268,7 +281,11 @@ function doMovePointInFigure(
             if (coordsOverlap(coordsToCheck)) {
                 return state;
             }
-            return {...state, hasBeenInteractedWith: true, coords: newCoords};
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: newCoords,
+            };
         }
         case "linear":
         case "ray": {
@@ -278,7 +295,11 @@ function doMovePointInFigure(
                 newValue: boundAndSnapToGrid(action.destination, state),
             });
 
-            return {...state, hasBeenInteractedWith: true, coords: newCoords};
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: newCoords,
+            };
         }
         case "angle":
         case "circle":
@@ -390,7 +411,11 @@ function doMoveAll(
                     snap(snapStep, vec.add(point, change)),
                 );
             }
-            return {...state, hasBeenInteractedWith: true, coords: newCoords};
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: newCoords,
+            };
         }
         default:
             // MoveAll is not supported for other state types; just ignore it.
@@ -473,7 +498,11 @@ function doMovePoint(
                 return state;
             }
 
-            return {...state, hasBeenInteractedWith: true, coords: newCoords};
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: newCoords,
+            };
         case "point": {
             return {
                 ...state,
@@ -633,7 +662,10 @@ function doChangeSnapStep(
         return state;
     }
 
-    return {...state, snapStep: action.snapStep};
+    return {
+        ...state,
+        snapStep: action.snapStep,
+    };
 }
 
 function doChangeRange(
@@ -647,7 +679,10 @@ function doChangeRange(
         return state;
     }
 
-    return {...state, range: action.range};
+    return {
+        ...state,
+        range: action.range,
+    };
 }
 
 function doAddPoint(
@@ -926,7 +961,13 @@ function angleSidePointsTooCloseToVertex(state: AngleGraphState): boolean {
 
 function boundAndSnapToPolygonAngle(
     destinationPoint: vec.Vector2,
-    {range, coords}: {range: [Interval, Interval]; coords: Coord[]},
+    {
+        range,
+        coords,
+    }: {
+        range: [Interval, Interval];
+        coords: Coord[];
+    },
     index: number,
 ) {
     const startingPoint = coords[index];
