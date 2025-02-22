@@ -117,8 +117,9 @@ export const getSinusoidKeyboardConstraint = (
     const coordToBeMoved = coords[pointIndex];
     const otherPoint = coords[1 - pointIndex];
 
-    // Create a helper function that moves the point and then checks
-    // if it overlaps with the other point in the line after the move.
+    // Create a helper function that checks if the new point is on the same
+    // vertical line as the other point. If it is, we need to move the point
+    // an additional snapStep.
     const movePointWithConstraint = (
         moveFunc: (coord: vec.Vector2) => vec.Vector2,
     ): vec.Vector2 => {
@@ -132,9 +133,6 @@ export const getSinusoidKeyboardConstraint = (
         return movedCoord;
     };
 
-    // Check if the new point is on the same vertical line as the other point.
-    // If it is, we need to snap the point to the left or right an additional
-    // snapStep to avoid overlap.
     return {
         up: movePointWithConstraint((coord) =>
             vec.add(coord, [0, snapStep[1]]),

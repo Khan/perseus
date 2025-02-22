@@ -249,13 +249,13 @@ export const getCircleKeyboardConstraint = (
     right: vec.Vector2;
 } => {
     // Create a helper function that moves the point and then checks
-    // if it overlaps with the other point in the line after the move.
+    // if it overlaps with the center point after the move.
     const movePointWithConstraint = (
         moveFunc: (coord: vec.Vector2) => vec.Vector2,
     ): vec.Vector2 => {
         // Move the point
         let movedCoord = moveFunc(radiusPoint);
-        // If the moved point overlaps with the other point in the line,
+        // If the moved point overlaps with the center point,
         // move the point again.
         if (vec.dist(movedCoord, center) === 0) {
             movedCoord = moveFunc(movedCoord);
@@ -263,9 +263,9 @@ export const getCircleKeyboardConstraint = (
         return movedCoord;
     };
 
-    // Check if the new point is on the same vertical line as the other point.
-    // If it is, we need to snap the point to the left or right an additional
-    // snapStep to avoid overlap.
+    // Check if the new point overlaps the center point.
+    // If it does, we need to snap the point to the left
+    //  or right an additional snapStep to avoid the overlap.
     return {
         up: movePointWithConstraint((coord) =>
             vec.add(coord, [0, snapStep[1]]),
