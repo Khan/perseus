@@ -117,24 +117,37 @@ export const getSinusoidKeyboardConstraint = (
     const coordToBeMoved = coords[pointIndex];
     const otherPoint = coords[1 - pointIndex];
 
-    // Determine if left or right movement is allowed
-    const left = vec.sub(coordToBeMoved, [snapStep[0], 0]);
-    const right = vec.add(coordToBeMoved, [snapStep[0], 0]);
+    // Create a helper function that moves the point and then checks
+    // if it overlaps with the other point in the line after the move.
+    const movePointWithConstraint = (
+        moveFunc: (coord: vec.Vector2) => vec.Vector2,
+    ): vec.Vector2 => {
+        // Move the point
+        let movedCoord = moveFunc(coordToBeMoved);
+        // If the moved point overlaps with the other point in the line,
+        // move the point again.
+        if (movedCoord[X] === otherPoint[X]) {
+            movedCoord = moveFunc(movedCoord);
+        }
+        return movedCoord;
+    };
 
     // Check if the new point is on the same vertical line as the other point.
     // If it is, we need to snap the point to the left or right an additional
-    // snapStep to avoid creating an invalid sine graph.
-    if (left[X] === otherPoint[X]) {
-        left[X] -= snapStep[X];
-    }
-    if (right[X] === otherPoint[X]) {
-        right[X] += snapStep[X];
-    }
+    // snapStep to avoid overlap.
     return {
-        up: vec.add(coordToBeMoved, [0, snapStep[1]]),
-        down: vec.sub(coordToBeMoved, [0, snapStep[1]]),
-        left: left,
-        right: right,
+        up: movePointWithConstraint((coord) =>
+            vec.add(coord, [0, snapStep[1]]),
+        ),
+        down: movePointWithConstraint((coord) =>
+            vec.sub(coord, [0, snapStep[1]]),
+        ),
+        left: movePointWithConstraint((coord) =>
+            vec.sub(coord, [snapStep[0], 0]),
+        ),
+        right: movePointWithConstraint((coord) =>
+            vec.add(coord, [snapStep[0], 0]),
+        ),
     };
 };
 

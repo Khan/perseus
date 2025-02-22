@@ -328,7 +328,7 @@ describe("getQuadraticCoefficients", () => {
 });
 
 describe("getQuadraticKeyboardConstraint", () => {
-    it("should snap to the grid and avoid putting points on a vertical line", () => {
+    it("should snap to the snapStep and avoid putting points on a vertical line", () => {
         const coords: QuadraticGraphState["coords"] = [
             [0, 0],
             [1, 1],

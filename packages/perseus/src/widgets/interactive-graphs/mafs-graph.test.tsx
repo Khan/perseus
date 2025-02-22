@@ -862,6 +862,99 @@ describe("MafsGraph", () => {
         expect(state.coords).toEqual(expectedCoords);
     });
 
+    it("Circle moves the radius point over the center point on keystroke", async () => {
+        const initialState: InteractiveGraphState = {
+            type: "circle",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            center: [1, 0],
+            radiusPoint: [0, 0],
+        };
+
+        const expectedRadiusPoint = [2, 0];
+
+        const {dispatch, getState} = createFakeStore(
+            interactiveGraphReducer,
+            initialState,
+        );
+
+        const baseMafsGraphProps = baseMafsProps;
+
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={getState()}
+                dispatch={dispatch}
+            />,
+        );
+
+        const group = screen.getAllByTestId("movable-point__focusable-handle");
+        group[0].focus();
+        await userEvent.keyboard("{arrowright}");
+
+        const state = getState();
+        invariant(
+            state.type === "circle",
+            `state type must be sinusoid but was ${state.type}`,
+        );
+        expect(state.radiusPoint).toEqual(expectedRadiusPoint);
+    });
+
+    it("Graphs using MovableLine move points over invalid locations on keystroke", async () => {
+        const initialState: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [
+                    [0, 0],
+                    [1, 0],
+                ],
+            ],
+        };
+
+        const expectedCoords = [
+            [
+                [2, 0],
+                [1, 0],
+            ],
+        ];
+
+        const {dispatch, getState} = createFakeStore(
+            interactiveGraphReducer,
+            initialState,
+        );
+
+        const baseMafsGraphProps = baseMafsProps;
+
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={getState()}
+                dispatch={dispatch}
+            />,
+        );
+
+        const group = screen.getAllByTestId("movable-point__focusable-handle");
+        group[0].focus();
+        await userEvent.keyboard("{arrowright}");
+
+        const state = getState();
+        invariant(
+            state.type === "segment",
+            `state type must be segment but was ${state.type}`,
+        );
+        expect(state.coords).toEqual(expectedCoords);
+    });
+
     describe("with an unlimited graph", () => {
         it("point - shows a remove point button when a point is focused", async () => {
             // Arrange

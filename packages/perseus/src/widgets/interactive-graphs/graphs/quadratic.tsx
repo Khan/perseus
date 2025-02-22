@@ -265,7 +265,9 @@ export const getQuadraticKeyboardConstraint = (
     const coordToBeMoved = newCoords[pointMoved];
 
     // Create a function to validate and adjust the movement of the point
-    const getValidMovement = (moveFunc: (coord: Coord) => Coord): Coord => {
+    const movePointWithConstraint = (
+        moveFunc: (coord: Coord) => Coord,
+    ): Coord => {
         // Move the point the desired direction
         let movedCoord = moveFunc(coordToBeMoved);
         newCoords[pointMoved] = movedCoord;
@@ -292,19 +294,16 @@ export const getQuadraticKeyboardConstraint = (
         return moveFunc(movedCoord);
     };
 
-    // Determine the new coord positions for left and right movement
-    const leftCoordMove = getValidMovement((coord) =>
-        vec.sub(coord, [snapStep[0], 0]),
-    );
-    const rightCoordMove = getValidMovement((coord) =>
-        vec.add(coord, [snapStep[0], 0]),
-    );
-
     return {
         up: vec.add(coordToBeMoved, [0, snapStep[1]]),
         down: vec.sub(coordToBeMoved, [0, snapStep[1]]),
-        left: leftCoordMove,
-        right: rightCoordMove,
+        // For horizontal movement, we need to ensure that the points are not on the same vertical line.
+        left: movePointWithConstraint((coord) =>
+            vec.sub(coord, [snapStep[0], 0]),
+        ),
+        right: movePointWithConstraint((coord) =>
+            vec.add(coord, [snapStep[0], 0]),
+        ),
     };
 };
 
