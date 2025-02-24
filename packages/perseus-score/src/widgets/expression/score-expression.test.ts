@@ -56,7 +56,7 @@ describe("scoreExpression", () => {
 
     it("regression LEMS-2777: equivalent to correct answer", function () {
         // Arrange
-
+        const incorrect = "f(5) = f(7) + 4";
         const correct = "f(2) = f(3) + 4";
         const partialReversed = "f(2) = 4 + f(3)";
         const fullyReversed = "f(3) + 4 = f(2)";
@@ -80,6 +80,9 @@ describe("scoreExpression", () => {
 
         // Act
         // Assert
+        expect(
+            scoreExpression(incorrect, item, "en"),
+        ).toHaveBeenAnsweredIncorrectly();
         expect(
             scoreExpression(correct, item, "en"),
         ).toHaveBeenAnsweredCorrectly();
