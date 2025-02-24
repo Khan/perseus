@@ -43,7 +43,7 @@ type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 // Exported for testing
 export function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
-    const {center, radiusPoint} = graphState;
+    const {center, radiusPoint, snapStep} = graphState;
 
     const {strings, locale} = usePerseusI18n();
     const [radiusPointAriaLive, setRadiusPointAriaLive] =
@@ -102,6 +102,11 @@ export function CircleGraph(props: CircleGraphProps) {
                     setRadiusPointAriaLive("polite");
                     dispatch(actions.circle.moveRadiusPoint(newRadiusPoint));
                 }}
+                constrain={getCircleKeyboardConstraint(
+                    center,
+                    radiusPoint,
+                    snapStep,
+                )}
             />
             {/* Hidden elements to provide the descriptions for the
                 circle and radius point's `aria-describedby` properties. */}
@@ -232,6 +237,50 @@ function getCircleGraphDescription(
     const strings = describeCircleGraph(state, i18n);
     return strings.srCircleInteractiveElement;
 }
+
+export const getCircleKeyboardConstraint = (
+    center: vec.Vector2,
+    radiusPoint: vec.Vector2,
+    snapStep: vec.Vector2,
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} => {
+    // Create a helper function that moves the point and then checks
+    // if it overlaps with the center point after the move.
+    const movePointWithConstraint = (
+        moveFunc: (coord: vec.Vector2) => vec.Vector2,
+    ): vec.Vector2 => {
+        // Move the point
+        let movedCoord = moveFunc(radiusPoint);
+        // If the moved point overlaps with the center point,
+        // move the point again.
+        if (vec.dist(movedCoord, center) === 0) {
+            movedCoord = moveFunc(movedCoord);
+        }
+        return movedCoord;
+    };
+
+    // Check if the new point overlaps the center point.
+    // If it does, we need to snap the point to the left
+    //  or right an additional snapStep to avoid the overlap.
+    return {
+        up: movePointWithConstraint((coord) =>
+            vec.add(coord, [0, snapStep[1]]),
+        ),
+        down: movePointWithConstraint((coord) =>
+            vec.sub(coord, [0, snapStep[1]]),
+        ),
+        left: movePointWithConstraint((coord) =>
+            vec.sub(coord, [snapStep[0], 0]),
+        ),
+        right: movePointWithConstraint((coord) =>
+            vec.add(coord, [snapStep[0], 0]),
+        ),
+    };
+};
 
 // Exported for testing
 export function describeCircleGraph(

@@ -11,12 +11,17 @@ import {MafsGraph} from "../mafs-graph";
 import * as ReducerGraphConfig from "../reducer/use-graph-config";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {CircleGraph, describeCircleGraph} from "./circle";
+import {
+    CircleGraph,
+    describeCircleGraph,
+    getCircleKeyboardConstraint,
+} from "./circle";
 import * as UseDraggableModule from "./use-draggable";
 
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {InteractiveGraphState} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
+import type {vec} from "mafs";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseCircleState: InteractiveGraphState = {
@@ -361,5 +366,26 @@ describe("describeCircleGraph", () => {
         expect(strings.srCircleInteractiveElement).toBe(
             "Interactive elements: Circle. The center point is at 2 comma 3. Circle radius is 5.",
         );
+    });
+});
+
+describe("getCircleKeyboardConstraint", () => {
+    it("should snap to the snapStep and avoid putting points on a vertical line", () => {
+        const radiusPoint: vec.Vector2 = [0, 0];
+        const center: vec.Vector2 = [1, 0];
+        const snapStep: vec.Vector2 = [1, 1];
+
+        const constraint = getCircleKeyboardConstraint(
+            center,
+            radiusPoint,
+            snapStep,
+        );
+
+        expect(constraint).toEqual({
+            up: [0, 1],
+            down: [0, -1],
+            left: [-1, 0],
+            right: [2, 0], // Avoids overlapping the points
+        });
     });
 });
