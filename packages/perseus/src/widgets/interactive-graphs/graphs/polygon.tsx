@@ -1,6 +1,8 @@
-import {angles} from "@khanacademy/kmath";
+import {angles, geometry, vector as kvector} from "@khanacademy/kmath";
+import {approximateEqual} from "@khanacademy/perseus-core";
 import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
+import _ from "underscore";
 
 import {
     usePerseusI18n,
@@ -10,7 +12,7 @@ import a11y from "../../../util/a11y";
 import {snap} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {TARGET_SIZE} from "../utils";
+import {bound, isInBound, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
@@ -25,6 +27,7 @@ import {
     getSideLengthsFromPoints,
 } from "./utils";
 
+import type {KeyboardMovementConstraint} from "./use-draggable";
 import type {Coord} from "../../../interactive2/types";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
@@ -36,8 +39,11 @@ import type {
     PolygonGraphState,
 } from "../types";
 import type {CollinearTuple} from "@khanacademy/perseus-core";
+import type {Interval} from "mafs";
 
-const {convertRadiansToDegrees} = angles;
+const {getAngleFromVertex, polar, convertRadiansToDegrees} = angles;
+
+const {ccw, lawOfCosines, magnitude, sign, vector} = geometry;
 
 export function renderPolygonGraph(
     state: PolygonGraphState,
@@ -65,7 +71,7 @@ type StatefulProps = MafsGraphProps<PolygonGraphState> & {
     top: number;
     dragging: boolean;
     points: Coord[];
-    constrain: (p: any) => any;
+    constrain: KeyboardMovementConstraint;
     hovered: boolean;
     setHovered: React.Dispatch<React.SetStateAction<boolean>>;
     focusVisible: boolean;
@@ -96,7 +102,19 @@ const PolygonGraph = (props: Props) => {
 
     // Logic to build the dragging experience. Primarily used by Limited Polygon.
     const dragReferencePoint = points[0];
-    const constrain = (p) => snap(snapStep, p);
+    const constrain: KeyboardMovementConstraint = (p) => snap(snapStep, p);
+
+    // switch (snapTo) {
+    //     case "sides":
+    //         // Values are BS, need to fix.
+    //         constrain = getSideSnapConstraint(snapStep, coords[0], 12);
+    //         break;
+    //     case "angles":
+    //     case "grid":
+    //     default:
+    //         constrain = (p) => snap(snapStep, p);
+    //         break;
+    // }
 
     const {dragging} = useDraggable({
         gestureTarget: polygonRef,
@@ -179,6 +197,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         showSides,
         range,
         snapTo = "grid",
+        snapStep,
     } = statefulProps.graphState;
     const {disableKeyboardInteraction} = graphConfig;
     const {strings, locale} = usePerseusI18n();
@@ -324,7 +343,16 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         <MovablePoint
                             ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
                             ariaLive={ariaLives[i + 1]}
-                            constrain={constrain}
+                            constrain={
+                                snapTo === "grid"
+                                    ? constrain
+                                    : getSideSnapConstraint(
+                                          points,
+                                          i,
+                                          snapStep,
+                                          range,
+                                      )
+                            }
                             point={point}
                             sequenceNumber={i + 1}
                             onMove={(destination: vec.Vector2) => {
@@ -681,5 +709,151 @@ function describePolygonGraph(
         srPolygonGraphPoints,
         srPolygonElementsNum,
         srPolygonInteractiveElements,
+    };
+}
+
+// Less than or approximately equal
+function leq(a: any, b) {
+    return a < b || approximateEqual(a, b);
+}
+
+export function getSideSnapConstraint(
+    points: ReadonlyArray<Coord>,
+    index: number,
+    snapStep: vec.Vector2,
+    range: [Interval, Interval],
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} {
+    // Make newCoords mutable
+    const newPoints = [...points];
+
+    // Get the point that is being moved
+    const pointToBeMoved = newPoints[index];
+
+    // Create a helper function that moves the point and then checks
+    // if it overlaps with the center point after the move.
+    const movePointWithConstraint = (
+        moveFunc: (coord: vec.Vector2) => vec.Vector2,
+    ): vec.Vector2 => {
+        // The direction the user is attempting to move the point in.
+        let destinationAttempt: Coord = moveFunc(pointToBeMoved);
+        // The new point we're moving to.
+        let newPoint = pointToBeMoved;
+
+        // Move the point
+        // Will need to tell it to stop if we're beyond the bounds.
+        // Initial thoughts, much better keyboard movement.
+        // Mouse movement is janky and flashing. Gross!!
+        // The aggressive janking is the fact that even the smallest
+        // Movement gets this function called again on mouse, and because it's
+        // the same point it tries to find another one. Dang it.
+        // Maybe there's a ways I can turn off this functionality if it's a keyboard
+        // vs a mouse user....
+        while (
+            newPoint[0] === pointToBeMoved[0] &&
+            newPoint[1] === pointToBeMoved[1] &&
+            isInBound({range, point: destinationAttempt})
+        ) {
+            // Takes the destination point and makes sure it is within the bounds of the graph
+            newPoints[index] = bound({
+                snapStep: snapStep,
+                range,
+                point: destinationAttempt,
+            });
+            //console.log(`bound: ${coordsCopy[index]}`);
+
+            // Gets the relative index of a point
+            const rel = (j): number => {
+                return (index + j + newPoints.length) % newPoints.length;
+            };
+            const sides = _.map(
+                [
+                    [newPoints[rel(-1)], newPoints[index]],
+                    [newPoints[index], newPoints[rel(1)]],
+                    [newPoints[rel(-1)], newPoints[rel(1)]],
+                ],
+                function (newPoints) {
+                    // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+                    return magnitude(vector(...newPoints));
+                },
+            );
+
+            // Round the sides to left and right of the current point
+            _.each([0, 1], function (j) {
+                // The snap length should be determined by the snapSteps to ensure
+                // successful snapping for all graphs.
+                const lowestValue = Math.min(snapStep[0], snapStep[1]);
+                sides[j] = Math.round(sides[j] / lowestValue) * lowestValue;
+            });
+
+            // Avoid degenerate triangles
+            if (
+                leq(sides[1] + sides[2], sides[0]) ||
+                leq(sides[0] + sides[2], sides[1]) ||
+                leq(sides[0] + sides[1], sides[2])
+            ) {
+                return pointToBeMoved;
+            }
+
+            // Solve for angle by using the law of cosines
+            // Angle at the first vertex of the polygon
+            const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
+
+            // Angle at the second vertex of the polygon
+            const outerAngle = getAngleFromVertex(
+                newPoints[rel(1)],
+                newPoints[rel(-1)],
+            );
+
+            // Returns true if the points form a counter-clockwise turn;
+            // a.k.a if the point is on the left or right of the polygon.
+            // This is used to determine how to adjust the point: if the point is on the left,
+            // we want to add the inner angle to the outer angle, and if it's on the right,
+            // we want to subtract the inner angle from the outer angle. The angle solved
+            // for is then used in the polar function to determine the new point.
+            const onLeft =
+                sign(
+                    ccw(
+                        newPoints[rel(-1)],
+                        newPoints[rel(1)],
+                        newPoints[index],
+                    ),
+                ) === 1;
+
+            // Uses the length of the first side of the polygon (radial coordinate)
+            // and the angle between the first and second sides of the
+            // polygon (angular coordinate) to determine how to adjust the point
+            const offset = polar(
+                sides[0],
+                outerAngle + (onLeft ? 1 : -1) * innerAngle,
+            );
+
+            newPoint = kvector.add(newPoints[rel(-1)], offset) as vec.Vector2;
+
+            // Set the initial destination attempt to the destination point.
+            // For every time it does not work increment the direction for x and y.
+            destinationAttempt = moveFunc(destinationAttempt);
+        }
+
+        return newPoint;
+    };
+
+    return {
+        up: movePointWithConstraint((coord) =>
+            vec.add(coord, [0, snapStep[1]]),
+        ),
+        down: movePointWithConstraint((coord) =>
+            vec.sub(coord, [0, snapStep[1]]),
+        ),
+        left: movePointWithConstraint((coord) =>
+            vec.sub(coord, [snapStep[0], 0]),
+        ),
+        right: movePointWithConstraint((coord) =>
+            vec.add(coord, [snapStep[0], 0]),
+        ),
     };
 }
