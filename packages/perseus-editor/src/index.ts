@@ -8,13 +8,13 @@ export {default as ItemDiff} from "./diffs/item-diff";
 export {default as EditorPage} from "./editor-page";
 export {default as Editor} from "./editor";
 export {default as IframeContentRenderer} from "./iframe-content-renderer";
+export {default as ContentPreview} from "./content-preview";
 
 import "./styles/perseus-editor.less";
 
 // eslint-disable-next-line import/order
 import {Widgets, widgets} from "@khanacademy/perseus";
 import AllEditors from "./all-editors";
-import ContentPreview from "./content-preview";
 
 Widgets.registerEditors(AllEditors);
 Widgets.registerWidgets(widgets);
@@ -22,4 +22,4 @@ Widgets.registerWidgets(widgets);
 Widgets.replaceDeprecatedWidgets();
 Widgets.replaceDeprecatedEditors();
 
-export {AllEditors, widgets, ContentPreview};
+export {AllEditors, widgets};
