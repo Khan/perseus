@@ -162,7 +162,14 @@ export type PerseusStrings = {
         centerX: string;
         centerY: string;
     }) => string;
-    srCircleRadiusPoint: ({
+    srCircleRadiusPointRight: ({
+        radiusPointX,
+        radiusPointY,
+    }: {
+        radiusPointX: string;
+        radiusPointY: string;
+    }) => string;
+    srCircleRadiusPointLeft: ({
         radiusPointX,
         radiusPointY,
     }: {
@@ -676,8 +683,10 @@ export const strings = {
     srCircleGraph: "A circle on a coordinate plane.",
     srCircleShape:
         "Circle. The center point is at %(centerX)s comma %(centerY)s.",
-    srCircleRadiusPoint:
-        "Radius point at %(radiusPointX)s comma %(radiusPointY)s.",
+    srCircleRadiusPointRight:
+        "Right radius endpoint at %(radiusPointX)s comma %(radiusPointY)s.",
+    srCircleRadiusPointLeft:
+        "Left radius endpoint at %(radiusPointX)s comma %(radiusPointY)s.",
     srCircleRadius: "Circle radius is %(radius)s.",
     srCircleOuterPoints:
         "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
@@ -955,8 +964,10 @@ export const mockStrings: PerseusStrings = {
     srCircleGraph: "A circle on a coordinate plane.",
     srCircleShape: ({centerX, centerY}) =>
         `Circle. The center point is at ${centerX} comma ${centerY}.`,
-    srCircleRadiusPoint: ({radiusPointX, radiusPointY}) =>
-        `Radius point at ${radiusPointX} comma ${radiusPointY}.`,
+    srCircleRadiusPointRight: ({radiusPointX, radiusPointY}) =>
+        `Right radius endpoint at ${radiusPointX} comma ${radiusPointY}.`,
+    srCircleRadiusPointLeft: ({radiusPointX, radiusPointY}) =>
+        `Left radius endpoint at ${radiusPointX} comma ${radiusPointY}.`,
     srCircleRadius: ({radius}) => `Circle radius is ${radius}.`,
     srCircleOuterPoints: ({
         point1X,

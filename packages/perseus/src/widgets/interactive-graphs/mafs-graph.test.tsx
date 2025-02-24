@@ -353,7 +353,9 @@ describe("MafsGraph", () => {
         );
 
         // Circle's radius point has a special label
-        expectLabelInDoc("Radius point at 2 comma 0. Circle radius is 2.");
+        expectLabelInDoc(
+            "Right radius endpoint at 2 comma 0. Circle radius is 2.",
+        );
     });
 
     it("renders ARIA labels for each point (quadratic)", () => {
