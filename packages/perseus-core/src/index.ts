@@ -1,13 +1,17 @@
 export type {PerseusAnalyticsEvent, AnalyticsEventHandlerFn} from "./analytics";
 export type {
     KEScore,
-    KeypadContextRendererInterface,
     RendererInterface,
     MarkerType,
     InteractiveMarkerType,
     Relationship,
     Alignment,
 } from "./types";
+export type {
+    KeypadKey,
+    KeypadConfiguration,
+    KeypadContextRendererInterface,
+} from "./keypad";
 export type {ErrorKind} from "./error/errors";
 export type {FunctionTypeMappingKeys} from "./utils/grapher-util";
 export type {Coords} from "./utils/grapher-types";

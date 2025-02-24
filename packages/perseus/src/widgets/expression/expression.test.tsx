@@ -1,5 +1,4 @@
 import {it, describe, beforeEach} from "@jest/globals";
-import {KeypadType} from "@khanacademy/math-input";
 import {
     type PerseusItem,
     type PerseusExpressionWidgetOptions,
@@ -601,9 +600,7 @@ describe("Expression Widget", function () {
             });
 
             // Assert
-            expect(result.keypadConfiguration.keypadType).toEqual(
-                KeypadType.EXPRESSION,
-            );
+            expect(result.keypadConfiguration.keypadType).toEqual("EXPRESSION");
         });
 
         it("should forward extraKeys if present", async () => {

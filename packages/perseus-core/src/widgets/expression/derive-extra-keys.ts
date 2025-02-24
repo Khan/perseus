@@ -1,8 +1,9 @@
 import * as KAS from "@khanacademy/kas";
-import {KeyArray} from "@khanacademy/math-input";
 
-import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
-import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
+import {KeypadKeyArray} from "../../keypad";
+
+import type {PerseusExpressionWidgetOptions} from "../../data-schema";
+import type {KeypadConfiguration, KeypadKey} from "../../keypad";
 
 /**
  * Scrape the answer forms for any variables or contants (like Pi)
@@ -12,20 +13,20 @@ function deriveExtraKeys(
     widgetOptions: PerseusExpressionWidgetOptions,
 ): KeypadConfiguration["extraKeys"] {
     if (widgetOptions.extraKeys) {
-        return widgetOptions.extraKeys as ReadonlyArray<Key>;
+        return widgetOptions.extraKeys as ReadonlyArray<KeypadKey>;
     }
 
     // If there are no extra symbols available, we include Pi anyway, so
     // that the "extra symbols" button doesn't appear empty.
-    const defaultKeys: ReadonlyArray<Key> = ["PI"];
+    const defaultKeys: ReadonlyArray<KeypadKey> = ["PI"];
 
     if (widgetOptions.answerForms == null) {
         return defaultKeys;
     }
 
     // Extract any and all variables and constants from the answer forms.
-    const uniqueExtraVariables: Partial<Record<Key, boolean>> = {};
-    const uniqueExtraConstants: Partial<Record<Key, boolean>> = {};
+    const uniqueExtraVariables: Partial<Record<KeypadKey, boolean>> = {};
+    const uniqueExtraConstants: Partial<Record<KeypadKey, boolean>> = {};
     for (const answerForm of widgetOptions.answerForms) {
         const maybeExpr = KAS.parse(answerForm.value, widgetOptions);
         if (maybeExpr.parsed) {
@@ -38,8 +39,8 @@ function deriveExtraKeys(
                 symbol === "pi" || symbol === "theta";
             const toKey = (symbol: any) =>
                 isGreek(symbol) ? symbol.toUpperCase() : symbol;
-            const isKey = (key: string): key is Key =>
-                KeyArray.includes(key as Key);
+            const isKey = (key: string): key is KeypadKey =>
+                KeypadKeyArray.includes(key as KeypadKey);
 
             for (const variable of expr.getVars()) {
                 const maybeKey = toKey(variable);
@@ -60,11 +61,11 @@ function deriveExtraKeys(
     // treated as functions.
     const extraVariables = Object.keys(
         uniqueExtraVariables,
-    ).sort() as ReadonlyArray<Key>;
+    ).sort() as ReadonlyArray<KeypadKey>;
 
     const extraConstants = Object.keys(
         uniqueExtraConstants,
-    ).sort() as ReadonlyArray<Key>;
+    ).sort() as ReadonlyArray<KeypadKey>;
 
     const extraKeys = [...extraVariables, ...extraConstants];
     if (!extraKeys.length) {

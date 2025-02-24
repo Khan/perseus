@@ -1,5 +1,5 @@
 import * as KAS from "@khanacademy/kas";
-import {KeypadInput, KeypadType} from "@khanacademy/math-input";
+import {KeypadInput} from "@khanacademy/math-input";
 import {getDecimalSeparator, expressionLogic} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -22,10 +22,11 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/
 import type {DependenciesContext} from "../../dependencies";
 import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
-import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {
     PerseusExpressionWidgetOptions,
     ExpressionPublicWidgetOptions,
+    KeypadConfiguration,
+    KeypadKey,
 } from "@khanacademy/perseus-core";
 import type {
     PerseusExpressionRubric,
@@ -272,7 +273,7 @@ export class Expression
     }
 
     // HACK(joel)
-    insert(keyPressed: Key) {
+    insert(keyPressed: KeypadKey) {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
         this.refs.input.insert(keyPressed);
@@ -451,8 +452,8 @@ export default {
         } = widgetOptions;
         return {
             keypadConfiguration: {
-                keypadType: KeypadType.EXPRESSION,
-                extraKeys: extraKeys as ReadonlyArray<Key>,
+                keypadType: "EXPRESSION",
+                extraKeys: extraKeys as ReadonlyArray<KeypadKey>,
                 times,
             },
             times,
