@@ -1,5 +1,4 @@
 import {KhanMath} from "@khanacademy/kmath";
-import {getNumericInputPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
