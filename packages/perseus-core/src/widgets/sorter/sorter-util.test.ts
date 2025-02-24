@@ -3,7 +3,7 @@ import getSorterPublicWidgetOptions from "./sorter-util";
 import type {PerseusSorterWidgetOptions} from "../../data-schema";
 
 describe("getSorterPublicWidgetOptions", () => {
-    it("should return the correct public options without any answer data", () => {
+    it("should return options without any answer data due to the shuffled state of the correct field", () => {
         // Arrange
         const options: PerseusSorterWidgetOptions = {
             correct: ["$15$ grams", "$55$ grams", "$0.005$ kilograms"],
@@ -15,10 +15,9 @@ describe("getSorterPublicWidgetOptions", () => {
         const publicWidgetOptions = getSorterPublicWidgetOptions(options);
 
         // Assert
-        expect(publicWidgetOptions).toEqual({
-            correct: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
-            layout: "horizontal",
-            padding: true,
-        });
+        expect(new Set(publicWidgetOptions.correct)).toEqual(
+            new Set(options.correct),
+        );
+        expect(publicWidgetOptions.correct).not.toEqual(options.correct);
     });
 });

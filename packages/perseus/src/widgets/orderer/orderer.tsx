@@ -1,6 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe */
-import {Errors, getOrdererPublicWidgetOptions} from "@khanacademy/perseus-core";
+import {Errors} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import $ from "jquery";
 import * as React from "react";
@@ -272,6 +272,7 @@ class Card extends React.Component<CardProps, CardState> {
         const onMouseDown = this.props.animating ? $.noop : this.onMouseDown;
 
         return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error
             <div
                 className={"card-wrap"}
                 style={style}
@@ -778,5 +779,4 @@ export default {
     hidden: true,
     widget: Orderer,
     isLintable: true,
-    getPublicWidgetOptions: getOrdererPublicWidgetOptions,
 } satisfies WidgetExports<typeof Orderer>;

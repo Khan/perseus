@@ -244,10 +244,14 @@ export type PerseusRenderer = {
      * field.
      */
     widgets: PerseusWidgetsMap;
-    // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys
-    // that represent other content in the system.  Not rendered to the user.
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    metadata?: ReadonlyArray<string>;
+    /**
+     * Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
+     * are keys that represent other content in the system.  Not rendered to
+     * the user. NOTE: perseus_data.go says this is required even though it
+     * isn't necessary.
+     * @deprecated
+     */
+    metadata?: any;
     /**
      * A dictionary of {[imageUrl]: PerseusImageDetail}.
      */
@@ -314,7 +318,7 @@ export type WidgetOptions<Type extends string, Options> = {
     options: Options;
     // Only used by interactive child widgets (line, point, etc) to identify the components
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    key?: number;
+    key?: number | null;
     // The version of the widget data spec.  Used to differentiate between newer and older content data.
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     version?: Version;
@@ -410,8 +414,7 @@ export type PerseusImageBackground = {
     // The scale of the image
     // NOTE: perseus_data.go says this is required, but nullable, even though
     // it isn't necessary at all.
-    // Yikes, production data as this as both a number (1) and string ("1")
-    scale?: number | string;
+    scale?: number;
     // The bottom offset of the image
     // NOTE: perseus_data.go says this is required, but nullable, even though
     // it isn't necessary at all.
@@ -871,7 +874,7 @@ export type LockedFunctionType = {
     strokeStyle: LockedLineStyle;
     equation: string; // This is the user-defined equation (as it was typed)
     directionalAxis: "x" | "y";
-    domain?: Interval;
+    domain?: [min: number | null, max: number | null];
     labels?: LockedLabelType[];
     ariaLabel?: string;
 };

@@ -1,3 +1,5 @@
+import getLabelImagePublicWidgetOptions from "./label-image-util";
+
 import type {PerseusLabelImageWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -27,6 +29,7 @@ const defaultWidgetOptions: LabelImageDefaultWidgetOptions = {
 const labelImageWidgetLogic: WidgetLogic = {
     name: "label-image",
     defaultWidgetOptions,
+    getPublicWidgetOptions: getLabelImagePublicWidgetOptions,
 };
 
 export default labelImageWidgetLogic;

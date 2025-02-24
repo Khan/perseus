@@ -1,3 +1,4 @@
+import {shuffleMatcher} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
@@ -8,7 +9,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import Sortable from "../../components/sortable";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
-import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
@@ -20,7 +20,6 @@ import type {
     PerseusMatcherUserInput,
 } from "@khanacademy/perseus-score";
 
-const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
 type RenderProps = PerseusMatcherWidgetOptions;
@@ -157,18 +156,13 @@ export class Matcher extends React.Component<Props, State> implements Widget {
             );
         }
 
-        // Use the same random() function to shuffle both columns sequentially
-        const rng = seededRNG(this.props.problemNum as number);
-
-        let left;
-        if (!this.props.orderMatters) {
-            // If the order doesn't matter, don't shuffle the left column
-            left = this.props.left;
-        } else {
-            left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
-        }
-
-        const right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
+        /* TODO(LEMS-2841):
+            Once the getMatcherPublicWidgetOptions function gets connected to the
+            widget, we'll need to update this to the line below to only shuffle
+            on the server.
+                const {left, right} = this.props;
+         */
+        const {left, right} = shuffleMatcher(this.props);
 
         const showLabels = _.any(this.props.labels);
         const constraints = {

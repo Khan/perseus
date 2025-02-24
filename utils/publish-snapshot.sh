@@ -74,7 +74,7 @@ check_for_changes() {
     # you pass to it with `cwd` (the code does `path.join(cwd, outputParam)`). So
     # we just allow it to write the file in our local dir (although I would prefer
     # to use `mktemp`).
-    yarn changeset status --verbose --output changeset-status.json
+    pnpm changeset status --verbose --output changeset-status.json
     # We use jq to check if the json outpu has changesets. If not, we exit the
     # process (but not with a non-zero exit status because we don't want to cause
     # the github action to exit with a failure status).
@@ -118,8 +118,8 @@ check_for_changes
 pre_publish_check
 create_npmrc
 
-yarn build
-yarn build:types
+pnpm build
+pnpm build:types
 
 # Now version the packages and publish a snapshot
 # By using the `--snapshot` option we are asking Changeset to version the
@@ -127,15 +127,15 @@ yarn build:types
 # (that's what the option to `--snapshot` signifies. This results in a version
 # number that looks like this: "0.0.0-PR423-20230314222716"
 # The trailing numbers are a timestamp of when the version was made.
-yarn changeset version --snapshot "$PR_NUMBER"
+pnpm changeset version --snapshot "$PR_NUMBER"
 
 # Now we publish this snapshot version to npm. We use `--tag` to tag this
-# version in npm. npm supports any number of tags; in fact, when you `yarn add
-# xyz` you are really saying `yarn add xyz@latest` (where latest is a special
+# version in npm. npm supports any number of tags; in fact, when you `pnpm add
+# xyz` you are really saying `pnpm add xyz@latest` (where latest is a special
 # tag that always exists).
 # You can see this for yourself by running:
-# `yarn info react --json | jq '.data["dist-tags"]'
-yarn changeset publish --no-git-tag --tag "${PR_NUMBER}"
+# `pnpm info react --json | jq '.data["dist-tags"]'
+pnpm changeset publish --no-git-tag --tag "${PR_NUMBER}"
 
 # Now we export the npm tag name so that later Github Action steps have access
 # to this value in the form of:

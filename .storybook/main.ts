@@ -1,4 +1,4 @@
-import viteConfig from "../dev/vite.config";
+import viteConfig from "../vite.config";
 import {mergeConfig} from "vite";
 
 import type {StorybookConfig} from "@storybook/react-vite";
@@ -59,6 +59,11 @@ const config: StorybookConfig = {
     viteFinal: async (config, {configType}) => {
         return mergeConfig(config, {
             ...viteConfig,
+            define: {
+                // This is used to determine if we are running in a
+                // Dev/Storybook environment.
+                "process.env.STORYBOOK": "true",
+            },
             build: {
                 // Vite 5 has a bug with how it builds `url(data: )` urls when
                 // it inlines SVGs. Given this is mostly used for static
@@ -72,7 +77,7 @@ const config: StorybookConfig = {
             },
             // Fix from: https://github.com/storybookjs/storybook/issues/25256#issuecomment-1866441206
             assetsInclude: ["/sb-preview/runtime.js"],
-            plugins: [...viteConfig.plugins, lessWrapper],
+            plugins: [...(viteConfig.plugins ?? []), lessWrapper],
         });
     },
     staticDirs: ["../static"],

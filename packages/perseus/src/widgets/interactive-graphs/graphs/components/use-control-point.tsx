@@ -125,6 +125,7 @@ export function useControlPoint(params: Params): Return {
             }}
             point={point}
             dragging={dragging}
+            focused={focused}
             color={color}
             ref={visiblePointRef}
             showFocusRing={focused}

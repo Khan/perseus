@@ -1,5 +1,5 @@
 import {
-    array,
+    any,
     boolean,
     object,
     optional,
@@ -17,6 +17,7 @@ export const parseHint: Parser<Hint> = object({
     replace: optional(boolean),
     content: string,
     widgets: defaulted(parseWidgetsMap, () => ({})),
-    metadata: optional(array(string)),
     images: parseImages,
+    // deprecated
+    metadata: any,
 });

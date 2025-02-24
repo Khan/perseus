@@ -1,3 +1,5 @@
+import getPlotterPublicWidgetOptions from "./plotter-util";
+
 import type {PerseusPlotterWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -40,6 +42,7 @@ const defaultWidgetOptions: PlotterDefaultWidgetOptions = {
 const plotterWidgetLogic: WidgetLogic = {
     name: "plotter",
     defaultWidgetOptions,
+    getPublicWidgetOptions: getPlotterPublicWidgetOptions,
 };
 
 export default plotterWidgetLogic;

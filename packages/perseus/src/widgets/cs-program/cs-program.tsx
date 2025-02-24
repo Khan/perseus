@@ -2,7 +2,6 @@
  * This widget is for embedding Khan Academy CS programs.
  */
 
-import {getCSProgramPublicWidgetOptions} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
 import * as React from "react";
@@ -172,6 +171,7 @@ class CSProgram extends React.Component<Props> implements Widget {
                     styleContainer && styles.container,
                 )}
             >
+                {/* eslint-disable-next-line jsx-a11y/iframe-has-title -- TODO(LEMS-2871): Address a11y error */}
                 <iframe
                     sandbox={sandboxOptions}
                     src={url}
@@ -200,5 +200,4 @@ export default {
     displayName: "CS Program",
     widget: CSProgram,
     hidden: true,
-    getPublicWidgetOptions: getCSProgramPublicWidgetOptions,
 } satisfies WidgetExports<typeof CSProgram>;

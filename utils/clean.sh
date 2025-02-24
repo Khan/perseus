@@ -22,6 +22,6 @@ rm -rf cypress/
 rm -rf packages/*/*.tsbuildinfo
 rm -rf storybook-static/
 
-echo "Removing node_modules directories. You'll need to 'yarn install' after this."
+echo "Removing node_modules directories. You'll need to 'pnpm install' after this."
 find . -name node_modules -and -type d -prune -exec rm -rf '{}' \;
 

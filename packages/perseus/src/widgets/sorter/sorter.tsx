@@ -1,23 +1,18 @@
-import {
-    type PerseusSorterWidgetOptions,
-    getSorterPublicWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {shuffle} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
 import Sortable from "../../components/sortable";
-import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
+import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusSorterRubric,
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-score";
-
-const {shuffle} = Util;
 
 type RenderProps = PerseusSorterWidgetOptions;
 
@@ -103,6 +98,10 @@ class Sorter extends React.Component<Props, State> implements Widget {
     };
 
     render(): React.ReactNode {
+        // TODO(LEMS-2841): Remove client-side shuffle once receiving public
+        //     options. The correct field will already be shuffled.
+        //     Probably easiest to replace "options" with "this.props.correct" when
+        //     setting up Sortable below. Or use the assignment to rename for clarity.
         const options = shuffle(
             this.props.correct,
             this.props.problemNum as number,
@@ -134,5 +133,4 @@ export default {
     displayName: "Sorter",
     widget: Sorter,
     isLintable: true,
-    getPublicWidgetOptions: getSorterPublicWidgetOptions,
 } satisfies WidgetExports<typeof Sorter>;
