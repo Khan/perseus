@@ -425,11 +425,6 @@ abstract class Expr {
             );
         };
 
-        // if no variables, only need to evaluate once
-        if (!varList.length && !this.has(Unit) && !other.has(Unit)) {
-            return equalNumbers(this.eval(), other.eval());
-        }
-
         // collect here to avoid sometimes dividing by zero, and sometimes not
         // it is better to be deterministic, e.g. x/x -> 1
         // TODO(alex): may want to keep track of assumptions as they're made

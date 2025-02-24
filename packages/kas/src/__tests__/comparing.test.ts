@@ -273,10 +273,7 @@ describe("comparing", () => {
         expect("f(g(x))").toEqualExpr("f(g(x))");
         expect("sin(f(3x-x))/cos(f(x+x))").toEqualExpr("tan(f(2x))");
         expect("f(x) = sin(x + 2pi)").toEqualExpr("f(x) = sin(x)");
-        // partial reversal
-        expect("f(2) = f(3) + 4").toEqualExpr("f(2) = 4 + f(3)");
-        // full reversal
-        expect("f(2) = f(3) + 4").toEqualExpr("f(3) + 4 = f(2)");
+
         // NOTE(kevinb): This test is flaky, because Expr.prototype.compare
         // is non-deterministic.  When comparing expressions this normally
         // wouldn't be an issue because we could just evaluate the different
@@ -292,6 +289,20 @@ describe("comparing", () => {
         // before comparing expressions on the other side.
         // expect("f(x) = sin^2(x)+cos^2(x)").toEqualExpr("f(x) = 1");
         expect("f(x) = ln|x|+c").toEqualExpr("f(x)-ln|x|-c = 0");
+
+        // LEMS-2777: we were having issues with functions calling integers
+        // (as opposed to working with variables which always seemed to work)
+        // which I believe was due to treating `f(7)` as a Rational
+        // due to it not having a variable
+        //
+        // completely incorrect (previously considered correct erroneously)
+        expect("f(5) = f(7) + 4").not.toEqualExpr("f(2) = f(3) + 4");
+        // exactly correct
+        expect("f(2) = f(3) + 4").toEqualExpr("f(2) = f(3) + 4");
+        // partial reversal
+        expect("f(2) = f(3) + 4").toEqualExpr("f(2) = 4 + f(3)");
+        // full reversal
+        expect("f(2) = f(3) + 4").toEqualExpr("f(3) + 4 = f(2)");
     });
 
     test("evaluating and comparing form", () => {
