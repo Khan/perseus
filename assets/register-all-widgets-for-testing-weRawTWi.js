@@ -1,1 +1,0 @@
-import{w as e}from"./all-widgets-lE1eR97M.js";import{r,a as s}from"./renderer-dpx07z-k.js";const a=()=>{r(e),s()};export{a as r};
