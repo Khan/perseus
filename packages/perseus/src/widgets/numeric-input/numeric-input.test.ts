@@ -6,7 +6,7 @@ import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import NumericInputWidgetExport, {unionAnswerForms} from "./numeric-input";
+import NumericInputWidgetExport from "./numeric-input.class";
 import {
     question1AndAnswer,
     multipleAnswers,
@@ -15,8 +15,13 @@ import {
     question1,
     duplicatedAnswers,
     withCoefficient,
+    correctAndWrongAnswers,
 } from "./numeric-input.testdata";
 
+import type {
+    PerseusNumericInputWidgetOptions,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import type {PerseusNumericInputRubric} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -99,6 +104,51 @@ describe("numeric-input widget", () => {
         expect(container).toMatchSnapshot("render with format tooltip");
     });
 
+    it("Should render a visible tooltip when format options are given", async () => {
+        // Arrange
+        const item: PerseusRenderer = {
+            content: "[[☃ numeric-input 1]] ",
+            images: {},
+            widgets: {
+                "numeric-input 1": {
+                    type: "numeric-input",
+                    options: {
+                        coefficient: false,
+                        static: false,
+                        answers: [
+                            {
+                                status: "correct",
+                                maxError: null,
+                                strict: false,
+                                value: 1252,
+                                simplify: "required",
+                                message: "",
+                                answerForms: ["proper", "improper", "mixed"],
+                            },
+                        ],
+                        size: "normal",
+                    },
+                },
+            },
+        };
+
+        // Act
+        renderQuestion(item);
+        await userEvent.tab();
+        expect(screen.getByRole("textbox")).toHaveFocus();
+
+        // Assert
+        expect(
+            screen.getByText(/a simplified proper fraction, like 3\/5, or/),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(/a simplified improper fraction, like 7\/4, or/),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(/a mixed number, like 1 and 3\/4/),
+        ).toBeInTheDocument();
+    });
+
     it("Should render tooltip as list when multiple format options are given", async () => {
         // Arrange
         const questionWithFormatOptions = JSON.parse(JSON.stringify(question1));
@@ -111,6 +161,16 @@ describe("numeric-input widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("render with format list tooltip");
+    });
+
+    it("Should render tooltip using only correct answer formats", async () => {
+        // Arrange
+        const {container} = renderQuestion(correctAndWrongAnswers);
+
+        // Assert
+        expect(container).toMatchSnapshot(
+            "render tooltip only with correct answers",
+        );
     });
 
     it("Should render an element with format options as text for use by assistive technologies", async () => {
@@ -211,7 +271,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
                     value: 1.0,
                     maxError: 0.2,
                     answerForms: ["decimal"],
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -375,34 +435,77 @@ describe("Numeric input widget", () => {
     });
 });
 
-describe("unionAnswerForms utility function", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
+describe("transform", () => {
+    it("removes the answers and extracts the answer forms", () => {
+        const transform = NumericInputWidgetExport.transform;
+        const widgetOptions: PerseusNumericInputWidgetOptions = {
+            coefficient: false,
+            static: false,
+            size: "normal",
+            answers: [
+                {
+                    status: "correct",
+                    maxError: null,
+                    strict: true,
+                    value: 0.5,
+                    simplify: "required",
+                    answerForms: ["proper"],
+                    message: "",
+                },
+            ],
+        };
+        const renderProps = transform(widgetOptions);
+        expect(renderProps).toEqual({
+            coefficient: false,
+            static: false,
+            size: "normal",
+            answerForms: [
+                {
+                    simplify: "required",
+                    name: "proper",
+                },
+            ],
+        });
     });
 
-    it("removes duplicates", () => {
-        // arrange
-        const forms = [
-            [
+    it("only uses answer forms from correct answers", () => {
+        const transform = NumericInputWidgetExport.transform;
+        const widgetOptions: PerseusNumericInputWidgetOptions = {
+            coefficient: false,
+            static: false,
+            size: "normal",
+            answers: [
                 {
-                    simplify: "required" as const,
-                    name: "integer",
-                } as const,
-            ],
-            [
+                    status: "correct",
+                    maxError: null,
+                    strict: true,
+                    value: 0.5,
+                    simplify: "required",
+                    answerForms: ["proper"],
+                    message: "",
+                },
                 {
-                    simplify: "required" as const,
-                    name: "integer",
-                } as const,
+                    status: "wrong",
+                    maxError: null,
+                    strict: true,
+                    value: 0.5,
+                    simplify: "required",
+                    answerForms: ["decimal"],
+                    message: "",
+                },
             ],
-        ];
-
-        // act
-        const result = unionAnswerForms(forms);
-
-        // assert
-        expect(result).toHaveLength(1);
+        };
+        const renderProps = transform(widgetOptions);
+        expect(renderProps).toEqual({
+            coefficient: false,
+            static: false,
+            size: "normal",
+            answerForms: [
+                {
+                    simplify: "required",
+                    name: "proper",
+                },
+            ],
+        });
     });
 });

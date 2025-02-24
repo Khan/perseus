@@ -14,7 +14,7 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {Renderer, usePerseusI18n} from "../packages/perseus/src/index";
 import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
 
-import SideBySide from "./side-by-side";
+import SplitView from "./split-view";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {ComponentProps} from "react";
@@ -40,9 +40,15 @@ export const RendererWithDebugUI = ({
     const [isMobile, setIsMobile] = React.useState(false);
     const {strings} = usePerseusI18n();
 
+    const controlledAPIOptions = {
+        ...apiOptions,
+        isMobile,
+        customKeypad: isMobile, // Use the mobile keypad for mobile
+    };
+
     return (
-        <SideBySide
-            leftTitle={
+        <SplitView
+            rendererTitle={
                 <View
                     style={{
                         flexDirection: "row",
@@ -60,7 +66,7 @@ export const RendererWithDebugUI = ({
                     </View>
                 </View>
             }
-            left={
+            renderer={
                 <View>
                     <View className={isMobile ? "perseus-mobile" : ""}>
                         <Renderer
@@ -70,7 +76,7 @@ export const RendererWithDebugUI = ({
                             images={question.images}
                             widgets={question.widgets}
                             problemNum={0}
-                            apiOptions={{...apiOptions, isMobile}}
+                            apiOptions={controlledAPIOptions}
                             reviewMode={reviewMode}
                             strings={strings}
                             {...rest}

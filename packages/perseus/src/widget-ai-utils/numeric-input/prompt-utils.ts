@@ -1,4 +1,4 @@
-import type numericInput from "../../widgets/numeric-input/numeric-input";
+import type numericInput from "../../widgets/numeric-input/numeric-input.class";
 import type {PerseusNumericInputUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
 
