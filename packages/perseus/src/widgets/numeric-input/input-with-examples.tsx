@@ -1,0 +1,193 @@
+import * as PerseusLinter from "@khanacademy/perseus-linter";
+import Tooltip, {TooltipContent} from "@khanacademy/wonder-blocks-tooltip";
+import * as React from "react";
+import {forwardRef, useImperativeHandle} from "react";
+import _ from "underscore";
+
+import {PerseusI18nContext} from "../../components/i18n-context";
+import TextInput from "../../components/text-input";
+import {ClassNames as ApiClassNames} from "../../perseus-api";
+import Renderer from "../../renderer";
+import Util from "../../util";
+
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
+
+const {captureScratchpadTouchStart} = Util;
+
+type Props = {
+    value: string;
+    onChange: any;
+    className: string;
+    examples: ReadonlyArray<string>;
+    shouldShowExamples: boolean;
+    convertDotToTimes?: boolean;
+    buttonSet?: string;
+    buttonsVisible?: "always" | "never" | "focused";
+    labelText?: string;
+    onFocus: () => void;
+    onBlur: () => void;
+    disabled: boolean;
+    style?: StyleType;
+    id: string;
+    linterContext: LinterContextProps;
+};
+
+// [LEMS-2411](Jan 2025) Third: This component has been moved to the NumericInput
+// folder as we are actively working towards removing the InputNumber widget.
+// This comment can be removed as part of LEMS-2411.
+
+/**
+ * The InputWithExamples component is a child component of the NumericInput
+ * and InputNumber components. It is responsible for rendering the UI elements
+ * for the desktop versions of these widgets, and displays a tooltip with
+ * examples of how to input the selected answer forms.
+ */
+const InputWithExamples = forwardRef<
+    React.RefObject<typeof InputWithExamples>,
+    Props
+>((props, ref) => {
+    // Desctructure the props to set default values
+    const {
+        shouldShowExamples = true,
+        onFocus = () => {},
+        onBlur = () => {},
+        disabled = false,
+        linterContext = PerseusLinter.linterContextDefault,
+        className = "",
+    } = props;
+
+    const context = React.useContext(PerseusI18nContext);
+    const inputRef = React.useRef<TextInput>(null);
+    const [inputFocused, setInputFocused] = React.useState<boolean>(false);
+
+    useImperativeHandle(ref, () => ({
+        current: inputRef.current,
+        focus: () => {
+            if (inputRef.current) {
+                inputRef.current.focus();
+            }
+        },
+        blur: () => {
+            if (inputRef.current) {
+                inputRef.current.blur();
+            }
+        },
+    }));
+
+    const _getUniqueId = () => {
+        return `input-with-examples-${btoa(props.id).replace(/=/g, "")}`;
+    };
+
+    const _getInputClassName = () => {
+        let inputClassName = ApiClassNames.INPUT;
+        if (inputFocused) {
+            inputClassName += " " + ApiClassNames.FOCUSED;
+        }
+        if (className) {
+            inputClassName += " " + className;
+        }
+        return inputClassName;
+    };
+
+    const _renderInput = () => {
+        const id = _getUniqueId();
+        const ariaId = `aria-for-${id}`;
+
+        // Generate the provided examples in simple language for screen readers.
+        const examplesAria = props.shouldShowExamples
+            ? `${props.examples[0]}
+                   ${props.examples.slice(1).join(", or\n")}`
+                  // @ts-expect-error TS2550: Property replaceAll does not exist on type string.
+                  .replaceAll("*", "")
+                  .replaceAll("$", "")
+                  .replaceAll("\\ \\text{pi}", " pi")
+                  .replaceAll("\\ ", " and ")
+            : "";
+
+        const inputProps = {
+            id: id,
+            // If we have examples, we want to provide the aria-describedby attribute
+            "aria-describedby": props.shouldShowExamples ? ariaId : undefined,
+            ref: inputRef,
+            className: _getInputClassName(),
+            labelText: props.labelText,
+            value: props.value,
+            onFocus: _handleFocus,
+            onBlur: _handleBlur,
+            disabled: disabled,
+            style: props.style,
+            onChange: props.onChange,
+            onTouchStart: captureScratchpadTouchStart,
+            autoCapitalize: "off",
+            autoComplete: "off",
+            autoCorrect: "off",
+            spellCheck: "false",
+        };
+        return (
+            <>
+                <TextInput {...inputProps} />
+                <span id={ariaId} style={{display: "none"}}>
+                    {examplesAria}
+                </span>
+            </>
+        );
+    };
+
+    const _handleFocus = () => {
+        onFocus();
+        setInputFocused(true);
+    };
+
+    const _handleBlur = () => {
+        onBlur();
+        setInputFocused(false);
+    };
+
+    const getTooltipContent = () => {
+        return (
+            <TooltipContent>
+                <div
+                    id={_getUniqueId()}
+                    className="input-with-examples-tooltip"
+                >
+                    <Renderer
+                        content={examplesContent}
+                        linterContext={PerseusLinter.pushContextStack(
+                            linterContext,
+                            "input-with-examples",
+                        )}
+                        strings={context.strings}
+                    />
+                </div>
+            </TooltipContent>
+        );
+    };
+    // Display the examples as a string when there are less than or equal to 2 examples.
+    // Otherwise, display the examples as a list.
+    const examplesContent =
+        props.examples.length <= 2
+            ? props.examples.join(" ")
+            : props.examples
+                  .map((example, index) => {
+                      return index === 0 && example.startsWith("**")
+                          ? `${example}\n`
+                          : `- ${example}`;
+                  })
+                  .join("\n");
+
+    // Display the examples when they are enabled (shouldShowExamples) and the input is focused.
+    const showExamplesTooltip = shouldShowExamples && inputFocused;
+
+    return (
+        <Tooltip
+            content={getTooltipContent()}
+            opened={showExamplesTooltip}
+            placement="bottom"
+        >
+            {_renderInput()}
+        </Tooltip>
+    );
+});
+
+export default InputWithExamples;

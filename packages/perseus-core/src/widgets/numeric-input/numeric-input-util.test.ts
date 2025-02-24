@@ -12,6 +12,7 @@ describe("getNumericInputPublicWidgetOptions", () => {
                     maxError: null,
                     strict: false,
                     value: 1252,
+                    answerForms: ["pi"],
                     simplify: "required",
                     message: "",
                 },
@@ -21,7 +22,6 @@ describe("getNumericInputPublicWidgetOptions", () => {
             coefficient: false,
             rightAlign: false,
             static: false,
-            answerForms: [{simplify: "required", name: "decimal"}],
         };
 
         // Act
@@ -34,7 +34,13 @@ describe("getNumericInputPublicWidgetOptions", () => {
             coefficient: false,
             rightAlign: false,
             static: false,
-            answerForms: [{simplify: "required", name: "decimal"}],
+            answers: [
+                {
+                    status: "correct",
+                    answerForms: ["pi"],
+                    simplify: "required",
+                },
+            ],
         });
     });
 });
