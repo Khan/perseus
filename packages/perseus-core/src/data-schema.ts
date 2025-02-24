@@ -1205,9 +1205,6 @@ export type PerseusNumericInputWidgetOptions = {
     rightAlign?: boolean;
     // Always false.  Not used for this widget
     static: boolean;
-    // Used by examples, maybe not used and should be removed in the future
-    // see TODO in numeric-input
-    answerForms?: ReadonlyArray<PerseusNumericInputAnswerForm>;
 };
 
 export type PerseusNumericInputAnswer = {

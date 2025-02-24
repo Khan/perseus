@@ -1,8 +1,18 @@
+import {
+    splitPerseusItem,
+    type PerseusNumericInputWidgetOptions,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
+import {
+    scorePerseusItem,
+    type PerseusNumericInputRubric,
+} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -18,11 +28,6 @@ import {
     correctAndWrongAnswers,
 } from "./numeric-input.testdata";
 
-import type {
-    PerseusNumericInputWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
-import type {PerseusNumericInputRubric} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
@@ -508,4 +513,93 @@ describe("transform", () => {
             ],
         });
     });
+});
+
+describe("interactive: full vs answerless", () => {
+    beforeAll(() => {
+        registerAllWidgetsForTesting();
+    });
+
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    function getAnswerfulItem(): PerseusRenderer {
+        return {
+            content: "[[☃ numeric-input 1]] ",
+            images: {},
+            widgets: {
+                "numeric-input 1": {
+                    type: "numeric-input",
+                    options: {
+                        coefficient: false,
+                        static: false,
+                        size: "normal",
+                        answers: [
+                            {
+                                status: "correct",
+                                maxError: null,
+                                strict: false,
+                                value: 42,
+                                simplify: "required",
+                                message: "",
+                                answerForms: ["proper", "improper", "mixed"],
+                            },
+                        ],
+                    },
+                },
+            },
+        };
+    }
+
+    function getAnswerlessItem(): PerseusRenderer {
+        return splitPerseusItem(getAnswerfulItem());
+    }
+
+    test.each(["answerless", "answerful"])(
+        "is interactive with widget options: %p",
+        async (e) => {
+            // Arrange
+            const useAnswerless = e === "answerless";
+            const renderItem = useAnswerless
+                ? getAnswerlessItem()
+                : getAnswerfulItem();
+
+            // Act
+            const {renderer} = renderQuestion(renderItem);
+            await userEvent.tab();
+            expect(screen.getByRole("textbox")).toHaveFocus();
+
+            // Assert
+            expect(
+                screen.getByText(/a simplified proper fraction, like 3\/5, or/),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByText(
+                    /a simplified improper fraction, like 7\/4, or/,
+                ),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByText(/a mixed number, like 1 and 3\/4/),
+            ).toBeInTheDocument();
+
+            await userEvent.type(
+                screen.getByRole("textbox", {hidden: true}),
+                "42",
+            );
+
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(getAnswerfulItem(), userInput, "en");
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        },
+    );
 });

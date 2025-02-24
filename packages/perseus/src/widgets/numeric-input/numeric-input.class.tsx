@@ -34,7 +34,7 @@ export type NumericInputProps = ExternalProps & {
     rightAlign: NonNullable<ExternalProps["rightAlign"]>;
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     coefficient: NonNullable<ExternalProps["coefficient"]>;
-    answerForms: NonNullable<ExternalProps["answerForms"]>;
+    answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
     labelText: string;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
     currentValue: string;
