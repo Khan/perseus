@@ -273,6 +273,10 @@ describe("comparing", () => {
         expect("f(g(x))").toEqualExpr("f(g(x))");
         expect("sin(f(3x-x))/cos(f(x+x))").toEqualExpr("tan(f(2x))");
         expect("f(x) = sin(x + 2pi)").toEqualExpr("f(x) = sin(x)");
+        // partial reversal
+        expect("f(2) = f(3) + 4").toEqualExpr("f(2) = 4 + f(3)");
+        // full reversal
+        expect("f(2) = f(3) + 4").toEqualExpr("f(3) + 4 = f(2)");
         // NOTE(kevinb): This test is flaky, because Expr.prototype.compare
         // is non-deterministic.  When comparing expressions this normally
         // wouldn't be an issue because we could just evaluate the different
