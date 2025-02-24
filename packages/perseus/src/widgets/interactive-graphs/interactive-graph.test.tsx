@@ -1,5 +1,5 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {lockedFigureColors} from "@khanacademy/perseus-core";
+import {lockedFigureColors, splitPerseusItem} from "@khanacademy/perseus-core";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -22,6 +22,7 @@ import {
     angleQuestionWithDefaultCorrect,
     circleQuestion,
     circleQuestionWithDefaultCorrect,
+    finitePointQuestion,
     graphWithLabeledEllipse,
     graphWithLabeledFunction,
     graphWithLabeledLine,
@@ -57,6 +58,8 @@ import {
     segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
     sinusoidWithPiTicks,
+    unlimitedPointQuestion,
+    unlimitedPolygonQuestion,
 } from "./interactive-graph.testdata";
 
 import type {Coord} from "../../interactive2/types";
@@ -73,6 +76,10 @@ const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     update(state[widgetId]);
     renderer.restoreSerializedState(state);
 };
+const commonInstructions =
+    "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.";
+const unlimitedInstructions =
+    "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.";
 
 const blankOptions: APIOptions = Object.freeze(ApiOptions.defaults);
 
@@ -95,310 +102,318 @@ describe("Interactive Graph", function () {
         ) as jest.Mock;
     });
 
-    describe("interactive-graph widget", function () {
-        describe.each(questionsAndAnswers)(
-            "question",
-            (
-                question: PerseusRenderer,
-                correct: ReadonlyArray<Coord>,
-                incorrect: ReadonlyArray<Coord>,
-            ) => {
-                it("Should accept the right answer", async () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, blankOptions);
-
-                    // Act
-                    // NOTE: This isn't acting on the UI as a user would, which is
-                    // a weakness of these tests. Because this widget is designed for
-                    // pointer-dragging, jsdom (which doesn't support getBoundingClientRect
-                    // or other position-based node attributes) is insufficient to model
-                    // drag & drop behavior.
-                    // We'll want to use cypress tests or similar to ensure this widget
-                    // works as expected.
-                    act(() =>
-                        updateWidgetState(
-                            renderer,
-                            "interactive-graph 1",
-                            (state) => (state.graph.coords = correct),
-                        ),
-                    );
-                    const score = scorePerseusItemTesting(
-                        question,
-                        renderer.getUserInputMap(),
-                    );
-
-                    // Assert
-                    expect(score).toHaveBeenAnsweredCorrectly();
-                });
-
-                it("Should render predictably", async () => {
-                    // Arrange
-                    const {renderer, container} = renderQuestion(
-                        question,
-                        blankOptions,
-                    );
-                    expect(container).toMatchSnapshot("first render");
-
-                    // Act
-                    act(() =>
-                        updateWidgetState(
-                            renderer,
-                            "interactive-graph 1",
-                            (state) => (state.graph.coords = correct),
-                        ),
-                    );
-
-                    // Assert
-                    expect(container).toMatchSnapshot("after interaction");
-                });
-
-                it("should reject no interaction", async () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, blankOptions);
-
-                    // Act
-                    const score = scorePerseusItemTesting(
-                        question,
-                        renderer.getUserInputMap(),
-                    );
-
-                    // Assert
-                    expect(score).toHaveInvalidInput();
-                });
-
-                it("should reject an incorrect answer", async () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, blankOptions);
-
-                    // Act
-                    act(() =>
-                        updateWidgetState(
-                            renderer,
-                            "interactive-graph 1",
-                            (state) => (state.graph.coords = incorrect),
-                        ),
-                    );
-
-                    const score = scorePerseusItemTesting(
-                        question,
-                        renderer.getUserInputMap(),
-                    );
-
-                    // Assert
-                    expect(score).toHaveBeenAnsweredIncorrectly();
-                });
-            },
-        );
-
-        describe("A none-type graph", () => {
-            it("renders predictably", () => {
-                const question = interactiveGraphQuestionBuilder()
-                    .withNoInteractiveFigure()
-                    .build();
-                const {container} = renderQuestion(question, blankOptions);
-
-                expect(container).toMatchSnapshot("first render");
-            });
-
-            it("treats no interaction as a correct answer", async () => {
-                const question = interactiveGraphQuestionBuilder()
-                    .withNoInteractiveFigure()
-                    .build();
+    describe.each(questionsAndAnswers)(
+        "question",
+        (
+            question: PerseusRenderer,
+            correct: ReadonlyArray<Coord>,
+            incorrect: ReadonlyArray<Coord>,
+        ) => {
+            it("Should accept the right answer", async () => {
+                // Arrange
                 const {renderer} = renderQuestion(question, blankOptions);
+
+                // Act
+                // NOTE: This isn't acting on the UI as a user would, which is
+                // a weakness of these tests. Because this widget is designed for
+                // pointer-dragging, jsdom (which doesn't support getBoundingClientRect
+                // or other position-based node attributes) is insufficient to model
+                // drag & drop behavior.
+                // We'll want to use cypress tests or similar to ensure this widget
+                // works as expected.
+                act(() =>
+                    updateWidgetState(
+                        renderer,
+                        "interactive-graph 1",
+                        (state) => (state.graph.coords = correct),
+                    ),
+                );
                 const score = scorePerseusItemTesting(
                     question,
                     renderer.getUserInputMap(),
                 );
 
-                expect(score).toHaveBeenAnsweredCorrectly({
-                    shouldHavePoints: false,
-                });
+                // Assert
+                expect(score).toHaveBeenAnsweredCorrectly();
+            });
+
+            it("Should render predictably", async () => {
+                // Arrange
+                const {renderer, container} = renderQuestion(
+                    question,
+                    blankOptions,
+                );
+                expect(container).toMatchSnapshot("first render");
+
+                // Act
+                act(() =>
+                    updateWidgetState(
+                        renderer,
+                        "interactive-graph 1",
+                        (state) => (state.graph.coords = correct),
+                    ),
+                );
+
+                // Assert
+                expect(container).toMatchSnapshot("after interaction");
+            });
+
+            it("should reject no interaction", async () => {
+                // Arrange
+                const {renderer} = renderQuestion(question, blankOptions);
+
+                // Act
+                const score = scorePerseusItemTesting(
+                    question,
+                    renderer.getUserInputMap(),
+                );
+
+                // Assert
+                expect(score).toHaveInvalidInput();
+            });
+
+            it("should reject an incorrect answer", async () => {
+                // Arrange
+                const {renderer} = renderQuestion(question, blankOptions);
+
+                // Act
+                act(() =>
+                    updateWidgetState(
+                        renderer,
+                        "interactive-graph 1",
+                        (state) => (state.graph.coords = incorrect),
+                    ),
+                );
+
+                const score = scorePerseusItemTesting(
+                    question,
+                    renderer.getUserInputMap(),
+                );
+
+                // Assert
+                expect(score).toHaveBeenAnsweredIncorrectly();
+            });
+        },
+    );
+
+    describe("A none-type graph", () => {
+        it("renders predictably", () => {
+            const question = interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .build();
+            const {container} = renderQuestion(question, blankOptions);
+
+            expect(container).toMatchSnapshot("first render");
+        });
+
+        it("treats no interaction as a correct answer", async () => {
+            const question = interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .build();
+            const {renderer} = renderQuestion(question, blankOptions);
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
+
+            expect(score).toHaveBeenAnsweredCorrectly({
+                shouldHavePoints: false,
             });
         });
     });
 
-    describe("an interactive graph", () => {
-        const graphQuestionRenderers: {
-            [K in PerseusGraphType["type"][number]]: PerseusRenderer;
-        } = {
-            angle: angleQuestion,
-            segment: segmentQuestion,
-            linear: linearQuestion,
-            "linear-system": linearSystemQuestion,
-            ray: rayQuestion,
-            polygon: polygonQuestion,
-            point: pointQuestion,
-            circle: circleQuestion,
-            quadratic: quadraticQuestion,
-            sinusoid: sinusoidQuestion,
-            "unlimited-point": pointQuestion,
-            "unlimited-polygon": polygonQuestion,
-        };
+    const graphQuestionRenderers: {
+        [K in PerseusGraphType["type"][number]]: PerseusRenderer;
+    } = {
+        angle: angleQuestion,
+        segment: segmentQuestion,
+        linear: linearQuestion,
+        "linear-system": linearSystemQuestion,
+        ray: rayQuestion,
+        polygon: polygonQuestion,
+        point: pointQuestion,
+        circle: circleQuestion,
+        quadratic: quadraticQuestion,
+        sinusoid: sinusoidQuestion,
+        "unlimited-point": pointQuestion,
+        "unlimited-polygon": polygonQuestion,
+    };
 
-        const graphQuestionRenderersCorrect: {
-            [K in PerseusGraphType["type"][number]]: PerseusRenderer;
-        } = {
-            angle: angleQuestionWithDefaultCorrect,
-            segment: segmentQuestionDefaultCorrect,
-            linear: linearQuestionWithDefaultCorrect,
-            "linear-system": linearSystemQuestionWithDefaultCorrect,
-            ray: rayQuestionWithDefaultCorrect,
-            polygon: polygonQuestionDefaultCorrect,
-            point: pointQuestionWithDefaultCorrect,
-            circle: circleQuestionWithDefaultCorrect,
-            quadratic: quadraticQuestionWithDefaultCorrect,
-            sinusoid: sinusoidQuestionWithDefaultCorrect,
-            "unlimited-point": pointQuestionWithDefaultCorrect,
-            "unlimited-polygon": polygonQuestionDefaultCorrect,
-        };
+    const graphQuestionRenderersCorrect: {
+        [K in PerseusGraphType["type"][number]]: PerseusRenderer;
+    } = {
+        angle: angleQuestionWithDefaultCorrect,
+        segment: segmentQuestionDefaultCorrect,
+        linear: linearQuestionWithDefaultCorrect,
+        "linear-system": linearSystemQuestionWithDefaultCorrect,
+        ray: rayQuestionWithDefaultCorrect,
+        polygon: polygonQuestionDefaultCorrect,
+        point: pointQuestionWithDefaultCorrect,
+        circle: circleQuestionWithDefaultCorrect,
+        quadratic: quadraticQuestionWithDefaultCorrect,
+        sinusoid: sinusoidQuestionWithDefaultCorrect,
+        "unlimited-point": pointQuestionWithDefaultCorrect,
+        "unlimited-polygon": polygonQuestionDefaultCorrect,
+    };
 
-        describe.each(Object.entries(graphQuestionRenderers))(
-            "graph type %s",
-            (_type, question) => {
-                it("should render", () => {
-                    renderQuestion(question, blankOptions);
-                });
-
-                it("should reject when has not been interacted with", () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, blankOptions);
-
-                    // Act
-                    const score = scorePerseusItemTesting(
-                        question,
-                        renderer.getUserInputMap(),
-                    );
-
-                    // Assert
-                    expect(score).toHaveInvalidInput();
-                });
-            },
-        );
-
-        describe.each(Object.entries(graphQuestionRenderersCorrect))(
-            "graph type %s: default correct",
-            (_type, question) => {
-                it("should render", () => {
-                    renderQuestion(question, blankOptions);
-                });
-
-                // TODO(jeremy): This test is disabled because it fails
-                // sporadically (especially on slower/lower-end computers, like
-                // CI). Will work on a fix after the React 18 release.
-                it.skip("rejects incorrect answer", async () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, blankOptions);
-
-                    await userEvent.tab();
-
-                    // Act
-                    await userEvent.keyboard("{arrowup}{arrowright}");
-
-                    // Assert
-                    await waitFor(
-                        () => {
-                            const score = scorePerseusItemTesting(
-                                question,
-                                renderer.getUserInputMap(),
-                            );
-                            expect(score).toHaveBeenAnsweredIncorrectly();
-                        },
-                        {timeout: 5000},
-                    );
-                });
-
-                // TODO(jeremy): This test is disabled because it fails
-                // sporadically (especially on slower/lower-end computers, like
-                // CI). Will work on a fix after the React 18 release.
-                it.skip("accepts correct answer", async () => {
-                    const {renderer} = renderQuestion(question, blankOptions);
-
-                    await userEvent.tab();
-
-                    // Act
-                    await userEvent.keyboard("{arrowup}{arrowdown}");
-
-                    // Assert
-                    await waitFor(
-                        () => {
-                            const score = scorePerseusItemTesting(
-                                question,
-                                renderer.getUserInputMap(),
-                            );
-                            expect(score).toHaveBeenAnsweredCorrectly();
-                        },
-                        {timeout: 5000},
-                    );
-                });
-
-                it("is marked invalid when readOnly set to true", async () => {
-                    const {renderer} = renderQuestion(question, {
-                        ...blankOptions,
-                        readOnly: true,
-                    });
-
-                    await userEvent.tab();
-
-                    // Act
-                    await userEvent.keyboard("{arrowup}{arrowdown}");
-
-                    // Assert
-                    await waitFor(
-                        () => {
-                            const score = scorePerseusItemTesting(
-                                question,
-                                renderer.getUserInputMap(),
-                            );
-                            expect(score).toHaveInvalidInput();
-                        },
-                        {timeout: 5000},
-                    );
-                });
-            },
-        );
-
-        describe("locked layer", () => {
-            it("should render locked points", async () => {
-                // Arrange
-                const {container} = renderQuestion(
-                    segmentWithLockedPointsQuestion,
-                    blankOptions,
-                );
-
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                const points = container.querySelectorAll(
-                    // Filter out the interactive points' circles
-                    "circle:not([class*='movable-point'])",
-                );
-
-                // Act
-
-                // Assert
-                expect(points).toHaveLength(2);
+    describe.each(Object.entries(graphQuestionRenderers))(
+        "graph type %s",
+        (_type, question) => {
+            it("should render", () => {
+                renderQuestion(question, blankOptions);
             });
 
-            it("should render locked points with styles", async () => {
+            it("should render when the correct answer is not present", () => {
+                // As part of implementing server-side scoring (Q1 2025) we are
+                // removing answers from the widget data that's initially sent
+                // to the frontend. This test ensures that interactive graphs
+                // can render when the answers have been stripped out of the
+                // data.
+
+                const answerlessQuestion = splitPerseusItem(question);
+
+                renderQuestion(answerlessQuestion, blankOptions);
+            });
+
+            it("should reject when has not been interacted with", () => {
                 // Arrange
-                const {container} = renderQuestion(
-                    segmentWithLockedPointsQuestion,
-                    blankOptions,
-                );
+                const {renderer} = renderQuestion(question, blankOptions);
 
                 // Act
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                const points = container.querySelectorAll(
-                    "circle:not([class*='movable-point'])",
+                const score = scorePerseusItemTesting(
+                    question,
+                    renderer.getUserInputMap(),
                 );
 
                 // Assert
-                expect(points[0]).toHaveStyle({
-                    fill: lockedFigureColors.grayH,
-                    stroke: lockedFigureColors.grayH,
+                expect(score).toHaveInvalidInput();
+            });
+        },
+    );
+
+    describe.each(Object.entries(graphQuestionRenderersCorrect))(
+        "graph type %s: default correct",
+        (_type, question) => {
+            it("should render", () => {
+                renderQuestion(question, blankOptions);
+            });
+
+            // TODO(jeremy): This test is disabled because it fails
+            // sporadically (especially on slower/lower-end computers, like
+            // CI). Will work on a fix after the React 18 release.
+            it.skip("rejects incorrect answer", async () => {
+                // Arrange
+                const {renderer} = renderQuestion(question, blankOptions);
+
+                await userEvent.tab();
+
+                // Act
+                await userEvent.keyboard("{arrowup}{arrowright}");
+
+                // Assert
+                await waitFor(
+                    () => {
+                        const score = scorePerseusItemTesting(
+                            question,
+                            renderer.getUserInputMap(),
+                        );
+                        expect(score).toHaveBeenAnsweredIncorrectly();
+                    },
+                    {timeout: 5000},
+                );
+            });
+
+            // TODO(jeremy): This test is disabled because it fails
+            // sporadically (especially on slower/lower-end computers, like
+            // CI). Will work on a fix after the React 18 release.
+            it.skip("accepts correct answer", async () => {
+                const {renderer} = renderQuestion(question, blankOptions);
+
+                await userEvent.tab();
+
+                // Act
+                await userEvent.keyboard("{arrowup}{arrowdown}");
+
+                // Assert
+                await waitFor(
+                    () => {
+                        const score = scorePerseusItemTesting(
+                            question,
+                            renderer.getUserInputMap(),
+                        );
+                        expect(score).toHaveBeenAnsweredCorrectly();
+                    },
+                    {timeout: 5000},
+                );
+            });
+
+            it("is marked invalid when readOnly set to true", async () => {
+                const {renderer} = renderQuestion(question, {
+                    ...blankOptions,
+                    readOnly: true,
                 });
-                expect(points[1]).toHaveStyle({
-                    fill: wbColor.white,
-                    stroke: lockedFigureColors.grayH,
-                });
+
+                await userEvent.tab();
+
+                // Act
+                await userEvent.keyboard("{arrowup}{arrowdown}");
+
+                // Assert
+                await waitFor(
+                    () => {
+                        const score = scorePerseusItemTesting(
+                            question,
+                            renderer.getUserInputMap(),
+                        );
+                        expect(score).toHaveInvalidInput();
+                    },
+                    {timeout: 5000},
+                );
+            });
+        },
+    );
+
+    describe("locked layer", () => {
+        it("should render locked points", async () => {
+            // Arrange
+            const {container} = renderQuestion(
+                segmentWithLockedPointsQuestion,
+                blankOptions,
+            );
+
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const points = container.querySelectorAll(
+                // Filter out the interactive points' circles
+                "circle:not([class*='movable-point'])",
+            );
+
+            // Act
+
+            // Assert
+            expect(points).toHaveLength(2);
+        });
+
+        it("should render locked points with styles", async () => {
+            // Arrange
+            const {container} = renderQuestion(
+                segmentWithLockedPointsQuestion,
+                blankOptions,
+            );
+
+            // Act
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const points = container.querySelectorAll(
+                "circle:not([class*='movable-point'])",
+            );
+
+            // Assert
+            expect(points[0]).toHaveStyle({
+                fill: lockedFigureColors.grayH,
+                stroke: lockedFigureColors.grayH,
+            });
+            expect(points[1]).toHaveStyle({
+                fill: wbColor.white,
+                stroke: lockedFigureColors.grayH,
             });
         });
     });
@@ -1046,100 +1061,188 @@ describe("Interactive Graph", function () {
             expect(polygon).not.toHaveAttribute("aria-label");
         });
 
-        it("should render locked function with style", () => {
-            // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedFunction("x^2", {
-                    color: "green",
-                    strokeStyle: "dashed",
-                }),
-                blankOptions,
-            );
+        describe("Locked Functions", () => {
+            // const domain = (
+            //     min: number | null,
+            //     max: number | null,
+            // ): [number | null, number | null] => {
+            //     return [min, max];
+            // };
 
-            // Act
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const functionPlots = container.querySelectorAll(
-                ".locked-function path",
-            );
+            // type domain = [min: number | null, max: number | null];
 
-            // Assert
-            expect(functionPlots).toHaveLength(1);
-            expect(functionPlots[0]).toHaveStyle({
-                "stroke-dasharray": "var(--mafs-line-stroke-dash-style)",
-                stroke: lockedFigureColors["green"],
+            it("should NOT render when an invalid equation is specified", () => {
+                // Arrange
+                const {container} = renderQuestion(
+                    segmentWithLockedFunction("x^"),
+                    blankOptions,
+                );
+
+                // Act
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const functionPlots = container.querySelectorAll(
+                    ".locked-function path",
+                );
+
+                // Assert
+                expect(functionPlots).toHaveLength(0);
             });
-        });
 
-        it("plots the supplied equation on the axis specified", () => {
-            // Arrange
-            const PlotOfXMock = jest
-                .spyOn(Plot, "OfX")
-                .mockReturnValue(<div>OfX</div>);
-            const PlotOfYMock = jest
-                .spyOn(Plot, "OfY")
-                .mockReturnValue(<div>OfY</div>);
+            it("should render locked function with style", () => {
+                // Arrange
+                const {container} = renderQuestion(
+                    segmentWithLockedFunction("x^2", {
+                        color: "green",
+                        strokeStyle: "dashed",
+                    }),
+                    blankOptions,
+                );
 
-            // Act - Render f(x)
-            renderQuestion(segmentWithLockedFunction("x^2"), blankOptions);
+                // Act
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const functionPlots = container.querySelectorAll(
+                    ".locked-function path",
+                );
 
-            // Assert
-            expect(PlotOfXMock).toHaveBeenCalledTimes(1);
-            expect(PlotOfYMock).toHaveBeenCalledTimes(0);
+                // Assert
+                expect(functionPlots).toHaveLength(1);
+                expect(functionPlots[0]).toHaveStyle({
+                    "stroke-dasharray": "var(--mafs-line-stroke-dash-style)",
+                    stroke: lockedFigureColors["green"],
+                });
+            });
 
-            // Arrange - reset mocks
-            PlotOfXMock.mockClear();
+            it("plots the supplied equation on the axis specified", () => {
+                // Arrange
+                const PlotOfXMock = jest
+                    .spyOn(Plot, "OfX")
+                    .mockReturnValue(<div>OfX</div>);
+                const PlotOfYMock = jest
+                    .spyOn(Plot, "OfY")
+                    .mockReturnValue(<div>OfY</div>);
 
-            // Act - Render f(y)
-            renderQuestion(
-                segmentWithLockedFunction("x^2", {
-                    directionalAxis: "y",
-                }),
-                blankOptions,
+                // Act - Render f(x)
+                renderQuestion(segmentWithLockedFunction("x^2"), blankOptions);
+
+                // Assert
+                expect(PlotOfXMock).toHaveBeenCalledTimes(1);
+                expect(PlotOfYMock).toHaveBeenCalledTimes(0);
+
+                // Arrange - reset mocks
+                PlotOfXMock.mockClear();
+
+                // Act - Render f(y)
+                renderQuestion(
+                    segmentWithLockedFunction("x^2", {
+                        directionalAxis: "y",
+                    }),
+                    blankOptions,
+                );
+
+                // Assert
+                expect(PlotOfXMock).toHaveBeenCalledTimes(0);
+                expect(PlotOfYMock).toHaveBeenCalledTimes(1);
+            });
+
+            it("plots the equation with any supplied domain", () => {
+                // Arrange
+                const PlotOfXMock = jest
+                    .spyOn(Plot, "OfX")
+                    .mockReturnValue(<div>OfX</div>);
+                const expectedParameters = {
+                    color: "#3B3D45",
+                    domain: [-2, 3],
+                    style: "solid",
+                };
+
+                // Act
+                renderQuestion(
+                    segmentWithLockedFunction("x^2", {domain: [-2, 3]}),
+                    blankOptions,
+                );
+
+                // Assert
+                expect(PlotOfXMock).toHaveBeenCalledTimes(1);
+                expect(PlotOfXMock).toHaveBeenCalledWith(
+                    expect.objectContaining(expectedParameters),
+                    {},
+                );
+            });
+
+            it.each`
+                domainSupplied                                            | domainExpected
+                ${[-2, null] as [min: number | null, max: number | null]} | ${[-2, Infinity]}
+                ${[null, 3] as [min: number | null, max: number | null]}  | ${[-Infinity, 3]}
+            `(
+                "plots the equation with partially supplied domain: $domainSupplied",
+                ({domainSupplied, domainExpected}) => {
+                    // Arrange
+                    const PlotOfXMock = jest
+                        .spyOn(Plot, "OfX")
+                        .mockReturnValue(<div>OfX</div>);
+                    const expectedParameters = {
+                        color: "#3B3D45",
+                        style: "solid",
+                    };
+
+                    // Act - no upper limit specified
+                    renderQuestion(
+                        segmentWithLockedFunction("x^2", {
+                            domain: domainSupplied,
+                        }),
+                        blankOptions,
+                    );
+
+                    // Assert
+                    expect(PlotOfXMock).toHaveBeenCalledWith(
+                        expect.objectContaining({
+                            ...expectedParameters,
+                            domain: domainExpected,
+                        }),
+                        {},
+                    );
+                },
             );
 
-            // Assert
-            expect(PlotOfXMock).toHaveBeenCalledTimes(0);
-            expect(PlotOfYMock).toHaveBeenCalledTimes(1);
-        });
+            it("should render locked function with aria label when one is provided", () => {
+                // Arrange
+                const lockedFunctionWithAriaLabelQuestion =
+                    interactiveGraphQuestionBuilder()
+                        .addLockedFunction("x^2", {
+                            ariaLabel: "Function A",
+                        })
+                        .build();
+                const {container} = renderQuestion(
+                    lockedFunctionWithAriaLabelQuestion,
+                    blankOptions,
+                );
 
-        it("should render locked function with aria label when one is provided", () => {
-            // Arrange
-            const lockedFunctionWithAriaLabelQuestion =
-                interactiveGraphQuestionBuilder()
-                    .addLockedFunction("x^2", {
-                        ariaLabel: "Function A",
-                    })
-                    .build();
-            const {container} = renderQuestion(
-                lockedFunctionWithAriaLabelQuestion,
-                blankOptions,
-            );
+                // Act
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const point = container.querySelector(".locked-function");
 
-            // Act
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const point = container.querySelector(".locked-function");
+                // Assert
+                expect(point).toHaveAttribute("aria-label", "Function A");
+            });
 
-            // Assert
-            expect(point).toHaveAttribute("aria-label", "Function A");
-        });
+            it("should render locked function without aria label by default", () => {
+                // Arrange
+                const simpleLockedFunctionquestion =
+                    interactiveGraphQuestionBuilder()
+                        .addLockedFunction("x^2")
+                        .build();
+                const {container} = renderQuestion(
+                    simpleLockedFunctionquestion,
+                    blankOptions,
+                );
 
-        it("should render locked function without aria label by default", () => {
-            // Arrange
-            const simpleLockedFunctionquestion =
-                interactiveGraphQuestionBuilder()
-                    .addLockedFunction("x^2")
-                    .build();
-            const {container} = renderQuestion(
-                simpleLockedFunctionquestion,
-                blankOptions,
-            );
+                // Act
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const point = container.querySelector(".locked-function");
 
-            // Act
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const point = container.querySelector(".locked-function");
-
-            // Assert
-            expect(point).not.toHaveAttribute("aria-label");
+                // Assert
+                expect(point).not.toHaveAttribute("aria-label");
+            });
         });
 
         it("should render locked labels", async () => {
@@ -1367,6 +1470,65 @@ describe("Interactive Graph", function () {
             // Assert
             expect(graph).not.toHaveAttribute("aria-label");
             expect(graph).not.toHaveAttribute("aria-describedby");
+        });
+    });
+
+    describe("interactive graph screen reader", () => {
+        const limitedGraphQuestionRenderers: {
+            [K in PerseusGraphType["type"][number]]: PerseusRenderer;
+        } = {
+            angle: angleQuestion,
+            segment: segmentQuestion,
+            linear: linearQuestion,
+            "linear-system": linearSystemQuestion,
+            ray: rayQuestion,
+            polygon: polygonQuestion,
+            point: finitePointQuestion,
+            circle: circleQuestion,
+            quadratic: quadraticQuestion,
+            // TODO(LEMS-2484): Uncomment this when sinusoid graph has
+            // screen reader support is finished.
+            // sinusoid: sinusoidQuestion,
+        };
+        const unlimitedGraphQuestionRenderers: {
+            [K in PerseusGraphType["type"][number]]: PerseusRenderer;
+        } = {
+            "unlimited-point": unlimitedPointQuestion,
+            "unlimited-polygon": unlimitedPolygonQuestion,
+        };
+
+        it.each(Object.entries(limitedGraphQuestionRenderers))(
+            "graph type %s has SR instructions for interacting with the graph",
+            (_type, question) => {
+                const {container} = renderQuestion(question, blankOptions);
+
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const graph = container.querySelector(".mafs-graph");
+
+                expect(graph).toHaveTextContent(commonInstructions);
+            },
+        );
+
+        it.each(Object.entries(unlimitedGraphQuestionRenderers))(
+            "graph type %s has SR instructions for interacting with the graph",
+            (_type, question) => {
+                const {container} = renderQuestion(question, blankOptions);
+
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const graph = container.querySelector(".mafs-graph");
+
+                expect(graph).toHaveTextContent(unlimitedInstructions);
+            },
+        );
+
+        it("none graph type should not include instructions for interacting with the graph", () => {
+            const {container} = renderQuestion(noneQuestion, blankOptions);
+
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const graph = container.querySelector(".mafs-graph");
+
+            expect(graph).not.toHaveTextContent(commonInstructions);
+            expect(graph).not.toHaveTextContent(unlimitedInstructions);
         });
     });
 

@@ -1,3 +1,5 @@
+import getInteractiveGraphPublicWidgetOptions from "./interactive-graph-util";
+
 import type {PerseusInteractiveGraphWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -39,6 +41,7 @@ const defaultWidgetOptions: InteractiveGraphDefaultWidgetOptions = {
 const interactiveGraphWidgetLogic: WidgetLogic = {
     name: "interactive-graph",
     defaultWidgetOptions,
+    getPublicWidgetOptions: getInteractiveGraphPublicWidgetOptions,
 };
 
 export default interactiveGraphWidgetLogic;

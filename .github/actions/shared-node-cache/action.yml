@@ -12,12 +12,17 @@ inputs:
 runs:
     using: "composite"
     steps:
-        - name: Set up node
+        - uses: pnpm/action-setup@v4
+          name: Install pnpm
+          with:
+              run_install: false
+
+        - name: Use Node.js ${{ inputs.node-version }}
           uses: actions/setup-node@v4
           with:
               node-version: ${{ inputs.node-version }}
-              cache: yarn
+              cache: pnpm
 
-        - name: yarn install
+        - name: pnpm install
           shell: sh
-          run: yarn install
+          run: pnpm install ---frozen-lockfile

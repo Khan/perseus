@@ -1,4 +1,3 @@
-import {getTablePublicWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -323,5 +322,4 @@ export default {
     transform: propTransform,
     hidden: true,
     isLintable: true,
-    getPublicWidgetOptions: getTablePublicWidgetOptions,
 } satisfies WidgetExports<typeof Table>;

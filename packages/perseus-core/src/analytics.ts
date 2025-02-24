@@ -16,13 +16,28 @@ export type PerseusAnalyticsEvent =
           type: "perseus:expression-focused";
           payload: null;
       }
+    // TODO(LEMS-2826): Remove this error type in LEMS-2826
     | {
           type: "perseus:widget-rendering-error";
           payload: {
+              widgetSubType: string;
               widgetType: string;
               widgetId: string;
+              message: string;
+              userAgent: string;
           };
       }
+    | {
+          type: "perseus:widget-rendering-error:ti";
+          payload: {
+              widgetSubType: string;
+              widgetType: string;
+              widgetId: string;
+              message: string;
+              userAgent: string;
+          };
+      }
+    // TODO(LEMS-2827): Remove this error type in LEMS-2827
     | {
           type: "perseus:interactive-graph-widget:rendered";
           payload: {
@@ -32,15 +47,38 @@ export type PerseusAnalyticsEvent =
           };
       }
     | {
+          type: "perseus:widget:rendered:ti";
+          payload: {
+              widgetSubType: string;
+              widgetType: string;
+              widgetId: string;
+          };
+      }
+    // TODO(LEMS-2831): Remove this error type in LEMS-2831
+    | {
           type: "perseus:label-image:toggle-answers-hidden";
           payload: null;
       }
+    // TODO(LEMS-2830): Remove this error type in LEMS-2830
     | {
           type: "perseus:label-image:marker-interacted-with";
           payload: null;
       }
+    // TODO(LEMS-2829): Remove this error type in LEMS-2829
     | {
           type: "perseus:label-image:choiced-interacted-with";
+          payload: null;
+      }
+    | {
+          type: "perseus:label-image:toggle-answers-hidden:ti";
+          payload: null;
+      }
+    | {
+          type: "perseus:label-image:marker-interacted-with:ti";
+          payload: null;
+      }
+    | {
+          type: "perseus:label-image:choiced-interacted-with:ti";
           payload: null;
       }
     | {

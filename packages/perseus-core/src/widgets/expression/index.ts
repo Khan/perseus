@@ -3,6 +3,7 @@ import {
     defaultWidgetOptions,
     widgetOptionsUpgrades,
 } from "./expression-upgrade";
+import getExpressionPublicWidgetOptions from "./expression-util";
 
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -14,6 +15,7 @@ const expressionWidgetLogic: WidgetLogic = {
     widgetOptionsUpgrades: widgetOptionsUpgrades,
     defaultWidgetOptions: defaultWidgetOptions,
     defaultAlignment: "inline-block",
+    getPublicWidgetOptions: getExpressionPublicWidgetOptions,
 };
 
 export default expressionWidgetLogic;

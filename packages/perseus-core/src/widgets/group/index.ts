@@ -3,16 +3,13 @@ import type {WidgetLogic} from "../logic-export.types";
 
 export type GroupDefaultWidgetOptions = Pick<
     PerseusGroupWidgetOptions,
-    "content" | "widgets" | "images" | "metadata"
+    "content" | "widgets" | "images"
 >;
 
 const defaultWidgetOptions: GroupDefaultWidgetOptions = {
     content: "",
     widgets: {},
     images: {},
-    // `undefined` instead of `null` so that getDefaultProps works for
-    // `the GroupMetadataEditor`
-    metadata: undefined,
 };
 
 const groupWidgetLogic: WidgetLogic = {
