@@ -241,6 +241,17 @@ const KhanAnswerTypes = {
 
                 // an improper fraction
                 improper: function (text) {
+                    // As our answer keys are always in simplest form, we need
+                    // to check for the existence of a fraction in the input before
+                    // validating the answer. If no fraction is found, we consider
+                    // the answer to be incorrect.
+                    const fractionExists: boolean =
+                        text.includes("/") || text.match(/\\(d?frac)/);
+
+                    if (!fractionExists) {
+                        return [];
+                    }
+
                     return $.map(fractionTransformer(text), function (o) {
                         // All fractions that are greater than 1
                         if (Math.abs(o.value) >= 1) {

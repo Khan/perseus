@@ -104,6 +104,7 @@ describe("splitPerseusItem", () => {
                                 status: "correct",
                                 strict: false,
                                 value: 42,
+                                answerForms: ["pi"],
                             },
                         ],
                         coefficient: false,
@@ -128,6 +129,13 @@ describe("splitPerseusItem", () => {
                         size: "normal",
                         static: false,
                         rightAlign: false,
+                        answers: [
+                            {
+                                simplify: "required",
+                                status: "correct",
+                                answerForms: ["pi"],
+                            },
+                        ],
                     },
                     alignment: "default",
                     static: false,
