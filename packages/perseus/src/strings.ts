@@ -482,7 +482,9 @@ export type PerseusStrings = {
     srUnlimitedPolygonEmpty: string;
     srSinusoidGraph: string;
     srSinusoidRootPoint: ({x, y}: {x: string; y: string}) => string;
-    srSinusoidPeakPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidMaxPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidMinPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidFlatPoint: ({x, y}: {x: string; y: string}) => string;
     srSinusoidDescription: ({
         minValue,
         maxValue,
@@ -797,7 +799,9 @@ export const strings = {
     srUnlimitedPolygonEmpty: "An empty coordinate plane.",
     srSinusoidGraph: "A sinusoid function on a coordinate plane.",
     srSinusoidRootPoint: "Midline intersection at %(x)s comma %(y)s.",
-    srSinusoidPeakPoint: "Extremum point at %(x)s comma %(y)s.",
+    srSinusoidMaxPoint: "Maximum point at %(x)s comma %(y)s.",
+    srSinusoidMinPoint: "Minimum point at %(x)s comma %(y)s.",
+    srSinusoidFlatPoint: "Line through point at %(x)s comma %(y)s.",
     srSinusoidDescription:
         "The graph shows a wave with a minimum value of %(minValue)s and a maximum value of %(maxValue)s. The wave completes a full cycle from %(cycleStart)s to %(cycleEnd)s.",
     srSinusoidInteractiveElements:
@@ -1136,7 +1140,9 @@ export const mockStrings: PerseusStrings = {
     srUnlimitedPolygonEmpty: "An empty coordinate plane.",
     srSinusoidGraph: "A sinusoid function on a coordinate plane.",
     srSinusoidRootPoint: ({x, y}) => `Midline intersection at ${x} comma ${y}.`,
-    srSinusoidPeakPoint: ({x, y}) => `Extremum point at ${x} comma ${y}.`,
+    srSinusoidMaxPoint: ({x, y}) => `Maximum point at ${x} comma ${y}.`,
+    srSinusoidMinPoint: ({x, y}) => `Minimum point at ${x} comma ${y}.`,
+    srSinusoidFlatPoint: ({x, y}) => `Line through point at ${x} comma ${y}.`,
     srSinusoidDescription: ({minValue, maxValue, cycleStart, cycleEnd}) =>
         `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${cycleStart} to ${cycleEnd}.`,
     srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>

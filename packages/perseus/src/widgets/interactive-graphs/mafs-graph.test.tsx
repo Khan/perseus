@@ -417,7 +417,7 @@ describe("MafsGraph", () => {
         expect(point1).toHaveAccessibleName(
             "Midline intersection at -1 comma 1.",
         );
-        expect(point2).toHaveAccessibleName("Extremum point at 0 comma 0.");
+        expect(point2).toHaveAccessibleName("Minimum point at 0 comma 0.");
     });
 
     it("renders ARIA labels for each point (point)", () => {
