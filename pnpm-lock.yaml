@@ -785,9 +785,6 @@ importers:
       '@khanacademy/kas':
         specifier: workspace:*
         version: link:../kas
-      '@khanacademy/math-input':
-        specifier: workspace:*
-        version: link:../math-input
     devDependencies:
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
