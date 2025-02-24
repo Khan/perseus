@@ -365,6 +365,21 @@ export type PerseusStrings = {
         x: string;
         y: string;
     }): string;
+    srLinearSystemGrabHandle({
+        lineNumber,
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        lineNumber: number;
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }): string;
+    srLinearSystemIntersection({x, y}: {x: string; y: string}): string;
+    srLinearSystemParallel: string;
     srRayGraph: string;
     srRayPoints: ({
         point1X,
@@ -704,7 +719,7 @@ export const strings = {
     srLinearGraphBothIntercepts:
         "The line crosses the X-axis at %(xIntercept)s comma 0 and the Y-axis at 0 comma %(yIntercept)s.",
     srLinearGraphOriginIntercept:
-        "The line crosses the x and y axes at the graph's origin.",
+        "The line crosses the X and Y axes at the graph's origin.",
     srLinearGrabHandle:
         "Line going through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s.",
     srAngleStartingSide: "Point 3, starting side at %(x)s comma %(y)s.",
@@ -736,6 +751,11 @@ export const strings = {
         "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
     srLinearSystemPoint:
         "Point %(pointSequence)s on line %(lineNumber)s at %(x)s comma %(y)s.",
+    srLinearSystemGrabHandle:
+        "Line %(lineNumber)s going through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s.",
+    srLinearSystemIntersection:
+        "Line 1 and line 2 intersect at point %(x)s comma %(y)s.",
+    srLinearSystemParallel: "Line 1 and line 2 are parallel.",
     srRayGraph: "A ray on a coordinate plane.",
     srRayPoints:
         "The endpoint is at %(point1X)s comma %(point1Y)s and the ray goes through point %(point2X)s comma %(point2Y)s.",
@@ -994,7 +1014,7 @@ export const mockStrings: PerseusStrings = {
     srLinearGraphBothIntercepts: ({xIntercept, yIntercept}) =>
         `The line crosses the X-axis at ${xIntercept} comma 0 and the Y-axis at 0 comma ${yIntercept}.`,
     srLinearGraphOriginIntercept:
-        "The line crosses the x and y axes at the graph's origin.",
+        "The line crosses the X and Y axes at the graph's origin.",
     srLinearGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
         `Line going through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y}.`,
     srAngleStartingSide: ({x, y}) =>
@@ -1053,6 +1073,17 @@ export const mockStrings: PerseusStrings = {
         `Line ${lineNumber} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
     srLinearSystemPoint: ({lineNumber, pointSequence, x, y}) =>
         `Point ${pointSequence} on line ${lineNumber} at ${x} comma ${y}.`,
+    srLinearSystemGrabHandle: ({
+        lineNumber,
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }) =>
+        `Line ${lineNumber} going through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y}.`,
+    srLinearSystemIntersection: ({x, y}) =>
+        `Line 1 and line 2 intersect at point ${x} comma ${y}.`,
+    srLinearSystemParallel: "Line 1 and line 2 are parallel.",
     srRayGraph: "A ray on a coordinate plane.",
     srRayPoints: ({point1X, point1Y, point2X, point2Y}) =>
         `The endpoint is at ${point1X} comma ${point1Y} and the ray goes through point ${point2X} comma ${point2Y}.`,

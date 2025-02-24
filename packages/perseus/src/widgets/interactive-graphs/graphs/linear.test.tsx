@@ -123,7 +123,7 @@ describe("Linear graph screen reader", () => {
 
     test.each`
         case                         | coords              | interceptDescription
-        ${"origin intercept"}        | ${[[1, 1], [2, 2]]} | ${"The line crosses the x and y axes at the graph's origin."}
+        ${"origin intercept"}        | ${[[1, 1], [2, 2]]} | ${"The line crosses the X and Y axes at the graph's origin."}
         ${"both x and y intercepts"} | ${[[4, 4], [7, 1]]} | ${"The line crosses the X-axis at 8 comma 0 and the Y-axis at 0 comma 8."}
         ${"x intercept only"}        | ${[[5, 5], [5, 2]]} | ${"The line crosses the X-axis at 5 comma 0."}
         ${"y intercept only"}        | ${[[5, 5], [2, 5]]} | ${"The line crosses the Y-axis at 0 comma 5."}
