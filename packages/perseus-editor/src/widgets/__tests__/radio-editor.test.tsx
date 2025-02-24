@@ -9,6 +9,17 @@ import RadioEditor from "../radio/editor";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+function renderRadioEditor(onChangeMock = () => undefined) {
+    return render(
+        <RadioEditor
+            onChange={onChangeMock}
+            apiOptions={ApiOptions.defaults}
+            static={false}
+        />,
+        {wrapper: RenderStateRoot},
+    );
+}
+
 describe("radio-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -22,13 +33,7 @@ describe("radio-editor", () => {
     });
 
     it("should render", async () => {
-        render(
-            <RadioEditor
-                onChange={() => undefined}
-                apiOptions={ApiOptions.defaults}
-            />,
-            {wrapper: RenderStateRoot},
-        );
+        renderRadioEditor();
 
         expect(screen.getByText(/Multiple selections/)).toBeInTheDocument();
     });
@@ -36,13 +41,7 @@ describe("radio-editor", () => {
     it("should toggle multiple select checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(
-            <RadioEditor
-                onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
-            />,
-            {wrapper: RenderStateRoot},
-        );
+        renderRadioEditor(onChangeMock);
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -56,13 +55,7 @@ describe("radio-editor", () => {
     it("should toggle randomize order checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(
-            <RadioEditor
-                onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
-            />,
-            {wrapper: RenderStateRoot},
-        );
+        renderRadioEditor(onChangeMock);
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -76,13 +69,7 @@ describe("radio-editor", () => {
     it("should be possible to add answer", async () => {
         const onChangeMock = jest.fn();
 
-        render(
-            <RadioEditor
-                onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
-            />,
-            {wrapper: RenderStateRoot},
-        );
+        renderRadioEditor(onChangeMock);
 
         await userEvent.click(
             screen.getAllByRole("link", {
@@ -92,7 +79,13 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
-                choices: [{}, {}, {}, {}, {isNoneOfTheAbove: false}],
+                choices: [
+                    {},
+                    {},
+                    {},
+                    {},
+                    {content: "", isNoneOfTheAbove: false},
+                ],
                 hasNoneOfTheAbove: false,
             }),
             // there's some anonymous function that's also passed
@@ -103,13 +96,7 @@ describe("radio-editor", () => {
     it("should be possible to delete answer", async () => {
         const onChangeMock = jest.fn();
 
-        render(
-            <RadioEditor
-                onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
-            />,
-            {wrapper: RenderStateRoot},
-        );
+        renderRadioEditor(onChangeMock);
 
         await userEvent.click(
             screen.getAllByRole("link", {
