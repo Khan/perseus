@@ -1,5 +1,5 @@
 import {
-    getNumericInputPublicWidgetOptions,
+    splitPerseusItem,
     type PerseusNumericInputWidgetOptions,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -531,130 +531,75 @@ describe("interactive: full vs answerless", () => {
         );
     });
 
-    it("is answerable with full widget options", async () => {
-        // Arrange
-        const fullNumericInputOptions: PerseusNumericInputWidgetOptions = {
-            coefficient: false,
-            static: false,
-            size: "normal",
-            answers: [
-                {
-                    status: "correct",
-                    maxError: null,
-                    strict: false,
-                    value: 42,
-                    simplify: "required",
-                    message: "",
-                    answerForms: ["proper", "improper", "mixed"],
-                },
-            ],
-        };
-
-        const fullItem: PerseusRenderer = {
+    function getAnswerfulItem(): PerseusRenderer {
+        return {
             content: "[[☃ numeric-input 1]] ",
             images: {},
             widgets: {
                 "numeric-input 1": {
                     type: "numeric-input",
-                    options: fullNumericInputOptions,
+                    options: {
+                        coefficient: false,
+                        static: false,
+                        size: "normal",
+                        answers: [
+                            {
+                                status: "correct",
+                                maxError: null,
+                                strict: false,
+                                value: 42,
+                                simplify: "required",
+                                message: "",
+                                answerForms: ["proper", "improper", "mixed"],
+                            },
+                        ],
+                    },
                 },
             },
         };
+    }
 
-        // Act
-        const {renderer} = renderQuestion(fullItem);
-        await userEvent.tab();
-        expect(screen.getByRole("textbox")).toHaveFocus();
+    function getAnswerlessItem(): PerseusRenderer {
+        return splitPerseusItem(getAnswerfulItem());
+    }
 
-        // Assert
-        expect(
-            screen.getByText(/a simplified proper fraction, like 3\/5, or/),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByText(/a simplified improper fraction, like 7\/4, or/),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByText(/a mixed number, like 1 and 3\/4/),
-        ).toBeInTheDocument();
+    test.each(["answerless", "answerful"])(
+        "is interactive with widget options: %p",
+        async (e) => {
+            // Arrange
+            const useAnswerless = e === "answerless";
+            const renderItem = useAnswerless
+                ? getAnswerlessItem()
+                : getAnswerfulItem();
 
-        await userEvent.type(screen.getByRole("textbox", {hidden: true}), "42");
+            // Act
+            const {renderer} = renderQuestion(renderItem);
+            await userEvent.tab();
+            expect(screen.getByRole("textbox")).toHaveFocus();
 
-        const userInput = renderer.getUserInputMap();
-        const score = scorePerseusItem(fullItem, userInput, "en");
+            // Assert
+            expect(
+                screen.getByText(/a simplified proper fraction, like 3\/5, or/),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByText(
+                    /a simplified improper fraction, like 7\/4, or/,
+                ),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByText(/a mixed number, like 1 and 3\/4/),
+            ).toBeInTheDocument();
 
-        // Assert
-        expect(score).toHaveBeenAnsweredCorrectly();
-    });
+            await userEvent.type(
+                screen.getByRole("textbox", {hidden: true}),
+                "42",
+            );
 
-    it("is interactive with answerless widget options", async () => {
-        // Arrange
-        const fullNumericInputOptions: PerseusNumericInputWidgetOptions = {
-            coefficient: false,
-            static: false,
-            size: "normal",
-            answers: [
-                {
-                    status: "correct",
-                    maxError: null,
-                    strict: false,
-                    value: 42,
-                    simplify: "required",
-                    message: "",
-                    answerForms: ["proper", "improper", "mixed"],
-                },
-            ],
-        };
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(getAnswerfulItem(), userInput, "en");
 
-        const strippedNumericInputOptions = getNumericInputPublicWidgetOptions(
-            fullNumericInputOptions,
-        );
-
-        const fullItem: PerseusRenderer = {
-            content: "[[☃ numeric-input 1]]",
-            images: {},
-            widgets: {
-                "numeric-input 1": {
-                    type: "numeric-input",
-                    version: {major: 1, minor: 0},
-                    options: fullNumericInputOptions,
-                },
-            },
-        };
-
-        const strippedItem = {
-            content: "[[☃ numeric-input 1]]",
-            images: {},
-            widgets: {
-                "numeric-input 1": {
-                    type: "numeric-input",
-                    version: {major: 1, minor: 0},
-                    options: strippedNumericInputOptions,
-                },
-            },
-        };
-
-        // Act
-        const {renderer} = renderQuestion(strippedItem as any);
-        await userEvent.tab();
-        expect(screen.getByRole("textbox")).toHaveFocus();
-
-        // Assert
-        expect(
-            screen.getByText(/a simplified proper fraction, like 3\/5, or/),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByText(/a simplified improper fraction, like 7\/4, or/),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByText(/a mixed number, like 1 and 3\/4/),
-        ).toBeInTheDocument();
-
-        await userEvent.type(screen.getByRole("textbox", {hidden: true}), "42");
-
-        const userInput = renderer.getUserInputMap();
-        const score = scorePerseusItem(fullItem, userInput, "en");
-
-        // Assert
-        expect(score).toHaveBeenAnsweredCorrectly();
-    });
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        },
+    );
 });
