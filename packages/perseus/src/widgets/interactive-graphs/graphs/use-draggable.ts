@@ -77,7 +77,6 @@ export function useDraggable(args: Params): DragState {
     useDrag(
         (state) => {
             const {type, event} = state;
-
             event?.stopPropagation();
 
             const isKeyboard = type.includes("key");
