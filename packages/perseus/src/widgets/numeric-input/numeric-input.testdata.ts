@@ -52,25 +52,18 @@ export const defaultQuestion: PerseusRenderer = {
                         value: 1252,
                         simplify: "required",
                         message: "",
-                        // We don't include proper as otherwise
-                        // the tooltip will hide the examples.
+                        // We're including all the answer forms to make it easier to edit in storybook.
+                        // Note: that setting all of the answer forms results in the example tooltip being hidden,
+                        // which mimics our default behaviour for the widget.
                         answerForms: [
                             "integer",
                             "mixed",
                             "improper",
+                            "proper",
                             "decimal",
                             "pi",
                         ],
                     },
-                ],
-                answerForms: [
-                    // We don't include proper as otherwise
-                    // the tooltip will hide the examples.
-                    {simplify: "required", name: "integer"},
-                    {simplify: "required", name: "mixed"},
-                    {simplify: "required", name: "improper"},
-                    {simplify: "required", name: "decimal"},
-                    {simplify: "required", name: "pi"},
                 ],
                 labelText: "",
                 size: "normal",
@@ -104,12 +97,6 @@ export const decimalProblem: PerseusRenderer = {
                 ],
                 labelText: "",
                 size: "normal",
-                answerForms: [
-                    {
-                        simplify: "required",
-                        name: "decimal",
-                    },
-                ],
             },
         } as NumericInputWidget,
     },
@@ -140,12 +127,6 @@ export const integerProblem: PerseusRenderer = {
                 ],
                 labelText: "",
                 size: "normal",
-                answerForms: [
-                    {
-                        simplify: "required",
-                        name: "integer",
-                    },
-                ],
             },
         } as NumericInputWidget,
     },
@@ -176,12 +157,6 @@ export const improperProblem: PerseusRenderer = {
                 ],
                 labelText: "",
                 size: "normal",
-                answerForms: [
-                    {
-                        simplify: "optional",
-                        name: "improper",
-                    },
-                ],
             },
         } as NumericInputWidget,
     },
@@ -213,12 +188,6 @@ export const piProblem: PerseusRenderer = {
                 ],
                 labelText: "",
                 size: "normal",
-                answerForms: [
-                    {
-                        simplify: "required",
-                        name: "pi",
-                    },
-                ],
             },
         } as NumericInputWidget,
     },
@@ -253,12 +222,6 @@ export const mixedProblem: PerseusRenderer = {
                 ],
                 labelText: "",
                 size: "normal",
-                answerForms: [
-                    {
-                        simplify: "optional",
-                        name: "mixed",
-                    },
-                ],
             },
         } as NumericInputWidget,
     },
@@ -289,12 +252,6 @@ export const properProblem: PerseusRenderer = {
                 ],
                 labelText: "",
                 size: "normal",
-                answerForms: [
-                    {
-                        simplify: "optional",
-                        name: "proper",
-                    },
-                ],
             },
         } as NumericInputWidget,
     },
@@ -436,12 +393,6 @@ export const multipleAnswersWithDecimals: PerseusRenderer = {
                 ],
                 labelText: "What's the answer?",
                 size: "normal",
-                answerforms: [
-                    {
-                        simplify: "required",
-                        name: "decimal",
-                    },
-                ],
             },
         } as NumericInputWidget,
     },
