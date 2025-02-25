@@ -667,9 +667,9 @@ export const strings = {
     // been finalized. Remove this comment after the tickets have been
     // created.
     srGraphInstructions:
-        "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.",
+        "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the modifier key + Control + Shift + the Arrow keys to move it.",
     srUnlimitedGraphInstructions:
-        "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
+        "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the modifier key + Control + Shift + the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
     xAxis: "X-axis",
     yAxis: "Y-axis",
     srPointAtCoordinates: "Point %(num)s at %(x)s comma %(y)s.",
