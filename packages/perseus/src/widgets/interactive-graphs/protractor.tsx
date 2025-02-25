@@ -45,7 +45,7 @@ export function Protractor() {
         useState<vec.Vector2>(centerToRotationHandle);
 
     const draggableRef = useRef<SVGGElement>(null);
-    useDraggable({
+    const {dragging} = useDraggable({
         gestureTarget: draggableRef,
         onMove: setCenter,
         point: center,
@@ -72,6 +72,7 @@ export function Protractor() {
             transform={`translate(${topLeftPx[X]}, ${topLeftPx[Y]}), rotate(${angle})`}
             style={{
                 transformOrigin: `${-centerToTopLeft[X]}px ${-centerToTopLeft[Y]}px`,
+                cursor: dragging ? "grabbing" : "grab",
             }}
         >
             <image href={staticUrl(protractorImage)} />
