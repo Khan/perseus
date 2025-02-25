@@ -746,18 +746,24 @@ export function getSideSnapConstraint(
         return newPoint;
     };
 
+    // Determine if we want to keep to align with snap steps or keep with
+    // whole units.
     return {
         up: movePointWithConstraint((coord) =>
-            vec.add(coord, [0, snapStep[1]]),
+            //vec.add(coord, [0, snapStep[1]]),
+            vec.add(coord, [0, 1]),
         ),
         down: movePointWithConstraint((coord) =>
-            vec.sub(coord, [0, snapStep[1]]),
+            //vec.sub(coord, [0, snapStep[1]]),
+            vec.sub(coord, [0, 1]),
         ),
         left: movePointWithConstraint((coord) =>
-            vec.sub(coord, [snapStep[0], 0]),
+            //vec.sub(coord, [snapStep[0], 0]),
+            vec.sub(coord, [1, 0]),
         ),
         right: movePointWithConstraint((coord) =>
-            vec.add(coord, [snapStep[0], 0]),
+            //vec.add(coord, [snapStep[0], 0]),
+            vec.add(coord, [1, 0]),
         ),
     };
 }

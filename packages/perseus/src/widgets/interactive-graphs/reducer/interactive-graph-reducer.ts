@@ -1069,6 +1069,9 @@ function boundAndSnapToSides(
     index: number,
 ) {
     const startingPoint = coords[index];
+
+    // Needed to prevent updating the original coords before the checks for
+    // degenerate triangles and overlapping sides
     const coordsCopy = [...coords];
 
     return calculateSideSnap(
@@ -1085,17 +1088,17 @@ export function calculateSideSnap(
     destinationPoint: vec.Vector2,
     range: [Interval, Interval],
     coords: Coord[],
-    snapStep: vec.Vector2,
+    // undo underscore when determining if we want to keep this.
+    _snapStep: vec.Vector2,
     index: number,
     startingPoint: vec.Vector2,
 ) {
     // Takes the destination point and makes sure it is within the bounds of the graph
     coords[index] = bound({
-        snapStep: snapStep,
+        snapStep: [0, 0], //snapStep: snapStep,
         range,
         point: destinationPoint,
     });
-    //console.log(`bound: ${coordsCopy[index]}`);
 
     // Gets the relative index of a point
     const rel = (j): number => {
@@ -1117,8 +1120,9 @@ export function calculateSideSnap(
     _.each([0, 1], function (j) {
         // The snap length should be determined by the snapSteps to ensure
         // successful snapping for all graphs.
-        const lowestValue = Math.min(snapStep[0], snapStep[1]);
-        sides[j] = Math.round(sides[j] / lowestValue) * lowestValue;
+        //const lowestValue = Math.min(snapStep[0], snapStep[1]);
+        //sides[j] = Math.round(sides[j] / lowestValue) * lowestValue;
+        sides[j] = Math.round(sides[j]);
     });
 
     // Avoid degenerate triangles
