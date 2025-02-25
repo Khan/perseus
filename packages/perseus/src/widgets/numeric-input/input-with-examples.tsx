@@ -1,7 +1,7 @@
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import Tooltip, {TooltipContent} from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
-import {forwardRef, useImperativeHandle} from "react";
+import {forwardRef, useId, useImperativeHandle} from "react";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -60,6 +60,7 @@ const InputWithExamples = forwardRef<
     const context = React.useContext(PerseusI18nContext);
     const inputRef = React.useRef<TextInput>(null);
     const [inputFocused, setInputFocused] = React.useState<boolean>(false);
+    const id = useId();
 
     useImperativeHandle(ref, () => ({
         current: inputRef.current,
@@ -75,11 +76,7 @@ const InputWithExamples = forwardRef<
         },
     }));
 
-    const _getUniqueId = () => {
-        return `input-with-examples-${btoa(props.id).replace(/=/g, "")}`;
-    };
-
-    const _getInputClassName = () => {
+    const getInputClassName = () => {
         let inputClassName = ApiClassNames.INPUT;
         if (inputFocused) {
             inputClassName += " " + ApiClassNames.FOCUSED;
@@ -90,9 +87,22 @@ const InputWithExamples = forwardRef<
         return inputClassName;
     };
 
-    const _renderInput = () => {
-        const id = _getUniqueId();
-        const ariaId = `aria-for-${id}`;
+    const handleFocus = () => {
+        onFocus();
+        setInputFocused(true);
+    };
+
+    const handleBlur = () => {
+        onBlur();
+        setInputFocused(false);
+    };
+
+    const getUniqueId = () => {
+        return `input-with-examples-${id}`;
+    };
+
+    const renderInput = () => {
+        const ariaId = `aria-for-${getUniqueId()}`;
 
         // Generate the provided examples in simple language for screen readers.
         const examplesAria = props.shouldShowExamples
@@ -110,11 +120,11 @@ const InputWithExamples = forwardRef<
             // If we have examples, we want to provide the aria-describedby attribute
             "aria-describedby": props.shouldShowExamples ? ariaId : undefined,
             ref: inputRef,
-            className: _getInputClassName(),
+            className: getInputClassName(),
             labelText: props.labelText,
             value: props.value,
-            onFocus: _handleFocus,
-            onBlur: _handleBlur,
+            onFocus: handleFocus,
+            onBlur: handleBlur,
             disabled: disabled,
             style: props.style,
             onChange: props.onChange,
@@ -134,23 +144,10 @@ const InputWithExamples = forwardRef<
         );
     };
 
-    const _handleFocus = () => {
-        onFocus();
-        setInputFocused(true);
-    };
-
-    const _handleBlur = () => {
-        onBlur();
-        setInputFocused(false);
-    };
-
-    const getTooltipContent = () => {
+    const renderTooltipContent = () => {
         return (
             <TooltipContent>
-                <div
-                    id={_getUniqueId()}
-                    className="input-with-examples-tooltip"
-                >
+                <div id={id} className="input-with-examples-tooltip">
                     <Renderer
                         content={examplesContent}
                         linterContext={PerseusLinter.pushContextStack(
@@ -181,11 +178,11 @@ const InputWithExamples = forwardRef<
 
     return (
         <Tooltip
-            content={getTooltipContent()}
+            content={renderTooltipContent()}
             opened={showExamplesTooltip}
             placement="bottom"
         >
-            {_renderInput()}
+            {renderInput()}
         </Tooltip>
     );
 });

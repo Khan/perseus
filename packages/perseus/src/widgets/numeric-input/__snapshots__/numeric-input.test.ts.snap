@@ -100,13 +100,13 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
             autocomplete="off"
             autocorrect="off"
             class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-inputWithExamples_ylhnsi"
-            id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+            id=":r6:"
             tabindex="0"
             type="text"
             value="1252"
           />
           <span
-            id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+            id="aria-for-input-with-examples-:r6:"
             style="display: none;"
           />
         </div>
@@ -152,13 +152,13 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
             autocomplete="off"
             autocorrect="off"
             class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-inputWithExamples_1y6ajxo"
-            id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+            id=":r6:"
             tabindex="0"
             type="text"
             value=""
           />
           <span
-            id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+            id="aria-for-input-with-examples-:r6:"
             style="display: none;"
           />
         </div>
@@ -197,7 +197,7 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <input
-            aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+            aria-describedby="aria-for-input-with-examples-:rf:"
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
@@ -205,13 +205,13 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
             autocomplete="off"
             autocorrect="off"
             class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-inputWithExamples_1y6ajxo"
-            id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+            id=":rf:"
             tabindex="0"
             type="text"
             value=""
           />
           <span
-            id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+            id="aria-for-input-with-examples-:rf:"
             style="display: none;"
           >
             Your answer should be 
@@ -255,7 +255,7 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <input
-            aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+            aria-describedby="aria-for-input-with-examples-:ri:"
             aria-disabled="false"
             aria-invalid="false"
             aria-label="What's the answer?"
@@ -264,13 +264,13 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
             autocomplete="off"
             autocorrect="off"
             class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-inputWithExamples_1y6ajxo"
-            id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+            id=":ri:"
             tabindex="0"
             type="text"
             value=""
           />
           <span
-            id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+            id="aria-for-input-with-examples-:ri:"
             style="display: none;"
           >
             Your answer should be 
@@ -312,7 +312,7 @@ exports[`numeric-input widget Should render tooltip when format option is given:
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <input
-            aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+            aria-describedby="aria-for-input-with-examples-:r9:"
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
@@ -320,13 +320,13 @@ exports[`numeric-input widget Should render tooltip when format option is given:
             autocomplete="off"
             autocorrect="off"
             class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-inputWithExamples_1y6ajxo"
-            id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+            id=":r9:"
             tabindex="0"
             type="text"
             value=""
           />
           <span
-            id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+            id="aria-for-input-with-examples-:r9:"
             style="display: none;"
           >
             Your answer should be 

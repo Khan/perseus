@@ -132,7 +132,7 @@ describe("shouldShowExamples", () => {
         expect(result).toBe(false);
     });
 
-    it("returns false when no forms are accepted", () => {
+    it("returns false when no forms are provided", () => {
         // Arrange
         const answerForms = [];
 

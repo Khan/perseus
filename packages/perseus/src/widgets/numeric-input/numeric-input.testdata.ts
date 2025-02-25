@@ -10,10 +10,6 @@ export const question1: PerseusRenderer = {
     widgets: {
         "numeric-input 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
             static: false,
             type: "numeric-input",
             options: {
@@ -32,7 +28,6 @@ export const question1: PerseusRenderer = {
                 labelText: "",
                 size: "normal",
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };
@@ -44,10 +39,6 @@ export const defaultQuestion: PerseusRenderer = {
     widgets: {
         "numeric-input 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
             static: false,
             type: "numeric-input",
             options: {
@@ -84,7 +75,6 @@ export const defaultQuestion: PerseusRenderer = {
                 labelText: "",
                 size: "normal",
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };
@@ -96,10 +86,6 @@ export const decimalProblem: PerseusRenderer = {
     widgets: {
         "numeric-input 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
             static: false,
             type: "numeric-input",
             options: {
@@ -125,7 +111,6 @@ export const decimalProblem: PerseusRenderer = {
                     },
                 ],
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };
@@ -137,10 +122,6 @@ export const integerProblem: PerseusRenderer = {
     widgets: {
         "numeric-input 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
             static: false,
             type: "numeric-input",
             options: {
@@ -166,7 +147,6 @@ export const integerProblem: PerseusRenderer = {
                     },
                 ],
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };
@@ -178,10 +158,6 @@ export const improperProblem: PerseusRenderer = {
     widgets: {
         "numeric-input 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
             static: false,
             type: "numeric-input",
             options: {
@@ -207,7 +183,6 @@ export const improperProblem: PerseusRenderer = {
                     },
                 ],
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };
@@ -220,10 +195,6 @@ export const piProblem: PerseusRenderer = {
     widgets: {
         "numeric-input 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
             static: false,
             type: "numeric-input",
             options: {
@@ -249,7 +220,6 @@ export const piProblem: PerseusRenderer = {
                     },
                 ],
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };
@@ -290,7 +260,6 @@ export const mixedProblem: PerseusRenderer = {
                     },
                 ],
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };
@@ -302,10 +271,6 @@ export const properProblem: PerseusRenderer = {
     widgets: {
         "numeric-input 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
             static: false,
             type: "numeric-input",
             options: {
@@ -331,7 +296,6 @@ export const properProblem: PerseusRenderer = {
                     },
                 ],
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };
@@ -343,10 +307,6 @@ export const percentageProblem: PerseusRenderer = {
         // @ts-expect-error - TS2352 - Conversion of type '{ graded: true; version: { major: number; minor: number; }; static: false; type: "numeric-input"; options: { coefficient: false; static: false; answers: { status: string; maxError: null; strict: false; value: string; simplify: string; message: string; }[]; labelText: string; size: string; }; alignment: string; }' to type 'NumericInputWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
         "numeric-input 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
             static: false,
             type: "numeric-input",
             options: {
@@ -365,7 +325,6 @@ export const percentageProblem: PerseusRenderer = {
                 labelText: "What's the answer?",
                 size: "normal",
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };
@@ -376,10 +335,6 @@ export const multipleAnswers: PerseusRenderer = {
     widgets: {
         "numeric-input 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
             static: false,
             type: "numeric-input",
             options: {
@@ -406,7 +361,6 @@ export const multipleAnswers: PerseusRenderer = {
                 labelText: "What's the answer?",
                 size: "normal",
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };
@@ -417,10 +371,6 @@ export const correctAndWrongAnswers: PerseusRenderer = {
     widgets: {
         "numeric-input 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
             static: false,
             type: "numeric-input",
             options: {
@@ -449,7 +399,6 @@ export const correctAndWrongAnswers: PerseusRenderer = {
                 labelText: "What's the answer?",
                 size: "normal",
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };
@@ -460,10 +409,6 @@ export const multipleAnswersWithDecimals: PerseusRenderer = {
     widgets: {
         "numeric-input 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
             static: false,
             type: "numeric-input",
             options: {
@@ -498,7 +443,6 @@ export const multipleAnswersWithDecimals: PerseusRenderer = {
                     },
                 ],
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };
@@ -509,10 +453,6 @@ export const duplicatedAnswers: PerseusRenderer = {
     widgets: {
         "numeric-input 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
             static: false,
             type: "numeric-input",
             options: {
@@ -541,7 +481,6 @@ export const duplicatedAnswers: PerseusRenderer = {
                 labelText: "What's the answer?",
                 size: "normal",
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };
@@ -552,10 +491,6 @@ export const withCoefficient: PerseusRenderer = {
     widgets: {
         "numeric-input 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
             static: false,
             type: "numeric-input",
             options: {
@@ -574,7 +509,6 @@ export const withCoefficient: PerseusRenderer = {
                 labelText: "What's the answer?",
                 size: "normal",
             },
-            alignment: "default",
         } as NumericInputWidget,
     },
 };

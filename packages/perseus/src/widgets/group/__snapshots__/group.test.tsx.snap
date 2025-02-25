@@ -756,13 +756,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                             autocomplete="off"
                             autocorrect="off"
                             class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-inputWithExamples_1y6ajxo"
-                            id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                            id=":r0:"
                             tabindex="0"
                             type="text"
                             value=""
                           />
                           <span
-                            id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                            id="aria-for-input-with-examples-:r0:"
                             style="display: none;"
                           />
                         </div>
@@ -812,13 +812,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                             autocomplete="off"
                             autocorrect="off"
                             class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-inputWithExamples_1y6ajxo"
-                            id="input-with-examples-bnVtZXJpYy1pbnB1dCAy"
+                            id=":r3:"
                             tabindex="0"
                             type="text"
                             value=""
                           />
                           <span
-                            id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAy"
+                            id="aria-for-input-with-examples-:r3:"
                             style="display: none;"
                           />
                         </div>

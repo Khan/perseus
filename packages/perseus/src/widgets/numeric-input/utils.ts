@@ -11,18 +11,18 @@ export const NumericExampleStrings: {
         strings: PerseusStrings,
     ) => string;
 } = {
-    integer: (form, strings: PerseusStrings) => strings.integerExample,
-    proper: (form, strings: PerseusStrings) =>
+    integer: (form, strings) => strings.integerExample,
+    proper: (form, strings) =>
         form.simplify === "optional"
             ? strings.properExample
             : strings.simplifiedProperExample,
-    improper: (form, strings: PerseusStrings) =>
+    improper: (form, strings) =>
         form.simplify === "optional"
             ? strings.improperExample
             : strings.simplifiedImproperExample,
-    mixed: (form, strings: PerseusStrings) => strings.mixedExample,
-    decimal: (form, strings: PerseusStrings) => strings.decimalExample,
-    pi: (form, strings: PerseusStrings) => strings.piExample,
+    mixed: (form, strings) => strings.mixedExample,
+    decimal: (form, strings) => strings.decimalExample,
+    pi: (form, strings) => strings.piExample,
 };
 
 /**
