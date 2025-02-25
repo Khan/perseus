@@ -5,11 +5,8 @@ import {
     Changeable,
     iconTrash,
 } from "@khanacademy/perseus";
-import {
-    radioLogic,
-    type PerseusRadioChoice,
-    type RadioDefaultWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {radioLogic} from "@khanacademy/perseus-core";
+import {deriveNumCorrect} from "@khanacademy/perseus-core/src/widgets/radio/radio-upgrade";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
@@ -18,6 +15,11 @@ import Editor from "../../editor";
 import {iconPlus} from "../../styles/icon-paths";
 
 import type {APIOptions} from "@khanacademy/perseus";
+import type {
+    PerseusRadioWidgetOptions,
+    PerseusRadioChoice,
+    RadioDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 const {InlineIcon} = components;
 
@@ -252,18 +254,28 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         return [];
     };
 
-    serialize: () => any = () => {
-        return _.pick(
-            this.props,
-            "choices",
-            "randomize",
-            "multipleSelect",
-            "countChoices",
-            "displayCount",
-            "hasNoneOfTheAbove",
-            "deselectEnabled",
-        );
-    };
+    serialize(): PerseusRadioWidgetOptions {
+        const {
+            choices,
+            randomize,
+            multipleSelect,
+            countChoices,
+            displayCount,
+            hasNoneOfTheAbove,
+            deselectEnabled,
+        } = this.props;
+
+        return {
+            choices,
+            randomize,
+            multipleSelect,
+            countChoices,
+            displayCount,
+            hasNoneOfTheAbove,
+            deselectEnabled,
+            numCorrect: deriveNumCorrect(this.props),
+        };
+    }
 
     render(): React.ReactNode {
         const numCorrect = _.reduce(
