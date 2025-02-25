@@ -311,6 +311,7 @@ describe("expression-editor", () => {
                 buttonSets: ["basic"],
                 functions: ["f", "g", "h"],
                 times: false,
+                extraKeys: ["PI"],
             },
             undefined,
         );
@@ -355,6 +356,7 @@ describe("expression-editor", () => {
                 buttonSets: ["basic"],
                 functions: ["f", "g", "h"],
                 times: false,
+                extraKeys: ["PI"],
             },
             undefined,
         );
@@ -399,6 +401,7 @@ describe("expression-editor", () => {
                 buttonSets: ["basic"],
                 functions: ["f", "g", "h"],
                 times: false,
+                extraKeys: ["PI"],
             },
             undefined,
         );
@@ -484,6 +487,41 @@ describe("expression-editor", () => {
 
         const options = editorRef.current?.serialize();
 
+        expect(options?.extraKeys).toEqual(["x"]);
+    });
+
+    it("calls onChange with extra keys", async () => {
+        let options: any;
+
+        render(
+            <ExpressionEditor
+                onChange={(o) => {
+                    options = o;
+                }}
+                answerForms={[
+                    {
+                        considered: "correct",
+                        form: false,
+                        key: "0",
+                        simplify: false,
+                        value: "",
+                    },
+                ]}
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        const input = screen.getByRole("textbox", {name: /Math input/});
+        await userEvent.type(input, "42");
+        act(() => jest.runOnlyPendingTimers());
+
+        // default extra keys, since "42" doesn't have variables
+        expect(options?.extraKeys).toEqual(["PI"]);
+
+        await userEvent.type(input, "x");
+        act(() => jest.runOnlyPendingTimers());
+
+        // derived extra keys, since "42x" has a variable
         expect(options?.extraKeys).toEqual(["x"]);
     });
 });

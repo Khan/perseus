@@ -204,13 +204,24 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     // This function is designed to update the answerForm property
     // with new data. This function should not be used to update any
-    // other properties within ExpressionEditor.
+    // other properties within ExpressionEditor except extraKeys
+    // which is derived from answerForms
     updateAnswerForm(i: number, props: AnswerForm) {
         const answerForms = lens(this.props.answerForms)
             .merge([i], props)
             .freeze();
 
-        this.change({answerForms});
+        // deriveExtraKeys defaults to using the `extraKeys` it was given
+        // which in most case is what we want, but is not what we want
+        // in the editing experience because we should recalculate them
+        // when answers change
+        const {extraKeys: _, ...restProps} = this.props;
+
+        const extraKeys = deriveExtraKeys({
+            ...restProps,
+            answerForms,
+        });
+        this.change({answerForms, extraKeys});
     }
 
     handleReorder: (components: any) => void = (components) => {
