@@ -30,10 +30,14 @@ class WidgetSelect extends React.Component<WidgetSelectProps> {
         });
         const addWidgetString = "Add a widget\u2026";
         return (
-            <select value="" onChange={this.handleChange}>
+            <select
+                value=""
+                onChange={this.handleChange}
+                data-testid="editor__widget-select"
+            >
                 <option value="">{addWidgetString}</option>
                 <option disabled>--</option>
-                {_.map(orderedWidgetNames, (name) => {
+                {orderedWidgetNames.map((name) => {
                     return (
                         <option key={name} value={name}>
                             {widgets[name].displayName}

@@ -1,17 +1,11 @@
-import {
-    ApiOptions,
-    Dependencies,
-    Widgets,
-    widgets,
-    Util,
-} from "@khanacademy/perseus";
-import {render, screen} from "@testing-library/react";
+import {ApiOptions, Dependencies, Util} from "@khanacademy/perseus";
+import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../testing/test-dependencies";
 import Editor from "../editor";
-import ImageEditor from "../widgets/image-editor";
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
@@ -39,11 +33,7 @@ const Harnessed = (props: Partial<PropsFor<typeof Editor>>) => {
 
 describe("Editor", () => {
     beforeAll(() => {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const ImageWidget = widgets.find((w) => w.name === "image")!;
-        expect(ImageWidget).toBeDefined();
-        Widgets.registerWidget("image", ImageWidget);
-        Widgets.registerEditors([ImageEditor]);
+        registerAllWidgetsAndEditorsForTesting();
     });
 
     let userEvent: UserEvent;
@@ -164,5 +154,28 @@ describe("Editor", () => {
         );
 
         expect(consoleErrorSpy).not.toHaveBeenCalled();
+    });
+
+    it("should add the latest expression widget", async () => {
+        // PerseusRenderer but TS is being dumb
+        let cbData: any;
+        render(
+            <Harnessed
+                onChange={(data) => {
+                    cbData = data;
+                }}
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        await userEvent.selectOptions(
+            screen.getByTestId("editor__widget-select"),
+            "Expression / Equation",
+        );
+
+        expect(cbData?.widgets?.["expression 1"]?.version).toEqual({
+            major: 2,
+            minor: 0,
+        });
     });
 });
