@@ -7,6 +7,7 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import RadioEditor from "../radio/editor";
 
+import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 function renderRadioEditor(onChangeMock = () => undefined) {
@@ -110,5 +111,69 @@ describe("radio-editor", () => {
                 hasNoneOfTheAbove: false,
             }),
         );
+    });
+
+    it("serializes", () => {
+        const editorRef = React.createRef<RadioEditor>();
+
+        render(
+            <RadioEditor
+                ref={editorRef}
+                onChange={() => {}}
+                apiOptions={ApiOptions.defaults}
+                static={false}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        const options = editorRef.current?.serialize();
+
+        expect(options).toEqual({
+            choices: [{}, {}, {}, {}],
+            randomize: false,
+            multipleSelect: false,
+            countChoices: false,
+            displayCount: null,
+            hasNoneOfTheAbove: false,
+            deselectEnabled: false,
+            numCorrect: 0,
+        });
+    });
+
+    it("derives num correct when serializing", () => {
+        const editorRef = React.createRef<RadioEditor>();
+
+        function getCorrectChoice(): PerseusRadioChoice {
+            return {
+                content: "",
+                correct: true,
+            };
+        }
+
+        function getIncorrectChoice(): PerseusRadioChoice {
+            const choice = getCorrectChoice();
+            choice.correct = false;
+            return choice;
+        }
+
+        render(
+            <RadioEditor
+                ref={editorRef}
+                onChange={() => {}}
+                apiOptions={ApiOptions.defaults}
+                static={false}
+                choices={[
+                    getCorrectChoice(),
+                    getIncorrectChoice(),
+                    getCorrectChoice(),
+                    getIncorrectChoice(),
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        const options = editorRef.current?.serialize();
+
+        expect(options?.numCorrect).toEqual(2);
     });
 });
