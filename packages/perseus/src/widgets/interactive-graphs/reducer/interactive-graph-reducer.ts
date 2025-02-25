@@ -1078,7 +1078,6 @@ function boundAndSnapToSides(
         destinationPoint,
         range,
         coordsCopy,
-        snapStep,
         index,
         startingPoint,
     ) as vec.Vector2;
@@ -1088,14 +1087,12 @@ export function calculateSideSnap(
     destinationPoint: vec.Vector2,
     range: [Interval, Interval],
     coords: Coord[],
-    // undo underscore when determining if we want to keep this.
-    _snapStep: vec.Vector2,
     index: number,
     startingPoint: vec.Vector2,
 ) {
     // Takes the destination point and makes sure it is within the bounds of the graph
     coords[index] = bound({
-        snapStep: [0, 0], //snapStep: snapStep,
+        snapStep: [0, 0],
         range,
         point: destinationPoint,
     });
@@ -1118,10 +1115,6 @@ export function calculateSideSnap(
 
     // Round the sides to left and right of the current point
     _.each([0, 1], function (j) {
-        // The snap length should be determined by the snapSteps to ensure
-        // successful snapping for all graphs.
-        //const lowestValue = Math.min(snapStep[0], snapStep[1]);
-        //sides[j] = Math.round(sides[j] / lowestValue) * lowestValue;
         sides[j] = Math.round(sides[j]);
     });
 

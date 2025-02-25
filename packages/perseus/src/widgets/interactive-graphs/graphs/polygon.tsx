@@ -183,7 +183,6 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         showSides,
         range,
         snapTo = "grid",
-        snapStep,
     } = statefulProps.graphState;
     const {disableKeyboardInteraction} = graphConfig;
     const {strings, locale} = usePerseusI18n();
@@ -332,12 +331,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             constrain={
                                 snapTo === "grid"
                                     ? constrain
-                                    : getSideSnapConstraint(
-                                          points,
-                                          i,
-                                          snapStep,
-                                          range,
-                                      )
+                                    : getSideSnapConstraint(points, i, range)
                             }
                             point={point}
                             sequenceNumber={i + 1}
@@ -699,7 +693,6 @@ function describePolygonGraph(
 export function getSideSnapConstraint(
     points: ReadonlyArray<Coord>,
     index: number,
-    snapStep: vec.Vector2,
     range: [Interval, Interval],
 ): {
     up: vec.Vector2;
@@ -734,7 +727,6 @@ export function getSideSnapConstraint(
                 destinationAttempt,
                 range,
                 newPoints,
-                snapStep,
                 index,
                 pointToBeMoved,
             );
@@ -749,21 +741,9 @@ export function getSideSnapConstraint(
     // Determine if we want to keep to align with snap steps or keep with
     // whole units.
     return {
-        up: movePointWithConstraint((coord) =>
-            //vec.add(coord, [0, snapStep[1]]),
-            vec.add(coord, [0, 1]),
-        ),
-        down: movePointWithConstraint((coord) =>
-            //vec.sub(coord, [0, snapStep[1]]),
-            vec.sub(coord, [0, 1]),
-        ),
-        left: movePointWithConstraint((coord) =>
-            //vec.sub(coord, [snapStep[0], 0]),
-            vec.sub(coord, [1, 0]),
-        ),
-        right: movePointWithConstraint((coord) =>
-            //vec.add(coord, [snapStep[0], 0]),
-            vec.add(coord, [1, 0]),
-        ),
+        up: movePointWithConstraint((coord) => vec.add(coord, [0, 1])),
+        down: movePointWithConstraint((coord) => vec.sub(coord, [0, 1])),
+        left: movePointWithConstraint((coord) => vec.sub(coord, [1, 0])),
+        right: movePointWithConstraint((coord) => vec.add(coord, [1, 0])),
     };
 }
