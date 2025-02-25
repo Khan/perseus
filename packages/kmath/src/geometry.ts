@@ -317,7 +317,7 @@ export function getLineIntersection(
     // TODO(LP-10725): update these to be 2-tuples
     firstPoints: ReadonlyArray<Coord>,
     secondPoints: ReadonlyArray<Coord>,
-): string {
+): [number, number] | null {
     const x1 = firstPoints[0][0];
     const y1 = firstPoints[0][1];
     const x2 = firstPoints[1][0];
@@ -330,7 +330,8 @@ export function getLineIntersection(
     const determinant = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
 
     if (Math.abs(determinant) < 1e-9) {
-        return "Lines are parallel";
+        // Lines are parallel
+        return null;
     }
     const x =
         ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) /
@@ -338,5 +339,19 @@ export function getLineIntersection(
     const y =
         ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) /
         determinant;
+    return [x, y];
+}
+
+export function getLineIntersectionString(
+    firstPoints: ReadonlyArray<Coord>,
+    secondPoints: ReadonlyArray<Coord>,
+): string {
+    const intersection = getLineIntersection(firstPoints, secondPoints);
+
+    if (intersection === null) {
+        return "Lines are parallel";
+    }
+
+    const [x, y] = intersection;
     return "Intersection: (" + x.toFixed(3) + ", " + y.toFixed(3) + ")";
 }

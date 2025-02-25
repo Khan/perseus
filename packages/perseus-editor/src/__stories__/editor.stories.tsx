@@ -5,7 +5,7 @@ import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import {Editor} from "..";
-import SideBySide from "../../../../testing/side-by-side";
+import SplitView from "../../../../testing/split-view";
 import {question1} from "../__testdata__/numeric-input.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
@@ -84,9 +84,9 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
         // class to be above it.
         // TODO: Refactor to aphrodite styles instead of scoped CSS in Less.
         <div className="framework-perseus">
-            <SideBySide
-                leftTitle="Editor"
-                left={
+            <SplitView
+                rendererTitle="Editor"
+                renderer={
                     <View style={{width: "360px", margin: "20px"}}>
                         <Editor
                             ref={editorRef}
@@ -127,7 +127,7 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                         />
                     </View>
                 }
-                rightTitle="Serialized Widget Options"
+                JSONTitle="Serialized Widget Options"
                 jsonObject={options}
             />
         </div>

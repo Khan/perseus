@@ -4,7 +4,7 @@ import type {PerseusDropdownWidgetOptions} from "@khanacademy/perseus-core";
  * For details on the individual options, see the
  * PerseusDropdownWidgetOptions type
  */
-type DropdownPublicWidgetOptions = {
+export type DropdownPublicWidgetOptions = {
     choices: ReadonlyArray<{content: string}>;
     placeholder: PerseusDropdownWidgetOptions["placeholder"];
     static: PerseusDropdownWidgetOptions["static"];
