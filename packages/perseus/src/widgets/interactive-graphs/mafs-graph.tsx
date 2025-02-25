@@ -165,14 +165,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 disableKeyboardInteraction: readOnly || !!props.static,
             }}
         >
-            <button
-                onKeyDown={(e) => {
-                    console.log("event", e); // eslint-disable-line no-console
-                    console.log(e.key); // eslint-disable-line no-console
-                }}
-            >
-                testing
-            </button>
             <View className="mafs-graph-container">
                 <View
                     className="mafs-graph"
@@ -200,7 +192,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         state.type !== "none" && instructionsId,
                     )}
                     ref={graphRef}
-                    // tabIndex={0}
                     onFocus={(event) => {
                         handleFocusEvent(event, state, dispatch);
                     }}
