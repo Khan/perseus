@@ -4,7 +4,7 @@ import type {KnipConfig} from "knip";
  * knip is a tool for discovering dead code:
  * https://knip.dev/
  *
- * To use: `yarn knip`
+ * To use: `pnpm knip`
  */
 const config: KnipConfig = {
     entry: [

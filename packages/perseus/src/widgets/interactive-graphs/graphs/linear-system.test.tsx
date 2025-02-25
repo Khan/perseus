@@ -62,7 +62,7 @@ describe("Linear System graph screen reader", () => {
         // Assert
         expect(linearSystemGraph).toBeInTheDocument();
         expect(linearSystemGraph).toHaveAccessibleDescription(
-            "Line 1 has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5. The line crosses the Y-axis at 0 comma 5. Its slope is zero. Line 2 has two points, point 1 at -5 comma -5 and point 2 at 5 comma -5. The line crosses the Y-axis at 0 comma -5. Its slope is zero.",
+            "Line 1 has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5. The line crosses the Y-axis at 0 comma 5. Its slope is zero. Line 2 has two points, point 1 at -5 comma -5 and point 2 at 5 comma -5. The line crosses the Y-axis at 0 comma -5. Its slope is zero. Line 1 and line 2 are parallel.",
         );
     });
 
@@ -74,8 +74,8 @@ describe("Linear System graph screen reader", () => {
     `(`Line $lineNumber`, ({lineNumber}) => {
         test.each`
             case                         | coords              | interceptDescription
-            ${"origin intercept"}        | ${[[1, 1], [2, 2]]} | ${"The line crosses the x and y axes at the graph's origin."}
-            ${"both x and y intercepts"} | ${[[4, 4], [7, 1]]} | ${"The line crosses the X-axis at 8 comma 0 and the Y-axis at 0 comma 8."}
+            ${"origin intercept"}        | ${[[1, 1], [2, 2]]} | ${"The line crosses the X and Y axes at the graph's origin."}
+            ${"both X and Y intercepts"} | ${[[4, 4], [7, 1]]} | ${"The line crosses the X-axis at 8 comma 0 and the Y-axis at 0 comma 8."}
             ${"x intercept only"}        | ${[[5, 5], [5, 2]]} | ${"The line crosses the X-axis at 5 comma 0."}
             ${"y intercept only"}        | ${[[5, 5], [2, 5]]} | ${"The line crosses the Y-axis at 0 comma 5."}
             ${"overlaps y-axis"}         | ${[[0, 5], [0, 2]]} | ${"The line crosses the X-axis at 0 comma 0."}
@@ -177,7 +177,7 @@ describe("Linear System graph screen reader", () => {
             );
             expect(grabHandle).toHaveAttribute(
                 "aria-label",
-                `The line crosses the Y-axis at 0 comma 3. Its slope is zero.`,
+                `Line ${lineNumber} going through point -2 comma 3 and point 3 comma 3.`,
             );
             expect(point2).toHaveAttribute(
                 "aria-label",
@@ -190,27 +190,72 @@ describe("Linear System graph screen reader", () => {
             ${"point1"}     | ${0}
             ${"grabHandle"} | ${1}
             ${"point2"}     | ${2}
-        `("should have describedby on all interactive elements", ({index}) => {
-            // Arrange
-            render(
-                <MafsGraph
-                    {...baseMafsGraphProps}
-                    state={baseLinearSystemState}
-                />,
-            );
+        `(
+            "should have describedby on all interactive elements (parallel lines)",
+            ({index}) => {
+                // Arrange
+                render(
+                    <MafsGraph
+                        {...baseMafsGraphProps}
+                        state={baseLinearSystemState}
+                    />,
+                );
 
-            // Act
-            const interactiveElements = screen.getAllByRole("button");
-            const element = interactiveElements[index + (lineNumber - 1) * 3];
+                // Act
+                const interactiveElements = screen.getAllByRole("button");
+                const element =
+                    interactiveElements[index + (lineNumber - 1) * 3];
 
-            // Assert
-            expect(element.getAttribute("aria-describedby")).toContain(
-                "-slope",
-            );
-            expect(element.getAttribute("aria-describedby")).toContain(
-                "-intercept",
-            );
-        });
+                const expectedDescription = `The line crosses the Y-axis at 0 comma ${lineNumber === 1 ? 5 : -5}. Its slope is zero. Line 1 and line 2 are parallel.`;
+
+                // Assert
+                expect(element).toHaveAccessibleDescription(
+                    expectedDescription,
+                );
+            },
+        );
+
+        test.each`
+            element         | index
+            ${"point1"}     | ${0}
+            ${"grabHandle"} | ${1}
+            ${"point2"}     | ${2}
+        `(
+            "should have describedby on all interactive elements (intersecting lines)",
+            ({index}) => {
+                // Arrange
+                render(
+                    <MafsGraph
+                        {...baseMafsGraphProps}
+                        state={{
+                            ...baseLinearSystemState,
+                            coords: [
+                                [
+                                    [-2, -2],
+                                    [2, 2],
+                                ],
+                                [
+                                    [-2, 2],
+                                    [2, -2],
+                                ],
+                            ],
+                        }}
+                    />,
+                );
+
+                // Act
+                const interactiveElements = screen.getAllByRole("button");
+                const element =
+                    interactiveElements[index + (lineNumber - 1) * 3];
+
+                const expectedDescription = `The line crosses the X and Y axes at the graph's origin. Its slope ${lineNumber === 1 ? "increases" : "decreases"} from left to right. Line 1 and line 2 intersect at point 0 comma 0.`;
+
+                // Assert
+                expect(element).toHaveAccessibleDescription(
+                    expectedDescription,
+                );
+            },
+        );
 
         test.each`
             elementName     | index
