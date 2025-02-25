@@ -236,18 +236,6 @@
     stroke-width: 1px;
 }
 
-/* Need to add style overrides for the protractor SVG, because otherwise
- * it uses the the native `.MafsView path` style, even if the SVG itself
- * has different styling. */
-.MafsView .interactive-graph-protractor path {
-    stroke: #808080;
-}
-
-.MafsView .interactive-graph-protractor .protractor-number {
-    fill: #21242c;
-    stroke-width: 0;
-}
-
 .mafs-sr-only {
     height: 0;
     width: 0;

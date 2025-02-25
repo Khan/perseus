@@ -9,7 +9,7 @@ import {pathBuilder} from "../../util/svg";
 import {useDraggable} from "./graphs/use-draggable";
 import {useTransformVectorsToPixels} from "./graphs/use-transform";
 import {lerp, X, Y} from "./math";
-import {protractorImage} from "./protractor-svg";
+import protractorImage from "./protractor.svg";
 import useGraphConfig from "./reducer/use-graph-config";
 import {bound, TARGET_SIZE} from "./utils";
 
@@ -70,7 +70,7 @@ export function Protractor() {
                 transformOrigin: `${-centerToTopLeft[X]}px ${-centerToTopLeft[Y]}px`,
             }}
         >
-            {protractorImage}
+            <image href={protractorImage} />
             <g
                 transform={`translate(5, ${-centerToTopLeft[1]})`}
                 ref={rotationHandleRef}
