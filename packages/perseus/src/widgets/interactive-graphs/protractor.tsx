@@ -4,12 +4,12 @@ import {vec} from "mafs";
 import * as React from "react";
 import {useRef, useState} from "react";
 
+import {getDependencies} from "../../dependencies";
 import {pathBuilder} from "../../util/svg";
 
 import {useDraggable} from "./graphs/use-draggable";
 import {useTransformVectorsToPixels} from "./graphs/use-transform";
 import {lerp, X, Y} from "./math";
-import protractorImage from "./protractor.svg";
 import useGraphConfig from "./reducer/use-graph-config";
 import {bound, TARGET_SIZE} from "./utils";
 
@@ -18,6 +18,9 @@ import type {RefObject} from "react";
 import "./protractor.css";
 
 const {calculateAngleInDegrees, convertDegreesToRadians} = angles;
+
+const protractorImage =
+    "https://cdn.kastatic.org/images/perseus/protractor.svg";
 
 // The vector from the center of the protractor to the top left corner of the
 // protractor image, in pixels. Used for positioning.
@@ -28,6 +31,7 @@ const centerToTopLeft: vec.Vector2 = [-195, -190];
 const centerToRotationHandle: vec.Vector2 = [-201, -15];
 
 export function Protractor() {
+    const staticUrl = getDependencies().staticUrl;
     const {range, snapStep} = useGraphConfig();
     const [[xMin, xMax], [yMin, yMax]] = range;
     // Position the protractor in the center of the graph (horizontally), and
@@ -70,7 +74,7 @@ export function Protractor() {
                 transformOrigin: `${-centerToTopLeft[X]}px ${-centerToTopLeft[Y]}px`,
             }}
         >
-            <image href={protractorImage} />
+            <image href={staticUrl(protractorImage)} />
             <g
                 transform={`translate(5, ${-centerToTopLeft[1]})`}
                 ref={rotationHandleRef}
