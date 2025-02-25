@@ -1,9 +1,4 @@
-import {
-    any,
-    boolean,
-    object,
-    string,
-} from "../general-purpose-parsers";
+import {any, boolean, object, string} from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseImages} from "./images-map";
