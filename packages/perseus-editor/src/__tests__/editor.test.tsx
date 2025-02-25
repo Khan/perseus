@@ -33,11 +33,6 @@ const Harnessed = (props: Partial<PropsFor<typeof Editor>>) => {
 
 describe("Editor", () => {
     beforeAll(() => {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        // const ImageWidget = widgets.find((w) => w.name === "image")!;
-        // expect(ImageWidget).toBeDefined();
-        // Widgets.registerWidget("image", ImageWidget);
-        // Widgets.registerEditors([ImageEditor]);
         registerAllWidgetsAndEditorsForTesting();
     });
 
