@@ -113,7 +113,7 @@ class TextInput extends React.Component<Props> {
                 id={this.id}
                 value={formattedValue}
                 type="text"
-                aria-label={labelText || undefined}
+                aria-label={labelText}
                 aria-describedby={this.props["aria-describedby"]}
                 onChange={(value) => this.props.onChange(value)}
                 placeholder={placeholder}
