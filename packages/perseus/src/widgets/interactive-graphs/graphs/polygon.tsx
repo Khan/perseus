@@ -1,5 +1,4 @@
-import {angles, geometry, vector as kvector} from "@khanacademy/kmath";
-import {approximateEqual} from "@khanacademy/perseus-core";
+import {angles} from "@khanacademy/kmath";
 import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
 import _ from "underscore";
@@ -11,8 +10,9 @@ import {
 import a11y from "../../../util/a11y";
 import {snap} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
+import {calculateSideSnap} from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {bound, isInBound, TARGET_SIZE} from "../utils";
+import {isInBound, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
@@ -41,9 +41,7 @@ import type {
 import type {CollinearTuple} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
-const {getAngleFromVertex, polar, convertRadiansToDegrees} = angles;
-
-const {ccw, lawOfCosines, magnitude, sign, vector} = geometry;
+const {convertRadiansToDegrees} = angles;
 
 export function renderPolygonGraph(
     state: PolygonGraphState,
@@ -698,11 +696,6 @@ function describePolygonGraph(
     };
 }
 
-// Less than or approximately equal
-function leq(a: any, b) {
-    return a < b || approximateEqual(a, b);
-}
-
 export function getSideSnapConstraint(
     points: ReadonlyArray<Coord>,
     index: number,
@@ -714,14 +707,14 @@ export function getSideSnapConstraint(
     left: vec.Vector2;
     right: vec.Vector2;
 } {
-    // Make newCoords mutable
+    // Make newPoints mutable.
     const newPoints = [...points];
 
-    // Get the point that is being moved
+    // Get the point that is being moved.
     const pointToBeMoved = newPoints[index];
 
     // Create a helper function that moves the point and then checks
-    // if it overlaps with the center point after the move.
+    // whether it needs to keep trying to find a point for keyboard users.
     const movePointWithConstraint = (
         moveFunc: (coord: vec.Vector2) => vec.Vector2,
     ): vec.Vector2 => {
@@ -737,81 +730,14 @@ export function getSideSnapConstraint(
             newPoint[1] === pointToBeMoved[1] &&
             isInBound({range, point: destinationAttempt})
         ) {
-            // Takes the destination point and makes sure it is within the bounds of the graph
-            newPoints[index] = bound({
-                snapStep: snapStep,
+            newPoint = calculateSideSnap(
+                destinationAttempt,
                 range,
-                point: destinationAttempt,
-            });
-            //console.log(`bound: ${coordsCopy[index]}`);
-
-            // Gets the relative index of a point
-            const rel = (j): number => {
-                return (index + j + newPoints.length) % newPoints.length;
-            };
-            const sides = _.map(
-                [
-                    [newPoints[rel(-1)], newPoints[index]],
-                    [newPoints[index], newPoints[rel(1)]],
-                    [newPoints[rel(-1)], newPoints[rel(1)]],
-                ],
-                function (newPoints) {
-                    // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
-                    return magnitude(vector(...newPoints));
-                },
+                newPoints,
+                snapStep,
+                index,
+                pointToBeMoved,
             );
-
-            // Round the sides to left and right of the current point
-            _.each([0, 1], function (j) {
-                // The snap length should be determined by the snapSteps to ensure
-                // successful snapping for all graphs.
-                const lowestValue = Math.min(snapStep[0], snapStep[1]);
-                sides[j] = Math.round(sides[j] / lowestValue) * lowestValue;
-            });
-
-            // Avoid degenerate triangles
-            if (
-                leq(sides[1] + sides[2], sides[0]) ||
-                leq(sides[0] + sides[2], sides[1]) ||
-                leq(sides[0] + sides[1], sides[2])
-            ) {
-                return pointToBeMoved;
-            }
-
-            // Solve for angle by using the law of cosines
-            // Angle at the first vertex of the polygon
-            const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
-
-            // Angle at the second vertex of the polygon
-            const outerAngle = getAngleFromVertex(
-                newPoints[rel(1)],
-                newPoints[rel(-1)],
-            );
-
-            // Returns true if the points form a counter-clockwise turn;
-            // a.k.a if the point is on the left or right of the polygon.
-            // This is used to determine how to adjust the point: if the point is on the left,
-            // we want to add the inner angle to the outer angle, and if it's on the right,
-            // we want to subtract the inner angle from the outer angle. The angle solved
-            // for is then used in the polar function to determine the new point.
-            const onLeft =
-                sign(
-                    ccw(
-                        newPoints[rel(-1)],
-                        newPoints[rel(1)],
-                        newPoints[index],
-                    ),
-                ) === 1;
-
-            // Uses the length of the first side of the polygon (radial coordinate)
-            // and the angle between the first and second sides of the
-            // polygon (angular coordinate) to determine how to adjust the point
-            const offset = polar(
-                sides[0],
-                outerAngle + (onLeft ? 1 : -1) * innerAngle,
-            );
-
-            newPoint = kvector.add(newPoints[rel(-1)], offset) as vec.Vector2;
 
             // Increment the destinationAttempt.
             // For every time it does not work increment the direction for x and y.

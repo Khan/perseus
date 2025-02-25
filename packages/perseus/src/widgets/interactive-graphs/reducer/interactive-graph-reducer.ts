@@ -1069,27 +1069,43 @@ function boundAndSnapToSides(
     index: number,
 ) {
     const startingPoint = coords[index];
-
-    // Needed to prevent updating the original coords before the checks for
-    // degenerate triangles and overlapping sides
     const coordsCopy = [...coords];
 
+    return calculateSideSnap(
+        destinationPoint,
+        range,
+        coordsCopy,
+        snapStep,
+        index,
+        startingPoint,
+    ) as vec.Vector2;
+}
+
+export function calculateSideSnap(
+    destinationPoint: vec.Vector2,
+    range: [Interval, Interval],
+    coords: Coord[],
+    snapStep: vec.Vector2,
+    index: number,
+    startingPoint: vec.Vector2,
+) {
     // Takes the destination point and makes sure it is within the bounds of the graph
-    coordsCopy[index] = bound({
+    coords[index] = bound({
         snapStep: snapStep,
         range,
         point: destinationPoint,
     });
+    //console.log(`bound: ${coordsCopy[index]}`);
 
     // Gets the relative index of a point
     const rel = (j): number => {
-        return (index + j + coordsCopy.length) % coordsCopy.length;
+        return (index + j + coords.length) % coords.length;
     };
     const sides = _.map(
         [
-            [coordsCopy[rel(-1)], coordsCopy[index]],
-            [coordsCopy[index], coordsCopy[rel(1)]],
-            [coordsCopy[rel(-1)], coordsCopy[rel(1)]],
+            [coords[rel(-1)], coords[index]],
+            [coords[index], coords[rel(1)]],
+            [coords[rel(-1)], coords[rel(1)]],
         ],
         function (coordsCopy) {
             // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
@@ -1119,10 +1135,7 @@ function boundAndSnapToSides(
     const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
 
     // Angle at the second vertex of the polygon
-    const outerAngle = getAngleFromVertex(
-        coordsCopy[rel(1)],
-        coordsCopy[rel(-1)],
-    );
+    const outerAngle = getAngleFromVertex(coords[rel(1)], coords[rel(-1)]);
 
     // Returns true if the points form a counter-clockwise turn;
     // a.k.a if the point is on the left or right of the polygon.
@@ -1131,16 +1144,14 @@ function boundAndSnapToSides(
     // we want to subtract the inner angle from the outer angle. The angle solved
     // for is then used in the polar function to determine the new point.
     const onLeft =
-        sign(
-            ccw(coordsCopy[rel(-1)], coordsCopy[rel(1)], coordsCopy[index]),
-        ) === 1;
+        sign(ccw(coords[rel(-1)], coords[rel(1)], coords[index])) === 1;
 
     // Uses the length of the first side of the polygon (radial coordinate)
     // and the angle between the first and second sides of the
     // polygon (angular coordinate) to determine how to adjust the point
     const offset = polar(sides[0], outerAngle + (onLeft ? 1 : -1) * innerAngle);
 
-    return kvector.add(coordsCopy[rel(-1)], offset) as vec.Vector2;
+    return kvector.add(coords[rel(-1)], offset) as vec.Vector2;
 }
 
 // Returns the vector from the given point to the top-right corner of the graph when snapped to the grid
