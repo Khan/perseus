@@ -104,18 +104,6 @@ const PolygonGraph = (props: Props) => {
     const dragReferencePoint = points[0];
     const constrain: KeyboardMovementConstraint = (p) => snap(snapStep, p);
 
-    // switch (snapTo) {
-    //     case "sides":
-    //         // Values are BS, need to fix.
-    //         constrain = getSideSnapConstraint(snapStep, coords[0], 12);
-    //         break;
-    //     case "angles":
-    //     case "grid":
-    //     default:
-    //         constrain = (p) => snap(snapStep, p);
-    //         break;
-    // }
-
     const {dragging} = useDraggable({
         gestureTarget: polygonRef,
         point: dragReferencePoint,
@@ -356,8 +344,6 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             point={point}
                             sequenceNumber={i + 1}
                             onMove={(destination: vec.Vector2) => {
-                                //console.log("Movement!");
-
                                 const now = Date.now();
                                 const targetFPS = 40;
                                 const moveThresholdTime = 1000 / targetFPS;
@@ -744,15 +730,8 @@ export function getSideSnapConstraint(
         // The new point we're moving to.
         let newPoint = pointToBeMoved;
 
-        // Move the point
-        // Will need to tell it to stop if we're beyond the bounds.
-        // Initial thoughts, much better keyboard movement.
-        // Mouse movement is janky and flashing. Gross!!
-        // The aggressive janking is the fact that even the smallest
-        // Movement gets this function called again on mouse, and because it's
-        // the same point it tries to find another one. Dang it.
-        // Maybe there's a ways I can turn off this functionality if it's a keyboard
-        // vs a mouse user....
+        // Move the point and keep trying until we are at the boarder
+        // of the graph.
         while (
             newPoint[0] === pointToBeMoved[0] &&
             newPoint[1] === pointToBeMoved[1] &&
@@ -834,11 +813,10 @@ export function getSideSnapConstraint(
 
             newPoint = kvector.add(newPoints[rel(-1)], offset) as vec.Vector2;
 
-            // Set the initial destination attempt to the destination point.
+            // Increment the destinationAttempt.
             // For every time it does not work increment the direction for x and y.
             destinationAttempt = moveFunc(destinationAttempt);
         }
-
         return newPoint;
     };
 

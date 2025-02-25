@@ -1061,7 +1061,11 @@ function boundAndSnapToPolygonAngle(
 
 function boundAndSnapToSides(
     destinationPoint: vec.Vector2,
-    {range, coords}: {range: [Interval, Interval]; coords: Coord[]},
+    {
+        range,
+        coords,
+        snapStep,
+    }: {range: [Interval, Interval]; coords: Coord[]; snapStep: vec.Vector2},
     index: number,
 ) {
     const startingPoint = coords[index];
@@ -1071,9 +1075,8 @@ function boundAndSnapToSides(
     const coordsCopy = [...coords];
 
     // Takes the destination point and makes sure it is within the bounds of the graph
-    // SnapStep is [0, 0] because we don't want to snap to the grid
     coordsCopy[index] = bound({
-        snapStep: [0, 0],
+        snapStep: snapStep,
         range,
         point: destinationPoint,
     });
@@ -1096,7 +1099,10 @@ function boundAndSnapToSides(
 
     // Round the sides to left and right of the current point
     _.each([0, 1], function (j) {
-        sides[j] = Math.round(sides[j]);
+        // The snap length should be determined by the snapSteps to ensure
+        // successful snapping for all graphs.
+        const lowestValue = Math.min(snapStep[0], snapStep[1]);
+        sides[j] = Math.round(sides[j] / lowestValue) * lowestValue;
     });
 
     // Avoid degenerate triangles
