@@ -446,14 +446,29 @@ describe("expression-editor", () => {
         );
     });
 
+    it("serializes", () => {
+        const editorRef = React.createRef<ExpressionEditor>();
+
+        render(<ExpressionEditor ref={editorRef} onChange={() => {}} />);
+
+        const options = editorRef.current?.serialize();
+
+        expect(options).toEqual({
+            answerForms: [],
+            buttonSets: ["basic"],
+            extraKeys: ["PI"],
+            functions: ["f", "g", "h"],
+            times: false,
+        });
+    });
+
     it("derives extra keys when serializing", () => {
-        const onChangeMock = jest.fn();
         const editorRef = React.createRef<ExpressionEditor>();
 
         render(
             <ExpressionEditor
                 ref={editorRef}
-                onChange={onChangeMock}
+                onChange={() => {}}
                 answerForms={[
                     {
                         // deriveExtraKeys should find x
@@ -466,7 +481,6 @@ describe("expression-editor", () => {
                 ]}
             />,
         );
-        act(() => jest.runOnlyPendingTimers());
 
         const options = editorRef.current?.serialize();
 
