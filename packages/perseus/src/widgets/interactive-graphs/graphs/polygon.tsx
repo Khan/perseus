@@ -77,7 +77,7 @@ type StatefulProps = MafsGraphProps<PolygonGraphState> & {
 
 const PolygonGraph = (props: Props) => {
     const {dispatch} = props;
-    const {numSides, coords, snapStep} = props.graphState;
+    const {numSides, coords, snapStep, snapTo = "grid"} = props.graphState;
     const graphConfig = useGraphConfig();
 
     // Ref to implement the dragging behavior on a Limited/Closed Polygon.
@@ -99,7 +99,9 @@ const PolygonGraph = (props: Props) => {
 
     // Logic to build the dragging experience. Primarily used by Limited Polygon.
     const dragReferencePoint = points[0];
-    const constrain: KeyboardMovementConstraint = (p) => snap(snapStep, p);
+    const constrain: KeyboardMovementConstraint = ["angles"].includes(snapTo)
+        ? (p) => p
+        : (p) => snap(snapStep, p);
 
     const {dragging} = useDraggable({
         gestureTarget: polygonRef,
@@ -328,9 +330,9 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
                             ariaLive={ariaLives[i + 1]}
                             constrain={
-                                snapTo === "grid"
-                                    ? constrain
-                                    : getSideSnapConstraint(points, i, range)
+                                snapTo === "sides"
+                                    ? getSideSnapConstraint(points, i, range)
+                                    : constrain
                             }
                             point={point}
                             sequenceNumber={i + 1}
