@@ -66,7 +66,7 @@ export function bound({
     return clampToBox(boundingBox, point);
 }
 
-// Returns true if the point is within the bounds of the graph.
+// Returns true if the point is within the range of the graph.
 export function isInBound({
     range,
     point,
