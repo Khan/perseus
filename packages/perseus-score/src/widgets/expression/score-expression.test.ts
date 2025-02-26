@@ -59,12 +59,12 @@ describe("scoreExpression", () => {
             answerForms: [
                 {
                     considered: "correct",
+                    value: "42",
                     form: false,
                     simplify: false,
-                    value: "42",
                 },
             ],
-            functions: ["f", "g", "h"],
+            functions: [],
         };
 
         const result = scoreExpression("\\sqrt{42^{2}}", item, "en");
