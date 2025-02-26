@@ -3,7 +3,7 @@ import {
     type PerseusItem,
     type PerseusExpressionWidgetOptions,
     type PerseusRenderer,
-    getExpressionPublicWidgetOptions,
+    splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
@@ -664,114 +664,62 @@ describe("Expression Widget", function () {
             ) as jest.Mock;
         });
 
-        it("is answerable with full widget options", async () => {
-            // Arrange
-            const expressionOptions: PerseusExpressionWidgetOptions = {
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: true,
-                        simplify: false,
-                        value: "1i",
-                    },
-                ],
-                buttonSets: [],
-                times: false,
-                functions: [],
-                extraKeys: ["i"],
-            };
-
-            const fullItem: PerseusRenderer = {
+        function getFullItem(): PerseusRenderer {
+            return {
                 content: "[[☃ expression 1]]",
                 images: {},
                 widgets: {
                     "expression 1": {
                         type: "expression",
                         version: {major: 2, minor: 0},
-                        options: expressionOptions,
+                        options: {
+                            answerForms: [
+                                {
+                                    considered: "correct",
+                                    form: true,
+                                    simplify: false,
+                                    value: "1i",
+                                },
+                            ],
+                            buttonSets: [],
+                            times: false,
+                            functions: [],
+                            extraKeys: ["i"],
+                        },
                     },
                 },
             };
+        }
 
-            // Act
-            const {renderer} = renderQuestion(fullItem);
+        function getSplitItem(): PerseusRenderer {
+            return splitPerseusItem(getFullItem());
+        }
 
-            await userEvent.click(
-                screen.getByRole("button", {name: "open math keypad"}),
-            );
-            await userEvent.click(screen.getByRole("button", {name: "1"}));
-            await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-            await userEvent.click(screen.getByRole("button", {name: "i"}));
-            act(() => jest.runOnlyPendingTimers());
+        it.each([
+            {optionsMode: "answerful", renderItem: getFullItem()},
+            {optionsMode: "answerless", renderItem: getSplitItem()},
+        ])(
+            "is interactive with widget options: $optionsMode",
+            async ({renderItem}) => {
+                // Act
+                const {renderer} = renderQuestion(renderItem);
 
-            const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(fullItem, userInput, "en");
+                await userEvent.click(
+                    screen.getByRole("button", {name: "open math keypad"}),
+                );
+                await userEvent.click(screen.getByRole("button", {name: "1"}));
+                await userEvent.click(
+                    screen.getByRole("tab", {name: "Extras"}),
+                );
+                await userEvent.click(screen.getByRole("button", {name: "i"}));
+                act(() => jest.runOnlyPendingTimers());
 
-            // Assert
-            expect(score).toHaveBeenAnsweredCorrectly();
-        });
+                const userInput = renderer.getUserInputMap();
+                const score = scorePerseusItem(getFullItem(), userInput, "en");
 
-        it("is interactive with answerless widget options", async () => {
-            // Arrange
-            const fullExpressionOptions: PerseusExpressionWidgetOptions = {
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: true,
-                        simplify: false,
-                        value: "1i",
-                    },
-                ],
-                buttonSets: [],
-                times: false,
-                functions: [],
-                extraKeys: ["i"],
-            };
-
-            const strippedExpressionOptions = getExpressionPublicWidgetOptions(
-                fullExpressionOptions,
-            );
-
-            const fullItem: PerseusRenderer = {
-                content: "[[☃ expression 1]]",
-                images: {},
-                widgets: {
-                    "expression 1": {
-                        type: "expression",
-                        version: {major: 2, minor: 0},
-                        options: fullExpressionOptions,
-                    },
-                },
-            };
-
-            const strippedItem = {
-                content: "[[☃ expression 1]]",
-                images: {},
-                widgets: {
-                    "expression 1": {
-                        type: "expression",
-                        version: {major: 2, minor: 0},
-                        options: strippedExpressionOptions,
-                    },
-                },
-            };
-
-            // Act
-            const {renderer} = renderQuestion(strippedItem as any);
-
-            await userEvent.click(
-                screen.getByRole("button", {name: "open math keypad"}),
-            );
-            await userEvent.click(screen.getByRole("button", {name: "1"}));
-            await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-            await userEvent.click(screen.getByRole("button", {name: "i"}));
-            act(() => jest.runOnlyPendingTimers());
-
-            const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(fullItem, userInput, "en");
-
-            // Assert
-            expect(score).toHaveBeenAnsweredCorrectly();
-        });
+                // Assert
+                expect(score).toHaveBeenAnsweredCorrectly();
+            },
+        );
     });
 });

@@ -1,4 +1,4 @@
-export const KeypadKeyArray = [
+export const KeypadKeys = [
     "PLUS",
     "MINUS",
     "NEGATIVE",
@@ -109,7 +109,7 @@ export const KeypadKeyArray = [
     "Z",
 ] as const;
 
-export type KeypadKey = (typeof KeypadKeyArray)[number];
+export type KeypadKey = (typeof KeypadKeys)[number];
 
 export type KeypadType = "FRACTION" | "EXPRESSION";
 

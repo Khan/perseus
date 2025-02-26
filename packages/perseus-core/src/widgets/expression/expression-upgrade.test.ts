@@ -13,7 +13,7 @@ describe("widgetOptionsUpgrades", () => {
             value: "42",
         };
 
-        const v1options: PerseusExpressionWidgetOptions = {
+        const v1options = {
             times: false,
             buttonSets: ["basic"],
             functions: [],
@@ -27,8 +27,7 @@ describe("widgetOptionsUpgrades", () => {
             ],
         };
 
-        const result: PerseusExpressionWidgetOptions =
-            widgetOptionsUpgrades["1"](v0options);
+        const result = widgetOptionsUpgrades["1"](v0options);
 
         expect(result).toEqual(v1options);
     });

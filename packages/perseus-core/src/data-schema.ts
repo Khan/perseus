@@ -27,6 +27,8 @@
  *      the new format _as well as_ the old format.
  */
 
+import type {KeypadKey} from "./keypad";
+
 // TODO(FEI-4010): Remove `Perseus` prefix for all types here
 
 export type Coord = [x: number, y: number];
@@ -517,7 +519,7 @@ export type PerseusExpressionWidgetOptions = {
     // What extra keys need to be displayed on the keypad so that the
     // question can be answerable without a keyboard (ie mobile)
     // TODO: this is really ReadonlyArray<Key>
-    extraKeys?: ReadonlyArray<string>;
+    extraKeys?: ReadonlyArray<KeypadKey>;
     // visible label associated with the MathQuill field
     visibleLabel?: string;
     // aria label for screen readers attached to MathQuill field

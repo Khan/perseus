@@ -1,9 +1,12 @@
 import * as KAS from "@khanacademy/kas";
 
-import {KeypadKeyArray} from "../../keypad";
+import {
+    type KeypadKey,
+    type KeypadConfiguration,
+    KeypadKeys,
+} from "../../keypad";
 
 import type {PerseusExpressionWidgetOptions} from "../../data-schema";
-import type {KeypadConfiguration, KeypadKey} from "../../keypad";
 
 /**
  * Scrape the answer forms for any variables or contants (like Pi)
@@ -40,7 +43,7 @@ function deriveExtraKeys(
             const toKey = (symbol: any) =>
                 isGreek(symbol) ? symbol.toUpperCase() : symbol;
             const isKey = (key: string): key is KeypadKey =>
-                KeypadKeyArray.includes(key as KeypadKey);
+                KeypadKeys.includes(key as KeypadKey);
 
             for (const variable of expr.getVars()) {
                 const maybeKey = toKey(variable);

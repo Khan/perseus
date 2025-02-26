@@ -1,9 +1,7 @@
 import deriveExtraKeys from "./derive-extra-keys";
 
-import type {
-    ExpressionPublicWidgetOptions,
-    PerseusExpressionWidgetOptions,
-} from "@khanacademy/perseus-core";
+import type {ExpressionPublicWidgetOptions} from "./expression-util";
+import type {PerseusExpressionWidgetOptions} from "../../data-schema";
 
 describe("deriveExtraKeys", () => {
     it("should handle basic button set", async () => {
@@ -23,9 +21,6 @@ describe("deriveExtraKeys", () => {
     });
 
     it("should handle basic+div button set", async () => {
-        // Arrange
-        // Act
-        // Assert
         expect(
             deriveExtraKeys({
                 answerForms: [],
@@ -37,9 +32,6 @@ describe("deriveExtraKeys", () => {
     });
 
     it("should handle scientific button set", async () => {
-        // Arrange
-        // Act
-        // Assert
         expect(
             deriveExtraKeys({
                 answerForms: [],
@@ -51,9 +43,6 @@ describe("deriveExtraKeys", () => {
     });
 
     it("can find lowercase constants", async () => {
-        // Arrange
-        // Act
-        // Assert
         expect(
             deriveExtraKeys({
                 answerForms: [
@@ -72,9 +61,6 @@ describe("deriveExtraKeys", () => {
     });
 
     it("can find uppercase constants", async () => {
-        // Arrange
-        // Act
-        // Assert
         expect(
             deriveExtraKeys({
                 answerForms: [
@@ -93,9 +79,6 @@ describe("deriveExtraKeys", () => {
     });
 
     it("can find theta", async () => {
-        // Arrange
-        // Act
-        // Assert
         expect(
             deriveExtraKeys({
                 answerForms: [
@@ -114,9 +97,6 @@ describe("deriveExtraKeys", () => {
     });
 
     it("can find pi", async () => {
-        // Arrange
-        // Act
-        // Assert
         expect(
             deriveExtraKeys({
                 answerForms: [
@@ -135,8 +115,6 @@ describe("deriveExtraKeys", () => {
     });
 
     it("can handle an absense of answerForms", async () => {
-        // Arrange
-
         // this is an extreme case (maybe being overly cautious to a fault)
         // but checking that *something* gets returned if there are no answerForms
         const answerlessWidgetOptions: ExpressionPublicWidgetOptions = {
@@ -145,8 +123,6 @@ describe("deriveExtraKeys", () => {
             functions: [],
         };
 
-        // Act
-        // Assert
         expect(
             deriveExtraKeys(
                 answerlessWidgetOptions as PerseusExpressionWidgetOptions,
