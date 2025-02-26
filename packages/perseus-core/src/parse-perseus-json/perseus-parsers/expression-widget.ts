@@ -1,3 +1,4 @@
+import {KeypadKeys} from "../../keypad";
 import deriveExtraKeys from "../../widgets/expression/derive-extra-keys";
 import {
     array,
@@ -70,7 +71,7 @@ const parseExpressionWidgetV2: Parser<ExpressionWidget> =
             ariaLabel: optional(string),
             buttonSets: parseLegacyButtonSets,
             buttonsVisible: optional(enumeration("always", "never", "focused")),
-            extraKeys: array(string),
+            extraKeys: array(enumeration(...KeypadKeys)),
         }),
     );
 
