@@ -4,6 +4,7 @@ import {vec} from "mafs";
 import * as React from "react";
 import {useRef, useState} from "react";
 
+import {getDependencies} from "../../dependencies";
 import {pathBuilder} from "../../util/svg";
 
 import {useDraggable} from "./graphs/use-draggable";
@@ -19,17 +20,18 @@ import "./protractor.css";
 const {calculateAngleInDegrees, convertDegreesToRadians} = angles;
 
 const protractorImage =
-    "https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png";
+    "https://cdn.kastatic.org/images/perseus/protractor.svg";
 
 // The vector from the center of the protractor to the top left corner of the
 // protractor image, in pixels. Used for positioning.
-const centerToTopLeft: vec.Vector2 = [-180, -170];
+const centerToTopLeft: vec.Vector2 = [-195, -190];
 
 // The vector from the center of the protractor to the center of the rotation
 // handle.
-const centerToRotationHandle: vec.Vector2 = [-176, -15];
+const centerToRotationHandle: vec.Vector2 = [-201, -15];
 
 export function Protractor() {
+    const staticUrl = getDependencies().staticUrl;
     const {range, snapStep} = useGraphConfig();
     const [[xMin, xMax], [yMin, yMax]] = range;
     // Position the protractor in the center of the graph (horizontally), and
@@ -43,7 +45,7 @@ export function Protractor() {
         useState<vec.Vector2>(centerToRotationHandle);
 
     const draggableRef = useRef<SVGGElement>(null);
-    useDraggable({
+    const {dragging} = useDraggable({
         gestureTarget: draggableRef,
         onMove: setCenter,
         point: center,
@@ -70,9 +72,10 @@ export function Protractor() {
             transform={`translate(${topLeftPx[X]}, ${topLeftPx[Y]}), rotate(${angle})`}
             style={{
                 transformOrigin: `${-centerToTopLeft[X]}px ${-centerToTopLeft[Y]}px`,
+                cursor: dragging ? "grabbing" : "grab",
             }}
         >
-            <image href={protractorImage} />
+            <image href={staticUrl(protractorImage)} />
             <g
                 transform={`translate(5, ${-centerToTopLeft[1]})`}
                 ref={rotationHandleRef}
