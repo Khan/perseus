@@ -248,7 +248,10 @@ export const MafsWithLockedLine: Story = {
 
 export const MafsWithProtractor: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder().withProtractor().build(),
+        question: interactiveGraphQuestionBuilder()
+            .withAngle()
+            .withProtractor()
+            .build(),
     },
 };
 

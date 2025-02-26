@@ -1,6 +1,8 @@
 import scoreExpression from "./score-expression";
 import {expressionItem3Options} from "./score-expression.testdata";
 
+import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
+
 describe("scoreExpression", () => {
     it("should handle defined ungraded answer case with no error callback", function () {
         const err = scoreExpression("x+1", expressionItem3Options, "en");
@@ -50,5 +52,45 @@ describe("scoreExpression", () => {
     it("should handle incorrect answers with period decimal separator", function () {
         const result = scoreExpression("z+1,0", expressionItem3Options, "en");
         expect(result).toHaveInvalidInput();
+    });
+
+    it("regression LEMS-2777: equivalent to correct answer", function () {
+        // Arrange
+        const incorrect = "f(5) = f(7) + 4";
+        const correct = "f(2) = f(3) + 4";
+        const partialReversed = "f(2) = 4 + f(3)";
+        const fullyReversed = "f(3) + 4 = f(2)";
+
+        const item: PerseusExpressionWidgetOptions = {
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: false,
+                    simplify: false,
+                    value: correct,
+                },
+            ],
+            times: false,
+            buttonSets: ["basic"],
+            functions: ["f"],
+            buttonsVisible: "focused",
+            visibleLabel: "Visible",
+            ariaLabel: "Aria",
+        };
+
+        // Act
+        // Assert
+        expect(
+            scoreExpression(incorrect, item, "en"),
+        ).toHaveBeenAnsweredIncorrectly();
+        expect(
+            scoreExpression(correct, item, "en"),
+        ).toHaveBeenAnsweredCorrectly();
+        expect(
+            scoreExpression(partialReversed, item, "en"),
+        ).toHaveBeenAnsweredCorrectly();
+        expect(
+            scoreExpression(fullyReversed, item, "en"),
+        ).toHaveBeenAnsweredCorrectly();
     });
 });
