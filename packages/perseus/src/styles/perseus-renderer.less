@@ -52,6 +52,17 @@ div.graphie {
    */
     font-size: 14px;
 }
+
+.simple-button.disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.hint.last-hint {
+    .paragraph {
+        font-weight: bold;
+    }
+}
 // [END] Pulled over from khan-exercise.css (so that we could delete that file).
 
 &,  // and moar specificity...
@@ -411,12 +422,6 @@ div.graphie {
     font-size: 18px !important;
 }
 
-// Pulled over from khan-exercise.css (so that we could delete that file).
-.simple-button.disabled {
-    opacity: 0.5;
-    cursor: default;
-}
-
 @import "./widgets/categorizer.less";
 @import "./widgets/dropdown.less";
 @import "./widgets/expression.less";
@@ -485,13 +490,6 @@ div.graphie {
     }
     &.last-hint {
         margin-bottom: 32px;
-    }
-}
-
-// Pulled over from khan-exercise.css (so that we could delete that file).
-.hint.last-hint {
-    .paragraph {
-        font-weight: bold;
     }
 }
 
