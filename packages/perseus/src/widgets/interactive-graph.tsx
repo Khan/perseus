@@ -33,6 +33,7 @@ import type {
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
     GraphRange,
+    InteractiveGraphPublicWidgetOptions,
     LockedFigure,
     PerseusImageBackground,
     MarkingsType,
@@ -45,7 +46,8 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {getClockwiseAngle} = angles;
 
-const {getLineEquation, getLineIntersection, magnitude, vector} = geometry;
+const {getLineEquation, getLineIntersectionString, magnitude, vector} =
+    geometry;
 
 const defaultBackgroundImage = {
     url: null,
@@ -151,10 +153,12 @@ type RenderProps = {
      */
     graph: PerseusGraphType;
     /**
-     * The correct kind of graph, if being used to select function type
+     * The correct answer for this widget. Will be undefined if the graph is
+     * being provided answerless data (e.g. because the learner has not yet
+     * submitted their guess).
      */
     // TODO(LEMS-2344): make the type of `correct` more specific
-    correct: PerseusGraphType;
+    correct?: PerseusGraphType;
     /**
      * Shapes (points, chords, etc) displayed on the graph that cannot be moved
      * by the user.
@@ -190,6 +194,11 @@ type DefaultProps = {
 // which receive defaults via defaultProps.
 0 as any as WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
+    PerseusInteractiveGraphRubric
+> satisfies PropsFor<typeof InteractiveGraph>;
+
+0 as any as WidgetProps<
+    InteractiveGraphPublicWidgetOptions,
     PerseusInteractiveGraphRubric
 > satisfies PropsFor<typeof InteractiveGraph>;
 
@@ -730,7 +739,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             "\n" +
             getLineEquation(coords[1][0], coords[1][1]) +
             "\n" +
-            getLineIntersection(coords[0], coords[1])
+            getLineIntersectionString(coords[0], coords[1])
         );
     }
 

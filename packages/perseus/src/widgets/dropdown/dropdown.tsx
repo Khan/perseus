@@ -11,13 +11,13 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dr
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
-import type {PerseusDropdownWidgetOptions} from "@khanacademy/perseus-core";
 import type {
-    PerseusDropdownRubric,
-    PerseusDropdownUserInput,
-} from "@khanacademy/perseus-score";
+    DropdownPublicWidgetOptions,
+    PerseusDropdownWidgetOptions,
+} from "@khanacademy/perseus-core";
+import type {PerseusDropdownUserInput} from "@khanacademy/perseus-score";
 
-type Props = WidgetProps<RenderProps, PerseusDropdownRubric> & {
+type Props = WidgetProps<RenderProps> & {
     selected: number;
 };
 
@@ -151,21 +151,19 @@ type RenderProps = {
     choices: ReadonlyArray<string>;
 };
 
-const optionsTransform: (arg1: PerseusDropdownWidgetOptions) => RenderProps = (
-    widgetOptions,
-) => {
+function transform(widgetOptions: DropdownPublicWidgetOptions): RenderProps {
     return {
         placeholder: widgetOptions.placeholder,
         visibleLabel: widgetOptions.visibleLabel,
         ariaLabel: widgetOptions.ariaLabel,
         choices: widgetOptions.choices.map((choice) => choice.content),
     };
-};
+}
 
 export default {
     name: "dropdown",
     displayName: "Drop down",
     accessible: true,
     widget: Dropdown,
-    transform: optionsTransform,
+    transform,
 } satisfies WidgetExports<typeof Dropdown>;

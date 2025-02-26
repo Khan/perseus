@@ -22,18 +22,15 @@
         "dist"
     ],
     "scripts": {
-        "prepublishOnly": "../../utils/package-pre-publish-check.sh",
-        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
+        "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
-    "dependencies": {
-        "@khanacademy/perseus-core": "3.7.0"
-    },
+    "dependencies": {},
     "devDependencies": {
-        "perseus-build-settings": "^0.4.3"
+        "perseus-build-settings": "workspace:*"
     },
     "peerDependencies": {
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react": "catalog:",
+        "react-dom": "catalog:"
     },
     "keywords": [
         "markdown"

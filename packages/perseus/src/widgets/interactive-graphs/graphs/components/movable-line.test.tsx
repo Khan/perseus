@@ -4,7 +4,11 @@ import React from "react";
 
 import * as UseDraggableModule from "../use-draggable";
 
-import {MovableLine, trimRange} from "./movable-line";
+import {
+    getMovableLineKeyboardConstraint,
+    MovableLine,
+    trimRange,
+} from "./movable-line";
 
 import type {Interval, vec} from "mafs";
 
@@ -168,5 +172,24 @@ describe("Rendering", () => {
         // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
         line = container.querySelector("[data-testid='movable-line__line']");
         expect(line?.classList).toContain("movable-dragging");
+    });
+});
+describe("getMovableLineKeyboardConstraint", () => {
+    it("should snap to the snapStep and avoid putting points on a vertical line", () => {
+        const line: [vec.Vector2, vec.Vector2] = [
+            [0, 0],
+            [1, 0],
+        ];
+        const snapStep: vec.Vector2 = [1, 1];
+
+        // We're moving the first point
+        const constraint = getMovableLineKeyboardConstraint(line, snapStep, 0);
+
+        expect(constraint).toEqual({
+            up: [0, 1],
+            down: [0, -1],
+            left: [-1, 0],
+            right: [2, 0], // Avoids overlapping the points
+        });
     });
 });

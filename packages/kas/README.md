@@ -76,14 +76,14 @@ expr.simplify().print();
 ```
 
 ## How to build the library
-    yarn
-    yarn build
+    pnpm install
+    pnpm build
 
 ## How to build the parser
 First, make any changes in `src/parser-generator.js`
 
-    yarn
-    yarn build:parser
+    pnpm install
+    pnpm build:parser
 
 ## License
 [MIT License](http://opensource.org/licenses/MIT)
