@@ -762,7 +762,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             value=""
                           />
                           <span
-                            id="aria-for-input-with-examples-:r0:"
+                            id="aria-for-:r0:"
                             style="display: none;"
                           />
                         </div>
@@ -818,7 +818,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             value=""
                           />
                           <span
-                            id="aria-for-input-with-examples-:r3:"
+                            id="aria-for-:r3:"
                             style="display: none;"
                           />
                         </div>

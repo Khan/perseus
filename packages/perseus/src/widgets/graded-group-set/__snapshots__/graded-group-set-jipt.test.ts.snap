@@ -73,7 +73,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         value=""
                       />
                       <span
-                        id="aria-for-input-with-examples-:r0:"
+                        id="aria-for-:r0:"
                         style="display: none;"
                       />
                     </div>
@@ -150,7 +150,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         value=""
                       />
                       <span
-                        id="aria-for-input-with-examples-:r3:"
+                        id="aria-for-:r3:"
                         style="display: none;"
                       />
                     </div>
@@ -227,7 +227,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         value=""
                       />
                       <span
-                        id="aria-for-input-with-examples-:r6:"
+                        id="aria-for-:r6:"
                         style="display: none;"
                       />
                     </div>

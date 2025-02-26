@@ -139,7 +139,7 @@ exports[`graded group widget should snapshot 1`] = `
                         value=""
                       />
                       <span
-                        id="aria-for-input-with-examples-:r0:"
+                        id="aria-for-:r0:"
                         style="display: none;"
                       />
                     </div>

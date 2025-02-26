@@ -61,6 +61,7 @@ const InputWithExamples = forwardRef<
     const inputRef = React.useRef<TextInput>(null);
     const [inputFocused, setInputFocused] = React.useState<boolean>(false);
     const id = useId();
+    const ariaId = `aria-for-${id}`;
 
     useImperativeHandle(ref, () => ({
         current: inputRef.current,
@@ -97,13 +98,7 @@ const InputWithExamples = forwardRef<
         setInputFocused(false);
     };
 
-    const getUniqueId = () => {
-        return `input-with-examples-${id}`;
-    };
-
     const renderInput = () => {
-        const ariaId = `aria-for-${getUniqueId()}`;
-
         // Generate the provided examples in simple language for screen readers.
         const examplesAria = props.shouldShowExamples
             ? `${props.examples[0]}
