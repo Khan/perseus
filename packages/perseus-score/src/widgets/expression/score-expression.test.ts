@@ -1,6 +1,7 @@
 import scoreExpression from "./score-expression";
 import {expressionItem3Options} from "./score-expression.testdata";
 
+import type {PerseusExpressionRubric} from "../../validation.types";
 import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
 
 describe("scoreExpression", () => {
@@ -52,6 +53,23 @@ describe("scoreExpression", () => {
     it("should handle incorrect answers with period decimal separator", function () {
         const result = scoreExpression("z+1,0", expressionItem3Options, "en");
         expect(result).toHaveInvalidInput();
+    });
+
+    it("should handle TeX", () => {
+        const item: PerseusExpressionRubric = {
+            answerForms: [
+                {
+                    considered: "correct",
+                    value: "42",
+                    form: false,
+                    simplify: false,
+                },
+            ],
+            functions: [],
+        };
+
+        const result = scoreExpression("\\sqrt{42^{2}}", item, "en");
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 
     it("regression LEMS-2777: equivalent to correct answer", function () {
