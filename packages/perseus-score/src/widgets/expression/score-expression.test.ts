@@ -1,6 +1,8 @@
 import scoreExpression from "./score-expression";
 import {expressionItem3Options} from "./score-expression.testdata";
 
+import type {PerseusExpressionRubric} from "../../validation.types";
+
 describe("scoreExpression", () => {
     it("should handle defined ungraded answer case with no error callback", function () {
         const err = scoreExpression("x+1", expressionItem3Options, "en");
@@ -50,5 +52,22 @@ describe("scoreExpression", () => {
     it("should handle incorrect answers with period decimal separator", function () {
         const result = scoreExpression("z+1,0", expressionItem3Options, "en");
         expect(result).toHaveInvalidInput();
+    });
+
+    it("should handle TeX", () => {
+        const item: PerseusExpressionRubric = {
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: false,
+                    simplify: false,
+                    value: "42",
+                },
+            ],
+            functions: ["f", "g", "h"],
+        };
+
+        const result = scoreExpression("\\sqrt{42^{2}}", item, "en");
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 });
