@@ -99,9 +99,8 @@ const PolygonGraph = (props: Props) => {
 
     // Logic to build the dragging experience. Primarily used by Limited Polygon.
     const dragReferencePoint = points[0];
-    const constrain: KeyboardMovementConstraint = ["angles"].includes(snapTo)
-        ? (p) => p
-        : (p) => snap(snapStep, p);
+    const constrain: KeyboardMovementConstraint =
+        snapTo === "angles" ? (p) => p : (p) => snap(snapStep, p);
 
     const {dragging} = useDraggable({
         gestureTarget: polygonRef,
