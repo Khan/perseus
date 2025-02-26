@@ -450,6 +450,7 @@ class InteractiveGraphQuestionBuilder {
             color: "grayH",
             strokeStyle: "solid",
             directionalAxis: "x",
+            domain: [null, null],
             ...options,
             labels: options?.labels?.map(
                 (label) =>

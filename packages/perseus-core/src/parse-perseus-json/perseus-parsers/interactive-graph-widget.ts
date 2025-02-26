@@ -259,8 +259,10 @@ const parseLockedFunctionType: Parser<LockedFunctionType> = object({
     strokeStyle: parseLockedLineStyle,
     equation: string,
     directionalAxis: enumeration("x", "y"),
-    // TODO(benchristel): default domain to [null, null]?
-    domain: optional(pair(nullable(number), nullable(number))),
+    domain: defaulted(
+        pair(nullable(number), nullable(number)),
+        () => [null, null] as [null, null],
+    ),
     // TODO(benchristel): default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),
