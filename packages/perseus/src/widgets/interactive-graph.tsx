@@ -46,7 +46,8 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {getClockwiseAngle} = angles;
 
-const {getLineEquation, getLineIntersection, magnitude, vector} = geometry;
+const {getLineEquation, getLineIntersectionString, magnitude, vector} =
+    geometry;
 
 const defaultBackgroundImage = {
     url: null,
@@ -738,7 +739,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             "\n" +
             getLineEquation(coords[1][0], coords[1][1]) +
             "\n" +
-            getLineIntersection(coords[0], coords[1])
+            getLineIntersectionString(coords[0], coords[1])
         );
     }
 

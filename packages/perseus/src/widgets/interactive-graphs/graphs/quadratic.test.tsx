@@ -8,9 +8,14 @@ import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {describeQuadraticGraph, getQuadraticCoefficients} from "./quadratic";
+import {
+    describeQuadraticGraph,
+    getQuadraticCoefficients,
+    getQuadraticKeyboardConstraint,
+} from "./quadratic";
 
 import type {QuadraticGraphState, InteractiveGraphState} from "../types";
+import type {vec} from "mafs";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseQuadraticState: InteractiveGraphState = {
@@ -72,10 +77,7 @@ describe("Quadratic graph screen reader", () => {
             render(
                 <MafsGraph
                     {...baseMafsGraphProps}
-                    state={{
-                        ...baseQuadraticState,
-                        coords: points,
-                    }}
+                    state={{...baseQuadraticState, coords: points}}
                 />,
             );
 
@@ -95,9 +97,7 @@ describe("Quadratic graph screen reader", () => {
         render(
             <MafsGraph
                 {...baseMafsGraphProps}
-                state={{
-                    ...baseQuadraticState,
-                }}
+                state={{...baseQuadraticState}}
             />,
         );
 
@@ -125,9 +125,7 @@ describe("Quadratic graph screen reader", () => {
         render(
             <MafsGraph
                 {...baseMafsGraphProps}
-                state={{
-                    ...baseQuadraticState,
-                }}
+                state={{...baseQuadraticState}}
             />,
         );
 
@@ -259,37 +257,6 @@ describe("Quadratic graph screen reader", () => {
     });
 });
 
-describe("QuadraticGraph", () => {
-    it("should accurately calculate coefficients", () => {
-        const coords: QuadraticGraphState["coords"] = [
-            [-5, 5],
-            [0, -5],
-            [4, 5],
-        ];
-        const expected: [number, number, number] = [0.5, 0.5, -5];
-        expect(getQuadraticCoefficients(coords)).toEqual(expected);
-    });
-
-    it("should accurately calculate coefficients regardless of the provided order", () => {
-        const coords: QuadraticGraphState["coords"] = [
-            [-5, 5],
-            [4, 5],
-            [0, -5],
-        ];
-        const expected: [number, number, number] = [0.5, 0.5, -5];
-        expect(getQuadraticCoefficients(coords)).toEqual(expected);
-    });
-
-    it("should return undefined when the coefficients are invalid", () => {
-        const coords: QuadraticGraphState["coords"] = [
-            [0, 0],
-            [0, 0],
-            [0, 0],
-        ];
-        expect(getQuadraticCoefficients(coords)).toBe(undefined);
-    });
-});
-
 describe("describedQuadraticGraph interactive elements", () => {
     test("describes interactive elements on a default quadratic graph", () => {
         // Arrange
@@ -326,5 +293,76 @@ describe("describedQuadraticGraph interactive elements", () => {
         expect(strings.srQuadraticInteractiveElements).toBe(
             "Interactive elements: Parabola with points at -1 comma 2, 3 comma 4, and 5 comma 5.",
         );
+    });
+});
+
+describe("getQuadraticCoefficients", () => {
+    it("should accurately calculate coefficients", () => {
+        const coords: QuadraticGraphState["coords"] = [
+            [-5, 5],
+            [0, -5],
+            [4, 5],
+        ];
+        const expected: [number, number, number] = [0.5, 0.5, -5];
+        expect(getQuadraticCoefficients(coords)).toEqual(expected);
+    });
+
+    it("should accurately calculate coefficients regardless of the provided order", () => {
+        const coords: QuadraticGraphState["coords"] = [
+            [-5, 5],
+            [4, 5],
+            [0, -5],
+        ];
+        const expected: [number, number, number] = [0.5, 0.5, -5];
+        expect(getQuadraticCoefficients(coords)).toEqual(expected);
+    });
+
+    it("should return undefined when the coefficients are invalid", () => {
+        const coords: QuadraticGraphState["coords"] = [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ];
+        expect(getQuadraticCoefficients(coords)).toBe(undefined);
+    });
+});
+
+describe("getQuadraticKeyboardConstraint", () => {
+    it("should snap to the snapStep and avoid putting points on a vertical line", () => {
+        const coords: QuadraticGraphState["coords"] = [
+            [0, 0],
+            [1, 1],
+            [3, 3],
+        ];
+        const snapStep: vec.Vector2 = [1, 1];
+
+        // We're moving the first point
+        const constraint = getQuadraticKeyboardConstraint(coords, snapStep, 0);
+
+        expect(constraint).toEqual({
+            up: [0, 1],
+            down: [0, -1],
+            left: [-1, 0],
+            right: [2, 0], // Avoids putting the point on a vertical line
+        });
+    });
+
+    it("should avoid vertical alignment even when all points are one snapStep apart", () => {
+        const coords: QuadraticGraphState["coords"] = [
+            [0, 0],
+            [1, 1],
+            [2, 2],
+        ];
+        const snapStep: vec.Vector2 = [1, 1];
+
+        // We're moving the first point
+        const constraint = getQuadraticKeyboardConstraint(coords, snapStep, 0);
+
+        expect(constraint).toEqual({
+            up: [0, 1],
+            down: [0, -1],
+            left: [-1, 0],
+            right: [3, 0], // Avoids putting the point on a vertical line
+        });
     });
 });

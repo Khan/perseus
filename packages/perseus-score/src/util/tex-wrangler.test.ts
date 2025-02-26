@@ -78,3 +78,22 @@ describe("parseTex", () => {
         assertParsed(undefined, "");
     });
 });
+describe("parseTex", () => {
+    it("should replace single fractions", () => {
+        assertParsed("\\dfrac{3}{4}", "3 / 4");
+    });
+
+    it("should remove blackslash-escapes for percent signs", () => {
+        assertParsed("3\\%", "3%");
+        assertParsed("3.5\\%", "3.5%");
+        assertParsed("\\dfrac{3\\%}{4}", "3% / 4");
+    });
+
+    it("should not throw error when input is undefined", () => {
+        assertParsed(undefined, "");
+    });
+
+    it("should not cause an infinite loop if provided incomplete tex commands", () => {
+        assertParsed("\\frac", "/");
+    });
+});

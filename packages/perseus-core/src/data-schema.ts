@@ -1181,15 +1181,15 @@ export type MathFormat =
     | "pi";
 
 export type PerseusNumericInputAnswerForm = {
-    simplify:
-        | "required"
-        | "correct"
-        | "enforced"
-        | "optional"
-        | null
-        | undefined;
+    simplify: PerseusNumericInputSimplify | null | undefined;
     name: MathFormat;
 };
+
+export type PerseusNumericInputSimplify =
+    | "required"
+    | "correct"
+    | "enforced"
+    | "optional";
 
 export type PerseusNumericInputWidgetOptions = {
     // A list of all the possible correct and incorrect answers
@@ -1205,9 +1205,6 @@ export type PerseusNumericInputWidgetOptions = {
     rightAlign?: boolean;
     // Always false.  Not used for this widget
     static: boolean;
-    // Used by examples, maybe not used and should be removed in the future
-    // see TODO in numeric-input
-    answerForms?: ReadonlyArray<PerseusNumericInputAnswerForm>;
 };
 
 export type PerseusNumericInputAnswer = {
@@ -1227,7 +1224,7 @@ export type PerseusNumericInputAnswer = {
     // NOTE: perseus_data.go says this is non-nullable even though we handle null values.
     maxError: number | null | undefined;
     // Unsimplified answers are Ungraded, Accepted, or Wrong. Options: "required", "correct", or "enforced"
-    simplify: string | null | undefined;
+    simplify: PerseusNumericInputSimplify | null | undefined;
 };
 
 export type PerseusNumberLineWidgetOptions = {

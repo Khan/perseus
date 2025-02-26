@@ -687,7 +687,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                             </fieldset>
                             {unsimplifiedAnswers(i)}
                             <div className="perseus-widget-row">
-                                Message shown to user in article:
+                                (Articles only) Message shown to user:
                             </div>
                             {editor}
                             {suggestedAnswerTypes(i)}

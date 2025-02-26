@@ -747,189 +747,24 @@ exports[`group widget should snapshot: initial render 1`] = `
                         <div
                           class="perseus-widget-container widget-nohighlight widget-inline-block"
                         >
-                          <span>
-                            <div>
-                              <input
-                                aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
-                                aria-disabled="false"
-                                aria-invalid="false"
-                                aria-label="value rounded to the nearest ten"
-                                aria-required="false"
-                                autocapitalize="off"
-                                autocomplete="off"
-                                autocorrect="off"
-                                class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-input_1y6ajxo"
-                                id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
-                                type="text"
-                                value=""
-                              />
-                              <span
-                                id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
-                                style="display: none;"
-                              />
-                            </div>
-                            <div
-                              style="position: relative; height: 0px; display: none;"
-                            >
-                              <div
-                                class="tooltipContainer"
-                                role="tooltip"
-                                style="position: absolute; left: 0px;"
-                              >
-                                <div
-                                  style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
-                                >
-                                  <div
-                                    style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
-                                  />
-                                  <div
-                                    style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
-                                  />
-                                </div>
-                                <div
-                                  class="perseus-formats-tooltip preview-measure"
-                                  style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
-                                >
-                                  <div
-                                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
-                                  >
-                                    <div
-                                      class="perseus-renderer perseus-renderer-responsive"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                        data-perseus-paragraph-index="0"
-                                      >
-                                        <div
-                                          class="paragraph"
-                                        >
-                                          <strong>
-                                            Your answer should be
-                                          </strong>
-                                           
-                                        </div>
-                                      </div>
-                                      <div
-                                        class="paragraph"
-                                        data-perseus-paragraph-index="1"
-                                      >
-                                        <ul>
-                                          <li>
-                                            an integer, like 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                6
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            a 
-                                            <em>
-                                              simplified proper
-                                            </em>
-                                             fraction, like 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                3/5
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            a 
-                                            <em>
-                                              simplified improper
-                                            </em>
-                                             fraction, like 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                7/4
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            a mixed number, like 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                1\\ 3/4
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            an 
-                                            <em>
-                                              exact
-                                            </em>
-                                             decimal, like 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                0.75
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            a multiple of pi, like 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                12\\ \\text{pi}
-                                              </span>
-                                              <span />
-                                            </span>
-                                             or 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                2/3\\ \\text{pi}
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </li>
-                                        </ul>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </span>
+                          <input
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="value rounded to the nearest ten"
+                            aria-required="false"
+                            autocapitalize="off"
+                            autocomplete="off"
+                            autocorrect="off"
+                            class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-inputWithExamples_1y6ajxo"
+                            id=":r0:"
+                            tabindex="0"
+                            type="text"
+                            value=""
+                          />
+                          <span
+                            id="aria-for-:r0:"
+                            style="display: none;"
+                          />
                         </div>
                       </div>
                     </div>
@@ -968,189 +803,24 @@ exports[`group widget should snapshot: initial render 1`] = `
                         <div
                           class="perseus-widget-container widget-nohighlight widget-inline-block"
                         >
-                          <span>
-                            <div>
-                              <input
-                                aria-describedby="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAy"
-                                aria-disabled="false"
-                                aria-invalid="false"
-                                aria-label="value rounded to the nearest hundred"
-                                aria-required="false"
-                                autocapitalize="off"
-                                autocomplete="off"
-                                autocorrect="off"
-                                class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-input_1y6ajxo"
-                                id="input-with-examples-bnVtZXJpYy1pbnB1dCAy"
-                                type="text"
-                                value=""
-                              />
-                              <span
-                                id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAy"
-                                style="display: none;"
-                              />
-                            </div>
-                            <div
-                              style="position: relative; height: 0px; display: none;"
-                            >
-                              <div
-                                class="tooltipContainer"
-                                role="tooltip"
-                                style="position: absolute; left: 0px;"
-                              >
-                                <div
-                                  style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
-                                >
-                                  <div
-                                    style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
-                                  />
-                                  <div
-                                    style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
-                                  />
-                                </div>
-                                <div
-                                  class="perseus-formats-tooltip preview-measure"
-                                  style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
-                                >
-                                  <div
-                                    id="input-with-examples-bnVtZXJpYy1pbnB1dCAy"
-                                  >
-                                    <div
-                                      class="perseus-renderer perseus-renderer-responsive"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                        data-perseus-paragraph-index="0"
-                                      >
-                                        <div
-                                          class="paragraph"
-                                        >
-                                          <strong>
-                                            Your answer should be
-                                          </strong>
-                                           
-                                        </div>
-                                      </div>
-                                      <div
-                                        class="paragraph"
-                                        data-perseus-paragraph-index="1"
-                                      >
-                                        <ul>
-                                          <li>
-                                            an integer, like 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                6
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            a 
-                                            <em>
-                                              simplified proper
-                                            </em>
-                                             fraction, like 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                3/5
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            a 
-                                            <em>
-                                              simplified improper
-                                            </em>
-                                             fraction, like 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                7/4
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            a mixed number, like 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                1\\ 3/4
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            an 
-                                            <em>
-                                              exact
-                                            </em>
-                                             decimal, like 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                0.75
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            a multiple of pi, like 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                12\\ \\text{pi}
-                                              </span>
-                                              <span />
-                                            </span>
-                                             or 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                2/3\\ \\text{pi}
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </li>
-                                        </ul>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </span>
+                          <input
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="value rounded to the nearest hundred"
+                            aria-required="false"
+                            autocapitalize="off"
+                            autocomplete="off"
+                            autocorrect="off"
+                            class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-inputWithExamples_1y6ajxo"
+                            id=":r3:"
+                            tabindex="0"
+                            type="text"
+                            value=""
+                          />
+                          <span
+                            id="aria-for-:r3:"
+                            style="display: none;"
+                          />
                         </div>
                       </div>
                     </div>

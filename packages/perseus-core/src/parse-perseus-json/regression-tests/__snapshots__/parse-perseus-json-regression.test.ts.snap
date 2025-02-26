@@ -6791,7 +6791,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
             {
               "maxError": 0,
               "message": "",
-              "simplify": "true",
+              "simplify": "required",
               "status": "correct",
               "strict": false,
               "value": 1.125,
@@ -7704,7 +7704,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.json
             {
               "maxError": 0,
               "message": "",
-              "simplify": "false",
+              "simplify": "optional",
               "status": "correct",
               "strict": false,
               "value": 2.6,
