@@ -2256,6 +2256,97 @@ In case you would like a fuller experience, here is a taste of a skill you can l
 }
 `;
 
+exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns the same result as before 1`] = `
+{
+  "_multi": null,
+  "answer": null,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "crwdns3438995:0$944544$crwdnd3438995:0$10$crwdnd3438995:0$10$crwdne3438995:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns3439031:0$10$crwdnd3439031:0$0$crwdne3439031:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns3439065:0$944544$crwdnd3439065:0$4$crwdnd3439065:0$944544$crwdnd3439065:0$10$crwdne3439065:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "crwdns3439028:0{944544}crwdnd3439028:0$10$crwdne3439028:0",
+    "images": {},
+    "metadata": null,
+    "replace": null,
+    "widgets": {
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "choices": [
+            {
+              "clue": "",
+              "content": "crwdns2693864:0crwdne2693864:0",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+            {
+              "clue": "",
+              "content": "crwdns2693863:0crwdne2693863:0",
+              "correct": true,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "noneOfTheAbove": false,
+          "onePerLine": true,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.json returns the same result as before 1`] = `
 {
   "answerArea": {
