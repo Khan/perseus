@@ -1061,11 +1061,7 @@ function boundAndSnapToPolygonAngle(
 
 function boundAndSnapToSides(
     destinationPoint: vec.Vector2,
-    {
-        range,
-        coords,
-        snapStep,
-    }: {range: [Interval, Interval]; coords: Coord[]; snapStep: vec.Vector2},
+    {range, coords}: {range: [Interval, Interval]; coords: Coord[]},
     index: number,
 ) {
     const startingPoint = coords[index];
@@ -1091,6 +1087,7 @@ export function calculateSideSnap(
     startingPoint: vec.Vector2,
 ) {
     // Takes the destination point and makes sure it is within the bounds of the graph
+    // SnapStep is [0, 0] because we don't want to snap to the grid
     coords[index] = bound({
         snapStep: [0, 0],
         range,

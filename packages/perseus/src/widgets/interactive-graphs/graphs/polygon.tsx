@@ -1,7 +1,6 @@
 import {angles} from "@khanacademy/kmath";
 import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
-import _ from "underscore";
 
 import {
     usePerseusI18n,
@@ -260,7 +259,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     return (
                         <TextLabel key={"side-" + i} x={x} y={y}>
                             {isApprox
-                                ? `≈ ${length.toFixed(snapTo === "sides" ? 1 : 1)}`
+                                ? `≈ ${length.toFixed(snapTo === "sides" ? 0 : 1)}`
                                 : length}
                         </TextLabel>
                     );
@@ -738,8 +737,7 @@ export function getSideSnapConstraint(
         return newPoint;
     };
 
-    // Determine if we want to keep to align with snap steps or keep with
-    // whole units.
+    // For each direction look for the next movable point one whole integer away.
     return {
         up: movePointWithConstraint((coord) => vec.add(coord, [0, 1])),
         down: movePointWithConstraint((coord) => vec.sub(coord, [0, 1])),
