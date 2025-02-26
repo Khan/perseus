@@ -159,17 +159,24 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     };
 
     onChange: (arg1: any) => void = ({checked}) => {
-        const choices = _.map(this.props.choices, (choice, i) => {
-            return _.extend({}, choice, {
+        const choices = this.props.choices.map((choice, i) => {
+            return {
+                ...choice,
                 correct: checked[i],
                 content:
                     choice.isNoneOfTheAbove && !checked[i]
                         ? ""
                         : choice.content,
-            });
+            };
         });
 
-        this.props.onChange({choices: choices});
+        this.props.onChange({
+            choices: choices,
+            numCorrect: deriveNumCorrect({
+                ...this.props,
+                choices,
+            }),
+        });
     };
 
     onContentChange: (arg1: any, arg2: any) => void = (

@@ -176,4 +176,61 @@ describe("radio-editor", () => {
 
         expect(options?.numCorrect).toEqual(2);
     });
+
+    it("derives num correct when calling onChange", async () => {
+        let options: any;
+
+        function getCorrectChoice(): PerseusRadioChoice {
+            return {
+                content: "",
+                correct: true,
+            };
+        }
+
+        function getIncorrectChoice(): PerseusRadioChoice {
+            const choice = getCorrectChoice();
+            choice.correct = false;
+            return choice;
+        }
+
+        render(
+            <RadioEditor
+                onChange={(o) => {
+                    options = o;
+                }}
+                apiOptions={ApiOptions.defaults}
+                static={false}
+                multipleSelect={true}
+                countChoices={true}
+                choices={[
+                    // start with 2 correct, 2 incorrect
+                    getIncorrectChoice(),
+                    getIncorrectChoice(),
+                    getCorrectChoice(),
+                    getCorrectChoice(),
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        /**
+         * This was super annoying to figure out.
+         * When in "edit" mode (which the editor is obviously)
+         * the only way to select an option from the radio
+         * is to click the A/B/C/etc icons themselves.
+         * We have a `elem.getAttribute("data-is-radio-icon")` check
+         * to make sure that what we're clicking is the icon and
+         * not some other part of the radio choice.
+         * It's just a div, hence the test ID.
+         */
+        const choices = screen.getAllByTestId(
+            "choice-icon__library-choice-icon",
+        );
+
+        // switch an incorrect answer into a correct answer
+        await userEvent.click(choices[0]);
+
+        // now there should be 3 correct answers
+        expect(options?.numCorrect).toBe(3);
+    });
 });
