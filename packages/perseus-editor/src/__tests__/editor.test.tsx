@@ -168,13 +168,9 @@ describe("Editor", () => {
         );
         act(() => jest.runOnlyPendingTimers());
 
-        // await userEvent.selectOptions(
-        //     screen.getByTestId("editor__widget-select"),
-        //     "Expression / Equation",
-        // );
-
-        await userEvent.click(
-            screen.getByRole("option", {name: "Expression / Equation"}),
+        await userEvent.selectOptions(
+            screen.getByTestId("editor__widget-select"),
+            "Expression / Equation",
         );
 
         expect(cbData?.widgets?.["expression 1"]?.version).toEqual({
