@@ -261,7 +261,7 @@ const parseLockedFunctionType: Parser<LockedFunctionType> = object({
     directionalAxis: enumeration("x", "y"),
     domain: defaulted(
         pair(nullable(number), nullable(number)),
-        () => [null, null] as [null, null],
+        (): [null, null] => [null, null],
     ),
     // TODO(benchristel): default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
