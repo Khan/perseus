@@ -30,26 +30,21 @@ class WidgetSelect extends React.Component<WidgetSelectProps> {
         });
         const addWidgetString = "Add a widget\u2026";
         return (
-            <>
-                <label htmlFor="widget-select">Widget select</label>
-                <br />
-                <select
-                    value=""
-                    onChange={this.handleChange}
-                    data-testid="editor__widget-select"
-                    name="widget-select"
-                >
-                    <option value="">{addWidgetString}</option>
-                    <option disabled>--</option>
-                    {orderedWidgetNames.map((name) => {
-                        return (
-                            <option key={name} value={name}>
-                                {widgets[name].displayName}
-                            </option>
-                        );
-                    })}
-                </select>
-            </>
+            <select
+                value=""
+                onChange={this.handleChange}
+                data-testid="editor__widget-select"
+            >
+                <option value="">{addWidgetString}</option>
+                <option disabled>--</option>
+                {orderedWidgetNames.map((name) => {
+                    return (
+                        <option key={name} value={name}>
+                            {widgets[name].displayName}
+                        </option>
+                    );
+                })}
+            </select>
         );
     }
 }
