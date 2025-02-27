@@ -425,8 +425,16 @@ abstract class Expr {
             );
         };
 
-        // if no variables, only need to evaluate once
-        if (!varList.length && !this.has(Unit) && !other.has(Unit)) {
+        // If no variables, only need to evaluate once.
+        // note(matthew) Seems to be an optimization for simple cases like `2+2=4`
+        // where there are no variables / functions.
+        // Ran into issues with it in LEMS-2777 and found that tests pass
+        // with this removed, but keeping a modified version out of caution.
+        const varAndFuncList = _.union(
+            this.getVars(/* excludeFunc */ false),
+            other.getVars(/* excludeFunc */ false),
+        );
+        if (!varAndFuncList.length && !this.has(Unit) && !other.has(Unit)) {
             return equalNumbers(this.eval(), other.eval());
         }
 
