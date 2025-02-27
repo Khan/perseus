@@ -1,3 +1,5 @@
+import {KeypadKeys} from "../../keypad";
+import deriveExtraKeys from "../../widgets/expression/derive-extra-keys";
 import {
     array,
     boolean,
@@ -54,10 +56,10 @@ function removeInvalidAnswerForms(
     return valid;
 }
 
-const version1 = object({major: constant(1), minor: number});
-const parseExpressionWidgetV1: Parser<ExpressionWidget> =
+const version2 = object({major: constant(2), minor: number});
+const parseExpressionWidgetV2: Parser<ExpressionWidget> =
     parseWidgetWithVersion(
-        version1,
+        version2,
         constant("expression"),
         object({
             answerForms: pipeParsers(
@@ -69,8 +71,46 @@ const parseExpressionWidgetV1: Parser<ExpressionWidget> =
             ariaLabel: optional(string),
             buttonSets: parseLegacyButtonSets,
             buttonsVisible: optional(enumeration("always", "never", "focused")),
+            extraKeys: array(enumeration(...KeypadKeys)),
         }),
     );
+
+const version1 = object({major: constant(1), minor: number});
+const parseExpressionWidgetV1 = parseWidgetWithVersion(
+    version1,
+    constant("expression"),
+    object({
+        answerForms: pipeParsers(array(parsePossiblyInvalidAnswerForm)).then(
+            convert(removeInvalidAnswerForms),
+        ).parser,
+        functions: array(string),
+        times: boolean,
+        visibleLabel: optional(string),
+        ariaLabel: optional(string),
+        buttonSets: parseLegacyButtonSets,
+        buttonsVisible: optional(enumeration("always", "never", "focused")),
+    }),
+);
+
+function migrateV1ToV2(
+    widget: ParsedValue<typeof parseExpressionWidgetV1>,
+): ExpressionWidget {
+    const {options} = widget;
+    return {
+        ...widget,
+        version: {major: 2, minor: 0},
+        options: {
+            times: options.times,
+            buttonSets: options.buttonSets,
+            functions: options.functions,
+            buttonsVisible: options.buttonsVisible,
+            visibleLabel: options.visibleLabel,
+            ariaLabel: options.ariaLabel,
+            answerForms: options.answerForms,
+            extraKeys: deriveExtraKeys(options),
+        },
+    };
+}
 
 const version0 = optional(object({major: constant(0), minor: number}));
 const parseExpressionWidgetV0 = parseWidgetWithVersion(
@@ -91,14 +131,14 @@ const parseExpressionWidgetV0 = parseWidgetWithVersion(
 
 function migrateV0ToV1(
     widget: ParsedValue<typeof parseExpressionWidgetV0>,
-): ExpressionWidget {
+): ParsedValue<typeof parseExpressionWidgetV1> {
     const {options} = widget;
     return {
         ...widget,
         version: {major: 1, minor: 0},
         options: {
             times: options.times,
-            buttonSets: options.buttonSets,
+            buttonSets: options.buttonSets as any,
             functions: options.functions,
             buttonsVisible: options.buttonsVisible,
             visibleLabel: options.visibleLabel,
@@ -117,8 +157,6 @@ function migrateV0ToV1(
 }
 
 export const parseExpressionWidget: Parser<ExpressionWidget> =
-    versionedWidgetOptions(1, parseExpressionWidgetV1).withMigrationFrom(
-        0,
-        parseExpressionWidgetV0,
-        migrateV0ToV1,
-    ).parser;
+    versionedWidgetOptions(2, parseExpressionWidgetV2)
+        .withMigrationFrom(1, parseExpressionWidgetV1, migrateV1ToV2)
+        .withMigrationFrom(0, parseExpressionWidgetV0, migrateV0ToV1).parser;

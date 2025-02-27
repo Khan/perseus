@@ -1,7 +1,10 @@
 import type {CursorContext} from "./components/input/cursor-contexts";
-import type Key from "./data/keys";
-import type {KeyType, KeypadType} from "./enums";
-import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
+import type {KeyType} from "./enums";
+import type {
+    KeypadConfiguration,
+    KeypadContextRendererInterface,
+    KeypadKey,
+} from "@khanacademy/perseus-core";
 import type * as React from "react";
 import type ReactDOM from "react-dom";
 
@@ -17,26 +20,22 @@ type IconConfig = {
 };
 
 export type KeyConfig = {
-    id: Key;
+    id: KeypadKey;
     type: KeyType;
     icon: IconConfig;
     ariaLabel: string;
 };
 
-export type KeypadConfiguration = {
-    keypadType: KeypadType;
-    extraKeys?: ReadonlyArray<Key>;
-    times?: boolean;
-    scientific?: boolean;
-};
-
-export type KeyHandler = (key: Key) => Cursor;
+export type KeyHandler = (key: KeypadKey) => Cursor;
 
 export type Cursor = {
     context: (typeof CursorContext)[keyof typeof CursorContext];
 };
 
-export type ClickKeyCallback = (key: Key, event?: React.SyntheticEvent) => void;
+export type ClickKeyCallback = (
+    key: KeypadKey,
+    event?: React.SyntheticEvent,
+) => void;
 
 export type KeypadPageType =
     | "Geometry"

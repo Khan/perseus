@@ -1,5 +1,4 @@
 import {KeypadContext} from "@khanacademy/keypad-context";
-import {KeypadType} from "@khanacademy/math-input";
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
@@ -9,8 +8,7 @@ import TestKeypadContextWrapper from "../__shared__/test-keypad-context-wrapper"
 import expressionExport from "./expression";
 import {expressionItem2, expressionItem3} from "./expression.testdata";
 
-import type {Keys as Key} from "@khanacademy/math-input";
-import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {KeypadConfiguration, PerseusItem} from "@khanacademy/perseus-core";
 
 type StoryArgs = {
     customKeypad: boolean;
@@ -56,9 +54,9 @@ const WrappedKeypadContext = ({
 };
 
 export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
-    const keypadConfiguration = {
-        keypadType: KeypadType.EXPRESSION,
-        extraKeys: ["x", "y", "z"] as Array<Key>,
+    const keypadConfiguration: KeypadConfiguration = {
+        keypadType: "EXPRESSION",
+        extraKeys: ["x", "y", "z"],
     };
 
     return (

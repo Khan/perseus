@@ -8,14 +8,12 @@ import AphroditeCssTransitionGroup from "../aphrodite-css-transition-group";
 import Keypad from "./keypad";
 import {expandedViewThreshold} from "./utils";
 
-import type Key from "../../data/keys";
+import type {Cursor, KeyHandler, KeypadAPI} from "../../types";
 import type {
-    Cursor,
+    AnalyticsEventHandlerFn,
     KeypadConfiguration,
-    KeyHandler,
-    KeypadAPI,
-} from "../../types";
-import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+    KeypadKey,
+} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const AnimationDurationInMS = 200;
@@ -157,7 +155,7 @@ class MobileKeypadInternals
         return ReactDOM.findDOMNode(this);
     };
 
-    _handleClickKey(key: Key) {
+    _handleClickKey(key: KeypadKey) {
         if (key === "DISMISS") {
             this.dismiss();
             return;

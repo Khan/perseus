@@ -9,11 +9,7 @@
  */
 
 import {KeypadContext} from "@khanacademy/keypad-context";
-import {
-    KeypadInput,
-    KeypadType,
-    keypadElementPropType,
-} from "@khanacademy/math-input";
+import {KeypadInput, keypadElementPropType} from "@khanacademy/math-input";
 import PropTypes from "prop-types";
 import * as React from "react";
 
@@ -64,7 +60,7 @@ export default class SimpleKeypadInput extends React.Component<any> {
                     if (keypadElement) {
                         keypadElement.configure(
                             {
-                                keypadType: KeypadType.FRACTION,
+                                keypadType: "FRACTION",
                             },
                             () => {
                                 if (_this._isMounted) {

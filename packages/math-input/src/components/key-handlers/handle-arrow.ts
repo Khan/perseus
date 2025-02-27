@@ -5,8 +5,8 @@ import {
 } from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
 
-import type Key from "../../data/keys";
 import type {MathFieldInterface} from "../input/mathquill-types";
+import type {KeypadKey} from "@khanacademy/perseus-core";
 import type MathQuill from "mathquill";
 
 function handleLeftArrow(
@@ -57,7 +57,10 @@ function handleRightArrow(
     }
 }
 
-export default function handleArrow(mathField: MathFieldInterface, key: Key) {
+export default function handleArrow(
+    mathField: MathFieldInterface,
+    key: KeypadKey,
+) {
     const cursor = mathField.cursor();
 
     if (key === "LEFT") {

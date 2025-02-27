@@ -15,13 +15,15 @@ import NavigationPad from "./navigation-pad";
 import SharedKeys from "./shared-keys";
 import {expandedViewThreshold} from "./utils";
 
-import type Key from "../../data/keys";
 import type {ClickKeyCallback, KeypadPageType} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
-import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+import type {
+    AnalyticsEventHandlerFn,
+    KeypadKey,
+} from "@khanacademy/perseus-core";
 
 type Props = {
-    extraKeys?: ReadonlyArray<Key>;
+    extraKeys?: ReadonlyArray<KeypadKey>;
     cursorContext?: (typeof CursorContext)[keyof typeof CursorContext];
     showDismiss?: boolean;
     expandedView?: boolean;
