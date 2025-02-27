@@ -178,7 +178,7 @@ describe("radio-editor", () => {
     });
 
     it("derives num correct when calling onChange", async () => {
-        let options: any;
+        const onChangeMock = jest.fn();
 
         function getCorrectChoice(): PerseusRadioChoice {
             return {
@@ -195,9 +195,7 @@ describe("radio-editor", () => {
 
         render(
             <RadioEditor
-                onChange={(o) => {
-                    options = o;
-                }}
+                onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
                 static={false}
                 multipleSelect={true}
@@ -231,6 +229,10 @@ describe("radio-editor", () => {
         await userEvent.click(choices[0]);
 
         // now there should be 3 correct answers
-        expect(options?.numCorrect).toBe(3);
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                numCorrect: 3,
+            }),
+        );
     });
 });
