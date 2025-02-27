@@ -5,8 +5,7 @@ import {
     Changeable,
     iconTrash,
 } from "@khanacademy/perseus";
-import {radioLogic} from "@khanacademy/perseus-core";
-import {deriveNumCorrect} from "@khanacademy/perseus-core/src/widgets/radio/radio-upgrade";
+import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
