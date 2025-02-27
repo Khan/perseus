@@ -75,7 +75,6 @@ const _choiceTransform = (
             return {
                 ...choice,
                 originalIndex: i,
-                correct: Boolean(choice.correct),
             };
         });
 
@@ -99,19 +98,16 @@ const transform = (
 ): RenderProps => {
     const choices = _choiceTransform(widgetOptions, strings, problemNum);
 
-    const numCorrect: number = _.reduce(
-        widgetOptions.choices,
-        function (memo, choice) {
-            return choice.correct ? memo + 1 : memo;
-        },
-        0,
-    );
-
-    const {hasNoneOfTheAbove, multipleSelect, countChoices, deselectEnabled} =
-        widgetOptions;
+    const {
+        hasNoneOfTheAbove,
+        multipleSelect,
+        countChoices,
+        deselectEnabled,
+        numCorrect,
+    } = widgetOptions;
 
     return {
-        numCorrect,
+        numCorrect: numCorrect as number,
         hasNoneOfTheAbove,
         multipleSelect,
         countChoices,

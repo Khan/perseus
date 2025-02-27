@@ -1,8 +1,21 @@
 import type {PerseusRadioWidgetOptions} from "../../data-schema";
 
-export const currentVersion = {major: 1, minor: 0};
+export const currentVersion = {major: 2, minor: 0};
+
+export function deriveNumCorrect(options: PerseusRadioWidgetOptions) {
+    const {choices, numCorrect} = options;
+
+    return numCorrect ?? choices.filter((c) => c.correct).length;
+}
 
 export const widgetOptionsUpgrades = {
+    "2": (v1props: any): PerseusRadioWidgetOptions => {
+        const upgraded = {
+            ...v1props,
+            numCorrect: deriveNumCorrect(v1props),
+        };
+        return upgraded;
+    },
     "1": (v0props: any): PerseusRadioWidgetOptions => {
         const {noneOfTheAbove, ...rest} = v0props;
 
