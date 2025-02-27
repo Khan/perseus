@@ -808,8 +808,6 @@ describe("Locked Function Settings", () => {
                 domainValue       | domainAria
                 ${[1, Infinity]}  | ${"1 to Infinity"}
                 ${[-Infinity, 2]} | ${"-Infinity to 2"}
-                ${[1, null]}      | ${"1 to Infinity"}
-                ${[null, 2]}      | ${"-Infinity to 2"}
             `(
                 "aria label auto-generates with partial domain info: $domainValue",
                 async ({domainValue, domainAria}) => {

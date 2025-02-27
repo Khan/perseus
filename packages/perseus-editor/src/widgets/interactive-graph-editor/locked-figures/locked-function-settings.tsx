@@ -97,10 +97,8 @@ const LockedFunctionSettings = (props: Props) => {
 
         // Add the domain/range constraints to the aria label
         // if they are not the default values.
-        const domainMin = Number.isFinite(domain[0]) ? domain[0] : "-Infinity";
-        const domainMax = Number.isFinite(domain[1]) ? domain[1] : "Infinity";
         if (Number.isFinite(domain[0]) || Number.isFinite(domain[1])) {
-            str += `, domain from ${domainMin} to ${domainMax}`;
+            str += `, domain from ${domain[0]} to ${domain[1]}`;
         }
 
         const functionAppearance = generateLockedFigureAppearanceDescription(
