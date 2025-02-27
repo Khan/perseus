@@ -3771,8 +3771,8 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
               "color": "grayH",
               "directionalAxis": "x",
               "domain": [
-                null,
-                null,
+                -Infinity,
+                Infinity,
               ],
               "equation": "x^2",
               "strokeStyle": "solid",

@@ -98,6 +98,7 @@ describe("getDefaultFigureForType", () => {
             strokeStyle: "solid",
             equation: "x^2",
             directionalAxis: "x",
+            domain: [-Infinity, Infinity],
         });
     });
 

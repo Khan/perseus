@@ -92,38 +92,6 @@ describe("Locked Function Settings", () => {
             // eslint-disable-next-line testing-library/no-node-access
             .querySelector("input");
         expect(inputField?.value).toEqual("");
-
-        // Act (max domain not defined)
-        cleanup();
-        render(
-            <LockedFunctionSettings {...defaultProps} domain={[0, null]} />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
-
-        // Assert
-        inputField = screen
-            .getByLabelText("domain max")
-            // eslint-disable-next-line testing-library/no-node-access
-            .querySelector("input");
-        expect(inputField?.value).toEqual("");
-
-        // Act (min domain not defined)
-        cleanup();
-        render(
-            <LockedFunctionSettings {...defaultProps} domain={[null, 0]} />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
-
-        // Assert
-        inputField = screen
-            .getByText("domain min")
-            // eslint-disable-next-line testing-library/no-node-access
-            .querySelector("input");
-        expect(inputField?.value).toEqual("");
     });
 
     describe("Header interactions", () => {
@@ -819,32 +787,6 @@ describe("Locked Function Settings", () => {
                         ariaLabel={undefined}
                         onChangeProps={onChangeProps}
                         domain={[-Infinity, Infinity]}
-                    />,
-                    {wrapper: RenderStateRoot},
-                );
-
-                // Act
-                const autoGenButton = screen.getByRole("button", {
-                    name: "Auto-generate",
-                });
-                await userEvent.click(autoGenButton);
-
-                // Assert
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Function with equation y=x^2. Appearance solid gray.",
-                });
-            });
-
-            test("aria label does not auto-generate with domain when both values are null", async () => {
-                // Arrange
-                const onChangeProps = jest.fn();
-                render(
-                    <LockedFunctionSettings
-                        {...defaultProps}
-                        ariaLabel={undefined}
-                        onChangeProps={onChangeProps}
-                        domain={[null, null]}
                     />,
                     {wrapper: RenderStateRoot},
                 );

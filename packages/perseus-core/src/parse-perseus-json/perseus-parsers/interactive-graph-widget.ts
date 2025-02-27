@@ -253,16 +253,22 @@ const parseLockedPolygonType: Parser<LockedPolygonType> = object({
     ariaLabel: optional(string),
 });
 
+// Exported for testing.
+export const parseLockedFunctionDomain = defaulted(
+    pair(
+        defaulted(number, () => -Infinity),
+        defaulted(number, () => Infinity),
+    ),
+    (): [number, number] => [-Infinity, Infinity],
+);
+
 const parseLockedFunctionType: Parser<LockedFunctionType> = object({
     type: constant("function"),
     color: parseLockedFigureColor,
     strokeStyle: parseLockedLineStyle,
     equation: string,
     directionalAxis: enumeration("x", "y"),
-    domain: defaulted(
-        pair(nullable(number), nullable(number)),
-        (): [null, null] => [null, null],
-    ),
+    domain: parseLockedFunctionDomain,
     // TODO(benchristel): default labels to empty array?
     labels: optional(array(parseLockedLabelType)),
     ariaLabel: optional(string),

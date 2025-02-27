@@ -1169,41 +1169,6 @@ describe("Interactive Graph", function () {
                 );
             });
 
-            it.each`
-                domainSupplied                                            | domainExpected
-                ${[-2, null] as [min: number | null, max: number | null]} | ${[-2, Infinity]}
-                ${[null, 3] as [min: number | null, max: number | null]}  | ${[-Infinity, 3]}
-            `(
-                "plots the equation with partially supplied domain: $domainSupplied",
-                ({domainSupplied, domainExpected}) => {
-                    // Arrange
-                    const PlotOfXMock = jest
-                        .spyOn(Plot, "OfX")
-                        .mockReturnValue(<div>OfX</div>);
-                    const expectedParameters = {
-                        color: "#3B3D45",
-                        style: "solid",
-                    };
-
-                    // Act - no upper limit specified
-                    renderQuestion(
-                        segmentWithLockedFunction("x^2", {
-                            domain: domainSupplied,
-                        }),
-                        blankOptions,
-                    );
-
-                    // Assert
-                    expect(PlotOfXMock).toHaveBeenCalledWith(
-                        expect.objectContaining({
-                            ...expectedParameters,
-                            domain: domainExpected,
-                        }),
-                        {},
-                    );
-                },
-            );
-
             it("should render locked function with aria label when one is provided", () => {
                 // Arrange
                 const lockedFunctionWithAriaLabelQuestion =

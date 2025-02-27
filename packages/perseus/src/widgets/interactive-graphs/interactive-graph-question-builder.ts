@@ -24,7 +24,7 @@ export type LockedFunctionOptions = {
     color?: LockedFigureColor;
     strokeStyle?: LockedLineStyle;
     directionalAxis?: "x" | "y";
-    domain?: [min: number | null, max: number | null];
+    domain?: [min: number, max: number];
     labels?: LockedFigureLabelOptions[];
     ariaLabel?: string;
 };
@@ -450,7 +450,7 @@ class InteractiveGraphQuestionBuilder {
             color: "grayH",
             strokeStyle: "solid",
             directionalAxis: "x",
-            domain: [null, null],
+            domain: [-Infinity, Infinity],
             ...options,
             labels: options?.labels?.map(
                 (label) =>
