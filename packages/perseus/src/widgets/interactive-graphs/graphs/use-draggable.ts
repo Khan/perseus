@@ -104,6 +104,7 @@ export function useDraggable(args: Params): DragState {
                 const {
                     direction: yDownDirection,
                     altKey,
+                    ctrlKey,
                     metaKey,
                     shiftKey,
                 } = state;
@@ -119,7 +120,7 @@ export function useDraggable(args: Params): DragState {
                 if (altKey || metaKey) {
                     divisions = 200;
                 }
-                if (shiftKey) {
+                if (shiftKey && !ctrlKey) {
                     divisions = 10;
                 }
 
