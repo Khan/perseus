@@ -9,8 +9,9 @@ import {
 import a11y from "../../../util/a11y";
 import {snap} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
+import {calculateSideSnap} from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {TARGET_SIZE} from "../utils";
+import {isInBound, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
@@ -25,6 +26,7 @@ import {
     getSideLengthsFromPoints,
 } from "./utils";
 
+import type {KeyboardMovementConstraint} from "./use-draggable";
 import type {Coord} from "../../../interactive2/types";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
@@ -36,6 +38,7 @@ import type {
     PolygonGraphState,
 } from "../types";
 import type {CollinearTuple} from "@khanacademy/perseus-core";
+import type {Interval} from "mafs";
 
 const {convertRadiansToDegrees} = angles;
 
@@ -65,7 +68,7 @@ type StatefulProps = MafsGraphProps<PolygonGraphState> & {
     top: number;
     dragging: boolean;
     points: Coord[];
-    constrain: (p: any) => any;
+    constrain: KeyboardMovementConstraint;
     hovered: boolean;
     setHovered: React.Dispatch<React.SetStateAction<boolean>>;
     focusVisible: boolean;
@@ -96,9 +99,8 @@ const PolygonGraph = (props: Props) => {
 
     // Logic to build the dragging experience. Primarily used by Limited Polygon.
     const dragReferencePoint = points[0];
-    const constrain = ["angles", "sides"].includes(snapTo)
-        ? (p) => p
-        : (p) => snap(snapStep, p);
+    const constrain: KeyboardMovementConstraint =
+        snapTo === "angles" ? (p) => p : (p) => snap(snapStep, p);
 
     const {dragging} = useDraggable({
         gestureTarget: polygonRef,
@@ -326,7 +328,11 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         <MovablePoint
                             ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
                             ariaLive={ariaLives[i + 1]}
-                            constrain={constrain}
+                            constrain={
+                                snapTo === "sides"
+                                    ? getSideSnapConstraint(points, i, range)
+                                    : constrain
+                            }
                             point={point}
                             sequenceNumber={i + 1}
                             onMove={(destination: vec.Vector2) => {
@@ -681,5 +687,62 @@ function describePolygonGraph(
         srPolygonGraphPoints,
         srPolygonElementsNum,
         srPolygonInteractiveElements,
+    };
+}
+
+export function getSideSnapConstraint(
+    points: ReadonlyArray<Coord>,
+    index: number,
+    range: [Interval, Interval],
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} {
+    // Make newPoints mutable.
+    const newPoints = [...points];
+
+    // Get the point that is being moved.
+    const pointToBeMoved = newPoints[index];
+
+    // Create a helper function that moves the point and then checks
+    // whether it needs to keep trying to find a point for keyboard users.
+    const movePointWithConstraint = (
+        moveFunc: (coord: vec.Vector2) => vec.Vector2,
+    ): vec.Vector2 => {
+        // The direction the user is attempting to move the point in.
+        let destinationAttempt: Coord = moveFunc(pointToBeMoved);
+        // The new point we're moving to.
+        let newPoint = pointToBeMoved;
+
+        // Move the point and keep trying until we are at the boarder
+        // of the graph.
+        while (
+            newPoint[0] === pointToBeMoved[0] &&
+            newPoint[1] === pointToBeMoved[1] &&
+            isInBound({range, point: destinationAttempt})
+        ) {
+            newPoint = calculateSideSnap(
+                destinationAttempt,
+                range,
+                newPoints,
+                index,
+                pointToBeMoved,
+            );
+
+            // Increment the destinationAttempt.
+            // For every time it does not work increment the direction for x and y.
+            destinationAttempt = moveFunc(destinationAttempt);
+        }
+        return newPoint;
+    };
+
+    // For each direction look for the next movable point one whole integer away.
+    return {
+        up: movePointWithConstraint((coord) => vec.add(coord, [0, 1])),
+        down: movePointWithConstraint((coord) => vec.sub(coord, [0, 1])),
+        left: movePointWithConstraint((coord) => vec.sub(coord, [1, 0])),
+        right: movePointWithConstraint((coord) => vec.add(coord, [1, 0])),
     };
 }

@@ -92,7 +92,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                         >
                           <pattern
                             height="20"
-                            id="cartesian-0"
+                            id="cartesian-4"
                             patternUnits="userSpaceOnUse"
                             width="20"
                             x="0"
@@ -100,7 +100,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                           >
                             <pattern
                               height="20"
-                              id="cartesian-0-subdivision"
+                              id="cartesian-4-subdivision"
                               patternUnits="userSpaceOnUse"
                               width="20"
                             >
@@ -109,7 +109,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                               />
                             </pattern>
                             <rect
-                              fill="url(#cartesian-0-subdivision)"
+                              fill="url(#cartesian-4-subdivision)"
                               height="20"
                               width="20"
                             />
@@ -143,7 +143,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                             </g>
                           </pattern>
                           <rect
-                            fill="url(#cartesian-0)"
+                            fill="url(#cartesian-4)"
                             height="640"
                             width="640"
                             x="-320"
@@ -1107,7 +1107,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                 id="interactive-graph-interactive-elements-description-:r2:"
                 tabindex="-1"
               >
-                Interactive elements: A polygon with 3 points. 
+                Interactive elements: A polygon with 3 points. Point 1 at 3.5 comma 2. Point 2 at 2.5 comma 4. Point 3 at 1.5 comma 2.
               </div>
               <div
                 class="default_xu2jcg mafs-sr-only"
@@ -1119,6 +1119,26 @@ exports[`Interactive Graph question Should render predictably: after interaction
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
               >
+                <span
+                  aria-label="X-axis"
+                  style="position: absolute; left: 400.00000000000006px; top: 342.8571428571429px; font-size: 14px; transform: translate(7px, -50%);"
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\text{$x$}
+                  </span>
+                </span>
+                <span
+                  aria-label="Y-axis"
+                  style="position: absolute; left: 57.142857142857146px; top: -24px; font-size: 14px; transform: translate(-50%, 0px);"
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\text{$y$}
+                  </span>
+                </span>
                 <div
                   aria-hidden="true"
                   class="default_xu2jcg"
@@ -1160,7 +1180,667 @@ exports[`Interactive Graph question Should render predictably: after interaction
                         width="400"
                         x="-57.142857142857146"
                         y="-342.85714285714283"
-                      />
+                      >
+                        <g
+                          fill="none"
+                        >
+                          <pattern
+                            height="28.57143"
+                            id="cartesian-1"
+                            patternUnits="userSpaceOnUse"
+                            width="28.57143"
+                            x="0"
+                            y="0"
+                          >
+                            <pattern
+                              height="28.57143"
+                              id="cartesian-1-subdivision"
+                              patternUnits="userSpaceOnUse"
+                              width="28.57143"
+                            >
+                              <g
+                                stroke="var(--grid-line-subdivision-color)"
+                              />
+                            </pattern>
+                            <rect
+                              fill="url(#cartesian-1-subdivision)"
+                              height="28.57143"
+                              width="28.57143"
+                            />
+                            <g
+                              stroke="var(--mafs-line-color)"
+                            >
+                              <line
+                                x1="0"
+                                x2="28.57143"
+                                y1="0"
+                                y2="0"
+                              />
+                              <line
+                                x1="0"
+                                x2="28.57143"
+                                y1="28.57143"
+                                y2="28.57143"
+                              />
+                              <line
+                                x1="0"
+                                x2="0"
+                                y1="0"
+                                y2="28.57143"
+                              />
+                              <line
+                                x1="28.57143"
+                                x2="28.57143"
+                                y1="0"
+                                y2="28.57143"
+                              />
+                            </g>
+                          </pattern>
+                          <rect
+                            fill="url(#cartesian-1)"
+                            height="685.71432"
+                            width="685.71432"
+                            x="-228.57144"
+                            y="-457.14288"
+                          />
+                          <g
+                            stroke="var(--mafs-origin-color)"
+                            stroke-width="var(--mafs-axis-stroke-width)"
+                          >
+                            <line
+                              x1="-228.57144"
+                              x2="457.14288"
+                              y1="0"
+                              y2="0"
+                            />
+                            <line
+                              x1="0"
+                              x2="0"
+                              y1="228.57144"
+                              y2="-457.14288"
+                            />
+                          </g>
+                          <g
+                            class="mafs-shadow"
+                          />
+                        </g>
+                      </svg>
+                      <g
+                        class="axis-ticks"
+                        role="presentation"
+                      >
+                        <g
+                          class="y-axis-ticks"
+                        >
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-28.571428571428573"
+                              y2="-28.571428571428573"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-25.071428571428573"
+                            >
+                              0.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-57.142857142857146"
+                              y2="-57.142857142857146"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-53.642857142857146"
+                            >
+                              1
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-85.71428571428572"
+                              y2="-85.71428571428572"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-82.21428571428572"
+                            >
+                              1.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-114.28571428571429"
+                              y2="-114.28571428571429"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-110.78571428571429"
+                            >
+                              2
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-142.85714285714286"
+                              y2="-142.85714285714286"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-139.35714285714286"
+                            >
+                              2.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-171.42857142857144"
+                              y2="-171.42857142857144"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-167.92857142857144"
+                            >
+                              3
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-200"
+                              y2="-200"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-196.5"
+                            >
+                              3.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-228.57142857142858"
+                              y2="-228.57142857142858"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-225.07142857142858"
+                            >
+                              4
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-257.14285714285717"
+                              y2="-257.14285714285717"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-253.64285714285717"
+                            >
+                              4.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-285.7142857142857"
+                              y2="-285.7142857142857"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-282.2142857142857"
+                            >
+                              5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-314.2857142857143"
+                              y2="-314.2857142857143"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-310.7857142857143"
+                            >
+                              5.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="28.571428571428573"
+                              y2="28.571428571428573"
+                            />
+                          </g>
+                        </g>
+                        <g
+                          class="x-axis-ticks"
+                        >
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="28.571428571428573"
+                              x2="28.571428571428573"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="28.571428571428573"
+                              y="24.5"
+                            >
+                              0.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="57.142857142857146"
+                              x2="57.142857142857146"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="57.142857142857146"
+                              y="24.5"
+                            >
+                              1
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="85.71428571428572"
+                              x2="85.71428571428572"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="85.71428571428572"
+                              y="24.5"
+                            >
+                              1.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="114.28571428571429"
+                              x2="114.28571428571429"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="114.28571428571429"
+                              y="24.5"
+                            >
+                              2
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="142.85714285714286"
+                              x2="142.85714285714286"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="142.85714285714286"
+                              y="24.5"
+                            >
+                              2.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="171.42857142857144"
+                              x2="171.42857142857144"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="171.42857142857144"
+                              y="24.5"
+                            >
+                              3
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="200"
+                              x2="200"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="200"
+                              y="24.5"
+                            >
+                              3.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="228.57142857142858"
+                              x2="228.57142857142858"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="228.57142857142858"
+                              y="24.5"
+                            >
+                              4
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="257.14285714285717"
+                              x2="257.14285714285717"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="257.14285714285717"
+                              y="24.5"
+                            >
+                              4.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="285.7142857142857"
+                              x2="285.7142857142857"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="285.7142857142857"
+                              y="24.5"
+                            >
+                              5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="314.2857142857143"
+                              x2="314.2857142857143"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="314.2857142857143"
+                              y="24.5"
+                            >
+                              5.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-28.571428571428573"
+                              x2="-28.571428571428573"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="-30.571428571428573"
+                              y="24.5"
+                            >
+                              -0.5
+                            </text>
+                          </g>
+                        </g>
+                      </g>
+                      <g
+                        class="interactive-graph-arrowhead"
+                        transform="translate(-57.142857142857146 0) rotate(180)"
+                      >
+                        <g
+                          transform="translate(-1.5)"
+                        >
+                          <path
+                            d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2px"
+                            style="stroke: var(--mafs-fg);"
+                          />
+                        </g>
+                      </g>
+                      <g
+                        class="interactive-graph-arrowhead"
+                        transform="translate(342.8571428571429 0) rotate(0)"
+                      >
+                        <g
+                          transform="translate(-1.5)"
+                        >
+                          <path
+                            d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2px"
+                            style="stroke: var(--mafs-fg);"
+                          />
+                        </g>
+                      </g>
+                      <g
+                        class="interactive-graph-arrowhead"
+                        transform="translate(0 57.142857142857146) rotate(90)"
+                      >
+                        <g
+                          transform="translate(-1.5)"
+                        >
+                          <path
+                            d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2px"
+                            style="stroke: var(--mafs-fg);"
+                          />
+                        </g>
+                      </g>
+                      <g
+                        class="interactive-graph-arrowhead"
+                        transform="translate(0 -342.8571428571429) rotate(270)"
+                      >
+                        <g
+                          transform="translate(-1.5)"
+                        >
+                          <path
+                            d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2px"
+                            style="stroke: var(--mafs-fg);"
+                          />
+                        </g>
+                      </g>
                     </svg>
                   </div>
                 </div>
@@ -1189,7 +1869,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                       >
                         <g
                           aria-describedby=":r3:-points-num :r3:-points"
-                          aria-label="A polygon."
+                          aria-label="A polygon on a coordinate plane."
                         >
                           <polygon
                             fill-opacity="0.15"
@@ -1238,7 +1918,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                             2
                           </text>
                           <polygon
-                            aria-label="A polygon with 3 points."
+                            aria-label="A polygon with 3 points. Point 1 at 3.5 comma 2. Point 2 at 2.5 comma 4. Point 3 at 1.5 comma 2."
                             aria-live="off"
                             class="movable-polygon"
                             fill-opacity="0.15"
@@ -1433,6 +2113,11 @@ exports[`Interactive Graph question Should render predictably: after interaction
                             id=":r3:-points-num"
                           >
                             The polygon has 3 points.
+                          </g>
+                          <g
+                            id=":r3:-points"
+                          >
+                            Point 1 at 3.5 comma 2. Point 2 at 2.5 comma 4. Point 3 at 1.5 comma 2.
                           </g>
                         </g>
                       </svg>
@@ -2421,7 +3106,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                 id="interactive-graph-interactive-elements-description-:r2:"
                 tabindex="-1"
               >
-                Interactive elements: A polygon with 3 points. 
+                Interactive elements: A polygon with 3 points. Point 1 at 3.5 comma 2. Point 2 at 2.5 comma 4. Point 3 at 1.5 comma 2.
               </div>
               <div
                 class="default_xu2jcg mafs-sr-only"
@@ -2433,6 +3118,26 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
               >
+                <span
+                  aria-label="X-axis"
+                  style="position: absolute; left: 400.00000000000006px; top: 342.8571428571429px; font-size: 14px; transform: translate(7px, -50%);"
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\text{$x$}
+                  </span>
+                </span>
+                <span
+                  aria-label="Y-axis"
+                  style="position: absolute; left: 57.142857142857146px; top: -24px; font-size: 14px; transform: translate(-50%, 0px);"
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\text{$y$}
+                  </span>
+                </span>
                 <div
                   aria-hidden="true"
                   class="default_xu2jcg"
@@ -2474,7 +3179,667 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                         width="400"
                         x="-57.142857142857146"
                         y="-342.85714285714283"
-                      />
+                      >
+                        <g
+                          fill="none"
+                        >
+                          <pattern
+                            height="28.57143"
+                            id="cartesian-1"
+                            patternUnits="userSpaceOnUse"
+                            width="28.57143"
+                            x="0"
+                            y="0"
+                          >
+                            <pattern
+                              height="28.57143"
+                              id="cartesian-1-subdivision"
+                              patternUnits="userSpaceOnUse"
+                              width="28.57143"
+                            >
+                              <g
+                                stroke="var(--grid-line-subdivision-color)"
+                              />
+                            </pattern>
+                            <rect
+                              fill="url(#cartesian-1-subdivision)"
+                              height="28.57143"
+                              width="28.57143"
+                            />
+                            <g
+                              stroke="var(--mafs-line-color)"
+                            >
+                              <line
+                                x1="0"
+                                x2="28.57143"
+                                y1="0"
+                                y2="0"
+                              />
+                              <line
+                                x1="0"
+                                x2="28.57143"
+                                y1="28.57143"
+                                y2="28.57143"
+                              />
+                              <line
+                                x1="0"
+                                x2="0"
+                                y1="0"
+                                y2="28.57143"
+                              />
+                              <line
+                                x1="28.57143"
+                                x2="28.57143"
+                                y1="0"
+                                y2="28.57143"
+                              />
+                            </g>
+                          </pattern>
+                          <rect
+                            fill="url(#cartesian-1)"
+                            height="685.71432"
+                            width="685.71432"
+                            x="-228.57144"
+                            y="-457.14288"
+                          />
+                          <g
+                            stroke="var(--mafs-origin-color)"
+                            stroke-width="var(--mafs-axis-stroke-width)"
+                          >
+                            <line
+                              x1="-228.57144"
+                              x2="457.14288"
+                              y1="0"
+                              y2="0"
+                            />
+                            <line
+                              x1="0"
+                              x2="0"
+                              y1="228.57144"
+                              y2="-457.14288"
+                            />
+                          </g>
+                          <g
+                            class="mafs-shadow"
+                          />
+                        </g>
+                      </svg>
+                      <g
+                        class="axis-ticks"
+                        role="presentation"
+                      >
+                        <g
+                          class="y-axis-ticks"
+                        >
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-28.571428571428573"
+                              y2="-28.571428571428573"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-25.071428571428573"
+                            >
+                              0.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-57.142857142857146"
+                              y2="-57.142857142857146"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-53.642857142857146"
+                            >
+                              1
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-85.71428571428572"
+                              y2="-85.71428571428572"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-82.21428571428572"
+                            >
+                              1.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-114.28571428571429"
+                              y2="-114.28571428571429"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-110.78571428571429"
+                            >
+                              2
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-142.85714285714286"
+                              y2="-142.85714285714286"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-139.35714285714286"
+                            >
+                              2.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-171.42857142857144"
+                              y2="-171.42857142857144"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-167.92857142857144"
+                            >
+                              3
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-200"
+                              y2="-200"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-196.5"
+                            >
+                              3.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-228.57142857142858"
+                              y2="-228.57142857142858"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-225.07142857142858"
+                            >
+                              4
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-257.14285714285717"
+                              y2="-257.14285714285717"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-253.64285714285717"
+                            >
+                              4.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-285.7142857142857"
+                              y2="-285.7142857142857"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-282.2142857142857"
+                            >
+                              5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="-314.2857142857143"
+                              y2="-314.2857142857143"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="end"
+                              x="-15.400000000000002"
+                              y="-310.7857142857143"
+                            >
+                              5.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-5"
+                              x2="5"
+                              y1="28.571428571428573"
+                              y2="28.571428571428573"
+                            />
+                          </g>
+                        </g>
+                        <g
+                          class="x-axis-ticks"
+                        >
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="28.571428571428573"
+                              x2="28.571428571428573"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="28.571428571428573"
+                              y="24.5"
+                            >
+                              0.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="57.142857142857146"
+                              x2="57.142857142857146"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="57.142857142857146"
+                              y="24.5"
+                            >
+                              1
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="85.71428571428572"
+                              x2="85.71428571428572"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="85.71428571428572"
+                              y="24.5"
+                            >
+                              1.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="114.28571428571429"
+                              x2="114.28571428571429"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="114.28571428571429"
+                              y="24.5"
+                            >
+                              2
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="142.85714285714286"
+                              x2="142.85714285714286"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="142.85714285714286"
+                              y="24.5"
+                            >
+                              2.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="171.42857142857144"
+                              x2="171.42857142857144"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="171.42857142857144"
+                              y="24.5"
+                            >
+                              3
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="200"
+                              x2="200"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="200"
+                              y="24.5"
+                            >
+                              3.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="228.57142857142858"
+                              x2="228.57142857142858"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="228.57142857142858"
+                              y="24.5"
+                            >
+                              4
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="257.14285714285717"
+                              x2="257.14285714285717"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="257.14285714285717"
+                              y="24.5"
+                            >
+                              4.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="285.7142857142857"
+                              x2="285.7142857142857"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="285.7142857142857"
+                              y="24.5"
+                            >
+                              5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="314.2857142857143"
+                              x2="314.2857142857143"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="314.2857142857143"
+                              y="24.5"
+                            >
+                              5.5
+                            </text>
+                          </g>
+                          <g
+                            aria-hidden="true"
+                            class="tick"
+                          >
+                            <line
+                              class="axis-tick"
+                              x1="-28.571428571428573"
+                              x2="-28.571428571428573"
+                              y1="5"
+                              y2="-5"
+                            />
+                            <text
+                              class="axis-tick-label"
+                              style="font-size: 14px;"
+                              text-anchor="middle"
+                              x="-30.571428571428573"
+                              y="24.5"
+                            >
+                              -0.5
+                            </text>
+                          </g>
+                        </g>
+                      </g>
+                      <g
+                        class="interactive-graph-arrowhead"
+                        transform="translate(-57.142857142857146 0) rotate(180)"
+                      >
+                        <g
+                          transform="translate(-1.5)"
+                        >
+                          <path
+                            d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2px"
+                            style="stroke: var(--mafs-fg);"
+                          />
+                        </g>
+                      </g>
+                      <g
+                        class="interactive-graph-arrowhead"
+                        transform="translate(342.8571428571429 0) rotate(0)"
+                      >
+                        <g
+                          transform="translate(-1.5)"
+                        >
+                          <path
+                            d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2px"
+                            style="stroke: var(--mafs-fg);"
+                          />
+                        </g>
+                      </g>
+                      <g
+                        class="interactive-graph-arrowhead"
+                        transform="translate(0 57.142857142857146) rotate(90)"
+                      >
+                        <g
+                          transform="translate(-1.5)"
+                        >
+                          <path
+                            d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2px"
+                            style="stroke: var(--mafs-fg);"
+                          />
+                        </g>
+                      </g>
+                      <g
+                        class="interactive-graph-arrowhead"
+                        transform="translate(0 -342.8571428571429) rotate(270)"
+                      >
+                        <g
+                          transform="translate(-1.5)"
+                        >
+                          <path
+                            d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2px"
+                            style="stroke: var(--mafs-fg);"
+                          />
+                        </g>
+                      </g>
                     </svg>
                   </div>
                 </div>
@@ -2503,7 +3868,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                       >
                         <g
                           aria-describedby=":r3:-points-num :r3:-points"
-                          aria-label="A polygon."
+                          aria-label="A polygon on a coordinate plane."
                         >
                           <polygon
                             fill-opacity="0.15"
@@ -2552,7 +3917,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                             2
                           </text>
                           <polygon
-                            aria-label="A polygon with 3 points."
+                            aria-label="A polygon with 3 points. Point 1 at 3.5 comma 2. Point 2 at 2.5 comma 4. Point 3 at 1.5 comma 2."
                             aria-live="off"
                             class="movable-polygon"
                             fill-opacity="0.15"
@@ -2747,6 +4112,11 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                             id=":r3:-points-num"
                           >
                             The polygon has 3 points.
+                          </g>
+                          <g
+                            id=":r3:-points"
+                          >
+                            Point 1 at 3.5 comma 2. Point 2 at 2.5 comma 4. Point 3 at 1.5 comma 2.
                           </g>
                         </g>
                       </svg>
