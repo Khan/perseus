@@ -3815,6 +3815,92 @@ $3$ | $8$
 }
 `;
 
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with-null-domain-element.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "[[☃ interactive-graph 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "coords": null,
+            "type": "linear",
+          },
+          "graph": {
+            "type": "linear",
+          },
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [
+            {
+              "color": "grayH",
+              "directionalAxis": "x",
+              "domain": [
+                -Infinity,
+                Infinity,
+              ],
+              "equation": "x^2",
+              "strokeStyle": "solid",
+              "type": "function",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+          "valid": true,
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given interactive-graph-locked-line-missing-showPoint1.json returns the same result as before 1`] = `
 {
   "answerArea": {

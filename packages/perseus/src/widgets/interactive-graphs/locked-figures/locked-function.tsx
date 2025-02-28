@@ -15,17 +15,7 @@ const LockedFunction = (props: LockedFunctionType) => {
         Equation | undefined,
         React.Dispatch<React.SetStateAction<Equation | undefined>>,
     ] = useState();
-    const {color, strokeStyle, directionalAxis} = props;
-    const domain: [min: number, max: number] | undefined = props.domain
-        ? [
-              Number.isFinite(props.domain[0])
-                  ? (props.domain[0] as number)
-                  : -Infinity,
-              Number.isFinite(props.domain[1])
-                  ? (props.domain[1] as number)
-                  : Infinity,
-          ]
-        : undefined;
+    const {color, strokeStyle, directionalAxis, domain} = props;
     const plotProps = {
         color: lockedFigureColors[color],
         style: strokeStyle,
