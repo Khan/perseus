@@ -1062,15 +1062,6 @@ describe("Interactive Graph", function () {
         });
 
         describe("Locked Functions", () => {
-            // const domain = (
-            //     min: number | null,
-            //     max: number | null,
-            // ): [number | null, number | null] => {
-            //     return [min, max];
-            // };
-
-            // type domain = [min: number | null, max: number | null];
-
             it("should NOT render when an invalid equation is specified", () => {
                 // Arrange
                 const {container} = renderQuestion(
