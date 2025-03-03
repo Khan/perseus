@@ -225,6 +225,11 @@ export type PerseusNumericInputUserInput = {
     currentValue: string;
 };
 
+export type PerseusFreeResponseUserInput = {
+    currentValue: string;
+    question: string;
+};
+
 export type PerseusOrdererRubric = PerseusOrdererWidgetOptions;
 
 export type PerseusOrdererUserInput = {
@@ -321,6 +326,7 @@ interface UserInputRegistry {
     "cs-program": PerseusCSProgramUserInput;
     dropdown: PerseusDropdownUserInput;
     expression: PerseusExpressionUserInput;
+    "free-response": PerseusFreeResponseUserInput;
     grapher: PerseusGrapherUserInput;
     group: PerseusGroupUserInput;
     iframe: PerseusIFrameUserInput;
