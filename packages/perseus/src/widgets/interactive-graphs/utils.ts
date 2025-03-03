@@ -66,22 +66,6 @@ export function bound({
     return clampToBox(boundingBox, point);
 }
 
-// Returns true if the point is within the range of the graph.
-export function isInBound({
-    range,
-    point,
-}: {
-    range: [Interval, Interval];
-    point: vec.Vector2;
-}): boolean {
-    return (
-        point[0] >= range[0][0] &&
-        point[0] <= range[0][1] &&
-        point[1] >= range[1][0] &&
-        point[1] <= range[1][1]
-    );
-}
-
 export function isUnlimitedGraphState(
     state: InteractiveGraphState,
 ): state is UnlimitedGraphState {
