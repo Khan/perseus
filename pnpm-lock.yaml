@@ -781,6 +781,10 @@ importers:
         version: 1.6.0
 
   packages/perseus-core:
+    dependencies:
+      '@khanacademy/kas':
+        specifier: workspace:*
+        version: link:../kas
     devDependencies:
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'

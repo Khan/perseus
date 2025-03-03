@@ -24,8 +24,8 @@ import type {
     MathFieldInterface,
     MathFieldUpdaterCallback,
 } from "./mathquill-types";
-import type Key from "../../data/keys";
 import type {MathInputStrings} from "../../strings";
+import type {KeypadKey} from "@khanacademy/perseus-core";
 
 /**
  * This file contains a wrapper around MathQuill so that we can provide a
@@ -35,7 +35,7 @@ import type {MathInputStrings} from "../../strings";
 class MathWrapper {
     mathField: MathFieldInterface; // MathQuill MathField input
     callbacks: any;
-    mobileKeyTranslator: Record<Key, MathFieldUpdaterCallback>;
+    mobileKeyTranslator: Record<KeypadKey, MathFieldUpdaterCallback>;
 
     constructor(
         mathFieldMount,
@@ -97,7 +97,7 @@ class MathWrapper {
      * @param {Key} key - an enum representing the key that was pressed
      * @returns {object} a cursor object, consisting of a cursor context
      */
-    pressKey(key: Key) {
+    pressKey(key: KeypadKey) {
         const cursor = this.getCursor();
         const translator = this.mobileKeyTranslator[key];
 

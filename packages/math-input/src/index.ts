@@ -40,14 +40,10 @@ export {
 
 // External API of the "Provided" keypad component
 export {keypadElementPropType} from "./components/prop-types";
-export type {KeypadAPI, KeypadConfiguration} from "./types";
+export type {KeypadAPI} from "./types";
 export {convertDotToTimesByLocale} from "./utils";
 
-// Key list, configuration map, and types
-export type {default as Keys} from "./data/keys";
-export {KeyArray} from "./data/keys";
 export {default as KeyConfigs} from "./data/key-configs";
-export {type KeyType, KeypadType} from "./enums";
 
 // Helper to translate key pressed to MathField update
 export {getKeyTranslator} from "./components/key-handlers/key-translator";
