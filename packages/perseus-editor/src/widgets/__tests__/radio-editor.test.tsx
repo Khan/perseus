@@ -7,7 +7,19 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import RadioEditor from "../radio/editor";
 
+import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+
+function renderRadioEditor(onChangeMock = () => undefined) {
+    return render(
+        <RadioEditor
+            onChange={onChangeMock}
+            apiOptions={ApiOptions.defaults}
+            static={false}
+        />,
+        {wrapper: RenderStateRoot},
+    );
+}
 
 describe("radio-editor", () => {
     let userEvent: UserEvent;
@@ -22,13 +34,7 @@ describe("radio-editor", () => {
     });
 
     it("should render", async () => {
-        render(
-            <RadioEditor
-                onChange={() => undefined}
-                apiOptions={ApiOptions.defaults}
-            />,
-            {wrapper: RenderStateRoot},
-        );
+        renderRadioEditor();
 
         expect(screen.getByText(/Multiple selections/)).toBeInTheDocument();
     });
@@ -36,13 +42,7 @@ describe("radio-editor", () => {
     it("should toggle multiple select checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(
-            <RadioEditor
-                onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
-            />,
-            {wrapper: RenderStateRoot},
-        );
+        renderRadioEditor(onChangeMock);
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -56,13 +56,7 @@ describe("radio-editor", () => {
     it("should toggle randomize order checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(
-            <RadioEditor
-                onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
-            />,
-            {wrapper: RenderStateRoot},
-        );
+        renderRadioEditor(onChangeMock);
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -76,13 +70,7 @@ describe("radio-editor", () => {
     it("should be possible to add answer", async () => {
         const onChangeMock = jest.fn();
 
-        render(
-            <RadioEditor
-                onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
-            />,
-            {wrapper: RenderStateRoot},
-        );
+        renderRadioEditor(onChangeMock);
 
         await userEvent.click(
             screen.getAllByRole("link", {
@@ -92,7 +80,13 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
-                choices: [{}, {}, {}, {}, {isNoneOfTheAbove: false}],
+                choices: [
+                    {},
+                    {},
+                    {},
+                    {},
+                    {content: "", isNoneOfTheAbove: false},
+                ],
                 hasNoneOfTheAbove: false,
             }),
             // there's some anonymous function that's also passed
@@ -103,13 +97,7 @@ describe("radio-editor", () => {
     it("should be possible to delete answer", async () => {
         const onChangeMock = jest.fn();
 
-        render(
-            <RadioEditor
-                onChange={onChangeMock}
-                apiOptions={ApiOptions.defaults}
-            />,
-            {wrapper: RenderStateRoot},
-        );
+        renderRadioEditor(onChangeMock);
 
         await userEvent.click(
             screen.getAllByRole("link", {
@@ -121,6 +109,129 @@ describe("radio-editor", () => {
             expect.objectContaining({
                 choices: [{}, {}, {}],
                 hasNoneOfTheAbove: false,
+            }),
+        );
+    });
+
+    it("serializes", () => {
+        const editorRef = React.createRef<RadioEditor>();
+
+        render(
+            <RadioEditor
+                ref={editorRef}
+                onChange={() => {}}
+                apiOptions={ApiOptions.defaults}
+                static={false}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        const options = editorRef.current?.serialize();
+
+        expect(options).toEqual({
+            choices: [{}, {}, {}, {}],
+            randomize: false,
+            multipleSelect: false,
+            countChoices: false,
+            displayCount: null,
+            hasNoneOfTheAbove: false,
+            deselectEnabled: false,
+            numCorrect: 0,
+        });
+    });
+
+    it("derives num correct when serializing", () => {
+        const editorRef = React.createRef<RadioEditor>();
+
+        function getCorrectChoice(): PerseusRadioChoice {
+            return {
+                content: "",
+                correct: true,
+            };
+        }
+
+        function getIncorrectChoice(): PerseusRadioChoice {
+            const choice = getCorrectChoice();
+            choice.correct = false;
+            return choice;
+        }
+
+        render(
+            <RadioEditor
+                ref={editorRef}
+                onChange={() => {}}
+                apiOptions={ApiOptions.defaults}
+                static={false}
+                choices={[
+                    getCorrectChoice(),
+                    getIncorrectChoice(),
+                    getCorrectChoice(),
+                    getIncorrectChoice(),
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        const options = editorRef.current?.serialize();
+
+        expect(options?.numCorrect).toEqual(2);
+    });
+
+    it("derives num correct when calling onChange", async () => {
+        const onChangeMock = jest.fn();
+
+        function getCorrectChoice(): PerseusRadioChoice {
+            return {
+                content: "",
+                correct: true,
+            };
+        }
+
+        function getIncorrectChoice(): PerseusRadioChoice {
+            const choice = getCorrectChoice();
+            choice.correct = false;
+            return choice;
+        }
+
+        render(
+            <RadioEditor
+                onChange={onChangeMock}
+                apiOptions={ApiOptions.defaults}
+                static={false}
+                multipleSelect={true}
+                countChoices={true}
+                choices={[
+                    // start with 2 correct, 2 incorrect
+                    getIncorrectChoice(),
+                    getIncorrectChoice(),
+                    getCorrectChoice(),
+                    getCorrectChoice(),
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        /**
+         * This was super annoying to figure out.
+         * When in "edit" mode (which the editor is obviously)
+         * the only way to select an option from the radio
+         * is to click the A/B/C/etc icons themselves.
+         * We have a `elem.getAttribute("data-is-radio-icon")` check
+         * to make sure that what we're clicking is the icon and
+         * not some other part of the radio choice.
+         * It's just a div, hence the test ID.
+         */
+        const choices = screen.getAllByTestId(
+            "choice-icon__library-choice-icon",
+        );
+
+        // switch an incorrect answer into a correct answer
+        await userEvent.click(choices[0]);
+
+        // now there should be 3 correct answers
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                numCorrect: 3,
             }),
         );
     });

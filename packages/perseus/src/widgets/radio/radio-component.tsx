@@ -55,7 +55,7 @@ type DefaultProps = Required<
 
 export type RadioChoiceWithMetadata = PerseusRadioChoice & {
     originalIndex: number;
-    correct: boolean;
+    correct?: boolean;
 };
 
 class Radio extends React.Component<Props> implements Widget {
@@ -354,7 +354,7 @@ class Radio extends React.Component<Props> implements Widget {
             }));
         } else if (this.props.showSolutions === "all") {
             choiceStates = choices.map(({correct}) => ({
-                selected: correct, // to draw the eye to the correct answer
+                selected: !!correct, // to draw the eye to the correct answer
                 crossedOut: false,
                 readOnly: true,
                 highlighted: false, // has no effect in this mode
