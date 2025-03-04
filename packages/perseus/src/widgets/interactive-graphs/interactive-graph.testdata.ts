@@ -217,7 +217,6 @@ export const polygonWithAnglesQuestion: PerseusRenderer =
         .withGridStep(0.5, 0.5)
         .withSnapStep(0.25, 0.25)
         .withTickStep(0.5, 0.5)
-        .withMarkings("none")
         .withXRange(-1, 6)
         .withYRange(-1, 6)
         .withPolygon("grid", {
@@ -240,7 +239,6 @@ export const polygonWithAnglesAndAnglesSnapToQuestion: PerseusRenderer =
         .withGridStep(0.5, 0.5)
         .withSnapStep(0.25, 0.25)
         .withTickStep(0.5, 0.5)
-        .withMarkings("none")
         .withXRange(-1, 6)
         .withYRange(-1, 6)
         .withPolygon("angles", {
@@ -264,7 +262,6 @@ export const polygonWithAnglesAndManySidesQuestion: PerseusRenderer =
         .withGridStep(0.5, 0.5)
         .withSnapStep(0.25, 0.25)
         .withTickStep(0.5, 0.5)
-        .withMarkings("none")
         .withXRange(-1, 6)
         .withYRange(-1, 6)
         .withPolygon("grid", {
@@ -283,7 +280,6 @@ export const polygonWithAnglesAndFourSidesQuestion: PerseusRenderer =
         .withGridStep(0.5, 0.5)
         .withSnapStep(0.25, 0.25)
         .withTickStep(0.5, 0.5)
-        .withMarkings("none")
         .withXRange(-1, 6)
         .withYRange(-1, 6)
         .withPolygon("grid", {
@@ -302,7 +298,6 @@ export const polygonWithFourSidesSnappingQuestion: PerseusRenderer =
         .withGridStep(0.5, 0.5)
         .withSnapStep(0.25, 0.25)
         .withTickStep(0.5, 0.5)
-        .withMarkings("none")
         .withXRange(-1, 6)
         .withYRange(-1, 6)
         .withPolygon("sides", {

@@ -803,8 +803,8 @@ export function getAngleSnapConstraint(
     // Get the point that is being moved.
     const pointToBeMoved = newPoints[index];
 
-    // Create a helper function that moves the point and then checks
-    // whether it needs to keep trying to find a point for keyboard users.
+    // Create a helper function that moves the point to a valid location
+    // for angle snapping.
     const movePointWithConstraint = (
         moveFunc: (coord: vec.Vector2) => vec.Vector2,
     ): vec.Vector2 => {
