@@ -131,6 +131,7 @@ export interface PerseusWidgetTypes {
     dropdown: DropdownWidget;
     explanation: ExplanationWidget;
     expression: ExpressionWidget;
+    "free-response": FreeResponseWidget;
     grapher: GrapherWidget;
     "graded-group-set": GradedGroupSetWidget;
     "graded-group": GradedGroupWidget;
@@ -336,6 +337,8 @@ export type DropdownWidget = WidgetOptions<'dropdown', PerseusDropdownWidgetOpti
 export type ExplanationWidget = WidgetOptions<'explanation', PerseusExplanationWidgetOptions>;
 // prettier-ignore
 export type ExpressionWidget = WidgetOptions<'expression', PerseusExpressionWidgetOptions>;
+// prettier-ignore
+export type FreeResponseWidget = WidgetOptions<'free-response', PerseusFreeResponseWidgetOptions>;
 // prettier-ignore
 export type GradedGroupSetWidget = WidgetOptions<'graded-group-set', PerseusGradedGroupSetWidgetOptions>;
 // prettier-ignore
@@ -1663,6 +1666,10 @@ export type PerseusPythonProgramWidgetOptions = {
     height: number;
 };
 
+export type PerseusFreeResponseWidgetOptions = {
+    question: string;
+};
+
 export type PerseusIFrameWidgetOptions = {
     // A URL to display OR a CS Program ID
     url: string;
@@ -1728,6 +1735,7 @@ export type PerseusWidgetOptions =
     | PerseusDropdownWidgetOptions
     | PerseusExplanationWidgetOptions
     | PerseusExpressionWidgetOptions
+    | PerseusFreeResponseWidgetOptions
     | PerseusGradedGroupSetWidgetOptions
     | PerseusGradedGroupWidgetOptions
     | PerseusIFrameWidgetOptions
