@@ -22,7 +22,6 @@ import type {
     PerseusNumericInputUserInput,
 } from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-import type {RefObject} from "react";
 
 type ExternalProps = WidgetProps<
     PerseusNumericInputWidgetOptions,
@@ -40,15 +39,25 @@ export type NumericInputProps = ExternalProps & {
     currentValue: string;
 };
 
-type DefaultProps = {
-    currentValue: NumericInputProps["currentValue"];
-    size: NumericInputProps["size"];
-    rightAlign: NumericInputProps["rightAlign"];
-    apiOptions: NumericInputProps["apiOptions"];
-    coefficient: NumericInputProps["coefficient"];
-    answerForms: NumericInputProps["answerForms"];
-    labelText: NumericInputProps["labelText"];
-    linterContext: NumericInputProps["linterContext"];
+type DefaultProps = Pick<
+    NumericInputProps,
+    | "currentValue"
+    | "size"
+    | "rightAlign"
+    | "apiOptions"
+    | "coefficient"
+    | "answerForms"
+    | "labelText"
+    | "linterContext"
+>;
+
+type RenderProps = {
+    answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
+    labelText?: string;
+    size: string;
+    coefficient: boolean;
+    rightAlign?: boolean;
+    static: boolean;
 };
 
 // Assert that the PerseusNumericInputWidgetOptions parsed from JSON can be passed
@@ -74,7 +83,7 @@ export class NumericInput
     extends React.Component<NumericInputProps>
     implements Widget
 {
-    inputRef: RefObject<SimpleKeypadInput | typeof InputWithExamples>;
+    inputRef = React.createRef<SimpleKeypadInput | typeof InputWithExamples>();
 
     static defaultProps: DefaultProps = {
         currentValue: "",
@@ -93,15 +102,6 @@ export class NumericInput
         return {
             currentValue: props.currentValue,
         };
-    }
-
-    constructor(props: NumericInputProps) {
-        super(props);
-        // Create a ref that we can pass down to the input component so that we
-        // can call focus on it when necessary.
-        this.inputRef = React.createRef<
-            SimpleKeypadInput | typeof InputWithExamples
-        >();
     }
 
     focus: () => boolean = () => {
@@ -154,16 +154,6 @@ export class NumericInput
         return <NumericInputComponent {...this.props} ref={this.inputRef} />;
     }
 }
-
-type RenderProps = {
-    answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
-    labelText?: string;
-    size: string;
-    coefficient: boolean;
-    rightAlign?: boolean;
-    static: boolean;
-};
-
 // Transforms the widget options to the props used to render the widget.
 const propsTransform = function (
     widgetOptions: PerseusNumericInputWidgetOptions,

@@ -872,9 +872,20 @@ export type LockedFunctionType = {
     type: "function";
     color: LockedFigureColor;
     strokeStyle: LockedLineStyle;
-    equation: string; // This is the user-defined equation (as it was typed)
+    /**
+     * This is the user-defined equation (as it was typed)
+     */
+    equation: string;
+    /**
+     * The independent variable of this function
+     */
     directionalAxis: "x" | "y";
-    domain?: [min: number | null, max: number | null];
+    /**
+     * The minimum and maximum values along the `directionalAxis` at which
+     * this function should be graphed. Values of -Infinity and Infinity are
+     * allowed. Note that infinite values are serialized as `null` in JSON.
+     */
+    domain: [min: number, max: number];
     labels?: LockedLabelType[];
     ariaLabel?: string;
 };

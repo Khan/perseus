@@ -105,6 +105,10 @@ class TextInput extends React.Component<Props> {
 
         const formattedValue = value === null ? "" : value.toString();
 
+        // Some of our content was saved with empty strings as the label text,
+        // and we don't want to render an empty aria-label attribute.
+        const ariaLabel = labelText || undefined;
+
         return (
             <TextField
                 ref={this.inputRef}
@@ -113,10 +117,11 @@ class TextInput extends React.Component<Props> {
                 id={this.id}
                 value={formattedValue}
                 type="text"
-                aria-label={labelText || undefined}
+                aria-label={ariaLabel}
                 aria-describedby={this.props["aria-describedby"]}
                 onChange={(value) => this.props.onChange(value)}
                 placeholder={placeholder}
+                testId={"input-with-examples"}
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onKeyDown={onKeyDown}

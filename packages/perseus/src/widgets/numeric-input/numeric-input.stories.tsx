@@ -57,17 +57,18 @@ const meta: Meta<typeof NumericInput> = {
                 value: 1252,
                 simplify: "required",
                 message: "",
+                // We're including all the answer forms to make it easier to edit in storybook.
+                // Note: that setting all of the answer forms results in the example tooltip being hidden,
+                // which mimics our default behaviour for the widget.
+                answerForms: [
+                    "decimal",
+                    "integer",
+                    "mixed",
+                    "pi",
+                    "proper",
+                    "improper",
+                ],
             },
-        ],
-        // We're including all the answer forms to make it easier to edit in storybook.
-        answerForms: [
-            {simplify: "required", name: "decimal"},
-            {simplify: "required", name: "integer"},
-            {simplify: "required", name: "mixed"},
-            {simplify: "required", name: "percent"},
-            {simplify: "required", name: "pi"},
-            {simplify: "required", name: "proper"},
-            {simplify: "required", name: "improper"},
         ],
     },
     argTypes: {

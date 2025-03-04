@@ -9,6 +9,7 @@ import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../util
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
 import {TextLabel} from "./text-label";
 
+import type {SnapTo} from "../../types";
 import type {CollinearTuple} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
@@ -21,7 +22,7 @@ interface PolygonAngleProps {
     polygonLines: readonly CollinearTuple[];
     range: [Interval, Interval];
     showAngles: boolean;
-    snapTo: "grid" | "angles" | "sides";
+    snapTo: SnapTo;
 }
 
 export const PolygonAngle = ({

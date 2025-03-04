@@ -8,6 +8,14 @@ const validateFraction = (correctAnswer: string, guess: string) => {
     return validator(guess);
 };
 
+const validateImproperFraction = (correctAnswer: string, guess: string) => {
+    const validator = khanAnswerTypes.number.createValidatorFunctional(
+        correctAnswer,
+        {forms: ["improper"], strict: true, simplify: "optional"},
+    );
+    return validator(guess);
+};
+
 /**
  * Mobile keypad inputs submits fractions as for e.g. "\frac{1}{4}" to represent
  * "1/4". Whereas desktop browsers submits them as "1/4".
@@ -75,6 +83,14 @@ describe("For mobile keypad input", () => {
             expect(validateFraction("0.25", ".08").correct).toBe(false);
         });
     });
+
+    describe("when validator function is invoked with improper form", () => {
+        it("accepts a strict improper answer with tex answer", () => {
+            expect(validateImproperFraction("3", "\\frac{9}{3}").correct).toBe(
+                true,
+            );
+        });
+    });
 });
 
 describe("For desktop browser based inputs", () => {
@@ -109,6 +125,16 @@ describe("For desktop browser based inputs", () => {
 
         it("should fail incorrect guess", () => {
             expect(validateFraction("0.25", ".08").correct).toBe(false);
+        });
+    });
+
+    describe("when validator function is invoked with improper form", () => {
+        it("rejects a strict improper with whole number answer", () => {
+            expect(validateImproperFraction("3", "3").correct).toBe(false);
+        });
+
+        it("accepts a strict improper answer with simple text answer", () => {
+            expect(validateImproperFraction("3", "9/3").correct).toBe(true);
         });
     });
 });
