@@ -988,7 +988,10 @@ export function calculateAngleSnap(
     index: number,
     startingPoint: vec.Vector2,
 ) {
+    // Needed to prevent updating the original coords before the checks for
+    // degenerate triangles and overlapping sides
     const coordsCopy = [...coords];
+
     // Takes the destination point and makes sure it is within the bounds of the graph
     // SnapStep is [0, 0] because we don't want to snap to the grid
     coordsCopy[index] = bound({
