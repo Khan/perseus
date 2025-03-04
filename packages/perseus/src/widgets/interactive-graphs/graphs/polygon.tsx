@@ -11,9 +11,12 @@ import a11y from "../../../util/a11y";
 import {snap} from "../math";
 import {isInBound} from "../math/box";
 import {actions} from "../reducer/interactive-graph-action";
-import {calculateSideSnap} from "../reducer/interactive-graph-reducer";
+import {
+    calculateAngleSnap,
+    calculateSideSnap,
+} from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {isInBound, TARGET_SIZE} from "../utils";
+import {TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
