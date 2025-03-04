@@ -932,9 +932,6 @@ importers:
         specifier: workspace:*
         version: link:../perseus-core
     devDependencies:
-      jquery:
-        specifier: 'catalog:'
-        version: 2.2.4
       underscore:
         specifier: 'catalog:'
         version: 1.6.0

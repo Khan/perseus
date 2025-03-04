@@ -2,7 +2,6 @@
 import * as KAS from "@khanacademy/kas";
 import {KhanMath} from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
-import $ from "jquery";
 import _ from "underscore";
 
 import ErrorCodes from "../error-codes";
@@ -11,6 +10,10 @@ const MAXERROR_EPSILON = Math.pow(2, -42);
 
 type Guess = any;
 type Predicate = (guess: number, maxError: number) => boolean;
+type TransformedFraction = {
+    value: number;
+    exact: boolean;
+};
 
 // TOOD(kevinb): Figure out how this relates to KEScore in
 // perseus-all-package/types.js and see if there's a way to
@@ -139,7 +142,9 @@ const KhanAnswerTypes = {
             }
 
             // Take text looking like a fraction, and turn it into a number
-            const fractionTransformer = function (text) {
+            const fractionTransformer = function (
+                text,
+            ): ReadonlyArray<TransformedFraction> {
                 text = text
                     // Replace unicode minus sign with hyphen
                     .replace(/\u2212/, "-")
@@ -230,13 +235,20 @@ const KhanAnswerTypes = {
 
                 // A proper fraction
                 proper: function (text) {
-                    return $.map(fractionTransformer(text), function (o) {
-                        // All fractions that are less than 1
-                        if (Math.abs(o.value) < 1) {
-                            return [o];
-                        }
-                        return [];
-                    });
+                    const transformed = fractionTransformer(text);
+                    return transformed.reduce(
+                        (
+                            acc: ReadonlyArray<TransformedFraction>,
+                            curr: TransformedFraction,
+                        ) => {
+                            // All fractions that are less than 1
+                            if (Math.abs(curr.value) < 1) {
+                                return [...acc, curr];
+                            }
+                            return acc;
+                        },
+                        [],
+                    );
                 },
 
                 // an improper fraction
@@ -252,19 +264,26 @@ const KhanAnswerTypes = {
                         return [];
                     }
 
-                    return $.map(fractionTransformer(text), function (o) {
-                        // All fractions that are greater than 1
-                        if (Math.abs(o.value) >= 1) {
-                            return [o];
-                        }
-                        return [];
-                    });
+                    const transformed = fractionTransformer(text);
+                    return transformed.reduce(
+                        (
+                            acc: ReadonlyArray<TransformedFraction>,
+                            curr: TransformedFraction,
+                        ) => {
+                            // All fractions that are greater than 1
+                            if (Math.abs(curr.value) >= 1) {
+                                return [...acc, curr];
+                            }
+                            return acc;
+                        },
+                        [],
+                    );
                 },
 
                 // pi-like numbers
                 pi: function (text) {
                     let match;
-                    let possibilities: any[] = [];
+                    let possibilities: ReadonlyArray<any> = [];
 
                     // Replace unicode minus sign with hyphen
                     text = text.replace(/\u2212/, "-");
@@ -394,7 +413,7 @@ const KhanAnswerTypes = {
                         multiplier = Math.PI * 1.5;
                     }
 
-                    $.each(possibilities, function (ix, possibility) {
+                    possibilities.forEach((possibility) => {
                         possibility.value *= multiplier;
                     });
                     return possibilities;
@@ -442,17 +461,17 @@ const KhanAnswerTypes = {
 
                 // Numbers with percent signs
                 percent: function (text) {
-                    text = $.trim(text);
+                    text = String(text).trim();
                     // store whether or not there is a percent sign
                     let hasPercentSign = false;
 
                     if (text.indexOf("%") === text.length - 1) {
-                        text = $.trim(text.substring(0, text.length - 1));
+                        text = text.substring(0, text.length - 1).trim();
                         hasPercentSign = true;
                     }
 
                     const transformed = forms.decimal(text);
-                    $.each(transformed, function (ix, t) {
+                    transformed.forEach((t) => {
                         t.exact = hasPercentSign;
                         // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                         t.value = t.value / 100;
@@ -497,7 +516,7 @@ const KhanAnswerTypes = {
                 // precision == 1.)
                 decimal: function (text: string, precision = 1e10) {
                     const normal = function (text) {
-                        text = $.trim(text);
+                        text = String(text).trim();
 
                         const match = text
                             // Replace unicode minus sign with hyphen
@@ -547,7 +566,7 @@ const KhanAnswerTypes = {
                 const fallback =
                     options.fallback != null ? "" + options.fallback : "";
 
-                guess = $.trim(guess) || fallback;
+                guess = String(guess).trim() || fallback;
 
                 const score: Score = {
                     empty: guess === "",
@@ -558,7 +577,7 @@ const KhanAnswerTypes = {
 
                 // iterate over all the acceptable forms, and if one of the
                 // answers is correct, return true
-                $.each(acceptableForms, function (i, form) {
+                acceptableForms.forEach((form) => {
                     const transformed = forms[form](guess);
                     for (let j = 0, l = transformed.length; j < l; j++) {
                         const val = transformed[j].value;
@@ -641,7 +660,10 @@ const KhanAnswerTypes = {
                 function (guess, maxError) {
                     return Math.abs(guess - correctFloat) < maxError;
                 },
-                $.extend({}, options, {type: "predicate"}),
+                {
+                    ...options,
+                    type: "predicate",
+                },
             ];
         },
         createValidatorFunctional: function (
