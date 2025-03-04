@@ -972,14 +972,10 @@ function boundAndSnapToPolygonAngle(
 ) {
     const startingPoint = coords[index];
 
-    // Needed to prevent updating the original coords before the checks for
-    // degenerate triangles and overlapping sides
-    const coordsCopy = [...coords];
-
     return calculateAngleSnap(
         destinationPoint,
         range,
-        coordsCopy,
+        coords,
         index,
         startingPoint,
     ) as vec.Vector2;
@@ -994,7 +990,7 @@ export function calculateAngleSnap(
 ) {
     // Takes the destination point and makes sure it is within the bounds of the graph
     // SnapStep is [0, 0] because we don't want to snap to the grid
-    coords[index] = bound({
+    const boundedDestinationPoint = bound({
         snapStep: [0, 0],
         range,
         point: destinationPoint,
@@ -1052,7 +1048,8 @@ export function calculateAngleSnap(
     // we want to subtract the inner angle from the outer angle. The angle solved
     // for is then used in the polar function to determine the new point.
     const onLeft =
-        sign(ccw(coords[rel(-1)], coords[rel(1)], coords[index])) === 1;
+        sign(ccw(coords[rel(-1)], coords[rel(1)], boundedDestinationPoint)) ===
+        1;
 
     // Solve for side by using the law of sines
     const side =

@@ -709,7 +709,7 @@ function getKeyboardMovementConstraintForPoint(
         case "sides":
             return getSideSnapConstraint(points, index, range);
         case "angles":
-            return (p) => p;
+            return getAngleSnapConstraint(points, index, range);
         default:
             throw new UnreachableCaseError(snapTo);
     }
@@ -835,7 +835,8 @@ export function getAngleSnapConstraint(
         return newPoint;
     };
 
-    // For each direction look for the next movable point one whole integer away.
+    // For each direction look for the next movable point by a small step to increase changes
+    // of finding the next angle value.
     return {
         up: movePointWithConstraint((coord) => vec.add(coord, [0, 0.01])),
         down: movePointWithConstraint((coord) => vec.sub(coord, [0, 0.01])),
