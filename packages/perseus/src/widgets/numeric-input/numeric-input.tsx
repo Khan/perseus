@@ -97,7 +97,6 @@ export const NumericInputComponent = forwardRef(
                 </div>
             );
         }
-        // (desktop-only) Otherwise, use the InputWithExamples component
 
         // If the labelText is not provided by the Content Creators, use the default label text
         let labelText = props.labelText;
@@ -105,6 +104,7 @@ export const NumericInputComponent = forwardRef(
             labelText = context.strings.yourAnswerLabel;
         }
 
+        // (desktop-only) Otherwise, use the InputWithExamples component
         return (
             <InputWithExamples
                 ref={inputRef as React.RefObject<typeof InputWithExamples>}
