@@ -598,10 +598,10 @@ describe("getSideSnapConstraint", () => {
         const constraint = getSideSnapConstraint(points, 2, range);
 
         expect(constraint).toEqual({
-            up: [2, 2],
+            up: [2, 2], // direction restricted due to going off the graph
             down: [1.7057189138830724, 0.9557189138830715],
             left: [0.9557189138830734, 1.7057189138830726],
-            right: [2, 2],
+            right: [2, 2], // direction restricted due to going off the graph
         });
     });
 });
