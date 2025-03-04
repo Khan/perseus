@@ -84,7 +84,7 @@ describe("inset", () => {
 });
 
 describe("isInBound", () => {
-    it("returns true whe the point is within the bounds of the graph", () => {
+    it("returns true when the point is within the bounds of the graph", () => {
         const interval: [Interval, Interval] = [
             [-10, 10],
             [-10, 10],
@@ -92,11 +92,21 @@ describe("isInBound", () => {
         expect(isInBound({range: interval, point: [0, 0]})).toBeTruthy();
     });
 
-    it("returns false whe the point is outside the bounds of the graph", () => {
-        const interval: [Interval, Interval] = [
-            [-10, 10],
-            [-10, 10],
-        ];
-        expect(isInBound({range: interval, point: [20, 20]})).toBeFalsy();
-    });
+    it.each([
+        [20, 20],
+        [-20, 20],
+        [-20, -20],
+        [20, -20],
+    ])(
+        "returns false when the point [%d, %d] is outside the bounds of the graph",
+        (pointX, pointY) => {
+            const interval: [Interval, Interval] = [
+                [-10, 10],
+                [-10, 10],
+            ];
+            expect(
+                isInBound({range: interval, point: [pointX, pointY]}),
+            ).toBeFalsy();
+        },
+    );
 });
