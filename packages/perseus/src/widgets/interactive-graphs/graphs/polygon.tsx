@@ -1,4 +1,5 @@
 import {angles} from "@khanacademy/kmath";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
 
@@ -8,10 +9,11 @@ import {
 } from "../../../components/i18n-context";
 import a11y from "../../../util/a11y";
 import {snap} from "../math";
+import {isInBound} from "../math/box";
 import {actions} from "../reducer/interactive-graph-action";
 import {calculateSideSnap} from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {isInBound, TARGET_SIZE} from "../utils";
+import {TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
@@ -36,6 +38,7 @@ import type {
     InteractiveGraphProps,
     MafsGraphProps,
     PolygonGraphState,
+    SnapTo,
 } from "../types";
 import type {CollinearTuple} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
@@ -68,7 +71,6 @@ type StatefulProps = MafsGraphProps<PolygonGraphState> & {
     top: number;
     dragging: boolean;
     points: Coord[];
-    constrain: KeyboardMovementConstraint;
     hovered: boolean;
     setHovered: React.Dispatch<React.SetStateAction<boolean>>;
     focusVisible: boolean;
@@ -100,7 +102,7 @@ const PolygonGraph = (props: Props) => {
     // Logic to build the dragging experience. Primarily used by Limited Polygon.
     const dragReferencePoint = points[0];
     const constrain: KeyboardMovementConstraint =
-        snapTo === "angles" ? (p) => p : (p) => snap(snapStep, p);
+        getKeyboardMovementConstraintForPolygon(snapStep, snapTo);
 
     const {dragging} = useDraggable({
         gestureTarget: polygonRef,
@@ -150,7 +152,6 @@ const PolygonGraph = (props: Props) => {
         top,
         dragging,
         points,
-        constrain,
         hovered,
         setHovered,
         focusVisible,
@@ -176,13 +177,13 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         lastMoveTimeRef,
         dragging,
         points,
-        constrain,
     } = statefulProps;
     const {
         showAngles,
         showSides,
         range,
         snapTo = "grid",
+        snapStep,
     } = statefulProps.graphState;
     const {disableKeyboardInteraction} = graphConfig;
     const {strings, locale} = usePerseusI18n();
@@ -328,11 +329,13 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         <MovablePoint
                             ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
                             ariaLive={ariaLives[i + 1]}
-                            constrain={
-                                snapTo === "sides"
-                                    ? getSideSnapConstraint(points, i, range)
-                                    : constrain
-                            }
+                            constrain={getKeyboardMovementConstraintForPoint(
+                                points,
+                                i,
+                                range,
+                                snapStep,
+                                snapTo,
+                            )}
                             point={point}
                             sequenceNumber={i + 1}
                             onMove={(destination: vec.Vector2) => {
@@ -688,6 +691,40 @@ function describePolygonGraph(
         srPolygonElementsNum,
         srPolygonInteractiveElements,
     };
+}
+
+function getKeyboardMovementConstraintForPoint(
+    points: ReadonlyArray<Coord>,
+    index: number,
+    range: [Interval, Interval],
+    snapStep: vec.Vector2,
+    snapTo: SnapTo,
+): KeyboardMovementConstraint {
+    switch (snapTo) {
+        case "grid":
+            return (p) => snap(snapStep, p);
+        case "sides":
+            return getSideSnapConstraint(points, index, range);
+        case "angles":
+            return (p) => p;
+        default:
+            throw new UnreachableCaseError(snapTo);
+    }
+}
+
+function getKeyboardMovementConstraintForPolygon(
+    snapStep: vec.Vector2,
+    snapTo: SnapTo,
+): KeyboardMovementConstraint {
+    switch (snapTo) {
+        case "grid":
+            return (p) => snap(snapStep, p);
+        case "sides":
+        case "angles":
+            return (p) => p;
+        default:
+            throw new UnreachableCaseError(snapTo);
+    }
 }
 
 export function getSideSnapConstraint(

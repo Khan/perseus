@@ -1066,14 +1066,10 @@ function boundAndSnapToSides(
 ) {
     const startingPoint = coords[index];
 
-    // Needed to prevent updating the original coords before the checks for
-    // degenerate triangles and overlapping sides
-    const coordsCopy = [...coords];
-
     return calculateSideSnap(
         destinationPoint,
         range,
-        coordsCopy,
+        coords,
         index,
         startingPoint,
     ) as vec.Vector2;
@@ -1087,8 +1083,8 @@ export function calculateSideSnap(
     startingPoint: vec.Vector2,
 ) {
     // Takes the destination point and makes sure it is within the bounds of the graph
-    // SnapStep is [0, 0] because we don't want to snap to the grid
-    coords[index] = bound({
+    // SnapStep is [0, 0] because we don't want to snap to the grid.
+    const boundedIndexCoord = bound({
         snapStep: [0, 0],
         range,
         point: destinationPoint,
@@ -1100,13 +1096,13 @@ export function calculateSideSnap(
     };
     const sides = _.map(
         [
-            [coords[rel(-1)], coords[index]],
-            [coords[index], coords[rel(1)]],
+            [coords[rel(-1)], boundedIndexCoord],
+            [boundedIndexCoord, coords[rel(1)]],
             [coords[rel(-1)], coords[rel(1)]],
         ],
-        function (coordsCopy) {
+        function (coords) {
             // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
-            return magnitude(vector(...coordsCopy));
+            return magnitude(vector(...coords));
         },
     );
 
@@ -1138,7 +1134,7 @@ export function calculateSideSnap(
     // we want to subtract the inner angle from the outer angle. The angle solved
     // for is then used in the polar function to determine the new point.
     const onLeft =
-        sign(ccw(coords[rel(-1)], coords[rel(1)], coords[index])) === 1;
+        sign(ccw(coords[rel(-1)], coords[rel(1)], boundedIndexCoord)) === 1;
 
     // Uses the length of the first side of the polygon (radial coordinate)
     // and the angle between the first and second sides of the
