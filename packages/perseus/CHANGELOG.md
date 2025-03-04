@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 55.0.2
+
+### Patch Changes
+
+-   [#2270](https://github.com/Khan/perseus/pull/2270) [`941343ee3`](https://github.com/Khan/perseus/commit/941343ee3e3e88c2c4babb3040bfb2a73c64bf66) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing side snapping within polygons to be keyboard accessible.
+
 ## 55.0.1
 
 ### Patch Changes
