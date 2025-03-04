@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 55.0.1
+
+### Patch Changes
+
+-   [#2275](https://github.com/Khan/perseus/pull/2275) [`ad8681004`](https://github.com/Khan/perseus/commit/ad8681004338004a8204983a4192f2c141e691d8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure we can still identify numeric inputs
+
 ## 55.0.0
 
 ### Major Changes
