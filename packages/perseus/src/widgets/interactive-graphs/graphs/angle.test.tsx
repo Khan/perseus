@@ -120,7 +120,9 @@ describe("Angle graph screen reader", () => {
         // Vertex first
         const [vertex, point1, point2] = points;
 
-        expect(vertex).toHaveAccessibleName("Point 1, vertex at 0 comma 0.");
+        expect(vertex).toHaveAccessibleName(
+            "Point 1, vertex at 0 comma 0. Angle 90 degrees.",
+        );
         expect(point1).toHaveAccessibleName(
             "Point 2, ending side at -1 comma 1.",
         );

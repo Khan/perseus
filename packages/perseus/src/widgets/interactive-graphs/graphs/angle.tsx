@@ -189,7 +189,7 @@ function describeAngleGraph(
     i18n: I18nContextType,
 ): Record<string, string> {
     const {strings, locale} = i18n;
-    const {coords, allowReflexAngles, showAngles} = state;
+    const {coords, allowReflexAngles} = state;
     const [endingSide, vertex, startingSide] = coords;
 
     const angleMeasure = srFormatNumber(
@@ -215,16 +215,11 @@ function describeAngleGraph(
         x: srFormatNumber(endingSide[X], locale),
         y: srFormatNumber(endingSide[Y], locale),
     });
-    const srAngleVertex = showAngles
-        ? strings.srAngleVertexWithAngleMeasure({
-              x: srFormatNumber(vertex[X], locale),
-              y: srFormatNumber(vertex[Y], locale),
-              angleMeasure,
-          })
-        : strings.srAngleVertex({
-              x: srFormatNumber(vertex[X], locale),
-              y: srFormatNumber(vertex[Y], locale),
-          });
+    const srAngleVertex = strings.srAngleVertexWithAngleMeasure({
+        x: srFormatNumber(vertex[X], locale),
+        y: srFormatNumber(vertex[Y], locale),
+        angleMeasure,
+    });
 
     return {
         srAngleGraphAriaLabel,

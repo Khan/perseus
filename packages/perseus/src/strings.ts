@@ -235,7 +235,6 @@ export type PerseusStrings = {
     }) => string;
     srAngleStartingSide: ({x, y}: {x: string; y: string}) => string;
     srAngleEndingSide: ({x, y}: {x: string; y: string}) => string;
-    srAngleVertex: ({x, y}: {x: string; y: string}) => string;
     srAngleVertexWithAngleMeasure: ({
         x,
         y,
@@ -726,7 +725,6 @@ export const strings = {
         "Line going through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s.",
     srAngleStartingSide: "Point 3, starting side at %(x)s comma %(y)s.",
     srAngleEndingSide: "Point 2, ending side at %(x)s comma %(y)s.",
-    srAngleVertex: "Point 1, vertex at %(x)s comma %(y)s.",
     srAngleVertexWithAngleMeasure:
         "Point 1, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees.",
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
@@ -1024,7 +1022,6 @@ export const mockStrings: PerseusStrings = {
     srAngleStartingSide: ({x, y}) =>
         `Point 3, starting side at ${x} comma ${y}.`,
     srAngleEndingSide: ({x, y}) => `Point 2, ending side at ${x} comma ${y}.`,
-    srAngleVertex: ({x, y}) => `Point 1, vertex at ${x} comma ${y}.`,
     srAngleVertexWithAngleMeasure: ({x, y, angleMeasure}) =>
         `Point 1, vertex at ${x} comma ${y}. Angle ${angleMeasure} degrees.`,
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
