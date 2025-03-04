@@ -97,13 +97,20 @@ export const NumericInputComponent = forwardRef(
                 </div>
             );
         }
+
+        // If the labelText is not provided by the Content Creators, use the default label text
+        let labelText = props.labelText;
+        if (labelText == null || labelText === "") {
+            labelText = context.strings.yourAnswerLabel;
+        }
+
         // (desktop-only) Otherwise, use the InputWithExamples component
         return (
             <InputWithExamples
                 ref={inputRef as React.RefObject<typeof InputWithExamples>}
                 value={props.currentValue}
                 onChange={handleChange}
-                labelText={props.labelText}
+                labelText={labelText}
                 examples={generateExamples(props.answerForms, context.strings)}
                 shouldShowExamples={shouldShowExamples(props.answerForms)}
                 onFocus={handleFocus}

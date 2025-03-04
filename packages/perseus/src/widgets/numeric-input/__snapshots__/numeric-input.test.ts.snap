@@ -95,6 +95,7 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
           <input
             aria-disabled="false"
             aria-invalid="false"
+            aria-label="Your answer:"
             aria-required="false"
             autocapitalize="off"
             autocomplete="off"
@@ -147,6 +148,7 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
           <input
             aria-disabled="false"
             aria-invalid="false"
+            aria-label="Your answer:"
             aria-required="false"
             autocapitalize="off"
             autocomplete="off"
@@ -200,6 +202,7 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
             aria-describedby="aria-for-:rf:"
             aria-disabled="false"
             aria-invalid="false"
+            aria-label="Your answer:"
             aria-required="false"
             autocapitalize="off"
             autocomplete="off"
@@ -315,6 +318,7 @@ exports[`numeric-input widget Should render tooltip when format option is given:
             aria-describedby="aria-for-:r9:"
             aria-disabled="false"
             aria-invalid="false"
+            aria-label="Your answer:"
             aria-required="false"
             autocapitalize="off"
             autocomplete="off"
