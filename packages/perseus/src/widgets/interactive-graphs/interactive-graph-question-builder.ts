@@ -1,5 +1,6 @@
 import {vec} from "mafs";
 
+import type {SnapTo} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {
     CollinearTuple,
@@ -64,7 +65,7 @@ class InteractiveGraphQuestionBuilder {
     private interactiveFigureConfig: InteractiveFigureConfig =
         new SegmentGraphConfig();
     private lockedFigures: LockedFigure[] = [];
-    private snapTo: "grid" | "angles" | "sides" = "grid";
+    private snapTo: SnapTo = "grid";
     private staticMode: boolean = false;
 
     build(): PerseusRenderer {
@@ -246,7 +247,7 @@ class InteractiveGraphQuestionBuilder {
     }
 
     withPolygon(
-        snapTo?: "grid" | "angles" | "sides",
+        snapTo?: SnapTo,
         options?: {
             match?: "similar" | "congruent" | "approx";
             numSides?: number | "unlimited";
@@ -734,7 +735,7 @@ class SinusoidGraphConfig implements InteractiveFigureConfig {
 }
 
 class PolygonGraphConfig implements InteractiveFigureConfig {
-    private snapTo: "grid" | "angles" | "sides";
+    private snapTo: SnapTo;
     private match?: "similar" | "congruent" | "approx";
     private numSides: number | "unlimited";
     private showAngles: boolean;
@@ -743,7 +744,7 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
     private startCoords?: Coord[];
 
     constructor(
-        snapTo?: "grid" | "angles" | "sides",
+        snapTo?: SnapTo,
         options?: {
             match?: "similar" | "congruent" | "approx";
             numSides?: number | "unlimited";

@@ -1,4 +1,5 @@
 import {angles} from "@khanacademy/kmath";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
 
@@ -8,7 +9,9 @@ import {
 } from "../../../components/i18n-context";
 import a11y from "../../../util/a11y";
 import {snap} from "../math";
+import {isInBound} from "../math/box";
 import {actions} from "../reducer/interactive-graph-action";
+import {calculateSideSnap} from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
 import {TARGET_SIZE} from "../utils";
 
@@ -25,6 +28,7 @@ import {
     getSideLengthsFromPoints,
 } from "./utils";
 
+import type {KeyboardMovementConstraint} from "./use-draggable";
 import type {Coord} from "../../../interactive2/types";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
@@ -34,8 +38,10 @@ import type {
     InteractiveGraphProps,
     MafsGraphProps,
     PolygonGraphState,
+    SnapTo,
 } from "../types";
 import type {CollinearTuple} from "@khanacademy/perseus-core";
+import type {Interval} from "mafs";
 
 const {convertRadiansToDegrees} = angles;
 
@@ -65,7 +71,6 @@ type StatefulProps = MafsGraphProps<PolygonGraphState> & {
     top: number;
     dragging: boolean;
     points: Coord[];
-    constrain: (p: any) => any;
     hovered: boolean;
     setHovered: React.Dispatch<React.SetStateAction<boolean>>;
     focusVisible: boolean;
@@ -96,9 +101,8 @@ const PolygonGraph = (props: Props) => {
 
     // Logic to build the dragging experience. Primarily used by Limited Polygon.
     const dragReferencePoint = points[0];
-    const constrain = ["angles", "sides"].includes(snapTo)
-        ? (p) => p
-        : (p) => snap(snapStep, p);
+    const constrain: KeyboardMovementConstraint =
+        getKeyboardMovementConstraintForPolygon(snapStep, snapTo);
 
     const {dragging} = useDraggable({
         gestureTarget: polygonRef,
@@ -148,7 +152,6 @@ const PolygonGraph = (props: Props) => {
         top,
         dragging,
         points,
-        constrain,
         hovered,
         setHovered,
         focusVisible,
@@ -174,13 +177,13 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         lastMoveTimeRef,
         dragging,
         points,
-        constrain,
     } = statefulProps;
     const {
         showAngles,
         showSides,
         range,
         snapTo = "grid",
+        snapStep,
     } = statefulProps.graphState;
     const {disableKeyboardInteraction} = graphConfig;
     const {strings, locale} = usePerseusI18n();
@@ -326,7 +329,13 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         <MovablePoint
                             ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
                             ariaLive={ariaLives[i + 1]}
-                            constrain={constrain}
+                            constrain={getKeyboardMovementConstraintForPoint(
+                                points,
+                                i,
+                                range,
+                                snapStep,
+                                snapTo,
+                            )}
                             point={point}
                             sequenceNumber={i + 1}
                             onMove={(destination: vec.Vector2) => {
@@ -681,5 +690,96 @@ function describePolygonGraph(
         srPolygonGraphPoints,
         srPolygonElementsNum,
         srPolygonInteractiveElements,
+    };
+}
+
+function getKeyboardMovementConstraintForPoint(
+    points: ReadonlyArray<Coord>,
+    index: number,
+    range: [Interval, Interval],
+    snapStep: vec.Vector2,
+    snapTo: SnapTo,
+): KeyboardMovementConstraint {
+    switch (snapTo) {
+        case "grid":
+            return (p) => snap(snapStep, p);
+        case "sides":
+            return getSideSnapConstraint(points, index, range);
+        case "angles":
+            return (p) => p;
+        default:
+            throw new UnreachableCaseError(snapTo);
+    }
+}
+
+function getKeyboardMovementConstraintForPolygon(
+    snapStep: vec.Vector2,
+    snapTo: SnapTo,
+): KeyboardMovementConstraint {
+    switch (snapTo) {
+        case "grid":
+            return (p) => snap(snapStep, p);
+        case "sides":
+        case "angles":
+            return (p) => p;
+        default:
+            throw new UnreachableCaseError(snapTo);
+    }
+}
+
+export function getSideSnapConstraint(
+    points: ReadonlyArray<Coord>,
+    index: number,
+    range: [Interval, Interval],
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} {
+    // Make newPoints mutable.
+    const newPoints = [...points];
+
+    // Get the point that is being moved.
+    const pointToBeMoved = newPoints[index];
+
+    // Create a helper function that moves the point and then checks
+    // whether it needs to keep trying to find a point for keyboard users.
+    const movePointWithConstraint = (
+        moveFunc: (coord: vec.Vector2) => vec.Vector2,
+    ): vec.Vector2 => {
+        // The direction the user is attempting to move the point in.
+        let destinationAttempt: Coord = moveFunc(pointToBeMoved);
+        // The new point we're moving to.
+        let newPoint = pointToBeMoved;
+
+        // Move the point and keep trying until we are at the boarder
+        // of the graph.
+        while (
+            newPoint[0] === pointToBeMoved[0] &&
+            newPoint[1] === pointToBeMoved[1] &&
+            isInBound({range, point: destinationAttempt})
+        ) {
+            newPoint = calculateSideSnap(
+                destinationAttempt,
+                range,
+                newPoints,
+                index,
+                pointToBeMoved,
+            );
+
+            // Increment the destinationAttempt.
+            // For every time it does not work increment the direction for x and y.
+            destinationAttempt = moveFunc(destinationAttempt);
+        }
+        return newPoint;
+    };
+
+    // For each direction look for the next movable point one whole integer away.
+    return {
+        up: movePointWithConstraint((coord) => vec.add(coord, [0, 1])),
+        down: movePointWithConstraint((coord) => vec.sub(coord, [0, 1])),
+        left: movePointWithConstraint((coord) => vec.sub(coord, [1, 0])),
+        right: movePointWithConstraint((coord) => vec.add(coord, [1, 0])),
     };
 }
