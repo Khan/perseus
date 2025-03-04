@@ -22,7 +22,13 @@ export default function Hairlines(props: Props) {
     const [[__, horizontalEndY]] = useTransformVectorsToPixels([0, yMax]);
 
     return (
-        <g>
+        <g
+            // Use aria-hidden to hide the line from screen readers
+            // so it doesn't read as "image" with no context.
+            // The elements using this should have their own aria-labels,
+            // so this is okay.
+            aria-hidden={true}
+        >
             <line
                 x1={verticalStartX}
                 y1={y}

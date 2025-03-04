@@ -227,6 +227,10 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         ? "var(--movable-line-stroke-weight-active)"
                         : "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},
+                    // Use aria-hidden to hide the line from screen readers
+                    // so it doesn't read as "image" with no context.
+                    // This is okay because the graph has its own aria-label.
+                    "aria-hidden": true,
                 }}
             />
             {points.map((point, i) => {
@@ -453,12 +457,20 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                 svgPolylineProps={{
                     strokeWidth: "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},
+                    // Use aria-hidden to hide the line from screen readers
+                    // so it doesn't read as "image" with no context.
+                    // This is okay because the graph has its own aria-label.
+                    "aria-hidden": true,
                 }}
             />
             {/* This rect is here to grab clicks so that new points can be added */}
             {/* It's important because it stops mouse events from propogating
                 when dragging a points around */}
             <rect
+                // Use aria-hidden to hide the line from screen readers
+                // so it doesn't read as "image" with no context.
+                // This is okay because the graph has its own aria-label.
+                aria-hidden={true}
                 style={{
                     fill: "rgba(0,0,0,0)",
                     cursor: "crosshair",
