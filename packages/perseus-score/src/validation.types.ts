@@ -227,7 +227,6 @@ export type PerseusNumericInputUserInput = {
 
 export type PerseusFreeResponseUserInput = {
     currentValue: string;
-    question: string;
 };
 
 export type PerseusOrdererRubric = PerseusOrdererWidgetOptions;

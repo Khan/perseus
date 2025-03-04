@@ -34,7 +34,6 @@ export class FreeResponse
     getUserInput(): UserInput {
         return {
             currentValue: this.state.currentValue,
-            question: this.props.question,
         };
     }
 

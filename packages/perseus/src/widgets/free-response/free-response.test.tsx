@@ -73,7 +73,6 @@ describe("free-response widget", () => {
         expect(userInput).toMatchObject({
             "free-response 1": {
                 currentValue: "test-answer",
-                question: "test-question",
             },
         });
     });
