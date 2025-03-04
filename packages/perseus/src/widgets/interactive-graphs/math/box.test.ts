@@ -1,6 +1,7 @@
-import {inset} from "./box";
+import {inset, isInBound} from "./box";
 
 import type {Box} from "./box";
+import type {Interval} from "@khanacademy/perseus-core";
 
 describe("inset", () => {
     it("does nothing given amount [0, 0]", () => {
@@ -79,5 +80,23 @@ describe("inset", () => {
             [0.5, 0.5],
             [0.5, 0.5],
         ]);
+    });
+});
+
+describe("isInBound", () => {
+    it("returns true whe the point is within the bounds of the graph", () => {
+        const interval: [Interval, Interval] = [
+            [-10, 10],
+            [-10, 10],
+        ];
+        expect(isInBound({range: interval, point: [0, 0]})).toBeTruthy();
+    });
+
+    it("returns false whe the point is outside the bounds of the graph", () => {
+        const interval: [Interval, Interval] = [
+            [-10, 10],
+            [-10, 10],
+        ];
+        expect(isInBound({range: interval, point: [20, 20]})).toBeFalsy();
     });
 });
