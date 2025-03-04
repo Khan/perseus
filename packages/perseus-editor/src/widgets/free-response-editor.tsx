@@ -6,7 +6,7 @@ import * as React from "react";
 import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = PerseusFreeResponseWidgetOptions & {
-    onChange: (arg1: {question?: Props["question"]}) => void;
+    onChange: (arg1: PerseusFreeResponseWidgetOptions) => void;
 };
 
 class FreeResponseEditor extends React.Component<Props> {
