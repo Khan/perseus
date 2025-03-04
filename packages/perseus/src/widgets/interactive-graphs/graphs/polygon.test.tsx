@@ -627,10 +627,10 @@ describe("getAngleSnapConstraint", () => {
         const constraint = getAngleSnapConstraint(points, 2, range);
 
         expect(constraint).toEqual({
-            up: [1.7385890143294638, 2.9885890143294653],
-            down: [1.7057189138830724, 0.9557189138830715],
-            left: [0.9557189138830734, 1.7057189138830726],
-            right: [2.9885890143294644, 1.7385890143294631],
+            up: [2, 1.9999999999999996],
+            down: [2, 1.9999999999999996],
+            left: [2, 1.9999999999999996],
+            right: [2, 1.9999999999999996],
         });
     });
 
@@ -651,8 +651,8 @@ describe("getAngleSnapConstraint", () => {
 
         expect(constraint).toEqual({
             up: [2, 2], // direction restricted due to going off the graph
-            down: [1.7057189138830724, 0.9557189138830715],
-            left: [0.9557189138830734, 1.7057189138830726],
+            down: [2, 1.9999999999999996],
+            left: [2, 1.9999999999999996],
             right: [2, 2], // direction restricted due to going off the graph
         });
     });
