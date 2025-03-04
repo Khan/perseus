@@ -30,11 +30,9 @@
         "@khanacademy/perseus-core": "workspace:*"
     },
     "devDependencies": {
-        "jquery": "catalog:",
         "underscore": "catalog:"
     },
     "peerDependencies": {
-        "jquery": "catalog:",
         "underscore": "catalog:"
     },
     "keywords": []
