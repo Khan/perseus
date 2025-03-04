@@ -81,7 +81,16 @@ function QuadraticGraph(props: QuadraticGraphProps) {
             aria-label={srQuadraticGraph}
             aria-describedby={`${quadraticDirectionId} ${quadraticVertexId} ${quadraticInterceptsId}`}
         >
-            <Plot.OfX y={y} color={color.blue} />
+            <Plot.OfX
+                y={y}
+                color={color.blue}
+                svgPathProps={{
+                    // Use aria-hidden to hide the line from screen readers
+                    // so it doesn't read as "image" with no context.
+                    // This is okay because the graph has its own aria-label.
+                    "aria-hidden": true,
+                }}
+            />
             {coords.map((coord, i) => {
                 const srQuadraticPoint = getQuadraticPointString(
                     i + 1,

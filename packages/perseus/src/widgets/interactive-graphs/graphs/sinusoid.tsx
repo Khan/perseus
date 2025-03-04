@@ -79,6 +79,12 @@ function SinusoidGraph(props: SinusoidGraphProps) {
             <Plot.OfX
                 y={(x) => computeSine(x, coeffRef.current)}
                 color={color.blue}
+                svgPathProps={{
+                    // Use aria-hidden to hide the line from screen readers
+                    // so it doesn't read as "image" with no context.
+                    // This is okay because the graph has its own aria-label.
+                    "aria-hidden": true,
+                }}
             />
             {coords.map((coord, i) => (
                 <MovablePoint
