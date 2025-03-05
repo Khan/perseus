@@ -507,6 +507,7 @@ function doMovePoint(
             return {
                 ...state,
                 hasBeenInteractedWith: true,
+                focusedPointIndex: action.index,
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,

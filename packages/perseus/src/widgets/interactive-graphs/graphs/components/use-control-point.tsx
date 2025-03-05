@@ -68,6 +68,7 @@ export function useControlPoint(params: Params): Return {
 
     const [focused, setFocused] = useState(false);
     const focusableHandleRef = useRef<SVGGElement>(null);
+
     useDraggable({
         gestureTarget: focusableHandleRef,
         point,
@@ -92,9 +93,19 @@ export function useControlPoint(params: Params): Return {
             y: srFormatNumber(point[Y], locale),
         });
 
+    // Set the forwarded ref to the focusable handle element when it changes.
     useLayoutEffect(() => {
         setForwardedRef(forwardedRef, focusableHandleRef.current);
     }, [forwardedRef]);
+
+    // If the point is being dragged and is not focused, focus the focusable handle.
+    useLayoutEffect(() => {
+        if (dragging && !focused) {
+            // If the point is being dragged, focus the focusable handle so that
+            // users can continue to interact with the point using the keyboard or buttons.
+            focusableHandleRef.current?.focus();
+        }
+    }, [dragging, focused]);
 
     const focusableHandle = (
         <g
