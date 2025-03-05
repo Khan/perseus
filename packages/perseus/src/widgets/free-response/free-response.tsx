@@ -5,19 +5,24 @@
  * is "short answer" type questions.
  */
 
-import {View, Id} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
-import type {UserInput} from "@khanacademy/perseus-score";
+import type {PerseusFreeResponseUserInput} from "@khanacademy/perseus-score";
 
-type RenderProps = PerseusFreeResponseWidgetOptions;
-type Props = WidgetProps<RenderProps, PerseusFreeResponseWidgetOptions>;
+type RenderProps = Pick<PerseusFreeResponseWidgetOptions, "question">;
+type Props = WidgetProps<RenderProps>;
 
 type State = {
     currentValue: string;
 };
+
+// TODO(agoforth): Create a custom validator for the widget that will cause
+//   renderer.emptyWidgets() to work when there is no user input.
 
 export class FreeResponse
     extends React.Component<Props, State>
@@ -31,7 +36,7 @@ export class FreeResponse
         this.setState({currentValue: event.target.value});
     };
 
-    getUserInput(): UserInput {
+    getUserInput(): PerseusFreeResponseUserInput {
         return {
             currentValue: this.state.currentValue,
         };
@@ -39,20 +44,15 @@ export class FreeResponse
 
     render(): React.ReactNode {
         return (
-            <Id>
-                {(id) => {
-                    return (
-                        <View>
-                            <label htmlFor={id}>{this.props.question}</label>
-                            <textarea
-                                id={id}
-                                value={this.state.currentValue}
-                                onChange={this.handleChange}
-                            />
-                        </View>
-                    );
-                }}
-            </Id>
+            <View>
+                <label className={css(styles.labelAndTextarea)}>
+                    {this.props.question}
+                    <textarea
+                        value={this.state.currentValue}
+                        onChange={this.handleChange}
+                    />
+                </label>
+            </View>
         );
     }
 }
@@ -65,3 +65,11 @@ export default {
     // Hides widget from content creators until full release
     hidden: true,
 } as WidgetExports<typeof FreeResponse>;
+
+const styles = StyleSheet.create({
+    labelAndTextarea: {
+        display: "flex",
+        flexDirection: "column",
+        gap: spacing.xSmall_8,
+    },
+});

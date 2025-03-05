@@ -3,14 +3,17 @@ import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusFreeResponseWidgetOptions,
+    FreeResponseDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 type Props = PerseusFreeResponseWidgetOptions & {
-    onChange: (arg1: PerseusFreeResponseWidgetOptions) => void;
+    onChange: (options: Partial<PerseusFreeResponseWidgetOptions>) => void;
 };
 
 class FreeResponseEditor extends React.Component<Props> {
-    static defaultProps: PerseusFreeResponseWidgetOptions =
+    static defaultProps: FreeResponseDefaultWidgetOptions =
         freeResponseLogic.defaultWidgetOptions;
 
     static widgetName = "free-response" as const;

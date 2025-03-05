@@ -1,7 +1,7 @@
 ---
-"@khanacademy/perseus": patch
-"@khanacademy/perseus-core": patch
-"@khanacademy/perseus-editor": patch
+"@khanacademy/perseus": minor
+"@khanacademy/perseus-core": minor
+"@khanacademy/perseus-editor": minor
 "@khanacademy/perseus-score": patch
 ---
 

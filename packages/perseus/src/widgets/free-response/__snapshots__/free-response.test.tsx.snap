@@ -19,13 +19,11 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
             class="default_xu2jcg"
           >
             <label
-              for=":r1:"
+              class="labelAndTextarea_1o27vzy"
             >
               test-question
+              <textarea />
             </label>
-            <textarea
-              id=":r1:"
-            />
           </div>
         </div>
       </div>
@@ -53,13 +51,11 @@ exports[`free-response widget should snapshot: first render 1`] = `
             class="default_xu2jcg"
           >
             <label
-              for=":r0:"
+              class="labelAndTextarea_1o27vzy"
             >
               test-question
+              <textarea />
             </label>
-            <textarea
-              id=":r0:"
-            />
           </div>
         </div>
       </div>

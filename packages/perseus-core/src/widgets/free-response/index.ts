@@ -6,7 +6,7 @@ export type FreeResponseDefaultWidgetOptions = Pick<
     "question"
 >;
 
-const defaultWidgetOptions: PerseusFreeResponseWidgetOptions = {
+const defaultWidgetOptions: FreeResponseDefaultWidgetOptions = {
     question: "",
 };
 

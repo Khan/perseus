@@ -5,7 +5,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {question} from "./free-response.testdata";
+import {getFreeResponseItemData} from "./free-response.testdata";
 
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -30,7 +30,10 @@ describe("free-response widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question, apiOptions);
+        const {container} = renderQuestion(
+            getFreeResponseItemData(),
+            apiOptions,
+        );
 
         // Assert
         expect(container).toMatchSnapshot("first render");
@@ -43,7 +46,10 @@ describe("free-response widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question, apiOptions);
+        const {container} = renderQuestion(
+            getFreeResponseItemData(),
+            apiOptions,
+        );
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
@@ -52,15 +58,17 @@ describe("free-response widget", () => {
     it("should render the question text", () => {
         // Arrange
         // Act
-        renderQuestion(question, {});
+        renderQuestion(getFreeResponseItemData(), {});
 
         // Assert
-        expect(screen.getByLabelText("test-question")).toBeVisible();
+        expect(
+            screen.getByRole("textbox", {name: "test-question"}),
+        ).toBeVisible();
     });
 
     it("should return the correct user input", async () => {
         // Arrange
-        const {renderer} = renderQuestion(question);
+        const {renderer} = renderQuestion(getFreeResponseItemData());
         await userEvent.type(
             screen.getByLabelText("test-question"),
             "test-answer",
@@ -76,18 +84,4 @@ describe("free-response widget", () => {
             },
         });
     });
-
-    // TODO(agoforth): Create a custom validator for the free-response widget
-    //   that will cause this test to pass.
-    // it("should be included in the empty widgets list if no text has been input yet", async () => {
-    //     // Arrange
-    //     const {renderer} = renderQuestion(question1);
-
-    //     // Act
-    //     const userInput = renderer.emptyWidgets();
-
-    //     // Assert
-    //     expect(userInput).toHaveLength(1);
-    //     expect(userInput[0]).toBe("free-response 1");
-    // });
 });
