@@ -305,13 +305,11 @@ export function getPolygonCoords(
         return coords;
     }
 
-    // If we have startCoords AND they match the number of sides, use them
     const startCoords = graph.startCoords?.slice();
-    if (startCoords && startCoords.length === graph.numSides) {
+    if (startCoords) {
         return startCoords;
     }
 
-    // Otherwise, generate some default coords
     const n = graph.numSides || 3;
 
     if (n === "unlimited") {
