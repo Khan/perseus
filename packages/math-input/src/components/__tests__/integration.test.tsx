@@ -13,17 +13,16 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import MathQuill from "mathquill";
 import React, {useState} from "react";
 
-import {KeypadType} from "../../enums";
 import MathInput from "../input/math-input";
 import {MobileKeypad} from "../keypad";
 
-import type {KeypadConfiguration} from "../../types";
+import type {KeypadConfiguration} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const MQ = MathQuill.getInterface(3);
 
 const defaultConfiguration: KeypadConfiguration = {
-    keypadType: KeypadType.FRACTION,
+    keypadType: "FRACTION",
 };
 
 function InputWithContext({keypadConfiguration}) {
@@ -249,8 +248,8 @@ describe("math input integration", () => {
     });
 
     it("handles fractions correctly in expression", async () => {
-        const keypadConfiguration = {
-            keypadType: KeypadType.EXPRESSION,
+        const keypadConfiguration: KeypadConfiguration = {
+            keypadType: "EXPRESSION",
         };
         render(
             <ConnectedMathInput keypadConfiguration={keypadConfiguration} />,

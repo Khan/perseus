@@ -1065,21 +1065,27 @@ exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.jso
               "value": "j<14",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "basic relations",
             "advanced relations",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "j",
           ],
           "functions": [
             "f",
             "g",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "static": false,
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -1134,6 +1140,12 @@ $y=$ [[☃ expression 1]]",
             "logarithms",
           ],
           "buttonsVisible": undefined,
+          "extraKeys": [
+            "a",
+            "b",
+            "c",
+            "x",
+          ],
           "functions": [
             "f",
             "g",
@@ -1144,7 +1156,7 @@ $y=$ [[☃ expression 1]]",
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -1184,8 +1196,13 @@ exports[`parseAndMigratePerseusItem given expression-option-missing-value.json r
         "graded": true,
         "options": {
           "answerForms": [],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
@@ -1193,10 +1210,11 @@ exports[`parseAndMigratePerseusItem given expression-option-missing-value.json r
             "h",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -1334,9 +1352,14 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
               "value": "sqrt(3)*3",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
@@ -1344,10 +1367,11 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
             "h",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -1363,9 +1387,14 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
               "value": "3",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
@@ -1373,10 +1402,11 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
             "h",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -1392,9 +1422,14 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
               "value": "pi/6",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
@@ -1402,10 +1437,11 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
             "h",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -1428,9 +1464,14 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
               "value": "1/2",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
@@ -1438,10 +1479,11 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
             "h",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -1601,10 +1643,15 @@ more explanation",
               "value": "5.78\\times10^{19}",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
             "scientific",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
@@ -1612,11 +1659,12 @@ more explanation",
             "h",
           ],
           "times": true,
+          "visibleLabel": undefined,
         },
         "static": false,
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -6525,10 +6573,15 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
               "value": "1.2c+3\\ge13.5",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "basic relations",
             "advanced relations",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "c",
           ],
           "functions": [
             "f",
@@ -6536,11 +6589,12 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
             "h",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "static": false,
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -7063,21 +7117,26 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
               "value": "\\frac{8}{27}",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
             "g",
             "h",
           ],
-          "static": false,
           "times": false,
+          "visibleLabel": undefined,
         },
         "static": false,
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -7208,6 +7267,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.json r
               "basic",
             ],
             "buttonsVisible": "never",
+            "extraKeys": [
+              "PI",
+            ],
             "functions": [
               "f",
               "g",
@@ -7218,7 +7280,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.json r
           },
           "type": "expression",
           "version": {
-            "major": 1,
+            "major": 2,
             "minor": 0,
           },
         },
@@ -7277,6 +7339,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.json r
               "basic",
             ],
             "buttonsVisible": undefined,
+            "extraKeys": [
+              "PI",
+            ],
             "functions": [
               "f",
               "g",
@@ -7287,7 +7352,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.json r
           },
           "type": "expression",
           "version": {
-            "major": 1,
+            "major": 2,
             "minor": 0,
           },
         },
@@ -7397,6 +7462,9 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
             "basic",
           ],
           "buttonsVisible": "never",
+          "extraKeys": [
+            "PI",
+          ],
           "functions": [
             "f",
             "g",
@@ -7407,7 +7475,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -8176,8 +8244,13 @@ How can we decompose $\\dfrac38$?
                       "value": "\\frac{1}{8}+\\frac{1}{8}+\\frac{1}{8}",
                     },
                   ],
+                  "ariaLabel": undefined,
                   "buttonSets": [
                     "basic",
+                  ],
+                  "buttonsVisible": undefined,
+                  "extraKeys": [
+                    "PI",
                   ],
                   "functions": [
                     "f",
@@ -8185,11 +8258,12 @@ How can we decompose $\\dfrac38$?
                     "h",
                   ],
                   "times": true,
+                  "visibleLabel": undefined,
                 },
                 "static": false,
                 "type": "expression",
                 "version": {
-                  "major": 1,
+                  "major": 2,
                   "minor": 0,
                 },
               },
@@ -8536,8 +8610,13 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                       "value": "\\frac{1}{3}+\\frac{1}{3}+\\frac{1}{3}+\\frac{1}{3}+\\frac{1}{3}",
                     },
                   ],
+                  "ariaLabel": undefined,
                   "buttonSets": [
                     "basic",
+                  ],
+                  "buttonsVisible": undefined,
+                  "extraKeys": [
+                    "PI",
                   ],
                   "functions": [
                     "f",
@@ -8545,11 +8624,12 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                     "h",
                   ],
                   "times": false,
+                  "visibleLabel": undefined,
                 },
                 "static": false,
                 "type": "expression",
                 "version": {
-                  "major": 1,
+                  "major": 2,
                   "minor": 0,
                 },
               },

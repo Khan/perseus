@@ -183,9 +183,10 @@ describe("splitPerseusItem", () => {
             widgets: {
                 "expression 1": {
                     type: "expression",
-                    version: {major: 1, minor: 0},
+                    version: {major: 2, minor: 0},
                     options: {
                         buttonSets: ["basic"],
+                        extraKeys: ["PI"],
                         functions: [],
                         times: true,
                     },

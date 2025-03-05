@@ -2,11 +2,6 @@
  * Constants that are shared between multiple files.
  */
 
-export enum KeypadType {
-    FRACTION = "FRACTION",
-    EXPRESSION = "EXPRESSION",
-}
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const KeyTypes = [
     "EMPTY",

@@ -156,6 +156,27 @@ describe("Editor", () => {
         expect(consoleErrorSpy).not.toHaveBeenCalled();
     });
 
+    it("should add the latest expression widget", async () => {
+        // PerseusRenderer but TS is being dumb
+        let cbData: any;
+        render(
+            <Harnessed
+                onChange={(data) => {
+                    cbData = data;
+                }}
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        const select = screen.getByTestId("editor__widget-select");
+        await userEvent.selectOptions(select, "Expression / Equation");
+
+        expect(cbData?.widgets?.["expression 1"]?.version).toEqual({
+            major: 2,
+            minor: 0,
+        });
+    });
+
     it("should add the latest radio widget", async () => {
         // PerseusRenderer but TS is being dumb
         let cbData: any;
