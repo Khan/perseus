@@ -102,12 +102,18 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     return (
         <g
             aria-label={wholeSegmentGraphAriaLabel}
-            aria-describedby={wholeGraphDescriptionId}
+            aria-describedby={`${wholeGraphDescriptionId} ${segments.length === 1 && lengthDescriptionId}`}
         >
             {segments?.map((segment, i) => (
                 <g
-                    aria-label={getIndividualSegmentAriaLabel(segment, i)}
-                    aria-describedby={lengthDescriptionId}
+                    aria-label={
+                        segments.length === 1
+                            ? undefined
+                            : getIndividualSegmentAriaLabel(segment, i)
+                    }
+                    aria-describedby={
+                        segments.length === 1 ? undefined : lengthDescriptionId
+                    }
                     key={`${segmentUniqueId}-${i}`}
                 >
                     <MovableLine

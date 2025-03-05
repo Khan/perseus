@@ -43,7 +43,7 @@ type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 // Exported for testing
 export function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
-    const {center, radiusPoint} = graphState;
+    const {center, radiusPoint, snapStep} = graphState;
 
     const {strings, locale} = usePerseusI18n();
     const [radiusPointAriaLive, setRadiusPointAriaLive] =
@@ -102,6 +102,11 @@ export function CircleGraph(props: CircleGraphProps) {
                     setRadiusPointAriaLive("polite");
                     dispatch(actions.circle.moveRadiusPoint(newRadiusPoint));
                 }}
+                constrain={getCircleKeyboardConstraint(
+                    center,
+                    radiusPoint,
+                    snapStep,
+                )}
             />
             {/* Hidden elements to provide the descriptions for the
                 circle and radius point's `aria-describedby` properties. */}
@@ -233,6 +238,50 @@ function getCircleGraphDescription(
     return strings.srCircleInteractiveElement;
 }
 
+export const getCircleKeyboardConstraint = (
+    center: vec.Vector2,
+    radiusPoint: vec.Vector2,
+    snapStep: vec.Vector2,
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} => {
+    // Create a helper function that moves the point and then checks
+    // if it overlaps with the center point after the move.
+    const movePointWithConstraint = (
+        moveFunc: (coord: vec.Vector2) => vec.Vector2,
+    ): vec.Vector2 => {
+        // Move the point
+        let movedCoord = moveFunc(radiusPoint);
+        // If the moved point overlaps with the center point,
+        // move the point again.
+        if (vec.dist(movedCoord, center) === 0) {
+            movedCoord = moveFunc(movedCoord);
+        }
+        return movedCoord;
+    };
+
+    // Check if the new point overlaps the center point.
+    // If it does, we need to snap the point to the left
+    //  or right an additional snapStep to avoid the overlap.
+    return {
+        up: movePointWithConstraint((coord) =>
+            vec.add(coord, [0, snapStep[1]]),
+        ),
+        down: movePointWithConstraint((coord) =>
+            vec.sub(coord, [0, snapStep[1]]),
+        ),
+        left: movePointWithConstraint((coord) =>
+            vec.sub(coord, [snapStep[0], 0]),
+        ),
+        right: movePointWithConstraint((coord) =>
+            vec.add(coord, [snapStep[0], 0]),
+        ),
+    };
+};
+
 // Exported for testing
 export function describeCircleGraph(
     state: CircleGraphState,
@@ -241,6 +290,7 @@ export function describeCircleGraph(
     const {strings, locale} = i18n;
     const {center, radiusPoint} = state;
     const radius = getRadius(state);
+    const isRadiusOnRight = radiusPoint[X] >= center[X];
 
     // Aria label strings
     const srCircleGraph = strings.srCircleGraph;
@@ -248,10 +298,15 @@ export function describeCircleGraph(
         centerX: srFormatNumber(center[0], locale),
         centerY: srFormatNumber(center[1], locale),
     });
-    const srCircleRadiusPoint = strings.srCircleRadiusPoint({
-        radiusPointX: srFormatNumber(radiusPoint[0], locale),
-        radiusPointY: srFormatNumber(radiusPoint[1], locale),
-    });
+    const srCircleRadiusPoint = isRadiusOnRight
+        ? strings.srCircleRadiusPointRight({
+              radiusPointX: srFormatNumber(radiusPoint[0], locale),
+              radiusPointY: srFormatNumber(radiusPoint[1], locale),
+          })
+        : strings.srCircleRadiusPointLeft({
+              radiusPointX: srFormatNumber(radiusPoint[0], locale),
+              radiusPointY: srFormatNumber(radiusPoint[1], locale),
+          });
     const srCircleRadius = strings.srCircleRadius({
         radius,
     });

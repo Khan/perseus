@@ -168,12 +168,31 @@ describe("Editor", () => {
         );
         act(() => jest.runOnlyPendingTimers());
 
-        await userEvent.selectOptions(
-            screen.getByTestId("editor__widget-select"),
-            "Expression / Equation",
-        );
+        const select = screen.getByTestId("editor__widget-select");
+        await userEvent.selectOptions(select, "Expression / Equation");
 
         expect(cbData?.widgets?.["expression 1"]?.version).toEqual({
+            major: 2,
+            minor: 0,
+        });
+    });
+
+    it("should add the latest radio widget", async () => {
+        // PerseusRenderer but TS is being dumb
+        let cbData: any;
+        render(
+            <Harnessed
+                onChange={(data) => {
+                    cbData = data;
+                }}
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        const select = screen.getByTestId("editor__widget-select");
+        await userEvent.selectOptions(select, "Radio / Multiple choice");
+
+        expect(cbData?.widgets?.["radio 1"]?.version).toEqual({
             major: 2,
             minor: 0,
         });

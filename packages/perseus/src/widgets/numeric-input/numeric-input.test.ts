@@ -189,10 +189,10 @@ describe("numeric-input widget", () => {
         const fractionsContainer = renderQuestion(
             questionWithFormatOptions,
         ).container;
-        // eslint-disable-next-line testing-library/no-node-access
-        const fractionTextContainer = fractionsContainer.querySelector(
-            "[id*='aria-for-input-with-examples-']",
-        );
+
+        const fractionTextContainer =
+            // eslint-disable-next-line testing-library/no-node-access
+            fractionsContainer.querySelector("[id*='aria-for-']");
 
         // Assert
         expect(fractionTextContainer).toHaveTextContent(
@@ -212,10 +212,10 @@ describe("numeric-input widget", () => {
         const othersContainer = renderQuestion(
             questionWithFormatOptions,
         ).container;
-        // eslint-disable-next-line testing-library/no-node-access
-        const othersTextContainer = othersContainer.querySelector(
-            "[id*='aria-for-input-with-examples-']",
-        );
+
+        const othersTextContainer =
+            // eslint-disable-next-line testing-library/no-node-access
+            othersContainer.querySelector("[id*='aria-for-']");
 
         // Assert
         expect(othersTextContainer).toHaveTextContent("an integer");

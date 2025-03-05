@@ -1,6 +1,6 @@
 import {clamp} from "./clamp";
 import {X, Y} from "./coordinates";
-import {trim} from "./interval";
+import {MAX, MIN, trim} from "./interval";
 
 import type {Interval, vec} from "mafs";
 
@@ -17,4 +17,20 @@ export function clampToBox(box: Box, point: vec.Vector2): vec.Vector2 {
 // that dimension instead.
 export function inset(amount: vec.Vector2, box: Box): Box {
     return [trim(amount[X], box[X]), trim(amount[Y], box[Y])];
+}
+
+// Returns true if the point is within the range of the graph.
+export function isInBound({
+    range,
+    point,
+}: {
+    range: [Interval, Interval];
+    point: vec.Vector2;
+}): boolean {
+    return (
+        point[X] >= range[X][MIN] &&
+        point[X] <= range[X][MAX] &&
+        point[Y] >= range[Y][MIN] &&
+        point[Y] <= range[Y][MAX]
+    );
 }
