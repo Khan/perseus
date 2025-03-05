@@ -1,5 +1,12 @@
 # @khanacademy/perseus-linter
 
+## 1.3.1
+
+### Patch Changes
+
+-   Updated dependencies [[`a0aee41b6`](https://github.com/Khan/perseus/commit/a0aee41b69d4288ef165416cea293100d037ce5f), [`909148cdc`](https://github.com/Khan/perseus/commit/909148cdccabb3f0a2156587ea1e870bae910f8d)]:
+    -   @khanacademy/perseus-core@5.0.0
+
 ## 1.3.0
 
 ### Minor Changes
