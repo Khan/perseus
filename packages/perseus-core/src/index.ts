@@ -60,6 +60,8 @@ export type {ExplanationDefaultWidgetOptions} from "./widgets/explanation";
 export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
 export {default as gradedGroupLogic} from "./widgets/graded-group";
+export {default as freeResponseLogic} from "./widgets/free-response";
+export type {FreeResponseDefaultWidgetOptions} from "./widgets/free-response";
 export type {GradedGroupDefaultWidgetOptions} from "./widgets/graded-group";
 export {default as gradedGroupSetLogic} from "./widgets/graded-group-set";
 export type {GradedGroupSetDefaultWidgetOptions} from "./widgets/graded-group-set";

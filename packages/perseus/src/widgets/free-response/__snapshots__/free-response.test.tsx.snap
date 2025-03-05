@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`free-response widget should snapshot on mobile: first mobile render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="default_xu2jcg"
+          >
+            <label
+              class="labelAndTextarea_1o27vzy"
+            >
+              test-question
+              <textarea />
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`free-response widget should snapshot: first render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="default_xu2jcg"
+          >
+            <label
+              class="labelAndTextarea_1o27vzy"
+            >
+              test-question
+              <textarea />
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
