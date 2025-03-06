@@ -43,6 +43,25 @@ describe("free-response editor", () => {
         expect(onChangeMock).toBeCalledWith({question: "2"});
     });
 
+    it("calls onChange when a criterion is changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        // Act
+        render(
+            <FreeResponseEditor
+                onChange={onChangeMock}
+                scoringCriteria={[{text: ""}]}
+            />,
+        );
+        await userEvent.type(screen.getByTestId("criterion-input-0"), "2");
+
+        // Assert
+        expect(onChangeMock).toBeCalledWith({
+            scoringCriteria: [{text: "2"}],
+        });
+    });
+
     it("returns a warning when the question is empty", async () => {
         // Arrange
         const ref = React.createRef<FreeResponseEditor>();
@@ -72,8 +91,34 @@ describe("free-response editor", () => {
         );
 
         // Assert
-        expect(ref.current?.serialize()).toEqual({
+        expect(ref.current?.serialize()).toMatchObject({
             question: "test-question",
+        });
+    });
+
+    it("serializes the criteria values", async () => {
+        // Arrange
+        const ref = React.createRef<FreeResponseEditor>();
+
+        // Act
+        render(
+            <FreeResponseEditor
+                ref={ref}
+                question="test-question"
+                scoringCriteria={[
+                    {text: "test-criterion-1"},
+                    {text: "test-criterion-2"},
+                ]}
+                onChange={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(ref.current?.serialize()).toMatchObject({
+            scoringCriteria: [
+                {text: "test-criterion-1"},
+                {text: "test-criterion-2"},
+            ],
         });
     });
 
@@ -85,8 +130,78 @@ describe("free-response editor", () => {
         render(<FreeResponseEditor ref={ref} onChange={() => {}} />);
 
         // Assert
-        expect(ref.current?.serialize()).toEqual({
+        expect(ref.current?.serialize()).toMatchObject({
             question: "",
+        });
+    });
+
+    it("the scoringCriteria defaults to an array with one empty value", async () => {
+        // Arrange
+        const ref = React.createRef<FreeResponseEditor>();
+
+        // Act
+        render(<FreeResponseEditor ref={ref} onChange={() => {}} />);
+
+        // Assert
+        expect(ref.current?.serialize()).toMatchObject({
+            scoringCriteria: [{text: ""}],
+        });
+    });
+
+    it("adds another criterion when the add button is clicked", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        // Act
+        render(
+            <FreeResponseEditor
+                scoringCriteria={[{text: "criterion-1"}]}
+                onChange={onChangeMock}
+            />,
+        );
+        await userEvent.click(
+            screen.getByRole("button", {name: /Add an item/i}),
+        );
+
+        // Assert
+        expect(onChangeMock).toBeCalledWith({
+            scoringCriteria: [{text: "criterion-1"}, {text: ""}],
+        });
+    });
+
+    it("prevents deleting the only criterion", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        // Act
+        render(
+            <FreeResponseEditor
+                scoringCriteria={[{text: "criterion-1"}]}
+                onChange={onChangeMock}
+            />,
+        );
+        await userEvent.click(screen.getByRole("button", {name: /Delete/i}));
+
+        // Assert
+        expect(onChangeMock).not.toBeCalled();
+    });
+
+    it("deletes a criterion when the delete button is clicked", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        // Act
+        render(
+            <FreeResponseEditor
+                scoringCriteria={[{text: "criterion-1"}, {text: "criterion-2"}]}
+                onChange={onChangeMock}
+            />,
+        );
+        await userEvent.click(screen.getByTestId("criterion-delete-button-0"));
+
+        // Assert
+        expect(onChangeMock).toBeCalledWith({
+            scoringCriteria: [{text: "criterion-2"}],
         });
     });
 });
