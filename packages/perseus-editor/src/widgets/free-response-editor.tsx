@@ -39,7 +39,7 @@ class FreeResponseEditor extends React.Component<Props> {
         return warnings;
     }
 
-    handleCriterionUpdate = (
+    handleUpdateCriterion = (
         index: number,
         criterion: PerseusFreeResponseWidgetScoringCriterion,
     ) => {
@@ -55,7 +55,7 @@ class FreeResponseEditor extends React.Component<Props> {
         });
     };
 
-    handleCriterionDelete = (index: number) => {
+    handleDeleteCriterion = (index: number) => {
         this.props.onChange({
             scoringCriteria: this.props.scoringCriteria.filter(
                 (_, i) => i !== index,
@@ -77,8 +77,8 @@ class FreeResponseEditor extends React.Component<Props> {
                     index={index}
                     key={index}
                     numCriteria={this.props.scoringCriteria.length}
-                    onChange={this.handleCriterionUpdate}
-                    onDelete={this.handleCriterionDelete}
+                    onChange={this.handleUpdateCriterion}
+                    onDelete={this.handleDeleteCriterion}
                 />
             );
         });
