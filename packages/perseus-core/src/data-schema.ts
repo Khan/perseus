@@ -27,6 +27,8 @@
  *      the new format _as well as_ the old format.
  */
 
+import type {KeypadKey} from "./keypad";
+
 // TODO(FEI-4010): Remove `Perseus` prefix for all types here
 
 export type Coord = [x: number, y: number];
@@ -514,6 +516,10 @@ export type PerseusExpressionWidgetOptions = {
     functions: ReadonlyArray<string>;
     // Use x for rendering multiplication instead of a center dot.
     times: boolean;
+    // What extra keys need to be displayed on the keypad so that the
+    // question can be answerable without a keyboard (ie mobile)
+    // TODO: this is really ReadonlyArray<Key>
+    extraKeys?: ReadonlyArray<KeypadKey>;
     // visible label associated with the MathQuill field
     visibleLabel?: string;
     // aria label for screen readers attached to MathQuill field
@@ -1351,6 +1357,9 @@ export type PerseusRadioWidgetOptions = {
     // If multipleSelect is enabled, Specify the number expected to be correct.
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     countChoices?: boolean;
+    // How many of the choices are correct, which is conditionally used to tell
+    // learners ahead of time how many options they'll need.
+    numCorrect?: number;
     // Randomize the order of the options or keep them as defined
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     randomize?: boolean;

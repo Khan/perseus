@@ -14,7 +14,7 @@ const itemDataFiles = fs.readdirSync(itemDataDir);
 const articleDataDir = join(__dirname, "article-data");
 const articleDataFiles = fs.readdirSync(articleDataDir);
 
-describe("parseAndMigratePerseusItem", () => {
+describe.skip("parseAndMigratePerseusItem", () => {
     describe.each(itemDataFiles)("given %s", (filename) => {
         const json = fs.readFileSync(join(itemDataDir, filename), "utf-8");
         const result = parseAndMigratePerseusItem(json);

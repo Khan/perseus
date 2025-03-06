@@ -1,11 +1,6 @@
 // Types that can be shared between Perseus packages
 // ideally without causing circular dependencies
 
-// Used by KeypadContext to pass around a renderer reference
-export interface KeypadContextRendererInterface {
-    blur(): void;
-}
-
 // TODO: this should be typed
 type State = any;
 
