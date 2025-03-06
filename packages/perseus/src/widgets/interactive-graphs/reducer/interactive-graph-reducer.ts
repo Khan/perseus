@@ -973,6 +973,22 @@ function boundAndSnapToPolygonAngle(
 ) {
     const startingPoint = coords[index];
 
+    return calculateAngleSnap(
+        destinationPoint,
+        range,
+        coords,
+        index,
+        startingPoint,
+    ) as vec.Vector2;
+}
+
+export function calculateAngleSnap(
+    destinationPoint: vec.Vector2,
+    range: [Interval, Interval],
+    coords: Coord[],
+    index: number,
+    startingPoint: vec.Vector2,
+) {
     // Needed to prevent updating the original coords before the checks for
     // degenerate triangles and overlapping sides
     const coordsCopy = [...coords];
@@ -1057,7 +1073,7 @@ function boundAndSnapToPolygonAngle(
     // and the angle between the first and second sides of the
     // polygon (angular coordinate) to determine how to adjust the point
     const offset = polar(side, outerAngle + (onLeft ? 1 : -1) * innerAngles[0]);
-    return kvector.add(coordsCopy[rel(-1)], offset) as vec.Vector2;
+    return kvector.add(coordsCopy[rel(-1)], offset) satisfies vec.Vector2;
 }
 
 function boundAndSnapToSides(
