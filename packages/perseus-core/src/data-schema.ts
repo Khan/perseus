@@ -1677,7 +1677,7 @@ export type PerseusFreeResponseWidgetScoringCriterion = {
 export type PerseusFreeResponseWidgetOptions = {
     // The question text that will be displayed to the user.
     question: string;
-    // A list of scoring criteria for the free-response question. This is a list
+    // A list of scoring criteria for the free response question. This is a list
     // of things the answer should contain to be considered correct.
     scoringCriteria: ReadonlyArray<PerseusFreeResponseWidgetScoringCriterion>;
 };
