@@ -269,8 +269,17 @@ export function getAngleFromPoints(points: Coord[], i: number) {
     const b = vec.dist(point, pt2);
     const c = vec.dist(pt1, pt2);
 
+    let equation = (a ** 2 + b ** 2 - c ** 2) / (2 * a * b);
+
+    // If the equation results in a number greater than 1 or less than -1.
+    // Correct to ensure a valid angle.
+    // This ensures we are not producing NaN results from Math.acos.
+    if (equation < -1 || equation > 1) {
+        equation = Math.round(equation);
+    }
+
     // Law of cosines
-    const angle = Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b));
+    const angle = Math.acos(equation);
 
     return angle;
 }

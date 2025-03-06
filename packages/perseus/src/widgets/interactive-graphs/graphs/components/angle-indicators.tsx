@@ -45,8 +45,17 @@ export const PolygonAngle = ({
     const b = vec.dist(centerPoint, endPoints[1]);
     const c = vec.dist(endPoints[0], endPoints[1]);
 
+    let equation = (a ** 2 + b ** 2 - c ** 2) / (2 * a * b);
+
+    // If the equation results in a number greater than 1 or less than -1.
+    // Correct to ensure a valid angle.
+    // This ensures we are not producing NaN results from Math.acos.
+    if (equation < -1 || equation > 1) {
+        equation = Math.round(equation);
+    }
+
     // Law of cosines
-    const angle = Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b));
+    const angle = Math.acos(equation);
 
     const y1 = centerY + ((startY - centerY) / a) * radius;
     const x2 = centerX + ((endX - centerX) / b) * radius;
