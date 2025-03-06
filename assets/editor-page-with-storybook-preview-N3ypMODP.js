@@ -1,40 +1,4 @@
-import"./all-widgets-s28JidCG.js";import"./phet-simulation-PcZBIYg8.js";import{_ as g}from"./underscore-885MUNGo.js";import"./random-util-9WQRKwFZ.js";import{P as c,E as u}from"./perseus-error-l3K_anoI.js";import"./dependencies-CP7Uh8Kq.js";import{A as p}from"./perseus-api-Y55S7ZPk.js";import"./server-item-renderer-8uXA_XuH.js";import"./article-renderer-1Y4d9x4a.js";import"./hints-renderer-RgK42Kmm.js";import"./renderer-1JXdvfgI.js";import"./base-radio-4XPzCae6.js";import{c as y}from"./components-D4oCUG67.js";import{i as w}from"./icon-paths-5JCXzGsq.js";import"./i18n-context-Q5gDzbF3.js";import"./util-ghoLYzZ7.js";import"./svg-image-g2mWRpPd.js";import"./jquery-5v7aFUvu.js";import"./index-smZ6iCr_.js";import{r as t}from"./index-6oxdNXpR.js";import{D as f}from"./device-framer-C3twM9Ra.js";import{I as b,J as v}from"./register-all-widgets-and-editors-for-testing-AnBQA05N.js";import{S as i}from"./section-control-button-_vnd6bqK.js";import{E as k}from"./editor-ZSQqlx86.js";import{i as m,a as R,b as P}from"./icon-paths-naSxOxXw.js";const{HUD:T,InlineIcon:A}=y,l=class l extends t.Component{constructor(){super(...arguments),this.state={highlightLint:!0},this._handleJsonChange=n=>{this.props.onChange({json:n})},this._handleEditorChange=(n,e)=>{const a=[...this._sections()];a[n]={...a[n],...e},this.props.onChange({json:a})}}componentDidMount(){this._updatePreviewFrames()}componentDidUpdate(){this._updatePreviewFrames()}_updatePreviewFrames(){this.props.mode==="preview"?this.refs["frame-all"].sendNewData({type:"article-all",data:this._sections().map((n,e)=>this._apiOptionsForSection(n,e))}):this.props.mode==="edit"&&this._sections().forEach((n,e)=>{this.refs["frame-"+e].sendNewData({type:"article",data:this._apiOptionsForSection(n,e)})})}_apiOptionsForSection(n,e){const a=this.refs[`editor${e}`];return{apiOptions:{...p.defaults,...this.props.apiOptions,showAlignmentOptions:!0,isArticle:!0},json:n,useNewStyles:this.props.useNewStyles,linterContext:{contentType:"article",highlightLint:this.state.highlightLint,paths:this.props.contentPaths},legacyPerseusLint:a?a.getSaveWarnings():[]}}_sections(){return Array.isArray(this.props.json)?this.props.json:[this.props.json]}_renderEditor(){const{imageUploader:n,sectionImageUploadGenerator:e}=this.props,a={...p.defaults,...this.props.apiOptions,showAlignmentOptions:!0,isArticle:!0},d=this._sections();return t.createElement("div",{className:"perseus-editor-table"},d.map((h,r)=>[t.createElement("div",{className:"perseus-editor-row",key:r},t.createElement("div",{className:"perseus-editor-left-cell"},t.createElement("div",{className:"pod-title"},"Section ",r+1,t.createElement("div",{style:{display:"inline-block",float:"right"}},e(r),t.createElement(i,{icon:m,onClick:()=>{this._handleAddSectionAfter(r)},title:"Add a new section after this one"}),r+1<d.length&&t.createElement(i,{icon:R,onClick:()=>{this._handleMoveSectionLater(r)},title:"Move this section down"}),r>0&&t.createElement(i,{icon:P,onClick:()=>{this._handleMoveSectionEarlier(r)},title:"Move this section up"}),t.createElement(i,{icon:w,onClick:()=>{const o="Are you sure you want to delete section "+(r+1)+"?";confirm(o)&&this._handleRemoveSection(r)},title:"Delete this section"}))),t.createElement(k,{...h,apiOptions:a,imageUploader:n,onChange:o=>this._handleEditorChange(r,o),placeholder:"Type your section text here...",ref:"editor"+r})),t.createElement("div",{className:"editor-preview"},this._renderIframePreview(r,!0)))]),this._renderAddSection(),this._renderLinterHUD())}_renderAddSection(){return t.createElement("div",{className:"perseus-editor-row"},t.createElement("div",{className:"perseus-editor-left-cell"},t.createElement("a",{href:"#",className:"simple-button orange",onClick:()=>{this._handleAddSectionAfter(this._sections().length-1)}},t.createElement(A,{...m})," Add a section")))}_renderLinterHUD(){return t.createElement(T,{message:"Style warnings",enabled:this.state.highlightLint,onClick:()=>{this.setState({highlightLint:!this.state.highlightLint})}})}_renderIframePreview(n,e){const a=this.props.screen==="phone"||this.props.screen==="tablet";return t.createElement(f,{deviceType:this.props.screen,nochrome:e},t.createElement(b,{ref:"frame-"+n,key:this.props.screen,datasetKey:"mobile",datasetValue:a,seamless:e,url:this.props.previewURL}))}_renderPreviewMode(){return t.createElement("div",{className:"standalone-preview"},this._renderIframePreview("all",!1))}_handleMoveSectionEarlier(n){if(n===0)return;const e=[...this._sections()],a=e[n];e.splice(n,1),e.splice(n-1,0,a),this.props.onChange({json:e})}_handleMoveSectionLater(n){const e=[...this._sections()];if(n+1===e.length)return;const a=e[n];e.splice(n,1),e.splice(n+1,0,a),this.props.onChange({json:e})}_handleAddSectionAfter(n){const e=g.clone(this.serialize()),a=n>=0?{widgets:e[n].widgets}:{};e.splice(n+1,0,a),this.props.onChange({json:e})}_handleRemoveSection(n){const e=[...this._sections()];e.splice(n,1),this.props.onChange({json:e})}serialize(){if(this.props.mode==="edit")return this._sections().map((n,e)=>this.refs["editor"+e].serialize());if(this.props.mode==="preview"||this.props.mode==="json")return this.props.json;throw new c("Could not serialize; mode "+this.props.mode+" not found",u.Internal)}getSaveWarnings(){if(this.props.mode!=="edit")throw new c("Can only get save warnings in edit mode.",u.NotAllowed);return this._sections().map((n,e)=>this.refs["editor"+e].getSaveWarnings())}render(){return t.createElement("div",{className:"framework-perseus perseus-article-editor"},this.props.mode==="edit"&&this._renderEditor(),this.props.mode==="preview"&&this._renderPreviewMode(),this.props.mode==="json"&&t.createElement("div",{className:"json-editor"},t.createElement("div",{className:"json-editor-warning"},t.createElement("span",null,"Warning: Editing in this mode can lead to broken articles!")),t.createElement(v,{multiLine:!0,onChange:this._handleJsonChange,value:this.props.json})))}};l.defaultProps={contentPaths:[],json:[{}],mode:"edit",screen:"desktop",sectionImageUploadGenerator:()=>t.createElement("span",null),useNewStyles:!1};let s=l;s.__docgenInfo={description:"",methods:[{name:"_updatePreviewFrames",docblock:null,modifiers:[],params:[],returns:null},{name:"_apiOptionsForSection",docblock:null,modifiers:[],params:[{name:"section",optional:!1,type:{name:"signature",type:"object",raw:`{
-    content?: string;
-    widgets?: any;
-    images?: any;
-}`,signature:{properties:[{key:"content",value:{name:"string",required:!1}},{key:"widgets",value:{name:"any",required:!1}},{key:"images",value:{name:"any",required:!1}}]},alias:"RendererProps"}},{name:"sectionIndex",optional:!1,type:{name:"number"}}],returns:{type:{name:"any"}}},{name:"_sections",docblock:null,modifiers:[],params:[],returns:{type:{name:"ReadonlyArray",elements:[{name:"signature",type:"object",raw:`{
-    content?: string;
-    widgets?: any;
-    images?: any;
-}`,signature:{properties:[{key:"content",value:{name:"string",required:!1}},{key:"widgets",value:{name:"any",required:!1}},{key:"images",value:{name:"any",required:!1}}]}}],raw:"ReadonlyArray<RendererProps>"}}},{name:"_renderEditor",docblock:null,modifiers:[],params:[],returns:{type:{name:"ReactReactElement",raw:'React.ReactElement<React.ComponentProps<"div">>',elements:[{name:"ReactComponentProps",raw:'React.ComponentProps<"div">',elements:[{name:"literal",value:'"div"'}]}]}}},{name:"_renderAddSection",docblock:null,modifiers:[],params:[],returns:{type:{name:"ReactReactElement",raw:'React.ReactElement<React.ComponentProps<"div">>',elements:[{name:"ReactComponentProps",raw:'React.ComponentProps<"div">',elements:[{name:"literal",value:'"div"'}]}]}}},{name:"_renderLinterHUD",docblock:null,modifiers:[],params:[],returns:{type:{name:"ReactReactElement",raw:"React.ReactElement<any>",elements:[{name:"any"}]}}},{name:"_renderIframePreview",docblock:null,modifiers:[],params:[{name:"i",optional:!1,type:{name:"union",raw:"number | string",elements:[{name:"number"},{name:"string"}]}},{name:"nochrome",optional:!1,type:{name:"boolean"}}],returns:{type:{name:"ReactReactElement",raw:"React.ReactElement<any>",elements:[{name:"any"}]}}},{name:"_renderPreviewMode",docblock:null,modifiers:[],params:[],returns:{type:{name:"ReactReactElement",raw:'React.ReactElement<React.ComponentProps<"div">>',elements:[{name:"ReactComponentProps",raw:'React.ComponentProps<"div">',elements:[{name:"literal",value:'"div"'}]}]}}},{name:"_handleJsonChange",docblock:null,modifiers:[],params:[{name:"newJson",optional:!1,type:null}],returns:null},{name:"_handleEditorChange",docblock:null,modifiers:[],params:[{name:"i",optional:!1,type:null},{name:"newProps",optional:!1,type:null}],returns:null},{name:"_handleMoveSectionEarlier",docblock:null,modifiers:[],params:[{name:"i",optional:!1,type:{name:"number"}}],returns:null},{name:"_handleMoveSectionLater",docblock:null,modifiers:[],params:[{name:"i",optional:!1,type:{name:"number"}}],returns:null},{name:"_handleAddSectionAfter",docblock:null,modifiers:[],params:[{name:"i",optional:!1,type:{name:"number"}}],returns:null},{name:"_handleRemoveSection",docblock:null,modifiers:[],params:[{name:"i",optional:!1,type:{name:"number"}}],returns:null},{name:"serialize",docblock:null,modifiers:[],params:[],returns:{type:{name:"union",raw:"RendererProps | ReadonlyArray<RendererProps>",elements:[{name:"signature",type:"object",raw:`{
-    content?: string;
-    widgets?: any;
-    images?: any;
-}`,signature:{properties:[{key:"content",value:{name:"string",required:!1}},{key:"widgets",value:{name:"any",required:!1}},{key:"images",value:{name:"any",required:!1}}]}},{name:"ReadonlyArray",elements:[{name:"signature",type:"object",raw:`{
-    content?: string;
-    widgets?: any;
-    images?: any;
-}`,signature:{properties:[{key:"content",value:{name:"string",required:!1}},{key:"widgets",value:{name:"any",required:!1}},{key:"images",value:{name:"any",required:!1}}]}}],raw:"ReadonlyArray<RendererProps>"}]}}},{name:"getSaveWarnings",docblock:`Returns an array, with one element be section.
-Each element is an array of lint warnings present in that section.
-
-This function can currently only be called in edit mode.`,modifiers:[],params:[],returns:{type:{name:"ReadonlyArray",elements:[{name:"signature",type:"object",raw:`{
-    content?: string;
-    widgets?: any;
-    images?: any;
-}`,signature:{properties:[{key:"content",value:{name:"string",required:!1}},{key:"widgets",value:{name:"any",required:!1}},{key:"images",value:{name:"any",required:!1}}]}}],raw:"ReadonlyArray<RendererProps>"}},description:`Returns an array, with one element be section.
-Each element is an array of lint warnings present in that section.
-
-This function can currently only be called in edit mode.`}],displayName:"ArticleEditor",props:{contentPaths:{required:!1,tsType:{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>"},description:"",defaultValue:{value:"[]",computed:!1}},json:{required:!1,tsType:{name:"union",raw:"RendererProps | ReadonlyArray<RendererProps>",elements:[{name:"signature",type:"object",raw:`{
-    content?: string;
-    widgets?: any;
-    images?: any;
-}`,signature:{properties:[{key:"content",value:{name:"string",required:!1}},{key:"widgets",value:{name:"any",required:!1}},{key:"images",value:{name:"any",required:!1}}]}},{name:"ReadonlyArray",elements:[{name:"signature",type:"object",raw:`{
-    content?: string;
-    widgets?: any;
-    images?: any;
-}`,signature:{properties:[{key:"content",value:{name:"string",required:!1}},{key:"widgets",value:{name:"any",required:!1}},{key:"images",value:{name:"any",required:!1}}]}}],raw:"ReadonlyArray<RendererProps>"}]},description:"",defaultValue:{value:"[{}]",computed:!1}},mode:{required:!1,tsType:{name:"union",raw:'"diff" | "edit" | "json" | "preview"',elements:[{name:"literal",value:'"diff"'},{name:"literal",value:'"edit"'},{name:"literal",value:'"json"'},{name:"literal",value:'"preview"'}]},description:"",defaultValue:{value:'"edit"',computed:!1}},screen:{required:!1,tsType:{name:"union",raw:'"phone" | "tablet" | "desktop"',elements:[{name:"literal",value:'"phone"'},{name:"literal",value:'"tablet"'},{name:"literal",value:'"desktop"'}]},description:"",defaultValue:{value:'"desktop"',computed:!1}},sectionImageUploadGenerator:{required:!1,tsType:{name:"signature",type:"function",raw:`(
-    i: number,
-) => React.ReactElement<React.ComponentProps<"span">>`,signature:{arguments:[{type:{name:"number"},name:"i"}],return:{name:"ReactReactElement",raw:'React.ReactElement<React.ComponentProps<"span">>',elements:[{name:"ReactComponentProps",raw:'React.ComponentProps<"span">',elements:[{name:"literal",value:'"span"'}]}]}}},description:"",defaultValue:{value:"() => <span />",computed:!1}},useNewStyles:{required:!1,tsType:{name:"boolean"},description:"",defaultValue:{value:"false",computed:!1}},apiOptions:{required:!1,tsType:{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+import"./all-widgets-s28JidCG.js";import"./phet-simulation-PcZBIYg8.js";import"./underscore-885MUNGo.js";import"./random-util-9WQRKwFZ.js";import"./dependencies-CP7Uh8Kq.js";import"./perseus-api-Y55S7ZPk.js";import"./server-item-renderer-8uXA_XuH.js";import"./article-renderer-1Y4d9x4a.js";import"./hints-renderer-RgK42Kmm.js";import{R as c}from"./renderer-1JXdvfgI.js";import"./base-radio-4XPzCae6.js";import"./button-group-f5V3tSn8.js";import"./svg-image-g2mWRpPd.js";import"./hud-VpTa1tZ-.js";import"./icon-H34hvC3Q.js";import"./index-9tMpZISW.js";import"./inline-icon-8e4u-lSW.js";import"./math-input-Q2SeAno7.js";import"./multi-button-group-7ejnk4_z.js";import"./number-input-numpZFNM.js";import"./range-input-oo-uLot_.js";import"./text-input-DsXBOeh5.js";import"./text-list-editor-9dKImvgD.js";import{m}from"./i18n-context-Q5gDzbF3.js";import"./util-ghoLYzZ7.js";import"./jquery-5v7aFUvu.js";import"./index-smZ6iCr_.js";import{B as T}from"./index-dLgOY9TT.js";import{V as o}from"./index-iTGWTR8W.js";import{I as R,x as A}from"./index-DQI2fDhH.js";import{S as I}from"./index-86cQASob.js";import{c as p,s as t}from"./index-QHkT31Yt.js";import{L as q}from"./index-OUR0CuKj.js";import{a as x}from"./chunk-D5ZWXAHU-vR62DWf0.js";import{n as E}from"./no-important-xCWWYXQR.js";import{r as e}from"./index-6oxdNXpR.js";import{E as F}from"./editor-page-guJ7tgeo.js";const D=x("onChange");function N(s){const[g,w]=e.useState("phone"),[y,f]=e.useState(!1),[b,v]=e.useState(),[l,k]=e.useState(s.question),[r,P]=e.useState(s.hints),[i,u]=e.useState(!0),d=s.apiOptions??{isMobile:!1};return e.createElement(o,null,e.createElement(F,{apiOptions:d,previewDevice:g,onPreviewDeviceChange:n=>w(n),developerMode:!0,jsonMode:y,answerArea:b,question:l,hints:r,frameSource:"about:blank",previewURL:"about:blank",itemId:"1",onChange:n=>{D(n),"jsonMode"in n&&f(n.jsonMode),"answerArea"in n&&v(n.answerArea),"question"in n&&k(n.question),"hints"in n&&P(n.hints)}}),!i&&e.createElement(T,{onClick:()=>u(!i),style:a.openPanelButton},"Open preview (storybook only)"),i&&e.createElement(o,{style:a.panel},e.createElement(R,{icon:A,onClick:()=>u(!i),style:a.closeButton}),e.createElement(o,{style:a.panelInner},e.createElement(c,{strings:m,apiOptions:d,...l})),r==null?void 0:r.map((n,h)=>e.createElement(o,{key:h,style:a.panelInner},e.createElement(I,{size:t.medium_16}),e.createElement(q,null,`Hint ${h+1}`),e.createElement(c,{strings:m,apiOptions:d,...n})))))}const a=E.StyleSheet.create({panel:{position:"fixed",right:0,minWidth:500,height:"90vh",overflow:"auto",flex:"none",backgroundColor:p.fadedBlue16,padding:t.medium_16,borderRadius:t.small_12,alignItems:"end"},panelInner:{flex:"none",backgroundColor:p.white,borderRadius:t.xSmall_8,marginTop:t.medium_16,width:"100%",padding:t.xSmall_8},closeButton:{margin:0},openPanelButton:{position:"fixed",right:t.medium_16,bottom:t.xxxLarge_64}});N.__docgenInfo={description:"",methods:[],displayName:"EditorPageWithStorybookPreview",props:{apiOptions:{required:!1,tsType:{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
     isArticle?: boolean;
     onFocusChange?: (
         newFocusPath: FocusPath,
@@ -376,7 +340,106 @@ the available choices.`}]}}],raw:`Readonly<{
      * the available choices.
      */
     onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
-}>`},description:""},imageUploader:{required:!1,tsType:{name:"signature",type:"function",raw:`(
-    file: File,
-    callback: (url: string) => unknown,
-) => unknown`,signature:{arguments:[{type:{name:"File"},name:"file"},{type:{name:"signature",type:"function",raw:"(url: string) => unknown",signature:{arguments:[{type:{name:"string"},name:"url"}],return:{name:"unknown"}}},name:"callback"}],return:{name:"unknown"}}},description:""},previewURL:{required:!0,tsType:{name:"string"},description:""}}};export{s as A};
+}>`},description:""},question:{required:!1,tsType:{name:"signature",type:"object",raw:`{
+    /**
+     * Translatable Markdown content to be rendered.  May include references to
+     * widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
+     * For each image found in this content, there can be an entry in the
+     * \`images\` dict (below) with the key being the image's url which defines
+     * additional attributes for the image.
+     */
+    content: string;
+    /**
+     * A dictionary of {[widgetName]: Widget} to be referenced from the content
+     * field.
+     */
+    widgets: PerseusWidgetsMap;
+    /**
+     * Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
+     * are keys that represent other content in the system.  Not rendered to
+     * the user. NOTE: perseus_data.go says this is required even though it
+     * isn't necessary.
+     * @deprecated
+     */
+    metadata?: any;
+    /**
+     * A dictionary of {[imageUrl]: PerseusImageDetail}.
+     */
+    images: {
+        [imageUrl: string]: PerseusImageDetail;
+    };
+}`,signature:{properties:[{key:"content",value:{name:"string",required:!0},description:`Translatable Markdown content to be rendered.  May include references to
+widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
+For each image found in this content, there can be an entry in the
+\`images\` dict (below) with the key being the image's url which defines
+additional attributes for the image.`},{key:"widgets",value:{name:"signature",type:"object",raw:"{\n    [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];\n}",signature:{properties:[{key:{name:"PerseusWidgetTypes",required:!0},value:{name:"PerseusWidgetTypes[Property]",raw:"TRegistry[Property]"}}]},required:!0},description:`A dictionary of {[widgetName]: Widget} to be referenced from the content
+field.`},{key:"metadata",value:{name:"any",required:!1},description:`Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
+are keys that represent other content in the system.  Not rendered to
+the user. NOTE: perseus_data.go says this is required even though it
+isn't necessary.
+@deprecated`},{key:"images",value:{name:"signature",type:"object",raw:`{
+    [imageUrl: string]: PerseusImageDetail;
+}`,signature:{properties:[{key:{name:"string"},value:{name:"signature",type:"object",raw:`{
+    // The width of the image
+    width: number;
+    // the height of the image
+    height: number;
+}`,signature:{properties:[{key:"width",value:{name:"number",required:!0}},{key:"height",value:{name:"number",required:!0}}]},required:!0}}]},required:!0},description:"A dictionary of {[imageUrl]: PerseusImageDetail}."}]}},description:""},hints:{required:!1,tsType:{name:"ReadonlyArray",elements:[{name:"intersection",raw:`PerseusRenderer & {
+    /**
+     * When \`true\`, causes the previous hint to be replaced with this hint when
+     * displayed. When \`false\`, the previous hint remains visible when this one
+     * is displayed. This allows for hints that build upon each other.
+     */
+    replace?: boolean;
+}`,elements:[{name:"signature",type:"object",raw:`{
+    /**
+     * Translatable Markdown content to be rendered.  May include references to
+     * widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
+     * For each image found in this content, there can be an entry in the
+     * \`images\` dict (below) with the key being the image's url which defines
+     * additional attributes for the image.
+     */
+    content: string;
+    /**
+     * A dictionary of {[widgetName]: Widget} to be referenced from the content
+     * field.
+     */
+    widgets: PerseusWidgetsMap;
+    /**
+     * Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
+     * are keys that represent other content in the system.  Not rendered to
+     * the user. NOTE: perseus_data.go says this is required even though it
+     * isn't necessary.
+     * @deprecated
+     */
+    metadata?: any;
+    /**
+     * A dictionary of {[imageUrl]: PerseusImageDetail}.
+     */
+    images: {
+        [imageUrl: string]: PerseusImageDetail;
+    };
+}`,signature:{properties:[{key:"content",value:{name:"string",required:!0},description:`Translatable Markdown content to be rendered.  May include references to
+widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
+For each image found in this content, there can be an entry in the
+\`images\` dict (below) with the key being the image's url which defines
+additional attributes for the image.`},{key:"widgets",value:{name:"signature",type:"object",raw:"{\n    [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];\n}",signature:{properties:[{key:{name:"PerseusWidgetTypes",required:!0},value:{name:"PerseusWidgetTypes[Property]",raw:"TRegistry[Property]"}}]},required:!0},description:`A dictionary of {[widgetName]: Widget} to be referenced from the content
+field.`},{key:"metadata",value:{name:"any",required:!1},description:`Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
+are keys that represent other content in the system.  Not rendered to
+the user. NOTE: perseus_data.go says this is required even though it
+isn't necessary.
+@deprecated`},{key:"images",value:{name:"signature",type:"object",raw:`{
+    [imageUrl: string]: PerseusImageDetail;
+}`,signature:{properties:[{key:{name:"string"},value:{name:"signature",type:"object",raw:`{
+    // The width of the image
+    width: number;
+    // the height of the image
+    height: number;
+}`,signature:{properties:[{key:"width",value:{name:"number",required:!0}},{key:"height",value:{name:"number",required:!0}}]},required:!0}}]},required:!0},description:"A dictionary of {[imageUrl]: PerseusImageDetail}."}]}},{name:"signature",type:"object",raw:`{
+    /**
+     * When \`true\`, causes the previous hint to be replaced with this hint when
+     * displayed. When \`false\`, the previous hint remains visible when this one
+     * is displayed. This allows for hints that build upon each other.
+     */
+    replace?: boolean;
+}`,signature:{properties:[{key:"replace",value:{name:"boolean",required:!1},description:"When `true`, causes the previous hint to be replaced with this hint when\ndisplayed. When `false`, the previous hint remains visible when this one\nis displayed. This allows for hints that build upon each other."}]}}]}],raw:"ReadonlyArray<Hint>"},description:""}}};export{N as E};
