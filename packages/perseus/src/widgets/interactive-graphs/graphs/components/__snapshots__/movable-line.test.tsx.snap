@@ -58,7 +58,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
           aria-hidden="true"
           class=""
           data-testid="movable-line__line"
-          style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
+          style="stroke: var(--mafs-blue); stroke-width: var(--movable-line-stroke-weight);"
           x1="0"
           x2="0"
           y1="0"
@@ -77,7 +77,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
         aria-hidden="true"
         class="movable-point"
         data-testid="movable-point"
-        style="--movable-point-color: #1865f2;"
+        style="--movable-point-color: var(--mafs-blue);"
       >
         <circle
           class="movable-point-hitbox"
@@ -105,14 +105,14 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
           cx="0"
           cy="0"
           data-testid="movable-point__center"
-          style="fill: #1865f2;"
+          style="fill: var(--mafs-blue);"
         />
       </g>
       <g
         aria-hidden="true"
         class="movable-point"
         data-testid="movable-point"
-        style="--movable-point-color: #1865f2;"
+        style="--movable-point-color: var(--mafs-blue);"
       >
         <circle
           class="movable-point-hitbox"
@@ -140,7 +140,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
           cx="0"
           cy="0"
           data-testid="movable-point__center"
-          style="fill: #1865f2;"
+          style="fill: var(--mafs-blue);"
         />
       </g>
     </svg>
@@ -206,7 +206,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
           aria-hidden="true"
           class=""
           data-testid="movable-line__line"
-          style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
+          style="stroke: var(--mafs-blue); stroke-width: var(--movable-line-stroke-weight);"
           x1="0"
           x2="0"
           y1="0"
@@ -225,7 +225,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
         aria-hidden="true"
         class="movable-point"
         data-testid="movable-point"
-        style="--movable-point-color: #1865f2;"
+        style="--movable-point-color: var(--mafs-blue);"
       >
         <circle
           class="movable-point-hitbox"
@@ -253,14 +253,14 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
           cx="0"
           cy="0"
           data-testid="movable-point__center"
-          style="fill: #1865f2;"
+          style="fill: var(--mafs-blue);"
         />
       </g>
       <g
         aria-hidden="true"
         class="movable-point"
         data-testid="movable-point"
-        style="--movable-point-color: #1865f2;"
+        style="--movable-point-color: var(--mafs-blue);"
       >
         <circle
           class="movable-point-hitbox"
@@ -288,7 +288,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
           cx="0"
           cy="0"
           data-testid="movable-point__center"
-          style="fill: #1865f2;"
+          style="fill: var(--mafs-blue);"
         />
       </g>
     </svg>
@@ -354,7 +354,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
           aria-hidden="true"
           class=""
           data-testid="movable-line__line"
-          style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
+          style="stroke: var(--mafs-blue); stroke-width: var(--movable-line-stroke-weight);"
           x1="0"
           x2="0"
           y1="0"
@@ -362,7 +362,8 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         />
       </g>
       <g
-        style="stroke: var(--movable-line-stroke-color); stroke-width: 2;"
+        data-testid="movable-line__vector"
+        style="stroke: var(--mafs-blue); stroke-width: 2;"
       >
         <line
           aria-hidden="true"
@@ -385,13 +386,14 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2px"
-              style="stroke: var(--movable-line-stroke-color);"
+              style="stroke: var(--mafs-blue);"
             />
           </g>
         </g>
       </g>
       <g
-        style="stroke: var(--movable-line-stroke-color); stroke-width: 2;"
+        data-testid="movable-line__vector"
+        style="stroke: var(--mafs-blue); stroke-width: 2;"
       >
         <line
           aria-hidden="true"
@@ -414,7 +416,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2px"
-              style="stroke: var(--movable-line-stroke-color);"
+              style="stroke: var(--mafs-blue);"
             />
           </g>
         </g>
@@ -431,7 +433,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         aria-hidden="true"
         class="movable-point"
         data-testid="movable-point"
-        style="--movable-point-color: #1865f2;"
+        style="--movable-point-color: var(--mafs-blue);"
       >
         <circle
           class="movable-point-hitbox"
@@ -459,14 +461,14 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
           cx="0"
           cy="0"
           data-testid="movable-point__center"
-          style="fill: #1865f2;"
+          style="fill: var(--mafs-blue);"
         />
       </g>
       <g
         aria-hidden="true"
         class="movable-point"
         data-testid="movable-point"
-        style="--movable-point-color: #1865f2;"
+        style="--movable-point-color: var(--mafs-blue);"
       >
         <circle
           class="movable-point-hitbox"
@@ -494,7 +496,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
           cx="0"
           cy="0"
           data-testid="movable-point__center"
-          style="fill: #1865f2;"
+          style="fill: var(--mafs-blue);"
         />
       </g>
     </svg>

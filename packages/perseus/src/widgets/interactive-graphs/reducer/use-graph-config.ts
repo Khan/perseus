@@ -15,6 +15,7 @@ export type GraphConfig = {
     height: number; // in graph units
     labels: readonly string[];
     disableKeyboardInteraction?: boolean;
+    interactiveColor?: string;
 };
 
 const defaultGraphConfig: GraphConfig = {
@@ -32,6 +33,7 @@ const defaultGraphConfig: GraphConfig = {
     height: 0,
     labels: [],
     disableKeyboardInteraction: false,
+    interactiveColor: "var(--mafs-blue)",
 };
 
 export const GraphConfigContext =

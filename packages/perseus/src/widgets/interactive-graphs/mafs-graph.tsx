@@ -149,6 +149,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
         markings: props.markings,
     });
 
+    const disableInteraction = readOnly || !!props.static;
+
     return (
         <GraphConfigContext.Provider
             value={{
@@ -162,7 +164,10 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 width,
                 height,
                 labels,
-                disableKeyboardInteraction: readOnly || !!props.static,
+                disableKeyboardInteraction: disableInteraction,
+                interactiveColor: disableInteraction
+                    ? "var(--static-gray)"
+                    : "var(--mafs-blue)",
             }}
         >
             <View className="mafs-graph-container">

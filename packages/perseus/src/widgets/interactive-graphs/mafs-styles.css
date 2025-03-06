@@ -17,6 +17,7 @@
     --mafs-green: #00a60e; /* WB color.green */
     --mafs-violet: #9059ff; /* WB color.purple */
     --mafs-yellow: #ffb100; /* WB color.gold */
+    --static-gray: #909296 /* WB color.offBlack50 */;
 
     /* overridden on a per-point basis */
     --movable-point-color: var(--mafs-blue);
@@ -166,7 +167,6 @@
 }
 
 .MafsView .movable-circle .circle {
-    stroke: var(--mafs-blue);
     stroke-width: 2px;
     fill: transparent;
 }
@@ -197,7 +197,6 @@
 }
 
 .MafsView .movable-circle .movable-circle-handle {
-    fill: var(--mafs-blue); /* WB fadedOffBlack64 */
     stroke: #fff;
     stroke-width: 2px;
 }
@@ -217,9 +216,13 @@
     stroke: rgba(33, 36, 44, 0.32);
 }
 
-.MafsView .angle-arc,
-.MafsView .arc-right-angle {
+.MafsView .angle-arc-interactive {
     stroke: var(--mafs-blue);
+    stroke-width: 0.1px;
+}
+
+.MafsView .angle-arc-static {
+    stroke: var(--static-gray);
     stroke-width: 0.1px;
 }
 

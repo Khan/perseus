@@ -1201,7 +1201,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                             points="3.5 2 2.5 4 1.5 2"
                             stroke-linejoin="round"
                             stroke-width="var(--movable-line-stroke-weight)"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: var(--movable-line-stroke-color); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
+                            style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
                           />
                           <text
                             class="mafs-shadow"
@@ -1268,7 +1268,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                               aria-hidden="true"
                               class="movable-point"
                               data-testid="movable-point"
-                              style="--movable-point-color: #1865f2;"
+                              style="--movable-point-color: var(--mafs-blue);"
                             >
                               <circle
                                 class="movable-point-hitbox"
@@ -1296,7 +1296,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                                 cx="200"
                                 cy="-114.28571428571429"
                                 data-testid="movable-point__center"
-                                style="fill: #1865f2;"
+                                style="fill: var(--mafs-blue);"
                               />
                             </g>
                             <g
@@ -1329,7 +1329,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                               aria-hidden="true"
                               class="movable-point"
                               data-testid="movable-point"
-                              style="--movable-point-color: #1865f2;"
+                              style="--movable-point-color: var(--mafs-blue);"
                             >
                               <circle
                                 class="movable-point-hitbox"
@@ -1357,7 +1357,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                                 cx="142.85714285714286"
                                 cy="-228.57142857142858"
                                 data-testid="movable-point__center"
-                                style="fill: #1865f2;"
+                                style="fill: var(--mafs-blue);"
                               />
                             </g>
                             <g
@@ -1390,7 +1390,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                               aria-hidden="true"
                               class="movable-point"
                               data-testid="movable-point"
-                              style="--movable-point-color: #1865f2;"
+                              style="--movable-point-color: var(--mafs-blue);"
                             >
                               <circle
                                 class="movable-point-hitbox"
@@ -1418,7 +1418,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                                 cx="85.71428571428572"
                                 cy="-114.28571428571429"
                                 data-testid="movable-point__center"
-                                style="fill: #1865f2;"
+                                style="fill: var(--mafs-blue);"
                               />
                             </g>
                             <g
@@ -1641,7 +1641,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                             points="3 -2 0 3 -3 -2"
                             stroke-linejoin="round"
                             stroke-width="var(--movable-line-stroke-weight)"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: var(--movable-line-stroke-color); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
+                            style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
                           />
                           <polygon
                             aria-label="A polygon with 3 points."
@@ -1669,7 +1669,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                               aria-hidden="true"
                               class="movable-point"
                               data-testid="movable-point"
-                              style="--movable-point-color: #1865f2;"
+                              style="--movable-point-color: var(--mafs-blue);"
                             >
                               <circle
                                 class="movable-point-hitbox"
@@ -1697,7 +1697,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                                 cx="75"
                                 cy="50"
                                 data-testid="movable-point__center"
-                                style="fill: #1865f2;"
+                                style="fill: var(--mafs-blue);"
                               />
                             </g>
                             <g
@@ -1730,7 +1730,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                               aria-hidden="true"
                               class="movable-point"
                               data-testid="movable-point"
-                              style="--movable-point-color: #1865f2;"
+                              style="--movable-point-color: var(--mafs-blue);"
                             >
                               <circle
                                 class="movable-point-hitbox"
@@ -1758,7 +1758,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                                 cx="0"
                                 cy="-75"
                                 data-testid="movable-point__center"
-                                style="fill: #1865f2;"
+                                style="fill: var(--mafs-blue);"
                               />
                             </g>
                             <g
@@ -1791,7 +1791,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                               aria-hidden="true"
                               class="movable-point"
                               data-testid="movable-point"
-                              style="--movable-point-color: #1865f2;"
+                              style="--movable-point-color: var(--mafs-blue);"
                             >
                               <circle
                                 class="movable-point-hitbox"
@@ -1819,7 +1819,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                                 cx="-75"
                                 cy="50"
                                 data-testid="movable-point__center"
-                                style="fill: #1865f2;"
+                                style="fill: var(--mafs-blue);"
                               />
                             </g>
                             <g
@@ -2310,7 +2310,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                             points=""
                             stroke-linejoin="round"
                             stroke-width="var(--movable-line-stroke-weight)"
-                            style="fill: transparent; fill-opacity: 0; stroke: var(--movable-line-stroke-color); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
+                            style="fill: transparent; fill-opacity: 0; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
                           />
                           <rect
                             aria-hidden="true"
@@ -2525,7 +2525,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                             points="3.5 2 2.5 4 1.5 2"
                             stroke-linejoin="round"
                             stroke-width="var(--movable-line-stroke-weight)"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: var(--movable-line-stroke-color); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
+                            style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
                           />
                           <text
                             class="mafs-shadow"
@@ -2592,7 +2592,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                               aria-hidden="true"
                               class="movable-point"
                               data-testid="movable-point"
-                              style="--movable-point-color: #1865f2;"
+                              style="--movable-point-color: var(--mafs-blue);"
                             >
                               <circle
                                 class="movable-point-hitbox"
@@ -2620,7 +2620,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                                 cx="200"
                                 cy="-114.28571428571429"
                                 data-testid="movable-point__center"
-                                style="fill: #1865f2;"
+                                style="fill: var(--mafs-blue);"
                               />
                             </g>
                             <g
@@ -2653,7 +2653,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                               aria-hidden="true"
                               class="movable-point"
                               data-testid="movable-point"
-                              style="--movable-point-color: #1865f2;"
+                              style="--movable-point-color: var(--mafs-blue);"
                             >
                               <circle
                                 class="movable-point-hitbox"
@@ -2681,7 +2681,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                                 cx="142.85714285714286"
                                 cy="-228.57142857142858"
                                 data-testid="movable-point__center"
-                                style="fill: #1865f2;"
+                                style="fill: var(--mafs-blue);"
                               />
                             </g>
                             <g
@@ -2714,7 +2714,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                               aria-hidden="true"
                               class="movable-point"
                               data-testid="movable-point"
-                              style="--movable-point-color: #1865f2;"
+                              style="--movable-point-color: var(--mafs-blue);"
                             >
                               <circle
                                 class="movable-point-hitbox"
@@ -2742,7 +2742,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                                 cx="85.71428571428572"
                                 cy="-114.28571428571429"
                                 data-testid="movable-point__center"
-                                style="fill: #1865f2;"
+                                style="fill: var(--mafs-blue);"
                               />
                             </g>
                             <g
@@ -2965,7 +2965,7 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                             points="3 -2 0 3 -3 -2"
                             stroke-linejoin="round"
                             stroke-width="var(--movable-line-stroke-weight)"
-                            style="fill: transparent; fill-opacity: 0.15; stroke: var(--movable-line-stroke-color); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
+                            style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
                           />
                           <polygon
                             aria-label="A polygon with 3 points."
@@ -2993,7 +2993,7 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                               aria-hidden="true"
                               class="movable-point"
                               data-testid="movable-point"
-                              style="--movable-point-color: #1865f2;"
+                              style="--movable-point-color: var(--mafs-blue);"
                             >
                               <circle
                                 class="movable-point-hitbox"
@@ -3021,7 +3021,7 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                                 cx="75"
                                 cy="50"
                                 data-testid="movable-point__center"
-                                style="fill: #1865f2;"
+                                style="fill: var(--mafs-blue);"
                               />
                             </g>
                             <g
@@ -3054,7 +3054,7 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                               aria-hidden="true"
                               class="movable-point"
                               data-testid="movable-point"
-                              style="--movable-point-color: #1865f2;"
+                              style="--movable-point-color: var(--mafs-blue);"
                             >
                               <circle
                                 class="movable-point-hitbox"
@@ -3082,7 +3082,7 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                                 cx="0"
                                 cy="-75"
                                 data-testid="movable-point__center"
-                                style="fill: #1865f2;"
+                                style="fill: var(--mafs-blue);"
                               />
                             </g>
                             <g
@@ -3115,7 +3115,7 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                               aria-hidden="true"
                               class="movable-point"
                               data-testid="movable-point"
-                              style="--movable-point-color: #1865f2;"
+                              style="--movable-point-color: var(--mafs-blue);"
                             >
                               <circle
                                 class="movable-point-hitbox"
@@ -3143,7 +3143,7 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                                 cx="-75"
                                 cy="50"
                                 data-testid="movable-point__center"
-                                style="fill: #1865f2;"
+                                style="fill: var(--mafs-blue);"
                               />
                             </g>
                             <g
@@ -3634,7 +3634,7 @@ exports[`Interactive Graph question Should render predictably: first render 4`] 
                             points=""
                             stroke-linejoin="round"
                             stroke-width="var(--movable-line-stroke-weight)"
-                            style="fill: transparent; fill-opacity: 0; stroke: var(--movable-line-stroke-color); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
+                            style="fill: transparent; fill-opacity: 0; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
                           />
                           <rect
                             aria-hidden="true"

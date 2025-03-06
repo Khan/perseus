@@ -45,7 +45,7 @@ export function renderAngleGraph(
 
 function AngleGraph(props: AngleGraphProps) {
     const {dispatch, graphState} = props;
-    const {graphDimensionsInPixels} = useGraphConfig();
+    const {graphDimensionsInPixels, interactiveColor} = useGraphConfig();
     const i18n = usePerseusI18n();
     const id = React.useId();
     const descriptionId = id + "-description";
@@ -83,14 +83,15 @@ function AngleGraph(props: AngleGraphProps) {
                     start={startPtPx}
                     end={endPtPx}
                     style={{
-                        stroke: "var(--movable-line-stroke-color)",
+                        stroke: interactiveColor,
                         strokeWidth: "var(--movable-line-stroke-weight)",
                     }}
+                    testId="angle-graph__line"
                 />
                 <Vector
                     tail={angleLines[i][1]}
                     tip={endExtend}
-                    color={"var(--movable-line-stroke-color)"}
+                    testId="angle-graph__vector"
                 />
             </g>
         );
