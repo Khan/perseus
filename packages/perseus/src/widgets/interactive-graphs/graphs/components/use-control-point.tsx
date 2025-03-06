@@ -103,6 +103,7 @@ export function useControlPoint(params: Params): Return {
         if (dragging && !focused) {
             // If the point is being dragged, focus the focusable handle so that
             // users can continue to interact with the point using the keyboard or buttons.
+            // This particular focus call ensures that the focus ring and hairlines are visible.
             focusableHandleRef.current?.focus();
         }
     }, [dragging, focused]);
