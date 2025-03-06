@@ -273,6 +273,11 @@ const RightAngleSquare = ({
 }) => (
     <MafsCssTransformWrapper>
         <path
+            // Use aria-hidden to hide the line from screen readers
+            // so it doesn't read as "image" with no context.
+            // The elements using this should have their own aria-labels,
+            // so this is okay.
+            aria-hidden={true}
             d={`M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`}
             strokeWidth={0.02}
             fill="none"
@@ -287,6 +292,11 @@ const Arc = ({arc, className}: {arc: string; className?: string}) => {
     return (
         <MafsCssTransformWrapper>
             <path
+                // Use aria-hidden to hide the line from screen readers
+                // so it doesn't read as "image" with no context.
+                // The elements using this should have their own aria-labels,
+                // so this is okay.
+                aria-hidden={true}
                 d={arc}
                 strokeWidth={0.02}
                 fill="none"
