@@ -1072,7 +1072,7 @@ export function calculateAngleSnap(
     // and the angle between the first and second sides of the
     // polygon (angular coordinate) to determine how to adjust the point
     const offset = polar(side, outerAngle + (onLeft ? 1 : -1) * innerAngles[0]);
-    return kvector.add(coordsCopy[rel(-1)], offset) as vec.Vector2;
+    return kvector.add(coordsCopy[rel(-1)], offset) satisfies vec.Vector2;
 }
 
 function boundAndSnapToSides(

@@ -626,6 +626,8 @@ describe("getAngleSnapConstraint", () => {
         // We're moving the third point in the top right corner of the polygon (square).
         const constraint = getAngleSnapConstraint(points, 2, range);
 
+        // The points below represent available angles around the 90 degrees
+        // angle of the initial top right square (89, 91, etc).
         expect(constraint).toEqual({
             up: [1.9999999999999998, 2.1048155585660826],
             down: [1.9999999999999998, 1.8951844414339165],
