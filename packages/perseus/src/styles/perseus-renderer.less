@@ -1,5 +1,3 @@
-@import (inline) "./khan-exercise.css";
-
 @import "./variables.less";
 @import "./util.less";
 @import "./global.less";
@@ -31,16 +29,36 @@
 .blank-background {
     background-color: #fdfdfd;
 }
-// There is no scratchpad in the answer_area, and it has a different color
-// background, so just make it transparent
-#answer_area .blank-background {
-    background-color: transparent;
-}
 
 // Selectable graphie components make for awkward touch experiences
 .graphie {
     .no-select;
 }
+
+// [START] Pulled over from khan-exercise.css (so that we could delete that file).
+.graphie svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+var,
+div.graphie {
+    white-space: pre;
+    /**
+   * Graphie didn't have a fixed font-size and was just using
+   * the surrounding font-size. However some labels are banking on
+   * specific dimensions, so we need to lock it to a specific size.
+   */
+    font-size: 14px;
+}
+
+.hint.last-hint {
+    .paragraph {
+        font-weight: bold;
+    }
+}
+// [END] Pulled over from khan-exercise.css (so that we could delete that file).
 
 &,  // and moar specificity...
 #answercontent input[type=text],
