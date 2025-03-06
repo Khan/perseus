@@ -627,17 +627,17 @@ describe("getAngleSnapConstraint", () => {
         const constraint = getAngleSnapConstraint(points, 2, range);
 
         expect(constraint).toEqual({
-            up: [2, 1.9999999999999996],
-            down: [2, 1.9999999999999996],
-            left: [2, 1.9999999999999996],
-            right: [2, 1.9999999999999996],
+            up: [1.9999999999999998, 2.1048155585660826],
+            down: [1.9999999999999998, 1.8951844414339165],
+            left: [1.8951844414339178, 1.9999999999999996],
+            right: [2.1048155585660826, 1.9999999999999996],
         });
     });
 
     it("should restrict the available points by the bounds of the graph", () => {
         const range: PolygonGraphState["range"] = [
-            [0, 2],
-            [0, 2],
+            [0, 2.01],
+            [0, 2.01],
         ];
         const points: PolygonGraphState["coords"] = [
             [0, 0],
@@ -650,10 +650,10 @@ describe("getAngleSnapConstraint", () => {
         const constraint = getAngleSnapConstraint(points, 2, range);
 
         expect(constraint).toEqual({
-            up: [2, 2], // direction restricted due to going off the graph
-            down: [2, 1.9999999999999996],
-            left: [2, 1.9999999999999996],
-            right: [2, 2], // direction restricted due to going off the graph
+            up: [2, 1.9999999999999996], // direction restricted due to going off the graph
+            down: [1.9999999999999998, 1.8951844414339165],
+            left: [1.8951844414339178, 1.9999999999999996],
+            right: [2, 1.9999999999999996], // direction restricted due to going off the graph
         });
     });
 });
