@@ -16,7 +16,7 @@ import {
     calculateSideSnap,
 } from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {TARGET_SIZE} from "../utils";
+import {bound, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
@@ -809,7 +809,11 @@ export function getAngleSnapConstraint(
         moveFunc: (coord: vec.Vector2) => vec.Vector2,
     ): vec.Vector2 => {
         // The direction the user is attempting to move the point in.
-        let destinationAttempt: Coord = moveFunc(pointToBeMoved);
+        let destinationAttempt: Coord = bound({
+            snapStep: [0, 0],
+            range,
+            point: moveFunc(pointToBeMoved),
+        });
         // The new point we're moving to.
         let newPoint = pointToBeMoved;
 
@@ -838,9 +842,9 @@ export function getAngleSnapConstraint(
     // For each direction look for the next movable point by a small step to increase changes
     // of finding the next angle value.
     return {
-        up: movePointWithConstraint((coord) => vec.add(coord, [0, 0.01])),
-        down: movePointWithConstraint((coord) => vec.sub(coord, [0, 0.01])),
-        left: movePointWithConstraint((coord) => vec.sub(coord, [0.01, 0])),
-        right: movePointWithConstraint((coord) => vec.add(coord, [0.01, 0])),
+        up: movePointWithConstraint((coord) => vec.add(coord, [0, 0.1])),
+        down: movePointWithConstraint((coord) => vec.sub(coord, [0, 0.1])),
+        left: movePointWithConstraint((coord) => vec.sub(coord, [0.1, 0])),
+        right: movePointWithConstraint((coord) => vec.add(coord, [0.1, 0])),
     };
 }
