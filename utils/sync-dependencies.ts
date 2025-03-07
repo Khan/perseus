@@ -33,6 +33,10 @@ const RestrictedPackageVersions = [
     // identical to 'react-dom' with just a few patches for webpack and we
     // don't use webpack.
     /hot-loader\/react-dom/,
+    // Our pnpm workspace can't reference itself (I don't think)
+    // TODO(LEMS-2903): figure out a way to sync peer deps that are
+    // set to "workspace:*" in Webapp's package.json
+    /workspace/,
 ];
 
 // Package names that we don't want to sync in
@@ -46,16 +50,25 @@ function filterUnusableTargetVersions(
     packagesInThisRepo: ReadonlyArray<string>,
 ): Record<string, string> {
     return Object.fromEntries(
-        Object.entries(targetVersions).filter(
-            ([pkgName, pkgVersion]) =>
-                // Eliminate packages who's version we don't/can't use.
-                !RestrictedPackageVersions.some((r) => r.test(pkgVersion)) &&
-                // Eliminate packages that we don't want to sync in.
-                !RestrictedPackageNames.some((name) => name === pkgName) &&
-                // Eliminate any packages within this repo - they're managed by
-                // our `changeset` tooling.
-                !packagesInThisRepo.some((name) => name === pkgName),
-        ),
+        Object.entries(targetVersions).filter(([pkgName, pkgVersion]) => {
+            // Eliminate packages who's version we don't/can't use.
+            if (RestrictedPackageVersions.some((r) => r.test(pkgVersion))) {
+                return false;
+            }
+
+            // Eliminate packages that we don't want to sync in.
+            if (RestrictedPackageNames.includes(pkgName)) {
+                return false;
+            }
+
+            // Eliminate any packages within this repo - they're managed by
+            // our `changeset` tooling.
+            if (!packagesInThisRepo.includes(pkgName)) {
+                return false;
+            }
+
+            return true;
+        }),
     );
 }
 
