@@ -165,6 +165,10 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 height,
                 labels,
                 disableKeyboardInteraction: disableInteraction,
+                // If the graph is read-only or static, we want to make it
+                // visually clear that the graph is no longer interactive.
+                // We do this by changing the color of the interactive elements
+                // to a static gray color rather than our standard blue.
                 interactiveColor: disableInteraction
                     ? "var(--static-gray)"
                     : "var(--mafs-blue)",

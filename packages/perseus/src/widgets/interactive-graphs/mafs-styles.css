@@ -17,6 +17,13 @@
     --mafs-green: #00a60e; /* WB color.green */
     --mafs-violet: #9059ff; /* WB color.purple */
     --mafs-yellow: #ffb100; /* WB color.gold */
+    /* Note: offBlack50 is not the best for contrast. However, this color needs
+    to be distinguishable from our regular interactive blue so it is clear that
+    the element is not interactive, even though the visual elements (e.g.
+    outlines, shadows) may indicate otherwise. When using a darker gray, it
+    looks the same as our WB blue in grayscale. We had to make a call here, and
+    we decided to make it lighter and more distinguishable even if it sacrifices
+    color contrast. (Nisha 2025) */
     --static-gray: #909296 /* WB color.offBlack50 */;
 
     /* overridden on a per-point basis */
