@@ -3,6 +3,12 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import * as React from "react";
 
+import {
+    type PerseusItem,
+    type KEScore,
+    type PerseusRenderer,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import * as Perseus from "../packages/perseus/src/index";
@@ -14,18 +20,19 @@ import {storybookDependenciesV2} from "./test-dependencies";
 
 import type {APIOptions} from "../packages/perseus/src/types";
 import type {KeypadAPI} from "@khanacademy/math-input";
-import type {PerseusItem, KEScore} from "@khanacademy/perseus-core";
 
 type Props = {
     item: PerseusItem;
     apiOptions?: APIOptions;
     keypadElement?: KeypadAPI | null | undefined;
+    answerless?: boolean;
 };
 
 export const ServerItemRendererWithDebugUI = ({
     item,
     apiOptions,
     keypadElement,
+    answerless = false,
 }: Props): React.ReactElement => {
     const ref = React.useRef<Perseus.ServerItemRendererComponent>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
@@ -51,6 +58,17 @@ export const ServerItemRendererWithDebugUI = ({
         );
     };
 
+    const renderedQuestion: PerseusRenderer = answerless
+        ? splitPerseusItem(item.question)
+        : item.question;
+
+    const renderedItem: PerseusItem = {
+        ...item,
+        question: renderedQuestion,
+    };
+
+    console.log({answerless, renderedItem});
+
     return (
         <SideBySide
             rendererTitle="Renderer"
@@ -60,7 +78,7 @@ export const ServerItemRendererWithDebugUI = ({
                         ref={ref}
                         problemNum={0}
                         apiOptions={options}
-                        item={item}
+                        item={renderedItem}
                         dependencies={storybookDependenciesV2}
                         keypadElement={keypadElement}
                     />

@@ -23,12 +23,14 @@ type WrappedKeypadContextProps = {
     item: PerseusItem;
     customKeypad: boolean;
     isMobile?: boolean;
+    answerless?: boolean;
 };
 
 const WrappedKeypadContext = ({
     item,
     customKeypad,
     isMobile = false,
+    answerless = false,
 }: WrappedKeypadContextProps) => {
     return (
         <TestKeypadContextWrapper>
@@ -37,6 +39,7 @@ const WrappedKeypadContext = ({
                     return (
                         <ServerItemRendererWithDebugUI
                             item={item}
+                            answerless={answerless}
                             keypadElement={keypadElement}
                             // Hardcoding the V2 Keypad to true as the Storybook Args
                             // were not working.
@@ -118,6 +121,16 @@ export const ExpressionItem3 = (args: StoryArgs): React.ReactElement => {
         <WrappedKeypadContext
             item={expressionItem3}
             customKeypad={args.customKeypad}
+        />
+    );
+};
+
+export const AnswerlessExpression = (args: StoryArgs): React.ReactElement => {
+    return (
+        <WrappedKeypadContext
+            item={expressionItem3}
+            customKeypad={false}
+            answerless
         />
     );
 };

@@ -4,11 +4,12 @@ import {
     type Version,
     type PerseusItem,
     type PerseusAnswerArea,
+    expressionLogic,
 } from "@khanacademy/perseus-core";
 
 const createItemJson = (
     widgetOptions: PerseusExpressionWidgetOptions,
-    version: Version,
+    widgetVersion: Version = expressionLogic.version as Version,
 ): PerseusItem => {
     return {
         question: {
@@ -19,7 +20,7 @@ const createItemJson = (
                     type: "expression",
                     graded: true,
                     options: widgetOptions,
-                    version: version,
+                    version: widgetVersion,
                 },
             },
         },
@@ -36,62 +37,55 @@ const createItemJson = (
 };
 
 export const expressionItemWithAnswer = (answer: string): PerseusItem => {
-    return createItemJson(
-        {
-            answerForms: [
-                {
-                    considered: "correct",
-                    form: false,
-                    simplify: false,
-                    value: answer,
-                },
-            ],
-            times: false,
-            buttonSets: ["basic"],
-            functions: [],
-            buttonsVisible: "always",
-        },
-        {major: 1, minor: 0},
-    );
-};
-
-export const expressionItemWithLabels = createItemJson(
-    {
-        answerForms: [],
-        times: false,
-        buttonSets: ["basic"],
-        functions: [],
-        buttonsVisible: "always",
-        ariaLabel: "Test aria label",
-        visibleLabel: "Test visible label",
-    },
-    {major: 1, minor: 0},
-);
-
-export const expressionItem2: PerseusItem = createItemJson(
-    {
+    return createItemJson({
         answerForms: [
             {
                 considered: "correct",
                 form: false,
                 simplify: false,
-                value: "123-x",
-            },
-            {
-                considered: "correct",
-                form: false,
-                simplify: false,
-                value: "x-123",
+                value: answer,
             },
         ],
         times: false,
         buttonSets: ["basic"],
-        functions: ["f", "g", "h"],
+        functions: [],
         buttonsVisible: "always",
-        extraKeys: ["x"],
-    },
-    {major: 1, minor: 0},
-);
+        extraKeys: [],
+    });
+};
+
+export const expressionItemWithLabels = createItemJson({
+    answerForms: [],
+    times: false,
+    buttonSets: ["basic"],
+    functions: [],
+    buttonsVisible: "always",
+    ariaLabel: "Test aria label",
+    visibleLabel: "Test visible label",
+    extraKeys: [],
+});
+
+export const expressionItem2: PerseusItem = createItemJson({
+    answerForms: [
+        {
+            considered: "correct",
+            form: false,
+            simplify: false,
+            value: "123-x",
+        },
+        {
+            considered: "correct",
+            form: false,
+            simplify: false,
+            value: "x-123",
+        },
+    ],
+    times: false,
+    buttonSets: ["basic"],
+    functions: ["f", "g", "h"],
+    buttonsVisible: "always",
+    extraKeys: ["x"],
+});
 
 const expressionItem3Options: PerseusExpressionWidgetOptions = {
     answerForms: [
@@ -126,12 +120,9 @@ const expressionItem3Options: PerseusExpressionWidgetOptions = {
     buttonsVisible: "focused",
     visibleLabel: "number of cm",
     ariaLabel: "number of centimeters",
+    extraKeys: ["z", "a"],
 };
 
 export const expressionItem3: PerseusItem = createItemJson(
     expressionItem3Options,
-    {
-        major: 1,
-        minor: 0,
-    },
 );
