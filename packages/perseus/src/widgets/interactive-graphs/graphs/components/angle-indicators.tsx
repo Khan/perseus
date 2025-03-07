@@ -4,6 +4,7 @@ import {vec} from "mafs";
 import * as React from "react";
 
 import {segmentsIntersect} from "../../math";
+import useGraphConfig from "../../reducer/use-graph-config";
 import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
@@ -231,6 +232,12 @@ export const Angle = ({
         radius,
     );
 
+    // Determine the color style for the arc when interactive vs disabled
+    const {disableKeyboardInteraction} = useGraphConfig();
+    const arcClassName = disableKeyboardInteraction
+        ? "angle-arc-static"
+        : "angle-arc-interactive";
+
     return (
         <>
             <defs>
@@ -251,10 +258,10 @@ export const Angle = ({
                     start={[x1, y1]}
                     vertex={[x2, y2]}
                     end={[x3, y3]}
-                    className={"arc-right-angle"}
+                    className={arcClassName}
                 />
             ) : (
-                <Arc arc={arc} className={"angle-arc"} />
+                <Arc arc={arc} className={arcClassName} />
             )}
             {showAngles && (
                 <TextLabel x={textX} y={textY} color={color.blue}>
@@ -291,6 +298,7 @@ const RightAngleSquare = ({
             strokeWidth={0.02}
             fill="none"
             className={className}
+            data-testid="angle-indicators__right-angle"
         />
     </MafsCssTransformWrapper>
 );
@@ -310,6 +318,7 @@ const Arc = ({arc, className}: {arc: string; className?: string}) => {
                 strokeWidth={0.02}
                 fill="none"
                 className={className}
+                data-testid="angle-indicators__arc"
             />
         </MafsCssTransformWrapper>
     );

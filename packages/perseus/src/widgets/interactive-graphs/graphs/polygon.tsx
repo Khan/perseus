@@ -188,7 +188,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         snapTo = "grid",
         snapStep,
     } = statefulProps.graphState;
-    const {disableKeyboardInteraction} = graphConfig;
+    const {disableKeyboardInteraction, interactiveColor} = graphConfig;
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
     const pointsOffArray = Array(points.length).fill("off");
@@ -227,7 +227,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         >
             <Polygon
                 points={[...points]}
-                color="var(--movable-line-stroke-color)"
+                color={interactiveColor}
                 svgPolygonProps={{
                     strokeWidth: focusVisible
                         ? "var(--movable-line-stroke-weight-active)"
@@ -423,6 +423,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const {dispatch, graphConfig, left, top, pointsRef, points} = statefulProps;
     const {coords, closedPolygon} = statefulProps.graphState;
     const {strings, locale} = usePerseusI18n();
+    const {interactiveColor} = useGraphConfig();
 
     const id = React.useId();
     const polygonPointsNumId = id + "-points-num";
@@ -465,7 +466,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
         >
             <Polyline
                 points={[...points]}
-                color="var(--movable-line-stroke-color)"
+                color={interactiveColor}
                 svgPolylineProps={{
                     strokeWidth: "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},

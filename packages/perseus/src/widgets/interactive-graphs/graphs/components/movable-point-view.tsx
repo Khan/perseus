@@ -32,10 +32,10 @@ const hitboxSizePx = 48;
 // on an interactive graph.
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
-        const {markings, showTooltips} = useGraphConfig();
+        const {markings, showTooltips, interactiveColor} = useGraphConfig();
         const {
             point,
-            color = WBColor.blue,
+            color = interactiveColor,
             dragging,
             focused,
             cursor,
