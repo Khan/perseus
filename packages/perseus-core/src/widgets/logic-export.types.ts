@@ -2,6 +2,7 @@ import type getCategorizerPublicWidgetOptions from "./categorizer/categorizer-ut
 import type getCSProgramPublicWidgetOptions from "./cs-program/cs-program-util";
 import type getDropdownPublicWidgetOptions from "./dropdown/dropdown-util";
 import type getExpressionPublicWidgetOptions from "./expression/expression-util";
+import type getFreeResponsePublicWidgetOptions from "./free-response/free-response-util";
 import type getGrapherPublicWidgetOptions from "./grapher/grapher-util";
 import type getIFramePublicWidgetOptions from "./iframe/iframe-util";
 import type getInteractiveGraphPublicWidgetOptions from "./interactive-graph/interactive-graph-util";
@@ -30,23 +31,24 @@ export type WidgetOptionsUpgradeMap = {
  * so reliant on a set group of widgets
  */
 export type PublicWidgetOptionsFunction =
-    | typeof getMatcherPublicWidgetOptions
-    | typeof getPlotterPublicWidgetOptions
-    | typeof getIFramePublicWidgetOptions
-    | typeof getRadioPublicWidgetOptions
-    | typeof getNumericInputPublicWidgetOptions
-    | typeof getDropdownPublicWidgetOptions
+    | typeof getCSProgramPublicWidgetOptions
     | typeof getCategorizerPublicWidgetOptions
-    | typeof getOrdererPublicWidgetOptions
+    | typeof getDropdownPublicWidgetOptions
     | typeof getExpressionPublicWidgetOptions
+    | typeof getFreeResponsePublicWidgetOptions
+    | typeof getGrapherPublicWidgetOptions
+    | typeof getIFramePublicWidgetOptions
     | typeof getInteractiveGraphPublicWidgetOptions
     | typeof getLabelImagePublicWidgetOptions
-    | typeof getSorterPublicWidgetOptions
-    | typeof getCSProgramPublicWidgetOptions
+    | typeof getMatcherPublicWidgetOptions
+    | typeof getMatrixPublicWidgetOptions
     | typeof getNumberLinePublicWidgetOptions
-    | typeof getTablePublicWidgetOptions
-    | typeof getGrapherPublicWidgetOptions
-    | typeof getMatrixPublicWidgetOptions;
+    | typeof getNumericInputPublicWidgetOptions
+    | typeof getOrdererPublicWidgetOptions
+    | typeof getPlotterPublicWidgetOptions
+    | typeof getRadioPublicWidgetOptions
+    | typeof getSorterPublicWidgetOptions
+    | typeof getTablePublicWidgetOptions;
 
 export type WidgetLogic = {
     name: string;

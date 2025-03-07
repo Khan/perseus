@@ -129,6 +129,7 @@ export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/ordere
 export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export {default as getCSProgramPublicWidgetOptions} from "./widgets/cs-program/cs-program-util";
 export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
+export {default as getFreeResponsePublicWidgetOptions} from "./widgets/free-response/free-response-util";
 export {default as getGrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
 export {
     default as getInteractiveGraphPublicWidgetOptions,

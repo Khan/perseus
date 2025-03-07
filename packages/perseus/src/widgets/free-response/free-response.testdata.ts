@@ -12,6 +12,11 @@ export function getFreeResponseItemData(): PerseusRenderer {
                 type: "free-response",
                 options: {
                     question: "test-question",
+                    scoringCriteria: [
+                        {
+                            text: "test-criterion",
+                        },
+                    ],
                 },
                 alignment: "default",
             },

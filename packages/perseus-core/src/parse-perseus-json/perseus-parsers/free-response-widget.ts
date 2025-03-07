@@ -1,4 +1,4 @@
-import {constant, object, string} from "../general-purpose-parsers";
+import {array, constant, object, string} from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
 
@@ -9,5 +9,10 @@ export const parseFreeResponseWidget: Parser<FreeResponseWidget> = parseWidget(
     constant("free-response"),
     object({
         question: string,
+        scoringCriteria: array(
+            object({
+                text: string,
+            }),
+        ),
     }),
 );
