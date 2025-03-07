@@ -78,7 +78,6 @@ const LinearGraph = (props: LinearGraphProps, key: number) => {
                         actions.linear.movePoint(endpointIndex, destination),
                     )
                 }
-                color="var(--movable-line-stroke-color)"
             />
             {/* Hidden elements to provide the descriptions for the
                 circle and radius point's `aria-describedby` properties. */}

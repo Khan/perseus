@@ -11,9 +11,12 @@ import a11y from "../../../util/a11y";
 import {snap} from "../math";
 import {isInBound} from "../math/box";
 import {actions} from "../reducer/interactive-graph-action";
-import {calculateSideSnap} from "../reducer/interactive-graph-reducer";
+import {
+    calculateAngleSnap,
+    calculateSideSnap,
+} from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {TARGET_SIZE} from "../utils";
+import {bound, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
@@ -185,7 +188,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         snapTo = "grid",
         snapStep,
     } = statefulProps.graphState;
-    const {disableKeyboardInteraction} = graphConfig;
+    const {disableKeyboardInteraction, interactiveColor} = graphConfig;
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
     const pointsOffArray = Array(points.length).fill("off");
@@ -224,12 +227,16 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         >
             <Polygon
                 points={[...points]}
-                color="var(--movable-line-stroke-color)"
+                color={interactiveColor}
                 svgPolygonProps={{
                     strokeWidth: focusVisible
                         ? "var(--movable-line-stroke-weight-active)"
                         : "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},
+                    // Use aria-hidden to hide the line from screen readers
+                    // so it doesn't read as "image" with no context.
+                    // This is okay because the graph has its own aria-label.
+                    "aria-hidden": true,
                 }}
             />
             {points.map((point, i) => {
@@ -416,6 +423,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const {dispatch, graphConfig, left, top, pointsRef, points} = statefulProps;
     const {coords, closedPolygon} = statefulProps.graphState;
     const {strings, locale} = usePerseusI18n();
+    const {interactiveColor} = useGraphConfig();
 
     const id = React.useId();
     const polygonPointsNumId = id + "-points-num";
@@ -458,16 +466,24 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
         >
             <Polyline
                 points={[...points]}
-                color="var(--movable-line-stroke-color)"
+                color={interactiveColor}
                 svgPolylineProps={{
                     strokeWidth: "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},
+                    // Use aria-hidden to hide the line from screen readers
+                    // so it doesn't read as "image" with no context.
+                    // This is okay because the graph has its own aria-label.
+                    "aria-hidden": true,
                 }}
             />
             {/* This rect is here to grab clicks so that new points can be added */}
             {/* It's important because it stops mouse events from propogating
                 when dragging a points around */}
             <rect
+                // Use aria-hidden to hide the line from screen readers
+                // so it doesn't read as "image" with no context.
+                // This is okay because the graph has its own aria-label.
+                aria-hidden={true}
                 style={{
                     fill: "rgba(0,0,0,0)",
                     cursor: "crosshair",
@@ -706,7 +722,7 @@ function getKeyboardMovementConstraintForPoint(
         case "sides":
             return getSideSnapConstraint(points, index, range);
         case "angles":
-            return (p) => p;
+            return getAngleSnapConstraint(points, index, range);
         default:
             throw new UnreachableCaseError(snapTo);
     }
@@ -781,5 +797,67 @@ export function getSideSnapConstraint(
         down: movePointWithConstraint((coord) => vec.sub(coord, [0, 1])),
         left: movePointWithConstraint((coord) => vec.sub(coord, [1, 0])),
         right: movePointWithConstraint((coord) => vec.add(coord, [1, 0])),
+    };
+}
+
+export function getAngleSnapConstraint(
+    points: ReadonlyArray<Coord>,
+    index: number,
+    range: [Interval, Interval],
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} {
+    // Make newPoints mutable.
+    const newPoints = [...points];
+
+    // Get the point that is being moved.
+    const pointToBeMoved = newPoints[index];
+
+    // Create a helper function that moves the point to a valid location
+    // for angle snapping.
+    const movePointWithConstraint = (
+        moveFunc: (coord: vec.Vector2) => vec.Vector2,
+    ): vec.Vector2 => {
+        // The direction the user is attempting to move the point in.
+        let destinationAttempt: Coord = bound({
+            snapStep: [0, 0],
+            range,
+            point: moveFunc(pointToBeMoved),
+        });
+        // The new point we're moving to.
+        let newPoint = pointToBeMoved;
+
+        // Move the point and keep trying until we are at the boarder
+        // of the graph.
+        while (
+            newPoint[0] === pointToBeMoved[0] &&
+            newPoint[1] === pointToBeMoved[1] &&
+            isInBound({range, point: destinationAttempt})
+        ) {
+            newPoint = calculateAngleSnap(
+                destinationAttempt,
+                range,
+                newPoints,
+                index,
+                pointToBeMoved,
+            );
+
+            // Increment the destinationAttempt.
+            // For every time it does not work increment the direction for x and y.
+            destinationAttempt = moveFunc(destinationAttempt);
+        }
+        return newPoint;
+    };
+
+    // For each direction look for the next movable point by a small step to increase changes
+    // of finding the next angle value.
+    return {
+        up: movePointWithConstraint((coord) => vec.add(coord, [0, 0.1])),
+        down: movePointWithConstraint((coord) => vec.sub(coord, [0, 0.1])),
+        left: movePointWithConstraint((coord) => vec.sub(coord, [0.1, 0])),
+        right: movePointWithConstraint((coord) => vec.add(coord, [0.1, 0])),
     };
 }
