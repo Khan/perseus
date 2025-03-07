@@ -69,8 +69,8 @@ class FreeResponseEditor extends React.Component<Props> {
         });
     };
 
-    render(): React.ReactNode {
-        const criteria = this.props.scoringCriteria.map((criterion, index) => {
+    renderCriteriaList = () => {
+        return this.props.scoringCriteria.map((criterion, index) => {
             return (
                 <CriterionEditor
                     criterion={criterion}
@@ -82,7 +82,9 @@ class FreeResponseEditor extends React.Component<Props> {
                 />
             );
         });
+    };
 
+    render(): React.ReactNode {
         return (
             <View>
                 <label className={css(styles.questionContainer)}>
@@ -96,7 +98,9 @@ class FreeResponseEditor extends React.Component<Props> {
                 </label>
                 <View>
                     <HeadingSmall>Scoring criteria</HeadingSmall>
-                    <View style={styles.criteriaList}>{criteria}</View>
+                    <View style={styles.criteriaList}>
+                        {this.renderCriteriaList()}
+                    </View>
                     <View>
                         <Button
                             onClick={this.handleAddCriterion}
