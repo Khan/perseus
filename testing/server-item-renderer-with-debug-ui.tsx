@@ -67,8 +67,6 @@ export const ServerItemRendererWithDebugUI = ({
         question: renderedQuestion,
     };
 
-    console.log({answerless, renderedItem});
-
     return (
         <SideBySide
             rendererTitle="Renderer"
