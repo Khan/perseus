@@ -45,17 +45,35 @@ function filterUnusableTargetVersions(
     targetVersions: Record<string, string>,
     packagesInThisRepo: ReadonlyArray<string>,
 ): Record<string, string> {
+    console.log({targetVersions, packagesInThisRepo});
     return Object.fromEntries(
-        Object.entries(targetVersions).filter(
-            ([pkgName, pkgVersion]) =>
-                // Eliminate packages who's version we don't/can't use.
-                !RestrictedPackageVersions.some((r) => r.test(pkgVersion)) &&
-                // Eliminate packages that we don't want to sync in.
-                !RestrictedPackageNames.some((name) => name === pkgName) &&
-                // Eliminate any packages within this repo - they're managed by
-                // our `changeset` tooling.
-                !packagesInThisRepo.some((name) => name === pkgName),
-        ),
+        Object.entries(targetVersions).filter(([pkgName, pkgVersion]) => {
+            // Eliminate packages who's version we don't/can't use.
+            if (RestrictedPackageVersions.some((r) => r.test(pkgVersion))) {
+                console.log(1);
+                return false;
+            }
+
+            // Eliminate packages that we don't want to sync in.
+            if (RestrictedPackageNames.some((name) => name === pkgName)) {
+                console.log(2);
+                return false;
+            }
+
+            if (!packagesInThisRepo.some((name) => name === pkgName)) {
+                console.log(3);
+                return false;
+            }
+
+            return true;
+            // // Eliminate packages who's version we don't/can't use.
+            // !RestrictedPackageVersions.some((r) => r.test(pkgVersion)) &&
+            // // Eliminate packages that we don't want to sync in.
+            // !RestrictedPackageNames.some((name) => name === pkgName) &&
+            // // Eliminate any packages within this repo - they're managed by
+            // // our `changeset` tooling.
+            // !packagesInThisRepo.some((name) => name === pkgName),
+        }),
     );
 }
 
@@ -72,6 +90,7 @@ function main(argv: string[]) {
     const workspace = yaml.parse(
         fs.readFileSync("pnpm-workspace.yaml", "utf-8"),
     );
+    // console.log(workspace);
     const packageNamesInRepo = Object.keys(workspace.catalog);
 
     const targetVersions = filterUnusableTargetVersions(
@@ -79,12 +98,16 @@ function main(argv: string[]) {
         packageNamesInRepo,
     );
 
+    console.log(targetVersions);
+
     for (const pkgName of packageNamesInRepo) {
+        console.log(pkgName);
         if (pkgName in targetVersions) {
             workspace.catalog[pkgName] = targetVersions[pkgName];
         }
     }
 
+    // console.log(workspace);
     fs.writeFileSync(
         "pnpm-workspace.yaml",
         yaml.stringify(workspace, {indent: 4}),
