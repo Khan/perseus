@@ -71,13 +71,17 @@ export const PolygonAngle = ({
     );
 
     if (!showAngles) {
-        return isRightPolygonAngle(angle) ? (
+        if (!isRightPolygonAngle(angle)) {
+            return null;
+        }
+
+        return (
             <RightAngleSquare
                 start={[x1, y1]}
                 vertex={[x2, y2]}
                 end={[x3, y3]}
             />
-        ) : null;
+        );
     }
 
     // Midpoint betwen ends of arc
