@@ -197,7 +197,7 @@ export const MafsWithXAxisOffTop: Story = {
     },
 };
 
-export const MafsWithAxesAtZero: Story = {
+export const MafsWithLabelsAlongEdge: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withXRange(0, 10)
@@ -206,11 +206,12 @@ export const MafsWithAxesAtZero: Story = {
                 "Video Game Hours per Week",
                 "Reaction Time (milliseconds)",
             )
+            .withLabelLocation("alongEdge")
             .build(),
     },
 };
 
-export const MafsWithAxesAtZeroZoomed: Story = {
+export const MafsWithLabelsAlongEdgeZoomed: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withXRange(0, 0.5)
@@ -221,6 +222,7 @@ export const MafsWithAxesAtZeroZoomed: Story = {
                 "Video Game Hours per Week",
                 "Reaction Time (milliseconds)",
             )
+            .withLabelLocation("alongEdge")
             .build(),
     },
 };

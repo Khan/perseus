@@ -14,6 +14,7 @@ export type GraphConfig = {
     width: number; // in graph units
     height: number; // in graph units
     labels: readonly string[];
+    labelLocation: "onAxis" | "alongEdge";
     disableKeyboardInteraction?: boolean;
     interactiveColor?: string;
 };
@@ -32,6 +33,7 @@ const defaultGraphConfig: GraphConfig = {
     width: 0,
     height: 0,
     labels: [],
+    labelLocation: "onAxis",
     disableKeyboardInteraction: false,
     interactiveColor: "var(--mafs-blue)",
 };

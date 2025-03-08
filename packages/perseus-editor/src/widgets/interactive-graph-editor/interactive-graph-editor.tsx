@@ -71,6 +71,12 @@ export type Props = {
      */
     labels: ReadonlyArray<string>;
     /**
+     * Specifies the location of the labels on the graph.  default: "onAxis".
+     * - "onAxis": Labels are positioned on the axis at the right (x) and top (y) of the graph.
+     * - "alongEdge": Labels are centered along the bottom (x) and left (y) edges of the graph.
+     */
+    labelLocation: "onAxis" | "alongEdge";
+    /**
      * The range of the graph in the x and y directions.
      */
     range: [x: Range, y: Range];
@@ -194,6 +200,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "backgroundImage",
             "markings",
             "labels",
+            "labelLocation",
             "showProtractor",
             "showTooltips",
             "range",
@@ -291,6 +298,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 box: this.props.box,
                 range: this.props.range,
                 labels: this.props.labels,
+                labelLocation: this.props.labelLocation,
                 step: this.props.step,
                 gridStep: gridStep,
                 snapStep: snapStep,
@@ -741,6 +749,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             box={getInteractiveBoxFromSizeClass(sizeClass)}
                             range={this.props.range}
                             labels={this.props.labels}
+                            labelLocation={this.props.labelLocation}
                             step={this.props.step}
                             gridStep={gridStep}
                             snapStep={snapStep}
