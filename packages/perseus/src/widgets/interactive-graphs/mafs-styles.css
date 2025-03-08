@@ -223,14 +223,18 @@
     stroke: rgba(33, 36, 44, 0.32);
 }
 
+.MafsView .polygon-angle-arc {
+    stroke-width: 1px;
+}
+
 .MafsView .angle-arc-interactive {
     stroke: var(--mafs-blue);
-    stroke-width: 0.1px;
+    stroke-width: 2px;
 }
 
 .MafsView .angle-arc-static {
     stroke: var(--static-gray);
-    stroke-width: 0.1px;
+    stroke-width: 2px;
 }
 
 .MafsView .axis-tick-label {

@@ -40,7 +40,13 @@ export const PolygonAngle = ({
         ? endPoints
         : endPoints.reverse();
 
-    const radius = 0.3;
+    // Keep the size of the angle indicator consistent across different ranges.
+    const rangeLength = [range[0][1] - range[0][0], range[1][1] - range[1][0]];
+    const radiusProportion = 0.04;
+    const radius = [
+        rangeLength[0] * radiusProportion,
+        rangeLength[1] * radiusProportion,
+    ];
 
     const a = vec.dist(centerPoint, endPoints[0]);
     const b = vec.dist(centerPoint, endPoints[1]);
@@ -58,10 +64,10 @@ export const PolygonAngle = ({
     // Law of cosines
     const angle = Math.acos(lawOfCosinesRadicand);
 
-    const y1 = centerY + ((startY - centerY) / a) * radius;
-    const x2 = centerX + ((endX - centerX) / b) * radius;
-    const x1 = centerX + ((startX - centerX) / a) * radius;
-    const y2 = centerY + ((endY - centerY) / b) * radius;
+    const y1 = centerY + ((startY - centerY) / a) * radius[1];
+    const x2 = centerX + ((endX - centerX) / b) * radius[0];
+    const x1 = centerX + ((startX - centerX) / a) * radius[0];
+    const y2 = centerY + ((endY - centerY) / b) * radius[1];
 
     // Fourth point that would create a rhomboid
     // Used to calculate the inside of the angle and to create square
@@ -80,6 +86,7 @@ export const PolygonAngle = ({
                 start={[x1, y1]}
                 vertex={[x2, y2]}
                 end={[x3, y3]}
+                className="polygon-angle-arc"
             />
         );
     }
@@ -133,7 +140,7 @@ export const PolygonAngle = ({
                     end={[x3, y3]}
                 />
             ) : (
-                <Arc arc={arc} />
+                <Arc arc={arc} className="polygon-angle-arc" />
             )}
 
             <TextLabel
@@ -299,7 +306,10 @@ const RightAngleSquare = ({
             // so this is okay.
             aria-hidden={true}
             d={`M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`}
-            strokeWidth={0.02}
+            // Fill the awkward gap where the strokes meet
+            strokeLinecap="round"
+            // Stop vertical and horizontal strokes from having different widths
+            vectorEffect="non-scaling-stroke"
             fill="none"
             className={className}
             data-testid="angle-indicators__right-angle"
@@ -319,7 +329,10 @@ const Arc = ({arc, className}: {arc: string; className?: string}) => {
                 // so this is okay.
                 aria-hidden={true}
                 d={arc}
-                strokeWidth={0.02}
+                // Fill the awkward gap where the strokes meet
+                strokeLinecap="round"
+                // Stop vertical and horizontal strokes from having different widths
+                vectorEffect="non-scaling-stroke"
                 fill="none"
                 className={className}
                 data-testid="angle-indicators__arc"
