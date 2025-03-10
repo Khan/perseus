@@ -1,13 +1,14 @@
 /**
  * This file contains configuration settings for the buttons in the keypad.
  */
-import type Key from "./keys";
+
 import type {KeyType} from "../enums";
 import type {MathInputStrings} from "../strings";
 import type {KeyConfig} from "../types";
+import type {KeypadKey} from "@khanacademy/perseus-core";
 
 type KeyConfigMapper = (args: {
-    key: Key;
+    key: KeypadKey;
     keyType?: KeyType;
     ariaLabel?: string;
     data?: string;
@@ -58,7 +59,7 @@ const getDefaultNumberFields: KeyConfigMapper = ({
 const KeyConfigs = (
     strings: MathInputStrings,
 ): {
-    [key in Key]: KeyConfig;
+    [key in KeypadKey]: KeyConfig;
 } => ({
     // Basic math
     PLUS: {

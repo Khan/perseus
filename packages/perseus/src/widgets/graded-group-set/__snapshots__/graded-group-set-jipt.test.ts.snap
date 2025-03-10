@@ -67,13 +67,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         autocomplete="off"
                         autocorrect="off"
                         class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-inputWithExamples_1y6ajxo"
-                        id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                        data-testid="input-with-examples"
+                        id=":r0:"
                         tabindex="0"
                         type="text"
                         value=""
                       />
                       <span
-                        id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                        id="aria-for-:r0:"
                         style="display: none;"
                       />
                     </div>
@@ -86,7 +87,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_ggcqzw"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_9hhwrw"
                 role="button"
                 type="button"
               >
@@ -144,13 +145,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         autocomplete="off"
                         autocorrect="off"
                         class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-inputWithExamples_1y6ajxo"
-                        id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                        data-testid="input-with-examples"
+                        id=":r3:"
                         tabindex="0"
                         type="text"
                         value=""
                       />
                       <span
-                        id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                        id="aria-for-:r3:"
                         style="display: none;"
                       />
                     </div>
@@ -163,7 +165,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_ggcqzw"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_9hhwrw"
                 role="button"
                 type="button"
               >
@@ -221,13 +223,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         autocomplete="off"
                         autocorrect="off"
                         class="input_1ck1z8k-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-inputWithExamples_1y6ajxo"
-                        id="input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                        data-testid="input-with-examples"
+                        id=":r6:"
                         tabindex="0"
                         type="text"
                         value=""
                       />
                       <span
-                        id="aria-for-input-with-examples-bnVtZXJpYy1pbnB1dCAx"
+                        id="aria-for-:r6:"
                         style="display: none;"
                       />
                     </div>
@@ -240,7 +243,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_ggcqzw"
+                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_9hhwrw"
                 role="button"
                 type="button"
               >

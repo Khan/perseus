@@ -9,11 +9,7 @@
  */
 
 import {KeypadContext} from "@khanacademy/keypad-context";
-import {
-    KeypadInput,
-    KeypadType,
-    keypadElementPropType,
-} from "@khanacademy/math-input";
+import {KeypadInput, keypadElementPropType} from "@khanacademy/math-input";
 import PropTypes from "prop-types";
 import * as React from "react";
 
@@ -21,12 +17,7 @@ export default class SimpleKeypadInput extends React.Component<any> {
     static contextType = KeypadContext;
     declare context: React.ContextType<typeof KeypadContext>;
     _isMounted = false;
-    inputRef: React.RefObject<KeypadInput>;
-
-    constructor(props: any) {
-        super(props);
-        this.inputRef = React.createRef<KeypadInput>();
-    }
+    inputRef = React.createRef<KeypadInput>();
 
     componentDidMount() {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
@@ -69,7 +60,7 @@ export default class SimpleKeypadInput extends React.Component<any> {
                     if (keypadElement) {
                         keypadElement.configure(
                             {
-                                keypadType: KeypadType.FRACTION,
+                                keypadType: "FRACTION",
                             },
                             () => {
                                 if (_this._isMounted) {

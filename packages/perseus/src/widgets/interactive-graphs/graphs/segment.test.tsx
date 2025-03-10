@@ -83,7 +83,7 @@ describe("Segment graph screen reader", () => {
             "A line segment on a coordinate plane.",
         );
         expect(segmentGraph).toHaveAccessibleDescription(
-            "Endpoint 1 at -5 comma 5. Endpoint 2 at 5 comma 5.",
+            "Endpoint 1 at -5 comma 5. Endpoint 2 at 5 comma 5. Segment length 10 units.",
         );
     });
 

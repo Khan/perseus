@@ -3,7 +3,7 @@
     "description": "Perseus dev UI",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "5.2.2",
+    "version": "5.3.1",
     "private": true,
     "repository": {
         "type": "git",
@@ -23,7 +23,7 @@
         "@khanacademy/simple-markdown": "workspace:*",
         "@khanacademy/wonder-blocks-banner": "catalog:",
         "@khanacademy/wonder-blocks-button": "catalog:",
-        "@khanacademy/wonder-blocks-core":"catalog:",
+        "@khanacademy/wonder-blocks-core": "catalog:",
         "@khanacademy/wonder-blocks-dropdown": "catalog:",
         "@khanacademy/wonder-blocks-icon-button": "catalog:",
         "@khanacademy/wonder-blocks-icon": "catalog:",

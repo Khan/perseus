@@ -45,7 +45,7 @@ export function renderAngleGraph(
 
 function AngleGraph(props: AngleGraphProps) {
     const {dispatch, graphState} = props;
-    const {graphDimensionsInPixels} = useGraphConfig();
+    const {graphDimensionsInPixels, interactiveColor} = useGraphConfig();
     const i18n = usePerseusI18n();
     const id = React.useId();
     const descriptionId = id + "-description";
@@ -83,14 +83,15 @@ function AngleGraph(props: AngleGraphProps) {
                     start={startPtPx}
                     end={endPtPx}
                     style={{
-                        stroke: "var(--movable-line-stroke-color)",
+                        stroke: interactiveColor,
                         strokeWidth: "var(--movable-line-stroke-weight)",
                     }}
+                    testId="angle-graph__line"
                 />
                 <Vector
                     tail={angleLines[i][1]}
                     tip={endExtend}
-                    color={"var(--movable-line-stroke-color)"}
+                    testId="angle-graph__vector"
                 />
             </g>
         );
@@ -189,7 +190,7 @@ function describeAngleGraph(
     i18n: I18nContextType,
 ): Record<string, string> {
     const {strings, locale} = i18n;
-    const {coords, allowReflexAngles, showAngles} = state;
+    const {coords, allowReflexAngles} = state;
     const [endingSide, vertex, startingSide] = coords;
 
     const angleMeasure = srFormatNumber(
@@ -215,16 +216,11 @@ function describeAngleGraph(
         x: srFormatNumber(endingSide[X], locale),
         y: srFormatNumber(endingSide[Y], locale),
     });
-    const srAngleVertex = showAngles
-        ? strings.srAngleVertexWithAngleMeasure({
-              x: srFormatNumber(vertex[X], locale),
-              y: srFormatNumber(vertex[Y], locale),
-              angleMeasure,
-          })
-        : strings.srAngleVertex({
-              x: srFormatNumber(vertex[X], locale),
-              y: srFormatNumber(vertex[Y], locale),
-          });
+    const srAngleVertex = strings.srAngleVertexWithAngleMeasure({
+        x: srFormatNumber(vertex[X], locale),
+        y: srFormatNumber(vertex[Y], locale),
+        angleMeasure,
+    });
 
     return {
         srAngleGraphAriaLabel,
