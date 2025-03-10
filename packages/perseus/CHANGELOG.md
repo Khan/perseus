@@ -1,5 +1,25 @@
 # @khanacademy/perseus
 
+## 56.1.0
+
+### Minor Changes
+
+-   [#2288](https://github.com/Khan/perseus/pull/2288) [`7ef0dae77`](https://github.com/Khan/perseus/commit/7ef0dae779e5c8aaed6b21e86cba5baee8c0be86) Thanks [@nishasy](https://github.com/nishasy)! - Mark Interactive Graph Widget as accessible. (Content authors are no longer blocked from checking/unchecking the "Requires screen or mouse?" checkbox.)
+
+### Patch Changes
+
+-   [#2291](https://github.com/Khan/perseus/pull/2291) [`e87914dcd`](https://github.com/Khan/perseus/commit/e87914dcd2fc83b30053adbe064945d46ddb11e4) Thanks [@handeyeco](https://github.com/handeyeco)! - Update snapshots as a result of bumping Wonder Blocks
+
+*   [#2283](https://github.com/Khan/perseus/pull/2283) [`0438f6331`](https://github.com/Khan/perseus/commit/0438f6331c06e026f815d4087f76fe77acafa312) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bugfix to ensure that the Interactive Graph Editor updates the Polygon start coords if the number of sides change.
+
+-   [#2287](https://github.com/Khan/perseus/pull/2287) [`9b4c1942e`](https://github.com/Khan/perseus/commit/9b4c1942eeaadf6d3a201f516574c4597dfcbb3c) Thanks [@nishasy](https://github.com/nishasy)! - [LX] Make static graphs' interactive elements visually disabled
+
+*   [#2282](https://github.com/Khan/perseus/pull/2282) [`5226f43a9`](https://github.com/Khan/perseus/commit/5226f43a9785e2c7acb52b76e15f58384d313a34) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that dragging a point also moves the focus for Interactive Graph
+
+-   [#2281](https://github.com/Khan/perseus/pull/2281) [`015aace83`](https://github.com/Khan/perseus/commit/015aace83f6b125b8d02fa7f01dde47f071c44e9) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Improving the angle snapping behavior for keyboard users in polygon examples.
+
+*   [#2277](https://github.com/Khan/perseus/pull/2277) [`88e4e905d`](https://github.com/Khan/perseus/commit/88e4e905d2a94134fd2390a55360281a29229fb5) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Hide individual visual components of interactive graph elements
+
 ## 56.0.0
 
 ### Major Changes
